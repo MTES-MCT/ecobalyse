@@ -19,7 +19,12 @@ suite : Test
 suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
-            [ "-7"
+            [ "799"
+                |> Decode.decodeString Unit.decodePickPerMeter
+                |> Result.mapError Decode.errorToString
+                |> Expect.err
+                |> asTest "should discard erroneous PickPerMeter value"
+            , "-7"
                 |> Decode.decodeString Unit.decodeQuality
                 |> Result.mapError Decode.errorToString
                 |> Expect.err

@@ -424,17 +424,12 @@ computeSpinningImpacts db ({ inputs } as simulator) =
 
 
 computeFabricImpacts : Simulator -> Simulator
-computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
-    let
-        fabricOutputMass =
-            lifeCycle
-                |> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero
-    in
+computeFabricImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Fabric
             (\({ country } as step) ->
                 let
-                    { kwh, threadDensity, picking, impacts } =
+                    { kwh, impacts } =
                         step.outputMass
                             |> (case inputs.product.fabric of
                                     Product.Knitted process ->
@@ -443,24 +438,16 @@ computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
                                             , countryElecProcess = country.electricityProcess
                                             }
 
-                                    Product.Weaved process ->
-                                        let
-                                            surfaceMass =
-                                                inputs.surfaceMass
-                                                    |> Maybe.withDefault inputs.product.surfaceMass
-                                        in
+                                    Product.Weaved process defaultPicking ->
                                         Formula.weavingImpacts step.impacts
-                                            { countryElecProcess = country.electricityProcess
-                                            , outputMass = fabricOutputMass
-                                            , pickingElec = process.elec_pppm
-                                            , surfaceMass = surfaceMass
-                                            , yarnSize =
-                                                inputs.yarnSize
-                                                    |> Maybe.withDefault (Product.defaultYarnSize surfaceMass)
+                                            { pickingElec = process.elec_pppm
+                                            , countryElecProcess = country.electricityProcess
+                                            , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                            , picking = Maybe.withDefault defaultPicking inputs.picking
                                             }
                                )
                 in
-                { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
+                { step | impacts = impacts, kwh = kwh }
             )
 
 

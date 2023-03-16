@@ -14,6 +14,7 @@ module Views.Format exposing
     , m3
     , megajoules
     , percent
+    , picking
     , ratio
     , ratioToDecimals
     , ratioToPercentString
@@ -159,6 +160,11 @@ squareMetters =
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
     Unit.surfaceMassToFloat >> formatRichFloat 0 "g/m²"
+
+
+picking : Unit.PickPerMeter -> Html msg
+picking =
+    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
 
 
 ratioToPercentString : Unit.Ratio -> String

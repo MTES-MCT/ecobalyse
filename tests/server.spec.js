@@ -176,10 +176,10 @@ describe("API", () => {
         );
       });
 
-      it("should validate the yarnSize param", async () => {
+      it("should validate the picking param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/textile/simulator", ["yarnSize=0"]),
-          "yarnSize",
+          await makeRequest("/api/textile/simulator", ["picking=10"]),
+          "picking",
           /doit être compris entre/,
         );
       });

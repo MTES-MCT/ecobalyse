@@ -13,7 +13,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Product as Product
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
@@ -54,7 +54,7 @@ type alias Config msg =
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
-    , updateYarnSize : Maybe Unit.YarnSize -> msg
+    , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
 
 
@@ -333,15 +333,31 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
-surfaceMassField : Config msg -> Product -> Html msg
-surfaceMassField { current, updateSurfaceMass } product =
+pickingField : Config msg -> Unit.PickPerMeter -> Html msg
+pickingField { current, updatePicking } defaultPicking =
     span
-        [ [ if Product.isKnitted product then
-                "Désactivé car inopérant sur un produit tricoté."
+        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
+          , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
+          , "électrique du métier à tisser. À grammage égal, plus le duitage est important,"
+          , "plus la consommation d'électricité est élevée."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.picking
+            { id = "picking"
+            , update = updatePicking
+            , value = Maybe.withDefault defaultPicking current.picking
+            , toString = Step.pickingToString
+            , disabled = not current.enabled
+            }
+        ]
 
-            else
-                ""
-          , "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+
+surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
+surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
+    span
+        [ [ "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
           ]
             |> String.join " "
             |> title
@@ -349,39 +365,9 @@ surfaceMassField { current, updateSurfaceMass } product =
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
-            , value = current.surfaceMass |> Maybe.withDefault product.surfaceMass
+            , value = Maybe.withDefault defaultSurfaceMass current.surfaceMass
             , toString = Step.surfaceMassToString
-
-            -- Note: hide for knitted products as surface mass doesn't have any impact on them
-            , disabled = not current.enabled || Product.isKnitted product
-            }
-        ]
-
-
-yarnSizeField : Config msg -> Product -> Html msg
-yarnSizeField { current, updateYarnSize } product =
-    let
-        yarnSize =
-            Product.defaultYarnSize product.surfaceMass
-    in
-    span
-        [ [ if Product.isKnitted product then
-                "Désactivé car inopérant sur un produit tricoté."
-
-            else
-                ""
-          , "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
-          , "Cette unité indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.yarnSize
-            { id = "yarnSize"
-            , update = updateYarnSize
-            , value = current.yarnSize |> Maybe.withDefault yarnSize
-            , toString = Step.yarnSizeToString
-            , disabled = not current.enabled || Product.isKnitted product
+            , disabled = not current.enabled
             }
         ]
 
@@ -490,14 +476,18 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
-                    Label.Spinning ->
-                        div [ class "mt-2 fs-7 text-muted" ]
-                            [ yarnSizeField config inputs.product
-                            ]
-
                     Label.Fabric ->
                         div [ class "mt-2 fs-7 text-muted" ]
-                            [ surfaceMassField config inputs.product ]
+                            (case inputs.product.fabric of
+                                Product.Knitted _ ->
+                                    [ surfaceMassField config inputs.product.surfaceMass
+                                    ]
+
+                                Product.Weaved _ defaultPicking ->
+                                    [ pickingField config defaultPicking
+                                    , surfaceMassField config inputs.product.surfaceMass
+                                    ]
+                            )
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
@@ -674,12 +664,16 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (case current.label of
-                    Label.Spinning ->
-                        [ yarnSizeField config inputs.product
-                        ]
-
                     Label.Fabric ->
-                        [ surfaceMassField config inputs.product ]
+                        case inputs.product.fabric of
+                            Product.Knitted _ ->
+                                [ surfaceMassField config inputs.product.surfaceMass
+                                ]
+
+                            Product.Weaved _ defaultPicking ->
+                                [ pickingField config defaultPicking
+                                , surfaceMassField config inputs.product.surfaceMass
+                                ]
 
                     Label.Ennobling ->
                         [ div [ class "text-muted fs-7 mb-2" ]
@@ -751,9 +745,26 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
-                , surfaceInfoView inputs current
-                , pickingView current.picking
-                , threadDensityView current.threadDensity
+                , let
+                    surfaceInfo =
+                        if current.label == Label.Fabric then
+                            Just ( "sortante", Step.getOutputSurface inputs current )
+
+                        else if current.label == Label.Ennobling then
+                            Just ( "entrante", Step.getInputSurface inputs current )
+
+                        else
+                            Nothing
+                  in
+                  case surfaceInfo of
+                    Just ( dir, surface ) ->
+                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                            [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
+                            , span [] [ Format.squareMetters surface ]
+                            ]
+
+                    Nothing ->
+                        text ""
                 , if Transport.totalKm current.transport > 0 then
                     li [ class "list-group-item text-muted" ]
                         [ current.transport
@@ -785,73 +796,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             ]
         ]
-
-
-surfaceInfoView : Inputs -> Step -> Html msg
-surfaceInfoView inputs current =
-    let
-        surfaceInfo =
-            if current.label == Label.Fabric then
-                Just ( "sortante", Step.getOutputSurface inputs current )
-
-            else if current.label == Label.Ennobling then
-                Just ( "entrante", Step.getInputSurface inputs current )
-
-            else
-                Nothing
-    in
-    case surfaceInfo of
-        Just ( dir, surface ) ->
-            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                , span [] [ Format.squareMetters surface ]
-                ]
-
-        Nothing ->
-            text ""
-
-
-pickingView : Maybe Unit.PickPerMeter -> Html msg
-pickingView maybePicking =
-    case maybePicking of
-        Just picking ->
-            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                [ text "Duitage\u{00A0}:\u{00A0}"
-                , picking
-                    |> Unit.pickPerMeterToFloat
-                    |> Format.formatRichFloat 0 "duites.m"
-                ]
-
-        Nothing ->
-            text ""
-
-
-threadDensityView : Maybe Unit.ThreadDensity -> Html msg
-threadDensityView threadDensity =
-    case threadDensity of
-        Just density ->
-            let
-                value =
-                    Unit.threadDensityToFloat density
-            in
-            li [ class "list-group-item text-muted" ]
-                [ span [ class "d-flex justify-content-center gap-2" ]
-                    [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
-                    , value
-                        |> Format.formatRichFloat 0 "fils/cm"
-                    ]
-                , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
-                    text "⚠️ la densité de fils semble très faible"
-
-                  else if round value > Unit.threadDensityToInt Unit.threadDensityHigh then
-                    text "⚠️ la densité de fils semble très élevée"
-
-                  else
-                    text ""
-                ]
-
-        Nothing ->
-            text ""
 
 
 view : Config msg -> Html msg

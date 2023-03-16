@@ -363,7 +363,7 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (maybeYarnSize "yarnSize")
+        |> apply (maybePickingParser "picking")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "disabledFading")
@@ -697,27 +697,27 @@ maybeMakingWasteParser key =
             )
 
 
-maybeYarnSize : String -> Parser (ParseResult (Maybe Unit.YarnSize))
-maybeYarnSize key =
+maybePickingParser : String -> Parser (ParseResult (Maybe Unit.PickPerMeter))
+maybePickingParser key =
     Query.int key
         |> Query.map
             (Maybe.map
                 (\int ->
                     if
-                        (int < Unit.yarnSizeToInt Unit.minYarnSize)
-                            || (int > Unit.yarnSizeToInt Unit.maxYarnSize)
+                        (int < Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                            || (int > Unit.pickPerMeterToInt Unit.maxPickPerMeter)
                     then
                         Err
                             ( key
-                            , "Le titrage (yarnSize) doit être compris entre "
-                                ++ String.fromInt (Unit.yarnSizeToInt Unit.minYarnSize)
+                            , "Le duitage (picking) doit être compris entre "
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
                                 ++ " et "
-                                ++ String.fromInt (Unit.yarnSizeToInt Unit.maxYarnSize)
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
                                 ++ " duites/m."
                             )
 
                     else
-                        Ok (Just (Unit.yarnSize int))
+                        Ok (Just (Unit.pickPerMeter int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

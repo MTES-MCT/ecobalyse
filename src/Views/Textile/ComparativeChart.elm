@@ -97,6 +97,7 @@ fromUserQuery query =
         , quality = Just Unit.standardQuality
         , reparability = Just Unit.standardReparability
         , makingWaste = Nothing
+        , picking = Nothing
         , surfaceMass = Nothing
         , disabledSteps = []
         , disabledFading = Nothing
