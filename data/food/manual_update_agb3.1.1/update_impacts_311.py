@@ -78,6 +78,7 @@ if __name__ == "__main__":
         if proc["name"] in name_change_dict.keys():
             process_name = name_change_dict[proc["name"]]
             print(f"Name change: \"{proc['name']}\" -> \"{process_name}\"")
+            proc["name"] = process_name  # Rename actually occurs here.
 
         # update builder.json with agb3.1.1
         try:
@@ -97,6 +98,22 @@ if __name__ == "__main__":
     # add/compute.
     with open(INGREDIENTS_BASE, "r") as f:
         ingredients_base = json.load(f)
+
+    for ingredient in ingredients_base:
+        # We need to rename the "simple_ingredient_default" and
+        # "simple_ingredient_variant" process names too.
+        if ("variants" not in ingredient
+                or "organic" not in ingredient["variants"]
+                or not isinstance(ingredient["variants"], dict)):
+            continue
+        organic = ingredient["variants"]["organic"]
+        for ingredient_name in [
+                "simple_ingredient_default", "simple_ingredient_variant"]:
+            if ingredient_name in organic:
+                old_name = organic[ingredient_name]
+                new_name = name_change_dict.get(old_name, old_name)
+                print(f"Complex ingredient base name change: \"{old_name}\" -> \"{new_name}\"")
+                organic[ingredient_name] = new_name
 
     (_, complex_processes) = export_builder.compute_ingredient_list(
         processes_dic, ingredients_base)
