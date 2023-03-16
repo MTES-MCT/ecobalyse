@@ -21,7 +21,7 @@ print("Importing the agribalyse database in the brightway database...")
 
 # sed is faster than Python
 call("sed -i 's/yield/Yield_/g' " + CSVFILE, shell=True)
-call("sed -i 's/01\\/03\\/2005/10000\\/3\\/5/g' " + CSVFILE, shell=True)
+call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + CSVFILE, shell=True)
 call("sed -i 's/0;001172/0,001172/' " + CSVFILE, shell=True)
 
 bw2data.projects.set_current(PROJECT)
