@@ -107,11 +107,11 @@ type alias Variants =
 
 type alias OrganicVariant =
     { process : Process
-    , defaultBeyondACV : BeyondACV
+    , defaultBeyondLCA : BeyondLCA
     }
 
 
-type alias BeyondACV =
+type alias BeyondLCA =
     { agroDiversity : Unit.Ratio
     , agroEcology : Unit.Ratio
     , animalWellness : Unit.Ratio
@@ -214,12 +214,12 @@ linkOrganicVariant : Dict String Process -> Decoder OrganicVariant
 linkOrganicVariant processes =
     Decode.succeed OrganicVariant
         |> Pipe.required "process" (linkProcess processes)
-        |> Pipe.required "beyondACV" decodeBeyondACV
+        |> Pipe.required "beyondLCA" decodeBeyondLCA
 
 
-decodeBeyondACV : Decoder BeyondACV
-decodeBeyondACV =
-    Decode.succeed BeyondACV
+decodeBeyondLCA : Decoder BeyondLCA
+decodeBeyondLCA =
+    Decode.succeed BeyondLCA
         |> Pipe.required "agro-diversity" (Unit.decodeRatio { percentage = True })
         |> Pipe.required "agro-ecology" (Unit.decodeRatio { percentage = True })
         |> Pipe.optional "animal-wellness" (Unit.decodeRatio { percentage = True }) (Unit.ratio 0)
