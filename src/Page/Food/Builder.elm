@@ -28,7 +28,7 @@ import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
@@ -98,6 +98,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
+    | UpdateIngredientBonus Id String Float
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -348,6 +349,10 @@ update ({ queries } as session) msg model =
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
+
+        UpdateIngredientBonus ingredientId bonusName bonusValue ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateIngredientBonus ingredientId bonusName bonusValue query)
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -618,10 +623,14 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
-        , div [ class "IngredientBonuses fs-7" ]
-            [ div [] [ text "bonus name" ]
-            , div [] [ text "bonus name" ]
-            , div [] [ text "bonus name" ]
+        , details [ class "IngredientBonuses fs-7" ]
+            [ summary [] [ text "Bonus écologiques inclus" ]
+            , [ { name = "Agro-écologie", value = 0.12 }
+              , { name = "Diversité agricole", value = 0.57 }
+              , { name = "Bien-être animal", value = 0.99 }
+              ]
+                |> List.map (ingredientBonusView ingredient.ingredient.id)
+                |> div []
             ]
         , displayTransportDistances db ingredient ingredientQuery event
         , span
@@ -631,6 +640,35 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ text "+ "
             , transportImpact
             ]
+        ]
+
+
+type alias BonusViewConfig =
+    { name : String
+    , value : Float
+    }
+
+
+ingredientBonusView : Id -> BonusViewConfig -> Html Msg
+ingredientBonusView ingredientId { name, value } =
+    div [ class "d-block d-sm-flex justify-content-between gap-3 my-1" ]
+        [ span [ class "BonusName text-nowrap text-end" ] [ text name ]
+        , input
+            [ type_ "range"
+            , class "BonusRange form-range"
+            , Attr.min "0"
+            , Attr.max "1"
+            , step "0.01"
+            , Attr.value <| String.fromFloat value
+            , onInput
+                (String.toFloat
+                    >> Maybe.withDefault 0
+                    >> UpdateIngredientBonus ingredientId name
+                )
+            ]
+            []
+        , div [ class "BonusValue" ] [ text (String.fromFloat value) ]
+        , div [ class "BonusImpact text-end" ] [ text "impacts" ]
         ]
 
 

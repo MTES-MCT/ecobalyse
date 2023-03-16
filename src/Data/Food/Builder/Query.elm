@@ -19,6 +19,7 @@ module Data.Food.Builder.Query exposing
     , setTransform
     , updateDistribution
     , updateIngredient
+    , updateIngredientBonus
     , updatePackaging
     , updatePreparation
     , updateTransform
@@ -333,6 +334,24 @@ updateIngredient oldIngredientId newIngredient query =
                     (\ingredient ->
                         if ingredient.id == oldIngredientId then
                             newIngredient
+
+                        else
+                            ingredient
+                    )
+    }
+        |> updateTransformMass
+
+
+updateIngredientBonus : Ingredient.Id -> String -> Float -> Query -> Query
+updateIngredientBonus ingredientId bonusName bonusValue query =
+    { query
+        | ingredients =
+            query.ingredients
+                |> List.map
+                    (\ingredient ->
+                        if ingredient.id == ingredientId then
+                            -- TODO {ingredient | bonus}
+                            ingredient
 
                         else
                             ingredient

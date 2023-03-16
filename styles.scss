@@ -716,6 +716,17 @@ blockquote {
   }
   .IngredientBonuses {
     grid-area: ingredientBonuses;
+    .BonusName {
+      min-width: 120px;
+    }
+    .BonusRange {
+    }
+    .BonusValue {
+      min-width: 70px;
+    }
+    .BonusImpact {
+      min-width: 120px;
+    }
   }
 }
 
