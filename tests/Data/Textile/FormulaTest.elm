@@ -121,8 +121,8 @@ suite =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString
-                                            [ ( Impact.trg "cch", Unit.impact 0.1 )
-                                            , ( Impact.trg "fwe", Unit.impact 0.5 )
+                                            [ ( Impact.trg "cch", Unit.impact 8.13225e-2 )
+                                            , ( Impact.trg "fwe", Unit.impact 3.26897e-8 )
                                             ]
                                 }
                             , outputMass = kg 0.478
@@ -133,7 +133,21 @@ suite =
              in
              [ res.picking
                 |> Expect.equal (Just (Unit.pickPerMeter 10141))
-                |> asTest "should compute picking"
+                |> asTest "should compute Fabric step picking"
+             , res.impacts
+                |> Impact.getImpact (Impact.trg "cch")
+                |> Unit.impactToFloat
+                |> Expect.within (Expect.Absolute 0.01) 0.8
+                |> asTest "should compute Fabric step cch impact"
+             , res.impacts
+                |> Impact.getImpact (Impact.trg "fwe")
+                |> Unit.impactToFloat
+                |> Expect.within (Expect.Absolute 0.01) 4
+                |> asTest "should compute Fabric step fwe impact"
+             , res.kwh
+                |> Energy.inKilowattHours
+                |> Expect.within (Expect.Absolute 0.01) 8
+                |> asTest "should compute Fabric step elec"
              ]
             )
         , describe "Formula.knittingImpact"
