@@ -101,7 +101,7 @@ percent config =
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
-            , value (String.fromInt (Split.asPercent config.value))
+            , value (String.fromInt (Split.toPercent config.value))
             , Attr.disabled config.disabled
             ]
         }

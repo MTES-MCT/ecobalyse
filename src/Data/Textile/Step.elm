@@ -439,7 +439,7 @@ updateWaste waste mass step =
 
 airTransportRatioToString : Split -> String
 airTransportRatioToString percentage =
-    case Split.asPercent percentage of
+    case Split.toPercent percentage of
         0 ->
             "Aucun transport aérien"
 

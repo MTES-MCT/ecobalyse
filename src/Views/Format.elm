@@ -181,7 +181,7 @@ ratioToDecimals decimals (Unit.Ratio float) =
 
 splitAsFloat : Int -> Split -> Html msg
 splitAsFloat int value =
-    Split.asFloat value
+    Split.toFloat value
         |> formatFloat int
         |> text
 

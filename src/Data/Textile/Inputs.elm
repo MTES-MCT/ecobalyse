@@ -131,7 +131,7 @@ toMaterialQuery =
 
 getMainMaterial : List MaterialInput -> Result String Material
 getMainMaterial =
-    List.sortBy (.share >> Split.asFloat)
+    List.sortBy (.share >> Split.toFloat)
         >> List.reverse
         >> List.head
         >> Maybe.map .material
@@ -301,7 +301,7 @@ toString inputs =
 materialsToString : List MaterialInput -> String
 materialsToString materials =
     materials
-        |> List.filter (\{ share } -> Split.asFloat share > 0)
+        |> List.filter (\{ share } -> Split.toFloat share > 0)
         |> List.map
             (\{ material, share } ->
                 Split.toPercentString share
@@ -324,7 +324,7 @@ makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading 
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
-                if Split.asPercent ratio == 0 then
+                if Split.toPercent ratio == 0 then
                     Nothing
 
                 else

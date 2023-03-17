@@ -372,7 +372,7 @@ computeMaterialImpacts db ({ inputs } as simulator) =
                                 (\{ material, share } ->
                                     step
                                         |> stepMaterialImpacts db material
-                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.asFloat share))
+                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
                             |> Impact.sumImpacts db.impacts
                 }
@@ -407,7 +407,7 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                                     step
                                         |> stepSpinningImpacts db material
                                         |> .kwh
-                                        |> Quantity.multiplyBy (Split.asFloat share)
+                                        |> Quantity.multiplyBy (Split.toFloat share)
                                 )
                             |> List.foldl Quantity.plus Quantity.zero
                     , impacts =
@@ -417,7 +417,7 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                                     step
                                         |> stepSpinningImpacts db material
                                         |> .impacts
-                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.asFloat share))
+                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
                             |> Impact.sumImpacts db.impacts
                 }
@@ -493,7 +493,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                             |> List.map
                                 (\{ material, share } ->
                                     Formula.genericWaste material.materialProcess.waste
-                                        (inputMass |> Quantity.multiplyBy (Split.asFloat share))
+                                        (inputMass |> Quantity.multiplyBy (Split.toFloat share))
                                 )
                             |> List.foldl
                                 (\curr acc ->
@@ -525,7 +525,7 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                                                 |> Maybe.withDefault (Mass.kilograms 0)
                                     in
                                     Formula.genericWaste processWaste
-                                        (inputMass |> Quantity.multiplyBy (Split.asFloat share))
+                                        (inputMass |> Quantity.multiplyBy (Split.toFloat share))
                                 )
                             |> List.foldl
                                 (\curr acc ->

@@ -287,7 +287,7 @@ textileEndpoints db =
         , getEndpoint db "GET" "/textile/simulator?materials[]=coton;12"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just "Une part (en flottant) doit être comprise entre 0 et 1 inclus (ici: 12)")
+            |> Expect.equal (Just "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: 12)")
             |> asTest "should validate invalid material ratios"
         , getEndpoint db "GET" "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors

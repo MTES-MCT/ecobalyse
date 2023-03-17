@@ -500,7 +500,7 @@ validateMaterialList list =
     else
         let
             total =
-                list |> List.map (.share >> Split.asFloat) |> List.sum
+                list |> List.map (.share >> Split.toFloat) |> List.sum
         in
         if total /= 1 then
             Err <|
@@ -670,7 +670,7 @@ maybeMakingWasteParser key =
         |> Query.map
             (Maybe.map
                 (\float ->
-                    if float < Split.asFloat Env.minMakingWasteRatio || float > Split.asFloat Env.maxMakingWasteRatio then
+                    if float < Split.toFloat Env.minMakingWasteRatio || float > Split.toFloat Env.maxMakingWasteRatio then
                         Err
                             ( key
                             , "Le taux de perte en confection doit être compris entre "

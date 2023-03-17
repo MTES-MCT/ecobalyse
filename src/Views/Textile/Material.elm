@@ -31,7 +31,7 @@ formSet ({ add, inputs } as config) =
 
         totalShares =
             inputs
-                |> List.map (.share >> Split.asFloat >> clamp 0 1)
+                |> List.map (.share >> Split.toFloat >> clamp 0 1)
                 |> List.sum
 
         valid =

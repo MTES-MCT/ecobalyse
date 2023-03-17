@@ -1,9 +1,6 @@
 module Data.Split exposing
     ( Split
-    , add
     , apply
-    , asFloat
-    , asPercent
     , complement
     , decodeFloat
     , encodeFloat
@@ -14,7 +11,9 @@ module Data.Split exposing
     , half
     , quarter
     , tenth
+    , toFloat
     , toFloatString
+    , toPercent
     , toPercentString
     , twenty
     , zero
@@ -73,7 +72,7 @@ quarter =
 fromFloat : Float -> Result String Split
 fromFloat float =
     if float < 0 || float > 1 then
-        Err ("Une part (en flottant) doit être comprise entre 0 et 1 inclus (ici: " ++ String.fromFloat float ++ ")")
+        Err ("Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: " ++ String.fromFloat float ++ ")")
 
     else
         float
@@ -92,37 +91,24 @@ fromPercent int =
         Ok (Split int)
 
 
-asFloat : Split -> Float
-asFloat (Split int) =
-    toFloat int / 100
+toFloat : Split -> Float
+toFloat (Split int) =
+    Basics.toFloat int / 100
 
 
-asPercent : Split -> Int
-asPercent (Split int) =
+toPercent : Split -> Int
+toPercent (Split int) =
     int
 
 
 toFloatString : Split -> String
 toFloatString =
-    asFloat >> String.fromFloat
+    toFloat >> String.fromFloat
 
 
 toPercentString : Split -> String
 toPercentString (Split int) =
     String.fromInt int
-
-
-add : Split -> Split -> Result String Split
-add (Split a) (Split b) =
-    let
-        total =
-            a + b
-    in
-    if total < 0 || total > 100 then
-        Err "L'addition de plusieurs part doit être entre comprise entre 0 et 100%"
-
-    else
-        Ok (Split total)
 
 
 complement : Split -> Split
@@ -132,9 +118,7 @@ complement (Split int) =
 
 apply : Float -> Split -> Float
 apply input split =
-    split
-        |> asFloat
-        |> (*) input
+    toFloat split * input
 
 
 decodeFloat : Decoder Split
@@ -153,7 +137,5 @@ decodeFloat =
 
 
 encodeFloat : Split -> Encode.Value
-encodeFloat percent =
-    percent
-        |> asFloat
-        |> Encode.float
+encodeFloat =
+    toFloat >> Encode.float

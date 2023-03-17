@@ -13,65 +13,65 @@ suite =
     describe "Data.Split"
         [ describe "zero"
             [ Split.zero
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 0
                 |> asTest "should have a 'zero' constructor"
             ]
         , describe "full"
             [ Split.full
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 100
                 |> asTest "should have a 'hundred' constructor"
             ]
         , describe "tenth"
             [ Split.tenth
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 10
                 |> asTest "should have a 'tenth' constructor"
             ]
         , describe "twenty"
             [ Split.twenty
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 20
                 |> asTest "should have a 'twenty' constructor"
             ]
         , describe "fourty"
             [ Split.fourty
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 40
                 |> asTest "should have a 'fourty' constructor"
             ]
         , describe "half"
             [ Split.half
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 50
                 |> asTest "should have a 'half' constructor"
             ]
         , describe "quarter"
             [ Split.quarter
-                |> Split.asPercent
+                |> Split.toPercent
                 |> Expect.equal 25
                 |> asTest "should have a 'quarter' constructor"
             ]
         , describe "fromFloat constructor"
             [ -0.1
                 |> Split.fromFloat
-                |> Expect.equal (Err "Une part (en flottant) doit être comprise entre 0 et 1 inclus (ici: -0.1)")
+                |> Expect.equal (Err "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: -0.1)")
                 |> asTest "should return an error if the split is less than 0"
             , 1.1
                 |> Split.fromFloat
-                |> Expect.equal (Err "Une part (en flottant) doit être comprise entre 0 et 1 inclus (ici: 1.1)")
+                |> Expect.equal (Err "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: 1.1)")
                 |> asTest "should return an error if the split is greater than 1"
             , 0.12
                 |> Split.fromFloat
-                |> Result.map Split.asFloat
+                |> Result.map Split.toFloat
                 |> Expect.equal (Ok 0.12)
                 |> asTest "should provide a float constructor and extractor"
             ]
         , describe "fromPercent constructor"
             [ 12
                 |> Split.fromPercent
-                |> Result.map Split.asPercent
+                |> Result.map Split.toPercent
                 |> Expect.equal (Ok 12)
                 |> asTest "should provide a percent constructor and extractor"
             ]
@@ -100,13 +100,6 @@ suite =
                 |> Result.map Split.toPercentString
                 |> Expect.equal (Ok "12")
                 |> asTest "should return a percent string representation"
-            ]
-        , describe "'add' should not fall for the 0.1 + 0.2 == 0.30000000000000004 trap that javascript has"
-            -- See https://github.com/MTES-MCT/ecobalyse/issues/226
-            [ Result.map2 Split.add (Split.fromFloat 0.1) (Split.fromFloat 0.2)
-                |> Result.map (Result.map Split.asFloat)
-                |> Expect.equal (Ok (Ok 0.3))
-                |> asTest "should correctly add 0.1 + 0.2 = 0.3"
             ]
         , describe "complement"
             [ Split.zero

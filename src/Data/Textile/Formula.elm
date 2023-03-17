@@ -58,7 +58,7 @@ makingWaste { processWaste, pcrWaste } baseMass =
             -- (product weight + textile waste for confection) / (1 - PCR product waste rate)
             Mass.kilograms <|
                 (Mass.inKilograms baseMass + (Mass.inKilograms baseMass * Mass.inKilograms processWaste))
-                    / (Split.complement pcrWaste |> Split.asFloat)
+                    / (Split.complement pcrWaste |> Split.toFloat)
     in
     { waste = Quantity.minus baseMass mass, mass = mass }
 
@@ -99,7 +99,7 @@ recycledMaterialImpacts impacts { recycledProcess, nonRecycledProcess, cffData }
                 in
                 Mass.inKilograms outputMass
                     * (Split.apply recycledImpactPerKg manufacturerAllocation
-                        + Split.apply (Split.asFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
+                        + Split.apply (Split.toFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
                         * nonRecycledImpactPerKg
                       )
                     |> Unit.impact
@@ -450,7 +450,7 @@ transportRatio airTransportRatio ({ road, sea, air } as transport) =
             Split.complement roadRatio
     in
     { transport
-        | road = road |> Quantity.multiplyBy (Split.apply (Split.asFloat roadRatio) (Split.complement airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.asFloat seaRatio) (Split.complement airTransportRatio))
-        , air = air |> Quantity.multiplyBy (Split.asFloat airTransportRatio)
+        | road = road |> Quantity.multiplyBy (Split.apply (Split.toFloat roadRatio) (Split.complement airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.toFloat seaRatio) (Split.complement airTransportRatio))
+        , air = air |> Quantity.multiplyBy (Split.toFloat airTransportRatio)
     }

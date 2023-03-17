@@ -337,7 +337,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , toString = Step.makingWasteToString
             , disabled = not current.enabled
             , min = 0
-            , max = Split.asPercent Env.maxMakingWasteRatio
+            , max = Split.toPercent Env.maxMakingWasteRatio
             }
         ]
 
