@@ -7,6 +7,7 @@ module Data.Split exposing
     , complement
     , decode
     , encode
+    , fourty
     , fromFloat
     , fromPercent
     , full
@@ -46,6 +47,11 @@ full =
 tenth : Split
 tenth =
     Split 10
+
+
+fourty : Split
+fourty =
+    Split 40
 
 
 half : Split

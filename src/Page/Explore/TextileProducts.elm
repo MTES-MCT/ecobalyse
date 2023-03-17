@@ -44,7 +44,7 @@ table db { detailed, scope } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.making.pcrWaste ]
+                    [ Format.splitAsPercentage product.making.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =

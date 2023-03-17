@@ -54,7 +54,7 @@ type alias Step =
     , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
@@ -467,14 +467,13 @@ surfaceMassToString (Unit.SurfaceMass int) =
     "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
 
 
-makingWasteToString : Unit.Ratio -> String
-makingWasteToString (Unit.Ratio makingWaste) =
-    case round (makingWaste * 100) of
-        0 ->
-            "Aucune perte en confection"
+makingWasteToString : Split -> String
+makingWasteToString makingWaste =
+    if makingWaste == Split.zero then
+        "Aucune perte en confection"
 
-        p ->
-            String.fromInt p ++ "% de pertes en confection"
+    else
+        Split.toPercentString makingWaste ++ "% de pertes en confection"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
@@ -495,7 +494,7 @@ encode definitions v =
         , ( "airTransportRatio", Split.encode v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
-        , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]

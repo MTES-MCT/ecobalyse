@@ -664,24 +664,24 @@ maybeReparabilityParser key =
             )
 
 
-maybeMakingWasteParser : String -> Parser (ParseResult (Maybe Unit.Ratio))
+maybeMakingWasteParser : String -> Parser (ParseResult (Maybe Split))
 maybeMakingWasteParser key =
     floatParser key
         |> Query.map
             (Maybe.map
                 (\float ->
-                    if float < Unit.ratioToFloat Env.minMakingWasteRatio || float > Unit.ratioToFloat Env.maxMakingWasteRatio then
+                    if float < Split.asFloat Env.minMakingWasteRatio || float > Split.asFloat Env.maxMakingWasteRatio then
                         Err
                             ( key
                             , "Le taux de perte en confection doit être compris entre "
-                                ++ String.fromFloat (Unit.ratioToFloat Env.minMakingWasteRatio)
+                                ++ Split.toFloatString Env.minMakingWasteRatio
                                 ++ " et "
-                                ++ String.fromFloat (Unit.ratioToFloat Env.maxMakingWasteRatio)
+                                ++ Split.toFloatString Env.maxMakingWasteRatio
                                 ++ "."
                             )
 
                     else
-                        Ok (Just (Unit.ratio float))
+                        Ok (Split.fromFloat float |> Result.toMaybe)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

@@ -70,7 +70,7 @@ type alias Inputs =
     , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
@@ -98,7 +98,7 @@ type alias Query =
     , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
@@ -320,7 +320,7 @@ weavingOptionsToString _ _ =
 makingOptionsToString : Inputs -> String
 makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading } =
     [ makingWaste
-        |> Maybe.map (Format.ratioToPercentString >> (\s -> s ++ " de perte"))
+        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
@@ -664,7 +664,7 @@ encode inputs =
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
@@ -696,7 +696,7 @@ decodeQuery =
         |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decode) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe Split.decode) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
@@ -726,7 +726,7 @@ encodeQuery query =
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )

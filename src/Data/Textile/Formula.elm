@@ -48,7 +48,7 @@ material & product waste data.
 -}
 makingWaste :
     { processWaste : Mass
-    , pcrWaste : Unit.Ratio
+    , pcrWaste : Split
     }
     -> Mass
     -> { waste : Mass, mass : Mass }
@@ -58,7 +58,7 @@ makingWaste { processWaste, pcrWaste } baseMass =
             -- (product weight + textile waste for confection) / (1 - PCR product waste rate)
             Mass.kilograms <|
                 (Mass.inKilograms baseMass + (Mass.inKilograms baseMass * Mass.inKilograms processWaste))
-                    / (1 - Unit.ratioToFloat pcrWaste)
+                    / (Split.complement pcrWaste |> Split.asFloat)
     in
     { waste = Quantity.minus baseMass mass, mass = mass }
 

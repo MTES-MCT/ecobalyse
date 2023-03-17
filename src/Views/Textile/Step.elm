@@ -8,7 +8,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Scope as Scope
-import Data.Split exposing (Split)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -53,7 +53,7 @@ type alias Config msg =
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateMakingWaste : Maybe Unit.Ratio -> msg
+    , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
@@ -322,14 +322,14 @@ makingWasteField { current, inputs, updateMakingWaste } =
     span
         [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
         ]
-        [ RangeSlider.ratio
+        [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
             , disabled = not current.enabled
             , min = 0
-            , max = round <| Unit.ratioToFloat Env.maxMakingWasteRatio * 100
+            , max = Split.asPercent Env.maxMakingWasteRatio
             }
         ]
 

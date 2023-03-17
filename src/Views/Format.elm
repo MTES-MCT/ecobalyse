@@ -16,7 +16,6 @@ module Views.Format exposing
     , percent
     , picking
     , ratio
-    , ratioToPercentString
     , splitAsPercentage
     , squareMetters
     , surfaceMass
@@ -166,17 +165,6 @@ surfaceMass =
 picking : Unit.PickPerMeter -> Html msg
 picking =
     Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
-
-
-ratioToPercentString : Unit.Ratio -> String
-ratioToPercentString value =
-    (value
-        |> Unit.ratioToFloat
-        |> (*) 100
-        |> round
-        |> String.fromInt
-    )
-        ++ "\u{202F}%"
 
 
 ratio : Unit.Ratio -> Html msg

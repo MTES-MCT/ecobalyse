@@ -2,7 +2,6 @@ module Views.RangeSlider exposing
     ( percent
     , picking
     , quality
-    , ratio
     , reparability
     , surfaceMass
     )
@@ -73,36 +72,6 @@ reparability config =
             -- the `value` one MUST be set AFTER the `step` one.
             , step "0.01"
             , value (fromFloat config.value)
-            , Attr.disabled config.disabled
-            ]
-        }
-
-
-type alias RatioConfig msg =
-    { id : String
-    , update : Maybe Unit.Ratio -> msg
-    , value : Unit.Ratio
-    , toString : Unit.Ratio -> String
-    , disabled : Bool
-    , min : Int
-    , max : Int
-    }
-
-
-ratio : RatioConfig msg -> Html msg
-ratio config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
-            [ onInput (String.toInt >> Maybe.map (\x -> Unit.ratio (toFloat x / 100)) >> config.update)
-            , Attr.min (String.fromInt config.min)
-            , Attr.max (String.fromInt config.max)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "1"
-            , value (String.fromInt (round (Unit.ratioToFloat config.value * 100)))
             , Attr.disabled config.disabled
             ]
         }

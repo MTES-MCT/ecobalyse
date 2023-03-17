@@ -92,7 +92,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
-    | UpdateMakingWaste (Maybe Unit.Ratio)
+    | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Split

@@ -12,6 +12,7 @@ module Data.Textile.Product exposing
     , isKnitted
     )
 
+import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
@@ -37,7 +38,7 @@ type FabricOptions
 type alias MakingOptions =
     { process : Process -- Procédé de Confection
     , fadable : Bool -- Can this product be faded?
-    , pcrWaste : Unit.Ratio -- PCR product waste ratio
+    , pcrWaste : Split -- PCR product waste ratio
     }
 
 
@@ -138,7 +139,7 @@ decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
-        |> Pipe.required "pcrWaste" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "pcrWaste" Split.decode
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -201,7 +202,7 @@ encodeMakingOptions v =
     Encode.object
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
-        , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
+        , ( "pcrWaste", Split.encode v.pcrWaste )
         ]
 
 
