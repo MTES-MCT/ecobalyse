@@ -16,6 +16,7 @@ module Views.Format exposing
     , percent
     , picking
     , ratio
+    , splitAsFloat
     , splitAsPercentage
     , squareMetters
     , surfaceMass
@@ -176,6 +177,13 @@ ratioToDecimals : Int -> Unit.Ratio -> Html msg
 ratioToDecimals decimals (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat decimals "%"
+
+
+splitAsFloat : Int -> Split -> Html msg
+splitAsFloat int value =
+    Split.asFloat value
+        |> formatFloat int
+        |> text
 
 
 splitAsPercentage : Split -> Html msg

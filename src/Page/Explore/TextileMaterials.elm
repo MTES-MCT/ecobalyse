@@ -62,9 +62,7 @@ table { countries } { detailed, scope } =
                 case cffData of
                     Just { manufacturerAllocation } ->
                         manufacturerAllocation
-                            |> Unit.ratioToFloat
-                            |> Format.formatFloat 1
-                            |> text
+                            |> Format.splitAsFloat 1
 
                     Nothing ->
                         text "N/A"

@@ -12,6 +12,7 @@ module Data.Textile.Material exposing
     )
 
 import Data.Country as Country
+import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Category as Category exposing (Category)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
@@ -42,7 +43,7 @@ type Id
 
 type alias CFFData =
     -- Circular Footprint Formula data
-    { manufacturerAllocation : Unit.Ratio
+    { manufacturerAllocation : Split
     , recycledQualityRatio : Unit.Ratio
     }
 
@@ -108,7 +109,7 @@ decode processes =
 decodeCFFData : Decoder CFFData
 decodeCFFData =
     Decode.succeed CFFData
-        |> JDP.required "manufacturerAllocation" (Unit.decodeRatio { percentage = True })
+        |> JDP.required "manufacturerAllocation" Split.decode
         |> JDP.required "recycledQualityRatio" (Unit.decodeRatio { percentage = True })
 
 
