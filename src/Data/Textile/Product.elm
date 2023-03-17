@@ -47,8 +47,8 @@ type alias UseOptions =
     , nonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
     , defaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
-    , ratioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
-    , ratioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
+    , ratioDryer : Split -- Ratio de séchage électrique (not used in computations)
+    , ratioIroning : Split -- Ratio de repassage (not used in computations)
     , timeIroning : Duration -- Temps de repassage (not used in computations)
     , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
     }
@@ -149,8 +149,8 @@ decodeUseOptions processes =
         |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "defaultNbCycles" Decode.int
-        |> Pipe.required "ratioDryer" (Unit.decodeRatio { percentage = True })
-        |> Pipe.required "ratioIroning" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "ratioDryer" Split.decode
+        |> Pipe.required "ratioIroning" Split.decode
         |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
 
@@ -213,8 +213,8 @@ encodeUseOptions v =
         , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
-        , ( "ratioDryer", Unit.encodeRatio v.ratioDryer )
-        , ( "ratioIroning", Unit.encodeRatio v.ratioIroning )
+        , ( "ratioDryer", Split.encode v.ratioDryer )
+        , ( "ratioIroning", Split.encode v.ratioIroning )
         , ( "timeIroning", Encode.float (Duration.inHours v.timeIroning) )
         , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]
