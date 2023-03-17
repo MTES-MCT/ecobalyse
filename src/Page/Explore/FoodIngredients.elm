@@ -54,7 +54,7 @@ table _ { detailed, scope } =
       , toCell =
             .variants
                 >> .organic
-                >> Maybe.map (.name >> Process.nameToString)
+                >> Maybe.map (.process >> .name >> Process.nameToString)
                 >> Maybe.withDefault "N/A"
                 >> text
       }
