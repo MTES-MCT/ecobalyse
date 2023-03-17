@@ -170,7 +170,7 @@ printingImpacts :
         , heatProcess : Process -- Outbound: country heat impact
         , elecProcess : Process -- Outbound: country electricity impact
         , surfaceMass : Unit.SurfaceMass
-        , ratio : Unit.Ratio
+        , ratio : Split
         }
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
@@ -181,7 +181,7 @@ printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass
             Mass.inGrams baseMass
                 / Unit.surfaceMassToFloat surfaceMass
                 -- Apply ratio
-                * Unit.ratioToFloat ratio
+                |> (\s -> Split.apply s ratio)
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"

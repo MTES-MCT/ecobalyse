@@ -29,6 +29,12 @@ suite =
                 |> Expect.equal 10
                 |> asTest "should have a 'tenth' constructor"
             ]
+        , describe "twenty"
+            [ Split.twenty
+                |> Split.asPercent
+                |> Expect.equal 20
+                |> asTest "should have a 'twenty' constructor"
+            ]
         , describe "fourty"
             [ Split.fourty
                 |> Split.asPercent

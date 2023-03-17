@@ -16,6 +16,7 @@ module Data.Split exposing
     , tenth
     , toFloatString
     , toPercentString
+    , twenty
     , zero
     )
 
@@ -47,6 +48,11 @@ full =
 tenth : Split
 tenth =
     Split 10
+
+
+twenty : Split
+twenty =
+    Split 20
 
 
 fourty : Split

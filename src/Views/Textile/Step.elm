@@ -223,7 +223,7 @@ printingFields { inputs, updatePrinting } =
                             (\percent ->
                                 option
                                     [ value (String.fromFloat percent)
-                                    , selected <| Unit.ratioToFloat ratio == percent / 100
+                                    , selected <| ratio == Split.full
                                     ]
                                     [ text <| String.fromFloat percent ++ "%" ]
                             )
@@ -236,7 +236,15 @@ printingFields { inputs, updatePrinting } =
                                     case String.toInt str of
                                         Just percent ->
                                             inputs.printing
-                                                |> Maybe.map (\p -> { p | ratio = Unit.ratio (toFloat percent / 100) })
+                                                |> Maybe.map
+                                                    (\p ->
+                                                        { p
+                                                            | ratio =
+                                                                Split.fromPercent percent
+                                                                    |> Result.toMaybe
+                                                                    |> Maybe.withDefault Split.zero
+                                                        }
+                                                    )
                                                 |> updatePrinting
 
                                         Nothing ->
