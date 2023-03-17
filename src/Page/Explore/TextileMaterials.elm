@@ -6,7 +6,6 @@ import Data.Scope exposing (Scope)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Category as Category
-import Data.Unit as Unit
 import Html exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
@@ -73,9 +72,7 @@ table { countries } { detailed, scope } =
                 case cffData of
                     Just { recycledQualityRatio } ->
                         recycledQualityRatio
-                            |> Unit.ratioToFloat
-                            |> Format.formatFloat 1
-                            |> text
+                            |> Format.splitAsFloat 1
 
                     Nothing ->
                         text "N/A"

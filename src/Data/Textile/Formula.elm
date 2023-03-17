@@ -99,7 +99,7 @@ recycledMaterialImpacts impacts { recycledProcess, nonRecycledProcess, cffData }
                 in
                 Mass.inKilograms outputMass
                     * (Split.apply recycledImpactPerKg manufacturerAllocation
-                        + Split.apply (Unit.ratioToFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
+                        + Split.apply (Split.asFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
                         * nonRecycledImpactPerKg
                       )
                     |> Unit.impact
