@@ -5,8 +5,8 @@ module Data.Split exposing
     , asFloat
     , asPercent
     , complement
-    , decode
-    , encode
+    , decodeFloat
+    , encodeFloat
     , fourty
     , fromFloat
     , fromPercent
@@ -137,8 +137,8 @@ apply input split =
         |> (*) input
 
 
-decode : Decoder Split
-decode =
+decodeFloat : Decoder Split
+decodeFloat =
     Decode.float
         |> Decode.map fromFloat
         |> Decode.andThen
@@ -152,8 +152,8 @@ decode =
             )
 
 
-encode : Split -> Encode.Value
-encode percent =
+encodeFloat : Split -> Encode.Value
+encodeFloat percent =
     percent
         |> asFloat
         |> Encode.float

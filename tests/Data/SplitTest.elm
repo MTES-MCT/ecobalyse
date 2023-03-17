@@ -138,14 +138,14 @@ suite =
             ]
         , describe "decoder"
             [ "0.12"
-                |> Decode.decodeString Split.decode
+                |> Decode.decodeString Split.decodeFloat
                 |> Result.mapError Decode.errorToString
                 |> Expect.equal (Split.fromFloat 0.12)
                 |> asTest "should provide a decoder"
             ]
         , describe "encode"
             [ Split.fromFloat 0.12
-                |> Result.map Split.encode
+                |> Result.map Split.encodeFloat
                 |> Result.map (Encode.encode 0)
                 |> Expect.equal (Ok "0.12")
                 |> asTest "should provide an encoder"

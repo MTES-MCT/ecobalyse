@@ -221,6 +221,6 @@ linkOrganicVariant processes =
 decodeBeyondLCA : Decoder BeyondLCA
 decodeBeyondLCA =
     Decode.succeed BeyondLCA
-        |> Pipe.required "agro-diversity" Split.decode
-        |> Pipe.required "agro-ecology" Split.decode
-        |> Pipe.optional "animal-wellness" Split.decode Split.zero
+        |> Pipe.required "agro-diversity" Split.decodeFloat
+        |> Pipe.required "agro-ecology" Split.decodeFloat
+        |> Pipe.optional "animal-wellness" Split.decodeFloat Split.zero

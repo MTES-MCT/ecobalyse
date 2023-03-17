@@ -59,7 +59,7 @@ decode processes =
         |> Pipe.required "zone" Zone.decode
         |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "airTransportRatio" Split.decode
+        |> Pipe.required "airTransportRatio" Split.decodeFloat
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
 
 
@@ -80,7 +80,7 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "airTransportRatio", Split.encode v.airTransportRatio )
+        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
 

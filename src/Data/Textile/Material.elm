@@ -108,8 +108,8 @@ decode processes =
 decodeCFFData : Decoder CFFData
 decodeCFFData =
     Decode.succeed CFFData
-        |> JDP.required "manufacturerAllocation" Split.decode
-        |> JDP.required "recycledQualityRatio" Split.decode
+        |> JDP.required "manufacturerAllocation" Split.decodeFloat
+        |> JDP.required "recycledQualityRatio" Split.decodeFloat
 
 
 decodeList : List Process -> Decoder (List Material)

@@ -139,7 +139,7 @@ decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
-        |> Pipe.required "pcrWaste" Split.decode
+        |> Pipe.required "pcrWaste" Split.decodeFloat
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -149,8 +149,8 @@ decodeUseOptions processes =
         |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "defaultNbCycles" Decode.int
-        |> Pipe.required "ratioDryer" Split.decode
-        |> Pipe.required "ratioIroning" Split.decode
+        |> Pipe.required "ratioDryer" Split.decodeFloat
+        |> Pipe.required "ratioIroning" Split.decodeFloat
         |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
 
@@ -202,7 +202,7 @@ encodeMakingOptions v =
     Encode.object
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
-        , ( "pcrWaste", Split.encode v.pcrWaste )
+        , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         ]
 
 
@@ -213,8 +213,8 @@ encodeUseOptions v =
         , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
-        , ( "ratioDryer", Split.encode v.ratioDryer )
-        , ( "ratioIroning", Split.encode v.ratioIroning )
+        , ( "ratioDryer", Split.encodeFloat v.ratioDryer )
+        , ( "ratioIroning", Split.encodeFloat v.ratioIroning )
         , ( "timeIroning", Encode.float (Duration.inHours v.timeIroning) )
         , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]

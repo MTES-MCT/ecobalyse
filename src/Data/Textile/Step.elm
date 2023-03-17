@@ -491,10 +491,10 @@ encode definitions v =
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "airTransportRatio", Split.encode v.airTransportRatio )
+        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
-        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]

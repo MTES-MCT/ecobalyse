@@ -32,7 +32,7 @@ decode : Decoder Printing
 decode =
     Decode.map2 Printing
         (Decode.field "kind" decodeKind)
-        (Decode.field "ratio" Split.decode)
+        (Decode.field "ratio" Split.decodeFloat)
 
 
 decodeKind : Decoder Kind
@@ -50,7 +50,7 @@ encode : Printing -> Encode.Value
 encode v =
     Encode.object
         [ ( "kind", encodeKind v.kind )
-        , ( "ratio", Split.encode v.ratio )
+        , ( "ratio", Split.encodeFloat v.ratio )
         ]
 
 

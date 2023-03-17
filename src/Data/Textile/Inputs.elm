@@ -661,10 +661,10 @@ encode inputs =
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
@@ -679,7 +679,7 @@ encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     Encode.object
         [ ( "material", Material.encode v.material )
-        , ( "share", Split.encode v.share )
+        , ( "share", Split.encodeFloat v.share )
         ]
 
 
@@ -693,10 +693,10 @@ decodeQuery =
         |> Pipe.required "countryFabric" Country.decodeCode
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decode) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Split.decode) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
@@ -710,7 +710,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" Split.decode
+        |> Pipe.required "share" Split.decodeFloat
 
 
 encodeQuery : Query -> Encode.Value
@@ -723,10 +723,10 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Country.encodeCode )
         , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
         , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
@@ -741,7 +741,7 @@ encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     Encode.object
         [ ( "id", Material.encodeId v.id )
-        , ( "share", Split.encode v.share )
+        , ( "share", Split.encodeFloat v.share )
         ]
 
 
