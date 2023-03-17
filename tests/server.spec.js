@@ -288,7 +288,7 @@ describe("API", () => {
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.results.total)).toHaveLength(19);
+        expect(Object.keys(response.body.results.total)).toHaveLength(22);
       });
 
       it("should validate the ingredient list length", async () => {

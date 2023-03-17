@@ -107,17 +107,7 @@
     "variants": {}
   },
   {
-    "id": "durum wheat",
-    "name": "Blé dur",
-    "default": "da43175dd8163643ce4d9cac19a45884",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 2.259,
-    "density": 1,
-    "transport_cooling": "once_transformed",
-    "variants": {}
-  },
-  {
-    "id": "ground beef",
+    "id": "ground-beef",
     "name": "Boeuf haché",
     "default": "da9409534ad17989aaccae4d44369016",
     "default_origin": "EuropeAndMaghreb",
@@ -125,11 +115,11 @@
     "density": 1,
     "transport_cooling": "always",
     "variants": {
-      "organic": "f421457c-3eff-0e02-4b4e-ce9d13285321"
+      "organic": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
     }
   },
   {
-    "id": "cooked ham",
+    "id": "cooked-ham",
     "name": "Jambon",
     "default": "159fc059d675499a87c7f8973e66fd8e",
     "default_origin": "EuropeAndMaghreb",
@@ -137,11 +127,11 @@
     "density": 1,
     "transport_cooling": "always",
     "variants": {
-      "organic": "5b306777-edf5-f0f9-836c-74ccc48a6383"
+      "organic": "8cf39ae6-b10d-d055-8d10-8455fa551851"
     }
   },
   {
-    "id": "chicken breast",
+    "id": "chicken-breast",
     "name": "Poulet",
     "default": "199c1eb451fccdeadc3109d74f6802b5",
     "default_origin": "EuropeAndMaghreb",
@@ -149,7 +139,7 @@
     "density": 1,
     "transport_cooling": "always",
     "variants": {
-      "organic": "78da6b29-4bf9-ae19-be60-b129874659b0"
+      "organic": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
     }
   },
   {
@@ -162,18 +152,6 @@
     "transport_cooling": "always",
     "variants": {
       "organic": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018"
-    }
-  },
-  {
-    "id": "apple",
-    "name": "Pomme",
-    "default": "590c11ca7aa7534b27f5403fb4688c5b",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "transport_cooling": "once_transformed",
-    "variants": {
-      "organic": "f1308e8aaa0cee8f63f6afb48e9abecd"
     }
   },
   {

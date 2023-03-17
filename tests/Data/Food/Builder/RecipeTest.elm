@@ -150,6 +150,9 @@ suite =
                                 , ( "swe", True )
                                 , ( "tre", True )
                                 , ( "wtu", True )
+                                , ( "htc-c", True )
+                                , ( "etf-c", True )
+                                , ( "htn-c", True )
                                 ]
                             )
                         |> asTest "should return computed impacts where none equals zero"
@@ -157,11 +160,11 @@ suite =
                         |> Result.map (Tuple.second >> .scoring)
                         |> testScoringEqual
                             { category = "Gâteaux"
-                            , climate = { impact = Unit.impact 38.78295109442929, letter = "B", outOf100 = 68 }
-                            , all = { impact = Unit.impact 188.53256189309315, letter = "B", outOf100 = 67 }
-                            , biodiversity = { impact = Unit.impact 144.78279126286014, letter = "C", outOf100 = 57 }
-                            , health = { impact = Unit.impact 56.46785116591931, letter = "B", outOf100 = 64 }
-                            , resources = { impact = Unit.impact 27.363737354043284, letter = "B", outOf100 = 65 }
+                            , climate = { impact = Unit.impact 42.56763816832551, letter = "B", outOf100 = 64 }
+                            , all = { impact = Unit.impact 174.96032875537998, letter = "B", outOf100 = 71 }
+                            , biodiversity = { impact = Unit.impact 98.72648463705902, letter = "B", outOf100 = 77 }
+                            , health = { impact = Unit.impact 56.112203508598704, letter = "B", outOf100 = 64 }
+                            , resources = { impact = Unit.impact 31.35744848385938, letter = "C", outOf100 = 58 }
                             }
                      ]
                     )

@@ -111,17 +111,7 @@
     "variants": {}
   },
   {
-    "id": "durum wheat",
-    "name": "Blé dur",
-    "default": "da43175dd8163643ce4d9cac19a45884",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 2.259,
-    "density": 1,
-    "transport_cooling": "once_transformed",
-    "variants": {}
-  },
-  {
-    "id": "ground beef",
+    "id": "ground-beef",
     "name": "Boeuf haché",
     "default": "da9409534ad17989aaccae4d44369016",
     "default_origin": "EuropeAndMaghreb",
@@ -137,7 +127,7 @@
     }
   },
   {
-    "id": "cooked ham",
+    "id": "cooked-ham",
     "name": "Jambon",
     "default": "159fc059d675499a87c7f8973e66fd8e",
     "default_origin": "EuropeAndMaghreb",
@@ -153,7 +143,7 @@
     }
   },
   {
-    "id": "chicken breast",
+    "id": "chicken-breast",
     "name": "Poulet",
     "default": "199c1eb451fccdeadc3109d74f6802b5",
     "default_origin": "EuropeAndMaghreb",
@@ -182,18 +172,6 @@
         "simple_ingredient_default": "Lamb, conventional, indoor production system, at farm gate",
         "simple_ingredient_variant": "Lamb, organic, system n°1, at farm gate"
       }
-    }
-  },
-  {
-    "id": "apple",
-    "name": "Pomme",
-    "default": "590c11ca7aa7534b27f5403fb4688c5b",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "transport_cooling": "once_transformed",
-    "variants": {
-      "organic": "f1308e8aaa0cee8f63f6afb48e9abecd"
     }
   },
   {

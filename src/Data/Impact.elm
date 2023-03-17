@@ -481,7 +481,7 @@ parseTrigram scope =
     let
         trigrams =
             -- FIXME: find a way to have this check performed automatically from impacts db
-            "acd,bvi,cch,ecs,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
+            "acd,bvi,cch,ecs,etf,etf-c,fru,fwe,htc,htc-c,htn,htc-c,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|

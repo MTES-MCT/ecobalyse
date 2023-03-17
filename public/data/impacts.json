@@ -392,11 +392,34 @@
       "normalization": 4.27e4,
       "weighting": 0.0192
     },
+    "ecoscore": null,
+    "scopes": ["food"]
+  },
+  "etf-c": {
+    "source": {
+      "label": "Ecobalyse",
+      "url": "https://ecobalyse.beta.gouv.fr/"
+    },
+    "label_en": "Ecotoxicity: freshwater, corrected",
+    "label_fr": "Écotoxicité de l'eau douce, corrigée",
+    "unit_fr": "CTUe",
+    "unit_en": "CTUe",
+    "description_en": "Indicator of freshwater ecotoxicity. The unit of measurement is Comparative Toxic Unit for ecosystems (CTUe). This impact is corrected.",
+    "description_fr": "Indicateur d'écotoxicité pour écosystèmes aquatiques d'eau douce. Cet indicateur se mesure en Comparative Toxic Unit for ecosystems (CTUe). Cet indicateur est corrigé.",
+    "short_unit": "CTUe",
+    "decimals": 2,
+    "quality": 0,
+    "pef": null,
     "ecoscore": {
       "color": "#03A764",
       "normalization": 4.27e4,
       "weighting": 0.0407
     },
+    "correction": [
+      {"sub-impact": "etf-o", "weighting": 2},
+      {"sub-impact": "etf-i", "weighting": 1},
+      {"sub-impact": "etf-m", "weighting": 1}
+    ],
     "scopes": ["food"]
   },
   "htc": {
@@ -418,11 +441,34 @@
       "normalization": 1.69e-5,
       "weighting": 0.0213
     },
+    "ecoscore": null,
+    "scopes": ["food"]
+  },
+  "htc-c": {
+    "source": {
+      "label": "Ecobalyse",
+      "url": "https://ecobalyse.beta.gouv.fr/"
+    },
+    "label_en": "Human toxicity: carcinogenic, corrected",
+    "label_fr": "Toxicité humaine - cancer, corrigée",
+    "unit_fr": "CTUh",
+    "unit_en": "CTUh",
+    "description_en": "Indicator of carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh). This impact is corrected.",
+    "description_fr": "Indicateur de toxicité cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh). Cet indicateur est corrigé.",
+    "short_unit": "CTUh",
+    "decimals": 2,
+    "quality": 0,
+    "pef": null,
     "ecoscore": {
       "color": "#A77C2B",
       "normalization": 1.69e-5,
       "weighting": 0.0452
     },
+    "correction": [
+      {"sub-impact": "htc-o", "weighting": 2},
+      {"sub-impact": "htc-i", "weighting": 1},
+      {"sub-impact": "htc-m", "weighting": 1}
+    ],
     "scopes": ["food"]
   },
   "htn": {
@@ -444,11 +490,34 @@
       "normalization": 2.297e-4,
       "weighting": 0.0184
     },
+    "ecoscore": null,
+    "scopes": ["food"]
+  },
+  "htn-c": {
+    "source": {
+      "label": "Ecobalyse",
+      "url": "https://ecobalyse.beta.gouv.fr/"
+    },
+    "label_en": "Human toxicity: non-carcinogenic, corrected",
+    "label_fr": "Toxicité humaine - non-cancer, corrigée",
+    "unit_fr": "CTUh",
+    "unit_en": "CTUh",
+    "description_en": "Indicator of non-carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh). This is a corrected impact.",
+    "description_fr": "Indicateur de toxicité non cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh). Cet indicateur est corrigé.",
+    "short_unit": "CTUh",
+    "decimals": 2,
+    "quality": 0,
+    "pef": null,
     "ecoscore": {
       "color": "#FFA907",
       "normalization": 2.297e-4,
       "weighting": 0.039
     },
+    "correction": [
+      {"sub-impact": "htn-o", "weighting": 2},
+      {"sub-impact": "htn-i", "weighting": 1},
+      {"sub-impact": "htn-m", "weighting": 1}
+    ],
     "scopes": ["food"]
   },
   "bvi": {
