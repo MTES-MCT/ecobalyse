@@ -34,6 +34,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
+import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -357,13 +358,11 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
             -- and we selected a transport by plane, then we take an air transport ratio of 1
-            Unit.Ratio
-                (if planeTransport == Ingredient.ByPlane then
-                    1
+            if planeTransport == Ingredient.ByPlane then
+                Split.full
 
-                 else
-                    0
-                )
+            else
+                Split.zero
 
         baseTransport =
             let

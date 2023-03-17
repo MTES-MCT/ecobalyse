@@ -2,6 +2,7 @@ module Data.Food.PreparationTest exposing (..)
 
 import Data.Food.Preparation as Preparation
 import Data.Impact as Impact
+import Data.Split as Split
 import Data.Unit as Unit
 import Energy
 import Expect
@@ -17,8 +18,8 @@ suite =
             [ describe "apply"
                 [ { id = Preparation.Id "sample"
                   , name = "Sample"
-                  , elec = ( Energy.kilowattHours 1, Unit.ratio 0.5 )
-                  , heat = ( Energy.megajoules 1, Unit.ratio 0.5 )
+                  , elec = ( Energy.kilowattHours 1, Split.half )
+                  , heat = ( Energy.megajoules 1, Split.half )
                   , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply builderDb (Mass.kilograms 1)

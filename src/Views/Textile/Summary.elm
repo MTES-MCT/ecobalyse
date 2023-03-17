@@ -36,11 +36,10 @@ type alias Config =
 viewMaterials : List Inputs.MaterialInput -> Html msg
 viewMaterials materials =
     materials
-        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
             (\{ material, share } ->
                 span []
-                    [ Format.ratioToDecimals 0 share
+                    [ Format.splitAsPercentage share
                     , text " "
                     , text material.shortName
                     ]

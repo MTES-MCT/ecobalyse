@@ -30,6 +30,7 @@ module Data.Textile.Inputs exposing
 
 import Base64
 import Data.Country as Country exposing (Country)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -50,7 +51,7 @@ import Views.Format as Format
 
 type alias MaterialInput =
     { material : Material
-    , share : Unit.Ratio
+    , share : Split
     }
 
 
@@ -66,10 +67,10 @@ type alias Inputs =
     , countryDistribution : Country
     , countryUse : Country
     , countryEndOfLife : Country
-    , airTransportRatio : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
@@ -82,7 +83,7 @@ type alias Inputs =
 
 type alias MaterialQuery =
     { id : Material.Id
-    , share : Unit.Ratio
+    , share : Split
     }
 
 
@@ -94,10 +95,10 @@ type alias Query =
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
-    , airTransportRatio : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
@@ -130,7 +131,7 @@ toMaterialQuery =
 
 getMainMaterial : List MaterialInput -> Result String Material
 getMainMaterial =
-    List.sortBy (.share >> Unit.ratioToFloat)
+    List.sortBy (.share >> Split.toFloat)
         >> List.reverse
         >> List.head
         >> Maybe.map .material
@@ -300,10 +301,10 @@ toString inputs =
 materialsToString : List MaterialInput -> String
 materialsToString materials =
     materials
-        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
+        |> List.filter (\{ share } -> Split.toFloat share > 0)
         |> List.map
             (\{ material, share } ->
-                Format.formatFloat 0 (Unit.ratioToFloat share * 100)
+                Split.toPercentString share
                     ++ "% "
                     ++ material.shortName
             )
@@ -319,15 +320,15 @@ weavingOptionsToString _ _ =
 makingOptionsToString : Inputs -> String
 makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading } =
     [ makingWaste
-        |> Maybe.map (Format.ratioToPercentString >> (\s -> s ++ " de perte"))
+        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
-                if Unit.ratioToFloat ratio == 0 then
+                if Split.toPercent ratio == 0 then
                     Nothing
 
                 else
-                    Just (Format.ratioToPercentString ratio ++ " de transport aérien")
+                    Just (Split.toPercentString ratio ++ " de transport aérien")
             )
     , if product.making.fadable && disabledFading == Just True then
         Just "non-délavé"
@@ -451,7 +452,7 @@ addMaterial db query =
         Just id ->
             { query
                 | materials =
-                    query.materials ++ [ { id = id, share = Unit.ratio 0 } ]
+                    query.materials ++ [ { id = id, share = Split.zero } ]
             }
 
         Nothing ->
@@ -469,7 +470,7 @@ updateMaterial index { id } =
     updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share })
 
 
-updateMaterialShare : Int -> Unit.Ratio -> Query -> Query
+updateMaterialShare : Int -> Split -> Query -> Query
 updateMaterialShare index share =
     updateMaterialAt index (\m -> { m | share = share })
 
@@ -480,7 +481,7 @@ removeMaterial index query =
         |> (\({ materials } as q) ->
                 -- set share to 100% when a single material remains
                 if List.length materials == 1 then
-                    updateMaterialShare 0 (Unit.ratio 1) q
+                    updateMaterialShare 0 Split.full q
 
                 else
                     q
@@ -518,7 +519,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "coton", share = Split.full } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -572,7 +573,7 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "acrylique", share = Split.full } ]
     , product = Product.Id "jupe"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
@@ -596,7 +597,7 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , materials = [ { id = Material.Id "cachemire", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "cachemire", share = Split.full } ]
     , product = Product.Id "manteau"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -620,7 +621,7 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , materials = [ { id = Material.Id "lin-filasse", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "lin-filasse", share = Split.full } ]
     , product = Product.Id "pantalon"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -660,10 +661,10 @@ encode inputs =
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
@@ -678,7 +679,7 @@ encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     Encode.object
         [ ( "material", Material.encode v.material )
-        , ( "share", Unit.encodeRatio v.share )
+        , ( "share", Split.encodeFloat v.share )
         ]
 
 
@@ -692,10 +693,10 @@ decodeQuery =
         |> Pipe.required "countryFabric" Country.decodeCode
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "airTransportRatio" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
@@ -709,7 +710,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "share" Split.decodeFloat
 
 
 encodeQuery : Query -> Encode.Value
@@ -722,10 +723,10 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Country.encodeCode )
         , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
         , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
@@ -740,7 +741,7 @@ encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     Encode.object
         [ ( "id", Material.encodeId v.id )
-        , ( "share", Unit.encodeRatio v.share )
+        , ( "share", Split.encodeFloat v.share )
         ]
 
 

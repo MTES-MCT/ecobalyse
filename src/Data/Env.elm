@@ -9,7 +9,7 @@ module Data.Env exposing
     , minMakingWasteRatio
     )
 
-import Data.Unit as Unit
+import Data.Split as Split exposing (Split)
 
 
 betagouvUrl : String
@@ -37,14 +37,14 @@ githubUrl =
     "https://github.com/" ++ githubRepository
 
 
-minMakingWasteRatio : Unit.Ratio
+minMakingWasteRatio : Split
 minMakingWasteRatio =
-    Unit.ratio 0
+    Split.zero
 
 
-maxMakingWasteRatio : Unit.Ratio
+maxMakingWasteRatio : Split
 maxMakingWasteRatio =
-    Unit.ratio 0.4
+    Split.fourty
 
 
 maxMaterials : Int

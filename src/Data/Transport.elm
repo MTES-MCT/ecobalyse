@@ -19,6 +19,7 @@ import Data.Country as Country
 import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
@@ -154,28 +155,30 @@ for shorter distances. A few notes:
   - Otherwise we can apply specific ratios
 
 -}
-roadSeaTransportRatio : Transport -> Float
+roadSeaTransportRatio : Transport -> Split
 roadSeaTransportRatio { road, sea } =
     if Length.inKilometers road == 0 then
-        0
+        Split.zero
 
     else if Length.inKilometers sea == 0 then
-        1
+        Split.full
 
     else if Length.inKilometers road <= 500 then
-        1
+        Split.full
 
     else if Length.inKilometers road < 1000 then
-        0.9
+        -- 0.9
+        Split.tenth
+            |> Split.complement
 
     else if Length.inKilometers road < 2000 then
-        0.5
+        Split.half
 
     else if Length.inKilometers road < 3000 then
-        0.25
+        Split.quarter
 
     else
-        0
+        Split.zero
 
 
 getTransportBetween :

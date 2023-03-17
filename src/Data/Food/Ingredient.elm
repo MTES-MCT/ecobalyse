@@ -17,6 +17,7 @@ module Data.Food.Ingredient exposing
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
+import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
@@ -112,9 +113,9 @@ type alias OrganicVariant =
 
 
 type alias BeyondLCA =
-    { agroDiversity : Unit.Ratio
-    , agroEcology : Unit.Ratio
-    , animalWellness : Unit.Ratio
+    { agroDiversity : Split
+    , agroEcology : Split
+    , animalWellness : Split
     }
 
 
@@ -220,6 +221,6 @@ linkOrganicVariant processes =
 decodeBeyondLCA : Decoder BeyondLCA
 decodeBeyondLCA =
     Decode.succeed BeyondLCA
-        |> Pipe.required "agro-diversity" (Unit.decodeRatio { percentage = True })
-        |> Pipe.required "agro-ecology" (Unit.decodeRatio { percentage = True })
-        |> Pipe.optional "animal-wellness" (Unit.decodeRatio { percentage = True }) (Unit.ratio 0)
+        |> Pipe.required "agro-diversity" Split.decodeFloat
+        |> Pipe.required "agro-ecology" Split.decodeFloat
+        |> Pipe.optional "animal-wellness" Split.decodeFloat Split.zero

@@ -29,6 +29,7 @@ import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
 import Data.Scope as Scope
+import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
@@ -463,7 +464,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
             transport
                 -- We want the transport ratio for the plane to be 0 for food (for now)
                 -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
-                |> Formula.transportRatio (Unit.Ratio 0)
+                |> Formula.transportRatio Split.zero
 
         transports =
             Process.loadWellKnown processes

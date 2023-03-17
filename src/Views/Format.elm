@@ -16,14 +16,15 @@ module Views.Format exposing
     , percent
     , picking
     , ratio
-    , ratioToDecimals
-    , ratioToPercentString
+    , splitAsFloat
+    , splitAsPercentage
     , squareMetters
     , surfaceMass
     )
 
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Decimal
 import Duration exposing (Duration)
@@ -167,17 +168,6 @@ picking =
     Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
 
 
-ratioToPercentString : Unit.Ratio -> String
-ratioToPercentString value =
-    (value
-        |> Unit.ratioToFloat
-        |> (*) 100
-        |> round
-        |> String.fromInt
-    )
-        ++ "\u{202F}%"
-
-
 ratio : Unit.Ratio -> Html msg
 ratio =
     ratioToDecimals 2
@@ -187,6 +177,20 @@ ratioToDecimals : Int -> Unit.Ratio -> Html msg
 ratioToDecimals decimals (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat decimals "%"
+
+
+splitAsFloat : Int -> Split -> Html msg
+splitAsFloat int value =
+    Split.toFloat value
+        |> formatFloat int
+        |> text
+
+
+splitAsPercentage : Split -> Html msg
+splitAsPercentage value =
+    Split.toPercentString value
+        ++ "\u{202F}%"
+        |> Html.text
 
 
 days : Duration -> Html msg

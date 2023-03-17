@@ -13,6 +13,7 @@ module Data.Food.Preparation exposing
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -24,8 +25,8 @@ import Mass exposing (Mass)
 type alias Preparation =
     { id : Id
     , name : String
-    , elec : ( Energy, Unit.Ratio )
-    , heat : ( Energy, Unit.Ratio )
+    , elec : ( Energy, Split )
+    , heat : ( Energy, Split )
     , applyRawToCookedRatio : Bool
     }
 
@@ -39,44 +40,44 @@ all =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/consommation#preparations-de-preparation
     [ { id = Id "frying"
       , name = "Friture"
-      , elec = ( Energy.kilowattHours 0.667, Unit.ratio 1 )
-      , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , elec = ( Energy.kilowattHours 0.667, Split.full )
+      , heat = ( Energy.megajoules 0, Split.zero )
       , applyRawToCookedRatio = True
       }
     , { id = Id "pan-cooking"
       , name = "Cuisson à la poêle"
-      , elec = ( Energy.kilowattHours 0.44, Unit.ratio 0.4 )
-      , heat = ( Energy.megajoules 1.584, Unit.ratio 0.6 )
+      , elec = ( Energy.kilowattHours 0.44, Split.fourty )
+      , heat = ( Energy.megajoules 1.584, Split.complement Split.fourty )
       , applyRawToCookedRatio = True
       }
     , { id = Id "pan-warming"
       , name = "Réchauffage à la poêle"
-      , elec = ( Energy.kilowattHours 0.08, Unit.ratio 0.4 )
-      , heat = ( Energy.megajoules 0.288, Unit.ratio 0.6 )
+      , elec = ( Energy.kilowattHours 0.08, Split.fourty )
+      , heat = ( Energy.megajoules 0.288, Split.complement Split.fourty )
       , applyRawToCookedRatio = False
       }
     , { id = Id "oven"
       , name = "Cuisson au four"
-      , elec = ( Energy.kilowattHours 0.999, Unit.ratio 1 )
-      , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , elec = ( Energy.kilowattHours 0.999, Split.full )
+      , heat = ( Energy.megajoules 0, Split.zero )
       , applyRawToCookedRatio = True
       }
     , { id = Id "microwave"
       , name = "Cuisson au four micro-ondes"
-      , elec = ( Energy.kilowattHours 0.128, Unit.ratio 1 )
-      , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , elec = ( Energy.kilowattHours 0.128, Split.full )
+      , heat = ( Energy.megajoules 0, Split.zero )
       , applyRawToCookedRatio = True
       }
     , { id = Id "refrigeration"
       , name = "Réfrigération"
-      , elec = ( Energy.kilowattHours 0.0777, Unit.ratio 1 )
-      , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , elec = ( Energy.kilowattHours 0.0777, Split.full )
+      , heat = ( Energy.megajoules 0, Split.zero )
       , applyRawToCookedRatio = False
       }
     , { id = Id "freezing"
       , name = "Congélation"
-      , elec = ( Energy.kilowattHours 0.294, Unit.ratio 1 )
-      , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , elec = ( Energy.kilowattHours 0.294, Split.full )
+      , heat = ( Energy.megajoules 0, Split.zero )
       , applyRawToCookedRatio = False
       }
     ]
@@ -95,7 +96,7 @@ apply db mass preparation =
                                 Unit.impactToFloat
                                     >> (*) (Energy.inKilowattHours (Tuple.first preparation.elec))
                                     >> (*) (Mass.inKilograms mass)
-                                    >> (*) (Unit.ratioToFloat (Tuple.second preparation.elec))
+                                    >> (*) (Split.toFloat (Tuple.second preparation.elec))
                                     >> Unit.impact
                             )
                     , domesticGasHeat.impacts
@@ -104,7 +105,7 @@ apply db mass preparation =
                                 Unit.impactToFloat
                                     >> (*) (Energy.inMegajoules (Tuple.first preparation.heat))
                                     >> (*) (Mass.inKilograms mass)
-                                    >> (*) (Unit.ratioToFloat (Tuple.second preparation.heat))
+                                    >> (*) (Split.toFloat (Tuple.second preparation.heat))
                                     >> Unit.impact
                             )
                     ]

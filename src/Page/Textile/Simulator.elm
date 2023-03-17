@@ -16,6 +16,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource exposing (HeatSource)
@@ -87,14 +88,14 @@ type Msg
     | ToggleDisabledFading Bool
     | ToggleStep Label
     | ToggleStepViewMode Int
-    | UpdateAirTransportRatio (Maybe Unit.Ratio)
+    | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
-    | UpdateMakingWaste (Maybe Unit.Ratio)
+    | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
-    | UpdateMaterialShare Int Unit.Ratio
+    | UpdateMaterialShare Int Split
     | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id

@@ -44,7 +44,7 @@ table db { detailed, scope } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.making.pcrWaste ]
+                    [ Format.splitAsPercentage product.making.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =
@@ -126,13 +126,13 @@ table db { detailed, scope } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.use.ratioDryer ]
+                    [ Format.splitAsPercentage product.use.ratioDryer ]
       }
     , { label = "Repassage (part)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.use.ratioIroning ]
+                    [ Format.splitAsPercentage product.use.ratioIroning ]
       }
     , { label = "Repassage (temps)"
       , toCell =

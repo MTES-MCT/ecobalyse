@@ -8,6 +8,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Scope as Scope
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -48,11 +49,11 @@ type alias Config msg =
     , updateCountry : Label -> Country.Code -> msg
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
-    , updateAirTransportRatio : Maybe Unit.Ratio -> msg
+    , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateMakingWaste : Maybe Unit.Ratio -> msg
+    , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
@@ -137,7 +138,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
     span
         [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
         ]
-        [ RangeSlider.ratio
+        [ RangeSlider.percent
             { id = "airTransportRatio"
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
@@ -222,7 +223,7 @@ printingFields { inputs, updatePrinting } =
                             (\percent ->
                                 option
                                     [ value (String.fromFloat percent)
-                                    , selected <| Unit.ratioToFloat ratio == percent / 100
+                                    , selected <| ratio == Split.full
                                     ]
                                     [ text <| String.fromFloat percent ++ "%" ]
                             )
@@ -235,7 +236,15 @@ printingFields { inputs, updatePrinting } =
                                     case String.toInt str of
                                         Just percent ->
                                             inputs.printing
-                                                |> Maybe.map (\p -> { p | ratio = Unit.ratio (toFloat percent / 100) })
+                                                |> Maybe.map
+                                                    (\p ->
+                                                        { p
+                                                            | ratio =
+                                                                Split.fromPercent percent
+                                                                    |> Result.toMaybe
+                                                                    |> Maybe.withDefault Split.zero
+                                                        }
+                                                    )
                                                 |> updatePrinting
 
                                         Nothing ->
@@ -321,14 +330,14 @@ makingWasteField { current, inputs, updateMakingWaste } =
     span
         [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
         ]
-        [ RangeSlider.ratio
+        [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
             , disabled = not current.enabled
             , min = 0
-            , max = round <| Unit.ratioToFloat Env.maxMakingWasteRatio * 100
+            , max = Split.toPercent Env.maxMakingWasteRatio
             }
         ]
 

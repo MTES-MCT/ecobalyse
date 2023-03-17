@@ -39,7 +39,7 @@ table { detailed, scope } =
       , toCell =
             \country ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio country.airTransportRatio
+                    [ Format.splitAsPercentage country.airTransportRatio
                     , Link.smallPillExternal
                         [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
                         [ Icon.info ]
