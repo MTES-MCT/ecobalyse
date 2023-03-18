@@ -78,6 +78,7 @@ type Msg
     | AddPackaging
     | AddPreparation
     | AddTransform
+    | AddDistribution
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
@@ -88,6 +89,7 @@ type Msg
     | NoOp
     | OpenComparator
     | ResetTransform
+    | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetCategory (Result String (Maybe Category.Id))
@@ -230,6 +232,10 @@ update ({ queries } as session) msg model =
                             identity
                    )
 
+        AddDistribution ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.setDistribution Retail.ambient query)
+
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
@@ -275,6 +281,10 @@ update ({ queries } as session) msg model =
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
+
+        ResetDistribution ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.resetDistribution query)
 
         ResetTransform ->
             ( model, session, Cmd.none )
@@ -341,9 +351,9 @@ update ({ queries } as session) msg model =
         UpdateBookmarkName recipeName ->
             ( { model | bookmarkName = recipeName }, session, Cmd.none )
 
-        UpdateDistribution distribution ->
+        UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateDistribution distribution query)
+                |> updateQuery (Query.updateDistribution newDistribution query)
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
@@ -952,39 +962,62 @@ transportAfterConsumptionView recipe result =
 
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
+    let
+        impact =
+            results.distribution.total
+                |> Format.formatFoodSelectedImpact selectedImpact
+    in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , div []
-        [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
-            [ li [ class "IngredientFormWrapper" ]
-                [ select
-                    [ class "form-select form-select-sm"
-                    , onInput UpdateDistribution
+    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+        (case recipe.distribution of
+            Just distribution ->
+                [ li [ class "IngredientFormWrapper" ]
+                    [ select
+                        [ class "form-select form-select-sm"
+                        , onInput UpdateDistribution
+                        ]
+                        (Retail.all
+                            |> List.map
+                                (\distrib ->
+                                    option
+                                        [ selected (recipe.distribution == Just distrib)
+                                        , value (Retail.toString distrib)
+                                        ]
+                                        [ text (Retail.toDisplay distrib) ]
+                                )
+                        )
+                    , span [ class "text-end ImpactDisplay fs-7" ]
+                        [ impact ]
+                    , button
+                        [ type_ "button"
+                        , class "btn btn-sm btn-outline-primary IngredientDelete"
+                        , title <| "Supprimer "
+                        , onClick ResetDistribution
+                        ]
+                        [ Icon.trash ]
                     ]
-                    (Retail.all
-                        |> List.map
-                            (\distribution ->
-                                option
-                                    [ selected (recipe.distribution == distribution)
-                                    , value (Retail.toString distribution)
-                                    ]
-                                    [ text (Retail.toDisplay distribution) ]
-                            )
-                    )
-                ]
-            , li
-                [ class "list-group-item fs-7" ]
-                [ span [ class "text-truncate" ]
-                    [ recipe.distribution
-                        |> Retail.displayNeeds
-                        |> text
+                , li
+                    [ class "list-group-item fs-7" ]
+                    [ span [ class "text-truncate" ]
+                        [ distribution
+                            |> Retail.displayNeeds
+                            |> text
+                        ]
                     ]
                 ]
-            ]
-        ]
+
+            Nothing ->
+                [ addProcessFormView
+                    { isDisabled = False
+                    , event = AddDistribution
+                    , kind = "un mode de distribution"
+                    }
+                ]
+        )
     ]
 
 
