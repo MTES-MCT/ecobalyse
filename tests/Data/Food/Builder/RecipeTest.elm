@@ -203,7 +203,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
                   , preparation = []
                   }
                     |> Recipe.compute builderDb
@@ -266,7 +266,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
                   , preparation = []
                   }
                     |> Recipe.compute builderDb
@@ -277,7 +277,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
                   , preparation = []
                   }
                     |> Recipe.compute builderDb
@@ -288,7 +288,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Just Retail.ambient
                   , preparation = []
                   }
                     |> Recipe.compute builderDb
@@ -299,7 +299,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Just Retail.ambient
                   , preparation = []
                   }
                     |> Recipe.compute builderDb

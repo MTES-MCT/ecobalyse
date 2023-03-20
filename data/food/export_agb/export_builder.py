@@ -307,7 +307,10 @@ def compute_ingredient_list(processes, ingredients_base):
                         simple_ingredient_variant["impacts"][impact]
                         - simple_ingredient_default["impacts"][impact]
                     )
-                ingredient["variants"][variant_name] = new_process["simapro_id"]
+                del variant["simple_ingredient_default"]
+                del variant["simple_ingredient_variant"]
+                del variant["ratio"]
+                variant["process"] = new_process["simapro_id"]
 
                 new_processes.append(new_process)
 

@@ -329,13 +329,16 @@ maybeTransformParser key transforms =
             )
 
 
-distributionParser : String -> Parser (ParseResult Distribution)
+distributionParser : String -> Parser (ParseResult (Maybe Distribution))
 distributionParser key =
     Query.string key
         |> Query.map
-            (Maybe.withDefault "ambient"
-                >> Retail.fromString
-                >> Result.mapError (\err -> ( key, err ))
+            (Maybe.map
+                (Retail.fromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
