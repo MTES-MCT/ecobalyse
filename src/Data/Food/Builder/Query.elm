@@ -16,6 +16,7 @@ module Data.Food.Builder.Query exposing
     , getIngredientMass
     , parseBase64Query
     , serialize
+    , setDistribution
     , setTransform
     , updateDistribution
     , updateIngredient
@@ -64,7 +65,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , distribution : Retail.Distribution
+    , distribution : Maybe Retail.Distribution
     , preparation : List Preparation.Id
     , category : Maybe Category.Id
     }
@@ -103,7 +104,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
-    , distribution = Retail.ambient
+    , distribution = Nothing
     , preparation = []
     , category = Nothing
     }
@@ -149,7 +150,7 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
-    , distribution = Retail.ambient
+    , distribution = Just Retail.ambient
     , preparation = [ Preparation.Id "refrigeration" ]
     , category = Just (Category.Id "cakes")
     }
@@ -161,7 +162,7 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.custom (Decode.field "distribution" Retail.decode)
+        |> Pipe.custom (Decode.field "distribution" (Decode.maybe Retail.decode))
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
@@ -248,7 +249,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "distribution", Retail.encode v.distribution )
+        , ( "distribution", v.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         , ( "preparation", Encode.list Preparation.encodeId v.preparation )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
@@ -306,6 +307,11 @@ getIngredientMass ingredients =
 setTransform : ProcessQuery -> Query -> Query
 setTransform transform query =
     { query | transform = Just transform }
+
+
+setDistribution : Retail.Distribution -> Query -> Query
+setDistribution distribution query =
+    { query | distribution = Just distribution }
 
 
 updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query
@@ -382,6 +388,7 @@ updateDistribution distribution query =
         | distribution =
             Retail.fromString distribution
                 |> Result.withDefault Retail.ambient
+                |> Just
     }
 
 

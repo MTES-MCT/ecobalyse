@@ -18,6 +18,7 @@ module Data.Food.Builder.Recipe exposing
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
+    , resetDistribution
     , resetTransform
     , setCategory
     , toString
@@ -72,7 +73,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , distribution : Retail.Distribution
+    , distribution : Maybe Retail.Distribution
     , preparation : List Preparation
     , category : Maybe Category
     }
@@ -182,12 +183,17 @@ compute db =
                             |> Maybe.withDefault Impact.noImpacts
 
                     distributionImpacts =
-                        let
-                            volume =
-                                getTransformedIngredientsVolume recipe
-                        in
-                        Result.map (Retail.computeImpacts db volume distribution)
-                            (Process.loadWellKnown db.processes)
+                        distribution
+                            |> Maybe.map
+                                (\distrib ->
+                                    let
+                                        volume =
+                                            getTransformedIngredientsVolume recipe
+                                    in
+                                    Result.map (Retail.computeImpacts db volume distrib)
+                                        (Process.loadWellKnown db.processes)
+                                )
+                            |> Maybe.withDefault (Ok Impact.noImpacts)
 
                     distributionTransportNeedsCooling =
                         ingredients
@@ -199,7 +205,12 @@ compute db =
                                 getMassAtPackaging recipe
 
                             transport =
-                                Retail.distributionTransport distribution distributionTransportNeedsCooling
+                                distribution
+                                    |> Maybe.map
+                                        (\distrib ->
+                                            Retail.distributionTransport distrib distributionTransportNeedsCooling
+                                        )
+                                    |> Maybe.withDefault (Transport.default Impact.noImpacts)
                         in
                         db.processes
                             |> Process.loadWellKnown
@@ -468,7 +479,7 @@ encode q =
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess q.packaging )
         , ( "preparation", Encode.list Preparation.encodeId q.preparation )
-        , ( "distribution", Retail.encode q.distribution )
+        , ( "distribution", q.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -690,6 +701,11 @@ processQueryFromProcess process =
 resetTransform : Query -> Query
 resetTransform query =
     { query | transform = Nothing }
+
+
+resetDistribution : Query -> Query
+resetDistribution query =
+    { query | distribution = Nothing }
 
 
 setCategory : Maybe Category.Id -> Query -> Query

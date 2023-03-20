@@ -754,21 +754,20 @@ components:
       schema:
         type: string
         description: Type de distribution chez le distributeur
-        default: "ambient"
         enum:
           - "ambient"
           - "fresh"
           - "frozen"
       examples:
-        Default:
+        ambient:
           summary: "Température ambiante"
           value: "ambient"
         fresh:
-          summary: Température ambiante
-          value: fresh
+          summary: "Réfrigéré"
+          value: "fresh"
         frozen:
-          summary: Congelé
-          value: frozen
+          summary: "Congelé"
+          value: "frozen"
     preparationParam:
       name: preparation[]
       in: query
