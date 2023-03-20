@@ -49,7 +49,7 @@ type alias Ingredient =
 type alias Bonuses =
     { agroDiversity : Split
     , agroEcology : Split
-    , animalWellness : Split
+    , animalWelfare : Split
     }
 
 
@@ -115,7 +115,7 @@ defaultBonuses : Bonuses
 defaultBonuses =
     { agroDiversity = Split.zero
     , agroEcology = Split.zero
-    , animalWellness = Split.zero
+    , animalWelfare = Split.zero
     }
 
 
@@ -124,7 +124,7 @@ encodeBonuses v =
     Encode.object
         [ ( "agroDiversity", Split.encodeFloat v.agroDiversity )
         , ( "agroEcology", Split.encodeFloat v.agroEcology )
-        , ( "animalWellness", Split.encodeFloat v.animalWellness )
+        , ( "animalWelfare", Split.encodeFloat v.animalWelfare )
         ]
 
 

@@ -13,7 +13,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         }
       },
       "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
@@ -33,7 +33,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         }
       }
     }
@@ -171,7 +171,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle, national average, at farm gate",
@@ -192,7 +192,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "ratio": 2.02,
         "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
@@ -213,7 +213,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "ratio": 1,
         "simple_ingredient_default": "Broiler, conventional, at farm gate",
@@ -234,7 +234,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "ratio": 1.91,
         "simple_ingredient_default": "Lamb, conventional, indoor production system, at farm gate",

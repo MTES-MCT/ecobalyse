@@ -659,11 +659,11 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 }
             , ingredientBonusView
                 { name = "Bien-être animal"
-                , domId = "animalWellness"
-                , bonus = bonuses.animalWellness
+                , domId = "animalWelfare"
+                , bonus = bonuses.animalWelfare
                 , updateEvent =
                     \split ->
-                        event { ingredientQuery | bonuses = { bonuses | animalWellness = split } }
+                        event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
                 }
             ]
         , displayTransportDistances db ingredient ingredientQuery event
