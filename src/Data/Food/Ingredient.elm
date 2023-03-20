@@ -10,10 +10,11 @@ module Data.Food.Ingredient exposing
     , decodeId
     , decodeIngredients
     , defaultBonuses
+    , encodeBonuses
     , encodeId
     , findByID
+    , getDefaultOrganicBonuses
     , getDefaultOriginTransport
-    , getOrganicBonus
     , idFromString
     , idToString
     )
@@ -118,22 +119,26 @@ defaultBonuses =
     }
 
 
+encodeBonuses : Bonuses -> Encode.Value
+encodeBonuses v =
+    Encode.object
+        [ ( "agroDiversity", Split.encodeFloat v.agroDiversity )
+        , ( "agroEcology", Split.encodeFloat v.agroEcology )
+        , ( "animalWellness", Split.encodeFloat v.animalWellness )
+        ]
+
+
 encodeId : Id -> Encode.Value
 encodeId (Id str) =
     Encode.string str
 
 
-getOrganicBonus : (Bonuses -> Split) -> Ingredient -> Split
-getOrganicBonus getter =
+getDefaultOrganicBonuses : Ingredient -> Bonuses
+getDefaultOrganicBonuses =
     .variants
         >> .organic
         >> Maybe.map .defaultBeyondLCA
-        >> Maybe.withDefault
-            { agroDiversity = Split.zero
-            , agroEcology = Split.zero
-            , animalWellness = Split.zero
-            }
-        >> getter
+        >> Maybe.withDefault defaultBonuses
 
 
 idFromString : String -> Id

@@ -269,6 +269,7 @@ encodeIngredient v =
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "byPlane", encodePlaneTransport v.planeTransport )
+        , ( "bonuses", Ingredient.encodeBonuses v.bonuses )
         ]
 
 

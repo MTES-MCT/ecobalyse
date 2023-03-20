@@ -618,6 +618,12 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
 
                                     else
                                         Query.DefaultVariant
+                                , bonuses =
+                                    if checked then
+                                        Ingredient.getDefaultOrganicBonuses ingredient.ingredient
+
+                                    else
+                                        Ingredient.defaultBonuses
                             }
                     )
                 ]
@@ -637,21 +643,21 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ summary [] [ text "Bonus écologiques inclus" ]
             , ingredientBonusView
                 { name = "Diversité agricole"
-                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .agroDiversity
+                , bonus = bonuses.agroDiversity
                 , updateEvent =
                     \split ->
                         event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
                 }
             , ingredientBonusView
                 { name = "Agro-écologie"
-                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .agroEcology
+                , bonus = bonuses.agroEcology
                 , updateEvent =
                     \split ->
                         event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
                 }
             , ingredientBonusView
                 { name = "Bien-être animal"
-                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .animalWellness
+                , bonus = bonuses.animalWellness
                 , updateEvent =
                     \split ->
                         event { ingredientQuery | bonuses = { bonuses | animalWellness = split } }
