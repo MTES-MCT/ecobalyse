@@ -26,6 +26,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -98,7 +99,6 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
-    | UpdateIngredientBonus Id String Float
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -350,10 +350,6 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
 
-        UpdateIngredientBonus ingredientId bonusName bonusValue ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.updateIngredientBonus ingredientId bonusName bonusValue query)
-
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updatePackaging code newPackaging query)
@@ -500,6 +496,9 @@ type alias UpdateIngredientConfig =
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
 updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
     let
+        { bonuses } =
+            ingredient
+
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
             { id = ingredient.ingredient.id
@@ -507,6 +506,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
             , planeTransport = ingredient.planeTransport
+            , bonuses = bonuses
             }
 
         event =
@@ -625,12 +625,27 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ Icon.trash ]
         , details [ class "IngredientBonuses fs-7" ]
             [ summary [] [ text "Bonus écologiques inclus" ]
-            , [ { name = "Agro-écologie", value = 0.12 }
-              , { name = "Diversité agricole", value = 0.57 }
-              , { name = "Bien-être animal", value = 0.99 }
-              ]
-                |> List.map (ingredientBonusView ingredient.ingredient.id)
-                |> div []
+            , ingredientBonusView
+                { name = "Diversité agricole"
+                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .agroDiversity
+                , updateEvent =
+                    \split ->
+                        event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
+                }
+            , ingredientBonusView
+                { name = "Agro-écologie"
+                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .agroEcology
+                , updateEvent =
+                    \split ->
+                        event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
+                }
+            , ingredientBonusView
+                { name = "Bien-être animal"
+                , bonus = ingredient.ingredient |> Ingredient.getOrganicBonus .animalWellness
+                , updateEvent =
+                    \split ->
+                        event { ingredientQuery | bonuses = { bonuses | animalWellness = split } }
+                }
             ]
         , displayTransportDistances db ingredient ingredientQuery event
         , span
@@ -643,31 +658,33 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
         ]
 
 
-type alias BonusViewConfig =
+type alias BonusViewConfig msg =
     { name : String
-    , value : Float
+    , bonus : Split
+    , updateEvent : Split -> msg
     }
 
 
-ingredientBonusView : Id -> BonusViewConfig -> Html Msg
-ingredientBonusView ingredientId { name, value } =
+ingredientBonusView : BonusViewConfig Msg -> Html Msg
+ingredientBonusView { name, bonus, updateEvent } =
     div [ class "d-block d-sm-flex justify-content-between gap-3 my-1" ]
         [ span [ class "BonusName text-nowrap text-end" ] [ text name ]
         , input
             [ type_ "range"
             , class "BonusRange form-range"
             , Attr.min "0"
-            , Attr.max "1"
-            , step "0.01"
-            , Attr.value <| String.fromFloat value
+            , Attr.max "100"
+            , step "1"
+            , Attr.value <| Split.toPercentString bonus
             , onInput
-                (String.toFloat
-                    >> Maybe.withDefault 0
-                    >> UpdateIngredientBonus ingredientId name
+                (String.toInt
+                    >> Maybe.map (Split.fromPercent >> Result.withDefault Split.zero)
+                    >> Maybe.withDefault Split.zero
+                    >> updateEvent
                 )
             ]
             []
-        , div [ class "BonusValue" ] [ text (String.fromFloat value) ]
+        , div [ class "BonusValue" ] [ Format.splitAsPercentage bonus ]
         , div [ class "BonusImpact text-end" ] [ text "impacts" ]
         ]
 
