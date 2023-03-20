@@ -1328,7 +1328,8 @@ letterView attrs letter =
 
 scoresView : Session -> Recipe.Results -> Html Msg
 scoresView { queries } { scoring } =
-    div [ class "card bg-primary shadow-sm" ]
+    -- Note: temporarily hidden until some decision is made about these subscores
+    div [ class "card bg-primary shadow-sm d-none" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                 [ div [ class "input-group" ]
