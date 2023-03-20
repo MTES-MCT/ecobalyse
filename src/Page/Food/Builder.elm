@@ -643,6 +643,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ summary [] [ text "Bonus écologiques inclus" ]
             , ingredientBonusView
                 { name = "Diversité agricole"
+                , domId = "agroDiversity"
                 , bonus = bonuses.agroDiversity
                 , updateEvent =
                     \split ->
@@ -650,6 +651,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 }
             , ingredientBonusView
                 { name = "Agro-écologie"
+                , domId = "agroEcology"
                 , bonus = bonuses.agroEcology
                 , updateEvent =
                     \split ->
@@ -657,6 +659,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 }
             , ingredientBonusView
                 { name = "Bien-être animal"
+                , domId = "animalWellness"
                 , bonus = bonuses.animalWellness
                 , updateEvent =
                     \split ->
@@ -675,18 +678,20 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
 
 
 type alias BonusViewConfig msg =
-    { name : String
-    , bonus : Split
+    { bonus : Split
+    , domId : String
+    , name : String
     , updateEvent : Split -> msg
     }
 
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonus, updateEvent } =
+ingredientBonusView { name, bonus, domId, updateEvent } =
     div [ class "d-block d-sm-flex justify-content-between gap-3 my-1" ]
-        [ span [ class "BonusName text-nowrap text-end" ] [ text name ]
+        [ label [ for domId, class "BonusName text-nowrap text-end" ] [ text name ]
         , input
             [ type_ "range"
+            , id domId
             , class "BonusRange form-range"
             , Attr.min "0"
             , Attr.max "100"
