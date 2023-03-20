@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
     processes_dic = {p["name"]: p for p in processes_list}
 
-    # Compute impacts for complex ingredients from other ingredients impacts
+    # Re-compute impacts for complex ingredients from other ingredients impacts
     # Parse the ingredients_base.json, which contains complex ingredients to
     # add/compute.
     with open(INGREDIENTS_BASE, "r") as f:
@@ -115,10 +115,11 @@ if __name__ == "__main__":
                 print(f"Complex ingredient base name change: \"{old_name}\" -> \"{new_name}\"")
                 organic[ingredient_name] = new_name
 
+    # Now get the updated complex ingredients impacts
     (_, complex_processes) = export_builder.compute_ingredient_list(
         processes_dic, ingredients_base)
 
-    # update processes_dic with complex impacts
+    # Update processes_dic with complex impacts
     for complex_p in complex_processes:
         processes_dic[complex_p["name"]] = complex_p
 
