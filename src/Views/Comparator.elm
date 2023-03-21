@@ -11,6 +11,7 @@ import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Dict
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -153,6 +154,50 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
             else
                 Nothing
 
+        labelToOrder =
+            [ "Changement climatique"
+            , "Biodiversité locale"
+            , "Acidification"
+            , "Eutrophisation terrestre"
+            , "Eutrophisation eaux douces"
+            , "Eutrophisation marine"
+            , "Écotoxicité de l'eau douce, corrigée"
+            , "Utilisation des sols"
+            , "Appauvrissement de la couche d'ozone"
+            , "Radiations ionisantes"
+            , "Formation d'ozone photochimique"
+            , "Toxicité humaine - non-cancer, corrigée"
+            , "Toxicité humaine - cancer, corrigée"
+            , "Particules"
+            , "Utilisation de ressources en eau"
+            , "Utilisation de ressources fossiles"
+            , "Utilisation de ressources minérales et métalliques"
+            ]
+                |> List.indexedMap (\index label -> ( label, index ))
+                |> Dict.fromList
+
+        labelComparison entry1 entry2 =
+            let
+                getOrder entry =
+                    Dict.get entry.name labelToOrder
+
+                label1Order =
+                    getOrder entry1
+
+                label2Order =
+                    getOrder entry2
+            in
+            case ( label1Order, label2Order ) of
+                ( Just index1, Just index2 ) ->
+                    if index1 > index2 then
+                        GT
+
+                    else
+                        LT
+
+                _ ->
+                    EQ
+
         charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
@@ -162,7 +207,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                     (List.map
                         (Tuple.mapSecond
                             (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
-                                >> List.sortBy .name
+                                >> List.sortWith labelComparison
                                 >> List.reverse
                             )
                         )
