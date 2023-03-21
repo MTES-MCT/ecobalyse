@@ -29,61 +29,6 @@ expectImpactEqual expectedImpactUnit impactUnit =
     Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
 
 
-testScoringEqual : Recipe.Scoring -> Result String Recipe.Scoring -> Test
-testScoringEqual expectedScoring scoringResult =
-    case scoringResult of
-        Err err ->
-            Expect.fail err
-                |> asTest "should not fail"
-
-        Ok scoring ->
-            concat
-                [ -- Category
-                  Expect.equal expectedScoring.category scoring.category
-                    |> asTest "Scoring category"
-
-                -- All
-                , Expect.equal expectedScoring.all.letter scoring.all.letter
-                    |> asTest "Scoring all letter"
-                , Expect.equal expectedScoring.all.outOf100 scoring.all.outOf100
-                    |> asTest "Scoring all outOf100"
-                , expectImpactEqual expectedScoring.all.impact scoring.all.impact
-                    |> asTest "Scoring all impact"
-
-                -- Climate
-                , Expect.equal expectedScoring.climate.letter scoring.climate.letter
-                    |> asTest "Scoring climate letter"
-                , Expect.equal expectedScoring.climate.outOf100 scoring.climate.outOf100
-                    |> asTest "Scoring climate outOf100"
-                , expectImpactEqual expectedScoring.climate.impact scoring.climate.impact
-                    |> asTest "Scoring climate impact"
-
-                -- Biodiversity
-                , Expect.equal expectedScoring.biodiversity.letter scoring.biodiversity.letter
-                    |> asTest "Scoring biodiversity letter"
-                , Expect.equal expectedScoring.biodiversity.outOf100 scoring.biodiversity.outOf100
-                    |> asTest "Scoring biodiversity outOf100"
-                , expectImpactEqual expectedScoring.biodiversity.impact scoring.biodiversity.impact
-                    |> asTest "Scoring biodiversity impact"
-
-                -- Health
-                , Expect.equal expectedScoring.health.letter scoring.health.letter
-                    |> asTest "Scoring health letter"
-                , Expect.equal expectedScoring.health.outOf100 scoring.health.outOf100
-                    |> asTest "Scoring health outOf100"
-                , expectImpactEqual expectedScoring.health.impact scoring.health.impact
-                    |> asTest "Scoring health impact"
-
-                -- Resources
-                , Expect.equal expectedScoring.resources.letter scoring.resources.letter
-                    |> asTest "Scoring resources letter"
-                , Expect.equal expectedScoring.resources.outOf100 scoring.resources.outOf100
-                    |> asTest "Scoring resources outOf100"
-                , expectImpactEqual expectedScoring.resources.impact scoring.resources.impact
-                    |> asTest "Scoring resources impact"
-                ]
-
-
 suite : Test
 suite =
     suiteWithDb "Data.Food.Builder.Recipe"
@@ -158,14 +103,23 @@ suite =
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .scoring)
-                        |> testScoringEqual
-                            { category = "Gâteaux"
-                            , climate = { impact = Unit.impact 42.56763816832551, letter = "B", outOf100 = 64 }
-                            , all = { impact = Unit.impact 201.83661635590022, letter = "B", outOf100 = 63 }
-                            , biodiversity = { impact = Unit.impact 114.74929241758201, letter = "B", outOf100 = 69 }
-                            , health = { impact = Unit.impact 60.197623722928476, letter = "B", outOf100 = 60 }
-                            , resources = { impact = Unit.impact 40.79533728461705, letter = "C", outOf100 = 45 }
-                            }
+                        |> (\scoringResult ->
+                                case scoringResult of
+                                    Err err ->
+                                        Expect.fail err
+                                            |> asTest "should not fail"
+
+                                    Ok scoring ->
+                                        Expect.equal scoring
+                                            { all = { impact = Unit.impact 202.8105653915908, letter = "B", outOf100 = 63 }
+                                            , biodiversity = { impact = Unit.impact 114.72955353984521, letter = "B", outOf100 = 69 }
+                                            , category = "Gâteaux"
+                                            , climate = { impact = Unit.impact 42.550812211063175, letter = "B", outOf100 = 64 }
+                                            , health = { impact = Unit.impact 60.200332077828726, letter = "B", outOf100 = 60 }
+                                            , resources = { impact = Unit.impact 40.88082218916821, letter = "C", outOf100 = 45 }
+                                            }
+                                            |> asTest "should be properly scored"
+                           )
                      ]
                     )
                 , describe "raw-to-cooked checks"

@@ -36,6 +36,7 @@ name3.1,name3.1.1
 "Mixing, processing, at plant \dummy process\""""","[Dummy] Mixing, processing, at plant {FR} U"
 "Cooking, industrial, 1kg of cooked product/ FR U","Cooking, industrial, 1kg of cooked product {FR} U"
 "Cow milk, organic, system n°1, at farm gate","Cow milk, organic, national average, at farm gate/FR U"
+"Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent","Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U"
 "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent","Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U"
 "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent","Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U"
 "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent","Transport, freight, aircraft, long haul {GLO}| market for transport, freight, aircraft, long haul | Cut-off, S - Copied from Ecoinvent U"
