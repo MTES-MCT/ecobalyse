@@ -140,20 +140,27 @@ applyIngredientBonuses :
         }
 applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
+        -- FIXME: we should retrieve this from impacts.json
+        ( lduNormalization, lduWeighting ) =
+            ( Unit.impact 8.19498e5, Unit.ratio 0.045 )
+
         ecoScore =
             Impact.getImpact (Impact.trg "ecs") ingredientImpacts
 
-        landUse =
-            Impact.getImpact (Impact.trg "ldu") ingredientImpacts
+        normalizedLandUse =
+            ingredientImpacts
+                |> Impact.getImpact (Impact.trg "ldu")
+                |> Unit.impactAggregateScore lduNormalization lduWeighting
+                |> Unit.impactToFloat
 
         bonusAgroDiversity =
-            3 * Split.toFloat agroDiversity * Unit.impactToFloat landUse
+            3 * Split.toFloat agroDiversity * normalizedLandUse
 
         bonusAgroEcology =
-            3 * Split.toFloat agroEcology * Unit.impactToFloat landUse
+            3 * Split.toFloat agroEcology * normalizedLandUse
 
         bonusAnimalWelfare =
-            2 * Split.toFloat animalWelfare * Unit.impactToFloat landUse
+            2 * Split.toFloat animalWelfare * normalizedLandUse
 
         totalBonus =
             Unit.impact (bonusAgroDiversity + bonusAgroEcology + bonusAnimalWelfare)
@@ -296,6 +303,21 @@ compute db =
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
+                            |> Result.map
+                                (\totalImpacts_ ->
+                                    let
+                                        ecs =
+                                            Impact.getImpact (Impact.trg "ecs") totalImpacts_
+
+                                        bonus =
+                                            computeIngredientsTotalBonus ingredients
+
+                                        newEcs =
+                                            Unit.impact (Unit.impactToFloat ecs - Unit.impactToFloat bonus)
+                                    in
+                                    totalImpacts_
+                                        |> Impact.updateImpact (Impact.trg "ecs") newEcs
+                                )
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
@@ -406,6 +428,21 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> getRecipeIngredientProcess
         |> .impacts
         |> Impact.mapImpacts (computeImpact mass)
+
+
+computeIngredientsTotalBonus : List RecipeIngredient -> Unit.Impact
+computeIngredientsTotalBonus =
+    List.foldl
+        (\({ bonuses } as recipeIngredient) acc ->
+            recipeIngredient
+                |> computeIngredientImpacts
+                |> applyIngredientBonuses bonuses
+                |> .totalBonus
+                |> Unit.impactToFloat
+                |> (+) (Unit.impactToFloat acc)
+                |> Unit.impact
+        )
+        (Unit.impact 0)
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport

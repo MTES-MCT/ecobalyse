@@ -122,8 +122,7 @@ suite =
                      , result
                         |> .impacts
                         |> Impact.getImpact (Impact.trg "ecs")
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 1) 1000
+                        |> Expect.equal (Unit.impact 1000)
                         |> asTest "should not touch ecoScore at all"
                      ]
                     )
@@ -137,28 +136,27 @@ suite =
                                 }
                      in
                      [ result.bonusAgroDiversity
-                        -- 3 * 0.5 * 100 = 150
-                        |> Expect.equal (Unit.impact 150)
+                        |> Unit.impactToFloat
+                        |> Expect.within (Expect.Absolute 0.001) 8.236
                         |> asTest "should compute a non-zero agro-diversity ingredient bonus"
                      , result.bonusAgroEcology
-                        -- 3 * 0.5 * 100 = 150
-                        |> Expect.equal (Unit.impact 150)
-                        |> asTest "should compute a non-zero  agro-ecology ingredient bonus"
+                        |> Unit.impactToFloat
+                        |> Expect.within (Expect.Absolute 0.001) 8.236
+                        |> asTest "should compute a non-zero agro-ecology ingredient bonus"
                      , result.bonusAnimalWelfare
-                        -- 2 * 0.5 * 100 = 100
-                        |> Expect.equal (Unit.impact 100)
+                        |> Unit.impactToFloat
+                        |> Expect.within (Expect.Absolute 0.001) 5.491
                         |> asTest "should compute a non-zero animal-welfare ingredient bonus"
                      , result.totalBonus
-                        -- 150 + 150 + 100 = 400
-                        |> Expect.equal (Unit.impact 400)
+                        |> Unit.impactToFloat
+                        |> Expect.within (Expect.Absolute 0.001) 21.964
                         |> asTest "should compute a non-zero total bonus"
                      , result
                         |> .impacts
                         |> Impact.getImpact (Impact.trg "ecs")
                         |> Unit.impactToFloat
-                        -- 1000 - 150 - 150 - 100 = 600
-                        |> Expect.within (Expect.Absolute 1) 600
-                        |> asTest "should update ecoScore with non-zerto bonuses substracted"
+                        |> Expect.within (Expect.Absolute 1) 978.035
+                        |> asTest "should update ecoScore with non-zero bonuses substracted"
                      ]
                     )
                 ]
