@@ -641,7 +641,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             ]
             [ Icon.trash ]
         , if selectedImpact.trigram == Impact.trg "ecs" then
-            details [ class "IngredientBonuses fs-7" ]
+            details [ class "IngredientBonuses fs-7", attribute "open" "" ]
                 [ summary [] [ text "Bonus écologiques inclus" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
