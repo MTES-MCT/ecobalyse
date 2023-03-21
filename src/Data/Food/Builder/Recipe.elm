@@ -135,15 +135,16 @@ applyIngredientBonuses :
         { bonusAgroDiversity : Unit.Impact
         , bonusAgroEcology : Unit.Impact
         , bonusAnimalWelfare : Unit.Impact
+        , totalBonus : Unit.Impact
         , impacts : Impacts
         }
-applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } impacts =
+applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
         ecoScore =
-            Impact.getImpact (Impact.trg "ecs") impacts
+            Impact.getImpact (Impact.trg "ecs") ingredientImpacts
 
         landUse =
-            Impact.getImpact (Impact.trg "ldu") impacts
+            Impact.getImpact (Impact.trg "ldu") ingredientImpacts
 
         bonusAgroDiversity =
             3 * Split.toFloat agroDiversity * Unit.impactToFloat landUse
@@ -154,8 +155,11 @@ applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } impacts =
         bonusAnimalWelfare =
             2 * Split.toFloat animalWelfare * Unit.impactToFloat landUse
 
+        totalBonus =
+            Unit.impact (bonusAgroDiversity + bonusAgroEcology + bonusAnimalWelfare)
+
         updatedEcoScoreFloat =
-            Unit.impactToFloat ecoScore - bonusAgroDiversity - bonusAgroEcology - bonusAnimalWelfare
+            Unit.impactToFloat ecoScore - Unit.impactToFloat totalBonus
 
         updatedEcoScore =
             Unit.impact (clamp 0 updatedEcoScoreFloat updatedEcoScoreFloat)
@@ -163,8 +167,9 @@ applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } impacts =
     { bonusAgroDiversity = Unit.impact bonusAgroDiversity
     , bonusAgroEcology = Unit.impact bonusAgroEcology
     , bonusAnimalWelfare = Unit.impact bonusAnimalWelfare
+    , totalBonus = totalBonus
     , impacts =
-        impacts
+        ingredientImpacts
             |> Impact.updateImpact (Impact.trg "ecs") updatedEcoScore
     }
 
