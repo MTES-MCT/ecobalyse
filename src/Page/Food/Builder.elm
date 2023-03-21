@@ -499,12 +499,13 @@ type alias UpdateIngredientConfig =
     , db : Db
     , ingredient : Recipe.RecipeIngredient
     , impact : Html Msg
+    , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
     }
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
+updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, transportImpact } =
     let
         { bonuses } =
             ingredient
@@ -639,33 +640,37 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
-        , details [ class "IngredientBonuses fs-7" ]
-            [ summary [] [ text "Bonus écologiques inclus" ]
-            , ingredientBonusView
-                { name = "Diversité agricole"
-                , domId = "agroDiversity"
-                , bonus = bonuses.agroDiversity
-                , updateEvent =
-                    \split ->
-                        event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
-                }
-            , ingredientBonusView
-                { name = "Agro-écologie"
-                , domId = "agroEcology"
-                , bonus = bonuses.agroEcology
-                , updateEvent =
-                    \split ->
-                        event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
-                }
-            , ingredientBonusView
-                { name = "Bien-être animal"
-                , domId = "animalWelfare"
-                , bonus = bonuses.animalWelfare
-                , updateEvent =
-                    \split ->
-                        event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
-                }
-            ]
+        , if selectedImpact.trigram == Impact.trg "ecs" then
+            details [ class "IngredientBonuses fs-7" ]
+                [ summary [] [ text "Bonus écologiques inclus" ]
+                , ingredientBonusView
+                    { name = "Diversité agricole"
+                    , domId = "agroDiversity"
+                    , bonus = bonuses.agroDiversity
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
+                    }
+                , ingredientBonusView
+                    { name = "Agro-écologie"
+                    , domId = "agroEcology"
+                    , bonus = bonuses.agroEcology
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
+                    }
+                , ingredientBonusView
+                    { name = "Bien-être animal"
+                    , domId = "animalWelfare"
+                    , bonus = bonuses.animalWelfare
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
+                    }
+                ]
+
+          else
+            text ""
         , displayTransportDistances db ingredient ingredientQuery event
         , span
             [ class "text-muted text-end IngredientTransportImpact fs-7"
@@ -854,6 +859,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
+                            , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
