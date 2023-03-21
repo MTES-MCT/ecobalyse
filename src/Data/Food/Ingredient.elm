@@ -122,9 +122,9 @@ defaultBonuses =
 encodeBonuses : Bonuses -> Encode.Value
 encodeBonuses v =
     Encode.object
-        [ ( "agroDiversity", Split.encodeFloat v.agroDiversity )
-        , ( "agroEcology", Split.encodeFloat v.agroEcology )
-        , ( "animalWelfare", Split.encodeFloat v.animalWelfare )
+        [ ( "agro-diversity", Split.encodeFloat v.agroDiversity )
+        , ( "agro-ecology", Split.encodeFloat v.agroEcology )
+        , ( "animal-welfare", Split.encodeFloat v.animalWelfare )
         ]
 
 

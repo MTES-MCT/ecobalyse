@@ -198,7 +198,24 @@ encodeStore store =
 
 deserializeStore : String -> Store
 deserializeStore =
-    Decode.decodeString decodeStore >> Result.withDefault defaultStore
+    Decode.decodeString decodeStore
+        -- FIXME: this should return a `Result String Store` so we could inform
+        -- users something went wrong while decoding their data (eg. so they can
+        -- report the issue).
+        -- Meanwhile, if you ever need to debug JSON decode errors from session
+        -- store, uncomment these lines.
+        -- >> (\res ->
+        --         case res of
+        --             Ok r ->
+        --                 Ok r
+        --             Err err ->
+        --                 let
+        --                     _ =
+        --                         Debug.log "deserializeStore error" err
+        --                 in
+        --                 Err err
+        --    )
+        >> Result.withDefault defaultStore
 
 
 serializeStore : Store -> String
