@@ -164,23 +164,6 @@ def init_lcas(demand):
     return lcas
 
 
-def compute_pef(impacts_ecobalyse, impacts_dic):
-    pef = 0
-    total_weighting = 0
-    for k in impacts_ecobalyse.keys():
-        if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
-            continue
-        norm = impacts_ecobalyse[k]["pef"]["normalization"]
-        weight = impacts_ecobalyse[k]["pef"]["weighting"]
-        total_weighting += weight
-        pef += impacts_dic[k] * weight / norm
-    # The PEF is computed for a total weighting of 1 (100%), if we are above
-    # (because of BVI for example), then normalize it
-    pef /= total_weighting
-    pef *= 1000000  # We need the result in µPt, but we have it in Pt
-    return pef
-
-
 def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
     activity_impacts = {}
     # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
@@ -209,7 +192,6 @@ def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
         bvi = 0
 
     activity_impacts["bvi"] = float(bvi)
-    activity_impacts["pef"] = compute_pef(impacts_ecobalyse, activity_impacts)
     return activity_impacts
 
 
