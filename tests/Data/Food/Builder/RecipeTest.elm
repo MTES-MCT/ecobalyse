@@ -7,6 +7,8 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Impact as Impact
+import Data.Split as Split
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -88,7 +90,36 @@ suite : Test
 suite =
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
-            [ let
+            [ describe "applyIngredientBonuses"
+                (let
+                    result =
+                        Impact.impactsFromDefinitons builderDb.impacts
+                            |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                            |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                            |> Recipe.applyIngredientBonuses
+                                { agroDiversity = Split.half
+                                , agroEcology = Split.half
+                                , animalWelfare = Split.half
+                                }
+                 in
+                 [ result.bonusAgroDiversity
+                    |> Expect.equal (Unit.impact 150)
+                    |> asTest "should compute agro-diversity ingredient bonus"
+                 , result.bonusAgroEcology
+                    |> Expect.equal (Unit.impact 150)
+                    |> asTest "should compute agro-ecology ingredient bonus"
+                 , result.bonusAnimalWelfare
+                    |> Expect.equal (Unit.impact 100)
+                    |> asTest "should compute animal-welfare ingredient bonus"
+                 , result
+                    |> .impacts
+                    |> Impact.getImpact (Impact.trg "ecs")
+                    |> Unit.impactToFloat
+                    |> Expect.within (Expect.Absolute 1) 600
+                    |> asTest "should update ecoScore with bonuses substracted"
+                 ]
+                )
+            , let
                 recipe =
                     carrotCake
                         |> Recipe.fromQuery builderDb

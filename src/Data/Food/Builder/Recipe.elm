@@ -4,6 +4,7 @@ module Data.Food.Builder.Recipe exposing
     , Results
     , Scoring
     , Transform
+    , applyIngredientBonuses
     , availableIngredients
     , availablePackagings
     , compute
@@ -124,6 +125,47 @@ type alias Scoring =
 type alias Transform =
     { process : Process.Process
     , mass : Mass
+    }
+
+
+applyIngredientBonuses :
+    Ingredient.Bonuses
+    -> Impacts
+    ->
+        { bonusAgroDiversity : Unit.Impact
+        , bonusAgroEcology : Unit.Impact
+        , bonusAnimalWelfare : Unit.Impact
+        , impacts : Impacts
+        }
+applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } impacts =
+    let
+        ecoScore =
+            Impact.getImpact (Impact.trg "ecs") impacts
+
+        landUse =
+            Impact.getImpact (Impact.trg "ldu") impacts
+
+        bonusAgroDiversity =
+            3 * Split.toFloat agroDiversity * Unit.impactToFloat landUse
+
+        bonusAgroEcology =
+            3 * Split.toFloat agroEcology * Unit.impactToFloat landUse
+
+        bonusAnimalWelfare =
+            2 * Split.toFloat animalWelfare * Unit.impactToFloat landUse
+
+        updatedEcoScoreFloat =
+            Unit.impactToFloat ecoScore - bonusAgroDiversity - bonusAgroEcology - bonusAnimalWelfare
+
+        updatedEcoScore =
+            Unit.impact (clamp 0 updatedEcoScoreFloat updatedEcoScoreFloat)
+    in
+    { bonusAgroDiversity = Unit.impact bonusAgroDiversity
+    , bonusAgroEcology = Unit.impact bonusAgroEcology
+    , bonusAnimalWelfare = Unit.impact bonusAnimalWelfare
+    , impacts =
+        impacts
+            |> Impact.updateImpact (Impact.trg "ecs") updatedEcoScore
     }
 
 
