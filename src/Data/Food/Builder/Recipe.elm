@@ -294,6 +294,20 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
+                    addIngredientsBonuses impacts =
+                        let
+                            ecoScore =
+                                Impact.getImpact (Impact.trg "ecs") impacts
+
+                            bonus =
+                                computeIngredientsTotalBonus ingredients
+
+                            ecoScoreWithBonus =
+                                Unit.impact (Unit.impactToFloat ecoScore - Unit.impactToFloat bonus)
+                        in
+                        impacts
+                            |> Impact.updateImpact (Impact.trg "ecs") ecoScoreWithBonus
+
                     totalImpacts =
                         [ Ok recipeImpacts
                         , Ok packagingImpacts
@@ -303,21 +317,7 @@ compute db =
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
-                            |> Result.map
-                                (\totalImpacts_ ->
-                                    let
-                                        ecs =
-                                            Impact.getImpact (Impact.trg "ecs") totalImpacts_
-
-                                        bonus =
-                                            computeIngredientsTotalBonus ingredients
-
-                                        newEcs =
-                                            Unit.impact (Unit.impactToFloat ecs - Unit.impactToFloat bonus)
-                                    in
-                                    totalImpacts_
-                                        |> Impact.updateImpact (Impact.trg "ecs") newEcs
-                                )
+                            |> Result.map addIngredientsBonuses
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
