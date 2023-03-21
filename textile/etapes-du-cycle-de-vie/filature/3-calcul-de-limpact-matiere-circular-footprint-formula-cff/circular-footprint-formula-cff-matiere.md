@@ -70,7 +70,7 @@ $$
 \*Le projet de PEFCR A\&F mentionne la "production of cellulosic virgin fibres" pour Ev. Par extension, il est considéré que cela couvre toutes les fibres naturelles.
 {% endhint %}
 
-L'application de ce tableau aux différentes matières présentées dans le simulateur sera bientôt visible dans la [rubrique "Produits" de l'explorateur](https://wikicarbone.beta.gouv.fr/#/explore/products).
+L'application de ce tableau aux différentes matières présentées dans le simulateur sera bientôt visible dans [la rubrique "Produits" de l'explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products).
 
 ### Exemples de calcul
 
