@@ -416,9 +416,9 @@
       "weighting": 0.0407
     },
     "correction": [
-      {"sub-impact": "etf-o", "weighting": 2},
-      {"sub-impact": "etf-i", "weighting": 1},
-      {"sub-impact": "etf-m", "weighting": 1}
+      { "sub-impact": "etf-o", "weighting": 2 },
+      { "sub-impact": "etf-i", "weighting": 1 },
+      { "sub-impact": "etf-m", "weighting": 1 }
     ],
     "scopes": ["food"]
   },
@@ -465,9 +465,9 @@
       "weighting": 0.0452
     },
     "correction": [
-      {"sub-impact": "htc-o", "weighting": 2},
-      {"sub-impact": "htc-i", "weighting": 1},
-      {"sub-impact": "htc-m", "weighting": 1}
+      { "sub-impact": "htc-o", "weighting": 2 },
+      { "sub-impact": "htc-i", "weighting": 1 },
+      { "sub-impact": "htc-m", "weighting": 1 }
     ],
     "scopes": ["food"]
   },
@@ -514,9 +514,9 @@
       "weighting": 0.039
     },
     "correction": [
-      {"sub-impact": "htn-o", "weighting": 2},
-      {"sub-impact": "htn-i", "weighting": 1},
-      {"sub-impact": "htn-m", "weighting": 1}
+      { "sub-impact": "htn-o", "weighting": 2 },
+      { "sub-impact": "htn-i", "weighting": 1 },
+      { "sub-impact": "htn-m", "weighting": 1 }
     ],
     "scopes": ["food"]
   },
@@ -537,7 +537,7 @@
     "pef": null,
     "ecoscore": {
       "color": "#00A300",
-      "normalization": 1.9517e4,
+      "normalization": 1.6773e4,
       "weighting": 0.125
     },
     "scopes": ["food"]
