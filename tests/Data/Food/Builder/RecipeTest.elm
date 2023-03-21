@@ -161,10 +161,10 @@ suite =
                         |> testScoringEqual
                             { category = "Gâteaux"
                             , climate = { impact = Unit.impact 42.56763816832551, letter = "B", outOf100 = 64 }
-                            , all = { impact = Unit.impact 176.09264915716886, letter = "B", outOf100 = 70 }
-                            , biodiversity = { impact = Unit.impact 99.85880503884792, letter = "B", outOf100 = 76 }
-                            , health = { impact = Unit.impact 56.112203508598704, letter = "B", outOf100 = 64 }
-                            , resources = { impact = Unit.impact 31.35744848385938, letter = "C", outOf100 = 58 }
+                            , all = { impact = Unit.impact 201.83661635590022, letter = "B", outOf100 = 63 }
+                            , biodiversity = { impact = Unit.impact 114.74929241758201, letter = "B", outOf100 = 69 }
+                            , health = { impact = Unit.impact 60.197623722928476, letter = "B", outOf100 = 60 }
+                            , resources = { impact = Unit.impact 40.79533728461705, letter = "C", outOf100 = 45 }
                             }
                      ]
                     )
