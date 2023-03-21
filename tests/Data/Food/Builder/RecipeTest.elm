@@ -103,18 +103,22 @@ suite =
                                 }
                  in
                  [ result.bonusAgroDiversity
+                    -- 3 * 0.5 * 100 = 150
                     |> Expect.equal (Unit.impact 150)
                     |> asTest "should compute agro-diversity ingredient bonus"
                  , result.bonusAgroEcology
+                    -- 3 * 0.5 * 100 = 150
                     |> Expect.equal (Unit.impact 150)
                     |> asTest "should compute agro-ecology ingredient bonus"
                  , result.bonusAnimalWelfare
+                    -- 2 * 0.5 * 100 = 100
                     |> Expect.equal (Unit.impact 100)
                     |> asTest "should compute animal-welfare ingredient bonus"
                  , result
                     |> .impacts
                     |> Impact.getImpact (Impact.trg "ecs")
                     |> Unit.impactToFloat
+                    -- 1000 - 150 - 150 - 100 = 600
                     |> Expect.within (Expect.Absolute 1) 600
                     |> asTest "should update ecoScore with bonuses substracted"
                  ]
