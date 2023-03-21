@@ -129,7 +129,8 @@ type alias Transform =
 
 
 applyIngredientBonuses :
-    Ingredient.Bonuses
+    List Impact.Definition
+    -> Ingredient.Bonuses
     -> Impacts
     ->
         { bonusAgroDiversity : Unit.Impact
@@ -138,11 +139,15 @@ applyIngredientBonuses :
         , totalBonus : Unit.Impact
         , impacts : Impacts
         }
-applyIngredientBonuses { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+applyIngredientBonuses defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
-        -- FIXME: we should retrieve this from impacts.json
         ( lduNormalization, lduWeighting ) =
-            ( Unit.impact 8.19498e5, Unit.ratio 0.045 )
+            defs
+                |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
+                |> List.head
+                |> Maybe.andThen .ecoscoreData
+                |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
+                |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
 
         ecoScore =
             Impact.getImpact (Impact.trg "ecs") ingredientImpacts
@@ -300,7 +305,7 @@ compute db =
                                 Impact.getImpact (Impact.trg "ecs") impacts
 
                             bonus =
-                                computeIngredientsTotalBonus ingredients
+                                computeIngredientsTotalBonus db.impacts ingredients
 
                             ecoScoreWithBonus =
                                 Unit.impact (Unit.impactToFloat ecoScore - Unit.impactToFloat bonus)
@@ -430,13 +435,13 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalBonus : List RecipeIngredient -> Unit.Impact
-computeIngredientsTotalBonus =
+computeIngredientsTotalBonus : List Impact.Definition -> List RecipeIngredient -> Unit.Impact
+computeIngredientsTotalBonus defs =
     List.foldl
         (\({ bonuses } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
-                |> applyIngredientBonuses bonuses
+                |> applyIngredientBonuses defs bonuses
                 |> .totalBonus
                 |> Unit.impactToFloat
                 |> (+) (Unit.impactToFloat acc)

@@ -95,7 +95,7 @@ suite =
                     Impact.impactsFromDefinitons builderDb.impacts
                         |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
                         |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
-                        |> Recipe.applyIngredientBonuses bonuses
+                        |> Recipe.applyIngredientBonuses builderDb.impacts bonuses
               in
               describe "applyIngredientBonuses"
                 [ describe "with zero bonuses applied"
