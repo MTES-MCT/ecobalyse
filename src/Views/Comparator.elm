@@ -45,6 +45,8 @@ type FoodComparisonUnit
 type alias FoodOptions msg =
     { comparisonUnit : FoodComparisonUnit
     , switchComparisonUnit : FoodComparisonUnit -> msg
+    , groupByProtectionAreas : Bool
+    , updateGroupByProtectionAreas : Bool -> msg
     }
 
 
@@ -131,7 +133,7 @@ comparator ({ session, options, toggle } as config) =
 
 
 foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByProtectionAreas, updateGroupByProtectionAreas } =
     let
         { builderDb, store } =
             session
@@ -203,15 +205,6 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                 |> Bookmark.toFoodQueries
                 |> List.filterMap addToComparison
                 |> RE.combine
-                |> Result.map
-                    (List.map
-                        (Tuple.mapSecond
-                            (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
-                                >> List.sortWith labelComparison
-                                >> List.reverse
-                            )
-                        )
-                    )
 
         unitChoiceRadio caption current to =
             label [ class "form-check-label d-flex align-items-center gap-1" ]
@@ -225,6 +218,19 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                     []
                 , text caption
                 ]
+
+        groupByProtectionAreasCheckbox =
+            label [ class "form-check-label d-flex align-items-center gap-1" ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , name "groupByProtectionAreas"
+                    , checked groupByProtectionAreas
+                    , onCheck updateGroupByProtectionAreas
+                    ]
+                    []
+                , text "Grouper les impacts par sous-scores"
+                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
@@ -232,6 +238,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
         , div [ class "d-flex justify-content-center align-items-center gap-3" ]
             [ unitChoiceRadio "par produit" comparisonUnit PerItem
             , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+            , groupByProtectionAreasCheckbox
             ]
         , case charts of
             Ok [] ->
@@ -240,16 +247,49 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
             Ok chartsData ->
                 div [ class "h-100" ]
                     [ node "chart-food-comparator"
-                        [ chartsData
-                            |> Encode.list
-                                (\( name, entries ) ->
-                                    Encode.object
-                                        [ ( "label", Encode.string name )
-                                        , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                                        ]
-                                )
-                            |> Encode.encode 0
-                            |> attribute "data"
+                        [ if not groupByProtectionAreas then
+                            chartsData
+                                |> List.map
+                                    (Tuple.mapSecond
+                                        (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
+                                            >> List.sortWith labelComparison
+                                            >> List.reverse
+                                        )
+                                    )
+                                |> Encode.list
+                                    (\( name, entries ) ->
+                                        Encode.object
+                                            [ ( "label", Encode.string name )
+                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                            ]
+                                    )
+                                |> Encode.encode 0
+                                |> attribute "data"
+
+                          else
+                            chartsData
+                                |> List.map
+                                    (Tuple.mapSecond
+                                        (Impact.toProtectionAreas builderDb.impacts
+                                            >> (\protectionAreas ->
+                                                    [ { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat protectionAreas.climate }
+                                                    , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat protectionAreas.biodiversity }
+                                                    , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat protectionAreas.health }
+                                                    , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat protectionAreas.resources }
+                                                    ]
+                                                        |> List.reverse
+                                               )
+                                        )
+                                    )
+                                |> Encode.list
+                                    (\( name, entries ) ->
+                                        Encode.object
+                                            [ ( "label", Encode.string name )
+                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                            ]
+                                    )
+                                |> Encode.encode 0
+                                |> attribute "data"
                         ]
                         []
                     ]

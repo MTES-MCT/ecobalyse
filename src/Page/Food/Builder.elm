@@ -63,6 +63,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonUnit : ComparatorView.FoodComparisonUnit
+    , groupByProtectionAreas : Bool
     , modal : Modal
     }
 
@@ -99,6 +100,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateGroupByProtectionAreas Bool
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -124,6 +126,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
               , comparisonUnit = ComparatorView.PerKgOfProduct
+              , groupByProtectionAreas = False
               , modal = NoModal
               }
             , session
@@ -354,6 +357,9 @@ update ({ queries } as session) msg model =
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
+
+        UpdateGroupByProtectionAreas groupByProtectionAreas ->
+            ( { model | groupByProtectionAreas = groupByProtectionAreas }, session, Cmd.none )
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
@@ -1474,6 +1480,8 @@ view ({ builderDb, queries } as session) model =
                                     ComparatorView.foodOptions
                                         { comparisonUnit = model.comparisonUnit
                                         , switchComparisonUnit = SwitchComparisonUnit
+                                        , groupByProtectionAreas = model.groupByProtectionAreas
+                                        , updateGroupByProtectionAreas = UpdateGroupByProtectionAreas
                                         }
                                 , toggle = ToggleComparedSimulation
                                 }
