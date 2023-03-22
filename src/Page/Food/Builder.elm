@@ -411,15 +411,20 @@ absoluteImpactView model results =
                 ]
             ]
         , footer =
-            [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                [ span [ class "fs-7" ]
+            [ div [ class "w-100" ]
+                [ div [ class "text-center" ]
                     [ text "Soit pour "
                     , Format.kg results.preparedMass
-                    , text "\u{00A0}:"
-                    ]
-                , span [ class "h5 m-0" ]
-                    [ results.total
+                    , text "\u{00A0}:\u{00A0}"
+                    , results.total
                         |> Format.formatFoodSelectedImpact model.impact
+                    ]
+                , div [ class "text-center fs-7" ]
+                    [ text " dont "
+                    , results.recipe.totalBonusesImpact
+                        |> Unit.impactToFloat
+                        |> Format.formatImpactFloat model.impact
+                    , text " de bonus inclus"
                     ]
                 ]
             ]

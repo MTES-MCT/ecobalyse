@@ -91,6 +91,7 @@ type alias Results =
         { total : Impacts
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
+        , totalBonusesImpact : Unit.Impact
         , transform : Impacts
         , transports : Transport
         , transformedMass : Mass
@@ -241,21 +242,20 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
-                    addIngredientsBonuses impacts =
+                    addIngredientsBonuses bonus impacts =
                         -- Note: this must be applied at the very last step of impacts computation, as it relies
                         -- on the final ingredients ecoscore and land use impacts as a base for computation.
                         let
                             ecoScore =
                                 Impact.getImpact (Impact.trg "ecs") impacts
-
-                            bonus =
-                                computeIngredientsTotalBonus db.impacts ingredients
-
-                            ecoScoreWithBonus =
-                                Unit.impact (Unit.impactToFloat ecoScore - Unit.impactToFloat bonus)
                         in
                         impacts
-                            |> Impact.updateImpact (Impact.trg "ecs") ecoScoreWithBonus
+                            |> Impact.updateImpact (Impact.trg "ecs")
+                                (Unit.impact (Unit.impactToFloat ecoScore - Unit.impactToFloat bonus))
+
+                    totalBonusesImpact =
+                        ingredients
+                            |> computeIngredientsTotalBonus db.impacts
 
                     totalImpacts =
                         [ Ok recipeImpacts
@@ -266,7 +266,7 @@ compute db =
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
-                            |> Result.map addIngredientsBonuses
+                            |> Result.map (addIngredientsBonuses totalBonusesImpact)
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
@@ -290,6 +290,7 @@ compute db =
                                 { total = recipeImpacts
                                 , ingredientsTotal = ingredientsTotalImpacts
                                 , ingredients = ingredientsImpacts
+                                , totalBonusesImpact = totalBonusesImpact
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
                                 , transformedMass = transformedIngredientsMass
