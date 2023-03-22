@@ -55,7 +55,7 @@
       "weighting": 0.062
     },
     "ecoscore": {
-      "color": "#ff1493",
+      "color": "#91cf4f",
       "normalization": 5.55695e1,
       "weighting": 0.0458
     },
@@ -81,7 +81,7 @@
       "weighting": 0.0631
     },
     "ecoscore": {
-      "color": "#800080",
+      "color": "#ffc000",
       "normalization": 5.3648e-2,
       "weighting": 0.0466
     },
@@ -107,7 +107,7 @@
       "weighting": 0.2106
     },
     "ecoscore": {
-      "color": "#800000",
+      "color": "#7f7f7f",
       "normalization": 8.09553e3,
       "weighting": 0.2106
     },
@@ -133,7 +133,7 @@
       "weighting": 0.028
     },
     "ecoscore": {
-      "color": "#1f7dca",
+      "color": "#548235",
       "normalization": 1.60685,
       "weighting": 0.0207
     },
@@ -159,7 +159,7 @@
       "weighting": 0.0296
     },
     "ecoscore": {
-      "color": "#000080",
+      "color": "#70ad47",
       "normalization": 1.95e1,
       "weighting": 0.0219
     },
@@ -185,7 +185,7 @@
       "weighting": 0.0371
     },
     "ecoscore": {
-      "color": "#20b2aa",
+      "color": "#c5e0b4",
       "normalization": 1.76755e2,
       "weighting": 0.0274
     },
@@ -211,7 +211,7 @@
       "weighting": 0.0478
     },
     "ecoscore": {
-      "color": "#da70d6",
+      "color": "#ff6161",
       "normalization": 4.06014e1,
       "weighting": 0.0353
     },
@@ -237,7 +237,7 @@
       "weighting": 0.0896
     },
     "ecoscore": {
-      "color": "#696969",
+      "color": "#ffc000",
       "normalization": 5.95387e-4,
       "weighting": 0.0662
     },
@@ -263,7 +263,7 @@
       "weighting": 0.0501
     },
     "ecoscore": {
-      "color": "#ffd700",
+      "color": "#be8f00",
       "normalization": 4.22016e3,
       "weighting": 0.0370
     },
@@ -289,7 +289,7 @@
       "weighting": 0.0832
     },
     "ecoscore": {
-      "color": "#000000",
+      "color": "#9dc3e6",
       "normalization": 6.50043e4,
       "weighting": 0.0614
     },
@@ -315,7 +315,7 @@
       "weighting": 0.0755
     },
     "ecoscore": {
-      "color": "#a9a9a9",
+      "color": "#698ed0",
       "normalization": 6.36403e-2,
       "weighting": 0.0557
     },
@@ -341,7 +341,7 @@
       "weighting": 0.0794
     },
     "ecoscore": {
-      "color": "#006400",
+      "color": "#a9d18e",
       "normalization": 8.19498e5,
       "weighting": 0.0586
     },
@@ -367,7 +367,7 @@
       "weighting": 0.0851
     },
     "ecoscore": {
-      "color": "#00ffff",
+      "color": "#0070c0",
       "normalization": 1.14687e4,
       "weighting": 0.0628
     },
@@ -411,7 +411,7 @@
     "quality": 0,
     "pef": null,
     "ecoscore": {
-      "color": "#03A764",
+      "color": "#375622",
       "normalization": 4.27e4,
       "weighting": 0.0407
     },
@@ -437,7 +437,7 @@
     "decimals": 2,
     "quality": 0,
     "pef": {
-      "color": "#A77C2B",
+      "color": "#ffff00",
       "normalization": 1.69e-5,
       "weighting": 0.0213
     },
@@ -460,7 +460,7 @@
     "quality": 0,
     "pef": null,
     "ecoscore": {
-      "color": "#A77C2B",
+      "color": "#f4b183",
       "normalization": 1.69e-5,
       "weighting": 0.0452
     },
@@ -509,7 +509,7 @@
     "quality": 0,
     "pef": null,
     "ecoscore": {
-      "color": "#FFA907",
+      "color": "#43682b",
       "normalization": 2.297e-4,
       "weighting": 0.039
     },
@@ -536,7 +536,7 @@
     "quality": 3,
     "pef": null,
     "ecoscore": {
-      "color": "#00A300",
+      "color": "#00b050",
       "normalization": 1.6773e4,
       "weighting": 0.125
     },

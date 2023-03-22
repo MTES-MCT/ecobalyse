@@ -242,35 +242,28 @@ toProtectionAreas defs impactsPerKg =
             ]
     , biodiversity =
         pick
-            [ "cch" -- Climate change
-            , "bvi" -- Biodiversity impact
+            [ "bvi" -- Biodiversity impact
             , "acd" -- Acidification
-            , "fwe" -- Freshwater Eutrophication
             , "tre" -- Terrestrial eutrophication
+            , "fwe" -- Freshwater Eutrophication
             , "swe" -- Marine eutrophication
-            , "etf" -- Ecotoxicity: freshwater
-            , "ozd" -- Ozone depletion
+            , "etf-c" -- Ecotoxicity: freshwater
+            , "ldu" -- Land use
+            ]
+    , health =
+        pick
+            [ "ozd" -- Ozone depletion
             , "ior" -- Ionising radiation
             , "pco" -- Photochemical ozone formation
-            , "wtu" -- Water use
-            , "ldu" -- Land use
+            , "htn-c" -- Human toxicity: non-carcinogenic
+            , "htc-c" -- Human toxicity: carcinogenic
+            , "pma" -- Particulate matter
             ]
     , resources =
         pick
             [ "wtu" -- Water use
-            , "ldu" -- Land use
             , "fru" -- Fossile resource use
             , "mru" -- Minerals and metal resource use
-            ]
-    , health =
-        pick
-            [ "cch" -- Climate change
-            , "ozd" -- Ozone depletion
-            , "ior" -- Ionising radiation
-            , "pco" -- Photochemical ozone formation
-            , "htn" -- Human toxicity: non-carcinogenic
-            , "htc" -- Human toxicity: carcinogenic
-            , "wtu" -- Water use
             ]
     }
 
