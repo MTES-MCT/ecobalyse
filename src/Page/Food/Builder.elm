@@ -1453,7 +1453,7 @@ stepResultsView model results =
 
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal
+              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform
