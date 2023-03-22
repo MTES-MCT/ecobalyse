@@ -69,7 +69,7 @@ table _ { detailed, scope } =
                             (\( label, getter ) ->
                                 ingredient.variants.organic
                                     |> Maybe.map
-                                        (.defaultBeyondLCA
+                                        (.defaultBonuses
                                             >> getter
                                             >> (\split ->
                                                     span []

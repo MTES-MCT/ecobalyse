@@ -1,5 +1,6 @@
 module Data.Impact exposing
-    ( Definition
+    ( BonusImpacts
+    , Definition
     , Impacts
     , Quality(..)
     , Source
@@ -82,6 +83,15 @@ type alias AggregatedScoreData =
     { color : String
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
+    }
+
+
+type alias BonusImpacts =
+    -- Note: these are always expressed in ecoscore (ecs) µPt
+    { agroDiversity : Unit.Impact
+    , agroEcology : Unit.Impact
+    , animalWelfare : Unit.Impact
+    , total : Unit.Impact
     }
 
 

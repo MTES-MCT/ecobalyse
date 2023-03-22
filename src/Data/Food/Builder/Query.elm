@@ -119,28 +119,28 @@ carrotCake =
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Ingredient.defaultBonuses
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "wheat"
           , mass = Mass.grams 140
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Ingredient.defaultBonuses
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "milk"
           , mass = Mass.grams 60
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Ingredient.defaultBonuses
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "carrot"
           , mass = Mass.grams 225
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Ingredient.defaultBonuses
+          , bonuses = Ingredient.noBonuses
           }
         ]
     , transform =
@@ -221,7 +221,7 @@ decodeIngredient =
         |> Pipe.required "variant" decodeVariant
         |> Pipe.required "country" (Decode.maybe Country.decodeCode)
         |> Pipe.required "byPlane" decodePlaneTransport
-        |> Pipe.optional "bonuses" Ingredient.decodeBonuses Ingredient.defaultBonuses
+        |> Pipe.optional "bonuses" Ingredient.decodeBonuses Ingredient.noBonuses
 
 
 decodeVariant : Decoder Variant

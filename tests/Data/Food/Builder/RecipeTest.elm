@@ -89,65 +89,57 @@ suite =
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
             [ let
-                testApplyBonuses bonuses =
+                testComputedBonuses bonuses =
                     Impact.impactsFromDefinitons builderDb.impacts
                         |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
                         |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
-                        |> Recipe.applyIngredientBonuses builderDb.impacts bonuses
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
               in
-              describe "applyIngredientBonuses"
+              describe "computeIngredientBonusesImpacts"
                 [ describe "with zero bonuses applied"
                     (let
-                        result =
-                            testApplyBonuses
+                        bonusImpacts =
+                            testComputedBonuses
                                 { agroDiversity = Split.zero
                                 , agroEcology = Split.zero
                                 , animalWelfare = Split.zero
                                 }
                      in
-                     [ result.bonusAgroDiversity
+                     [ bonusImpacts.agroDiversity
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero agro-diversity ingredient bonus"
-                     , result.bonusAgroEcology
+                     , bonusImpacts.agroEcology
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero agro-ecology ingredient bonus"
-                     , result.bonusAnimalWelfare
+                     , bonusImpacts.animalWelfare
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero animal-welfare ingredient bonus"
-                     , result.totalBonus
+                     , bonusImpacts.total
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero total bonus"
-                     , result.impacts
-                        |> Impact.getImpact (Impact.trg "ecs")
-                        |> expectImpactEqual (Unit.impact 1000)
-                        |> asTest "should not touch ecoScore at all"
                      ]
                     )
                 , describe "with non-zero bonuses applied"
                     (let
-                        result =
-                            testApplyBonuses
+                        bonusImpacts =
+                            testComputedBonuses
                                 { agroDiversity = Split.half
                                 , agroEcology = Split.half
                                 , animalWelfare = Split.half
                                 }
                      in
-                     [ result.bonusAgroDiversity
+                     [ bonusImpacts.agroDiversity
                         |> expectImpactEqual (Unit.impact 8.236749815130725)
                         |> asTest "should compute a non-zero agro-diversity ingredient bonus"
-                     , result.bonusAgroEcology
+                     , bonusImpacts.agroEcology
                         |> expectImpactEqual (Unit.impact 8.236749815130725)
                         |> asTest "should compute a non-zero agro-ecology ingredient bonus"
-                     , result.bonusAnimalWelfare
+                     , bonusImpacts.animalWelfare
                         |> expectImpactEqual (Unit.impact 5.4911665434204835)
                         |> asTest "should compute a non-zero animal-welfare ingredient bonus"
-                     , result.totalBonus
+                     , bonusImpacts.total
                         |> expectImpactEqual (Unit.impact 21.964666173681934)
                         |> asTest "should compute a non-zero total bonus"
-                     , result.impacts
-                        |> Impact.getImpact (Impact.trg "ecs")
-                        |> expectImpactEqual (Unit.impact 978.035333826318)
-                        |> asTest "should update ecoScore with non-zero bonuses substracted"
                      ]
                     )
                 ]
@@ -253,14 +245,14 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Ingredient.noBonuses
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Ingredient.noBonuses
                           }
                         ]
                   , transform = Nothing
@@ -305,7 +297,7 @@ suite =
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
-                    , bonuses = Ingredient.defaultBonuses
+                    , bonuses = Ingredient.noBonuses
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -323,7 +315,7 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Ingredient.noBonuses
                           }
                         ]
                   , transform = Nothing

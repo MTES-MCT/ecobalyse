@@ -624,7 +624,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                                         Ingredient.getDefaultOrganicBonuses ingredient.ingredient
 
                                     else
-                                        Ingredient.defaultBonuses
+                                        Ingredient.noBonuses
                             }
                     )
                 ]
@@ -644,16 +644,16 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             [ Icon.trash ]
         , if selectedImpact.trigram == Impact.trg "ecs" then
             let
-                { bonusAgroDiversity, bonusAgroEcology, bonusAnimalWelfare } =
+                bonusImpacts =
                     impact
-                        |> Recipe.applyIngredientBonuses db.impacts bonuses
+                        |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
             in
             details [ class "IngredientBonuses fs-7", attribute "open" "" ]
                 [ summary [] [ text "Bonus écologiques inclus" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
                     , domId = "agroDiversity"
-                    , bonusImpact = bonusAgroDiversity
+                    , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
                     , selectedImpact = selectedImpact
                     , updateEvent =
@@ -663,7 +663,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 , ingredientBonusView
                     { name = "Agro-écologie"
                     , domId = "agroEcology"
-                    , bonusImpact = bonusAgroEcology
+                    , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
                     , selectedImpact = selectedImpact
                     , updateEvent =
@@ -673,7 +673,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 , ingredientBonusView
                     { name = "Bien-être animal"
                     , domId = "animalWelfare"
-                    , bonusImpact = bonusAnimalWelfare
+                    , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
                     , selectedImpact = selectedImpact
                     , updateEvent =

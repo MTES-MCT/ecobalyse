@@ -4,10 +4,10 @@ module Data.Food.Builder.Recipe exposing
     , Results
     , Scoring
     , Transform
-    , applyIngredientBonuses
     , availableIngredients
     , availablePackagings
     , compute
+    , computeIngredientBonusesImpacts
     , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
@@ -125,64 +125,6 @@ type alias Scoring =
 type alias Transform =
     { process : Process.Process
     , mass : Mass
-    }
-
-
-applyIngredientBonuses :
-    List Impact.Definition
-    -> Ingredient.Bonuses
-    -> Impacts
-    ->
-        { bonusAgroDiversity : Unit.Impact
-        , bonusAgroEcology : Unit.Impact
-        , bonusAnimalWelfare : Unit.Impact
-        , totalBonus : Unit.Impact
-        , impacts : Impacts
-        }
-applyIngredientBonuses defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
-    let
-        ( lduNormalization, lduWeighting ) =
-            defs
-                |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
-                |> List.head
-                |> Maybe.andThen .ecoscoreData
-                |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
-                |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
-
-        normalizedLandUse =
-            ingredientImpacts
-                |> Impact.getImpact (Impact.trg "ldu")
-                |> Unit.impactAggregateScore lduNormalization lduWeighting
-                |> Unit.impactToFloat
-
-        bonusAgroDiversity =
-            3 * Split.toFloat agroDiversity * normalizedLandUse
-
-        bonusAgroEcology =
-            3 * Split.toFloat agroEcology * normalizedLandUse
-
-        bonusAnimalWelfare =
-            2 * Split.toFloat animalWelfare * normalizedLandUse
-
-        totalIngredientBonus =
-            Unit.impact (bonusAgroDiversity + bonusAgroEcology + bonusAnimalWelfare)
-
-        ingredientEcoScore =
-            Impact.getImpact (Impact.trg "ecs") ingredientImpacts
-
-        updatedEcoScoreFloat =
-            Unit.impactToFloat ingredientEcoScore - Unit.impactToFloat totalIngredientBonus
-
-        updatedEcoScore =
-            Unit.impact (clamp 0 updatedEcoScoreFloat updatedEcoScoreFloat)
-    in
-    { bonusAgroDiversity = Unit.impact bonusAgroDiversity
-    , bonusAgroEcology = Unit.impact bonusAgroEcology
-    , bonusAnimalWelfare = Unit.impact bonusAnimalWelfare
-    , totalBonus = totalIngredientBonus
-    , impacts =
-        ingredientImpacts
-            |> Impact.updateImpact (Impact.trg "ecs") updatedEcoScore
     }
 
 
@@ -374,6 +316,39 @@ compute db =
         >> RE.join
 
 
+computeIngredientBonusesImpacts : List Impact.Definition -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
+computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+    let
+        ( lduNormalization, lduWeighting ) =
+            defs
+                |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
+                |> List.head
+                |> Maybe.andThen .ecoscoreData
+                |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
+                |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
+
+        normalizedLandUse =
+            ingredientImpacts
+                |> Impact.getImpact (Impact.trg "ldu")
+                |> Unit.impactAggregateScore lduNormalization lduWeighting
+                |> Unit.impactToFloat
+
+        agroDiversityBonus =
+            3 * Split.toFloat agroDiversity * normalizedLandUse
+
+        agroEcologyBonus =
+            3 * Split.toFloat agroEcology * normalizedLandUse
+
+        animalWelfareBonus =
+            2 * Split.toFloat animalWelfare * normalizedLandUse
+    in
+    { agroDiversity = Unit.impact agroDiversityBonus
+    , agroEcology = Unit.impact agroEcologyBonus
+    , animalWelfare = Unit.impact animalWelfareBonus
+    , total = Unit.impact (agroDiversityBonus + agroEcologyBonus + animalWelfareBonus)
+    }
+
+
 computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
 computeScoring defs maybeCategory perKg =
     let
@@ -441,8 +416,8 @@ computeIngredientsTotalBonus defs =
         (\({ bonuses } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
-                |> applyIngredientBonuses defs bonuses
-                |> .totalBonus
+                |> computeIngredientBonusesImpacts defs bonuses
+                |> .total
                 |> Unit.impactToFloat
                 |> (+) (Unit.impactToFloat acc)
                 |> Unit.impact
@@ -765,7 +740,7 @@ ingredientQueryFromIngredient ingredient =
     , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
-    , bonuses = Ingredient.defaultBonuses
+    , bonuses = Ingredient.noBonuses
     }
 
 
