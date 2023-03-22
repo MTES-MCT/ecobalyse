@@ -39,6 +39,7 @@
 * [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
   * [Score/100](alimentaire/impacts-consideres/score-100.md)
   * [Compléments hors ACV - en construction](alimentaire/impacts-consideres/complements-hors-acv-en-construction.md)
+  * [Impacts corrigés](alimentaire/impacts-consideres/impacts-corriges.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
   * [🐄 Boeuf haché](alimentaire/ingredients-viandes/boeuf-hache.md)
@@ -74,9 +75,9 @@
 ***
 
 * [Stock - doc ingrédients](stock-doc-ingredients.md)
-* [🌼 Huile de colza](huile-de-colza.md)
-* [🧀 Comté](comte.md)
-* [🌾 Semoule de blé dur](semoule-de-ble-dur.md)
-* [🧈 Beurre](beurre.md)
-* [🌾 Blé dur](ble-dur.md)
-* [🍏 Pomme](pomme.md)
+* [🌼 Huile de colza](alimentaire/ingredients-industrie/huile-de-colza.md)
+* [🧀 Comté](alimentaire/ingredients-industrie/comte.md)
+* [🌾 Semoule de blé dur](alimentaire/ingredients-industrie/semoule-de-ble-dur.md)
+* [🧈 Beurre](alimentaire/ingredients-industrie/beurre.md)
+* [🌾 Blé dur](alimentaire/ingredients-agricoles/ble-dur.md)
+* [🍏 Pomme](alimentaire/ingredients-agricoles/pomme.md)
