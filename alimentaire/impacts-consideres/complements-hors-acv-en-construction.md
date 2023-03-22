@@ -66,6 +66,7 @@ $$
 
 Avec :&#x20;
 
+* LandUse(p) = valeur du score d'impact "land use" pour le produit (p)
 * c1 = le coefficient permettant de moduler l'ampleur du bonus
 * X(p) = la valeur (1), (2) ou (3) (ex. quantité d'IAE moyenne pour la production (p))
 
