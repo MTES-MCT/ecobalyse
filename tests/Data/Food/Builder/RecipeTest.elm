@@ -20,15 +20,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 
 expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
-expectImpactEqual expectedImpactUnit impactUnit =
+expectImpactEqual expectedImpactUnit =
     let
         expectedImpact =
             Unit.impactToFloat expectedImpactUnit
-
-        impact =
-            Unit.impactToFloat impactUnit
     in
-    Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
+    Unit.impactToFloat
+        >> Expect.within (Expect.Relative 0.0000000000000001) expectedImpact
 
 
 testScoringEqual : Recipe.Scoring -> Result String Recipe.Scoring -> Test
@@ -108,21 +106,20 @@ suite =
                                 }
                      in
                      [ result.bonusAgroDiversity
-                        |> Expect.equal (Unit.impact 0)
+                        |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero agro-diversity ingredient bonus"
                      , result.bonusAgroEcology
-                        |> Expect.equal (Unit.impact 0)
+                        |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero agro-ecology ingredient bonus"
                      , result.bonusAnimalWelfare
-                        |> Expect.equal (Unit.impact 0)
+                        |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero animal-welfare ingredient bonus"
                      , result.totalBonus
-                        |> Expect.equal (Unit.impact 0)
+                        |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero total bonus"
-                     , result
-                        |> .impacts
+                     , result.impacts
                         |> Impact.getImpact (Impact.trg "ecs")
-                        |> Expect.equal (Unit.impact 1000)
+                        |> expectImpactEqual (Unit.impact 1000)
                         |> asTest "should not touch ecoScore at all"
                      ]
                     )
@@ -136,26 +133,20 @@ suite =
                                 }
                      in
                      [ result.bonusAgroDiversity
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 0.001) 8.236
+                        |> expectImpactEqual (Unit.impact 8.236749815130725)
                         |> asTest "should compute a non-zero agro-diversity ingredient bonus"
                      , result.bonusAgroEcology
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 0.001) 8.236
+                        |> expectImpactEqual (Unit.impact 8.236749815130725)
                         |> asTest "should compute a non-zero agro-ecology ingredient bonus"
                      , result.bonusAnimalWelfare
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 0.001) 5.491
+                        |> expectImpactEqual (Unit.impact 5.4911665434204835)
                         |> asTest "should compute a non-zero animal-welfare ingredient bonus"
                      , result.totalBonus
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 0.001) 21.964
+                        |> expectImpactEqual (Unit.impact 21.964666173681934)
                         |> asTest "should compute a non-zero total bonus"
-                     , result
-                        |> .impacts
+                     , result.impacts
                         |> Impact.getImpact (Impact.trg "ecs")
-                        |> Unit.impactToFloat
-                        |> Expect.within (Expect.Absolute 1) 978.035
+                        |> expectImpactEqual (Unit.impact 978.035333826318)
                         |> asTest "should update ecoScore with non-zero bonuses substracted"
                      ]
                     )

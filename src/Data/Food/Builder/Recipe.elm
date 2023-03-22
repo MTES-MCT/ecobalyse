@@ -149,9 +149,6 @@ applyIngredientBonuses defs { agroDiversity, agroEcology, animalWelfare } ingred
                 |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
                 |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
 
-        ecoScore =
-            Impact.getImpact (Impact.trg "ecs") ingredientImpacts
-
         normalizedLandUse =
             ingredientImpacts
                 |> Impact.getImpact (Impact.trg "ldu")
@@ -167,11 +164,14 @@ applyIngredientBonuses defs { agroDiversity, agroEcology, animalWelfare } ingred
         bonusAnimalWelfare =
             2 * Split.toFloat animalWelfare * normalizedLandUse
 
-        totalBonus =
+        totalIngredientBonus =
             Unit.impact (bonusAgroDiversity + bonusAgroEcology + bonusAnimalWelfare)
 
+        ingredientEcoScore =
+            Impact.getImpact (Impact.trg "ecs") ingredientImpacts
+
         updatedEcoScoreFloat =
-            Unit.impactToFloat ecoScore - Unit.impactToFloat totalBonus
+            Unit.impactToFloat ingredientEcoScore - Unit.impactToFloat totalIngredientBonus
 
         updatedEcoScore =
             Unit.impact (clamp 0 updatedEcoScoreFloat updatedEcoScoreFloat)
@@ -179,7 +179,7 @@ applyIngredientBonuses defs { agroDiversity, agroEcology, animalWelfare } ingred
     { bonusAgroDiversity = Unit.impact bonusAgroDiversity
     , bonusAgroEcology = Unit.impact bonusAgroEcology
     , bonusAnimalWelfare = Unit.impact bonusAnimalWelfare
-    , totalBonus = totalBonus
+    , totalBonus = totalIngredientBonus
     , impacts =
         ingredientImpacts
             |> Impact.updateImpact (Impact.trg "ecs") updatedEcoScore
