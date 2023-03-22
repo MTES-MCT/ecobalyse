@@ -38,6 +38,6 @@ if __name__ == "__main__":
                     del process_data["impacts"][sub_impact_name]
                 process_data["impacts"][impact_to_correct] = corrected_impact
             except Exception as e:
-                print(f"Failed to correct impact {impact_to_correct} for \"process {process_data['name']}:\"", e)
+                print(f"\033[91mFailed to correct impact {impact_to_correct} for \"process {process_data['name']}:\"\033[0m")
 
     export_json(processes_list, PROCESSES)

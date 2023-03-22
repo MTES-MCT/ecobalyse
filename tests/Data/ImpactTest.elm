@@ -82,7 +82,7 @@ suite =
               describe "updateAggregatedScores"
                 [ impacts
                     |> Impact.getImpact (Impact.trg "ecs")
-                    |> expectScoreEquals 9921.150803156486
+                    |> expectScoreEquals 12908.361806050347
                     |> asTest "should update EcoScore"
                 , impacts
                     |> Impact.getImpact (Impact.trg "pef")
@@ -139,6 +139,24 @@ suite =
                     |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
                     |> Expect.equal 100
                     |> asTest "should compute an a high bounded score from very low impact"
+                ]
+            , describe "total weighting for impacts' ecoscoreData"
+                [ builderDb.impacts
+                    |> List.filterMap .ecoscoreData
+                    |> List.map .weighting
+                    |> List.map Unit.ratioToFloat
+                    |> List.sum
+                    |> Expect.within (Expect.Absolute 0.01) 1
+                    |> asTest "should be 1"
+                ]
+            , describe "total weighting for impacts' pefData"
+                [ builderDb.impacts
+                    |> List.filterMap .pefData
+                    |> List.map .weighting
+                    |> List.map Unit.ratioToFloat
+                    |> List.sum
+                    |> Expect.within (Expect.Absolute 0.01) 1
+                    |> asTest "should be 1"
                 ]
             ]
         )
