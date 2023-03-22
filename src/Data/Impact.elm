@@ -247,7 +247,7 @@ toProtectionAreas defs impactsPerKg =
             , "tre" -- Terrestrial eutrophication
             , "fwe" -- Freshwater Eutrophication
             , "swe" -- Marine eutrophication
-            , "etf" -- Ecotoxicity: freshwater
+            , "etf-c" -- Ecotoxicity: freshwater
             , "ldu" -- Land use
             ]
     , health =
@@ -255,8 +255,8 @@ toProtectionAreas defs impactsPerKg =
             [ "ozd" -- Ozone depletion
             , "ior" -- Ionising radiation
             , "pco" -- Photochemical ozone formation
-            , "htn" -- Human toxicity: non-carcinogenic
-            , "htc" -- Human toxicity: carcinogenic
+            , "htn-c" -- Human toxicity: non-carcinogenic
+            , "htc-c" -- Human toxicity: carcinogenic
             , "pma" -- Particulate matter
             ]
     , resources =

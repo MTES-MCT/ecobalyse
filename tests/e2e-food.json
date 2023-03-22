@@ -47,12 +47,12 @@
         "outOf100": 69
       },
       "biodiversity": {
-        "impact": 54.50507493121122,
+        "impact": 91.60423789174384,
         "letter": "B",
         "outOf100": 69
       },
       "health": {
-        "impact": 28.291980618149008,
+        "impact": 32.37449891963209,
         "letter": "B",
         "outOf100": 69
       },
@@ -111,12 +111,12 @@
         "outOf100": 70
       },
       "biodiversity": {
-        "impact": 59.306029266040284,
+        "impact": 95.37371977932662,
         "letter": "B",
         "outOf100": 70
       },
       "health": {
-        "impact": 28.400422398127873,
+        "impact": 32.1980402590669,
         "letter": "B",
         "outOf100": 70
       },
@@ -175,12 +175,12 @@
         "outOf100": 73
       },
       "biodiversity": {
-        "impact": 60.552298523700316,
+        "impact": 68.21996044523398,
         "letter": "B",
         "outOf100": 73
       },
       "health": {
-        "impact": 28.624228023432032,
+        "impact": 30.763137675769077,
         "letter": "B",
         "outOf100": 73
       },
@@ -239,12 +239,12 @@
         "outOf100": 74
       },
       "biodiversity": {
-        "impact": 65.35325285852937,
+        "impact": 71.98944233281676,
         "letter": "B",
         "outOf100": 74
       },
       "health": {
-        "impact": 28.732669803410893,
+        "impact": 30.586679015203885,
         "letter": "B",
         "outOf100": 74
       },
@@ -298,12 +298,12 @@
         "outOf100": 23
       },
       "biodiversity": {
-        "impact": 151.74185866738202,
+        "impact": 231.13686799842804,
         "letter": "D",
         "outOf100": 23
       },
       "health": {
-        "impact": 103.15621476287139,
+        "impact": 107.91929384010264,
         "letter": "D",
         "outOf100": 23
       },
@@ -357,14 +357,14 @@
         "outOf100": 37
       },
       "biodiversity": {
-        "impact": 26.171954446071357,
-        "letter": "A",
-        "outOf100": 88
+        "impact": 45.482222169247,
+        "letter": "B",
+        "outOf100": 67
       },
       "health": {
-        "impact": 19.447805243415978,
+        "impact": 22.068392164570994,
         "letter": "B",
-        "outOf100": 69
+        "outOf100": 64
       },
       "resources": {
         "impact": 89.03559308656757,
@@ -416,12 +416,12 @@
         "outOf100": 43
       },
       "biodiversity": {
-        "impact": 72.62270528665623,
+        "impact": 115.70641084626965,
         "letter": "C",
         "outOf100": 43
       },
       "health": {
-        "impact": 48.01342494212996,
+        "impact": 50.41141664063842,
         "letter": "C",
         "outOf100": 43
       },
@@ -475,12 +475,12 @@
         "outOf100": 43
       },
       "biodiversity": {
-        "impact": 72.62270528665623,
+        "impact": 115.70641084626965,
         "letter": "C",
         "outOf100": 43
       },
       "health": {
-        "impact": 48.01342494212996,
+        "impact": 50.41141664063842,
         "letter": "C",
         "outOf100": 43
       },
@@ -534,12 +534,12 @@
         "outOf100": 81
       },
       "biodiversity": {
-        "impact": 14.592149710048595,
+        "impact": 30.06564538620232,
         "letter": "A",
         "outOf100": 81
       },
       "health": {
-        "impact": 9.960252494685074,
+        "impact": 11.492964291992639,
         "letter": "A",
         "outOf100": 81
       },
@@ -598,12 +598,12 @@
         "outOf100": 74
       },
       "biodiversity": {
-        "impact": 65.35325285852937,
+        "impact": 71.98944233281676,
         "letter": "B",
         "outOf100": 74
       },
       "health": {
-        "impact": 28.732669803410893,
+        "impact": 30.586679015203885,
         "letter": "B",
         "outOf100": 74
       },
@@ -664,12 +664,12 @@
         "outOf100": 72
       },
       "biodiversity": {
-        "impact": 60.954119171463205,
+        "impact": 68.72782756375472,
         "letter": "B",
         "outOf100": 72
       },
       "health": {
-        "impact": 30.628281887804924,
+        "impact": 32.89000279440767,
         "letter": "B",
         "outOf100": 72
       },
