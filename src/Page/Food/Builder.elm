@@ -44,6 +44,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
@@ -730,7 +731,14 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, upda
                 )
             ]
             []
-        , div [ class "BonusValue text-muted" ] [ Format.splitAsPercentage bonusSplit ]
+        , div [ class "BonusValue d-flex align-items-center text-muted" ]
+            [ Format.splitAsPercentage bonusSplit
+            , Button.smallPillLink
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodBonuses)
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         , div [ class "BonusImpact text-end text-muted" ]
             [ bonusImpact
                 |> Unit.impactToFloat
