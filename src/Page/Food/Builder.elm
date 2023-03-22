@@ -1325,18 +1325,18 @@ sidebarView session db model results =
         ]
         [ ImpactView.impactSelector
             { impacts = db.impacts
+            , scope = Scope.Food
             , selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
-            -- We don't use the following two configs
+            -- FIXME: We don't use the following two textile configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Scope.Food
             }
         , absoluteImpactView model results
         , if Impact.trg "ecs" == model.impact.trigram then
             -- We only show subscores for ecs
-            scoresView session results
+            subScoresView session results
 
           else
             text ""
@@ -1368,8 +1368,8 @@ letterView attrs letter =
         ]
 
 
-scoresView : Session -> Recipe.Results -> Html Msg
-scoresView { queries } { scoring } =
+subScoresView : Session -> Recipe.Results -> Html Msg
+subScoresView { queries } { scoring } =
     -- Note: temporarily hidden until some decision is made about these subscores
     div [ class "card bg-primary shadow-sm d-none" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
