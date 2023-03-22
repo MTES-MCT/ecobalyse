@@ -229,7 +229,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByPr
                     , onCheck updateGroupByProtectionAreas
                     ]
                     []
-                , text "Grouper les impacts par sous-scores"
+                , text "Grouper les impacts"
                 ]
     in
     div []
@@ -271,13 +271,13 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByPr
                                 |> List.map
                                     (Tuple.mapSecond
                                         (Impact.toProtectionAreas builderDb.impacts
-                                            >> (\protectionAreas ->
-                                                    [ { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat protectionAreas.climate }
-                                                    , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat protectionAreas.biodiversity }
-                                                    , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat protectionAreas.health }
-                                                    , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat protectionAreas.resources }
-                                                    ]
-                                                        |> List.reverse
+                                            >> (\{ climate, biodiversity, health, resources } ->
+                                                    List.reverse
+                                                        [ { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat climate }
+                                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
+                                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
+                                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
+                                                        ]
                                                )
                                         )
                                     )
