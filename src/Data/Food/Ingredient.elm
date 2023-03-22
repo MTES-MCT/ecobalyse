@@ -156,7 +156,7 @@ decodeBonuses =
     Decode.succeed Bonuses
         |> Pipe.required "agro-diversity" Split.decodeFloat
         |> Pipe.required "agro-ecology" Split.decodeFloat
-        |> Pipe.optional "animal-wellness" Split.decodeFloat Split.zero
+        |> Pipe.optional "animal-welfare" Split.decodeFloat Split.zero
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
