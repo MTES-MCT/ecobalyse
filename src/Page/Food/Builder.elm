@@ -707,8 +707,8 @@ type alias BonusViewConfig msg =
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
 ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, updateEvent } =
-    div [ class "d-block d-sm-flex justify-content-between gap-3 my-1" ]
-        [ label [ for domId, class "BonusName text-nowrap text-end" ] [ text name ]
+    div [ class "IngredientBonus" ]
+        [ label [ for domId, class "BonusName text-nowrap text-muted" ] [ text name ]
         , input
             [ type_ "range"
             , id domId
@@ -725,7 +725,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, upda
                 )
             ]
             []
-        , div [ class "BonusValue" ] [ Format.splitAsPercentage bonusSplit ]
+        , div [ class "BonusValue text-muted" ] [ Format.splitAsPercentage bonusSplit ]
         , div [ class "BonusImpact text-end text-muted" ]
             [ bonusImpact
                 |> Unit.impactToFloat

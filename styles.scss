@@ -716,16 +716,42 @@ blockquote {
   }
   .IngredientBonuses {
     grid-area: ingredientBonuses;
-    .BonusName {
-      min-width: 120px;
+
+    summary {
+      margin-bottom: 6px;
     }
-    .BonusRange {
-    }
-    .BonusValue {
-      min-width: 70px;
-    }
-    .BonusImpact {
-      min-width: 120px;
+
+    .IngredientBonus {
+      display: grid;
+      margin-top: 4px;
+      grid-gap: 0 12px;
+      grid-template-columns: 1fr 7fr 1fr 1fr;
+      grid-template-areas:
+        "BonusName BonusRange BonusValue BonusImpact";
+
+      @media screen and (max-width: $viewport-md) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas:
+          "BonusName  BonusName  BonusImpact BonusImpact"
+          "BonusRange BonusRange BonusRange  BonusValue";
+      }
+
+      .BonusName {
+        grid-area: BonusName;
+        min-width: 120px;
+        padding-left: 12px;
+      }
+      .BonusRange {
+        grid-area: BonusRange;
+      }
+      .BonusValue {
+        grid-area: BonusValue;
+        min-width: 70px;
+      }
+      .BonusImpact {
+        grid-area: BonusImpact;
+        min-width: 120px;
+      }
     }
   }
 }
