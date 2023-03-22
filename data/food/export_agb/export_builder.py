@@ -55,7 +55,7 @@ processes_alias = {
     "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent": "tapwater",
     "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent": "plane",
     "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent": "boat",
-    "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent" : "lorry",
+    "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent": "lorry",
     "Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent": "boat-cooling",
     "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent": "lorry-cooling",
     # distribution
@@ -155,30 +155,13 @@ def open_db(dbname):
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
-    for (key, method) in impacts.items():
+    for key, method in impacts.items():
         print("Initialisation de la méthode", method)
         lca = bw.LCA(demand, method)
         lca.lci()
         lca.lcia()
         lcas[key] = lca
     return lcas
-
-
-def compute_pef(impacts_ecobalyse, impacts_dic):
-    pef = 0
-    total_weighting = 0
-    for k in impacts_ecobalyse.keys():
-        if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
-            continue
-        norm = impacts_ecobalyse[k]["pef"]["normalization"]
-        weight = impacts_ecobalyse[k]["pef"]["weighting"]
-        total_weighting += weight
-        pef += impacts_dic[k] * weight / norm
-    # The PEF is computed for a total weighting of 1 (100%), if we are above
-    # (because of BVI for example), then normalize it
-    pef /= total_weighting
-    pef *= 1000000  # We need the result in µPt, but we have it in Pt
-    return pef
 
 
 def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
@@ -205,11 +188,10 @@ def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
         if process_name.startswith(normalized_name):
             break
     else:
-        print(f"No bvi data for {normalized_name}")
+        print(f"No bvi data for {activity['name']}")
         bvi = 0
 
     activity_impacts["bvi"] = float(bvi)
-    activity_impacts["pef"] = compute_pef(impacts_ecobalyse, activity_impacts)
     return activity_impacts
 
 
@@ -251,14 +233,16 @@ def get_process_by_name(processes, process_name):
 
 
 def is_complex_ingredient(variant):
-    return "simple_ingredient_default" in variant  # This is enough (for now?) to detect if an ingredient is complex
+    return (
+        "simple_ingredient_default" in variant
+    )  # This is enough (for now?) to detect if an ingredient is complex
 
 
 def parse_ingredient_list(ingredients_base):
     processes_to_add = []
 
     for ingredient in ingredients_base:
-        for variant_name, variant in ingredient["variants"].items():
+        for variant in ingredient["variants"].values():
             if is_complex_ingredient(variant):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 processes_to_add.append(variant["simple_ingredient_default"])

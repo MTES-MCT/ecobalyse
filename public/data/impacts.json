@@ -57,7 +57,7 @@
     "ecoscore": {
       "color": "#ff1493",
       "normalization": 5.55695e1,
-      "weighting": 0.0352
+      "weighting": 0.0458
     },
     "scopes": ["textile", "food"]
   },
@@ -83,7 +83,7 @@
     "ecoscore": {
       "color": "#800080",
       "normalization": 5.3648e-2,
-      "weighting": 0.0358
+      "weighting": 0.0466
     },
     "scopes": ["textile", "food"]
   },
@@ -135,7 +135,7 @@
     "ecoscore": {
       "color": "#1f7dca",
       "normalization": 1.60685,
-      "weighting": 0.0159
+      "weighting": 0.0207
     },
     "scopes": ["textile", "food"]
   },
@@ -161,7 +161,7 @@
     "ecoscore": {
       "color": "#000080",
       "normalization": 1.95e1,
-      "weighting": 0.0168
+      "weighting": 0.0219
     },
     "scopes": ["textile", "food"]
   },
@@ -187,7 +187,7 @@
     "ecoscore": {
       "color": "#20b2aa",
       "normalization": 1.76755e2,
-      "weighting": 0.021
+      "weighting": 0.0274
     },
     "scopes": ["textile", "food"]
   },
@@ -213,7 +213,7 @@
     "ecoscore": {
       "color": "#da70d6",
       "normalization": 4.06014e1,
-      "weighting": 0.0271
+      "weighting": 0.0353
     },
     "scopes": ["textile", "food"]
   },
@@ -239,7 +239,7 @@
     "ecoscore": {
       "color": "#696969",
       "normalization": 5.95387e-4,
-      "weighting": 0.0508
+      "weighting": 0.0662
     },
     "scopes": ["textile", "food"]
   },
@@ -265,7 +265,7 @@
     "ecoscore": {
       "color": "#ffd700",
       "normalization": 4.22016e3,
-      "weighting": 0.0284
+      "weighting": 0.0370
     },
     "scopes": ["textile", "food"]
   },
@@ -291,7 +291,7 @@
     "ecoscore": {
       "color": "#000000",
       "normalization": 6.50043e4,
-      "weighting": 0.0472
+      "weighting": 0.0614
     },
     "scopes": ["textile", "food"]
   },
@@ -317,7 +317,7 @@
     "ecoscore": {
       "color": "#a9a9a9",
       "normalization": 6.36403e-2,
-      "weighting": 0.0428
+      "weighting": 0.0557
     },
     "scopes": ["textile", "food"]
   },
@@ -343,7 +343,7 @@
     "ecoscore": {
       "color": "#006400",
       "normalization": 8.19498e5,
-      "weighting": 0.045
+      "weighting": 0.0586
     },
     "scopes": ["textile", "food"]
   },
@@ -369,7 +369,7 @@
     "ecoscore": {
       "color": "#00ffff",
       "normalization": 1.14687e4,
-      "weighting": 0.0483
+      "weighting": 0.0628
     },
     "scopes": ["textile", "food"]
   },

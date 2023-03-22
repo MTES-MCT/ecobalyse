@@ -84,12 +84,10 @@ if __name__ == "__main__":
         try:
             for impact, value in agb311_dict[process_name].items():
                 proc["impacts"][impact] = value
-
-            proc["impacts"]["pef"] = export_builder.compute_pef(
-                impacts_ecobalyse, proc["impacts"])
         except KeyError as e:
-            print(f"KeyError, normal for complex ingredients 'constructed by "
-                  f"ecobalyse', which are computed in the next step : {e}")
+            print(f"\033[93mKeyError, normal for complex ingredients "
+                  f"'constructed by ecobalyse', which are computed in the "
+                  f"next step : {e}\033[0m")
 
     processes_dic = {p["name"]: p for p in processes_list}
 
