@@ -498,7 +498,7 @@ type alias UpdateIngredientConfig =
     { excluded : List Id
     , db : Db
     , ingredient : Recipe.RecipeIngredient
-    , impact : Html Msg
+    , impact : Impact.Impacts
     , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
     }
@@ -632,21 +632,30 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             , text "bio"
             ]
         , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact ]
+            [ impact
+                |> Format.formatFoodSelectedImpact selectedImpact
+            ]
         , button
             [ type_ "button"
             , class "btn btn-sm btn-outline-primary IngredientDelete"
-            , title <| "Supprimer "
+            , title "Supprimer "
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
         , if selectedImpact.trigram == Impact.trg "ecs" then
+            let
+                { bonusAgroDiversity, bonusAgroEcology, bonusAnimalWelfare } =
+                    impact
+                        |> Recipe.applyIngredientBonuses db.impacts bonuses
+            in
             details [ class "IngredientBonuses fs-7", attribute "open" "" ]
                 [ summary [] [ text "Bonus écologiques inclus" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
                     , domId = "agroDiversity"
-                    , bonus = bonuses.agroDiversity
+                    , bonusImpact = bonusAgroDiversity
+                    , bonusSplit = bonuses.agroDiversity
+                    , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
                             event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
@@ -654,7 +663,9 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 , ingredientBonusView
                     { name = "Agro-écologie"
                     , domId = "agroEcology"
-                    , bonus = bonuses.agroEcology
+                    , bonusImpact = bonusAgroEcology
+                    , bonusSplit = bonuses.agroEcology
+                    , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
                             event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
@@ -662,7 +673,9 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 , ingredientBonusView
                     { name = "Bien-être animal"
                     , domId = "animalWelfare"
-                    , bonus = bonuses.animalWelfare
+                    , bonusImpact = bonusAnimalWelfare
+                    , bonusSplit = bonuses.animalWelfare
+                    , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
                             event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
@@ -683,15 +696,17 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
 
 
 type alias BonusViewConfig msg =
-    { bonus : Split
+    { bonusImpact : Unit.Impact
+    , bonusSplit : Split
     , domId : String
     , name : String
+    , selectedImpact : Impact.Definition
     , updateEvent : Split -> msg
     }
 
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonus, domId, updateEvent } =
+ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, updateEvent } =
     div [ class "d-block d-sm-flex justify-content-between gap-3 my-1" ]
         [ label [ for domId, class "BonusName text-nowrap text-end" ] [ text name ]
         , input
@@ -701,7 +716,7 @@ ingredientBonusView { name, bonus, domId, updateEvent } =
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
-            , Attr.value <| Split.toPercentString bonus
+            , Attr.value <| Split.toPercentString bonusSplit
             , onInput
                 (String.toInt
                     >> Maybe.map (Split.fromPercent >> Result.withDefault Split.zero)
@@ -710,8 +725,12 @@ ingredientBonusView { name, bonus, domId, updateEvent } =
                 )
             ]
             []
-        , div [ class "BonusValue" ] [ Format.splitAsPercentage bonus ]
-        , div [ class "BonusImpact text-end" ] [ text "impacts" ]
+        , div [ class "BonusValue" ] [ Format.splitAsPercentage bonusSplit ]
+        , div [ class "BonusImpact text-end text-muted" ]
+            [ bonusImpact
+                |> Unit.impactToFloat
+                |> Format.formatImpactFloat selectedImpact
+            ]
         ]
 
 
@@ -858,7 +877,6 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
