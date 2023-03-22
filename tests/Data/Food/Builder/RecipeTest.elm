@@ -87,6 +87,32 @@ suite =
                         |> asTest "should compute a non-zero total bonus"
                      ]
                     )
+                , describe "with negative bonuses avoided"
+                    (let
+                        bonusImpacts =
+                            Impact.impactsFromDefinitons builderDb.impacts
+                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
+                                    { agroDiversity = Split.full
+                                    , agroEcology = Split.full
+                                    , animalWelfare = Split.full
+                                    }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
                 ]
             , let
                 recipe =

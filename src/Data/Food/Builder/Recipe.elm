@@ -337,14 +337,14 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
                 |> Unit.impactAggregateScore lduNormalization lduWeighting
                 |> Unit.impactToFloat
 
-        agroDiversityBonus =
-            3 * Split.toFloat agroDiversity * normalizedLandUse
+        ensurePositive x =
+            clamp 0 x x
 
-        agroEcologyBonus =
-            3 * Split.toFloat agroEcology * normalizedLandUse
-
-        animalWelfareBonus =
-            2 * Split.toFloat animalWelfare * normalizedLandUse
+        ( agroDiversityBonus, agroEcologyBonus, animalWelfareBonus ) =
+            ( ensurePositive (3 * Split.toFloat agroDiversity * normalizedLandUse)
+            , ensurePositive (3 * Split.toFloat agroEcology * normalizedLandUse)
+            , ensurePositive (2 * Split.toFloat animalWelfare * normalizedLandUse)
+            )
     in
     { agroDiversity = Unit.impact agroDiversityBonus
     , agroEcology = Unit.impact agroEcologyBonus
