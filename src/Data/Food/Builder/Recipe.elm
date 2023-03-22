@@ -242,6 +242,8 @@ compute db =
                         getPreparedMassAtConsumer recipe
 
                     addIngredientsBonuses impacts =
+                        -- Note: this must be applied at the very last step of impacts computation, as it relies
+                        -- on the final ingredients ecoscore and land use impacts as a base for computation.
                         let
                             ecoScore =
                                 Impact.getImpact (Impact.trg "ecs") impacts
@@ -319,6 +321,7 @@ compute db =
 computeIngredientBonusesImpacts : List Impact.Definition -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
 computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
+        -- docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/complements-hors-acv-en-construction
         ( lduNormalization, lduWeighting ) =
             defs
                 |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
