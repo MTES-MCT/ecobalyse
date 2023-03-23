@@ -17,6 +17,10 @@ export_ciqual:
 export_builder:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py
 
+corrected_impacts:
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 update_impacts_311.py
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 compute_corrected_impacts.py
+
 bash:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash
 
