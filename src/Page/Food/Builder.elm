@@ -660,7 +660,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     impact
                         |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
             in
-            details [ class "IngredientBonuses fs-7", attribute "open" "" ]
+            details [ class "IngredientBonuses fs-7" ]
                 [ summary [] [ text "Bonus écologiques inclus" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
