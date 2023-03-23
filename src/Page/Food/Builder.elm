@@ -576,6 +576,9 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                             , variant = newVariant
                             , country = Nothing
                             , planeTransport = Ingredient.byPlaneByDefault newIngredient
+                            , bonuses =
+                                newVariant
+                                    |> Query.updateBonusesFromVariant db.ingredients newIngredient.id
                         }
                 )
         , db.countries
