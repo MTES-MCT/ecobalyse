@@ -214,25 +214,6 @@
     }
   },
   {
-    "id": "lamb",
-    "name": "Agneau",
-    "default": "920ac3e2ac3579b5c4d2f549382c7e6b",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "transport_cooling": "always",
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-welfare": 0.9
-        },
-        "process": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018"
-      }
-    }
-  },
-  {
     "id": "grape",
     "name": "Raisin de cuve",
     "default": "264003a8e64837cf18d6aaa1a9f477f0",

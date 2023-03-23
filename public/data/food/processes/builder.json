@@ -1849,76 +1849,6 @@
     }
   },
   {
-    "name": "Lamb, conventional, indoor production system, at farm gate {FR} U",
-    "unit": "kilogram",
-    "simapro_id": "652f4fc016d29fb9fb8ecd63a44fb1c7",
-    "system_description": "",
-    "category_tags": [
-      "Agricultural",
-      "Animal production",
-      "Ovine",
-      "Transformation"
-    ],
-    "category": "material",
-    "impacts": {
-      "acd": 0.2890936,
-      "ozd": 3.340828e-07,
-      "cch": 15.93041,
-      "fwe": 0.001031357,
-      "swe": 0.06305996,
-      "tre": 1.281785,
-      "pco": 0.02488307,
-      "pma": 1.954668e-06,
-      "ior": 0.3648004,
-      "fru": 30.66695,
-      "mru": 1.806459e-05,
-      "ldu": 1768.461,
-      "wtu": 4.776617,
-      "etf": 70.05766,
-      "htc": 1.433922e-09,
-      "htn": 3.083607e-08,
-      "bvi": 10.82526301,
-      "etf-c": 115.0873475,
-      "htc-c": 2.8035223599999996e-09,
-      "htn-c": 5.67670902e-08
-    }
-  },
-  {
-    "name": "Lamb, organic, national average, at farm gate/FR U",
-    "unit": "kilogram",
-    "simapro_id": "aab1f93200c0ab2ca604bf7488de55a6",
-    "system_description": "AGRIBALYSE v3.0",
-    "category_tags": [
-      "Agricultural",
-      "Animal production",
-      "Ovine",
-      "Transformation"
-    ],
-    "category": "material",
-    "impacts": {
-      "acd": 0.1547932,
-      "ozd": 2.006597e-07,
-      "cch": 12.37698,
-      "fwe": 0.001005651,
-      "swe": 0.1079464,
-      "tre": 0.6946482,
-      "pco": 0.01961769,
-      "pma": 1.014859e-06,
-      "ior": 0.1164617,
-      "fru": 14.4461,
-      "mru": 7.787173e-06,
-      "ldu": 2845.825,
-      "wtu": 2.249383,
-      "etf": 10.43081,
-      "htc": 2.920944e-10,
-      "htn": 2.204846e-08,
-      "bvi": 7.929828976,
-      "etf-c": 11.650934399999999,
-      "htc-c": 5.523342599999999e-10,
-      "htn-c": 4.1697163909999995e-08
-    }
-  },
-  {
     "name": "flour, organic, constructed by ecobalyse",
     "unit": "kilogram",
     "simapro_id": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0",
@@ -2053,40 +1983,6 @@
       "etf-c": 141.5594819,
       "htc-c": 3.822710300000113e-09,
       "htn-c": 2.917524503e-08
-    }
-  },
-  {
-    "name": "lamb, organic, constructed by ecobalyse",
-    "unit": "kilogram",
-    "simapro_id": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018",
-    "system_description": "ecobalyse",
-    "category_tags": [
-      "Agricultural",
-      "Food",
-      "Transformation"
-    ],
-    "category": "ingredient",
-    "impacts": {
-      "acd": 0.296381436,
-      "ozd": 3.943331790000001e-07,
-      "cch": 23.7314287,
-      "fwe": 0.0019345855399999997,
-      "swe": 0.2063628004,
-      "tre": 1.3297377120000005,
-      "pco": 0.03772445419999999,
-      "pma": 1.9445458099999997e-06,
-      "ior": 0.289207783,
-      "fru": 29.895706500000003,
-      "mru": 1.5142003530000004e-05,
-      "ldu": 5438.90024,
-      "wtu": 4.441593060000001,
-      "etf": 20.32431650000001,
-      "htc": 6.081752840000001e-10,
-      "htn": 4.2560654900000004e-08,
-      "bvi": 15.165160295059998,
-      "etf-c": 22.748133978999988,
-      "htc-c": 1.1502992289999998e-09,
-      "htn-c": 8.015158198610001e-08
     }
   }
 ]
