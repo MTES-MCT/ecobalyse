@@ -192,7 +192,7 @@ suite =
 
                                     Ok scoring ->
                                         Expect.equal scoring
-                                            { all = { impact = Unit.impact 200.50765771497007, letter = "B", outOf100 = 64 }
+                                            { all = { impact = Unit.impact 201.0739464879096, letter = "B", outOf100 = 64 }
                                             , biodiversity = { impact = Unit.impact 91.6347570526944, letter = "A", outOf100 = 81 }
                                             , category = "Gâteaux"
                                             , climate = { impact = Unit.impact 42.550812211063175, letter = "B", outOf100 = 64 }

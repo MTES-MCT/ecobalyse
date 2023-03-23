@@ -113,7 +113,7 @@ defaultBonuses : Bonuses
 defaultBonuses =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
-    , animalWelfare = Split.tenth
+    , animalWelfare = Split.zero
     }
 
 
