@@ -5,6 +5,7 @@ module Data.Impact exposing
     , Quality(..)
     , Source
     , Trigram(..)
+    , addBonusImpacts
     , computeAggregatedScore
     , decodeImpacts
     , decodeList
@@ -24,6 +25,7 @@ module Data.Impact exposing
     , invalid
     , isAggregate
     , mapImpacts
+    , noBonusImpacts
     , noImpacts
     , parseTrigram
     , perKg
@@ -92,6 +94,24 @@ type alias BonusImpacts =
     , agroEcology : Unit.Impact
     , animalWelfare : Unit.Impact
     , total : Unit.Impact
+    }
+
+
+addBonusImpacts : BonusImpacts -> BonusImpacts -> BonusImpacts
+addBonusImpacts a b =
+    { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
+    , agroEcology = Quantity.plus a.agroEcology b.agroEcology
+    , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    , total = Quantity.plus a.total b.total
+    }
+
+
+noBonusImpacts : BonusImpacts
+noBonusImpacts =
+    { agroDiversity = Unit.impact 0
+    , agroEcology = Unit.impact 0
+    , animalWelfare = Unit.impact 0
+    , total = Unit.impact 0
     }
 
 

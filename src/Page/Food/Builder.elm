@@ -428,7 +428,7 @@ absoluteImpactView model results =
                     ]
                 , div [ class "text-center fs-7" ]
                     [ text " dont "
-                    , results.recipe.totalBonusesImpact
+                    , results.recipe.totalBonusesImpact.total
                         |> Unit.impactToFloat
                         |> Format.formatImpactFloat model.impact
                     , text " de bonus inclus"
@@ -887,7 +887,7 @@ ingredientListView db selectedImpact recipe results =
                 [ Icon.search ]
             ]
         , if selectedImpact.trigram == Impact.trg "ecs" then
-            results.recipe.totalBonusesImpact
+            results.recipe.totalBonusesImpact.total
                 |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
                 |> Unit.impactToFloat
                 |> Format.formatImpactFloat selectedImpact
@@ -1477,7 +1477,7 @@ stepResultsView model results =
 
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact
+              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact.total
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform

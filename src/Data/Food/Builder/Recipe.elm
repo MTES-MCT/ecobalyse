@@ -91,7 +91,7 @@ type alias Results =
         { total : Impacts
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
-        , totalBonusesImpact : Unit.Impact
+        , totalBonusesImpact : Impact.BonusImpacts
         , transform : Impacts
         , transports : Transport
         , transformedMass : Mass
@@ -252,7 +252,7 @@ compute db =
                         in
                         impacts
                             |> Impact.updateImpact (Impact.trg "ecs")
-                                (Quantity.difference ecoScore totalBonusesImpact)
+                                (Quantity.difference ecoScore totalBonusesImpact.total)
 
                     totalBonusesImpact =
                         ingredients
@@ -415,17 +415,16 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalBonus : List Impact.Definition -> List RecipeIngredient -> Unit.Impact
+computeIngredientsTotalBonus : List Impact.Definition -> List RecipeIngredient -> Impact.BonusImpacts
 computeIngredientsTotalBonus defs =
     List.foldl
         (\({ bonuses } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
                 |> computeIngredientBonusesImpacts defs bonuses
-                |> .total
-                |> Quantity.plus acc
+                |> Impact.addBonusImpacts acc
         )
-        (Unit.impact 0)
+        Impact.noBonusImpacts
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
