@@ -343,7 +343,7 @@ dataForGroupedImpacts defs chartsData =
                             |> (\{ climate, biodiversity, health, resources } ->
                                     List.reverse
                                         [ bonusImpacts
-                                        , { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat climate }
+                                        , { name = "Climat", color = "#9025be", value = Unit.impactToFloat climate }
                                         , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
                                         , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
                                         , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }

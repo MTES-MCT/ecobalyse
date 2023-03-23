@@ -120,16 +120,16 @@ noBonusImpacts =
 bonusesImpactAsChartEntries : BonusImpacts -> List { name : String, value : Float, color : String }
 bonusesImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
     -- We want those bonuses to appear as negative values on the chart
-    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#90ed7d" }
-    , { name = "Bonus agro-écologie", value = -(Unit.impactToFloat agroEcology), color = "#90e070" }
-    , { name = "Bonus bien-être animal", value = -(Unit.impactToFloat animalWelfare), color = "#f15c80" }
+    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
+    , { name = "Bonus agro-écologie", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Bonus bien-être animal", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
     ]
 
 
 totalBonusesImpactAsChartEntry : BonusImpacts -> { name : String, value : Float, color : String }
 totalBonusesImpactAsChartEntry { total } =
     -- We want those bonuses to appear as negative values on the chart
-    { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#90ed7d" }
+    { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
 
 
 type alias ProtectionAreas =
