@@ -18,6 +18,7 @@ module Data.Food.Builder.Query exposing
     , serialize
     , setDistribution
     , setTransform
+    , updateBonusesFromVariant
     , updateDistribution
     , updateIngredient
     , updatePackaging
@@ -28,7 +29,7 @@ module Data.Food.Builder.Query exposing
 import Base64
 import Data.Country as Country
 import Data.Food.Category as Category
-import Data.Food.Ingredient as Ingredient
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
@@ -397,6 +398,19 @@ updateDistribution distribution query =
                 |> Result.withDefault Retail.ambient
                 |> Just
     }
+
+
+updateBonusesFromVariant : List Ingredient -> Ingredient.Id -> Variant -> Ingredient.Bonuses
+updateBonusesFromVariant ingredients ingredientId variant =
+    case variant of
+        Organic ->
+            ingredients
+                |> Ingredient.findByID ingredientId
+                |> Result.map Ingredient.getDefaultOrganicBonuses
+                |> Result.withDefault Ingredient.defaultBonuses
+
+        DefaultVariant ->
+            Ingredient.defaultBonuses
 
 
 variantFromString : String -> Result String Variant
