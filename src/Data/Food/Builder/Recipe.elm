@@ -341,9 +341,9 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
             clamp 0 x x
 
         ( agroDiversityBonus, agroEcologyBonus, animalWelfareBonus ) =
-            ( ensurePositive (3 * Split.toFloat agroDiversity * normalizedLandUse)
-            , ensurePositive (3 * Split.toFloat agroEcology * normalizedLandUse)
-            , ensurePositive (2 * Split.toFloat animalWelfare * normalizedLandUse)
+            ( ensurePositive (2.3 * Split.toFloat agroDiversity * normalizedLandUse)
+            , ensurePositive (2.3 * Split.toFloat agroEcology * normalizedLandUse)
+            , ensurePositive (1.5 * Split.toFloat animalWelfare * normalizedLandUse)
             )
     in
     { agroDiversity = Unit.impact agroDiversityBonus

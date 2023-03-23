@@ -74,16 +74,16 @@ suite =
                                 }
                      in
                      [ bonusImpacts.agroDiversity
-                        |> expectImpactEqual (Unit.impact 10.726078648148011)
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
                         |> asTest "should compute a non-zero agro-diversity ingredient bonus"
                      , bonusImpacts.agroEcology
-                        |> expectImpactEqual (Unit.impact 10.726078648148011)
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
                         |> asTest "should compute a non-zero agro-ecology ingredient bonus"
                      , bonusImpacts.animalWelfare
-                        |> expectImpactEqual (Unit.impact 7.150719098765341)
+                        |> expectImpactEqual (Unit.impact 5.3630393240740055)
                         |> asTest "should compute a non-zero animal-welfare ingredient bonus"
                      , bonusImpacts.total
-                        |> expectImpactEqual (Unit.impact 28.602876395061365)
+                        |> expectImpactEqual (Unit.impact 21.80969325123429)
                         |> asTest "should compute a non-zero total bonus"
                      ]
                     )
