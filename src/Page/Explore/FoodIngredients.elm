@@ -12,6 +12,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
+import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -52,10 +53,33 @@ table _ { detailed, scope } =
       }
     , { label = "Procédé biologique"
       , toCell =
-            .variants
-                >> .organic
-                >> Maybe.map (.process >> .name >> Process.nameToString)
-                >> Maybe.withDefault "N/A"
-                >> text
+            \ingredient ->
+                div [ class "overflow-scroll" ]
+                    [ p []
+                        [ ingredient.variants.organic
+                            |> Maybe.map (.process >> .name >> Process.nameToString)
+                            |> Maybe.withDefault "N/A"
+                            |> text
+                        ]
+                    , [ ( "Bonus agro-diversité", .agroDiversity )
+                      , ( "Bonus agro-ecologie", .agroEcology )
+                      , ( "Bonus bien-être animal", .animalWelfare )
+                      ]
+                        |> List.filterMap
+                            (\( label, getter ) ->
+                                ingredient.variants.organic
+                                    |> Maybe.map
+                                        (.defaultBonuses
+                                            >> getter
+                                            >> (\split ->
+                                                    span []
+                                                        [ text <| label ++ ": "
+                                                        , Format.splitAsPercentage split
+                                                        ]
+                                               )
+                                        )
+                            )
+                        |> div [ class "d-flex gap-2" ]
+                    ]
       }
     ]

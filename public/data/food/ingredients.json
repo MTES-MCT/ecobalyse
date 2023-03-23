@@ -13,7 +13,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         }
       },
       "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
@@ -33,7 +33,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         }
       }
     }
@@ -169,7 +169,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
       }
@@ -188,7 +188,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
       }
@@ -207,7 +207,7 @@
         "beyondLCA": {
           "agro-diversity": 0.6,
           "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
       }
@@ -226,7 +226,7 @@
         "beyondLCA": {
           "agro-diversity": 0.7,
           "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "animal-welfare": 0.9
         },
         "process": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018"
       }

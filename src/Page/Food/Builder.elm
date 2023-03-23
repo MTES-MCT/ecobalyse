@@ -26,9 +26,10 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
@@ -43,6 +44,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
@@ -416,15 +418,20 @@ absoluteImpactView model results =
                 ]
             ]
         , footer =
-            [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                [ span [ class "fs-7" ]
+            [ div [ class "w-100" ]
+                [ div [ class "text-center" ]
                     [ text "Soit pour "
                     , Format.kg results.preparedMass
-                    , text "\u{00A0}:"
-                    ]
-                , span [ class "h5 m-0" ]
-                    [ results.total
+                    , text "\u{00A0}:\u{00A0}"
+                    , results.total
                         |> Format.formatFoodSelectedImpact model.impact
+                    ]
+                , div [ class "text-center fs-7" ]
+                    [ text " dont "
+                    , results.recipe.totalBonusesImpact
+                        |> Unit.impactToFloat
+                        |> Format.formatImpactFloat model.impact
+                    , text " de bonus inclus"
                     ]
                 ]
             ]
@@ -503,14 +510,18 @@ type alias UpdateIngredientConfig =
     { excluded : List Id
     , db : Db
     , ingredient : Recipe.RecipeIngredient
-    , impact : Html Msg
+    , impact : Impact.Impacts
+    , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> List (Html Msg)
-updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
+updateIngredientFormView : UpdateIngredientConfig -> Html Msg
+updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, transportImpact } =
     let
+        { bonuses } =
+            ingredient
+
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
             { id = ingredient.ingredient.id
@@ -518,12 +529,13 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
             , planeTransport = ingredient.planeTransport
+            , bonuses = bonuses
             }
 
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    [ li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = ingredient.mass
@@ -619,6 +631,12 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
 
                                     else
                                         Query.DefaultVariant
+                                , bonuses =
+                                    if checked then
+                                        Ingredient.getDefaultOrganicBonuses ingredient.ingredient
+
+                                    else
+                                        Ingredient.noBonuses
                             }
                     )
                 ]
@@ -626,14 +644,58 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , text "bio"
             ]
         , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact ]
+            [ impact
+                |> Format.formatFoodSelectedImpact selectedImpact
+            ]
         , button
             [ type_ "button"
             , class "btn btn-sm btn-outline-primary IngredientDelete"
-            , title <| "Supprimer "
+            , title "Supprimer "
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
+        , if selectedImpact.trigram == Impact.trg "ecs" then
+            let
+                bonusImpacts =
+                    impact
+                        |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
+            in
+            details [ class "IngredientBonuses fs-7", attribute "open" "" ]
+                [ summary [] [ text "Bonus écologiques inclus" ]
+                , ingredientBonusView
+                    { name = "Diversité agricole"
+                    , domId = "agroDiversity"
+                    , bonusImpact = bonusImpacts.agroDiversity
+                    , bonusSplit = bonuses.agroDiversity
+                    , selectedImpact = selectedImpact
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
+                    }
+                , ingredientBonusView
+                    { name = "Agro-écologie"
+                    , domId = "agroEcology"
+                    , bonusImpact = bonusImpacts.agroEcology
+                    , bonusSplit = bonuses.agroEcology
+                    , selectedImpact = selectedImpact
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
+                    }
+                , ingredientBonusView
+                    { name = "Bien-être animal"
+                    , domId = "animalWelfare"
+                    , bonusImpact = bonusImpacts.animalWelfare
+                    , bonusSplit = bonuses.animalWelfare
+                    , selectedImpact = selectedImpact
+                    , updateEvent =
+                        \split ->
+                            event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
+                    }
+                ]
+
+          else
+            text ""
         , displayTransportDistances db ingredient ingredientQuery event
         , span
             [ class "text-muted text-end IngredientTransportImpact fs-7"
@@ -643,7 +705,52 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , transportImpact
             ]
         ]
-    ]
+
+
+type alias BonusViewConfig msg =
+    { bonusImpact : Unit.Impact
+    , bonusSplit : Split
+    , domId : String
+    , name : String
+    , selectedImpact : Impact.Definition
+    , updateEvent : Split -> msg
+    }
+
+
+ingredientBonusView : BonusViewConfig Msg -> Html Msg
+ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, updateEvent } =
+    div [ class "IngredientBonus" ]
+        [ label [ for domId, class "BonusName text-nowrap text-muted" ] [ text name ]
+        , input
+            [ type_ "range"
+            , id domId
+            , class "BonusRange form-range"
+            , Attr.min "0"
+            , Attr.max "100"
+            , step "1"
+            , Attr.value <| Split.toPercentString bonusSplit
+            , onInput
+                (String.toInt
+                    >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
+                    >> Maybe.withDefault Split.zero
+                    >> updateEvent
+                )
+            ]
+            []
+        , div [ class "BonusValue d-flex align-items-center text-muted" ]
+            [ Format.splitAsPercentage bonusSplit
+            , Button.smallPillLink
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodBonuses)
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
+        , div [ class "BonusImpact text-end text-muted" ]
+            [ bonusImpact
+                |> Unit.impactToFloat
+                |> Format.formatImpactFloat selectedImpact
+            ]
+        ]
 
 
 displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
@@ -777,7 +884,7 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.concatMap
+                |> List.map
                     (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
@@ -789,7 +896,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                            , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
@@ -1224,18 +1331,18 @@ sidebarView session db model results =
         ]
         [ ImpactView.impactSelector
             { impacts = db.impacts
+            , scope = Scope.Food
             , selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
-            -- We don't use the following two configs
+            -- FIXME: We don't use the following two textile configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Scope.Food
             }
         , absoluteImpactView model results
         , if Impact.trg "ecs" == model.impact.trigram then
             -- We only show subscores for ecs
-            scoresView session results
+            subScoresView session results
 
           else
             text ""
@@ -1267,9 +1374,10 @@ letterView attrs letter =
         ]
 
 
-scoresView : Session -> Recipe.Results -> Html Msg
-scoresView { queries } { scoring } =
-    div [ class "card bg-primary shadow-sm" ]
+subScoresView : Session -> Recipe.Results -> Html Msg
+subScoresView { queries } { scoring } =
+    -- Note: temporarily hidden until some decision is made about these subscores
+    div [ class "card bg-primary shadow-sm d-none" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                 [ div [ class "input-group" ]
@@ -1351,7 +1459,7 @@ stepResultsView model results =
 
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal
+              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform

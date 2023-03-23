@@ -95,6 +95,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.noBonuses)
 
         [ id, mass, variant ] ->
             let
@@ -108,6 +109,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.noBonuses)
 
         [ id, mass, variant, countryCode ] ->
             let
@@ -121,6 +123,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.noBonuses)
 
         [ id, mass, variant, countryCode, byPlane ] ->
             let
@@ -144,6 +147,7 @@ ingredientParser { countries, ingredients } string =
                                         )
                             )
                     )
+                |> RE.andMap (Ok Ingredient.noBonuses)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."

@@ -52,6 +52,7 @@ type alias IngredientQuery =
     , variant : Variant
     , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
+    , bonuses : Ingredient.Bonuses
     }
 
 
@@ -118,24 +119,28 @@ carrotCake =
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "wheat"
           , mass = Mass.grams 140
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "milk"
           , mass = Mass.grams 60
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.noBonuses
           }
         , { id = Ingredient.idFromString "carrot"
           , mass = Mass.grams 225
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.noBonuses
           }
         ]
     , transform =
@@ -210,12 +215,13 @@ decodeProcess =
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
-    Decode.map5 IngredientQuery
-        (Decode.field "id" Ingredient.decodeId)
-        (Decode.field "mass" decodeMass)
-        (Decode.field "variant" decodeVariant)
-        (Decode.field "country" (Decode.maybe Country.decodeCode))
-        (Decode.field "byPlane" decodePlaneTransport)
+    Decode.succeed IngredientQuery
+        |> Pipe.required "id" Ingredient.decodeId
+        |> Pipe.required "mass" decodeMass
+        |> Pipe.required "variant" decodeVariant
+        |> Pipe.required "country" (Decode.maybe Country.decodeCode)
+        |> Pipe.required "byPlane" decodePlaneTransport
+        |> Pipe.optional "bonuses" Ingredient.decodeBonuses Ingredient.noBonuses
 
 
 decodeVariant : Decoder Variant
@@ -263,6 +269,7 @@ encodeIngredient v =
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "byPlane", encodePlaneTransport v.planeTransport )
+        , ( "bonuses", Ingredient.encodeBonuses v.bonuses )
         ]
 
 

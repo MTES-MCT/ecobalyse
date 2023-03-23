@@ -7,6 +7,8 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Impact as Impact
+import Data.Split as Split
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -18,15 +20,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 
 expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
-expectImpactEqual expectedImpactUnit impactUnit =
+expectImpactEqual expectedImpactUnit =
     let
         expectedImpact =
             Unit.impactToFloat expectedImpactUnit
-
-        impact =
-            Unit.impactToFloat impactUnit
     in
-    Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
+    Unit.impactToFloat
+        >> Expect.within (Expect.Relative 0.0000000000000001) expectedImpact
 
 
 suite : Test
@@ -34,6 +34,87 @@ suite =
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
             [ let
+                testComputedBonuses bonuses =
+                    Impact.impactsFromDefinitons builderDb.impacts
+                        |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                        |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
+              in
+              describe "computeIngredientBonusesImpacts"
+                [ describe "with zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.zero
+                                , agroEcology = Split.zero
+                                , animalWelfare = Split.zero
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                , describe "with non-zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.half
+                                , agroEcology = Split.half
+                                , animalWelfare = Split.half
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 5.3630393240740055)
+                        |> asTest "should compute a non-zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 21.80969325123429)
+                        |> asTest "should compute a non-zero total bonus"
+                     ]
+                    )
+                , describe "with maluses avoided"
+                    (let
+                        bonusImpacts =
+                            Impact.impactsFromDefinitons builderDb.impacts
+                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
+                                    { agroDiversity = Split.full
+                                    , agroEcology = Split.full
+                                    , animalWelfare = Split.full
+                                    }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                ]
+            , let
                 recipe =
                     carrotCake
                         |> Recipe.fromQuery builderDb
@@ -144,12 +225,14 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.noBonuses
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.noBonuses
                           }
                         ]
                   , transform = Nothing
@@ -194,6 +277,7 @@ suite =
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
+                    , bonuses = Ingredient.noBonuses
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -211,6 +295,7 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.noBonuses
                           }
                         ]
                   , transform = Nothing
