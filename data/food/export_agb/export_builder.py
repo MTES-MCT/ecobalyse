@@ -4,15 +4,26 @@
 """Export de l'impact d'une liste de processes
 exemple : python export_builder.py"""
 
-import copy
-import csv
-import json
-import argparse
-import brightway2 as bw
 from collections import defaultdict
 from food.impacts import impacts
-import uuid
+import bw2calc
+import bw2data
+import bw2io
+import copy
+import csv
 import hashlib
+import json
+import uuid
+
+# BRIGHTWAY
+DBNAME = "agribalyse3"
+PROJECT = "EF calculation"
+# INPUT
+IMPACTS = "../../../public/data/impacts.json"
+BVIDATA = "bvi.csv"
+PROCESSES_TO_EXPORT = "builder_processes_to_export.txt"
+INGREDIENTS_BASE = "ingredients_base.json"
+# OUTPUT
 
 processes_kind = {
     # transformation
@@ -104,8 +115,7 @@ def get_activities(agribalyse_db, processes_name):
         if index % 100 == 0 and index:
             print(f"Chargement de {index} activités", end="\r")
 
-    print(f"Chargement de {len(activities)} activités terminé")
-
+    print(f"Total de {len(activities)} activités trouvées dans agribalyse")
     return activities
 
 
@@ -146,18 +156,12 @@ def add_process(processes, activity):
     processes[activity]["impacts"] = {}
 
 
-def open_db(dbname):
-    bw.projects.set_current("EF calculation")
-    bw.bw2setup()
-    return bw.Database(dbname)
-
-
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
     for key, method in impacts.items():
         print("Initialisation de la méthode", method)
-        lca = bw.LCA(demand, method)
+        lca = bw2calc.LCA(demand, method)
         lca.lci()
         lca.lcia()
         lcas[key] = lca
@@ -256,7 +260,7 @@ def is_complex_ingredient(variant):
     )  # This is enough (for now?) to detect if an ingredient is complex
 
 
-def parse_ingredient_list(ingredients_base):
+def get_complex_ingredients(ingredients_base):
     processes_to_add = []
 
     for ingredient in ingredients_base:
@@ -265,6 +269,9 @@ def parse_ingredient_list(ingredients_base):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 processes_to_add.append(variant["simple_ingredient_default"])
                 processes_to_add.append(variant["simple_ingredient_variant"])
+    print(
+        f"{len(processes_to_add)} procédés à rajouter provenant de {INGREDIENTS_BASE} (ingrédients complexes)"
+    )
     return processes_to_add
 
 
@@ -326,47 +333,34 @@ def export_json(content, filename):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Export agribalyse LCA data from a brightway database"
-    )
+    # Brightway setup
+    bw2data.projects.set_current(PROJECT)
+    bw2io.bw2setup()
+    agb = bw2data.Database(DBNAME)
 
-    args = parser.parse_args()
-
-    processes_to_export_file = "builder_processes_to_export.txt"
-    with open(processes_to_export_file, "r") as f:
+    with open(PROCESSES_TO_EXPORT, "r") as f:
         processes_to_export = [line for line in f.readlines() if line.strip()]
 
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
-    with open("ingredients_base.json", "r") as f:
+    with open(INGREDIENTS_BASE, "r") as f:
         ingredients_base = json.load(f)
-    processes_to_add = parse_ingredient_list(ingredients_base)
-    print(
-        f"{len(processes_to_add)} procédés à rajouter provenant de ingredients_base.json (ingrédients complexes)"
-    )
 
-    processes_to_export += processes_to_add
+    processes_to_export += get_complex_ingredients(ingredients_base)
     print(f"Total de {len(processes_to_export)} procédés à exporter")
 
-    agb = open_db("agribalyse3")
-
-    activities = get_activities(agb, processes_to_export)
-    print(f"Total de {len(activities)} activités trouvées dans agribalyse")
-
     processes = defaultdict(dict)
-    for activity in activities:
+    for activity in get_activities(agb, processes_to_export):
         add_process(processes, activity)
 
     # Just get a random process, for example the very first one
     random_process = next(iter(processes))
     lcas = init_lcas({random_process: 1})
 
-    impacts_file = "../../../public/data/impacts.json"
-    with open(impacts_file, "r") as f:
+    with open(IMPACTS, "r") as f:
         impacts_ecobalyse = json.load(f)
 
-    bvi_data_file = "bvi.csv"
     bvi_data = {}
-    with open(bvi_data_file, "r", encoding="utf-8-sig") as f:
+    with open(BVIDATA, "r", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
             bvi_data[row["process_name"]] = row["bvi"]
