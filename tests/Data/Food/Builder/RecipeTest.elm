@@ -193,11 +193,11 @@ suite =
                                     Ok scoring ->
                                         Expect.equal scoring
                                             { all = { impact = Unit.impact 202.8105653915908, letter = "B", outOf100 = 63 }
-                                            , biodiversity = { impact = Unit.impact 114.72955353984521, letter = "B", outOf100 = 69 }
+                                            , biodiversity = { impact = Unit.impact 91.6347570526944, letter = "A", outOf100 = 81 }
                                             , category = "Gâteaux"
                                             , climate = { impact = Unit.impact 42.550812211063175, letter = "B", outOf100 = 64 }
-                                            , health = { impact = Unit.impact 60.200332077828726, letter = "B", outOf100 = 60 }
-                                            , resources = { impact = Unit.impact 40.88082218916821, letter = "C", outOf100 = 45 }
+                                            , health = { impact = Unit.impact 32.502308215624524, letter = "A", outOf100 = 92 }
+                                            , resources = { impact = Unit.impact 36.12268791220873, letter = "C", outOf100 = 51 }
                                             }
                                             |> asTest "should be properly scored"
                            )

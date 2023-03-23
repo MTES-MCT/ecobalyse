@@ -11,6 +11,7 @@ import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Dict
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -44,6 +45,8 @@ type FoodComparisonUnit
 type alias FoodOptions msg =
     { comparisonUnit : FoodComparisonUnit
     , switchComparisonUnit : FoodComparisonUnit -> msg
+    , groupByProtectionAreas : Bool
+    , updateGroupByProtectionAreas : Bool -> msg
     }
 
 
@@ -130,7 +133,7 @@ comparator ({ session, options, toggle } as config) =
 
 
 foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByProtectionAreas, updateGroupByProtectionAreas } =
     let
         { builderDb, store } =
             session
@@ -153,20 +156,55 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
             else
                 Nothing
 
+        labelToOrder =
+            [ "Changement climatique"
+            , "Biodiversité locale"
+            , "Acidification"
+            , "Eutrophisation terrestre"
+            , "Eutrophisation eaux douces"
+            , "Eutrophisation marine"
+            , "Écotoxicité de l'eau douce, corrigée"
+            , "Utilisation des sols"
+            , "Appauvrissement de la couche d'ozone"
+            , "Radiations ionisantes"
+            , "Formation d'ozone photochimique"
+            , "Toxicité humaine - non-cancer, corrigée"
+            , "Toxicité humaine - cancer, corrigée"
+            , "Particules"
+            , "Utilisation de ressources en eau"
+            , "Utilisation de ressources fossiles"
+            , "Utilisation de ressources minérales et métalliques"
+            ]
+                |> List.indexedMap (\index label -> ( label, index ))
+                |> Dict.fromList
+
+        labelComparison entry1 entry2 =
+            let
+                getOrder entry =
+                    Dict.get entry.name labelToOrder
+
+                label1Order =
+                    getOrder entry1
+
+                label2Order =
+                    getOrder entry2
+            in
+            case ( label1Order, label2Order ) of
+                ( Just index1, Just index2 ) ->
+                    if index1 > index2 then
+                        GT
+
+                    else
+                        LT
+
+                _ ->
+                    EQ
+
         charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
                 |> List.filterMap addToComparison
                 |> RE.combine
-                |> Result.map
-                    (List.map
-                        (Tuple.mapSecond
-                            (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
-                                >> List.sortBy .name
-                                >> List.reverse
-                            )
-                        )
-                    )
 
         unitChoiceRadio caption current to =
             label [ class "form-check-label d-flex align-items-center gap-1" ]
@@ -180,6 +218,19 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                     []
                 , text caption
                 ]
+
+        groupByProtectionAreasCheckbox =
+            label [ class "form-check-label d-flex align-items-center gap-1" ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , name "groupByProtectionAreas"
+                    , checked groupByProtectionAreas
+                    , onCheck updateGroupByProtectionAreas
+                    ]
+                    []
+                , text "Grouper les impacts"
+                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
@@ -187,6 +238,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
         , div [ class "d-flex justify-content-center align-items-center gap-3" ]
             [ unitChoiceRadio "par produit" comparisonUnit PerItem
             , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+            , groupByProtectionAreasCheckbox
             ]
         , case charts of
             Ok [] ->
@@ -195,16 +247,49 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
             Ok chartsData ->
                 div [ class "h-100" ]
                     [ node "chart-food-comparator"
-                        [ chartsData
-                            |> Encode.list
-                                (\( name, entries ) ->
-                                    Encode.object
-                                        [ ( "label", Encode.string name )
-                                        , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                                        ]
-                                )
-                            |> Encode.encode 0
-                            |> attribute "data"
+                        [ if not groupByProtectionAreas then
+                            chartsData
+                                |> List.map
+                                    (Tuple.mapSecond
+                                        (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
+                                            >> List.sortWith labelComparison
+                                            >> List.reverse
+                                        )
+                                    )
+                                |> Encode.list
+                                    (\( name, entries ) ->
+                                        Encode.object
+                                            [ ( "label", Encode.string name )
+                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                            ]
+                                    )
+                                |> Encode.encode 0
+                                |> attribute "data"
+
+                          else
+                            chartsData
+                                |> List.map
+                                    (Tuple.mapSecond
+                                        (Impact.toProtectionAreas builderDb.impacts
+                                            >> (\{ climate, biodiversity, health, resources } ->
+                                                    List.reverse
+                                                        [ { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat climate }
+                                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
+                                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
+                                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
+                                                        ]
+                                               )
+                                        )
+                                    )
+                                |> Encode.list
+                                    (\( name, entries ) ->
+                                        Encode.object
+                                            [ ( "label", Encode.string name )
+                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                            ]
+                                    )
+                                |> Encode.encode 0
+                                |> attribute "data"
                         ]
                         []
                     ]
