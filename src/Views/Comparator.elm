@@ -143,13 +143,13 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByPr
                 foodQuery
                     |> Recipe.compute builderDb
                     |> Result.map
-                        (\( _, { total, perKg } ) ->
+                        (\( _, { total, perKg, recipe } ) ->
                             case comparisonUnit of
                                 PerItem ->
-                                    ( label, total )
+                                    ( label, total, recipe )
 
                                 PerKgOfProduct ->
-                                    ( label, perKg )
+                                    ( label, perKg, recipe )
                         )
                     |> Just
 
@@ -250,44 +250,59 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, groupByPr
                         [ if not groupByProtectionAreas then
                             chartsData
                                 |> List.map
-                                    (Tuple.mapSecond
-                                        (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
-                                            >> List.sortWith labelComparison
-                                            >> List.reverse
-                                        )
-                                    )
-                                |> Encode.list
-                                    (\( name, entries ) ->
+                                    (\( name, impacts, recipe ) ->
+                                        let
+                                            bonusImpacts =
+                                                recipe.totalBonusesImpact
+                                                    |> Impact.bonusesImpactAsChartEntries
+
+                                            entries =
+                                                impacts
+                                                    |> Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
+                                                    |> List.sortWith labelComparison
+
+                                            reversed =
+                                                bonusImpacts
+                                                    ++ entries
+                                                    |> List.reverse
+                                        in
                                         Encode.object
                                             [ ( "label", Encode.string name )
-                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                            , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry reversed )
                                             ]
                                     )
+                                |> Encode.list identity
                                 |> Encode.encode 0
                                 |> attribute "data"
 
                           else
                             chartsData
                                 |> List.map
-                                    (Tuple.mapSecond
-                                        (Impact.toProtectionAreas builderDb.impacts
-                                            >> (\{ climate, biodiversity, health, resources } ->
-                                                    List.reverse
-                                                        [ { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat climate }
-                                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
-                                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
-                                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
-                                                        ]
-                                               )
-                                        )
-                                    )
-                                |> Encode.list
-                                    (\( name, entries ) ->
+                                    (\( name, impacts, recipe ) ->
+                                        let
+                                            bonusImpacts =
+                                                recipe.totalBonusesImpact
+                                                    |> Impact.totalBonusesImpactAsChartEntry
+
+                                            entries =
+                                                impacts
+                                                    |> Impact.toProtectionAreas builderDb.impacts
+                                                    |> (\{ climate, biodiversity, health, resources } ->
+                                                            List.reverse
+                                                                [ bonusImpacts
+                                                                , { name = "Climat", color = "#7f7f7f", value = Unit.impactToFloat climate }
+                                                                , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
+                                                                , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
+                                                                , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
+                                                                ]
+                                                       )
+                                        in
                                         Encode.object
                                             [ ( "label", Encode.string name )
                                             , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
                                             ]
                                     )
+                                |> Encode.list identity
                                 |> Encode.encode 0
                                 |> attribute "data"
                         ]
