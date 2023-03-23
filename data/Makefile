@@ -25,7 +25,12 @@ bash:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash
 
 notebook:
-	$(DOCKERRUN) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
+	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
+	docker logs -f $(NAME)
+
+kill_notebook:
+	docker kill $(NAME)
+
 
 clean_data:
 	docker volume rm $(NAME)
