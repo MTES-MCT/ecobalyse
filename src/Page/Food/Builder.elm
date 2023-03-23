@@ -35,7 +35,7 @@ import Json.Encode as Encode
 import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
-import Quantity exposing (inverse)
+import Quantity
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as FoodRequestDb
