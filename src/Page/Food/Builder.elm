@@ -636,7 +636,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                                         Ingredient.getDefaultOrganicBonuses ingredient.ingredient
 
                                     else
-                                        Ingredient.noBonuses
+                                        Ingredient.defaultBonuses
                             }
                     )
                 ]

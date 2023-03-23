@@ -743,7 +743,7 @@ ingredientQueryFromIngredient ingredient =
     , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
-    , bonuses = Ingredient.noBonuses
+    , bonuses = Ingredient.defaultBonuses
     }
 
 
