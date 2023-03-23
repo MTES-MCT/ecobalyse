@@ -875,8 +875,15 @@ ingredientListView db selectedImpact recipe results =
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
                 [ Icon.search ]
             ]
-        , results.recipe.ingredientsTotal
-            |> Format.formatFoodSelectedImpact selectedImpact
+        , if selectedImpact.trigram == Impact.trg "ecs" then
+            results.recipe.totalBonusesImpact
+                |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
+                |> Unit.impactToFloat
+                |> Format.formatImpactFloat selectedImpact
+
+          else
+            results.recipe.ingredientsTotal
+                |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
