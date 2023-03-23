@@ -54,7 +54,7 @@ table _ { detailed, scope } =
     , { label = "Procédé biologique"
       , toCell =
             \ingredient ->
-                div []
+                div [ class "overflow-scroll" ]
                     [ p []
                         [ ingredient.variants.organic
                             |> Maybe.map (.process >> .name >> Process.nameToString)

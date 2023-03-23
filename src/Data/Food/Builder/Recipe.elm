@@ -242,16 +242,17 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
-                    addIngredientsBonuses bonus impacts =
-                        -- Note: this must be applied at the very last step of impacts computation, as it relies
-                        -- on the final ingredients ecoscore and land use impacts as a base for computation.
+                    addIngredientsBonuses impacts =
+                        -- Note: this must be applied at the very last step of the impacts computation
+                        -- pipeline, as it relies on the final ingredients ecoscore and land use values
+                        -- as a base for computation.
                         let
                             ecoScore =
                                 Impact.getImpact (Impact.trg "ecs") impacts
                         in
                         impacts
                             |> Impact.updateImpact (Impact.trg "ecs")
-                                (Unit.impact (Unit.impactToFloat ecoScore - Unit.impactToFloat bonus))
+                                (Quantity.difference ecoScore totalBonusesImpact)
 
                     totalBonusesImpact =
                         ingredients
@@ -266,7 +267,7 @@ compute db =
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
-                            |> Result.map (addIngredientsBonuses totalBonusesImpact)
+                            |> Result.map addIngredientsBonuses
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
@@ -422,9 +423,7 @@ computeIngredientsTotalBonus defs =
                 |> computeIngredientImpacts
                 |> computeIngredientBonusesImpacts defs bonuses
                 |> .total
-                |> Unit.impactToFloat
-                |> (+) (Unit.impactToFloat acc)
-                |> Unit.impact
+                |> Quantity.plus acc
         )
         (Unit.impact 0)
 

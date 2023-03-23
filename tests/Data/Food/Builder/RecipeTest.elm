@@ -87,7 +87,7 @@ suite =
                         |> asTest "should compute a non-zero total bonus"
                      ]
                     )
-                , describe "with negative bonuses avoided"
+                , describe "with maluses avoided"
                     (let
                         bonusImpacts =
                             Impact.impactsFromDefinitons builderDb.impacts

@@ -731,7 +731,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, upda
             , Attr.value <| Split.toPercentString bonusSplit
             , onInput
                 (String.toInt
-                    >> Maybe.map (Split.fromPercent >> Result.withDefault Split.zero)
+                    >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
                     >> Maybe.withDefault Split.zero
                     >> updateEvent
                 )
