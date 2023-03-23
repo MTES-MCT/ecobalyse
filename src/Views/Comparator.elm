@@ -46,6 +46,7 @@ type FoodComparisonUnit
 type DisplayChoice
     = IndividualImpacts
     | Grouped
+    | Total
 
 
 type alias FoodOptions msg =
@@ -152,10 +153,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                         (\( _, { total, perKg, recipe } ) ->
                             case comparisonUnit of
                                 PerItem ->
-                                    ( label, total, recipe )
+                                    ( label, total, recipe.totalBonusesImpact )
 
                                 PerKgOfProduct ->
-                                    ( label, perKg, recipe )
+                                    ( label, perKg, recipe.totalBonusesImpactPerKg )
                         )
                     |> Just
 
@@ -186,7 +187,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 [ input
                     [ type_ "radio"
                     , class "form-check-input"
-                    , name "unit"
+                    , name "displayChoice"
                     , checked <| current == to
                     , onInput <| always (switchDisplayChoice to)
                     ]
@@ -205,6 +206,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
             , div [ class "d-flex gap-3" ]
                 [ displayChoiceRadio "impacts individuels" displayChoice IndividualImpacts
                 , displayChoiceRadio "impacts groupés" displayChoice Grouped
+                , displayChoiceRadio "total" displayChoice Total
                 ]
             ]
         , case charts of
@@ -218,10 +220,26 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                             IndividualImpacts ->
                                 dataForIndividualImpacts builderDb.impacts chartsData
 
-                            _ ->
+                            Grouped ->
                                 dataForGroupedImpacts builderDb.impacts chartsData
+
+                            Total ->
+                                dataForTotalImpacts chartsData
                 in
-                div [ class "h-100" ]
+                div
+                    [ class "h-100"
+                    , class
+                        (case displayChoice of
+                            IndividualImpacts ->
+                                "individual-impacts"
+
+                            Grouped ->
+                                "grouped-impacts"
+
+                            Total ->
+                                "total-impacts"
+                        )
+                    ]
                     [ node "chart-food-comparator"
                         [ attribute "data" data ]
                         []
@@ -237,7 +255,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         ]
 
 
-dataForIndividualImpacts : List Impact.Definition -> List ( String, Impact.Impacts, { a | totalBonusesImpact : Impact.BonusImpacts } ) -> String
+dataForIndividualImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
 dataForIndividualImpacts defs chartsData =
     let
         labelToOrder =
@@ -286,11 +304,10 @@ dataForIndividualImpacts defs chartsData =
     in
     chartsData
         |> List.map
-            (\( name, impacts, recipe ) ->
+            (\( name, impacts, bonusesImpact ) ->
                 let
                     bonusImpacts =
-                        recipe.totalBonusesImpact
-                            |> Impact.bonusesImpactAsChartEntries
+                        Impact.bonusesImpactAsChartEntries bonusesImpact
 
                     entries =
                         impacts
@@ -311,15 +328,14 @@ dataForIndividualImpacts defs chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : List Impact.Definition -> List ( String, Impact.Impacts, { a | totalBonusesImpact : Impact.BonusImpacts } ) -> String
+dataForGroupedImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
 dataForGroupedImpacts defs chartsData =
     chartsData
         |> List.map
-            (\( name, impacts, recipe ) ->
+            (\( name, impacts, bonusesImpact ) ->
                 let
                     bonusImpacts =
-                        recipe.totalBonusesImpact
-                            |> Impact.totalBonusesImpactAsChartEntry
+                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
 
                     entries =
                         impacts
@@ -333,6 +349,40 @@ dataForGroupedImpacts defs chartsData =
                                         , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
                                         ]
                                )
+                in
+                Encode.object
+                    [ ( "label", Encode.string name )
+                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                    ]
+            )
+        |> Encode.list identity
+        |> Encode.encode 0
+
+
+dataForTotalImpacts : List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForTotalImpacts chartsData =
+    chartsData
+        |> List.map
+            (\( name, impacts, bonusesImpact ) ->
+                let
+                    totalImpact =
+                        impacts
+                            |> Impact.getImpact (Impact.Trigram "ecs")
+                            |> Unit.impactToFloat
+
+                    bonusImpacts =
+                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
+                            |> (\entry ->
+                                    -- In this particular case we want the bonus as a positive value, displayed "on top" of the bar
+                                    -- in white
+                                    { entry | value = -entry.value, color = "#ffffff" }
+                               )
+
+                    entries =
+                        List.reverse
+                            [ { name = "Impact total", color = "#333333", value = totalImpact }
+                            , bonusImpacts
+                            ]
                 in
                 Encode.object
                     [ ( "label", Encode.string name )

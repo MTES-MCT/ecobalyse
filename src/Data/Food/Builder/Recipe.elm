@@ -92,6 +92,7 @@ type alias Results =
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
         , totalBonusesImpact : Impact.BonusImpacts
+        , totalBonusesImpactPerKg : Impact.BonusImpacts
         , transform : Impacts
         , transports : Transport
         , transformedMass : Mass
@@ -258,6 +259,14 @@ compute db =
                         ingredients
                             |> computeIngredientsTotalBonus db.impacts
 
+                    totalBonusesImpactPerKg =
+                        { totalBonusesImpact
+                            | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroDiversity
+                            , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroEcology
+                            , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.animalWelfare
+                            , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.total
+                        }
+
                     totalImpacts =
                         [ Ok recipeImpacts
                         , Ok packagingImpacts
@@ -292,6 +301,7 @@ compute db =
                                 , ingredientsTotal = ingredientsTotalImpacts
                                 , ingredients = ingredientsImpacts
                                 , totalBonusesImpact = totalBonusesImpact
+                                , totalBonusesImpactPerKg = totalBonusesImpactPerKg
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
                                 , transformedMass = transformedIngredientsMass

@@ -999,3 +999,8 @@ blockquote {
     }
   }
 }
+
+// Specifics for the comparator modal, when displaying the "total" impacts, we want the stroke to be black instead of white by default.
+.total-impacts rect.highcharts-point {
+  stroke: #333;
+}
