@@ -664,6 +664,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 [ summary [] [ text "Bonus écologiques inclus" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
+                    , title = Nothing
                     , domId = "agroDiversity"
                     , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
@@ -673,7 +674,8 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                             event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
                     }
                 , ingredientBonusView
-                    { name = "Agro-écologie"
+                    { name = "Infra. agro-éco."
+                    , title = Just "Infrastructures agro-écologiques"
                     , domId = "agroEcology"
                     , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
@@ -684,6 +686,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     }
                 , ingredientBonusView
                     { name = "Bien-être animal"
+                    , title = Nothing
                     , domId = "animalWelfare"
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
@@ -713,14 +716,22 @@ type alias BonusViewConfig msg =
     , domId : String
     , name : String
     , selectedImpact : Impact.Definition
+    , title : Maybe String
     , updateEvent : Split -> msg
     }
 
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, updateEvent } =
-    div [ class "IngredientBonus" ]
-        [ label [ for domId, class "BonusName text-nowrap text-muted" ] [ text name ]
+ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, title, updateEvent } =
+    div
+        [ class "IngredientBonus"
+        , title |> Maybe.withDefault name |> Attr.title
+        ]
+        [ label
+            [ for domId
+            , class "BonusName text-nowrap text-muted"
+            ]
+            [ text name ]
         , input
             [ type_ "range"
             , id domId
