@@ -35,7 +35,7 @@ import Json.Encode as Encode
 import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
-import Quantity
+import Quantity exposing (inverse)
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as FoodRequestDb
@@ -661,7 +661,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                         |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
             in
             details [ class "IngredientBonuses fs-7" ]
-                [ summary [] [ text "Bonus écologiques inclus" ]
+                [ summary [] [ text "Bonus écologiques" ]
                 , ingredientBonusView
                     { name = "Diversité agricole"
                     , title = Nothing
@@ -758,6 +758,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, titl
             ]
         , div [ class "BonusImpact text-end text-muted" ]
             [ bonusImpact
+                |> Quantity.negate
                 |> Unit.impactToFloat
                 |> Format.formatImpactFloat selectedImpact
             ]
