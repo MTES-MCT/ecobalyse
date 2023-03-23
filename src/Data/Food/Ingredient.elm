@@ -9,6 +9,7 @@ module Data.Food.Ingredient exposing
     , decodeBonuses
     , decodeId
     , decodeIngredients
+    , defaultBonuses
     , encodeBonuses
     , encodeId
     , findByID
@@ -16,7 +17,6 @@ module Data.Food.Ingredient exposing
     , getDefaultOriginTransport
     , idFromString
     , idToString
-    , noBonuses
     )
 
 import Data.Food.Origin as Origin exposing (Origin)
@@ -109,6 +109,14 @@ decodeId =
         |> Decode.map idFromString
 
 
+defaultBonuses : Bonuses
+defaultBonuses =
+    { agroDiversity = Split.tenth
+    , agroEcology = Split.tenth
+    , animalWelfare = Split.tenth
+    }
+
+
 encodeBonuses : Bonuses -> Encode.Value
 encodeBonuses v =
     Encode.object
@@ -128,7 +136,7 @@ getDefaultOrganicBonuses =
     .variants
         >> .organic
         >> Maybe.map .defaultBonuses
-        >> Maybe.withDefault noBonuses
+        >> Maybe.withDefault defaultBonuses
 
 
 idFromString : String -> Id
@@ -247,11 +255,3 @@ linkOrganicVariant processes =
         |> Pipe.required "process" (linkProcess processes)
         -- FIXME: rename beyondLCA to bonuses in JSON sources
         |> Pipe.required "beyondLCA" decodeBonuses
-
-
-noBonuses : Bonuses
-noBonuses =
-    { agroDiversity = Split.zero
-    , agroEcology = Split.zero
-    , animalWelfare = Split.zero
-    }

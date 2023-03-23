@@ -11,9 +11,9 @@
       "organic": {
         "process": "a99a8677a1ad37bfa7471f6c94df3e59",
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-welfare": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         }
       },
       "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
@@ -31,9 +31,9 @@
       "organic": {
         "process": "dbbfa8c533e09b20f7909f4c68f72ffa",
         "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-welfare": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         }
       }
     }
@@ -68,8 +68,8 @@
       "organic": {
         "process": "9a0d187afb6c6d30bd71b9306b32f28c",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -85,8 +85,8 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         },
         "ratio": 1.16,
         "simple_ingredient_default": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
@@ -106,8 +106,8 @@
       "organic": {
         "process": "9f659ea8371928ec9e17956fea75fcae",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -124,8 +124,8 @@
       "organic": {
         "process": "1a558498ad7a0c44a2d90f83f3bf0970",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -169,9 +169,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-welfare": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle, national average, at farm gate",
@@ -190,9 +190,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-welfare": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 2.02,
         "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
@@ -211,9 +211,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-welfare": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 1,
         "simple_ingredient_default": "Broiler, conventional, at farm gate",
@@ -233,7 +233,7 @@
       "organic": {
         "process": "a16fca295aff5ab9de57b3915cf8657a",
         "beyondLCA": {
-          "agro-diversity": 0.7,
+          "agro-diversity": 0.5,
           "agro-ecology": 0.5
         }
       }
