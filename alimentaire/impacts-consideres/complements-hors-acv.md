@@ -5,7 +5,7 @@ description: >-
   prendre en compte.
 ---
 
-# Compléments hors ACV - en construction
+# Compléments hors ACV
 
 
 
@@ -25,9 +25,9 @@ L’ACV, à travers notamment le nouvel indicateur de biodiversité locale, int�
 
 De la même manière, certaines pratiques agricoles contribuent à améliorer la résilience des territoires : **bouclage des cycles** et moindre dépendance à certains nutriments, **résilience face aux aléas climatiques**, **préservation des sols et lutte contre l’érosion**, **régulation naturelle des ravageurs de cultures**, etc.&#x20;
 
-#### Le bien-être animal
+#### Les modes d'élevage
 
-Bien que le fait de considérer cette dimension dans le champ strict des impacts environnementaux fasse débat, il est possible de la considérer au sens large, recoupant ainsi certains enjeux environnementaux. Pour autant, la prise en compte des modes d'élevage et de leur impact en termes de bien-être animal ne peut se faire à l'intérieur du cadre ACV. Un bonus favorisant certaines pratiques d'élevage peut ainsi être proposé.
+La question des modes d'élevage recoupe certains enjeux environnementaux. Cependant, la prise en compte des modes d'élevage ne peut se faire à l'intérieur du cadre ACV. Un bonus hors ACV favorisant certaines pratiques d'élevage peut ainsi être proposé.
 
 ### Les pratiques agricoles contribuant à la biodiversité et à la résilience territoriales, et au bien-être animal
 
@@ -68,7 +68,7 @@ Avec :&#x20;
 
 * LandUse(p) = valeur du score d'impact "land use" pour le produit (p)
 * c1 = le coefficient permettant de moduler l'ampleur du bonus
-* X(p) = la valeur (1), (2) ou (3) (ex. quantité d'IAE moyenne pour la production (p))
+* X(p) = la valeur (1), (2) ou (3) (ex. quantité d'IAE moyenne associée à la production (p))
 
 
 

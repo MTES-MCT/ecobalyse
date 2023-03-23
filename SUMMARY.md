@@ -38,7 +38,7 @@
 
 * [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
   * [Score/100](alimentaire/impacts-consideres/score-100.md)
-  * [Compléments hors ACV - en construction](alimentaire/impacts-consideres/complements-hors-acv-en-construction.md)
+  * [Compléments hors ACV](alimentaire/impacts-consideres/complements-hors-acv.md)
   * [Impacts corrigés](alimentaire/impacts-consideres/impacts-corriges.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
