@@ -121,8 +121,8 @@ bonusesImpactAsChartEntries : BonusImpacts -> List { name : String, value : Floa
 bonusesImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
     -- We want those bonuses to appear as negative values on the chart
     [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
-    , { name = "Bonus agro-écologie", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
-    , { name = "Bonus bien-être animal", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    , { name = "Bonus infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Bonus conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
     ]
 
 
