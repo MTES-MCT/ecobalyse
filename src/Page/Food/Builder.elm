@@ -65,7 +65,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonUnit : ComparatorView.FoodComparisonUnit
-    , groupByProtectionAreas : Bool
+    , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
     }
 
@@ -98,11 +98,11 @@ type Msg
     | SetCategory (Result String (Maybe Category.Id))
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
+    | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateGroupByProtectionAreas Bool
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -128,7 +128,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
               , comparisonUnit = ComparatorView.PerKgOfProduct
-              , groupByProtectionAreas = False
+              , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
               }
             , session
@@ -341,6 +341,9 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
+        SwitchDisplayChoice displayChoice ->
+            ( { model | displayChoice = displayChoice }, session, Cmd.none )
+
         SwitchLinksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
             , session
@@ -359,9 +362,6 @@ update ({ queries } as session) msg model =
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
-
-        UpdateGroupByProtectionAreas groupByProtectionAreas ->
-            ( { model | groupByProtectionAreas = groupByProtectionAreas }, session, Cmd.none )
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
@@ -428,7 +428,7 @@ absoluteImpactView model results =
                     ]
                 , div [ class "text-center fs-7" ]
                     [ text " dont "
-                    , results.recipe.totalBonusesImpact
+                    , results.recipe.totalBonusesImpact.total
                         |> Unit.impactToFloat
                         |> Format.formatImpactFloat model.impact
                     , text " de bonus inclus"
@@ -891,7 +891,7 @@ ingredientListView db selectedImpact recipe results =
                 [ Icon.search ]
             ]
         , if selectedImpact.trigram == Impact.trg "ecs" then
-            results.recipe.totalBonusesImpact
+            results.recipe.totalBonusesImpact.total
                 |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
                 |> Unit.impactToFloat
                 |> Format.formatImpactFloat selectedImpact
@@ -1481,7 +1481,7 @@ stepResultsView model results =
 
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact
+              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact.total
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform
@@ -1610,8 +1610,8 @@ view ({ builderDb, queries } as session) model =
                                     ComparatorView.foodOptions
                                         { comparisonUnit = model.comparisonUnit
                                         , switchComparisonUnit = SwitchComparisonUnit
-                                        , groupByProtectionAreas = model.groupByProtectionAreas
-                                        , updateGroupByProtectionAreas = UpdateGroupByProtectionAreas
+                                        , displayChoice = model.displayChoice
+                                        , switchDisplayChoice = SwitchDisplayChoice
                                         }
                                 , toggle = ToggleComparedSimulation
                                 }

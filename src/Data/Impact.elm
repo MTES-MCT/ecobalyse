@@ -5,6 +5,8 @@ module Data.Impact exposing
     , Quality(..)
     , Source
     , Trigram(..)
+    , addBonusImpacts
+    , bonusesImpactAsChartEntries
     , computeAggregatedScore
     , decodeImpacts
     , decodeList
@@ -24,12 +26,14 @@ module Data.Impact exposing
     , invalid
     , isAggregate
     , mapImpacts
+    , noBonusImpacts
     , noImpacts
     , parseTrigram
     , perKg
     , sumImpacts
     , toProtectionAreas
     , toString
+    , totalBonusesImpactAsChartEntry
     , trg
     , updateAggregatedScores
     , updateImpact
@@ -93,6 +97,39 @@ type alias BonusImpacts =
     , animalWelfare : Unit.Impact
     , total : Unit.Impact
     }
+
+
+addBonusImpacts : BonusImpacts -> BonusImpacts -> BonusImpacts
+addBonusImpacts a b =
+    { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
+    , agroEcology = Quantity.plus a.agroEcology b.agroEcology
+    , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    , total = Quantity.plus a.total b.total
+    }
+
+
+noBonusImpacts : BonusImpacts
+noBonusImpacts =
+    { agroDiversity = Unit.impact 0
+    , agroEcology = Unit.impact 0
+    , animalWelfare = Unit.impact 0
+    , total = Unit.impact 0
+    }
+
+
+bonusesImpactAsChartEntries : BonusImpacts -> List { name : String, value : Float, color : String }
+bonusesImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
+    -- We want those bonuses to appear as negative values on the chart
+    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
+    , { name = "Bonus agro-écologie", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Bonus bien-être animal", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    ]
+
+
+totalBonusesImpactAsChartEntry : BonusImpacts -> { name : String, value : Float, color : String }
+totalBonusesImpactAsChartEntry { total } =
+    -- We want those bonuses to appear as negative values on the chart
+    { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
 
 
 type alias ProtectionAreas =
