@@ -1488,9 +1488,16 @@ stepResultsView model results =
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
+        bonusToApply =
+            if shouldRenderBonuses model.impact then
+                Unit.impactToFloat results.recipe.totalBonusesImpact.total
+
+            else
+                0
+
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal - Unit.impactToFloat results.recipe.totalBonusesImpact.total
+              , impact = toFloat results.recipe.ingredientsTotal - bonusToApply
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform
