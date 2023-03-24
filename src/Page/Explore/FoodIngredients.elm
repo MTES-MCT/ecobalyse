@@ -63,7 +63,7 @@ table _ { detailed, scope } =
                         ]
                     , [ ( "Bonus agro-diversité", .agroDiversity )
                       , ( "Bonus agro-ecologie", .agroEcology )
-                      , ( "Bonus bien-être animal", .animalWelfare )
+                      , ( "Bonus conditions d'élevage", .animalWelfare )
                       ]
                         |> List.filterMap
                             (\( label, getter ) ->

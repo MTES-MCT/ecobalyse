@@ -697,7 +697,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                             event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
                     }
                 , ingredientBonusView
-                    { name = "Bien-être animal"
+                    { name = "Cond. d'élevage"
                     , title = Nothing
                     , domId = "animalWelfare"
                     , bonusImpact = bonusImpacts.animalWelfare
