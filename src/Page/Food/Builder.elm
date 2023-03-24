@@ -401,6 +401,11 @@ findExistingBookmarkName { builderDb, store } query =
             )
 
 
+shouldRenderBonuses : Impact.Definition -> Bool
+shouldRenderBonuses { trigram } =
+    trigram == Impact.trg "ecs"
+
+
 
 -- Views
 
@@ -426,13 +431,17 @@ absoluteImpactView model results =
                     , results.total
                         |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , div [ class "text-center fs-7" ]
-                    [ text " dont "
-                    , results.recipe.totalBonusesImpact.total
-                        |> Unit.impactToFloat
-                        |> Format.formatImpactFloat model.impact
-                    , text " de bonus inclus"
-                    ]
+                , if shouldRenderBonuses model.impact then
+                    div [ class "text-center fs-7" ]
+                        [ text " dont "
+                        , results.recipe.totalBonusesImpact.total
+                            |> Unit.impactToFloat
+                            |> Format.formatImpactFloat model.impact
+                        , text " de bonus inclus"
+                        ]
+
+                  else
+                    text ""
                 ]
             ]
         }
@@ -657,7 +666,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
-        , if selectedImpact.trigram == Impact.trg "ecs" then
+        , if shouldRenderBonuses selectedImpact then
             let
                 bonusImpacts =
                     impact
@@ -890,7 +899,7 @@ ingredientListView db selectedImpact recipe results =
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
                 [ Icon.search ]
             ]
-        , if selectedImpact.trigram == Impact.trg "ecs" then
+        , if shouldRenderBonuses selectedImpact then
             results.recipe.totalBonusesImpact.total
                 |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
                 |> Unit.impactToFloat
@@ -1362,7 +1371,7 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , if Impact.trg "ecs" == model.impact.trigram then
+        , if shouldRenderBonuses model.impact then
             -- We only show subscores for ecs
             subScoresView session results
 
