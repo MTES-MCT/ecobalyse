@@ -43,6 +43,7 @@ type alias Ingredient =
     , variants : Variants
     , density : Density
     , transportCooling : TransportCooling
+    , visible : Bool
     }
 
 
@@ -164,6 +165,8 @@ decodeIngredients processes =
         |> Dict.fromList
         |> decodeIngredient
         |> Decode.list
+        -- Don't use ingredients that aren't visible.
+        |> Decode.map (List.filter .visible)
 
 
 decodeIngredient : Dict String Process -> Decoder Ingredient
@@ -177,6 +180,7 @@ decodeIngredient processes =
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
+        |> Pipe.required "visible" Decode.bool
 
 
 decodeTransportCooling : Decoder TransportCooling
