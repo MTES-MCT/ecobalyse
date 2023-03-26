@@ -36,32 +36,6 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 
 (source : Karbon-Weloop)
 
-## Analyse des procédés disponibles
-
-La base Agribalyse permet de distinguer 14 inventaires de cycle de vie pour le blé tendre.&#x20;
-
-* 10 inventaires France "at farm" :&#x20;
-  * Soft wheat grain, average from 11 optimized case study, basis scenario,at farm gate
-  * Soft wheat grain, average from 11 optimized case study, scenario protein crop, at farm gate
-  * Soft wheat grain, average from 11 optimized case study, scenario systematic cover cropping, at farm gate
-  * Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
-  * **Soft wheat grain, conventional, national average, animal feed, at farm gate, production**
-  * Soft wheat grain, conventional, protein improved quality, 15% moisture, at farm gate
-  * Soft wheat grain, organic (model type), after Alfalfa, Central Region, at farm gate
-  * Soft wheat grain, organic (model type), after fava beans, Central Region, at farm gate
-  * Soft wheat grain, organic, 15% moisture, Central Region, at farm gate
-  * Soft wheat grain, organic, animal feed, at farm gate
-* 1 moyenne nationale France tirée de <mark style="color:red;">XXXX</mark> (cf. schéma <mark style="color:red;">à intégrer</mark> ci-après)
-  * **Soft wheat grain, conventional, national average, animal feed, at farm gate, production**
-
-L'analyse comparée des impacts donne :&#x20;
-
-<figure><img src="../../.gitbook/assets/image (2) (5).png" alt=""><figcaption><p>source : AGB 3.0 via Simapro, EF3.0 </p></figcaption></figure>
-
-{% hint style="danger" %}
-Pour passer du blé tendre à de la farine, il conviendrait d'intégrer des étapes de transformation (milling process, reception, precleaning, storage...)
-{% endhint %}
-
 ## Mix de consommation
 
 La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie sur le blé tendre conventionnel France.
