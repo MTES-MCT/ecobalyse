@@ -41,29 +41,23 @@ $$
 | Label / Origine        | France                                                                                                                                                                                                   | Autres pays                                                                                                                                                                             |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Conventionnelle        | <p><strong>BoeufHacheREF</strong><br><strong></strong>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, milk system n°4, at farm gate</p>                                                                     | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, milk system n°4, at farm gate</p>                                                    |
+| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                                              | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             |
 
-{% hint style="info" %}
-Le boeuf bio considéré dans un premier temps pour le calcul de la viande de boeuf hachée bio est celui dont l'impact est proche de l'impact moyen des vaches de réforme bio&#x20;
-{% endhint %}
+\*Le procédé boeuf bio mobilisé (1kg de **Cull cow, organic, national average, at farm gate/FR U)** a été construit à partir des procédés bio suivants :&#x20;
 
+| ICV constitutifs de l'ICV moyen                                      | Quantité de l'ICV dans l'ICV moyen |
+| -------------------------------------------------------------------- | ---------------------------------- |
+| Cull cow, organic, milk system n°1, at farm gate/FR U                | 0,088 kg                           |
+| Cull cow, organic, milk system n°2, at farm gate/FR U                | 0,088 kg                           |
+| Cull cow, organic, milk system n°3, at farm gate/FR U                | 0,157 kg                           |
+| Cull cow, organic, milk system n°4, at farm gate/FR U                | 0,157 kg                           |
+| Cull cow, organic, milk system n°5, at farm gate/FR U                | 0,157 kg                           |
+| Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U | 0,088 kg                           |
+| Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U | 0,088 kg                           |
+| Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U | 0,088 kg                           |
+| Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U | 0,088 kg                           |
 
-
-***
-
-Cull cow, organic, milk system n°1, at farm gate
-
-Cull cow, organic, milk system n°2, at farm gate
-
-Cull cow, organic, milk system n°3, at farm gate
-
-Cull cow, organic, milk system n°4, at farm gate
-
-Cull cow, organic, milk system n°5, at farm gate
-
-Cull cow, organic, lowland milk system, silage maize 5 to 10%, at farm gate
-
-<figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
+(source : Karbon-Weloop)
 
 ## Identification de l'origine par défaut
 

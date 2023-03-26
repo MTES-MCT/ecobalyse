@@ -7,19 +7,34 @@ Considérée comme un ingrédient agricole (at farm), le blé tendre est modéli
 | Label / Origine        | France                                                                          | Autres pays                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | Conventionnelle        | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate |
-| Agriculture biologique | Soft wheat grain, organic, 15% moisture, Central Region, at farm gate           | Soft wheat grain, organic, 15% moisture, Central Region, at farm gate           |
+| Agriculture biologique | Wheat, organic, national average, at farm gate/FR U\*                           | Wheat, organic, national average, at farm gate/FR U\*                           |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
-{% hint style="info" %}
-Hypothèse 1 : l'ingrédient "blé tendre" cible des usages de panification principalement. L'inventaire mobilisé pour l'ingrédient blé tendre est donc "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate" (le consumption mix étant ciblé sur l'usage "alimentation animale")
+\*Le procédé bio mobilisé (1kg de **Wheat, organic, national average, at farm gate/FR U)** est construit à partir des procédés bio suivants :&#x20;
 
-Hypothèse 2 : l'inventaire mobilisé pour le blé tendre "autres pays" est identique à l'inventaire FR. En effet, les importations de blé tendre peuvent être considérées comme négligeables (source : FranceAgriMer).
-{% endhint %}
+| ICV constitutifs de l'ICV moyen                       | Quantité de l'ICV dans l'ICV moyen |
+| ----------------------------------------------------- | ---------------------------------- |
+| Winter wheat, organic, system n°1, at farm gate/FR U  | 0,095 kg                           |
+| Winter wheat, organic, system n°10, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°11, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°12, at farm gate/FR U | 0,095 kg                           |
+| Winter wheat, organic, system n°13, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°14, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°15, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°16, at farm gate/FR U | 0,095 kg                           |
+| Winter wheat, organic, system n°17, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°18, at farm gate/FR U | 0,036 kg                           |
+| Winter wheat, organic, system n°2, at farm gate/FR U  | 0,036 kg                           |
+| Winter wheat, organic, system n°3, at farm gate/FR U  | 0,036 kg                           |
+| Winter wheat, organic, system n°4, at farm gate/FR U  | 0,036 kg                           |
+| Winter wheat, organic, system n°5, at farm gate/FR U  | 0,095 kg                           |
+| Winter wheat, organic, system n°6, at farm gate/FR U  | 0,095 kg                           |
+| Winter wheat, organic, system n°7, at farm gate/FR U  | 0,036 kg                           |
+| Winter wheat, organic, system n°8, at farm gate/FR U  | 0,036 kg                           |
+| Winter wheat, organic, system n°9, at farm gate/FR U  | 0,095 kg                           |
 
-{% hint style="info" %}
-L'inventaire bio considéré dans un premier temps est celui dont le taux d'humidité correspond au taux d'humidité du blé panifiable (principal usage du blé tendre).
-{% endhint %}
+(source : Karbon-Weloop)
 
 ## Analyse des procédés disponibles
 
