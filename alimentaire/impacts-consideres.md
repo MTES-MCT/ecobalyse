@@ -1,57 +1,92 @@
 # Indicateurs d'impacts
 
-## Indicateurs PEF
+## Impacts agrégés et impacts détaillés
 
-16 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse Alimentaire, conformément au référentiel méthodologique du PEF (_Product Environmental Footprint_) de la commission européenne.
+**2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse alimentaire :&#x20;
+
+* un **score d'impacts**, traduisant la version beta de méthodologie présentée aux partenaires le 27 mars 2023, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
+* un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
+
+**20 catégories d'impacts**, utilisées pour composer les impacts agrégés, sont également proposés :&#x20;
+
+* les 16 catégories d'impacts de la méthode PEF ([lien](impacts-consideres.md#16-categories-dimpacts-pef))
+* 1 catégorie d'impact "biodiversité locale" ([lien](impacts-consideres.md#indicateur-de-biodiversite-locale))
+* 3 catégories d'impacts corrigées, relatives à la toxicité et à l'écotoxicité (l[ien](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges))
+
+{% hint style="info" %}
+Une 21ème catégorie d'impact, relative à la biodiversité marine, est susceptible d'être introduite dans les prochains mois, en fonction des conclusions d'un groupe de travail dédié.
+{% endhint %}
+
+## Nomalisations et pondérations
+
+Le calcul des du score d'impacts et du score PEF s'effectue à partir d'une somme pondérée des catéogories d'impacts, chacune étant préalablement normalisée.
+
+$$
+ImpactAgrégé =\sum (Pondération_i * \frac{Impact_i}{Normalisation_i})
+$$
+
+Les niveaux de normalisation et de pondération sont détaillés dans l'[explorateur des impacts pour l'alimentaire d'Ecobalyse](https://ecobalyse.beta.gouv.fr/#/explore/food).
+
+Pour la construction du score d'impacts, **il est considéré les même niveaux de normalisation que pour le score PEF**. Un niveau de normalisation est introduit pour la [biodiversité locale](impacts-consideres.md#indicateur-de-biodiversite-locale).
+
+Pour la **pondération**, les coefficients appliqués au score d'impacts sont établis comme suit : &#x20;
+
+* la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
+* l'indicateurs de biodiversité locale est introduit avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
+*   les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer), [considérés dans leurs versions corrigées](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges), sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;
+
+    _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
+*   les autres pondérations sont proportionnelles aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100% après l'introduction des trois modifications précédentes.
+
+    _Cette modification revient environ à réduire de 26% la pondération des 12 indicateurs concernés_.
+
+{% hint style="info" %}
+Dans l'hypothèse où un nouvel indicateur, relatif à la biodiversité marine, serait introduit, celui-ci pourrait se voir appliqué un coefficient de pondération de 12,5%, identique à celui appliqué à la biodiversité locale (terrestre).
+
+Dans cette hypothèse, la réduction homothétique de la pondération des 12 autres impacts devrait être plus importante, afin que la somme des pondérations reste à 100%. Elle serait alors de 43% (vs 26% dans la version beta de la méthodologie).
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/chart (6).png" alt=""><figcaption><p>Bilan des évolutions de pondération entre le score d'impacts et le score PEF</p></figcaption></figure>
+
+## 16 catégories d'impacts PEF
+
+Pour chacun des inventaires de cycle de vie mobilisées, les impacts relatifs aux 16 catégories PEF sont issus de la [base Agribalyse](https://agribalyse.ademe.fr/).
+
+Les inventaires sélectionnés, notamment pour décrire chaque ingrédient, sont introduits dans les pages de la méthodologie relatifs à chaque ingrédient.&#x20;
 
 ## Indicateur de biodiversité locale
 
-Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment)
+Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment).
 
-## Indicateur d'impacts sur la biodiversité marine
+Le calcul du BVI (biodiversity value increment), a été appliqué à chacun des inventaires de cycle de vie Agribalyse mobilisé dans Ecobalyse. Il mobilise des paramètres tels :&#x20;
 
-La pression sur les espèces marines n'est pas pris en compte, en l'état, à travers les 16 indicateurs PEF et l'indicateur de biodiversité locale. Des travaux sont en cours afin de proposer un tel indicateur.
+* la richesse initiale de la biodiversité à travers un facteur d'écorégion (forêts tropicales, forêts tempérées...) ;
+* le niveau de dégradation de cette biodiversité, en intégrant des paramètres comme le travail du sol, la fertilisation ou encore l'écotoxicité.
 
-## Indicateurs d'impacts agrégés
+Pour les produits d'origine animale, ce calcul prend bien en compte les hypothèses relatives à l'alimentation des animaux, telles que présentes dans les inventaires de cycle de vie Agribalyse.
 
-À partir des indicateurs d'impacts unitaires, deux indicateurs agrégés sont considérés :&#x20;
+Un facteur de normalisation est introduit (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/food)). Il correspond au niveau de BVI calculé sur l'ensemble de la planète.
 
-* le score PEF, tel que défini dans le recommandation de la Commission européenne de décembre 2021 ;
-* un score d'impacts défini pour introduire les indicateurs de biodiversité avec les 16 indicateurs PEF.&#x20;
+## Indicateurs de toxicité et d'écotoxicité corrigés
 
-Les modalités de calcul du score PEF, avec les facteurs de normalisation et de pondération, sont rappelés dans la page suivante : [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef)
+Pour la toxicité et l'écotoxicité, des impacts "corrigés" sont calculés pour prendre en compte les limites de connaissances non intégrées à ce jour dans les indicateurs PEF. Parmi ces limites, on peut notamment citer : les effets toxiques sur les pollinisateurs, la biodiversité des sols, les effets cocktails, les impacts des co-adjuvants et co-formulants, des métabolites...
 
-Pour le score d'impacts, les facteurs de normalisation du score PEF sont conservés. Les pondérations sont définies comme suit. En première approche :&#x20;
+Ces limites conduisent très vraisemblablement, en l'absence de correction, à sous-estimer les effets toxiques, en particulier pour les pesticides de synthèses.&#x20;
 
-* la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
-* les indicateurs d'impacts biodiversité sont introduits avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
-*   les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer) sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;
+Les 3 impacts relatifs à la toxicité sont considérés : &#x20;
 
-    _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
-*   les autres pondérations sont proportionnels aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100%
+* Écotoxicité de l'eau douce
+* Toxicité humaine - cancer
+* Toxicité humaine - non-cancer&#x20;
 
-    _Cette modification revient environ à réduire de 43% la pondération des 12 indicateurs concernés_.
+**Calcul**
 
-<figure><img src="../.gitbook/assets/Pondérations score d&#x27;impacts - score PEF.png" alt=""><figcaption><p>Pondérations comparées des impacts considérés pour le score PEF (EF 3.1) et le score d'impacts</p></figcaption></figure>
+Chacun de ses impacts toxicité est décomposé en 3 composantes : "metals" , "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
 
-| Indicateur                                          | Pondération score PEF (%) | Pondération score d'impacts (%) |
-| --------------------------------------------------- | ------------------------- | ------------------------------- |
-| Changement climatique                               | 21,06                     | **21,06**                       |
-| Biodiversité locale (BVI)                           | N/A                       | **12,5**                        |
-| Biodiversité marine                                 | N/A                       | **12,5**                        |
-| Appauvrissement de la couche d'ozone                | 6,31                      | 3,58                            |
-| Toxicité humaine (cancer)                           | 2,13                      | **4,52**                        |
-| Toxicité humaine (non cancer)                       | 1,84                      | **3,90**                        |
-| Particules                                          | 8,96                      | 5,08                            |
-| Radiations ionisantes                               | 5,01                      | 2,84                            |
-| Formation d'ozone photochimique                     | 4,78                      | 2,71                            |
-| Acidification                                       | 6,20                      | 3,52                            |
-| Eutrophisation terrestre                            | 3,71                      | 2,10                            |
-| Eutrophisation eaux douces                          | 2,80                      | 1,59                            |
-| Eutrophisation marine                               | 2,96                      | 1,68                            |
-| Utilisation des sols                                | 7,94                      | 4,50                            |
-| Écotoxicité eaux douces                             | 1,92                      | **4,07**                        |
-| Épuisement des ressources en eau                    | 8,51                      | 4,83                            |
-| Utilisation de ressources fossiles                  | 8,32                      | 4,72                            |
-| Utilisation des ressources minérales et métalliques | 7,55                      | 4,28                            |
+Par exemple pour la toxicité humaine - cancer (htc : human toxicity - cancer) :
+
+```
+htc = htc_metals + htc_organic + htc_inorganic  
+htc_corrigé = htc_metals + 2 * htc_organic + htc_inorganic  
+```
 
