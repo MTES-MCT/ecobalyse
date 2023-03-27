@@ -6,7 +6,7 @@ description: D'où proviennent les données que nous utilisons ?
 
 ## Agribalyse
 
-Nos données proviennent de la base [AGRIBALYSE®](https://agribalyse.ademe.fr/) (version 3.0). C'est une base de données d'Inventaire de Cycle de Vie (ICV) de produits agricoles et de consommation alimentaire. Elle est produite dans le cadre du programme AGRIBALYSE, mené depuis 2009 par l'ADEME et l'INRAE, avec le soutien de nombreux organismes et experts.
+Nos données proviennent de la base [AGRIBALYSE®](https://agribalyse.ademe.fr/) (version 3.1.1). C'est une base de données d'Inventaire de Cycle de Vie (ICV) de produits agricoles et de consommation alimentaire. Elle est produite dans le cadre du programme AGRIBALYSE, mené depuis 2009 par l'ADEME et l'INRAE, avec le soutien de nombreux organismes et experts.
 
 La base AGRIBALYSE® fournit les ICVs de 2500 produits alimentaires enregistrés dans la [Base CIQUAL®](https://ciqual.anses.fr/), la base de données nutritionnelles nationale. (ANSES, 2017). Cette base propose environ 2500 produits alimentaires finis représentatifs de ce que l'on peut trouver en supermarché. On a ainsi dans la base CIQUAL® une "pizza margherita" (code CIQUAL® 25404), représentative des pizzas margherita que l'on pourra trouver dans un supermarché en France. Ces données ne correspondent donc pas à 1 pizza margherita d'une marque spécifique mais bien à une moyenne. [Plus d'informations dans la doc AGRIBALYSE®](https://doc.agribalyse.fr/documentation/les-donnees-sur-les-produits-alimentaires#des-donnees-sur-des-produits-moyens-representatifs-des-produits-consommes-en-france).
 
@@ -24,17 +24,7 @@ La base AGRIBALYSE est organisée en différents niveaux :&#x20;
 
 ![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (6) (1).png>)
 
-Pour l'instant nous n'affichons que l'étape "recette" c'est à dire l'étape à l'usine de fabrication du produit final à partir des ingrédients. Par exemple dans le cas d'une pizza margherita les aliments sont :&#x20;
 
-* Tomate
-* Mozzarella
-* Huile d'olive
-* Farine
-* Eau
-
-Il apparaît aussi à cette étape des processus de transformation. Dans le cas de la pizza margherita :&#x20;
-
-* un processus de cuisson
 
 
 

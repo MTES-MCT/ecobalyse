@@ -72,10 +72,10 @@
 
 ***
 
-* [Stock - doc ingrédients](stock-doc-ingredients/README.md)
-  * [🌾 Blé dur](stock-doc-ingredients/ble-dur.md)
-  * [🍏 Pomme](stock-doc-ingredients/pomme.md)
-  * [🧈 Beurre](stock-doc-ingredients/beurre.md)
-  * [🌾 Semoule de blé dur](stock-doc-ingredients/semoule-de-ble-dur.md)
-  * [🧀 Comté](stock-doc-ingredients/comte.md)
-  * [🌼 Huile de colza](stock-doc-ingredients/huile-de-colza.md)
+* [Stock - doc ingrédients](stock-doc-ingredients.md)
+  * [🌾 Blé dur](alimentaire/ingredients-agricoles/ble-dur.md)
+  * [🍏 Pomme](alimentaire/ingredients-agricoles/pomme.md)
+  * [🧈 Beurre](alimentaire/ingredients-industrie/beurre.md)
+  * [🌾 Semoule de blé dur](alimentaire/ingredients-industrie/semoule-de-ble-dur.md)
+  * [🧀 Comté](alimentaire/ingredients-industrie/comte.md)
+  * [🌼 Huile de colza](alimentaire/ingredients-industrie/huile-de-colza.md)
