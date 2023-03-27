@@ -92,9 +92,9 @@ Prenons l'exemple de 100g de poulet bio.
 
 Sans les bonus on a :
 
-$$Score-d'impacts = 86.65  µPts$$
+$$Score-d'impacts = 97.04$$ µPts
 
-$$Land-use = 1.81 µPts$$ (valeur normalisé et pondéré dans le score d'impacts)
+$$Land-use = 4.14$$ µPts (valeur normalisé et pondéré dans le score d'impacts)
 
 \
 On fait les hypothèses (arbitraires) que pour le poulet bio :
@@ -120,28 +120,28 @@ $$Bonus_{cond-élevage} =  -x_{cond-élevage} ×c_{cond-élevage} × Land-use$$
 
 ```
 
-Bonus_diversité_agricole = - 0.5 * 2.3 * 1.81
-Bonus_diversité_agricole = - 2.08 µPts d'impacts
+Bonus_diversité_agricole = - 0.5 * 2.3 * 4.14 
+Bonus_diversité_agricole = - 4.76 µPts d'impacts
 
 
-Bonus_infra_agro_écologique = - 0.7 * 2.3 * 1.81
-Bonus_infra_agro_écologique = - 2.91 µPts d'impacts
+Bonus_infra_agro_écologique = - 0.7 * 2.3 * 4.14 
+Bonus_infra_agro_écologique = - 6.67 µPts d'impacts
 
-Bonus_cond_élevage = - 0.3 * 1.5 * 1.81
-Bonus_infra_agro_écologique = - 0.81 µPts d'impacts
+Bonus_cond_élevage = - 0.3 * 1.5 * 4.14 
+Bonus_infra_agro_écologique = - 1.86 µPts d'impacts
 
 
 Bonus_total = Bonus_diversité_agricole + Bonus_infra_agro_écologique + Bonus_cond_élevage
-Bonus_total = -2.08 -2.91 - 0.81
-Bonus_total = - 5.8 µPts d'impacts
+Bonus_total = -4.76 - 6.67 - 1.86
+Bonus_total = - 13.3 µPts d'impacts
 
 ```
 
 On a finalement :
 
 ```
-Score d'impacts avant bonus = 86.65 µPts d'impact
-Score d'impacts après bonus = 80.85 µPts d'impact
+Score d'impacts avant bonus = 97.04 µPts d'impact
+Score d'impacts après bonus = 83.74 µPts d'impact
 ```
 
 </details>
