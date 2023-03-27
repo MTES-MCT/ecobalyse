@@ -4,8 +4,11 @@ import Data.Country as Country
 import Data.Food.Builder.Query as Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Impact as Impact
+import Data.Split as Split
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -17,70 +20,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 
 expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
-expectImpactEqual expectedImpactUnit impactUnit =
+expectImpactEqual expectedImpactUnit =
     let
         expectedImpact =
             Unit.impactToFloat expectedImpactUnit
-
-        impact =
-            Unit.impactToFloat impactUnit
     in
-    Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
-
-
-testScoringEqual : Recipe.Scoring -> Result String Recipe.Scoring -> Test
-testScoringEqual expectedScoring scoringResult =
-    case scoringResult of
-        Err err ->
-            Expect.fail err
-                |> asTest "should not fail"
-
-        Ok scoring ->
-            [ -- Category
-              Expect.equal expectedScoring.category scoring.category
-                |> asTest "Scoring category"
-
-            -- All
-            , Expect.equal expectedScoring.all.letter scoring.all.letter
-                |> asTest "Scoring all letter"
-            , Expect.equal expectedScoring.all.outOf100 scoring.all.outOf100
-                |> asTest "Scoring all outOf100"
-            , expectImpactEqual expectedScoring.all.impact scoring.all.impact
-                |> asTest "Scoring all impact"
-
-            -- Climate
-            , Expect.equal expectedScoring.climate.letter scoring.climate.letter
-                |> asTest "Scoring climate letter"
-            , Expect.equal expectedScoring.climate.outOf100 scoring.climate.outOf100
-                |> asTest "Scoring climate outOf100"
-            , expectImpactEqual expectedScoring.climate.impact scoring.climate.impact
-                |> asTest "Scoring climate impact"
-
-            -- Biodiversity
-            , Expect.equal expectedScoring.biodiversity.letter scoring.biodiversity.letter
-                |> asTest "Scoring biodiversity letter"
-            , Expect.equal expectedScoring.biodiversity.outOf100 scoring.biodiversity.outOf100
-                |> asTest "Scoring biodiversity outOf100"
-            , expectImpactEqual expectedScoring.biodiversity.impact scoring.biodiversity.impact
-                |> asTest "Scoring biodiversity impact"
-
-            -- Health
-            , Expect.equal expectedScoring.health.letter scoring.health.letter
-                |> asTest "Scoring health letter"
-            , Expect.equal expectedScoring.health.outOf100 scoring.health.outOf100
-                |> asTest "Scoring health outOf100"
-            , expectImpactEqual expectedScoring.health.impact scoring.health.impact
-                |> asTest "Scoring health impact"
-
-            -- Resources
-            , Expect.equal expectedScoring.resources.letter scoring.resources.letter
-                |> asTest "Scoring resources letter"
-            , Expect.equal expectedScoring.resources.outOf100 scoring.resources.outOf100
-                |> asTest "Scoring resources outOf100"
-            , expectImpactEqual expectedScoring.resources.impact scoring.resources.impact
-                |> asTest "Scoring resources impact"
-            ]
-                |> concat
+    Unit.impactToFloat
+        >> Expect.within (Expect.Relative 0.0000000000000001) expectedImpact
 
 
 suite : Test
@@ -88,6 +34,87 @@ suite =
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
             [ let
+                testComputedBonuses bonuses =
+                    Impact.impactsFromDefinitons builderDb.impacts
+                        |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                        |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
+              in
+              describe "computeIngredientBonusesImpacts"
+                [ describe "with zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.zero
+                                , agroEcology = Split.zero
+                                , animalWelfare = Split.zero
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                , describe "with non-zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.half
+                                , agroEcology = Split.half
+                                , animalWelfare = Split.half
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 5.3630393240740055)
+                        |> asTest "should compute a non-zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 21.80969325123429)
+                        |> asTest "should compute a non-zero total bonus"
+                     ]
+                    )
+                , describe "with maluses avoided"
+                    (let
+                        bonusImpacts =
+                            Impact.impactsFromDefinitons builderDb.impacts
+                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
+                                    { agroDiversity = Split.full
+                                    , agroEcology = Split.full
+                                    , animalWelfare = Split.full
+                                    }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                ]
+            , let
                 recipe =
                     carrotCake
                         |> Recipe.fromQuery builderDb
@@ -117,73 +144,102 @@ suite =
                     |> asTest "should return an Err for an invalid 'planeTransport' value for an ingredient without a default origin by plane"
                 ]
             , describe "compute"
-                (let
-                    carrotCakeResults =
-                        carrotCake
-                            |> Recipe.compute builderDb
-                 in
-                 [ carrotCakeResults
-                    |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
-                    |> Result.withDefault Dict.empty
-                    |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
-                    |> Expect.equal
-                        (Dict.fromList
-                            -- Note: presented that way to ease diff viewing in test results
-                            [ ( "acd", True )
-                            , ( "bvi", True )
-                            , ( "cch", True )
-                            , ( "ecs", True )
-                            , ( "etf", True )
-                            , ( "fru", True )
-                            , ( "fwe", True )
-                            , ( "htc", True )
-                            , ( "htn", True )
-                            , ( "ior", True )
-                            , ( "ldu", True )
-                            , ( "mru", True )
-                            , ( "ozd", True )
-                            , ( "pco", True )
-                            , ( "pef", True )
-                            , ( "pma", True )
-                            , ( "swe", True )
-                            , ( "tre", True )
-                            , ( "wtu", True )
-                            ]
-                        )
-                    |> asTest "should return computed impacts where none equals zero"
-                 , carrotCakeResults
-                    |> Result.map (Tuple.second >> .scoring)
-                    |> testScoringEqual
-                        { category = "Gâteaux"
-                        , climate = { impact = Unit.impact 31.465751984674757, letter = "B", outOf100 = 79 }
-                        , all = { impact = Unit.impact 169.83232687747997, letter = "B", outOf100 = 72 }
-                        , biodiversity = { impact = Unit.impact 131.39490621544522, letter = "B", outOf100 = 62 }
-                        , health = { impact = Unit.impact 46.77851948542256, letter = "B", outOf100 = 73 }
-                        , resources = { impact = Unit.impact 23.268322876906748, letter = "B", outOf100 = 74 }
-                        }
-                 ]
-                )
+                [ describe "standard carrot cake"
+                    (let
+                        carrotCakeResults =
+                            carrotCake
+                                |> Recipe.compute builderDb
+                     in
+                     [ carrotCakeResults
+                        |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
+                        |> Result.withDefault Dict.empty
+                        |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
+                        |> Expect.equal
+                            (Dict.fromList
+                                -- Note: presented that way to ease diff viewing in test results
+                                [ ( "acd", True )
+                                , ( "bvi", True )
+                                , ( "cch", True )
+                                , ( "ecs", True )
+                                , ( "etf", True )
+                                , ( "fru", True )
+                                , ( "fwe", True )
+                                , ( "htc", True )
+                                , ( "htn", True )
+                                , ( "ior", True )
+                                , ( "ldu", True )
+                                , ( "mru", True )
+                                , ( "ozd", True )
+                                , ( "pco", True )
+                                , ( "pef", True )
+                                , ( "pma", True )
+                                , ( "swe", True )
+                                , ( "tre", True )
+                                , ( "wtu", True )
+                                , ( "htc-c", True )
+                                , ( "etf-c", True )
+                                , ( "htn-c", True )
+                                ]
+                            )
+                        |> asTest "should return computed impacts where none equals zero"
+                     , carrotCakeResults
+                        |> Result.map (Tuple.second >> .scoring)
+                        |> (\scoringResult ->
+                                case scoringResult of
+                                    Err err ->
+                                        Expect.fail err
+                                            |> asTest "should not fail"
+
+                                    Ok scoring ->
+                                        Expect.equal scoring
+                                            { all = { impact = Unit.impact 201.0739464879096, letter = "B", outOf100 = 64 }
+                                            , biodiversity = { impact = Unit.impact 91.6347570526944, letter = "A", outOf100 = 81 }
+                                            , category = "Gâteaux"
+                                            , climate = { impact = Unit.impact 42.550812211063175, letter = "B", outOf100 = 64 }
+                                            , health = { impact = Unit.impact 32.502308215624524, letter = "A", outOf100 = 92 }
+                                            , resources = { impact = Unit.impact 36.12268791220873, letter = "C", outOf100 = 51 }
+                                            }
+                                            |> asTest "should be properly scored"
+                           )
+                     ]
+                    )
+                , describe "raw-to-cooked checks"
+                    [ -- Carrot cake is cooked at plant, let's apply oven cooking at consumer: the
+                      -- raw-to-cooked ratio should have been applied to resulting mass just once.
+                      let
+                        withPreps preps =
+                            { carrotCake | preparation = preps }
+                                |> Recipe.compute builderDb
+                                |> Result.map (Tuple.second >> .preparedMass >> Mass.inKilograms)
+                                |> Result.withDefault 0
+                      in
+                      withPreps [ Preparation.Id "oven" ]
+                        |> Expect.within (Expect.Absolute 0.0001) (withPreps [])
+                        |> asTest "should apply raw-to-cooked ratio once"
+                    ]
+                ]
             , describe "getMassAtPackaging"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
-                          , name = "Oeuf"
                           , mass = Mass.grams 120
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         , { id = Ingredient.idFromString "wheat"
-                          , name = "Blé tendre"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         ]
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
+                  , preparation = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
@@ -217,11 +273,11 @@ suite =
             , let
                 mango =
                     { id = Ingredient.idFromString "mango"
-                    , name = "Mangue"
                     , mass = Mass.grams 120
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
+                    , bonuses = Ingredient.defaultBonuses
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -235,17 +291,18 @@ suite =
               describe "computeIngredientTransport"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
-                          , name = "Oeuf"
                           , mass = Mass.grams 120
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         ]
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
+                  , preparation = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -255,7 +312,8 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Nothing
+                  , preparation = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -265,7 +323,8 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Just Retail.ambient
+                  , preparation = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -275,7 +334,8 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , distribution = Retail.ambient
+                  , distribution = Just Retail.ambient
+                  , preparation = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance

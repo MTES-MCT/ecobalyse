@@ -16,6 +16,7 @@ module Data.Textile.Formula exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Material exposing (CFFData)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
@@ -47,7 +48,7 @@ material & product waste data.
 -}
 makingWaste :
     { processWaste : Mass
-    , pcrWaste : Unit.Ratio
+    , pcrWaste : Split
     }
     -> Mass
     -> { waste : Mass, mass : Mass }
@@ -57,7 +58,7 @@ makingWaste { processWaste, pcrWaste } baseMass =
             -- (product weight + textile waste for confection) / (1 - PCR product waste rate)
             Mass.kilograms <|
                 (Mass.inKilograms baseMass + (Mass.inKilograms baseMass * Mass.inKilograms processWaste))
-                    / (1 - Unit.ratioToFloat pcrWaste)
+                    / (Split.complement pcrWaste |> Split.toFloat)
     in
     { waste = Quantity.minus baseMass mass, mass = mass }
 
@@ -97,10 +98,8 @@ recycledMaterialImpacts impacts { recycledProcess, nonRecycledProcess, cffData }
                         )
                 in
                 Mass.inKilograms outputMass
-                    * (Unit.ratioToFloat manufacturerAllocation
-                        * recycledImpactPerKg
-                        + (1 - Unit.ratioToFloat manufacturerAllocation)
-                        * Unit.ratioToFloat recycledQualityRatio
+                    * (Split.apply recycledImpactPerKg manufacturerAllocation
+                        + Split.apply (Split.toFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
                         * nonRecycledImpactPerKg
                       )
                     |> Unit.impact
@@ -169,7 +168,7 @@ printingImpacts :
         , heatProcess : Process -- Outbound: country heat impact
         , elecProcess : Process -- Outbound: country electricity impact
         , surfaceMass : Unit.SurfaceMass
-        , ratio : Unit.Ratio
+        , ratio : Split
         }
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
@@ -180,7 +179,7 @@ printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass
             Mass.inGrams baseMass
                 / Unit.surfaceMassToFloat surfaceMass
                 -- Apply ratio
-                * Unit.ratioToFloat ratio
+                |> (\s -> Split.apply s ratio)
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"
@@ -441,17 +440,17 @@ endOfLifeImpacts impacts { volume, passengerCar, endOfLife, countryElecProcess, 
 -- Transports
 
 
-transportRatio : Unit.Ratio -> Transport -> Transport
+transportRatio : Split -> Transport -> Transport
 transportRatio airTransportRatio ({ road, sea, air } as transport) =
     let
         roadRatio =
             Transport.roadSeaTransportRatio transport
 
         seaRatio =
-            1 - roadRatio
+            Split.complement roadRatio
     in
     { transport
-        | road = road |> Quantity.multiplyBy (roadRatio * (1 - Unit.ratioToFloat airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy (seaRatio * (1 - Unit.ratioToFloat airTransportRatio))
-        , air = air |> Quantity.multiplyBy (Unit.ratioToFloat airTransportRatio)
+        | road = road |> Quantity.multiplyBy (Split.apply (Split.toFloat roadRatio) (Split.complement airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.toFloat seaRatio) (Split.complement airTransportRatio))
+        , air = air |> Quantity.multiplyBy (Split.toFloat airTransportRatio)
     }

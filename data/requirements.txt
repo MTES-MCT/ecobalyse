@@ -1,6 +1,6 @@
 git+https://github.com/brightway-lca/brightway2@master
 git+https://github.com/brightway-lca/brightway2-calc@bw2legacy
-git+https://github.com/brightway-lca/brightway2-data@bw2legacy
+git+https://github.com/ccomb/brightway2-data@vacuum
 git+https://github.com/ccomb/brightway2-io@bw2legacy
 git+https://github.com/brightway-lca/brightway2-parameters@master
 fjson==0.1.6

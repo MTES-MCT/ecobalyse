@@ -11,8 +11,8 @@ module Data.Country exposing
     )
 
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Process as Process exposing (Process)
-import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -29,7 +29,7 @@ type alias Country =
     , zone : Zone
     , electricityProcess : Process
     , heatProcess : Process
-    , airTransportRatio : Unit.Ratio
+    , airTransportRatio : Split
     , scopes : List Scope
     }
 
@@ -59,7 +59,7 @@ decode processes =
         |> Pipe.required "zone" Zone.decode
         |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "airTransportRatio" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "airTransportRatio" Split.decodeFloat
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
 
 
@@ -80,7 +80,7 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
+        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
 

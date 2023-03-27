@@ -7,10 +7,11 @@ module Data.Food.Builder.Recipe exposing
     , availableIngredients
     , availablePackagings
     , compute
+    , computeIngredientBonusesImpacts
     , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
-    , encodeQuery
+    , encode
     , encodeResults
     , fromQuery
     , getMassAtPackaging
@@ -18,8 +19,8 @@ module Data.Food.Builder.Recipe exposing
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
+    , resetDistribution
     , resetTransform
-    , serializeQuery
     , setCategory
     , toString
     )
@@ -28,12 +29,14 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
-import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
+import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
+import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -64,6 +67,7 @@ type alias RecipeIngredient =
     , variant : BuilderQuery.Variant
     , country : Maybe Country
     , planeTransport : Ingredient.PlaneTransport
+    , bonuses : Ingredient.Bonuses
     }
 
 
@@ -71,7 +75,8 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , distribution : Retail.Distribution
+    , distribution : Maybe Retail.Distribution
+    , preparation : List Preparation
     , category : Maybe Category
     }
 
@@ -81,18 +86,23 @@ type alias Results =
     , perKg : Impacts
     , scoring : Scoring
     , totalMass : Mass
+    , preparedMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
+        , totalBonusesImpact : Impact.BonusImpacts
+        , totalBonusesImpactPerKg : Impact.BonusImpacts
         , transform : Impacts
         , transports : Transport
+        , transformedMass : Mass
         }
     , packaging : Impacts
     , distribution :
         { total : Impacts
         , transports : Transport
         }
+    , preparation : Impacts
     , transports : Transport
     }
 
@@ -120,7 +130,7 @@ type alias Transform =
     }
 
 
-availableIngredients : List Id -> List Ingredient -> List Ingredient
+availableIngredients : List Ingredient.Id -> List Ingredient -> List Ingredient
 availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
@@ -143,7 +153,7 @@ compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, distribution, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, preparation, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -177,20 +187,38 @@ compute db =
                             |> Maybe.withDefault Impact.noImpacts
 
                     distributionImpacts =
-                        let
-                            volume =
-                                getTransformedIngredientsVolume recipe
-                        in
-                        Result.map (Retail.computeImpacts db volume distribution)
-                            (Process.loadWellKnown db.processes)
+                        distribution
+                            |> Maybe.map
+                                (\distrib ->
+                                    let
+                                        volume =
+                                            getTransformedIngredientsVolume recipe
+                                    in
+                                    Result.map (Retail.computeImpacts db volume distrib)
+                                        (Process.loadWellKnown db.processes)
+                                )
+                            |> Maybe.withDefault (Ok Impact.noImpacts)
+
+                    distributionTransportNeedsCooling =
+                        ingredients
+                            |> List.any (.ingredient >> .transportCooling >> (/=) Ingredient.NoCooling)
 
                     distributionTransport =
                         let
                             mass =
                                 getMassAtPackaging recipe
+
+                            transport =
+                                distribution
+                                    |> Maybe.map
+                                        (\distrib ->
+                                            Retail.distributionTransport distrib distributionTransportNeedsCooling
+                                        )
+                                    |> Maybe.withDefault (Transport.default Impact.noImpacts)
                         in
-                        Result.map (Retail.distributionTransportImpact db mass distribution)
-                            (Process.loadWellKnown db.processes)
+                        db.processes
+                            |> Process.loadWellKnown
+                            |> Result.map (Transport.computeImpacts db.impacts mass transport)
 
                     recipeImpacts =
                         updateImpacts
@@ -199,68 +227,141 @@ compute db =
                             , ingredientsTransport.impacts
                             ]
 
-                    totalImpacts =
-                        [ Ok recipeImpacts
-                        , Ok packagingImpacts
-                        , distributionImpacts
-                        , distributionTransport
-                            |> Result.map .impacts
-                        ]
-                            |> RE.combine
-                            |> Result.map (Impact.sumImpacts db.impacts)
-
-                    impactsPerKg =
-                        -- Note: Product impacts per kg is computed against transformed
-                        --       ingredients mass, excluding packaging
-                        totalImpacts
-                            |> Result.map
-                                (Impact.perKg (getTransformedIngredientsMass recipe))
+                    transformedIngredientsMass =
+                        getTransformedIngredientsMass recipe
 
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
 
+                    preparationImpacts =
+                        preparation
+                            |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
+                            |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
+
+                    preparedMass =
+                        getPreparedMassAtConsumer recipe
+
+                    addIngredientsBonuses impacts =
+                        -- Note: this must be applied at the very last step of the impacts computation
+                        -- pipeline, as it relies on the final ingredients ecoscore and land use values
+                        -- as a base for computation.
+                        let
+                            ecoScore =
+                                Impact.getImpact (Impact.trg "ecs") impacts
+                        in
+                        impacts
+                            |> Impact.updateImpact (Impact.trg "ecs")
+                                (Quantity.difference ecoScore totalBonusesImpact.total)
+
+                    totalBonusesImpact =
+                        ingredients
+                            |> computeIngredientsTotalBonus db.impacts
+
+                    totalBonusesImpactPerKg =
+                        { totalBonusesImpact
+                            | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroDiversity
+                            , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroEcology
+                            , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.animalWelfare
+                            , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.total
+                        }
+
+                    totalImpacts =
+                        [ Ok recipeImpacts
+                        , Ok packagingImpacts
+                        , distributionImpacts
+                        , distributionTransport |> Result.map .impacts
+                        , preparationImpacts
+                        ]
+                            |> RE.combine
+                            |> Result.map (Impact.sumImpacts db.impacts)
+                            |> Result.map addIngredientsBonuses
+
+                    impactsPerKg =
+                        -- Note: Product impacts per kg is computed against prepared
+                        --       product mass at consumer, excluding packaging
+                        totalImpacts
+                            |> Result.map (Impact.perKg preparedMass)
+
                     scoring =
                         impactsPerKg
                             |> Result.map (computeScoring db.impacts category)
                 in
-                Result.map5
-                    (\total perKg distrib distribTransport score ->
+                Ok
+                    (\total perKg distrib distribTransport preparationImpacts_ score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
                           , scoring = score
-
-                          -- XXX: For now, we stop at packaging step
                           , totalMass = getMassAtPackaging recipe
+                          , preparedMass = preparedMass
                           , recipe =
                                 { total = recipeImpacts
                                 , ingredientsTotal = ingredientsTotalImpacts
                                 , ingredients = ingredientsImpacts
+                                , totalBonusesImpact = totalBonusesImpact
+                                , totalBonusesImpactPerKg = totalBonusesImpactPerKg
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
+                                , transformedMass = transformedIngredientsMass
                                 }
                           , packaging = packagingImpacts
                           , distribution =
                                 { total = distrib
                                 , transports = distribTransport
                                 }
+                          , preparation = preparationImpacts_
                           , transports =
-                                [ ingredientsTransport
-                                , distribTransport
-                                ]
-                                    |> Transport.sum db.impacts
+                                Transport.sum db.impacts
+                                    [ ingredientsTransport
+                                    , distribTransport
+                                    ]
                           }
                         )
                     )
-                    totalImpacts
-                    impactsPerKg
-                    distributionImpacts
-                    distributionTransport
-                    scoring
+                    |> RE.andMap totalImpacts
+                    |> RE.andMap impactsPerKg
+                    |> RE.andMap distributionImpacts
+                    |> RE.andMap distributionTransport
+                    |> RE.andMap preparationImpacts
+                    |> RE.andMap scoring
             )
         >> RE.join
+
+
+computeIngredientBonusesImpacts : List Impact.Definition -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
+computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+    let
+        -- docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/complements-hors-acv-en-construction
+        ( lduNormalization, lduWeighting ) =
+            defs
+                |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
+                |> List.head
+                |> Maybe.andThen .ecoscoreData
+                |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
+                |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
+
+        normalizedLandUse =
+            ingredientImpacts
+                |> Impact.getImpact (Impact.trg "ldu")
+                |> Unit.impactAggregateScore lduNormalization lduWeighting
+                |> Unit.impactToFloat
+
+        ensurePositive x =
+            clamp 0 x x
+
+        ( agroDiversityBonus, agroEcologyBonus, animalWelfareBonus ) =
+            ( ensurePositive (2.3 * Split.toFloat agroDiversity * normalizedLandUse)
+            , ensurePositive (2.3 * Split.toFloat agroEcology * normalizedLandUse)
+            , ensurePositive (1.5 * Split.toFloat animalWelfare * normalizedLandUse)
+            )
+    in
+    { agroDiversity = Unit.impact agroDiversityBonus
+    , agroEcology = Unit.impact agroEcologyBonus
+    , animalWelfare = Unit.impact animalWelfareBonus
+    , total = Unit.impact (agroDiversityBonus + agroEcologyBonus + animalWelfareBonus)
+    }
 
 
 computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
@@ -324,6 +425,18 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
+computeIngredientsTotalBonus : List Impact.Definition -> List RecipeIngredient -> Impact.BonusImpacts
+computeIngredientsTotalBonus defs =
+    List.foldl
+        (\({ bonuses } as recipeIngredient) acc ->
+            recipeIngredient
+                |> computeIngredientImpacts
+                |> computeIngredientBonusesImpacts defs bonuses
+                |> Impact.addBonusImpacts acc
+        )
+        Impact.noBonusImpacts
+
+
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
@@ -333,32 +446,44 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
             -- and we selected a transport by plane, then we take an air transport ratio of 1
-            Unit.Ratio
-                (if planeTransport == Ingredient.ByPlane then
-                    1
+            if planeTransport == Ingredient.ByPlane then
+                Split.full
 
-                 else
-                    0
-                )
+            else
+                Split.zero
 
         baseTransport =
-            case country of
-                -- In case a custom country is provided, compute the distances to it from France
-                Just { code } ->
-                    db.transports
-                        |> Transport.getTransportBetween Scope.Food emptyImpacts code france
-                        |> Formula.transportRatio planeRatio
+            let
+                base =
+                    case country of
+                        -- In case a custom country is provided, compute the distances to it from France
+                        Just { code } ->
+                            db.transports
+                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Formula.transportRatio planeRatio
 
-                -- Otherwise retrieve ingredient's default origin transport data
-                Nothing ->
-                    ingredient.defaultOrigin
-                        |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+                        -- Otherwise retrieve ingredient's default origin transport data
+                        Nothing ->
+                            ingredient.defaultOrigin
+                                |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+            in
+            if ingredient.transportCooling /= Ingredient.NoCooling then
+                -- Switch the distances to use the "cooled" version of the transport medium
+                { base
+                    | road = Quantity.zero
+                    , roadCooled = base.road
+                    , sea = Quantity.zero
+                    , seaCooled = base.sea
+                }
+
+            else
+                base
 
         toTransformation t =
             -- 160km of road transport are added for every ingredient, wherever they come
             -- from (including France). This corresponds to the step "1. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
+            Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
             -- 500km of road transport are added for every ingredient that are not coming from France.
@@ -367,14 +492,14 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
             case country of
                 Just { code } ->
                     if code /= Country.codeFromString "FR" then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
 
                 Nothing ->
                     if ingredient.defaultOrigin /= Origin.France then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
@@ -384,32 +509,17 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    { transport
-        | impacts =
-            db.processes
-                |> Process.loadWellKnown
-                |> Result.map
-                    (\wellKnown ->
-                        [ ( wellKnown.lorryTransport, transport.road )
-                        , ( wellKnown.boatTransport, transport.sea )
-                        , ( wellKnown.planeTransport, transport.air )
-                        ]
-                            |> List.map
-                                (\( transportProcess, distance ) ->
-                                    transportProcess.impacts
-                                        |> Impact.mapImpacts
-                                            (\_ impact ->
-                                                impact
-                                                    |> Unit.impactToFloat
-                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
-                                                    |> Unit.impact
-                                            )
-                                )
-                    )
-                |> Result.withDefault []
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
-    }
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map (Transport.computeImpacts db.impacts mass transport)
+        |> Result.withDefault (Transport.default Impact.noImpacts)
+
+
+preparationListFromQuery : Query -> Result String (List Preparation)
+preparationListFromQuery =
+    .preparation
+        >> List.map Preparation.findById
+        >> RE.combine
 
 
 deletePackaging : Process.Code -> Query -> Query
@@ -425,7 +535,6 @@ encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
         [ ( "id", Ingredient.encodeId i.id )
-        , ( "name", Encode.string i.name )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "variant", variantToString i.variant |> Encode.string )
         , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
@@ -440,13 +549,14 @@ encodeProcess p =
         ]
 
 
-encodeQuery : Query -> Encode.Value
-encodeQuery q =
+encode : Query -> Encode.Value
+encode q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess q.packaging )
-        , ( "distribution", Retail.encode q.distribution )
+        , ( "preparation", Encode.list Preparation.encodeId q.preparation )
+        , ( "distribution", q.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -461,6 +571,7 @@ encodeResults defs results =
         , ( "perKg", encodeImpacts results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
+        , ( "preparedMass", results.preparedMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
@@ -470,6 +581,7 @@ encodeResults defs results =
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
+        , ( "preparation", encodeImpacts results.preparation )
         , ( "transports", Transport.encode defs results.transports )
         , ( "distribution"
           , Encode.object
@@ -503,12 +615,13 @@ encodeScoring scoring =
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map5 Recipe
-        (ingredientListFromQuery db query)
-        (transformFromQuery db query)
-        (packagingListFromQuery db query)
-        (Ok query.distribution)
-        (categoryFromQuery query.category)
+    Ok Recipe
+        |> RE.andMap (ingredientListFromQuery db query)
+        |> RE.andMap (transformFromQuery db query)
+        |> RE.andMap (packagingListFromQuery db query)
+        |> RE.andMap (Ok query.distribution)
+        |> RE.andMap (preparationListFromQuery query)
+        |> RE.andMap (categoryFromQuery query.category)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -524,6 +637,34 @@ getPackagingMass recipe =
     recipe.packaging
         |> List.map .mass
         |> Quantity.sum
+
+
+getPreparedMassAtConsumer : Recipe -> Mass
+getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
+    let
+        cookedAtPlant =
+            case transform |> Maybe.andThen (.process >> .alias) of
+                Just "cooking" ->
+                    True
+
+                _ ->
+                    False
+
+        cookedAtConsumer =
+            preparation
+                |> List.any .applyRawToCookedRatio
+    in
+    if not cookedAtPlant && cookedAtConsumer then
+        ingredients
+            |> List.map
+                (\{ ingredient, mass } ->
+                    -- apply raw to cooked ratio
+                    mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+                )
+            |> Quantity.sum
+
+    else
+        getTransformedIngredientsMass recipe
 
 
 getTransformedIngredientsMass : Recipe -> Mass
@@ -571,6 +712,7 @@ getRecipeIngredientProcess { ingredient, variant } =
 
         BuilderQuery.Organic ->
             ingredient.variants.organic
+                |> Maybe.map .process
                 |> Maybe.withDefault ingredient.default
 
 
@@ -580,34 +722,37 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, variant, country, planeTransport } =
-    Result.map5 RecipeIngredient
-        (Ingredient.findByID id ingredients)
-        (Ok mass)
-        (Ok variant)
-        (case Maybe.map (\c -> Country.findByCode c countries) country of
-            Just (Ok country_) ->
-                Ok (Just country_)
+ingredientFromQuery { countries, ingredients } { id, mass, variant, country, planeTransport, bonuses } =
+    Ok RecipeIngredient
+        |> RE.andMap (Ingredient.findByID id ingredients)
+        |> RE.andMap (Ok mass)
+        |> RE.andMap (Ok variant)
+        |> RE.andMap
+            (case Maybe.map (\c -> Country.findByCode c countries) country of
+                Just (Ok country_) ->
+                    Ok (Just country_)
 
-            Just (Err error) ->
-                Err error
+                Just (Err error) ->
+                    Err error
 
-            Nothing ->
-                Ok Nothing
-        )
-        (Ingredient.findByID id ingredients
-            |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
-        )
+                Nothing ->
+                    Ok Nothing
+            )
+        |> RE.andMap
+            (Ingredient.findByID id ingredients
+                |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
+            )
+        |> RE.andMap (Ok bonuses)
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
     { id = ingredient.id
-    , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
+    , bonuses = Ingredient.defaultBonuses
     }
 
 
@@ -639,14 +784,14 @@ resetTransform query =
     { query | transform = Nothing }
 
 
+resetDistribution : Query -> Query
+resetDistribution query =
+    { query | distribution = Nothing }
+
+
 setCategory : Maybe Category.Id -> Query -> Query
 setCategory maybeId query =
     { query | category = maybeId }
-
-
-serializeQuery : Query -> String
-serializeQuery =
-    encodeQuery >> Encode.encode 2
 
 
 toString : Recipe -> String

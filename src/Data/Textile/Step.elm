@@ -21,6 +21,7 @@ import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
@@ -50,10 +51,10 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
-    , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
+    , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
-    , makingWaste : Maybe Unit.Ratio
+    , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
@@ -99,7 +100,7 @@ create { db, label, editable, country, enabled } =
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
-    , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
+    , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
@@ -197,7 +198,9 @@ computeTransports db next ({ processInfo } as current) =
 computeTransportImpacts : Db -> Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
+    , roadCooled = Quantity.zero
     , sea = sea
+    , seaCooled = Quantity.zero
     , air = air
     , impacts =
         impacts
@@ -229,7 +232,7 @@ computeTransportSummary step transport =
         Label.Ennobling ->
             transport
                 -- Note: no air transport ratio at the Dyeing step
-                |> Formula.transportRatio (Unit.ratio 0)
+                |> Formula.transportRatio Split.zero
                 -- Added intermediary inland transport distances to materialize
                 -- "processing" + "dyeing" steps (see Excel)
                 -- Also ensure we don't add unnecessary air transport
@@ -249,9 +252,9 @@ computeTransportSummary step transport =
             noTransports
 
         _ ->
-            -- All other steps don't use air transport, force a 0 ratio
+            -- All other steps don't use air transport, force a 0 split
             transport
-                |> Formula.transportRatio (Unit.ratio 0)
+                |> Formula.transportRatio Split.zero
 
 
 getRoadTransportProcess : Process.WellKnown -> Step -> Process
@@ -434,14 +437,14 @@ updateWaste waste mass step =
     }
 
 
-airTransportRatioToString : Unit.Ratio -> String
-airTransportRatioToString (Unit.Ratio airTransportRatio) =
-    case round (airTransportRatio * 100) of
+airTransportRatioToString : Split -> String
+airTransportRatioToString percentage =
+    case Split.toPercent percentage of
         0 ->
             "Aucun transport aérien"
 
-        p ->
-            String.fromInt p ++ "% de transport aérien"
+        _ ->
+            Split.toPercentString percentage ++ "% de transport aérien"
 
 
 qualityToString : Unit.Quality -> String
@@ -464,14 +467,13 @@ surfaceMassToString (Unit.SurfaceMass int) =
     "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
 
 
-makingWasteToString : Unit.Ratio -> String
-makingWasteToString (Unit.Ratio makingWaste) =
-    case round (makingWaste * 100) of
-        0 ->
-            "Aucune perte en confection"
+makingWasteToString : Split -> String
+makingWasteToString makingWaste =
+    if makingWaste == Split.zero then
+        "Aucune perte en confection"
 
-        p ->
-            String.fromInt p ++ "% de pertes en confection"
+    else
+        Split.toPercentString makingWaste ++ "% de pertes en confection"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
@@ -489,10 +491,10 @@ encode definitions v =
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
+        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
-        , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]

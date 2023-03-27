@@ -10,6 +10,7 @@ import Views.Icon as Icon
 
 type alias Config =
     { fullWidth : Bool
+    , onlyIcons : Bool
     , hideNoLength : Bool
     , airTransportLabel : Maybe String
     , seaTransportLabel : Maybe String
@@ -31,10 +32,12 @@ view ({ fullWidth } as config) transport =
 
 
 viewDetails : Config -> Transport -> List (Html msg)
-viewDetails { hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, road } =
+viewDetails { onlyIcons, hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, seaCooled, road, roadCooled } =
     [ { distance = air, icon = Icon.plane, label = Maybe.withDefault "Transport aérien" airTransportLabel }
     , { distance = sea, icon = Icon.boat, label = Maybe.withDefault "Transport maritime" seaTransportLabel }
+    , { distance = seaCooled, icon = Icon.boatCooled, label = "Transport maritime réfrigéré" }
     , { distance = road, icon = Icon.bus, label = Maybe.withDefault "Transport routier" roadTransportLabel }
+    , { distance = roadCooled, icon = Icon.busCooled, label = "Transport routier réfrigéré" }
     ]
         |> List.filterMap
             (\{ distance, icon, label } ->
@@ -42,14 +45,26 @@ viewDetails { hideNoLength, airTransportLabel, seaTransportLabel, roadTransportL
                     Nothing
 
                 else
-                    Just <| entry distance icon label
+                    Just <| entry { onlyIcons = onlyIcons, distance = distance, icon = icon, label = label }
             )
 
 
-entry : Length -> Html msg -> String -> Html msg
-entry distance icon label =
+type alias EntryConfig msg =
+    { onlyIcons : Bool
+    , distance : Length
+    , icon : Html msg
+    , label : String
+    }
+
+
+entry : EntryConfig msg -> Html msg
+entry { onlyIcons, distance, icon, label } =
     span
         [ class "d-flex align-items-center gap-1", title label ]
         [ span [ style "cursor" "help" ] [ icon ]
-        , Format.km distance
+        , if onlyIcons then
+            text ""
+
+          else
+            Format.km distance
         ]

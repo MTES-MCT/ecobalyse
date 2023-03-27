@@ -48,7 +48,25 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "21 février 2023"
+    [ { date = "20 mars 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le mode de distribution a été rendu facultatif
+"""
+      }
+    , { date = "8 mars 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Une étape a été ajoutée au constructeur de recette pour tenir
+            compte de l'impact de la consommation. Un nouveau paramètre
+            optionnel `preparation` a été ajouté sur le point d'entrée
+            `/food/recipe`, qui accepte une liste de techniques de préparation
+            (`freezing` pour congélation, `frying` pour friture, etc.)
+"""
+      }
+    , { date = "21 février 2023"
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =

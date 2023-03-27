@@ -5,7 +5,7 @@ module Data.Food.Retail exposing
     , computeImpacts
     , decode
     , displayNeeds
-    , distributionTransportImpact
+    , distributionTransport
     , encode
     , fromString
     , toDisplay
@@ -25,7 +25,6 @@ import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
-import Mass exposing (Mass)
 import Quantity exposing (Quantity, Rate, rate, ratio)
 import Result.Extra as RE
 import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
@@ -185,34 +184,17 @@ elecImpact elecNeeds volume =
             )
 
 
-distributionTransportImpact : Db -> Mass -> Distribution -> WellKnown -> Transport
-distributionTransportImpact db mass (Distribution _ needs) wellKnown =
-    let
-        impacts =
-            wellKnown.lorryTransport.impacts
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Length.inKilometers needs.transport * Mass.inMetricTons mass)
-                            |> Unit.impact
-                    )
-
-        baseTransport =
-            impacts
-                |> Impact.updateAggregatedScores db.impacts
-                |> Transport.default
-    in
-    { baseTransport
-        | road = needs.transport
-    }
+distributionTransport : Distribution -> Bool -> Transport
+distributionTransport (Distribution _ needs) needsCooling =
+    Transport.default Impact.noImpacts
+        |> Transport.addRoadWithCooling needs.transport needsCooling
 
 
 computeImpacts : Db -> Volume -> Distribution -> WellKnown -> Impacts
 computeImpacts db volume (Distribution _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
-    , elecImpact needs.cooling volume wellknown.electricity
-    , elecImpact needs.energy volume wellknown.electricity
+    , elecImpact needs.cooling volume wellknown.lowVoltageElectricity
+    , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
         |> Impact.sumImpacts db.impacts
         |> Impact.updateAggregatedScores db.impacts

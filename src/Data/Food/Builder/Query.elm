@@ -5,24 +5,32 @@ module Data.Food.Builder.Query exposing
     , Variant(..)
     , addIngredient
     , addPackaging
+    , addPreparation
     , b64encode
     , carrotCake
     , decode
     , deleteIngredient
+    , deletePreparation
     , emptyQuery
     , encode
+    , getIngredientMass
     , parseBase64Query
+    , serialize
+    , setDistribution
     , setTransform
+    , updateBonusesFromVariant
     , updateDistribution
     , updateIngredient
     , updatePackaging
+    , updatePreparation
     , updateTransform
     )
 
 import Base64
 import Data.Country as Country
 import Data.Food.Category as Category
-import Data.Food.Ingredient as Ingredient
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
 import Json.Decode as Decode exposing (Decoder)
@@ -41,11 +49,11 @@ type Variant
 
 type alias IngredientQuery =
     { id : Ingredient.Id
-    , name : String
     , mass : Mass
     , variant : Variant
     , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
+    , bonuses : Ingredient.Bonuses
     }
 
 
@@ -59,8 +67,18 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , distribution : Retail.Distribution
+    , distribution : Maybe Retail.Distribution
+    , preparation : List Preparation.Id
     , category : Maybe Category.Id
+    }
+
+
+addPreparation : Preparation.Id -> Query -> Query
+addPreparation preparationId query =
+    { query
+        | preparation =
+            query.preparation
+                ++ [ preparationId ]
     }
 
 
@@ -88,7 +106,8 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
-    , distribution = Retail.ambient
+    , distribution = Nothing
+    , preparation = []
     , category = Nothing
     }
 
@@ -97,32 +116,32 @@ carrotCake : Query
 carrotCake =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
-          , name = "Oeuf"
           , mass = Mass.grams 120
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.defaultBonuses
           }
         , { id = Ingredient.idFromString "wheat"
-          , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.defaultBonuses
           }
         , { id = Ingredient.idFromString "milk"
-          , name = "Lait"
           , mass = Mass.grams 60
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.defaultBonuses
           }
         , { id = Ingredient.idFromString "carrot"
-          , name = "Carotte"
           , mass = Mass.grams 225
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
+          , bonuses = Ingredient.defaultBonuses
           }
         ]
     , transform =
@@ -137,7 +156,8 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
-    , distribution = Retail.ambient
+    , distribution = Just Retail.ambient
+    , preparation = [ Preparation.Id "refrigeration" ]
     , category = Just (Category.Id "cakes")
     }
 
@@ -148,7 +168,8 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.custom (Decode.field "distribution" Retail.decode)
+        |> Pipe.custom (Decode.field "distribution" (Decode.maybe Retail.decode))
+        |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -195,21 +216,28 @@ decodeProcess =
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
-    Decode.map6 IngredientQuery
-        (Decode.field "id" Ingredient.decodeId)
-        (Decode.field "name" Decode.string)
-        (Decode.field "mass" decodeMass)
-        (Decode.field "variant" decodeVariant)
-        (Decode.field "country" (Decode.maybe Country.decodeCode))
-        (Decode.field "byPlane"
-            decodePlaneTransport
-        )
+    Decode.succeed IngredientQuery
+        |> Pipe.required "id" Ingredient.decodeId
+        |> Pipe.required "mass" decodeMass
+        |> Pipe.required "variant" decodeVariant
+        |> Pipe.required "country" (Decode.maybe Country.decodeCode)
+        |> Pipe.required "byPlane" decodePlaneTransport
+        |> Pipe.optional "bonuses" Ingredient.decodeBonuses Ingredient.defaultBonuses
 
 
 decodeVariant : Decoder Variant
 decodeVariant =
     Decode.string
         |> Decode.andThen (variantFromString >> DE.fromResult)
+
+
+deletePreparation : Preparation.Id -> Query -> Query
+deletePreparation preparationId query =
+    { query
+        | preparation =
+            query.preparation
+                |> List.filter ((/=) preparationId)
+    }
 
 
 deleteIngredient : IngredientQuery -> Query -> Query
@@ -228,7 +256,8 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "distribution", Retail.encode v.distribution )
+        , ( "distribution", v.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
+        , ( "preparation", Encode.list Preparation.encodeId v.preparation )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -237,11 +266,11 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     Encode.object
         [ ( "id", Ingredient.encodeId v.id )
-        , ( "name", Encode.string v.name )
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "byPlane", encodePlaneTransport v.planeTransport )
+        , ( "bonuses", Ingredient.encodeBonuses v.bonuses )
         ]
 
 
@@ -276,9 +305,9 @@ encodeVariant =
     variantToString >> Encode.string
 
 
-getIngredientMass : Query -> Mass
-getIngredientMass query =
-    query.ingredients
+getIngredientMass : List { a | mass : Mass } -> Mass
+getIngredientMass ingredients =
+    ingredients
         |> List.map .mass
         |> Quantity.sum
 
@@ -286,6 +315,27 @@ getIngredientMass query =
 setTransform : ProcessQuery -> Query -> Query
 setTransform transform query =
     { query | transform = Just transform }
+
+
+setDistribution : Retail.Distribution -> Query -> Query
+setDistribution distribution query =
+    { query | distribution = Just distribution }
+
+
+updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query
+updatePreparation oldId newId query =
+    { query
+        | preparation =
+            query.preparation
+                |> List.map
+                    (\id ->
+                        if id == oldId then
+                            newId
+
+                        else
+                            id
+                    )
+    }
 
 
 updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query
@@ -335,7 +385,7 @@ updateTransformMass query =
             query.transform
                 |> Maybe.map
                     (\transform ->
-                        { transform | mass = getIngredientMass query }
+                        { transform | mass = getIngredientMass query.ingredients }
                     )
     }
 
@@ -346,7 +396,21 @@ updateDistribution distribution query =
         | distribution =
             Retail.fromString distribution
                 |> Result.withDefault Retail.ambient
+                |> Just
     }
+
+
+updateBonusesFromVariant : List Ingredient -> Ingredient.Id -> Variant -> Ingredient.Bonuses
+updateBonusesFromVariant ingredients ingredientId variant =
+    case variant of
+        Organic ->
+            ingredients
+                |> Ingredient.findByID ingredientId
+                |> Result.map Ingredient.getDefaultOrganicBonuses
+                |> Result.withDefault Ingredient.defaultBonuses
+
+        DefaultVariant ->
+            Ingredient.defaultBonuses
 
 
 variantFromString : String -> Result String Variant
@@ -370,6 +434,11 @@ variantToString variant =
 
         Organic ->
             "organic"
+
+
+serialize : Query -> String
+serialize =
+    encode >> Encode.encode 2
 
 
 b64decode : String -> Result String Query

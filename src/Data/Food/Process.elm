@@ -67,8 +67,11 @@ type alias WellKnown =
     { lorryTransport : Process
     , boatTransport : Process
     , planeTransport : Process
+    , lorryCoolingTransport : Process
+    , boatCoolingTransport : Process
     , water : Process
-    , electricity : Process
+    , lowVoltageElectricity : Process
+    , domesticGasHeat : Process
     }
 
 
@@ -242,6 +245,8 @@ loadWellKnown processes =
         |> resolve "lorry"
         |> resolve "boat"
         |> resolve "plane"
+        |> resolve "lorry-cooling"
+        |> resolve "boat-cooling"
         |> resolve "tapwater"
-        -- low voltage:
-        |> resolve "electricity"
+        |> resolve "low-voltage-electricity"
+        |> resolve "domestic-gas-heat"

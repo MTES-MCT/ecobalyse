@@ -112,6 +112,9 @@ suite =
                             , ( "swe", Unit.impact 0.010932969853481399 )
                             , ( "tre", Unit.impact 0.12407138654493885 )
                             , ( "wtu", Unit.impact 0.7436928514704245 )
+                            , ( "etf-c", Unit.impact 0 )
+                            , ( "htn-c", Unit.impact 0 )
+                            , ( "htc-c", Unit.impact 0 )
                             ]
                         )
                     |> asTest "should return computed impacts"

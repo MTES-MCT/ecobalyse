@@ -14,6 +14,12 @@ boat =
     icon "ship"
 
 
+boatCooled : Html msg
+boatCooled =
+    i [ attribute "aria-hidden" "true", class "icon icon-ship" ]
+        [ snow ]
+
+
 build : Html msg
 build =
     icon "build"
@@ -22,6 +28,12 @@ build =
 bus : Html msg
 bus =
     icon "truck"
+
+
+busCooled : Html msg
+busCooled =
+    i [ attribute "aria-hidden" "true", class "icon icon-truck" ]
+        [ snow ]
 
 
 check : Html msg
@@ -162,6 +174,11 @@ shrink =
 slice : Html msg
 slice =
     icon "slice"
+
+
+snow : Html msg
+snow =
+    icon "snow"
 
 
 stats : Html msg

@@ -2,6 +2,7 @@ module Server.RouteTest exposing (..)
 
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
+import Data.Split as Split
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Step.Label as Label
@@ -49,6 +50,7 @@ foodEndpoints db =
           , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
           , "distribution=ambient"
+          , "preparation[]=refrigeration"
           , "category=cakes"
           ]
             |> String.join "&"
@@ -127,6 +129,16 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "distribution")
             |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
             |> asTest "should validate that a distribution is valid"
+        , getEndpoint db "GET" "/food/recipe?preparation[]=invalid"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "preparation")
+            |> Expect.equal (Just "Préparation inconnue: invalid")
+            |> asTest "should validate that a preparation list entry is valid"
+        , getEndpoint db "GET" "/food/recipe?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "preparation")
+            |> Expect.equal (Just "Deux techniques de préparation maximum.")
+            |> asTest "should validate preparation list length"
         ]
     ]
 
@@ -218,7 +230,26 @@ textileEndpoints db =
             |> asTest "should handle the /textile/simulator/detailed endpoint"
         ]
     , describe "materials param checks"
-        [ [ "/textile/simulator?mass=0.17"
+        [ let
+            results =
+                Result.map2
+                    (\thirty fourty ->
+                        [ { id = Material.Id "coton"
+                          , share = thirty
+                          }
+                        , { id = Material.Id "coton-rdp"
+                          , share = thirty
+                          }
+                        , { id = Material.Id "acrylique"
+                          , share = fourty
+                          }
+                        ]
+                    )
+                    (Split.fromFloat 0.3)
+                    (Split.fromFloat 0.4)
+                    |> Result.toMaybe
+          in
+          [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;0.3"
           , "materials[]=coton-rdp;0.3"
@@ -231,19 +262,7 @@ textileEndpoints db =
             |> getEndpoint db "GET"
             |> Maybe.andThen extractQuery
             |> Maybe.map .materials
-            |> Expect.equal
-                (Just
-                    [ { id = Material.Id "coton"
-                      , share = Unit.Ratio 0.3
-                      }
-                    , { id = Material.Id "coton-rdp"
-                      , share = Unit.Ratio 0.3
-                      }
-                    , { id = Material.Id "acrylique"
-                      , share = Unit.Ratio 0.4
-                      }
-                    ]
-                )
+            |> Expect.equal results
             |> asTest "should handle the /textile/simulator endpoint with the list of materials"
         , getEndpoint db "GET" "/textile/simulator?"
             |> Maybe.andThen extractTextileErrors
@@ -268,7 +287,7 @@ textileEndpoints db =
         , getEndpoint db "GET" "/textile/simulator?materials[]=coton;12"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just "Un ratio doit être compris entre 0 et 1 inclus (ici : 12).")
+            |> Expect.equal (Just "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: 12)")
             |> asTest "should validate invalid material ratios"
         , getEndpoint db "GET" "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors

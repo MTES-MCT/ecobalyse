@@ -1,9 +1,12 @@
 module Data.Impact exposing
-    ( Definition
+    ( BonusImpacts
+    , Definition
     , Impacts
     , Quality(..)
     , Source
     , Trigram(..)
+    , addBonusImpacts
+    , bonusesImpactAsChartEntries
     , computeAggregatedScore
     , decodeImpacts
     , decodeList
@@ -23,12 +26,14 @@ module Data.Impact exposing
     , invalid
     , isAggregate
     , mapImpacts
+    , noBonusImpacts
     , noImpacts
     , parseTrigram
     , perKg
     , sumImpacts
     , toProtectionAreas
     , toString
+    , totalBonusesImpactAsChartEntry
     , trg
     , updateAggregatedScores
     , updateImpact
@@ -83,6 +88,48 @@ type alias AggregatedScoreData =
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
     }
+
+
+type alias BonusImpacts =
+    -- Note: these are always expressed in ecoscore (ecs) µPt
+    { agroDiversity : Unit.Impact
+    , agroEcology : Unit.Impact
+    , animalWelfare : Unit.Impact
+    , total : Unit.Impact
+    }
+
+
+addBonusImpacts : BonusImpacts -> BonusImpacts -> BonusImpacts
+addBonusImpacts a b =
+    { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
+    , agroEcology = Quantity.plus a.agroEcology b.agroEcology
+    , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    , total = Quantity.plus a.total b.total
+    }
+
+
+noBonusImpacts : BonusImpacts
+noBonusImpacts =
+    { agroDiversity = Unit.impact 0
+    , agroEcology = Unit.impact 0
+    , animalWelfare = Unit.impact 0
+    , total = Unit.impact 0
+    }
+
+
+bonusesImpactAsChartEntries : BonusImpacts -> List { name : String, value : Float, color : String }
+bonusesImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
+    -- We want those bonuses to appear as negative values on the chart
+    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
+    , { name = "Bonus infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Bonus conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    ]
+
+
+totalBonusesImpactAsChartEntry : BonusImpacts -> { name : String, value : Float, color : String }
+totalBonusesImpactAsChartEntry { total } =
+    -- We want those bonuses to appear as negative values on the chart
+    { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
 
 
 type alias ProtectionAreas =
@@ -242,35 +289,28 @@ toProtectionAreas defs impactsPerKg =
             ]
     , biodiversity =
         pick
-            [ "cch" -- Climate change
-            , "bvi" -- Biodiversity impact
+            [ "bvi" -- Biodiversity impact
             , "acd" -- Acidification
-            , "fwe" -- Freshwater Eutrophication
             , "tre" -- Terrestrial eutrophication
+            , "fwe" -- Freshwater Eutrophication
             , "swe" -- Marine eutrophication
-            , "etf" -- Ecotoxicity: freshwater
-            , "ozd" -- Ozone depletion
+            , "etf-c" -- Ecotoxicity: freshwater
+            , "ldu" -- Land use
+            ]
+    , health =
+        pick
+            [ "ozd" -- Ozone depletion
             , "ior" -- Ionising radiation
             , "pco" -- Photochemical ozone formation
-            , "wtu" -- Water use
-            , "ldu" -- Land use
+            , "htn-c" -- Human toxicity: non-carcinogenic
+            , "htc-c" -- Human toxicity: carcinogenic
+            , "pma" -- Particulate matter
             ]
     , resources =
         pick
             [ "wtu" -- Water use
-            , "ldu" -- Land use
             , "fru" -- Fossile resource use
             , "mru" -- Minerals and metal resource use
-            ]
-    , health =
-        pick
-            [ "cch" -- Climate change
-            , "ozd" -- Ozone depletion
-            , "ior" -- Ionising radiation
-            , "pco" -- Photochemical ozone formation
-            , "htn" -- Human toxicity: non-carcinogenic
-            , "htc" -- Human toxicity: carcinogenic
-            , "wtu" -- Water use
             ]
     }
 
@@ -481,7 +521,7 @@ parseTrigram scope =
     let
         trigrams =
             -- FIXME: find a way to have this check performed automatically from impacts db
-            "acd,bvi,cch,ecs,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
+            "acd,bvi,cch,ecs,etf,etf-c,fru,fwe,htc,htc-c,htn,htc-c,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|

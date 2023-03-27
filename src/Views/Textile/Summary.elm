@@ -36,11 +36,10 @@ type alias Config =
 viewMaterials : List Inputs.MaterialInput -> Html msg
 viewMaterials materials =
     materials
-        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
             (\{ material, share } ->
                 span []
-                    [ Format.ratioToDecimals 0 share
+                    [ Format.splitAsPercentage share
                     , text " "
                     , text material.shortName
                     ]
@@ -106,6 +105,7 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
                 |> TransportView.view
                     { fullWidth = False
                     , hideNoLength = False
+                    , onlyIcons = False
                     , airTransportLabel = Just "Transport aérien total"
                     , seaTransportLabel = Just "Transport maritime total"
                     , roadTransportLabel = Just "Transport routier total"

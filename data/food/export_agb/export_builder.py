@@ -63,6 +63,15 @@ processes_alias = {
     "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent": "steel",
     "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent": "pvc",
     "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent": "aluminium",
+    "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent": "low-voltage-electricity",
+    "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent": "tapwater",
+    "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent": "plane",
+    "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent": "boat",
+    "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent": "lorry",
+    "Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent": "boat-cooling",
+    "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent": "lorry-cooling",
+    # distribution
+    "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent": "domestic-gas-heat",
 }
 
 
@@ -162,23 +171,6 @@ def init_lcas(demand):
     return lcas
 
 
-def compute_pef(impacts_ecobalyse, impacts_dic):
-    pef = 0
-    total_weighting = 0
-    for k in impacts_ecobalyse.keys():
-        if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
-            continue
-        norm = impacts_ecobalyse[k]["pef"]["normalization"]
-        weight = impacts_ecobalyse[k]["pef"]["weighting"]
-        total_weighting += weight
-        pef += impacts_dic[k] * weight / norm
-    # The PEF is computed for a total weighting of 1 (100%), if we are above
-    # (because of BVI for example), then normalize it
-    pef /= total_weighting
-    pef *= 1000000  # We need the result in µPt, but we have it in Pt
-    return pef
-
-
 def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
     activity_impacts = {}
     # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
@@ -204,11 +196,10 @@ def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
         if process_name.startswith(normalized_name):
             break
     else:
-        print("No bvi data")
+        print(f"No bvi data")
         bvi = 0
 
     activity_impacts["bvi"] = float(bvi)
-    activity_impacts["pef"] = compute_pef(impacts_ecobalyse, activity_impacts)
     return activity_impacts
 
 
@@ -249,6 +240,12 @@ def get_process_by_name(processes, process_name):
     raise ProcessNotFoundByNameError(process_name)
 
 
+def is_complex_ingredient(variant):
+    return (
+        "simple_ingredient_default" in variant
+    )  # This is enough (for now?) to detect if an ingredient is complex
+
+
 def parse_ingredient_list(ingredients_base):
     processes_to_add = []
 
@@ -266,7 +263,7 @@ def compute_ingredient_list(processes, ingredients_base):
 
     for ingredient in ingredients_base:
         for variant_name, variant in ingredient["variants"].items():
-            if isinstance(variant, dict):
+            if is_complex_ingredient(variant):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 complex_ingredient_default = get_process_by_id(
                     processes, ingredient["default"]
@@ -302,7 +299,10 @@ def compute_ingredient_list(processes, ingredients_base):
                         simple_ingredient_variant["impacts"][impact]
                         - simple_ingredient_default["impacts"][impact]
                     )
-                ingredient["variants"][variant_name] = new_process["simapro_id"]
+                del variant["simple_ingredient_default"]
+                del variant["simple_ingredient_variant"]
+                del variant["ratio"]
+                variant["process"] = new_process["simapro_id"]
 
                 new_processes.append(new_process)
 

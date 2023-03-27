@@ -23,6 +23,7 @@ type alias Page =
 
 type Path
     = Home -- Page d'accueil
+    | FoodBonuses -- Bonus et compléments hors-ACV
     | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
     | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
@@ -44,6 +45,9 @@ pathToString path =
     case path of
         Home ->
             "README"
+
+        FoodBonuses ->
+            "alimentaire/impacts-consideres/complements-hors-acv-en-construction"
 
         FoodRawToCookedRatio ->
             "alimentaire/rapport-cru-cuit"

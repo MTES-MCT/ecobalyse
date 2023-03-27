@@ -16,7 +16,6 @@ module Data.Unit exposing
     , encodeImpact
     , encodePickPerMeter
     , encodeQuality
-    , encodeRatio
     , encodeReparability
     , encodeSurfaceMass
     , forKWh
@@ -142,11 +141,6 @@ decodeRatio { percentage } =
                     Decode.succeed float
             )
         |> Decode.map ratio
-
-
-encodeRatio : Ratio -> Encode.Value
-encodeRatio (Ratio float) =
-    Encode.float float
 
 
 

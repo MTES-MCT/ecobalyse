@@ -11,9 +11,11 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -64,6 +66,7 @@ parseFoodQuery builderDb =
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
         |> apply (distributionParser "distribution")
+        |> apply (preparationListParser "preparation")
         |> apply (maybeFoodCategoryParser "category")
 
 
@@ -88,11 +91,11 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.defaultBonuses)
 
         [ id, mass, variant ] ->
             let
@@ -102,11 +105,11 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.defaultBonuses)
 
         [ id, mass, variant, countryCode ] ->
             let
@@ -116,11 +119,11 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Ingredient.defaultBonuses)
 
         [ id, mass, variant, countryCode, byPlane ] ->
             let
@@ -130,7 +133,6 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
@@ -145,6 +147,7 @@ ingredientParser { countries, ingredients } string =
                                         )
                             )
                     )
+                |> RE.andMap (Ok Ingredient.defaultBonuses)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -190,6 +193,24 @@ packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
             >> RE.combine
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+preparationListParser : String -> Parser (ParseResult (List Preparation.Id))
+preparationListParser key =
+    Query.custom (key ++ "[]")
+        -- Note: leveraging Preparation.findById for validation
+        (List.map (Preparation.Id >> Preparation.findById >> Result.map .id)
+            >> RE.combine
+            >> Result.andThen
+                (\list ->
+                    if List.length list > 2 then
+                        Err "Deux techniques de préparation maximum."
+
+                    else
+                        Ok list
+                )
             >> Result.mapError (\err -> ( key, err ))
         )
 
@@ -308,13 +329,16 @@ maybeTransformParser key transforms =
             )
 
 
-distributionParser : String -> Parser (ParseResult Distribution)
+distributionParser : String -> Parser (ParseResult (Maybe Distribution))
 distributionParser key =
     Query.string key
         |> Query.map
-            (Maybe.withDefault "ambient"
-                >> Retail.fromString
-                >> Result.mapError (\err -> ( key, err ))
+            (Maybe.map
+                (Retail.fromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
@@ -343,7 +367,7 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryFabric" textileDb.countries)
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
-        |> apply (maybeRatioParser "airTransportRatio")
+        |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
@@ -451,7 +475,7 @@ parseMaterial_ materials string =
         [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
-                |> RE.andMap (parseRatio_ share)
+                |> RE.andMap (parseSplit share)
 
         [ "" ] ->
             Err <| "Format de matière vide."
@@ -467,23 +491,12 @@ parseMaterialId_ materials string =
         |> Result.map .id
 
 
-parseRatio_ : String -> Result String Unit.Ratio
-parseRatio_ string =
+parseSplit : String -> Result String Split
+parseSplit string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Ratio invalide : " ++ string)
-        |> Result.andThen
-            (\ratio ->
-                if ratio < 0 || ratio > 1 then
-                    Err <|
-                        "Un ratio doit être compris entre 0 et 1 inclus (ici : "
-                            ++ String.fromFloat ratio
-                            ++ ")."
-
-                else
-                    Ok ratio
-            )
-        |> Result.map Unit.ratio
+        |> Result.andThen Split.fromFloat
 
 
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
@@ -494,7 +507,7 @@ validateMaterialList list =
     else
         let
             total =
-                list |> List.map (.share >> Unit.ratioToFloat) |> List.sum
+                list |> List.map (.share >> Split.toFloat) |> List.sum
         in
         if total /= 1 then
             Err <|
@@ -584,8 +597,8 @@ maybePrinting key =
             )
 
 
-maybeRatioParser : String -> Parser (ParseResult (Maybe Unit.Ratio))
-maybeRatioParser key =
+maybeSplitParser : String -> Parser (ParseResult (Maybe Split))
+maybeSplitParser key =
     floatParser key
         |> Query.map
             (Maybe.map
@@ -594,7 +607,7 @@ maybeRatioParser key =
                         Err ( key, "Un ratio doit être compris entre 0 et 1 inclus." )
 
                     else
-                        Ok (Just (Unit.ratio float))
+                        Ok (Result.toMaybe (Split.fromFloat float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
@@ -658,24 +671,24 @@ maybeReparabilityParser key =
             )
 
 
-maybeMakingWasteParser : String -> Parser (ParseResult (Maybe Unit.Ratio))
+maybeMakingWasteParser : String -> Parser (ParseResult (Maybe Split))
 maybeMakingWasteParser key =
     floatParser key
         |> Query.map
             (Maybe.map
                 (\float ->
-                    if float < Unit.ratioToFloat Env.minMakingWasteRatio || float > Unit.ratioToFloat Env.maxMakingWasteRatio then
+                    if float < Split.toFloat Env.minMakingWasteRatio || float > Split.toFloat Env.maxMakingWasteRatio then
                         Err
                             ( key
                             , "Le taux de perte en confection doit être compris entre "
-                                ++ String.fromFloat (Unit.ratioToFloat Env.minMakingWasteRatio)
+                                ++ Split.toFloatString Env.minMakingWasteRatio
                                 ++ " et "
-                                ++ String.fromFloat (Unit.ratioToFloat Env.maxMakingWasteRatio)
+                                ++ Split.toFloatString Env.maxMakingWasteRatio
                                 ++ "."
                             )
 
                     else
-                        Ok (Just (Unit.ratio float))
+                        Ok (Split.fromFloat float |> Result.toMaybe)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

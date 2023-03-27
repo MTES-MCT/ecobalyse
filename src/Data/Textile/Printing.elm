@@ -11,7 +11,7 @@ module Data.Textile.Printing exposing
     , toString
     )
 
-import Data.Unit as Unit
+import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -24,7 +24,7 @@ type Kind
 
 type alias Printing =
     { kind : Kind
-    , ratio : Unit.Ratio
+    , ratio : Split
     }
 
 
@@ -32,7 +32,7 @@ decode : Decoder Printing
 decode =
     Decode.map2 Printing
         (Decode.field "kind" decodeKind)
-        (Decode.field "ratio" (Unit.decodeRatio { percentage = True }))
+        (Decode.field "ratio" Split.decodeFloat)
 
 
 decodeKind : Decoder Kind
@@ -41,16 +41,16 @@ decodeKind =
         |> Decode.andThen (fromString >> DE.fromResult)
 
 
-defaultRatio : Unit.Ratio
+defaultRatio : Split
 defaultRatio =
-    Unit.ratio 0.2
+    Split.twenty
 
 
 encode : Printing -> Encode.Value
 encode v =
     Encode.object
         [ ( "kind", encodeKind v.kind )
-        , ( "ratio", Unit.encodeRatio v.ratio )
+        , ( "ratio", Split.encodeFloat v.ratio )
         ]
 
 
@@ -66,7 +66,7 @@ fromStringParam string =
             case String.toFloat s of
                 Just float ->
                     if float > 0 && float <= 1 then
-                        Ok (Unit.ratio float)
+                        Split.fromFloat float
 
                     else
                         Err "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1."
@@ -116,7 +116,7 @@ kindLabel kind =
 
 toFullLabel : Printing -> String
 toFullLabel { kind, ratio } =
-    kindLabel kind ++ " (" ++ String.fromInt (round (Unit.ratioToFloat ratio * 100)) ++ "%)"
+    kindLabel kind ++ " (" ++ Split.toPercentString ratio ++ "%)"
 
 
 toString : Kind -> String

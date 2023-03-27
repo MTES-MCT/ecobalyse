@@ -6,8 +6,17 @@
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.974,
         "density": 1,
+        "transport_cooling": "none",
+        "visible": true,
         "variants": {
-            "organic": "a99a8677a1ad37bfa7471f6c94df3e59",
+            "organic": {
+                "process": "a99a8677a1ad37bfa7471f6c94df3e59",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5,
+                    "animal-welfare": 0.5
+                }
+            },
             "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
         }
     },
@@ -18,8 +27,17 @@
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 1,
         "density": 1,
+        "transport_cooling": "always",
+        "visible": true,
         "variants": {
-            "organic": "dbbfa8c533e09b20f7909f4c68f72ffa"
+            "organic": {
+                "process": "dbbfa8c533e09b20f7909f4c68f72ffa",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5,
+                    "animal-welfare": 0.5
+                }
+            }
         }
     },
     {
@@ -29,8 +47,16 @@
         "default_origin": "OutOfEuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.856,
         "density": 0.6375,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {
-            "organic": "9f147496e4f222def9af93b7b18ad49b"
+            "organic": {
+                "process": "9f147496e4f222def9af93b7b18ad49b",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -40,8 +66,16 @@
         "default_origin": "France",
         "raw_to_cooked_ratio": 2.259,
         "density": 1,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {
-            "organic": "9a0d187afb6c6d30bd71b9306b32f28c"
+            "organic": {
+                "process": "9a0d187afb6c6d30bd71b9306b32f28c",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -51,11 +85,17 @@
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 1,
         "density": 1,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {
             "organic": {
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                },
                 "ratio": 1.16,
                 "simple_ingredient_default": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
-                "simple_ingredient_variant": "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant"
+                "simple_ingredient_variant": "Soft wheat grain, organic, 15% moisture, Central Region, at farm gate"
             }
         }
     },
@@ -66,8 +106,16 @@
         "default_origin": "OutOfEuropeAndMaghreb",
         "raw_to_cooked_ratio": 1,
         "density": 1,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {
-            "organic": "9f659ea8371928ec9e17956fea75fcae"
+            "organic": {
+                "process": "9f659ea8371928ec9e17956fea75fcae",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -77,8 +125,16 @@
         "default_origin": "OutOfEuropeAndMaghreb",
         "raw_to_cooked_ratio": 1,
         "density": 1,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {
-            "organic": "1a558498ad7a0c44a2d90f83f3bf0970"
+            "organic": {
+                "process": "1a558498ad7a0c44a2d90f83f3bf0970",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -88,8 +144,16 @@
         "default_origin": "OutOfEuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.856,
         "density": 0.447,
+        "transport_cooling": "once_transformed",
+        "visible": false,
         "variants": {
-            "organic": "e4a0e19482acde343e3d83f86747e7b6"
+            "organic": {
+                "process": "e4a0e19482acde343e3d83f86747e7b6",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -99,26 +163,26 @@
         "default_origin": "France",
         "raw_to_cooked_ratio": 0.856,
         "density": 0.6375,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {}
     },
     {
-        "id": "durum wheat",
-        "name": "Blé dur",
-        "default": "da43175dd8163643ce4d9cac19a45884",
-        "default_origin": "France",
-        "raw_to_cooked_ratio": 2.259,
-        "density": 1,
-        "variants": {}
-    },
-    {
-        "id": "ground beef",
+        "id": "ground-beef",
         "name": "Boeuf haché",
         "default": "da9409534ad17989aaccae4d44369016",
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.792,
         "density": 1,
+        "transport_cooling": "always",
+        "visible": true,
         "variants": {
             "organic": {
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5,
+                    "animal-welfare": 0.5
+                },
                 "ratio": 2.3,
                 "simple_ingredient_default": "Beef cattle, national average, at farm gate",
                 "simple_ingredient_variant": "Cull cow, organic, milk system n°4, at farm gate"
@@ -126,14 +190,21 @@
         }
     },
     {
-        "id": "cooked ham",
+        "id": "cooked-ham",
         "name": "Jambon",
         "default": "159fc059d675499a87c7f8973e66fd8e",
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.792,
         "density": 1,
+        "transport_cooling": "always",
+        "visible": true,
         "variants": {
             "organic": {
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5,
+                    "animal-welfare": 0.5
+                },
                 "ratio": 2.02,
                 "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
                 "simple_ingredient_variant": "Pig, organic, system n°2, at farm gate"
@@ -141,44 +212,25 @@
         }
     },
     {
-        "id": "chicken breast",
+        "id": "chicken-breast",
         "name": "Poulet",
         "default": "199c1eb451fccdeadc3109d74f6802b5",
         "default_origin": "EuropeAndMaghreb",
         "raw_to_cooked_ratio": 0.73,
         "density": 1,
+        "transport_cooling": "always",
+        "visible": true,
         "variants": {
             "organic": {
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5,
+                    "animal-welfare": 0.5
+                },
                 "ratio": 1,
                 "simple_ingredient_default": "Broiler, conventional, at farm gate",
                 "simple_ingredient_variant": "Broiler, organic, at farm gate"
             }
-        }
-    },
-    {
-        "id": "lamb",
-        "name": "Agneau",
-        "default": "920ac3e2ac3579b5c4d2f549382c7e6b",
-        "default_origin": "EuropeAndMaghreb",
-        "raw_to_cooked_ratio": 0.792,
-        "density": 1,
-        "variants": {
-            "organic": {
-                "ratio": 1.91,
-                "simple_ingredient_default": "Lamb, conventional, indoor production system, at farm gate",
-                "simple_ingredient_variant": "Lamb, organic, system n°1, at farm gate"
-            }
-        }
-    },
-    {
-        "id": "apple",
-        "name": "Pomme",
-        "default": "590c11ca7aa7534b27f5403fb4688c5b",
-        "default_origin": "EuropeAndMaghreb",
-        "raw_to_cooked_ratio": 0.856,
-        "density": 0.447,
-        "variants": {
-            "organic": "f1308e8aaa0cee8f63f6afb48e9abecd"
         }
     },
     {
@@ -188,8 +240,16 @@
         "default_origin": "France",
         "raw_to_cooked_ratio": 0.856,
         "density": 0.447,
+        "transport_cooling": "once_transformed",
+        "visible": false,
         "variants": {
-            "organic": "a16fca295aff5ab9de57b3915cf8657a"
+            "organic": {
+                "process": "a16fca295aff5ab9de57b3915cf8657a",
+                "beyondLCA": {
+                    "agro-diversity": 0.5,
+                    "agro-ecology": 0.5
+                }
+            }
         }
     },
     {
@@ -198,6 +258,9 @@
         "default": "c1e6f84a4fa89c2408bd7a2b2ed6cb96",
         "default_origin": "OutOfEuropeAndMaghrebByPlane",
         "raw_to_cooked_ratio": 0.856,
+        "density": 0.447,
+        "transport_cooling": "once_transformed",
+        "visible": true,
         "variants": {}
     }
 ]
