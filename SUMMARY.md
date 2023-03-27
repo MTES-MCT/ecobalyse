@@ -38,7 +38,6 @@
 
 * [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
   * [Compléments hors ACV](alimentaire/impacts-consideres/complements-hors-acv-en-construction.md)
-  * [Impacts corrigés](alimentaire/impacts-consideres/impacts-corriges.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
   * [🐄 Boeuf haché](alimentaire/ingredients-viandes/boeuf-hache.md)
