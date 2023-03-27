@@ -7,13 +7,14 @@
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
     "transport_cooling": "none",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "a99a8677a1ad37bfa7471f6c94df3e59",
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         }
       },
       "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
@@ -27,13 +28,14 @@
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "transport_cooling": "always",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "dbbfa8c533e09b20f7909f4c68f72ffa",
         "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         }
       }
     }
@@ -46,6 +48,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "9f147496e4f222def9af93b7b18ad49b",
@@ -64,12 +67,13 @@
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "9a0d187afb6c6d30bd71b9306b32f28c",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -82,11 +86,12 @@
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         },
         "ratio": 1.16,
         "simple_ingredient_default": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
@@ -102,12 +107,13 @@
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "9f659ea8371928ec9e17956fea75fcae",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -120,12 +126,13 @@
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {
       "organic": {
         "process": "1a558498ad7a0c44a2d90f83f3bf0970",
         "beyondLCA": {
-          "agro-diversity": 0.9,
-          "agro-ecology": 0.8
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5
         }
       }
     }
@@ -138,6 +145,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
+    "visible": false,
     "variants": {
       "organic": {
         "process": "e4a0e19482acde343e3d83f86747e7b6",
@@ -156,6 +164,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {}
   },
   {
@@ -166,12 +175,13 @@
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "transport_cooling": "always",
+    "visible": true,
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-wellness": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle, national average, at farm gate",
@@ -187,12 +197,13 @@
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "transport_cooling": "always",
+    "visible": true,
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 2.02,
         "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
@@ -208,37 +219,17 @@
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
     "transport_cooling": "always",
+    "visible": true,
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.6,
-          "agro-ecology": 0.6,
-          "animal-wellness": 0.9
+          "agro-diversity": 0.5,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.5
         },
         "ratio": 1,
         "simple_ingredient_default": "Broiler, conventional, at farm gate",
         "simple_ingredient_variant": "Broiler, organic, at farm gate"
-      }
-    }
-  },
-  {
-    "id": "lamb",
-    "name": "Agneau",
-    "default": "920ac3e2ac3579b5c4d2f549382c7e6b",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "transport_cooling": "always",
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 0.7,
-          "agro-ecology": 1,
-          "animal-wellness": 0.9
-        },
-        "ratio": 1.91,
-        "simple_ingredient_default": "Lamb, conventional, indoor production system, at farm gate",
-        "simple_ingredient_variant": "Lamb, organic, system n°1, at farm gate"
       }
     }
   },
@@ -250,11 +241,12 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
+    "visible": false,
     "variants": {
       "organic": {
         "process": "a16fca295aff5ab9de57b3915cf8657a",
         "beyondLCA": {
-          "agro-diversity": 0.7,
+          "agro-diversity": 0.5,
           "agro-ecology": 0.5
         }
       }
@@ -268,6 +260,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
+    "visible": true,
     "variants": {}
   }
 ]

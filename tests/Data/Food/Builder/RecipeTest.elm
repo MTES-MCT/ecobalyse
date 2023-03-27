@@ -7,6 +7,8 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Impact as Impact
+import Data.Split as Split
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -18,70 +20,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 
 expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
-expectImpactEqual expectedImpactUnit impactUnit =
+expectImpactEqual expectedImpactUnit =
     let
         expectedImpact =
             Unit.impactToFloat expectedImpactUnit
-
-        impact =
-            Unit.impactToFloat impactUnit
     in
-    Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
-
-
-testScoringEqual : Recipe.Scoring -> Result String Recipe.Scoring -> Test
-testScoringEqual expectedScoring scoringResult =
-    case scoringResult of
-        Err err ->
-            Expect.fail err
-                |> asTest "should not fail"
-
-        Ok scoring ->
-            concat
-                [ -- Category
-                  Expect.equal expectedScoring.category scoring.category
-                    |> asTest "Scoring category"
-
-                -- All
-                , Expect.equal expectedScoring.all.letter scoring.all.letter
-                    |> asTest "Scoring all letter"
-                , Expect.equal expectedScoring.all.outOf100 scoring.all.outOf100
-                    |> asTest "Scoring all outOf100"
-                , expectImpactEqual expectedScoring.all.impact scoring.all.impact
-                    |> asTest "Scoring all impact"
-
-                -- Climate
-                , Expect.equal expectedScoring.climate.letter scoring.climate.letter
-                    |> asTest "Scoring climate letter"
-                , Expect.equal expectedScoring.climate.outOf100 scoring.climate.outOf100
-                    |> asTest "Scoring climate outOf100"
-                , expectImpactEqual expectedScoring.climate.impact scoring.climate.impact
-                    |> asTest "Scoring climate impact"
-
-                -- Biodiversity
-                , Expect.equal expectedScoring.biodiversity.letter scoring.biodiversity.letter
-                    |> asTest "Scoring biodiversity letter"
-                , Expect.equal expectedScoring.biodiversity.outOf100 scoring.biodiversity.outOf100
-                    |> asTest "Scoring biodiversity outOf100"
-                , expectImpactEqual expectedScoring.biodiversity.impact scoring.biodiversity.impact
-                    |> asTest "Scoring biodiversity impact"
-
-                -- Health
-                , Expect.equal expectedScoring.health.letter scoring.health.letter
-                    |> asTest "Scoring health letter"
-                , Expect.equal expectedScoring.health.outOf100 scoring.health.outOf100
-                    |> asTest "Scoring health outOf100"
-                , expectImpactEqual expectedScoring.health.impact scoring.health.impact
-                    |> asTest "Scoring health impact"
-
-                -- Resources
-                , Expect.equal expectedScoring.resources.letter scoring.resources.letter
-                    |> asTest "Scoring resources letter"
-                , Expect.equal expectedScoring.resources.outOf100 scoring.resources.outOf100
-                    |> asTest "Scoring resources outOf100"
-                , expectImpactEqual expectedScoring.resources.impact scoring.resources.impact
-                    |> asTest "Scoring resources impact"
-                ]
+    Unit.impactToFloat
+        >> Expect.within (Expect.Relative 0.0000000000000001) expectedImpact
 
 
 suite : Test
@@ -89,6 +34,87 @@ suite =
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
             [ let
+                testComputedBonuses bonuses =
+                    Impact.impactsFromDefinitons builderDb.impacts
+                        |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                        |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
+              in
+              describe "computeIngredientBonusesImpacts"
+                [ describe "with zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.zero
+                                , agroEcology = Split.zero
+                                , animalWelfare = Split.zero
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                , describe "with non-zero bonuses applied"
+                    (let
+                        bonusImpacts =
+                            testComputedBonuses
+                                { agroDiversity = Split.half
+                                , agroEcology = Split.half
+                                , animalWelfare = Split.half
+                                }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 8.223326963580142)
+                        |> asTest "should compute a non-zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 5.3630393240740055)
+                        |> asTest "should compute a non-zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 21.80969325123429)
+                        |> asTest "should compute a non-zero total bonus"
+                     ]
+                    )
+                , describe "with maluses avoided"
+                    (let
+                        bonusImpacts =
+                            Impact.impactsFromDefinitons builderDb.impacts
+                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
+                                    { agroDiversity = Split.full
+                                    , agroEcology = Split.full
+                                    , animalWelfare = Split.full
+                                    }
+                     in
+                     [ bonusImpacts.agroDiversity
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-diversity ingredient bonus"
+                     , bonusImpacts.agroEcology
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero agro-ecology ingredient bonus"
+                     , bonusImpacts.animalWelfare
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero animal-welfare ingredient bonus"
+                     , bonusImpacts.total
+                        |> expectImpactEqual (Unit.impact 0)
+                        |> asTest "should compute a zero total bonus"
+                     ]
+                    )
+                ]
+            , let
                 recipe =
                     carrotCake
                         |> Recipe.fromQuery builderDb
@@ -158,14 +184,23 @@ suite =
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .scoring)
-                        |> testScoringEqual
-                            { category = "Gâteaux"
-                            , climate = { impact = Unit.impact 42.56763816832551, letter = "B", outOf100 = 64 }
-                            , all = { impact = Unit.impact 176.09264915716886, letter = "B", outOf100 = 70 }
-                            , biodiversity = { impact = Unit.impact 99.85880503884792, letter = "B", outOf100 = 76 }
-                            , health = { impact = Unit.impact 56.112203508598704, letter = "B", outOf100 = 64 }
-                            , resources = { impact = Unit.impact 31.35744848385938, letter = "C", outOf100 = 58 }
-                            }
+                        |> (\scoringResult ->
+                                case scoringResult of
+                                    Err err ->
+                                        Expect.fail err
+                                            |> asTest "should not fail"
+
+                                    Ok scoring ->
+                                        Expect.equal scoring
+                                            { all = { impact = Unit.impact 201.0739464879096, letter = "B", outOf100 = 64 }
+                                            , biodiversity = { impact = Unit.impact 91.6347570526944, letter = "A", outOf100 = 81 }
+                                            , category = "Gâteaux"
+                                            , climate = { impact = Unit.impact 42.550812211063175, letter = "B", outOf100 = 64 }
+                                            , health = { impact = Unit.impact 32.502308215624524, letter = "A", outOf100 = 92 }
+                                            , resources = { impact = Unit.impact 36.12268791220873, letter = "C", outOf100 = 51 }
+                                            }
+                                            |> asTest "should be properly scored"
+                           )
                      ]
                     )
                 , describe "raw-to-cooked checks"
@@ -190,12 +225,14 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         ]
                   , transform = Nothing
@@ -240,6 +277,7 @@ suite =
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
+                    , bonuses = Ingredient.defaultBonuses
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -257,6 +295,7 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , bonuses = Ingredient.defaultBonuses
                           }
                         ]
                   , transform = Nothing

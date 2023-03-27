@@ -1,14 +1,19 @@
 module Data.Food.Ingredient exposing
-    ( Id
+    ( Bonuses
+    , Id
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
+    , decodeBonuses
     , decodeId
     , decodeIngredients
+    , defaultBonuses
+    , encodeBonuses
     , encodeId
     , findByID
+    , getDefaultOrganicBonuses
     , getDefaultOriginTransport
     , idFromString
     , idToString
@@ -38,11 +43,25 @@ type alias Ingredient =
     , variants : Variants
     , density : Density
     , transportCooling : TransportCooling
+    , visible : Bool
+    }
+
+
+type alias Bonuses =
+    { agroDiversity : Split
+    , agroEcology : Split
+    , animalWelfare : Split
     }
 
 
 type Id
     = Id String
+
+
+type alias OrganicVariant =
+    { process : Process
+    , defaultBonuses : Bonuses
+    }
 
 
 type PlaneTransport
@@ -55,6 +74,11 @@ type TransportCooling
     = NoCooling
     | AlwaysCool
     | CoolOnceTransformed
+
+
+type alias Variants =
+    { organic : Maybe OrganicVariant
+    }
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
@@ -86,9 +110,34 @@ decodeId =
         |> Decode.map idFromString
 
 
+defaultBonuses : Bonuses
+defaultBonuses =
+    { agroDiversity = Split.tenth
+    , agroEcology = Split.tenth
+    , animalWelfare = Split.zero
+    }
+
+
+encodeBonuses : Bonuses -> Encode.Value
+encodeBonuses v =
+    Encode.object
+        [ ( "agro-diversity", Split.encodeFloat v.agroDiversity )
+        , ( "agro-ecology", Split.encodeFloat v.agroEcology )
+        , ( "animal-welfare", Split.encodeFloat v.animalWelfare )
+        ]
+
+
 encodeId : Id -> Encode.Value
 encodeId (Id str) =
     Encode.string str
+
+
+getDefaultOrganicBonuses : Ingredient -> Bonuses
+getDefaultOrganicBonuses =
+    .variants
+        >> .organic
+        >> Maybe.map .defaultBonuses
+        >> Maybe.withDefault defaultBonuses
 
 
 idFromString : String -> Id
@@ -101,22 +150,12 @@ idToString (Id str) =
     str
 
 
-type alias Variants =
-    { organic : Maybe OrganicVariant
-    }
-
-
-type alias OrganicVariant =
-    { process : Process
-    , defaultBeyondLCA : BeyondLCA
-    }
-
-
-type alias BeyondLCA =
-    { agroDiversity : Split
-    , agroEcology : Split
-    , animalWellness : Split
-    }
+decodeBonuses : Decoder Bonuses
+decodeBonuses =
+    Decode.succeed Bonuses
+        |> Pipe.required "agro-diversity" Split.decodeFloat
+        |> Pipe.required "agro-ecology" Split.decodeFloat
+        |> Pipe.optional "animal-welfare" Split.decodeFloat Split.zero
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
@@ -126,6 +165,8 @@ decodeIngredients processes =
         |> Dict.fromList
         |> decodeIngredient
         |> Decode.list
+        -- Don't use ingredients that aren't visible.
+        |> Decode.map (List.filter .visible)
 
 
 decodeIngredient : Dict String Process -> Decoder Ingredient
@@ -139,6 +180,7 @@ decodeIngredient processes =
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
+        |> Pipe.required "visible" Decode.bool
 
 
 decodeTransportCooling : Decoder TransportCooling
@@ -215,12 +257,5 @@ linkOrganicVariant : Dict String Process -> Decoder OrganicVariant
 linkOrganicVariant processes =
     Decode.succeed OrganicVariant
         |> Pipe.required "process" (linkProcess processes)
-        |> Pipe.required "beyondLCA" decodeBeyondLCA
-
-
-decodeBeyondLCA : Decoder BeyondLCA
-decodeBeyondLCA =
-    Decode.succeed BeyondLCA
-        |> Pipe.required "agro-diversity" Split.decodeFloat
-        |> Pipe.required "agro-ecology" Split.decodeFloat
-        |> Pipe.optional "animal-wellness" Split.decodeFloat Split.zero
+        -- FIXME: rename beyondLCA to bonuses in JSON sources
+        |> Pipe.required "beyondLCA" decodeBonuses

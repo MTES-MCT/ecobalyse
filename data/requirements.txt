@@ -1,6 +1,6 @@
 brightway2==2.3
 bw2calc==1.8.1
-bw2data==3.6.5
+git+https://github.com/ccomb/brightway2-data@vacuum
 bw2io==0.8.7
 fjson==0.1.6
 matplotlib==3.6.3

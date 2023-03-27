@@ -1,5 +1,6 @@
 module Views.Comparator exposing
-    ( FoodComparisonUnit(..)
+    ( DisplayChoice(..)
+    , FoodComparisonUnit(..)
     , comparator
     , foodOptions
     , textileOptions
@@ -11,6 +12,7 @@ import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Dict
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -41,9 +43,17 @@ type FoodComparisonUnit
     | PerKgOfProduct
 
 
+type DisplayChoice
+    = IndividualImpacts
+    | Grouped
+    | Total
+
+
 type alias FoodOptions msg =
     { comparisonUnit : FoodComparisonUnit
     , switchComparisonUnit : FoodComparisonUnit -> msg
+    , displayChoice : DisplayChoice
+    , switchDisplayChoice : DisplayChoice -> msg
     }
 
 
@@ -130,7 +140,7 @@ comparator ({ session, options, toggle } as config) =
 
 
 foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayChoice, switchDisplayChoice } =
     let
         { builderDb, store } =
             session
@@ -140,13 +150,13 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                 foodQuery
                     |> Recipe.compute builderDb
                     |> Result.map
-                        (\( _, { total, perKg } ) ->
+                        (\( _, { total, perKg, recipe } ) ->
                             case comparisonUnit of
                                 PerItem ->
-                                    ( label, total )
+                                    ( label, total, recipe.totalBonusesImpact )
 
                                 PerKgOfProduct ->
-                                    ( label, perKg )
+                                    ( label, perKg, recipe.totalBonusesImpactPerKg )
                         )
                     |> Just
 
@@ -158,15 +168,6 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                 |> Bookmark.toFoodQueries
                 |> List.filterMap addToComparison
                 |> RE.combine
-                |> Result.map
-                    (List.map
-                        (Tuple.mapSecond
-                            (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
-                                >> List.sortBy .name
-                                >> List.reverse
-                            )
-                        )
-                    )
 
         unitChoiceRadio caption current to =
             label [ class "form-check-label d-flex align-items-center gap-1" ]
@@ -180,32 +181,67 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                     []
                 , text caption
                 ]
+
+        displayChoiceRadio caption current to =
+            label [ class "form-check-label d-flex align-items-center gap-1" ]
+                [ input
+                    [ type_ "radio"
+                    , class "form-check-input"
+                    , name "displayChoice"
+                    , checked <| current == to
+                    , onInput <| always (switchDisplayChoice to)
+                    ]
+                    []
+                , text caption
+                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
             [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
-        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
-            [ unitChoiceRadio "par produit" comparisonUnit PerItem
-            , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+        , div [ class "d-flex justify-content-between align-items-center gap-3" ]
+            [ div [ class "d-flex gap-3" ]
+                [ unitChoiceRadio "par produit" comparisonUnit PerItem
+                , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+                ]
+            , div [ class "d-flex gap-3" ]
+                [ displayChoiceRadio "impacts individuels" displayChoice IndividualImpacts
+                , displayChoiceRadio "impacts groupés" displayChoice Grouped
+                , displayChoiceRadio "total" displayChoice Total
+                ]
             ]
         , case charts of
             Ok [] ->
                 emptyChartsMessage
 
             Ok chartsData ->
-                div [ class "h-100" ]
+                let
+                    data =
+                        case displayChoice of
+                            IndividualImpacts ->
+                                dataForIndividualImpacts builderDb.impacts chartsData
+
+                            Grouped ->
+                                dataForGroupedImpacts builderDb.impacts chartsData
+
+                            Total ->
+                                dataForTotalImpacts chartsData
+                in
+                div
+                    [ class "h-100"
+                    , class
+                        (case displayChoice of
+                            IndividualImpacts ->
+                                "individual-impacts"
+
+                            Grouped ->
+                                "grouped-impacts"
+
+                            Total ->
+                                "total-impacts"
+                        )
+                    ]
                     [ node "chart-food-comparator"
-                        [ chartsData
-                            |> Encode.list
-                                (\( name, entries ) ->
-                                    Encode.object
-                                        [ ( "label", Encode.string name )
-                                        , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                                        ]
-                                )
-                            |> Encode.encode 0
-                            |> attribute "data"
-                        ]
+                        [ attribute "data" data ]
                         []
                     ]
 
@@ -217,6 +253,144 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                     , content = [ text error ]
                     }
         ]
+
+
+dataForIndividualImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForIndividualImpacts defs chartsData =
+    let
+        labelToOrder =
+            [ "Changement climatique"
+            , "Biodiversité locale"
+            , "Acidification"
+            , "Eutrophisation terrestre"
+            , "Eutrophisation eaux douces"
+            , "Eutrophisation marine"
+            , "Écotoxicité de l'eau douce, corrigée"
+            , "Utilisation des sols"
+            , "Appauvrissement de la couche d'ozone"
+            , "Radiations ionisantes"
+            , "Formation d'ozone photochimique"
+            , "Toxicité humaine - non-cancer, corrigée"
+            , "Toxicité humaine - cancer, corrigée"
+            , "Particules"
+            , "Utilisation de ressources en eau"
+            , "Utilisation de ressources fossiles"
+            , "Utilisation de ressources minérales et métalliques"
+            ]
+                |> List.indexedMap (\index label -> ( label, index ))
+                |> Dict.fromList
+
+        labelComparison entry1 entry2 =
+            let
+                getOrder entry =
+                    Dict.get entry.name labelToOrder
+
+                label1Order =
+                    getOrder entry1
+
+                label2Order =
+                    getOrder entry2
+            in
+            case ( label1Order, label2Order ) of
+                ( Just index1, Just index2 ) ->
+                    if index1 > index2 then
+                        GT
+
+                    else
+                        LT
+
+                _ ->
+                    EQ
+    in
+    chartsData
+        |> List.map
+            (\( name, impacts, bonusesImpact ) ->
+                let
+                    bonusImpacts =
+                        Impact.bonusesImpactAsChartEntries bonusesImpact
+
+                    entries =
+                        impacts
+                            |> Impact.getAggregatedScoreData defs .ecoscoreData
+                            |> List.sortWith labelComparison
+
+                    reversed =
+                        bonusImpacts
+                            ++ entries
+                            |> List.reverse
+                in
+                Encode.object
+                    [ ( "label", Encode.string name )
+                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry reversed )
+                    ]
+            )
+        |> Encode.list identity
+        |> Encode.encode 0
+
+
+dataForGroupedImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForGroupedImpacts defs chartsData =
+    chartsData
+        |> List.map
+            (\( name, impacts, bonusesImpact ) ->
+                let
+                    bonusImpacts =
+                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
+
+                    entries =
+                        impacts
+                            |> Impact.toProtectionAreas defs
+                            |> (\{ climate, biodiversity, health, resources } ->
+                                    List.reverse
+                                        [ bonusImpacts
+                                        , { name = "Climat", color = "#9025be", value = Unit.impactToFloat climate }
+                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
+                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
+                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
+                                        ]
+                               )
+                in
+                Encode.object
+                    [ ( "label", Encode.string name )
+                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                    ]
+            )
+        |> Encode.list identity
+        |> Encode.encode 0
+
+
+dataForTotalImpacts : List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForTotalImpacts chartsData =
+    chartsData
+        |> List.map
+            (\( name, impacts, bonusesImpact ) ->
+                let
+                    totalImpact =
+                        impacts
+                            |> Impact.getImpact (Impact.Trigram "ecs")
+                            |> Unit.impactToFloat
+
+                    bonusImpacts =
+                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
+                            |> (\entry ->
+                                    -- In this particular case we want the bonus as a positive value, displayed "on top" of the bar
+                                    -- in white
+                                    { entry | value = -entry.value, color = "#ffffff" }
+                               )
+
+                    entries =
+                        List.reverse
+                            [ { name = "Impact total", color = "#333333", value = totalImpact }
+                            , bonusImpacts
+                            ]
+                in
+                Encode.object
+                    [ ( "label", Encode.string name )
+                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                    ]
+            )
+        |> Encode.list identity
+        |> Encode.encode 0
 
 
 textileComparatorView : Config msg -> TextileOptions -> Html msg
