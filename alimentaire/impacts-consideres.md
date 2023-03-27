@@ -1,4 +1,4 @@
-# Indicateurs d'impacts
+# Indicateurs d'impacts ACV
 
 ## Impacts agrégés et impacts détaillés
 
@@ -47,6 +47,20 @@ Dans cette hypothèse, la réduction homothétique de la pondération des 12 aut
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/chart (6).png" alt=""><figcaption><p>Bilan des évolutions de pondération entre le score d'impacts et le score PEF</p></figcaption></figure>
+
+## Visualisation dans l'outil de comparaison
+
+La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores d'impacts** différentes simulations préalablement sauvegardées.&#x20;
+
+![](../.gitbook/assets/image.png)
+
+Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les 3 bonus) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattaché à la catégorie à laquelle elle contribue le plus.
+
+{% hint style="info" %}
+Cette règle est une des deux options introduites dans le rapport du Conseil scientifique.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/Mono-affectation.png" alt=""><figcaption><p>Répartition des catégories suivant la règle de l'affectation unique</p></figcaption></figure>
 
 ## 16 catégories d'impacts PEF
 

@@ -36,7 +36,7 @@
 
 ## 🍕 Alimentaire
 
-* [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
+* [Indicateurs d'impacts ACV](alimentaire/impacts-consideres.md)
 * [Compléments hors ACV](alimentaire/complements-hors-acv.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
