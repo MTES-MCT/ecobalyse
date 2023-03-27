@@ -63,18 +63,21 @@ viewHero session =
                 [ h2 [ class "display-5" ]
                     [ "Accélérer la mise en place de l’affichage environnemental" |> Markdown.simple [] ]
                 , div [ class "fs-4 text-muted mt-4 mb-5" ]
-                    [ "autour d’un calculateur pédagogique et collaboratif" |> Markdown.simple [] ]
+                    [ "autour de calculateurs pédagogiques et collaboratifs" |> Markdown.simple [] ]
                 , div [ class "row mb-4" ]
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
-                            [ class "btn btn-lg btn-primary"
+                            [ class "btn btn-lg btn-primary w-50"
                             , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
                             ]
-                            [ text "Faire une simulation" ]
+                            [ text "Textile" ]
                         ]
                     , div [ class "col-md-6 text-center text-md-start py-2" ]
-                        [ a [ class "btn btn-lg btn-secondary", Route.href Route.TextileExamples ]
-                            [ text "voir des exemples" ]
+                        [ a
+                            [ class "btn btn-lg btn-primary w-50"
+                            , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                            ]
+                            [ text "Alimentaire" ]
                         ]
                     ]
                 ]
