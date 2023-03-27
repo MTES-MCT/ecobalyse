@@ -128,7 +128,7 @@ Bonus_infra_agro_écologique = - 0.7 * 2.3 * 4.14
 Bonus_infra_agro_écologique = - 6.67 µPts d'impacts
 
 Bonus_cond_élevage = - 0.3 * 1.5 * 4.14 
-Bonus_infra_agro_écologique = - 1.86 µPts d'impacts
+Bonus_cond_élevage = - 1.86 µPts d'impacts
 
 
 Bonus_total = Bonus_diversité_agricole + Bonus_infra_agro_écologique + Bonus_cond_élevage
