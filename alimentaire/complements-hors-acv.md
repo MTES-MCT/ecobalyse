@@ -67,7 +67,7 @@ Il est proposé de corréler ces bonus à la surface agricole mobilisée. En eff
 Pour un produit (p) (exemple : poulet bio), le bonus i peut donc s'écrire :&#x20;
 
 $$
-Bonus_i (p) = -𝑳𝒂𝒏𝒅𝑼𝒔𝒆(𝒑)×𝒄_i ×x_i(𝒑)
+Bonus_i (p) = 𝑳𝒂𝒏𝒅𝑼𝒔𝒆(𝒑)×𝒄_i ×x_i(𝒑)
 $$
 
 Avec :&#x20;
@@ -107,10 +107,10 @@ On fait les hypothèses (arbitraires) que pour le poulet bio :
 
 Calculs des bonus :
 
-$$Bonus_{diversité-agricole} = - x_{diversité-agricole} × c_{diversité-agricole} × Land-use$$
+$$Bonus_{diversité-agricole} =  x_{diversité-agricole} × c_{diversité-agricole} × Land-use$$
 
-$$Bonus_{infra-agro-écologique} =  -x_{infra-agro-écologique} × c_{infra-agro-écologique} × Land-use$$\
-$$Bonus_{cond-élevage} =  -x_{cond-élevage} ×c_{cond-élevage} × Land-use$$
+$$Bonus_{infra-agro-écologique} =  x_{infra-agro-écologique} × c_{infra-agro-écologique} × Land-use$$\
+$$Bonus_{cond-élevage} =  x_{cond-élevage} ×c_{cond-élevage} × Land-use$$
 
 ***
 
@@ -120,20 +120,20 @@ $$Bonus_{cond-élevage} =  -x_{cond-élevage} ×c_{cond-élevage} × Land-use$$
 
 ```
 
-Bonus_diversité_agricole = - 0.5 * 2.3 * 4.14 
-Bonus_diversité_agricole = - 4.76 µPts d'impacts
+Bonus_diversité_agricole = 0.5 * 2.3 * 4.14 
+Bonus_diversité_agricole = 4.76 µPts d'impacts
 
 
-Bonus_infra_agro_écologique = - 0.7 * 2.3 * 4.14 
-Bonus_infra_agro_écologique = - 6.67 µPts d'impacts
+Bonus_infra_agro_écologique = 0.7 * 2.3 * 4.14 
+Bonus_infra_agro_écologique = 6.67 µPts d'impacts
 
-Bonus_cond_élevage = - 0.3 * 1.5 * 4.14 
-Bonus_cond_élevage = - 1.86 µPts d'impacts
+Bonus_cond_élevage = 0.3 * 1.5 * 4.14 
+Bonus_cond_élevage = 1.86 µPts d'impacts
 
 
 Bonus_total = Bonus_diversité_agricole + Bonus_infra_agro_écologique + Bonus_cond_élevage
-Bonus_total = -4.76 - 6.67 - 1.86
-Bonus_total = - 13.3 µPts d'impacts
+Bonus_total = 4.76 + 6.67 + 1.86
+Bonus_total = 13.3 µPts d'impacts
 
 ```
 
@@ -141,6 +141,9 @@ On a finalement :
 
 ```
 Score d'impacts avant bonus = 97.04 µPts d'impact
+
+Score d'impacts après bonus = Score d'impacts avant bonus - Bonus_total
+Score d'impacts après bonus = 97.04 - 13.3
 Score d'impacts après bonus = 83.74 µPts d'impact
 ```
 
