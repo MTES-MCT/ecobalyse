@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from bw2data import databases
+import bw2data
 
-for db in list(databases.keys()):
-    del databases[db]
+bw2data.projects.delete_project("Ecobalyse")
+bw2data.projects.purge_deleted_directories()

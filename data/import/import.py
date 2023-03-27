@@ -134,23 +134,31 @@ if __name__ == "__main__":
     bw2io.bw2setup()
 
     # Import Ecoinvent
-    if ECOINVENTDB not in bw2data.databases:
-        import_ecoinvent(ECOINVENT_SPOLD, ECOINVENTDB)
+    if ECOINVENTDB in bw2data.databases:
+        print(f"*** already imported: {ECOINVENTDB} ***")
     else:
-        print(f"{ECOINVENTDB} already imported")
+        import_ecoinvent(ECOINVENT_SPOLD, ECOINVENTDB)
 
     # Import Agribalyse
-    if AGRIBALYSEDB not in bw2data.databases:
-        import_agribalyse(AGRIBALYSE_CSV, AGRIBALYSEDB)
+    if AGRIBALYSEDB in bw2data.databases:
+        print(f"*** already imported {AGRIBALYSEDB} ***")
     else:
-        print(f"{AGRIBALYSEDB} already imported")
+        import_agribalyse(AGRIBALYSE_CSV, AGRIBALYSEDB)
 
     # Import methods
-    if len([method for method in bw2data.methods if method[0] == EFMETHODS]) < 29:
-        import_ef(EF_CSV, BIOSPHERE)
+    if len([method for method in bw2data.methods if method[0] == EFMETHODS]) >= 29:
+        print(f"*** already imported {EFMETHODS} ***")
     else:
-        print(f"{EFMETHODS} already imported")
+        import_ef(EF_CSV, BIOSPHERE)
 
-    weaving = bw2data.backends.peewee.SQLiteBackend(ECOINVENTDB).search("weaving")[1]
-    lca = bw2calc.LCA({weaving: 1})
+    print("Selecting an activity...")
+    activity = bw2data.Database(ECOINVENTDB).search("elect* market FR", limit=1)[0]
+    print(f"Activity = {activity}")
+
+    print("Computing LCI of activity")
+    lca = bw2calc.LCA({activity: 1})
     lca.lci()
+    for method in [method for method in bw2data.methods if method[0] == EFMETHODS]:
+        lca.switch_method(method)
+        lca.lcia()
+        print(f"{method[1]} = {lca.score}")
