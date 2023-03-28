@@ -42,6 +42,7 @@ def import_agribalyse(data, db, biosphere, technosphere, migration):
     with ZipFile(data) as zf:
         print("Extracting the zip file...")
         zf.extractall()
+        data = data[0:4]
 
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
@@ -50,7 +51,7 @@ def import_agribalyse(data, db, biosphere, technosphere, migration):
     call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + data, shell=True)
     call("sed -i 's/0;001172/0,001172/' " + data, shell=True)
 
-    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data[0:-4], db)
+    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data, db)
 
     agb_technosphere_migration = bw2io.Migration(technosphere)
     agb_technosphere_migration.write(
