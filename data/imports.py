@@ -26,6 +26,7 @@ def import_ecoinvent(data, db):
     """
     Import file at path `data` into database named `db`
     """
+    print(f"Importing {db} database from {data}...")
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(data, db)
     ecoinvent.apply_strategies()
     ecoinvent.add_unlinked_flows_to_biosphere_database()
@@ -37,11 +38,10 @@ def import_agribalyse(data, db, biosphere, technosphere, migration):
     Import file at path `data` into database named `db`, and apply brightway `migration`.
     TODO why biosphere / technosphere?
     """
+    print(f"Importing {db} database from {data}...")
     with ZipFile(data) as zf:
-        print("Extracting the agribalyse zip file...")
+        print("Extracting the zip file...")
         zf.extractall()
-
-    print("Importing the agribalyse database in the brightway database...")
 
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
@@ -81,6 +81,7 @@ def import_ef(data, db):
     """
     Import file at path `data` linked to biosphere named `db`
     """
+    print(f"Importing {db} database from {data}...")
     ef = bw2io.importers.SimaProLCIACSVImporter(data, biosphere=db)
     ef.statistics()
     ef.write_methods()
