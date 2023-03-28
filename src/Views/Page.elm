@@ -71,18 +71,13 @@ frame config ( title, content ) =
           else
             text ""
         , main_ [ class "bg-white" ]
-            [ if config.activePage == FoodBuilder || config.activePage == FoodExplore then
-                div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0" ]
-                    [ Container.centered []
-                        [ h2 [ class "d-flex align-items-center gap-1 h5" ] [ Icon.warning, text "Version Alpha" ]
-                        , text """Ce calculateur d’impacts environnementaux alimentaire est en
-                                  cours de développement\u{00A0}: les fonctionnalités, données
-                                  et valeurs calculées ne sont pas encore fiables."""
-                        ]
+            [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0" ]
+                [ Container.centered [ class "d-flex align-items-center gap-3" ]
+                    [ span [ class "fs-4" ] [ Icon.info ]
+                    , text """Attention : l’outil est aujourd’hui en phase de construction.
+                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
                     ]
-
-              else
-                text ""
+                ]
             , notificationListView config
             , div [ class "pt-2 pt-sm-5" ] content
             ]
@@ -132,7 +127,8 @@ newVersionAlert { session, reloadPage } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
@@ -146,13 +142,13 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl
