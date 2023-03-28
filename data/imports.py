@@ -42,7 +42,7 @@ def import_agribalyse(data, db, biosphere, technosphere, migration):
     with ZipFile(data) as zf:
         print("Extracting the zip file...")
         zf.extractall()
-        data = data[0:4]
+        data = data[0:-4]
 
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
