@@ -23,14 +23,21 @@ EFMETHODS = (
 
 
 def import_ecoinvent(data, db):
+    """
+    Import file at path `data` into database named `db`
+    """
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(data, db)
     ecoinvent.apply_strategies()
     ecoinvent.add_unlinked_flows_to_biosphere_database()
     ecoinvent.write_database()
 
 
-def import_agribalyse(data, db):
-    with ZipFile(data + ".zip") as zf:
+def import_agribalyse(data, db, biosphere, technosphere, migration):
+    """
+    Import file at path `data` into database named `db`, and apply brightway `migration`.
+    TODO why biosphere / technosphere?
+    """
+    with ZipFile(data) as zf:
         print("Extracting the agribalyse zip file...")
         zf.extractall()
 
@@ -45,17 +52,17 @@ def import_agribalyse(data, db):
 
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data, db)
 
-    agb_technosphere_migration = bw2io.Migration(TECHNOSPHERE)
+    agb_technosphere_migration = bw2io.Migration(technosphere)
     agb_technosphere_migration.write(
-        AGRIBALYSE_MIGRATION,
+        migration,
         description="Specific technosphere fixes for Agribalyse 3",
     )
 
     agribalyse.apply_strategies()
-    agribalyse.migrate(TECHNOSPHERE)
+    agribalyse.migrate(technosphere)
     agribalyse.statistics()
-    bw2data.Database(BIOSPHERE).register()
-    agribalyse.add_unlinked_flows_to_biosphere_database(BIOSPHERE)
+    bw2data.Database(biosphere).register()
+    agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
     agribalyse.add_unlinked_activities()
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
@@ -71,6 +78,9 @@ def import_agribalyse(data, db):
 
 
 def import_ef(data, db):
+    """
+    Import file at path `data` linked to biosphere named `db`
+    """
     ef = bw2io.importers.SimaProLCIACSVImporter(data, biosphere=db)
     ef.statistics()
     ef.write_methods()
@@ -145,7 +155,9 @@ if __name__ == "__main__":
     if AGRIBALYSEDB in bw2data.databases:
         print(f"*** already imported {AGRIBALYSEDB} ***")
     else:
-        import_agribalyse(AGRIBALYSE_CSV, AGRIBALYSEDB)
+        import_agribalyse(
+            AGRIBALYSE_CSV, AGRIBALYSEDB, BIOSPHERE, TECHNOSPHERE, AGRIBALYSE_MIGRATION
+        )
 
     # Import methods
     if len([method for method in bw2data.methods if method[0] == EFMETHODS]) >= 29:
