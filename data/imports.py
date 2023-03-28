@@ -50,7 +50,7 @@ def import_agribalyse(data, db, biosphere, technosphere, migration):
     call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + data, shell=True)
     call("sed -i 's/0;001172/0,001172/' " + data, shell=True)
 
-    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data, db)
+    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data[0:-4], db)
 
     agb_technosphere_migration = bw2io.Migration(technosphere)
     agb_technosphere_migration.write(
