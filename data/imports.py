@@ -11,7 +11,7 @@ PROJECT = "Ecobalyse"
 ECOINVENTDB = "Ecoinvent"
 ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
-AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV"
+AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV.zip"
 AGRIBALYSEDB = "Agribalyse"
 TECHNOSPHERE = "agribalyse-technosphere"  # ??
 BIOSPHERE = "Agribalyse biosphere"  # ??
