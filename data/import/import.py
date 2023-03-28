@@ -7,7 +7,6 @@ import bw2data
 import bw2io
 
 PROJECT = "Ecobalyse"
-BIOSPHERE = "Ecobalyse biosphere"
 # Ecoinvent
 ECOINVENTDB = "Ecoinvent"
 ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
@@ -18,7 +17,9 @@ TECHNOSPHERE = "agribalyse-technosphere"
 BIOSPHERE = AGRIBALYSEDB + " biosphere"
 # EF
 EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
-EFMETHODS = "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"
+EFMETHODS = (
+    "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
+)
 
 
 def import_ecoinvent(data, db):
@@ -53,6 +54,7 @@ def import_agribalyse(data, db):
     agribalyse.apply_strategies()
     agribalyse.migrate(TECHNOSPHERE)
     agribalyse.statistics()
+    bw2data.Database(BIOSPHERE).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(BIOSPHERE)
     agribalyse.add_unlinked_activities()
     agribalyse.statistics()
