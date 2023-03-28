@@ -69,7 +69,7 @@ puis installez le package ecobalyse_data de la sorte :
 
     $ python -m venv env
     $ source env/bin/activate
-    $ pip install -r requirements.txt
+    $ pip install -r docker/requirements.txt
     $ pip install -e .
 
 # Import et export des données

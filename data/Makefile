@@ -5,7 +5,7 @@ DOCKERRUN := docker run --rm --name $(NAME) -it -v $$PWD/../:/home/jovyan/ecobal
 json: image import_agribalyse export_builder
 
 image:
-	docker build -t $(NAME) -f Dockerfile .
+	docker build -t $(NAME) docker
 
 import_agribalyse:
 	curl -o food/import_agb/AGB3.1.1.20230306.CSV.zip https://nextcloud.prelab.fr/index.php/s/nDT3DSkgxYJLgJ3/download/AGB3.1.1.20230306.CSV.zip

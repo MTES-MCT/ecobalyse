@@ -13,8 +13,8 @@ ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
 AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV"
 AGRIBALYSEDB = "Agribalyse"
-TECHNOSPHERE = "agribalyse-technosphere"
-BIOSPHERE = AGRIBALYSEDB + " biosphere"
+TECHNOSPHERE = "agribalyse-technosphere"  # ??
+BIOSPHERE = "Agribalyse biosphere"  # ??
 # EF
 EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
 EFMETHODS = (
