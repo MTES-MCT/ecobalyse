@@ -157,6 +157,7 @@ if __name__ == "__main__":
     activity = bw2data.Database(ECOINVENTDB).search("elect* market FR", limit=1)[0]
     print(f"Activity = {activity}")
 
+    import pdb; pdb.set_trace()  # fmt: skip
     print("Computing LCI of activity")
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
