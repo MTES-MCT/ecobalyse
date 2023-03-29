@@ -13,7 +13,7 @@ ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
 AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV.zip"
 AGRIBALYSEDB = "Agribalyse"
-BIOSPHERE = "Agribalyse biosphere"  # ??
+BIOSPHERE = "biosphere3"
 # EF
 EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
 EFMETHODS = (
@@ -23,7 +23,7 @@ EFMETHODS = (
 
 def import_ecoinvent(data, db):
     """
-    Import file at path `data` into database named `db`
+    Import file at path `data` into biosphere database named `db`
     """
     print(f"Importing {db} database from {data}...")
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(data, db)
@@ -179,13 +179,13 @@ if __name__ == "__main__":
     print("Selecting an activity...")
     activity = bw2data.Database("Ecoinvent").search("cotton knit", limit=1)[0]
     print(f"Activity = {activity}")
-
     print("Computing LCI of activity")
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
-    EFMETHODS = "EF v3.1 EN15804"  # defined inside the csv
+    # EFMETHODS = "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"
     # EFMETHODS = "ReCiPe 2016 v1.03, midpoint (I)'"  # defined inside the csv
     # EFMETHODS = "TRACI v2.1 no LT"
+    EFMETHODS = "EF v3.1 EN15804"
     for method in [method for method in bw2data.methods if method[0] == EFMETHODS]:
         lca.switch_method(method)
         lca.lcia()
