@@ -303,8 +303,9 @@ subscriptions model =
         [ Ports.storeChanged StoreChanged
         , Request.Version.pollVersion VersionPoll
         , case model.page of
-            HomePage _ ->
-                Sub.none
+            HomePage subModel ->
+                Home.subscriptions subModel
+                    |> Sub.map HomeMsg
 
             ApiPage _ ->
                 Sub.none
