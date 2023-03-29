@@ -54,7 +54,7 @@ La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores 
 
 ![](../.gitbook/assets/image.png)
 
-Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les 3 bonus) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattaché à la catégorie à laquelle elle contribue le plus.
+Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les [3 bonus hors ACV](complements-hors-acv.md)) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
 
 {% hint style="info" %}
 Cette règle est une des deux options introduites dans le rapport du Conseil scientifique.
@@ -64,15 +64,15 @@ Cette règle est une des deux options introduites dans le rapport du Conseil sci
 
 ## 16 catégories d'impacts PEF
 
-Pour chacun des inventaires de cycle de vie mobilisées, les impacts relatifs aux 16 catégories PEF sont issus de la [base Agribalyse](https://agribalyse.ademe.fr/).
+Pour chacun des inventaires de cycle de vie mobilisés, les impacts relatifs aux 16 catégories PEF sont issus de la [base Agribalyse](https://agribalyse.ademe.fr/).
 
-Les inventaires sélectionnés, notamment pour décrire chaque ingrédient, sont introduits dans les pages de la méthodologie relatifs à chaque ingrédient.&#x20;
+Les inventaires sélectionnés, notamment pour décrire chaque ingrédient, sont introduits dans les pages de la méthodologie relatives à chaque ingrédient.&#x20;
 
 ## Indicateur de biodiversité locale
 
 Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment).
 
-Le calcul du BVI (biodiversity value increment), a été appliqué à chacun des inventaires de cycle de vie Agribalyse mobilisé dans Ecobalyse. Il mobilise des paramètres tels :&#x20;
+Le calcul du BVI (biodiversity value increment), a été appliqué à chacun des inventaires de cycle de vie Agribalyse mobilisé dans Ecobalyse. Il mobilise des paramètres tels que :&#x20;
 
 * la richesse initiale de la biodiversité à travers un facteur d'écorégion (forêts tropicales, forêts tempérées...) ;
 * le niveau de dégradation de cette biodiversité, en intégrant des paramètres comme le travail du sol, la fertilisation ou encore l'écotoxicité.
