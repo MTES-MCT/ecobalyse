@@ -19,15 +19,15 @@ Certaines pratiques agricoles peuvent avoir des externalités positives, telles 
 
 ### La biodiversité territoriale&#x20;
 
-L’ACV, à travers notamment le nouvel indicateur de biodiversité locale, intègre une dimension biodiversité à l’échelle de la parcelle. Il ne permet cependant pas d’évaluer la contribution de certaines pratiques au maintien et à la préservation de la biodiversité à l'échelle territoriale : **continuités écologiques**, **limitation de la fragmentation des habitats**, **maintien et entretien des trames vertes** et des **zones refuges**, **régulation naturelle des ravageurs de cultures**, etc.
+L’ACV, à travers notamment le nouvel indicateur de biodiversité locale, intègre une dimension biodiversité à l’échelle de la parcelle. Il ne permet cependant pas d’évaluer la contribution de certaines pratiques au maintien et à la préservation de la biodiversité à l'échelle territoriale, dimensions pourtant essentielles pour évaluer de manière complète la durabilité des systèmes de productions agricoles : **continuités écologiques**, **limitation de la fragmentation des habitats**, **maintien et entretien des trames vertes** et des **zones refuges**, **régulation naturelle des ravageurs de cultures**, etc.
 
 ### La résilience territoriale&#x20;
 
 De la même manière, certaines pratiques agricoles contribuent à améliorer la résilience des territoires : **bouclage des cycles** et moindre dépendance à certains nutriments, **résilience face aux aléas climatiques**, **préservation des sols et lutte contre l’érosion**, **régulation naturelle des ravageurs de cultures**, etc.&#x20;
 
-### Les modes d'élevage
+### Le bien-être animal
 
-La question des modes d'élevage recoupe certains enjeux environnementaux. Cependant, la prise en compte des modes d'élevage ne peut se faire à l'intérieur du cadre ACV. Un bonus hors ACV favorisant certaines pratiques d'élevage peut ainsi être proposé.
+La question du bien-être animal peut recouper certains enjeux environnementaux. Il s'agit bien d'une dimension non prise en compte dans l'ACV. Intégrer les bénéfices en termes de bien-être animal de certaines pratiques d'élevage au score d'impact est une possibilité, par exemple à travers un bonus dédié.&#x20;
 
 ## Les pratiques agricoles contribuant à la biodiversité et à la résilience territoriales, et au bien-être animal
 
@@ -36,7 +36,7 @@ La biodiversité et la résilience des territoires sont favorisées par :&#x20;
 * La quantité (mais aussi la qualité) des [**infrastructures agroécologiques**](#user-content-fn-1)[^1] **** (haies, bosquets, arbres, mares, etc., mais aussi prairies) ;
 * La **diversité agricole** : diversité des cultures dans l’espace (assolement diversifié) et dans le temps (rotations), et diversité des productions (présence de polyculture-élevage).
 
-Quant aux modes d'élevage, certaines pratiques favorables au bien-être animal pourraient être valorisées dans le score d'impact, par exemple :
+Quant aux conditions d'élevage, certaines pratiques favorables au bien-être animal pourraient être valorisées dans le score d'impact, par exemple :
 
 * la **surface de parcours** dont dispose les animaux,
 * le **temps passé en extérieur**.
@@ -52,7 +52,7 @@ Dans le cadre du niveau 1 de calcul (paramétrage par la recette, les labels, le
 (3) des conditions d'élevage.
 
 {% hint style="info" %}
-Le bonus "conditions d'élevage" n'est actif que pour les produits d'origine animal. Il est fixé à 0 sinon.
+Le bonus "conditions d'élevage" n'est actif que pour les produits d'origine animale. Il est fixé à 0 sinon.
 {% endhint %}
 
 en fonction :&#x20;
@@ -60,7 +60,7 @@ en fonction :&#x20;
 * des **labels** de production,
 * des **groupes de productions** (ex. cultures maraîchères, grandes cultures, élevages ruminants, monogastriques...)
 
-Il est proposé de corréler ces bonus à la surface agricole mobilisée. En effet, les bénéfices de ces pratiques (ex. haies) sont proportionnels à la surface sur lesquelles elles sont mises en place. La surface agricole associée à un produit donné est approximée par son indicateur PEF "land use".
+Il est proposé de corréler ces bonus à la surface agricole mobilisée. En effet, les bénéfices de ces pratiques sont proportionnels à la surface sur lesquelles elles sont mises en place (ex. plus les haies sont déployées sur une surface importante, plus les bénéfices environnementaux sont importants). La surface agricole associée à un produit donné est approximée par son indicateur PEF "land use".
 
 ### Formule
 
@@ -72,11 +72,11 @@ $$
 
 Avec :&#x20;
 
-* $$Bonus_i(p)$$: Bonus i (diversité agricole, infra agro-écologique, conditions d'élevage) du produit p (en µPts d'impact)
+* $$Bonus_i(p)$$: Bonus i (diversité agricole, infrastructures agro-écologiques, conditions d'élevage) du produit p (en µPts d'impact)
 * $$LandUse(p)$$: valeur du score d'impact "land use" pour le produit (p) (en µPts d'impact)
 
 {% hint style="warning" %}
-Dans cette formule nous prenons la valeur normalisé et pondéré de l'impact Land Use dans le score d'impacts, et non la valeur brut.
+Dans cette formule nous prenons la valeur normalisée et pondérée de l'impact Land Use dans le score d'impacts, et non la valeur brute.
 {% endhint %}
 
 * $$c_i$$ : le coefficient permettant de moduler l'ampleur du bonus, il ne dépend pas du produit p. On a&#x20;
@@ -94,23 +94,24 @@ Sans les bonus on a :
 
 $$Score-d'impacts = 97.04$$ µPts
 
-$$Land-use = 4.14$$ µPts (valeur normalisé et pondéré dans le score d'impacts)
+$$Land-use = 4.14$$ µPts (valeur normalisée et pondérée dans le score d'impacts)
 
 \
 On fait les hypothèses (arbitraires) que pour le poulet bio :
 
-* $$x_{diversité-agricole} = 0.5$$
-* $$x_{infra-agro-écologique} = 0.7$$
-*   $$x_{cond-élevage} = 0.3$$
+* $$x_{diversité-agricole} (poulet - bio)= 0.5$$
+* $$x_{infra-agro-écologique} (poulet - bio)= 0.7$$
+*   $$x_{cond-élevage} (poulet - bio)= 0.3$$
 
 
 
 Calculs des bonus :
 
-$$Bonus_{diversité-agricole} =  x_{diversité-agricole} × c_{diversité-agricole} × Land-use$$
+$$Bonus_{diversité-agricole} (poulet - bio)=  x_{diversité-agricole}(poulet - bio) × c_{diversité-agricole} × Land-use (poulet - bio)$$
 
-$$Bonus_{infra-agro-écologique} =  x_{infra-agro-écologique} × c_{infra-agro-écologique} × Land-use$$\
-$$Bonus_{cond-élevage} =  x_{cond-élevage} ×c_{cond-élevage} × Land-use$$
+$$Bonus_{infra-agro-écologique} (poulet - bio)=  x_{infra-agro-écologique} (poulet - bio) × c_{infra-agro-écologique} × Land-use(poulet - bio)$$
+
+$$Bonus_{cond-élevage} (poulet - bio)=  x_{cond-élevage} (poulet - bio)×c_{cond-élevage} × Land-use(poulet - bio)$$
 
 ***
 
