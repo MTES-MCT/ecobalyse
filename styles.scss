@@ -856,6 +856,32 @@ blockquote {
   }
 }
 
+.overlappedImage {
+  img {
+    width: 50%;
+  }
+  div {
+    background-color: $white;
+    left: 25%;
+    margin-top: -200px;
+    padding: $spacer * 3;
+    position: relative;
+    width: 75%;
+  }
+
+  @media screen and (width <= $viewport-sm) {
+    img {
+      width: 100%;
+    }
+    div {
+      left: 0;
+      margin-top: 0;
+      padding: $spacer 0 0;
+      width: 100%;
+    }
+  }
+}
+
 .Simulator {
   @media screen and (width < $viewport-sm) {
     margin-top: 190px;

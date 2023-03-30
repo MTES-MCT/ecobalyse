@@ -9,7 +9,6 @@ module Page.Home exposing
 
 import Browser.Events
 import Data.Env as Env
-import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -19,26 +18,19 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
-import RemoteData exposing (WebData)
-import Request.Gitbook exposing (getPage)
 import Route
-import Views.Alert as Alert
 import Views.Container as Container
-import Views.Icon as Icon
 import Views.Link as Link
-import Views.Markdown as Markdown
 import Views.Modal as ModalView
 
 
 type alias Model =
-    { content : WebData Gitbook.Page
-    , modal : Modal
+    { modal : Modal
     }
 
 
 type Msg
-    = GitbookContentReceived (WebData Gitbook.Page)
-    | CloseModal
+    = CloseModal
     | NoOp
     | OpenCalculatorPickerModal
 
@@ -50,13 +42,10 @@ type Modal
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { content = RemoteData.Loading
-      , modal = NoModal
-      }
+    ( { modal = NoModal }
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
-        , getPage session Gitbook.Home GitbookContentReceived
         ]
     )
 
@@ -66,9 +55,6 @@ update session msg model =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
-
-        GitbookContentReceived gitbookData ->
-            ( { model | content = gitbookData }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -171,80 +157,35 @@ calculatorPickerModalContent =
         ]
 
 
-viewIsIsntColumn : Bool -> ( String, List ( String, String ) ) -> Html Msg
-viewIsIsntColumn positive ( title, sections ) =
-    div [ class "d-flex flex-column gap-3 mt-1" ]
-        [ h2 [ class "h3 fw-light text-light text-center" ]
-            [ span [ class "text-white me-1" ]
-                [ if positive then
-                    Icon.check
-
-                  else
-                    Icon.times
-                ]
-            , title |> String.replace "## " "" |> text
+viewInfo : Html Msg
+viewInfo =
+    div [ class "container overlappedImage" ]
+        [ img
+            [ src "img/Illustration_Score.png"
+            , alt "Illustration de score d'impact"
             ]
-        , sections
-            |> List.map
-                (\( sectionTitle, markdown ) ->
-                    div [ class "card" ]
-                        [ div [ class "card-body" ]
-                            [ h3 [ class "h5 d-flex gap-2" ]
-                                [ if positive then
-                                    span [ class "text-success" ] [ Icon.check ]
-
-                                  else
-                                    span [ class "text-danger" ] [ Icon.times ]
-                                , sectionTitle
-                                    |> Markdown.simple [ class "fw-normal inline-paragraphs" ]
-                                ]
-                            , markdown
-                                |> Markdown.simple []
-                            ]
-                        ]
-                )
-            |> div [ class "d-flex flex-column gap-3" ]
-        ]
-
-
-viewIsIsnt : Gitbook.IsIsnt -> Html Msg
-viewIsIsnt { is, isnt } =
-    Container.full [ class "bg-info shadow pt-3 pb-5", id "github-pages-content" ]
-        [ Container.centered []
-            [ div [ class "row" ]
-                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True is ]
-                , div [ class "col-sm-6" ] [ viewIsIsntColumn False isnt ]
-                ]
+            []
+        , div []
+            [ h3 [] [ text "Un eco-score pour informer les consommateurs" ]
+            , Html.cite [ class "d-inline-block fw-bold mx-5 mt-5" ] [ text "« 74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent. »" ]
+            , caption [ class "w-100 fs-7 text-muted mx-5 mb-5" ] [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
+            , h3 [] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
+            , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
+            , h3 [] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
+            , p [] [ text "Les méthodologies de calcul doivent être définies d’ici fin 2023 pour les produits alimentaires et textiles. Les travaux pour aider à définir une méthodologie de calcul réglementaire sont en cours." ]
+            , p [] [ text "Nous publions les mises à jour et le calendrier pour les secteurs Textile et Alimentaire.\u{2028}D’autres secteurs suivront dans les années à venir." ]
             ]
         ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { content, modal } =
+view _ { modal } =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
-            [ viewHero modal
-            , content
-                |> RemoteData.map
-                    (\{ markdown } ->
-                        case Gitbook.parseIsIsnt markdown of
-                            Ok parsed ->
-                                viewIsIsnt parsed
-
-                            Err error ->
-                                Alert.simple
-                                    { level = Alert.Info
-                                    , close = Nothing
-                                    , title = Nothing
-                                    , content =
-                                        [ div [ class "d-flex justify-content-center align-items-center gap-1" ]
-                                            [ Icon.warning
-                                            , text error
-                                            ]
-                                        ]
-                                    }
-                    )
-                |> RemoteData.withDefault (text "")
+            [ div [ class "bg-light pt-5" ]
+                [ viewHero modal ]
+            , div [ class "pt-5" ]
+                [ viewInfo ]
             ]
       ]
     )
