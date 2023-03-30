@@ -33,6 +33,7 @@ type Msg
     = CloseModal
     | NoOp
     | OpenCalculatorPickerModal
+    | ScrollIntoView String
 
 
 type Modal
@@ -44,9 +45,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { modal = NoModal }
     , session
-    , Cmd.batch
-        [ Ports.scrollTo { x = 0, y = 0 }
-        ]
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -61,6 +60,9 @@ update session msg model =
 
         OpenCalculatorPickerModal ->
             ( { model | modal = CalculatorPickerModal }, session, Cmd.none )
+
+        ScrollIntoView nodeId ->
+            ( model, session, Ports.scrollIntoView nodeId )
 
 
 viewHero : Modal -> Html Msg
@@ -82,9 +84,9 @@ viewHero modal =
                     [ text "Lancer le calculateur" ]
                 ]
             , div [ class "col-md-6 text-center text-md-start py-2" ]
-                [ Link.external
+                [ button
                     [ class "btn btn-lg btn-primary w-50"
-                    , href Env.gitbookUrl
+                    , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
                     [ text "Découvrir Écobalyse" ]
                 ]
@@ -159,7 +161,10 @@ calculatorPickerModalContent =
 
 viewInfo : Html Msg
 viewInfo =
-    div [ class "container overlappedImage" ]
+    div
+        [ class "container overlappedImage"
+        , id "decouvrir-ecobalyse"
+        ]
         [ img
             [ src "img/Illustration_Score.png"
             , alt "Illustration de score d'impact"

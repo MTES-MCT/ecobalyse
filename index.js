@@ -67,6 +67,10 @@ app.ports.saveStore.subscribe((rawStore) => {
 app.ports.scrollTo.subscribe((pos) => {
   window.scrollTo(pos.x, pos.y);
 });
+app.ports.scrollIntoView.subscribe((id) => {
+  let node = document.getElementById(id);
+  node.scrollIntoView({ behavior: "smooth" });
+});
 
 app.ports.selectInputText.subscribe((id) => {
   try {
