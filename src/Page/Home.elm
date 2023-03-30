@@ -112,7 +112,7 @@ viewHero modal =
                     { size = ModalView.Large
                     , close = CloseModal
                     , noOp = NoOp
-                    , title = "Sélectionnez le secteur concerné"
+                    , title = ""
                     , formAction = Nothing
                     , content =
                         [ calculatorPickerModalContent ]
@@ -123,50 +123,49 @@ viewHero modal =
 
 calculatorPickerModalContent : Html Msg
 calculatorPickerModalContent =
-    div
-        [ class "row d-flex text-center align-items-stretch justify-content-evenly py-5 w-100" ]
-        [ div [ class "col-sm-3" ]
-            [ div [ class "card align-items-center" ]
-                [ img
-                    [ class "w-50"
-                    , src "img/picto_textile.png"
-                    , alt "Lancer le calculateur du textile"
+    div []
+        [ div [ class "row d-flex ps-5 pt-5 w-100 fs-5 fw-bold" ]
+            [ text "→ Sélectionnez le secteur concerné" ]
+        , div
+            [ class "row d-flex text-center align-items-stretch justify-content-start ps-4 pt-2 pb-5 w-100 gap-1" ]
+            [ div [ class "col-sm-3" ]
+                [ a
+                    [ class "card align-items-center text-decoration-none"
+                    , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
                     ]
-                    []
-                , div
-                    [ class "card-body" ]
-                    [ a
-                        [ class "btn btn-primary"
-                        , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
+                    [ img
+                        [ class "w-75 px-3 pt-3"
+                        , src "img/picto_textile.png"
+                        , alt "Lancer le calculateur du textile"
                         ]
+                        []
+                    , span [ class "card-body" ]
                         [ text "Textile" ]
                     ]
                 ]
-            ]
-        , div [ class "col-sm-3" ]
-            [ div [ class "card align-items-center" ]
-                [ img
-                    [ class "w-50"
-                    , src "img/picto_alimentaire.png"
-                    , alt "Lancer le calculateur de l'alimentaire"
+            , div [ class "col-sm-3" ]
+                [ a
+                    [ class "card align-items-center text-decoration-none"
+                    , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
                     ]
-                    []
-                , div [ class "card-body" ]
-                    [ a
-                        [ class "btn btn-primary"
-                        , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                    [ img
+                        [ class "w-75 px-3 pt-3"
+                        , src "img/picto_alimentaire.png"
+                        , alt "Lancer le calculateur de l'alimentaire"
                         ]
+                        []
+                    , span [ class "card-body" ]
                         [ text "Alimentaire" ]
                     ]
                 ]
-            ]
-        , div [ class "col-sm-3" ]
-            [ div [ class "card h-100 justify-content-center" ]
-                [ text "Autre secteur,"
-                , br [] []
-                , Link.external
-                    [ href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter" ]
-                    [ text "contactez-nous" ]
+            , div [ class "col-sm-3" ]
+                [ div [ class "card h-100 justify-content-center" ]
+                    [ text "Autre secteur,"
+                    , br [] []
+                    , Link.external
+                        [ href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter" ]
+                        [ text "contactez-nous" ]
+                    ]
                 ]
             ]
         ]
