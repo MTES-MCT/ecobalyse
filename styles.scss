@@ -34,7 +34,7 @@ $score-letter-E: #e63f12;
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     font-size: 14px !important;
     select,
     input,
@@ -631,7 +631,7 @@ blockquote {
 }
 
 .Header {
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -646,7 +646,7 @@ blockquote {
 }
 
 .ImpactSelector {
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     position: fixed;
     background-color: #fff;
     bottom: 0;
@@ -795,7 +795,7 @@ blockquote {
 }
 
 .MainMenu {
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     width: 100%;
   }
 }
@@ -838,7 +838,7 @@ blockquote {
     flex: 0.5 1 auto;
     max-width: 70px;
 
-    @media screen and (max-width: $viewport-sm) {
+    @media screen and (width < $viewport-sm) {
       max-width: 50px;
     }
   }
@@ -848,7 +848,7 @@ blockquote {
     min-width: 125px;
     max-width: 125px;
 
-    @media screen and (max-width: $viewport-sm) {
+    @media screen and (width < $viewport-sm) {
       width: 102px;
       min-width: 102px;
       max-width: 102px;
@@ -857,7 +857,7 @@ blockquote {
 }
 
 .Simulator {
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     margin-top: 190px;
 
     > h1 {
@@ -966,7 +966,7 @@ blockquote {
     height: 4.35em;
   }
 
-  @media screen and (max-width: $viewport-sm) {
+  @media screen and (width < $viewport-sm) {
     position: fixed;
     z-index: 1020;
     top: 54px;
