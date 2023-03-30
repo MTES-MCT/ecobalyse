@@ -407,7 +407,7 @@ updateBonusesFromVariant ingredients ingredientId variant =
             ingredients
                 |> Ingredient.findByID ingredientId
 
-        bonuses =
+        defaultVariantBonuses =
             ingredientResult
                 |> Result.map Ingredient.defaultBonuses
                 |> Result.withDefault (Ingredient.defaultBonuses { animalOrigin = False })
@@ -416,10 +416,10 @@ updateBonusesFromVariant ingredients ingredientId variant =
         Organic ->
             ingredientResult
                 |> Result.map Ingredient.getDefaultOrganicBonuses
-                |> Result.withDefault bonuses
+                |> Result.withDefault defaultVariantBonuses
 
         DefaultVariant ->
-            bonuses
+            defaultVariantBonuses
 
 
 variantFromString : String -> Result String Variant
