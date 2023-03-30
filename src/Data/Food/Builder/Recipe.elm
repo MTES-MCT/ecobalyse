@@ -746,24 +746,10 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, pla
             (ingredientResult
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
             )
-        |> RE.andMap (Ok Ingredient.defaultBonuses)
-        |> Result.map
-            (\ingredientQuery ->
-                { ingredientQuery
-                    | bonuses =
-                        bonuses
-                            |> Maybe.withDefault
-                                (case ingredientQuery.variant of
-                                    BuilderQuery.Organic ->
-                                        ingredientResult
-                                            |> Result.map Ingredient.getDefaultOrganicBonuses
-                                            |> Result.withDefault Ingredient.defaultBonuses
-
-                                    BuilderQuery.DefaultVariant ->
-                                        -- FIXME: handle meat
-                                        Ingredient.defaultBonuses
-                                )
-                }
+        |> RE.andMap
+            (bonuses
+                |> Maybe.withDefault (BuilderQuery.updateBonusesFromVariant ingredients id variant)
+                |> Ok
             )
 
 

@@ -111,11 +111,16 @@ decodeId =
         |> Decode.map idFromString
 
 
-defaultBonuses : Bonuses
-defaultBonuses =
+defaultBonuses : { a | animalOrigin : Bool } -> Bonuses
+defaultBonuses { animalOrigin } =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
-    , animalWelfare = Split.zero
+    , animalWelfare =
+        if animalOrigin then
+            Split.tenth
+
+        else
+            Split.zero
     }
 
 
@@ -134,11 +139,10 @@ encodeId (Id str) =
 
 
 getDefaultOrganicBonuses : Ingredient -> Bonuses
-getDefaultOrganicBonuses =
-    .variants
-        >> .organic
-        >> Maybe.map .defaultBonuses
-        >> Maybe.withDefault defaultBonuses
+getDefaultOrganicBonuses ingredient =
+    ingredient.variants.organic
+        |> Maybe.map .defaultBonuses
+        |> Maybe.withDefault (defaultBonuses ingredient)
 
 
 idFromString : String -> Id

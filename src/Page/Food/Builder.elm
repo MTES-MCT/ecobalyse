@@ -636,23 +636,21 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 , disabled <| ingredient.ingredient.variants.organic == Nothing
                 , onCheck
                     (\checked ->
+                        let
+                            variant =
+                                if checked then
+                                    Query.Organic
+
+                                else
+                                    Query.DefaultVariant
+                        in
                         event
                             { ingredientQuery
-                                | variant =
-                                    if checked then
-                                        Query.Organic
-
-                                    else
-                                        Query.DefaultVariant
+                                | variant = variant
                                 , bonuses =
-                                    Just
-                                        -- FIXME: handle setting to Nothing when bonuses are equivalent to defaults
-                                        (if checked then
-                                            Ingredient.getDefaultOrganicBonuses ingredient.ingredient
-
-                                         else
-                                            Ingredient.defaultBonuses
-                                        )
+                                    variant
+                                        |> Query.updateBonusesFromVariant db.ingredients ingredient.ingredient.id
+                                        |> Just
                             }
                     )
                 ]
@@ -684,6 +682,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "agroDiversity"
                     , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
+                    , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
@@ -695,6 +694,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "agroEcology"
                     , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
+                    , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
@@ -706,6 +706,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "animalWelfare"
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
+                    , disabled = not ingredient.ingredient.animalOrigin
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
@@ -729,6 +730,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
 type alias BonusViewConfig msg =
     { bonusImpact : Unit.Impact
     , bonusSplit : Split
+    , disabled : Bool
     , domId : String
     , name : String
     , selectedImpact : Impact.Definition
@@ -738,7 +740,7 @@ type alias BonusViewConfig msg =
 
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, title, updateEvent } =
+ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedImpact, title, updateEvent } =
     div
         [ class "IngredientBonus"
         , title |> Maybe.withDefault name |> Attr.title
@@ -752,6 +754,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, titl
             [ type_ "range"
             , id domId
             , class "BonusRange form-range"
+            , Attr.disabled disabled
             , Attr.min "0"
             , Attr.max "100"
             , step "1"

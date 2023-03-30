@@ -402,15 +402,24 @@ updateDistribution distribution query =
 
 updateBonusesFromVariant : List Ingredient -> Ingredient.Id -> Variant -> Ingredient.Bonuses
 updateBonusesFromVariant ingredients ingredientId variant =
-    case variant of
-        Organic ->
+    let
+        ingredientResult =
             ingredients
                 |> Ingredient.findByID ingredientId
+
+        bonuses =
+            ingredientResult
+                |> Result.map Ingredient.defaultBonuses
+                |> Result.withDefault (Ingredient.defaultBonuses { animalOrigin = False })
+    in
+    case variant of
+        Organic ->
+            ingredientResult
                 |> Result.map Ingredient.getDefaultOrganicBonuses
-                |> Result.withDefault Ingredient.defaultBonuses
+                |> Result.withDefault bonuses
 
         DefaultVariant ->
-            Ingredient.defaultBonuses
+            bonuses
 
 
 variantFromString : String -> Result String Variant
