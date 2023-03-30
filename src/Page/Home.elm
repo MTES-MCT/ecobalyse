@@ -252,6 +252,41 @@ viewTools =
         ]
 
 
+viewContribution : Html Msg
+viewContribution =
+    Container.centered [ class "Contribution" ]
+        [ div [ class "row d-flex align-items-start" ]
+            [ div [ class "col-sm-4 bg-info text-white px-3 py-5" ]
+                [ img
+                    [ src "img/picto_bulle.png"
+                    , class "pb-4"
+                    , style "width" "60px"
+                    , alt "Picto d'une bulle de conversation"
+                    ]
+                    []
+                , p [] [ text "“Tiens, ce chiffre me parait étonnant”" ]
+                , p [] [ text "“Et si on utilisait la surface du tissu plutôt que la masse du vêtement…”," ]
+                , p [] [ text "“Pourquoi l’impact diminue lorsque la production se fait au Myanmar ?”" ]
+                ]
+            , div [ class "col-sm-8 bg-light mt-5 mb-5 p-5" ]
+                [ h5 [ class "fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
+                , p [] [ text "La définition de la méthode de calcul et la mise en œuvre de l’éco-score nécessitent un travail collectif au long cours en relation avec les acteurs de chaque filière." ]
+                , p [] [ text "Vous êtes une marque, un producteur, un bureau d’étude ou un distributeur :" ]
+                , ul [ class "mb-5" ]
+                    [ li [] [ text "Partagez les données d’impact de votre production," ]
+                    , li [] [ text "Suggérez une amélioration de la méthodologie ou du calculateur," ]
+                    , li [] [ text "Proposez votre participation aux travaux collectifs. " ]
+                    ]
+                , Link.external
+                    [ class "btn btn-primary"
+                    , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
+                    ]
+                    [ text "Contactez l’équipe Écobalyse" ]
+                ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ { modal } =
     ( "Accueil"
@@ -262,6 +297,8 @@ view _ { modal } =
                 [ viewInfo ]
             , div [ class "bg-light pt-5" ]
                 [ viewTools ]
+            , div [ class "pt-5" ]
+                [ viewContribution ]
             ]
       ]
     )
