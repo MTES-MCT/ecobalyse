@@ -8,7 +8,6 @@ module Page.Home exposing
     )
 
 import Browser.Events
-import Data.Env as Env
 import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -161,8 +160,8 @@ calculatorPickerModalContent =
 
 viewInfo : Html Msg
 viewInfo =
-    div
-        [ class "container overlappedImage"
+    Container.centered
+        [ class "overlappedImage"
         , id "decouvrir-ecobalyse"
         ]
         [ img
