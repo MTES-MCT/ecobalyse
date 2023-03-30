@@ -25,18 +25,18 @@ L’ACV, à travers notamment le nouvel indicateur de biodiversité locale, int�
 
 De la même manière, certaines pratiques agricoles contribuent à améliorer la résilience des territoires : **bouclage des cycles** et moindre dépendance à certains nutriments, **résilience face aux aléas climatiques**, **préservation des sols et lutte contre l’érosion**, **régulation naturelle des ravageurs de cultures**, etc.&#x20;
 
-### Le bien-être animal
+### Les conditions d'élevage
 
-La question du bien-être animal peut recouper certains enjeux environnementaux. Il s'agit bien d'une dimension non prise en compte dans l'ACV. Intégrer les bénéfices en termes de bien-être animal de certaines pratiques d'élevage au score d'impact est une possibilité, par exemple à travers un bonus dédié.&#x20;
+La question des conditions d'élevage peut recouper certains enjeux environnementaux. Il s'agit bien d'une dimension non prise en compte dans l'ACV. Intégrer les bénéfices en termes de conditions d'élevage de certaines pratiques d'élevage au score d'impact est une possibilité, par exemple à travers un bonus dédié.&#x20;
 
-## Les pratiques agricoles contribuant à la biodiversité et à la résilience territoriales, et au bien-être animal
+## Les pratiques agricoles contribuant à la biodiversité et à la résilience territoriales, et à de meilleures conditions d'élevage
 
 La biodiversité et la résilience des territoires sont favorisées par :&#x20;
 
 * La quantité (mais aussi la qualité) des [**infrastructures agroécologiques**](#user-content-fn-1)[^1] **** (haies, bosquets, arbres, mares, etc., mais aussi prairies) ;
 * La **diversité agricole** : diversité des cultures dans l’espace (assolement diversifié) et dans le temps (rotations), et diversité des productions (présence de polyculture-élevage).
 
-Quant aux conditions d'élevage, certaines pratiques favorables au bien-être animal pourraient être valorisées dans le score d'impact, par exemple :
+Quant aux conditions d'élevage, certaines pratiques favorables pourraient être valorisées dans le score d'impact, par exemple :
 
 * la **surface de parcours** dont dispose les animaux,
 * le **temps passé en extérieur**.
