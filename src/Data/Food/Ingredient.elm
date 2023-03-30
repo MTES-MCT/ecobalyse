@@ -39,6 +39,7 @@ type alias Ingredient =
     , name : String
     , default : Process
     , defaultOrigin : Origin
+    , animalOrigin : Bool
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     , density : Density
@@ -176,6 +177,7 @@ decodeIngredient processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
+        |> Pipe.required "animal_origin" Decode.bool
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
