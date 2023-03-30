@@ -225,14 +225,14 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -277,7 +277,7 @@ suite =
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
-                    , bonuses = Ingredient.defaultBonuses
+                    , bonuses = Nothing
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -295,7 +295,7 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         ]
                   , transform = Nothing

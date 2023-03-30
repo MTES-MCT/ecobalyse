@@ -538,7 +538,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
             , planeTransport = ingredient.planeTransport
-            , bonuses = bonuses
+            , bonuses = Just ingredient.bonuses
             }
 
         event =
@@ -588,6 +588,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                             , bonuses =
                                 newVariant
                                     |> Query.updateBonusesFromVariant db.ingredients newIngredient.id
+                                    |> Just
                         }
                 )
         , db.countries
@@ -644,11 +645,14 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                                     else
                                         Query.DefaultVariant
                                 , bonuses =
-                                    if checked then
-                                        Ingredient.getDefaultOrganicBonuses ingredient.ingredient
+                                    Just
+                                        -- FIXME: handle setting to Nothing when bonuses are equivalent to defaults
+                                        (if checked then
+                                            Ingredient.getDefaultOrganicBonuses ingredient.ingredient
 
-                                    else
-                                        Ingredient.defaultBonuses
+                                         else
+                                            Ingredient.defaultBonuses
+                                        )
                             }
                     )
                 ]
@@ -683,7 +687,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | agroDiversity = split } }
                     }
                 , ingredientBonusView
                     { name = "Infra. agro-éco."
@@ -694,7 +698,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | agroEcology = split } }
                     }
                 , ingredientBonusView
                     { name = "Cond. d'élevage"
@@ -705,7 +709,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | animalWelfare = split } }
                     }
                 ]
 
