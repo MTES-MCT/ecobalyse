@@ -15,7 +15,7 @@ Page en cours de construction
 
 ## Les dimensions environnementales à prendre en compte hors de la métrique ACV&#x20;
 
-Certaines pratiques agricoles peuvent avoir des externalités positives, telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article\_jo/JORFARTI000043956979), que l’ACV ne permet pas de prendre en compte. C’est notamment le cas des pratiques qui contribuent à la résilience et à la biodiversité territoriales, ou encore, dans un registre différent, au bien-être des animaux d'élevage.
+Certaines pratiques agricoles peuvent avoir des externalités positives, telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article\_jo/JORFARTI000043956979), que l’ACV ne permet pas de prendre en compte. C’est notamment le cas des pratiques qui contribuent à la résilience et à la biodiversité territoriales, ou encore, dans un registre différent, à de meilleures conditions de vie pour les animaux d'élevage.
 
 ### La biodiversité territoriale&#x20;
 
