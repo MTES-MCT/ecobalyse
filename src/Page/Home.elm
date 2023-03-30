@@ -8,6 +8,7 @@ module Page.Home exposing
     )
 
 import Browser.Events
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -182,6 +183,75 @@ viewInfo =
         ]
 
 
+viewTools : Html Msg
+viewTools =
+    Container.centered []
+        [ h4 [ class "fw-normal mb-5" ]
+            [ text "Afin d’amorcer la transition vers un modèle de production plus durable"
+            , br [] []
+            , strong [] [ text "Écobalyse met à la disposition des entreprises : " ]
+            ]
+        , div [ class "row d-flex mb-5" ]
+            [ div [ class "col-sm-4 mb-3 mb-sm-0" ]
+                [ div
+                    [ class "card align-items-center text-decoration-none"
+                    , attribute "role" "button"
+                    , onClick <| OpenCalculatorPickerModal
+                    ]
+                    [ img
+                        [ class "w-100"
+                        , src "img/img_outil_calculateur.png"
+                        , alt "Capture d'écran du calculateur alimentaire"
+                        ]
+                        []
+                    , div [ class "card-body" ]
+                        [ h5 [ class "fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
+                        , text "Un calculateur gratuit qui permet d’obtenir les impacts d’un produit sur la base de critères simples et accessibles aux marques."
+                        , div [ class "text-end fw-bold" ] [ text "→" ]
+                        ]
+                    ]
+                ]
+            , div [ class "col-sm-4 mb-3 mb-sm-0" ]
+                [ a
+                    [ class "card align-items-center text-decoration-none link-dark"
+                    , href Env.gitbookUrl
+                    ]
+                    [ img
+                        [ class "w-100"
+                        , src "img/img_outil_methode.png"
+                        , alt "Capture d'écran de la documentation"
+                        ]
+                        []
+                    , div [ class "card-body" ]
+                        [ h5 [ class "fw-bold" ] [ text "Support de travail sur la méthode" ]
+                        , p [] [ text "Les orientations présentées pourront aider à construire la future méthodologie réglementaire." ]
+                        , p []
+                            [ em [] [ text "Écobalyse, c’est aussi un mode de collaboration ouvert à la critique et aux suggestions, en vue d’aider à élaborer la future méthode réglementaire française (contribuez!)" ]
+                            ]
+                        , div [ class "text-end fw-bold" ] [ text "→" ]
+                        ]
+                    ]
+                ]
+            , div [ class "col-sm-4 mb-3 mb-sm-0" ]
+                [ div
+                    [ class "card align-items-center text-decoration-none" ]
+                    [ img
+                        [ class "w-100"
+                        , src "img/img_outil_api.png"
+                        , alt "Engrenages représentant une API"
+                        ]
+                        []
+                    , div [ class "card-body" ]
+                        [ h5 [ class "fw-bold" ] [ text "API ouverte" ]
+                        , p [] [ text "Une interface de programmation applicative (API) permettra de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
+                        , em [ class "text-muted" ] [ text "Bientôt disponible" ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ { modal } =
     ( "Accueil"
@@ -190,6 +260,8 @@ view _ { modal } =
                 [ viewHero modal ]
             , div [ class "pt-5" ]
                 [ viewInfo ]
+            , div [ class "bg-light pt-5" ]
+                [ viewTools ]
             ]
       ]
     )
