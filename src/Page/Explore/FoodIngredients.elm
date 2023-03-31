@@ -35,6 +35,15 @@ table _ { detailed, scope } =
     , { label = "Origine par défaut"
       , toCell = .defaultOrigin >> Origin.toLabel >> text
       }
+    , { label = "Origine animale"
+      , toCell =
+            \{ animalOrigin } ->
+                if animalOrigin then
+                    text "Oui"
+
+                else
+                    text "Non"
+      }
     , { label = "Rapport cru/cuit"
       , toCell =
             \{ rawToCookedRatio } ->

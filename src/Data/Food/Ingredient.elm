@@ -39,6 +39,7 @@ type alias Ingredient =
     , name : String
     , default : Process
     , defaultOrigin : Origin
+    , animalOrigin : Bool
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     , density : Density
@@ -110,11 +111,16 @@ decodeId =
         |> Decode.map idFromString
 
 
-defaultBonuses : Bonuses
-defaultBonuses =
+defaultBonuses : { a | animalOrigin : Bool } -> Bonuses
+defaultBonuses { animalOrigin } =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
-    , animalWelfare = Split.zero
+    , animalWelfare =
+        if animalOrigin then
+            Split.tenth
+
+        else
+            Split.zero
     }
 
 
@@ -133,11 +139,10 @@ encodeId (Id str) =
 
 
 getDefaultOrganicBonuses : Ingredient -> Bonuses
-getDefaultOrganicBonuses =
-    .variants
-        >> .organic
-        >> Maybe.map .defaultBonuses
-        >> Maybe.withDefault defaultBonuses
+getDefaultOrganicBonuses ingredient =
+    ingredient.variants.organic
+        |> Maybe.map .defaultBonuses
+        |> Maybe.withDefault (defaultBonuses ingredient)
 
 
 idFromString : String -> Id
@@ -176,6 +181,7 @@ decodeIngredient processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
+        |> Pipe.required "animal_origin" Decode.bool
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))

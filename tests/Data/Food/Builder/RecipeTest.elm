@@ -192,7 +192,7 @@ suite =
 
                                     Ok scoring ->
                                         Expect.equal scoring
-                                            { all = { impact = Unit.impact 204.55519410025477, letter = "B", outOf100 = 63 }
+                                            { all = { impact = Unit.impact 204.15827776065476, letter = "B", outOf100 = 63 }
                                             , biodiversity = { impact = Unit.impact 91.8398004515719, letter = "A", outOf100 = 81 }
                                             , category = "Gâteaux"
                                             , climate = { impact = Unit.impact 42.87549599985729, letter = "B", outOf100 = 63 }
@@ -225,14 +225,14 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -277,7 +277,7 @@ suite =
                     , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
-                    , bonuses = Ingredient.defaultBonuses
+                    , bonuses = Nothing
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -295,7 +295,7 @@ suite =
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Ingredient.defaultBonuses
+                          , bonuses = Nothing
                           }
                         ]
                   , transform = Nothing
