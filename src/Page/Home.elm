@@ -233,8 +233,10 @@ viewTools =
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
-                [ div
-                    [ class "card align-items-center text-decoration-none" ]
+                [ a
+                    [ class "card align-items-center text-decoration-none link-dark"
+                    , href "https://ecobalyse.beta.gouv.fr/#/api"
+                    ]
                     [ img
                         [ class "w-100"
                         , src "img/img_outil_api.png"
@@ -244,7 +246,7 @@ viewTools =
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "API ouverte" ]
                         , p [] [ text "Une interface de programmation applicative (API) permettra de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
-                        , em [ class "text-muted" ] [ text "Bientôt disponible" ]
+                        , div [ class "text-end fw-bold" ] [ text "→" ]
                         ]
                     ]
                 ]
