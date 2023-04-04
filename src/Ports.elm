@@ -2,6 +2,7 @@ port module Ports exposing
     ( appStarted
     , copyToClipboard
     , saveStore
+    , scrollIntoView
     , scrollTo
     , selectInputText
     , storeChanged
@@ -17,6 +18,9 @@ port saveStore : String -> Cmd msg
 
 
 port copyToClipboard : String -> Cmd msg
+
+
+port scrollIntoView : String -> Cmd msg
 
 
 port scrollTo : { x : Float, y : Float } -> Cmd msg
