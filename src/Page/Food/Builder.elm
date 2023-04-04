@@ -85,7 +85,7 @@ type Msg
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
-    | DeleteIngredient Query.IngredientQuery
+    | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Code
     | DeletePreparation Preparation.Id
     | LoadQuery Query
@@ -262,9 +262,9 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
-        DeleteIngredient ingredientQuery ->
+        DeleteIngredient id ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient ingredientQuery query)
+                |> updateQuery (Query.deleteIngredient id query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -662,7 +662,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
             [ type_ "button"
             , class "btn btn-sm btn-outline-primary IngredientDelete"
             , title "Supprimer "
-            , onClick <| DeleteIngredient ingredientQuery
+            , onClick <| DeleteIngredient ingredientQuery.id
             ]
             [ Icon.trash ]
         , if shouldRenderBonuses selectedImpact then

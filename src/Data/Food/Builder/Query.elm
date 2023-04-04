@@ -240,12 +240,11 @@ deletePreparation preparationId query =
     }
 
 
-deleteIngredient : IngredientQuery -> Query -> Query
-deleteIngredient ingredientQuery query =
+deleteIngredient : Ingredient.Id -> Query -> Query
+deleteIngredient id query =
     { query
         | ingredients =
-            query.ingredients
-                |> List.filter ((/=) ingredientQuery)
+            query.ingredients |> List.filter (.id >> (/=) id)
     }
         |> updateTransformMass
 
