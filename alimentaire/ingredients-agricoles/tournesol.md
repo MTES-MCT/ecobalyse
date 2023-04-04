@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), **le tournesol** est modélisée à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France                                             | Autres pays                                        |
-| --------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| Agriculture conventionnelle | Sunflower, at farm (WFLDB 3.1)/FR U                | Sunflower, at farm (WFLDB 3.1)/GLO U               |
-| Agriculture biologique      | Sunflower grain, organic, system n°3, at farm gate | Sunflower grain, organic, system n°3, at farm gate |
+| Label / Origine             | France                                             | Autres pays                                                  |
+| --------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
+| Agriculture conventionnelle | Sunflower, at farm (WFLDB 3.1)/FR U                | <p>A venir : </p><p>Sunflower, at farm (WFLDB 3.1)/GLO U</p> |
+| Agriculture biologique      | Sunflower grain, organic, system n°3, at farm gate | Sunflower grain, organic, system n°3, at farm gate           |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 

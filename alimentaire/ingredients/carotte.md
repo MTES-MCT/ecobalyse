@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), la carotte est modélisée à travers les procédés suivants :&#x20;
 
-| Label / Origine        | France                                               | Autres pays                                                                                                            |
-| ---------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | Carrot, conventional, national average, at farm gate | <p>Carrot, conventional, national average, at farm gate<br><strong>ou</strong><br>Carrot {RoW}| carrot production*</p> |
-| Agriculture biologique | Carrot, organic, Lower Normandy, at farm gate        | <p>Carrot, organic, Lower Normandy, at farm gate<br><strong>ou</strong><br>N/A</p>                                     |
+| Label / Origine        | France                                               | Autres pays                                                                                                                        |
+| ---------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | Carrot, conventional, national average, at farm gate | <p>Carrot, conventional, national average, at farm gate<br><strong>ou (à venir) :</strong><br>Carrot {RoW}| carrot production*</p> |
+| Agriculture biologique | Carrot, organic, Lower Normandy, at farm gate        | Carrot, organic, Lower Normandy, at farm gate                                                                                      |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 

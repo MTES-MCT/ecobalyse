@@ -38,10 +38,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                         | Autres pays                                                                                                                                    |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>HuileTournesolFR</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower, at farm (WFLDB 3.1)/FR U</p>                 | <p><strong>HuileTournesolREF</strong><br>Sunflower oil, at oil mill (WFLDB 3.1)<br>Tournesol : Sunflower, at farm (WFLDB 3.1)/GLO U</p>        |
-| Agriculture biologique | <p><strong>HuileTournesolBio</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower grain, organic, system n°3, at farm gate</p> | <p><strong>HuileTournesolBio</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower grain, organic, system n°3, at farm gate</p> |
+| Label / Origine        | France                                                                                                                                         | Autres pays                                                                                                                                              |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>HuileTournesolFR</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower, at farm (WFLDB 3.1)/FR U</p>                 | <p>A venir : </p><p><strong>HuileTournesolREF</strong><br>Sunflower oil, at oil mill (WFLDB 3.1)<br>Tournesol : Sunflower, at farm (WFLDB 3.1)/GLO U</p> |
+| Agriculture biologique | <p><strong>HuileTournesolBio</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower grain, organic, system n°3, at farm gate</p> | <p><strong>HuileTournesolBio</strong><br>Procédé construit (cf. formule)<br>Tournesol : Sunflower grain, organic, system n°3, at farm gate</p>           |
 
 {% hint style="info" %}
 Le blé bio considéré dans un premier temps pour le calcul de la farine bio est celui dont le taux d'humidité correspond au taux d'humidité du blé panifiable (principal usage du blé tendre)
