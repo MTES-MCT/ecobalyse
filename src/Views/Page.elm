@@ -161,7 +161,7 @@ navbar : Config msg -> Html msg
 navbar { activePage, openMobileNavigation } =
     nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
         [ Container.centered []
-            [ a [ class "navbar-brand", Route.href Route.Home ]
+            [ a [ class "navbar-brand d-flex align-items-center", Route.href Route.Home ]
                 [ img
                     [ class "d-inline-block align-text-bottom invert me-2"
                     , alt ""

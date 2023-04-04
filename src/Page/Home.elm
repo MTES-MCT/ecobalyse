@@ -192,7 +192,7 @@ viewTools =
         , div [ class "row d-flex mb-5" ]
             [ div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ div
-                    [ class "card align-items-center text-decoration-none"
+                    [ class "card align-items-center text-decoration-none h-100"
                     , attribute "role" "button"
                     , onClick <| OpenCalculatorPickerModal
                     ]
@@ -211,7 +211,7 @@ viewTools =
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ a
-                    [ class "card align-items-center text-decoration-none link-dark"
+                    [ class "card align-items-center text-decoration-none link-dark h-100"
                     , href Env.gitbookUrl
                     ]
                     [ img
@@ -232,7 +232,7 @@ viewTools =
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ a
-                    [ class "card align-items-center text-decoration-none link-dark"
+                    [ class "card align-items-center text-decoration-none link-dark h-100"
                     , href "https://ecobalyse.beta.gouv.fr/#/api"
                     ]
                     [ img
