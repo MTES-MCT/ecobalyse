@@ -59,12 +59,12 @@ type alias Config msg =
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame config ( title, content ) =
+frame ({ activePage } as config) ( title, content ) =
     { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
-        , navbar config
+        , pageHeader config
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
@@ -79,7 +79,14 @@ frame config ( title, content ) =
                     ]
                 ]
             , notificationListView config
-            , div [ class "pt-2 pt-sm-5" ] content
+            , div
+                [ if activePage == Home then
+                    class ""
+
+                  else
+                    class "pt-2 pt-sm-5"
+                ]
+                content
             ]
         , pageFooter config.session
         ]
@@ -157,35 +164,58 @@ footerMenuLinks =
     ]
 
 
+pageHeader : Config msg -> Html msg
+pageHeader config =
+    header
+        [ class "shadow-sm"
+        , attribute "role" "banner"
+        ]
+        [ Container.centered []
+            [ div [ class "pt-4 pb-2 ps-3" ]
+                [ a
+                    [ href "/"
+                    , title "Écobalyse"
+                    , class "header-logo text-decoration-none d-flex align-items-center gap-5"
+                    ]
+                    [ p [ class "fr-logo" ]
+                        [ text "République"
+                        , br [] []
+                        , text "Française"
+                        ]
+                    , h1 [ class "fs-3 fw-bolder" ]
+                        [ text "Ecobalyse" ]
+                    ]
+                ]
+            ]
+        , div [ class "border-top" ]
+            [ div [ class "container" ]
+                [ navbar config
+                ]
+            ]
+        ]
+
+
 navbar : Config msg -> Html msg
 navbar { activePage, openMobileNavigation } =
-    nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
-        [ Container.centered []
-            [ a [ class "navbar-brand d-flex align-items-center", Route.href Route.Home ]
-                [ img
-                    [ class "d-inline-block align-text-bottom invert me-2"
-                    , alt ""
-                    , src "img/logo.svg"
-                    , height 26
-                    ]
-                    []
-                , span [ class "fs-3" ] [ text "Ecobalyse" ]
+    nav
+        [ class "fr-nav"
+        , attribute "role" "navigation"
+        , attribute "aria-label" "Menu principal"
+        ]
+        [ headerMenuLinks
+            |> List.map (viewNavigationLink activePage)
+            |> div
+                [ class "d-none d-sm-flex MainMenu navbar-nav flex-row fs-7"
+                , style "overflow" "auto"
                 ]
-            , headerMenuLinks
-                |> List.map (viewNavigationLink activePage)
-                |> div
-                    [ class "d-none d-sm-flex MainMenu navbar-nav justify-content-between flex-row"
-                    , style "overflow" "auto"
-                    ]
-            , button
-                [ type_ "button"
-                , class "d-inline-block d-sm-none btn btn-dark m-0 p-0"
-                , attribute "aria-label" "Ouvrir la navigation"
-                , title "Ouvrir la navigation"
-                , onClick openMobileNavigation
-                ]
-                [ Icon.verticalDots ]
+        , button
+            [ type_ "button"
+            , class "d-inline-block d-sm-none btn btn-dark m-0 p-0"
+            , attribute "aria-label" "Ouvrir la navigation"
+            , title "Ouvrir la navigation"
+            , onClick openMobileNavigation
             ]
+            [ Icon.verticalDots ]
         ]
 
 
