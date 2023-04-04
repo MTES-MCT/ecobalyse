@@ -40,7 +40,7 @@ $score-letter-E: #e63f12;
   font-style: normal;
 }
 $font-family-sans-serif: Marianne, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
- 
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -1041,7 +1041,7 @@ blockquote {
     border-top-right-radius: $border-radius;
   }
 }
-  
+
 
 // Specifics for the comparator modal, when displaying the "total" impacts, we want the stroke to be black instead of white by default.
 .total-impacts rect.highcharts-point {

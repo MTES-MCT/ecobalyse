@@ -37,8 +37,8 @@ type Msg
 
 
 type Modal
-    = NoModal
-    | CalculatorPickerModal
+    = CalculatorPickerModal
+    | NoModal
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -67,7 +67,7 @@ update session msg model =
 
 viewHero : Modal -> Html Msg
 viewHero modal =
-    Container.centered [ class "pb-5" ]
+    Container.centered [ class "pt-4 pb-5" ]
         [ h2 [ class "display-5" ]
             [ text "Calculez l'impact écologique de vos produits"
             ]
@@ -170,11 +170,15 @@ viewInfo =
             []
         , div []
             [ h3 [] [ text "Un eco-score pour informer les consommateurs" ]
-            , Html.cite [ class "d-inline-block fw-bold mx-5 mt-5" ] [ text "« 74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent. »" ]
-            , caption [ class "w-100 fs-7 text-muted mx-5 mb-5" ] [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
-            , h3 [] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
+            , blockquote [ class "d-inline-block fw-bold mx-5 my-4" ]
+                [ p [ class "mb-0" ]
+                    [ text "« 74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent. »" ]
+                , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
+                    [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
+                ]
+            , h3 [ class "my-3" ] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
             , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
-            , h3 [] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
+            , h3 [ class "my-3" ] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
             , p [] [ text "Les méthodologies de calcul doivent être définies d’ici fin 2023 pour les produits alimentaires et textiles. Les travaux pour aider à définir une méthodologie de calcul réglementaire sont en cours." ]
             , p [] [ text "Nous publions les mises à jour et le calendrier pour les secteurs Textile et Alimentaire. D’autres secteurs suivront dans les années à venir." ]
             ]
@@ -184,7 +188,7 @@ viewInfo =
 viewTools : Html Msg
 viewTools =
     Container.centered []
-        [ h4 [ class "fw-normal mb-5" ]
+        [ h4 [ class "fw-normal mb-5 lh-base" ]
             [ text "Afin d’amorcer la transition vers un modèle de production plus durable"
             , br [] []
             , strong [] [ text "Écobalyse met à la disposition des entreprises : " ]
@@ -192,7 +196,7 @@ viewTools =
         , div [ class "row d-flex mb-5" ]
             [ div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ div
-                    [ class "card align-items-center text-decoration-none h-100"
+                    [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
                     , onClick <| OpenCalculatorPickerModal
                     ]
@@ -205,13 +209,13 @@ viewTools =
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
                         , text "Un calculateur gratuit qui permet d’obtenir les impacts d’un produit sur la base de critères simples et accessibles aux marques."
-                        , div [ class "text-end fw-bold" ] [ text "→" ]
                         ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ a
-                    [ class "card align-items-center text-decoration-none link-dark h-100"
+                    [ class "card d-flex flex-warp align-content-between text-decoration-none link-dark h-100"
                     , href Env.gitbookUrl
                     ]
                     [ img
@@ -223,16 +227,16 @@ viewTools =
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "Support de travail sur la méthode" ]
                         , p [] [ text "Les orientations présentées participent à la construction de la future méthodologie réglementaire." ]
-                        , p []
+                        , div []
                             [ em [] [ text "Écobalyse, c’est aussi un mode de collaboration ouvert à la critique et aux suggestions, en vue d’aider à élaborer la future méthode réglementaire française (contribuez!)" ]
                             ]
-                        , div [ class "text-end fw-bold" ] [ text "→" ]
                         ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
                 [ a
-                    [ class "card align-items-center text-decoration-none link-dark h-100"
+                    [ class "card d-flex flex-warp align-content-between text-decoration-none link-dark h-100"
                     , href "https://ecobalyse.beta.gouv.fr/#/api"
                     ]
                     [ img
@@ -243,9 +247,9 @@ viewTools =
                         []
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "API ouverte" ]
-                        , p [] [ text "Une interface de programmation applicative (API) permet de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
-                        , div [ class "text-end fw-bold" ] [ text "→" ]
+                        , div [] [ text "Une interface de programmation applicative (API) permet de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
                         ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             ]
@@ -271,7 +275,7 @@ viewContribution =
             , div [ class "col-sm-8 bg-light mt-5 mb-5 p-5" ]
                 [ h5 [ class "fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
                 , p [] [ text "La définition de la méthode de calcul et la mise en œuvre de l’éco-score nécessitent un travail collectif au long cours en relation avec les acteurs de chaque filière." ]
-                , p [] [ text "Vous êtes une marque, un producteur, un bureau d’étude ou un distributeur :" ]
+                , p [] [ text "Vous êtes une marque, un producteur, un bureau d’étude ou un distributeur\u{00A0}:" ]
                 , ul [ class "mb-5" ]
                     [ li [] [ text "Partagez les données d’impact de votre production," ]
                     , li [] [ text "Suggérez une amélioration de la méthodologie ou du calculateur," ]
