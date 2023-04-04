@@ -8,13 +8,17 @@ description: >-
 
 ## :e-mail: par mail
 
-Pour toute question/remarque spécifique au secteur Textile => alban.fournier@beta.gouv.fr
+Pour toute question/remarque :&#x20;
 
-Pour toute question/remarque plus générale => ecobalyse@beta.gouv.fr
+:shirt: Textile => alban.fournier@beta.gouv.fr
+
+:cheese: Alimentaire => lisa.chenerie@developpement-durable.gouv.fr
+
+:question: Autre => ecobalyse@beta.gouv.fr
 
 
 
-## :bulb: aller plus loin &#x20;
+## :bulb: aller plus loin  sur le Textile
 
 \
 N'hésitez pas à nous partager :&#x20;
