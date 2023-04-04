@@ -31,6 +31,16 @@ $score-letter-C: #ffcc01;
 $score-letter-D: #f08000;
 $score-letter-E: #e63f12;
 
+// Fonts
+@font-face {
+  font-family: Marianne;
+  src: url("./public/fonts/Marianne-Regular.woff") format('woff2'),
+       url("./public/fonts/Marianne-Regular.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+$font-family-sans-serif: Marianne, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+ 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
