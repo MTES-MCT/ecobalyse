@@ -69,12 +69,10 @@ viewHero : Modal -> Html Msg
 viewHero modal =
     Container.centered [ class "pb-5" ]
         [ h2 [ class "display-5" ]
-            [ text "Entreprises"
-            , br [] []
-            , text "Calculez l'impact écologique de vos produits"
+            [ text "Calculez l'impact écologique de vos produits"
             ]
         , div [ class "fs-4 text-muted mt-4 mb-5" ]
-            [ text "Écobalyse permet aux marques de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
+            [ text "Écobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
         , div [ class "row mb-4" ]
             [ div [ class "col-md-6 text-center text-md-end py-2" ]
                 [ button
@@ -178,7 +176,7 @@ viewInfo =
             , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
             , h3 [] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
             , p [] [ text "Les méthodologies de calcul doivent être définies d’ici fin 2023 pour les produits alimentaires et textiles. Les travaux pour aider à définir une méthodologie de calcul réglementaire sont en cours." ]
-            , p [] [ text "Nous publions les mises à jour et le calendrier pour les secteurs Textile et Alimentaire.\u{2028}D’autres secteurs suivront dans les années à venir." ]
+            , p [] [ text "Nous publions les mises à jour et le calendrier pour les secteurs Textile et Alimentaire. D’autres secteurs suivront dans les années à venir." ]
             ]
         ]
 
@@ -224,7 +222,7 @@ viewTools =
                         []
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "Support de travail sur la méthode" ]
-                        , p [] [ text "Les orientations présentées pourront aider à construire la future méthodologie réglementaire." ]
+                        , p [] [ text "Les orientations présentées participent à la construction de la future méthodologie réglementaire." ]
                         , p []
                             [ em [] [ text "Écobalyse, c’est aussi un mode de collaboration ouvert à la critique et aux suggestions, en vue d’aider à élaborer la future méthode réglementaire française (contribuez!)" ]
                             ]
@@ -245,7 +243,7 @@ viewTools =
                         []
                     , div [ class "card-body" ]
                         [ h5 [ class "fw-bold" ] [ text "API ouverte" ]
-                        , p [] [ text "Une interface de programmation applicative (API) permettra de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
+                        , p [] [ text "Une interface de programmation applicative (API) permet de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
                         , div [ class "text-end fw-bold" ] [ text "→" ]
                         ]
                     ]
