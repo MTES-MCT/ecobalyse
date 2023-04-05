@@ -29,7 +29,7 @@ suite =
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
                     |> Impact.computeAggregatedScore .pefData textileDb.impacts
-                    |> expectScoreEquals 26.014356070572276
+                    |> expectScoreEquals 27.88266508497196
                     |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
@@ -82,11 +82,11 @@ suite =
               describe "updateAggregatedScores"
                 [ impacts
                     |> Impact.getImpact (Impact.trg "ecs")
-                    |> expectScoreEquals 12908.361806050347
+                    |> expectScoreEquals 12910.230115064745
                     |> asTest "should update EcoScore"
                 , impacts
                     |> Impact.getImpact (Impact.trg "pef")
-                    |> expectScoreEquals 17451.41187295143
+                    |> expectScoreEquals 17453.28018196583
                     |> asTest "should update PEF score"
                 ]
             , describe "getAggregatedScoreOutOf100"
