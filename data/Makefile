@@ -41,14 +41,14 @@ user_shell:
 	else $(DOCKERRUN) -u jovyan -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
 notebook:
-	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative; \
-	docker logs -f $(NAME)
+	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative
+	echo ### Run: make notebook_link to retrieve the link with the connection token
 
 make notebook_link:
 	docker logs $(NAME) | grep 8888 | grep 127.0.0.1 | sort | uniq
 
-kill_notebook:
-	docker kill $(NAME)
+stop_notebook:
+	docker stop $(NAME)
 
 
 clean_data:
