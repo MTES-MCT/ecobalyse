@@ -10,11 +10,11 @@ description: >-
 
 Pour toute question/remarque :&#x20;
 
-:shirt: Textile => alban.fournier@beta.gouv.fr
+:shirt: Textile => Alban Fournier <[alban.fournier@beta.gouv.fr](mailto:alban.fournier@beta.gouv.fr)>
 
-:cheese: Alimentaire => lisa.chenerie@developpement-durable.gouv.fr
+:cheese: Alimentaire => Lisa Chênerie <[lisa.chenerie@developpement-durable.gouv.fr](mailto:lisa.chenerie@developpement-durable.gouv.fr)>
 
-:question: Autre => ecobalyse@beta.gouv.fr
+:question: Autre => [ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr)
 
 
 
