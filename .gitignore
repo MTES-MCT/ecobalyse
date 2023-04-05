@@ -1,4 +1,6 @@
 /.env
+/venv
+/data/venv*
 /dist
 /elm-stuff
 /tests/elm-stuff
@@ -16,6 +18,7 @@
 /xls
 /public/version.json
 /.parcel-cache/
+/.cache
 
 .vscode
 *.pyc
