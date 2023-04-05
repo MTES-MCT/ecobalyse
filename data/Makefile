@@ -22,23 +22,17 @@ corrected_impacts:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 update_impacts_311.py
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 compute_corrected_impacts.py
 
-root_shell:
-	echo Starting a root shell inside the container...
-	@if [ "$(RUNNING)" = "true" ]; then \
-		$(DOCKEREXEC) $(NAME) bash;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
-
 python:
 	echo Running Python inside the container...
 	@if [ "$(RUNNING)" = "true" ]; then \
-		$(DOCKEREXEC) -u jovyan $(NAME) python;\
-	else $(DOCKERRUN) -u jovyan -w /home/jovyan/ecobalyse/data $(NAME) python; fi
+		$(DOCKEREXEC) $(NAME) python;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python; fi
 
-user_shell:
+shell:
 	echo starting a user shell inside the container...
 	@if [ "$(RUNNING)" = "true" ]; then \
-		$(DOCKEREXEC) -u jovyan $(NAME) bash;\
-	else $(DOCKERRUN) -u jovyan -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
+		$(DOCKEREXEC) $(NAME) bash;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
 notebook:
 	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative
