@@ -34,14 +34,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                        | Autres pays                                                                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> |
-| Agriculture biologique | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : Soft wheat grain, organic, 15% moisture, Central Region, at farm gate</p>           | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : Soft wheat grain, organic, 15% moisture, Central Region, at farm gate</p>           |
-
-{% hint style="info" %}
-Le blé bio considéré dans un premier temps pour le calcul de la farine bio est celui dont le taux d'humidité correspond au taux d'humidité du blé panifiable (principal usage du blé tendre)
-{% endhint %}
+| Label / Origine        | France                                                                                                                                                            | Autres pays                                                                                                                                                       |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p>     | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p>     |
+| Agriculture biologique | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="../ingredients/ble-tendre.md">blé tendre bio</a></p> | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="../ingredients/ble-tendre.md">blé tendre bio</a></p> |
 
 ## Identification de l'origine par défaut
 
@@ -52,5 +48,5 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Farine => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer) ****&#x20;
+**Farine => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer)&#x20;
 

@@ -38,10 +38,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                                                   | Autres pays                                                                                                                                                                             |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>BoeufHacheREF</strong><br><strong></strong>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                                              | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             |
+| Label / Origine        | France                                                                                                                                                                                  | Autres pays                                                                                                                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> |
+| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             |
 
 \*Le procédé boeuf bio mobilisé (1kg de **Cull cow, organic, national average, at farm gate/FR U)** a été construit à partir des procédés bio suivants :&#x20;
 
@@ -57,8 +57,6 @@ $$
 | Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U | 0,088 kg                           |
 | Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U | 0,088 kg                           |
 
-(source : Karbon-Weloop)
-
 ## Identification de l'origine par défaut
 
 Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
@@ -68,4 +66,4 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Viande bovine => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgrimer) ****&#x20;
+**Viande bovine => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgrimer)&#x20;

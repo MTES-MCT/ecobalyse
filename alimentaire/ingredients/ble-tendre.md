@@ -34,8 +34,6 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 | Winter wheat, organic, system n°8, at farm gate/FR U  | 0,036 kg                           |
 | Winter wheat, organic, system n°9, at farm gate/FR U  | 0,095 kg                           |
 
-(source : Karbon-Weloop)
-
 ## Mix de consommation
 
 La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie sur le blé tendre conventionnel France.
@@ -53,4 +51,4 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Blé tendre => catégorie 1 : FRANCE** (source : FranceAgriMer, chiffres et bilans campagne 21/22) ****&#x20;
+**Blé tendre => catégorie 1 : FRANCE** (source : FranceAgriMer, chiffres et bilans campagne 21/22)&#x20;

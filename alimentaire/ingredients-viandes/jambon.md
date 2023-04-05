@@ -36,10 +36,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                    | Autres pays                                                                                                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>JambonREF</strong><br><strong></strong>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> | <p><strong>JambonREF</strong><br><strong></strong>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : Pig, organic, system n°2, at farm gate</p>                                                     | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : Pig, organic, system n°2, at farm gate</p>                                                     |
+| Label / Origine        | France                                                                                                                                                   | Autres pays                                                                                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>JambonREF</strong><br>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> | <p><strong>JambonREF</strong><br>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> |
+| Agriculture biologique | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : Pig, organic, system n°2, at farm gate</p>                                    | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : Pig, organic, system n°2, at farm gate</p>                                    |
 
 {% hint style="info" %}
 Le porc bio considéré dans un premier temps pour le calcul du jambon bio est celui dont l'impact est proche de l'impact moyen des procédés porc bio ci-dessous
@@ -54,6 +54,4 @@ Pig, organic, system n°2, at farm gate
 Pig, organic, system n°3, at farm gate
 
 Pig, organic, system n°4, at farm gate
-
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 

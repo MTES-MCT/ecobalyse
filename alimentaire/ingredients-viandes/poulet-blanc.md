@@ -36,10 +36,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                             | Autres pays                                                                                                                                                        |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Conventionnelle        | <p><strong>BlancPouletREF</strong><br><strong></strong>Meat without bone, chicken, for direct consumption/FR U<br>Poulet : Broiler, conventional, at farm gate</p> | <p><strong>BlancPouletREF</strong><br><strong></strong>Meat without bone, chicken, for direct consumption/FR U<br>Poulet : Broiler, conventional, at farm gate</p> |
-| Agriculture biologique | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                                               | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                                               |
+| Label / Origine        | France                                                                                                                                            | Autres pays                                                                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>BlancPouletREF</strong><br>Meat without bone, chicken, for direct consumption/FR U<br>Poulet : Broiler, conventional, at farm gate</p> | <p><strong>BlancPouletREF</strong><br>Meat without bone, chicken, for direct consumption/FR U<br>Poulet : Broiler, conventional, at farm gate</p> |
+| Agriculture biologique | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                              | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                              |
 
 {% hint style="info" %}
 Le poulet bio considéré dans un premier temps pour le calcul du blanc de poulet bio est celui qui n'est pas assignés à un système de production particulier.
@@ -52,6 +52,4 @@ Broiler, organic, at farm gate
 Broiler, organic, system n°1, at farm gate
 
 Broiler, organic, system n°2, at farm gate
-
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 

@@ -21,8 +21,6 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 | Cow milk, organic, system n°4, at farm gate/FR U | 0,2 kg                             |
 | Cow milk, organic, system n°5, at farm gate/FR U | 0,2 kg                             |
 
-(Source : Karbon/Weloop)
-
 {% hint style="danger" %}
 Des étapes de traitement "at farm" qui seraient peut être à intégrer.
 {% endhint %}
@@ -52,5 +50,5 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Lait => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer - à confirmer) ****&#x20;
+**Lait => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer - à confirmer)&#x20;
 
