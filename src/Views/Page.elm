@@ -59,32 +59,34 @@ type alias Config msg =
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame config ( title, content ) =
+frame ({ activePage } as config) ( title, content ) =
     { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
-        , navbar config
+        , pageHeader config
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
           else
             text ""
         , main_ [ class "bg-white" ]
-            [ if config.activePage == FoodBuilder || config.activePage == FoodExplore then
-                div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0" ]
-                    [ Container.centered []
-                        [ h2 [ class "d-flex align-items-center gap-1 h5" ] [ Icon.warning, text "Version Alpha" ]
-                        , text """Ce calculateur d’impacts environnementaux alimentaire est en
-                                  cours de développement\u{00A0}: les fonctionnalités, données
-                                  et valeurs calculées ne sont pas encore fiables."""
-                        ]
+            [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
+                [ Container.centered [ class "d-flex align-items-center gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.info ]
+                    , text """Attention : l’outil est aujourd’hui en phase de construction.
+                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
                     ]
-
-              else
-                text ""
+                ]
             , notificationListView config
-            , div [ class "pt-2 pt-sm-5" ] content
+            , div
+                [ if activePage == Home then
+                    class ""
+
+                  else
+                    class "pt-2 pt-sm-5"
+                ]
+                content
             ]
         , pageFooter config.session
         ]
@@ -132,7 +134,8 @@ newVersionAlert { session, reloadPage } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
@@ -146,13 +149,13 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl
@@ -161,35 +164,57 @@ footerMenuLinks =
     ]
 
 
-navbar : Config msg -> Html msg
-navbar { activePage, openMobileNavigation } =
-    nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
-        [ Container.centered []
-            [ a [ class "navbar-brand", Route.href Route.Home ]
-                [ img
-                    [ class "d-inline-block align-text-bottom invert me-2"
-                    , alt ""
-                    , src "img/logo.svg"
-                    , height 26
-                    ]
-                    []
-                , span [ class "fs-3" ] [ text "Ecobalyse" ]
-                ]
-            , headerMenuLinks
-                |> List.map (viewNavigationLink activePage)
-                |> div
-                    [ class "d-none d-sm-flex MainMenu navbar-nav justify-content-between flex-row"
-                    , style "overflow" "auto"
-                    ]
-            , button
+pageHeader : Config msg -> Html msg
+pageHeader config =
+    header
+        [ class "shadow-sm"
+        , attribute "role" "banner"
+        ]
+        [ div [ class "MobileMenuButton" ]
+            [ button
                 [ type_ "button"
-                , class "d-inline-block d-sm-none btn btn-dark m-0 p-0"
+                , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick openMobileNavigation
+                , onClick config.openMobileNavigation
                 ]
-                [ Icon.verticalDots ]
+                [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
+        , Container.centered []
+            [ div [ class "pt-4 pb-2 ps-3" ]
+                [ a
+                    [ href "/"
+                    , title "Écobalyse"
+                    , class "header-logo text-decoration-none d-flex align-items-center gap-5"
+                    ]
+                    [ p [ class "fr-logo" ]
+                        [ text "République"
+                        , br [] []
+                        , text "Française"
+                        ]
+                    , h1 [ class "fs-3 fw-bolder" ]
+                        [ text "Ecobalyse" ]
+                    ]
+                ]
+            ]
+        , div [ class "border-top" ]
+            [ div [ class "container" ]
+                [ navbar config
+                ]
+            ]
+        ]
+
+
+navbar : Config msg -> Html msg
+navbar { activePage } =
+    nav
+        [ class "fr-nav text-end text-sm-start"
+        , attribute "role" "navigation"
+        , attribute "aria-label" "Menu principal"
+        ]
+        [ headerMenuLinks
+            |> List.map (viewNavigationLink activePage)
+            |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto" ]
         ]
 
 

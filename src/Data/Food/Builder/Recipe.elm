@@ -723,8 +723,12 @@ ingredientListFromQuery db =
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { countries, ingredients } { id, mass, variant, country, planeTransport, bonuses } =
+    let
+        ingredientResult =
+            Ingredient.findByID id ingredients
+    in
     Ok RecipeIngredient
-        |> RE.andMap (Ingredient.findByID id ingredients)
+        |> RE.andMap ingredientResult
         |> RE.andMap (Ok mass)
         |> RE.andMap (Ok variant)
         |> RE.andMap
@@ -739,10 +743,14 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, pla
                     Ok Nothing
             )
         |> RE.andMap
-            (Ingredient.findByID id ingredients
+            (ingredientResult
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
             )
-        |> RE.andMap (Ok bonuses)
+        |> RE.andMap
+            (bonuses
+                |> Maybe.withDefault (BuilderQuery.updateBonusesFromVariant ingredients id variant)
+                |> Ok
+            )
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -752,7 +760,7 @@ ingredientQueryFromIngredient ingredient =
     , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
-    , bonuses = Ingredient.defaultBonuses
+    , bonuses = Nothing
     }
 
 

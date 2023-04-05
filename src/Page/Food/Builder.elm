@@ -85,7 +85,7 @@ type Msg
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
-    | DeleteIngredient Query.IngredientQuery
+    | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Code
     | DeletePreparation Preparation.Id
     | LoadQuery Query
@@ -262,9 +262,9 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
-        DeleteIngredient ingredientQuery ->
+        DeleteIngredient id ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient ingredientQuery query)
+                |> updateQuery (Query.deleteIngredient id query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -518,7 +518,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
 type alias UpdateIngredientConfig =
     { excluded : List Id
     , db : Db
-    , ingredient : Recipe.RecipeIngredient
+    , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
@@ -526,28 +526,25 @@ type alias UpdateIngredientConfig =
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, transportImpact } =
+updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpact, transportImpact } =
     let
-        { bonuses } =
-            ingredient
-
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
-            { id = ingredient.ingredient.id
-            , mass = ingredient.mass
-            , variant = ingredient.variant
-            , country = ingredient.country |> Maybe.map .code
-            , planeTransport = ingredient.planeTransport
-            , bonuses = bonuses
+            { id = recipeIngredient.ingredient.id
+            , mass = recipeIngredient.mass
+            , variant = recipeIngredient.variant
+            , country = recipeIngredient.country |> Maybe.map .code
+            , planeTransport = recipeIngredient.planeTransport
+            , bonuses = Just recipeIngredient.bonuses
             }
 
         event =
-            UpdateIngredient ingredient.ingredient.id
+            UpdateIngredient recipeIngredient.ingredient.id
     in
     li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
-                { mass = ingredient.mass
+                { mass = recipeIngredient.mass
                 , onChange =
                     \maybeMass ->
                         case maybeMass of
@@ -562,7 +559,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
         , db.ingredients
             |> List.sortBy .name
             |> ingredientSelectorView
-                ingredient.ingredient.id
+                recipeIngredient.ingredient.id
                 excluded
                 (\newIngredient ->
                     let
@@ -588,6 +585,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                             , bonuses =
                                 newVariant
                                     |> Query.updateBonusesFromVariant db.ingredients newIngredient.id
+                                    |> Just
                         }
                 )
         , db.countries
@@ -606,7 +604,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     [ value ""
                     , selected (ingredientQuery.country == Nothing)
                     ]
-                    [ text <| "Par défaut (" ++ Origin.toLabel ingredient.ingredient.defaultOrigin ++ ")" ]
+                    [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
                 )
             |> select
                 [ class "form-select form-select-sm CountrySelector"
@@ -625,30 +623,31 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                 ]
         , label
             [ class "BioCheckbox"
-            , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
+            , classList [ ( "text-muted", recipeIngredient.ingredient.variants.organic == Nothing ) ]
             ]
             [ input
                 [ type_ "checkbox"
                 , class "form-check-input no-outline"
                 , attribute "role" "switch"
-                , checked <| ingredient.variant == Query.Organic
-                , disabled <| ingredient.ingredient.variants.organic == Nothing
+                , checked <| recipeIngredient.variant == Query.Organic
+                , disabled <| recipeIngredient.ingredient.variants.organic == Nothing
                 , onCheck
                     (\checked ->
+                        let
+                            variant =
+                                if checked then
+                                    Query.Organic
+
+                                else
+                                    Query.DefaultVariant
+                        in
                         event
                             { ingredientQuery
-                                | variant =
-                                    if checked then
-                                        Query.Organic
-
-                                    else
-                                        Query.DefaultVariant
+                                | variant = variant
                                 , bonuses =
-                                    if checked then
-                                        Ingredient.getDefaultOrganicBonuses ingredient.ingredient
-
-                                    else
-                                        Ingredient.defaultBonuses
+                                    variant
+                                        |> Query.updateBonusesFromVariant db.ingredients recipeIngredient.ingredient.id
+                                        |> Just
                             }
                     )
                 ]
@@ -663,11 +662,14 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
             [ type_ "button"
             , class "btn btn-sm btn-outline-primary IngredientDelete"
             , title "Supprimer "
-            , onClick <| DeleteIngredient ingredientQuery
+            , onClick <| DeleteIngredient ingredientQuery.id
             ]
             [ Icon.trash ]
         , if shouldRenderBonuses selectedImpact then
             let
+                { bonuses, ingredient } =
+                    recipeIngredient
+
                 bonusImpacts =
                     impact
                         |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
@@ -680,10 +682,11 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "agroDiversity"
                     , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
+                    , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | agroDiversity = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | agroDiversity = split } }
                     }
                 , ingredientBonusView
                     { name = "Infra. agro-éco."
@@ -691,10 +694,11 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "agroEcology"
                     , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
+                    , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | agroEcology = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | agroEcology = split } }
                     }
                 , ingredientBonusView
                     { name = "Cond. d'élevage"
@@ -702,16 +706,17 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
                     , domId = "animalWelfare"
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
+                    , disabled = not ingredient.animalOrigin
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = { bonuses | animalWelfare = split } }
+                            event { ingredientQuery | bonuses = Just { bonuses | animalWelfare = split } }
                     }
                 ]
 
           else
             text ""
-        , displayTransportDistances db ingredient ingredientQuery event
+        , displayTransportDistances db recipeIngredient ingredientQuery event
         , span
             [ class "text-muted text-end IngredientTransportImpact fs-7"
             , title "Impact du transport pour cet ingrédient"
@@ -725,6 +730,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, selectedImpact, tra
 type alias BonusViewConfig msg =
     { bonusImpact : Unit.Impact
     , bonusSplit : Split
+    , disabled : Bool
     , domId : String
     , name : String
     , selectedImpact : Impact.Definition
@@ -734,7 +740,7 @@ type alias BonusViewConfig msg =
 
 
 ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, title, updateEvent } =
+ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedImpact, title, updateEvent } =
     div
         [ class "IngredientBonus"
         , title |> Maybe.withDefault name |> Attr.title
@@ -748,6 +754,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, domId, selectedImpact, titl
             [ type_ "range"
             , id domId
             , class "BonusRange form-range"
+            , Attr.disabled disabled
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
@@ -920,7 +927,7 @@ ingredientListView db selectedImpact recipe results =
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
-                            , ingredient = ingredient
+                            , recipeIngredient = ingredient
                             , impact =
                                 results.recipe.ingredients
                                     |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)

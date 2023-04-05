@@ -96,6 +96,11 @@ globe =
     icon "globe"
 
 
+ham : Html msg
+ham =
+    icon "ham"
+
+
 hammer : Html msg
 hammer =
     icon "hammer"

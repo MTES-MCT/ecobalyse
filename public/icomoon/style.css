@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?adximy');
-  src:  url('fonts/icomoon.eot?adximy#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?adximy') format('truetype'),
-    url('fonts/icomoon.woff?adximy') format('woff'),
-    url('fonts/icomoon.svg?adximy#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?40ohp9');
+  src:  url('fonts/icomoon.eot?40ohp9#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?40ohp9') format('truetype'),
+    url('fonts/icomoon.woff?40ohp9') format('woff'),
+    url('fonts/icomoon.svg?40ohp9#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ham:before {
+  content: "\e918";
+}
+.icon-external:before {
+  content: "\e908";
+}
+.icon-zoomin:before {
+  content: "\e906";
+}
+.icon-zoomout:before {
+  content: "\e907";
+}
+.icon-atom:before {
+  content: "\e903";
+}
+.icon-rail:before {
+  content: "\e916";
+}
+.icon-build:before {
+  content: "\e909";
+}
+.icon-day:before {
+  content: "\e90d";
+}
 .icon-snow:before {
   content: "\e917";
 }
@@ -154,26 +178,8 @@
 .icon-changelog:before {
   content: "\e90c";
 }
-.icon-external:before {
-  content: "\e908";
-}
-.icon-zoomin:before {
-  content: "\e906";
-}
-.icon-zoomout:before {
-  content: "\e907";
-}
 .icon-atom:before {
   content: "\e903";
-}
-.icon-rail:before {
-  content: "\e916";
-}
-.icon-build:before {
-  content: "\e909";
-}
-.icon-day:before {
-  content: "\e90d";
 }
 .icon-dots-vertical:before {
   content: "\e913";

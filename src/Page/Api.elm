@@ -235,7 +235,7 @@ view session _ =
                             ]
                         }
                     , p [ class "fw-bold" ]
-                        [ text "L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles." ]
+                        [ text "L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires." ]
                     , p []
                         [ text "Elle est accessible à l'adresse "
                         , code [] [ text (getApiServerUrl session) ]
