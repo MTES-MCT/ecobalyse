@@ -15,15 +15,18 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 ## Autres commandes :
 
 * `make image` : pour construire l'image docker choisie
-* `make import_agribalyse` : pour importer la base dans Brightway. Assurez-vous d'avoir le fichier `agribalyse3_no_param.CSV.zip` dans le dossier `food/import_agb/`
+* `make imports` : pour importer Agribalyse et Ecoinvent la base dans Brightway. Nécessite d'avoir les bons fichiers dans le dossier ecobalyse/data/ du conteneur`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
-* `make bash` : lance un shell à l'intérieur conteneur
+* `make user_shell` : lance un shell à l'intérieur du conteneur
+* `make root_shell` : lance un shell root à l'intérieur du conteneur
+* `make python` : lance un interprête python à l'intérieur conteneur
 * `make notebook` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
 * `make clean_data` : supprime toutes les données (celles de brightway et
   jupyter mais pas les json générés)
 * `make clean_image` : supprime l'image docker
+* `make clean` : supprime l'image docker et toutes les données
 
 ## Travailler dans le conteneur :
 
