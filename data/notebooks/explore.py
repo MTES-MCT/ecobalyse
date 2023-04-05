@@ -1,13 +1,14 @@
 """
 This file is used in the `explore` Jupyter Notebook
 """
-import os
-import bw2io
-import bw2data
-import bw2calc
 from IPython.display import display, Markdown
-import ipywidgets
+from bw2data.utils import get_activity
 from ipywidgets import interact
+import bw2calc
+import bw2data
+import bw2io
+import ipywidgets
+import os
 
 bw2data.projects.set_current("Ecobalyse")
 bw2io.bw2setup()
@@ -106,13 +107,9 @@ def show_activity(METHOD=method, ACTIVITY=activity):
         name = exchange.get("name", "N/A")
         display(Markdown(f"## {amount} {unit} of {name}"))
         flow = exchange.get("input")
-        flow_acts = [a for a in bw2data.Database(flow[0]) if a.get("code") == flow[1]]
-        if len(flow_acts) > 0:
-            act = flow_acts[0]
-            comment = act.get("comment", "N/A")
-            display(Markdown(f"{comment}"))
-        else:
-            print("Flow not found")
+        act = get_activity(flow)
+        comment = act.get("comment", "N/A")
+        display(Markdown(f"{comment}"))
     display(Markdown("---"))
 
     # BIOSPHERE
@@ -134,13 +131,9 @@ def show_activity(METHOD=method, ACTIVITY=activity):
         name = exchange.get("name", "N/A")
         display(Markdown(f"## {amount} {unit} of {name}"))
         flow = exchange.get("input")
-        flow_acts = [a for a in bw2data.Database(flow[0]) if a.get("code") == flow[1]]
-        if len(flow_acts) > 0:
-            act = flow_acts[0]
-            comment = act.get("comment", "N/A")
-            display(Markdown(f"{comment}"))
-        else:
-            print("Flow not found")
+        act = get_activity(flow)
+        comment = act.get("comment", "N/A")
+        display(Markdown(f"{comment}"))
     display(Markdown("---"))
 
     # SUBSTITUTIONS
@@ -152,13 +145,9 @@ def show_activity(METHOD=method, ACTIVITY=activity):
         name = exchange.get("name", "N/A")
         display(Markdown(f"## {amount} {unit} of {name}"))
         flow = exchange.get("input")
-        flow_acts = [a for a in bw2data.Database(flow[0]) if a.get("code") == flow[1]]
-        if len(flow_acts) > 0:
-            act = flow_acts[0]
-            comment = act.get("comment", "N/A")
-            display(Markdown(f"{comment}"))
-        else:
-            print("Flow not found")
+        act = get_activity(flow)
+        comment = act.get("comment", "N/A")
+        display(Markdown(f"{comment}"))
     display(Markdown("---"))
 
 
