@@ -25,6 +25,9 @@ RUN apt update \
 
 COPY entrypoint.sh /
 
+RUN jupyter nbextension enable --py widgetsnbextension
+
+
 VOLUME /home/$NB_USER
 WORKDIR /home/$NB_USER/notebooks
 ENTRYPOINT ["/entrypoint.sh"]

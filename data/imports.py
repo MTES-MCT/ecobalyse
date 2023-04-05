@@ -175,18 +175,3 @@ if __name__ == "__main__":
         print(f"*** already imported {EFMETHODS} ***")
     else:
         import_ef(EF_CSV, BIOSPHERE)
-
-    print("Selecting an activity...")
-    activity = bw2data.Database("Ecoinvent").search("cotton knit", limit=1)[0]
-    print(f"Activity = {activity}")
-    print("Computing LCI of activity")
-    lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    # EFMETHODS = "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"
-    # EFMETHODS = "ReCiPe 2016 v1.03, midpoint (I)'"  # defined inside the csv
-    # EFMETHODS = "TRACI v2.1 no LT"
-    EFMETHODS = "EF v3.1 EN15804"
-    for method in [method for method in bw2data.methods if method[0] == EFMETHODS]:
-        lca.switch_method(method)
-        lca.lcia()
-        print(f"{method[1]} = {lca.score}")

@@ -9,9 +9,8 @@ json: image import_agribalyse export_builder
 image:
 	docker build -t $(NAME) docker
 
-import_agribalyse:
-	curl -o food/import_agb/AGB3.1.1.20230306.CSV.zip https://nextcloud.prelab.fr/index.php/s/nDT3DSkgxYJLgJ3/download/AGB3.1.1.20230306.CSV.zip
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 import_agribalyse.py
+imports:
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py
 
 export_ciqual:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py
@@ -28,8 +27,8 @@ bash:
 		$(DOCKEREXEC) $(NAME) bash;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
-notebook:
-	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh;\
+jupyter:
+	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh; \
 	docker logs -f $(NAME)
 
 kill_notebook:
