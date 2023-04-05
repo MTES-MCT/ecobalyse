@@ -75,5 +75,5 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Oeuf => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer, fiche filière Oeuf, janvier 2022) ****&#x20;
+**Oeuf => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer, fiche filière Oeuf, janvier 2022)&#x20;
 

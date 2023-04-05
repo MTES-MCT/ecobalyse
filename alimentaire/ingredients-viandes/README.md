@@ -25,9 +25,6 @@ BoeufREF
 $$
 
 * de procédés d'abattage : mouture (milling), réception, prélavage, stockage.&#x20;
-*
-
-    <figure><img src="../../.gitbook/assets/beef (1).png" alt=""><figcaption></figcaption></figure>
 
 On construit différents procédés de boeuf haché **(N)**, sur la base du procédé de référence ('Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None!), en appliquant les opérations d'abattage à différents procédés de boeuf **(N)**.
 
@@ -39,10 +36,10 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                                                 | Autres pays                                                                                                                                                                           |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>BoeufHacheREF</strong><br><strong></strong>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Blé : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Blé : Beef cattle, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : </p>                                                                                                                   | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : </p>                                                                                                  |
+| Label / Origine        | France                                                                                                                                                                                | Autres pays                                                                                                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Blé : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Blé : Beef cattle, national average, at farm gate</p> |
+| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : </p>                                                                                                  | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : </p>                                                                                                  |
 
 {% hint style="info" %}
 Le boeuf bio considéré dans un premier temps pour le calcul de la viande de boeuf hachée bio est celui dont l'impact est proche de l'impact moyen des vaches de réforme bio&#x20;

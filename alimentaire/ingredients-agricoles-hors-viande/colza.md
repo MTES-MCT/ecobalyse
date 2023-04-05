@@ -67,4 +67,4 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Colza => catégorie 3 : PAYS TIERS** (source : FranceAgriMer, chiffres et bilans 2022) ****&#x20;
+**Colza => catégorie 3 : PAYS TIERS** (source : FranceAgriMer, chiffres et bilans 2022)&#x20;

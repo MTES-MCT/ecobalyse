@@ -16,7 +16,7 @@ L'intérêt pour les entreprises de contribuer est clair : bénéficier d'un out
 
 
 
-**Fiche Produit**  :arrow\_down:****
+**Fiche Produit**  :arrow\_down:
 
 Format Excel => [ici](https://docs.google.com/spreadsheets/d/1rplAhGN8aFDeRiCHThD2Ze2WgT6HI3WKUI8AwSE2wUc/edit?usp=sharing)
 

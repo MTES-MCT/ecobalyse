@@ -41,9 +41,9 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
 <summary>Principales étapes du  tissage</summary>
 
 1. **Préparation au tissage**\
-   ****\
-   ****_Ourdissage_\
-   __Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
+   \
+   _Ourdissage_\
+   Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
    \
    _Encollage_\
    Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).\
@@ -348,7 +348,7 @@ Permettre de préciser le grammage (g/m2) d'un tricot et le type de machine util
 
 **Consommation d'énergie**
 
-****![](<../../.gitbook/assets/image (2).png>)****
+![](<../../.gitbook/assets/image (2).png>)
 
 _Une revue bibliographique effectuée par Ecobalyse fait ressortir une consommation moyenne d'électricité pour produire 1kg d'étoffe 2 à 5 fois plus faible pour du tricotage par rapport au tissage._&#x20;
 

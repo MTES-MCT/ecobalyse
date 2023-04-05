@@ -33,7 +33,7 @@ La question des conditions d'élevage peut recouper certains enjeux environnemen
 
 La biodiversité et la résilience des territoires sont favorisées par :&#x20;
 
-* La quantité (mais aussi la qualité) des [**infrastructures agroécologiques**](#user-content-fn-1)[^1] **** (haies, bosquets, arbres, mares, etc., mais aussi prairies) ;
+* La quantité (mais aussi la qualité) des [**infrastructures agroécologiques**](#user-content-fn-1)[^1] (haies, bosquets, arbres, mares, etc., mais aussi prairies) ;
 * La **diversité agricole** : diversité des cultures dans l’espace (assolement diversifié) et dans le temps (rotations), et diversité des productions (présence de polyculture-élevage).
 
 Quant aux conditions d'élevage, certaines pratiques favorables pourraient être valorisées dans le score d'impact, par exemple :
