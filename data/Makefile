@@ -44,6 +44,9 @@ notebook:
 	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative; \
 	docker logs -f $(NAME)
 
+make notebook_link:
+	docker logs $(NAME) | grep 8888 | grep 127.0.0.1 | sort | uniq
+
 kill_notebook:
 	docker kill $(NAME)
 
