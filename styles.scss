@@ -1092,6 +1092,11 @@ blockquote {
     text-transform: uppercase;
   }
   color: var(--bs-body-color);
+  h1 {
+    @media screen and (width < $viewport-sm) {
+      border-top: 1px solid $border-color;
+    }
+  }
 }
 
 .fr-nav {
@@ -1103,6 +1108,6 @@ blockquote {
     &.active {
       border-bottom: 2px solid #000091;
     }
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
   }
 }

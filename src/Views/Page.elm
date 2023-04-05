@@ -181,18 +181,18 @@ pageHeader config =
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
         , Container.centered []
-            [ div [ class "pt-4 pb-2 ps-3" ]
+            [ div [ class "pt-sm-4 pb-sm-2 ps-sm-3 pt-3 pb-1 ps-1 d-flex d-sm-block" ]
                 [ a
                     [ href "/"
                     , title "Écobalyse"
-                    , class "header-logo text-decoration-none d-flex align-items-center gap-5"
+                    , class "header-logo text-decoration-none d-sm-flex align-items-center gap-5 w-100"
                     ]
                     [ p [ class "fr-logo" ]
                         [ text "République"
                         , br [] []
                         , text "Française"
                         ]
-                    , h1 [ class "fs-3 fw-bolder" ]
+                    , h1 [ class "fs-3 fw-bolder pt-2 pt-sm-0" ]
                         [ text "Ecobalyse" ]
                     ]
                 ]
@@ -214,7 +214,7 @@ navbar { activePage } =
         ]
         [ headerMenuLinks
             |> List.map (viewNavigationLink activePage)
-            |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto" ]
+            |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto fs-7" ]
         ]
 
 
