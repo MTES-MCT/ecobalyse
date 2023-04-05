@@ -170,7 +170,17 @@ pageHeader config =
         [ class "shadow-sm"
         , attribute "role" "banner"
         ]
-        [ Container.centered []
+        [ div [ class "MobileMenuButton" ]
+            [ button
+                [ type_ "button"
+                , class "d-inline-block d-sm-none btn m-0 p-0"
+                , attribute "aria-label" "Ouvrir la navigation"
+                , title "Ouvrir la navigation"
+                , onClick config.openMobileNavigation
+                ]
+                [ span [ class "fs-3" ] [ Icon.ham ] ]
+            ]
+        , Container.centered []
             [ div [ class "pt-4 pb-2 ps-3" ]
                 [ a
                     [ href "/"
@@ -196,23 +206,15 @@ pageHeader config =
 
 
 navbar : Config msg -> Html msg
-navbar { activePage, openMobileNavigation } =
+navbar { activePage } =
     nav
-        [ class "fr-nav"
+        [ class "fr-nav text-end text-sm-start"
         , attribute "role" "navigation"
         , attribute "aria-label" "Menu principal"
         ]
         [ headerMenuLinks
             |> List.map (viewNavigationLink activePage)
             |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto" ]
-        , button
-            [ type_ "button"
-            , class "d-inline-block d-sm-none btn btn-dark m-0 p-0"
-            , attribute "aria-label" "Ouvrir la navigation"
-            , title "Ouvrir la navigation"
-            , onClick openMobileNavigation
-            ]
-            [ Icon.verticalDots ]
         ]
 
 

@@ -865,6 +865,13 @@ blockquote {
   }
 }
 
+.MobileMenuButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  text-align: right;
+}
+
 .overlappedImage {
   img {
     width: 50%;
@@ -893,8 +900,7 @@ blockquote {
 
 .Simulator {
   @media screen and (width < $viewport-sm) {
-    margin-top: 190px;
-
+    margin-top: 5px;
     > h1 {
       display: none;
     }
@@ -1004,9 +1010,9 @@ blockquote {
   @media screen and (width < $viewport-sm) {
     position: fixed;
     z-index: 1020;
-    top: 54px;
     left: 0;
     right: 0;
+    bottom: -3px;
 
     &ProductImage {
       width: 3.2em;
@@ -1015,6 +1021,7 @@ blockquote {
 
     .card {
       border: 0;
+      border-radius: 0;
       .card-header {
         border-radius: 0;
       }
