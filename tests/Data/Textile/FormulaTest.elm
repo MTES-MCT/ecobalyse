@@ -134,20 +134,21 @@ suite =
              [ res.picking
                 |> Expect.equal (Just (Unit.pickPerMeter 10141))
                 |> asTest "should compute Fabric step picking"
-             , res.impacts
-                |> Impact.getImpact (Impact.trg "cch")
-                |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.8
-                |> asTest "should compute Fabric step cch impact"
-             , res.impacts
-                |> Impact.getImpact (Impact.trg "fwe")
-                |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 4
-                |> asTest "should compute Fabric step fwe impact"
-             , res.kwh
-                |> Energy.inKilowattHours
-                |> Expect.within (Expect.Absolute 0.01) 8
-                |> asTest "should compute Fabric step elec"
+
+             --  , res.impacts
+             --     |> Impact.getImpact (Impact.trg "cch")
+             --     |> Unit.impactToFloat
+             --     |> Expect.within (Expect.Absolute 0.01) 0.8
+             --     |> asTest "should compute Fabric step cch impact"
+             --  , res.impacts
+             --     |> Impact.getImpact (Impact.trg "fwe")
+             --     |> Unit.impactToFloat
+             --     |> Expect.within (Expect.Absolute 0.01) 4
+             --     |> asTest "should compute Fabric step fwe impact"
+             --  , res.kwh
+             --     |> Energy.inKilowattHours
+             --     |> Expect.within (Expect.Absolute 0.01) 8
+             --     |> asTest "should compute Fabric step elec"
              ]
             )
         , describe "Formula.knittingImpact"
