@@ -107,6 +107,12 @@ table db { detailed, scope } =
             \{ dyeing } ->
                 text <| DyeingMedium.toLabel dyeing.defaultMedium
       }
+    , { label = "Confection (complexité)"
+      , toCell = .making >> .complexity >> Product.makingComplexityAsString >> text
+      }
+    , { label = "Confection (# minutes)"
+      , toCell = Product.getMakingDurationInMinutes >> String.fromInt >> text
+      }
     , { label = "Confection (taux de perte)"
       , toCell =
             \product ->
