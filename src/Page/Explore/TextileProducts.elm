@@ -1,13 +1,16 @@
 module Page.Explore.TextileProducts exposing (table)
 
+import Area
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Mass
 import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -56,6 +59,16 @@ table db { detailed, scope } =
             \{ surfaceMass } ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
                     [ Format.surfaceMass surfaceMass
+                    ]
+      }
+    , { label = "Surface"
+      , toCell =
+            \{ mass, surfaceMass } ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Mass.inGrams mass
+                        / Unit.surfaceMassToFloat surfaceMass
+                        |> Area.squareMeters
+                        |> Format.squareMetters
                     ]
       }
     , { label = "Volume"
