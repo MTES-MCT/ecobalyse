@@ -13,6 +13,11 @@ import Route
 import Views.Format as Format
 
 
+withTitle : String -> Html msg
+withTitle str =
+    span [ title str ] [ text str ]
+
+
 table : Db -> { detailed : Bool, scope : Scope } -> Table Product msg
 table db { detailed, scope } =
     [ { label = "Identifiant"
@@ -70,7 +75,7 @@ table db { detailed, scope } =
                         text "Tissée"
       }
     , { label = "Etoffe (procédé)"
-      , toCell = Product.getFabricProcess >> .name >> text
+      , toCell = Product.getFabricProcess >> .name >> withTitle
       }
     , { label = "Délavage"
       , toCell =
@@ -78,7 +83,7 @@ table db { detailed, scope } =
                 if product.making.fadable then
                     db.processes
                         |> Process.loadWellKnown
-                        |> Result.map (.fading >> .name >> text)
+                        |> Result.map (.fading >> .name >> withTitle)
                         |> Result.withDefault (text "Erreur, procédé de délavage introuvable")
 
                 else
@@ -114,10 +119,10 @@ table db { detailed, scope } =
                     [ text <| String.fromInt product.use.defaultNbCycles ]
       }
     , { label = "Procédé de repassage"
-      , toCell = .use >> .ironingProcess >> .name >> text
+      , toCell = .use >> .ironingProcess >> .name >> withTitle
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = .use >> .nonIroningProcess >> .name >> text
+      , toCell = .use >> .nonIroningProcess >> .name >> withTitle
       }
     , { label = "Séchage électrique"
       , toCell =
