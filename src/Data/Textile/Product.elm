@@ -8,6 +8,8 @@ module Data.Textile.Product exposing
     , encodeId
     , findById
     , getFabricProcess
+    , makingComplexityAsString
+    , getMakingDurationInMinutes
     , idToString
     , isKnitted
     )
@@ -35,10 +37,18 @@ type FabricOptions
     | Weaved Process Unit.PickPerMeter
 
 
+type MakingComplexity
+    = High
+    | Medium
+    | Low
+
+
 type alias MakingOptions =
     { process : Process -- Procédé de Confection
     , fadable : Bool -- Can this product be faded?
     , pcrWaste : Split -- PCR product waste ratio
+    , complexity : MakingComplexity -- How complex is this making
+    , durationInMinutes : Int -- How long does it take
     }
 
 
@@ -84,6 +94,24 @@ getFabricProcess { fabric } =
 
         Weaved process _ ->
             process
+
+
+makingComplexityAsString : MakingComplexity -> String
+makingComplexityAsString makingComplexity =
+    case makingComplexity of
+        High ->
+            "Elevée"
+
+        Medium ->
+            "Moyenne"
+
+        Low ->
+            "Faible"
+
+
+getMakingDurationInMinutes : Product -> Int
+getMakingDurationInMinutes =
+    .making >> .durationInMinutes
 
 
 findById : Id -> List Product -> Result String Product
@@ -134,12 +162,25 @@ decodeDyeingOptions =
         (Decode.field "defaultMedium" DyeingMedium.decode)
 
 
+decodeMakingComplexity : Decoder MakingComplexity
+decodeMakingComplexity =
+    Decode.string
+    |> Decode.andThen (\complexityStr -> 
+        case complexityStr of
+            "high" -> Decode.succeed High
+            "medium" -> Decode.succeed Medium
+            "low" -> Decode.succeed Low
+            str -> Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
+        )
+
 decodeMakingOptions : List Process -> Decoder MakingOptions
 decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
+        |> Pipe.required "complexity" decodeMakingComplexity
+        |> Pipe.required "durationInMinutes" Decode.int
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -196,13 +237,14 @@ encodeFabricOptions v =
                 , ( "picking", Unit.encodePickPerMeter picking )
                 ]
 
-
 encodeMakingOptions : MakingOptions -> Encode.Value
 encodeMakingOptions v =
     Encode.object
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
+        , ( "complexity", Encode.string (makingComplexityAsString v.complexity) )
+        , ( "durationInMinutes", Encode.int v.durationInMinutes)
         ]
 
 
