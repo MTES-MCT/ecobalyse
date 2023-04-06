@@ -68,7 +68,7 @@ describe("API", () => {
       it("should render with products list", async () => {
         await expectListResponseContains("/api/textile/products", {
           id: "tshirt",
-          name: "T-shirt",
+          name: "T-shirt / Polo",
         });
       });
     });
