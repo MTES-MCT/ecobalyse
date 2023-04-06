@@ -28,33 +28,11 @@ table db { detailed, scope } =
     , { label = "Nom"
       , toCell = .name >> text
       }
-    , { label = "Masse par défaut"
+    , { label = "Poids"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
                     [ Format.kg product.mass ]
-      }
-    , { label = "Volume"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.m3 product.endOfLife.volume ]
-      }
-    , { label = "Perte (PCR)"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.splitAsPercentage product.making.pcrWaste ]
-      }
-    , { label = "Type de procédé"
-      , toCell =
-            \product ->
-                case product.fabric of
-                    Product.Knitted _ ->
-                        text "Tricotage"
-
-                    Product.Weaved _ _ ->
-                        text "Tissage"
       }
     , { label = "Pick-per-meter"
       , toCell =
@@ -75,11 +53,24 @@ table db { detailed, scope } =
                     [ Format.surfaceMass surfaceMass
                     ]
       }
-    , { label = "Procédé"
-      , toCell = Product.getFabricProcess >> .name >> text
+    , { label = "Volume"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.m3 product.endOfLife.volume ]
       }
-    , { label = "Confection"
-      , toCell = .making >> .process >> .name >> text
+    , { label = "Etoffe (type)"
+      , toCell =
+            \product ->
+                case product.fabric of
+                    Product.Knitted _ ->
+                        text "Tricotée"
+
+                    Product.Weaved _ _ ->
+                        text "Tissée"
+      }
+    , { label = "Etoffe (procédé)"
+      , toCell = Product.getFabricProcess >> .name >> text
       }
     , { label = "Délavage"
       , toCell =
@@ -93,10 +84,16 @@ table db { detailed, scope } =
                 else
                     text "N/A"
       }
-    , { label = "Teinture"
+    , { label = "Type de teinture"
       , toCell =
             \{ dyeing } ->
-                text <| "sur " ++ DyeingMedium.toLabel dyeing.defaultMedium
+                text <| DyeingMedium.toLabel dyeing.defaultMedium
+      }
+    , { label = "Confection (taux de perte)"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.splitAsPercentage product.making.pcrWaste ]
       }
     , { label = "Nombre de jours porté"
       , toCell =
