@@ -230,6 +230,22 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <details>
 
+<summary>Densité de fils (# fils / cm)</summary>
+
+Pour les étoffes tissées, une densité de fils est calculée en arrière plan selon le grammage (g/m2) du tissu et le titrage (Nm) de fil utilisé.
+
+**Formule de calcul :**&#x20;
+
+$$Grammage (g/m2) * Titrage (Nm) /100 / 2 / 1,08$$
+
+La densité de fils est un paramètre permettant de caractériser un tissu (via sa contexture) d'un point de vu métier.
+
+De plus, ce paramètre permet de préciser l'évaluation de la quantité d'électricité nécessaire pour actionner le procédé de tissage. La densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
+
+</details>
+
+<details>
+
 <summary>Embuvage et Retrait (%) (tissage)</summary>
 
 Lors de l'étape de tissage, une diminution de fil apparaît en chaîne et trame du fait de leur entrelacement. Ces variables s'expriment en % et sont exprimées ainsi : \
@@ -264,6 +280,31 @@ $$
 {% hint style="warning" %}
 Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape Etoffe se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
 {% endhint %}
+
+$$
+ImpactElec = kWh * MixElectriquePays
+$$
+
+#### Calcul de la quantité d'électricité (kW)&#x20;
+
+{% tabs %}
+{% tab title="Tissu" %}
+$$kWh = Duites.m * 0,0003145$$
+
+$$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
+
+$$kWh = Grammage (g/m2) * Titrage (Nm) / 2 /1,08*MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
+
+
+
+Exemple : Robe / poids 300g / tissu 200g/m2 / fil 40 Nm / tissu à produire 375g : \
+$$kWh = 200 * 40  /2/1,08*375/200*0,0003145=2,18$$
+{% endtab %}
+
+{% tab title="Tricot" %}
+
+{% endtab %}
+{% endtabs %}
 
 <details>
 
@@ -303,19 +344,26 @@ En l'absence de précision de la part de l'utilisateur, un procédé moyen est a
 Procédé par défaut = "Tricotage moyen (mix de métiers circulaire & rectiligne)" \
 (UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d)
 
-#### Contexture (densité & titrage des fils)
+#### Titrage & Densité de fils (contexture du tissu)
 
 {% tabs %}
 {% tab title="Tissu" %}
-Une contexture par défaut est appliquée aux vêtements composés de tissu.&#x20;
+Un titrage (Nm) par défaut est appliqué aux étoffes tissées selon leur grammage (g/m2).&#x20;
 
-L'utilisateur a la possibilité de préciser la contexture en précisant le titrage (Nm) de fil utilisé. Si les fils de chaîne et trame n'ont pas le même titrage, celui de la trame est retenu.
+| Grammage (g/m2)   | Titrage (Nm / Dtex) |
+| ----------------- | ------------------- |
+| inférieur à 200   | 50 / 200            |
+| entre 200 et 299  | 40 / 250            |
+| entre 300 et 499  | 30 / 333            |
+|  à partir de 500  | 25 / 400            |
 
-Toute modification du titrage fait varier la densité de fils (# de fils / cm; compte en chaîne et trame) en arrière plan, et donc la consommation d'électricité (kWh) associée au procédé.
+L'utilisateur a la possibilité de modifier ces paramètres dans le calculateur.
 
-En effet, la densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
+:bulb: Toute modification de ces paramètres impacte en arrière plan la densité de fils (# de fils / cm; compte en chaîne et trame), et donc la consommation d'électricité (kWh) du tissage.
 
 Le calculateur indique un compte en chaîne et trame approximatif lors du paramétrage du tissu afin d'éclairer l'utilisateur.
+
+Si les fils de chaîne et trame n'ont pas le même titrage, celui de la trame est retenu.
 
 <details>
 
@@ -339,28 +387,15 @@ La communauté ACV permet cela en précisant le titrage de fil plutôt que le co
 (ex : Weaving, 33 DTEX-297 denier-18/1 Ne-3 Nm).
 
 </details>
-
-**Valeurs par défaut**&#x20;
-
-| Grammage (g/m2)   | Titrage (Nm / Dtex) |
-| ----------------- | ------------------- |
-| inférieur à 200   | 50 / 200            |
-| entre 200 et 299  | 40 / 250            |
-| entre 300 et 499  | 30 / 333            |
-|  à partir de 500  | 25 / 400            |
 {% endtab %}
 
 {% tab title="Tricot" %}
 Le raisonnement applicable aux tissus ne l'est pas pour les tricots car :&#x20;
 
-* l'énergie consommée lors du tricotage est non significative par rapport à l'impact global du vêtement (le tissage consomme plus d'électricité que le tricotage),&#x20;
+* l'électricité consommée lors du tricotage est non significative par rapport à l'impact global du vêtement (le tissage consomme plus d'électricité que le tricotage),&#x20;
 * la complexité de modélisation des différentes réalités métier du tricotage est élevée.&#x20;
 
-
-
-Permettre de préciser le grammage (g/m2) d'un tricot et le type de machine utilisée sont suffisants dans une logique d'analyse de cycle de vie.
-
-
+Permettre de préciser la quantité (g) à produire et le type de machine utilisée sont suffisants dans une  logique d'analyse de cycle de vie.
 
 <details>
 
