@@ -285,7 +285,7 @@ $$
 ImpactElec = kWh * MixElectriquePays
 $$
 
-#### Calcul de la quantité d'électricité (kW)&#x20;
+#### Calcul de la quantité d'électricité (kWh)&#x20;
 
 {% tabs %}
 {% tab title="Tissu" %}
@@ -302,17 +302,15 @@ $$kWh = 200 * 40  /2/1,08*375/200*0,0003145=2,18$$
 {% endtab %}
 
 {% tab title="Tricot" %}
+kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
 
+Procédés mobilisés : kWh/kg\
+\- tricotage rectiligne : 1,2 \
+\- tricotage circulaire 1,2\
+\- tricotage fully-fashioned : 1,7\
+\- tricotage seamless : 3,7
 {% endtab %}
 {% endtabs %}
-
-<details>
-
-<summary>Exemple de pour un tricot/maille</summary>
-
-Hypothèse : 200g d'étoffe sortante à produire pour un t-shirt avec un métier à
-
-</details>
 
 ### Hypothèses par défaut&#x20;
 
