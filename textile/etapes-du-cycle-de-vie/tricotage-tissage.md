@@ -168,6 +168,21 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <details>
 
+<summary>Métier à tricoter  </summary>
+
+L'utilisateur a la possibilité de préciser la technique de tricotage utilisée afin de préciser la quantité d'électricité mobilisée :&#x20;
+
+* tricotage rectiligne (1,2 kWh / kg étoffe)
+* tricotage circulaire (1,2 kWh / kg étoffe)
+* tricotage fully-fashioned = tricotage pièce par pièce (1,7 kWh / kg étoffe)
+* tricotage seamless = tricotage en une seule pièce sans couture (3,7 kWh / kg étoffe)
+
+:bulb: L'utilisation d'un tricotage fully-fashioned ou seamless réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage fully-fashioned) ou disparaissent (tricotage seamless).&#x20;
+
+</details>
+
+<details>
+
 <summary>Grammage (g / m2)</summary>
 
 Le grammage (poids) d'une étoffe, autrement appelé _masse surfacique,_ est exprimé en grammes par mètre carré (g/m2). Le terme anglais utilisé dans l'industrie est GSM (Grams per Square Meter).&#x20;
@@ -197,7 +212,7 @@ L’unité retenue est le numéro métrique (Nm). Il indique un nombre de kilom�
 
 La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 200) et maximale (Nm 9).
 
-Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.).
+Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.). Ce paramètre est uniquement mobilisé pour les étoffes tissées afin de préciser la consommation d'électricité du procédé.&#x20;
 
 L'utilisateur a la possibilité de préciser cette valeur par défaut.
 
@@ -246,15 +261,17 @@ $$
 ImpactEtoffe = ImpactProcédé + ImpactElec
 $$
 
-Le procédé externe (électricité) devant être ajouté est le suivant :
-
-| Flux externe | UUID du flux                           | unité |
-| ------------ | -------------------------------------- | ----- |
-| Électricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
-
 {% hint style="warning" %}
 Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape Etoffe se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
 {% endhint %}
+
+<details>
+
+<summary>Exemple de pour un tricot/maille</summary>
+
+Hypothèse : 200g d'étoffe sortante à produire pour un t-shirt avec un métier à
+
+</details>
 
 ### Hypothèses par défaut&#x20;
 
@@ -266,7 +283,7 @@ L'utilisateur a la possibilité de modifier cette valeur entre deux bornes : \
 \- minimum : 80 g/m2\
 \- maximum : 500 g/m2
 
-Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini (comme précisé [précédemment](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#grammage-g-m2-1)).
+Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini.
 
 <details>
 
@@ -278,6 +295,13 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
 ![](<../../.gitbook/assets/image (4) (3).png>)
 
 </details>
+
+#### Métier à tricoter
+
+En l'absence de précision de la part de l'utilisateur, un procédé moyen est appliqué afin d'estimer la consommation d'électricité de l'étape de tricotage (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
+
+Procédé par défaut = "Tricotage moyen (mix de métiers circulaire & rectiligne)" \
+(UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d)
 
 #### Contexture (densité & titrage des fils)
 
@@ -316,8 +340,6 @@ La communauté ACV permet cela en précisant le titrage de fil plutôt que le co
 
 </details>
 
-
-
 **Valeurs par défaut**&#x20;
 
 | Grammage (g/m2)   | Titrage (Nm / Dtex) |
@@ -326,8 +348,6 @@ La communauté ACV permet cela en précisant le titrage de fil plutôt que le co
 | entre 200 et 299  | 40 / 250            |
 | entre 300 et 499  | 30 / 333            |
 |  à partir de 500  | 25 / 400            |
-
-
 {% endtab %}
 
 {% tab title="Tricot" %}
@@ -366,14 +386,6 @@ De (trop) nombreux paramètres impactent la manière dont est tricotée une éto
 </details>
 {% endtab %}
 {% endtabs %}
-
-#### Tricotage fully-fashioned
-
-L'utilisateur a la possibilité de spécifier si sa maille est tricotée en _fully-fashioned_. Cette technique consiste à tricoter directement chaque pièce séparement, contrairement à la technique _coupé-cousu_ qui consiste à tricoter la maille au mètre puis à découper les pièces selon le patron.&#x20;
-
-Le tricotage fully-fashioned implique un faible taux de perte en confection car il n'y a pas de chutes d'étoffe. Le taux de perte par défaut retenu dans le calculateur est 2%.
-
-Les taux de pertes en confection sont détaillés ([ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/confection#pertes-et-rebut)).&#x20;
 
 #### Taux de perte (%)
 
