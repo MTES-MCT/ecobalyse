@@ -4,6 +4,7 @@ module Data.Env exposing
     , gitbookUrl
     , githubRepository
     , githubUrl
+    , mattermostUrl
     , maxMakingWasteRatio
     , maxMaterials
     , minMakingWasteRatio
@@ -35,6 +36,11 @@ githubRepository =
 githubUrl : String
 githubUrl =
     "https://github.com/" ++ githubRepository
+
+
+mattermostUrl : String
+mattermostUrl =
+    "https://chat.ecobalyse.fr/"
 
 
 minMakingWasteRatio : Split
