@@ -436,30 +436,29 @@ computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, threadDensity, picking, impacts } =
-                        step.outputMass
-                            |> (case inputs.product.fabric of
-                                    Product.Knitted process ->
-                                        Formula.knittingImpacts step.impacts
-                                            { elec = process.elec
-                                            , countryElecProcess = country.electricityProcess
-                                            }
+                        case inputs.product.fabric of
+                            Product.Knitted process ->
+                                Formula.knittingImpacts step.impacts
+                                    { elec = process.elec
+                                    , countryElecProcess = country.electricityProcess
+                                    }
+                                    step.outputMass
 
-                                    Product.Weaved process ->
-                                        let
-                                            surfaceMass =
-                                                inputs.surfaceMass
-                                                    |> Maybe.withDefault inputs.product.surfaceMass
-                                        in
-                                        Formula.weavingImpacts step.impacts
-                                            { countryElecProcess = country.electricityProcess
-                                            , outputMass = fabricOutputMass
-                                            , pickingElec = process.elec_pppm
-                                            , surfaceMass = surfaceMass
-                                            , yarnSize =
-                                                inputs.yarnSize
-                                                    |> Maybe.withDefault (Product.defaultYarnSize surfaceMass)
-                                            }
-                               )
+                            Product.Weaved process ->
+                                let
+                                    surfaceMass =
+                                        inputs.surfaceMass
+                                            |> Maybe.withDefault inputs.product.surfaceMass
+                                in
+                                Formula.weavingImpacts step.impacts
+                                    { countryElecProcess = country.electricityProcess
+                                    , outputMass = fabricOutputMass
+                                    , pickingElec = process.elec_pppm
+                                    , surfaceMass = surfaceMass
+                                    , yarnSize =
+                                        inputs.yarnSize
+                                            |> Maybe.withDefault (Product.defaultYarnSize surfaceMass)
+                                    }
                 in
                 { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
             )

@@ -114,25 +114,24 @@ suite =
         , describe "Formula.weavingImpact"
             (let
                 res =
-                    kg 0.35
-                        |> Formula.weavingImpacts
-                            defaultImpacts
-                            { countryElecProcess =
-                                { noOpProcess
-                                    | impacts =
-                                        AnyDict.fromList Impact.toString
-                                            [ ( Impact.trg "cch", Unit.impact 8.13225e-2 )
-                                            , ( Impact.trg "fwe", Unit.impact 3.26897e-8 )
-                                            ]
-                                }
-                            , outputMass = kg 0.478
-                            , pickingElec = 1
-                            , surfaceMass = Unit.surfaceMass 180
-                            , yarnSize = Unit.yarnSize 45
+                    Formula.weavingImpacts
+                        defaultImpacts
+                        { countryElecProcess =
+                            { noOpProcess
+                                | impacts =
+                                    AnyDict.fromList Impact.toString
+                                        [ ( Impact.trg "cch", Unit.impact 8.13225e-2 )
+                                        , ( Impact.trg "fwe", Unit.impact 3.26897e-8 )
+                                        ]
                             }
+                        , outputMass = kg 0.478
+                        , pickingElec = 1
+                        , surfaceMass = Unit.surfaceMass 180
+                        , yarnSize = Unit.yarnSize 45
+                        }
              in
              [ res.picking
-                |> Expect.equal (Just (Unit.pickPerMeter 10141))
+                |> Expect.equal (Just (Unit.pickPerMeter 9958))
                 |> asTest "should compute Fabric step picking"
 
              --  , res.impacts

@@ -328,14 +328,13 @@ weavingImpacts :
         , surfaceMass : Unit.SurfaceMass
         , yarnSize : Unit.YarnSize
         }
-    -> Mass
     ->
         { kwh : Energy
         , threadDensity : Maybe Unit.ThreadDensity
         , picking : Maybe Unit.PickPerMeter
         , impacts : Impacts
         }
-weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
+weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } =
     -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
         -- Surface sortante (en m2)
@@ -343,37 +342,26 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
             Mass.inGrams outputMass
                 / Unit.surfaceMassToFloat surfaceMass
 
-        -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
-        fabricWidth =
-            1.6
-
-        -- Métrage (longueur du tissu, en m2) = Surface sortante (en m2) / Laize (en m)
-        fabricLength =
-            outputSurface / fabricWidth
-
         -- Taux d'embuvage/retrait = 8% (valeur constante)
         wasteRatio =
             1.08
 
-        -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / 1.08 / 100
+        -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
         threadDensity =
-            Mass.inGrams outputMass
+            Unit.surfaceMassToFloat surfaceMass
                 * Unit.yarnSizeToFloat yarnSize
-                / (fabricWidth + fabricLength)
-                / wasteRatio
                 / 100
+                / 2
+                / wasteRatio
 
-        -- Duites.m = Densité de fils (# fils / cm) * 100 * Métrage (m)
+        -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
         picking =
-            threadDensity * 100 * fabricLength
+            threadDensity * outputSurface * 100
 
         -- Note: pickingElec is expressed in kWh/(pick,m) per kg of material to process (see Base Impacts)
         electricityKWh =
             pickingElec
                 * picking
-                * Mass.inKilograms inputMass
-                * 1000
-                / Unit.surfaceMassToFloat surfaceMass
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
