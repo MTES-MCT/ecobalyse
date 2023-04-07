@@ -172,10 +172,10 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 L'utilisateur a la possibilité de préciser la technique de tricotage utilisée afin de préciser la quantité d'électricité mobilisée :&#x20;
 
-* tricotage rectiligne (1,2 kWh / kg étoffe)
-* tricotage circulaire (1,2 kWh / kg étoffe)
-* tricotage fully-fashioned = tricotage pièce par pièce (1,7 kWh / kg étoffe)
-* tricotage seamless = tricotage en une seule pièce sans couture (3,7 kWh / kg étoffe)
+* tricotage rectiligne
+* tricotage circulaire
+* tricotage fully-fashioned = tricotage pièce par pièce
+* tricotage seamless = tricotage en une seule pièce sans couture
 
 :bulb: L'utilisation d'un tricotage fully-fashioned ou seamless réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage fully-fashioned) ou disparaissent (tricotage seamless).&#x20;
 
