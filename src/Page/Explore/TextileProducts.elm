@@ -53,7 +53,7 @@ table _ { detailed, scope } =
             \{ mass, surfaceMass } ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Mass.inGrams mass
-                        / Unit.surfaceMassToFloat surfaceMass
+                        / toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
                         |> Area.squareMeters
                         |> Format.squareMetters
                     ]

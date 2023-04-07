@@ -6,7 +6,7 @@ module Data.Unit exposing
     , Quality(..)
     , Ratio(..)
     , Reparability(..)
-    , SurfaceMass(..)
+    , SurfaceMass
     , ThreadDensity(..)
     , YarnSize(..)
     , decodeImpact
@@ -28,6 +28,7 @@ module Data.Unit exposing
     , forMJ
     , functionalToSlug
     , functionalToString
+    , gramsPerSquareMeter
     , impact
     , impactAggregateScore
     , impactToFloat
@@ -54,9 +55,8 @@ module Data.Unit exposing
     , reparabilityToFloat
     , standardQuality
     , standardReparability
-    , surfaceMass
-    , surfaceMassToFloat
-    , surfaceMassToInt
+    , surfaceMassInGramsPerSquareMeters
+    , surfaceMassToSurface
     , threadDensity
     , threadDensityHigh
     , threadDensityLow
@@ -67,6 +67,7 @@ module Data.Unit exposing
     , yarnSizeToInt
     )
 
+import Area exposing (Area)
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -399,33 +400,36 @@ encodePickPerMeter (PickPerMeter int) =
 -- SurfaceMass (Grammage, ou masse surfacique)
 
 
-type SurfaceMass
-    = SurfaceMass Int
+type alias SurfaceMass =
+    Quantity Float (Quantity.Rate Mass.Kilograms Area.SquareMeters)
+
+
+gramsPerSquareMeter : Int -> SurfaceMass
+gramsPerSquareMeter int =
+    Quantity.rate (Mass.grams (toFloat int)) Area.squareMeter
+
+
+surfaceMassInGramsPerSquareMeters : SurfaceMass -> Int
+surfaceMassInGramsPerSquareMeters surfaceMass =
+    Quantity.at surfaceMass Area.squareMeter
+        |> Mass.inGrams
+        |> round
+
+
+surfaceMassToSurface : SurfaceMass -> Mass -> Area
+surfaceMassToSurface surfaceMass mass =
+    -- Given a g/m2 and an input mass, return the area in m2
+    Quantity.at_ surfaceMass mass
 
 
 minSurfaceMass : SurfaceMass
 minSurfaceMass =
-    SurfaceMass 80
+    gramsPerSquareMeter 80
 
 
 maxSurfaceMass : SurfaceMass
 maxSurfaceMass =
-    SurfaceMass 500
-
-
-surfaceMass : Int -> SurfaceMass
-surfaceMass =
-    SurfaceMass
-
-
-surfaceMassToFloat : SurfaceMass -> Float
-surfaceMassToFloat (SurfaceMass int) =
-    toFloat int
-
-
-surfaceMassToInt : SurfaceMass -> Int
-surfaceMassToInt (SurfaceMass int) =
-    int
+    gramsPerSquareMeter 500
 
 
 decodeSurfaceMass : Decoder SurfaceMass
@@ -433,26 +437,30 @@ decodeSurfaceMass =
     Decode.int
         |> Decode.andThen
             (\int ->
-                if int < surfaceMassToInt minSurfaceMass || int > surfaceMassToInt maxSurfaceMass then
+                let
+                    surfaceMass =
+                        gramsPerSquareMeter int
+                in
+                if (surfaceMass |> Quantity.lessThan minSurfaceMass) || (surfaceMass |> Quantity.greaterThan maxSurfaceMass) then
                     Decode.fail
                         ("La masse surfacique spécifiée ("
                             ++ String.fromInt int
                             ++ ") doit être comprise entre "
-                            ++ String.fromInt (surfaceMassToInt minSurfaceMass)
+                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters minSurfaceMass)
                             ++ " et "
-                            ++ String.fromInt (surfaceMassToInt maxSurfaceMass)
+                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters maxSurfaceMass)
                             ++ "."
                         )
 
                 else
                     Decode.succeed int
             )
-        |> Decode.map surfaceMass
+        |> Decode.map gramsPerSquareMeter
 
 
 encodeSurfaceMass : SurfaceMass -> Encode.Value
-encodeSurfaceMass (SurfaceMass int) =
-    Encode.int int
+encodeSurfaceMass surfaceMass =
+    Encode.int (surfaceMassInGramsPerSquareMeters surfaceMass)
 
 
 

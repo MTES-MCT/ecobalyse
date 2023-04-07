@@ -28,6 +28,7 @@ import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 import Url.Parser.Query as Query exposing (Parser)
 
@@ -775,21 +776,25 @@ maybeSurfaceMassParser key =
         |> Query.map
             (Maybe.map
                 (\int ->
+                    let
+                        surfaceMass =
+                            Unit.gramsPerSquareMeter int
+                    in
                     if
-                        (int < Unit.surfaceMassToInt Unit.minSurfaceMass)
-                            || (int > Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                        (surfaceMass |> Quantity.lessThan Unit.minSurfaceMass)
+                            || (surfaceMass |> Quantity.greaterThan Unit.maxSurfaceMass)
                     then
                         Err
                             ( key
                             , "Le grammage (surfaceMass) doit être compris entre "
-                                ++ String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass)
+                                ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.minSurfaceMass)
                                 ++ " et "
-                                ++ String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                                ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.maxSurfaceMass)
                                 ++ " g/m²."
                             )
 
                     else
-                        Ok (Just (Unit.surfaceMass int))
+                        Ok (Just surfaceMass)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

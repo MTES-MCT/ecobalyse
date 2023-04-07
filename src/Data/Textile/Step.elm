@@ -276,18 +276,12 @@ getRoadTransportProcess wellKnown { label } =
 
 getInputSurface : Inputs -> Step -> Area
 getInputSurface { product, surfaceMass } { inputMass } =
-    Mass.inGrams inputMass
-        / Unit.surfaceMassToFloat
-            (Maybe.withDefault product.surfaceMass surfaceMass)
-        |> Area.squareMeters
+    Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) inputMass
 
 
 getOutputSurface : Inputs -> Step -> Area
 getOutputSurface { product, surfaceMass } { outputMass } =
-    Mass.inGrams outputMass
-        / Unit.surfaceMassToFloat
-            (Maybe.withDefault product.surfaceMass surfaceMass)
-        |> Area.squareMeters
+    Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) outputMass
 
 
 updateFromInputs : Db -> Inputs -> Step -> Step
@@ -463,8 +457,8 @@ reparabilityToString (Unit.Reparability float) =
 
 
 surfaceMassToString : Unit.SurfaceMass -> String
-surfaceMassToString (Unit.SurfaceMass int) =
-    "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
+surfaceMassToString surfaceMass =
+    "Grammage\u{00A0}: " ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters surfaceMass) ++ "\u{202F}g/m²"
 
 
 makingWasteToString : Split -> String

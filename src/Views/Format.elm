@@ -159,7 +159,7 @@ squareMetters =
 
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
-    Unit.surfaceMassToFloat >> formatRichFloat 0 "g/m²"
+    Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> formatRichFloat 0 "g/m²"
 
 
 ratio : Unit.Ratio -> Html msg

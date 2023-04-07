@@ -122,14 +122,14 @@ surfaceMass config =
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.surfaceMass >> config.update)
-            , Attr.min (String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass))
-            , Attr.max (String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass))
+            [ onInput (String.toInt >> Maybe.map Unit.gramsPerSquareMeter >> config.update)
+            , Attr.min (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.minSurfaceMass))
+            , Attr.max (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.maxSurfaceMass))
             , step "1"
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
-            , value (String.fromInt (Unit.surfaceMassToInt config.value))
+            , value (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters config.value))
             , Attr.disabled config.disabled
             ]
         }

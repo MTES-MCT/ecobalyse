@@ -9,10 +9,10 @@ module Data.Textile.Product exposing
     , encodeId
     , findById
     , getFabricProcess
-    , makingComplexityAsString
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
+    , makingComplexityAsString
     )
 
 import Data.Split as Split exposing (Split)
@@ -165,13 +165,22 @@ decodeDyeingOptions =
 decodeMakingComplexity : Decoder MakingComplexity
 decodeMakingComplexity =
     Decode.string
-    |> Decode.andThen (\complexityStr -> 
-        case complexityStr of
-            "high" -> Decode.succeed High
-            "medium" -> Decode.succeed Medium
-            "low" -> Decode.succeed Low
-            str -> Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
-        )
+        |> Decode.andThen
+            (\complexityStr ->
+                case complexityStr of
+                    "high" ->
+                        Decode.succeed High
+
+                    "medium" ->
+                        Decode.succeed Medium
+
+                    "low" ->
+                        Decode.succeed Low
+
+                    str ->
+                        Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
+            )
+
 
 decodeMakingOptions : List Process -> Decoder MakingOptions
 decodeMakingOptions processes =
@@ -225,13 +234,13 @@ defaultYarnSize : Unit.SurfaceMass -> Unit.YarnSize
 defaultYarnSize surfaceMass =
     -- Default yarn size depends on surface mass
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#contexture-densite-and-titrage-des-fils
-    if Unit.surfaceMassToFloat surfaceMass < 200 then
+    if Unit.surfaceMassInGramsPerSquareMeters surfaceMass < 200 then
         Unit.yarnSize 50
 
-    else if Unit.surfaceMassToFloat surfaceMass <= 300 then
+    else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 300 then
         Unit.yarnSize 40
 
-    else if Unit.surfaceMassToFloat surfaceMass <= 400 then
+    else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 400 then
         Unit.yarnSize 30
 
     else
@@ -253,6 +262,7 @@ encodeFabricOptions v =
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 ]
 
+
 encodeMakingOptions : MakingOptions -> Encode.Value
 encodeMakingOptions v =
     Encode.object
@@ -260,7 +270,7 @@ encodeMakingOptions v =
         , ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         , ( "complexity", Encode.string (makingComplexityAsString v.complexity) )
-        , ( "durationInMinutes", Encode.int v.durationInMinutes)
+        , ( "durationInMinutes", Encode.int v.durationInMinutes )
         ]
 
 

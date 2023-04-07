@@ -126,7 +126,7 @@ suite =
                             }
                         , outputMass = kg 0.478
                         , pickingElec = 1
-                        , surfaceMass = Unit.surfaceMass 180
+                        , surfaceMass = Unit.gramsPerSquareMeter 180
                         , yarnSize = Unit.yarnSize 45
                         }
              in

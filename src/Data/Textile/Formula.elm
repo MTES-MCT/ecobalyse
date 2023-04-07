@@ -15,6 +15,7 @@ module Data.Textile.Formula exposing
     , weavingImpacts
     )
 
+import Area
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material exposing (CFFData)
@@ -175,9 +176,8 @@ printingImpacts :
 printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass, ratio } baseMass =
     let
         surface =
-            -- area (m2) = mass (g) / surfaceMass (g/m2)
-            Mass.inGrams baseMass
-                / Unit.surfaceMassToFloat surfaceMass
+            Unit.surfaceMassToSurface surfaceMass baseMass
+                |> Area.inSquareMeters
                 -- Apply ratio
                 |> (\s -> Split.apply s ratio)
 
@@ -339,8 +339,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
     let
         -- Surface sortante (en m2)
         outputSurface =
-            Mass.inGrams outputMass
-                / Unit.surfaceMassToFloat surfaceMass
+            Unit.surfaceMassToSurface surfaceMass outputMass
 
         -- Taux d'embuvage/retrait = 8% (valeur constante)
         wasteRatio =
@@ -348,7 +347,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
 
         -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
         threadDensity =
-            Unit.surfaceMassToFloat surfaceMass
+            toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
                 * Unit.yarnSizeToFloat yarnSize
                 / 100
                 / 2
@@ -356,7 +355,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
 
         -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
         picking =
-            threadDensity * outputSurface * 100
+            threadDensity * Area.inSquareMeters outputSurface * 100
 
         -- Note: pickingElec is expressed in kWh/(pick,m) per kg of material to process (see Base Impacts)
         electricityKWh =
