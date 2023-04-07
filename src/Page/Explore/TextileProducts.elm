@@ -71,7 +71,7 @@ table _ { detailed, scope } =
                     Product.Knitted _ ->
                         text "Tricotée"
 
-                    Product.Weaved _ _ ->
+                    Product.Weaved _ ->
                         text "Tissée"
       }
     , { label = "Etoffe (procédé)"
