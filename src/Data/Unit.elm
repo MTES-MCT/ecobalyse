@@ -8,7 +8,7 @@ module Data.Unit exposing
     , Reparability(..)
     , SurfaceMass
     , ThreadDensity(..)
-    , YarnSize(..)
+    , YarnSize
     , decodeImpact
     , decodeQuality
     , decodeRatio
@@ -33,6 +33,7 @@ module Data.Unit exposing
     , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
+    , kilometersPerKg
     , maxQuality
     , maxReparability
     , maxSurfaceMass
@@ -62,9 +63,7 @@ module Data.Unit exposing
     , threadDensityLow
     , threadDensityToFloat
     , threadDensityToInt
-    , yarnSize
-    , yarnSizeToFloat
-    , yarnSizeToInt
+    , yarnSizeInKilometers
     )
 
 import Area exposing (Area)
@@ -276,41 +275,40 @@ encodeReparability (Reparability float) =
 
 
 
--- Yarn size (Titrage)
+-- Yarn size (Titrage): combien de kilomètres de fil dans 1kg de matière. 50Nm : 50km de fil pèsent 1kg.
 
 
-type YarnSize
-    = YarnSize Int
+type alias YarnSize =
+    Quantity Float (Quantity.Rate Length.Meters Mass.Kilograms)
 
 
-encodeYarnSize : YarnSize -> Encode.Value
-encodeYarnSize (YarnSize int) =
-    Encode.int int
+kilometersPerKg : Int -> YarnSize
+kilometersPerKg kilometers =
+    Quantity.rate (Length.kilometers (toFloat kilometers)) Mass.kilogram
 
 
 minYarnSize : YarnSize
 minYarnSize =
-    YarnSize 9
+    kilometersPerKg 9
 
 
 maxYarnSize : YarnSize
 maxYarnSize =
-    YarnSize 200
+    kilometersPerKg 200
 
 
-yarnSize : Int -> YarnSize
-yarnSize =
-    YarnSize
+yarnSizeInKilometers : YarnSize -> Int
+yarnSizeInKilometers yarnSize =
+    Quantity.at yarnSize Mass.kilogram
+        |> Length.inKilometers
+        |> round
 
 
-yarnSizeToFloat : YarnSize -> Float
-yarnSizeToFloat (YarnSize int) =
-    toFloat int
-
-
-yarnSizeToInt : YarnSize -> Int
-yarnSizeToInt (YarnSize int) =
-    int
+encodeYarnSize : YarnSize -> Encode.Value
+encodeYarnSize yarnSize =
+    yarnSize
+        |> yarnSizeInKilometers
+        |> Encode.int
 
 
 decodeYarnSize : Decoder YarnSize
@@ -318,21 +316,25 @@ decodeYarnSize =
     Decode.int
         |> Decode.andThen
             (\int ->
-                if int < yarnSizeToInt minYarnSize || int > yarnSizeToInt maxYarnSize then
+                let
+                    yarnSize =
+                        kilometersPerKg int
+                in
+                if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
                     Decode.fail
                         ("Le titrage spécifié ("
                             ++ String.fromInt int
                             ++ ") doit être compris entre "
-                            ++ String.fromInt (yarnSizeToInt minYarnSize)
+                            ++ String.fromInt (yarnSizeInKilometers minYarnSize)
                             ++ " et "
-                            ++ String.fromInt (yarnSizeToInt maxYarnSize)
+                            ++ String.fromInt (yarnSizeInKilometers maxYarnSize)
                             ++ "."
                         )
 
                 else
                     Decode.succeed int
             )
-        |> Decode.map yarnSize
+        |> Decode.map kilometersPerKg
 
 
 

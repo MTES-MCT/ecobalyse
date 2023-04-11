@@ -750,21 +750,22 @@ maybeYarnSize key =
         |> Query.map
             (Maybe.map
                 (\int ->
-                    if
-                        (int < Unit.yarnSizeToInt Unit.minYarnSize)
-                            || (int > Unit.yarnSizeToInt Unit.maxYarnSize)
-                    then
+                    let
+                        yarnSize =
+                            Unit.kilometersPerKg int
+                    in
+                    if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
                         Err
                             ( key
                             , "Le titrage (yarnSize) doit être compris entre "
-                                ++ String.fromInt (Unit.yarnSizeToInt Unit.minYarnSize)
+                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
                                 ++ " et "
-                                ++ String.fromInt (Unit.yarnSizeToInt Unit.maxYarnSize)
+                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
                                 ++ " duites/m."
                             )
 
                     else
-                        Ok (Just (Unit.yarnSize int))
+                        Ok (Just (Unit.kilometersPerKg int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

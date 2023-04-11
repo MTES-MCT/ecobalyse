@@ -252,7 +252,7 @@ toString inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "Titrage", String.fromInt (Unit.yarnSizeToInt yarnSize) ++ "Nm" ]
+            [ "Titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []

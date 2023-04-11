@@ -41,6 +41,12 @@ table _ { detailed, scope } =
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.kg product.mass ]
       }
+    , { label = "Titrage"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Format.yarnSize (Product.defaultYarnSize product.surfaceMass) ]
+      }
     , { label = "Grammage"
       , toCell =
             \{ surfaceMass } ->

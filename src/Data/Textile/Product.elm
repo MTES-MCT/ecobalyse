@@ -235,16 +235,16 @@ defaultYarnSize surfaceMass =
     -- Default yarn size depends on surface mass
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#contexture-densite-and-titrage-des-fils
     if Unit.surfaceMassInGramsPerSquareMeters surfaceMass < 200 then
-        Unit.yarnSize 50
+        Unit.kilometersPerKg 50
 
     else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 300 then
-        Unit.yarnSize 40
+        Unit.kilometersPerKg 40
 
     else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 400 then
-        Unit.yarnSize 30
+        Unit.kilometersPerKg 30
 
     else
-        Unit.yarnSize 25
+        Unit.kilometersPerKg 25
 
 
 encodeFabricOptions : FabricOptions -> Encode.Value

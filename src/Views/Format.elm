@@ -19,6 +19,7 @@ module Views.Format exposing
     , splitAsPercentage
     , squareMetters
     , surfaceMass
+    , yarnSize
     )
 
 import Area exposing (Area)
@@ -160,6 +161,11 @@ squareMetters =
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
     Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> formatRichFloat 0 "g/m²"
+
+
+yarnSize : Unit.YarnSize -> Html msg
+yarnSize =
+    Unit.yarnSizeInKilometers >> toFloat >> formatRichFloat 0 "Nm"
 
 
 ratio : Unit.Ratio -> Html msg

@@ -471,8 +471,8 @@ makingWasteToString makingWaste =
 
 
 yarnSizeToString : Unit.YarnSize -> String
-yarnSizeToString (Unit.YarnSize int) =
-    "Titrage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}Nm"
+yarnSizeToString yarnSize =
+    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value

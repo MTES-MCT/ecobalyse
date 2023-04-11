@@ -348,7 +348,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
         -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
         threadDensity =
             toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
-                * Unit.yarnSizeToFloat yarnSize
+                * toFloat (Unit.yarnSizeInKilometers yarnSize)
                 / 100
                 / 2
                 / wasteRatio
