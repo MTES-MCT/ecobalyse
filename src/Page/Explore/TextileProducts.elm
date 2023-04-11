@@ -45,7 +45,10 @@ table _ { detailed, scope } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ Format.yarnSize (Product.defaultYarnSize product.surfaceMass) ]
+                    [ product.yarnSize
+                        |> Maybe.map Format.yarnSize
+                        |> Maybe.withDefault (text "n/a")
+                    ]
       }
     , { label = "Grammage"
       , toCell =

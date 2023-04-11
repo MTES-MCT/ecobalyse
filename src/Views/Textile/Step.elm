@@ -371,7 +371,8 @@ yarnSizeField : Config msg -> Product -> Html msg
 yarnSizeField { current, updateYarnSize } product =
     let
         yarnSize =
-            Product.defaultYarnSize product.surfaceMass
+            product.yarnSize
+                |> Maybe.withDefault Unit.minYarnSize
     in
     span
         [ [ if Product.isKnitted product then
@@ -380,7 +381,7 @@ yarnSizeField { current, updateYarnSize } product =
             else
                 ""
           , "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
-          , "Cette unité indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
+          , "Cette unité indique un nombre de kilomètres de fil correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
           ]
             |> String.join " "
             |> title

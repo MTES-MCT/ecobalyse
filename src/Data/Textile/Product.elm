@@ -4,7 +4,6 @@ module Data.Textile.Product exposing
     , Product
     , customDaysOfWear
     , decodeList
-    , defaultYarnSize
     , encode
     , encodeId
     , findById
@@ -75,6 +74,7 @@ type alias Product =
     , name : String
     , mass : Mass
     , surfaceMass : Unit.SurfaceMass
+    , yarnSize : Maybe Unit.YarnSize
     , fabric : FabricOptions
     , dyeing : DyeingOptions
     , making : MakingOptions
@@ -218,6 +218,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+        |> Pipe.required "yarnSize" (Decode.maybe Unit.decodeYarnSize)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" (decodeMakingOptions processes)
@@ -228,23 +229,6 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-defaultYarnSize : Unit.SurfaceMass -> Unit.YarnSize
-defaultYarnSize surfaceMass =
-    -- Default yarn size depends on surface mass
-    -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#contexture-densite-and-titrage-des-fils
-    if Unit.surfaceMassInGramsPerSquareMeters surfaceMass < 200 then
-        Unit.kilometersPerKg 50
-
-    else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 300 then
-        Unit.kilometersPerKg 40
-
-    else if Unit.surfaceMassInGramsPerSquareMeters surfaceMass <= 400 then
-        Unit.kilometersPerKg 30
-
-    else
-        Unit.kilometersPerKg 25
 
 
 encodeFabricOptions : FabricOptions -> Encode.Value
