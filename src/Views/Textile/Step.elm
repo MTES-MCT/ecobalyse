@@ -345,16 +345,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
 surfaceMassField : Config msg -> Product -> Html msg
 surfaceMassField { current, updateSurfaceMass } product =
     span
-        [ [ if Product.isKnitted product then
-                "Désactivé car inopérant sur un produit tricoté."
-
-            else
-                ""
-          , "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
-          ]
-            |> String.join " "
-            |> title
-        ]
+        [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
@@ -362,7 +353,7 @@ surfaceMassField { current, updateSurfaceMass } product =
             , toString = Step.surfaceMassToString
 
             -- Note: hide for knitted products as surface mass doesn't have any impact on them
-            , disabled = not current.enabled || Product.isKnitted product
+            , disabled = not current.enabled
             }
         ]
 
