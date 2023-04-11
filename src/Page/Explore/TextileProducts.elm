@@ -5,12 +5,18 @@ import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium
+import Data.Textile.Formula as Formula
+import Data.Textile.Inputs as TextileInputs
+import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator as Simulator
+import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
 import Page.Explore.Table exposing (Table)
+import Quantity
 import Route
 import Views.Format as Format
 
@@ -21,7 +27,7 @@ withTitle str =
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Product msg
-table _ { detailed, scope } =
+table db { detailed, scope } =
     [ { label = "Identifiant"
       , toCell =
             \product ->
@@ -62,7 +68,7 @@ table _ { detailed, scope } =
             \{ surfaceMass, yarnSize } ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ yarnSize
-                        |> Maybe.map (Product.computeThreadDensity surfaceMass >> Format.threadDensity)
+                        |> Maybe.map (Formula.computeThreadDensity surfaceMass >> Format.threadDensity)
                         |> Maybe.withDefault (text "n/a")
                     ]
       }
@@ -94,6 +100,35 @@ table _ { detailed, scope } =
       }
     , { label = "Etoffe (procédé)"
       , toCell = Product.getFabricProcess >> .name >> withTitle
+      }
+    , { label = "Duites.m"
+      , toCell =
+            \({ surfaceMass, yarnSize } as product) ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ case yarnSize of
+                        Just ys ->
+                            let
+                                outputMass =
+                                    TextileInputs.defaultQuery
+                                        |> TextileInputs.updateProduct product
+                                        |> Simulator.compute db
+                                        |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
+                                        |> Result.withDefault Quantity.zero
+
+                                outputSurface =
+                                    Formula.computeOutputSurface surfaceMass outputMass
+
+                                threadDensity =
+                                    Formula.computeThreadDensity surfaceMass ys
+
+                                picking =
+                                    Formula.computePicking threadDensity outputSurface
+                            in
+                            Format.picking picking
+
+                        Nothing ->
+                            text "n/a"
+                    ]
       }
     , { label = "Délavage"
       , toCell =

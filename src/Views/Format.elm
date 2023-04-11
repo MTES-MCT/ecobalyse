@@ -14,6 +14,7 @@ module Views.Format exposing
     , m3
     , megajoules
     , percent
+    , picking
     , ratio
     , splitAsFloat
     , splitAsPercentage
@@ -167,6 +168,11 @@ surfaceMass =
 threadDensity : Unit.ThreadDensity -> Html msg
 threadDensity (Unit.ThreadDensity density) =
     density |> formatRichFloat 0 "# / cm"
+
+
+picking : Unit.PickPerMeter -> Html msg
+picking (Unit.PickPerMeter pickPerMeter) =
+    pickPerMeter |> toFloat |> formatRichFloat 0 "duites.m"
 
 
 yarnSize : Unit.YarnSize -> Html msg

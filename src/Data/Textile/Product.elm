@@ -2,7 +2,6 @@ module Data.Textile.Product exposing
     ( FabricOptions(..)
     , Id(..)
     , Product
-    , computeThreadDensity
     , customDaysOfWear
     , decodeList
     , encode
@@ -86,21 +85,6 @@ type alias Product =
 
 type Id
     = Id String
-
-
-computeThreadDensity : Unit.SurfaceMass -> Unit.YarnSize -> Unit.ThreadDensity
-computeThreadDensity surfaceMass yarnSize =
-    let
-        -- Taux d'embuvage/retrait = 8% (valeur constante)
-        wasteRatio =
-            1.08
-    in
-    toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
-        * toFloat (Unit.yarnSizeInKilometers yarnSize)
-        / 100
-        / 2
-        / wasteRatio
-        |> Unit.ThreadDensity
 
 
 getFabricProcess : Product -> Process
