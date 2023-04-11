@@ -12,6 +12,7 @@ module Data.Food.Ingredient exposing
     , defaultBonuses
     , encodeBonuses
     , encodeId
+    , encodePlaneTransport
     , findByID
     , getDefaultOrganicBonuses
     , getDefaultOriginTransport
@@ -136,6 +137,19 @@ encodeBonuses v =
 encodeId : Id -> Encode.Value
 encodeId (Id str) =
     Encode.string str
+
+
+encodePlaneTransport : PlaneTransport -> Encode.Value
+encodePlaneTransport planeTransport =
+    case planeTransport of
+        PlaneNotApplicable ->
+            Encode.null
+
+        ByPlane ->
+            Encode.string "byPlane"
+
+        NoPlane ->
+            Encode.string "noPlane"
 
 
 getDefaultOrganicBonuses : Ingredient -> Bonuses
