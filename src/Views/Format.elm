@@ -19,6 +19,7 @@ module Views.Format exposing
     , splitAsPercentage
     , squareMetters
     , surfaceMass
+    , threadDensity
     , yarnSize
     )
 
@@ -161,6 +162,11 @@ squareMetters =
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
     Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> formatRichFloat 0 "g/m²"
+
+
+threadDensity : Unit.ThreadDensity -> Html msg
+threadDensity (Unit.ThreadDensity density) =
+    density |> formatRichFloat 0 "# / cm"
 
 
 yarnSize : Unit.YarnSize -> Html msg

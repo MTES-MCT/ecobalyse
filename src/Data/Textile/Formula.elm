@@ -20,6 +20,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material exposing (CFFData)
 import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Product as Product
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -341,17 +342,10 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
         outputSurface =
             Unit.surfaceMassToSurface surfaceMass outputMass
 
-        -- Taux d'embuvage/retrait = 8% (valeur constante)
-        wasteRatio =
-            1.08
-
         -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
         threadDensity =
-            toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
-                * toFloat (Unit.yarnSizeInKilometers yarnSize)
-                / 100
-                / 2
-                / wasteRatio
+            Product.computeThreadDensity surfaceMass yarnSize
+                |> Unit.threadDensityToFloat
 
         -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
         picking =

@@ -57,6 +57,15 @@ table _ { detailed, scope } =
                     [ Format.surfaceMass surfaceMass
                     ]
       }
+    , { label = "Densité de fils (# / cm)"
+      , toCell =
+            \{ surfaceMass, yarnSize } ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ yarnSize
+                        |> Maybe.map (Product.computeThreadDensity surfaceMass >> Format.threadDensity)
+                        |> Maybe.withDefault (text "n/a")
+                    ]
+      }
     , { label = "Surface"
       , toCell =
             \{ mass, surfaceMass } ->
