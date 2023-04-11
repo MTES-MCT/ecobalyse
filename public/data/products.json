@@ -1,7 +1,7 @@
 [
   {
     "id": "chemise",
-    "name": "Chemise / Chemisier / Débardeur",
+    "name": "Chemise",
     "mass": 0.25,
     "surfaceMass": 200,
     "yarnSize": 40,
