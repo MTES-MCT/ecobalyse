@@ -347,6 +347,30 @@ describe("API", () => {
         );
       });
 
+      it("should validate an ingredient bonuses format", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;invalid"]),
+          "ingredients",
+          /Format de bonus d'ingrédient invalide: invalid./,
+        );
+      });
+
+      it("should validate an ingredient bonus boundaries", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;110:100"]),
+          "ingredients",
+          /comprise entre 0 et 100/,
+        );
+      });
+
+      it("should validate an ingredient bonus applicability", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;100:100:100"]),
+          "ingredients",
+          /Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage/,
+        );
+      });
+
       it("should validate transform code", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["transform=invalid;268"]),
