@@ -1,6 +1,6 @@
 module Data.Food.Ingredient exposing
     ( Bonuses
-    , Id
+    , Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
