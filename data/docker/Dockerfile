@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:python-3.9
+FROM jupyter/minimal-notebook:python-3.10
 
 ENV BRIGHTWAY2_DIR /home/$NB_USER/data
 ENV BRIGHTWAY2_DOCKER 1
@@ -24,6 +24,9 @@ RUN apt update \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
 COPY entrypoint.sh /
+
+RUN jupyter nbextension enable --py widgetsnbextension
+
 
 VOLUME /home/$NB_USER
 WORKDIR /home/$NB_USER/notebooks
