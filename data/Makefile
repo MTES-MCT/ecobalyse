@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm --name $(NAME) -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
-DOCKEREXEC := docker exec -it
+DOCKEREXEC := docker exec -u jovyan -it
 
 json: image import_agribalyse export_builder
 
