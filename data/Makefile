@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
-RUNNING := $(shell docker container inspect -f '{{.State.Running}}' $(NAME) )
 DOCKERRUN := docker run --rm --name $(NAME) -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
 DOCKEREXEC := docker exec -it
 
@@ -24,13 +23,13 @@ corrected_impacts:
 
 python:
 	echo Running Python inside the container...
-	@if [ "$(RUNNING)" = "true" ]; then \
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) $(NAME) python;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python; fi
 
 shell:
 	echo starting a user shell inside the container...
-	@if [ "$(RUNNING)" = "true" ]; then \
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) $(NAME) bash;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
