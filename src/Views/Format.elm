@@ -171,8 +171,8 @@ threadDensity (Unit.ThreadDensity density) =
 
 
 picking : Unit.PickPerMeter -> Html msg
-picking (Unit.PickPerMeter pickPerMeter) =
-    pickPerMeter |> toFloat |> formatRichFloat 0 "duites.m"
+picking =
+    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites.m"
 
 
 yarnSize : Unit.YarnSize -> Html msg

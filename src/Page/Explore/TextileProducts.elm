@@ -12,6 +12,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
+import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
@@ -116,15 +117,14 @@ table db { detailed, scope } =
                                         |> Result.withDefault Quantity.zero
 
                                 outputSurface =
-                                    Formula.computeOutputSurface surfaceMass outputMass
+                                    Unit.surfaceMassToSurface surfaceMass outputMass
 
                                 threadDensity =
                                     Formula.computeThreadDensity surfaceMass ys
-
-                                picking =
-                                    Formula.computePicking threadDensity outputSurface
                             in
-                            Format.picking picking
+                            outputSurface
+                                |> Formula.computePicking threadDensity
+                                |> Format.picking
 
                         Nothing ->
                             text "n/a"
@@ -145,13 +145,13 @@ table db { detailed, scope } =
                 text <| DyeingMedium.toLabel dyeing.defaultMedium
       }
     , { label = "Confection (complexité)"
-      , toCell = .making >> .complexity >> Product.makingComplexityAsString >> text
+      , toCell = .making >> .complexity >> Product.makingComplexityToString >> text
       }
     , { label = "Confection (# minutes)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ Product.getMakingDurationInMinutes product |> String.fromInt |> text ]
+                    [ Product.getMakingDurationInMinutes product |> Duration.inMinutes |> round |> String.fromInt |> text ]
       }
     , { label = "Confection (taux de perte)"
       , toCell =

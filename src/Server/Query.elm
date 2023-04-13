@@ -752,7 +752,7 @@ maybeYarnSize key =
                 (\int ->
                     let
                         yarnSize =
-                            Unit.kilometersPerKg int
+                            Unit.yarnSizeKilometersPerKg int
                     in
                     if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
                         Err
@@ -765,7 +765,7 @@ maybeYarnSize key =
                             )
 
                     else
-                        Ok (Just (Unit.kilometersPerKg int))
+                        Ok (Just (Unit.yarnSizeKilometersPerKg int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

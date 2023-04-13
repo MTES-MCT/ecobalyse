@@ -150,7 +150,7 @@ yarnSize config =
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.kilometersPerKg >> config.update)
+            [ onInput (String.toInt >> Maybe.map Unit.yarnSizeKilometersPerKg >> config.update)
             , Attr.min (String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize))
             , Attr.max (String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize))
 

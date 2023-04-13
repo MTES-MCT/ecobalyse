@@ -1,6 +1,5 @@
 module Data.Textile.Formula exposing
-    ( computeOutputSurface
-    , computePicking
+    ( computePicking
     , computeThreadDensity
     , dyeingImpacts
     , endOfLifeImpacts
@@ -182,7 +181,7 @@ printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass
             Unit.surfaceMassToSurface surfaceMass baseMass
                 |> Area.inSquareMeters
                 -- Apply ratio
-                |> (\s -> Split.apply s ratio)
+                |> (\surfaceInSquareMeters -> Split.apply surfaceInSquareMeters ratio)
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"
@@ -340,15 +339,12 @@ weavingImpacts :
 weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } =
     -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
-        -- Surface sortante (en m2)
         outputSurface =
-            computeOutputSurface surfaceMass outputMass
+            Unit.surfaceMassToSurface surfaceMass outputMass
 
-        -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
         threadDensity =
             computeThreadDensity surfaceMass yarnSize
 
-        -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
         picking =
             computePicking threadDensity outputSurface
 
@@ -371,13 +367,9 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
     }
 
 
-computeOutputSurface : Unit.SurfaceMass -> Mass -> Area
-computeOutputSurface surfaceMass outputMass =
-    Unit.surfaceMassToSurface surfaceMass outputMass
-
-
 computeThreadDensity : Unit.SurfaceMass -> Unit.YarnSize -> Unit.ThreadDensity
 computeThreadDensity surfaceMass yarnSize =
+    -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
     let
         -- Taux d'embuvage/retrait = 8% (valeur constante)
         wasteRatio =
@@ -385,7 +377,9 @@ computeThreadDensity surfaceMass yarnSize =
     in
     toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
         * toFloat (Unit.yarnSizeInKilometers yarnSize)
+        -- the output surface is in (m2) so we would have the threadDensity is in (# fils / m) but we need it in (# fils / cm)
         / 100
+        -- the thread is weaved horizontally and vertically, so the number of threads along one axis is only half of the total thread length
         / 2
         / wasteRatio
         |> Unit.threadDensity
@@ -393,8 +387,10 @@ computeThreadDensity surfaceMass yarnSize =
 
 computePicking : Unit.ThreadDensity -> Area -> Unit.PickPerMeter
 computePicking threadDensity outputSurface =
+    -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
     Unit.threadDensityToFloat threadDensity
         * Area.inSquareMeters outputSurface
+        -- threadDensity is in (# fils / cm) but we need it in (# fils / m) to be in par with the output surface in (m2)
         * 100
         |> round
         |> Unit.PickPerMeter

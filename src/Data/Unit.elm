@@ -33,7 +33,6 @@ module Data.Unit exposing
     , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
-    , kilometersPerKg
     , maxQuality
     , maxReparability
     , maxSurfaceMass
@@ -64,6 +63,7 @@ module Data.Unit exposing
     , threadDensityToFloat
     , threadDensityToInt
     , yarnSizeInKilometers
+    , yarnSizeKilometersPerKg
     )
 
 import Area exposing (Area)
@@ -282,19 +282,19 @@ type alias YarnSize =
     Quantity Float (Quantity.Rate Length.Meters Mass.Kilograms)
 
 
-kilometersPerKg : Int -> YarnSize
-kilometersPerKg kilometers =
+yarnSizeKilometersPerKg : Int -> YarnSize
+yarnSizeKilometersPerKg kilometers =
     Quantity.rate (Length.kilometers (toFloat kilometers)) Mass.kilogram
 
 
 minYarnSize : YarnSize
 minYarnSize =
-    kilometersPerKg 9
+    yarnSizeKilometersPerKg 9
 
 
 maxYarnSize : YarnSize
 maxYarnSize =
-    kilometersPerKg 200
+    yarnSizeKilometersPerKg 200
 
 
 yarnSizeInKilometers : YarnSize -> Int
@@ -318,7 +318,7 @@ decodeYarnSize =
             (\int ->
                 let
                     yarnSize =
-                        kilometersPerKg int
+                        yarnSizeKilometersPerKg int
                 in
                 if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
                     Decode.fail
@@ -334,7 +334,7 @@ decodeYarnSize =
                 else
                     Decode.succeed int
             )
-        |> Decode.map kilometersPerKg
+        |> Decode.map yarnSizeKilometersPerKg
 
 
 

@@ -11,7 +11,7 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
-    , makingComplexityAsString
+    , makingComplexityToString
     )
 
 import Data.Split as Split exposing (Split)
@@ -48,7 +48,7 @@ type alias MakingOptions =
     , fadable : Bool -- Can this product be faded?
     , pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
-    , durationInMinutes : Int -- How long does it take
+    , durationInMinutes : Duration -- How long does it take
     }
 
 
@@ -97,8 +97,8 @@ getFabricProcess { fabric } =
             process
 
 
-makingComplexityAsString : MakingComplexity -> String
-makingComplexityAsString makingComplexity =
+makingComplexityToString : MakingComplexity -> String
+makingComplexityToString makingComplexity =
     case makingComplexity of
         High ->
             "Elevée"
@@ -110,7 +110,7 @@ makingComplexityAsString makingComplexity =
             "Faible"
 
 
-getMakingDurationInMinutes : Product -> Int
+getMakingDurationInMinutes : Product -> Duration
 getMakingDurationInMinutes =
     .making >> .durationInMinutes
 
@@ -189,7 +189,7 @@ decodeMakingOptions processes =
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" decodeMakingComplexity
-        |> Pipe.required "durationInMinutes" Decode.int
+        |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -253,8 +253,8 @@ encodeMakingOptions v =
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
-        , ( "complexity", Encode.string (makingComplexityAsString v.complexity) )
-        , ( "durationInMinutes", Encode.int v.durationInMinutes )
+        , ( "complexity", Encode.string (makingComplexityToString v.complexity) )
+        , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 
 

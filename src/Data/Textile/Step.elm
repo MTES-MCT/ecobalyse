@@ -276,7 +276,11 @@ getRoadTransportProcess wellKnown { label } =
 
 getInputSurface : Inputs -> Step -> Area
 getInputSurface { product, surfaceMass } { inputMass } =
-    Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) inputMass
+    let
+        surfaceMassWithDefault =
+            Maybe.withDefault product.surfaceMass surfaceMass
+    in
+    Unit.surfaceMassToSurface surfaceMassWithDefault inputMass
 
 
 getOutputSurface : Inputs -> Step -> Area
