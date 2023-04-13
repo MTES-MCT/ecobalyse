@@ -1,6 +1,7 @@
 port module Ports exposing
     ( appStarted
     , copyToClipboard
+    , loadRapidoc
     , saveStore
     , scrollIntoView
     , scrollTo
@@ -12,6 +13,9 @@ port module Ports exposing
 
 
 port appStarted : () -> Cmd msg
+
+
+port loadRapidoc : String -> Cmd msg
 
 
 port saveStore : String -> Cmd msg
