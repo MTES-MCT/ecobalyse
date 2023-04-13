@@ -1,4 +1,3 @@
-import "rapidoc";
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
@@ -20,6 +19,15 @@ if (process.env.SENTRY_DSN) {
       /_VirtualDom_applyPatch/,
     ],
   });
+}
+
+function loadScript(scriptUrl) {
+  var d = document,
+    g = d.createElement("script"),
+    s = d.getElementsByTagName("script")[0];
+  g.async = true;
+  g.src = scriptUrl;
+  s.parentNode.insertBefore(g, s);
 }
 
 // The localStorage key to use to store serialized session data
@@ -52,12 +60,14 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["setTrackerUrl", u + "matomo.php"]);
   _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", "196"]);
-  var d = document,
-    g = d.createElement("script"),
-    s = d.getElementsByTagName("script")[0];
-  g.async = true;
-  g.src = u + "matomo.js";
-  s.parentNode.insertBefore(g, s);
+  loadScript(u + "matomo.js");
+});
+
+app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
+  // load the rapi-doc script if the component hasn't be registered yet
+  if (!customElements.get("rapi-doc")) {
+    loadScript(rapidocScriptUrl);
+  }
 });
 
 app.ports.saveStore.subscribe((rawStore) => {

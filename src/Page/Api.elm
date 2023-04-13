@@ -33,7 +33,13 @@ type alias News =
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( (), session, Ports.scrollTo { x = 0, y = 0 } )
+    ( ()
+    , session
+    , Cmd.batch
+        [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
+        , Ports.scrollTo { x = 0, y = 0 }
+        ]
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
