@@ -82,6 +82,12 @@ ingredientListParser key builderDb =
 
 ingredientParser : BuilderDb.Db -> String -> Result String BuilderQuery.IngredientQuery
 ingredientParser { countries, ingredients } string =
+    let
+        byPlaneParser byPlane ingredient =
+            ingredient
+                |> validateByPlaneValue byPlane
+                |> Result.andThen (\maybeByPlane -> Ingredient.byPlaneAllowed maybeByPlane ingredient)
+    in
     case String.split ";" string of
         [ id, mass ] ->
             let
@@ -136,17 +142,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
-                |> RE.andMap
-                    (ingredient
-                        |> Result.andThen
-                            (\ingredientResult ->
-                                validateByPlaneValue byPlane ingredientResult
-                                    |> Result.andThen
-                                        (\maybeByPlane ->
-                                            Ingredient.byPlaneAllowed maybeByPlane ingredientResult
-                                        )
-                            )
-                    )
+                |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
                 |> RE.andMap (Ok Nothing)
 
         [ id, mass, variant, countryCode, byPlane, bonuses ] ->
@@ -160,21 +156,8 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
-                |> RE.andMap
-                    (ingredient
-                        |> Result.andThen
-                            (\ingredientResult ->
-                                validateByPlaneValue byPlane ingredientResult
-                                    |> Result.andThen
-                                        (\maybeByPlane ->
-                                            Ingredient.byPlaneAllowed maybeByPlane ingredientResult
-                                        )
-                            )
-                    )
-                |> RE.andMap
-                    (ingredient
-                        |> Result.andThen (\ingrdt -> bonusesParser ingrdt bonuses)
-                    )
+                |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
+                |> RE.andMap (ingredient |> Result.andThen (bonusesParser bonuses))
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -183,8 +166,8 @@ ingredientParser { countries, ingredients } string =
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
 
 
-bonusesParser : Ingredient -> String -> Result String (Maybe Ingredient.Bonuses)
-bonusesParser { name, animalOrigin } string =
+bonusesParser : String -> Ingredient -> Result String (Maybe Ingredient.Bonuses)
+bonusesParser string { name, animalOrigin } =
     let
         parseBonus : String -> Result String Split
         parseBonus str =
