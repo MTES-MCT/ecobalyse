@@ -140,9 +140,7 @@ headerMenuLinks =
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
-
-    -- TODO: uncomment the following line when the "Alimentaire" simulator is live
-    -- , Internal "Alimentaire" Route.Food Food
+    , External "Communauté" Env.mattermostUrl
     ]
 
 
@@ -160,6 +158,7 @@ footerMenuLinks =
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl
     , External "Documentation" Env.gitbookUrl
+    , External "Communauté" Env.mattermostUrl
     , MailTo "Contact" Env.contactEmail
     ]
 

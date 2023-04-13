@@ -10,7 +10,7 @@
     "unit_en": "impact µPts",
     "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the Ecobalyse methodology, including Biodiversity.",
     "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode Ecobalyse, incluant l'impact sur la biodiversité.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en **milliPoints** (`mPt`) ou en **microPoints** (`µPt`) avec `1 Pt = 1 000 mPt = 1 000 000 µPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
-    "short_unit": "µPts d'impact",
+    "short_unit": "µPts",
     "decimals": 2,
     "quality": null,
     "pef": null,
@@ -103,12 +103,12 @@
     "quality": 1,
     "pef": {
       "color": "#800000",
-      "normalization": 8.09553e3,
+      "normalization": 7.55308e3,
       "weighting": 0.2106
     },
     "ecoscore": {
       "color": "#9025be",
-      "normalization": 8.09553e3,
+      "normalization": 7.55308e3,
       "weighting": 0.2106
     },
     "scopes": ["textile", "food"]
@@ -155,12 +155,12 @@
     "quality": 2,
     "pef": {
       "color": "#000080",
-      "normalization": 1.95e1,
+      "normalization": 1.95452e1,
       "weighting": 0.0296
     },
     "ecoscore": {
       "color": "#70ad47",
-      "normalization": 1.95e1,
+      "normalization": 1.95452e1,
       "weighting": 0.0219
     },
     "scopes": ["textile", "food"]
@@ -207,12 +207,12 @@
     "quality": 1,
     "pef": {
       "color": "#da70d6",
-      "normalization": 4.06014e1,
+      "normalization": 4.08592e1,
       "weighting": 0.0478
     },
     "ecoscore": {
       "color": "#ff6161",
-      "normalization": 4.06014e1,
+      "normalization": 4.08592e1,
       "weighting": 0.0353
     },
     "scopes": ["textile", "food"]
@@ -233,12 +233,12 @@
     "quality": 2,
     "pef": {
       "color": "#696969",
-      "normalization": 5.95387e-4,
+      "normalization": 5.95367e-4,
       "weighting": 0.0896
     },
     "ecoscore": {
       "color": "#ffc000",
-      "normalization": 5.95387e-4,
+      "normalization": 5.95367e-4,
       "weighting": 0.0662
     },
     "scopes": ["textile", "food"]
@@ -265,7 +265,7 @@
     "ecoscore": {
       "color": "#be8f00",
       "normalization": 4.22016e3,
-      "weighting": 0.0370
+      "weighting": 0.037
     },
     "scopes": ["textile", "food"]
   },
@@ -311,12 +311,12 @@
     "quality": 3,
     "pef": {
       "color": "#a9a9a9",
-      "normalization": 6.36403e-2,
+      "normalization": 6.36226e-2,
       "weighting": 0.0755
     },
     "ecoscore": {
       "color": "#698ed0",
-      "normalization": 6.36403e-2,
+      "normalization": 6.36226e-2,
       "weighting": 0.0557
     },
     "scopes": ["textile", "food"]
@@ -389,7 +389,7 @@
     "quality": 0,
     "pef": {
       "color": "#03A764",
-      "normalization": 4.27e4,
+      "normalization": 5.67166e4,
       "weighting": 0.0192
     },
     "ecoscore": null,
@@ -412,7 +412,7 @@
     "pef": null,
     "ecoscore": {
       "color": "#375622",
-      "normalization": 4.27e4,
+      "normalization": 5.67166e4,
       "weighting": 0.0407
     },
     "correction": [
@@ -438,7 +438,7 @@
     "quality": 0,
     "pef": {
       "color": "#ffff00",
-      "normalization": 1.69e-5,
+      "normalization": 1.72529e-5,
       "weighting": 0.0213
     },
     "ecoscore": null,
@@ -461,7 +461,7 @@
     "pef": null,
     "ecoscore": {
       "color": "#f4b183",
-      "normalization": 1.69e-5,
+      "normalization": 1.72529e-5,
       "weighting": 0.0452
     },
     "correction": [
@@ -487,7 +487,7 @@
     "quality": 0,
     "pef": {
       "color": "#FFA907",
-      "normalization": 2.297e-4,
+      "normalization": 1.28736e-4,
       "weighting": 0.0184
     },
     "ecoscore": null,
@@ -510,7 +510,7 @@
     "pef": null,
     "ecoscore": {
       "color": "#43682b",
-      "normalization": 2.297e-4,
+      "normalization": 1.28736e-4,
       "weighting": 0.039
     },
     "correction": [
