@@ -217,6 +217,42 @@ suite =
                         |> Expect.within (Expect.Absolute 0.0001) (withPreps [])
                         |> asTest "should apply raw-to-cooked ratio once"
                     ]
+                , describe "custom ingredient bonuses"
+                    [ let
+                        computeEcoscore =
+                            Recipe.compute builderDb
+                                >> Result.map (Tuple.second >> .total >> Impact.getImpact (Impact.trg "ecs") >> Unit.impactToFloat)
+                                >> Result.withDefault 0
+
+                        carrotCakeResults =
+                            computeEcoscore carrotCake
+
+                        customBonusesResults =
+                            computeEcoscore
+                                { carrotCake
+                                    | ingredients =
+                                        carrotCake.ingredients
+                                            |> List.map
+                                                (\ingredientQuery ->
+                                                    if ingredientQuery.id == Ingredient.Id "carrot" then
+                                                        { ingredientQuery
+                                                            | bonuses =
+                                                                Just
+                                                                    { agroDiversity = Split.full
+                                                                    , agroEcology = Split.zero
+                                                                    , animalWelfare = Split.zero
+                                                                    }
+                                                        }
+
+                                                    else
+                                                        ingredientQuery
+                                                )
+                                }
+                      in
+                      carrotCakeResults
+                        |> Expect.greaterThan customBonusesResults
+                        |> asTest "should apply custom bonuses"
+                    ]
                 ]
             , describe "getMassAtPackaging"
                 [ { ingredients =

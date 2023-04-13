@@ -11,7 +11,6 @@ module Data.Food.Builder.Recipe exposing
     , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
-    , encode
     , encodeResults
     , fromQuery
     , getMassAtPackaging
@@ -531,35 +530,6 @@ deletePackaging code query =
     }
 
 
-encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
-encodeIngredient i =
-    Encode.object
-        [ ( "id", Ingredient.encodeId i.id )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        , ( "variant", variantToString i.variant |> Encode.string )
-        , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        ]
-
-
-encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
-encodeProcess p =
-    Encode.object
-        [ ( "code", p.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
-        ]
-
-
-encode : Query -> Encode.Value
-encode q =
-    Encode.object
-        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodeProcess q.packaging )
-        , ( "preparation", Encode.list Preparation.encodeId q.preparation )
-        , ( "distribution", q.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
-        ]
-
-
 encodeResults : List Impact.Definition -> Results -> Encode.Value
 encodeResults defs results =
     let
@@ -854,13 +824,3 @@ transformFromQuery { processes } query =
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
-
-
-variantToString : BuilderQuery.Variant -> String
-variantToString variant =
-    case variant of
-        BuilderQuery.DefaultVariant ->
-            "default"
-
-        BuilderQuery.Organic ->
-            "organic"

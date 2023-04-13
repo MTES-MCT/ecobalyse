@@ -630,7 +630,15 @@ components:
         - sa masse **exprimée en grammes**
         - un éventuel mode de production alternatif à utiliser (ex: `organic` pour du bio, laisser vide pour du conventionnel)
         - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
-        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)* (valeurs possible: ``, `byPlane`, `noPlane`)
+        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie
+          "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)*
+          (valeurs possible: `<vide>`, `byPlane`, `noPlane`)
+        - d'éventuels bonus à appliquer, sous la forme `50:75:33`, signifiant:
+          * 50% de bonus diversité agricole
+          * 75% de bonus infrastructures agro-écologiques
+          * 33% de bonus conditions d'élevage (si applicable pour l'ingrédient sélectionné)
+
+        Quelques exemples :
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
@@ -640,6 +648,7 @@ components:
         - `mango;123;;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
+        - `tomato;123;;ES;;50:20` signifie *123g de tomates conventionnelles en provenance d'Espagne avec 50% de bonus pour la diversité agricole et 75% de bonus pour les infrastructures agro-écologiques*;
 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >

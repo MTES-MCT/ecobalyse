@@ -99,6 +99,16 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
             |> asTest "should validate that an ingredient country scope is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=carrot;1;;ES;;10:10:10"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "L'ingrédient Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage.")
+            |> asTest "should validate that an ingredient bonuses are valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=carrot;1;;ES;;100:110"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: 110)")
+            |> asTest "should validate that an ingredient bonuses splits are valid"
         , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
