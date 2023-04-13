@@ -12,7 +12,6 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
-import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
@@ -64,7 +63,7 @@ table db { detailed, scope } =
                     [ Format.surfaceMass surfaceMass
                     ]
       }
-    , { label = "Densité de fils (# / cm)"
+    , { label = "Densité de fils"
       , toCell =
             \{ surfaceMass, yarnSize } ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
@@ -151,7 +150,7 @@ table db { detailed, scope } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ Product.getMakingDurationInMinutes product |> Duration.inMinutes |> round |> String.fromInt |> text ]
+                    [ Product.getMakingDurationInMinutes product |> Format.minutes ]
       }
     , { label = "Confection (taux de perte)"
       , toCell =

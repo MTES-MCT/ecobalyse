@@ -13,6 +13,7 @@ module Views.Format exposing
     , km
     , m3
     , megajoules
+    , minutes
     , percent
     , picking
     , ratio
@@ -167,7 +168,7 @@ surfaceMass =
 
 threadDensity : Unit.ThreadDensity -> Html msg
 threadDensity (Unit.ThreadDensity density) =
-    density |> formatRichFloat 0 "# / cm"
+    density |> formatRichFloat 0 "#/cm"
 
 
 picking : Unit.PickPerMeter -> Html msg
@@ -213,3 +214,8 @@ days =
 hours : Duration -> Html msg
 hours =
     Duration.inHours >> formatRichFloat 2 "h"
+
+
+minutes : Duration -> Html msg
+minutes =
+    Duration.inMinutes >> formatRichFloat 0 "min"
