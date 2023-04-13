@@ -268,7 +268,7 @@ encodeIngredient v =
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "byPlane", encodePlaneTransport v.planeTransport )
+        , ( "byPlane", Ingredient.encodePlaneTransport v.planeTransport )
         , ( "bonuses", v.bonuses |> Maybe.map Ingredient.encodeBonuses |> Maybe.withDefault Encode.null )
         ]
 
@@ -276,19 +276,6 @@ encodeIngredient v =
 encodeMass : Mass -> Encode.Value
 encodeMass =
     Mass.inKilograms >> Encode.float
-
-
-encodePlaneTransport : Ingredient.PlaneTransport -> Encode.Value
-encodePlaneTransport planeTransport =
-    case planeTransport of
-        Ingredient.PlaneNotApplicable ->
-            Encode.null
-
-        Ingredient.ByPlane ->
-            Encode.string "byPlane"
-
-        Ingredient.NoPlane ->
-            Encode.string "noPlane"
 
 
 encodeProcess : ProcessQuery -> Encode.Value

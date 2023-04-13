@@ -48,11 +48,20 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "20 mars 2023"
+    [ { date = "12 avril 2023"
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =
-            """Le mode de distribution a été rendu facultatif
+            """Il est désormais possible de paramétrer les bonus appliqués à
+            la diversité agricole, aux infrastructures agro-écologiques et
+            aux conditions d'élevage dans les paramètres d'ingrédient.
+"""
+      }
+    , { date = "20 mars 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le mode de distribution a été rendu facultatif.
 """
       }
     , { date = "8 mars 2023"

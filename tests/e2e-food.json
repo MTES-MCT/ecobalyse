@@ -679,5 +679,69 @@
         "outOf100": 71
       }
     }
+  },
+  {
+    "name": "Carrot cake, with heavily bonused carrots",
+    "query": [
+      "ingredients[]=egg;120",
+      "ingredients[]=wheat;140",
+      "ingredients[]=milk;60",
+      "ingredients[]=carrot;225;;;;100:100",
+      "transform=aded2490573207ec7ad5a3813978f6a4;545",
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "distribution=ambient"
+    ],
+    "impacts": {
+      "acd": 0.01446986050928059,
+      "bvi": 0.7410687577784,
+      "cch": 1.1256146391853166,
+      "ecs": 134.91181187273426,
+      "etf": 15.635374870270153,
+      "etf-c": 26.709403722838875,
+      "fru": 16.76443390501229,
+      "fwe": 0.00019667867831125584,
+      "htc": 3.3117972721324576e-10,
+      "htc-c": 6.396674255913053e-10,
+      "htn": 4.102566949463264e-9,
+      "htn-c": 6.535039067436289e-9,
+      "ior": 0.3361089616087438,
+      "ldu": 45.656214527489524,
+      "mru": 0.000005165160310674316,
+      "ozd": 1.640657363987163e-7,
+      "pco": 0.004799542112734525,
+      "pef": 142.02347335594945,
+      "pma": 1.1223205533323877e-7,
+      "swe": 0.004636878670150654,
+      "tre": 0.05799217551416536,
+      "wtu": 0.9279621725326074
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 196.7390146013566,
+        "letter": "B",
+        "outOf100": 70
+      },
+      "climate": {
+        "impact": 45.76827368849088,
+        "letter": "B",
+        "outOf100": 70
+      },
+      "biodiversity": {
+        "impact": 82.5374187749449,
+        "letter": "B",
+        "outOf100": 70
+      },
+      "health": {
+        "impact": 34.08106054609479,
+        "letter": "B",
+        "outOf100": 70
+      },
+      "resources": {
+        "impact": 37.095946128368944,
+        "letter": "B",
+        "outOf100": 70
+      }
+    }
   }
 ]
