@@ -33,7 +33,7 @@ shell:
 		$(DOCKEREXEC) $(NAME) bash;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
-notebook:
+start_notebook:
 	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
 	echo ### Run: make notebook_link to retrieve the link with the connection token
 
