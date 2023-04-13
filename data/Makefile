@@ -41,7 +41,7 @@ make notebook_link:
 	docker logs $(NAME) | grep 8888 | grep 127.0.0.1 | sort | uniq
 
 stop_notebook:
-	docker stop $(NAME)
+	docker exec $(NAME) jupyter-lab stop
 
 
 clean_data:
