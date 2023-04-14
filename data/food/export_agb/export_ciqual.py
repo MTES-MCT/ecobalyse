@@ -71,7 +71,7 @@ processes_display_name = {
 
 
 def open_db(dbname):
-    bw.projects.set_current("EF calculation")
+    bw.projects.set_current("Ecobalyse")
     bw.bw2setup()
     return bw.Database(dbname)
 
@@ -94,7 +94,6 @@ def get_ciqual_products(agribalyse_db, ciqual_codes):
 
 
 def fill_processes(processes, activity):
-
     processes[activity]["name"] = activity["name"]
     activity_name = activity["name"]
     if activity_name in processes_alias:
@@ -217,7 +216,7 @@ def build_product_tree(ciqual_products, max_products=None):
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
-    for (key, method) in impacts.items():
+    for key, method in impacts.items():
         print("initializing method", method)
         lca = bw.LCA(demand, method)
         lca.lci()
@@ -292,8 +291,8 @@ if __name__ == "__main__":
     if args.max:
         ciqual_codes = ciqual_codes[: args.max]
 
-    print("Open the agribalyse3 brightway database")
-    agb = open_db("agribalyse3")
+    print("Open the Agribalyse 3.0 brightway database")
+    agb = open_db("Agribalyse 3.0")
     print("Search for the ciqual products in the brightway database")
     ciqual_products = get_ciqual_products(agb, ciqual_codes)
 

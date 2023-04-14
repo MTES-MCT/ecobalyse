@@ -147,7 +147,7 @@ def add_process(processes, activity):
 
 
 def open_db(dbname):
-    bw.projects.set_current("EF calculation")
+    bw.projects.set_current("Ecobalyse")
     bw.bw2setup()
     return bw.Database(dbname)
 
@@ -329,7 +329,7 @@ if __name__ == "__main__":
     processes_to_export += processes_to_add
     print(f"Total de {len(processes_to_export)} procédés à exporter")
 
-    agb = open_db("agribalyse3")
+    agb = open_db("Agribalyse 3.0")
 
     activities = get_activities(agb, processes_to_export)
     print(f"Total de {len(activities)} activités trouvées dans agribalyse")

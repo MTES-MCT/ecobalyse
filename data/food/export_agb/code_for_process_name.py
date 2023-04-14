@@ -8,7 +8,7 @@ import brightway2 as bw
 
 
 def open_db(dbname):
-    bw.projects.set_current("EF calculation")
+    bw.projects.set_current("Ecobalyse")
     bw.bw2setup()
     return bw.Database(dbname)
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    agb = open_db("agribalyse3")
+    agb = open_db("Agribalyse 3.0")
     results = agb.search(args.process_name)
 
     for activity in results:

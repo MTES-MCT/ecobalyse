@@ -23,16 +23,9 @@ if "Agribalyse" not in bw2data.databases:
     )
 else:
     print("Agribalyse already imported")
-if "Ecoinvent" in bw2data.databases:
-    print(f"Ecoinvent already imported")
-else:
-    import_ecoinvent("/home/jovyan/ecobalyse/data/ECOINVENT391/datasets", "Ecoinvent")
 
 database = ipywidgets.Dropdown(
-    value="Ecoinvent", options=[d for d in bw2data.databases.keys()]
-)
-search = ipywidgets.Text(
-    value="cotton", placeholder="Search string", description="SEARCH"
+    value="Agribalyse 3.0", options=[d for d in bw2data.databases.keys()]
 )
 methods = sorted({method[0] for method in bw2data.methods})
 method = ipywidgets.Dropdown(value=methods[11], options=methods)
