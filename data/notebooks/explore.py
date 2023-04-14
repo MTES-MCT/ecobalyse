@@ -1,7 +1,7 @@
 """
 This file is used in the `explore` Jupyter Notebook
 """
-from IPython.display import display, Markdown
+from IPython.core.display import display, Markdown
 from bw2data.utils import get_activity
 from ipywidgets import interact
 import bw2calc
@@ -13,20 +13,18 @@ import os
 bw2data.projects.set_current("Ecobalyse")
 bw2io.bw2setup()
 os.chdir("/home/jovyan/ecobalyse/data")
-from imports import import_agribalyse, import_ecoinvent, AGRIBALYSE_MIGRATIONS
+from food.import_agb.importing_databases import import_agribalyse
 
 if "Agribalyse" not in bw2data.databases:
-    import_agribalyse(
-        "/home/jovyan/ecobalyse/data/AGB3.1.1.20230306.CSV.zip",
-        "Agribalyse",
-        AGRIBALYSE_MIGRATIONS,
-    )
+    import_agribalyse()
 else:
     print("Agribalyse already imported")
 
+# widgets
 database = ipywidgets.Dropdown(
     value="Agribalyse 3.0", options=[d for d in bw2data.databases.keys()]
 )
+search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 methods = sorted({method[0] for method in bw2data.methods})
 method = ipywidgets.Dropdown(value=methods[11], options=methods)
 limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="RESULTS")
@@ -56,7 +54,7 @@ def search_activity(DATABASE=database, SEARCH="", LIMIT=limit):
 
 interact(search_activity, DATABASE=database, SEARCH="", LIMIT=limit)
 
-activity.observe(search_activity, "activity")
+activity.observe(search_activity, "value")
 
 
 def show_activity(METHOD=method, ACTIVITY=activity):

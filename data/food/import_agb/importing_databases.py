@@ -71,6 +71,11 @@ def import_agribalyse():
         agb_importer.add_unlinked_flows_to_biosphere_database()
         agb_importer.add_unlinked_activities()
         agb_importer.statistics()
+        # remove an inconsistent empty activity
+        data = agb_importer.data
+        agb_importer.data = [
+            o for o in data if o["code"] != "d41d8cd98f00b204e9800998ecf8427e"
+        ]
         agb_importer.write_database()
 
     """ # WFLDB
@@ -104,4 +109,4 @@ def import_agribalyse():
 
 
 if __name__ == "__main__":
-    main()
+    import_agribalyse()
