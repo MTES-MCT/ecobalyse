@@ -1,13 +1,14 @@
 # don't forget to keep sync the api link in Dockerfile
-git+https://github.com/brightway-lca/brightway2@master
+IPython>=8.0, <9.0
+fjson>=0.1, <0.2
+flatdict>=4.0, <4.1
 git+https://github.com/brightway-lca/brightway2-calc@bw2legacy
 git+https://github.com/brightway-lca/brightway2-data@bw2legacy
-git+https://github.com/ccomb/brightway2-io@bw2legacy
 git+https://github.com/brightway-lca/brightway2-parameters@master
-fjson>=0.1, <0.2
-matplotlib>=3.7.0, <3.8
-IPython>=8.0, <9.0
+git+https://github.com/brightway-lca/brightway2@master
+git+https://github.com/ccomb/brightway2-io@bw2legacy
 ipywidgets>=8.0.0, <8.1
+matplotlib>=3.7.0, <3.8
 numpy>=1.24.0, <1.25
 olca-ipc==0.0.12
 pandas>=1.5.0, <1.6
