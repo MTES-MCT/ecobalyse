@@ -3,6 +3,7 @@ module Page.Explore.FoodIngredients exposing (table)
 import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process
 import Data.Gitbook as Gitbook
@@ -32,17 +33,11 @@ table _ { detailed, scope } =
     , { label = "Nom"
       , toCell = .name >> text
       }
+    , { label = "Catégorie"
+      , toCell = .category >> IngredientCategory.toLabel >> text
+      }
     , { label = "Origine par défaut"
       , toCell = .defaultOrigin >> Origin.toLabel >> text
-      }
-    , { label = "Origine animale"
-      , toCell =
-            \{ animalOrigin } ->
-                if animalOrigin then
-                    text "Oui"
-
-                else
-                    text "Non"
       }
     , { label = "Rapport cru/cuit"
       , toCell =

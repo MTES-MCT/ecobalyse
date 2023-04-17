@@ -30,6 +30,7 @@ import Base64
 import Data.Country as Country
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
@@ -396,7 +397,7 @@ updateBonusesFromVariant ingredients ingredientId variant =
         defaultVariantBonuses =
             ingredientResult
                 |> Result.map Ingredient.defaultBonuses
-                |> Result.withDefault (Ingredient.defaultBonuses { animalOrigin = False })
+                |> Result.withDefault (Ingredient.defaultBonuses { category = IngredientCategory.Misc })
     in
     case variant of
         Organic ->

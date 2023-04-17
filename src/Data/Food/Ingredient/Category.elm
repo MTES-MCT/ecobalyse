@@ -1,6 +1,7 @@
 module Data.Food.Ingredient.Category exposing
-    ( Category
+    ( Category(..)
     , decode
+    , isFromAnimalOrigin
     , toLabel
     , toString
     )
@@ -57,6 +58,11 @@ fromString str =
 
         _ ->
             Err <| "Categorie d'ingrédient invalide : " ++ str
+
+
+isFromAnimalOrigin : Category -> Bool
+isFromAnimalOrigin category =
+    category == AnimalProduct || category == DairyProduct
 
 
 toLabel : Category -> String

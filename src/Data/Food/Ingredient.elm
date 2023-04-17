@@ -44,9 +44,6 @@ type alias Ingredient =
     , category : IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
-
-    -- FIXME: now we have an `animal_product` category, we should discard this field
-    , animalOrigin : Bool
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     , density : Density
@@ -118,12 +115,12 @@ decodeId =
         |> Decode.map idFromString
 
 
-defaultBonuses : { a | animalOrigin : Bool } -> Bonuses
-defaultBonuses { animalOrigin } =
+defaultBonuses : { a | category : IngredientCategory.Category } -> Bonuses
+defaultBonuses { category } =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
     , animalWelfare =
-        if animalOrigin then
+        if IngredientCategory.isFromAnimalOrigin category then
             Split.tenth
 
         else
@@ -202,7 +199,6 @@ decodeIngredient processes =
         |> Pipe.required "category" IngredientCategory.decode
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
-        |> Pipe.required "animal_origin" Decode.bool
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
