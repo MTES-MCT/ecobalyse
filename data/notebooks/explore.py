@@ -67,7 +67,7 @@ def show_activity(METHOD=method, ACTIVITY=activity):
         lca.switch_method(method)
         lca.lcia()
         print(
-            f"{method[1].ljust(45,' ')} = {str(lca.score).ljust(25, ' ')} {bw2data.methods[method]['unit']}"
+            f"{method[1].ljust(45,' ')} = {str(lca.score).ljust(25, ' ')} {bw2data.methods[method].get('unit', '(no unit)')}"
         )
     display(Markdown("---"))
 
