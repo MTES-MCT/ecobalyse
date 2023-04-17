@@ -69,7 +69,7 @@ toLabel : Category -> String
 toLabel category =
     case category of
         AnimalProduct ->
-            "Ingrédients animaux viandes, œufs, poissons, et dérivés"
+            "Viandes, œufs, poissons, et dérivés"
 
         DairyProduct ->
             "Lait et ingrédients laitiers"
