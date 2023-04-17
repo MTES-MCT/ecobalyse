@@ -16,10 +16,12 @@ module Data.Food.Ingredient exposing
     , findByID
     , getDefaultOrganicBonuses
     , getDefaultOriginTransport
+    , groupCategories
     , idFromString
     , idToString
     )
 
+import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
@@ -33,13 +35,17 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 
 
 type alias Ingredient =
     { id : Id
     , name : String
+    , category : IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
+
+    -- FIXME: now we have an `animal_product` category, we should discard this field
     , animalOrigin : Bool
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
@@ -193,6 +199,7 @@ decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "id" decodeId
         |> Pipe.required "name" Decode.string
+        |> Pipe.required "category" IngredientCategory.decode
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "animal_origin" Decode.bool
@@ -259,6 +266,14 @@ getDefaultOriginTransport defs planeTransport origin =
 
             else
                 { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+
+
+groupCategories : List Ingredient -> List ( IngredientCategory.Category, List Ingredient )
+groupCategories =
+    List.sortBy (.category >> IngredientCategory.toString)
+        >> LE.groupWhile (\a b -> a.category == b.category)
+        >> List.map (\( first, rest ) -> ( first.category, first :: rest ))
+        >> List.sortBy (Tuple.first >> IngredientCategory.toLabel)
 
 
 linkProcess : Dict String Process -> Decoder Process

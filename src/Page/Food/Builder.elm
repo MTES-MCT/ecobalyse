@@ -17,6 +17,7 @@ import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
@@ -1232,8 +1233,8 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-categorySelectorView : Maybe Category.Id -> Html Msg
-categorySelectorView maybeId =
+productCategorySelectorView : Maybe Category.Id -> Html Msg
+productCategorySelectorView maybeId =
     Category.all
         |> List.sortBy .name
         |> List.map
@@ -1348,15 +1349,20 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
             )
         ]
         (ingredients
-            |> List.sortBy .name
+            |> Ingredient.groupCategories
             |> List.map
-                (\ingredient ->
-                    option
-                        [ selected <| selectedIngredient == ingredient.id
-                        , disabled <| List.member ingredient.id excluded
-                        , value <| Ingredient.idToString ingredient.id
-                        ]
-                        [ text ingredient.name ]
+                (\( category, categoryIngredients ) ->
+                    categoryIngredients
+                        |> List.map
+                            (\ingredient ->
+                                option
+                                    [ selected <| selectedIngredient == ingredient.id
+                                    , disabled <| List.member ingredient.id excluded
+                                    , value <| Ingredient.idToString ingredient.id
+                                    ]
+                                    [ text ingredient.name ]
+                            )
+                        |> optgroup [ category |> IngredientCategory.toLabel |> attribute "label" ]
                 )
         )
 
@@ -1419,7 +1425,7 @@ subScoresView { queries } { scoring } =
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                 [ div [ class "input-group" ]
-                    [ categorySelectorView queries.food.category
+                    [ productCategorySelectorView queries.food.category
                     , button
                         [ class "btn btn-sm btn-info"
                         , title "Afficher un exemple d'étiquette"
@@ -1659,7 +1665,7 @@ view ({ builderDb, queries } as session) model =
                         Ok ( recipe, results ) ->
                             recipe.category
                                 |> Maybe.map .id
-                                |> categorySelectorView
+                                |> productCategorySelectorView
                                 |> List.singleton
                                 |> makeModal [ tagViewer results ]
 
