@@ -20,8 +20,9 @@ if "Agribalyse" not in bw2data.databases:
 else:
     print("Agribalyse already imported")
 
+databases = list(bw2data.databases.keys())
 # widgets
-database = ipywidgets.Dropdown(value="", options=[d for d in bw2data.databases.keys()])
+database = ipywidgets.Dropdown(value=databases[0], options=databases)
 search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 methods = sorted({method[0] for method in bw2data.methods})
 method = ipywidgets.Dropdown(value=methods[11], options=methods)
