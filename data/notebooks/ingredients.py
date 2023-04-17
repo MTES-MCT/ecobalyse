@@ -78,7 +78,7 @@ w_bleu_blanc_coeur = ipywidgets.Text(description="BleuBlanCoeur", placeholder="P
 
 
 # buttons
-addbutton = ipywidgets.Button(
+savebutton = ipywidgets.Button(
     description="Save",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
     tooltip="Add or update the ingredient",
@@ -87,13 +87,13 @@ addbutton = ipywidgets.Button(
 delbutton = ipywidgets.Button(
     description="Delete",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the ingredient",
+    tooltip="Delete the ingredient with the 'id' field above",
     icon="trash",
 )
 getbutton = ipywidgets.Button(
     description="Get",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Fill the form from the id field",
+    tooltip="Fill the form with ingedient from the 'id' field",
     icon="down-to-bracket",
 )
 resetbutton = ipywidgets.Button(
@@ -183,10 +183,10 @@ def addform(
     animalwel=w_organic_animal_welfare,
     bbc=w_bleu_blanc_coeur,
 ):
-    display(getbutton)
-    display(delbutton)
-    display(addbutton)
-    display(clearbutton)
+    display(ipywidgets.HBox((getbutton, ipywidgets.Label(getbutton.tooltip))))
+    display(ipywidgets.HBox((delbutton, ipywidgets.Label(delbutton.tooltip))))
+    display(ipywidgets.HBox((savebutton, ipywidgets.Label(savebutton.tooltip))))
+    display(ipywidgets.HBox((clearbutton, ipywidgets.Label(clearbutton.tooltip))))
 
 
 def resetform():
@@ -364,7 +364,7 @@ def del_ingredient(_):
     list_ingredients()
 
 
-addbutton.on_click(add_ingredient)
+savebutton.on_click(add_ingredient)
 delbutton.on_click(del_ingredient)
 getbutton.on_click(get_ingredient)
 resetbutton.on_click(reset_ingredients)
@@ -378,6 +378,8 @@ interact(addform)
 display(Markdown("# Reset ingredients :"))
 display(Markdown("Reset the ingredients to the branch state"))
 interact(resetform)
+display(Markdown("# Publish ingredients :"))
+display(Markdown("Publish the ingredients to the `ingredients` branch"))
 interact(commitform)
 
 out.observe(addform, "add")
