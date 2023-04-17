@@ -266,10 +266,9 @@ getDefaultOriginTransport defs planeTransport origin =
 
 groupCategories : List Ingredient -> List ( IngredientCategory.Category, List Ingredient )
 groupCategories =
-    List.sortBy (.category >> IngredientCategory.toString)
+    List.sortBy (.category >> IngredientCategory.toLabel)
         >> LE.groupWhile (\a b -> a.category == b.category)
         >> List.map (\( first, rest ) -> ( first.category, first :: rest ))
-        >> List.sortBy (Tuple.first >> IngredientCategory.toLabel)
 
 
 linkProcess : Dict String Process -> Decoder Process

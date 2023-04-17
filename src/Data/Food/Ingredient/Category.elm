@@ -3,7 +3,6 @@ module Data.Food.Ingredient.Category exposing
     , decode
     , isFromAnimalOrigin
     , toLabel
-    , toString
     )
 
 import Json.Decode as Decode exposing (Decoder)
@@ -97,40 +96,6 @@ toLabel category =
 
         VegetableProcessed ->
             "Fruits et légumes transformés"
-
-
-toString : Category -> String
-toString category =
-    case category of
-        AnimalProduct ->
-            "animal_product"
-
-        DairyProduct ->
-            "dairy_product"
-
-        GrainRaw ->
-            "grain_raw"
-
-        GrainProcessed ->
-            "grain_processed"
-
-        NutOilseedRaw ->
-            "nut_oilseed_raw"
-
-        NutOilseedProcessed ->
-            "nut_oilseed_processed"
-
-        Misc ->
-            "misc"
-
-        SpiceCondimentOrAdditive ->
-            "spice_condiment_additive"
-
-        VegetableFresh ->
-            "vegetable_fresh"
-
-        VegetableProcessed ->
-            "vegetable_processed"
 
 
 decode : Decoder Category
