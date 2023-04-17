@@ -21,9 +21,7 @@ else:
     print("Agribalyse already imported")
 
 # widgets
-database = ipywidgets.Dropdown(
-    value="Agribalyse 3.0", options=[d for d in bw2data.databases.keys()]
-)
+database = ipywidgets.Dropdown(value="", options=[d for d in bw2data.databases.keys()])
 search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 methods = sorted({method[0] for method in bw2data.methods})
 method = ipywidgets.Dropdown(value=methods[11], options=methods)
