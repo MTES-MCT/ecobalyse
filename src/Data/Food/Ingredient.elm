@@ -120,7 +120,7 @@ defaultBonuses { category } =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
     , animalWelfare =
-        if IngredientCategory.isFromAnimalOrigin category then
+        if IngredientCategory.fromAnimalOrigin category then
             Split.tenth
 
         else
