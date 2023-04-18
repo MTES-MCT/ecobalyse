@@ -4,13 +4,14 @@
 $white: #fff;
 $body-color: #111;
 $dark: #333;
-$primary: #075ea2;
-$success: #167d2e;
-$danger: #dc3545;
-$info: #097182;
+$primary: #000091;
+$success: #18753c;
+$warning: #fcc63a;
+$danger: #c9191e;
+$info: #009081;
 $input-border-color: #969696;
 $navbar-dark-color: rgba($white, 0.8);
-$text-dark: #343a40;
+$text-dark: rgb(58, 58, 58);
 $text-muted: rgb(104, 104, 104);
 
 // Responsive texts
@@ -21,6 +22,11 @@ $border-radius: 0;
 $border-radius-sm: 0;
 $border-radius-lg: 0;
 
+// Buttons
+$btn-hover-bg-shade-amount: 15%;
+
+// Inputs
+$input-bg: #eee;
 
 // Viewports
 $viewport-xs: 320px;
@@ -98,6 +104,7 @@ input[type="number"].no-arrows {
   }
 }
 
+// Bootstrap component/helper overrides, to match DSFR design guidelines
 .feedback {
   &-valid {
     border-color: $success;
@@ -105,6 +112,21 @@ input[type="number"].no-arrows {
 
   &-invalid {
     border-color: $danger;
+  }
+}
+
+.form-select, .form-control, .input-group-text {
+  border: 0 !important;
+  box-shadow: inset 0 -2px 0 0 #3a3a3a;
+}
+
+input {
+  &[type=checkbox].form-check-input {
+    &:not(:checked) { background-color: $white }
+    border-radius: 0.15em !important;
+  }
+  &[type=radio].form-check-input {
+    &:not(:checked) { background-color: $white }
   }
 }
 

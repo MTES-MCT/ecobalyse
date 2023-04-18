@@ -83,7 +83,7 @@ viewHero modal =
                 ]
             , div [ class "col-md-6 text-center text-md-start py-2" ]
                 [ button
-                    [ class "btn btn-lg btn-primary w-50"
+                    [ class "btn btn-lg btn-outline-primary w-50"
                     , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
                     [ text "Découvrir Écobalyse" ]

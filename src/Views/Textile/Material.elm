@@ -196,7 +196,7 @@ shareField index { length, valid, selectInputText, update } share =
     [ input
         [ type_ "number"
         , id domId
-        , class "ShareInput form-control bg-white border-end-0 text-end pe-2"
+        , class "ShareInput form-control border-end-0 text-end pe-2"
         , classList
             [ ( "incdec-arrows-left", length > 1 )
             , ( "feedback-invalid", not valid )
@@ -222,7 +222,7 @@ shareField index { length, valid, selectInputText, update } share =
         ]
         []
     , span
-        [ class "input-group-text bg-white ps-0 pe-1 fs-7"
+        [ class "input-group-text ps-0 pe-1 fs-7"
         , classList [ ( "text-danger feedback-invalid", not valid ) ]
         ]
         [ text "%" ]
