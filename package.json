@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
-    "elm-format": "^0.8.6",
+    "elm-format": "^0.8.7",
     "elm-json": "^0.2.13",
     "elm-review": "^2.9.1",
     "elm-test": "0.19.1-revision12",
