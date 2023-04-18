@@ -11,6 +11,7 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
 import Data.Food.Retail as Retail exposing (Distribution)
@@ -167,7 +168,7 @@ ingredientParser { countries, ingredients } string =
 
 
 bonusesParser : String -> Ingredient -> Result String (Maybe Ingredient.Bonuses)
-bonusesParser string { name, animalOrigin } =
+bonusesParser string { name, category } =
     let
         parseBonus : String -> Result String Split
         parseBonus str =
@@ -188,15 +189,16 @@ bonusesParser string { name, animalOrigin } =
                 |> Result.map Just
 
         [ a, b, c ] ->
-            if animalOrigin then
-                Ok Ingredient.Bonuses
-                    |> RE.andMap (parseBonus a)
-                    |> RE.andMap (parseBonus b)
-                    |> RE.andMap (parseBonus c)
-                    |> Result.map Just
+            case category of
+                IngredientCategory.AnimalProduct ->
+                    Ok Ingredient.Bonuses
+                        |> RE.andMap (parseBonus a)
+                        |> RE.andMap (parseBonus b)
+                        |> RE.andMap (parseBonus c)
+                        |> Result.map Just
 
-            else
-                Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
+                _ ->
+                    Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
 
         [ "" ] ->
             Ok Nothing
