@@ -681,8 +681,13 @@ blockquote {
 }
 
 .ImpactDefinition {
-  p:not(:last-child) {
-    margin-bottom: 5px;
+  border-left: .25em solid #6a6af4;
+  padding-left: 2em;
+  p {
+    line-height: 24px;
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
   }
 }
 
