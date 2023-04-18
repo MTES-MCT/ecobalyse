@@ -274,22 +274,22 @@ notificationView { closeNotification } notification =
 pageFooter : Session -> Html msg
 pageFooter { currentVersion } =
     footer
-        [ class "bg-dark text-light py-4 fs-7" ]
+        [ class "Footer py-4 fs-7" ]
         [ Container.centered []
             [ footerMenuLinks
                 |> List.map
                     (\link ->
                         case link of
                             Internal label route _ ->
-                                Link.internal [ class "text-white text-decoration-none", Route.href route ]
+                                Link.internal [ class "text-decoration-none", Route.href route ]
                                     [ text label ]
 
                             External label url ->
-                                Link.external [ class "text-white text-decoration-none", href url ]
+                                Link.external [ class "text-decoration-none", href url ]
                                     [ text label ]
 
                             MailTo label email ->
-                                a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
+                                a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
                                     [ text label ]
                     )
                 |> List.map (List.singleton >> li [])
@@ -352,13 +352,13 @@ pageFooter { currentVersion } =
                 ]
             , div [ class "text-center pt-2" ]
                 [ text "Un produit "
-                , Link.external [ href Env.betagouvUrl, class "text-light" ]
+                , Link.external [ href Env.betagouvUrl ]
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 , case Version.toString currentVersion of
                     Just hash ->
                         small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
-                                [ class "text-white text-decoration-none"
+                                [ class "text-decoration-none"
                                 , href <| Env.githubUrl ++ "/commit/" ++ hash
                                 ]
                                 [ text <| "Version " ++ hash ]
