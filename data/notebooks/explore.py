@@ -22,52 +22,52 @@ else:
 
 databases = list(bw2data.databases.keys())
 # widgets
-f_database = ipywidgets.Dropdown(
+w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"
 )
-f_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
+w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 METHODS = sorted({m[0] for m in bw2data.methods})
-f_method = ipywidgets.Dropdown(value=METHODS[11], options=METHODS, description="METHOD")
-f_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
-f_activity = ipywidgets.Dropdown(
+w_method = ipywidgets.Dropdown(value=METHODS[11], options=METHODS, description="METHOD")
+w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
+w_activity = ipywidgets.Dropdown(
     options=[""]
     + list(
-        bw2data.Database(f_database.value).search(f_search.value, limit=f_limit.value)
+        bw2data.Database(w_database.value).search(w_search.value, limit=w_limit.value)
     ),
     description="ACTIVITY",
 )
-f_results = ipywidgets.Output(value="Résultat")
-f_details = ipywidgets.Output(value="Détails")
+w_results = ipywidgets.Output(value="Résultat")
+w_details = ipywidgets.Output(value="Détails")
 
 display(Markdown("# Search in the database :"))
 
 
-@f_results.capture()
+@w_results.capture()
 def search_activity(change):
-    f_details.clear_output()
-    database = change.new if change.owner is f_database else f_database.value
-    search = change.new if change.owner is f_search else f_search.value
-    limit = change.new if change.owner is f_limit else f_limit.value
-    f_activity.value = None
+    w_details.clear_output()
+    database = change.new if change.owner is w_database else w_database.value
+    search = change.new if change.owner is w_search else w_search.value
+    limit = change.new if change.owner is w_limit else w_limit.value
+    w_activity.value = None
     db = bw2data.Database(database)
     results = list(db.search(search, limit=limit))
     if len(results) == 0:
-        f_results.clear_output()
+        w_results.clear_output()
         display(Markdown("(No results)"))
         return
-    f_activity.options = [""] + results
-    f_results.clear_output()
+    w_activity.options = [""] + results
+    w_results.clear_output()
     display(Markdown("## Results"))
     with pandas.option_context("display.max_colwidth", None):
         display(pandas.DataFrame(results, columns=["name", "code", "location"]))
     display(Markdown("---"))
 
 
-@f_details.capture()
+@w_details.capture()
 def show_activity(change):
-    activity = change.new if change.owner is f_activity else f_activity.value
-    method = change.new if change.owner is f_method else f_method.value
-    f_details.clear_output()
+    activity = change.new if change.owner is w_activity else w_activity.value
+    method = change.new if change.owner is w_method else w_method.value
+    w_details.clear_output()
 
     # IMPACTS
     if not activity or not method:
@@ -153,15 +153,15 @@ def show_activity(change):
     display(Markdown("---"))
 
 
-f_database.observe(search_activity, names="value")
-f_search.observe(search_activity, names="value")
-f_limit.observe(search_activity, names="value")
-f_activity.observe(show_activity, names="value")
-f_method.observe(show_activity, names="value")
-display(f_database, f_search, f_limit)
-display(f_results)
-display(f_activity)
-display(f_method)
-display(f_details)
+w_database.observe(search_activity, names="value")
+w_search.observe(search_activity, names="value")
+w_limit.observe(search_activity, names="value")
+w_activity.observe(show_activity, names="value")
+w_method.observe(show_activity, names="value")
+display(w_database, w_search, w_limit)
+display(w_results)
+display(w_activity)
+display(w_method)
+display(w_details)
 
-# _ = interact(show_activity, method=f_method, activity=f_activity)
+# _ = interact(show_activity, method=w_method, activity=w_activity)
