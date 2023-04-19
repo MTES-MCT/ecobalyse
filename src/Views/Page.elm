@@ -165,10 +165,7 @@ footerMenuLinks =
 
 pageHeader : Config msg -> Html msg
 pageHeader config =
-    header
-        [ class "shadow-sm"
-        , attribute "role" "banner"
-        ]
+    header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
                 [ type_ "button"
@@ -180,40 +177,28 @@ pageHeader config =
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
         , Container.centered []
-            [ div [ class "pt-4 pb-2 ps-3" ]
-                [ a
-                    [ href "/"
-                    , title "Écobalyse"
-                    , class "header-logo text-decoration-none d-flex align-items-center gap-5"
-                    ]
-                    [ p [ class "fr-logo" ]
-                        [ text "République"
-                        , br [] []
-                        , text "Française"
-                        ]
-                    , h1 [ class "fs-3 fw-bolder" ]
-                        [ text "Ecobalyse" ]
-                    ]
+            [ a
+                [ href "/"
+                , title "Écobalyse"
+                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-5"
+                ]
+                [ img [ class "HeaderLogo", src "img/republique-francaise.svg" ] []
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
-        , div [ class "border-top" ]
+        , Container.fluid [ class "border-top" ]
             [ div [ class "container" ]
-                [ navbar config
+                [ nav
+                    [ class "text-end text-sm-start"
+                    , attribute "role" "navigation"
+                    , attribute "aria-label" "Menu principal"
+                    ]
+                    [ headerMenuLinks
+                        |> List.map (viewNavigationLink config.activePage)
+                        |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
+                    ]
                 ]
             ]
-        ]
-
-
-navbar : Config msg -> Html msg
-navbar { activePage } =
-    nav
-        [ class "fr-nav text-end text-sm-start"
-        , attribute "role" "navigation"
-        , attribute "aria-label" "Menu principal"
-        ]
-        [ headerMenuLinks
-            |> List.map (viewNavigationLink activePage)
-            |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto" ]
         ]
 
 

@@ -172,7 +172,7 @@ viewInfo =
             [ h3 [] [ text "Un eco-score pour informer les consommateurs" ]
             , blockquote [ class "d-inline-block fw-bold mx-5 my-4" ]
                 [ p [ class "mb-0" ]
-                    [ text "« 74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent. »" ]
+                    [ text "«\u{00A0}74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent.\u{00A0}»" ]
                 , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
                     [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
                 ]
