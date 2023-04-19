@@ -61,6 +61,8 @@ $font-family-sans-serif: Marianne, Arial, sans-serif, "Apple Color Emoji", "Sego
 
 body {
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
   @media screen and (width < $viewport-sm) {
     font-size: 14px !important;
