@@ -295,8 +295,13 @@ out = ipywidgets.Output()
 
 def list_ingredients():
     ingredients = read_ingredients()
-    display(Markdown(f"# List of {len(ingredients)} ingredients:"))
-    display(pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())))
+    with open(INGREDIENTS_TEMP) as fp:
+        display(
+            Markdown(f"# List of {len(ingredients)} ingredients:"),
+            pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
+            Markdown(f"# Resulting JSON file:"),
+            json.load(fp),
+        )
 
 
 @out.capture()
@@ -671,5 +676,3 @@ display(
 
 with out:
     list_ingredients()
-    with open(INGREDIENTS_TEMP) as fp:
-        display(pprint.pprint(json.load(fp)))
