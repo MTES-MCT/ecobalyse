@@ -1,5 +1,6 @@
 from IPython.core.display import display, Markdown
 from flatdict import FlatDict
+from ipykernel.comm import comm
 from ipywidgets import interact
 import ipywidgets
 import json
@@ -258,14 +259,6 @@ commitbutton = ipywidgets.Button(
 out = ipywidgets.Output()
 
 
-def resetform():
-    display(resetbutton)
-
-
-def commitform():
-    display(commitbutton)
-
-
 def list_ingredients():
     ingredients = read_ingredients()
     display(Markdown(f"# List of {len(ingredients)} ingredients:"))
@@ -411,13 +404,12 @@ def change_id(change):
 w_id.observe(change_id, names="value")
 savebutton.on_click(add_ingredient)
 delbutton.on_click(del_ingredient)
-# getbutton.on_click(get_ingredient)
 resetbutton.on_click(reset_ingredients)
 commitbutton.on_click(commit_ingredients)
 
 
-display(Markdown("# Get/Add/Modify an ingredient :"))
 display(
+    Markdown("# Get/Add/Modify an ingredient :"),
     w_id,
     w_name,
     w_default,
@@ -436,18 +428,14 @@ display(
     w_organic_animal_welfare,
     w_bleu_blanc_coeur,
     ipywidgets.HBox((savebutton, delbutton)),
+    Markdown("# Reset or Publish ingredients :"),
+    Markdown(
+        "Reset the ingredients to the branch state, or Publish to the `ingredients` branch"
+    ),
+    ipywidgets.HBox((resetbutton, commitbutton)),
+    out,
 )
 
-display(Markdown("# Reset ingredients :"))
-display(Markdown("Reset the ingredients to the branch state"))
-interact(resetform)
-display(Markdown("# Publish ingredients :"))
-display(Markdown("Publish the ingredients to the `ingredients` branch"))
-interact(commitform)
-
-out.observe(resetform, "load")
-
-display(out)
 
 with out:
     list_ingredients()
