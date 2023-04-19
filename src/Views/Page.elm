@@ -131,36 +131,148 @@ newVersionAlert { session, reloadPage } =
             text ""
 
 
-headerMenuLinks : List MenuLink
-headerMenuLinks =
+mainMenuLinks : List MenuLink
+mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
+    ]
+
+
+secondaryMenuLinks : List MenuLink
+secondaryMenuLinks =
+    [ Internal "Nouveautés" Route.Changelog Changelog
+    , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.mattermostUrl
+    , External "Code source" Env.githubUrl
+    , MailTo "Contact" Env.contactEmail
     ]
+
+
+headerMenuLinks : List MenuLink
+headerMenuLinks =
+    mainMenuLinks
+        ++ [ External "Documentation" Env.gitbookUrl
+           , External "Communauté" Env.mattermostUrl
+           ]
 
 
 footerMenuLinks : List MenuLink
 footerMenuLinks =
-    [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
-    , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Countries Nothing)) Explore
-    , Internal "API" Route.Api Api
-    , Internal "Nouveautés" Route.Changelog Changelog
-    , Internal "Statistiques" Route.Stats Stats
-    , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
+    mainMenuLinks
+        ++ [ External "Documentation" Env.gitbookUrl
+           , External "Communauté" Env.mattermostUrl
+           , MailTo "Contact" Env.contactEmail
+           ]
+
+
+legalMenuLinks : List MenuLink
+legalMenuLinks =
+    [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , External "Code source" Env.githubUrl
-    , External "Documentation" Env.gitbookUrl
-    , External "Communauté" Env.mattermostUrl
     , MailTo "Contact" Env.contactEmail
     ]
+
+
+pageFooter : Session -> Html msg
+pageFooter { currentVersion } =
+    let
+        makeLink link =
+            case link of
+                Internal label route _ ->
+                    Link.internal [ class "text-decoration-none", Route.href route ]
+                        [ text label ]
+
+                External label url ->
+                    Link.external [ class "text-decoration-none", href url ]
+                        [ text label ]
+
+                MailTo label email ->
+                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                        [ text label ]
+    in
+    footer [ class "Footer" ]
+        [ div [ class "FooterNavigation" ]
+            [ Container.centered []
+                [ div [ class "row" ]
+                    [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                        [ mainMenuLinks
+                            |> List.map makeLink
+                            |> List.map (List.singleton >> li [])
+                            |> ul [ class "list-unstyled" ]
+                        ]
+                    , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                        [ secondaryMenuLinks
+                            |> List.map makeLink
+                            |> List.map (List.singleton >> li [])
+                            |> ul [ class "list-unstyled" ]
+                        ]
+                    ]
+                ]
+            ]
+        , Container.centered [ class "d-flex flex-wrap justify-content-center justify-content-sm-start align-items-center gap-3" ]
+            [ a [ class "FooterBrand p-3", href "./" ]
+                [ img [ class "FooterLogo", src "img/logo_mte.svg" ] []
+                ]
+            , Link.external
+                [ href "https://beta.gouv.fr/"
+                , class "link-external-muted p-3"
+                ]
+                [ img
+                    [ src "img/betagouv.svg"
+                    , alt "Betagouv"
+                    ]
+                    []
+                ]
+            , Link.external
+                [ href "https://www.economie.gouv.fr/plan-de-relance"
+                , class "link-external-muted p-3"
+                ]
+                [ img
+                    [ src "img/logo-france-relance.png"
+                    , alt "France Relance"
+                    , attribute "width" "100"
+                    , attribute "height" "100"
+                    ]
+                    []
+                ]
+            , img
+                [ src "img/logo-next-generation-eu.png"
+                , class "p-3"
+                , alt "Financé par la l'Union européenne"
+                , attribute "width" "270"
+                , attribute "height" "82"
+                ]
+                []
+            ]
+        , Container.centered []
+            [ legalMenuLinks
+                |> List.map makeLink
+                |> List.map (List.singleton >> li [])
+                |> (\list ->
+                        list
+                            ++ [ case Version.toString currentVersion of
+                                    Just hash ->
+                                        li []
+                                            [ Link.external
+                                                [ class "text-decoration-none"
+                                                , href <| Env.githubUrl ++ "/commit/" ++ hash
+                                                ]
+                                                [ text <| "Version " ++ hash ]
+                                            ]
+
+                                    Nothing ->
+                                        text ""
+                               ]
+                   )
+                |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
+                |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-3 border-top" ]
+            ]
+        ]
 
 
 pageHeader : Config msg -> Html msg
@@ -254,106 +366,6 @@ notificationView { closeNotification } notification =
                 , close = Just (closeNotification notification)
                 , content = [ text message ]
                 }
-
-
-pageFooter : Session -> Html msg
-pageFooter { currentVersion } =
-    footer
-        [ class "Footer py-4 fs-7" ]
-        [ Container.centered []
-            [ footerMenuLinks
-                |> List.map
-                    (\link ->
-                        case link of
-                            Internal label route _ ->
-                                Link.internal [ class "text-decoration-none", Route.href route ]
-                                    [ text label ]
-
-                            External label url ->
-                                Link.external [ class "text-decoration-none", href url ]
-                                    [ text label ]
-
-                            MailTo label email ->
-                                a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
-                                    [ text label ]
-                    )
-                |> List.map (List.singleton >> li [])
-                |> List.intersperse
-                    (li
-                        [ attribute "aria-hidden" "true"
-                        , class "text-muted"
-                        ]
-                        [ text "|" ]
-                    )
-                |> ul [ class "d-flex justify-content-start flex-wrap gap-2 list-unstyled pt-1" ]
-            , div [ class "row d-flex align-items-center" ]
-                [ Link.external
-                    [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-white px-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo_mte.svg"
-                        , alt "Ministère de la transition écologique et solidaire"
-                        , attribute "width" "200"
-                        , attribute "height" "200"
-                        ]
-                        []
-                    ]
-                , Link.external
-                    [ href "https://www.economie.gouv.fr/plan-de-relance"
-                    , class "d-flex flex-wrap justify-content-center align-items-center"
-                    , class "col text-center bg-white p-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo-france-relance.png"
-                        , alt "France Relance"
-                        , attribute "width" "100"
-                        , attribute "height" "100"
-                        ]
-                        []
-                    , img
-                        [ src "img/logo-next-generation-eu.png"
-                        , alt "Financé par la l'Union européenne"
-                        , attribute "width" "250"
-                        , attribute "height" "56"
-                        ]
-                        []
-                    ]
-                , Link.external
-                    [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col d-flex justify-content-center align-items-center text-center bg-white p-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo-fabriquenumerique.svg"
-                        , alt "La Fabrique Numérique"
-                        , attribute "width" "150"
-                        , attribute "height" "150"
-                        ]
-                        []
-                    ]
-                ]
-            , div [ class "text-center pt-2" ]
-                [ text "Un produit "
-                , Link.external [ href Env.betagouvUrl ]
-                    [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
-                , case Version.toString currentVersion of
-                    Just hash ->
-                        small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
-                            [ Link.external
-                                [ class "text-decoration-none"
-                                , href <| Env.githubUrl ++ "/commit/" ++ hash
-                                ]
-                                [ text <| "Version " ++ hash ]
-                            ]
-
-                    Nothing ->
-                        text ""
-                ]
-            ]
-        ]
 
 
 notFound : Html msg
