@@ -55,11 +55,13 @@ $score-letter-E: #e63f12;
   font-weight: normal;
   font-style: normal;
 }
-$font-family-sans-serif: Marianne, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif: Marianne, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+
   @media screen and (width < $viewport-sm) {
     font-size: 14px !important;
     select,
@@ -108,6 +110,10 @@ input[type="number"].no-arrows {
 }
 
 // Bootstrap component/helper overrides, to match DSFR design guidelines
+.btn {
+  font-weight: 500 !important;
+}
+
 .feedback {
   &-valid {
     border-color: $success;
@@ -889,7 +895,7 @@ blockquote {
     max-width: 70px;
 
     @media screen and (width < $viewport-sm) {
-      max-width: 50px;
+      max-width: 62px;
     }
   }
 

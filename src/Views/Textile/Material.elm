@@ -222,7 +222,7 @@ shareField index { length, valid, selectInputText, update } share =
         ]
         []
     , span
-        [ class "input-group-text ps-0 pe-1 fs-7"
+        [ class "input-group-text px-1 fs-7"
         , classList [ ( "text-danger feedback-invalid", not valid ) ]
         ]
         [ text "%" ]
