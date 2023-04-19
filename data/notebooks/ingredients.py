@@ -1,7 +1,6 @@
 from IPython.core.display import display, Markdown
 from flatdict import FlatDict
-from ipykernel.comm import comm
-from ipywidgets import interact
+import bw2data
 import ipywidgets
 import json
 import json
@@ -10,10 +9,15 @@ import pandas
 import shutil
 import subprocess
 
+
 os.chdir("/home/jovyan/ecobalyse/data")
+PROJECT = "Ecobalyse"
 INGREDIENTS_BASE = "/home/jovyan/ecobalyse/data/food/export_agb/ingredients_base.json"
 INGREDIENTS_TEMP = "/home/jovyan/ingredients_base.json"
 os.getcwd()
+
+bw2data.projects.set_current(PROJECT)
+DATABASE = bw2data.Database("Agribalyse 3.0")
 
 
 def save_ingredients(ingredients):
@@ -24,7 +28,7 @@ def save_ingredients(ingredients):
                 indent=2,
             )
         )
-    w_id.options = tuple(read_ingredients().keys())
+    clear_form()
 
 
 def to_flat(d):
@@ -80,23 +84,26 @@ def read_ingredients():
         shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
     try:
         with open(INGREDIENTS_TEMP) as fp:
-            return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
     except json.JSONDecodeError:
         shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
         with open(INGREDIENTS_TEMP) as fp:
-            return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+
+    return igs
 
 
 # WIDGETS
 ## technical identifier of the ingredient (for API/URL)
-layoutL = ipywidgets.Layout(width="150px")
-layoutW = ipywidgets.Layout(width="500px")
+layoutL = ipywidgets.Layout(width="215px", display="flex", justify_content="flex-end")
+layoutH = ipywidgets.Layout(width="860px")
+layoutW = ipywidgets.Layout(width="645px")
 style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
     placeholder="Identifier",
     layout=layoutW,
     style=style,
-    options=tuple(read_ingredients().keys()),
+    options=tuple([""] + list(read_ingredients().keys())),
 )
 ## Name of the ingredient (for users)
 w_name = ipywidgets.Text(
@@ -105,8 +112,11 @@ w_name = ipywidgets.Text(
     style=style,
 )
 ## brightway code of the ingredient process
-w_default = ipywidgets.Text(
+w_search = ipywidgets.Text(placeholder="tomat* FR farm", layout=layoutL, style=style)
+w_default = ipywidgets.Select(
     placeholder="Default process",
+    rows=1,
+    options=[""],
     layout=layoutW,
     style=style,
 )
@@ -135,6 +145,7 @@ w_cooling = ipywidgets.Dropdown(
 ## Cooked/Raw ratio
 w_raw_to_cooked_ratio = ipywidgets.BoundedFloatText(
     placeholder="Coef",
+    value=1,
     min=0,
     step=0.05,
     layout=layoutW,
@@ -143,6 +154,7 @@ w_raw_to_cooked_ratio = ipywidgets.BoundedFloatText(
 ## density of the ingredient
 w_density = ipywidgets.BoundedFloatText(
     placeholder="Coef",
+    value=1,
     min=0,
     step=0.05,
     layout=layoutW,
@@ -256,7 +268,9 @@ def add_ingredient(_):
     ingredient = {
         "id": w_id.value,
         "name": w_name.value,
-        "default": w_default.value,
+        "default": str(w_default.value).split(maxsplit=1)[0]
+        if str(w_default.value).split(maxsplit=1)
+        else "",
         "default_origin": w_default_origin.value,
         "animal_origin": w_animal_origin.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
@@ -276,7 +290,6 @@ def add_ingredient(_):
     ingredients = read_ingredients()
     ingredients.update({ingredient["id"]: to_pretty(ingredient)})
     save_ingredients(ingredients)
-    clear_form()
     out.clear_output()
     list_ingredients()
 
@@ -302,15 +315,18 @@ def commit_ingredients(_):
 
 @out.capture()
 def reset_ingredients(_):
-    subprocess.run("git reset --hard")
     shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
     out.clear_output()
     list_ingredients()
+    w_id.options = tuple(read_ingredients().keys())
 
 
 def clear_form():
+    w_id.options = tuple([""] + list(read_ingredients().keys()))
     w_id.value = ""
     w_name.value = ""
+    w_search.value = ""
+    w_default.options = [""]
     w_default.value = ""
     w_default_origin.value = "EuropeAndMaghreb"
     w_animal_origin.value = False
@@ -347,6 +363,9 @@ def change_id(change):
     if not i:
         return
     set_field(w_name, i.get("name"), "")
+    code = i.get("default")
+    act = DATABASE.get(code)
+    w_default.options = [(act["name"], code)]
     set_field(w_default, i.get("default"), "")
     set_field(
         w_default_origin,
@@ -378,7 +397,14 @@ def change_id(change):
     set_field(w_bleu_blanc_coeur, i.get("variants.bleu_blanc_coeur"), "")
 
 
+def change_search(change):
+    results = list(DATABASE.search(change.new, limit=50))
+    w_default.rows = len(results)
+    w_default.options = tuple([(repr(r), r["code"]) for r in results])
+
+
 w_id.observe(change_id, names="value")
+w_search.observe(change_search, names="value")
 savebutton.on_click(add_ingredient)
 delbutton.on_click(del_ingredient)
 resetbutton.on_click(reset_ingredients)
@@ -387,133 +413,160 @@ commitbutton.on_click(commit_ingredients)
 
 display(
     Markdown("# Get/Add/Modify an ingredient :"),
-    ipywidgets.VBox(
+    ipywidgets.HBox(
         (
-            ipywidgets.HBox((ipywidgets.Label(FIELDS["id"], layout=layoutL), w_id)),
-            ipywidgets.HBox((ipywidgets.Label(FIELDS["name"], layout=layoutL), w_name)),
-            ipywidgets.HBox(
-                (ipywidgets.Label(FIELDS["default"], layout=layoutL), w_default)
-            ),
-            ipywidgets.HBox(
+            ipywidgets.Label(FIELDS["id"], layout=layoutL),
+            w_id,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["name"], layout=layoutL),
+            w_name,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label("Search in " + DATABASE.name, layout=layoutL),
+            w_search,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["default"], layout=layoutL),
+            w_default,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["animal_origin"], layout=layoutL),
+            w_animal_origin,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["default_origin"], layout=layoutL),
+            w_default_origin,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["raw_to_cooked_ratio"], layout=layoutL),
+            w_raw_to_cooked_ratio,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["density"], layout=layoutL),
+            w_density,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(FIELDS["transport_cooling"], layout=layoutL),
+            w_cooling,
+        ),
+        layout=layoutH,
+    ),
+    ipywidgets.HBox(
+        (ipywidgets.Label(FIELDS["visible"], layout=layoutL), w_visible),
+        layout=layoutH,
+    ),
+    ipywidgets.Accordion(
+        children=[
+            ipywidgets.VBox(
                 (
-                    ipywidgets.Label(FIELDS["default_origin"], layout=layoutL),
-                    w_default_origin,
-                )
-            ),
-            ipywidgets.HBox(
-                (
-                    ipywidgets.Label(FIELDS["animal_origin"], layout=layoutL),
-                    w_animal_origin,
-                )
-            ),
-            ipywidgets.HBox(
-                (
-                    ipywidgets.Label(FIELDS["raw_to_cooked_ratio"], layout=layoutL),
-                    w_raw_to_cooked_ratio,
-                )
-            ),
-            ipywidgets.HBox(
-                (ipywidgets.Label(FIELDS["density"], layout=layoutL), w_density)
-            ),
-            ipywidgets.HBox(
-                (
-                    ipywidgets.Label(FIELDS["transport_cooling"], layout=layoutL),
-                    w_cooling,
-                )
-            ),
-            ipywidgets.HBox(
-                (ipywidgets.Label(FIELDS["visible"], layout=layoutL), w_visible)
-            ),
-            ipywidgets.Accordion(
-                children=[
-                    ipywidgets.VBox(
+                    ipywidgets.HBox(
                         (
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS["variants.organic.process"],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_process,
-                                )
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.process"],
+                                layout=layoutL,
                             ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS["variants.organic.ratio"], layout=layoutL
-                                    ),
-                                    w_organic_ratio,
-                                )
-                            ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS[
-                                            "variants.organic.simple_ingredient_default"
-                                        ],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_simple_ingredient_default,
-                                )
-                            ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS[
-                                            "variants.organic.simple_ingredient_variant"
-                                        ],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_simple_ingredient_variant,
-                                )
-                            ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS[
-                                            "variants.organic.beyondLCA.agro-diversity"
-                                        ],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_agrodiv,
-                                )
-                            ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS[
-                                            "variants.organic.beyondLCA.agro-ecology"
-                                        ],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_agroeco,
-                                )
-                            ),
-                            ipywidgets.HBox(
-                                (
-                                    ipywidgets.Label(
-                                        FIELDS[
-                                            "variants.organic.beyondLCA.animal-welfare"
-                                        ],
-                                        layout=layoutL,
-                                    ),
-                                    w_organic_animal_welfare,
-                                )
-                            ),
-                        )
+                            w_organic_process,
+                        ),
+                        layout=layoutH,
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["variants.bleu_blanc_coeur"], layout=layoutL
+                                FIELDS["variants.organic.ratio"], layout=layoutL
                             ),
-                            w_bleu_blanc_coeur,
-                        )
+                            w_organic_ratio,
+                        ),
+                        layout=layoutH,
                     ),
-                ],
-                titles=["Organic", "Bleu Blanc Coeur"],
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.simple_ingredient_default"],
+                                layout=layoutL,
+                            ),
+                            w_organic_simple_ingredient_default,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.simple_ingredient_variant"],
+                                layout=layoutL,
+                            ),
+                            w_organic_simple_ingredient_variant,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.beyondLCA.agro-diversity"],
+                                layout=layoutL,
+                            ),
+                            w_organic_agrodiv,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.beyondLCA.agro-ecology"],
+                                layout=layoutL,
+                            ),
+                            w_organic_agroeco,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.organic.beyondLCA.animal-welfare"],
+                                layout=layoutL,
+                            ),
+                            w_organic_animal_welfare,
+                        ),
+                        layout=layoutH,
+                    ),
+                )
             ),
-        ),
+            ipywidgets.HBox(
+                (
+                    ipywidgets.Label(
+                        FIELDS["variants.bleu_blanc_coeur"], layout=layoutL
+                    ),
+                    w_bleu_blanc_coeur,
+                ),
+                layout=layoutH,
+            ),
+        ],
+        titles=["Organic", "Bleu Blanc Coeur"],
+        layout=layoutH,
     ),
     ipywidgets.HBox((savebutton, delbutton)),
     Markdown("# Reset or Publish ingredients :"),
