@@ -474,7 +474,7 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ h1 [ class "d-none" ] [ text "Simulateur " ]
+            [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-sm-6 mb-2" ]
