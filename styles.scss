@@ -114,6 +114,13 @@ input[type="number"].no-arrows {
   font-weight: 500 !important;
 }
 
+.card {
+  img {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+}
+
 .feedback {
   &-valid {
     border-color: $success;
@@ -157,7 +164,7 @@ rapi-doc::part(section-endpoint-head-path) {
 // App styles
 
 body {
-  // Note: This is for header and footer to occupy the whole height of the
+  // Note: This is for header and footer to fit the whole height of the
   // available viewport. Main content area is white background.
   min-width: 320px;
 }
@@ -302,18 +309,20 @@ blockquote {
   }
 }
 
-.no-outline {
-  &:focus, &:active {
-    outline: none;
-    box-shadow: none;
+.no {
+  &-outline {
+    &:focus, &:active {
+      outline: none;
+      box-shadow: none;
+    }
   }
-}
 
-.no-scroll-chaining {
-  // Avoid y-scroll chaining
-  // @see https://ishadeed.com/article/prevent-scroll-chaining-overscroll-behavior/
-  overscroll-behavior-y: contain;
-  overflow-y: auto;
+  &-scroll-chaining {
+    // Avoid y-scroll chaining
+    // @see https://ishadeed.com/article/prevent-scroll-chaining-overscroll-behavior/
+    overscroll-behavior-y: contain;
+    overflow-y: auto;
+  }
 }
 
 .overflow {
@@ -1088,14 +1097,6 @@ blockquote {
     }
   }
 }
-
-.card {
-  img {
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-  }
-}
-
 
 // Specifics for the comparator modal, when displaying the "total" impacts, we want the stroke to be black instead of white by default.
 .total-impacts rect.highcharts-point {
