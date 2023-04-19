@@ -218,19 +218,12 @@ pageFooter { currentVersion } =
             [ a [ class "FooterBrand p-3", href "./" ]
                 [ img [ class "FooterLogo", src "img/logo_mte.svg" ] []
                 ]
-            , Link.external
-                [ href "https://beta.gouv.fr/"
-                , class "link-external-muted p-3"
-                ]
-                [ img
-                    [ src "img/betagouv.svg"
-                    , alt "Betagouv"
-                    ]
-                    []
+            , Link.external [ class "link-external-muted p-3", href Env.betagouvUrl ]
+                [ img [ src "img/betagouv.svg", alt "Betagouv" ] []
                 ]
             , Link.external
-                [ href "https://www.economie.gouv.fr/plan-de-relance"
-                , class "link-external-muted p-3"
+                [ class "link-external-muted p-3"
+                , href "https://www.economie.gouv.fr/plan-de-relance"
                 ]
                 [ img
                     [ src "img/logo-france-relance.png"

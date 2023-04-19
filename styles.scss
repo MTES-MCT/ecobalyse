@@ -105,7 +105,8 @@ input[type="number"].no-arrows {
     -webkit-appearance: none;
     margin: 0;
   }
-  -moz-appearance:textfield;
+  appearance: initial;
+  -moz-appearance: textfield;
 }
 
 // Force-show number <input/> inc-dec arrows to the left of the field
