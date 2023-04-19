@@ -50,7 +50,7 @@ FIELDS = {
     "name": "Name",
     "default": "Process",
     "default_origin": "Default Origin",
-    "animal_origin": "Animal Origin",
+    "category": "Category",
     "raw_to_cooked_ratio": "Cooked/Raw Ratio",
     "density": "Density",
     "transport_cooling": "Transport Cooling",
@@ -133,7 +133,21 @@ w_default_origin = ipywidgets.Dropdown(
     layout=layoutW,
     style=style,
 )
-w_animal_origin = ipywidgets.Checkbox(indent=False, layout=layoutW)
+w_category = ipywidgets.Dropdown(
+    options=[
+        ("Viandes, œufs, poissons, et dérivés", "animal_product"),
+        ("Lait et ingrédients laitiers", "dairy_product"),
+        ("Céréales brutes", "grain_raw"),
+        ("Céréales transformées", "grain_processed"),
+        ("Fruits à coque et oléoprotéagineux bruts", "nut_oilseed_raw"),
+        ("Graisses végétales et oléoprotéagineux transformés", "nut_oilseed_processed"),
+        ("Divers", "misc"),
+        ("Condiments, épices, additifs", "spice_condiment_additive"),
+        ("Fruits et légumes frais", "vegetable_fresh"),
+        ("Fruits et légumes transformés", "vegetable_processed"),
+    ],
+    layout=layoutW,
+)
 ## Transport cooling
 w_cooling = ipywidgets.Dropdown(
     options=[
@@ -292,7 +306,7 @@ def add_ingredient(_):
         "name": w_name.value,
         "default": w_default.value,
         "default_origin": w_default_origin.value,
-        "animal_origin": w_animal_origin.value,
+        "category": w_category.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
         "density": w_density.value,
         "transport_cooling": w_cooling.value,
@@ -349,7 +363,7 @@ def clear_form():
     w_default.options = [""]
     w_default.value = ""
     w_default_origin.value = "EuropeAndMaghreb"
-    w_animal_origin.value = False
+    w_category.value = "misc"
     w_raw_to_cooked_ratio.value = 0
     w_density.value = 0
     w_cooling.value = "none"
@@ -400,7 +414,7 @@ def change_id(change):
         i.get("default_origin"),
         "EuropeAndMaghreb",
     )
-    set_field(w_animal_origin, i.get("animal_origin"), False)
+    set_field(w_category, i.get("category"), "misc")
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 0)
     set_field(w_density, i.get("density"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
@@ -482,8 +496,8 @@ display(
     ),
     ipywidgets.HBox(
         (
-            ipywidgets.Label(FIELDS["animal_origin"], layout=layoutL),
-            w_animal_origin,
+            ipywidgets.Label(FIELDS["category"], layout=layoutL),
+            w_category,
         ),
         layout=layoutH,
     ),
