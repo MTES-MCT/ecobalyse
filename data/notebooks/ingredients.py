@@ -6,6 +6,7 @@ import json
 import json
 import os
 import pandas
+import pprint
 import shutil
 import subprocess
 
@@ -56,8 +57,8 @@ FIELDS = {
     "visible": "Visible",
     "variants.organic.process": "Organic Process Code",
     "variants.organic.ratio": "Complex/Simple Ratio",
-    "variants.organic.simple_ingredient_default": "Original Ingredient Name",
-    "variants.organic.simple_ingredient_variant": "Variant Ingredient Name",
+    "variants.organic.simple_ingredient_default": "Default component process",
+    "variants.organic.simple_ingredient_variant": "Organic component process",
     "variants.organic.beyondLCA.agro-diversity": "Agro Diversity",
     "variants.organic.beyondLCA.agro-ecology": "Agro Ecology",
     "variants.organic.beyondLCA.animal-welfare": "Animal Welfare",
@@ -97,6 +98,7 @@ def read_ingredients():
 ## technical identifier of the ingredient (for API/URL)
 layoutL = ipywidgets.Layout(width="215px", display="flex", justify_content="flex-end")
 layoutH = ipywidgets.Layout(width="860px")
+layoutA = ipywidgets.Layout(width="900px")
 layoutW = ipywidgets.Layout(width="645px")
 style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
@@ -165,9 +167,14 @@ w_visible = ipywidgets.Checkbox(indent=False, layout=layoutW, style=style, value
 
 # fields for (hardcoded) variants
 ## code of the organic process if any
-w_organic_process = ipywidgets.Text(
+w_organic_search = ipywidgets.Text(
+    placeholder="tomat* organic", layout=layoutL, style=style
+)
+w_organic_process = ipywidgets.Select(
     placeholder="Process",
     layout=layoutW,
+    options=[""],
+    rows=1,
     style=style,
 )
 ## Quantity of simple ingredient necessary to produce 1 unit of complex ingredient
@@ -179,15 +186,25 @@ w_organic_ratio = ipywidgets.BoundedFloatText(
     layout=layoutW,
     style=style,
 )
-w_organic_simple_ingredient_default = ipywidgets.Text(
+w_organic_default_search = ipywidgets.Text(
+    placeholder="flour conventio*", layout=layoutL, style=style
+)
+w_organic_simple_ingredient_default = ipywidgets.Select(
     placeholder="Process",
     layout=layoutW,
+    options=[""],
+    rows=1,
     style=style,
 )
-w_organic_simple_ingredient_variant = ipywidgets.Text(
+w_organic_variant_search = ipywidgets.Text(
+    placeholder="flour organic", layout=layoutL, style=style
+)
+w_organic_simple_ingredient_variant = ipywidgets.Select(
     placeholder="Process",
     tooltip="Click to add or update the ingredient",
     style=style,
+    options=[""],
+    rows=1,
     layout=layoutW,
 )
 # default coef for the beyond-lca indicators
@@ -216,9 +233,14 @@ w_organic_animal_welfare = ipywidgets.FloatSlider(
     layout=layoutW,
 )
 ## code for BleuBlanCoeur process if any
-w_bleu_blanc_coeur = ipywidgets.Text(
+w_bleu_blanc_coeur_search = ipywidgets.Text(
+    placeholder="bleu blanc", layout=layoutL, style=style
+)
+w_bleu_blanc_coeur = ipywidgets.Select(
     placeholder="Process",
     style=style,
+    options=[""],
+    rows=1,
     layout=layoutW,
 )
 
@@ -268,9 +290,7 @@ def add_ingredient(_):
     ingredient = {
         "id": w_id.value,
         "name": w_name.value,
-        "default": str(w_default.value).split(maxsplit=1)[0]
-        if str(w_default.value).split(maxsplit=1)
-        else "",
+        "default": w_default.value,
         "default_origin": w_default_origin.value,
         "animal_origin": w_animal_origin.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
@@ -334,13 +354,21 @@ def clear_form():
     w_density.value = 0
     w_cooling.value = "none"
     w_visible.value = True
+    w_organic_search.value = ""
+    w_organic_process.options = [""]
     w_organic_process.value = ""
     w_organic_ratio.value = 0
+    w_organic_default_search.value = ""
+    w_organic_simple_ingredient_default.options = [""]
     w_organic_simple_ingredient_default.value = ""
+    w_organic_variant_search.value = ""
+    w_organic_simple_ingredient_variant.options = [""]
     w_organic_simple_ingredient_variant.value = ""
     w_organic_agrodiv.value = 0
     w_organic_agroeco.value = 0
     w_organic_animal_welfare.value = 0
+    w_bleu_blanc_coeur_search.value = ""
+    w_bleu_blanc_coeur.options = [""]
     w_bleu_blanc_coeur.value = ""
 
 
@@ -397,14 +425,25 @@ def change_id(change):
     set_field(w_bleu_blanc_coeur, i.get("variants.bleu_blanc_coeur"), "")
 
 
-def change_search(change):
-    results = list(DATABASE.search(change.new, limit=50))
-    w_default.rows = len(results)
-    w_default.options = tuple([(repr(r), r["code"]) for r in results])
+def change_search_of(field):
+    def change_search(change):
+        results = list(DATABASE.search(change.new, limit=50))
+        field.rows = len(results)
+        field.options = tuple([(repr(r), r["code"]) for r in results])
+
+    return change_search
 
 
 w_id.observe(change_id, names="value")
-w_search.observe(change_search, names="value")
+w_search.observe(change_search_of(w_default), names="value")
+w_organic_search.observe(change_search_of(w_organic_process), names="value")
+w_organic_default_search.observe(
+    change_search_of(w_organic_simple_ingredient_default), names="value"
+)
+w_organic_variant_search.observe(
+    change_search_of(w_organic_simple_ingredient_variant), names="value"
+)
+w_bleu_blanc_coeur_search.observe(change_search_of(w_bleu_blanc_coeur), names="value")
 savebutton.on_click(add_ingredient)
 delbutton.on_click(del_ingredient)
 resetbutton.on_click(reset_ingredients)
@@ -429,7 +468,7 @@ display(
     ),
     ipywidgets.HBox(
         (
-            ipywidgets.Label("Search in " + DATABASE.name, layout=layoutL),
+            ipywidgets.Label("Search process in " + DATABASE.name, layout=layoutL),
             w_search,
         ),
         layout=layoutH,
@@ -486,6 +525,13 @@ display(
                 (
                     ipywidgets.HBox(
                         (
+                            ipywidgets.Label("Search organic process", layout=layoutL),
+                            w_organic_search,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
                             ipywidgets.Label(
                                 FIELDS["variants.organic.process"],
                                 layout=layoutL,
@@ -506,10 +552,28 @@ display(
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
+                                "Search default component", layout=layoutL
+                            ),
+                            w_organic_default_search,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
                                 FIELDS["variants.organic.simple_ingredient_default"],
                                 layout=layoutL,
                             ),
                             w_organic_simple_ingredient_default,
+                        ),
+                        layout=layoutH,
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                "Search organic component", layout=layoutL
+                            ),
+                            w_organic_variant_search,
                         ),
                         layout=layoutH,
                     ),
@@ -555,18 +619,31 @@ display(
                     ),
                 )
             ),
-            ipywidgets.HBox(
+            ipywidgets.VBox(
                 (
-                    ipywidgets.Label(
-                        FIELDS["variants.bleu_blanc_coeur"], layout=layoutL
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                "Search bleu blanc coeur process", layout=layoutL
+                            ),
+                            w_bleu_blanc_coeur_search,
+                        ),
+                        layout=layoutH,
                     ),
-                    w_bleu_blanc_coeur,
-                ),
-                layout=layoutH,
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["variants.bleu_blanc_coeur"], layout=layoutL
+                            ),
+                            w_bleu_blanc_coeur,
+                        ),
+                        layout=layoutH,
+                    ),
+                )
             ),
         ],
         titles=["Organic", "Bleu Blanc Coeur"],
-        layout=layoutH,
+        layout=layoutA,
     ),
     ipywidgets.HBox((savebutton, delbutton)),
     Markdown("# Reset or Publish ingredients :"),
@@ -580,3 +657,5 @@ display(
 
 with out:
     list_ingredients()
+    with open(INGREDIENTS_TEMP) as fp:
+        display(pprint.pprint(json.load(fp)))
