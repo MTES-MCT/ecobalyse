@@ -52,14 +52,15 @@ $score-letter-E: #e63f12;
 
 // Fonts
 @font-face {
+  font-display: optional;
   font-family: Marianne;
-  src: url("./public/fonts/Marianne-Regular.woff2") format('woff2'),
-       url("./public/fonts/Marianne-Regular.woff") format('woff');
   font-weight: normal;
   font-style: normal;
+  src: url("./public/fonts/Marianne-Regular.woff2") format('woff2'),
+       url("./public/fonts/Marianne-Regular.woff") format('woff');
 }
 @font-face {
-  font-display: swap;
+  font-display: optional;
   font-family: Marianne;
   font-style: normal;
   font-weight: 700;
