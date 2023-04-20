@@ -252,7 +252,7 @@ pageFooter { currentVersion } =
                             [ class "text-decoration-none"
                             , href <| Env.githubUrl ++ "/commit/" ++ hash
                             ]
-                            [ text <| "Version\u{00A0}:\u{00A0}" ++ hash ]
+                            [ text <| "Version\u{00A0}: " ++ hash ]
                         ]
 
                 Nothing ->

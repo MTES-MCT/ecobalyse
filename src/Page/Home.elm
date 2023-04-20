@@ -174,7 +174,7 @@ viewTools =
             , h2 [ class "h4" ] [ text "Écobalyse met à la disposition des entreprises : " ]
             ]
         , div [ class "row d-flex mb-5" ]
-            [ div [ class "col-sm-4 mb-3 mb-sm-0" ]
+            [ div [ class "col-md-4 mb-3 mb-md-0" ]
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
@@ -196,7 +196,7 @@ viewTools =
                     , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
                 ]
-            , div [ class "col-sm-4 mb-3 mb-sm-0" ]
+            , div [ class "col-md-4 mb-3 mb-md-0" ]
                 [ a
                     [ class "card d-flex flex-warp align-content-between text-decoration-none link-dark h-100"
                     , href Env.gitbookUrl
@@ -220,7 +220,7 @@ viewTools =
                     , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
                 ]
-            , div [ class "col-sm-4 mb-3 mb-sm-0" ]
+            , div [ class "col-md-4 mb-3 mb-md-0" ]
                 [ a
                     [ class "card d-flex flex-warp align-content-between text-decoration-none link-dark h-100"
                     , href "https://ecobalyse.beta.gouv.fr/#/api"
