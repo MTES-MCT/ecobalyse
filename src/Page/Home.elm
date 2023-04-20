@@ -100,10 +100,9 @@ viewHero modal =
                     { size = ModalView.Large
                     , close = CloseModal
                     , noOp = NoOp
-                    , title = ""
+                    , title = "Sélectionnez le secteur concerné"
                     , formAction = Nothing
-                    , content =
-                        [ calculatorPickerModalContent ]
+                    , content = [ calculatorPickerModalContent ]
                     , footer = []
                     }
         ]
@@ -111,11 +110,9 @@ viewHero modal =
 
 calculatorPickerModalContent : Html Msg
 calculatorPickerModalContent =
-    div []
-        [ div [ class "row d-flex ps-5 pt-5 w-100 fs-5 fw-bold" ]
-            [ text "→ Sélectionnez le secteur concerné" ]
-        , div
-            [ class "row d-flex text-center align-items-stretch justify-content-start ps-4 pt-2 pb-5 w-100 gap-1" ]
+    div [ class "p-4" ]
+        [ div
+            [ class "row d-flex text-center align-items-stretch justify-content-start w-100 gap-1" ]
             [ div [ class "col-sm-3" ]
                 [ a
                     [ class "card align-items-center text-decoration-none"

@@ -70,19 +70,21 @@ view config =
                 , attribute "aria-modal" "true"
                 ]
                 [ modalContentTag
-                    [ div [ class "modal-header bg-primary text-light" ]
-                        [ h6 [ class "modal-title" ] [ text config.title ]
+                    [ div [ class "modal-header" ]
+                        [ h5 [ class "modal-title" ]
+                            [ span [ class "me-2", attribute "aria-hidden" "true" ] [ text "→" ]
+                            , text config.title
+                            ]
                         , button
                             [ type_ "button"
-                            , class "btn-close invert"
+                            , class "btn-close"
                             , onClick config.close
-                            , attribute "aria-label" "Close"
+                            , attribute "aria-label" "Fermer"
                             ]
                             []
                         ]
-                    , div
-                        [ class "modal-body no-scroll-chaining p-0" ]
-                        config.content
+                    , config.content
+                        |> div [ class "modal-body no-scroll-chaining p-0" ]
                     , if config.footer /= [] then
                         div [ class "modal-footer bg-light" ] config.footer
 
