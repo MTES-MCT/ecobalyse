@@ -222,6 +222,9 @@ pageFooter { currentVersion } =
                     [ class "FooterLogo"
                     , alt "Ministère de la Transition écologique et de la Cohésion des Territoires"
                     , src "img/logo_mte.svg"
+                    , style "width" "201px"
+                    , style "height" "135px"
+                    , style "aspect-ratio" "auto 201 / 135"
                     ]
                     []
                 ]

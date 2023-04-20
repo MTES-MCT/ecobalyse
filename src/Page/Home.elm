@@ -150,7 +150,7 @@ viewInfo : Html Msg
 viewInfo =
     Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
         [ img
-            [ src "img/Illustration_Score.png"
+            [ src "img/illustration-score.png"
             , alt "Une étiquette présentant différents scores d'impact environnemental"
             ]
             []
@@ -189,14 +189,17 @@ viewTools =
                     [ img
                         [ class "w-100"
                         , src "img/img_outil_calculateur.png"
+                        , style "width" "450px"
+                        , style "height" "auto"
+                        , style "aspect-ratio" "auto 450 / 254"
                         , alt "Capture d'écran du calculateur alimentaire"
                         ]
                         []
-                    , div [ class "card-body p-4 fs-7" ]
+                    , div [ class "card-body p-4 pb-0 fs-7" ]
                         [ h3 [ class "h5 fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
                         , text "Un calculateur gratuit qui permet d’obtenir les impacts d’un produit sur la base de critères simples et accessibles aux marques."
                         ]
-                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
@@ -207,17 +210,20 @@ viewTools =
                     [ img
                         [ class "w-100"
                         , src "img/img_outil_methode.png"
+                        , style "width" "450px"
+                        , style "height" "auto"
+                        , style "aspect-ratio" "auto 450 / 254"
                         , alt "Capture d'écran de la documentation"
                         ]
                         []
-                    , div [ class "card-body p-4 fs-7" ]
+                    , div [ class "card-body p-4 pb-0 fs-7" ]
                         [ h3 [ class "h5 fw-bold" ] [ text "Support de travail sur la méthode" ]
                         , p [] [ text "Les orientations présentées participent à la construction de la future méthodologie réglementaire." ]
                         , div []
                             [ em [] [ text "Écobalyse, c’est aussi un mode de collaboration ouvert à la critique et aux suggestions, en vue d’aider à élaborer la future méthode réglementaire française (contribuez!)" ]
                             ]
                         ]
-                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
@@ -228,14 +234,17 @@ viewTools =
                     [ img
                         [ class "w-100"
                         , src "img/img_outil_api.png"
+                        , style "width" "450px"
+                        , style "height" "auto"
+                        , style "aspect-ratio" "auto 450 / 254"
                         , alt "Engrenages représentant une API"
                         ]
                         []
-                    , div [ class "card-body p-4 fs-7" ]
+                    , div [ class "card-body p-4 pb-0 fs-7" ]
                         [ h3 [ class "h5 fw-bold" ] [ text "API ouverte" ]
                         , div [] [ text "Une interface de programmation applicative (API) permet de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
                         ]
-                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
                 ]
             ]
@@ -251,6 +260,8 @@ viewContribution =
                     [ src "img/picto_bulle.png"
                     , class "pb-4"
                     , style "width" "60px"
+                    , style "height" "auto"
+                    , style "aspect-ratio" "auto 60 / 60"
                     , alt "Picto d'une bulle de conversation"
                     ]
                     []

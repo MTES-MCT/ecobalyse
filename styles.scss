@@ -764,6 +764,8 @@ blockquote {
 
   &Logo {
     width: 100px;
+    height: auto;
+    aspect-ratio: auto 166 / 150;
     padding-left: 5px;
   }
 
@@ -1025,7 +1027,9 @@ blockquote {
 
 .overlappedImage {
   img {
-    width: 50%;
+    width: 650;
+    height: 437;
+    aspect-ratio: auto 650 / 437;
   }
   > div {
     background-color: $white;
@@ -1039,6 +1043,7 @@ blockquote {
   @media screen and (width <= $viewport-md) {
     img {
       width: 100%;
+      height: auto;
     }
     > div {
       left: 0;
