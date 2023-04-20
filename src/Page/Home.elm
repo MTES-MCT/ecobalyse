@@ -70,9 +70,8 @@ viewHero modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
-                [ text "Calculez l'impact écologique de vos produits"
-                ]
-            , div [ class "fs-5 text-muted my-5" ]
+                [ text "Calculez l'impact écologique de vos produits" ]
+            , div [ class "fs-5 text-muted mt-3 mb-5" ]
                 [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
             ]
         , div [ class "row mb-4" ]
