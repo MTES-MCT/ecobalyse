@@ -219,19 +219,6 @@ def get_process_by_id(processes, process_id):
     raise ProcessNotFoundByIdError(process_id)
 
 
-class ProcessNotFoundByNameError(Exception):
-    def __init__(self, process_name):
-        self.message = f"Procédé non trouvé pour le nom {process_name}"
-        super().__init__(self.message)
-
-
-def get_process_by_name(processes, process_name):
-    for process in processes.values():
-        if process["name"] == process_name:
-            return process
-    raise ProcessNotFoundByNameError(process_name)
-
-
 def is_complex_ingredient(variant):
     return (
         "simple_ingredient_default" in variant
@@ -264,10 +251,10 @@ def compute_ingredient_list(processes, ingredients_base):
                 # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 ratio = variant["ratio"]
 
-                simple_ingredient_default = get_process_by_name(
+                simple_ingredient_default = get_process_by_id(
                     processes, variant["simple_ingredient_default"]
                 )
-                simple_ingredient_variant = get_process_by_name(
+                simple_ingredient_variant = get_process_by_id(
                     processes, variant["simple_ingredient_variant"]
                 )
 

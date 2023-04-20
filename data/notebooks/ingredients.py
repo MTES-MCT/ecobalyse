@@ -6,7 +6,6 @@ import json
 import json
 import os
 import pandas
-import pprint
 import shutil
 import subprocess
 
@@ -412,8 +411,8 @@ def change_id(change):
     set_field(w_name, i.get("name"), "")
     code = i.get("default")
     act = DATABASE.get(code)
-    w_default.options = [(act["name"], code)]
-    set_field(w_default, i.get("default"), "")
+    w_default.options = [(act.get("name"), code)]
+    set_field(w_default, code, "")
     set_field(
         w_default_origin,
         i.get("default_origin"),
@@ -424,24 +423,36 @@ def change_id(change):
     set_field(w_density, i.get("density"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_organic_process, i.get("variants.organic.process"), "")
+    code = i.get("variants.organic.process")
+    if code:
+        act = DATABASE.get(code)
+        w_organic_process.options = [("", "")] + [(act.get("name"), code)]
+        set_field(w_organic_process, code, "")
     set_field(w_organic_ratio, i.get("variants.organic.ratio"), 0)
-    set_field(
-        w_organic_simple_ingredient_default,
-        i.get("variants.organic.simple_ingredient_default"),
-        "",
-    )
-    set_field(
-        w_organic_simple_ingredient_variant,
-        i.get("variants.organic.simple_ingredient_variant"),
-        "",
-    )
+    code = i.get("variants.organic.simple_ingredient_default")
+    if code:
+        act = DATABASE.get(code)
+        w_organic_simple_ingredient_default.options = [("", "")] + [
+            (act.get("name"), code)
+        ]
+        set_field(w_organic_simple_ingredient_default, code, "")
+    code = i.get("variants.organic.simple_ingredient_variant")
+    if code:
+        act = DATABASE.get(code)
+        w_organic_simple_ingredient_variant.options = [("", "")] + [
+            (act.get("name"), code)
+        ]
+        set_field(w_organic_simple_ingredient_variant, code, "")
     set_field(w_organic_agrodiv, i.get("variants.organic.beyondLCA.agro-diversity"), 0)
     set_field(w_organic_agroeco, i.get("variants.organic.beyondLCA.agro-ecology"), 0)
     set_field(
         w_organic_animal_welfare, i.get("variants.organic.beyondLCA.animal-welfare"), 0
     )
-    set_field(w_bleu_blanc_coeur, i.get("variants.bleu_blanc_coeur"), "")
+    code = i.get("variants.bleu_blanc_coeur")
+    if code:
+        act = DATABASE.get(code)
+        w_bleu_blanc_coeur.options = [("", "")] + [(act.get("name"), code)]
+        set_field(w_bleu_blanc_coeur, code, "")
 
 
 def change_search_of(field):

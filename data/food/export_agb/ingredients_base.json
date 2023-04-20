@@ -99,8 +99,8 @@
           "agro-ecology": 0.5
         },
         "ratio": 1.16,
-        "simple_ingredient_default": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
-        "simple_ingredient_variant": "Soft wheat grain, organic, 15% moisture, Central Region, at farm gate"
+        "simple_ingredient_default": "16d88eaffeb666c4d39facde53afa26f",
+        "simple_ingredient_variant": "9a0d187afb6c6d30bd71b9306b32f28c"
       }
     }
   },
@@ -194,8 +194,8 @@
           "animal-welfare": 0.5
         },
         "ratio": 2.3,
-        "simple_ingredient_default": "Beef cattle, national average, at farm gate",
-        "simple_ingredient_variant": "Cull cow, organic, milk system n°4, at farm gate"
+        "simple_ingredient_default": "1e0d969027eb2d70ac658448d0bf1394",
+        "simple_ingredient_variant": "cfb9f0014d252d241eda4c65b0abd7fb"
       }
     }
   },
@@ -217,8 +217,8 @@
           "animal-welfare": 0.5
         },
         "ratio": 2.02,
-        "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
-        "simple_ingredient_variant": "Pig, organic, system n°2, at farm gate"
+        "simple_ingredient_default": "14b16da7d27fe13918762f43fee3f3db",
+        "simple_ingredient_variant": "ec41a3c4d241bc09e42f9d94b5167334"
       }
     }
   },
@@ -240,8 +240,8 @@
           "animal-welfare": 0.5
         },
         "ratio": 1,
-        "simple_ingredient_default": "Broiler, conventional, at farm gate",
-        "simple_ingredient_variant": "Broiler, organic, at farm gate"
+        "simple_ingredient_default": "ce7c1c71e54b4ff253517485cda4c9ad",
+        "simple_ingredient_variant": "8518dbefcaa3d63862cc4918b0d4a084"
       }
     }
   },
