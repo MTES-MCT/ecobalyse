@@ -238,14 +238,15 @@ pageFooter { currentVersion } =
                     ]
                     []
                 ]
-            , img
-                [ src "img/logo-next-generation-eu.png"
-                , class "p-3"
-                , alt "Financé par la l'Union européenne"
-                , attribute "width" "270"
-                , attribute "height" "82"
+            , span [ class "p-3" ]
+                [ img
+                    [ src "img/logo-next-generation-eu.png"
+                    , alt "Financé par la l'Union européenne"
+                    , attribute "width" "400"
+                    , attribute "height" "89"
+                    ]
+                    []
                 ]
-                []
             ]
         , Container.centered []
             [ legalMenuLinks
