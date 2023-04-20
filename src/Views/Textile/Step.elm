@@ -469,7 +469,7 @@ stepHeader { current, inputs, toggleStep } =
 
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
-    div [ class "card" ]
+    div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6" ] [ stepHeader config ]
@@ -637,7 +637,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    div [ class "card-group" ]
+    div [ class "card-group shadow-sm" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ stepHeader config

@@ -1475,19 +1475,19 @@ subScoresView { queries } { scoring } =
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div []
-        [ div [ class "card" ]
+        [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
         , transportToTransformationView impact recipe results
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (transformView db impact recipe results)
         , transportToPackagingView recipe
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (distributionView impact recipe results)
         , transportToConsumptionView recipe
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
         ]
