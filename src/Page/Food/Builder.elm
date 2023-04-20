@@ -1154,11 +1154,9 @@ distributionView selectedImpact recipe results =
                     ]
                 , li
                     [ class "list-group-item fs-7" ]
-                    [ span [ class "text-truncate" ]
-                        [ distribution
-                            |> Retail.displayNeeds
-                            |> text
-                        ]
+                    [ distribution
+                        |> Retail.displayNeeds
+                        |> text
                     ]
                 ]
 

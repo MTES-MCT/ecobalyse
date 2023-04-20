@@ -242,8 +242,8 @@ pageFooter { currentVersion } =
                 [ img
                     [ src "img/logo-next-generation-eu.png"
                     , alt "Financé par la l'Union européenne"
-                    , attribute "width" "400"
-                    , attribute "height" "89"
+                    , attribute "width" "320"
+                    , attribute "height" "71"
                     ]
                     []
                 ]
