@@ -8,7 +8,7 @@ $primary: #000091;
 $success: #18753c;
 $warning: #fcc63a;
 $danger: #c9191e;
-$info: #009081;
+$info: #0063cb;
 $input-border-color: #969696;
 $navbar-dark-color: rgba($white, 0.8);
 $text-dark: rgb(58, 58, 58);
@@ -18,7 +18,8 @@ $text-muted: rgb(104, 104, 104);
 $enable-responsive-font-sizes: true;
 
 // Badges
-$badge-border-radius: 0.25em;
+$badge-border-radius: .25em;
+$badge-padding-y: 0px;
 
 // Borders
 $border-radius: 0;
@@ -129,9 +130,27 @@ input[type="number"].no-arrows {
 
 // Bootstrap component/helper overrides, to match DSFR design guidelines
 .badge {
+  background-color: #fafafa;
+  letter-spacing: 1px;
   line-height: 1.5;
   padding-bottom: calc($badge-padding-y + 1px);
   text-transform: uppercase;
+  &-success {
+    background-color: #b8fec9;
+    color: $success;
+  }
+  &-danger {
+    background-color: #ffe9e9;
+    color: $danger;
+  }
+  &-info {
+    background-color: #e8edff;
+    color: $info;
+  }
+  &-warning {
+    background-color: #feebd0;
+    color: $warning;
+  }
 }
 
 .btn {
@@ -196,7 +215,7 @@ body {
 .bg {
   &-info {
     &-dark {
-      background-color: rgb(0, 104, 109);
+      background-color: $info;
     }
   }
 }

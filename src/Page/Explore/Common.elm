@@ -10,13 +10,7 @@ scopesView =
     .scopes
         >> List.map
             (\scope ->
-                span
-                    [ class "badge"
-                    , classList
-                        [ ( "bg-success", scope == Scope.Food )
-                        , ( "bg-info", scope == Scope.Textile )
-                        ]
-                    ]
+                span [ class "badge badge-success" ]
                     [ text <| Scope.toLabel scope ]
             )
         >> div [ class "d-flex gap-1" ]

@@ -274,15 +274,15 @@ view session _ =
                                             , span
                                                 [ class "badge"
                                                 , classList
-                                                    [ ( "bg-danger", level == "major" )
-                                                    , ( "bg-info", level /= "major" )
+                                                    [ ( "badge-danger", level == "major" )
+                                                    , ( "badge-success", level /= "major" )
                                                     ]
                                                 ]
                                                 [ text level ]
                                                 :: (domains
                                                         |> List.map
                                                             (\domain ->
-                                                                span [ class "badge bg-secondary" ]
+                                                                span [ class "badge badge-info" ]
                                                                     [ text domain ]
                                                             )
                                                    )
