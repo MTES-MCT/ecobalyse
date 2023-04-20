@@ -8,11 +8,11 @@ import bw2io
 
 PROJECT = "Ecobalyse"
 # Ecoinvent
-ECOINVENTDB = "Ecoinvent"
+ECOINVENTDB = "Ecoinvent 3.9.1"
 ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
 AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV.zip"
-AGRIBALYSEDB = "Agribalyse"
+AGRIBALYSEDB = "Agribalyse 3.1.1"
 BIOSPHERE = "biosphere3"
 # EF
 EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
