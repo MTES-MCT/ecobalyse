@@ -259,9 +259,9 @@ viewContribution =
                     , alt "Picto d'une bulle de conversation"
                     ]
                     []
-                , p [] [ text "“Tiens, ce chiffre me parait étonnant”" ]
-                , p [] [ text "“Et si on utilisait la surface du tissu plutôt que la masse du vêtement…”," ]
-                , p [] [ text "“Pourquoi l’impact diminue lorsque la production se fait au Myanmar ?”" ]
+                , p [] [ q [] [ text "Tiens, ce chiffre me parait étonnant…" ] ]
+                , p [] [ q [] [ text "Et si on utilisait la surface du tissu plutôt que la masse du vêtement\u{00A0}?" ] ]
+                , p [] [ q [] [ text "Pourquoi l’impact diminue lorsque la production se fait au Myanmar\u{00A0}?" ] ]
                 ]
             , div [ class "col-sm-8 bg-light mt-5 mb-5 p-5" ]
                 [ h3 [ class "h5 fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
