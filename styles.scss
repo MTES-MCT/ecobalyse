@@ -948,6 +948,15 @@ blockquote {
   }
 }
 
+.Launcher {
+  &Link {
+    width: 200px;
+    min-width: 200px;
+    height: 200px;
+    min-height: 200px;
+  }
+}
+
 .Markdown {
   h2 {
     border-top: 1px solid #ccc;

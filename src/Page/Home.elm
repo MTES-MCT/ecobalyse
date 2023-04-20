@@ -111,46 +111,37 @@ viewHero modal =
 calculatorPickerModalContent : Html Msg
 calculatorPickerModalContent =
     div [ class "p-4" ]
-        [ div
-            [ class "row d-flex text-center align-items-stretch justify-content-start w-100 gap-1" ]
-            [ div [ class "col-sm-3" ]
-                [ a
-                    [ class "card align-items-center text-decoration-none"
-                    , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
-                    ]
-                    [ img
-                        [ class "w-75 px-3 pt-3"
-                        , src "img/picto_textile.png"
-                        , alt "Lancer le calculateur du textile"
-                        ]
-                        []
-                    , span [ class "card-body p-4 fs-7" ]
-                        [ text "Textile" ]
-                    ]
+        [ div [ class "Launcher d-flex flex-wrap justify-content-center justify-content-sm-start gap-3" ]
+            [ a
+                [ class "LauncherLink border bg-primary text-white d-flex flex-column justify-content-center align-items-center text-decoration-none"
+                , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
                 ]
-            , div [ class "col-sm-3" ]
-                [ a
-                    [ class "card align-items-center text-decoration-none"
-                    , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                [ img
+                    [ class "invert"
+                    , src "img/picto_textile.png"
+                    , alt "Lancer le calculateur du textile"
                     ]
-                    [ img
-                        [ class "w-75 px-3 pt-3"
-                        , src "img/picto_alimentaire.png"
-                        , alt "Lancer le calculateur de l'alimentaire"
-                        ]
-                        []
-                    , span [ class "card-body p-4 fs-7" ]
-                        [ text "Alimentaire" ]
-                    ]
+                    []
+                , div [] [ text "Textile" ]
                 ]
-            , div [ class "col-sm-3" ]
-                [ div [ class "card h-100 justify-content-center" ]
-                    [ text "Autre secteur,"
-                    , br [] []
-                    , Link.external
-                        [ href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter" ]
-                        [ text "contactez-nous" ]
+            , a
+                [ class "LauncherLink border bg-primary text-white d-flex flex-column justify-content-center align-items-center text-decoration-none"
+                , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                ]
+                [ img
+                    [ class "invert"
+                    , src "img/picto_alimentaire.png"
+                    , alt "Lancer le calculateur de l'alimentaire"
                     ]
+                    []
+                , div [] [ text "Alimentaire" ]
+                ]
+            , div [ class "LauncherLink border border-primary d-flex flex-column justify-content-center align-items-center" ]
+                [ text "Autre secteur,"
+                , br [] []
+                , Link.external
+                    [ href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter" ]
+                    [ text "contactez-nous" ]
                 ]
             ]
         ]
