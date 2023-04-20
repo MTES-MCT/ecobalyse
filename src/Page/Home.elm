@@ -152,9 +152,9 @@ viewInfo =
             , alt "Une étiquette présentant différents scores d'impact environnemental"
             ]
             []
-        , div []
-            [ h3 [] [ text "Un eco-score pour informer les consommateurs" ]
-            , blockquote [ class "d-inline-block fw-bold mx-5 my-4" ]
+        , div [ class "d-flex flex-column gap-2" ]
+            [ h2 [] [ text "Un eco-score pour informer les consommateurs" ]
+            , blockquote [ class "d-inline-block fw-bold mx-5 mt-3 mb-2" ]
                 [ p [ class "mb-0" ]
                     [ text "«\u{00A0}74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent.\u{00A0}»" ]
                 , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
