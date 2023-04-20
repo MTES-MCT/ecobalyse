@@ -214,8 +214,10 @@ pageFooter { currentVersion } =
                     ]
                 ]
             ]
-        , Container.centered [ class "d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center gap-3" ]
-            [ a [ class "FooterBrand p-3", href "./" ]
+        , Container.centered
+            [ class "d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center gap-3"
+            ]
+            [ a [ class "FooterBrand py-3", href "https://www.ecologie.gouv.fr/" ]
                 [ img
                     [ class "FooterLogo"
                     , alt "Ministère de la Transition écologique et de la Cohésion des Territoires"
@@ -223,29 +225,13 @@ pageFooter { currentVersion } =
                     ]
                     []
                 ]
-            , Link.external [ class "link-external-muted p-3", href Env.betagouvUrl ]
-                [ img [ src "img/betagouv.svg", alt "Betagouv" ] []
-                ]
-            , Link.external
-                [ class "link-external-muted p-3"
-                , href "https://www.economie.gouv.fr/plan-de-relance"
-                ]
-                [ img
-                    [ src "img/logo-france-relance.png"
-                    , alt "France Relance"
-                    , attribute "width" "100"
-                    , attribute "height" "100"
-                    ]
-                    []
-                ]
-            , span [ class "p-3" ]
-                [ img
-                    [ src "img/logo-next-generation-eu.png"
-                    , alt "Financé par la l'Union européenne"
-                    , attribute "width" "320"
-                    , attribute "height" "71"
-                    ]
-                    []
+            , div [ class "d-flex justify-content-end align-items-center gap-4 mt-2" ]
+                [ Link.external [ class "FooterInstitutionLink", href Env.betagouvUrl ]
+                    [ text "beta.gouv.fr" ]
+                , Link.external [ class "FooterInstitutionLink", href "https://www.ecologie.gouv.fr/fabrique-numerique" ]
+                    [ text "Fabrique Numérique" ]
+                , Link.external [ class "FooterInstitutionLink", href "https://www.economie.gouv.fr/plan-de-relance" ]
+                    [ text "France Relance" ]
                 ]
             ]
         , Container.centered []

@@ -647,18 +647,18 @@ blockquote {
 
 .Footer {
   border-top: 3px solid $primary;
-  &Navigation {
-    background-color: #f6f6f6;
-    padding: 1.5em 0;
-    a:hover {
-      text-decoration: underline !important;
+  &InstitutionLink {
+    color: $text-dark;
+    font-size: 0.875em;
+    font-weight: 700;
+    text-decoration: none;
+    &:hover {
+      color: $text-dark;
+      text-decoration: underline;
     }
   }
   &Brand {
     margin-top: 1.5em;
-    &:hover {
-      background-color: #f6f6f6;
-    }
   }
   &Legal {
     a {
@@ -670,6 +670,8 @@ blockquote {
     width: 160px;
   }
   &Navigation {
+    background-color: #f6f6f6;
+    padding: 1.5em 0;
     li {
       margin: .5em 0;
       a {
