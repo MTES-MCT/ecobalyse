@@ -1024,7 +1024,7 @@ blockquote {
   img {
     width: 50%;
   }
-  div {
+  > div {
     background-color: $white;
     left: 25%;
     margin-top: -200px;
@@ -1033,11 +1033,11 @@ blockquote {
     width: 75%;
   }
 
-  @media screen and (width <= $viewport-sm) {
+  @media screen and (width <= $viewport-md) {
     img {
       width: 100%;
     }
-    div {
+    > div {
       left: 0;
       margin-top: 0;
       padding: $spacer 0 0;

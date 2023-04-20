@@ -148,13 +148,10 @@ calculatorPickerModalContent =
 
 viewInfo : Html Msg
 viewInfo =
-    Container.centered
-        [ class "overlappedImage"
-        , id "decouvrir-ecobalyse"
-        ]
+    Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
         [ img
             [ src "img/Illustration_Score.png"
-            , alt "Illustration de score d'impact"
+            , alt "Une étiquette présentant différents scores d'impact environnemental"
             ]
             []
         , div []
