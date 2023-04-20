@@ -1,10 +1,7 @@
 import brightway2 as bw
 from zipfile import ZipFile
 
-from .custom_import_migrations import (
-    # wfldb_technosphere_migration_data,
-    agb_technosphere_migration_data,
-)
+from food.import_agb.custom_import_migrations import agb_technosphere_migration_data
 
 
 def import_agribalyse():
