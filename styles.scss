@@ -17,6 +17,9 @@ $text-muted: rgb(104, 104, 104);
 // Responsive texts
 $enable-responsive-font-sizes: true;
 
+// Badges
+$badge-border-radius: 0.25em;
+
 // Borders
 $border-radius: 0;
 $border-radius-sm: 0;
@@ -125,6 +128,12 @@ input[type="number"].no-arrows {
 }
 
 // Bootstrap component/helper overrides, to match DSFR design guidelines
+.badge {
+  line-height: 1.5;
+  padding-bottom: calc($badge-padding-y + 1px);
+  text-transform: uppercase;
+}
+
 .btn {
   font-weight: 500 !important;
 }
