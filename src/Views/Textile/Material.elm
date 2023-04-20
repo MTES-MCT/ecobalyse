@@ -38,10 +38,10 @@ formSet ({ add, inputs } as config) =
             round (totalShares * 100) == 100
     in
     div [ class "Materials" ]
-        [ div [ class "d-flex align-items-center gap-1 mb-2" ]
+        [ div [ class "d-flex align-items-end gap-1 mb-2" ]
             [ span [ class "fw-bold" ]
                 [ text "Matières premières" ]
-            , span [ class "text-muted" ]
+            , span [ class "text-muted fs-7" ]
                 [ text <| "jusqu'à " ++ String.fromInt Env.maxMaterials ++ " maximum" ]
             ]
         , inputs

@@ -214,9 +214,14 @@ pageFooter { currentVersion } =
                     ]
                 ]
             ]
-        , Container.centered [ class "d-flex flex-wrap justify-content-center justify-content-sm-start align-items-center gap-3" ]
+        , Container.centered [ class "d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center gap-3" ]
             [ a [ class "FooterBrand p-3", href "./" ]
-                [ img [ class "FooterLogo", src "img/logo_mte.svg" ] []
+                [ img
+                    [ class "FooterLogo"
+                    , alt "Ministère de la Transition écologique et de la Cohésion des Territoires"
+                    , src "img/logo_mte.svg"
+                    ]
+                    []
                 ]
             , Link.external [ class "link-external-muted p-3", href Env.betagouvUrl ]
                 [ img [ src "img/betagouv.svg", alt "Betagouv" ] []
@@ -246,24 +251,20 @@ pageFooter { currentVersion } =
             [ legalMenuLinks
                 |> List.map makeLink
                 |> List.map (List.singleton >> li [])
-                |> (\list ->
-                        list
-                            ++ [ case Version.toString currentVersion of
-                                    Just hash ->
-                                        li []
-                                            [ Link.external
-                                                [ class "text-decoration-none"
-                                                , href <| Env.githubUrl ++ "/commit/" ++ hash
-                                                ]
-                                                [ text <| "Version " ++ hash ]
-                                            ]
-
-                                    Nothing ->
-                                        text ""
-                               ]
-                   )
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
-                |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-3 border-top" ]
+                |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
+            , case Version.toString currentVersion of
+                Just hash ->
+                    p [ class "fs-9 text-muted" ]
+                        [ Link.external
+                            [ class "text-decoration-none"
+                            , href <| Env.githubUrl ++ "/commit/" ++ hash
+                            ]
+                            [ text <| "Version\u{00A0}:\u{00A0}" ++ hash ]
+                        ]
+
+                Nothing ->
+                    text ""
             ]
         ]
 
@@ -287,7 +288,7 @@ pageHeader config =
                 , title "Écobalyse"
                 , class "HeaderBrand text-decoration-none d-flex align-items-center gap-5"
                 ]
-                [ img [ class "HeaderLogo", src "img/republique-francaise.svg" ] []
+                [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
@@ -390,7 +391,7 @@ mobileNavigation { activePage, closeMobileNavigation } =
             , attribute "role" "dialog"
             ]
             [ div [ class "offcanvas-header" ]
-                [ h5 [ class "offcanvas-title", id "navigationLabel" ]
+                [ h3 [ class "h5 offcanvas-title", id "navigationLabel" ]
                     [ text "Navigation" ]
                 , button
                     [ type_ "button"

@@ -68,11 +68,13 @@ update session msg model =
 viewHero : Modal -> Html Msg
 viewHero modal =
     Container.centered [ class "pt-4 pb-5" ]
-        [ h2 [ class "display-5" ]
-            [ text "Calculez l'impact écologique de vos produits"
+        [ div [ class "px-5" ]
+            [ h2 [ class "h1" ]
+                [ text "Calculez l'impact écologique de vos produits"
+                ]
+            , div [ class "fs-5 text-muted my-5" ]
+                [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
             ]
-        , div [ class "fs-4 text-muted mt-4 mb-5" ]
-            [ text "Écobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
         , div [ class "row mb-4" ]
             [ div [ class "col-md-6 text-center text-md-end py-2" ]
                 [ button
@@ -125,7 +127,7 @@ calculatorPickerModalContent =
                         , alt "Lancer le calculateur du textile"
                         ]
                         []
-                    , span [ class "card-body" ]
+                    , span [ class "card-body p-4 fs-7" ]
                         [ text "Textile" ]
                     ]
                 ]
@@ -140,7 +142,7 @@ calculatorPickerModalContent =
                         , alt "Lancer le calculateur de l'alimentaire"
                         ]
                         []
-                    , span [ class "card-body" ]
+                    , span [ class "card-body p-4 fs-7" ]
                         [ text "Alimentaire" ]
                     ]
                 ]
@@ -191,7 +193,7 @@ viewTools =
         [ h4 [ class "fw-normal mb-5 lh-base" ]
             [ text "Afin d’amorcer la transition vers un modèle de production plus durable"
             , br [] []
-            , strong [] [ text "Écobalyse met à la disposition des entreprises : " ]
+            , h2 [ class "h4" ] [ text "Écobalyse met à la disposition des entreprises : " ]
             ]
         , div [ class "row d-flex mb-5" ]
             [ div [ class "col-sm-4 mb-3 mb-sm-0" ]
@@ -206,11 +208,11 @@ viewTools =
                         , alt "Capture d'écran du calculateur alimentaire"
                         ]
                         []
-                    , div [ class "card-body" ]
-                        [ h5 [ class "fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
+                    , div [ class "card-body p-4 fs-7" ]
+                        [ h3 [ class "h5 fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
                         , text "Un calculateur gratuit qui permet d’obtenir les impacts d’un produit sur la base de critères simples et accessibles aux marques."
                         ]
-                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
@@ -224,14 +226,14 @@ viewTools =
                         , alt "Capture d'écran de la documentation"
                         ]
                         []
-                    , div [ class "card-body" ]
-                        [ h5 [ class "fw-bold" ] [ text "Support de travail sur la méthode" ]
+                    , div [ class "card-body p-4 fs-7" ]
+                        [ h3 [ class "h5 fw-bold" ] [ text "Support de travail sur la méthode" ]
                         , p [] [ text "Les orientations présentées participent à la construction de la future méthodologie réglementaire." ]
                         , div []
                             [ em [] [ text "Écobalyse, c’est aussi un mode de collaboration ouvert à la critique et aux suggestions, en vue d’aider à élaborer la future méthode réglementaire française (contribuez!)" ]
                             ]
                         ]
-                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             , div [ class "col-sm-4 mb-3 mb-sm-0" ]
@@ -245,11 +247,11 @@ viewTools =
                         , alt "Engrenages représentant une API"
                         ]
                         []
-                    , div [ class "card-body" ]
-                        [ h5 [ class "fw-bold" ] [ text "API ouverte" ]
+                    , div [ class "card-body p-4 fs-7" ]
+                        [ h3 [ class "h5 fw-bold" ] [ text "API ouverte" ]
                         , div [] [ text "Une interface de programmation applicative (API) permet de connecter le calculateur Écobalyse à tout autre service numérique : gestion d’entreprises (ERP), bases de données de produits (PIM), services SaaS… " ]
                         ]
-                    , div [ class "card-footer bg-white border-top-0 text-end fw-bold" ] [ text "→" ]
+                    , div [ class "card-footer border-top-0 text-end fw-bold" ] [ text "→" ]
                     ]
                 ]
             ]
@@ -260,7 +262,7 @@ viewContribution : Html Msg
 viewContribution =
     Container.centered [ class "Contribution" ]
         [ div [ class "row d-flex align-items-start" ]
-            [ div [ class "col-sm-4 bg-info text-white px-3 py-5" ]
+            [ div [ class "col-sm-4 bg-info-dark text-white px-3 py-5" ]
                 [ img
                     [ src "img/picto_bulle.png"
                     , class "pb-4"
@@ -273,7 +275,7 @@ viewContribution =
                 , p [] [ text "“Pourquoi l’impact diminue lorsque la production se fait au Myanmar ?”" ]
                 ]
             , div [ class "col-sm-8 bg-light mt-5 mb-5 p-5" ]
-                [ h5 [ class "fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
+                [ h3 [ class "h5 fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
                 , p [] [ text "La définition de la méthode de calcul et la mise en œuvre de l’éco-score nécessitent un travail collectif au long cours en relation avec les acteurs de chaque filière." ]
                 , p [] [ text "Vous êtes une marque, un producteur, un bureau d’étude ou un distributeur\u{00A0}:" ]
                 , ul [ class "mb-5" ]

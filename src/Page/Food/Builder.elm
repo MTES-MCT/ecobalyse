@@ -1713,7 +1713,7 @@ tagViewer { scoring } =
                         (\( label, subScore ) ->
                             div [ class "w-100 d-flex justify-content-between align-items-center gap-1 gap-sm-2 gap-md-3 pt-1" ]
                                 [ span
-                                    [ class <| "text-truncate w-100 fs-75 fw-bold ScoreColoredText" ++ subScore.letter ]
+                                    [ class <| "text-truncate w-100 fs-7 fw-bold ScoreColoredText" ++ subScore.letter ]
                                     [ text label ]
                                 , abcdeLetter subScore.letter
                                 ]

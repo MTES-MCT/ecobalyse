@@ -25,6 +25,12 @@ $border-radius-lg: 0;
 // Buttons
 $btn-hover-bg-shade-amount: 15%;
 
+// Cards
+$card-cap-bg: $white;
+
+// Headings
+$headings-font-weight: 700;
+
 // Inputs
 $input-bg: #eee;
 
@@ -180,6 +186,14 @@ body {
   min-width: 320px;
 }
 
+.bg {
+  &-info {
+    &-dark {
+      background-color: rgb(0, 104, 109);
+    }
+  }
+}
+
 blockquote {
   q {
     font-family: Blanco, Georgia, serif;
@@ -247,11 +261,15 @@ blockquote {
 
 .fs {
   &-7 {
+    font-size: 0.875rem;
+  }
+
+  &-8 {
     font-size: 0.85rem;
   }
 
-  &-75 {
-    font-size: 0.9rem;
+  &-9 {
+    font-size: 0.75rem;
   }
 
   &-unit {
