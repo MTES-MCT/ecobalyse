@@ -955,10 +955,17 @@ blockquote {
 
 .Launcher {
   &Link {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    box-shadow: 0 4px 0 0 $primary;
     width: 200px;
     min-width: 200px;
-    height: 200px;
-    min-height: 200px;
+    height: 196px;
+    min-height: 196px;
+    &:hover {
+      background-color: #f6f6f6;
+    }
   }
 }
 

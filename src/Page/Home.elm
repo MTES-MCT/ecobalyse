@@ -87,7 +87,7 @@ viewHero modal =
                     [ class "btn btn-lg btn-outline-primary w-50"
                     , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
-                    [ text "Découvrir Écobalyse" ]
+                    [ text "Découvrir Écobalyse ↓" ]
                 ]
             ]
         , case modal of
@@ -112,30 +112,28 @@ calculatorPickerModalContent =
     div [ class "p-4" ]
         [ div [ class "Launcher d-flex flex-wrap justify-content-center justify-content-sm-start gap-3" ]
             [ a
-                [ class "LauncherLink border bg-primary text-white d-flex flex-column justify-content-center align-items-center text-decoration-none"
+                [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
                 , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
                 ]
                 [ img
-                    [ class "invert"
-                    , src "img/picto_textile.png"
+                    [ src "img/picto_textile.png"
                     , alt "Lancer le calculateur du textile"
                     ]
                     []
                 , div [] [ text "Textile" ]
                 ]
             , a
-                [ class "LauncherLink border bg-primary text-white d-flex flex-column justify-content-center align-items-center text-decoration-none"
+                [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
                 , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
                 ]
                 [ img
-                    [ class "invert"
-                    , src "img/picto_alimentaire.png"
+                    [ src "img/picto_alimentaire.png"
                     , alt "Lancer le calculateur de l'alimentaire"
                     ]
                     []
                 , div [] [ text "Alimentaire" ]
                 ]
-            , div [ class "LauncherLink border border-primary d-flex flex-column justify-content-center align-items-center" ]
+            , div [ class "LauncherLink d-flex flex-column justify-content-center align-items-center" ]
                 [ text "Autre secteur,"
                 , br [] []
                 , Link.external
