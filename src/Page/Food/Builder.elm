@@ -1425,7 +1425,7 @@ subScoresView { queries } { scoring } =
                 [ div [ class "input-group" ]
                     [ productCategorySelectorView queries.food.category
                     , button
-                        [ class "btn btn-sm btn-info"
+                        [ class "btn btn-sm btn-info text-white"
                         , title "Afficher un exemple d'étiquette"
                         , onClick (SetModal TagPreviewModal)
                         ]

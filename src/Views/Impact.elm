@@ -26,7 +26,7 @@ qualityDocumentationUrl =
 viewDefinition : Impact.Definition -> Html msg
 viewDefinition { source, label, description, quality } =
     div [ class "ImpactDefinition d-none d-sm-block mb-3" ]
-        [ h2 [ class "fs-6 lh-base text-muted fw-bold my-1" ]
+        [ h2 [ class "d-flex justify-content-between fs-6 lh-base text-muted fw-bold my-1" ]
             [ text "Impact étudié\u{00A0}: "
             , text label
             , impactQuality quality
@@ -61,7 +61,7 @@ impactQuality quality =
 
                 Impact.AverageQuality ->
                     Just
-                        { cls = "btn-info"
+                        { cls = "bg-info text-white"
                         , icon = Icon.info
                         , label = "II"
                         , help = "Qualité satisfaisante mais nécessitant des améliorations"
