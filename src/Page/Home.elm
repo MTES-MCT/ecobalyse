@@ -73,18 +73,14 @@ viewHero modal =
                 [ text "Calculez l'impact écologique de vos produits" ]
             , div [ class "fs-5 text-muted mt-3 mb-5" ]
                 [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
-            ]
-        , div [ class "row mb-4" ]
-            [ div [ class "col-md-6 text-center text-md-end py-2" ]
+            , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ button
-                    [ class "btn btn-lg btn-primary w-50"
+                    [ class "btn btn-lg btn-primary"
                     , onClick OpenCalculatorPickerModal
                     ]
                     [ text "Lancer le calculateur" ]
-                ]
-            , div [ class "col-md-6 text-center text-md-start py-2" ]
-                [ button
-                    [ class "btn btn-lg btn-outline-primary w-50"
+                , button
+                    [ class "btn btn-lg btn-outline-primary"
                     , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
                     [ text "Découvrir Écobalyse ↓" ]
