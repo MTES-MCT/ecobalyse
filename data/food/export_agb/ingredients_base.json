@@ -2,16 +2,17 @@
   {
     "id": "egg",
     "name": "Oeuf",
-    "category": "animal_product",
     "default": "83752804d1bf53b08b817b1bf9f83d1b",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "category": "animal_product",
+    "raw_to_cooked_ratio": 0.975,
+    "density": 1.0,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
       "organic": {
         "process": "a99a8677a1ad37bfa7471f6c94df3e59",
+        "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 0.5,
           "agro-ecology": 0.5,
@@ -64,7 +65,7 @@
   },
   {
     "id": "wheat",
-    "name": "Blé tendre",
+    "name": "Bl\u00e9 tendre",
     "category": "grain_raw",
     "default": "d77308bcc6f3988597e56b34d5e2c4fa",
     "default_origin": "France",
@@ -173,12 +174,11 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "variants": {}
+    "visible": true
   },
   {
     "id": "ground-beef",
-    "name": "Boeuf haché",
+    "name": "Boeuf hach\u00e9",
     "category": "animal_product",
     "default": "da9409534ad17989aaccae4d44369016",
     "default_origin": "EuropeAndMaghreb",
@@ -274,7 +274,28 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
+    "visible": true
+  },
+  {
+    "id": "sample",
+    "name": "Sample",
+    "default": "9c8aa4ad792806efdfab2928986af928",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "category": "nut_oilseed_raw",
+    "raw_to_cooked_ratio": 0.5,
+    "density": 1.2,
+    "transport_cooling": "once_transformed",
     "visible": true,
-    "variants": {}
+    "variants": {
+      "organic": {
+        "process": "d9f37abc713e03beeb1cde7f8debb467",
+        "ratio": 0.25,
+        "beyondLCA": {
+          "agro-diversity": 0.25,
+          "agro-ecology": 0.5,
+          "animal-welfare": 0.3
+        }
+      }
+    }
   }
 ]
