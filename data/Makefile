@@ -9,14 +9,14 @@ image:
 	docker build -t $(NAME) docker
 
 import_ei391_agb311:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/ $(NAME) python3 imports.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py;\
+	else $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py; fi
 
 import_agribalyse:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
-
-import_agribalyse:
-	curl -o food/import_agb/agribalyse3_no_param.CSV.zip https://nextcloud.prelab.fr/index.php/s/kmYtfqHa42EZA9R/download/agribalyse3_no_param.CSV.zip
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py; fi
 
 export_ciqual:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py
