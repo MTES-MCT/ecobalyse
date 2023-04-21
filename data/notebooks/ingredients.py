@@ -302,7 +302,7 @@ def list_ingredients():
             pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
         )
-        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False).encode()))
+        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
 def add_ingredient(_):
