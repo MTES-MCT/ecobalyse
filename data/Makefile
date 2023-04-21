@@ -8,6 +8,12 @@ json: image import_agribalyse export_builder
 image:
 	docker build -t $(NAME) docker
 
+import_ei391_agb311:
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/ $(NAME) python3 imports.py
+
+import_agribalyse:
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
+
 import_agribalyse:
 	curl -o food/import_agb/agribalyse3_no_param.CSV.zip https://nextcloud.prelab.fr/index.php/s/kmYtfqHa42EZA9R/download/agribalyse3_no_param.CSV.zip
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py

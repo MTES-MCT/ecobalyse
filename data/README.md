@@ -16,6 +16,7 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 
 * `make image` : pour construire l'image docker choisie
 * `make import_agribalyse` : pour importer la base dans Brightway. Assurez-vous d'avoir le fichier `agribalyse3_no_param.CSV.zip` dans le dossier `food/import_agb/`
+* `make import_ei391_agb311` : pour importer Ecoinvent 3.9.1 et Agribaylyse 3.1.1. Assurez-vous d'avoir les bons fichiers dans dans le dossier `data/`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
