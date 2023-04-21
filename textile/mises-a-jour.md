@@ -2,6 +2,14 @@
 
 <details>
 
+<summary>Mars 2023</summary>
+
+Aucune modification; la majorité de l'équipe fut mobilisée sur l'Alimentaire.
+
+</details>
+
+<details>
+
 <summary>Février 2023</summary>
 
 #### Refonte module _**Fabrication de l'étoffe**_

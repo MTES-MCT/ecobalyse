@@ -150,15 +150,6 @@ Des évolutions sont prévues dans les prochains mois pour répondre à cette li
 
 </details>
 
-#### Grammage / Masse surfacique (g/m2)
-
-Les données par défaut de grammage par catégorie de produits sont les suivantes :&#x20;
-
-* Base Impacts : cape, châle, chemisier, écharpe, jean, jupe, manteau, pantalon, robe, veste
-* Extrapolation Base Impacts par Ecobalyse : débardeur, gilet, pull, t-shirt
-
-Le grammage est un paramètre clé pour les procédés d'impression (unité = m2) car il impacte la surface d'étoffe (m2) via la relation Poids (g) = grammage (g/m2) \* surface (m2)
-
 #### Source de production de vapeur &#x20;
 
 L'utilisateur a la possibilité de préciser la source de production de vapeur utilisée sur le site industriel des étapes d'ennoblissement.&#x20;

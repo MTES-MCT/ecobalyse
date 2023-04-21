@@ -72,6 +72,7 @@
 * [Limites méthodologiques](textile/limites-methodologiques.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
+  * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
   * [Contribuer aux travaux](textile/contribuer-aux-travaux.md)
 * [Nous contacter](textile/nous-contacter.md)
 * [Echelle comparative](textile/echelle-comparative.md)
