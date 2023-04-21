@@ -1,9 +1,7 @@
-from re import sub
 from IPython.core.display import display, Markdown
 from flatdict import FlatDict
 import bw2data
 import ipywidgets
-import json
 import json
 import os
 import pandas
@@ -293,6 +291,7 @@ commitbutton = ipywidgets.Button(
 out = ipywidgets.Output()
 
 
+@out.capture()
 def list_ingredients():
     ingredients = read_ingredients()
     with open(INGREDIENTS_TEMP) as fp:
@@ -300,11 +299,10 @@ def list_ingredients():
             Markdown(f"# List of {len(ingredients)} ingredients:"),
             pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
-            print(json.dumps(json.load(fp), indent=2)),
         )
+        display(print(json.dumps(json.load(fp), indent=2)))
 
 
-@out.capture()
 def add_ingredient(_):
     ingredient = {
         "id": w_id.value,
@@ -327,22 +325,22 @@ def add_ingredient(_):
     }
     ingredient = {k: v for k, v in ingredient.items() if v != ""}
     ingredients = read_ingredients()
-    ingredients.update({ingredient["id"]: to_pretty(ingredient)})
-    save_ingredients(ingredients)
+    if "id" in ingredient:
+        ingredients.update({ingredient["id"]: to_pretty(ingredient)})
+        save_ingredients(ingredients)
     out.clear_output()
     list_ingredients()
 
 
-@out.capture()
 def del_ingredient(_):
     ingredients = read_ingredients()
-    del ingredients[w_id.value]
-    save_ingredients(ingredients)
+    if w_id.value in ingredients:
+        del ingredients[w_id.value]
+        save_ingredients(ingredients)
     out.clear_output()
     list_ingredients()
 
 
-@out.capture()
 def commit_ingredients(_):
     shutil.copy(INGREDIENTS_TEMP, INGREDIENTS_BASE)
     try:
@@ -363,7 +361,6 @@ def commit_ingredients(_):
     list_ingredients()
 
 
-@out.capture()
 def reset_ingredients(_):
     shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
     out.clear_output()
@@ -696,6 +693,4 @@ display(
     out,
 )
 
-
-with out:
-    list_ingredients()
+list_ingredients()
