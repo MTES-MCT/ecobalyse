@@ -1,3 +1,4 @@
+from re import sub
 from IPython.core.display import display, Markdown
 from flatdict import FlatDict
 import bw2data
@@ -344,9 +345,20 @@ def del_ingredient(_):
 @out.capture()
 def commit_ingredients(_):
     shutil.copy(INGREDIENTS_TEMP, INGREDIENTS_BASE)
-    subprocess.run(f"git add {INGREDIENTS_BASE}")
-    subprocess.run("git commit -m 'new ingredients'")
-    subprocess.run("git push origin ingredients'")
+    try:
+        assert (
+            subprocess.run(["git", "add", INGREDIENTS_BASE]).returncode == 0
+        ), "git add failed"
+        assert (
+            subprocess.run(["git", "commit", "-m", "Changed ingredients"]).returncode
+            == 0
+        ), "git commit failed"
+
+        assert (
+            subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
+        ), "git push failed"
+    except:
+        subprocess.run(["git", "reset", "--hard"])
     out.clear_output()
     list_ingredients()
 
