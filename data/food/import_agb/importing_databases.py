@@ -1,5 +1,6 @@
-import brightway2 as bw
 from zipfile import ZipFile
+import brightway2 as bw
+import hashlib
 
 from food.import_agb.custom_import_migrations import agb_technosphere_migration_data
 
@@ -70,9 +71,8 @@ def import_agribalyse():
         agb_importer.statistics()
         # remove an inconsistent empty activity
         data = agb_importer.data
-        agb_importer.data = [
-            o for o in data if o["code"] != "d41d8cd98f00b204e9800998ecf8427e"
-        ]
+        hash_of_empty_string = hashlib.md5("".encode()).hexdigest()
+        agb_importer.data = [o for o in data if o["code"] != hash_of_empty_string]
         agb_importer.write_database()
 
     """ # WFLDB
