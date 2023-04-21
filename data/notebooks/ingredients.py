@@ -300,7 +300,7 @@ def list_ingredients():
             Markdown(f"# List of {len(ingredients)} ingredients:"),
             pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
-            json.dumps(json.load(fp), indent=2),
+            print(json.dumps(json.load(fp), indent=2)),
         )
 
 
