@@ -289,6 +289,7 @@ commitbutton = ipywidgets.Button(
     icon="code-commit",
 )
 out = ipywidgets.Output()
+outgit = ipywidgets.Output()
 
 
 @out.capture()
@@ -343,20 +344,29 @@ def del_ingredient(_):
 
 def commit_ingredients(_):
     shutil.copy(INGREDIENTS_TEMP, INGREDIENTS_BASE)
-    try:
-        assert (
-            subprocess.run(["git", "add", INGREDIENTS_BASE]).returncode == 0
-        ), "git add failed"
-        assert (
-            subprocess.run(["git", "commit", "-m", "Changed ingredients"]).returncode
-            == 0
-        ), "git commit failed"
-
-        assert (
-            subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
-        ), "git push failed"
-    except:
-        subprocess.run(["git", "reset", "--hard"])
+    outgit.clear_output()
+    with outgit:
+        try:
+            assert (
+                subprocess.run(["git", "add", INGREDIENTS_BASE]).returncode == 0
+            ), "git add failed"
+            assert (
+                subprocess.run(
+                    ["git", "commit", "-m", "Changed ingredients"]
+                ).returncode
+                == 0
+            ), "git commit failed"
+            assert (
+                subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
+            ), "git push failed"
+            print("SUCCEEDED. Please tell the devs")
+        except:
+            subprocess.run(["git", "reset", "--hard"])
+            subprocess.run(["git", "co", "origin/ingredients"])
+            subprocess.run(["git", "branch", "-D", "ingredients"])
+            subprocess.run(["git", "branch", "ingredients", "origin/ingredients"])
+            subprocess.run(["git", "co", "ingredients"])
+            print("FAILED. Please tell the devs")
     out.clear_output()
     list_ingredients()
 
@@ -690,6 +700,7 @@ display(
         "Reset the ingredients to the branch state, or Publish to the `ingredients` branch"
     ),
     ipywidgets.HBox((resetbutton, commitbutton)),
+    outgit,
     out,
 )
 
