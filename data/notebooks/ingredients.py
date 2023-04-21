@@ -25,6 +25,7 @@ def save_ingredients(ingredients):
             json.dumps(
                 [from_flat(from_pretty(i)) for i in ingredients.values()],
                 indent=2,
+                ensure_ascii=False,
             )
         )
     clear_form()
@@ -301,7 +302,7 @@ def list_ingredients():
             pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
         )
-        display(print(json.dumps(json.load(fp), indent=2)))
+        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False).encode()))
 
 
 def add_ingredient(_):
