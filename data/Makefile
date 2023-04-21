@@ -19,10 +19,14 @@ import_agribalyse:
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py; fi
 
 export_ciqual:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py; fi
 
 export_builder:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py; fi
 
 corrected_impacts:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 update_impacts_311.py
