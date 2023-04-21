@@ -20,7 +20,7 @@ ADD https://api.github.com/repos/brightway-lca/brightway2/git/refs/heads/master 
 ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/heads/bw2legacy bw2-calc.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/heads/bw2legacy bw2-data.json
 ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/heads/bw2legacy bw2-io.json
-ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/tags/0.7.1 bw2-parameters.json
+ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/heads/main bw2-parameters.json
 
 COPY requirements.txt .
 USER root
