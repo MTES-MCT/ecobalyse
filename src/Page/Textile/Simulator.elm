@@ -461,7 +461,7 @@ displayModeView trigram funit viewMode query =
                 [ span [ class "me-1" ] [ icon ], text label ]
     in
     nav
-        [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
+        [ class "nav nav-pills nav-fill pt-3 bg-white sticky-md-top justify-content-between"
         , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
         ]
         [ link ViewMode.Simple Icon.zoomout "Affichage simple"
@@ -477,10 +477,10 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-sm-6 mb-2" ]
+                [ div [ class "col-sm-6 mb-3" ]
                     [ productField db inputs.product
                     ]
-                , div [ class "col-sm-6 mb-2" ]
+                , div [ class "col-sm-6 mb-3" ]
                     [ massField model.massInput
                     ]
                 ]

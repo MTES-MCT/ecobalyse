@@ -54,8 +54,8 @@ formSet ({ add, inputs } as config) =
                         , valid = valid
                         }
                 )
-            |> div []
-        , div [ class "input-group" ]
+            |> div [ class "d-flex flex-column gap-1" ]
+        , div [ class "input-group mt-1" ]
             [ if length > 1 then
                 span
                     [ class "SharesTotal form-control text-end"
