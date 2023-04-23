@@ -5,6 +5,7 @@ $white: #fff;
 $body-color: #111;
 $dark: #333;
 $primary: #000091;
+$secondary: #313178;
 $success: #18753c;
 $warning: #fcc63a;
 $danger: #c9191e;
@@ -503,6 +504,7 @@ q {
 }
 
 .Chevrons {
+  $chevrons-bg-color: $secondary;
   $chevrons-radius: 4px;
   $chevrons-size: 12px;
   font-size: 0.85em;
@@ -550,19 +552,19 @@ q {
       background: $white;
       color: $primary;
       &:before {
-        background: $primary;
-        border-color: $primary;
+        background: $chevrons-bg-color;
+        border-color: $chevrons-bg-color;
         border-left-color: transparent;
       }
       &:after {
         background: $white;
         border-color: transparent;
-        border-left-color: $primary;
+        border-left-color: $chevrons-bg-color;
       }
     }
 
     &:nth-child(even) {
-      background: $primary;
+      background: $chevrons-bg-color;
       color: $white;
       &:before {
         background: $white;
@@ -570,7 +572,7 @@ q {
         border-left-color: transparent;
       }
       &:after {
-        background: $primary;
+        background: $chevrons-bg-color;
         border-color: transparent;
         border-left-color: $white;
       }

@@ -13,7 +13,7 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view { header, body, footer } =
-    div [ class "card bg-primary shadow-sm" ]
+    div [ class "card bg-secondary shadow-sm" ]
         [ header
             |> div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             |> viewUnless (List.isEmpty header)

@@ -394,7 +394,7 @@ stepActions : Config msg -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
-            [ class "btn btn-primary py-1 rounded-end"
+            [ class "btn btn-secondary py-1 rounded-end"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
@@ -402,7 +402,7 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
             ]
             [ Icon.question ]
         , Button.docsPill
-            [ class "btn btn-primary py-1 rounded-start"
+            [ class "btn btn-secondary py-1 rounded-start"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , case viewMode of
                 ViewMode.Simple ->
@@ -454,8 +454,9 @@ stepHeader { current, inputs, toggleStep } =
             ]
             []
         , span
-            [ class "StepIcon bg-primary text-white rounded-pill"
-            , classList [ ( "bg-secondary", not current.enabled ) ]
+            [ class "StepIcon rounded-pill"
+            , classList [ ( "bg-secondary text-white", current.enabled ) ]
+            , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
         , current.label
