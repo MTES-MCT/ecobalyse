@@ -462,7 +462,7 @@ displayModeView trigram funit viewMode query =
     in
     nav
         [ class "nav nav-pills nav-fill pt-3 bg-white sticky-md-top justify-content-between"
-        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2 mt-1 mb-3"
         ]
         [ link ViewMode.Simple Icon.zoomout "Affichage simple"
         , link ViewMode.DetailedAll Icon.zoomin "Affichage détaillé"
