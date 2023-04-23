@@ -727,7 +727,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 [ class "StepBody list-group list-group-flush fs-7"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
-                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                     [ span []
                         [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
                     , span []
@@ -740,7 +740,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                    li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                    li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
@@ -791,7 +791,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex justify-content-center align-items-center" ]
+                    [ div [ class "d-flex flex-wrap justify-content-center align-items-center" ]
                         (if Transport.totalKm current.transport > 0 then
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
