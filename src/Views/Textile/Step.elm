@@ -492,9 +492,13 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 [ countryField config
                 , case current.label of
                     Label.Spinning ->
-                        div [ class "mt-2 fs-7 text-muted" ]
-                            [ yarnSizeField config inputs.product
-                            ]
+                        if Product.isKnitted inputs.product then
+                            text ""
+
+                        else
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ yarnSizeField config inputs.product
+                                ]
 
                     Label.Fabric ->
                         div [ class "mt-2 fs-7 text-muted" ]
@@ -676,8 +680,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
                 (case current.label of
                     Label.Spinning ->
-                        [ yarnSizeField config inputs.product
-                        ]
+                        if Product.isKnitted inputs.product then
+                            [ text "" ]
+
+                        else
+                            [ yarnSizeField config inputs.product
+                            ]
 
                     Label.Fabric ->
                         [ surfaceMassField config inputs.product ]
