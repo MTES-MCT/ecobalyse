@@ -1,16 +1,29 @@
 module Page.Explore.TextileProducts exposing (table)
 
+import Area
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium
-import Data.Textile.Process as Process
+import Data.Textile.Formula as Formula
+import Data.Textile.Inputs as TextileInputs
+import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator as Simulator
+import Data.Textile.Step.Label as Label
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Mass
 import Page.Explore.Table exposing (Table)
+import Quantity
 import Route
 import Views.Format as Format
+
+
+withTitle : String -> Html msg
+withTitle str =
+    span [ title str ] [ text str ]
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Product msg
@@ -25,119 +38,166 @@ table db { detailed, scope } =
                     a [ Route.href (Route.Explore scope (Dataset.TextileProducts (Just product.id))) ]
                         [ code [] [ text (Product.idToString product.id) ] ]
       }
-    , { label = "Nom"
+    , { label = "Produit(s) concerné(s)"
       , toCell = .name >> text
       }
-    , { label = "Masse par défaut"
+    , { label = "Poids"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.kg product.mass ]
       }
-    , { label = "Volume"
+    , { label = "Titrage"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.m3 product.endOfLife.volume ]
-      }
-    , { label = "Perte (PCR)"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.splitAsPercentage product.making.pcrWaste ]
-      }
-    , { label = "Type de procédé"
-      , toCell =
-            \product ->
-                case product.fabric of
-                    Product.Knitted _ ->
-                        text "Tricotage"
-
-                    Product.Weaved _ _ ->
-                        text "Tissage"
-      }
-    , { label = "Pick-per-meter"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ case product.fabric of
-                        Product.Knitted _ ->
-                            text "N/A"
-
-                        Product.Weaved _ picking ->
-                            Format.picking picking
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ product.yarnSize
+                        |> Maybe.map Format.yarnSize
+                        |> Maybe.withDefault (text "n/a")
                     ]
       }
     , { label = "Grammage"
       , toCell =
             \{ surfaceMass } ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.surfaceMass surfaceMass
                     ]
       }
-    , { label = "Procédé"
-      , toCell = Product.getFabricProcess >> .name >> text
+    , { label = "Densité de fils"
+      , toCell =
+            \{ surfaceMass, yarnSize } ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ yarnSize
+                        |> Maybe.map (Formula.computeThreadDensity surfaceMass >> Format.threadDensity)
+                        |> Maybe.withDefault (text "n/a")
+                    ]
       }
-    , { label = "Confection"
-      , toCell = .making >> .process >> .name >> text
+    , { label = "Surface"
+      , toCell =
+            \{ mass, surfaceMass } ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Mass.inGrams mass
+                        / toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
+                        |> Area.squareMeters
+                        |> Format.squareMetters
+                    ]
+      }
+    , { label = "Volume"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Format.m3 product.endOfLife.volume ]
+      }
+    , { label = "Etoffe (type)"
+      , toCell =
+            \product ->
+                case product.fabric of
+                    Product.Knitted _ ->
+                        text "Tricotée"
+
+                    Product.Weaved _ ->
+                        text "Tissée"
+      }
+    , { label = "Etoffe (procédé)"
+      , toCell = Product.getFabricProcess >> .name >> withTitle
+      }
+    , { label = "Duites.m"
+      , toCell =
+            \({ surfaceMass, yarnSize } as product) ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ case yarnSize of
+                        Just ys ->
+                            let
+                                outputMass =
+                                    TextileInputs.defaultQuery
+                                        |> TextileInputs.updateProduct product
+                                        |> Simulator.compute db
+                                        |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
+                                        |> Result.withDefault Quantity.zero
+
+                                outputSurface =
+                                    Unit.surfaceMassToSurface surfaceMass outputMass
+
+                                threadDensity =
+                                    Formula.computeThreadDensity surfaceMass ys
+                            in
+                            outputSurface
+                                |> Formula.computePicking threadDensity
+                                |> Format.picking
+
+                        Nothing ->
+                            text "n/a"
+                    ]
       }
     , { label = "Délavage"
       , toCell =
             \product ->
                 if product.making.fadable then
-                    db.processes
-                        |> Process.loadWellKnown
-                        |> Result.map (.fading >> .name >> text)
-                        |> Result.withDefault (text "Erreur, procédé de délavage introuvable")
+                    text "oui"
 
                 else
-                    text "N/A"
+                    text "non"
       }
-    , { label = "Teinture"
+    , { label = "Type de teinture"
       , toCell =
             \{ dyeing } ->
-                text <| "sur " ++ DyeingMedium.toLabel dyeing.defaultMedium
+                text <| DyeingMedium.toLabel dyeing.defaultMedium
+      }
+    , { label = "Confection (complexité)"
+      , toCell = .making >> .complexity >> Product.makingComplexityToString >> text
+      }
+    , { label = "Confection (# minutes)"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Product.getMakingDurationInMinutes product |> Format.minutes ]
+      }
+    , { label = "Confection (taux de perte)"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Format.splitAsPercentage product.making.pcrWaste ]
       }
     , { label = "Nombre de jours porté"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.days product.use.daysOfWear ]
       }
     , { label = "Cycles d'entretien (par défaut)"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ text <| String.fromInt product.use.wearsPerCycle ]
       }
     , { label = "Utilisations avant lavage"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ text <| String.fromInt product.use.defaultNbCycles ]
       }
     , { label = "Procédé de repassage"
-      , toCell = .use >> .ironingProcess >> .name >> text
+      , toCell = .use >> .ironingProcess >> .name >> withTitle
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = .use >> .nonIroningProcess >> .name >> text
+      , toCell = .use >> .nonIroningProcess >> .name >> withTitle
       }
     , { label = "Séchage électrique"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.splitAsPercentage product.use.ratioDryer ]
       }
     , { label = "Repassage (part)"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.splitAsPercentage product.use.ratioIroning ]
       }
     , { label = "Repassage (temps)"
       , toCell =
             \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
+                div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.hours product.use.timeIroning ]
       }
     ]

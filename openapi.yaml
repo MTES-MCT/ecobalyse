@@ -90,7 +90,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -157,7 +157,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -195,7 +195,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -456,14 +456,11 @@ components:
         type: number
         minimum: 0
         maximum: 0.4
-    pickingParam:
-      name: picking
+    yarnSizeParam:
+      name: yarnSize
       in: query
       description: |
-        Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre
-        pour un tissu. Ce paramètre est pris en compte car il est connecté avec la
-        consommation électrique du métier à tisser. À grammage égal, plus le duitage est
-        important, plus la consommation d'électricité est élevée.
+        Titrage du fil exprimé en **numéro métrique** (`Nm`).
 
         **Attention, ce paramètre est uniquement pris en compte pour les produits tissés**
         et inopérant sur les produits tricotés.
@@ -471,8 +468,8 @@ components:
       style: form
       schema:
         type: number
-        minimum: 800
-        maximum: 9000
+        minimum: 9
+        maximum: 200
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -484,7 +481,7 @@ components:
       style: form
       schema:
         type: number
-        minimum: 30
+        minimum: 80
         maximum: 500
     disabledFadingParam:
       name: disabledFading
