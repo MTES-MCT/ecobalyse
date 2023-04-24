@@ -177,7 +177,7 @@
     "yarnSize": null,
     "fabric": {
       "type": "knitting",
-      "processUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb"
+      "processUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d"
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -211,7 +211,7 @@
     "yarnSize": null,
     "fabric": {
       "type": "knitting",
-      "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
+      "processUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d"
     },
     "dyeing": {
       "defaultMedium": "fabric"
