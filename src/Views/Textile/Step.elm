@@ -435,7 +435,8 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
 stepHeader : Config msg -> Html msg
 stepHeader { current, inputs, toggleStep } =
     label
-        [ class "d-flex align-items-center cursor-pointer gap-2"
+        [ class "d-flex align-items-center gap-2"
+        , class "text-dark cursor-pointer"
         , classList [ ( "text-secondary", not current.enabled ) ]
         , title
             (if current.enabled then
@@ -459,12 +460,14 @@ stepHeader { current, inputs, toggleStep } =
             , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
-        , current.label
-            |> Step.displayLabel
-                { knitted = Product.isKnitted inputs.product
-                , fadable = inputs.product.making.fadable
-                }
-            |> text
+        , span [ class "StepLabel" ]
+            [ current.label
+                |> Step.displayLabel
+                    { knitted = Product.isKnitted inputs.product
+                    , fadable = inputs.product.making.fadable
+                    }
+                |> text
+            ]
         ]
 
 
@@ -472,7 +475,7 @@ simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
-            [ div [ class "row" ]
+            [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col-6" ] [ stepHeader config ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
