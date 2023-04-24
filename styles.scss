@@ -13,6 +13,7 @@ $info: #0063cb;
 $input-border-color: #969696;
 $navbar-dark-color: rgba($white, 0.8);
 $text-dark: rgb(58, 58, 58);
+$text-darker: rgb(22, 22, 22);
 $text-muted: rgb(104, 104, 104);
 
 // Responsive texts
@@ -1229,6 +1230,28 @@ q {
   &Score {
     &Funit {
       margin-top: -5px;
+    }
+  }
+}
+
+.Tabs {
+  &Tab {
+    border-top: 0 !important;
+    box-shadow: 0 -2px 0 0 $primary;
+    color: $text-darker;
+    font-weight: 700;
+
+    &.active {
+      color: $primary !important;
+    }
+
+    &:not(.active) {
+      background-color: rgba($info, 0.1) !important;
+      border-top: 1 solid #ddd;
+      box-shadow: none;
+      &:hover {
+        background-color: rgba($info, 0.2) !important;
+      }
     }
   }
 }
