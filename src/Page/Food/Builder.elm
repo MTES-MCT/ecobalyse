@@ -1515,7 +1515,7 @@ stepResultsView model results =
         totalImpact =
             toFloat results.total
     in
-    div [ class "card" ]
+    div [ class "card shadow-sm" ]
         [ div [ class "card-header" ] [ text "Détail des postes" ]
         , ul [ class "list-group list-group-flush fs-8" ]
             (stepsData
