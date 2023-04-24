@@ -152,8 +152,8 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingMediumField : Config msg -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "dyeing-medium" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
         , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
@@ -178,8 +178,8 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 
 printingFields : Config msg -> Html msg
 printingFields { inputs, updatePrinting } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "ennobling-printing" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
         , div [ class "d-flex justify-content-between align-items-center gap-1 w-75" ]
             [ [ Printing.Pigment, Printing.Substantive ]
@@ -490,7 +490,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 [ countryField config
                 , case current.label of
                     Label.Fabric ->
-                        div [ class "mt-2 fs-7 text-muted" ]
+                        div [ class "mt-2 fs-7" ]
                             (case inputs.product.fabric of
                                 Product.Knitted _ ->
                                     [ surfaceMassField config inputs.product.surfaceMass
@@ -551,7 +551,7 @@ viewProcessInfo processName =
     case processName of
         Just name ->
             li
-                [ class "list-group-item text-muted text-truncate"
+                [ class "list-group-item text-truncate"
                 , title name
                 , style "cursor" "help"
                 ]
@@ -568,7 +568,7 @@ daysOfWearInfo inputs =
             inputs.product.use
                 |> Product.customDaysOfWear inputs.quality inputs.reparability
     in
-    small [ class "fs-7 text-muted" ]
+    small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
         , Format.days info.daysOfWear
         , text " portés, "
@@ -597,7 +597,7 @@ ennoblingGenericFields config =
 ennoblingHeatSourceField : Config msg -> Html msg
 ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
         , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
             |> List.map
@@ -651,7 +651,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     ]
                 ]
             , infoListElement
-                [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                [ li [ class "list-group-item" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , case current.label of
                     Label.Ennobling ->
@@ -673,7 +673,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     text ""
                 ]
             , div
-                [ class "StepBody card-body py-2 text-muted"
+                [ class "StepBody card-body py-2"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (case current.label of
@@ -689,10 +689,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 ]
 
                     Label.Ennobling ->
-                        [ div [ class "text-muted fs-7 mb-2" ]
+                        [ div [ class "fs-7 mb-2" ]
                             [ text "Pré-traitement\u{00A0}: non applicable" ]
                         , ennoblingGenericFields config
-                        , div [ class "text-muted fs-7 mt-2" ]
+                        , div [ class "fs-7 mt-2" ]
                             [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]
 

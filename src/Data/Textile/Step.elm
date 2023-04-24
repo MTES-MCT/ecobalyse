@@ -473,7 +473,7 @@ makingWasteToString makingWaste =
         "Aucune perte en confection"
 
     else
-        Split.toPercentString makingWaste ++ "% de pertes en confection"
+        Split.toPercentString makingWaste ++ "% de pertes"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
