@@ -34,6 +34,7 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
+import Data.Textile.KnittingProcess as KnittingProcess exposing (KnittingProcess)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -73,6 +74,7 @@ type alias Inputs =
     , makingWaste : Maybe Split
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
+    , knittingProcess : Maybe KnittingProcess
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -101,6 +103,7 @@ type alias Query =
     , makingWaste : Maybe Split
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
+    , knittingProcess : Maybe KnittingProcess
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -191,6 +194,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
+        |> RE.andMap (Ok query.knittingProcess)
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
         |> RE.andMap (Ok query.dyeingMedium)
@@ -222,6 +226,7 @@ toQuery inputs =
     , makingWaste = inputs.makingWaste
     , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
+    , knittingProcess = inputs.knittingProcess
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
     , dyeingMedium = inputs.dyeingMedium
@@ -500,6 +505,7 @@ updateProduct product query =
             , makingWaste = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
+            , knittingProcess = Nothing
             , disabledFading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
@@ -531,6 +537,7 @@ tShirtCotonFrance =
     , makingWaste = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
+    , knittingProcess = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
@@ -585,6 +592,7 @@ jupeCircuitAsie =
     , makingWaste = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
+    , knittingProcess = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
@@ -609,6 +617,7 @@ manteauCircuitEurope =
     , makingWaste = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
+    , knittingProcess = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
@@ -633,6 +642,7 @@ pantalonCircuitEurope =
     , makingWaste = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
+    , knittingProcess = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
@@ -667,6 +677,7 @@ encode inputs =
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "knittingProcess", inputs.knittingProcess |> Maybe.map KnittingProcess.encode |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
@@ -699,6 +710,7 @@ decodeQuery =
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
+        |> Pipe.optional "knittingProcess" (Decode.maybe KnittingProcess.decode) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
@@ -729,6 +741,7 @@ encodeQuery query =
         , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "knittingProcess", query.knittingProcess |> Maybe.map KnittingProcess.encode |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )

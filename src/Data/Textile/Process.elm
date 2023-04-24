@@ -176,6 +176,11 @@ loadWellKnown processes =
             , steamHeavyFuelRSA = "steam-heavy-fuel-rsa"
             , steamCoalRER = "steam-coal-rer"
             , steamCoalRSA = "steam-coal-rsa"
+            , knittingMix = "knitting-mix"
+            , knittingFullyFashioned = "knitting-fully-fashioned"
+            , knittingSeamless = "knitting-seamless"
+            , knittingCircular = "knitting-circular"
+            , knittingStraight = "knitting-straight"
             }
 
         load get =
