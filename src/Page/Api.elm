@@ -54,7 +54,20 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "12 avril 2023"
+    [ { date = "13 avril 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre de simulation `picking` permettant de définir le
+            duitage a été supprim\u{00A0}; il est remplacé par un nouveau paramètre
+            `yarnSize`, permettant de définir le titrage du fil utilisé pour
+            l'étape de tissage, exprimé en *numéro métrique* (`Nm`).
+
+            Le numéro métrique indique un nombre de kilomètres de fil correspondant
+            à un poids d’un kilogramme (ex\u{00A0}: 50Nm = 50km de ce fil pèsent 1 kg).
+"""
+      }
+    , { date = "12 avril 2023"
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =
@@ -67,7 +80,7 @@ changelog =
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =
-            """Le mode de distribution a été rendu facultatif.
+            """Le mode de distribution a été rendu facultatif
 """
       }
     , { date = "8 mars 2023"

@@ -54,7 +54,7 @@ makeBars { simulator, impact, funit } =
                                     ( Label.Fabric, Product.Knitted _ ) ->
                                         text "Tricotage"
 
-                                    ( Label.Fabric, Product.Weaved _ _ ) ->
+                                    ( Label.Fabric, Product.Weaved _ ) ->
                                         text "Tissage"
 
                                     _ ->

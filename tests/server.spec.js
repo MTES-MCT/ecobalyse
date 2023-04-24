@@ -68,7 +68,7 @@ describe("API", () => {
       it("should render with products list", async () => {
         await expectListResponseContains("/api/textile/products", {
           id: "tshirt",
-          name: "T-shirt",
+          name: "T-shirt / Polo",
         });
       });
     });
@@ -176,10 +176,10 @@ describe("API", () => {
         );
       });
 
-      it("should validate the picking param", async () => {
+      it("should validate the yarnSize param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/textile/simulator", ["picking=10"]),
-          "picking",
+          await makeRequest("/api/textile/simulator", ["yarnSize=0"]),
+          "yarnSize",
           /doit être compris entre/,
         );
       });
