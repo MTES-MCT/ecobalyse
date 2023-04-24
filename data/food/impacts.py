@@ -1,7 +1,7 @@
 impacts = {
-    "acd": ("EF v3.0", "acidification", "accumulated exceedance (ae)"),
-    "ozd": ("EF v3.0", "ozone depletion", "ozone depletion potential (ODP) "),
-    "cch": ("EF v3.0", "climate change", "global warming potential (GWP100)"),    
+    "acd": ("EF v3.0", "acidification", "accumulated exceedance (AE)"),
+    "ozd": ("EF v3.0", "ozone depletion", "ozone depletion potential (ODP)"),
+    "cch": ("EF v3.0", "climate change", "global warming potential (GWP100)"),
     "fwe": (
         "EF v3.0",
         "eutrophication: freshwater",
@@ -12,10 +12,10 @@ impacts = {
         "eutrophication: marine",
         "fraction of nutrients reaching marine end compartment (N)",
     ),
-    "tre": ("EF v3.0", "eutrophication: terrestrial", "accumulated exceedance (AE) "),
+    "tre": ("EF v3.0", "eutrophication: terrestrial", "accumulated exceedance (AE)"),
     "pco": (
         "EF v3.0",
-        "photochemical ozone formation: human health",
+        "photochemical oxidant formation: human health",
         "tropospheric ozone concentration increase",
     ),
     "pma": ("EF v3.0", "particulate matter formation", "impact on human health"),
@@ -43,17 +43,17 @@ impacts = {
     "etf": (
         "EF v3.0",
         "ecotoxicity: freshwater",
-        "comparative toxic unit for ecosystems (CTUe) ",
+        "comparative toxic unit for ecosystems (CTUe)",
     ),
     "htc": (
         "EF v3.0",
         "human toxicity: carcinogenic",
-        "comparative toxic unit for human (CTUh) ",
+        "comparative toxic unit for human (CTUh)",
     ),
     "htn": (
         "EF v3.0",
         "human toxicity: non-carcinogenic",
-        "comparative toxic unit for human (CTUh) ",
+        "comparative toxic unit for human (CTUh)",
     ),
 }
 
