@@ -457,7 +457,7 @@ type alias AddProcessConfig msg =
 
 addProcessFormView : AddProcessConfig Msg -> Html Msg
 addProcessFormView { isDisabled, event, kind } =
-    li [ class "list-group-item px-3 py-2" ]
+    li [ class "list-group-item p-0" ]
         [ button
             [ class "btn btn-outline-primary"
             , class "d-flex justify-content-center align-items-center"
@@ -483,7 +483,7 @@ type alias UpdateProcessConfig =
 
 updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
-    li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper list-group-item" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = processQuery.mass
@@ -546,7 +546,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
         event =
             UpdateIngredient recipeIngredient.ingredient.id
     in
-    li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper list-group-item" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = recipeIngredient.mass
@@ -915,7 +915,7 @@ ingredientListView db selectedImpact recipe results =
             results.recipe.ingredientsTotal
                 |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
             [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
 
@@ -942,7 +942,7 @@ ingredientListView db selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ li [ class "list-group-item" ]
+            ++ [ li [ class "list-group-item p-0" ]
                     [ button
                         [ class "btn btn-outline-primary"
                         , class "d-flex justify-content-center align-items-center"
@@ -974,7 +974,7 @@ packagingListView db selectedImpact recipe results =
         , results.packaging
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
             [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
 
@@ -1122,10 +1122,10 @@ distributionView selectedImpact recipe results =
         , results.distribution.total
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+    , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
             Just distribution ->
-                [ li [ class "IngredientFormWrapper" ]
+                [ li [ class "IngredientFormWrapper list-group-item" ]
                     [ select
                         [ class "form-select form-select"
                         , onInput UpdateDistribution
@@ -1169,7 +1169,7 @@ consumptionView db selectedImpact recipe results =
         , results.preparation
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
             [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
 
@@ -1517,34 +1517,35 @@ stepResultsView model results =
     in
     div [ class "card" ]
         [ div [ class "card-header" ] [ text "Détail des postes" ]
-        , stepsData
-            |> List.map
-                (\{ label, impact } ->
-                    let
-                        percent =
-                            if totalImpact /= 0 then
-                                impact / totalImpact * 100
+        , ul [ class "list-group list-group-flush fs-8" ]
+            (stepsData
+                |> List.map
+                    (\{ label, impact } ->
+                        let
+                            percent =
+                                if totalImpact /= 0 then
+                                    impact / totalImpact * 100
 
-                            else
-                                0
-                    in
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
-                        , span [ class "flex-fill w-50" ]
-                            [ div [ class "progress", style "height" "13px" ]
-                                [ div
-                                    [ class "progress-bar bg-secondary"
-                                    , style "width" (String.fromFloat percent ++ "%")
+                                else
+                                    0
+                        in
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                            [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
+                            , span [ class "flex-fill w-50" ]
+                                [ div [ class "progress", style "height" "13px" ]
+                                    [ div
+                                        [ class "progress-bar bg-secondary"
+                                        , style "width" (String.fromFloat percent ++ "%")
+                                        ]
+                                        []
                                     ]
-                                    []
+                                ]
+                            , span [ class "flex-fill text-end", style "min-width" "62px" ]
+                                [ Format.percent percent
                                 ]
                             ]
-                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
-                            [ Format.percent percent
-                            ]
-                        ]
-                )
-            |> ul [ class "list-group list-group-flush fs-7" ]
+                    )
+            )
         ]
 
 
@@ -1559,7 +1560,7 @@ transformView db selectedImpact recipe results =
         [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
-    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+    , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of
             Just transform ->
                 updateProcessFormView
