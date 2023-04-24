@@ -525,13 +525,14 @@ type alias UpdateIngredientConfig =
     , db : Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
+    , index : Int
     , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
     }
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpact, transportImpact } =
+updateIngredientFormView { excluded, db, recipeIngredient, impact, index, selectedImpact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -678,7 +679,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Diversité agricole"
                     , title = Nothing
-                    , domId = "agroDiversity"
+                    , domId = "agroDiversity_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
                     , disabled = False
@@ -690,7 +691,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Infra. agro-éco."
                     , title = Just "Infrastructures agro-écologiques"
-                    , domId = "agroEcology"
+                    , domId = "agroEcology_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
                     , disabled = False
@@ -702,7 +703,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Cond. d'élevage"
                     , title = Nothing
-                    , domId = "animalWelfare"
+                    , domId = "animalWelfare_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
                     , disabled = ingredient.category /= IngredientCategory.AnimalProduct
@@ -899,10 +900,13 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "d-flex align-items-center mb-0" ]
+        [ h2 [ class "h5 d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
-                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
+                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing))
+                , title "Explorer"
+                , attribute "aria-label" "Explorer"
+                ]
                 [ Icon.search ]
             ]
         , if shouldRenderBonuses selectedImpact then
@@ -921,8 +925,8 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.map
-                    (\ingredient ->
+                |> List.indexedMap
+                    (\index ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
@@ -933,6 +937,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
+                            , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
@@ -970,7 +975,7 @@ packagingListView db selectedImpact recipe results =
             Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Emballage" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
         , results.packaging
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
@@ -1050,7 +1055,10 @@ transportToPackagingView recipe =
             , Recipe.getTransformedIngredientsMass recipe
                 |> Format.kg
             , Link.smallPillExternal
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio)
+                , title "Accéder à la documentation"
+                , attribute "aria-label" "Accéder à la documentation"
+                ]
                 [ Icon.question ]
             ]
         ]
@@ -1118,7 +1126,7 @@ distributionView selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Distribution" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
@@ -1165,7 +1173,7 @@ distributionView selectedImpact recipe results =
 consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Consommation" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
         , results.preparation
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
@@ -1557,7 +1565,7 @@ transformView db selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Transformation" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
         , impact
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
