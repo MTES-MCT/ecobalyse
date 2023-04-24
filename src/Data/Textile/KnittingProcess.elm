@@ -3,6 +3,7 @@ module Data.Textile.KnittingProcess exposing
     , decode
     , encode
     , fromString
+    , toLabel
     , toString
     )
 
@@ -51,9 +52,29 @@ fromString string =
         _ ->
             Err <| "Procédé de tricotage inconnu: " ++ string
 
+
+toLabel : KnittingProcess -> String
+toLabel knittingProcess =
+    case knittingProcess of
+        Mix ->
+            "Mix de métiers circulaire & rectiligne"
+
+        FullyFashioned ->
+            "Fully fashioned"
+
+        Seamless ->
+            "Seamless"
+
+        Circular ->
+            "Circulaire"
+
+        Straight ->
+            "Rectiligne"
+
+
 toString : KnittingProcess -> String
-toString medium =
-    case medium of
+toString knittingProcess =
+    case knittingProcess of
         Mix ->
             "knitting-mix"
 
