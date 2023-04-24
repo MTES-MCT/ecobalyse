@@ -504,16 +504,20 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 processQuery.code
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
-        , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact ]
-        , button
-            [ type_ "button"
-            , class "btn btn-outline-primary IngredientDelete"
-            , title <| "Supprimer "
-            , onClick deleteEvent
-            ]
-            [ Icon.trash ]
+        , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+        , deleteItemButton deleteEvent
         ]
+
+
+deleteItemButton : Msg -> Html Msg
+deleteItemButton event =
+    button
+        [ type_ "button"
+        , class "IngredientDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
+        , title "Supprimer cet ingrédient"
+        , onClick event
+        ]
+        [ Icon.trash ]
 
 
 type alias UpdateIngredientConfig =
@@ -659,13 +663,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
             [ impact
                 |> Format.formatFoodSelectedImpact selectedImpact
             ]
-        , button
-            [ type_ "button"
-            , class "btn btn-outline-primary IngredientDelete"
-            , title "Supprimer "
-            , onClick <| DeleteIngredient ingredientQuery.id
-            ]
-            [ Icon.trash ]
+        , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if shouldRenderBonuses selectedImpact then
             let
                 { bonuses, ingredient } =
@@ -1142,15 +1140,8 @@ distributionView selectedImpact recipe results =
                                         [ text (Retail.toDisplay distrib) ]
                                 )
                         )
-                    , span [ class "text-end ImpactDisplay fs-7" ]
-                        [ impact ]
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-outline-primary IngredientDelete"
-                        , title <| "Supprimer "
-                        , onClick ResetDistribution
-                        ]
-                        [ Icon.trash ]
+                    , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+                    , deleteItemButton ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7" ]
@@ -1211,13 +1202,7 @@ consumptionView db selectedImpact recipe results =
                                         )
                                     |> Result.withDefault (text "N/A")
                                 ]
-                            , button
-                                [ type_ "button"
-                                , class "btn btn-outline-primary"
-                                , title <| "Supprimer "
-                                , onClick (DeletePreparation usedPreparation.id)
-                                ]
-                                [ Icon.trash ]
+                            , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
