@@ -98,9 +98,6 @@ table db { detailed, scope } =
                     Product.Weaved _ ->
                         text "Tissée"
       }
-    , { label = "Etoffe (procédé)"
-      , toCell = Product.getFabricProcess >> .name >> withTitle
-      }
     , { label = "Duites.m"
       , toCell =
             \({ surfaceMass, yarnSize } as product) ->
