@@ -508,7 +508,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
             [ impact ]
         , button
             [ type_ "button"
-            , class "btn btn-sm btn-outline-primary IngredientDelete"
+            , class "btn btn-outline-primary IngredientDelete"
             , title <| "Supprimer "
             , onClick deleteEvent
             ]
@@ -608,7 +608,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                     [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
                 )
             |> select
-                [ class "form-select form-select-sm CountrySelector"
+                [ class "form-select form-select CountrySelector"
                 , onInput
                     (\val ->
                         event
@@ -661,7 +661,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
             ]
         , button
             [ type_ "button"
-            , class "btn btn-sm btn-outline-primary IngredientDelete"
+            , class "btn btn-outline-primary IngredientDelete"
             , title "Supprimer "
             , onClick <| DeleteIngredient ingredientQuery.id
             ]
@@ -1129,7 +1129,7 @@ distributionView selectedImpact recipe results =
             Just distribution ->
                 [ li [ class "IngredientFormWrapper" ]
                     [ select
-                        [ class "form-select form-select-sm"
+                        [ class "form-select form-select"
                         , onInput UpdateDistribution
                         ]
                         (Retail.all
@@ -1146,7 +1146,7 @@ distributionView selectedImpact recipe results =
                         [ impact ]
                     , button
                         [ type_ "button"
-                        , class "btn btn-sm btn-outline-primary IngredientDelete"
+                        , class "btn btn-outline-primary IngredientDelete"
                         , title <| "Supprimer "
                         , onClick ResetDistribution
                         ]
@@ -1199,7 +1199,7 @@ consumptionView db selectedImpact recipe results =
                                             [ text name ]
                                     )
                                 |> select
-                                    [ class "form-select form-select-sm w-50"
+                                    [ class "form-select form-select w-50"
                                     , onInput (Preparation.Id >> UpdatePreparation usedPreparation.id)
                                     ]
                             , span [ class "w-50 text-end" ]
@@ -1213,7 +1213,7 @@ consumptionView db selectedImpact recipe results =
                                 ]
                             , button
                                 [ type_ "button"
-                                , class "btn btn-sm btn-outline-primary"
+                                , class "btn btn-outline-primary"
                                 , title <| "Supprimer "
                                 , onClick (DeletePreparation usedPreparation.id)
                                 ]
@@ -1251,7 +1251,7 @@ productCategorySelectorView maybeId =
                 [ text "Toutes catégories" ]
             )
         |> select
-            [ class "form-select form-select-sm"
+            [ class "form-select form-select"
             , onInput
                 (\s ->
                     SetCategory
@@ -1317,7 +1317,7 @@ menuView query =
 processSelectorView : Process.Code -> (Process.Code -> msg) -> List Process.Code -> List Process -> Html msg
 processSelectorView selectedCode event excluded processes =
     select
-        [ class "form-select form-select-sm"
+        [ class "form-select form-select"
         , onInput (Process.codeFromString >> event)
         ]
         (processes
@@ -1337,7 +1337,7 @@ processSelectorView selectedCode event excluded processes =
 ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     select
-        [ class "form-select form-select-sm IngredientSelector"
+        [ class "form-select form-select IngredientSelector"
         , onInput
             (\ingredientId ->
                 ingredients
@@ -1425,7 +1425,7 @@ subScoresView { queries } { scoring } =
                 [ div [ class "input-group" ]
                     [ productCategorySelectorView queries.food.category
                     , button
-                        [ class "btn btn-sm btn-info text-white"
+                        [ class "btn btn-info text-white"
                         , title "Afficher un exemple d'étiquette"
                         , onClick (SetModal TagPreviewModal)
                         ]
