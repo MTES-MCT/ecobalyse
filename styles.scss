@@ -176,6 +176,11 @@ input[type="number"].no-arrows {
   }
 }
 
+.form-select {
+  min-height: 37px;
+  line-height: initial;
+}
+
 .form-select, .form-control, .input-group-text {
   border: 0 !important;
   box-shadow: inset 0 -2px 0 0 #3a3a3a;
