@@ -1548,7 +1548,7 @@ stepResultsView model results =
                         , span [ class "flex-fill w-50" ]
                             [ div [ class "progress", style "height" "13px" ]
                                 [ div
-                                    [ class "progress-bar"
+                                    [ class "progress-bar bg-secondary"
                                     , style "width" (String.fromFloat percent ++ "%")
                                     ]
                                     []
