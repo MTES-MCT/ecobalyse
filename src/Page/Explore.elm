@@ -98,14 +98,14 @@ datasetsMenuView { scope, dataset } =
         |> List.map
             (\ds ->
                 a
-                    [ class "nav-link"
+                    [ class "TabsTab nav-link"
                     , classList [ ( "active", Dataset.same ds dataset ) ]
                     , Route.href (Route.Explore scope ds)
                     ]
                     [ text (Dataset.label ds) ]
             )
         |> nav
-            [ class "nav nav-pills d-flex justify-content-start align-items-center gap-0 gap-sm-2"
+            [ class "Tabs nav nav-tabs d-flex justify-content-start align-items-center gap-0 gap-sm-2"
             ]
 
 
@@ -115,7 +115,7 @@ scopesMenuView model =
         |> List.map
             (\scope ->
                 a
-                    [ class "nav-link"
+                    [ class "TabsTab nav-link"
                     , classList [ ( "active", model.scope == scope ) ]
                     , Route.href
                         (case model.dataset of
@@ -129,7 +129,7 @@ scopesMenuView model =
                     [ text (Scope.toLabel scope) ]
             )
         |> nav
-            [ class "nav nav-pills d-flex justify-content-end align-items-center gap-0 gap-sm-2"
+            [ class "Tabs nav nav-tabs d-flex justify-content-end align-items-center gap-0 gap-sm-2"
             ]
 
 
@@ -290,8 +290,8 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div [ class "row d-flex align-items-center gap-2 gap-lg-0" ]
-                [ h1 [ class "col-lg-4 m-0" ] [ text "Explorer " ]
+            [ div [ class "row d-flex align-items-center" ]
+                [ h1 [ class "col-lg-4" ] [ text "Explorer" ]
                 , div [ class "col-lg-5" ] [ datasetsMenuView model ]
                 , div [ class "col-lg-3" ] [ scopesMenuView model ]
                 ]
