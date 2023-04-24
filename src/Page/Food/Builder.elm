@@ -1177,7 +1177,7 @@ consumptionView db selectedImpact recipe results =
             recipe.preparation
                 |> List.map
                     (\usedPreparation ->
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2" ]
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2 pb-3" ]
                             [ Preparation.all
                                 |> List.sortBy .name
                                 |> List.map
