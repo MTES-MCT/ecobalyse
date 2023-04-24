@@ -451,22 +451,25 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     let
-        link mode icon label =
+        tab mode icon label =
             a
-                [ classList [ ( "nav-link", True ), ( "active", ViewMode.isActive viewMode mode ) ]
+                [ classList
+                    [ ( "TabsTab nav-link", True )
+                    , ( "active", ViewMode.isActive viewMode mode )
+                    ]
                 , Just query
                     |> Route.TextileSimulator trigram funit mode
                     |> Route.href
                 ]
-                [ span [ class "me-1" ] [ icon ], text label ]
+                [ span [ class "fs-7 me-1" ] [ icon ], text label ]
     in
     nav
-        [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
-        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+        [ class "Tabs nav nav-tabs nav-fill pt-3 bg-white sticky-md-top justify-content-between"
+        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2 mt-2 mb-2 px-3"
         ]
-        [ link ViewMode.Simple Icon.zoomout "Affichage simple"
-        , link ViewMode.DetailedAll Icon.zoomin "Affichage détaillé"
-        , link ViewMode.Dataviz Icon.stats "Visualisations"
+        [ tab ViewMode.Simple Icon.zoomout "Simplifier"
+        , tab ViewMode.DetailedAll Icon.zoomin "Détailler"
+        , tab ViewMode.Dataviz Icon.stats "Visualiser"
         ]
 
 
@@ -474,13 +477,13 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ h1 [] [ text "Simulateur " ]
+            [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-sm-6 mb-2" ]
+                [ div [ class "col-sm-6 mb-3" ]
                     [ productField db inputs.product
                     ]
-                , div [ class "col-sm-6 mb-2" ]
+                , div [ class "col-sm-6 mb-3" ]
                     [ massField model.massInput
                     ]
                 ]

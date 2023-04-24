@@ -152,8 +152,8 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingMediumField : Config msg -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "dyeing-medium" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
         , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
@@ -166,7 +166,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -178,8 +178,8 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 
 printingFields : Config msg -> Html msg
 printingFields { inputs, updatePrinting } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "ennobling-printing" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
         , div [ class "d-flex justify-content-between align-items-center gap-1 w-75" ]
             [ [ Printing.Pigment, Printing.Substantive ]
@@ -194,7 +194,7 @@ printingFields { inputs, updatePrinting } =
                 |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
                 |> select
                     [ id "ennobling-printing"
-                    , class "form-select form-select-sm"
+                    , class "form-select form-select"
                     , style "flex" "2"
                     , onInput
                         (\str ->
@@ -228,7 +228,7 @@ printingFields { inputs, updatePrinting } =
                                     [ text <| String.fromFloat percent ++ "%" ]
                             )
                         |> select
-                            [ class "form-select form-select-sm"
+                            [ class "form-select form-select"
                             , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
@@ -400,7 +400,7 @@ stepActions : Config msg -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
-            [ class "btn btn-primary py-1 rounded-end"
+            [ class "btn btn-secondary py-1 rounded-end"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
@@ -408,7 +408,7 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
             ]
             [ Icon.question ]
         , Button.docsPill
-            [ class "btn btn-primary py-1 rounded-start"
+            [ class "btn btn-secondary py-1 rounded-start"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , case viewMode of
                 ViewMode.Simple ->
@@ -441,7 +441,8 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
 stepHeader : Config msg -> Html msg
 stepHeader { current, inputs, toggleStep } =
     label
-        [ class "d-flex align-items-center cursor-pointer gap-2"
+        [ class "d-flex align-items-center gap-2"
+        , class "text-dark cursor-pointer"
         , classList [ ( "text-secondary", not current.enabled ) ]
         , title
             (if current.enabled then
@@ -460,24 +461,27 @@ stepHeader { current, inputs, toggleStep } =
             ]
             []
         , span
-            [ class "StepIcon bg-primary text-white rounded-pill"
-            , classList [ ( "bg-secondary", not current.enabled ) ]
+            [ class "StepIcon rounded-pill"
+            , classList [ ( "bg-secondary text-white", current.enabled ) ]
+            , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
-        , current.label
-            |> Step.displayLabel
-                { knitted = Product.isKnitted inputs.product
-                , fadable = inputs.product.making.fadable
-                }
-            |> text
+        , span [ class "StepLabel" ]
+            [ current.label
+                |> Step.displayLabel
+                    { knitted = Product.isKnitted inputs.product
+                    , fadable = inputs.product.making.fadable
+                    }
+                |> text
+            ]
         ]
 
 
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
-    div [ class "card" ]
+    div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
-            [ div [ class "row" ]
+            [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col-6" ] [ stepHeader config ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
@@ -501,7 +505,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                 ]
 
                     Label.Fabric ->
-                        div [ class "mt-2 fs-7 text-muted" ]
+                        div [ class "mt-2 fs-7" ]
                             [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
@@ -553,7 +557,7 @@ viewProcessInfo processName =
     case processName of
         Just name ->
             li
-                [ class "list-group-item text-muted text-truncate"
+                [ class "list-group-item text-truncate"
                 , title name
                 , style "cursor" "help"
                 ]
@@ -570,7 +574,7 @@ daysOfWearInfo inputs =
             inputs.product.use
                 |> Product.customDaysOfWear inputs.quality inputs.reparability
     in
-    small [ class "fs-7 text-muted" ]
+    small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
         , Format.days info.daysOfWear
         , text " portés, "
@@ -599,7 +603,7 @@ ennoblingGenericFields config =
 ennoblingHeatSourceField : Config msg -> Html msg
 ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
         , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
             |> List.map
@@ -616,7 +620,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
                 )
             |> select
                 [ id "ennobling-heat-source"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (HeatSource.fromString
                         >> Result.toMaybe
@@ -643,7 +647,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    div [ class "card-group" ]
+    div [ class "card-group shadow-sm" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ stepHeader config
@@ -653,7 +657,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     ]
                 ]
             , infoListElement
-                [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                [ li [ class "list-group-item" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , case current.label of
                     Label.Ennobling ->
@@ -675,7 +679,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     text ""
                 ]
             , div
-                [ class "StepBody card-body py-2 text-muted"
+                [ class "StepBody card-body py-2"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (case current.label of
@@ -691,10 +695,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
-                        [ div [ class "text-muted fs-7 mb-2" ]
+                        [ div [ class "fs-7 mb-2" ]
                             [ text "Pré-traitement\u{00A0}: non applicable" ]
                         , ennoblingGenericFields config
-                        , div [ class "text-muted fs-7 mt-2" ]
+                        , div [ class "fs-7 mt-2" ]
                             [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]
 
@@ -732,7 +736,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 [ class "StepBody list-group list-group-flush fs-7"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
-                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                     [ span []
                         [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
                     , span []
@@ -745,7 +749,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                    li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                    li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
@@ -779,7 +783,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex justify-content-center align-items-center" ]
+                    [ div [ class "d-flex flex-wrap justify-content-center align-items-center" ]
                         (if Transport.totalKm current.transport > 0 then
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts

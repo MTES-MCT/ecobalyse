@@ -72,7 +72,7 @@ frame ({ activePage } as config) ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
-                [ Container.centered [ class "d-flex align-items-center gap-2" ]
+                [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
                     , text """Attention : l’outil est aujourd’hui en phase de construction.
                               Les calculs qui sont proposés ne constituent pas un référentiel validé."""
@@ -131,44 +131,139 @@ newVersionAlert { session, reloadPage } =
             text ""
 
 
-headerMenuLinks : List MenuLink
-headerMenuLinks =
+mainMenuLinks : List MenuLink
+mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
-    , External "Documentation" Env.gitbookUrl
-    , External "Communauté" Env.mattermostUrl
     ]
 
 
-footerMenuLinks : List MenuLink
-footerMenuLinks =
-    [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
-    , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Countries Nothing)) Explore
-    , Internal "API" Route.Api Api
-    , Internal "Nouveautés" Route.Changelog Changelog
+secondaryMenuLinks : List MenuLink
+secondaryMenuLinks =
+    [ Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
-    , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , External "Code source" Env.githubUrl
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.mattermostUrl
+    , External "Code source" Env.githubUrl
     , MailTo "Contact" Env.contactEmail
     ]
 
 
+headerMenuLinks : List MenuLink
+headerMenuLinks =
+    mainMenuLinks
+        ++ [ External "Documentation" Env.gitbookUrl
+           , External "Communauté" Env.mattermostUrl
+           ]
+
+
+footerMenuLinks : List MenuLink
+footerMenuLinks =
+    mainMenuLinks
+        ++ [ External "Documentation" Env.gitbookUrl
+           , External "Communauté" Env.mattermostUrl
+           , MailTo "Contact" Env.contactEmail
+           ]
+
+
+legalMenuLinks : List MenuLink
+legalMenuLinks =
+    [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
+    , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
+    , MailTo "Contact" Env.contactEmail
+    ]
+
+
+pageFooter : Session -> Html msg
+pageFooter { currentVersion } =
+    let
+        makeLink link =
+            case link of
+                Internal label route _ ->
+                    Link.internal [ class "text-decoration-none", Route.href route ]
+                        [ text label ]
+
+                External label url ->
+                    Link.external [ class "text-decoration-none", href url ]
+                        [ text label ]
+
+                MailTo label email ->
+                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                        [ text label ]
+    in
+    footer [ class "Footer" ]
+        [ div [ class "FooterNavigation" ]
+            [ Container.centered []
+                [ div [ class "row" ]
+                    [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                        [ mainMenuLinks
+                            |> List.map makeLink
+                            |> List.map (List.singleton >> li [])
+                            |> ul [ class "list-unstyled" ]
+                        ]
+                    , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                        [ secondaryMenuLinks
+                            |> List.map makeLink
+                            |> List.map (List.singleton >> li [])
+                            |> ul [ class "list-unstyled" ]
+                        ]
+                    ]
+                ]
+            ]
+        , Container.centered
+            [ class "d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center gap-3"
+            ]
+            [ a [ class "FooterBrand py-3", href "https://www.ecologie.gouv.fr/" ]
+                [ img
+                    [ class "FooterLogo"
+                    , alt "Ministère de la Transition écologique et de la Cohésion des Territoires"
+                    , src "img/logo_mte.svg"
+                    , style "width" "201px"
+                    , style "height" "135px"
+                    , style "aspect-ratio" "auto 201 / 135"
+                    ]
+                    []
+                ]
+            , div [ class "d-flex justify-content-end align-items-center gap-4 mt-2" ]
+                [ Link.external [ class "FooterInstitutionLink", href "https://www.ademe.fr/" ]
+                    [ text "ademe.fr" ]
+                , Link.external [ class "FooterInstitutionLink", href Env.betagouvUrl ]
+                    [ text "beta.gouv.fr" ]
+                , Link.external [ class "FooterInstitutionLink", href "https://www.ecologie.gouv.fr/fabrique-numerique" ]
+                    [ text "Fabrique Numérique" ]
+                , Link.external [ class "FooterInstitutionLink", href "https://www.economie.gouv.fr/plan-de-relance" ]
+                    [ text "France Relance" ]
+                ]
+            ]
+        , Container.centered []
+            [ legalMenuLinks
+                |> List.map makeLink
+                |> List.map (List.singleton >> li [])
+                |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
+                |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
+            , case Version.toString currentVersion of
+                Just hash ->
+                    p [ class "fs-9 text-muted" ]
+                        [ Link.external
+                            [ class "text-decoration-none"
+                            , href <| Env.githubUrl ++ "/commit/" ++ hash
+                            ]
+                            [ text <| "Version\u{00A0}: " ++ hash ]
+                        ]
+
+                Nothing ->
+                    text ""
+            ]
+        ]
+
+
 pageHeader : Config msg -> Html msg
 pageHeader config =
-    header
-        [ class "shadow-sm"
-        , attribute "role" "banner"
-        ]
+    header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
                 [ type_ "button"
@@ -180,40 +275,28 @@ pageHeader config =
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
         , Container.centered []
-            [ div [ class "pt-4 pb-2 ps-3" ]
-                [ a
-                    [ href "/"
-                    , title "Écobalyse"
-                    , class "header-logo text-decoration-none d-flex align-items-center gap-5"
-                    ]
-                    [ p [ class "fr-logo" ]
-                        [ text "République"
-                        , br [] []
-                        , text "Française"
-                        ]
-                    , h1 [ class "fs-3 fw-bolder" ]
-                        [ text "Ecobalyse" ]
-                    ]
+            [ a
+                [ href "/"
+                , title "Écobalyse"
+                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-5"
+                ]
+                [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
-        , div [ class "border-top" ]
+        , Container.fluid [ class "border-top" ]
             [ div [ class "container" ]
-                [ navbar config
+                [ nav
+                    [ class "text-end text-sm-start"
+                    , attribute "role" "navigation"
+                    , attribute "aria-label" "Menu principal"
+                    ]
+                    [ headerMenuLinks
+                        |> List.map (viewNavigationLink config.activePage)
+                        |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
+                    ]
                 ]
             ]
-        ]
-
-
-navbar : Config msg -> Html msg
-navbar { activePage } =
-    nav
-        [ class "fr-nav text-end text-sm-start"
-        , attribute "role" "navigation"
-        , attribute "aria-label" "Menu principal"
-        ]
-        [ headerMenuLinks
-            |> List.map (viewNavigationLink activePage)
-            |> div [ class "d-none d-sm-flex MainMenu navbar-nav flex-row overflow-auto" ]
         ]
 
 
@@ -271,106 +354,6 @@ notificationView { closeNotification } notification =
                 }
 
 
-pageFooter : Session -> Html msg
-pageFooter { currentVersion } =
-    footer
-        [ class "bg-dark text-light py-4 fs-7" ]
-        [ Container.centered []
-            [ footerMenuLinks
-                |> List.map
-                    (\link ->
-                        case link of
-                            Internal label route _ ->
-                                Link.internal [ class "text-white text-decoration-none", Route.href route ]
-                                    [ text label ]
-
-                            External label url ->
-                                Link.external [ class "text-white text-decoration-none", href url ]
-                                    [ text label ]
-
-                            MailTo label email ->
-                                a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
-                                    [ text label ]
-                    )
-                |> List.map (List.singleton >> li [])
-                |> List.intersperse
-                    (li
-                        [ attribute "aria-hidden" "true"
-                        , class "text-muted"
-                        ]
-                        [ text "|" ]
-                    )
-                |> ul [ class "d-flex justify-content-start flex-wrap gap-2 list-unstyled pt-1" ]
-            , div [ class "row d-flex align-items-center" ]
-                [ Link.external
-                    [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-white px-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo_mte.svg"
-                        , alt "Ministère de la transition écologique et solidaire"
-                        , attribute "width" "200"
-                        , attribute "height" "200"
-                        ]
-                        []
-                    ]
-                , Link.external
-                    [ href "https://www.economie.gouv.fr/plan-de-relance"
-                    , class "d-flex flex-wrap justify-content-center align-items-center"
-                    , class "col text-center bg-white p-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo-france-relance.png"
-                        , alt "France Relance"
-                        , attribute "width" "100"
-                        , attribute "height" "100"
-                        ]
-                        []
-                    , img
-                        [ src "img/logo-next-generation-eu.png"
-                        , alt "Financé par la l'Union européenne"
-                        , attribute "width" "250"
-                        , attribute "height" "56"
-                        ]
-                        []
-                    ]
-                , Link.external
-                    [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col d-flex justify-content-center align-items-center text-center bg-white p-3 m-3 link-external-muted"
-                    , style "min-height" "200px"
-                    ]
-                    [ img
-                        [ src "img/logo-fabriquenumerique.svg"
-                        , alt "La Fabrique Numérique"
-                        , attribute "width" "150"
-                        , attribute "height" "150"
-                        ]
-                        []
-                    ]
-                ]
-            , div [ class "text-center pt-2" ]
-                [ text "Un produit "
-                , Link.external [ href Env.betagouvUrl, class "text-light" ]
-                    [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
-                , case Version.toString currentVersion of
-                    Just hash ->
-                        small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
-                            [ Link.external
-                                [ class "text-white text-decoration-none"
-                                , href <| Env.githubUrl ++ "/commit/" ++ hash
-                                ]
-                                [ text <| "Version " ++ hash ]
-                            ]
-
-                    Nothing ->
-                        text ""
-                ]
-            ]
-        ]
-
-
 notFound : Html msg
 notFound =
     Container.centered [ class "pb-5" ]
@@ -400,7 +383,7 @@ mobileNavigation { activePage, closeMobileNavigation } =
             , attribute "role" "dialog"
             ]
             [ div [ class "offcanvas-header" ]
-                [ h5 [ class "offcanvas-title", id "navigationLabel" ]
+                [ h3 [ class "h5 offcanvas-title", id "navigationLabel" ]
                     [ text "Navigation" ]
                 , button
                     [ type_ "button"

@@ -511,7 +511,7 @@ itemView { disabled } { config, percent, impact, item, width } =
     div [ class "border-top border-top-sm-0 d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
-                [ div [ class "progress-bar", style "width" (String.fromFloat width ++ "%") ] []
+                [ div [ class "progress-bar bg-secondary", style "width" (String.fromFloat width ++ "%") ] []
                 ]
             ]
         , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
@@ -721,7 +721,7 @@ viewStepsSummary trigram product =
                         , span [ class "flex-fill w-50" ]
                             [ div [ class "progress", style "height" "13px" ]
                                 [ div
-                                    [ class "progress-bar"
+                                    [ class "progress-bar bg-secondary"
                                     , style "width" (String.fromFloat percent ++ "%")
                                     ]
                                     []
@@ -810,7 +810,7 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
             ]
         , div [ class "progress my-2", style "height" "9px" ]
             [ div
-                [ class "progress-bar"
+                [ class "progress-bar bg-secondary"
                 , style "width" (String.fromFloat width ++ "%")
                 ]
                 []

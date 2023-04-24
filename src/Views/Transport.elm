@@ -22,10 +22,8 @@ view : Config -> Transport -> Html msg
 view ({ fullWidth } as config) transport =
     div
         [ classList
-            [ ( "d-flex fs-7 gap-3", True )
+            [ ( "d-flex flex-wrap justify-content-center fs-7 gap-3", True )
             , ( "w-100", fullWidth )
-            , ( "justify-content-between", fullWidth )
-            , ( "justify-content-center", not fullWidth )
             ]
         ]
         (viewDetails config transport)
