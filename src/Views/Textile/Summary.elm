@@ -86,12 +86,11 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
             , lifeCycle
                 |> Array.toList
                 |> List.filter .enabled
-                |> List.indexedMap
-                    (\index { label, country } ->
+                |> List.take 5
+                |> List.map
+                    (\{ label, country } ->
                         li
-                            [ -- This is a trick so the last 2 steps are not rendered on smaller viewports
-                              classList [ ( "d-none d-xl-block", index > 5 ) ]
-                            , class "cursor-help"
+                            [ class "cursor-help"
                             , title <| Label.toString label ++ ": " ++ country.name
                             ]
                             [ span [ class "d-flex gap-1 align-items-center" ]
