@@ -166,7 +166,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -194,7 +194,7 @@ printingFields { inputs, updatePrinting } =
                 |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
                 |> select
                     [ id "ennobling-printing"
-                    , class "form-select form-select-sm"
+                    , class "form-select form-select"
                     , style "flex" "2"
                     , onInput
                         (\str ->
@@ -228,7 +228,7 @@ printingFields { inputs, updatePrinting } =
                                     [ text <| String.fromFloat percent ++ "%" ]
                             )
                         |> select
-                            [ class "form-select form-select-sm"
+                            [ class "form-select form-select"
                             , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
@@ -620,7 +620,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
                 )
             |> select
                 [ id "ennobling-heat-source"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (HeatSource.fromString
                         >> Result.toMaybe
