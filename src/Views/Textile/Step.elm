@@ -479,8 +479,8 @@ stepHeader { current, inputs, toggleStep } =
 
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ]
+    div [ class "Step card shadow-sm" ]
+        [ div [ class "StepHeader card-header" ]
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col-6" ] [ stepHeader config ]
                 , div [ class "col-6 text-end" ]
@@ -647,9 +647,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    div [ class "card-group shadow-sm" ]
+    div [ class "Step card-group shadow-sm" ]
         [ div [ class "card" ]
-            [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
                 [ stepHeader config
                 , -- Note: hide on desktop, show on mobile
                   div [ class "d-block d-sm-none" ]
@@ -720,7 +720,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             ]
         , div
             [ class "card text-center mb-0" ]
-            [ div [ class "card-header d-flex justify-content-end align-items-center text-muted" ]
+            [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold flex-fill" ]
                         [ current.impacts

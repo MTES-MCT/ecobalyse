@@ -1181,10 +1181,8 @@ q {
     }
   }
 
-  &Label {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 3px;
+  &Header {
+    min-height: 50px;
   }
 
   &Icon {
@@ -1195,6 +1193,12 @@ q {
     justify-items: center;
     width: 22px;
     height: 22px;
+  }
+
+  &Label {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 3px;
   }
 }
 
