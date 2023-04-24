@@ -2,6 +2,20 @@
 
 <details>
 
+<summary>Avril 2023</summary>
+
+* Explorateur produit
+  * simplification des catégories
+  * réajustement des valeurs par défaut en se basant sur les données moyennes du PEFCR A\&F ainsi que sur les travaux internes Ecobalyse
+* Tissage : ~~Duitage~~ => Titrage\
+  Introduction du paramètre Titrage (Nm) (au sein de l'étape Filature) dans le calcul de la consommation d'électricité (kW) du Tissage. Le paramètre initial (Duitage) est supprimé car il n'est pas aussi bien maîtrisé que le Titrage par les marques
+* Surface (m2) + Densité de fils (/cm)\
+  Ajout de ces deux indicateurs d'aide à la décision (dans la vision "Détaillée" du calculateur) afin d'éclairer les choix de modélisation de l'utilisateur
+
+</details>
+
+<details>
+
 <summary>Mars 2023</summary>
 
 Aucune modification; la majorité de l'équipe fut mobilisée sur l'Alimentaire.
@@ -12,13 +26,11 @@ Aucune modification; la majorité de l'équipe fut mobilisée sur l'Alimentaire.
 
 <summary>Février 2023</summary>
 
-#### Refonte module _**Fabrication de l'étoffe**_
+#### Refonte module _**Fabrication de l'étoffe (dans la Documentation)**_
 
 :warning: La Documentation est à jour mais pas le Calculateur (prévu pour mars 2023)&#x20;
 
-* Tissage : suppression du paramètre "Duites.m" \
-  (utilisé dans le Socle Technique ADEME mais non maîtrisé par les industriels/marques)
-* Tissage : ajout du paramètre "Titrage" (exprimé en Nm)&#x20;
+* Tissage : ajout du paramètre "Titrage" (exprimé en Nm et affiché dans l'étape Filature) en remplacement du paramètre "Duitage" (car non maîtrisé par les principaux metteurs sur le marché)
 * Tricotage : possibilité de préciser la technique utilisée (rectiligne, circulaire, seamless)
 * Poids & Grammage par défaut : réajustement des valeurs par défaut (poids et grammage) par vêtement (t-shirt, robe, etc.) en intégrant les données moyennes du PEFCR A\&F&#x20;
 * Tissage : ajout de deux indicateurs d'aide à la décision (surface d'étoffe et densité de fils) afin d'éclairer les choix de modélisation de l'utilisateur
