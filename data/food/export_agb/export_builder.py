@@ -15,9 +15,17 @@ from food.impacts import impacts as impacts_definition
 import uuid
 import hashlib
 
+# Input
 DBNAME = "Agribalyse 3.0"
+PROCESSES2EXPORT = "builder_processes_to_export.csv"
+INGREDIENTS_BASE = "ingredients_base.json"
+# Output
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
+
+bw2data.projects.set_current("Ecobalyse")
+bw2io.bw2setup()
+db = bw2data.Database(DBNAME)
 
 
 def open_db(dbname):
@@ -95,19 +103,20 @@ def compute_ingredient_list(activities, ingredients_base):
 
 
 if __name__ == "__main__":
+    # TODO add cli arguments to offer more choice (paths, db, impacts)
     parser = argparse.ArgumentParser(
         description=f"Export {DBNAME} LCA data from a brightway database"
     )
     args = parser.parse_args()
 
-    with open("builder_processes_to_export.csv") as f:
+    with open(PROCESSES2EXPORT) as f:
         processes_to_export = [
             dict([(k, v) for k, v in d.items() if v])
             for d in list(csv.DictReader(f, dialect="unix"))
         ]
 
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
-    with open("ingredients_base.json", "r") as f:
+    with open(INGREDIENTS_BASE, "r") as f:
         ingredients_base = json.load(f)
 
     processes_to_add = []
@@ -119,15 +128,13 @@ if __name__ == "__main__":
                 processes_to_add.append({"code": variant["simple_ingredient_variant"]})
 
     print(
-        f"{len(processes_to_add)} procédés construits provenant de ingredients_base.json"
+        f"{len(processes_to_add)} procédés construits provenant de {INGREDIENTS_BASE}"
     )
 
     processes_to_export += processes_to_add
-    print(f"Total de {len(processes_to_export)} procédés à exporter")
-
-    bw2data.projects.set_current("Ecobalyse")
-    bw2io.bw2setup()
-    db = bw2data.Database(DBNAME)
+    print(
+        f"Total de {len(processes_to_export)} procédés à exporter, sélectionnés depuis {PROCESSES2EXPORT}"
+    )
 
     activities = {
         p["code"]: {
