@@ -278,7 +278,7 @@ pageHeader config =
             [ a
                 [ href "/"
                 , title "Écobalyse"
-                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-5"
+                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
