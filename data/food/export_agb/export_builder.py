@@ -16,6 +16,7 @@ import uuid
 import hashlib
 
 # Input
+PROJECT = "Ecobalyse"
 DBNAME = "Agribalyse 3.0"
 PROCESSES2EXPORT = "builder_processes_to_export.csv"
 INGREDIENTS_BASE = "ingredients_base.json"
@@ -23,7 +24,7 @@ INGREDIENTS_BASE = "ingredients_base.json"
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
 
-bw2data.projects.set_current("Ecobalyse")
+bw2data.projects.set_current(PROJECT)
 bw2io.bw2setup()
 db = bw2data.Database(DBNAME)
 
