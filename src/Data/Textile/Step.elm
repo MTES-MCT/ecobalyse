@@ -26,6 +26,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
+import Data.Textile.KnittingProcess exposing (KnittingProcess)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
@@ -59,6 +60,7 @@ type alias Step =
     , threadDensity : Maybe Unit.ThreadDensity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
+    , knittingProcess : Maybe KnittingProcess
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     }
@@ -110,6 +112,7 @@ create { db, label, editable, country, enabled } =
     , threadDensity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
+    , knittingProcess = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
     }
@@ -291,7 +294,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -306,7 +309,8 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Fabric ->
             { step
-                | yarnSize = yarnSize
+                | knittingProcess = knittingProcess
+                , yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo

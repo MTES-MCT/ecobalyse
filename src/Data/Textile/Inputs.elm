@@ -264,7 +264,7 @@ toString inputs =
     , ifStepEnabled Label.Fabric
         (case inputs.product.fabric of
             Product.Knitted _ ->
-                [ "tricotage", inputs.countryFabric.name ]
+                [ "tricotage", inputs.knittingProcess |> Maybe.withDefault KnittingProcess.Mix |> KnittingProcess.toString, inputs.countryFabric.name ]
 
             Product.Weaved _ ->
                 [ "tissage", inputs.countryFabric.name ]

@@ -8,6 +8,7 @@ module Data.Textile.Process exposing
     , getDyeingProcess
     , getEnnoblingHeatProcess
     , getImpact
+    , getKnittingProcess
     , getPrintingProcess
     , loadWellKnown
     , uuidToString
@@ -16,6 +17,7 @@ module Data.Textile.Process exposing
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
+import Data.Textile.KnittingProcess as KnittingProcess exposing (KnittingProcess)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
@@ -61,6 +63,11 @@ type alias WellKnown =
     , dyeingYarn : Process
     , dyeingFabric : Process
     , dyeingArticle : Process
+    , knittingMix : Process
+    , knittingFullyFashioned : Process
+    , knittingSeamless : Process
+    , knittingCircular : Process
+    , knittingStraight : Process
     , printingPigment : Process
     , printingSubstantive : Process
     , finishing : Process
@@ -103,6 +110,25 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
+
+
+getKnittingProcess : KnittingProcess -> WellKnown -> Process
+getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knittingSeamless, knittingCircular, knittingStraight } =
+    case knittingProcess of
+        KnittingProcess.Mix ->
+            knittingMix
+
+        KnittingProcess.FullyFashioned ->
+            knittingFullyFashioned
+
+        KnittingProcess.Seamless ->
+            knittingSeamless
+
+        KnittingProcess.Circular ->
+            knittingCircular
+
+        KnittingProcess.Straight ->
+            knittingStraight
 
 
 getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
@@ -195,6 +221,11 @@ loadWellKnown processes =
         |> load .dyeingYarn
         |> load .dyeingFabric
         |> load .dyeingArticle
+        |> load .knittingMix
+        |> load .knittingFullyFashioned
+        |> load .knittingSeamless
+        |> load .knittingCircular
+        |> load .knittingStraight
         |> load .printingPigment
         |> load .printingSubstantive
         |> load .finishing
