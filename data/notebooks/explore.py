@@ -29,13 +29,7 @@ w_search = ipywidgets.Text(value="", placeholder="Search string", description="S
 METHODS = sorted({m[0] for m in bw2data.methods})
 w_method = ipywidgets.Dropdown(value=METHODS[11], options=METHODS, description="METHOD")
 w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
-w_activity = ipywidgets.Dropdown(
-    options=[""]
-    + list(
-        bw2data.Database(w_database.value).search(w_search.value, limit=w_limit.value)
-    ),
-    description="ACTIVITY",
-)
+w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
 w_details = ipywidgets.Output(value="Détails")
 
@@ -55,7 +49,9 @@ def search_activity(change):
         w_results.clear_output()
         display(Markdown("(No results)"))
         return
-    w_activity.options = [""] + results
+    w_activity.options = [("", "")] + [
+        (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
+    ]
     w_results.clear_output()
     display(Markdown("## Results"))
     with pandas.option_context("display.max_colwidth", None):
