@@ -14,7 +14,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.KnittingProcess as KnittingProcess
+import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
@@ -442,7 +442,7 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                             let
                                 productDefaultKnittingProcess =
                                     knittingProcess
-                                        |> Maybe.withDefault KnittingProcess.Mix
+                                        |> Maybe.withDefault Knitting.Mix
 
                                 knitting =
                                     wellKnown

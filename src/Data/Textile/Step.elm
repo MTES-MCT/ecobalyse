@@ -26,7 +26,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
-import Data.Textile.KnittingProcess exposing (KnittingProcess)
+import Data.Textile.Knitting exposing (Knitting)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
@@ -60,7 +60,7 @@ type alias Step =
     , threadDensity : Maybe Unit.ThreadDensity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe KnittingProcess
+    , knittingProcess : Maybe Knitting
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     }

@@ -34,7 +34,7 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.KnittingProcess as KnittingProcess exposing (KnittingProcess)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -74,7 +74,7 @@ type alias Inputs =
     , makingWaste : Maybe Split
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe KnittingProcess
+    , knittingProcess : Maybe Knitting
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -103,7 +103,7 @@ type alias Query =
     , makingWaste : Maybe Split
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe KnittingProcess
+    , knittingProcess : Maybe Knitting
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -264,7 +264,7 @@ toString inputs =
     , ifStepEnabled Label.Fabric
         (case inputs.product.fabric of
             Product.Knitted _ ->
-                [ "tricotage", inputs.knittingProcess |> Maybe.withDefault KnittingProcess.Mix |> KnittingProcess.toString, inputs.countryFabric.name ]
+                [ "tricotage", inputs.knittingProcess |> Maybe.withDefault Knitting.Mix |> Knitting.toString, inputs.countryFabric.name ]
 
             Product.Weaved _ ->
                 [ "tissage", inputs.countryFabric.name ]
@@ -677,7 +677,7 @@ encode inputs =
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "knittingProcess", inputs.knittingProcess |> Maybe.map KnittingProcess.encode |> Maybe.withDefault Encode.null )
+        , ( "knittingProcess", inputs.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
@@ -710,7 +710,7 @@ decodeQuery =
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "knittingProcess" (Decode.maybe KnittingProcess.decode) Nothing
+        |> Pipe.optional "knittingProcess" (Decode.maybe Knitting.decode) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
@@ -741,7 +741,7 @@ encodeQuery query =
         , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "knittingProcess", query.knittingProcess |> Maybe.map KnittingProcess.encode |> Maybe.withDefault Encode.null )
+        , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )

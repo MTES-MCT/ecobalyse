@@ -21,7 +21,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
-import Data.Textile.KnittingProcess as KnittingProcess exposing (KnittingProcess)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -805,13 +805,13 @@ maybeSurfaceMassParser key =
             )
 
 
-maybeKnittingProcess : String -> Parser (ParseResult (Maybe KnittingProcess))
+maybeKnittingProcess : String -> Parser (ParseResult (Maybe Knitting))
 maybeKnittingProcess key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\str ->
-                    case KnittingProcess.fromString str of
+                    case Knitting.fromString str of
                         Ok knittingProcess ->
                             Ok (Just knittingProcess)
 

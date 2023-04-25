@@ -17,7 +17,7 @@ module Data.Textile.Process exposing
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.KnittingProcess as KnittingProcess exposing (KnittingProcess)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
@@ -112,22 +112,22 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getKnittingProcess : KnittingProcess -> WellKnown -> Process
+getKnittingProcess : Knitting -> WellKnown -> Process
 getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knittingSeamless, knittingCircular, knittingStraight } =
     case knittingProcess of
-        KnittingProcess.Mix ->
+        Knitting.Mix ->
             knittingMix
 
-        KnittingProcess.FullyFashioned ->
+        Knitting.FullyFashioned ->
             knittingFullyFashioned
 
-        KnittingProcess.Seamless ->
+        Knitting.Seamless ->
             knittingSeamless
 
-        KnittingProcess.Circular ->
+        Knitting.Circular ->
             knittingCircular
 
-        KnittingProcess.Straight ->
+        Knitting.Straight ->
             knittingStraight
 
 

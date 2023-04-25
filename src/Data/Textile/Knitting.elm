@@ -1,5 +1,5 @@
-module Data.Textile.KnittingProcess exposing
-    ( KnittingProcess(..)
+module Data.Textile.Knitting exposing
+    ( Knitting(..)
     , decode
     , encode
     , fromString
@@ -12,48 +12,48 @@ import Json.Decode.Extra as DE
 import Json.Encode as Encode
 
 
-type KnittingProcess
-    = Mix
+type Knitting
+    = Circular
     | FullyFashioned
+    | Mix
     | Seamless
-    | Circular
     | Straight
 
 
-decode : Decoder KnittingProcess
+decode : Decoder Knitting
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
 
 
-encode : KnittingProcess -> Encode.Value
+encode : Knitting -> Encode.Value
 encode =
     toString >> Encode.string
 
 
-fromString : String -> Result String KnittingProcess
+fromString : String -> Result String Knitting
 fromString string =
     case string of
-        "knitting-mix" ->
+        "mix" ->
             Ok Mix
 
-        "knitting-fully-fashioned" ->
+        "fully-fashioned" ->
             Ok FullyFashioned
 
-        "knitting-seamless" ->
+        "seamless" ->
             Ok Seamless
 
-        "knitting-circular" ->
+        "circular" ->
             Ok Circular
 
-        "knitting-straight" ->
+        "straight" ->
             Ok Straight
 
         _ ->
             Err <| "Procédé de tricotage inconnu: " ++ string
 
 
-toLabel : KnittingProcess -> String
+toLabel : Knitting -> String
 toLabel knittingProcess =
     case knittingProcess of
         Mix ->
@@ -72,20 +72,20 @@ toLabel knittingProcess =
             "Rectiligne"
 
 
-toString : KnittingProcess -> String
+toString : Knitting -> String
 toString knittingProcess =
     case knittingProcess of
         Mix ->
-            "knitting-mix"
+            "mix"
 
         FullyFashioned ->
-            "knitting-fully-fashioned"
+            "fully-fashioned"
 
         Seamless ->
-            "knitting-seamless"
+            "seamless"
 
         Circular ->
-            "knitting-circular"
+            "circular"
 
         Straight ->
-            "knitting-straight"
+            "straight"
