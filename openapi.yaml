@@ -91,6 +91,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -158,6 +159,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -196,6 +198,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -470,6 +473,23 @@ components:
         type: number
         minimum: 9
         maximum: 200
+    knittingProcessParam:
+      name: knittingProcess
+      in: query
+      description: |
+        Le processus utilisé pour tricoter le tissu, parmis la liste de choix suivants :
+          - knitting-mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - knitting-fully-fashioned : Tricotage fully-fashioned
+          - knitting-seamless : Tricotage seamless
+          - knitting-circular : Tricotage circulaire, inventaire désagrégé
+          - knitting-straight : Tricotage rectiligne, inventaire désagrégé
+
+          **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["knitting-mix", "knitting-fully-fashioned", "knitting-seamless", "knitting-circular", "knitting-straight"]
     surfaceMassParam:
       name: surfaceMass
       in: query
