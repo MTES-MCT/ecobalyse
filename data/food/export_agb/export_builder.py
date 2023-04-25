@@ -8,41 +8,18 @@ import copy
 import csv
 import json
 import argparse
-import brightway2 as bw
+import bw2data
+import bw2calc
+import bw2io
 from food.impacts import impacts as impacts_definition
 import uuid
 import hashlib
 
-
-def get_activities(agribalyse_db, processes_code):
-    activities = []
-
-    for index, code in enumerate(processes_code):
-        activities.append(agribalyse_db.get(code))
-        if index % 100 == 0 and index:
-            print(f"Chargement de {index} activités", end="\r")
-
-    print(f"Chargement de {len(activities)} activités terminé")
-
-    return activities
+DBNAME = "Agribalyse 3.0"
 
 
 def open_db(dbname):
-    bw.projects.set_current("Ecobalyse")
-    bw.bw2setup()
-    return bw.Database(dbname)
-
-
-def init_lcas(demand):
-    # Speed hack: initialize a LCA for each method, using just any product that we'll change later
-    lcas = {}
-    for key, method in impacts_definition.items():
-        print("Initialisation de la méthode", method)
-        lca = bw.LCA(demand, method)
-        lca.lci()
-        lca.lcia()
-        lcas[key] = lca
-    return lcas
+    return bw2data.Database(dbname)
 
 
 class ProcessNotFoundByIdError(Exception):
@@ -135,9 +112,8 @@ def export_json(content, filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Export agribalyse LCA data from a brightway database"
+        description=f"Export {DBNAME} LCA data from a brightway database"
     )
-
     args = parser.parse_args()
 
     with open("builder_processes_to_export.csv") as f:
@@ -157,18 +133,25 @@ if __name__ == "__main__":
     processes_to_export += processes_to_add
     print(f"Total de {len(processes_to_export)} procédés à exporter")
 
-    agb = open_db("Agribalyse 3.0")
+    bw2data.projects.set_current("Ecobalyse")
+    bw2io.bw2setup()
+    db = bw2data.Database(DBNAME)
 
     activities = {
         p["code"]: {
-            "activity": agb.get(p["code"]),
-            "export_data": p,  # agb.get(p["code"]).as_dict(),
+            "activity": db.get(p["code"]),
+            "export_data": p,  # db.get(p["code"]).as_dict(),
         }
         for p in processes_to_export
     }
-    print(f"Total de {len(activities)} activités trouvées dans agribalyse")
+    nb_activities = len(activities)
+    print(f"Total de {nb_activities} activités trouvées dans {DBNAME}")
 
-    for v in list(activities.values()):
+    for index, v in enumerate(activities.values()):
+        print(
+            "[" + (index) * "•" + (nb_activities - index) * " " + "]",
+            end="\r",
+        )
         # move data
         activity, export_data = v["activity"], v["export_data"]
         export_data["unit"] = activity["unit"]
@@ -197,31 +180,26 @@ if __name__ == "__main__":
             category = export_data["kind"]
 
         export_data["category"] = category
+
         export_data["impacts"] = {}
+        lca = bw2calc.LCA({activity: 1})
+        # Compute the inventory
+        lca.lci()
+        # Compute the impacts
+        for key, method in impacts_definition.items():
+            lca.switch_method(method)
+            lca.lcia()
+            v["export_data"]["impacts"][key] = lca.score
 
-    # Just get a random process, for example the very first one
-    lcas = init_lcas({next(iter(activities.values()))["activity"]: 1})
-
-    num_activities = len(activities)
-    print(f"Calcul de l'impact pour {num_activities} procédés")
-    for index, v in enumerate(activities.values()):
-        activity, export_data = v["activity"], v["export_data"]
-        impacts = {}
-        # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
-        for impact in impacts_definition.keys():
-            lca = lcas[impact]
-            lca.redo_lcia({activity: 1})
-            impacts[impact] = lca.score
-
-        # move bvi from export_data coming from csv to the impacts list
+        # move bvi from export_data (coming from csv) to the impacts
         if "bvi" in v["export_data"]:
-            impacts["bvi"] = float(v["export_data"]["bvi"].replace(",", "."))
+            v["export_data"]["impacts"]["bvi"] = float(
+                v["export_data"]["bvi"].replace(",", ".")
+            )
             del v["export_data"]["bvi"]
         else:
-            impacts["bvi"] = 0.0
-        v["export_data"]["impacts"] = impacts
-        if index % 10 == 0:
-            print(f"{round(index * 100 / num_activities)}%", end="\r")
+            v["export_data"]["impacts"]["bvi"] = 0.0
+
     print("100%")
 
     # Extract simple and complex ingredients. Complex ingredients are need a new process to be added.
