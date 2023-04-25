@@ -28,35 +28,21 @@ bw2io.bw2setup()
 db = bw2data.Database(DBNAME)
 
 
-def open_db(dbname):
-    return bw2data.Database(dbname)
-
-
-class ProcessNotFoundByIdError(Exception):
-    def __init__(self, process_id):
-        self.message = f"Procédé non trouvé pour l'id {process_id}"
-        super().__init__(self.message)
-
-
-def get_process_by_id(processes, process_id):
-    for process in processes.values():
-        if process["simapro_id"] == process_id:
-            return process
-    raise ProcessNotFoundByIdError(process_id)
-
-
-def is_complex_ingredient(variant):
-    return (
-        "simple_ingredient_default" in variant
-    )  # This is enough (for now?) to detect if an ingredient is complex
-
-
-def compute_ingredient_list(activities, ingredients_base):
+def compute_new_processes(activities, ingredients_base):
     new_processes = []
 
     for ingredient in ingredients_base:
         for variant_name, variant in ingredient["variants"].items():
-            if is_complex_ingredient(variant):
+            # variant_name can be 'organic', 'bleu_blanc_coeur'
+            # we build new processes for ingredients defined with 2 sub-ingredients
+            if (
+                "simple_ingredient_default" in variant
+                or "simple_ingredient_variant" in variant
+            ):
+                assert (
+                    "simple_ingredient_default" in variant
+                    and "simple_ingredient_variant" in variant
+                ), f"Incomplete variant for {ingredient}"
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 complex_ingredient_default = activities[ingredient["default"]][
                     "export_data"
@@ -99,7 +85,7 @@ def compute_ingredient_list(activities, ingredients_base):
 
                 new_processes.append(new_process)
 
-    return (ingredients_base, new_processes)
+    return new_processes
 
 
 if __name__ == "__main__":
@@ -119,10 +105,14 @@ if __name__ == "__main__":
     with open(INGREDIENTS_BASE, "r") as f:
         ingredients_base = json.load(f)
 
+    # we need to add the processes corresponding to sub-ingredients of constructed ingredients
     processes_to_add = []
     for ingredient in ingredients_base:
-        for variant in ingredient["variants"].values():
-            if is_complex_ingredient(variant):
+        for variant in ingredient.get("variants", {}).values():
+            if (
+                "simple_ingredient_default" in variant
+                and "simple_ingredient_variant" in variant
+            ):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 processes_to_add.append({"code": variant["simple_ingredient_default"]})
                 processes_to_add.append({"code": variant["simple_ingredient_variant"]})
@@ -177,6 +167,7 @@ if __name__ == "__main__":
             category = "ingredient"
         elif "kind" in export_data:
             category = export_data["kind"]
+            del export_data["kind"]  # kind is moved to category
 
         export_data["category"] = category
 
@@ -199,17 +190,13 @@ if __name__ == "__main__":
         else:
             v["export_data"]["impacts"]["bvi"] = 0.0
 
-    print("100%")
+    # Compute new processes for complex variants
+    new_processes = compute_new_processes(activities, ingredients_base)
 
-    # Extract simple and complex ingredients. Complex ingredients are need a new process to be added.
-    (ingredient_list, new_processes) = compute_ingredient_list(
-        activities, ingredients_base
-    )
-
-    # Export the ingredients.json file
-    print(f"Export de {len(ingredient_list)} ingrédients vers {INGREDIENTS}")
+    # Export the ingredients
+    print(f"Export de {len(ingredients_base)} ingrédients vers {INGREDIENTS}")
     with open(INGREDIENTS, "w") as outfile:
-        json.dump(ingredient_list, outfile, indent=2, ensure_ascii=False)
+        json.dump(ingredients_base, outfile, indent=2, ensure_ascii=False)
         outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
 
     # Add the new processes we computed for the complex ingredients
