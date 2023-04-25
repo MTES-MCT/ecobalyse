@@ -8,6 +8,8 @@ import pandas
 import shutil
 import subprocess
 
+from pandas.core import describe
+
 
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "Ecobalyse"
@@ -16,7 +18,7 @@ INGREDIENTS_TEMP = "/home/jovyan/ingredients_base.json"
 os.getcwd()
 
 bw2data.projects.set_current(PROJECT)
-DATABASE = bw2data.Database("Agribalyse 3.0")
+DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 
 def save_ingredients(ingredients):
@@ -47,21 +49,21 @@ def reverse(d):
 FIELDS = {
     "id": "id",
     "name": "Name",
-    "default": "Process",
+    "default": "Selected process",
     "default_origin": "Default Origin",
     "category": "Category",
     "raw_to_cooked_ratio": "Cooked/Raw Ratio",
     "density": "Density",
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
-    "variants.organic.process": "Organic Process Code",
+    "variants.organic.process": "Selected Organic Process",
     "variants.organic.ratio": "Complex/Simple Ratio",
-    "variants.organic.simple_ingredient_default": "Default component process",
-    "variants.organic.simple_ingredient_variant": "Organic component process",
+    "variants.organic.simple_ingredient_default": "Selected Default component",
+    "variants.organic.simple_ingredient_variant": "Selected Organic component",
     "variants.organic.beyondLCA.agro-diversity": "Agro Diversity",
     "variants.organic.beyondLCA.agro-ecology": "Agro Ecology",
     "variants.organic.beyondLCA.animal-welfare": "Animal Welfare",
-    "variants.bleu_blanc_coeur": "BleuBlancCoeur Process",
+    "variants.bleu_blanc_coeur": "Selected BleuBlancCoeur Process",
 }
 
 
@@ -113,13 +115,13 @@ w_name = ipywidgets.Text(
     style=style,
 )
 ## brightway code of the ingredient process
-w_search = ipywidgets.Text(placeholder="tomat* FR farm", layout=layoutL, style=style)
+w_search = ipywidgets.Text(placeholder="tomat* FR farm", layout=layoutW, style=style)
 w_default = ipywidgets.Select(
-    placeholder="Default process",
     rows=1,
     options=[""],
     layout=layoutW,
     style=style,
+    disabled=True,
 )
 ## default origin
 w_default_origin = ipywidgets.Dropdown(
@@ -181,14 +183,14 @@ w_visible = ipywidgets.Checkbox(indent=False, layout=layoutW, style=style, value
 # fields for (hardcoded) variants
 ## code of the organic process if any
 w_organic_search = ipywidgets.Text(
-    placeholder="tomat* organic", layout=layoutL, style=style
+    placeholder="tomat* organic", layout=layoutW, style=style
 )
 w_organic_process = ipywidgets.Select(
-    placeholder="Process",
     layout=layoutW,
     options=[""],
     rows=1,
     style=style,
+    disabled=True,
 )
 ## Quantity of simple ingredient necessary to produce 1 unit of complex ingredient
 ## For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
@@ -200,25 +202,24 @@ w_organic_ratio = ipywidgets.BoundedFloatText(
     style=style,
 )
 w_organic_default_search = ipywidgets.Text(
-    placeholder="flour conventio*", layout=layoutL, style=style
+    placeholder="flour conventio*", layout=layoutW, style=style
 )
 w_organic_simple_ingredient_default = ipywidgets.Select(
-    placeholder="Process",
     layout=layoutW,
     options=[""],
     rows=1,
     style=style,
+    disabled=True,
 )
 w_organic_variant_search = ipywidgets.Text(
-    placeholder="flour organic", layout=layoutL, style=style
+    placeholder="flour organic", layout=layoutW, style=style
 )
 w_organic_simple_ingredient_variant = ipywidgets.Select(
-    placeholder="Process",
-    tooltip="Click to add or update the ingredient",
     style=style,
     options=[""],
     rows=1,
     layout=layoutW,
+    disabled=True,
 )
 # default coef for the beyond-lca indicators
 w_organic_agrodiv = ipywidgets.FloatSlider(
@@ -247,14 +248,14 @@ w_organic_animal_welfare = ipywidgets.FloatSlider(
 )
 ## code for BleuBlanCoeur process if any
 w_bleu_blanc_coeur_search = ipywidgets.Text(
-    placeholder="bleu blanc", layout=layoutL, style=style
+    placeholder="bleu blanc", layout=layoutW, style=style
 )
 w_bleu_blanc_coeur = ipywidgets.Select(
-    placeholder="Process",
     style=style,
     options=[""],
     rows=1,
     layout=layoutW,
+    disabled=True,
 )
 
 
@@ -309,17 +310,17 @@ def add_ingredient(_):
     ingredient = {
         "id": w_id.value,
         "name": w_name.value,
-        "default": w_default.value,
+        "default": w_search.value,
         "default_origin": w_default_origin.value,
         "category": w_category.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
         "density": w_density.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "variants.organic.process": w_organic_process.value,
+        "variants.organic.process": w_organic_search.value,
         "variants.organic.ratio": w_organic_ratio.value,
-        "variants.organic.simple_ingredient_default": w_organic_simple_ingredient_default.value,
-        "variants.organic.simple_ingredient_variant": w_organic_simple_ingredient_variant.value,
+        "variants.organic.simple_ingredient_default": w_organic_default_search.value,
+        "variants.organic.simple_ingredient_variant": w_organic_variant_search.value,
         "variants.organic.beyondLCA.agro-diversity": w_organic_agrodiv.value,
         "variants.organic.beyondLCA.agro-ecology": w_organic_agroeco.value,
         "variants.organic.beyondLCA.animal-welfare": w_organic_animal_welfare.value,
@@ -429,10 +430,13 @@ def change_id(change):
     if not i:
         return
     set_field(w_name, i.get("name"), "")
-    code = i.get("default")
-    act = DATABASE.get(code)
-    w_default.options = [(act.get("name"), code)]
-    set_field(w_default, code, "")
+    code = i.get("default", "")
+    set_field(w_search, code, "")
+    res = DATABASE.search(code)
+    if res:
+        w_default.options = [res[0]]
+    else:
+        w_default.options = []
     set_field(
         w_default_origin,
         i.get("default_origin"),
@@ -445,23 +449,33 @@ def change_id(change):
     set_field(w_visible, i.get("visible"), True)
     code = i.get("variants.organic.process")
     if code:
-        act = DATABASE.get(code)
-        w_organic_process.options = [("", "")] + [(act.get("name"), code)]
-        set_field(w_organic_process, code, "")
+        set_field(w_organic_search, code, "")
+        res = DATABASE.search(code)
+        if res:
+            w_organic_process.options = list(res)
+            w_organic_process.value = res[0]
+        else:
+            w_organic_process.options = []
     set_field(w_organic_ratio, i.get("variants.organic.ratio"), 0)
     code = i.get("variants.organic.simple_ingredient_default")
     if code:
-        act = DATABASE.get(code)
-        w_organic_simple_ingredient_default.options = [("", "")] + [
-            (act.get("name"), code)
-        ]
-        set_field(w_organic_simple_ingredient_default, code, "")
+        set_field(w_organic_default_search, code, "")
+        res = DATABASE.search(code)
+        if res:
+            w_organic_simple_ingredient_default.options = list(res)
+            w_organic_simple_ingredient_default.value = res[0]
+        else:
+            w_organic_simple_ingredient_default.options = []
     code = i.get("variants.organic.simple_ingredient_variant")
     if code:
-        act = DATABASE.get(code)
-        w_organic_simple_ingredient_variant.options = [("", "")] + [
-            (act.get("name"), code)
-        ]
+        set_field(w_organic_variant_search, code, "")
+        res = DATABASE.search(code)
+        if res:
+            w_organic_simple_ingredient_variant.options = list(res)
+            w_organic_simple_ingredient_variant.value = res[0]
+        else:
+            w_organic_simple_ingredient_variant.options = []
+
         set_field(w_organic_simple_ingredient_variant, code, "")
     set_field(w_organic_agrodiv, i.get("variants.organic.beyondLCA.agro-diversity"), 0)
     set_field(w_organic_agroeco, i.get("variants.organic.beyondLCA.agro-ecology"), 0)
@@ -470,16 +484,22 @@ def change_id(change):
     )
     code = i.get("variants.bleu_blanc_coeur")
     if code:
-        act = DATABASE.get(code)
-        w_bleu_blanc_coeur.options = [("", "")] + [(act.get("name"), code)]
-        set_field(w_bleu_blanc_coeur, code, "")
+        set_field(w_bleu_blanc_coeur_search, code, "")
+        res = DATABASE.search(code)
+        if res:
+            w_bleu_blanc_coeur.options = list(res)
+            w_bleu_blanc_coeur.value = res[0]
+        else:
+            w_bleu_blanc_coeur.options = []
 
 
 def change_search_of(field):
     def change_search(change):
-        results = list(DATABASE.search(change.new, limit=50))
+        results = list(DATABASE.search(change.new, limit=20))
         field.rows = len(results)
-        field.options = tuple([(repr(r), r["code"]) for r in results])
+        field.options = results
+        if results:
+            field.value = results[0]
 
     return change_search
 
@@ -518,7 +538,7 @@ display(
     ),
     ipywidgets.HBox(
         (
-            ipywidgets.Label("Search process in " + DATABASE.name, layout=layoutL),
+            ipywidgets.Label("Search in " + DATABASE.name, layout=layoutL),
             w_search,
         ),
         layout=layoutH,

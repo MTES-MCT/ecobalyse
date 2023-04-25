@@ -17,7 +17,7 @@ import hashlib
 
 # Input
 PROJECT = "Ecobalyse"
-DBNAME = "Agribalyse 3.0"
+DBNAME = "Agribalyse 3.1.1"
 PROCESSES2EXPORT = "builder_processes_to_export.csv"
 INGREDIENTS_BASE = "ingredients_base.json"
 # Output
@@ -115,8 +115,8 @@ if __name__ == "__main__":
                 and "simple_ingredient_variant" in variant
             ):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
-                processes_to_add.append({"code": variant["simple_ingredient_default"]})
-                processes_to_add.append({"code": variant["simple_ingredient_variant"]})
+                processes_to_add.append({"name": variant["simple_ingredient_default"]})
+                processes_to_add.append({"name": variant["simple_ingredient_variant"]})
 
     print(
         f"{len(processes_to_add)} procédés construits provenant de {INGREDIENTS_BASE}"
@@ -127,13 +127,16 @@ if __name__ == "__main__":
         f"Total de {len(processes_to_export)} procédés à exporter, sélectionnés depuis {PROCESSES2EXPORT}"
     )
 
-    activities = {
-        p["code"]: {
-            "activity": db.get(p["code"]),
-            "export_data": p,  # db.get(p["code"]).as_dict(),
+    activities = {}
+    for p in processes_to_export:
+        results = db.search(p["name"])
+        assert len(results) >= 1, f"Research doesn't give a result: {p['name']}"
+        activity = results[0]
+        activities[p["name"]] = {
+            "activity": activity,
+            "export_data": p,
         }
-        for p in processes_to_export
-    }
+
     nb_activities = len(activities)
     print(f"Total de {nb_activities} activités trouvées dans {DBNAME}")
 
@@ -145,8 +148,7 @@ if __name__ == "__main__":
         # move data
         activity, export_data = v["activity"], v["export_data"]
         export_data["unit"] = activity["unit"]
-        export_data["simapro_id"] = export_data["code"]
-        del export_data["code"]
+        export_data["simapro_id"] = activity["code"]
         export_data["name"] = activity.get("simapro name", activity["name"])
         export_data["system_description"] = activity["simapro metadata"][
             "System description"
