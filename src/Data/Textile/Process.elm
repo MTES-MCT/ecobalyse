@@ -5,6 +5,7 @@ module Data.Textile.Process exposing
     , decodeFromUuid
     , decodeList
     , encodeUuid
+    , findByUuid
     , getDyeingProcess
     , getEnnoblingHeatProcess
     , getImpact
