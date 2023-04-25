@@ -339,6 +339,7 @@ textileEndpoints db =
           , "product=notAProductID"
           , "material=notAnID"
           , "materials[]=notAnID"
+          , "knittingProcess=notAKnittingProcess"
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
@@ -360,6 +361,7 @@ textileEndpoints db =
                     , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
+                    , ( "knittingProcess", "Procédé de tricotage inconnu: notAKnittingProcess" )
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 80 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )

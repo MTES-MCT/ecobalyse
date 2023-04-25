@@ -184,6 +184,14 @@ describe("API", () => {
         );
       });
 
+      it("should validate the knittingProcess param", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/textile/simulator", ["knittingProcess=notAKnittingProcess"]),
+          "knittingProcess",
+          /Procédé de tricotage inconnu: notAKnittingProcess/,
+        );
+      });
+
       it("should validate the surfaceMass param", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/textile/simulator", ["surfaceMass=10"]),
