@@ -9,7 +9,7 @@ import csv
 import json
 import argparse
 import brightway2 as bw
-from food.impacts import impacts
+from food.impacts import impacts as impacts_definition
 import uuid
 import hashlib
 
@@ -36,53 +36,13 @@ def open_db(dbname):
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
-    for key, method in impacts.items():
+    for key, method in impacts_definition.items():
         print("Initialisation de la méthode", method)
         lca = bw.LCA(demand, method)
         lca.lci()
         lca.lcia()
         lcas[key] = lca
     return lcas
-
-
-def impacts_for_activity(activity, lcas, bvi_data):
-    activity_impacts = {}
-    # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
-    for impact in impacts.keys():
-        lca = lcas[impact]
-        lca.redo_lcia({activity: 1})
-        activity_impacts[impact] = lca.score
-
-    # Add the bvi impact that's been imported from another source (not coming from agribalyse,
-    # and not computed by brightway).
-    for process_name, bvi in bvi_data.items():
-        # Remove various postfixes that differ between data sources
-        normalized_name = (
-            activity["name"]
-            .replace("/ FR U", "")
-            .replace("/FR U", "")
-            .replace(", U", "")
-            .replace(", S - Copied from Ecoinvent", "")
-        )
-        if process_name.startswith(normalized_name):
-            break
-    else:
-        print(f"No bvi data for {activity['name']}")
-        bvi = 0
-
-    activity_impacts["bvi"] = float(bvi)
-    return activity_impacts
-
-
-def compute_lca(activities, lcas, bvi_data):
-    num_activities = len(activities)
-    print(f"Calcul de l'impact pour {num_activities} procédés")
-    for index, activity in enumerate([v["activity"] for v in activities.values()]):
-        impacts = impacts_for_activity(activity, lcas, bvi_data)
-        activities[activity["code"]]["export_data"]["impacts"] = impacts
-        if index % 10 == 0:
-            print(f"{round(index * 100 / num_activities)}%", end="\r")
-    print("100%")
 
 
 class ProcessNotFoundByIdError(Exception):
@@ -211,10 +171,10 @@ if __name__ == "__main__":
     for v in list(activities.values()):
         # move data
         activity, export_data = v["activity"], v["export_data"]
+        export_data["unit"] = activity["unit"]
         export_data["simapro_id"] = export_data["code"]
         del export_data["code"]
         export_data["name"] = activity.get("simapro name", activity["name"])
-        export_data["unit"] = activity["unit"]
         export_data["system_description"] = activity["simapro metadata"][
             "System description"
         ]
@@ -242,14 +202,27 @@ if __name__ == "__main__":
     # Just get a random process, for example the very first one
     lcas = init_lcas({next(iter(activities.values()))["activity"]: 1})
 
-    bvi_data_file = "bvi.csv"
-    bvi_data = {}
-    with open(bvi_data_file, "r", encoding="utf-8-sig") as f:
-        reader = csv.DictReader(f, delimiter=";")
-        for row in reader:
-            bvi_data[row["process_name"]] = row["bvi"]
+    num_activities = len(activities)
+    print(f"Calcul de l'impact pour {num_activities} procédés")
+    for index, v in enumerate(activities.values()):
+        activity, export_data = v["activity"], v["export_data"]
+        impacts = {}
+        # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
+        for impact in impacts_definition.keys():
+            lca = lcas[impact]
+            lca.redo_lcia({activity: 1})
+            impacts[impact] = lca.score
 
-    compute_lca(activities, lcas, bvi_data)
+        # move bvi from export_data coming from csv to the impacts list
+        if "bvi" in v["export_data"]:
+            impacts["bvi"] = float(v["export_data"]["bvi"].replace(",", "."))
+            del v["export_data"]["bvi"]
+        else:
+            impacts["bvi"] = 0.0
+        v["export_data"]["impacts"] = impacts
+        if index % 10 == 0:
+            print(f"{round(index * 100 / num_activities)}%", end="\r")
+    print("100%")
 
     # Extract simple and complex ingredients. Complex ingredients are need a new process to be added.
     (ingredient_list, new_processes) = compute_ingredient_list(
