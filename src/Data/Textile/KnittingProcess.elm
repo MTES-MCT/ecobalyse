@@ -57,7 +57,7 @@ toLabel : KnittingProcess -> String
 toLabel knittingProcess =
     case knittingProcess of
         Mix ->
-            "Mix de métiers circulaire & rectiligne"
+            "Tricotage moyen (par défaut)"
 
         FullyFashioned ->
             "Fully fashioned"
