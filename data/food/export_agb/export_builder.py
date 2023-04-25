@@ -16,6 +16,8 @@ import uuid
 import hashlib
 
 DBNAME = "Agribalyse 3.0"
+INGREDIENTS = "../../../public/data/food/ingredients.json"
+BUILDER = "../../../public/data/food/processes/builder.json"
 
 
 def open_db(dbname):
@@ -39,18 +41,6 @@ def is_complex_ingredient(variant):
     return (
         "simple_ingredient_default" in variant
     )  # This is enough (for now?) to detect if an ingredient is complex
-
-
-def parse_ingredient_list(ingredients_base):
-    processes_to_add = []
-
-    for ingredient in ingredients_base:
-        for variant in ingredient["variants"].values():
-            if is_complex_ingredient(variant):
-                # This is a complex ingredient, we need to create a new process from the elements we have.
-                processes_to_add.append({"code": variant["simple_ingredient_default"]})
-                processes_to_add.append({"code": variant["simple_ingredient_variant"]})
-    return processes_to_add
 
 
 def compute_ingredient_list(activities, ingredients_base):
@@ -104,12 +94,6 @@ def compute_ingredient_list(activities, ingredients_base):
     return (ingredients_base, new_processes)
 
 
-def export_json(content, filename):
-    with open(filename, "w") as outfile:
-        json.dump(content, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=f"Export {DBNAME} LCA data from a brightway database"
@@ -125,9 +109,17 @@ if __name__ == "__main__":
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
     with open("ingredients_base.json", "r") as f:
         ingredients_base = json.load(f)
-    processes_to_add = parse_ingredient_list(ingredients_base)
+
+    processes_to_add = []
+    for ingredient in ingredients_base:
+        for variant in ingredient["variants"].values():
+            if is_complex_ingredient(variant):
+                # This is a complex ingredient, we need to create a new process from the elements we have.
+                processes_to_add.append({"code": variant["simple_ingredient_default"]})
+                processes_to_add.append({"code": variant["simple_ingredient_variant"]})
+
     print(
-        f"{len(processes_to_add)} procédés à rajouter provenant de ingredients_base.json (ingrédients complexes)"
+        f"{len(processes_to_add)} procédés construits provenant de ingredients_base.json"
     )
 
     processes_to_export += processes_to_add
@@ -208,16 +200,15 @@ if __name__ == "__main__":
     )
 
     # Export the ingredients.json file
-    ingredients_export_file = "../../../public/data/food/ingredients.json"
-    print(
-        f"Export de {len(ingredient_list)} ingrédients vers {ingredients_export_file}"
-    )
-    export_json(ingredient_list, ingredients_export_file)
+    print(f"Export de {len(ingredient_list)} ingrédients vers {INGREDIENTS}")
+    with open(INGREDIENTS, "w") as outfile:
+        json.dump(ingredient_list, outfile, indent=2, ensure_ascii=False)
+        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes
 
-    processes_export_file = "../../../public/data/food/processes/builder.json"
-    print(f"Export de {len(export)} procédés vers {processes_export_file}")
-    export_json(export, processes_export_file)
-    print("Terminé.")
+    print(f"Export de {len(export)} procédés vers {BUILDER}")
+    with open(BUILDER, "w") as outfile:
+        json.dump(export, outfile, indent=2, ensure_ascii=False)
+        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
