@@ -10,5 +10,6 @@ type alias Request =
     -- - `jsResponseHandler` is an ExpressJS response callback function
     { method : String
     , url : String
+    , body : Maybe String
     , jsResponseHandler : Encode.Value
     }

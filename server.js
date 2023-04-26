@@ -1,5 +1,6 @@
 const fs = require("fs");
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
@@ -99,10 +100,13 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-api.all(/(.*)/, (req, res) => {
+// Note: Text/JSON request body parser (JSON is decoded in Elm)
+api.all(/(.*)/, bodyParser.json({ strict: false }), (req, res) => {
+  console.log(req.body);
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
+    body: req.body,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
