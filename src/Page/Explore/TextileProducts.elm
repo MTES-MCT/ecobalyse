@@ -88,7 +88,7 @@ table db { detailed, scope } =
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.m3 product.endOfLife.volume ]
       }
-    , { label = "Etoffe (type)"
+    , { label = "Etoffe"
       , toCell =
             \product ->
                 case product.fabric of
@@ -97,9 +97,6 @@ table db { detailed, scope } =
 
                     Product.Weaved _ ->
                         text "Tissée"
-      }
-    , { label = "Etoffe (procédé)"
-      , toCell = Product.getFabricProcess >> .name >> withTitle
       }
     , { label = "Duites.m"
       , toCell =

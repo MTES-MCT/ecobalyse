@@ -20,6 +20,7 @@ import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -139,17 +140,21 @@ isKnitted { fabric } =
 
 decodeFabricOptions : List Process -> Decoder FabricOptions
 decodeFabricOptions processes =
-    Decode.field "type" Decode.string
+    Decode.string
         |> Decode.andThen
             (\str ->
                 case String.toLower str of
                     "knitting" ->
-                        Decode.succeed Knitted
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+                        processes
+                            |> Process.findByUuid (Process.Uuid "9c478d79-ff6b-45e1-9396-c3bd897faa1d")
+                            |> DecodeExtra.fromResult
+                            |> Decode.map Knitted
 
                     "weaving" ->
-                        Decode.succeed Weaved
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+                        processes
+                            |> Process.findByUuid (Process.Uuid "f9686809-f55e-4b96-b1f0-3298959de7d0")
+                            |> DecodeExtra.fromResult
+                            |> Decode.map Weaved
 
                     _ ->
                         Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)

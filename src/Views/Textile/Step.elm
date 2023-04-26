@@ -13,6 +13,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -52,6 +53,7 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
+    , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
@@ -171,6 +173,37 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
                         >> updateDyeingMedium
+                    )
+                ]
+        ]
+
+
+knittingProcessField : Config msg -> Html msg
+knittingProcessField { inputs, updateKnittingProcess } =
+    -- Note: This field is only rendered in the detailed step view
+    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
+        , [ Knitting.Mix
+          , Knitting.FullyFashioned
+          , Knitting.Seamless
+          , Knitting.Circular
+          , Knitting.Straight
+          ]
+            |> List.map
+                (\knittingProcess ->
+                    option
+                        [ value <| Knitting.toString knittingProcess
+                        , selected <| inputs.knittingProcess == Just knittingProcess
+                        ]
+                        [ text <| Knitting.toLabel knittingProcess ]
+                )
+            |> select
+                [ id "knitting-process"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (Knitting.fromString
+                        >> Result.withDefault Knitting.Mix
+                        >> updateKnittingProcess
                     )
                 ]
         ]
@@ -327,15 +360,29 @@ reparabilityField { current, updateReparability } =
 
 makingWasteField : Config msg -> Html msg
 makingWasteField { current, inputs, updateMakingWaste } =
+    let
+        processName =
+            if Product.isKnitted inputs.product then
+                inputs.knittingProcess
+                    |> Maybe.withDefault Knitting.Mix
+                    |> Knitting.toString
+
+            else
+                Product.getFabricProcess inputs.product
+                    |> .name
+    in
     span
-        [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
+        [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
         ]
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
-            , disabled = not current.enabled
+            , disabled =
+                not current.enabled
+                    || (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    || (inputs.knittingProcess == Just Knitting.Seamless)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }
@@ -670,7 +717,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.useNonIroning
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
-                , viewProcessInfo current.processInfo.fabric
+                , if current.label == Label.Fabric && Product.isKnitted inputs.product then
+                    knittingProcessField config
+
+                  else
+                    viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
