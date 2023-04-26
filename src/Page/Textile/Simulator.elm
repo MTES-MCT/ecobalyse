@@ -327,7 +327,7 @@ update ({ db, queries, navKey } as session) msg model =
                                         |> Result.toMaybe
 
                                 _ ->
-                                    -- Debug.todo "should be the default product making waste"
+                                    -- Back to the default value
                                     model.simulator
                                         |> Result.map (\simulator -> simulator.inputs.product.making.pcrWaste)
                                         |> Result.toMaybe

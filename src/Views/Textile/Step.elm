@@ -360,15 +360,29 @@ reparabilityField { current, updateReparability } =
 
 makingWasteField : Config msg -> Html msg
 makingWasteField { current, inputs, updateMakingWaste } =
+    let
+        processName =
+            if Product.isKnitted inputs.product then
+                inputs.knittingProcess
+                    |> Maybe.withDefault Knitting.Mix
+                    |> Knitting.toString
+
+            else
+                Product.getFabricProcess inputs.product
+                    |> .name
+    in
     span
-        [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
+        [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
         ]
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
-            , disabled = not current.enabled
+            , disabled =
+                not current.enabled
+                    || (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    || (inputs.knittingProcess == Just Knitting.Seamless)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }
