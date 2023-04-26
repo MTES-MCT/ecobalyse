@@ -46,7 +46,7 @@
     "id": "carrot",
     "name": "Carotte",
     "default": "Carrot conventional national average at farm gate",
-    "default_origin": "France",
+    "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
