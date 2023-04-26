@@ -16,7 +16,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Split as Split exposing (Split)
+import Data.Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource exposing (HeatSource)
@@ -317,20 +317,9 @@ update ({ db, queries, navKey } as session) msg model =
                     { query
                         | knittingProcess = Just knittingProcess
                         , makingWaste =
-                            case knittingProcess of
-                                Knitting.FullyFashioned ->
-                                    Split.fromFloat 0.02
-                                        |> Result.toMaybe
-
-                                Knitting.Seamless ->
-                                    Split.fromFloat 0
-                                        |> Result.toMaybe
-
-                                _ ->
-                                    -- Back to the default value
-                                    model.simulator
-                                        |> Result.map (\simulator -> simulator.inputs.product.making.pcrWaste)
-                                        |> Result.toMaybe
+                            model.simulator
+                                |> Result.map (\simulator -> Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess)
+                                |> Result.toMaybe
                     }
 
         UpdateMakingWaste makingWaste ->

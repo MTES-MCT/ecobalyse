@@ -3,10 +3,12 @@ module Data.Textile.Knitting exposing
     , decode
     , encode
     , fromString
+    , getMakingWaste
     , toLabel
     , toString
     )
 
+import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -51,6 +53,23 @@ fromString string =
 
         _ ->
             Err <| "Procédé de tricotage inconnu: " ++ string
+
+
+getMakingWaste : Split -> Knitting -> Split
+getMakingWaste defaultWaste knitting =
+    case knitting of
+        FullyFashioned ->
+            Split.fromFloat 0.02
+                |> Result.toMaybe
+                |> Maybe.withDefault defaultWaste
+
+        Seamless ->
+            Split.fromFloat 0
+                |> Result.toMaybe
+                |> Maybe.withDefault defaultWaste
+
+        _ ->
+            defaultWaste
 
 
 toLabel : Knitting -> String
