@@ -453,6 +453,9 @@ components:
       in: query
       description: |
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
+
+        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
       schema:
