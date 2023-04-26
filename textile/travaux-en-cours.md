@@ -12,9 +12,9 @@ L'utilisation de la base de données européenne PEF n'est malheureusement pas p
 
 ## Prise en compte de la durabilité des vêtements
 
-Objectif = intégrer les enjeux liés à durée de vie des vêtements.
+Objectif = mieux intégrer les enjeux liés à durée de vie des vêtements.
 
-L'industrie décline généralement la durabilité d'un vêtement entre sa dimension intrinsèque (durabilité physique) et extrinsèque (incitations à l'achat).
+L'industrie décline généralement la durabilité d'un vêtement entre sa dimension intrinsèque (durabilité physique) et extrinsèque (incitations à l'achat). Différents travaux sont actuellement en cours dans l'industrie sur ces sujets (ex : projet Durhabi porté par l'IFTH).
 
 ## Mieux intégrer les enjeux Tox/Ecotox
 
