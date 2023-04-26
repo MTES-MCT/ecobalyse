@@ -304,11 +304,12 @@ $$kWh = 200 * 40  /2/1,08*375/200*0,0003145=2,18$$
 {% tab title="Tricot" %}
 kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
 
-Procédés mobilisés : kWh/kg\
-\- tricotage rectiligne : 1,2 \
-\- tricotage circulaire 1,2\
-\- tricotage fully-fashioned : 1,7\
-\- tricotage seamless : 3,7
+Procédés mobilisés :\
+\- tricotage rectiligne : 1,2 kWh/kg\
+\- tricotage circulaire 1,2 kWh/kg\
+\- tricotage fully-fashioned : 1,7 kWh/kg\
+\- tricotage seamless : 3,7 kWh/kg\
+\- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
 {% endtab %}
 {% endtabs %}
 
@@ -337,7 +338,7 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
 
 #### Métier à tricoter
 
-En l'absence de précision de la part de l'utilisateur, un procédé moyen est appliqué afin d'estimer la consommation d'électricité de l'étape de tricotage (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
+En l'absence de précision de la part de l'utilisateur, un procédé moyen est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
 
 Procédé par défaut = "Tricotage moyen (mix de métiers circulaire & rectiligne)" \
 (UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d)
