@@ -8,6 +8,7 @@ import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Textile.Inputs as TextileInputs
+import Json.Decode as Decode
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Static.Db as StaticDb
@@ -79,7 +80,15 @@ parser { builderDb, textileDb } =
 
 
 endpoint : StaticDb.Db -> Request -> Maybe Endpoint
-endpoint dbs { method, url } =
+endpoint dbs { method, url, body } =
+    -- TODO:
+    let
+        _ =
+            body
+                |> Decode.decodeValue (Decode.field "a" Decode.int)
+                |> Debug.toString
+                |> Debug.log "plop"
+    in
     -- FIXME: rename `url` to `path` and explain that Url.fromString can't build
     -- a Url without a protocol and a hostname
     Url.fromString ("http://x" ++ url)

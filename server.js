@@ -101,8 +101,7 @@ const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
-api.all(/(.*)/, bodyParser.json({ strict: false }), (req, res) => {
-  console.log(req.body);
+api.all(/(.*)/, bodyParser.json(), (req, res) => {
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,

@@ -1,5 +1,6 @@
 module Server.Request exposing (Request)
 
+import Json.Decode as Decode
 import Json.Encode as Encode
 
 
@@ -10,6 +11,6 @@ type alias Request =
     -- - `jsResponseHandler` is an ExpressJS response callback function
     { method : String
     , url : String
-    , body : Maybe String
+    , body : Decode.Value
     , jsResponseHandler : Encode.Value
     }
