@@ -457,7 +457,7 @@ type alias AddProcessConfig msg =
 
 addProcessFormView : AddProcessConfig Msg -> Html Msg
 addProcessFormView { isDisabled, event, kind } =
-    li [ class "list-group-item px-3 py-2" ]
+    li [ class "list-group-item p-0" ]
         [ button
             [ class "btn btn-outline-primary"
             , class "d-flex justify-content-center align-items-center"
@@ -483,7 +483,7 @@ type alias UpdateProcessConfig =
 
 updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
-    li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper list-group-item" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = processQuery.mass
@@ -504,16 +504,20 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 processQuery.code
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
-        , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact ]
-        , button
-            [ type_ "button"
-            , class "btn btn-sm btn-outline-primary IngredientDelete"
-            , title <| "Supprimer "
-            , onClick deleteEvent
-            ]
-            [ Icon.trash ]
+        , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+        , deleteItemButton deleteEvent
         ]
+
+
+deleteItemButton : Msg -> Html Msg
+deleteItemButton event =
+    button
+        [ type_ "button"
+        , class "IngredientDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
+        , title "Supprimer cet ingrédient"
+        , onClick event
+        ]
+        [ Icon.trash ]
 
 
 type alias UpdateIngredientConfig =
@@ -521,13 +525,14 @@ type alias UpdateIngredientConfig =
     , db : Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
+    , index : Int
     , selectedImpact : Impact.Definition
     , transportImpact : Html Msg
     }
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpact, transportImpact } =
+updateIngredientFormView { excluded, db, recipeIngredient, impact, index, selectedImpact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -542,7 +547,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
         event =
             UpdateIngredient recipeIngredient.ingredient.id
     in
-    li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper list-group-item" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = recipeIngredient.mass
@@ -608,7 +613,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                     [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
                 )
             |> select
-                [ class "form-select form-select-sm CountrySelector"
+                [ class "form-select form-select CountrySelector"
                 , onInput
                     (\val ->
                         event
@@ -659,13 +664,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
             [ impact
                 |> Format.formatFoodSelectedImpact selectedImpact
             ]
-        , button
-            [ type_ "button"
-            , class "btn btn-sm btn-outline-primary IngredientDelete"
-            , title "Supprimer "
-            , onClick <| DeleteIngredient ingredientQuery.id
-            ]
-            [ Icon.trash ]
+        , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if shouldRenderBonuses selectedImpact then
             let
                 { bonuses, ingredient } =
@@ -680,7 +679,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Diversité agricole"
                     , title = Nothing
-                    , domId = "agroDiversity"
+                    , domId = "agroDiversity_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroDiversity
                     , bonusSplit = bonuses.agroDiversity
                     , disabled = False
@@ -692,7 +691,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Infra. agro-éco."
                     , title = Just "Infrastructures agro-écologiques"
-                    , domId = "agroEcology"
+                    , domId = "agroEcology_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroEcology
                     , bonusSplit = bonuses.agroEcology
                     , disabled = False
@@ -704,7 +703,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, selectedImpac
                 , ingredientBonusView
                     { name = "Cond. d'élevage"
                     , title = Nothing
-                    , domId = "animalWelfare"
+                    , domId = "animalWelfare_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
                     , disabled = ingredient.category /= IngredientCategory.AnimalProduct
@@ -901,10 +900,13 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "d-flex align-items-center mb-0" ]
+        [ h2 [ class "h5 d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
-                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
+                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing))
+                , title "Explorer"
+                , attribute "aria-label" "Explorer"
+                ]
                 [ Icon.search ]
             ]
         , if shouldRenderBonuses selectedImpact then
@@ -917,14 +919,14 @@ ingredientListView db selectedImpact recipe results =
             results.recipe.ingredientsTotal
                 |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
             [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
 
           else
             recipe.ingredients
-                |> List.map
-                    (\ingredient ->
+                |> List.indexedMap
+                    (\index ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
@@ -935,6 +937,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
+                            , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
@@ -944,7 +947,7 @@ ingredientListView db selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ li [ class "list-group-item" ]
+            ++ [ li [ class "list-group-item p-0" ]
                     [ button
                         [ class "btn btn-outline-primary"
                         , class "d-flex justify-content-center align-items-center"
@@ -972,11 +975,11 @@ packagingListView db selectedImpact recipe results =
             Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Emballage" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
         , results.packaging
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
             [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
 
@@ -1052,7 +1055,10 @@ transportToPackagingView recipe =
             , Recipe.getTransformedIngredientsMass recipe
                 |> Format.kg
             , Link.smallPillExternal
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio)
+                , title "Accéder à la documentation"
+                , attribute "aria-label" "Accéder à la documentation"
+                ]
                 [ Icon.question ]
             ]
         ]
@@ -1120,16 +1126,16 @@ distributionView selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Distribution" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+    , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
             Just distribution ->
-                [ li [ class "IngredientFormWrapper" ]
+                [ li [ class "IngredientFormWrapper list-group-item" ]
                     [ select
-                        [ class "form-select form-select-sm"
+                        [ class "form-select form-select"
                         , onInput UpdateDistribution
                         ]
                         (Retail.all
@@ -1142,23 +1148,14 @@ distributionView selectedImpact recipe results =
                                         [ text (Retail.toDisplay distrib) ]
                                 )
                         )
-                    , span [ class "text-end ImpactDisplay fs-7" ]
-                        [ impact ]
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-sm btn-outline-primary IngredientDelete"
-                        , title <| "Supprimer "
-                        , onClick ResetDistribution
-                        ]
-                        [ Icon.trash ]
+                    , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+                    , deleteItemButton ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7" ]
-                    [ span [ class "text-truncate" ]
-                        [ distribution
-                            |> Retail.displayNeeds
-                            |> text
-                        ]
+                    [ distribution
+                        |> Retail.displayNeeds
+                        |> text
                     ]
                 ]
 
@@ -1176,11 +1173,11 @@ distributionView selectedImpact recipe results =
 consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Consommation" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
         , results.preparation
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
-    , ul [ class "list-group list-group-flush" ]
+    , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
             [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
 
@@ -1188,7 +1185,7 @@ consumptionView db selectedImpact recipe results =
             recipe.preparation
                 |> List.map
                     (\usedPreparation ->
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2" ]
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2 pb-3" ]
                             [ Preparation.all
                                 |> List.sortBy .name
                                 |> List.map
@@ -1201,7 +1198,7 @@ consumptionView db selectedImpact recipe results =
                                             [ text name ]
                                     )
                                 |> select
-                                    [ class "form-select form-select-sm w-50"
+                                    [ class "form-select form-select w-50"
                                     , onInput (Preparation.Id >> UpdatePreparation usedPreparation.id)
                                     ]
                             , span [ class "w-50 text-end" ]
@@ -1213,13 +1210,7 @@ consumptionView db selectedImpact recipe results =
                                         )
                                     |> Result.withDefault (text "N/A")
                                 ]
-                            , button
-                                [ type_ "button"
-                                , class "btn btn-sm btn-outline-primary"
-                                , title <| "Supprimer "
-                                , onClick (DeletePreparation usedPreparation.id)
-                                ]
-                                [ Icon.trash ]
+                            , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
@@ -1253,7 +1244,7 @@ productCategorySelectorView maybeId =
                 [ text "Toutes catégories" ]
             )
         |> select
-            [ class "form-select form-select-sm"
+            [ class "form-select form-select"
             , onInput
                 (\s ->
                     SetCategory
@@ -1319,7 +1310,7 @@ menuView query =
 processSelectorView : Process.Code -> (Process.Code -> msg) -> List Process.Code -> List Process -> Html msg
 processSelectorView selectedCode event excluded processes =
     select
-        [ class "form-select form-select-sm"
+        [ class "form-select form-select"
         , onInput (Process.codeFromString >> event)
         ]
         (processes
@@ -1339,7 +1330,7 @@ processSelectorView selectedCode event excluded processes =
 ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     select
-        [ class "form-select form-select-sm IngredientSelector"
+        [ class "form-select form-select IngredientSelector"
         , onInput
             (\ingredientId ->
                 ingredients
@@ -1427,7 +1418,7 @@ subScoresView { queries } { scoring } =
                 [ div [ class "input-group" ]
                     [ productCategorySelectorView queries.food.category
                     , button
-                        [ class "btn btn-sm btn-info"
+                        [ class "btn btn-info text-white"
                         , title "Afficher un exemple d'étiquette"
                         , onClick (SetModal TagPreviewModal)
                         ]
@@ -1477,19 +1468,19 @@ subScoresView { queries } { scoring } =
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div []
-        [ div [ class "card" ]
+        [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
         , transportToTransformationView impact recipe results
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (transformView db impact recipe results)
         , transportToPackagingView recipe
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (distributionView impact recipe results)
         , transportToConsumptionView recipe
-        , div [ class "card" ]
+        , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
         ]
@@ -1532,36 +1523,37 @@ stepResultsView model results =
         totalImpact =
             toFloat results.total
     in
-    div [ class "card" ]
+    div [ class "card shadow-sm" ]
         [ div [ class "card-header" ] [ text "Détail des postes" ]
-        , stepsData
-            |> List.map
-                (\{ label, impact } ->
-                    let
-                        percent =
-                            if totalImpact /= 0 then
-                                impact / totalImpact * 100
+        , ul [ class "list-group list-group-flush fs-8" ]
+            (stepsData
+                |> List.map
+                    (\{ label, impact } ->
+                        let
+                            percent =
+                                if totalImpact /= 0 then
+                                    impact / totalImpact * 100
 
-                            else
-                                0
-                    in
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
-                        , span [ class "flex-fill w-50" ]
-                            [ div [ class "progress", style "height" "13px" ]
-                                [ div
-                                    [ class "progress-bar"
-                                    , style "width" (String.fromFloat percent ++ "%")
+                                else
+                                    0
+                        in
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                            [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
+                            , span [ class "flex-fill w-50" ]
+                                [ div [ class "progress", style "height" "13px" ]
+                                    [ div
+                                        [ class "progress-bar bg-secondary"
+                                        , style "width" (String.fromFloat percent ++ "%")
+                                        ]
+                                        []
                                     ]
-                                    []
+                                ]
+                            , span [ class "flex-fill text-end", style "min-width" "62px" ]
+                                [ Format.percent percent
                                 ]
                             ]
-                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
-                            [ Format.percent percent
-                            ]
-                        ]
-                )
-            |> ul [ class "list-group list-group-flush fs-7" ]
+                    )
+            )
         ]
 
 
@@ -1573,10 +1565,10 @@ transformView db selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Transformation" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
         , impact
         ]
-    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+    , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of
             Just transform ->
                 updateProcessFormView
@@ -1713,7 +1705,7 @@ tagViewer { scoring } =
                         (\( label, subScore ) ->
                             div [ class "w-100 d-flex justify-content-between align-items-center gap-1 gap-sm-2 gap-md-3 pt-1" ]
                                 [ span
-                                    [ class <| "text-truncate w-100 fs-75 fw-bold ScoreColoredText" ++ subScore.letter ]
+                                    [ class <| "text-truncate w-100 fs-7 fw-bold ScoreColoredText" ++ subScore.letter ]
                                     [ text label ]
                                 , abcdeLetter subScore.letter
                                 ]

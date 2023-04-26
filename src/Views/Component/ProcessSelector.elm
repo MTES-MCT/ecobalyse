@@ -113,7 +113,7 @@ view config =
         , div [ class "col-md-3" ]
             [ button
                 [ type_ "submit"
-                , class "btn btn-primary w-100 text-truncate"
+                , class "btn btn-outline-primary w-100 text-truncate"
                 , disabled (config.selectedProcess == Nothing)
                 , title "Ajouter un ingrédient"
                 ]

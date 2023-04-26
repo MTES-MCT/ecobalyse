@@ -13,6 +13,7 @@ module Views.Format exposing
     , km
     , m3
     , megajoules
+    , minutes
     , percent
     , picking
     , ratio
@@ -20,6 +21,8 @@ module Views.Format exposing
     , splitAsPercentage
     , squareMetters
     , surfaceMass
+    , threadDensity
+    , yarnSize
     )
 
 import Area exposing (Area)
@@ -160,12 +163,22 @@ squareMetters =
 
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
-    Unit.surfaceMassToFloat >> formatRichFloat 0 "g/m²"
+    Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> formatRichFloat 0 "g/m²"
+
+
+threadDensity : Unit.ThreadDensity -> Html msg
+threadDensity (Unit.ThreadDensity density) =
+    density |> formatRichFloat 0 "#/cm"
 
 
 picking : Unit.PickPerMeter -> Html msg
 picking =
-    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
+    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites.m"
+
+
+yarnSize : Unit.YarnSize -> Html msg
+yarnSize =
+    Unit.yarnSizeInKilometers >> toFloat >> formatRichFloat 0 "Nm"
 
 
 ratio : Unit.Ratio -> Html msg
@@ -201,3 +214,8 @@ days =
 hours : Duration -> Html msg
 hours =
     Duration.inHours >> formatRichFloat 2 "h"
+
+
+minutes : Duration -> Html msg
+minutes =
+    Duration.inMinutes >> formatRichFloat 0 "min"

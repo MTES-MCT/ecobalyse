@@ -90,7 +90,8 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -157,7 +158,8 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -195,7 +197,8 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -450,20 +453,20 @@ components:
       in: query
       description: |
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
+
+        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
       schema:
         type: number
         minimum: 0
         maximum: 0.4
-    pickingParam:
-      name: picking
+    yarnSizeParam:
+      name: yarnSize
       in: query
       description: |
-        Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre
-        pour un tissu. Ce paramètre est pris en compte car il est connecté avec la
-        consommation électrique du métier à tisser. À grammage égal, plus le duitage est
-        important, plus la consommation d'électricité est élevée.
+        Titrage du fil exprimé en **numéro métrique** (`Nm`).
 
         **Attention, ce paramètre est uniquement pris en compte pour les produits tissés**
         et inopérant sur les produits tricotés.
@@ -471,8 +474,25 @@ components:
       style: form
       schema:
         type: number
-        minimum: 800
-        maximum: 9000
+        minimum: 9
+        maximum: 200
+    knittingProcessParam:
+      name: knittingProcess
+      in: query
+      description: |
+        Le processus utilisé pour tricoter le tissu, parmis la liste de choix suivants :
+          - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - fully-fashioned : Tricotage fully-fashioned
+          - seamless : Tricotage seamless
+          - circular : Tricotage circulaire, inventaire désagrégé
+          - straight : Tricotage rectiligne, inventaire désagrégé
+
+          **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["mix", "fully-fashioned", "seamless", "circular", "straight"]
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -484,7 +504,7 @@ components:
       style: form
       schema:
         type: number
-        minimum: 30
+        minimum: 80
         maximum: 500
     disabledFadingParam:
       name: disabledFading

@@ -1,5 +1,7 @@
 module Data.Textile.Formula exposing
-    ( dyeingImpacts
+    ( computePicking
+    , computeThreadDensity
+    , dyeingImpacts
     , endOfLifeImpacts
     , finishingImpacts
     , genericWaste
@@ -15,6 +17,7 @@ module Data.Textile.Formula exposing
     , weavingImpacts
     )
 
+import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material exposing (CFFData)
@@ -175,11 +178,10 @@ printingImpacts :
 printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass, ratio } baseMass =
     let
         surface =
-            -- area (m2) = mass (g) / surfaceMass (g/m2)
-            Mass.inGrams baseMass
-                / Unit.surfaceMassToFloat surfaceMass
+            Unit.surfaceMassToSurface surfaceMass baseMass
+                |> Area.inSquareMeters
                 -- Apply ratio
-                |> (\s -> Split.apply s ratio)
+                |> (\surfaceInSquareMeters -> Split.apply surfaceInSquareMeters ratio)
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"
@@ -294,7 +296,12 @@ knittingImpacts :
     Impacts
     -> { elec : Energy, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
 knittingImpacts impacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
@@ -302,6 +309,8 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
+    , threadDensity = Nothing
+    , picking = Nothing
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -315,21 +324,39 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
 weavingImpacts :
     Impacts
     ->
-        { pickingElec : Float
-        , countryElecProcess : Process
-        , picking : Unit.PickPerMeter
+        { countryElecProcess : Process
+        , outputMass : Mass
+        , pickingElec : Float
         , surfaceMass : Unit.SurfaceMass
+        , yarnSize : Unit.YarnSize
         }
-    -> Mass
-    -> { kwh : Energy, impacts : Impacts }
-weavingImpacts impacts { pickingElec, countryElecProcess, picking, surfaceMass } baseMass =
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
+weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } =
+    -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
+        outputSurface =
+            Unit.surfaceMassToSurface surfaceMass outputMass
+
+        threadDensity =
+            computeThreadDensity surfaceMass yarnSize
+
+        picking =
+            computePicking threadDensity outputSurface
+
+        -- Note: pickingElec is expressed in kWh/(pick,m) per kg of material to process (see Base Impacts)
         electricityKWh =
-            (Mass.inKilograms baseMass * 1000 * Unit.pickPerMeterToFloat picking / Unit.surfaceMassToFloat surfaceMass)
-                * pickingElec
+            pickingElec
+                * Unit.pickPerMeterToFloat picking
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
+    , threadDensity = Just threadDensity
+    , picking = Just picking
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -338,6 +365,35 @@ weavingImpacts impacts { pickingElec, countryElecProcess, picking, surfaceMass }
                         |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                 )
     }
+
+
+computeThreadDensity : Unit.SurfaceMass -> Unit.YarnSize -> Unit.ThreadDensity
+computeThreadDensity surfaceMass yarnSize =
+    -- Densité de fils (# fils/cm) = Grammage(g/m2) * Titrage (Nm) / 100 / 2 / wasteRatio
+    let
+        -- Taux d'embuvage/retrait = 8% (valeur constante)
+        wasteRatio =
+            1.08
+    in
+    toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
+        * toFloat (Unit.yarnSizeInKilometers yarnSize)
+        -- the output surface is in (m2) so we would have the threadDensity is in (# fils / m) but we need it in (# fils / cm)
+        / 100
+        -- the thread is weaved horizontally and vertically, so the number of threads along one axis is only half of the total thread length
+        / 2
+        / wasteRatio
+        |> Unit.threadDensity
+
+
+computePicking : Unit.ThreadDensity -> Area -> Unit.PickPerMeter
+computePicking threadDensity outputSurface =
+    -- Duites.m = Densité de fils (# fils / cm) * Surface sortante (m2) * 100
+    Unit.threadDensityToFloat threadDensity
+        * Area.inSquareMeters outputSurface
+        -- threadDensity is in (# fils / cm) but we need it in (# fils / m) to be in par with the output surface in (m2)
+        * 100
+        |> round
+        |> Unit.PickPerMeter
 
 
 useImpacts :

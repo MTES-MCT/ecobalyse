@@ -38,10 +38,10 @@ formSet ({ add, inputs } as config) =
             round (totalShares * 100) == 100
     in
     div [ class "Materials" ]
-        [ div [ class "d-flex align-items-center gap-1 mb-2" ]
+        [ div [ class "d-flex align-items-end gap-1 mb-2" ]
             [ span [ class "fw-bold" ]
                 [ text "Matières premières" ]
-            , span [ class "text-muted" ]
+            , span [ class "text-muted fs-7" ]
                 [ text <| "jusqu'à " ++ String.fromInt Env.maxMaterials ++ " maximum" ]
             ]
         , inputs
@@ -54,8 +54,8 @@ formSet ({ add, inputs } as config) =
                         , valid = valid
                         }
                 )
-            |> div []
-        , div [ class "input-group" ]
+            |> div [ class "d-flex flex-column gap-1" ]
+        , div [ class "input-group mt-1" ]
             [ if length > 1 then
                 span
                     [ class "SharesTotal form-control text-end"
@@ -196,7 +196,7 @@ shareField index { length, valid, selectInputText, update } share =
     [ input
         [ type_ "number"
         , id domId
-        , class "ShareInput form-control bg-white border-end-0 text-end pe-2"
+        , class "ShareInput form-control border-end-0 text-end pe-2"
         , classList
             [ ( "incdec-arrows-left", length > 1 )
             , ( "feedback-invalid", not valid )
@@ -222,7 +222,7 @@ shareField index { length, valid, selectInputText, update } share =
         ]
         []
     , span
-        [ class "input-group-text bg-white ps-0 pe-1 fs-7"
+        [ class "input-group-text px-1 fs-7"
         , classList [ ( "text-danger feedback-invalid", not valid ) ]
         ]
         [ text "%" ]

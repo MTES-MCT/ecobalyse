@@ -13,8 +13,9 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product
+import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
@@ -52,10 +53,11 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
+    , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
-    , updatePicking : Maybe Unit.PickPerMeter -> msg
+    , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
 
 
@@ -152,8 +154,8 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingMediumField : Config msg -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "dyeing-medium" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
         , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
@@ -166,7 +168,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -176,10 +178,41 @@ dyeingMediumField { inputs, updateDyeingMedium } =
         ]
 
 
+knittingProcessField : Config msg -> Html msg
+knittingProcessField { inputs, updateKnittingProcess } =
+    -- Note: This field is only rendered in the detailed step view
+    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
+        , [ Knitting.Mix
+          , Knitting.FullyFashioned
+          , Knitting.Seamless
+          , Knitting.Circular
+          , Knitting.Straight
+          ]
+            |> List.map
+                (\knittingProcess ->
+                    option
+                        [ value <| Knitting.toString knittingProcess
+                        , selected <| inputs.knittingProcess == Just knittingProcess
+                        ]
+                        [ text <| Knitting.toLabel knittingProcess ]
+                )
+            |> select
+                [ id "knitting-process"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (Knitting.fromString
+                        >> Result.withDefault Knitting.Mix
+                        >> updateKnittingProcess
+                    )
+                ]
+        ]
+
+
 printingFields : Config msg -> Html msg
 printingFields { inputs, updatePrinting } =
-    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-25", for "ennobling-printing" ]
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
         , div [ class "d-flex justify-content-between align-items-center gap-1 w-75" ]
             [ [ Printing.Pigment, Printing.Substantive ]
@@ -194,7 +227,7 @@ printingFields { inputs, updatePrinting } =
                 |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
                 |> select
                     [ id "ennobling-printing"
-                    , class "form-select form-select-sm"
+                    , class "form-select form-select"
                     , style "flex" "2"
                     , onInput
                         (\str ->
@@ -228,7 +261,7 @@ printingFields { inputs, updatePrinting } =
                                     [ text <| String.fromFloat percent ++ "%" ]
                             )
                         |> select
-                            [ class "form-select form-select-sm"
+                            [ class "form-select form-select"
                             , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
@@ -327,56 +360,76 @@ reparabilityField { current, updateReparability } =
 
 makingWasteField : Config msg -> Html msg
 makingWasteField { current, inputs, updateMakingWaste } =
+    let
+        processName =
+            if Product.isKnitted inputs.product then
+                inputs.knittingProcess
+                    |> Maybe.withDefault Knitting.Mix
+                    |> Knitting.toString
+
+            else
+                Product.getFabricProcess inputs.product
+                    |> .name
+    in
     span
-        [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
+        [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
         ]
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
-            , disabled = not current.enabled
+            , disabled =
+                not current.enabled
+                    || (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    || (inputs.knittingProcess == Just Knitting.Seamless)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }
         ]
 
 
-pickingField : Config msg -> Unit.PickPerMeter -> Html msg
-pickingField { current, updatePicking } defaultPicking =
+surfaceMassField : Config msg -> Product -> Html msg
+surfaceMassField { current, updateSurfaceMass } product =
     span
-        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
-          , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
-          , "électrique du métier à tisser. À grammage égal, plus le duitage est important,"
-          , "plus la consommation d'électricité est élevée."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.picking
-            { id = "picking"
-            , update = updatePicking
-            , value = Maybe.withDefault defaultPicking current.picking
-            , toString = Step.pickingToString
+        [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
+        [ RangeSlider.surfaceMass
+            { id = "surface-density"
+            , update = updateSurfaceMass
+            , value = current.surfaceMass |> Maybe.withDefault product.surfaceMass
+            , toString = Step.surfaceMassToString
+
+            -- Note: hide for knitted products as surface mass doesn't have any impact on them
             , disabled = not current.enabled
             }
         ]
 
 
-surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
-surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
+yarnSizeField : Config msg -> Product -> Html msg
+yarnSizeField { current, updateYarnSize } product =
+    let
+        yarnSize =
+            product.yarnSize
+                |> Maybe.withDefault Unit.minYarnSize
+    in
     span
-        [ [ "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+        [ [ if Product.isKnitted product then
+                "Désactivé car inopérant sur un produit tricoté."
+
+            else
+                ""
+          , "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
+          , "Cette unité indique un nombre de kilomètres de fil correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
           ]
             |> String.join " "
             |> title
         ]
-        [ RangeSlider.surfaceMass
-            { id = "surface-density"
-            , update = updateSurfaceMass
-            , value = Maybe.withDefault defaultSurfaceMass current.surfaceMass
-            , toString = Step.surfaceMassToString
-            , disabled = not current.enabled
+        [ RangeSlider.yarnSize
+            { id = "yarnSize"
+            , update = updateYarnSize
+            , value = current.yarnSize |> Maybe.withDefault yarnSize
+            , toString = Step.yarnSizeToString
+            , disabled = not current.enabled || Product.isKnitted product
             }
         ]
 
@@ -394,7 +447,7 @@ stepActions : Config msg -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
-            [ class "btn btn-primary py-1 rounded-end"
+            [ class "btn btn-secondary py-1 rounded-end"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
@@ -402,7 +455,7 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
             ]
             [ Icon.question ]
         , Button.docsPill
-            [ class "btn btn-primary py-1 rounded-start"
+            [ class "btn btn-secondary py-1 rounded-start"
             , classList [ ( "btn-secondary", not current.enabled ) ]
             , case viewMode of
                 ViewMode.Simple ->
@@ -435,7 +488,8 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
 stepHeader : Config msg -> Html msg
 stepHeader { current, inputs, toggleStep } =
     label
-        [ class "d-flex align-items-center cursor-pointer gap-2"
+        [ class "d-flex align-items-center gap-2"
+        , class "text-dark cursor-pointer"
         , classList [ ( "text-secondary", not current.enabled ) ]
         , title
             (if current.enabled then
@@ -454,24 +508,27 @@ stepHeader { current, inputs, toggleStep } =
             ]
             []
         , span
-            [ class "StepIcon bg-primary text-white rounded-pill"
-            , classList [ ( "bg-secondary", not current.enabled ) ]
+            [ class "StepIcon rounded-pill"
+            , classList [ ( "bg-secondary text-white", current.enabled ) ]
+            , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
-        , current.label
-            |> Step.displayLabel
-                { knitted = Product.isKnitted inputs.product
-                , fadable = inputs.product.making.fadable
-                }
-            |> text
+        , span [ class "StepLabel" ]
+            [ current.label
+                |> Step.displayLabel
+                    { knitted = Product.isKnitted inputs.product
+                    , fadable = inputs.product.making.fadable
+                    }
+                |> text
+            ]
         ]
 
 
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
-    div [ class "card" ]
-        [ div [ class "card-header" ]
-            [ div [ class "row" ]
+    div [ class "Step card shadow-sm" ]
+        [ div [ class "StepHeader card-header" ]
+            [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col-6" ] [ stepHeader config ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
@@ -485,18 +542,18 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
-                    Label.Fabric ->
-                        div [ class "mt-2 fs-7 text-muted" ]
-                            (case inputs.product.fabric of
-                                Product.Knitted _ ->
-                                    [ surfaceMassField config inputs.product.surfaceMass
-                                    ]
+                    Label.Spinning ->
+                        if Product.isKnitted inputs.product then
+                            text ""
 
-                                Product.Weaved _ defaultPicking ->
-                                    [ pickingField config defaultPicking
-                                    , surfaceMassField config inputs.product.surfaceMass
-                                    ]
-                            )
+                        else
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ yarnSizeField config inputs.product
+                                ]
+
+                    Label.Fabric ->
+                        div [ class "mt-2 fs-7" ]
+                            [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
@@ -547,7 +604,7 @@ viewProcessInfo processName =
     case processName of
         Just name ->
             li
-                [ class "list-group-item text-muted text-truncate"
+                [ class "list-group-item text-truncate"
                 , title name
                 , style "cursor" "help"
                 ]
@@ -564,7 +621,7 @@ daysOfWearInfo inputs =
             inputs.product.use
                 |> Product.customDaysOfWear inputs.quality inputs.reparability
     in
-    small [ class "fs-7 text-muted" ]
+    small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
         , Format.days info.daysOfWear
         , text " portés, "
@@ -593,7 +650,7 @@ ennoblingGenericFields config =
 ennoblingHeatSourceField : Config msg -> Html msg
 ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
         , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
             |> List.map
@@ -610,7 +667,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
                 )
             |> select
                 [ id "ennobling-heat-source"
-                , class "form-select form-select-sm w-75"
+                , class "form-select form-select w-75"
                 , onInput
                     (HeatSource.fromString
                         >> Result.toMaybe
@@ -637,9 +694,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    div [ class "card-group" ]
+    div [ class "Step card-group shadow-sm" ]
         [ div [ class "card" ]
-            [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
                 [ stepHeader config
                 , -- Note: hide on desktop, show on mobile
                   div [ class "d-block d-sm-none" ]
@@ -647,7 +704,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     ]
                 ]
             , infoListElement
-                [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                [ li [ class "list-group-item" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , case current.label of
                     Label.Ennobling ->
@@ -660,7 +717,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.useNonIroning
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
-                , viewProcessInfo current.processInfo.fabric
+                , if current.label == Label.Fabric && Product.isKnitted inputs.product then
+                    knittingProcessField config
+
+                  else
+                    viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
@@ -669,26 +730,26 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     text ""
                 ]
             , div
-                [ class "StepBody card-body py-2 text-muted"
+                [ class "StepBody card-body py-2"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (case current.label of
-                    Label.Fabric ->
-                        case inputs.product.fabric of
-                            Product.Knitted _ ->
-                                [ surfaceMassField config inputs.product.surfaceMass
-                                ]
+                    Label.Spinning ->
+                        if Product.isKnitted inputs.product then
+                            [ text "" ]
 
-                            Product.Weaved _ defaultPicking ->
-                                [ pickingField config defaultPicking
-                                , surfaceMassField config inputs.product.surfaceMass
-                                ]
+                        else
+                            [ yarnSizeField config inputs.product
+                            ]
+
+                    Label.Fabric ->
+                        [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
-                        [ div [ class "text-muted fs-7 mb-2" ]
+                        [ div [ class "fs-7 mb-2" ]
                             [ text "Pré-traitement\u{00A0}: non applicable" ]
                         , ennoblingGenericFields config
-                        , div [ class "text-muted fs-7 mt-2" ]
+                        , div [ class "fs-7 mt-2" ]
                             [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]
 
@@ -710,7 +771,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             ]
         , div
             [ class "card text-center mb-0" ]
-            [ div [ class "card-header d-flex justify-content-end align-items-center text-muted" ]
+            [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold flex-fill" ]
                         [ current.impacts
@@ -726,7 +787,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 [ class "StepBody list-group list-group-flush fs-7"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
-                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                     [ span []
                         [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
                     , span []
@@ -739,7 +800,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                    li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                    li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
@@ -754,26 +815,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
-                , let
-                    surfaceInfo =
-                        if current.label == Label.Fabric then
-                            Just ( "sortante", Step.getOutputSurface inputs current )
-
-                        else if current.label == Label.Ennobling then
-                            Just ( "entrante", Step.getInputSurface inputs current )
-
-                        else
-                            Nothing
-                  in
-                  case surfaceInfo of
-                    Just ( dir, surface ) ->
-                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                            [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                            , span [] [ Format.squareMetters surface ]
-                            ]
-
-                    Nothing ->
-                        text ""
+                , surfaceInfoView inputs current
+                , pickingView current.picking
+                , threadDensityView current.threadDensity
                 , if Transport.totalKm current.transport > 0 then
                     li [ class "list-group-item text-muted" ]
                         [ current.transport
@@ -790,7 +834,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex justify-content-center align-items-center" ]
+                    [ div [ class "d-flex flex-wrap justify-content-center align-items-center" ]
                         (if Transport.totalKm current.transport > 0 then
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
@@ -805,6 +849,73 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             ]
         ]
+
+
+surfaceInfoView : Inputs -> Step -> Html msg
+surfaceInfoView inputs current =
+    let
+        surfaceInfo =
+            if current.label == Label.Fabric then
+                Just ( "sortante", Step.getOutputSurface inputs current )
+
+            else if current.label == Label.Ennobling then
+                Just ( "entrante", Step.getInputSurface inputs current )
+
+            else
+                Nothing
+    in
+    case surfaceInfo of
+        Just ( dir, surface ) ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
+                , span [] [ Format.squareMetters surface ]
+                ]
+
+        Nothing ->
+            text ""
+
+
+pickingView : Maybe Unit.PickPerMeter -> Html msg
+pickingView maybePicking =
+    case maybePicking of
+        Just picking ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ text "Duitage\u{00A0}:\u{00A0}"
+                , picking
+                    |> Unit.pickPerMeterToFloat
+                    |> Format.formatRichFloat 0 "duites.m"
+                ]
+
+        Nothing ->
+            text ""
+
+
+threadDensityView : Maybe Unit.ThreadDensity -> Html msg
+threadDensityView threadDensity =
+    case threadDensity of
+        Just density ->
+            let
+                value =
+                    Unit.threadDensityToFloat density
+            in
+            li [ class "list-group-item text-muted" ]
+                [ span [ class "d-flex justify-content-center gap-2" ]
+                    [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
+                    , value
+                        |> Format.formatRichFloat 0 "fils/cm"
+                    ]
+                , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
+                    text "⚠️ la densité de fils semble très faible"
+
+                  else if round value > Unit.threadDensityToInt Unit.threadDensityHigh then
+                    text "⚠️ la densité de fils semble très élevée"
+
+                  else
+                    text ""
+                ]
+
+        Nothing ->
+            text ""
 
 
 view : Config msg -> Html msg

@@ -21,6 +21,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
 import Data.Textile.Printing exposing (Printing)
@@ -92,17 +93,18 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
+    | UpdateKnittingProcess Knitting
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Split
-    | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
+    | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
 init :
@@ -309,6 +311,17 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
+        UpdateKnittingProcess knittingProcess ->
+            ( model, session, Cmd.none )
+                |> updateQuery
+                    { query
+                        | knittingProcess = Just knittingProcess
+                        , makingWaste =
+                            model.simulator
+                                |> Result.map (\simulator -> Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess)
+                                |> Result.toMaybe
+                    }
+
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
@@ -334,10 +347,6 @@ update ({ db, queries, navKey } as session) msg model =
         UpdateMaterialShare index share ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
-
-        UpdatePicking picking ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | picking = picking }
 
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
@@ -367,6 +376,10 @@ update ({ db, queries, navKey } as session) msg model =
         UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
+
+        UpdateYarnSize yarnSize ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | yarnSize = yarnSize }
 
 
 massField : String -> Html Msg
@@ -435,12 +448,13 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste
-                    , updatePicking = UpdatePicking
                     , updateSurfaceMass = UpdateSurfaceMass
+                    , updateYarnSize = UpdateYarnSize
                     }
             )
         |> Array.toList
@@ -451,22 +465,25 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     let
-        link mode icon label =
+        tab mode icon label =
             a
-                [ classList [ ( "nav-link", True ), ( "active", ViewMode.isActive viewMode mode ) ]
+                [ classList
+                    [ ( "TabsTab nav-link", True )
+                    , ( "active", ViewMode.isActive viewMode mode )
+                    ]
                 , Just query
                     |> Route.TextileSimulator trigram funit mode
                     |> Route.href
                 ]
-                [ span [ class "me-1" ] [ icon ], text label ]
+                [ span [ class "fs-7 me-1" ] [ icon ], text label ]
     in
     nav
-        [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
-        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+        [ class "Tabs nav nav-tabs nav-fill pt-3 bg-white sticky-md-top justify-content-between"
+        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2 mt-2 mb-2 px-3"
         ]
-        [ link ViewMode.Simple Icon.zoomout "Affichage simple"
-        , link ViewMode.DetailedAll Icon.zoomin "Affichage détaillé"
-        , link ViewMode.Dataviz Icon.stats "Visualisations"
+        [ tab ViewMode.Simple Icon.zoomout "Simplifier"
+        , tab ViewMode.DetailedAll Icon.zoomin "Détailler"
+        , tab ViewMode.Dataviz Icon.stats "Visualiser"
         ]
 
 
@@ -474,13 +491,13 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ h1 [] [ text "Simulateur " ]
+            [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-sm-6 mb-2" ]
+                [ div [ class "col-sm-6 mb-3" ]
                     [ productField db inputs.product
                     ]
-                , div [ class "col-sm-6 mb-2" ]
+                , div [ class "col-sm-6 mb-3" ]
                     [ massField model.massInput
                     ]
                 ]

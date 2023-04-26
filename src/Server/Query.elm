@@ -21,6 +21,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -29,6 +30,7 @@ import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 import Url.Parser.Query as Query exposing (Parser)
 
@@ -422,8 +424,9 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (maybePickingParser "picking")
+        |> apply (maybeYarnSize "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
+        |> apply (maybeKnittingProcess "knittingProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "disabledFading")
         |> apply (maybeDyeingMedium "dyeingMedium")
@@ -745,27 +748,28 @@ maybeMakingWasteParser key =
             )
 
 
-maybePickingParser : String -> Parser (ParseResult (Maybe Unit.PickPerMeter))
-maybePickingParser key =
+maybeYarnSize : String -> Parser (ParseResult (Maybe Unit.YarnSize))
+maybeYarnSize key =
     Query.int key
         |> Query.map
             (Maybe.map
                 (\int ->
-                    if
-                        (int < Unit.pickPerMeterToInt Unit.minPickPerMeter)
-                            || (int > Unit.pickPerMeterToInt Unit.maxPickPerMeter)
-                    then
+                    let
+                        yarnSize =
+                            Unit.yarnSizeKilometersPerKg int
+                    in
+                    if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
                         Err
                             ( key
-                            , "Le duitage (picking) doit être compris entre "
-                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                            , "Le titrage (yarnSize) doit être compris entre "
+                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
                                 ++ " et "
-                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
+                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
                                 ++ " duites/m."
                             )
 
                     else
-                        Ok (Just (Unit.pickPerMeter int))
+                        Ok (Just (Unit.yarnSizeKilometersPerKg int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
@@ -777,21 +781,42 @@ maybeSurfaceMassParser key =
         |> Query.map
             (Maybe.map
                 (\int ->
+                    let
+                        surfaceMass =
+                            Unit.gramsPerSquareMeter int
+                    in
                     if
-                        (int < Unit.surfaceMassToInt Unit.minSurfaceMass)
-                            || (int > Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                        (surfaceMass |> Quantity.lessThan Unit.minSurfaceMass)
+                            || (surfaceMass |> Quantity.greaterThan Unit.maxSurfaceMass)
                     then
                         Err
                             ( key
                             , "Le grammage (surfaceMass) doit être compris entre "
-                                ++ String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass)
+                                ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.minSurfaceMass)
                                 ++ " et "
-                                ++ String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                                ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.maxSurfaceMass)
                                 ++ " g/m²."
                             )
 
                     else
-                        Ok (Just (Unit.surfaceMass int))
+                        Ok (Just surfaceMass)
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeKnittingProcess : String -> Parser (ParseResult (Maybe Knitting))
+maybeKnittingProcess key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case Knitting.fromString str of
+                        Ok knittingProcess ->
+                            Ok (Just knittingProcess)
+
+                        Err err ->
+                            Err ( key, err )
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

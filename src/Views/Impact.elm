@@ -25,19 +25,13 @@ qualityDocumentationUrl =
 
 viewDefinition : Impact.Definition -> Html msg
 viewDefinition { source, label, description, quality } =
-    div [ class "ImpactDefinition d-none d-sm-block card shadow-sm text-dark bg-light px-2 py-1 mb-3" ]
-        [ div [ class "row" ]
-            [ div [ class "col-9" ]
-                [ h2 [ class "fs-6 lh-base text-muted fw-bold my-1" ]
-                    [ span [ class "me-1" ] [ Icon.info ]
-                    , text "Impact étudié\u{00A0}: "
-                    , text label
-                    ]
-                ]
-            , div [ class "col-3 text-end" ]
-                (impactQuality quality
-                    ++ [ viewSource source ]
-                )
+    div [ class "ImpactDefinition d-none d-sm-block mb-3" ]
+        [ h2 [ class "d-flex justify-content-between fs-6 lh-base text-muted fw-bold my-1" ]
+            [ text "Impact étudié\u{00A0}: "
+            , text label
+            , impactQuality quality
+                ++ [ viewSource source ]
+                |> span []
             ]
         , div [ class "text-muted fs-7" ]
             [ Markdown.simple [ class "mb-1" ] description ]
@@ -67,7 +61,7 @@ impactQuality quality =
 
                 Impact.AverageQuality ->
                     Just
-                        { cls = "btn-info"
+                        { cls = "bg-info text-white"
                         , icon = Icon.info
                         , label = "II"
                         , help = "Qualité satisfaisante mais nécessitant des améliorations"

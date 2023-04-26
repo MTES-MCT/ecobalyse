@@ -8,8 +8,10 @@ module Data.Textile.Product exposing
     , encodeId
     , findById
     , getFabricProcess
+    , getMakingDurationInMinutes
     , idToString
     , isKnitted
+    , makingComplexityToString
     )
 
 import Data.Split as Split exposing (Split)
@@ -18,6 +20,7 @@ import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -32,13 +35,21 @@ type alias DyeingOptions =
 
 type FabricOptions
     = Knitted Process
-    | Weaved Process Unit.PickPerMeter
+    | Weaved Process
+
+
+type MakingComplexity
+    = High
+    | Medium
+    | Low
 
 
 type alias MakingOptions =
     { process : Process -- Procédé de Confection
     , fadable : Bool -- Can this product be faded?
     , pcrWaste : Split -- PCR product waste ratio
+    , complexity : MakingComplexity -- How complex is this making
+    , durationInMinutes : Duration -- How long does it take
     }
 
 
@@ -64,6 +75,7 @@ type alias Product =
     , name : String
     , mass : Mass
     , surfaceMass : Unit.SurfaceMass
+    , yarnSize : Maybe Unit.YarnSize
     , fabric : FabricOptions
     , dyeing : DyeingOptions
     , making : MakingOptions
@@ -82,8 +94,26 @@ getFabricProcess { fabric } =
         Knitted process ->
             process
 
-        Weaved process _ ->
+        Weaved process ->
             process
+
+
+makingComplexityToString : MakingComplexity -> String
+makingComplexityToString makingComplexity =
+    case makingComplexity of
+        High ->
+            "Elevée"
+
+        Medium ->
+            "Moyenne"
+
+        Low ->
+            "Faible"
+
+
+getMakingDurationInMinutes : Product -> Duration
+getMakingDurationInMinutes =
+    .making >> .durationInMinutes
 
 
 findById : Id -> List Product -> Result String Product
@@ -104,24 +134,27 @@ isKnitted { fabric } =
         Knitted _ ->
             True
 
-        Weaved _ _ ->
+        Weaved _ ->
             False
 
 
 decodeFabricOptions : List Process -> Decoder FabricOptions
 decodeFabricOptions processes =
-    Decode.field "type" Decode.string
+    Decode.string
         |> Decode.andThen
             (\str ->
                 case String.toLower str of
                     "knitting" ->
-                        Decode.succeed Knitted
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+                        processes
+                            |> Process.findByUuid (Process.Uuid "9c478d79-ff6b-45e1-9396-c3bd897faa1d")
+                            |> DecodeExtra.fromResult
+                            |> Decode.map Knitted
 
                     "weaving" ->
-                        Decode.succeed Weaved
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
-                            |> Pipe.required "picking" Unit.decodePickPerMeter
+                        processes
+                            |> Process.findByUuid (Process.Uuid "f9686809-f55e-4b96-b1f0-3298959de7d0")
+                            |> DecodeExtra.fromResult
+                            |> Decode.map Weaved
 
                     _ ->
                         Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
@@ -134,12 +167,34 @@ decodeDyeingOptions =
         (Decode.field "defaultMedium" DyeingMedium.decode)
 
 
+decodeMakingComplexity : Decoder MakingComplexity
+decodeMakingComplexity =
+    Decode.string
+        |> Decode.andThen
+            (\complexityStr ->
+                case complexityStr of
+                    "high" ->
+                        Decode.succeed High
+
+                    "medium" ->
+                        Decode.succeed Medium
+
+                    "low" ->
+                        Decode.succeed Low
+
+                    str ->
+                        Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
+            )
+
+
 decodeMakingOptions : List Process -> Decoder MakingOptions
 decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
+        |> Pipe.required "complexity" decodeMakingComplexity
+        |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -168,6 +223,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+        |> Pipe.required "yarnSize" (Decode.maybe Unit.decodeYarnSize)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" (decodeMakingOptions processes)
@@ -189,11 +245,10 @@ encodeFabricOptions v =
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 ]
 
-        Weaved process picking ->
+        Weaved process ->
             Encode.object
                 [ ( "type", Encode.string "weaving" )
                 , ( "processUuid", Process.encodeUuid process.uuid )
-                , ( "picking", Unit.encodePickPerMeter picking )
                 ]
 
 
@@ -203,6 +258,8 @@ encodeMakingOptions v =
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
+        , ( "complexity", Encode.string (makingComplexityToString v.complexity) )
+        , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 
 

@@ -339,6 +339,7 @@ textileEndpoints db =
           , "product=notAProductID"
           , "material=notAnID"
           , "materials[]=notAnID"
+          , "knittingProcess=notAKnittingProcess"
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
@@ -348,6 +349,7 @@ textileEndpoints db =
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "ennoblingHeatSource=yolo"
+          , "yarnSize=0"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -359,13 +361,15 @@ textileEndpoints db =
                     , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
-                    , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 g/m²." )
+                    , ( "knittingProcess", "Procédé de tricotage inconnu: notAKnittingProcess" )
+                    , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 80 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
+                    , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 duites/m." )
                     ]
                     |> Just
                 )

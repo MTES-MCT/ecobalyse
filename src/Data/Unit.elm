@@ -6,40 +6,44 @@ module Data.Unit exposing
     , Quality(..)
     , Ratio(..)
     , Reparability(..)
-    , SurfaceMass(..)
+    , SurfaceMass
+    , ThreadDensity(..)
+    , YarnSize
     , decodeImpact
-    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
     , decodeSurfaceMass
+    , decodeYarnSize
     , encodeImpact
     , encodePickPerMeter
     , encodeQuality
     , encodeReparability
     , encodeSurfaceMass
+    , encodeThreadDensity
+    , encodeYarnSize
     , forKWh
     , forKg
     , forKgAndDistance
     , forMJ
     , functionalToSlug
     , functionalToString
+    , gramsPerSquareMeter
     , impact
     , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
-    , maxPickPerMeter
     , maxQuality
     , maxReparability
     , maxSurfaceMass
-    , minPickPerMeter
+    , maxYarnSize
     , minQuality
     , minReparability
     , minSurfaceMass
+    , minYarnSize
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
-    , pickPerMeterToInt
     , quality
     , qualityToFloat
     , ratio
@@ -51,11 +55,18 @@ module Data.Unit exposing
     , reparabilityToFloat
     , standardQuality
     , standardReparability
-    , surfaceMass
-    , surfaceMassToFloat
-    , surfaceMassToInt
+    , surfaceMassInGramsPerSquareMeters
+    , surfaceMassToSurface
+    , threadDensity
+    , threadDensityHigh
+    , threadDensityLow
+    , threadDensityToFloat
+    , threadDensityToInt
+    , yarnSizeInKilometers
+    , yarnSizeKilometersPerKg
     )
 
+import Area exposing (Area)
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -264,21 +275,112 @@ encodeReparability (Reparability float) =
 
 
 
+-- Yarn size (Titrage): combien de kilomètres de fil dans 1kg de matière. 50Nm : 50km de fil pèsent 1kg.
+
+
+type alias YarnSize =
+    Quantity Float (Quantity.Rate Length.Meters Mass.Kilograms)
+
+
+yarnSizeKilometersPerKg : Int -> YarnSize
+yarnSizeKilometersPerKg kilometers =
+    Quantity.rate (Length.kilometers (toFloat kilometers)) Mass.kilogram
+
+
+minYarnSize : YarnSize
+minYarnSize =
+    yarnSizeKilometersPerKg 9
+
+
+maxYarnSize : YarnSize
+maxYarnSize =
+    yarnSizeKilometersPerKg 200
+
+
+yarnSizeInKilometers : YarnSize -> Int
+yarnSizeInKilometers yarnSize =
+    Quantity.at yarnSize Mass.kilogram
+        |> Length.inKilometers
+        |> round
+
+
+encodeYarnSize : YarnSize -> Encode.Value
+encodeYarnSize yarnSize =
+    yarnSize
+        |> yarnSizeInKilometers
+        |> Encode.int
+
+
+decodeYarnSize : Decoder YarnSize
+decodeYarnSize =
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                let
+                    yarnSize =
+                        yarnSizeKilometersPerKg int
+                in
+                if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
+                    Decode.fail
+                        ("Le titrage spécifié ("
+                            ++ String.fromInt int
+                            ++ ") doit être compris entre "
+                            ++ String.fromInt (yarnSizeInKilometers minYarnSize)
+                            ++ " et "
+                            ++ String.fromInt (yarnSizeInKilometers maxYarnSize)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map yarnSizeKilometersPerKg
+
+
+
+-- Thread density (Densité de fils)
+
+
+type ThreadDensity
+    = ThreadDensity Float
+
+
+encodeThreadDensity : ThreadDensity -> Encode.Value
+encodeThreadDensity (ThreadDensity float) =
+    Encode.float float
+
+
+threadDensity : Float -> ThreadDensity
+threadDensity =
+    ThreadDensity
+
+
+threadDensityLow : ThreadDensity
+threadDensityLow =
+    threadDensity 10
+
+
+threadDensityHigh : ThreadDensity
+threadDensityHigh =
+    threadDensity 80
+
+
+threadDensityToInt : ThreadDensity -> Int
+threadDensityToInt (ThreadDensity float) =
+    round float
+
+
+threadDensityToFloat : ThreadDensity -> Float
+threadDensityToFloat (ThreadDensity float) =
+    float
+
+
+
 -- Picking (Duitage)
 
 
 type PickPerMeter
     = PickPerMeter Int
-
-
-minPickPerMeter : PickPerMeter
-minPickPerMeter =
-    PickPerMeter 800
-
-
-maxPickPerMeter : PickPerMeter
-maxPickPerMeter =
-    PickPerMeter 9000
 
 
 pickPerMeter : Int -> PickPerMeter
@@ -291,33 +393,6 @@ pickPerMeterToFloat (PickPerMeter int) =
     toFloat int
 
 
-pickPerMeterToInt : PickPerMeter -> Int
-pickPerMeterToInt (PickPerMeter int) =
-    int
-
-
-decodePickPerMeter : Decoder PickPerMeter
-decodePickPerMeter =
-    Decode.int
-        |> Decode.andThen
-            (\int ->
-                if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
-                    Decode.fail
-                        ("Le duitage spécifié ("
-                            ++ String.fromInt int
-                            ++ ") doit être compris entre "
-                            ++ String.fromInt (pickPerMeterToInt minPickPerMeter)
-                            ++ " et "
-                            ++ String.fromInt (pickPerMeterToInt maxPickPerMeter)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
-        |> Decode.map pickPerMeter
-
-
 encodePickPerMeter : PickPerMeter -> Encode.Value
 encodePickPerMeter (PickPerMeter int) =
     Encode.int int
@@ -327,33 +402,36 @@ encodePickPerMeter (PickPerMeter int) =
 -- SurfaceMass (Grammage, ou masse surfacique)
 
 
-type SurfaceMass
-    = SurfaceMass Int
+type alias SurfaceMass =
+    Quantity Float (Quantity.Rate Mass.Kilograms Area.SquareMeters)
+
+
+gramsPerSquareMeter : Int -> SurfaceMass
+gramsPerSquareMeter int =
+    Quantity.rate (Mass.grams (toFloat int)) Area.squareMeter
+
+
+surfaceMassInGramsPerSquareMeters : SurfaceMass -> Int
+surfaceMassInGramsPerSquareMeters surfaceMass =
+    Quantity.at surfaceMass Area.squareMeter
+        |> Mass.inGrams
+        |> round
+
+
+surfaceMassToSurface : SurfaceMass -> Mass -> Area
+surfaceMassToSurface surfaceMass mass =
+    -- Given a g/m2 and an input mass, return the area in m2
+    Quantity.at_ surfaceMass mass
 
 
 minSurfaceMass : SurfaceMass
 minSurfaceMass =
-    SurfaceMass 30
+    gramsPerSquareMeter 80
 
 
 maxSurfaceMass : SurfaceMass
 maxSurfaceMass =
-    SurfaceMass 500
-
-
-surfaceMass : Int -> SurfaceMass
-surfaceMass =
-    SurfaceMass
-
-
-surfaceMassToFloat : SurfaceMass -> Float
-surfaceMassToFloat (SurfaceMass int) =
-    toFloat int
-
-
-surfaceMassToInt : SurfaceMass -> Int
-surfaceMassToInt (SurfaceMass int) =
-    int
+    gramsPerSquareMeter 500
 
 
 decodeSurfaceMass : Decoder SurfaceMass
@@ -361,26 +439,30 @@ decodeSurfaceMass =
     Decode.int
         |> Decode.andThen
             (\int ->
-                if int < surfaceMassToInt minSurfaceMass || int > surfaceMassToInt maxSurfaceMass then
+                let
+                    surfaceMass =
+                        gramsPerSquareMeter int
+                in
+                if (surfaceMass |> Quantity.lessThan minSurfaceMass) || (surfaceMass |> Quantity.greaterThan maxSurfaceMass) then
                     Decode.fail
                         ("La masse surfacique spécifiée ("
                             ++ String.fromInt int
                             ++ ") doit être comprise entre "
-                            ++ String.fromInt (surfaceMassToInt minSurfaceMass)
+                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters minSurfaceMass)
                             ++ " et "
-                            ++ String.fromInt (surfaceMassToInt maxSurfaceMass)
+                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters maxSurfaceMass)
                             ++ "."
                         )
 
                 else
                     Decode.succeed int
             )
-        |> Decode.map surfaceMass
+        |> Decode.map gramsPerSquareMeter
 
 
 encodeSurfaceMass : SurfaceMass -> Encode.Value
-encodeSurfaceMass (SurfaceMass int) =
-    Encode.int int
+encodeSurfaceMass surfaceMass =
+    Encode.int (surfaceMassInGramsPerSquareMeters surfaceMass)
 
 
 

@@ -40,20 +40,20 @@ type ActiveTab
 view : ManagerConfig msg -> Html msg
 view ({ activeTab, switchTab } as config) =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ]
+        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ [ ( SaveTab, "Sauvegarder" ), ( ShareTab, "Partager" ) ]
                 |> List.map
                     (\( tab, label ) ->
-                        li [ class "nav-item" ]
+                        li [ class "TabsTab nav-item", classList [ ( "active", activeTab == tab ) ] ]
                             [ button
-                                [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
+                                [ class "nav-link no-outline border-top-0"
                                 , classList [ ( "active", activeTab == tab ) ]
                                 , onClick <| switchTab tab
                                 ]
                                 [ text label ]
                             ]
                     )
-                |> ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
+                |> ul [ class "Tabs nav nav-tabs justify-content-end gap-2 px-3" ]
             ]
         , case activeTab of
             ShareTab ->
