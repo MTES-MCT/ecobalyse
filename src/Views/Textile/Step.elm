@@ -373,29 +373,34 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
             [ abbr [ title "Complexité de la confection" ] [ text "Complex" ]
             , inlineDocumentationLink config Gitbook.TextileMakingComplexity
             ]
-        , [ MakingComplexity.VeryHigh
-          , MakingComplexity.High
-          , MakingComplexity.Medium
-          , MakingComplexity.Low
-          , MakingComplexity.VeryLow
-          ]
-            |> List.map
-                (\complexity ->
-                    option
-                        [ value <| MakingComplexity.toString complexity
-                        , selected <| complexity == makingComplexity
-                        ]
-                        [ text <| MakingComplexity.toLabel complexity ]
-                )
-            |> select
-                [ id "making-complexity"
-                , class "form-select form-select-sm w-75"
-                , onInput
-                    (MakingComplexity.fromString
-                        >> Result.withDefault inputs.product.making.complexity
-                        >> updateMakingComplexity
+        , if inputs.knittingProcess == Just Knitting.Seamless then
+            text "Non applicable"
+
+          else
+            [ MakingComplexity.VeryHigh
+            , MakingComplexity.High
+            , MakingComplexity.Medium
+            , MakingComplexity.Low
+            , MakingComplexity.VeryLow
+            ]
+                |> List.map
+                    (\complexity ->
+                        option
+                            [ value <| MakingComplexity.toString complexity
+                            , selected <| complexity == makingComplexity
+                            ]
+                            [ text <| MakingComplexity.toLabel complexity ]
                     )
-                ]
+                |> select
+                    [ id "making-complexity"
+                    , class "form-select form-select-sm w-75"
+                    , disabled (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    , onInput
+                        (MakingComplexity.fromString
+                            >> Result.withDefault inputs.product.making.complexity
+                            >> updateMakingComplexity
+                        )
+                    ]
         ]
 
 
