@@ -425,6 +425,7 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
+        |> apply (maybeMakingComplexityParser "makingComplexity")
         |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeKnittingProcess "knittingProcess")
@@ -721,6 +722,23 @@ maybeReparabilityParser key =
 
                     else
                         Ok (Just (Unit.reparability float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeMakingComplexityParser : String -> Parser (ParseResult (Maybe Product.MakingComplexity))
+maybeMakingComplexityParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case Product.makingComplexityFromString str of
+                        Ok printing ->
+                            Ok (Just printing)
+
+                        Err err ->
+                            Err ( key, err )
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

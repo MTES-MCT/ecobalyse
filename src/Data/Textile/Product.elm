@@ -13,6 +13,7 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
+    , makingComplexityFromString
     , makingComplexityToLabel
     , makingComplexityToString
     )
@@ -141,6 +142,28 @@ makingComplexityToString makingComplexity =
             "very-low"
 
 
+makingComplexityFromString : String -> Result String MakingComplexity
+makingComplexityFromString str =
+    case str of
+        "very-high" ->
+            Ok VeryHigh
+
+        "high" ->
+            Ok High
+
+        "medium" ->
+            Ok Medium
+
+        "low" ->
+            Ok Low
+
+        "very-low" ->
+            Ok VeryLow
+
+        _ ->
+            Err ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
+
+
 getMakingDurationInMinutes : Product -> Duration
 getMakingDurationInMinutes =
     .making >> .durationInMinutes
@@ -202,24 +225,7 @@ decodeMakingComplexity =
     Decode.string
         |> Decode.andThen
             (\complexityStr ->
-                case complexityStr of
-                    "very-high" ->
-                        Decode.succeed VeryHigh
-
-                    "high" ->
-                        Decode.succeed High
-
-                    "medium" ->
-                        Decode.succeed Medium
-
-                    "low" ->
-                        Decode.succeed Low
-
-                    "very-low" ->
-                        Decode.succeed VeryLow
-
-                    str ->
-                        Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
+                DecodeExtra.fromResult (makingComplexityFromString complexityStr)
             )
 
 
