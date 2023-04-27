@@ -90,6 +90,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -158,6 +159,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -197,6 +199,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -455,6 +458,7 @@ components:
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
 
         **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+
         **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
@@ -462,6 +466,25 @@ components:
         type: number
         minimum: 0
         maximum: 0.4
+    makingComplexityParam:
+      name: makingComplexity
+      in: query
+      description: |
+        Complexité de la confection, parmi la liste de choix suivants :
+          - very-high : très élevée
+          - high : élevée
+          - medium : moyenne
+          - low : faible
+          - very-low : très faible
+
+        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: very-low).**
+
+        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["very-high", "high", "medium", "low", "very-low"]
     yarnSizeParam:
       name: yarnSize
       in: query
@@ -485,7 +508,7 @@ components:
       name: knittingProcess
       in: query
       description: |
-        Le processus utilisé pour tricoter le tissu, parmis la liste de choix suivants :
+        Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
           - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
           - fully-fashioned : Tricotage fully-fashioned
           - seamless : Tricotage seamless
