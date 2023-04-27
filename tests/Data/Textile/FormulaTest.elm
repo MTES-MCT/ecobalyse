@@ -60,11 +60,8 @@ suite =
             ]
         , describe "Formula.makingWaste"
             [ kg 1
-                |> Formula.makingWaste
-                    { processWaste = kg 0.5
-                    , pcrWaste = Split.half
-                    }
-                |> Expect.equal { mass = kg 3, waste = kg 2 }
+                |> Formula.makingWaste Split.half
+                |> Expect.equal { mass = kg 2, waste = kg 1 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
         , describe "Formula.makingImpact"
@@ -73,11 +70,7 @@ suite =
                     kg 1
                         |> Formula.makingImpacts
                             defaultImpacts
-                            { makingProcess =
-                                { noOpProcess
-                                    | elec = Energy.megajoules 0.5
-                                }
-                            , makingComplexity = MakingComplexity.Medium
+                            { makingComplexity = MakingComplexity.Medium
                             , fadingProcess = Nothing
                             , countryElecProcess =
                                 { noOpProcess

@@ -39,8 +39,7 @@ type FabricOptions
 
 
 type alias MakingOptions =
-    { process : Process -- Procédé de Confection
-    , fadable : Bool -- Can this product be faded?
+    { fadable : Bool -- Can this product be faded?
     , pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
     , durationInMinutes : Duration -- How long does it take
@@ -150,10 +149,9 @@ decodeDyeingOptions =
         (Decode.field "defaultMedium" DyeingMedium.decode)
 
 
-decodeMakingOptions : List Process -> Decoder MakingOptions
-decodeMakingOptions processes =
+decodeMakingOptions : Decoder MakingOptions
+decodeMakingOptions =
     Decode.succeed MakingOptions
-        |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" MakingComplexity.decode
@@ -189,7 +187,7 @@ decode processes =
         |> Pipe.required "yarnSize" (Decode.maybe Unit.decodeYarnSize)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
-        |> Pipe.required "making" (decodeMakingOptions processes)
+        |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions
 
@@ -218,8 +216,7 @@ encodeFabricOptions v =
 encodeMakingOptions : MakingOptions -> Encode.Value
 encodeMakingOptions v =
     Encode.object
-        [ ( "processUuid", Process.encodeUuid v.process.uuid )
-        , ( "fadable", Encode.bool v.fadable )
+        [ ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
         , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
