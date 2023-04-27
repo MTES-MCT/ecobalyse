@@ -141,7 +141,7 @@ table db { detailed, scope } =
                 text <| DyeingMedium.toLabel dyeing.defaultMedium
       }
     , { label = "Confection (complexité)"
-      , toCell = .making >> .complexity >> Product.makingComplexityToString >> text
+      , toCell = .making >> .complexity >> Product.makingComplexityToLabel >> text
       }
     , { label = "Confection (# minutes)"
       , toCell =

@@ -1,9 +1,11 @@
 module Data.Textile.Product exposing
     ( FabricOptions(..)
     , Id(..)
+    , MakingComplexity(..)
     , Product
     , customDaysOfWear
     , decodeList
+    , decodeMakingComplexity
     , encode
     , encodeId
     , findById
@@ -11,6 +13,7 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
+    , makingComplexityToLabel
     , makingComplexityToString
     )
 
@@ -39,9 +42,11 @@ type FabricOptions
 
 
 type MakingComplexity
-    = High
+    = VeryHigh
+    | High
     | Medium
     | Low
+    | VeryLow
 
 
 type alias MakingOptions =
@@ -98,9 +103,12 @@ getFabricProcess { fabric } =
             process
 
 
-makingComplexityToString : MakingComplexity -> String
-makingComplexityToString makingComplexity =
+makingComplexityToLabel : MakingComplexity -> String
+makingComplexityToLabel makingComplexity =
     case makingComplexity of
+        VeryHigh ->
+            "Très élevée"
+
         High ->
             "Elevée"
 
@@ -109,6 +117,28 @@ makingComplexityToString makingComplexity =
 
         Low ->
             "Faible"
+
+        VeryLow ->
+            "Très faible"
+
+
+makingComplexityToString : MakingComplexity -> String
+makingComplexityToString makingComplexity =
+    case makingComplexity of
+        VeryHigh ->
+            "very-high"
+
+        High ->
+            "high"
+
+        Medium ->
+            "medium"
+
+        Low ->
+            "low"
+
+        VeryLow ->
+            "very-low"
 
 
 getMakingDurationInMinutes : Product -> Duration
@@ -173,6 +203,9 @@ decodeMakingComplexity =
         |> Decode.andThen
             (\complexityStr ->
                 case complexityStr of
+                    "very-high" ->
+                        Decode.succeed VeryHigh
+
                     "high" ->
                         Decode.succeed High
 
@@ -181,6 +214,9 @@ decodeMakingComplexity =
 
                     "low" ->
                         Decode.succeed Low
+
+                    "very-low" ->
+                        Decode.succeed VeryLow
 
                     str ->
                         Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
