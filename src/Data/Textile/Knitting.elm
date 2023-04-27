@@ -57,13 +57,8 @@ fromString string =
             Err <| "Procédé de tricotage inconnu: " ++ string
 
 
-getMakingComplexity : Maybe MakingComplexity -> MakingComplexity -> Knitting -> MakingComplexity
-getMakingComplexity makingComplexity productDefaultMakingComplexity knitting =
-    let
-        defaultMakingComplexity =
-            makingComplexity
-                |> Maybe.withDefault productDefaultMakingComplexity
-    in
+getMakingComplexity : MakingComplexity -> Knitting -> MakingComplexity
+getMakingComplexity productDefaultMakingComplexity knitting =
     case knitting of
         FullyFashioned ->
             MakingComplexity.VeryLow
@@ -72,29 +67,24 @@ getMakingComplexity makingComplexity productDefaultMakingComplexity knitting =
             MakingComplexity.NotApplicable
 
         _ ->
-            defaultMakingComplexity
+            productDefaultMakingComplexity
 
 
-getMakingWaste : Maybe Split -> Split -> Knitting -> Split
-getMakingWaste makingWaste productDefaultWaste knitting =
-    let
-        defaultWaste =
-            makingWaste
-                |> Maybe.withDefault productDefaultWaste
-    in
+getMakingWaste : Split -> Knitting -> Split
+getMakingWaste productDefaultWaste knitting =
     case knitting of
         FullyFashioned ->
             Split.fromFloat 0.02
                 |> Result.toMaybe
-                |> Maybe.withDefault defaultWaste
+                |> Maybe.withDefault productDefaultWaste
 
         Seamless ->
             Split.fromFloat 0
                 |> Result.toMaybe
-                |> Maybe.withDefault defaultWaste
+                |> Maybe.withDefault productDefaultWaste
 
         _ ->
-            defaultWaste
+            productDefaultWaste
 
 
 toLabel : Knitting -> String

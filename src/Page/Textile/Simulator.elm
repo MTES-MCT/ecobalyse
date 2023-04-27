@@ -322,14 +322,14 @@ update ({ db, queries, navKey } as session) msg model =
                             model.simulator
                                 |> Result.map
                                     (\simulator ->
-                                        Knitting.getMakingWaste simulator.inputs.makingWaste simulator.inputs.product.making.pcrWaste knittingProcess
+                                        Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess
                                     )
                                 |> Result.toMaybe
                         , makingComplexity =
                             model.simulator
                                 |> Result.map
                                     (\simulator ->
-                                        Knitting.getMakingComplexity simulator.inputs.makingComplexity simulator.inputs.product.making.complexity knittingProcess
+                                        Knitting.getMakingComplexity simulator.inputs.product.making.complexity knittingProcess
                                     )
                                 |> Result.toMaybe
                     }
