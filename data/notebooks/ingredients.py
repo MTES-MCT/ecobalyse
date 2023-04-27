@@ -107,7 +107,7 @@ w_name = ipywidgets.Text(
     style=style,
 )
 ## brightway code of the ingredient process
-w_search = ipywidgets.Text(placeholder="tomat* FR farm", style=style)
+w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
 w_default = ipywidgets.Select(
     rows=1,
     options=[""],
@@ -169,7 +169,7 @@ w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
 
 # fields for (hardcoded) variants
 ## code of the organic process if any
-w_organic_search = ipywidgets.Text(placeholder="tomat* organic", style=style)
+w_organic_search = ipywidgets.Text(placeholder="flour organic", style=style)
 w_organic_process = ipywidgets.Select(
     options=[""],
     rows=1,
@@ -185,7 +185,7 @@ w_organic_ratio = ipywidgets.BoundedFloatText(
     step=0.05,
     style=style,
 )
-w_organic_default_search = ipywidgets.Text(placeholder="flour conventio*", style=style)
+w_organic_default_search = ipywidgets.Text(placeholder="wheat conventio*", style=style)
 w_organic_simple_ingredient_default = ipywidgets.Select(
     options=[""],
     rows=1,
@@ -193,7 +193,7 @@ w_organic_simple_ingredient_default = ipywidgets.Select(
     disabled=True,
     layout=ipywidgets.Layout(width="auto"),
 )
-w_organic_variant_search = ipywidgets.Text(placeholder="flour organic", style=style)
+w_organic_variant_search = ipywidgets.Text(placeholder="wheat organic", style=style)
 w_organic_simple_ingredient_variant = ipywidgets.Select(
     style=style,
     options=[""],
