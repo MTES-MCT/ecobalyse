@@ -360,7 +360,7 @@ reparabilityField { current, updateReparability } =
 
 
 makingComplexityField : Config msg -> Html msg
-makingComplexityField { inputs, updateMakingComplexity } =
+makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     -- Note: This field is only rendered in the detailed step view
     let
         makingComplexity =
@@ -368,7 +368,10 @@ makingComplexityField { inputs, updateMakingComplexity } =
                 |> Maybe.withDefault inputs.product.making.complexity
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
+        [ label [ class "text-nowrap w-25", for "making-complexity" ]
+            [ abbr [ title "Complexité de la confection" ] [ text "Complex" ]
+            , inlineDocumentationLink config Gitbook.TextileMakingComplexity
+            ]
         , [ Product.VeryHigh
           , Product.High
           , Product.Medium
