@@ -22,6 +22,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -727,13 +728,13 @@ maybeReparabilityParser key =
             )
 
 
-maybeMakingComplexityParser : String -> Parser (ParseResult (Maybe Product.MakingComplexity))
+maybeMakingComplexityParser : String -> Parser (ParseResult (Maybe MakingComplexity))
 maybeMakingComplexityParser key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\str ->
-                    case Product.makingComplexityFromString str of
+                    case MakingComplexity.fromString str of
                         Ok printing ->
                             Ok (Just printing)
 

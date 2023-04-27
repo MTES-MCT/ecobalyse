@@ -20,9 +20,9 @@ module Data.Textile.Formula exposing
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material exposing (CFFData)
 import Data.Textile.Process as Process exposing (Process)
-import Data.Textile.Product as Product
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration
@@ -241,7 +241,7 @@ makingImpacts :
     Impacts
     ->
         { makingProcess : Process
-        , makingComplexity : Product.MakingComplexity
+        , makingComplexity : MakingComplexity
         , fadingProcess : Maybe Process
         , countryElecProcess : Process
         , countryHeatProcess : Process
@@ -271,7 +271,7 @@ makingImpacts impacts { makingComplexity, fadingProcess, countryElecProcess, cou
             Energy.kilowattHours 0.029
 
         elec =
-            Quantity.multiplyBy (Product.makingComplexityToDuration makingComplexity |> Duration.inMinutes) kWhPerMinute
+            Quantity.multiplyBy (MakingComplexity.toDuration makingComplexity |> Duration.inMinutes) kWhPerMinute
     in
     { kwh = Quantity.sum [ elec, fadingElec ]
     , heat = fadingHeat

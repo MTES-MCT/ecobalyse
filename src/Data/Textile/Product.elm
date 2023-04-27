@@ -1,11 +1,9 @@
 module Data.Textile.Product exposing
     ( FabricOptions(..)
     , Id(..)
-    , MakingComplexity(..)
     , Product
     , customDaysOfWear
     , decodeList
-    , decodeMakingComplexity
     , encode
     , encodeId
     , findById
@@ -13,14 +11,11 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
-    , makingComplexityFromString
-    , makingComplexityToDuration
-    , makingComplexityToLabel
-    , makingComplexityToString
     )
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -41,14 +36,6 @@ type alias DyeingOptions =
 type FabricOptions
     = Knitted Process
     | Weaved Process
-
-
-type MakingComplexity
-    = VeryHigh
-    | High
-    | Medium
-    | Low
-    | VeryLow
 
 
 type alias MakingOptions =
@@ -105,90 +92,11 @@ getFabricProcess { fabric } =
             process
 
 
-makingComplexityToDuration : MakingComplexity -> Duration
-makingComplexityToDuration makingComplexity =
-    case makingComplexity of
-        VeryHigh ->
-            Duration.minutes 120
-
-        High ->
-            Duration.minutes 60
-
-        Medium ->
-            Duration.minutes 30
-
-        Low ->
-            Duration.minutes 15
-
-        VeryLow ->
-            Duration.minutes 5
-
-
-makingComplexityToLabel : MakingComplexity -> String
-makingComplexityToLabel makingComplexity =
-    case makingComplexity of
-        VeryHigh ->
-            "Très élevée"
-
-        High ->
-            "Elevée"
-
-        Medium ->
-            "Moyenne"
-
-        Low ->
-            "Faible"
-
-        VeryLow ->
-            "Très faible"
-
-
-makingComplexityToString : MakingComplexity -> String
-makingComplexityToString makingComplexity =
-    case makingComplexity of
-        VeryHigh ->
-            "very-high"
-
-        High ->
-            "high"
-
-        Medium ->
-            "medium"
-
-        Low ->
-            "low"
-
-        VeryLow ->
-            "very-low"
-
-
-makingComplexityFromString : String -> Result String MakingComplexity
-makingComplexityFromString str =
-    case str of
-        "very-high" ->
-            Ok VeryHigh
-
-        "high" ->
-            Ok High
-
-        "medium" ->
-            Ok Medium
-
-        "low" ->
-            Ok Low
-
-        "very-low" ->
-            Ok VeryLow
-
-        _ ->
-            Err ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
-
-
 getMakingDurationInMinutes : Product -> Duration
 getMakingDurationInMinutes =
     .making
         >> .complexity
-        >> makingComplexityToDuration
+        >> MakingComplexity.toDuration
 
 
 findById : Id -> List Product -> Result String Product
@@ -242,22 +150,13 @@ decodeDyeingOptions =
         (Decode.field "defaultMedium" DyeingMedium.decode)
 
 
-decodeMakingComplexity : Decoder MakingComplexity
-decodeMakingComplexity =
-    Decode.string
-        |> Decode.andThen
-            (\complexityStr ->
-                DecodeExtra.fromResult (makingComplexityFromString complexityStr)
-            )
-
-
 decodeMakingOptions : List Process -> Decoder MakingOptions
 decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
-        |> Pipe.required "complexity" decodeMakingComplexity
+        |> Pipe.required "complexity" MakingComplexity.decode
         |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
@@ -322,7 +221,7 @@ encodeMakingOptions v =
         [ ( "processUuid", Process.encodeUuid v.process.uuid )
         , ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
-        , ( "complexity", Encode.string (makingComplexityToString v.complexity) )
+        , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
         , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 

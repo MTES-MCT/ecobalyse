@@ -3,8 +3,8 @@ module Data.Textile.FormulaTest exposing (..)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
+import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Process as Process exposing (Process)
-import Data.Textile.Product as Product
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
@@ -77,7 +77,7 @@ suite =
                                 { noOpProcess
                                     | elec = Energy.megajoules 0.5
                                 }
-                            , makingComplexity = Product.Medium
+                            , makingComplexity = MakingComplexity.Medium
                             , fadingProcess = Nothing
                             , countryElecProcess =
                                 { noOpProcess

@@ -35,6 +35,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -72,7 +73,7 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
-    , makingComplexity : Maybe Product.MakingComplexity
+    , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , knittingProcess : Maybe Knitting
@@ -102,7 +103,7 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
-    , makingComplexity : Maybe Product.MakingComplexity
+    , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , knittingProcess : Maybe Knitting
@@ -331,7 +332,7 @@ makingOptionsToString { product, makingWaste, makingComplexity, airTransportRati
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , makingComplexity
-        |> Maybe.map (\complexity -> "complexité de confection " ++ Product.makingComplexityToLabel complexity)
+        |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
@@ -686,7 +687,7 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (Product.makingComplexityToString >> Encode.string) |> Maybe.withDefault Encode.null )
+        , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "knittingProcess", inputs.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
@@ -720,7 +721,7 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingComplexity" (Decode.maybe Product.decodeMakingComplexity) Nothing
+        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "knittingProcess" (Decode.maybe Knitting.decode) Nothing
@@ -752,7 +753,7 @@ encodeQuery query =
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingComplexity", query.makingComplexity |> Maybe.map (Product.makingComplexityToString >> Encode.string) |> Maybe.withDefault Encode.null )
+        , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )

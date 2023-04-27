@@ -23,6 +23,7 @@ import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -94,7 +95,7 @@ type Msg
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateKnittingProcess Knitting
-    | UpdateMakingComplexity Product.MakingComplexity
+    | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -319,7 +320,17 @@ update ({ db, queries, navKey } as session) msg model =
                         | knittingProcess = Just knittingProcess
                         , makingWaste =
                             model.simulator
-                                |> Result.map (\simulator -> Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess)
+                                |> Result.map
+                                    (\simulator ->
+                                        Knitting.getMakingWaste simulator.inputs.makingWaste simulator.inputs.product.making.pcrWaste knittingProcess
+                                    )
+                                |> Result.toMaybe
+                        , makingComplexity =
+                            model.simulator
+                                |> Result.map
+                                    (\simulator ->
+                                        Knitting.getMakingComplexity simulator.inputs.makingComplexity simulator.inputs.product.making.complexity knittingProcess
+                                    )
                                 |> Result.toMaybe
                     }
 

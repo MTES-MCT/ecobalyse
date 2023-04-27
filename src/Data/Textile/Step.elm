@@ -27,6 +27,7 @@ import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
 import Data.Textile.Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
@@ -55,7 +56,7 @@ type alias Step =
     , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
-    , makingComplexity : Maybe Product.MakingComplexity
+    , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , threadDensity : Maybe Unit.ThreadDensity

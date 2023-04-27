@@ -14,6 +14,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -55,7 +56,7 @@ type alias Config msg =
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateMakingComplexity : Product.MakingComplexity -> msg
+    , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
@@ -372,25 +373,25 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
             [ abbr [ title "Complexité de la confection" ] [ text "Complex" ]
             , inlineDocumentationLink config Gitbook.TextileMakingComplexity
             ]
-        , [ Product.VeryHigh
-          , Product.High
-          , Product.Medium
-          , Product.Low
-          , Product.VeryLow
+        , [ MakingComplexity.VeryHigh
+          , MakingComplexity.High
+          , MakingComplexity.Medium
+          , MakingComplexity.Low
+          , MakingComplexity.VeryLow
           ]
             |> List.map
                 (\complexity ->
                     option
-                        [ value <| Product.makingComplexityToString complexity
+                        [ value <| MakingComplexity.toString complexity
                         , selected <| complexity == makingComplexity
                         ]
-                        [ text <| Product.makingComplexityToLabel complexity ]
+                        [ text <| MakingComplexity.toLabel complexity ]
                 )
             |> select
                 [ id "making-complexity"
                 , class "form-select form-select-sm w-75"
                 , onInput
-                    (Product.makingComplexityFromString
+                    (MakingComplexity.fromString
                         >> Result.withDefault inputs.product.making.complexity
                         >> updateMakingComplexity
                     )
