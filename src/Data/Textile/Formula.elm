@@ -22,8 +22,10 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material exposing (CFFData)
 import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Product as Product
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Duration
 import Energy exposing (Energy)
 import Mass exposing (Mass)
 import Quantity
@@ -239,13 +241,14 @@ makingImpacts :
     Impacts
     ->
         { makingProcess : Process
+        , makingComplexity : Product.MakingComplexity
         , fadingProcess : Maybe Process
         , countryElecProcess : Process
         , countryHeatProcess : Process
         }
     -> Mass
     -> { kwh : Energy, heat : Energy, impacts : Impacts }
-makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countryHeatProcess } outputMass =
+makingImpacts impacts { makingComplexity, fadingProcess, countryElecProcess, countryHeatProcess } outputMass =
     -- Note: Fading, when enabled, is applied at the Making step because
     -- it can only be applied on finished products (using step output mass).
     -- Also:
@@ -262,19 +265,24 @@ makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countr
                 |> Maybe.withDefault Quantity.zero
                 |> Quantity.multiplyBy (Mass.inKilograms outputMass)
             )
+
+        -- Pre-computed constant: energy needed per minute of confection
+        kWhPerMinute =
+            Energy.kilowattHours 0.029
+
+        elec =
+            Quantity.multiplyBy (Product.makingComplexityToDuration makingComplexity |> Duration.inMinutes) kWhPerMinute
     in
-    { kwh = Quantity.sum [ makingProcess.elec, fadingElec ]
-    , heat = Quantity.sum [ makingProcess.heat, fadingHeat ]
+    { kwh = Quantity.sum [ elec, fadingElec ]
+    , heat = fadingHeat
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ -- Making process (per-item)
-                          makingProcess.elec
+                          elec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                        , makingProcess.heat
-                            |> Unit.forMJ (Process.getImpact trigram countryElecProcess)
 
                         -- Fading process (mass-dependent)
                         , outputMass

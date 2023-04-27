@@ -55,6 +55,7 @@ type alias Step =
     , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
+    , makingComplexity : Maybe Product.MakingComplexity
     , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , threadDensity : Maybe Unit.ThreadDensity
@@ -107,6 +108,7 @@ create { db, label, editable, country, enabled } =
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
+    , makingComplexity = Nothing
     , makingWaste = Nothing
     , picking = Nothing
     , threadDensity = Nothing
@@ -294,7 +296,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -355,6 +357,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
                 , makingWaste = makingWaste
+                , makingComplexity = makingComplexity
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name

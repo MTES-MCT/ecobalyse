@@ -222,6 +222,7 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
                                     step.outputMass
                                         |> Formula.makingImpacts step.impacts
                                             { makingProcess = inputs.product.making.process
+                                            , makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                             , fadingProcess =
                                                 -- Note: in the future, we may have distinct fading processes per countries
                                                 if inputs.product.making.fadable && inputs.disabledFading /= Just True then

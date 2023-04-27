@@ -14,6 +14,7 @@ module Data.Textile.Product exposing
     , idToString
     , isKnitted
     , makingComplexityFromString
+    , makingComplexityToDuration
     , makingComplexityToLabel
     , makingComplexityToString
     )
@@ -104,6 +105,25 @@ getFabricProcess { fabric } =
             process
 
 
+makingComplexityToDuration : MakingComplexity -> Duration
+makingComplexityToDuration makingComplexity =
+    case makingComplexity of
+        VeryHigh ->
+            Duration.minutes 120
+
+        High ->
+            Duration.minutes 60
+
+        Medium ->
+            Duration.minutes 30
+
+        Low ->
+            Duration.minutes 15
+
+        VeryLow ->
+            Duration.minutes 5
+
+
 makingComplexityToLabel : MakingComplexity -> String
 makingComplexityToLabel makingComplexity =
     case makingComplexity of
@@ -166,7 +186,9 @@ makingComplexityFromString str =
 
 getMakingDurationInMinutes : Product -> Duration
 getMakingDurationInMinutes =
-    .making >> .durationInMinutes
+    .making
+        >> .complexity
+        >> makingComplexityToDuration
 
 
 findById : Id -> List Product -> Result String Product

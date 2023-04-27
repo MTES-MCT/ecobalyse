@@ -55,6 +55,7 @@ type alias Config msg =
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
+    , updateMakingComplexity : Product.MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
@@ -181,7 +182,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 knittingProcessField : Config msg -> Html msg
 knittingProcessField { inputs, updateKnittingProcess } =
     -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
         , [ Knitting.Mix
           , Knitting.FullyFashioned
@@ -355,6 +356,42 @@ reparabilityField { current, updateReparability } =
             , toString = Step.reparabilityToString
             , disabled = not current.enabled
             }
+        ]
+
+
+makingComplexityField : Config msg -> Html msg
+makingComplexityField { inputs, updateMakingComplexity } =
+    -- Note: This field is only rendered in the detailed step view
+    let
+        makingComplexity =
+            inputs.makingComplexity
+                |> Maybe.withDefault inputs.product.making.complexity
+    in
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
+        , [ Product.VeryHigh
+          , Product.High
+          , Product.Medium
+          , Product.Low
+          , Product.VeryLow
+          ]
+            |> List.map
+                (\complexity ->
+                    option
+                        [ value <| Product.makingComplexityToString complexity
+                        , selected <| complexity == makingComplexity
+                        ]
+                        [ text <| Product.makingComplexityToLabel complexity ]
+                )
+            |> select
+                [ id "making-complexity"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (Product.makingComplexityFromString
+                        >> Result.withDefault inputs.product.making.complexity
+                        >> updateMakingComplexity
+                    )
+                ]
         ]
 
 
@@ -712,7 +749,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     viewProcessInfo current.processInfo.fabric
-                , viewProcessInfo current.processInfo.making
+                , if current.label == Label.Making then
+                    makingComplexityField config
+
+                  else
+                    text ""
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
 

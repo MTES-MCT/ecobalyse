@@ -94,6 +94,7 @@ type Msg
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateKnittingProcess Knitting
+    | UpdateMakingComplexity Product.MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -322,6 +323,10 @@ update ({ db, queries, navKey } as session) msg model =
                                 |> Result.toMaybe
                     }
 
+        UpdateMakingComplexity makingComplexity ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | makingComplexity = Just makingComplexity }
+
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
@@ -452,6 +457,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
+                    , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste
                     , updateSurfaceMass = UpdateSurfaceMass
                     , updateYarnSize = UpdateYarnSize

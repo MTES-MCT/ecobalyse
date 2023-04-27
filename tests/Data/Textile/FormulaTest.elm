@@ -4,6 +4,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
 import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Product as Product
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
@@ -76,6 +77,7 @@ suite =
                                 { noOpProcess
                                     | elec = Energy.megajoules 0.5
                                 }
+                            , makingComplexity = Product.Medium
                             , fadingProcess = Nothing
                             , countryElecProcess =
                                 { noOpProcess
@@ -98,16 +100,16 @@ suite =
              [ res.impacts
                 |> Impact.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.07
+                |> Expect.within (Expect.Absolute 0.01) 0.435
                 |> asTest "should compute Making step cch from process and country data"
              , res.impacts
                 |> Impact.getImpact (Impact.trg "fwe")
                 |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.208
+                |> Expect.within (Expect.Absolute 0.01) 1.305
                 |> asTest "should compute Making step fwe from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
-                |> Expect.within (Expect.Absolute 0.01) 0.138
+                |> Expect.within (Expect.Absolute 0.01) 0.87
                 |> asTest "should compute Making step kwh from process and country data"
              ]
             )
