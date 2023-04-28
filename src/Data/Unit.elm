@@ -62,6 +62,8 @@ module Data.Unit exposing
     , threadDensityLow
     , threadDensityToFloat
     , threadDensityToInt
+    , yarnSizeGramsPer10km
+    , yarnSizeInGrams
     , yarnSizeInKilometers
     , yarnSizeKilometersPerKg
     )
@@ -284,7 +286,14 @@ type alias YarnSize =
 
 yarnSizeKilometersPerKg : Int -> YarnSize
 yarnSizeKilometersPerKg kilometers =
+    -- The Nm unit is the length in kilometers of a yarn that weighs 1kg
     Quantity.rate (Length.kilometers (toFloat kilometers)) Mass.kilogram
+
+
+yarnSizeGramsPer10km : Int -> YarnSize
+yarnSizeGramsPer10km weight =
+    -- The Dtex unit is the weight in grams of 10000 meters
+    Quantity.rate (Length.meters 10000) (Mass.grams (toFloat weight))
 
 
 minYarnSize : YarnSize
@@ -299,8 +308,17 @@ maxYarnSize =
 
 yarnSizeInKilometers : YarnSize -> Int
 yarnSizeInKilometers yarnSize =
+    -- Used to display the value using the Nm unit
     Quantity.at yarnSize Mass.kilogram
         |> Length.inKilometers
+        |> round
+
+
+yarnSizeInGrams : YarnSize -> Int
+yarnSizeInGrams yarnSize =
+    -- Used to display the value using the Dtex unit
+    Quantity.at_ yarnSize (Length.meters 10000)
+        |> Mass.inGrams
         |> round
 
 

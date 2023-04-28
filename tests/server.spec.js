@@ -184,6 +184,42 @@ describe("API", () => {
         );
       });
 
+      it("should validate the yarnSize param in Nm", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/textile/simulator", ["yarnSize=0Nm"]),
+          "yarnSize",
+          /doit être compris entre/,
+        );
+      });
+
+      it("should validate the yarnSize param in Dtex", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/textile/simulator", ["yarnSize=0Dtex"]),
+          "yarnSize",
+          /doit être compris entre/,
+        );
+      });
+
+      it("should validate the yarnSize param unit", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/textile/simulator", ["yarnSize=0BadUnit"]),
+          "yarnSize",
+          /Le format ne correspond pas au titrage \(yarnSize\) attendu : soit un entier simple \(ie : `40`\), ou avec l'unité `Nm` \(ie : `40Nm`\) ou `Dtex` \(ie : `250Dtex`\)/,
+        );
+      });
+
+      it("should accept the yarnSize param without any unit", async () => {
+        const response = await makeRequest("/api/textile/simulator", ["yarnSize=9"]);
+      });
+
+      it("should accept the yarnSize param in Nm", async () => {
+        const response = await makeRequest("/api/textile/simulator", ["yarnSize=9Nm"]);
+      });
+
+      it("should accept the yarnSize param in Dtex", async () => {
+        const response = await makeRequest("/api/textile/simulator", ["yarnSize=9Dtex"]);
+      });
+
       it("should validate the knittingProcess param", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/textile/simulator", ["knittingProcess=notAKnittingProcess"]),

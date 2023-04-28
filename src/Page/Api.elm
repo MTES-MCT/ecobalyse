@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "25 avril 2023"
+    [ { date = "28 avril 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre de titrage `yarnSize` peut maintenant être exprimé
+            avec une unité, permettant de spécifier le titrage en décitex (Dtex).
+"""
+      }
+    , { date = "25 avril 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
