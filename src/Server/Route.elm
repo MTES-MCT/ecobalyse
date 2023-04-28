@@ -55,8 +55,8 @@ parser { builderDb, textileDb } =
         , Parser.map GetFoodIngredientList (s "GET" </> s "food" </> s "ingredients")
         , Parser.map GetFoodTransformList (s "GET" </> s "food" </> s "transforms")
         , Parser.map GetFoodPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map PostFoodRecipe (s "POST" </> s "food" </> s "recipe")
         , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery builderDb)
+        , Parser.map PostFoodRecipe (s "POST" </> s "food" </> s "recipe")
 
         -- Textile
         , Parser.map GetTextileCountryList (s "GET" </> s "textile" </> s "countries")
@@ -70,7 +70,9 @@ parser { builderDb, textileDb } =
 
 endpoint : StaticDb.Db -> Request -> Maybe Route
 endpoint dbs { method, url } =
-    -- FIXME: rename `url` to `path` and explain that Url.fromString can't build
-    -- a Url without a protocol and a hostname
+    -- Notes:
+    -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
+    --   request path from Express, we build a fake URL with a fake protocol and hostname.
+    -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
         |> Maybe.andThen (Parser.parse (parser dbs))
