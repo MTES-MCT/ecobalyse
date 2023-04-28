@@ -108,7 +108,7 @@ w_name = ipywidgets.Text(
 )
 ## brightway code of the ingredient process
 w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
-w_default = ipywidgets.Select(
+w_default = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
@@ -170,7 +170,7 @@ w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
 # fields for (hardcoded) variants
 ## code of the organic process if any
 w_organic_search = ipywidgets.Text(placeholder="flour organic", style=style)
-w_organic_process = ipywidgets.Select(
+w_organic_process = ipywidgets.RadioButtons(
     options=[""],
     rows=1,
     style=style,
@@ -186,7 +186,7 @@ w_organic_ratio = ipywidgets.BoundedFloatText(
     style=style,
 )
 w_organic_default_search = ipywidgets.Text(placeholder="wheat conventio*", style=style)
-w_organic_simple_ingredient_default = ipywidgets.Select(
+w_organic_simple_ingredient_default = ipywidgets.RadioButtons(
     options=[""],
     rows=1,
     style=style,
@@ -194,7 +194,7 @@ w_organic_simple_ingredient_default = ipywidgets.Select(
     layout=ipywidgets.Layout(width="auto"),
 )
 w_organic_variant_search = ipywidgets.Text(placeholder="wheat organic", style=style)
-w_organic_simple_ingredient_variant = ipywidgets.Select(
+w_organic_simple_ingredient_variant = ipywidgets.RadioButtons(
     style=style,
     options=[""],
     rows=1,
@@ -225,7 +225,7 @@ w_organic_animal_welfare = ipywidgets.FloatSlider(
 )
 ## code for BleuBlanCoeur process if any
 w_bleu_blanc_coeur_search = ipywidgets.Text(placeholder="bleu blanc", style=style)
-w_bleu_blanc_coeur = ipywidgets.Select(
+w_bleu_blanc_coeur = ipywidgets.RadioButtons(
     style=style,
     options=[""],
     rows=1,
@@ -408,7 +408,9 @@ def change_id(change):
     set_field(w_search, code, "")
     res = DATABASE.search(code)
     if res:
-        w_default.options = [res[0]]
+        w_default.options = [
+            [f"{r['name']} ({r.get('unit','no unit')})" for r in res][0]
+        ]
     else:
         w_default.options = []
     set_field(
@@ -426,8 +428,8 @@ def change_id(change):
         set_field(w_organic_search, code, "")
         res = DATABASE.search(code)
         if res:
-            w_organic_process.options = list(res)
-            w_organic_process.value = res[0]
+            w_organic_process.options = [display_of(r) for r in res]
+            w_organic_process.value = display_of(res[0])
         else:
             w_organic_process.options = []
     set_field(w_organic_ratio, i.get("variants.organic.ratio"), 0)
@@ -436,8 +438,8 @@ def change_id(change):
         set_field(w_organic_default_search, code, "")
         res = DATABASE.search(code)
         if res:
-            w_organic_simple_ingredient_default.options = list(res)
-            w_organic_simple_ingredient_default.value = res[0]
+            w_organic_simple_ingredient_default.options = [display_of(r) for r in res]
+            w_organic_simple_ingredient_default.value = display_of(res[0])
         else:
             w_organic_simple_ingredient_default.options = []
     code = i.get("variants.organic.simple_ingredient_variant")
@@ -445,8 +447,8 @@ def change_id(change):
         set_field(w_organic_variant_search, code, "")
         res = DATABASE.search(code)
         if res:
-            w_organic_simple_ingredient_variant.options = list(res)
-            w_organic_simple_ingredient_variant.value = res[0]
+            w_organic_simple_ingredient_variant.options = [display_of(r) for r in res]
+            w_organic_simple_ingredient_variant.value = display_of(res[0])
         else:
             w_organic_simple_ingredient_variant.options = []
 
@@ -461,19 +463,23 @@ def change_id(change):
         set_field(w_bleu_blanc_coeur_search, code, "")
         res = DATABASE.search(code)
         if res:
-            w_bleu_blanc_coeur.options = list(res)
-            w_bleu_blanc_coeur.value = res[0]
+            w_bleu_blanc_coeur.options = [display_of(r) for r in res]
+            w_bleu_blanc_coeur.value = display_of(res[0])
         else:
             w_bleu_blanc_coeur.options = []
+
+
+def display_of(activity):
+    return f"{activity['name']} ({activity.get('unit','no unit')})"
 
 
 def change_search_of(field):
     def change_search(change):
         results = list(DATABASE.search(change.new, limit=20))
         field.rows = len(results)
-        field.options = results
+        field.options = [display_of(r) for r in results]
         if results:
-            field.value = results[0]
+            field.value = display_of(results[0])
 
     return change_search
 
