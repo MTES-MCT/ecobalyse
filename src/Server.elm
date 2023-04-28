@@ -1,5 +1,6 @@
 port module Server exposing
-    ( input
+    ( handleRequest
+    , input
     , main
     , output
     )
@@ -173,10 +174,10 @@ encodeIngredients ingredients =
 cmdRequest : StaticDb.Db -> Request -> Cmd Msg
 cmdRequest dbs request =
     let
-        ( code, body ) =
+        ( code, responseBody ) =
             handleRequest dbs request
     in
-    sendResponse code request body
+    sendResponse code request responseBody
 
 
 handleRequest : StaticDb.Db -> Request -> ( Int, Encode.Value )

@@ -30,7 +30,7 @@ suite =
 
 foodEndpoints : StaticDb.Db -> List Test
 foodEndpoints db =
-    [ describe "endpoints"
+    [ describe "GET endpoints"
         [ testEndpoint db "GET" Encode.null "/food/ingredients"
             |> Expect.equal (Just Route.GetFoodIngredientList)
             |> asTest "should map the /food/ingredients endpoint"
@@ -58,7 +58,7 @@ foodEndpoints db =
             |> Expect.equal (Just <| Route.GetFoodRecipe (Ok BuilderQuery.carrotCake))
             |> asTest "should map the /food/recipe endpoint"
         ]
-    , describe "POST method handling"
+    , describe "POST endpoints"
         [ "/food/recipe"
             |> testEndpoint db "POST" (BuilderQuery.encode BuilderQuery.carrotCake)
             |> Expect.equal (Just Route.PostFoodRecipe)
