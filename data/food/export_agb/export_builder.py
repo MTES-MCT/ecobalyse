@@ -73,6 +73,7 @@ def compute_new_processes(activities, ingredients_base):
 
                 for impact in new_process["impacts"]:
                     # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
+                    # It takes more than 1kg of wheat to make 1kg of flour. Or more than 1kg of beef to make 1kg of beef meat
                     new_process["impacts"][impact] = new_process["impacts"][
                         impact
                     ] + ratio * (
