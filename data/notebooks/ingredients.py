@@ -177,8 +177,8 @@ w_organic_process = ipywidgets.RadioButtons(
     disabled=True,
     layout=ipywidgets.Layout(width="auto"),
 )
-## Quantity of simple ingredient necessary to produce 1 unit of complex ingredient
-## For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
+## Quantity of component necessary to produce 1 unit of constructed process.
+##For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
 w_organic_ratio = ipywidgets.BoundedFloatText(
     placeholder="Coef",
     min=0,
@@ -590,7 +590,7 @@ display(
                     ipywidgets.HBox(
                         (
                             ipywidgets.HTML(
-                                "If you find an organic process, select it in just below. Otherwise keep the field blank, and select two components, conventional and organic, and provide the ratio for the impacts. For instance: <pre>Organic flour impact = conventional flour impact + ratio * (conventional wheat impact - organic wheat impact)</pre> ",
+                                "If you find an organic process, select it in just below. Otherwise keep the field blank, and select two components (conventional and organic) and provide the ratio for the impacts.",
                                 disabled=True,
                             ),
                         ),
@@ -623,6 +623,14 @@ display(
                             ),
                             ipywidgets.VBox(
                                 (
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.HTML(
+                                                "The Ratio is the quantity of component necessary to produce 1 unit of constructed process. For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
+                                                disabled=True,
+                                            ),
+                                        ),
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
