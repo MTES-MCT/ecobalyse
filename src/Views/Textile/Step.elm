@@ -170,7 +170,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select w-75"
+                , class "form-select form-select-sm w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -229,7 +229,7 @@ printingFields { inputs, updatePrinting } =
                 |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
                 |> select
                     [ id "ennobling-printing"
-                    , class "form-select form-select"
+                    , class "form-select form-select-sm"
                     , style "flex" "2"
                     , onInput
                         (\str ->
@@ -263,7 +263,7 @@ printingFields { inputs, updatePrinting } =
                                     [ text <| String.fromInt percent ++ "%" ]
                             )
                         |> select
-                            [ class "form-select form-select"
+                            [ class "form-select form-select-sm"
                             , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
@@ -369,10 +369,8 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> Maybe.withDefault inputs.product.making.complexity
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ label [ class "text-nowrap w-25", for "making-complexity" ]
-            [ abbr [ title "Complexité de la confection" ] [ text "Complex" ]
-            , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-            ]
+        [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
+        , inlineDocumentationLink config Gitbook.TextileMakingComplexity
         , if inputs.knittingProcess == Just Knitting.Seamless then
             text "Non applicable"
 
@@ -703,7 +701,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
                 )
             |> select
                 [ id "ennobling-heat-source"
-                , class "form-select form-select w-75"
+                , class "form-select form-select-sm w-75"
                 , onInput
                     (HeatSource.fromString
                         >> Result.toMaybe
