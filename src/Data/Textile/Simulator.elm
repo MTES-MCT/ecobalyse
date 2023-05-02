@@ -470,7 +470,10 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                                                 , surfaceMass = surfaceMass
                                                 , yarnSize =
                                                     inputs.yarnSize
-                                                        |> Maybe.withDefault Unit.minYarnSize
+                                                        |> Maybe.withDefault
+                                                            (inputs.product.yarnSize
+                                                                |> Maybe.withDefault Unit.minYarnSize
+                                                            )
                                                 }
                             in
                             { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }

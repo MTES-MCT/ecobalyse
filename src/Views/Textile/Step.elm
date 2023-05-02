@@ -255,10 +255,10 @@ printingFields { inputs, updatePrinting } =
                         |> List.map
                             (\percent ->
                                 option
-                                    [ value (String.fromFloat percent)
-                                    , selected <| ratio == Split.full
+                                    [ value (String.fromInt percent)
+                                    , selected <| Ok ratio == Split.fromPercent percent
                                     ]
-                                    [ text <| String.fromFloat percent ++ "%" ]
+                                    [ text <| String.fromInt percent ++ "%" ]
                             )
                         |> select
                             [ class "form-select form-select"
