@@ -28,6 +28,7 @@ type Path
     | TextileFabric -- Tissage/Tricotage textile
     | TextileHeat -- Chaleur textile
     | TextileMaking -- Confection textile
+    | TextileMakingComplexity -- Complexité de la confection textile
     | TextileMaterialAndSpinning -- Matière & filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -69,6 +70,9 @@ pathToString path =
 
         TextileMaking ->
             "textile/etapes-du-cycle-de-vie/confection"
+
+        TextileMakingComplexity ->
+            "textile/etapes-du-cycle-de-vie/confection#electricite-consommee-mj-kwh"
 
         TextileMaterialAndSpinning ->
             "textile/etapes-du-cycle-de-vie/filature/"

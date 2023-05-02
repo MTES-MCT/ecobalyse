@@ -58,6 +58,14 @@ changelog =
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
+            """Le paramètre permettant de choisir la complexité de la confection
+            `makingComplexity` a été rajouté.
+"""
+      }
+    , { date = "28 avril 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
             """Le paramètre de titrage `yarnSize` peut maintenant être exprimé
             avec une unité, permettant de spécifier le titrage en décitex (Dtex).
 """

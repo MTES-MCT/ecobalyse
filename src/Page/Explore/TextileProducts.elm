@@ -8,6 +8,7 @@ import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
 import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
@@ -141,7 +142,7 @@ table db { detailed, scope } =
                 text <| DyeingMedium.toLabel dyeing.defaultMedium
       }
     , { label = "Confection (complexité)"
-      , toCell = .making >> .complexity >> Product.makingComplexityToString >> text
+      , toCell = .making >> .complexity >> MakingComplexity.toLabel >> text
       }
     , { label = "Confection (# minutes)"
       , toCell =

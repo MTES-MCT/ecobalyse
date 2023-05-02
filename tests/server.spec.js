@@ -176,6 +176,14 @@ describe("API", () => {
         );
       });
 
+      it("should validate the makingComplexity param", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/textile/simulator", ["makingComplexity=bad-complexity"]),
+          "makingComplexity",
+          /Type de complexité de fabrication inconnu : bad-complexity/,
+        );
+      });
+
       it("should validate the yarnSize param", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/textile/simulator", ["yarnSize=0"]),
