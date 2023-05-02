@@ -19,6 +19,10 @@ bw2data.projects.set_current(PROJECT)
 DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 
+def dbsearch(term, **kw):
+    return DATABASE.search(term, **kw)
+
+
 def save_ingredients(ingredients):
     with open(INGREDIENTS_TEMP, "w") as fp:
         fp.write(
@@ -106,7 +110,7 @@ w_name = ipywidgets.Text(
     placeholder="Name",
     style=style,
 )
-## brightway code of the ingredient process
+## brightway search terms to find the ingredient process
 w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
 w_default = ipywidgets.RadioButtons(
     rows=1,
@@ -168,7 +172,7 @@ w_density = ipywidgets.BoundedFloatText(
 w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
 
 # fields for (hardcoded) variants
-## code of the organic process if any
+## search terms to find the organic process if any
 w_organic_search = ipywidgets.Text(placeholder="flour organic", style=style)
 w_organic_process = ipywidgets.RadioButtons(
     options=[""],
@@ -223,7 +227,7 @@ w_organic_animal_welfare = ipywidgets.FloatSlider(
     step=0.05,
     style=style,
 )
-## code for BleuBlanCoeur process if any
+## Search terms to find the BleuBlanCoeur process if any
 w_bleu_blanc_coeur_search = ipywidgets.Text(placeholder="bleu blanc", style=style)
 w_bleu_blanc_coeur = ipywidgets.RadioButtons(
     style=style,
@@ -404,9 +408,9 @@ def change_id(change):
     if not i:
         return
     set_field(w_name, i.get("name"), "")
-    code = i.get("default", "")
-    set_field(w_search, code, "")
-    res = DATABASE.search(code)
+    terms = i.get("default", "")
+    set_field(w_search, terms, "")
+    res = dbsearch(terms)
     if res:
         w_default.options = [
             [f"{r['name']} ({r.get('unit','no unit')})" for r in res][0]
@@ -423,45 +427,45 @@ def change_id(change):
     set_field(w_density, i.get("density"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    code = i.get("variants.organic.process")
-    if code:
-        set_field(w_organic_search, code, "")
-        res = DATABASE.search(code)
+    terms = i.get("variants.organic.process")
+    if terms:
+        set_field(w_organic_search, terms, "")
+        res = dbsearch(terms)
         if res:
             w_organic_process.options = [display_of(r) for r in res]
             w_organic_process.value = display_of(res[0])
         else:
             w_organic_process.options = []
     set_field(w_organic_ratio, i.get("variants.organic.ratio"), 0)
-    code = i.get("variants.organic.simple_ingredient_default")
-    if code:
-        set_field(w_organic_default_search, code, "")
-        res = DATABASE.search(code)
+    terms = i.get("variants.organic.simple_ingredient_default")
+    if terms:
+        set_field(w_organic_default_search, terms, "")
+        res = dbsearch(terms)
         if res:
             w_organic_simple_ingredient_default.options = [display_of(r) for r in res]
             w_organic_simple_ingredient_default.value = display_of(res[0])
         else:
             w_organic_simple_ingredient_default.options = []
-    code = i.get("variants.organic.simple_ingredient_variant")
-    if code:
-        set_field(w_organic_variant_search, code, "")
-        res = DATABASE.search(code)
+    terms = i.get("variants.organic.simple_ingredient_variant")
+    if terms:
+        set_field(w_organic_variant_search, terms, "")
+        res = dbsearch(terms)
         if res:
             w_organic_simple_ingredient_variant.options = [display_of(r) for r in res]
             w_organic_simple_ingredient_variant.value = display_of(res[0])
         else:
             w_organic_simple_ingredient_variant.options = []
 
-        set_field(w_organic_simple_ingredient_variant, code, "")
+        set_field(w_organic_simple_ingredient_variant, terms, "")
     set_field(w_organic_agrodiv, i.get("variants.organic.beyondLCA.agro-diversity"), 0)
     set_field(w_organic_agroeco, i.get("variants.organic.beyondLCA.agro-ecology"), 0)
     set_field(
         w_organic_animal_welfare, i.get("variants.organic.beyondLCA.animal-welfare"), 0
     )
-    code = i.get("variants.bleu_blanc_coeur")
-    if code:
-        set_field(w_bleu_blanc_coeur_search, code, "")
-        res = DATABASE.search(code)
+    terms = i.get("variants.bleu_blanc_coeur")
+    if terms:
+        set_field(w_bleu_blanc_coeur_search, terms, "")
+        res = dbsearch(terms)
         if res:
             w_bleu_blanc_coeur.options = [display_of(r) for r in res]
             w_bleu_blanc_coeur.value = display_of(res[0])
@@ -475,7 +479,7 @@ def display_of(activity):
 
 def change_search_of(field):
     def change_search(change):
-        results = list(DATABASE.search(change.new, limit=20))
+        results = list(dbsearch(change.new, limit=20))
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
