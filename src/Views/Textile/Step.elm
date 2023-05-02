@@ -413,17 +413,7 @@ yarnSizeField { current, updateYarnSize } product =
                 |> Maybe.withDefault Unit.minYarnSize
     in
     span
-        [ [ if Product.isKnitted product then
-                "Désactivé car inopérant sur un produit tricoté."
-
-            else
-                ""
-          , "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
-          , "Cette unité indique un nombre de kilomètres de fil correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
-          ]
-            |> String.join " "
-            |> title
-        ]
+        [ title "Le titrage indique la grosseur d’un fil textile" ]
         [ RangeSlider.yarnSize
             { id = "yarnSize"
             , update = updateYarnSize

@@ -485,7 +485,7 @@ yarnSizeToString yarnSize =
 
 yarnSizeToDtexString : Unit.YarnSize -> String
 yarnSizeToDtexString yarnSize =
-    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
+    String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
