@@ -471,11 +471,11 @@ components:
       in: query
       description: |
         Complexité de la confection, parmi la liste de choix suivants :
-          - very-high : très élevée
-          - high : élevée
-          - medium : moyenne
-          - low : faible
-          - very-low : très faible
+          - `very-high` : très élevée
+          - `high` : élevée
+          - `medium` : moyenne
+          - `low` : faible
+          - `very-low` : très faible
 
         **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: very-low).**
 
