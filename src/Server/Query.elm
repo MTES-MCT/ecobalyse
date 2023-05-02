@@ -754,7 +754,7 @@ parseYarnSize str =
     let
         withUnitRegex =
             -- Match either an int or a int and a unit `Nm` or `Dtex`
-            Regex.fromString "(\\d+)\\s?(Nm|Dtex)"
+            Regex.fromString "(\\d+)(Nm|Dtex)"
                 |> Maybe.withDefault Regex.never
 
         subMatches =
