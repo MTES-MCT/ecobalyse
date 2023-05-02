@@ -168,8 +168,8 @@ decode =
     Decode.succeed Query
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
-        |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.custom (Decode.field "distribution" (Decode.maybe Retail.decode))
+        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
+        |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
@@ -220,9 +220,9 @@ decodeIngredient =
     Decode.succeed IngredientQuery
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMass
-        |> Pipe.required "variant" decodeVariant
-        |> Pipe.required "country" (Decode.maybe Country.decodeCode)
-        |> Pipe.required "byPlane" decodePlaneTransport
+        |> Pipe.optional "variant" decodeVariant DefaultVariant
+        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
         |> Pipe.optional "bonuses" (Decode.maybe Ingredient.decodeBonuses) Nothing
 
 
