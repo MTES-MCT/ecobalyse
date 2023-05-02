@@ -370,7 +370,7 @@ textileEndpoints db =
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
-                    , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 duites/m." )
+                    , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
                     ]
                     |> Just
                 )

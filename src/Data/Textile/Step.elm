@@ -480,7 +480,12 @@ makingWasteToString makingWaste =
 
 yarnSizeToString : Unit.YarnSize -> String
 yarnSizeToString yarnSize =
-    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm"
+    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
+
+
+yarnSizeToDtexString : Unit.YarnSize -> String
+yarnSizeToDtexString yarnSize =
+    String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
