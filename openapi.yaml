@@ -467,13 +467,18 @@ components:
       in: query
       description: |
         Titrage du fil exprimé en **numéro métrique** (`Nm`).
+        Il est aussi possible de l'exprimer en décitex (`Dtex`) en spécifiant l'unité.
+        Exemples de saisie :
+          - `40` : 40Nm
+          - `40Nm` : 40Nm
+          - `250Dtex` : 250Dtex, équivalent à 40Nm
 
         **Attention, ce paramètre est uniquement pris en compte pour les produits tissés**
         et inopérant sur les produits tricotés.
       required: false
       style: form
       schema:
-        type: number
+        type: string
         minimum: 9
         maximum: 200
     knittingProcessParam:

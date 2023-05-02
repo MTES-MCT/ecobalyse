@@ -31,6 +31,7 @@ import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Regex
 import Result.Extra as RE
 import Url.Parser.Query as Query exposing (Parser)
 
@@ -424,7 +425,7 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (maybeYarnSize "yarnSize")
+        |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeKnittingProcess "knittingProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
@@ -748,28 +749,69 @@ maybeMakingWasteParser key =
             )
 
 
-maybeYarnSize : String -> Parser (ParseResult (Maybe Unit.YarnSize))
-maybeYarnSize key =
-    Query.int key
+parseYarnSize : String -> Maybe Unit.YarnSize
+parseYarnSize str =
+    let
+        withUnitRegex =
+            -- Match either an int or a int and a unit `Nm` or `Dtex`
+            Regex.fromString "(\\d+)(Nm|Dtex)"
+                |> Maybe.withDefault Regex.never
+
+        subMatches =
+            -- If it matches, returns [ <the value>, <the unit> ]
+            str
+                |> Regex.find withUnitRegex
+                |> List.map .submatches
+    in
+    case String.toInt str of
+        Just int ->
+            Just <| Unit.yarnSizeKilometersPerKg int
+
+        Nothing ->
+            case subMatches of
+                [ [ Just intStr, Just "Nm" ] ] ->
+                    String.toInt intStr
+                        |> Maybe.map Unit.yarnSizeKilometersPerKg
+
+                [ [ Just intStr, Just "Dtex" ] ] ->
+                    String.toInt intStr
+                        |> Maybe.map Unit.yarnSizeGramsPer10km
+
+                _ ->
+                    Nothing
+
+
+maybeYarnSizeParser : String -> Parser (ParseResult (Maybe Unit.YarnSize))
+maybeYarnSizeParser key =
+    Query.string key
         |> Query.map
             (Maybe.map
-                (\int ->
-                    let
-                        yarnSize =
-                            Unit.yarnSizeKilometersPerKg int
-                    in
-                    if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
-                        Err
-                            ( key
-                            , "Le titrage (yarnSize) doit être compris entre "
-                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
-                                ++ " et "
-                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
-                                ++ " duites/m."
-                            )
+                (\str ->
+                    case parseYarnSize str of
+                        Just yarnSize ->
+                            if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
+                                Err
+                                    ( key
+                                    , "Le titrage (yarnSize) doit être compris entre "
+                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
+                                        ++ " et "
+                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
+                                        ++ " Nm (entre "
+                                        -- The following two are reversed in Dtex because the unit is "reversed"
+                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.maxYarnSize)
+                                        ++ " et "
+                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.minYarnSize)
+                                        ++ " Dtex)"
+                                    )
 
-                    else
-                        Ok (Just (Unit.yarnSizeKilometersPerKg int))
+                            else
+                                Ok (Just yarnSize)
+
+                        Nothing ->
+                            Err
+                                ( key
+                                , "Le format ne correspond pas au titrage (yarnSize) attendu : soit un entier simple (ie : `40`), ou avec l'unité `Nm` (ie : `40Nm`) ou `Dtex` (ie : `250Dtex`)"
+                                )
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
