@@ -326,7 +326,6 @@ paths:
                   distribution: ambient
                   preparation:
                   - refrigeration
-                  category: cakes
         required: true
       responses:
         200:
@@ -1073,7 +1072,7 @@ components:
           description: Identifiant du procédé d'emballage, **en grammes**
         mass:
           type: number
-          description: Masse de cet emballage
+          description: Masse de cet emballage, **en grammes**
     InvalidParametersError:
       type: object
       properties:
