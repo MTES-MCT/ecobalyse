@@ -40,6 +40,7 @@ noOpProcess =
     , info = ""
     , unit = ""
     , uuid = Process.Uuid ""
+    , source = ""
     , impacts = Impact.noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0

@@ -19,6 +19,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material
+import Data.Textile.Process as Process
 import Data.Textile.Product as Product
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -27,6 +28,7 @@ import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Table as Table
 import Page.Explore.TextileMaterials as TextileMaterials
+import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import RemoteData exposing (WebData)
@@ -267,6 +269,27 @@ textileMaterialsExplorer maybeId db =
     ]
 
 
+textileProcessesExplorer : Maybe Process.Uuid -> Db -> List (Html Msg)
+textileProcessesExplorer maybeId db =
+    [ db.processes
+        |> Table.viewList Scope.Textile (TextileProcesses.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case Process.findByUuid id db.processes of
+                    Ok process ->
+                        process
+                            |> Table.viewDetails Scope.Textile (TextileProcesses.table db)
+
+                    Err error ->
+                        alert error
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 explore : Session -> Model -> List (Html Msg)
 explore { db, builderDb } { scope, dataset } =
     case dataset of
@@ -284,6 +307,9 @@ explore { db, builderDb } { scope, dataset } =
 
         Dataset.TextileProducts maybeId ->
             db |> textileProductsExplorer maybeId
+
+        Dataset.TextileProcesses maybeId ->
+            db |> textileProcessesExplorer maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
