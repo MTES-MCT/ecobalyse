@@ -21,6 +21,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
 import Data.Textile.Printing exposing (Printing)
@@ -92,6 +93,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
+    | UpdateKnittingProcess Knitting
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -309,6 +311,17 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
+        UpdateKnittingProcess knittingProcess ->
+            ( model, session, Cmd.none )
+                |> updateQuery
+                    { query
+                        | knittingProcess = Just knittingProcess
+                        , makingWaste =
+                            model.simulator
+                                |> Result.map (\simulator -> Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess)
+                                |> Result.toMaybe
+                    }
+
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
@@ -435,6 +448,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability

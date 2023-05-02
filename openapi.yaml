@@ -91,6 +91,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -158,6 +159,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -196,6 +198,7 @@ paths:
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/yarnSizeParam"
+        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -450,6 +453,9 @@ components:
       in: query
       description: |
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
+
+        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
       schema:
@@ -470,6 +476,23 @@ components:
         type: number
         minimum: 9
         maximum: 200
+    knittingProcessParam:
+      name: knittingProcess
+      in: query
+      description: |
+        Le processus utilisé pour tricoter le tissu, parmis la liste de choix suivants :
+          - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - fully-fashioned : Tricotage fully-fashioned
+          - seamless : Tricotage seamless
+          - circular : Tricotage circulaire, inventaire désagrégé
+          - straight : Tricotage rectiligne, inventaire désagrégé
+
+          **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["mix", "fully-fashioned", "seamless", "circular", "straight"]
     surfaceMassParam:
       name: surfaceMass
       in: query

@@ -5,9 +5,11 @@ module Data.Textile.Process exposing
     , decodeFromUuid
     , decodeList
     , encodeUuid
+    , findByUuid
     , getDyeingProcess
     , getEnnoblingHeatProcess
     , getImpact
+    , getKnittingProcess
     , getPrintingProcess
     , loadWellKnown
     , uuidToString
@@ -16,6 +18,7 @@ module Data.Textile.Process exposing
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
+import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
@@ -61,6 +64,11 @@ type alias WellKnown =
     , dyeingYarn : Process
     , dyeingFabric : Process
     , dyeingArticle : Process
+    , knittingMix : Process
+    , knittingFullyFashioned : Process
+    , knittingSeamless : Process
+    , knittingCircular : Process
+    , knittingStraight : Process
     , printingPigment : Process
     , printingSubstantive : Process
     , finishing : Process
@@ -103,6 +111,25 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
+
+
+getKnittingProcess : Knitting -> WellKnown -> Process
+getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knittingSeamless, knittingCircular, knittingStraight } =
+    case knittingProcess of
+        Knitting.Mix ->
+            knittingMix
+
+        Knitting.FullyFashioned ->
+            knittingFullyFashioned
+
+        Knitting.Seamless ->
+            knittingSeamless
+
+        Knitting.Circular ->
+            knittingCircular
+
+        Knitting.Straight ->
+            knittingStraight
 
 
 getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
@@ -176,6 +203,11 @@ loadWellKnown processes =
             , steamHeavyFuelRSA = "steam-heavy-fuel-rsa"
             , steamCoalRER = "steam-coal-rer"
             , steamCoalRSA = "steam-coal-rsa"
+            , knittingMix = "knitting-mix"
+            , knittingFullyFashioned = "knitting-fully-fashioned"
+            , knittingSeamless = "knitting-seamless"
+            , knittingCircular = "knitting-circular"
+            , knittingStraight = "knitting-straight"
             }
 
         load get =
@@ -190,6 +222,11 @@ loadWellKnown processes =
         |> load .dyeingYarn
         |> load .dyeingFabric
         |> load .dyeingArticle
+        |> load .knittingMix
+        |> load .knittingFullyFashioned
+        |> load .knittingSeamless
+        |> load .knittingCircular
+        |> load .knittingStraight
         |> load .printingPigment
         |> load .printingSubstantive
         |> load .finishing

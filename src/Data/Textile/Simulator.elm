@@ -14,6 +14,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
@@ -126,7 +127,7 @@ compute db query =
         -- Compute Spinning step impacts
         |> nextIf Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> nextIf Label.Fabric computeFabricImpacts
+        |> nextWithDbIf Label.Fabric computeFabricImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
@@ -424,43 +425,59 @@ computeSpinningImpacts db ({ inputs } as simulator) =
             )
 
 
-computeFabricImpacts : Simulator -> Simulator
-computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
+computeFabricImpacts : Db -> Simulator -> Result String Simulator
+computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
     let
         fabricOutputMass =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero
     in
-    simulator
-        |> updateLifeCycleStep Label.Fabric
-            (\({ country } as step) ->
-                let
-                    { kwh, threadDensity, picking, impacts } =
-                        case inputs.product.fabric of
-                            Product.Knitted process ->
-                                Formula.knittingImpacts step.impacts
-                                    { elec = process.elec
-                                    , countryElecProcess = country.electricityProcess
-                                    }
-                                    step.outputMass
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\wellKnown ->
+                simulator
+                    |> updateLifeCycleStep Label.Fabric
+                        (\({ country, knittingProcess } as step) ->
+                            let
+                                productDefaultKnittingProcess =
+                                    knittingProcess
+                                        |> Maybe.withDefault Knitting.Mix
 
-                            Product.Weaved process ->
-                                let
-                                    surfaceMass =
-                                        inputs.surfaceMass
-                                            |> Maybe.withDefault inputs.product.surfaceMass
-                                in
-                                Formula.weavingImpacts step.impacts
-                                    { countryElecProcess = country.electricityProcess
-                                    , outputMass = fabricOutputMass
-                                    , pickingElec = process.elec_pppm
-                                    , surfaceMass = surfaceMass
-                                    , yarnSize =
-                                        inputs.yarnSize
-                                            |> Maybe.withDefault Unit.minYarnSize
-                                    }
-                in
-                { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
+                                knitting =
+                                    wellKnown
+                                        |> Process.getKnittingProcess productDefaultKnittingProcess
+
+                                { kwh, threadDensity, picking, impacts } =
+                                    case inputs.product.fabric of
+                                        Product.Knitted _ ->
+                                            Formula.knittingImpacts step.impacts
+                                                { elec = knitting.elec
+                                                , countryElecProcess = country.electricityProcess
+                                                }
+                                                step.outputMass
+
+                                        Product.Weaved process ->
+                                            let
+                                                surfaceMass =
+                                                    inputs.surfaceMass
+                                                        |> Maybe.withDefault inputs.product.surfaceMass
+                                            in
+                                            Formula.weavingImpacts step.impacts
+                                                { countryElecProcess = country.electricityProcess
+                                                , outputMass = fabricOutputMass
+                                                , pickingElec = process.elec_pppm
+                                                , surfaceMass = surfaceMass
+                                                , yarnSize =
+                                                    inputs.yarnSize
+                                                        |> Maybe.withDefault
+                                                            (inputs.product.yarnSize
+                                                                |> Maybe.withDefault Unit.minYarnSize
+                                                            )
+                                                }
+                            in
+                            { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
+                        )
             )
 
 

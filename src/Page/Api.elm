@@ -54,7 +54,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "13 avril 2023"
+    [ { date = "25 avril 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre de choix du procédé de tricotage `knittingProcess`
+            permettant de choisir un procédé autre que le "mix" par défaut a été
+            rajouté.
+"""
+      }
+    , { date = "13 avril 2023"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
