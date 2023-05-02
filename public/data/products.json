@@ -10,7 +10,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
@@ -41,7 +40,6 @@
       "defaultMedium": "yarn"
     },
     "making": {
-      "processUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
       "fadable": true,
       "pcrWaste": 0.22,
       "complexity": "medium",
@@ -72,7 +70,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
       "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
@@ -103,7 +100,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "high",
@@ -134,7 +130,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
       "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "medium",
@@ -165,7 +160,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
       "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
@@ -196,7 +190,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "processUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
       "fadable": false,
       "pcrWaste": 0.15,
       "complexity": "low",

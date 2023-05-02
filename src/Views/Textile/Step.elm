@@ -14,6 +14,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -55,6 +56,7 @@ type alias Config msg =
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
+    , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
@@ -168,7 +170,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select w-75"
+                , class "form-select form-select-sm w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -181,7 +183,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 knittingProcessField : Config msg -> Html msg
 knittingProcessField { inputs, updateKnittingProcess } =
     -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
         , [ Knitting.Mix
           , Knitting.FullyFashioned
@@ -227,7 +229,7 @@ printingFields { inputs, updatePrinting } =
                 |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
                 |> select
                     [ id "ennobling-printing"
-                    , class "form-select form-select"
+                    , class "form-select form-select-sm"
                     , style "flex" "2"
                     , onInput
                         (\str ->
@@ -261,7 +263,7 @@ printingFields { inputs, updatePrinting } =
                                     [ text <| String.fromInt percent ++ "%" ]
                             )
                         |> select
-                            [ class "form-select form-select"
+                            [ class "form-select form-select-sm"
                             , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
@@ -355,6 +357,48 @@ reparabilityField { current, updateReparability } =
             , toString = Step.reparabilityToString
             , disabled = not current.enabled
             }
+        ]
+
+
+makingComplexityField : Config msg -> Html msg
+makingComplexityField ({ inputs, updateMakingComplexity } as config) =
+    -- Note: This field is only rendered in the detailed step view
+    let
+        makingComplexity =
+            inputs.makingComplexity
+                |> Maybe.withDefault inputs.product.making.complexity
+    in
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
+        , inlineDocumentationLink config Gitbook.TextileMakingComplexity
+        , if inputs.knittingProcess == Just Knitting.Seamless then
+            text "Non applicable"
+
+          else
+            [ MakingComplexity.VeryHigh
+            , MakingComplexity.High
+            , MakingComplexity.Medium
+            , MakingComplexity.Low
+            , MakingComplexity.VeryLow
+            ]
+                |> List.map
+                    (\complexity ->
+                        option
+                            [ value <| MakingComplexity.toString complexity
+                            , selected <| complexity == makingComplexity
+                            ]
+                            [ text <| MakingComplexity.toLabel complexity ]
+                    )
+                |> select
+                    [ id "making-complexity"
+                    , class "form-select form-select-sm w-75"
+                    , disabled (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    , onInput
+                        (MakingComplexity.fromString
+                            >> Result.withDefault inputs.product.making.complexity
+                            >> updateMakingComplexity
+                        )
+                    ]
         ]
 
 
@@ -657,7 +701,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
                 )
             |> select
                 [ id "ennobling-heat-source"
-                , class "form-select form-select w-75"
+                , class "form-select form-select-sm w-75"
                 , onInput
                     (HeatSource.fromString
                         >> Result.toMaybe
@@ -712,7 +756,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     viewProcessInfo current.processInfo.fabric
-                , viewProcessInfo current.processInfo.making
+                , if current.label == Label.Making then
+                    makingComplexityField config
+
+                  else
+                    text ""
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
 
