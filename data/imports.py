@@ -163,6 +163,7 @@ def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
 
 
 if __name__ == "__main__":
+    bw2data.projects.set_current(PROJECT)
     bw2io.bw2setup()
 
     # Import Ecoinvent
