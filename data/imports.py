@@ -82,11 +82,12 @@ AGRIBALYSE_MIGRATIONS = [
 ]
 
 
-def import_ecoinvent(data=ECOINVENT_SPOLD, db=ECOINVENTDB):
+def import_ecoinvent(data=ECOINVENT_SPOLD, project=PROJECT, db=ECOINVENTDB):
     """
     Import file at path `data` into biosphere database named `db`
     """
     print(f"Importing {db} database from {data}...")
+    bw2data.projects.set_current(project)
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(data, db)
     ecoinvent.apply_strategies()
     ecoinvent.add_unlinked_flows_to_biosphere_database()
@@ -95,7 +96,10 @@ def import_ecoinvent(data=ECOINVENT_SPOLD, db=ECOINVENTDB):
 
 
 def import_agribalyse(
-    data=AGRIBALYSE_CSV, db=AGRIBALYSEDB, migrations=AGRIBALYSE_MIGRATIONS
+    data=AGRIBALYSE_CSV,
+    project=PROJECT,
+    db=AGRIBALYSEDB,
+    migrations=AGRIBALYSE_MIGRATIONS,
 ):
     """
     Import file at path `data` into database named `db`, and apply provided brightway `migrations`.
@@ -114,6 +118,7 @@ def import_agribalyse(
     call("sed -i 's/0;001172/0,001172/' " + data, shell=True)
 
     # Do the import and apply "strategies"
+    bw2data.projects.set_current(project)
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data, db)
     agribalyse.apply_strategies()
 
@@ -145,11 +150,12 @@ def import_agribalyse(
     print("Finished")
 
 
-def import_ef(data=ECOINVENT_SPOLD, db=ECOINVENTDB):
+def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
     """
     Import file at path `data` linked to biosphere named `db`
     """
     print(f"Importing {db} database from {data}...")
+    bw2data.projects.set_current(project)
     ef = bw2io.importers.SimaProLCIACSVImporter(data, biosphere=db)
     ef.statistics()
     ef.write_methods()
@@ -157,23 +163,22 @@ def import_ef(data=ECOINVENT_SPOLD, db=ECOINVENTDB):
 
 
 if __name__ == "__main__":
-    bw2data.projects.set_current(PROJECT)
     bw2io.bw2setup()
 
     # Import Ecoinvent
     if ECOINVENTDB in bw2data.databases:
         print(f"*** already imported: {ECOINVENTDB} ***")
     else:
-        import_ecoinvent(data=ECOINVENT_SPOLD, db=ECOINVENTDB)
+        import_ecoinvent()
 
     # Import Agribalyse
     if AGRIBALYSEDB in bw2data.databases:
         print(f"*** already imported {AGRIBALYSEDB} ***")
     else:
-        import_agribalyse(AGRIBALYSE_CSV, AGRIBALYSEDB, AGRIBALYSE_MIGRATIONS)
+        import_agribalyse()
 
     # Import methods
     if len([method for method in bw2data.methods if method[0] == EFMETHODS]) >= 1:
         print(f"*** already imported {EFMETHODS} ***")
     else:
-        import_ef(EF_CSV, BIOSPHERE)
+        import_ef()
