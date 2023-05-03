@@ -820,7 +820,7 @@ components:
       description: |
         Liste des emballages composant la recette (liste disponible sur le point d'entrée `/food/packaging`).
 
-        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en kilogrammes**.
       required: true
       style: form
       schema:
@@ -837,7 +837,7 @@ components:
       description: |
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
-        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en kilogrammes**.
         Par exemple: `aded2490573207ec7ad5a3813978f6a4;1000` pour 1kg de matière à cuire.
       required: false
       style: form
@@ -1062,7 +1062,7 @@ components:
           description: Identifiant de l'ingrédient
         mass:
           type: number
-          description: Masse de l'ingrédient, **en grammes**
+          description: Masse de l'ingrédient, **en kilogrammes**
         variant:
           type: string
           enum: ["", organic]
@@ -1099,7 +1099,7 @@ components:
           description: Identifiant du procédé de transformation
         mass:
           type: number
-          description: Masse de produit à transformer, **en grammes**
+          description: Masse de produit à transformer, **en kilogrammes**
     FoodQueryPackaging:
       type: object
       additionalProperties: false
@@ -1109,10 +1109,10 @@ components:
       properties:
         code:
           type: string
-          description: Identifiant du procédé d'emballage, **en grammes**
+          description: Identifiant du procédé d'emballage, **en kilogrammes**
         mass:
           type: number
-          description: Masse de cet emballage, **en grammes**
+          description: Masse de cet emballage, **en kilogrammes**
     InvalidParametersError:
       type: object
       properties:
