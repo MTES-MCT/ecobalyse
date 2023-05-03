@@ -1075,6 +1075,13 @@ q {
   top: 15px;
   right: 15px;
   text-align: right;
+  button {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .overlappedImage {
