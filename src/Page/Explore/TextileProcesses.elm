@@ -4,7 +4,6 @@ import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Process as Process exposing (Process)
-import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
@@ -33,14 +32,5 @@ table _ { detailed, scope } =
       }
     , { label = "Unité"
       , toCell = .unit >> text
-      }
-    , { label = "Chaleur (MJ)"
-      , toCell = .heat >> Energy.inMegajoules >> String.fromFloat >> text
-      }
-    , { label = "Électricité kWh/(pick,m)"
-      , toCell = .elec_pppm >> String.fromFloat >> text
-      }
-    , { label = "Électricité (MJ/kg de produit)"
-      , toCell = .elec_pppm >> String.fromFloat >> text
       }
     ]
