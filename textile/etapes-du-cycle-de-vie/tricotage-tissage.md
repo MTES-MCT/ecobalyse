@@ -439,13 +439,15 @@ Les pertes du tissage se décomposent comme suit :&#x20;
 
 <details>
 
-<summary>Tricotage (entre 3,4% et 5,5%)</summary>
+<summary>Tricotage</summary>
 
 Les taux de perte appliqués par défaut correspondent à ceux retenus par le socle technique actuellement utilisé (Base Impacts \_ ADEME).&#x20;
 
 * Tricotage circulaire, inventaire désagrégé : 3,4%
 * Tricotage rectiligne, inventaire désagrégé : 4%
-* Tricotage : 5,45%
+* Tricotage moyen (par défaut) : 5,45%
+* Tricotage seamless : 0,5%
+* Tricotage fully-fashioned : 0,5%
 
 </details>
 

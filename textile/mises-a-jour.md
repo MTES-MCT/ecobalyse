@@ -11,6 +11,11 @@
   Introduction du paramètre Titrage (Nm) (au sein de l'étape Filature) dans le calcul de la consommation d'électricité (kW) du Tissage. Le paramètre initial (Duitage) est supprimé car il n'est pas aussi bien maîtrisé que le Titrage par les marques
 * Surface (m2) + Densité de fils (/cm)\
   Ajout de ces deux indicateurs d'aide à la décision (dans la vision "Détaillée" du calculateur) afin d'éclairer les choix de modélisation de l'utilisateur
+* Tricotage\
+  Possibilité de sélectionner le type de tricotage (circulaire, rectiligne, seamless, fully-fashioned)
+* Confection (complexité)\
+  Intégration d'une notion de complexité (un nombre de minutes) afin de préciser la consommation d'électricité
+* Correction de bugs
 
 </details>
 
