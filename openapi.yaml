@@ -300,58 +300,59 @@ paths:
       summary: Calcul des impacts environnementaux d'une recette alimentaire
       requestBody:
         description: Requête modélisant les éléments de la recette à évaluer
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/FoodQuery"
             examples:
-              SpanishCarrotCake:
+              CarrotCake:
+                summary: "Carrot cake conventionnel"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 120
+                  - id: wheat
+                    mass: 140
+                  - id: milk
+                    mass: 60
+                  - id: carrot
+                    mass: 225
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
+              SpanishOrganicCarrotCake:
                 summary: "Carrot cake bio, origine Espagne"
                 value:
                   ingredients:
                   - id: egg
-                    mass: 0.12
+                    mass: 120
                     variant: organic
                     country: ES
                   - id: wheat
-                    mass: 0.14
+                    mass: 140
                     variant: organic
                     country: ES
                   - id: milk
-                    mass: 0.06
+                    mass: 60
                     variant: organic
                     country: ES
                   - id: carrot
-                    mass: 0.225
+                    mass: 225
                     variant: organic
                     country: ES
                   transform:
                     code: aded2490573207ec7ad5a3813978f6a4
-                    mass: 0.545
+                    mass: 545
                   packaging:
                   - code: 23b2754e5943bc77916f8f871edc53b6
-                    mass: 0.105
-                  distribution: ambient
-                  preparation:
-                  - refrigeration
-              CarrotCake:
-                summary: "Carrot cake bio"
-                value:
-                  ingredients:
-                  - id: egg
-                    mass: 0.12
-                  - id: wheat
-                    mass: 0.14
-                  - id: milk
-                    mass: 0.06
-                  - id: carrot
-                    mass: 0.225
-                  transform:
-                    code: aded2490573207ec7ad5a3813978f6a4
-                    mass: 0.545
-                  packaging:
-                  - code: 23b2754e5943bc77916f8f871edc53b6
-                    mass: 0.105
+                    mass: 105
                   distribution: ambient
                   preparation:
                   - refrigeration
@@ -360,13 +361,27 @@ paths:
                 value:
                   ingredients:
                   - id: mango
-                    mass: 0.5
+                    mass: 500
                     country: BR
                   transform: null
-                  packaging:
+                  packaging: []
                   distribution: ambient
                   preparation: []
-        required: true
+              CustomBonuses:
+                summary: "Œuf bio France, bonus spécifiques"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 100
+                    country: FR
+                    bonuses:
+                      agro-diversity: 30
+                      agro-ecology: 60
+                      animal-welfare: 90
+                  transform: null
+                  packaging: []
+                  distribution: ambient
+                  preparation: []
       responses:
         200:
           description: Opération réussie
@@ -820,7 +835,7 @@ components:
       description: |
         Liste des emballages composant la recette (liste disponible sur le point d'entrée `/food/packaging`).
 
-        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en kilogrammes**.
+        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
       required: true
       style: form
       schema:
@@ -837,7 +852,7 @@ components:
       description: |
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
-        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en kilogrammes**.
+        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
         Par exemple: `aded2490573207ec7ad5a3813978f6a4;1000` pour 1kg de matière à cuire.
       required: false
       style: form
@@ -1062,7 +1077,7 @@ components:
           description: Identifiant de l'ingrédient
         mass:
           type: number
-          description: Masse de l'ingrédient, **en kilogrammes**
+          description: Masse de l'ingrédient, **en grammes**
         variant:
           type: string
           enum: ["", organic]
@@ -1099,7 +1114,7 @@ components:
           description: Identifiant du procédé de transformation
         mass:
           type: number
-          description: Masse de produit à transformer, **en kilogrammes**
+          description: Masse de produit à transformer, **en grammes**
     FoodQueryPackaging:
       type: object
       additionalProperties: false
@@ -1109,7 +1124,7 @@ components:
       properties:
         code:
           type: string
-          description: Identifiant du procédé d'emballage, **en kilogrammes**
+          description: Identifiant du procédé d'emballage, **en grammes**
         mass:
           type: number
           description: Masse de cet emballage, **en kilogrammes**
