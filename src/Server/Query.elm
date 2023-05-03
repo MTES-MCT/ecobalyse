@@ -102,7 +102,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -116,7 +116,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -130,7 +130,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -144,7 +144,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
@@ -158,7 +158,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
@@ -276,7 +276,7 @@ packagingParser packagings string =
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser packagings code)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
             Err <| "Format d'emballage vide."
@@ -345,8 +345,8 @@ validateCountry countryCode scope =
             )
 
 
-validateMass : String -> Result String Mass
-validateMass string =
+validateMassInGrams : String -> Result String Mass
+validateMassInGrams string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Masse invalide : " ++ string)
@@ -403,7 +403,7 @@ parseTransform_ transforms string =
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser transforms code)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
             Err <| "Code de procédé de transformation manquant."
@@ -415,7 +415,7 @@ parseTransform_ transforms string =
 parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
 parseTextileQuery textileDb =
     succeed (Ok Inputs.Query)
-        |> apply (massParser "mass")
+        |> apply (massParserInKilograms "mass")
         |> apply (materialListParser "materials" textileDb.materials)
         |> apply (productParser "product" textileDb.products)
         |> apply (maybeTextileCountryParser "countrySpinning" textileDb.countries)
@@ -485,8 +485,8 @@ floatParser key =
                     Nothing
 
 
-massParser : String -> Parser (ParseResult Mass)
-massParser key =
+massParserInKilograms : String -> Parser (ParseResult Mass)
+massParserInKilograms key =
     floatParser key
         |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
         |> Query.map

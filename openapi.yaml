@@ -294,6 +294,107 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Alimentaire
+      summary: Calcul des impacts environnementaux d'une recette alimentaire
+      requestBody:
+        description: Requête modélisant les éléments de la recette à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FoodQuery"
+            examples:
+              CarrotCake:
+                summary: "Carrot cake conventionnel"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 120
+                  - id: wheat
+                    mass: 140
+                  - id: milk
+                    mass: 60
+                  - id: carrot
+                    mass: 225
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
+              SpanishOrganicCarrotCake:
+                summary: "Carrot cake bio, origine Espagne"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 120
+                    variant: organic
+                    country: ES
+                  - id: wheat
+                    mass: 140
+                    variant: organic
+                    country: ES
+                  - id: milk
+                    mass: 60
+                    variant: organic
+                    country: ES
+                  - id: carrot
+                    mass: 225
+                    variant: organic
+                    country: ES
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
+              BrazilianMango:
+                summary: "Mangue du Brésil"
+                value:
+                  ingredients:
+                  - id: mango
+                    mass: 500
+                    country: BR
+                  transform: null
+                  packaging: []
+                  distribution: ambient
+                  preparation: []
+              CustomBonuses:
+                summary: "Œuf bio France, bonus spécifiques"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 100
+                    country: FR
+                    bonuses:
+                      agro-diversity: 30
+                      agro-ecology: 60
+                      animal-welfare: 90
+                  transform: null
+                  packaging: []
+                  distribution: ambient
+                  preparation: []
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResultsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
 components:
   parameters:
     massParam:
@@ -930,6 +1031,103 @@ components:
         wtu:
           type: number
           description: "Utilisation de ressources en eau (m³)"
+    FoodQuery:
+      type: object
+      additionalProperties: false
+      required:
+      - ingredients
+      properties:
+        ingredients:
+          type: array
+          items:
+            "$ref": "#/components/schemas/FoodQueryIngredient"
+          minItems: 1
+        transform:
+          "$ref": "#/components/schemas/FoodQueryTransform"
+        packaging:
+          type: array
+          items:
+            "$ref": "#/components/schemas/FoodQueryPackaging"
+        distribution:
+          type: string
+          description: Distribution
+          enum: [ambient, fresh, frozen]
+        preparation:
+          type: array
+          description: Préparation avant consommation
+          items:
+            type: string
+            enum:
+            - frying
+            - pan-cooking
+            - pan-warming
+            - oven
+            - microwave
+            - refrigeration
+            - freezing
+    FoodQueryIngredient:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - mass
+      properties:
+        id:
+          type: string
+          description: Identifiant de l'ingrédient
+        mass:
+          type: number
+          description: Masse de l'ingrédient, **en grammes**
+        variant:
+          type: string
+          enum: ["", organic]
+        country:
+          type: string
+          description: Code ISO du pays d'origine
+        byPlane:
+          type: string
+          description: Transport par avion
+          enum: ["", byPlane, noPlane]
+        bonuses:
+          required:
+          - "agro-diversity"
+          - "agro-ecology"
+          properties:
+            "agro-diversity":
+              type: number
+              description: Bonus agro-diversité **en pourcentage**
+            "agro-ecology":
+              type: number
+              description: Bonus agro-écologie **en pourcentage**
+            "animal-welfare":
+              type: number
+              description: Si applicable, bonus de bien-être animal **en pourcentage**
+    FoodQueryTransform:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - mass
+      properties:
+        code:
+          type: string
+          description: Identifiant du procédé de transformation
+        mass:
+          type: number
+          description: Masse de produit à transformer, **en grammes**
+    FoodQueryPackaging:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - mass
+      properties:
+        code:
+          type: string
+          description: Identifiant du procédé d'emballage, **en grammes**
+        mass:
+          type: number
+          description: Masse de cet emballage, **en kilogrammes**
     InvalidParametersError:
       type: object
       properties:

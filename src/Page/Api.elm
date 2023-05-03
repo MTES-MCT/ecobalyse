@@ -54,19 +54,22 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "28 avril 2023"
+    [ { date = "3 mai 2023"
       , level = "minor"
-      , domains = [ "Textile" ]
+      , domains = [ "Alimentaire" ]
       , md =
-            """Le paramètre permettant de choisir la complexité de la confection
-            `makingComplexity` a été rajouté.
+            """Un nouveau point d'accès `POST /api/food/recipe` a été créé,
+            acceptant les requêtes au format JSON.
 """
       }
     , { date = "28 avril 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
-            """Le paramètre de titrage `yarnSize` peut maintenant être exprimé
+            """Le paramètre permettant de choisir la complexité de la confection
+            `makingComplexity` a été rajouté.
+
+            D'autre part, le paramètre de titrage `yarnSize` peut maintenant être exprimé
             avec une unité, permettant de spécifier le titrage en décitex (Dtex).
 """
       }

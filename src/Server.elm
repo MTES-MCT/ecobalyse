@@ -1,5 +1,6 @@
 port module Server exposing
-    ( input
+    ( handleRequest
+    , input
     , main
     , output
     )
@@ -18,6 +19,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -54,16 +56,14 @@ encodeStringError error =
         ]
 
 
-toResponse : Request -> Result String Encode.Value -> Cmd Msg
-toResponse request encodedResult =
+toResponse : Result String Encode.Value -> ( Int, Encode.Value )
+toResponse encodedResult =
     case encodedResult of
         Ok encoded ->
-            encoded
-                |> sendResponse 200 request
+            ( 200, encoded )
 
         Err error ->
-            encodeStringError error
-                |> sendResponse 400 request
+            ( 400, encodeStringError error )
 
 
 toAllImpactsSimple : List Impact.Definition -> Simulator -> Encode.Value
@@ -97,18 +97,18 @@ toFoodResults definitions query results =
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
-executeFoodQuery builderDb request encoder =
+executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> ( Int, Encode.Value )
+executeFoodQuery builderDb encoder =
     BuilderRecipe.compute builderDb
         >> Result.map (Tuple.second >> encoder)
-        >> toResponse request
+        >> toResponse
 
 
-executeTextileQuery : TextileDb.Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
-executeTextileQuery textileDb request encoder =
+executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> ( Int, Encode.Value )
+executeTextileQuery textileDb encoder =
     Simulator.compute textileDb
         >> Result.map encoder
-        >> toResponse request
+        >> toResponse
 
 
 encodeCountry : Country -> Encode.Value
@@ -171,87 +171,98 @@ encodeIngredients ingredients =
     Encode.list encodeIngredient ingredients
 
 
-handleRequest : StaticDb.Db -> Request -> Cmd Msg
+cmdRequest : StaticDb.Db -> Request -> Cmd Msg
+cmdRequest dbs request =
+    let
+        ( code, responseBody ) =
+            handleRequest dbs request
+    in
+    sendResponse code request responseBody
+
+
+handleRequest : StaticDb.Db -> Request -> ( Int, Encode.Value )
 handleRequest ({ builderDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
-        Just (Route.Get Route.FoodCountryList) ->
-            builderDb.countries
+        -- GET routes
+        Just Route.GetFoodCountryList ->
+            ( 200
+            , builderDb.countries
                 |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
-                |> sendResponse 200 request
+            )
 
-        Just (Route.Get Route.FoodIngredientList) ->
-            builderDb.ingredients
-                |> encodeIngredients
-                |> sendResponse 200 request
+        Just Route.GetFoodIngredientList ->
+            ( 200, encodeIngredients builderDb.ingredients )
 
-        Just (Route.Get Route.FoodPackagingList) ->
-            builderDb.processes
+        Just Route.GetFoodPackagingList ->
+            ( 200
+            , builderDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
-                |> sendResponse 200 request
+            )
 
-        Just (Route.Get Route.FoodTransformList) ->
-            builderDb.processes
+        Just Route.GetFoodTransformList ->
+            ( 200
+            , builderDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
-                |> sendResponse 200 request
+            )
 
-        Just (Route.Get (Route.FoodRecipe (Ok query))) ->
+        Just (Route.GetFoodRecipe (Ok query)) ->
             query
-                |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
+                |> executeFoodQuery builderDb (toFoodResults builderDb.impacts query)
 
-        Just (Route.Get (Route.FoodRecipe (Err errors))) ->
-            Query.encodeErrors errors
-                |> sendResponse 400 request
+        Just (Route.GetFoodRecipe (Err errors)) ->
+            ( 400, Query.encodeErrors errors )
 
-        Just (Route.Get Route.TextileCountryList) ->
-            textileDb.countries
+        Just Route.GetTextileCountryList ->
+            ( 200
+            , textileDb.countries
                 |> Scope.only Scope.Textile
                 |> Encode.list encodeCountry
-                |> sendResponse 200 request
+            )
 
-        Just (Route.Get Route.TextileMaterialList) ->
-            textileDb.materials
-                |> Encode.list encodeMaterial
-                |> sendResponse 200 request
+        Just Route.GetTextileMaterialList ->
+            ( 200, Encode.list encodeMaterial textileDb.materials )
 
-        Just (Route.Get Route.TextileProductList) ->
-            textileDb.products
-                |> Encode.list encodeProduct
-                |> sendResponse 200 request
+        Just Route.GetTextileProductList ->
+            ( 200, Encode.list encodeProduct textileDb.products )
 
-        Just (Route.Get (Route.TextileSimulator (Ok query))) ->
+        Just (Route.GetTextileSimulator (Ok query)) ->
             query
-                |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
+                |> executeTextileQuery textileDb (toAllImpactsSimple textileDb.impacts)
 
-        Just (Route.Get (Route.TextileSimulator (Err errors))) ->
-            Query.encodeErrors errors
-                |> sendResponse 400 request
+        Just (Route.GetTextileSimulator (Err errors)) ->
+            ( 400, Query.encodeErrors errors )
 
-        Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
+        Just (Route.GetTextileSimulatorDetailed (Ok query)) ->
             query
-                |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
+                |> executeTextileQuery textileDb (Simulator.encode textileDb.impacts)
 
-        Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
-            Query.encodeErrors errors
-                |> sendResponse 400 request
+        Just (Route.GetTextileSimulatorDetailed (Err errors)) ->
+            ( 400, Query.encodeErrors errors )
 
-        Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
+        Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
             query
-                |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
+                |> executeTextileQuery textileDb (toSingleImpactSimple textileDb.impacts trigram)
 
-        Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
-            Query.encodeErrors errors
-                |> sendResponse 400 request
+        Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
+            ( 400, Query.encodeErrors errors )
 
-        Just _ ->
-            encodeStringError "Method not allowed"
-                |> sendResponse 405 request
+        -- POST routes
+        Just Route.PostFoodRecipe ->
+            case Decode.decodeValue BuilderQuery.decode request.body of
+                Ok query ->
+                    query
+                        |> executeFoodQuery builderDb (toFoodResults builderDb.impacts query)
+
+                Err error ->
+                    ( 400
+                    , error |> Decode.errorToString |> Encode.string
+                    )
 
         Nothing ->
-            encodeStringError "Endpoint doesn't exist"
-                |> sendResponse 404 request
+            ( 404, encodeStringError "Endpoint doesn't exist" )
 
 
 update : Msg -> Cmd Msg
@@ -263,7 +274,7 @@ update msg =
                     encodeStringError dbError |> sendResponse 503 request
 
                 Ok db ->
-                    handleRequest db request
+                    cmdRequest db request
 
 
 main : Program () () Msg

@@ -131,9 +131,9 @@ defaultBonuses { category } =
 encodeBonuses : Bonuses -> Encode.Value
 encodeBonuses v =
     Encode.object
-        [ ( "agro-diversity", Split.encodeFloat v.agroDiversity )
-        , ( "agro-ecology", Split.encodeFloat v.agroEcology )
-        , ( "animal-welfare", Split.encodeFloat v.animalWelfare )
+        [ ( "agro-diversity", Split.encodePercent v.agroDiversity )
+        , ( "agro-ecology", Split.encodePercent v.agroEcology )
+        , ( "animal-welfare", Split.encodePercent v.animalWelfare )
         ]
 
 
@@ -175,9 +175,9 @@ idToString (Id str) =
 decodeBonuses : Decoder Bonuses
 decodeBonuses =
     Decode.succeed Bonuses
-        |> Pipe.required "agro-diversity" Split.decodeFloat
-        |> Pipe.required "agro-ecology" Split.decodeFloat
-        |> Pipe.optional "animal-welfare" Split.decodeFloat Split.zero
+        |> Pipe.required "agro-diversity" Split.decodePercent
+        |> Pipe.required "agro-ecology" Split.decodePercent
+        |> Pipe.optional "animal-welfare" Split.decodePercent Split.zero
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
