@@ -145,7 +145,7 @@ def import_agribalyse(
     print("Finished")
 
 
-def import_ef(data, db):
+def import_ef(data=ECOINVENT_SPOLD, db=ECOINVENTDB):
     """
     Import file at path `data` linked to biosphere named `db`
     """
