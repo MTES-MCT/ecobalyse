@@ -305,8 +305,37 @@ paths:
             schema:
               $ref: "#/components/schemas/FoodQuery"
             examples:
+              SpanishCarrotCake:
+                summary: "Carrot cake bio, origine Espagne"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 0.12
+                    variant: organic
+                    country: ES
+                  - id: wheat
+                    mass: 0.14
+                    variant: organic
+                    country: ES
+                  - id: milk
+                    mass: 0.06
+                    variant: organic
+                    country: ES
+                  - id: carrot
+                    mass: 0.225
+                    variant: organic
+                    country: ES
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 0.545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 0.105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
               CarrotCake:
-                summary: "Un gâteau de carottes"
+                summary: "Carrot cake bio"
                 value:
                   ingredients:
                   - id: egg
@@ -326,6 +355,17 @@ paths:
                   distribution: ambient
                   preparation:
                   - refrigeration
+              BrazilianMango:
+                summary: "Mangue du Brésil"
+                value:
+                  ingredients:
+                  - id: mango
+                    mass: 0.5
+                    country: BR
+                  transform: null
+                  packaging:
+                  distribution: ambient
+                  preparation: []
         required: true
       responses:
         200:
