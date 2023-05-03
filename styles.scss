@@ -179,6 +179,9 @@ input[type="number"].no-arrows {
 .form-select {
   min-height: 37px;
   line-height: initial;
+  &-sm {
+    min-height: 31px;
+  }
 }
 
 .form-select, .form-control, .input-group-text {
