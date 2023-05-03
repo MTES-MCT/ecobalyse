@@ -10,8 +10,8 @@ image:
 
 import_ei391_agb311:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py;\
-	else $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 imports.py; fi
 
 import_agribalyse:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
