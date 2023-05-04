@@ -29,7 +29,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ES",
@@ -61,7 +61,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, FR",
@@ -93,7 +93,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IN",
@@ -125,7 +125,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PT",
@@ -157,7 +157,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Plume de canard, inventaire agr\u00e9g\u00e9",
@@ -188,7 +188,7 @@
     "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
+    "step_usage": "Mati\u00e8res, Filature",
     "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
@@ -572,7 +572,7 @@
     "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
+    "step_usage": "Mati\u00e8res, Filature",
     "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
@@ -988,7 +988,7 @@
     "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
+    "step_usage": "Mati\u00e8res, Filature",
     "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
@@ -1340,8 +1340,8 @@
     "elec_MJ": 0.0,
     "waste": 7.08976,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Lin (filasse)",
@@ -1372,8 +1372,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0765978,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Lin (\u00e9toupe)",
@@ -1404,8 +1404,8 @@
     "elec_MJ": 0.0,
     "waste": 0.185817,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Laine de mouton M\u00e9rinos",
@@ -1436,8 +1436,8 @@
     "elec_MJ": 0.0,
     "waste": 3.2e-06,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Laine de mouton",
@@ -1468,8 +1468,8 @@
     "elec_MJ": 0.0,
     "waste": 0.538462,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Jute",
@@ -1500,8 +1500,8 @@
     "elec_MJ": 0.0,
     "waste": 0.168877,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Coton",
@@ -1532,8 +1532,8 @@
     "elec_MJ": 0.0,
     "waste": 0.105105,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Chanvre",
@@ -1564,8 +1564,8 @@
     "elec_MJ": 0.0,
     "waste": 0.123406,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Cachemire",
@@ -1596,8 +1596,8 @@
     "elec_MJ": 0.0,
     "waste": 2.84423,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Angora",
@@ -1628,8 +1628,8 @@
     "elec_MJ": 0.0,
     "waste": 0.538462,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Viscose",
@@ -1660,8 +1660,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0370371,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyur\u00e9thane/\u00c9lasthanne",
@@ -1692,8 +1692,8 @@
     "elec_MJ": 0.0,
     "waste": 0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polytrim\u00e9thyl\u00e8ne t\u00e9r\u00e9phtalate (PTT)",
@@ -1724,8 +1724,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyt\u00e9r\u00e9phtalate de butyl\u00e8ne (PBT)",
@@ -1756,8 +1756,8 @@
     "elec_MJ": 0.0,
     "waste": 0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polypropyl\u00e8ne",
@@ -1788,8 +1788,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polylactide",
@@ -1820,8 +1820,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Poly\u00e9thyl\u00e8ne",
@@ -1852,8 +1852,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyester",
@@ -1884,8 +1884,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyamide",
@@ -1916,8 +1916,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Aramide",
@@ -1948,8 +1948,8 @@
     "elec_MJ": 0.0,
     "waste": 0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Acrylique",
@@ -1980,8 +1980,8 @@
     "elec_MJ": 0.0,
     "waste": 0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polypropyl\u00e8ne/polyamide",
@@ -2012,8 +2012,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113178,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Feuille de n\u00e9opr\u00e8ne, inventaire agr\u00e9g\u00e9",
@@ -2044,7 +2044,7 @@
     "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
+    "step_usage": "Mati\u00e8res, Filature",
     "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
@@ -2076,8 +2076,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113179,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyester recycl\u00e9 (recyclage chimique partiel)",
@@ -2108,8 +2108,8 @@
     "elec_MJ": 0.0,
     "waste": 0.01136,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyester recycl\u00e9 (recyclage chimique complet)",
@@ -2140,8 +2140,8 @@
     "elec_MJ": 0.0,
     "waste": 0.01136,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyamide recycl\u00e9 (recyclage chimique)",
@@ -2172,8 +2172,8 @@
     "elec_MJ": 0.0,
     "waste": 0.0113287,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Viscose recycl\u00e9",
@@ -2204,8 +2204,8 @@
     "elec_MJ": 0.0,
     "waste": 0.115094,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Polyamide recycl\u00e9",
@@ -2236,8 +2236,8 @@
     "elec_MJ": 0.0,
     "waste": 0.115094,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Laine recycl\u00e9e",
@@ -2268,8 +2268,8 @@
     "elec_MJ": 0.0,
     "waste": 0.075296,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Coton recycl\u00e9 (d\u00e9chets post-consommation)",
@@ -2300,8 +2300,8 @@
     "elec_MJ": 0.0,
     "waste": 0.631206,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Coton recycl\u00e9 (d\u00e9chets de production)",
@@ -2332,8 +2332,8 @@
     "elec_MJ": 0.0,
     "waste": 0.21716,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Acrylique recycl\u00e9",
@@ -2364,8 +2364,8 @@
     "elec_MJ": 0.0,
     "waste": 0.115094,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
-    "correctif": "S\u00e9paration mati\u00e8re/filature + Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
+    "step_usage": "Mati\u00e8res, Filature",
+    "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
     "name": "Production de fibres recycl\u00e9es, traitement de d\u00e9chets textiles post-consommation (recyclage m\u00e9canique), inventaire partiellement agr\u00e9g\u00e9",
@@ -2396,7 +2396,7 @@
     "elec_MJ": 0.0,
     "waste": 0.21,
     "alias": null,
-    "step_usage": "Mati\u00e8res",
+    "step_usage": "Mati\u00e8res, Filature",
     "correctif": "Ajout donn\u00e9es \"EP&L Kering\" pour la consommation d'eau"
   },
   {
@@ -2807,7 +2807,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TN",
@@ -2839,7 +2839,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TR",
@@ -2871,7 +2871,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AE",
@@ -2903,7 +2903,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AL",
@@ -2935,7 +2935,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AM",
@@ -2967,7 +2967,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AN",
@@ -2999,7 +2999,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AO",
@@ -3031,7 +3031,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AR",
@@ -3063,7 +3063,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AT",
@@ -3095,7 +3095,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AU",
@@ -3127,7 +3127,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, AZ",
@@ -3159,7 +3159,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BA",
@@ -3191,7 +3191,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BD",
@@ -3223,7 +3223,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BE",
@@ -3255,7 +3255,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BG",
@@ -3287,7 +3287,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BH",
@@ -3319,7 +3319,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BJ",
@@ -3351,7 +3351,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BN",
@@ -3383,7 +3383,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BO",
@@ -3415,7 +3415,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BR",
@@ -3447,7 +3447,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BW",
@@ -3479,7 +3479,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, BY",
@@ -3511,7 +3511,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CA",
@@ -3543,7 +3543,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CD",
@@ -3575,7 +3575,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CG",
@@ -3607,7 +3607,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CH",
@@ -3639,7 +3639,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CI",
@@ -3671,7 +3671,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CL",
@@ -3703,7 +3703,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CM",
@@ -3735,7 +3735,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CO",
@@ -3767,7 +3767,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CR",
@@ -3799,7 +3799,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CU",
@@ -3831,7 +3831,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CY",
@@ -3863,7 +3863,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, CZ",
@@ -3895,7 +3895,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, DE",
@@ -3927,7 +3927,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, DK",
@@ -3959,7 +3959,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, DO",
@@ -3991,7 +3991,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, DZ",
@@ -4023,7 +4023,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, EC",
@@ -4055,7 +4055,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, EE",
@@ -4087,7 +4087,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, EG",
@@ -4119,7 +4119,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ER",
@@ -4151,7 +4151,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ET",
@@ -4183,7 +4183,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, FI",
@@ -4215,7 +4215,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GA",
@@ -4247,7 +4247,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GB",
@@ -4279,7 +4279,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GE",
@@ -4311,7 +4311,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GH",
@@ -4343,7 +4343,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GI",
@@ -4375,7 +4375,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, GT",
@@ -4407,7 +4407,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, HK",
@@ -4439,7 +4439,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, HN",
@@ -4471,7 +4471,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, HR",
@@ -4503,7 +4503,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, HT",
@@ -4535,7 +4535,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, HU",
@@ -4567,7 +4567,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ID",
@@ -4599,7 +4599,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IE",
@@ -4631,7 +4631,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IL",
@@ -4663,7 +4663,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IQ",
@@ -4695,7 +4695,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IR",
@@ -4727,7 +4727,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IS",
@@ -4759,7 +4759,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, IT",
@@ -4791,7 +4791,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, JM",
@@ -4823,7 +4823,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, JO",
@@ -4855,7 +4855,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, JP",
@@ -4887,7 +4887,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KE",
@@ -4919,7 +4919,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KG",
@@ -4951,7 +4951,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KH",
@@ -4983,7 +4983,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KP",
@@ -5015,7 +5015,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KR",
@@ -5047,7 +5047,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KW",
@@ -5079,7 +5079,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, KZ",
@@ -5111,7 +5111,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LB",
@@ -5143,7 +5143,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LK",
@@ -5175,7 +5175,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LT",
@@ -5207,7 +5207,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LU",
@@ -5239,7 +5239,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LV",
@@ -5271,7 +5271,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, LY",
@@ -5303,7 +5303,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MA",
@@ -5335,7 +5335,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MD",
@@ -5367,7 +5367,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MK",
@@ -5399,7 +5399,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MM",
@@ -5431,7 +5431,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MN",
@@ -5463,7 +5463,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, moyenne, RER",
@@ -5495,7 +5495,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MT",
@@ -5527,7 +5527,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MX",
@@ -5559,7 +5559,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MY",
@@ -5591,7 +5591,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, MZ",
@@ -5623,7 +5623,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NA",
@@ -5655,7 +5655,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NG",
@@ -5687,7 +5687,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NI",
@@ -5719,7 +5719,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NL",
@@ -5751,7 +5751,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NO",
@@ -5783,7 +5783,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, non sp\u00e9cifi\u00e9",
@@ -5815,7 +5815,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NP",
@@ -5847,7 +5847,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, NZ",
@@ -5879,7 +5879,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, OM",
@@ -5911,7 +5911,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PA",
@@ -5943,7 +5943,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PE",
@@ -5975,7 +5975,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PH",
@@ -6007,7 +6007,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PK",
@@ -6039,7 +6039,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PL",
@@ -6071,7 +6071,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, PY",
@@ -6103,7 +6103,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, QA",
@@ -6135,7 +6135,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, RO",
@@ -6167,7 +6167,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, RS",
@@ -6199,7 +6199,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, RU",
@@ -6231,7 +6231,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SA",
@@ -6263,7 +6263,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SD",
@@ -6295,7 +6295,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SE",
@@ -6327,7 +6327,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SG",
@@ -6359,7 +6359,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SI",
@@ -6391,7 +6391,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SK",
@@ -6423,7 +6423,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SN",
@@ -6455,7 +6455,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SV",
@@ -6487,7 +6487,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, SY",
@@ -6519,7 +6519,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TG",
@@ -6551,7 +6551,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TH",
@@ -6583,7 +6583,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TJ",
@@ -6615,7 +6615,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TM",
@@ -6647,7 +6647,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TT",
@@ -6679,7 +6679,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TW",
@@ -6711,7 +6711,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, TZ",
@@ -6743,7 +6743,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, UA",
@@ -6775,7 +6775,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, US",
@@ -6807,7 +6807,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, UY",
@@ -6839,7 +6839,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, UZ",
@@ -6871,7 +6871,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, VE",
@@ -6903,7 +6903,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, VN",
@@ -6935,7 +6935,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, YE",
@@ -6967,7 +6967,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ZA",
@@ -6999,7 +6999,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ZM",
@@ -7031,7 +7031,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix \u00e9lectrique r\u00e9seau, ZW",
@@ -7063,7 +7063,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "R\u00e9duction de l'impact de l'indicateur radiations ionisantes"
+    "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudi\u00e8re), FR",
@@ -7613,7 +7613,7 @@
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Cape) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "86db560b-d31f-4745-a01e-ec74be00f865",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7639,13 +7639,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Ch\u00e2le) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7671,13 +7671,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Chemisier) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7703,13 +7703,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (D\u00e9bardeur) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7735,13 +7735,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Echarpe) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7767,13 +7767,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Gilet) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7799,13 +7799,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Jean) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7831,13 +7831,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Jupe) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7863,13 +7863,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Manteau) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7895,13 +7895,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Pantalon) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7927,13 +7927,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Pull) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7959,13 +7959,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Robe) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
       "acd": 9.39401e-05,
@@ -7991,13 +7991,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (T-shirt) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
       "acd": 9.39401e-05,
@@ -8023,13 +8023,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Utilisation : Impact hors repassage (\u00e9lectricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es)  (Veste) - Non ironing impact",
     "info": "Utilisation > Aggr\u00e9gation multi-impacts > Electricit\u00e9 (lave-linge, s\u00e8che-linge), lessive liquide et traitement des eaux us\u00e9es",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
     "impacts": {
       "acd": 9.39401e-05,
@@ -8055,7 +8055,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Transport en voiture jusqu'au point de collecte pr\u00e9calcul\u00e9 pour la fin de vie",
@@ -8093,7 +8093,7 @@
     "name": "Mise en d\u00e9charge de textiles, FR",
     "info": "Traitement de fin de vie > Mise en d\u00e9charge > Fractions de d\u00e9chets",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "9adaf403-4eda-4d9c-80c3-f231754644ca",
     "impacts": {
       "acd": 0.000261782,
@@ -8119,13 +8119,13 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Utilisation",
-    "correctif": "non applicable"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Fin de vie hors voiture (transport en camion, incin\u00e9ration, mise en d\u00e9charge)",
     "info": "Fin de vie > Aggr\u00e9gation multi-impacts > ",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Ecobalyse",
     "uuid": "266fa378-77c0-11ec-90d6-0242ac120003",
     "impacts": {
       "acd": 0.000407082,
@@ -8151,7 +8151,7 @@
     "waste": 0.0,
     "alias": "end-of-life",
     "step_usage": "Fin de vie",
-    "correctif": "non applicatble"
+    "correctif": "Pr\u00e9calcul Ecobalyse \u00e0 partir de Base Impacts"
   },
   {
     "name": "Tricotage rectiligne, inventaire d\u00e9sagr\u00e9g\u00e9",
@@ -8285,7 +8285,7 @@
     "name": "Filature (fibres synth\u00e9tiques)",
     "info": "Textile > Filature > Filature",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Non Applicable",
     "uuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
     "impacts": {
       "acd": 0.0,
@@ -8310,14 +8310,14 @@
     "elec_MJ": 11.556,
     "waste": 0.0204,
     "alias": null,
-    "step_usage": "Filature",
-    "correctif": "S\u00e9paration mati\u00e8re/filature Ecobalyse depuis Base Impacts"
+    "step_usage": "Non Applicable",
+    "correctif": "Non Applicable"
   },
   {
     "name": "Filature (fibres naturelles)",
     "info": "Textile > Filature > Filature",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Non Applicable",
     "uuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
     "impacts": {
       "acd": 0.0,
@@ -8342,8 +8342,8 @@
     "elec_MJ": 11.556,
     "waste": 0.087,
     "alias": null,
-    "step_usage": "Filature",
-    "correctif": "S\u00e9paration mati\u00e8re/filature Ecobalyse depuis Base Impacts"
+    "step_usage": "Non Applicable",
+    "correctif": "Non Applicable"
   },
   {
     "name": "Impression pigmentaire, proc\u00e9d\u00e9 repr\u00e9sentatif, traitement moyen des eaux us\u00e9es",
