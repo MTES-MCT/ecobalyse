@@ -31,6 +31,10 @@ type Msg
     = Received Request
 
 
+type alias JsonResponse =
+    ( Int, Encode.Value )
+
+
 apiDocUrl : String
 apiDocUrl =
     "https://ecobalyse.beta.gouv.fr/#/api"
@@ -56,7 +60,7 @@ encodeStringError error =
         ]
 
 
-toResponse : Result String Encode.Value -> ( Int, Encode.Value )
+toResponse : Result String Encode.Value -> JsonResponse
 toResponse encodedResult =
     case encodedResult of
         Ok encoded ->
@@ -97,14 +101,14 @@ toFoodResults definitions query results =
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> ( Int, Encode.Value )
+executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
 executeFoodQuery builderDb encoder =
     BuilderRecipe.compute builderDb
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
 
-executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> ( Int, Encode.Value )
+executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
 executeTextileQuery textileDb encoder =
     Simulator.compute textileDb
         >> Result.map encoder
@@ -180,22 +184,17 @@ cmdRequest dbs request =
     sendResponse code request responseBody
 
 
-handleJsonDecodeError : Decode.Error -> ( Int, Encode.Value )
-handleJsonDecodeError error =
-    ( 400, Encode.string (Decode.errorToString error) )
-
-
-handleQueryStringErrors : Query.Errors -> ( Int, Encode.Value )
+handleQueryStringErrors : Query.Errors -> JsonResponse
 handleQueryStringErrors errors =
     ( 400, Query.encodeErrors errors )
 
 
-handleSuccess : Encode.Value -> ( Int, Encode.Value )
+handleSuccess : Encode.Value -> JsonResponse
 handleSuccess body =
     ( 200, body )
 
 
-handleRequest : StaticDb.Db -> Request -> ( Int, Encode.Value )
+handleRequest : StaticDb.Db -> Request -> JsonResponse
 handleRequest ({ builderDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
         -- GET routes
@@ -268,43 +267,40 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
 
         -- POST routes
         Just Route.PostFoodRecipe ->
-            case Decode.decodeValue BuilderQuery.decode request.body of
-                Ok query ->
-                    query
-                        |> executeFoodQuery builderDb (toFoodResults builderDb.impacts query)
-
-                Err error ->
-                    handleJsonDecodeError error
+            request.body
+                |> handleDecodeBody BuilderQuery.decode
+                    (\query ->
+                        query
+                            |> executeFoodQuery builderDb (toFoodResults builderDb.impacts query)
+                    )
 
         Just Route.PostTextileSimulator ->
-            case Decode.decodeValue Inputs.decodeQuery request.body of
-                Ok query ->
-                    query
-                        |> executeTextileQuery textileDb (toAllImpactsSimple textileDb.impacts)
-
-                Err error ->
-                    handleJsonDecodeError error
+            request.body
+                |> handleDecodeBody Inputs.decodeQuery
+                    (executeTextileQuery textileDb (toAllImpactsSimple textileDb.impacts))
 
         Just Route.PostTextileSimulatorDetailed ->
-            case Decode.decodeValue Inputs.decodeQuery request.body of
-                Ok query ->
-                    query
-                        |> executeTextileQuery textileDb (Simulator.encode textileDb.impacts)
-
-                Err error ->
-                    handleJsonDecodeError error
+            request.body
+                |> handleDecodeBody Inputs.decodeQuery
+                    (executeTextileQuery textileDb (Simulator.encode textileDb.impacts))
 
         Just (Route.PostTextileSimulatorSingle trigram) ->
-            case Decode.decodeValue Inputs.decodeQuery request.body of
-                Ok query ->
-                    query
-                        |> executeTextileQuery textileDb (toSingleImpactSimple textileDb.impacts trigram)
-
-                Err error ->
-                    handleJsonDecodeError error
+            request.body
+                |> handleDecodeBody Inputs.decodeQuery
+                    (executeTextileQuery textileDb (toSingleImpactSimple textileDb.impacts trigram))
 
         Nothing ->
             ( 404, encodeStringError "Endpoint doesn't exist" )
+
+
+handleDecodeBody : Decode.Decoder a -> (a -> JsonResponse) -> Encode.Value -> JsonResponse
+handleDecodeBody decoder mapper jsonBody =
+    case Decode.decodeValue decoder jsonBody of
+        Ok x ->
+            mapper x
+
+        Err error ->
+            ( 400, Encode.string (Decode.errorToString error) )
 
 
 update : Msg -> Cmd Msg
