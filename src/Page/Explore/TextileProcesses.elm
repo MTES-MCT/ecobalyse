@@ -12,7 +12,10 @@ import Route
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Process msg
 table _ { detailed, scope } =
-    [ { label = "Identifiant"
+    [ { label = "Étape"
+      , toCell = .step_usage >> text
+      }
+    , { label = "Identifiant"
       , toCell =
             \process ->
                 if detailed then
@@ -29,6 +32,11 @@ table _ { detailed, scope } =
       , toCell =
             \process ->
                 span [ title process.source ] [ text process.source ]
+      }
+    , { label = "Correctif"
+      , toCell =
+            \process ->
+                span [ title process.correctif ] [ text process.correctif ]
       }
     , { label = "Unité"
       , toCell = .unit >> text
