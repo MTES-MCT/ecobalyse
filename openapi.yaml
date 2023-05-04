@@ -124,26 +124,40 @@ paths:
             schema:
               $ref: "#/components/schemas/TextileQuery"
             examples:
-              TShirtFrance:
-                mass: 0.17
-                materials:
-                - id: "coton"
-                  share: 1
-                product: "tshirt"
-                countrySpinning: "BD"
-                countryFabric: "PT"
-                countryDyeing: "PT"
-                countryMaking: "ES"
-                airTransportRatio: 0.5
-                quality: 1.2
-                reparability: 1.2
-                makingWaste: null
-                makingComplexity: null
-                yarnSize: null
-                surfaceMass: null
-                knittingProcess: null
-                disabledSteps:
-                - use
+              tShirtFrance:
+                summary: "T-Shirt France 100% Coton"
+                value:
+                  mass: 0.17
+                  materials:
+                  - id: "coton"
+                    share: 1
+                  product: "tshirt"
+                  countrySpinning: "FR"
+                  countryFabric: "FR"
+                  countryDyeing: "FR"
+                  countryMaking: "FR"
+              tShirtChina:
+                summary: "T-Shirt Chine, low-cost, 100% Coton"
+                value:
+                  mass: 0.17
+                  materials:
+                  - id: "coton"
+                    share: 1
+                  product: "tshirt"
+                  countrySpinning: "CN"
+                  countryFabric: "CN"
+                  countryDyeing: "CN"
+                  countryMaking: "CN"
+                  airTransportRatio: 0.33
+                  quality: 0.9
+                  reparability: 0.9
+                  makingWaste: null
+                  makingComplexity: null
+                  yarnSize: null
+                  surfaceMass: null
+                  knittingProcess: null
+                  disabledSteps:
+                  - use
       responses:
         200:
           description: Opération réussie
