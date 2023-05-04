@@ -112,6 +112,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              TShirtFrance:
+                mass: 0.17
+                materials:
+                - id: "coton"
+                  share: 1
+                product: "tshirt"
+                countrySpinning: "BD"
+                countryFabric: "PT"
+                countryDyeing: "PT"
+                countryMaking: "ES"
+                airTransportRatio: 0.5
+                quality: 1.2
+                reparability: 1.2
+                makingWaste: null
+                makingComplexity: null
+                yarnSize: null
+                surfaceMass: null
+                knittingProcess: null
+                disabledSteps:
+                - use
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericImpactsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/{impact}:
     get:
       tags:
@@ -1031,6 +1076,93 @@ components:
         wtu:
           type: number
           description: "Utilisation de ressources en eau (m³)"
+    TextileQuery:
+      type: object
+      additionalProperties: false
+      required:
+      - materials
+      - countrySpinning
+      - countryFabric
+      - countryDyeing
+      - countryMaking
+      properties:
+        mass:
+          type: number
+        materials:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TextileQueryMaterial"
+          minItems: 1
+        product:
+          type: string # "tshirt"
+        countrySpinning:
+          type: string # "BD"
+        countryFabric:
+          type: string # "PT"
+        countryDyeing:
+          type: string # "PT"
+        countryMaking:
+          type: string # "ES"
+        airTransportRatio:
+          type: number
+          required: false
+        quality:
+          type: number
+          required: false
+        reparability:
+          type: number
+          required: false
+        makingWaste:
+          type: number
+          required: false
+        makingComplexity:
+          type: string
+          required: false
+          enum:
+          - very-high
+          - high
+          - medium
+          - low
+          - very-low
+          - not-applicable
+        yarnSize:
+          type: number
+          required: false
+        surfaceMass:
+          type: number
+          required: false
+        knittingProcess:
+          type: string
+          required: false
+          enum:
+          - mix
+          - fully-fashioned
+          - seamless
+          - circular
+          - straight
+        disabledSteps:
+          type: string
+          required: false
+          enum:
+          - material
+          - spinning
+          - fabric
+          - making
+          - ennobling
+          - distribution
+          - use
+          - eol
+    TextileQueryMaterial:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - share
+      properties:
+        id:
+          type: string
+        share:
+          type: number
     FoodQuery:
       type: object
       additionalProperties: false
