@@ -34,6 +34,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Food.BuilderDb as FoodRequestDb
 import Route
+import Table
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Modal as ModalView
@@ -42,6 +43,7 @@ import Views.Modal as ModalView
 type alias Model =
     { dataset : Dataset
     , scope : Scope
+    , tableState : Table.State
     }
 
 
@@ -49,11 +51,12 @@ type Msg
     = NoOp
     | CloseModal
     | FoodDbLoaded (WebData BuilderDb.Db)
+    | SetTableState Table.State
 
 
 init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
 init scope dataset session =
-    ( { dataset = dataset, scope = scope }
+    ( { dataset = dataset, scope = scope, tableState = Table.initialSort "" }
     , session
     , Cmd.batch
         [ if scope == Scope.Food && BuilderDb.isEmpty session.builderDb then
@@ -90,6 +93,12 @@ update session msg model =
 
                 _ ->
                     session
+            , Cmd.none
+            )
+
+        SetTableState tableState ->
+            ( { model | tableState = tableState }
+            , session
             , Cmd.none
             )
 
@@ -269,17 +278,31 @@ textileMaterialsExplorer maybeId db =
     ]
 
 
-textileProcessesExplorer : Maybe Process.Uuid -> Db -> List (Html Msg)
-textileProcessesExplorer maybeId db =
+textileProcessesExplorer : Table.State -> Maybe Process.Uuid -> Db -> List (Html Msg)
+textileProcessesExplorer tableState maybeId db =
+    let
+        defaultCustomizations =
+            Table.defaultCustomizations
+
+        tableConfig =
+            { toId = .uuid >> Process.uuidToString
+            , toMsg = SetTableState
+            , columns = []
+            , customizations =
+                { defaultCustomizations
+                    | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list" ]
+                }
+            }
+    in
     [ db.processes
-        |> Table.viewList Scope.Textile (TextileProcesses.table db)
+        |> Table.viewListWithOrdering tableConfig tableState Scope.Textile (TextileProcesses.table db)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Process.findByUuid id db.processes of
                     Ok process ->
                         process
-                            |> Table.viewDetails Scope.Textile (TextileProcesses.table db)
+                            |> Table.viewDetailsWithOrdering Scope.Textile (TextileProcesses.table db)
 
                     Err error ->
                         alert error
@@ -291,7 +314,7 @@ textileProcessesExplorer maybeId db =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db, builderDb } { scope, dataset } =
+explore { db, builderDb } { scope, dataset, tableState } =
     case dataset of
         Dataset.Countries maybeCode ->
             db.countries |> countriesExplorer scope maybeCode
@@ -309,7 +332,7 @@ explore { db, builderDb } { scope, dataset } =
             db |> textileProductsExplorer maybeId
 
         Dataset.TextileProcesses maybeId ->
-            db |> textileProcessesExplorer maybeId
+            db |> textileProcessesExplorer tableState maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

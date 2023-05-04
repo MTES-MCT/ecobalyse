@@ -6,39 +6,45 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.Process as Process exposing (Process)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table exposing (TableWithValue)
 import Route
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Process msg
+table : Db -> { detailed : Bool, scope : Scope } -> TableWithValue Process String msg
 table _ { detailed, scope } =
     [ { label = "Étape"
-      , toCell = .step_usage >> text
+      , toValue = .step_usage
+      , toCell = text
       }
     , { label = "Identifiant"
+      , toValue = .uuid >> Process.uuidToString
       , toCell =
-            \process ->
+            \uuid ->
                 if detailed then
-                    code [] [ text (Process.uuidToString process.uuid) ]
+                    code [] [ text uuid ]
 
                 else
-                    a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just process.uuid))) ]
-                        [ code [] [ text (Process.uuidToString process.uuid) ] ]
+                    a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
+                        [ code [] [ text uuid ] ]
       }
     , { label = "Nom"
-      , toCell = .name >> text
+      , toValue = .name
+      , toCell = text
       }
     , { label = "Source"
+      , toValue = .source
       , toCell =
-            \process ->
-                span [ title process.source ] [ text process.source ]
+            \source ->
+                span [ title source ] [ text source ]
       }
     , { label = "Correctif"
+      , toValue = .correctif
       , toCell =
-            \process ->
-                span [ title process.correctif ] [ text process.correctif ]
+            \correctif ->
+                span [ title correctif ] [ text correctif ]
       }
     , { label = "Unité"
-      , toCell = .unit >> text
+      , toValue = .unit
+      , toCell = text
       }
     ]
