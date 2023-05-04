@@ -15,11 +15,6 @@ bw2io.bw2setup()
 os.chdir("/home/jovyan/ecobalyse/data")
 from food.import_agb.importing_databases import import_agribalyse
 
-if "Agribalyse" not in bw2data.databases:
-    import_agribalyse()
-else:
-    print("Agribalyse already imported")
-
 databases = list(bw2data.databases.keys())
 # widgets
 w_database = ipywidgets.Dropdown(
