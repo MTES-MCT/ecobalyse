@@ -261,6 +261,15 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                     , error |> Decode.errorToString |> Encode.string
                     )
 
+        Just Route.PostTextileSimulator ->
+            ( 200, Encode.string "ok" )
+
+        Just Route.PostTextileSimulatorDetailed ->
+            ( 200, Encode.string "ok" )
+
+        Just (Route.PostTextileSimulatorSingle _) ->
+            ( 200, Encode.string "ok" )
+
         Nothing ->
             ( 404, encodeStringError "Endpoint doesn't exist" )
 

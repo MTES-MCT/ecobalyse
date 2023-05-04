@@ -45,6 +45,9 @@ type Route
     | GetTextileSimulatorSingle Impact.Trigram (Result Query.Errors TextileInputs.Query)
       -- POST routes
     | PostFoodRecipe
+    | PostTextileSimulator
+    | PostTextileSimulatorDetailed
+    | PostTextileSimulatorSingle Impact.Trigram
 
 
 parser : StaticDb.Db -> Parser (Route -> a) a
@@ -65,6 +68,9 @@ parser { builderDb, textileDb } =
         , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)
         , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery textileDb)
         , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile <?> Query.parseTextileQuery textileDb)
+        , Parser.map PostTextileSimulator (s "GET" </> s "textile" </> s "simulator")
+        , Parser.map PostTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed")
+        , Parser.map PostTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile)
         ]
 
 
