@@ -12,6 +12,7 @@ ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
 AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV.zip"
 AGRIBALYSEDB = "Agribalyse 3.1.1"
+AGBIOSPHERE = AGRIBALYSEDB + " biosphere"
 BIOSPHERE = "biosphere3"
 # EF
 EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
@@ -132,7 +133,7 @@ def import_agribalyse(
         agribalyse.migrate(migration["name"])
 
     agribalyse.statistics()
-    unlinked_db = AGRIBALYSEDB + " unlinked flows"
+    unlinked_db = AGRIBALYSEDB + " biosphere"
     bw2data.Database(unlinked_db).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(unlinked_db)
     agribalyse.add_unlinked_activities()
