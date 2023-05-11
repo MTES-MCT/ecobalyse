@@ -906,7 +906,7 @@ surfaceInfoView inputs current =
         Just ( dir, surface ) ->
             li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
                 [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                , span [] [ Format.squareMetters surface ]
+                , span [] [ Format.squareMeters surface ]
                 ]
 
         Nothing ->
