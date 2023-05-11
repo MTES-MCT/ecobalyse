@@ -178,9 +178,8 @@ def import_agribalyse(
         agribalyse.migrate(migration["name"])
 
     agribalyse.statistics()
-    unlinked_db = AGRIBALYSEDB + " biosphere"
-    bw2data.Database(unlinked_db).register()
-    agribalyse.add_unlinked_flows_to_biosphere_database(unlinked_db)
+    bw2data.Database(AGBIOSPHERE).register()
+    agribalyse.add_unlinked_flows_to_biosphere_database(AGBIOSPHERE)
     agribalyse.add_unlinked_activities()
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
@@ -278,7 +277,10 @@ def import_agribalyse(
     print("Finished")
 
 
-def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
+# TODO # bw2data.config.p["biosphere_database"] = AGBIOSPHERE
+
+
+def import_ef(data=EF_CSV, project=PROJECT, db=AGBIOSPHERE):
     """
     Import file at path `data` linked to biosphere named `db`
     """
@@ -288,6 +290,7 @@ def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
         data, biosphere=db, normalize_biosphere=False
     )
     ef.statistics()
+    ef.apply_strategies()
     ef.write_methods()
     print("Finished")
 
