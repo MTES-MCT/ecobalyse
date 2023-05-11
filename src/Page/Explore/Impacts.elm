@@ -2,21 +2,22 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact as Impact exposing (Definition)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table exposing (TableWithValue)
 import Route
 import Views.Format as Format
 import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Scope } -> Table Definition msg
+table : { detailed : Bool, scope : Scope } -> TableWithValue Definition String msg
 table { detailed, scope } =
     [ { label = "Code"
+      , toValue = .trigram >> Impact.toString
       , toCell =
             \def ->
                 if detailed then
@@ -27,14 +28,35 @@ table { detailed, scope } =
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"
+      , toValue = .label
       , toCell =
             \def ->
                 span [ title def.label ] [ text def.label ]
       }
     , { label = "Unité"
+      , toValue = .unit
       , toCell = \def -> code [] [ text def.unit ]
       }
     , { label = "Données de calcul du score PEF"
+      , toValue =
+            \def ->
+                def.pefData
+                    |> Maybe.map
+                        (\data ->
+                            let
+                                normalization =
+                                    data.normalization
+                                        |> Unit.impactToFloat
+                                        |> Format.formatFloat 2
+
+                                weighting =
+                                    data.weighting
+                                        |> Unit.ratioToFloat
+                                        |> Format.formatFloat 2
+                            in
+                            normalization ++ "/" ++ weighting
+                        )
+                    |> Maybe.withDefault "N/A"
       , toCell =
             \def ->
                 case def.pefData of
@@ -54,6 +76,25 @@ table { detailed, scope } =
                         text "N/A"
       }
     , { label = "Données de calcul du score d'impacts"
+      , toValue =
+            \def ->
+                def.ecoscoreData
+                    |> Maybe.map
+                        (\data ->
+                            let
+                                normalization =
+                                    data.normalization
+                                        |> Unit.impactToFloat
+                                        |> Format.formatFloat 2
+
+                                weighting =
+                                    data.weighting
+                                        |> Unit.ratioToFloat
+                                        |> Format.formatFloat 2
+                            in
+                            normalization ++ "/" ++ weighting
+                        )
+                    |> Maybe.withDefault "N/A"
       , toCell =
             \def ->
                 case def.ecoscoreData of
@@ -73,6 +114,23 @@ table { detailed, scope } =
                         text "N/A"
       }
     , { label = "Niveau de qualité"
+      , toValue =
+            \def ->
+                case def.quality of
+                    Impact.NotFinished ->
+                        "0"
+
+                    Impact.GoodQuality ->
+                        "4"
+
+                    Impact.AverageQuality ->
+                        "3"
+
+                    Impact.BadQuality ->
+                        "2"
+
+                    Impact.UnknownQuality ->
+                        "1"
       , toCell =
             \def ->
                 def.quality
@@ -80,6 +138,7 @@ table { detailed, scope } =
                     |> div [ classList [ ( "text-center", not detailed ) ] ]
       }
     , { label = "Source"
+      , toValue = .source >> .label
       , toCell =
             \def ->
                 a
@@ -89,9 +148,11 @@ table { detailed, scope } =
                     [ text def.source.label ]
       }
     , { label = "Domaines"
+      , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
       , toCell = Common.scopesView
       }
     , { label = "Description"
+      , toValue = .description
       , toCell =
             \def ->
                 if detailed then

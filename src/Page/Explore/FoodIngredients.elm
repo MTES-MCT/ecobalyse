@@ -11,16 +11,17 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table exposing (TableWithValue)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient msg
+table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> TableWithValue Ingredient String msg
 table _ { detailed, scope } =
     [ { label = "Identifiant"
+      , toValue = .id >> Ingredient.idToString
       , toCell =
             \ingredient ->
                 if detailed then
@@ -31,15 +32,19 @@ table _ { detailed, scope } =
                         [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
       }
     , { label = "Nom"
+      , toValue = .name
       , toCell = .name >> text
       }
     , { label = "Catégorie"
+      , toValue = .category >> IngredientCategory.toLabel
       , toCell = .category >> IngredientCategory.toLabel >> text
       }
     , { label = "Origine par défaut"
+      , toValue = .defaultOrigin >> Origin.toLabel
       , toCell = .defaultOrigin >> Origin.toLabel >> text
       }
     , { label = "Rapport cru/cuit"
+      , toValue = .rawToCookedRatio >> Unit.ratioToFloat >> String.fromFloat
       , toCell =
             \{ rawToCookedRatio } ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
@@ -53,9 +58,11 @@ table _ { detailed, scope } =
                     ]
       }
     , { label = "Procédé conventionnel"
+      , toValue = .default >> .name >> Process.nameToString
       , toCell = .default >> .name >> Process.nameToString >> text
       }
     , { label = "Procédé biologique"
+      , toValue = .variants >> .organic >> Maybe.map (.process >> .name >> Process.nameToString) >> Maybe.withDefault "N/A"
       , toCell =
             \ingredient ->
                 div [ class "overflow-scroll" ]

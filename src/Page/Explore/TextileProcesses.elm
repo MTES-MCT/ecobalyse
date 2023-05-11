@@ -10,41 +10,44 @@ import Page.Explore.Table exposing (TableWithValue)
 import Route
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> TableWithValue Process String msg
-table _ { detailed, scope } =
+table : { detailed : Bool, scope : Scope } -> TableWithValue Process String msg
+table { detailed, scope } =
     [ { label = "Étape"
       , toValue = .step_usage
-      , toCell = text
+      , toCell = .step_usage >> text
       }
     , { label = "Identifiant"
       , toValue = .uuid >> Process.uuidToString
       , toCell =
-            \uuid ->
-                if detailed then
-                    code [] [ text uuid ]
+            .uuid
+                >> Process.uuidToString
+                >> (\uuid ->
+                        if detailed then
+                            code [] [ text uuid ]
 
-                else
-                    a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
-                        [ code [] [ text uuid ] ]
+                        else
+                            a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
+                                [ code [] [ text uuid ] ]
+                   )
       }
     , { label = "Nom"
       , toValue = .name
-      , toCell = text
+      , toCell = .name >> text
       }
     , { label = "Source"
       , toValue = .source
       , toCell =
-            \source ->
-                span [ title source ] [ text source ]
+            \process ->
+                span [ title process.source ] [ text process.source ]
       }
     , { label = "Correctif"
       , toValue = .correctif
       , toCell =
-            \correctif ->
-                span [ title correctif ] [ text correctif ]
+            \process ->
+                span [ title process.correctif ] [ text process.correctif ]
       }
     , { label = "Unité"
       , toValue = .unit
-      , toCell = text
+      , toCell = .unit >> text
       }
     ]

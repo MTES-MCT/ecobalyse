@@ -1,5 +1,6 @@
 module Page.Explore.Table exposing
-    ( Table
+    ( Config
+    , Table
     , TableWithValue
     , viewDetails
     , viewDetailsWithOrdering
@@ -10,7 +11,7 @@ module Page.Explore.Table exposing
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Table
+import Table as SortableTable
 import Views.Table as TableView
 
 
@@ -25,8 +26,16 @@ type alias TableWithValue data comparable msg =
     List
         { label : String
         , toValue : data -> comparable
-        , toCell : comparable -> Html msg
+        , toCell : data -> Html msg
         }
+
+
+type alias Config data msg =
+    { toId : data -> String
+    , toMsg : SortableTable.State -> msg
+    , columns : List (SortableTable.Column data msg)
+    , customizations : SortableTable.Customizations data msg
+    }
 
 
 viewDetails : Scope -> ({ detailed : Bool, scope : Scope } -> Table a msg) -> a -> Html msg
@@ -53,10 +62,10 @@ viewDetailsWithOrdering scope createTable item =
     TableView.responsiveDefault [ class "view-details" ]
         [ createTable { detailed = True, scope = scope }
             |> List.map
-                (\{ label, toValue, toCell } ->
+                (\{ label, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , td [] [ item |> toValue |> toCell ]
+                        , td [] [ item |> toCell ]
                         ]
                 )
             |> tbody []
@@ -87,12 +96,8 @@ viewList scope createTable items =
 
 
 viewListWithOrdering :
-    { toId : data -> String
-    , toMsg : Table.State -> msg
-    , columns : List (Table.Column data msg)
-    , customizations : Table.Customizations data msg
-    }
-    -> Table.State
+    Config data msg
+    -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> TableWithValue data comparable msg)
     -> List data
@@ -108,15 +113,15 @@ viewListWithOrdering defaultConfig tableState scope createTable items =
                     tableData
                         |> List.map
                             (\{ label, toCell, toValue } ->
-                                Table.veryCustomColumn
+                                SortableTable.veryCustomColumn
                                     { name = label
-                                    , viewData = \item -> { attributes = [], children = [ item |> toValue |> toCell ] }
-                                    , sorter = Table.increasingOrDecreasingBy toValue
+                                    , viewData = \item -> { attributes = [], children = [ item |> toCell ] }
+                                    , sorter = SortableTable.increasingOrDecreasingBy toValue
                                     }
                             )
             }
-                |> Table.customConfig
+                |> SortableTable.customConfig
     in
     div [ class "DatasetTable table-responsive" ]
-        [ Table.view config tableState items
+        [ SortableTable.view config tableState items
         ]
