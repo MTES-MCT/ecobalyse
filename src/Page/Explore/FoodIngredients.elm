@@ -11,14 +11,14 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> TableWithValue Ingredient String msg
+table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
 table _ { detailed, scope } =
     [ { label = "Identifiant"
       , toValue = .id >> Ingredient.idToString

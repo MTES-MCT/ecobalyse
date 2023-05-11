@@ -8,14 +8,14 @@ import Data.Split as Split
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : { detailed : Bool, scope : Scope } -> TableWithValue Country String msg
+table : { detailed : Bool, scope : Scope } -> Table Country String msg
 table { detailed, scope } =
     [ { label = "Code"
       , toValue = .code >> Country.codeToString

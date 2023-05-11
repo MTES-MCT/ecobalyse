@@ -198,14 +198,14 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
     in
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewListWithOrdering config tableState scope ExploreCountries.table
+        |> Table.viewList config tableState scope ExploreCountries.table
     , case maybeCode of
         Just code ->
             detailsModal
                 (case Country.findByCode code countries of
                     Ok country ->
                         country
-                            |> Table.viewDetailsWithOrdering scope ExploreCountries.table
+                            |> Table.viewDetails scope ExploreCountries.table
 
                     Err error ->
                         alert error
@@ -225,14 +225,14 @@ impactsExplorer tableConfig tableState scope maybeTrigram definitions =
     [ definitions
         |> List.filter (.scopes >> List.member scope)
         |> List.sortBy (.trigram >> Impact.toString)
-        |> Table.viewListWithOrdering config tableState scope ExploreImpacts.table
+        |> Table.viewList config tableState scope ExploreImpacts.table
     , case maybeTrigram of
         Just trigram ->
             detailsModal
                 (case Impact.getDefinition trigram definitions of
                     Ok definition ->
                         definition
-                            |> Table.viewDetailsWithOrdering scope ExploreImpacts.table
+                            |> Table.viewDetails scope ExploreImpacts.table
 
                     Err error ->
                         alert error
@@ -251,14 +251,14 @@ foodIngredientsExplorer tableConfig tableState maybeId db =
     in
     [ db.ingredients
         |> List.sortBy .name
-        |> Table.viewListWithOrdering config tableState Scope.Food (FoodIngredients.table db)
+        |> Table.viewList config tableState Scope.Food (FoodIngredients.table db)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Ingredient.findByID id db.ingredients of
                     Ok ingredient ->
                         ingredient
-                            |> Table.viewDetailsWithOrdering Scope.Food (FoodIngredients.table db)
+                            |> Table.viewDetails Scope.Food (FoodIngredients.table db)
 
                     Err error ->
                         alert error
@@ -276,14 +276,14 @@ textileProductsExplorer tableConfig tableState maybeId db =
             { tableConfig | toId = .id >> Product.idToString }
     in
     [ db.products
-        |> Table.viewListWithOrdering config tableState Scope.Textile (TextileProducts.table db)
+        |> Table.viewList config tableState Scope.Textile (TextileProducts.table db)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Product.findById id db.products of
                     Ok product ->
                         product
-                            |> Table.viewDetailsWithOrdering Scope.Textile (TextileProducts.table db)
+                            |> Table.viewDetails Scope.Textile (TextileProducts.table db)
 
                     Err error ->
                         alert error
@@ -301,14 +301,14 @@ textileMaterialsExplorer tableConfig tableState maybeId db =
             { tableConfig | toId = .id >> Material.idToString }
     in
     [ db.materials
-        |> Table.viewListWithOrdering config tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList config tableState Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Material.findById id db.materials of
                     Ok material ->
                         material
-                            |> Table.viewDetailsWithOrdering Scope.Textile (TextileMaterials.table db)
+                            |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
 
                     Err error ->
                         alert error
@@ -326,14 +326,14 @@ textileProcessesExplorer tableConfig tableState maybeId db =
             { tableConfig | toId = .uuid >> Process.uuidToString }
     in
     [ db.processes
-        |> Table.viewListWithOrdering config tableState Scope.Textile TextileProcesses.table
+        |> Table.viewList config tableState Scope.Textile TextileProcesses.table
     , case maybeId of
         Just id ->
             detailsModal
                 (case Process.findByUuid id db.processes of
                     Ok process ->
                         process
-                            |> Table.viewDetailsWithOrdering Scope.Textile TextileProcesses.table
+                            |> Table.viewDetails Scope.Textile TextileProcesses.table
 
                     Err error ->
                         alert error

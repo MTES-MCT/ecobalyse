@@ -8,13 +8,13 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Category as Category
 import Html exposing (..)
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> TableWithValue Material String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table { countries } { detailed, scope } =
     [ { label = "Identifiant"
       , toValue = .id >> Material.idToString

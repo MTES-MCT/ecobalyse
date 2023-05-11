@@ -1,8 +1,8 @@
 module Page.Explore.Table exposing
     ( Config
-    , TableWithValue
-    , viewDetailsWithOrdering
-    , viewListWithOrdering
+    , Table
+    , viewDetails
+    , viewList
     )
 
 import Data.Scope exposing (Scope)
@@ -12,7 +12,7 @@ import Table as SortableTable
 import Views.Table as TableView
 
 
-type alias TableWithValue data comparable msg =
+type alias Table data comparable msg =
     List
         { label : String
         , toValue : data -> comparable
@@ -28,12 +28,12 @@ type alias Config data msg =
     }
 
 
-viewDetailsWithOrdering :
+viewDetails :
     Scope
-    -> ({ detailed : Bool, scope : Scope } -> TableWithValue data comparable msg)
+    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> data
     -> Html msg
-viewDetailsWithOrdering scope createTable item =
+viewDetails scope createTable item =
     TableView.responsiveDefault [ class "view-details" ]
         [ createTable { detailed = True, scope = scope }
             |> List.map
@@ -47,14 +47,14 @@ viewDetailsWithOrdering scope createTable item =
         ]
 
 
-viewListWithOrdering :
+viewList :
     Config data msg
     -> SortableTable.State
     -> Scope
-    -> ({ detailed : Bool, scope : Scope } -> TableWithValue data comparable msg)
+    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewListWithOrdering defaultConfig tableState scope createTable items =
+viewList defaultConfig tableState scope createTable items =
     let
         tableData =
             createTable { detailed = False, scope = scope }

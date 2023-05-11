@@ -5,11 +5,11 @@ import Data.Scope exposing (Scope)
 import Data.Textile.Process as Process exposing (Process)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Route
 
 
-table : { detailed : Bool, scope : Scope } -> TableWithValue Process String msg
+table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
     [ { label = "Étape"
       , toValue = .step_usage

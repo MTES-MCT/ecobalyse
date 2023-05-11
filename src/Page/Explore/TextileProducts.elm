@@ -18,7 +18,7 @@ import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Quantity
 import Route
 import Views.Format as Format
@@ -30,7 +30,7 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> TableWithValue Product String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     [ { label = "Identifiant"
       , toValue = .id >> Product.idToString

@@ -7,14 +7,14 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
-import Page.Explore.Table exposing (TableWithValue)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Scope } -> TableWithValue Definition String msg
+table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
     [ { label = "Code"
       , toValue = .trigram >> Impact.toString
