@@ -2,7 +2,6 @@ module Page.Explore.TextileProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
-import Data.Textile.Db exposing (Db)
 import Data.Textile.Process as Process exposing (Process)
 import Html exposing (..)
 import Html.Attributes exposing (..)

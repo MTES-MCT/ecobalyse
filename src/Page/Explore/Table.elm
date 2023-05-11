@@ -1,10 +1,7 @@
 module Page.Explore.Table exposing
     ( Config
-    , Table
     , TableWithValue
-    , viewDetails
     , viewDetailsWithOrdering
-    , viewList
     , viewListWithOrdering
     )
 
@@ -13,13 +10,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Table as SortableTable
 import Views.Table as TableView
-
-
-type alias Table a msg =
-    List
-        { label : String
-        , toCell : a -> Html msg
-        }
 
 
 type alias TableWithValue data comparable msg =
@@ -38,21 +28,6 @@ type alias Config data msg =
     }
 
 
-viewDetails : Scope -> ({ detailed : Bool, scope : Scope } -> Table a msg) -> a -> Html msg
-viewDetails scope createTable item =
-    TableView.responsiveDefault [ class "view-details" ]
-        [ createTable { detailed = True, scope = scope }
-            |> List.map
-                (\{ label, toCell } ->
-                    tr []
-                        [ th [] [ text label ]
-                        , td [] [ toCell item ]
-                        ]
-                )
-            |> tbody []
-        ]
-
-
 viewDetailsWithOrdering :
     Scope
     -> ({ detailed : Bool, scope : Scope } -> TableWithValue data comparable msg)
@@ -67,29 +42,6 @@ viewDetailsWithOrdering scope createTable item =
                         [ th [] [ text label ]
                         , td [] [ item |> toCell ]
                         ]
-                )
-            |> tbody []
-        ]
-
-
-viewList : Scope -> ({ detailed : Bool, scope : Scope } -> Table a msg) -> List a -> Html msg
-viewList scope createTable items =
-    let
-        tableData =
-            createTable { detailed = False, scope = scope }
-    in
-    TableView.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ tableData
-                |> List.map (\{ label } -> th [] [ text label ])
-                |> tr []
-            ]
-        , items
-            |> List.map
-                (\item ->
-                    tableData
-                        |> List.map (\{ toCell } -> td [] [ toCell item ])
-                        |> tr []
                 )
             |> tbody []
         ]
