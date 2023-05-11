@@ -81,6 +81,47 @@ AGRIBALYSE_MIGRATIONS = [
         },
     }
 ]
+AGRIBALYSE_PACKAGINGS = [
+    "PS",
+    "LDPE",
+    "PP",
+    "Cardboard",
+    "No packaging",
+    "Already packed - PET",
+    "Glass",
+    "Steel",
+    "PVC",
+    "PET",
+    "Paper",
+    "HDPE",
+    "Already packed - PP/PE",
+    "Already packed - Aluminium",
+    "Already packed - Steel",
+    "Already packed - Glass",
+    "Corrugated board and aluminium packaging",
+    "Corrugated board and LDPE packaging",
+    "Aluminium",
+    "PP/PE",
+    "Corrugated board and PP packaging",
+]
+AGRIBALYSE_STAGES = ["at consumer", "at packaging", "at supermarket", "at distribution"]
+AGRIBALYSE_TRANSPORT_TYPES = [
+    "Chilled",
+    "Ambient (average)",
+    "Ambient (long)",
+    "Ambient (short)",
+    "Frozen",
+]
+AGRIBALYSE_PREPARATION_MODES = [
+    "Oven",
+    "No preparation",
+    "Microwave",
+    "Boiling",
+    "Chilled at consumer",
+    "Pan frying",
+    "Water cooker",
+    "Deep frying",
+]
 
 
 def import_ecoinvent(data=ECOINVENT_SPOLD, project=PROJECT, db=ECOINVENTDB):
@@ -147,6 +188,88 @@ def import_agribalyse(
             if "input" not in e:
                 del ds["exchanges"][i]
 
+    import re
+    from tqdm import tqdm
+
+    dqr_pattern = r"The overall DQR of this product is: (?P<overall>[\d.]+) {P: (?P<P>[\d.]+), TiR: (?P<TiR>[\d.]+), GR: (?P<GR>[\d.]+), TeR: (?P<TeR>[\d.]+)}"
+    ciqual_pattern = r"\[Ciqual code: (?P<ciqual>[\d_]+)\]"
+    location_pattern = r"\{(?P<location>[\w ,\/\-\+]+)\}"
+    location_pattern_2 = r"\/\ *(?P<location>[\w ,\/\-]+) U$"
+
+    for activity in tqdm(agribalyse):
+        # Getting activities locations
+        if activity.get("location") is None:
+            match = re.search(pattern=location_pattern, string=activity["name"])
+            if match is not None:
+                activity["location"] = match["location"]
+            else:
+                match = re.search(pattern=location_pattern_2, string=activity["name"])
+                if match is not None:
+                    activity["location"] = match["location"]
+                elif ("French production," in activity["name"]) or (
+                    "French production mix," in activity["name"]
+                ):
+                    activity["location"] = "FR"
+                elif "CA - adapted for maple syrup" in activity["name"]:
+                    activity["location"] = "CA"
+                elif ", IT" in activity["name"]:
+                    activity["location"] = "IT"
+                elif ", TR" in activity["name"]:
+                    activity["location"] = "TR"
+                elif "/GLO" in activity["name"]:
+                    activity["location"] = "GLO"
+
+        # Getting products CIQUAL code when relevant
+        if "ciqual" in activity["name"].lower():
+            match = re.search(pattern=ciqual_pattern, string=activity["name"])
+            activity["ciqual_code"] = match["ciqual"] if match is not None else ""
+
+        # Putting SimaPro metadata in the activity fields directly and removing references to SimaPro
+        if "simapro metadata" in activity:
+            for sp_field, value in activity["simapro metadata"].items():
+                if value != "Unspecified":
+                    activity[sp_field] = value
+
+            # Getting the Data Quality Rating of the data when relevant
+            if "Comment" in activity["simapro metadata"]:
+                match = re.search(
+                    pattern=dqr_pattern, string=activity["simapro metadata"]["Comment"]
+                )
+
+                if match:
+                    activity["DQR"] = {
+                        "overall": float(match["overall"]),
+                        "P": float(match["P"]),
+                        "TiR": float(match["TiR"]),
+                        "GR": float(match["GR"]),
+                        "TeR": float(match["TeR"]),
+                    }
+
+            del activity["simapro metadata"]
+
+        # Getting activity tags
+        name_without_spaces = activity["name"].replace(" ", "")
+        for packaging in AGRIBALYSE_PACKAGINGS:
+            if f"|{packaging.replace(' ', '')}|" in name_without_spaces:
+                activity["packaging"] = packaging
+
+        for stage in AGRIBALYSE_STAGES:
+            if f"|{stage.replace(' ', '')}" in name_without_spaces:
+                activity["stage"] = stage
+
+        for transport_type in AGRIBALYSE_TRANSPORT_TYPES:
+            if f"|{transport_type.replace(' ', '')}|" in name_without_spaces:
+                activity["transport_type"] = transport_type
+
+        for preparation_mode in AGRIBALYSE_PREPARATION_MODES:
+            if f"|{preparation_mode.replace(' ', '')}|" in name_without_spaces:
+                activity["preparation_mode"] = preparation_mode
+
+        if "simapro name" in activity:
+            del activity["simapro name"]
+
+        if "filename" in activity:
+            del activity["filename"]
     agribalyse.write_database()
     print("Finished")
 
