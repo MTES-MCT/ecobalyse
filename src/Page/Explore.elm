@@ -56,7 +56,28 @@ type Msg
 
 init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
 init scope dataset session =
-    ( { dataset = dataset, scope = scope, tableState = Table.initialSort "" }
+    let
+        initialSort =
+            case dataset of
+                Dataset.Countries _ ->
+                    "Nom"
+
+                Dataset.Impacts _ ->
+                    "Code"
+
+                Dataset.FoodIngredients _ ->
+                    "Identifiant"
+
+                Dataset.TextileProducts _ ->
+                    "Identifiant"
+
+                Dataset.TextileMaterials _ ->
+                    "Identifiant"
+
+                Dataset.TextileProcesses _ ->
+                    "Nom"
+    in
+    ( { dataset = dataset, scope = scope, tableState = Table.initialSort initialSort }
     , session
     , Cmd.batch
         [ if scope == Scope.Food && BuilderDb.isEmpty session.builderDb then
