@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from bw2io.migrations import create_core_migrations
 from subprocess import call
 from zipfile import ZipFile
 import bw2data
@@ -146,6 +147,8 @@ def import_agribalyse(
     """
     Import file at path `data` into database named `db`, and apply provided brightway `migrations`.
     """
+    bw2data.projects.set_current(project)
+    create_core_migrations()
     print(f"Importing {db} database from {data}...")
     with ZipFile(data) as zf:
         print("Extracting the zip file...")
@@ -288,7 +291,7 @@ def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
 
 if __name__ == "__main__":
     bw2data.projects.set_current(PROJECT)
-    bw2io.bw2setup()
+    # bw2io.bw2setup()
 
     # Import Ecoinvent
     if ECOINVENTDB in bw2data.databases:
