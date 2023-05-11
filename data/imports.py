@@ -163,8 +163,9 @@ def import_agribalyse(
     call("sed -i 's/0;001172/0,001172/' " + data, shell=True)
 
     # Do the import and apply "strategies"
-    bw2data.projects.set_current(project)
-    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(data, db)
+    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
+        data, db, normalize_biosphere=False
+    )
     agribalyse.apply_strategies()
 
     # Apply provided migrations
@@ -283,7 +284,9 @@ def import_ef(data=EF_CSV, project=PROJECT, db=BIOSPHERE):
     """
     print(f"Importing {db} database from {data}...")
     bw2data.projects.set_current(project)
-    ef = bw2io.importers.SimaProLCIACSVImporter(data, biosphere=db)
+    ef = bw2io.importers.SimaProLCIACSVImporter(
+        data, biosphere=db, normalize_biosphere=False
+    )
     ef.statistics()
     ef.write_methods()
     print("Finished")
