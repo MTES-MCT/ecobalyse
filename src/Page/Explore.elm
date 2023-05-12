@@ -23,6 +23,7 @@ import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
@@ -51,6 +52,7 @@ type Msg
     = NoOp
     | CloseModal
     | FoodDbLoaded (WebData BuilderDb.Db)
+    | ScopeChange Scope
     | SetTableState SortableTable.State
 
 
@@ -117,6 +119,20 @@ update session msg model =
             , Cmd.none
             )
 
+        ScopeChange scope ->
+            ( { model | scope = scope }
+            , session
+            , (case model.dataset of
+                Dataset.Countries _ ->
+                    Route.Explore scope (Dataset.Countries Nothing)
+
+                _ ->
+                    Route.Explore scope (Dataset.Impacts Nothing)
+              )
+                |> Route.toString
+                |> Nav.pushUrl session.navKey
+            )
+
         SetTableState tableState ->
             ( { model | tableState = tableState }
             , session
@@ -137,7 +153,7 @@ datasetsMenuView { scope, dataset } =
                     [ text (Dataset.label ds) ]
             )
         |> nav
-            [ class "Tabs nav nav-tabs d-flex justify-content-start align-items-center gap-0 gap-sm-2"
+            [ class "Tabs nav nav-tabs d-flex justify-content-end align-items-center gap-0 gap-sm-2"
             ]
 
 
@@ -146,23 +162,21 @@ scopesMenuView model =
     [ Scope.Food, Scope.Textile ]
         |> List.map
             (\scope ->
-                a
-                    [ class "TabsTab nav-link"
-                    , classList [ ( "active", model.scope == scope ) ]
-                    , Route.href
-                        (case model.dataset of
-                            Dataset.Countries _ ->
-                                Route.Explore scope (Dataset.Countries Nothing)
-
-                            _ ->
-                                Route.Explore scope (Dataset.Impacts Nothing)
-                        )
+                label []
+                    [ input
+                        [ class "form-check-input ms-1 ms-sm-3 me-1"
+                        , type_ "radio"
+                        , classList [ ( "active", model.scope == scope ) ]
+                        , checked <| model.scope == scope
+                        , onCheck (always (ScopeChange scope))
+                        ]
+                        []
+                    , text (Scope.toLabel scope)
                     ]
-                    [ text (Scope.toLabel scope) ]
             )
+        |> (::) (strong [] [ text "Secteur d'activité" ])
         |> nav
-            [ class "Tabs nav nav-tabs d-flex justify-content-end align-items-center gap-0 gap-sm-2"
-            ]
+            []
 
 
 detailsModal : Html Msg -> Html Msg
@@ -384,10 +398,12 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div [ class "row d-flex align-items-center" ]
-                [ h1 [ class "col-lg-4" ] [ text "Explorer" ]
-                , div [ class "col-lg-5" ] [ datasetsMenuView model ]
-                , div [ class "col-lg-3" ] [ scopesMenuView model ]
+            [ div []
+                [ h1 [] [ text "Explorer" ]
+                , div [ class "row d-flex align-items-stretch" ]
+                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-1 pb-md-0" ] [ scopesMenuView model ]
+                    , div [ class "col-12 col-lg-7" ] [ datasetsMenuView model ]
+                    ]
                 ]
             , explore session model
                 |> div [ class "mt-3" ]
