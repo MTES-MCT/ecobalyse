@@ -114,7 +114,7 @@ compute db query =
         -- Compute Making mass waste - Confection
         |> nextIf Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> nextIf Label.Fabric computeFabricStepWaste
+        |> nextWithDbIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
         |> nextIf Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
@@ -495,17 +495,22 @@ computeMakingStepWaste ({ inputs } as simulator) =
             (Step.initMass mass)
 
 
-computeFabricStepWaste : Simulator -> Simulator
-computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
-    let
-        { mass, waste } =
-            lifeCycle
-                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste (Product.getFabricProcess inputs.product |> .waste)
-    in
-    simulator
-        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
+computeFabricStepWaste : Db -> Simulator -> Result String Simulator
+computeFabricStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
+    processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\wellknown ->
+                let
+                    { mass, waste } =
+                        lifeCycle
+                            |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
+                            |> Formula.genericWaste (Product.getFabricProcess inputs.knittingProcess inputs.product wellknown |> .waste)
+                in
+                simulator
+                    |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+                    |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
+            )
 
 
 computeMaterialStepWaste : Simulator -> Simulator

@@ -15,8 +15,9 @@ module Data.Textile.Product exposing
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Process as Process exposing (Process, WellKnown)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -81,11 +82,16 @@ type Id
     = Id String
 
 
-getFabricProcess : Product -> Process
-getFabricProcess { fabric } =
+getFabricProcess : Maybe Knitting -> Product -> WellKnown -> Process
+getFabricProcess maybeKnittingProcess { fabric } wellknown =
     case fabric of
         Knitted process ->
-            process
+            case maybeKnittingProcess of
+                Just knittingProcess ->
+                    Process.getKnittingProcess knittingProcess wellknown
+
+                Nothing ->
+                    process
 
         Weaved process ->
             process

@@ -16,6 +16,7 @@ import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing as Printing exposing (Printing)
+import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -403,17 +404,17 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 
 
 makingWasteField : Config msg -> Html msg
-makingWasteField { current, inputs, updateMakingWaste } =
+makingWasteField { current, db, inputs, updateMakingWaste } =
     let
         processName =
-            if Product.isKnitted inputs.product then
-                inputs.knittingProcess
-                    |> Maybe.withDefault Knitting.Mix
-                    |> Knitting.toString
-
-            else
-                Product.getFabricProcess inputs.product
-                    |> .name
+            db.processes
+                |> Process.loadWellKnown
+                |> Result.map
+                    (Product.getFabricProcess inputs.knittingProcess inputs.product
+                        >> .name
+                    )
+                |> Result.toMaybe
+                |> Maybe.withDefault "process not found"
     in
     span
         [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
