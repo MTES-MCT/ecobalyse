@@ -1165,35 +1165,61 @@ components:
       properties:
         mass:
           type: number
+          description: Masse du produit fini
         materials:
           type: array
+          description: Liste des matières composant le vêtement
           items:
             "$ref": "#/components/schemas/TextileQueryMaterial"
           minItems: 1
         product:
-          type: string # "tshirt"
+          type: string
+          description: Le type de produit
+          enum:
+          - chemise
+          - jean
+          - jupe
+          - manteau
+          - pantalon
+          - pull
+          - tshirt
         countrySpinning:
-          type: string # "BD"
+          type: string
+          description: Pays de filature
         countryFabric:
-          type: string # "PT"
+          type: string
+          description: Pays de tissage ou de tricotage
         countryDyeing:
-          type: string # "PT"
+          type: string
+          description: Pays de teinture ou d'ennoblissement
         countryMaking:
-          type: string # "ES"
+          type: string
+          description: Pays de confection
         airTransportRatio:
           type: number
+          description: Part de transport aérien
           required: false
         quality:
           type: number
+          description: Qualité intrinsèque
+          minimum: 0.67
+          maximum: 1.45
           required: false
         reparability:
           type: number
+          description: Indice de réparabilité du produit
+          minimum: 1
+          maximum: 1.15
           required: false
         makingWaste:
           type: number
+          description: Taux de perte en confection
+          minimum: 0
+          maximum: 0.4
           required: false
         makingComplexity:
           type: string
+          description: Complexité de la confection
           required: false
           enum:
           - very-high
@@ -1204,9 +1230,13 @@ components:
           - not-applicable
         yarnSize:
           type: number
+          description: Titrage du fil
           required: false
         surfaceMass:
           type: number
+          description: Le grammage de l'étoffe, exprimé en gr/m²
+          minimum: 80
+          maximum: 500
           required: false
         knittingProcess:
           type: string
@@ -1240,6 +1270,8 @@ components:
           type: string
         share:
           type: number
+          min: 0.01
+          max: 1
     FoodQuery:
       type: object
       additionalProperties: false
