@@ -40,7 +40,7 @@ viewDetails scope createTable item =
                 (\{ label, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , td [] [ item |> toCell ]
+                        , td [] [ toCell item ]
                         ]
                 )
             |> tbody []
@@ -67,7 +67,7 @@ viewList defaultConfig tableState scope createTable items =
                             (\{ label, toCell, toValue } ->
                                 SortableTable.veryCustomColumn
                                     { name = label
-                                    , viewData = \item -> { attributes = [], children = [ item |> toCell ] }
+                                    , viewData = \item -> { attributes = [], children = [ toCell item ] }
                                     , sorter = SortableTable.increasingOrDecreasingBy toValue
                                     }
                             )

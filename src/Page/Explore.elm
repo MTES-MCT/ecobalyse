@@ -123,6 +123,10 @@ update session msg model =
             ( { model | scope = scope }
             , session
             , (case model.dataset of
+                -- When changing scopes, if we were on a tab that is common between both scopes, don't "reset" the selected tab.
+                -- Only the "impacts" and "countries" tabs are common at the moment, and the "impacts" tab is the one by default,
+                -- so in effect this check makes sure that if we selected the "countries" tab and we change the scope, the
+                -- selected tab isn't changed back automatically to the "impacts" tab.
                 Dataset.Countries _ ->
                     Route.Explore scope (Dataset.Countries Nothing)
 

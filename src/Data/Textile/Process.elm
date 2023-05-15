@@ -37,7 +37,7 @@ type alias Process =
     , unit : String
     , source : String
     , correctif : String
-    , step_usage : String
+    , stepUsage : String
     , uuid : Uuid
     , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process

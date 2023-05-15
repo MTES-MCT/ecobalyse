@@ -12,8 +12,8 @@ import Route
 table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
     [ { label = "Étape"
-      , toValue = .step_usage
-      , toCell = .step_usage >> text
+      , toValue = .stepUsage
+      , toCell = .stepUsage >> text
       }
     , { label = "Identifiant"
       , toValue = .uuid >> Process.uuidToString
