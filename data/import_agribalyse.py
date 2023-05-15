@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from bw2io.migrations import create_core_migrations
 from subprocess import call
 from tqdm import tqdm
 from zipfile import ZipFile
@@ -9,17 +8,13 @@ import bw2io
 import re
 
 PROJECT = "Ecobalyse"
-# Ecoinvent
-ECOINVENTDB = "Ecoinvent 3.9.1"
-ECOINVENT_SPOLD = "./ECOINVENT3.9.1/datasets"
 # Agribalyse
-AGRIBALYSE_CSV = "AGB3.1.1.20230306.CSV.zip"
-AGRIBALYSEDB = "Agribalyse 3.1.1"
-AGBIOSPHERE = AGRIBALYSEDB + " biosphere"
-BIOSPHERE = "biosphere3"
+DATAPATH = "AGB3.1.1.20230306.CSV.zip"
+DBNAME = "Agribalyse 3.1.1"
+BIOSPHERE = DBNAME + " biosphere"
 # EF
-EF_CSV = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
-EFMETHODS = (
+METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
+METHODNAME = (
     "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
 )
 
@@ -127,53 +122,47 @@ AGRIBALYSE_PREPARATION_MODES = [
 ]
 
 
-def import_ecoinvent(data=ECOINVENT_SPOLD, project=PROJECT, db=ECOINVENTDB):
-    """
-    Import file at path `data` into biosphere database named `db`
-    """
-    print(f"Importing {db} database from {data}...")
-    bw2data.projects.set_current(project)
-    ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(data, db)
-    ecoinvent.apply_strategies()
-    ecoinvent.add_unlinked_flows_to_biosphere_database()
-    ecoinvent.write_database()
-    print("Finished")
-
-
 def import_agribalyse(
-    data=AGRIBALYSE_CSV,
+    datapath=DATAPATH,
     project=PROJECT,
-    db=AGRIBALYSEDB,
+    dbname=DBNAME,
     migrations=AGRIBALYSE_MIGRATIONS,
 ):
     """
-    Import file at path `data` into database named `db`, and apply provided brightway `migrations`.
+    Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
     bw2data.projects.set_current(project)
-    bw2data.config.p["biosphere_database"] = AGBIOSPHERE
-    create_core_migrations()
-    print(f"Importing {db} database from {data}...")
-    with ZipFile(data) as zf:
-        print("Extracting the zip file...")
+    bw2data.config.p["biosphere_database"] = BIOSPHERE
+
+    # Core migrations
+    print("### Creating core data migrations")
+    if len(bw2io.migrations) < 13:
+        bw2io.create_core_migrations()
+    else:
+        print("### Core migrations are already installed")
+
+    print(f"### Importing {dbname} database from {datapath}...")
+    with ZipFile(datapath) as zf:
+        print("### Extracting the zip file...")
         zf.extractall()
-        data = data[0:-4]
+        datapath = datapath[0:-4]
 
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-    call("sed -i 's/yield/Yield_/g' " + data, shell=True)
+    call("sed -i 's/yield/Yield_/g' " + datapath, shell=True)
     # Fix some errors in Agribalyse:
-    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + data, shell=True)
-    call("sed -i 's/0;001172/0,001172/' " + data, shell=True)
+    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + datapath, shell=True)
+    call("sed -i 's/0;001172/0,001172/' " + datapath, shell=True)
 
     # Do the import and apply "strategies"
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
-        data, db, normalize_biosphere=True
+        datapath, dbname, normalize_biosphere=True
     )
     agribalyse.apply_strategies()
 
     # Apply provided migrations
     for migration in migrations:
-        print(f"Applying custom migration: {migration['description']}")
+        print(f"### Applying custom migration: {migration['description']}")
         bw2io.Migration(migration["name"]).write(
             migration["data"],
             description=migration["description"],
@@ -181,8 +170,8 @@ def import_agribalyse(
         agribalyse.migrate(migration["name"])
 
     agribalyse.statistics()
-    bw2data.Database(AGBIOSPHERE).register()
-    agribalyse.add_unlinked_flows_to_biosphere_database(AGBIOSPHERE)
+    bw2data.Database(BIOSPHERE).register()
+    agribalyse.add_unlinked_flows_to_biosphere_database(BIOSPHERE)
     agribalyse.add_unlinked_activities()
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
@@ -274,19 +263,19 @@ def import_agribalyse(
         if "filename" in activity:
             del activity["filename"]
     agribalyse.write_database()
-    print("Finished")
+    print(f"### Finished importing {DBNAME}")
 
 
-def import_ef(data=EF_CSV, project=PROJECT, db=AGBIOSPHERE):
+def import_ef(datapath=METHODPATH, project=PROJECT, dbname=BIOSPHERE):
     """
-    Import file at path `data` linked to biosphere named `db`
+    Import file at path `datapath` linked to biosphere named `dbname`
     """
-    print(f"Importing {db} database from {data}...")
+    print(f"### Importing {dbname} database from {datapath}...")
     bw2data.projects.set_current(project)
-    bw2data.config.p["biosphere_database"] = AGBIOSPHERE
+    bw2data.config.p["biosphere_database"] = BIOSPHERE
     ef = bw2io.importers.SimaProLCIACSVImporter(
-        data,
-        biosphere=db,
+        datapath,
+        biosphere=dbname,
         normalize_biosphere=True
         # normalize_biosphere to align the categories between LCI and LCIA
     )
@@ -299,27 +288,22 @@ def import_ef(data=EF_CSV, project=PROJECT, db=AGBIOSPHERE):
     # drop CFs which are not linked to a biosphere substance since they are not used by any activity
     ef.drop_unlinked()
     ef.write_methods()
-    print("Finished")
+    print(f"### Finished importing {METHODNAME}")
+
+
+def main():
+    # Import Agribalyse
+    if DBNAME not in bw2data.databases:
+        import_agribalyse()
+    else:
+        print(f"{DBNAME} already imported")
+
+    # Import custom method
+    if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
+        import_ef()
+    else:
+        print(f"{METHODNAME} already imported")
 
 
 if __name__ == "__main__":
-    bw2data.projects.set_current(PROJECT)
-    # bw2io.bw2setup()
-
-    # Import Ecoinvent
-    if ECOINVENTDB in bw2data.databases:
-        print(f"*** already imported: {ECOINVENTDB} ***")
-    else:
-        import_ecoinvent()
-
-    # Import Agribalyse
-    if AGRIBALYSEDB in bw2data.databases:
-        print(f"*** already imported {AGRIBALYSEDB} ***")
-    else:
-        import_agribalyse()
-
-    # Import methods
-    if len([method for method in bw2data.methods if method[0] == EFMETHODS]) >= 1:
-        print(f"*** already imported {EFMETHODS} ***")
-    else:
-        import_ef()
+    main()
