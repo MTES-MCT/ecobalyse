@@ -53,7 +53,7 @@ shell:
 
 start_notebook:
 	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
-	echo ### Run: `make shell` then `jupyter notebook password` to change the jupyter password
+	echo ### Run: `make shell` then `jupyter notebook password` to change the jupyter password, then restart with `make stop_notebook` and `make start-notebook`.
 
 make notebook_link:
 	docker logs $(NAME) | grep 8888 | grep 127.0.0.1 | sort | uniq
