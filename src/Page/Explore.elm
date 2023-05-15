@@ -178,7 +178,7 @@ scopesMenuView model =
                     , text (Scope.toLabel scope)
                     ]
             )
-        |> (::) (strong [] [ text "Secteur d'activité" ])
+        |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
         |> nav
             []
 
@@ -374,7 +374,7 @@ explore { db, builderDb } { scope, dataset, tableState } =
             , columns = []
             , customizations =
                 { defaultCustomizations
-                    | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list" ]
+                    | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
                 }
             }
     in
@@ -404,9 +404,9 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div []
                 [ h1 [] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-5" ]
-                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-1 pb-md-0" ] [ scopesMenuView model ]
-                    , div [ class "col-12 col-lg-7" ] [ datasetsMenuView model ]
+                , div [ class "row d-flex align-items-stretch mt-5 mx-0" ]
+                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ] [ scopesMenuView model ]
+                    , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
                     ]
                 ]
             , explore session model
