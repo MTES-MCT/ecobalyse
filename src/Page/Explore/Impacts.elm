@@ -37,83 +37,31 @@ table { detailed, scope } =
            , toValue = .unit
            , toCell = \def -> code [] [ text def.unit ]
            }
-        :: { label = "Données de calcul du score PEF"
-           , toValue =
-                \def ->
-                    def.pefData
-                        |> Maybe.map
-                            (\data ->
-                                let
-                                    normalization =
-                                        data.normalization
-                                            |> Unit.impactToFloat
-                                            |> Format.formatFloat 2
-
-                                    weighting =
-                                        data.weighting
-                                            |> Unit.ratioToFloat
-                                            |> Format.formatFloat 2
-                                in
-                                normalization ++ "/" ++ weighting
-                            )
-                        |> Maybe.withDefault "N/A"
+        :: { label = "Normalisation (PEF)"
+           , toValue = .pefData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
            , toCell =
                 \def ->
-                    case def.pefData of
-                        Just pefData ->
-                            div [ class "d-flex gap-2" ]
-                                [ span [ class "d-flex flex-column" ]
-                                    [ text "Normalisation"
-                                    , pefData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
-                                    ]
-                                , span [ class "d-flex flex-column" ]
-                                    [ text "Pondération"
-                                    , pefData.weighting |> Format.ratio
-                                    ]
-                                ]
-
-                        Nothing ->
-                            text "N/A"
+                    def.pefData
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.withDefault (text "N/A")
+           }
+        :: { label = "Pondération (PEF)"
+           , toValue = .pefData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+           , toCell = .pefData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
            }
         :: (if scope == Scope.Food then
                 -- No "scope d'impacts" for textile
-                [ { label = "Données de calcul du score d'impacts"
-                  , toValue =
-                        \def ->
-                            def.ecoscoreData
-                                |> Maybe.map
-                                    (\data ->
-                                        let
-                                            normalization =
-                                                data.normalization
-                                                    |> Unit.impactToFloat
-                                                    |> Format.formatFloat 2
-
-                                            weighting =
-                                                data.weighting
-                                                    |> Unit.ratioToFloat
-                                                    |> Format.formatFloat 2
-                                        in
-                                        normalization ++ "/" ++ weighting
-                                    )
-                                |> Maybe.withDefault "N/A"
+                [ { label = "Normalisation (Sc. Imp.)"
+                  , toValue = .ecoscoreData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
                   , toCell =
                         \def ->
-                            case def.ecoscoreData of
-                                Just ecoscoreData ->
-                                    div [ class "d-flex gap-2" ]
-                                        [ span [ class "d-flex flex-column" ]
-                                            [ text "Normalisation"
-                                            , ecoscoreData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
-                                            ]
-                                        , span [ class "d-flex flex-column" ]
-                                            [ text "Pondération"
-                                            , ecoscoreData.weighting |> Format.ratio
-                                            ]
-                                        ]
-
-                                Nothing ->
-                                    text "N/A"
+                            def.ecoscoreData
+                                |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                                |> Maybe.withDefault (text "N/A")
+                  }
+                , { label = "Pondération (Sc. Imp.)"
+                  , toValue = .ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+                  , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
                   }
                 ]
 
