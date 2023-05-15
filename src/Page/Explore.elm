@@ -404,7 +404,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div []
                 [ h1 [] [ text "Explorer" ]
-                , div [ class "row d-flex align-items-stretch" ]
+                , div [ class "row d-flex align-items-stretch mt-5" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-1 pb-md-0" ] [ scopesMenuView model ]
                     , div [ class "col-12 col-lg-7" ] [ datasetsMenuView model ]
                     ]
