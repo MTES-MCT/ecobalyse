@@ -2,9 +2,11 @@
 
 from bw2io.migrations import create_core_migrations
 from subprocess import call
+from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
+import re
 
 PROJECT = "Ecobalyse"
 # Ecoinvent
@@ -148,6 +150,7 @@ def import_agribalyse(
     Import file at path `data` into database named `db`, and apply provided brightway `migrations`.
     """
     bw2data.projects.set_current(project)
+    bw2data.config.p["biosphere_database"] = AGBIOSPHERE
     create_core_migrations()
     print(f"Importing {db} database from {data}...")
     with ZipFile(data) as zf:
@@ -164,7 +167,7 @@ def import_agribalyse(
 
     # Do the import and apply "strategies"
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
-        data, db, normalize_biosphere=False
+        data, db, normalize_biosphere=True
     )
     agribalyse.apply_strategies()
 
@@ -190,9 +193,6 @@ def import_agribalyse(
         for i, e in enumerate(ds.get("exchanges", [])):
             if "input" not in e:
                 del ds["exchanges"][i]
-
-    import re
-    from tqdm import tqdm
 
     dqr_pattern = r"The overall DQR of this product is: (?P<overall>[\d.]+) {P: (?P<P>[\d.]+), TiR: (?P<TiR>[\d.]+), GR: (?P<GR>[\d.]+), TeR: (?P<TeR>[\d.]+)}"
     ciqual_pattern = r"\[Ciqual code: (?P<ciqual>[\d_]+)\]"
@@ -277,20 +277,27 @@ def import_agribalyse(
     print("Finished")
 
 
-# TODO # bw2data.config.p["biosphere_database"] = AGBIOSPHERE
-
-
 def import_ef(data=EF_CSV, project=PROJECT, db=AGBIOSPHERE):
     """
     Import file at path `data` linked to biosphere named `db`
     """
     print(f"Importing {db} database from {data}...")
     bw2data.projects.set_current(project)
+    bw2data.config.p["biosphere_database"] = AGBIOSPHERE
     ef = bw2io.importers.SimaProLCIACSVImporter(
-        data, biosphere=db, normalize_biosphere=False
+        data,
+        biosphere=db,
+        normalize_biosphere=True
+        # normalize_biosphere to align the categories between LCI and LCIA
     )
     ef.statistics()
+    # strategies = ef.strategies[:3] + ef.strategies[5:]
+    # ef.strategies = strategies
     ef.apply_strategies()
+    # add unlinked CFs to the biosphere database
+    ef.add_missing_cfs()
+    # drop CFs which are not linked to a biosphere substance since they are not used by any activity
+    ef.drop_unlinked()
     ef.write_methods()
     print("Finished")
 
