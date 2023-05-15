@@ -113,16 +113,13 @@ Il existe différents procédés de délavage dans le socle technique actuelleme
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
 
-#### Emploi matière / Chutes / Taux de perte (%)&#x20;
+#### Taux de perte (%)&#x20;
 
-Un taux de perte par défaut est appliqué à chaque vêtement (ex : 20% pour un pantalon, 15% pour un t-shirt, etc.). Ces données se basent sur le socle technique ADEME et des retours métiers de la part de professionnels de la confection.\
-La littérature scientifique fait ressortir en moyenne des taux de perte autour de 15%.&#x20;
+Un taux de perte est appliqué par défaut à chaque vêtement sur la base du socle technique ADEME et de retours métiers (cf. ci-dessous).
 
-Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour l'ensemble des valeurs par défaut.
+L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
 
-L'utilisateur a la possibilité de modifier ce paramètre entre une borne min (0%) et max (40%).
-
-
+<table><thead><tr><th>Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)
