@@ -8,16 +8,22 @@ module Page.Explore.Table exposing
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Route exposing (Route)
 import Table as SortableTable
 import Views.Table as TableView
 
 
 type alias Table data comparable msg =
-    List
-        { label : String
-        , toValue : data -> comparable
-        , toCell : data -> Html msg
-        }
+    { toId : data -> String
+    , toRoute : data -> Route
+    , rows :
+        List
+            { label : String
+            , toValue : data -> comparable
+            , toCell : data -> Html msg
+            }
+    }
 
 
 type alias Config data msg =
@@ -36,6 +42,7 @@ viewDetails :
 viewDetails scope createTable item =
     TableView.responsiveDefault [ class "view-details" ]
         [ createTable { detailed = True, scope = scope }
+            |> .rows
             |> List.map
                 (\{ label, toCell } ->
                     tr []
@@ -48,21 +55,26 @@ viewDetails scope createTable item =
 
 
 viewList :
-    Config data msg
+    (Route -> msg)
+    -> Config data msg
     -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList defaultConfig tableState scope createTable items =
+viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        tableData =
+        { toId, toRoute, rows } =
             createTable { detailed = False, scope = scope }
+
+        customizations =
+            defaultConfig.customizations
 
         config =
             { defaultConfig
-                | columns =
-                    tableData
+                | toId = toId
+                , columns =
+                    rows
                         |> List.map
                             (\{ label, toCell, toValue } ->
                                 SortableTable.veryCustomColumn
@@ -71,6 +83,10 @@ viewList defaultConfig tableState scope createTable items =
                                     , sorter = SortableTable.increasingOrDecreasingBy toValue
                                     }
                             )
+                , customizations =
+                    { customizations
+                        | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                    }
             }
                 |> SortableTable.customConfig
     in

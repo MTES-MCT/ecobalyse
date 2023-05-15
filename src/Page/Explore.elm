@@ -34,7 +34,7 @@ import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.BuilderDb as FoodRequestDb
-import Route
+import Route exposing (Route)
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Container as Container
@@ -52,6 +52,7 @@ type Msg
     = NoOp
     | CloseModal
     | FoodDbLoaded (WebData BuilderDb.Db)
+    | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
 
@@ -117,6 +118,14 @@ update session msg model =
                 _ ->
                     session
             , Cmd.none
+            )
+
+        OpenDetail route ->
+            ( model
+            , session
+            , route
+                |> Route.toString
+                |> Nav.pushUrl session.navKey
             )
 
         ScopeChange scope ->
@@ -210,13 +219,9 @@ alert error =
 
 countriesExplorer : Table.Config Country Msg -> SortableTable.State -> Scope -> Maybe Country.Code -> List Country -> List (Html Msg)
 countriesExplorer tableConfig tableState scope maybeCode countries =
-    let
-        config =
-            { tableConfig | toId = .code >> Country.codeToString }
-    in
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList config tableState scope ExploreCountries.table
+        |> Table.viewList OpenDetail tableConfig tableState scope ExploreCountries.table
     , case maybeCode of
         Just code ->
             detailsModal
@@ -236,14 +241,10 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
 
 impactsExplorer : Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
 impactsExplorer tableConfig tableState scope maybeTrigram definitions =
-    let
-        config =
-            { tableConfig | toId = .trigram >> Impact.toString }
-    in
     [ definitions
         |> List.filter (.scopes >> List.member scope)
         |> List.sortBy (.trigram >> Impact.toString)
-        |> Table.viewList config tableState scope ExploreImpacts.table
+        |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
     , case maybeTrigram of
         Just trigram ->
             detailsModal
@@ -263,13 +264,9 @@ impactsExplorer tableConfig tableState scope maybeTrigram definitions =
 
 foodIngredientsExplorer : Table.Config Ingredient Msg -> SortableTable.State -> Maybe Ingredient.Id -> BuilderDb.Db -> List (Html Msg)
 foodIngredientsExplorer tableConfig tableState maybeId db =
-    let
-        config =
-            { tableConfig | toId = .id >> Ingredient.idToString }
-    in
     [ db.ingredients
         |> List.sortBy .name
-        |> Table.viewList config tableState Scope.Food (FoodIngredients.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodIngredients.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -289,12 +286,8 @@ foodIngredientsExplorer tableConfig tableState maybeId db =
 
 textileProductsExplorer : Table.Config Product Msg -> SortableTable.State -> Maybe Product.Id -> Db -> List (Html Msg)
 textileProductsExplorer tableConfig tableState maybeId db =
-    let
-        config =
-            { tableConfig | toId = .id >> Product.idToString }
-    in
     [ db.products
-        |> Table.viewList config tableState Scope.Textile (TextileProducts.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -314,12 +307,8 @@ textileProductsExplorer tableConfig tableState maybeId db =
 
 textileMaterialsExplorer : Table.Config Material Msg -> SortableTable.State -> Maybe Material.Id -> Db -> List (Html Msg)
 textileMaterialsExplorer tableConfig tableState maybeId db =
-    let
-        config =
-            { tableConfig | toId = .id >> Material.idToString }
-    in
     [ db.materials
-        |> Table.viewList config tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -339,12 +328,8 @@ textileMaterialsExplorer tableConfig tableState maybeId db =
 
 textileProcessesExplorer : Table.Config Process.Process Msg -> SortableTable.State -> Maybe Process.Uuid -> Db -> List (Html Msg)
 textileProcessesExplorer tableConfig tableState maybeId db =
-    let
-        config =
-            { tableConfig | toId = .uuid >> Process.uuidToString }
-    in
     [ db.processes
-        |> Table.viewList config tableState Scope.Textile TextileProcesses.table
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProcesses.table
     , case maybeId of
         Just id ->
             detailsModal

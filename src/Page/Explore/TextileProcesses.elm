@@ -11,42 +11,46 @@ import Route
 
 table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
-    [ { label = "Étape"
-      , toValue = .stepUsage
-      , toCell = .stepUsage >> text
-      }
-    , { label = "Identifiant"
-      , toValue = .uuid >> Process.uuidToString
-      , toCell =
-            .uuid
-                >> Process.uuidToString
-                >> (\uuid ->
-                        if detailed then
-                            code [] [ text uuid ]
+    { toId = .uuid >> Process.uuidToString
+    , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
+    , rows =
+        [ { label = "Étape"
+          , toValue = .stepUsage
+          , toCell = .stepUsage >> text
+          }
+        , { label = "Identifiant"
+          , toValue = .uuid >> Process.uuidToString
+          , toCell =
+                .uuid
+                    >> Process.uuidToString
+                    >> (\uuid ->
+                            if detailed then
+                                code [] [ text uuid ]
 
-                        else
-                            a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
-                                [ code [] [ text uuid ] ]
-                   )
-      }
-    , { label = "Nom"
-      , toValue = .name
-      , toCell = .name >> text
-      }
-    , { label = "Source"
-      , toValue = .source
-      , toCell =
-            \process ->
-                span [ title process.source ] [ text process.source ]
-      }
-    , { label = "Correctif"
-      , toValue = .correctif
-      , toCell =
-            \process ->
-                span [ title process.correctif ] [ text process.correctif ]
-      }
-    , { label = "Unité"
-      , toValue = .unit
-      , toCell = .unit >> text
-      }
-    ]
+                            else
+                                a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
+                                    [ code [] [ text uuid ] ]
+                       )
+          }
+        , { label = "Nom"
+          , toValue = .name
+          , toCell = .name >> text
+          }
+        , { label = "Source"
+          , toValue = .source
+          , toCell =
+                \process ->
+                    span [ title process.source ] [ text process.source ]
+          }
+        , { label = "Correctif"
+          , toValue = .correctif
+          , toCell =
+                \process ->
+                    span [ title process.correctif ] [ text process.correctif ]
+          }
+        , { label = "Unité"
+          , toValue = .unit
+          , toCell = .unit >> text
+          }
+        ]
+    }
