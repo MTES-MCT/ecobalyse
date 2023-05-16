@@ -1198,6 +1198,8 @@ components:
         airTransportRatio:
           type: number
           description: Part de transport aérien
+          minimum: 0
+          maximum: 1
           required: false
         quality:
           type: number
@@ -1230,7 +1232,7 @@ components:
           - not-applicable
         yarnSize:
           type: number
-          description: Titrage du fil
+          description: Titrage du fil, exprimé en numéro métrique (Nm)
           required: false
         surfaceMass:
           type: number
