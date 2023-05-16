@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "3 mai 2023"
+    [ { date = "16 mai 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Les points d'accès de simulation textile acceptent désormais le verbe
+            `POST` assorti d'une requête au format JSON.
+"""
+      }
+    , { date = "3 mai 2023"
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =
