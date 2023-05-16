@@ -112,6 +112,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericImpactsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/{impact}:
     get:
       tags:
@@ -181,6 +210,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericImpactsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/detailed:
     get:
       tags:
@@ -208,6 +266,35 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
       responses:
         200:
           description: Opération réussie
@@ -396,6 +483,41 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
 components:
+  examples:
+    tShirtFrance:
+      summary: "T-Shirt France 100% Coton"
+      value:
+        mass: 0.17
+        materials:
+        - id: "coton"
+          share: 1
+        product: "tshirt"
+        countrySpinning: "FR"
+        countryFabric: "FR"
+        countryDyeing: "FR"
+        countryMaking: "FR"
+    tShirtChina:
+      summary: "T-Shirt Chine, low-cost, 100% Coton"
+      value:
+        mass: 0.17
+        materials:
+        - id: "coton"
+          share: 1
+        product: "tshirt"
+        countrySpinning: "CN"
+        countryFabric: "CN"
+        countryDyeing: "CN"
+        countryMaking: "CN"
+        airTransportRatio: 0.33
+        quality: 0.9
+        reparability: 0.9
+        makingWaste: null
+        makingComplexity: null
+        yarnSize: null
+        surfaceMass: null
+        knittingProcess: null
+        disabledSteps:
+        - use
   parameters:
     massParam:
       name: mass
@@ -1031,6 +1153,127 @@ components:
         wtu:
           type: number
           description: "Utilisation de ressources en eau (m³)"
+    TextileQuery:
+      type: object
+      additionalProperties: false
+      required:
+      - materials
+      - countrySpinning
+      - countryFabric
+      - countryDyeing
+      - countryMaking
+      properties:
+        mass:
+          type: number
+          description: Masse du produit fini
+        materials:
+          type: array
+          description: Liste des matières composant le vêtement
+          items:
+            "$ref": "#/components/schemas/TextileQueryMaterial"
+          minItems: 1
+        product:
+          type: string
+          description: Le type de produit
+          enum:
+          - chemise
+          - jean
+          - jupe
+          - manteau
+          - pantalon
+          - pull
+          - tshirt
+        countrySpinning:
+          type: string
+          description: Pays de filature
+        countryFabric:
+          type: string
+          description: Pays de tissage ou de tricotage
+        countryDyeing:
+          type: string
+          description: Pays de teinture ou d'ennoblissement
+        countryMaking:
+          type: string
+          description: Pays de confection
+        airTransportRatio:
+          type: number
+          description: Part de transport aérien
+          minimum: 0
+          maximum: 1
+          required: false
+        quality:
+          type: number
+          description: Qualité intrinsèque
+          minimum: 0.67
+          maximum: 1.45
+          required: false
+        reparability:
+          type: number
+          description: Indice de réparabilité du produit
+          minimum: 1
+          maximum: 1.15
+          required: false
+        makingWaste:
+          type: number
+          description: Taux de perte en confection
+          minimum: 0
+          maximum: 0.4
+          required: false
+        makingComplexity:
+          type: string
+          description: Complexité de la confection
+          required: false
+          enum:
+          - very-high
+          - high
+          - medium
+          - low
+          - very-low
+          - not-applicable
+        yarnSize:
+          type: number
+          description: Titrage du fil, exprimé en numéro métrique (Nm)
+          required: false
+        surfaceMass:
+          type: number
+          description: Le grammage de l'étoffe, exprimé en gr/m²
+          minimum: 80
+          maximum: 500
+          required: false
+        knittingProcess:
+          type: string
+          required: false
+          enum:
+          - mix
+          - fully-fashioned
+          - seamless
+          - circular
+          - straight
+        disabledSteps:
+          type: string
+          required: false
+          enum:
+          - material
+          - spinning
+          - fabric
+          - making
+          - ennobling
+          - distribution
+          - use
+          - eol
+    TextileQueryMaterial:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - share
+      properties:
+        id:
+          type: string
+        share:
+          type: number
+          min: 0.01
+          max: 1
     FoodQuery:
       type: object
       additionalProperties: false

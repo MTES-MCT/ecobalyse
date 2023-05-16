@@ -165,7 +165,7 @@ foodEndpoints db =
 
 textileEndpoints : StaticDb.Db -> List Test
 textileEndpoints db =
-    [ describe "endpoints"
+    [ describe "GET endpoints"
         [ String.join "&"
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
@@ -239,6 +239,16 @@ textileEndpoints db =
                         Ok tShirtCotonFrance
                 )
             |> asTest "should map the /textile/simulator/detailed endpoint"
+        ]
+    , describe "POST endpoints"
+        [ "/textile/simulator"
+            |> testEndpoint db "POST" (Inputs.encodeQuery Inputs.tShirtCotonFrance)
+            |> Expect.equal (Just Route.PostTextileSimulator)
+            |> asTest "should map the POST /textile/simulator endpoint"
+        , "/textile/simulator"
+            |> testEndpoint db "POST" Encode.null
+            |> Expect.equal (Just Route.PostTextileSimulator)
+            |> asTest "should map the POST /textile/simulator endpoint whatever the request body is"
         ]
     , describe "materials param checks"
         [ let
