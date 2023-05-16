@@ -318,7 +318,14 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , fabric = Just (Product.getFabricProcess inputs.product |> .name)
+                        , fabric =
+                            processes
+                                |> Process.loadWellKnown
+                                |> Result.map
+                                    (Product.getFabricProcess inputs.knittingProcess inputs.product
+                                        >> .name
+                                    )
+                                |> Result.toMaybe
                     }
             }
 
