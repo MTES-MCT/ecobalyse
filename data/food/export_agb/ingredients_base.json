@@ -33,7 +33,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cow milk organic system n°1 at farm gate",
+        "process": "Cow milk organic system 1 at farm gate",
         "beyondLCA": {
           "agro-diversity": 0.5,
           "agro-ecology": 0.5,
@@ -118,7 +118,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Sunflower grain organic system n°3 at farm gate",
+        "process": "Sunflower grain organic system 3 at farm gate",
         "beyondLCA": {
           "agro-diversity": 0.5,
           "agro-ecology": 0.5
@@ -196,7 +196,7 @@
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle national average at farm gate",
-        "simple_ingredient_variant": "Cull cow organic milk system n°4 at farm gate"
+        "simple_ingredient_variant": "Cull cow organic milk system 4 at farm gate"
       }
     }
   },
@@ -219,7 +219,7 @@
         },
         "ratio": 2.02,
         "simple_ingredient_default": "Pig conventional national average at farm gate",
-        "simple_ingredient_variant": "Pig organic system n°2 at farm gate"
+        "simple_ingredient_variant": "Pig organic system 2 at farm gate"
       }
     }
   },
@@ -280,7 +280,7 @@
   {
     "id": "huilecolza",
     "name": "Huile de colza",
-    "default": "Rapeseed oil, at oil mill {GLO}",
+    "default": "Rapeseed oil mill {GLO}",
     "default_origin": "EuropeAndMaghreb",
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
@@ -292,7 +292,7 @@
         "process": "zucchini,  springtime, under tunnel, organic",
         "ratio": 0.0,
         "simple_ingredient_default": "rape seed {FR}",
-        "simple_ingredient_variant": "winter rapeseed organic, at farm gare",
+        "simple_ingredient_variant": "winter rapeseed organic",
         "beyondLCA": {
           "agro-diversity": 0.5,
           "agro-ecology": 0.5,
@@ -304,7 +304,7 @@
   {
     "id": "sunfloweroil",
     "name": "Huile de tournesol",
-    "default": "sunflower oil, at oil mill {glo}",
+    "default": "sunflower oil at mill {glo}",
     "default_origin": "EuropeAndMaghreb",
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
@@ -327,7 +327,7 @@
   {
     "id": "zucchini",
     "name": "Courgette",
-    "default": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
+    "default": "Zucchini springtime under tunnel conventionel at farm gate {FR} U",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 1.0,
@@ -438,7 +438,7 @@
   {
     "id": "onion",
     "name": "Oignon",
-    "default": "Onion, national average, at farm ",
+    "default": "Onion, national average, at farm",
     "default_origin": "OutOfEuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -459,7 +459,7 @@
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "default": "Zucchini, conventional, national average, at farm gate {FR} U¶",
+    "default": "Zucchini, conventional, national average, at farm gate {FR} U",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -502,7 +502,7 @@
   {
     "id": "frenchbean",
     "name": "Haricot vert",
-    "default": "French bean, conventional, national average, at farm gate {FR} ",
+    "default": "French bean, conventional, national average, at farm gate {FR}",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,

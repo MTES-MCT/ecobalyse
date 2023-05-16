@@ -33,7 +33,7 @@ def compute_new_processes(activities, ingredients_base):
     new_processes = []
 
     for ingredient in ingredients_base:
-        for variant_name, variant in ingredient["variants"].items():
+        for variant_name, variant in ingredient.get("variants", {}).items():
             # variant_name can be 'organic', 'bleu_blanc_coeur'
             # we build new processes for ingredients defined with 2 sub-ingredients
             if (
@@ -45,6 +45,10 @@ def compute_new_processes(activities, ingredients_base):
                     and "simple_ingredient_variant" in variant
                 ), f"Incomplete variant for {ingredient}"
                 # This is a complex ingredient, we need to create a new process from the elements we have.
+                assert (
+                    ingredient["default"] in activities
+                ), f"This activity is missing from the {INGREDIENTS_BASE} file: {ingredient['default']}"
+
                 complex_ingredient_default = activities[ingredient["default"]][
                     "export_data"
                 ]
@@ -151,9 +155,7 @@ if __name__ == "__main__":
         export_data["unit"] = activity["unit"]
         export_data["simapro_id"] = activity["code"]
         export_data["name"] = activity.get("simapro name", activity["name"])
-        export_data["system_description"] = activity["simapro metadata"][
-            "System description"
-        ]
+        export_data["system_description"] = activity["System description"]
 
         # Useful info like the category_tags and comment are in the production exchange
         prod_exchange = list(activity.production())[0]
@@ -161,7 +163,7 @@ if __name__ == "__main__":
         if prod_exchange["comment"]:
             export_data["comment"] = prod_exchange["comment"]
 
-        category = activity["simapro metadata"]["Category type"]
+        category = activity["Category type"]
         # We have our own classification/categorization.
         if (
             category == "material"
