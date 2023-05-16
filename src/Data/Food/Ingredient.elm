@@ -45,11 +45,15 @@ type alias Ingredient =
     , default : Process
     , defaultOrigin : Origin
     , rawToCookedRatio : Unit.Ratio
-    , variants : Variants
+    , variants : List Variant
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
     }
+
+
+type alias Variant =
+    ( Process, Maybe Bonuses )
 
 
 type alias Bonuses =
@@ -63,12 +67,6 @@ type Id
     = Id String
 
 
-type alias OrganicVariant =
-    { process : Process
-    , defaultBonuses : Bonuses
-    }
-
-
 type PlaneTransport
     = PlaneNotApplicable
     | ByPlane
@@ -79,11 +77,6 @@ type TransportCooling
     = NoCooling
     | AlwaysCool
     | CoolOnceTransformed
-
-
-type alias Variants =
-    { organic : Maybe OrganicVariant
-    }
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
@@ -200,7 +193,7 @@ decodeIngredient processes =
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
-        |> Pipe.required "variants" (decodeVariants processes)
+        |> Pipe.required "variants" (Decode.list (decodeVariant processes))
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
@@ -226,10 +219,15 @@ decodeTransportCooling =
             )
 
 
-decodeVariants : Dict String Process -> Decoder Variants
-decodeVariants processes =
-    Decode.succeed Variants
-        |> Pipe.optional "organic" (Decode.maybe (linkOrganicVariant processes)) Nothing
+decodeVariant : Dict String Process -> Decoder Variant
+decodeVariant processes =
+    Decode.oneOf
+        [ Decode.succeed (\process -> ( process, Nothing ))
+            |> Pipe.required "process" (linkProcess processes)
+        , Decode.succeed (\process bonuses -> ( process, Just bonuses ))
+            |> Pipe.required "process" (linkProcess processes)
+            |> Pipe.required "beyondLCA" decodeBonuses
+        ]
 
 
 findByID : Id -> List Ingredient -> Result String Ingredient
@@ -281,11 +279,3 @@ linkProcess processes =
                             |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
                    )
             )
-
-
-linkOrganicVariant : Dict String Process -> Decoder OrganicVariant
-linkOrganicVariant processes =
-    Decode.succeed OrganicVariant
-        |> Pipe.required "process" (linkProcess processes)
-        -- FIXME: rename beyondLCA to bonuses in JSON sources
-        |> Pipe.required "beyondLCA" decodeBonuses
