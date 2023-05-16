@@ -119,6 +119,13 @@ Un taux de perte est appliqué par défaut à chaque vêtement sur la base du so
 
 L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
 
+\
+Une exception concerne cependant deux situations liées aux vêtements tricotés : \
+1\) tricotage seamless = 0% (pas d'étape de confection) \
+le vêtement est fabriqué en une seule pièce sans couture lors de l'étape de tricotage\
+2\) tricotage fully-fashioned = 2% (valeur figée) \
+les différentes pièces du vêtement sont tricotées sans couture et la confection consiste "seulement" à les assembler
+
 <table><thead><tr><th>Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
 
 [^1]: cf. p. 49/167 de l'étude : \
