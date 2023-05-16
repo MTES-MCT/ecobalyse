@@ -645,7 +645,6 @@ q {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 320px;
           vertical-align: middle;
         }
       }
@@ -658,6 +657,7 @@ q {
 
     th {
       overflow: hidden;
+      padding-bottom: 0.5em;
       text-overflow: ellipsis;
       white-space: nowrap;
     }

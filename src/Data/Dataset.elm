@@ -15,6 +15,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
+import Data.Textile.Process as Process
 import Data.Textile.Product as Product
 import Url.Parser as Parser exposing (Parser)
 
@@ -30,6 +31,7 @@ type Dataset
     | FoodIngredients (Maybe Ingredient.Id)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
+    | TextileProcesses (Maybe Process.Uuid)
 
 
 datasets : Scope -> List Dataset
@@ -43,6 +45,7 @@ datasets scope =
                 Scope.Textile ->
                     [ TextileProducts Nothing
                     , TextileMaterials Nothing
+                    , TextileProcesses Nothing
                     ]
            )
 
@@ -61,6 +64,9 @@ fromSlug string =
 
         "materials" ->
             TextileMaterials Nothing
+
+        "processes" ->
+            TextileProcesses Nothing
 
         _ ->
             Impacts Nothing
@@ -82,6 +88,9 @@ isDetailed dataset =
             True
 
         TextileMaterials (Just _) ->
+            True
+
+        TextileProcesses (Just _) ->
             True
 
         _ ->
@@ -116,6 +125,9 @@ reset dataset =
         TextileMaterials _ ->
             TextileMaterials Nothing
 
+        TextileProcesses _ ->
+            TextileProcesses Nothing
+
 
 same : Dataset -> Dataset -> Bool
 same a b =
@@ -133,6 +145,9 @@ same a b =
             True
 
         ( TextileMaterials _, TextileMaterials _ ) ->
+            True
+
+        ( TextileProcesses _, TextileProcesses _ ) ->
             True
 
         _ ->
@@ -157,6 +172,9 @@ setIdFromString idString dataset =
         TextileMaterials _ ->
             TextileMaterials (Just (Material.Id idString))
 
+        TextileProcesses _ ->
+            TextileProcesses (Just (Process.Uuid idString))
+
 
 slug : Dataset -> String
 slug =
@@ -180,6 +198,9 @@ strings dataset =
 
         TextileMaterials _ ->
             { slug = "materials", label = "Matières" }
+
+        TextileProcesses _ ->
+            { slug = "processes", label = "Procédés" }
 
 
 toRoutePath : Dataset -> List String
@@ -214,3 +235,9 @@ toRoutePath dataset =
 
         TextileMaterials (Just id) ->
             [ slug dataset, Material.idToString id ]
+
+        TextileProcesses Nothing ->
+            [ slug dataset ]
+
+        TextileProcesses (Just id) ->
+            [ slug dataset, Process.uuidToString id ]

@@ -35,6 +35,9 @@ type alias Process =
     { name : String
     , info : String
     , unit : String
+    , source : String
+    , correctif : String
+    , stepUsage : String
     , uuid : Uuid
     , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process
@@ -270,6 +273,9 @@ decode impacts =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
         |> Pipe.required "unit" Decode.string
+        |> Pipe.required "source" Decode.string
+        |> Pipe.required "correctif" Decode.string
+        |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
