@@ -226,7 +226,7 @@ decodeVariant processes =
             |> Pipe.required "process" (linkProcess processes)
         , Decode.succeed (\process bonuses -> ( process, Just bonuses ))
             |> Pipe.required "process" (linkProcess processes)
-            |> Pipe.required "beyondLCA" decodeBonuses
+            |> Pipe.required "bonuses" decodeBonuses
         ]
 
 
