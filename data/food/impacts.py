@@ -2,18 +2,6 @@ impacts = {
     "acd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Acidification"),
     "ozd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Ozone depletion"),
     "cch": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Climate change"),
-    "cchf": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
-        "Climate change - Fossil",
-    ),
-    "cchb": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
-        "Climate change - Biogenic",
-    ),
-    "cchl": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
-        "Climate change - Land use and LU change",
-    ),
     "fwe": (
         "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
         "Eutrophication, freshwater",
