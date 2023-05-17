@@ -81,9 +81,13 @@ Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
 ### Hypothèses par défaut&#x20;
 
-#### Électricité consommée
+#### Complexité <=> Vêtement
 
-Un temps de confection, exprimé en minutes, est associé à chaque niveau de complexité (cf. ci-dessous). Le terme anglais généralement utilisé dans l'industrie pour désigner ce "temps-minute" est le Standard Minute Value (SMV) ou Standard Allowed Minute (SAM).
+Chaque vêtement se voit attribuer un niveau de complexité (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)) en confection.
+
+Chaque niveau de complexité (cf. ci-dessous) se traduit en un nombre de minutes. Le terme anglais généralement utilisé dans l'industrie pour désigner ce "temps-minute" est le Standard Minute Value (SMV) ou Standard Allowed Minute (SAM).
+
+#### Électricité consommée
 
 **0,029 kWh** d'électricité est retenue par défaut pour chaque minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
 
