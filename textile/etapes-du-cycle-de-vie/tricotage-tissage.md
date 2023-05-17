@@ -338,10 +338,14 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
 
 #### Métier à tricoter
 
-En l'absence de précision de la part de l'utilisateur, un procédé moyen est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
-
-Procédé par défaut = "Tricotage moyen (mix de métiers circulaire & rectiligne)" \
-(UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d)
+* Procédé par défaut \
+  En l'absence de précision de la part de l'utilisateur, un procédé par défaut est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe). \
+  Procédé par défaut = _Tricotage moyen (mix de métiers circulaire & rectiligne) / UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d_
+* Cas particuliers
+  * _Tricotage fully-fashioned_ (optionnel)\
+    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (Complexité = Très faible / Taux de pertes = 2%) et figés. Cette technique permet de fabriquer les différentes pièces du vêtement sans couture lors du tricotage.
+  * _Tricotage seamless_ (optionnel)\
+    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (étape de confection non applicable) et figés. Cette technique permet de fabriquer le vêtement en une seule pièce sans couture lors du tricotage.
 
 #### Titrage & Densité de fils (contexture du tissu)
 
