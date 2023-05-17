@@ -13,6 +13,7 @@ module Data.Impact exposing
     , defaultFoodTrigram
     , defaultTextileTrigram
     , encodeAggregatedScoreChartEntry
+    , encodeBonusesImpacts
     , encodeImpacts
     , filterImpacts
     , getAggregatedScoreData
@@ -392,6 +393,16 @@ decodeImpacts definitions =
         )
         toString
         Unit.decodeImpact
+
+
+encodeBonusesImpacts : BonusImpacts -> Encode.Value
+encodeBonusesImpacts bonuses =
+    Encode.object
+        [ ( "agroDiversity", Unit.impactToFloat bonuses.agroDiversity |> Encode.float )
+        , ( "agroEcology", Unit.impactToFloat bonuses.agroEcology |> Encode.float )
+        , ( "animalWelfare", Unit.impactToFloat bonuses.animalWelfare |> Encode.float )
+        , ( "total", Unit.impactToFloat bonuses.total |> Encode.float )
+        ]
 
 
 encodeImpacts : List Definition -> Scope -> Impacts -> Encode.Value

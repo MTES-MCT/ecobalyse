@@ -296,8 +296,8 @@ compute db =
                           , totalMass = getMassAtPackaging recipe
                           , preparedMass = preparedMass
                           , recipe =
-                                { total = recipeImpacts
-                                , ingredientsTotal = ingredientsTotalImpacts
+                                { total = addIngredientsBonuses recipeImpacts
+                                , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
                                 , ingredients = ingredientsImpacts
                                 , totalBonusesImpact = totalBonusesImpact
                                 , totalBonusesImpactPerKg = totalBonusesImpactPerKg
@@ -546,6 +546,7 @@ encodeResults defs results =
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
+                , ( "totalBonusImpact", Impact.encodeBonusesImpacts results.recipe.totalBonusesImpact )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode defs results.recipe.transports )
                 ]
