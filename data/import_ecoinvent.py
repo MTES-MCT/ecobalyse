@@ -28,9 +28,9 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
 
 def main():
     # biosphere
+    bw2data.projects.set_current(PROJECT)
     if BIOSPHERE not in bw2data.databases:
         print("### Creating default biosphere")
-        bw2data.projects.set_current(PROJECT)
         bw2io.create_default_biosphere3()
     else:
         print(f"### {BIOSPHERE} database is already imported")
@@ -38,7 +38,6 @@ def main():
     # EF v3.1
     if METHODNAME not in set([m[0] for m in bw2data.methods]):
         print("### Creating default LCIA methods")
-        bw2data.projects.set_current(PROJECT)
         bw2io.create_default_lcia_methods()
     else:
         print(f"### {METHODNAME} already imported")
@@ -46,7 +45,6 @@ def main():
     # Core migrations
     print("### Creating core data migrations")
     if len(bw2io.migrations) < 13:
-        bw2data.projects.set_current(PROJECT)
         bw2io.create_core_migrations()
     else:
         print("### Core migrations are already installed")
