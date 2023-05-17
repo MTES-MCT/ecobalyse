@@ -40,7 +40,7 @@ python:
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python; fi
 
 root_shell:
-	echo starting a user shell inside the container...
+	echo starting a root shell inside the container...
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -u root $(NAME) bash;\
 	else $(DOCKERRUN) -u root -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
