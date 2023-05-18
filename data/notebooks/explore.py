@@ -22,7 +22,7 @@ w_database = ipywidgets.Dropdown(
 )
 w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 METHODS = sorted({m[0] for m in bw2data.methods})
-w_method = ipywidgets.Dropdown(value=METHODS[11], options=METHODS, description="METHOD")
+w_method = ipywidgets.Dropdown(options=METHODS, description="METHOD")
 w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
 w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
