@@ -6,6 +6,7 @@ module Views.Comparator exposing
     , textileOptions
     )
 
+import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
@@ -30,6 +31,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , options : Options msg
     , toggle : Bookmark -> Bool -> msg
+    , hovering : List (CI.Many TextileComparativeChart.Entry CI.Any)
+    , onHover : List (CI.Many TextileComparativeChart.Entry CI.Any) -> msg
     }
 
 
@@ -394,7 +397,7 @@ dataForTotalImpacts chartsData =
 
 
 textileComparatorView : Config msg -> TextileOptions -> Html msg
-textileComparatorView { session, impact } { funit, daysOfWear } =
+textileComparatorView { session, impact, hovering, onHover } { funit, daysOfWear } =
     div []
         [ case getTextileChartEntries session funit impact of
             Ok [] ->
@@ -408,6 +411,8 @@ textileComparatorView { session, impact } { funit, daysOfWear } =
                         , daysOfWear = daysOfWear
                         , size = Just ( 700, 500 )
                         , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
+                        , hovering = hovering
+                        , onHover = onHover
                         }
 
             Err error ->

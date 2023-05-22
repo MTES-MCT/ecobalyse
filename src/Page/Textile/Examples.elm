@@ -6,6 +6,7 @@ module Page.Textile.Examples exposing
     , view
     )
 
+import Chart.Item as CI
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Session exposing (Session)
@@ -17,17 +18,20 @@ import Html.Attributes exposing (..)
 import Ports
 import Views.Container as Container
 import Views.Impact as ImpactView
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
     { impact : Impact.Trigram
     , funit : Unit.Functional
+    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
     }
 
 
 type Msg
-    = SwitchImpact Impact.Trigram
+    = OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
+    | SwitchImpact Impact.Trigram
     | SwitchFunctionalUnit Unit.Functional
 
 
@@ -35,6 +39,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { impact = Impact.defaultTextileTrigram
       , funit = Unit.PerItem
+      , hovering = []
       }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
@@ -44,6 +49,12 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        OnHover hovering ->
+            ( { model | hovering = hovering }
+            , session
+            , Cmd.none
+            )
+
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
@@ -51,8 +62,8 @@ update session msg model =
             ( { model | funit = funit }, session, Cmd.none )
 
 
-viewExample : Session -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html msg
-viewExample session funit impact query =
+viewExample : Session -> Model -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html Msg
+viewExample session model funit impact query =
     query
         |> Simulator.compute session.db
         |> SummaryView.view
@@ -62,12 +73,14 @@ viewExample session funit impact query =
                     |> Result.withDefault (Impact.invalid Scope.Textile)
             , funit = funit
             , reusable = True
+            , hovering = model.hovering
+            , onHover = OnHover
             }
         |> (\v -> div [ class "col" ] [ v ])
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session { impact, funit } =
+view session ({ impact, funit } as model) =
     ( "Exemples"
     , [ Container.centered [ class "pb-3" ]
             [ div [ class "row" ]
@@ -89,7 +102,7 @@ view session { impact, funit } =
                 |> Result.map ImpactView.viewDefinition
                 |> Result.withDefault (text "")
             , Inputs.presets
-                |> List.map (viewExample session funit impact)
+                |> List.map (viewExample session model funit impact)
                 |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
             ]
       ]

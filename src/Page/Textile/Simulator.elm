@@ -10,6 +10,7 @@ module Page.Textile.Simulator exposing
 import Array
 import Browser.Events
 import Browser.Navigation as Navigation
+import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact as Impact
@@ -48,6 +49,7 @@ import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -63,6 +65,7 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , modal : Modal
+    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
     }
 
 
@@ -76,6 +79,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -143,6 +147,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> Result.withDefault (Impact.invalid Scope.Textile)
       , funit = funit
       , modal = NoModal
+      , hovering = []
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -212,6 +217,12 @@ update ({ db, queries, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnHover hovering ->
+            ( { model | hovering = hovering }
+            , session
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -564,6 +575,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , impact = model.impact
                             , funit = model.funit
                             , reusable = False
+                            , hovering = model.hovering
+                            , onHover = OnHover
                             }
                     ]
                 , BookmarkView.view
@@ -618,6 +631,8 @@ view session model =
                                                 , daysOfWear = simulator.daysOfWear
                                                 }
                                         , toggle = ToggleComparedSimulation
+                                        , hovering = model.hovering
+                                        , onHover = OnHover
                                         }
                                     ]
                                 , footer = []

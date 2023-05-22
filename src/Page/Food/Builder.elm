@@ -9,6 +9,7 @@ module Page.Food.Builder exposing
 
 import Browser.Events
 import Browser.Navigation as Navigation
+import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
@@ -57,6 +58,7 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
 
@@ -68,6 +70,7 @@ type alias Model =
     , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
+    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
     }
 
 
@@ -91,6 +94,7 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
+    | OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
     | OpenComparator
     | ResetTransform
     | ResetDistribution
@@ -131,6 +135,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , comparisonUnit = ComparatorView.PerKgOfProduct
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
+              , hovering = []
               }
             , session
                 |> Session.updateFoodQuery query
@@ -281,6 +286,12 @@ update ({ queries } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnHover hovering ->
+            ( { model | hovering = hovering }
+            , session
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -1621,6 +1632,8 @@ view ({ builderDb, queries } as session) model =
                                         , switchDisplayChoice = SwitchDisplayChoice
                                         }
                                 , toggle = ToggleComparedSimulation
+                                , hovering = model.hovering
+                                , onHover = OnHover
                                 }
                             ]
                         , footer = []

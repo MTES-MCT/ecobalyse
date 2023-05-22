@@ -1,6 +1,7 @@
 module Views.Textile.Summary exposing (view)
 
 import Array
+import Chart.Item as CI
 import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact
@@ -26,11 +27,13 @@ import Views.Textile.Step as StepView
 import Views.Transport as TransportView
 
 
-type alias Config =
+type alias Config msg =
     { session : Session
     , impact : Impact.Definition
     , funit : Unit.Functional
     , reusable : Bool
+    , hovering : List (CI.Many Comparator.Entry CI.Any)
+    , onHover : List (CI.Many Comparator.Entry CI.Any) -> msg
     }
 
 
@@ -49,7 +52,7 @@ viewMaterials materials =
         |> span []
 
 
-mainSummaryView : Config -> Simulator -> Html msg
+mainSummaryView : Config msg -> Simulator -> Html msg
 mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
     SummaryComp.view
         { header =
@@ -115,8 +118,8 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
         }
 
 
-summaryChartsView : Config -> Simulator -> Html msg
-summaryChartsView { session, impact, funit, reusable } ({ inputs } as simulator) =
+summaryChartsView : Config msg -> Simulator -> Html msg
+summaryChartsView { session, impact, funit, reusable, hovering, onHover } ({ inputs } as simulator) =
     div [ class "card shadow-sm" ]
         [ details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
@@ -127,15 +130,15 @@ summaryChartsView { session, impact, funit, reusable } ({ inputs } as simulator)
                 }
             ]
         , div
-            [ class "d-none d-sm-block card-body"
-            , title <| Inputs.toString simulator.inputs
-            ]
+            [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
             [ Comparator.view
                 { session = session
                 , impact = impact
                 , funit = funit
                 , simulator = simulator
+                , hovering = hovering
+                , onHover = onHover
                 }
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
@@ -176,7 +179,7 @@ summaryChartsView { session, impact, funit, reusable } ({ inputs } as simulator)
         ]
 
 
-view : Config -> Result String Simulator -> Html msg
+view : Config msg -> Result String Simulator -> Html msg
 view config result =
     case result of
         Ok simulator ->
