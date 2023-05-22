@@ -54,7 +54,17 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "16 mai 2023"
+    [ { date = "17 mai 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le calcul de l'écoscore dans le résultat de l'API alimentaire de constructeur
+            de recette prend maintenant correctement en compte les bonus des ingrédients.
+
+            Par ailleurs, le bonus total a été rajouté sous l'entrée `recipe.totalBonusImpact`.
+"""
+      }
+    , { date = "16 mai 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =

@@ -909,15 +909,8 @@ ingredientListView db selectedImpact recipe results =
                 ]
                 [ Icon.search ]
             ]
-        , if shouldRenderBonuses selectedImpact then
-            results.recipe.totalBonusesImpact.total
-                |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat selectedImpact
-
-          else
-            results.recipe.ingredientsTotal
-                |> Format.formatFoodSelectedImpact selectedImpact
+        , results.recipe.ingredientsTotal
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -1492,16 +1485,9 @@ stepResultsView model results =
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
-        bonusToApply =
-            if shouldRenderBonuses model.impact then
-                Unit.impactToFloat results.recipe.totalBonusesImpact.total
-
-            else
-                0
-
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal - bonusToApply
+              , impact = toFloat results.recipe.ingredientsTotal
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform

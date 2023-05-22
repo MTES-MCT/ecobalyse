@@ -201,6 +201,16 @@ suite =
                                             }
                                             |> asTest "should be properly scored"
                            )
+                     , carrotCakeResults
+                        |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
+                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288866))
+                        |> Expect.equal (Ok Expect.pass)
+                        |> asTest "should have the total ecs impact with the bonus taken into account"
+                     , carrotCakeResults
+                        |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact (Impact.trg "ecs"))
+                        |> Result.map (expectImpactEqual (Unit.impact 71.60255160507457))
+                        |> Expect.equal (Ok Expect.pass)
+                        |> asTest "should have the ingredients' total ecs impact with the bonus taken into account"
                      ]
                     )
                 , describe "raw-to-cooked checks"
