@@ -24,12 +24,12 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { impact : Impact.Trigram
     , funit : Unit.Functional
-    , hovering : ComparativeChart.Stacks
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
 type Msg
-    = OnHover ComparativeChart.Stacks
+    = OnChartHover ComparativeChart.Stacks
     | SwitchImpact Impact.Trigram
     | SwitchFunctionalUnit Unit.Functional
 
@@ -38,7 +38,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { impact = Impact.defaultTextileTrigram
       , funit = Unit.PerItem
-      , hovering = []
+      , chartHovering = []
       }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
@@ -48,8 +48,8 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        OnHover hovering ->
-            ( { model | hovering = hovering }
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
             , session
             , Cmd.none
             )
@@ -72,8 +72,8 @@ viewExample session model funit impact query =
                     |> Result.withDefault (Impact.invalid Scope.Textile)
             , funit = funit
             , reusable = True
-            , hovering = model.hovering
-            , onHover = OnHover
+            , chartHovering = model.chartHovering
+            , onChartHover = OnChartHover
             }
         |> (\v -> div [ class "col" ] [ v ])
 

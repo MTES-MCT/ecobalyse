@@ -30,8 +30,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , options : Options msg
     , toggle : Bookmark -> Bool -> msg
-    , hovering : TextileComparativeChart.Stacks
-    , onHover : TextileComparativeChart.Stacks -> msg
+    , chartHovering : TextileComparativeChart.Stacks
+    , onChartHover : TextileComparativeChart.Stacks -> msg
     }
 
 
@@ -396,7 +396,7 @@ dataForTotalImpacts chartsData =
 
 
 textileComparatorView : Config msg -> TextileOptions -> Html msg
-textileComparatorView { session, impact, hovering, onHover } { funit, daysOfWear } =
+textileComparatorView { session, impact, chartHovering, onChartHover } { funit, daysOfWear } =
     div []
         [ case getTextileChartEntries session funit impact of
             Ok [] ->
@@ -410,8 +410,8 @@ textileComparatorView { session, impact, hovering, onHover } { funit, daysOfWear
                         , daysOfWear = daysOfWear
                         , size = Just ( 700, 500 )
                         , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
-                        , hovering = hovering
-                        , onHover = onHover
+                        , chartHovering = chartHovering
+                        , onChartHover = onChartHover
                         }
 
             Err error ->

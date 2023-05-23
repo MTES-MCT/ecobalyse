@@ -31,8 +31,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , reusable : Bool
-    , hovering : Comparator.Stacks
-    , onHover : Comparator.Stacks -> msg
+    , chartHovering : Comparator.Stacks
+    , onChartHover : Comparator.Stacks -> msg
     }
 
 
@@ -118,7 +118,7 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
 
 
 summaryChartsView : Config msg -> Simulator -> Html msg
-summaryChartsView { session, impact, funit, reusable, hovering, onHover } ({ inputs } as simulator) =
+summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHover } ({ inputs } as simulator) =
     div [ class "card shadow-sm" ]
         [ details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
@@ -136,8 +136,8 @@ summaryChartsView { session, impact, funit, reusable, hovering, onHover } ({ inp
                 , impact = impact
                 , funit = funit
                 , simulator = simulator
-                , hovering = hovering
-                , onHover = onHover
+                , chartHovering = chartHovering
+                , onChartHover = onChartHover
                 }
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]

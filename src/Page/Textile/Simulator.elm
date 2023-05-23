@@ -64,7 +64,7 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , modal : Modal
-    , hovering : ComparativeChart.Stacks
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
@@ -78,7 +78,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnHover ComparativeChart.Stacks
+    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -146,7 +146,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> Result.withDefault (Impact.invalid Scope.Textile)
       , funit = funit
       , modal = NoModal
-      , hovering = []
+      , chartHovering = []
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -217,8 +217,8 @@ update ({ db, queries, navKey } as session) msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnHover hovering ->
-            ( { model | hovering = hovering }
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
             , session
             , Cmd.none
             )
@@ -574,8 +574,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , impact = model.impact
                             , funit = model.funit
                             , reusable = False
-                            , hovering = model.hovering
-                            , onHover = OnHover
+                            , chartHovering = model.chartHovering
+                            , onChartHover = OnChartHover
                             }
                     ]
                 , BookmarkView.view
@@ -630,8 +630,8 @@ view session model =
                                                 , daysOfWear = simulator.daysOfWear
                                                 }
                                         , toggle = ToggleComparedSimulation
-                                        , hovering = model.hovering
-                                        , onHover = OnHover
+                                        , chartHovering = model.chartHovering
+                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

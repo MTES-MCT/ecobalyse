@@ -41,8 +41,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , simulator : Simulator
-    , hovering : Stacks
-    , onHover : Stacks -> msg
+    , chartHovering : Stacks
+    , onChartHover : Stacks -> msg
     }
 
 
@@ -172,7 +172,7 @@ getEntries db funit impact inputs =
 
 
 view : Config msg -> Html msg
-view { session, impact, funit, simulator, hovering, onHover } =
+view { session, impact, funit, simulator, chartHovering, onChartHover } =
     case simulator.inputs |> getEntries session.db funit impact of
         Ok entries ->
             entries
@@ -182,8 +182,8 @@ view { session, impact, funit, simulator, hovering, onHover } =
                     , daysOfWear = simulator.daysOfWear
                     , size = Nothing
                     , margins = Nothing
-                    , hovering = hovering
-                    , onHover = onHover
+                    , chartHovering = chartHovering
+                    , onChartHover = onChartHover
                     }
 
         Err error ->
@@ -268,13 +268,13 @@ type alias ChartOptions msg =
     , daysOfWear : Duration
     , size : Maybe ( Float, Float )
     , margins : Maybe { top : Float, bottom : Float, left : Float, right : Float }
-    , hovering : List (CI.Many Entry CI.Any)
-    , onHover : List (CI.Many Entry CI.Any) -> msg
+    , chartHovering : List (CI.Many Entry CI.Any)
+    , onChartHover : List (CI.Many Entry CI.Any) -> msg
     }
 
 
 chart : ChartOptions msg -> List Entry -> Html msg
-chart { funit, impact, daysOfWear, size, margins, onHover, hovering } entries =
+chart { funit, impact, daysOfWear, size, margins, onChartHover, chartHovering } entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -336,7 +336,7 @@ chart { funit, impact, daysOfWear, size, margins, onHover, hovering } entries =
             fillLabels entries
 
         tooltips =
-            [ C.each hovering <|
+            [ C.each chartHovering <|
                 \_ item ->
                     let
                         title =
@@ -357,6 +357,6 @@ chart { funit, impact, daysOfWear, size, margins, onHover, hovering } entries =
             , CA.height (size |> Maybe.map Tuple.second |> Maybe.withDefault 250)
             , CA.margin (margins |> Maybe.withDefault { top = 22, bottom = 10, left = 40, right = 0 })
             , CA.htmlAttrs [ class "ComparatorChart" ]
-            , CE.onMouseMove onHover (CE.getNearest CI.stacks)
-            , CE.onMouseLeave (onHover [])
+            , CE.onMouseMove onChartHover (CE.getNearest CI.stacks)
+            , CE.onMouseLeave (onChartHover [])
             ]
