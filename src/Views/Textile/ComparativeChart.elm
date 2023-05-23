@@ -115,21 +115,6 @@ toolTip inputs =
         |> p []
 
 
-fromUserQuery : Inputs.Query -> Inputs.Query
-fromUserQuery query =
-    { query
-        | airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-        , reparability = Just Unit.standardReparability
-        , makingWaste = Nothing
-        , surfaceMass = Nothing
-        , disabledSteps = []
-        , disabledFading = Nothing
-        , dyeingMedium = Nothing
-        , printing = Nothing
-    }
-
-
 toCountry : Country.Code -> Inputs.Query -> Inputs.Query
 toCountry code query =
     { query
@@ -165,13 +150,13 @@ getEntries db funit impact inputs =
         entries =
             [ query
                 |> createEntry_ { highlight = True, label = currentName }
-            , fromUserQuery query
+            , query
                 |> toCountry (Country.Code "FR")
                 |> createEntry_ { highlight = False, label = "France, Q=1" }
-            , fromUserQuery query
+            , query
                 |> toCountry (Country.Code "PT")
                 |> createEntry_ { highlight = False, label = "Portugal, Q=1" }
-            , fromUserQuery query
+            , query
                 |> toCountry (Country.Code "IN")
                 |> createEntry_ { highlight = False, label = "Inde, Q=1" }
             ]
