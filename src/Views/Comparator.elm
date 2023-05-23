@@ -6,7 +6,6 @@ module Views.Comparator exposing
     , textileOptions
     )
 
-import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
@@ -31,8 +30,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , options : Options msg
     , toggle : Bookmark -> Bool -> msg
-    , hovering : List (CI.Many TextileComparativeChart.Entry CI.Any)
-    , onHover : List (CI.Many TextileComparativeChart.Entry CI.Any) -> msg
+    , hovering : TextileComparativeChart.Stacks
+    , onHover : TextileComparativeChart.Stacks -> msg
     }
 
 

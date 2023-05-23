@@ -1,5 +1,6 @@
 module Views.Textile.ComparativeChart exposing
     ( Entry
+    , Stacks
     , chart
     , createEntry
     , view
@@ -31,13 +32,17 @@ import Views.Dataviz as Dataviz
 import Views.Format as Format
 
 
+type alias Stacks =
+    List (CI.Many Entry CI.Any)
+
+
 type alias Config msg =
     { session : Session
     , impact : Impact.Definition
     , funit : Unit.Functional
     , simulator : Simulator
-    , hovering : List (CI.Many Entry CI.Any)
-    , onHover : List (CI.Many Entry CI.Any) -> msg
+    , hovering : Stacks
+    , onHover : Stacks -> msg
     }
 
 
@@ -333,7 +338,16 @@ chart { funit, impact, daysOfWear, size, margins, onHover, hovering } entries =
         tooltips =
             [ C.each hovering <|
                 \_ item ->
-                    [ C.tooltip item [] [] [] ]
+                    let
+                        title =
+                            item
+                                |> CI.getMember
+                                |> CI.getData
+                                |> .title
+                                |> String.split ", "
+                                |> String.join "\n"
+                    in
+                    [ C.tooltip item [] [] [ pre [] [ text title ] ] ]
             ]
     in
     [ xLabels, yLabels, bars, legends, verticalLabels, tooltips ]

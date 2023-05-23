@@ -6,7 +6,6 @@ module Page.Textile.Examples exposing
     , view
     )
 
-import Chart.Item as CI
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Session exposing (Session)
@@ -25,12 +24,12 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { impact : Impact.Trigram
     , funit : Unit.Functional
-    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
+    , hovering : ComparativeChart.Stacks
     }
 
 
 type Msg
-    = OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
+    = OnHover ComparativeChart.Stacks
     | SwitchImpact Impact.Trigram
     | SwitchFunctionalUnit Unit.Functional
 

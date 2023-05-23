@@ -1,7 +1,6 @@
 module Views.Textile.Summary exposing (view)
 
 import Array
-import Chart.Item as CI
 import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact
@@ -32,8 +31,8 @@ type alias Config msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , reusable : Bool
-    , hovering : List (CI.Many Comparator.Entry CI.Any)
-    , onHover : List (CI.Many Comparator.Entry CI.Any) -> msg
+    , hovering : Comparator.Stacks
+    , onHover : Comparator.Stacks -> msg
     }
 
 

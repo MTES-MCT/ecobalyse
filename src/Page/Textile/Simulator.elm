@@ -10,7 +10,6 @@ module Page.Textile.Simulator exposing
 import Array
 import Browser.Events
 import Browser.Navigation as Navigation
-import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact as Impact
@@ -65,7 +64,7 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , modal : Modal
-    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
+    , hovering : ComparativeChart.Stacks
     }
 
 
@@ -79,7 +78,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
+    | OnHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset

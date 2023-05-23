@@ -9,7 +9,6 @@ module Page.Food.Builder exposing
 
 import Browser.Events
 import Browser.Navigation as Navigation
-import Chart.Item as CI
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
@@ -70,7 +69,7 @@ type alias Model =
     , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
-    , hovering : List (CI.Many ComparativeChart.Entry CI.Any)
+    , hovering : ComparativeChart.Stacks
     }
 
 
@@ -94,7 +93,7 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
-    | OnHover (List (CI.Many ComparativeChart.Entry CI.Any))
+    | OnHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
