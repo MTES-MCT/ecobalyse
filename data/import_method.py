@@ -16,7 +16,7 @@ METHODNAME = (
 )
 
 
-def import_ef(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
+def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     """
     Import file at path `datapath` linked to biosphere named `dbname`
     """
@@ -44,7 +44,7 @@ def import_ef(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
 def main():
     # Import custom method
     if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
-        import_ef()
+        import_method()
     else:
         print(f"{METHODNAME} already imported")
 
