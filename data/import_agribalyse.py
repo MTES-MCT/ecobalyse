@@ -13,7 +13,8 @@ DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 # EF
-METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
+METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
+# METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
 METHODNAME = (
     "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
 )
@@ -270,7 +271,7 @@ def import_ef(datapath=METHODPATH, project=PROJECT, dbname=BIOSPHERE):
     """
     Import file at path `datapath` linked to biosphere named `dbname`
     """
-    print(f"### Importing {dbname} database from {datapath}...")
+    print(f"### Importing {datapath}...")
     bw2data.projects.set_current(project)
     bw2data.config.p["biosphere_database"] = BIOSPHERE
     ef = bw2io.importers.SimaProLCIACSVImporter(
@@ -284,7 +285,7 @@ def import_ef(datapath=METHODPATH, project=PROJECT, dbname=BIOSPHERE):
     # ef.strategies = strategies
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
-    ef.add_missing_cfs()
+    # ef.add_missing_cfs()
     # drop CFs which are not linked to a biosphere substance since they are not used by any activity
     ef.drop_unlinked()
     ef.write_methods()
