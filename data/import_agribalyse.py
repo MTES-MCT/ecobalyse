@@ -12,12 +12,6 @@ PROJECT = "Ecobalyse"
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
-# EF
-METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
-# METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
-METHODNAME = (
-    "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
-)
 
 
 AGRIBALYSE_MIGRATIONS = [
@@ -127,13 +121,14 @@ def import_agribalyse(
     datapath=DATAPATH,
     project=PROJECT,
     dbname=DBNAME,
+    biosphere=BIOSPHERE,
     migrations=AGRIBALYSE_MIGRATIONS,
 ):
     """
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
     bw2data.projects.set_current(project)
-    bw2data.config.p["biosphere_database"] = BIOSPHERE
+    bw2data.config.p["biosphere_database"] = biosphere
 
     # Core migrations
     print("### Creating core data migrations")
@@ -171,8 +166,8 @@ def import_agribalyse(
         agribalyse.migrate(migration["name"])
 
     agribalyse.statistics()
-    bw2data.Database(BIOSPHERE).register()
-    agribalyse.add_unlinked_flows_to_biosphere_database(BIOSPHERE)
+    bw2data.Database(biosphere).register()
+    agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
     agribalyse.add_unlinked_activities()
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
@@ -267,43 +262,12 @@ def import_agribalyse(
     print(f"### Finished importing {DBNAME}")
 
 
-def import_ef(datapath=METHODPATH, project=PROJECT, dbname=BIOSPHERE):
-    """
-    Import file at path `datapath` linked to biosphere named `dbname`
-    """
-    print(f"### Importing {datapath}...")
-    bw2data.projects.set_current(project)
-    bw2data.config.p["biosphere_database"] = BIOSPHERE
-    ef = bw2io.importers.SimaProLCIACSVImporter(
-        datapath,
-        biosphere=dbname,
-        normalize_biosphere=True
-        # normalize_biosphere to align the categories between LCI and LCIA
-    )
-    ef.statistics()
-    # strategies = ef.strategies[:3] + ef.strategies[5:]
-    # ef.strategies = strategies
-    ef.apply_strategies()
-    # add unlinked CFs to the biosphere database
-    # ef.add_missing_cfs()
-    # drop CFs which are not linked to a biosphere substance since they are not used by any activity
-    ef.drop_unlinked()
-    ef.write_methods()
-    print(f"### Finished importing {METHODNAME}")
-
-
 def main():
     # Import Agribalyse
     if DBNAME not in bw2data.databases:
         import_agribalyse()
     else:
         print(f"{DBNAME} already imported")
-
-    # Import custom method
-    if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
-        import_ef()
-    else:
-        print(f"{METHODNAME} already imported")
 
 
 if __name__ == "__main__":
