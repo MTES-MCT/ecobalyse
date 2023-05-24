@@ -4,7 +4,7 @@ fjson>=0.1, <0.2
 flatdict>=4.0, <4.1
 git+https://github.com/ccomb/brightway2-io@main
 git+https://github.com/brightway-lca/brightway2-parameters@main
-git+https://github.com/ccomb/brightway2-data@main
+git+https://github.com/ccomb/brightway2-data@dev
 git+https://github.com/brightway-lca/brightway2-calc@main
 git+https://github.com/brightway-lca/brightway2-analyzer@main
 ipywidgets>=8.0.0, <8.1
