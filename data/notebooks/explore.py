@@ -13,7 +13,6 @@ import pandas
 bw2data.projects.set_current("Ecobalyse")
 bw2io.bw2setup()
 os.chdir("/home/jovyan/ecobalyse/data")
-from food.import_agb.importing_databases import import_agribalyse
 
 databases = list(bw2data.databases.keys())
 # widgets
