@@ -2,11 +2,11 @@
 IPython>=8.0, <9.0
 fjson>=0.1, <0.2
 flatdict>=4.0, <4.1
-git+https://github.com/brightway-lca/brightway2-calc@bw2legacy
-git+https://github.com/ccomb/brightway2-data@bw2legacy
+git+https://github.com/ccomb/brightway2-io@main
 git+https://github.com/brightway-lca/brightway2-parameters@main
-git+https://github.com/brightway-lca/brightway2@master
-git+https://github.com/ccomb/brightway2-io@bw2legacy
+git+https://github.com/ccomb/brightway2-data@main
+git+https://github.com/brightway-lca/brightway2-calc@main
+git+https://github.com/brightway-lca/brightway2-analyzer@main
 ipywidgets>=8.0.0, <8.1
 matplotlib>=3.7.0, <3.8
 numpy>=1.24.0, <1.25
