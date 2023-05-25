@@ -54,7 +54,17 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "17 mai 2023"
+    [ { date = "25 mai 2023"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le paramètre `category`, qui permettait d'établir des scores intra-catégoriques,
+            a été supprimé. De la même façon, les notes lettrées et les scores sur 100 ont été
+            retirés des résultats. Le scoring ne contient désormais par conséquent que les
+            impacts par aires de protection.
+"""
+      }
+    , { date = "17 mai 2023"
       , level = "minor"
       , domains = [ "Alimentaire" ]
       , md =
