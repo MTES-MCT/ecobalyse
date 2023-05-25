@@ -186,6 +186,18 @@ if __name__ == "__main__":
             lca.switch_method(method)
             lca.lcia()
             v["export_data"]["impacts"][key] = lca.score
+        # etfo = etfo1 + etfo2
+        v["export_data"]["impacts"]["etfo"] = (
+            v["export_data"]["impacts"]["etfo1"] + v["export_data"]["impacts"]["etfo2"]
+        )
+        del v["export_data"]["impacts"]["etfo1"]
+        del v["export_data"]["impacts"]["etfo2"]
+        # etf = etf1 + etf2
+        v["export_data"]["impacts"]["etf"] = (
+            v["export_data"]["impacts"]["etf1"] + v["export_data"]["impacts"]["etf2"]
+        )
+        del v["export_data"]["impacts"]["etf1"]
+        del v["export_data"]["impacts"]["etf2"]
 
         # move bvi from export_data (coming from csv) to the impacts
         if "bvi" in v["export_data"]:
