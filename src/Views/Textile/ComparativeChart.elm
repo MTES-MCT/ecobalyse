@@ -59,7 +59,7 @@ type alias Entry =
     , use : Float
     , endOfLife : Float
     , transport : Float
-    , title : String
+    , title : Html Never
     }
 
 
@@ -99,10 +99,20 @@ createEntry db funit { trigram } { highlight, label } query =
                 , title =
                     query
                         |> Inputs.fromQuery db
-                        |> Result.map Inputs.toString
-                        |> Result.withDefault ""
+                        |> Result.map toolTip
+                        |> Result.withDefault (text "")
                 }
             )
+
+
+toolTip : Inputs -> Html msg
+toolTip inputs =
+    inputs
+        |> Inputs.stepsToStrings
+        |> List.map (String.join "\u{00A0}: ")
+        |> List.map text
+        |> List.intersperse (br [] [])
+        |> p []
 
 
 fromUserQuery : Inputs.Query -> Inputs.Query
@@ -344,10 +354,8 @@ chart { funit, impact, daysOfWear, size, margins, onChartHover, chartHovering } 
                                 |> CI.getMember
                                 |> CI.getData
                                 |> .title
-                                |> String.split ", "
-                                |> String.join "\n"
                     in
-                    [ C.tooltip item [] [] [ pre [] [ text title ] ] ]
+                    [ C.tooltip item [] [] [ title ] ]
             ]
     in
     [ xLabels, yLabels, bars, legends, verticalLabels, tooltips ]

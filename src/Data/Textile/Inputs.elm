@@ -17,6 +17,7 @@ module Data.Textile.Inputs exposing
     , parseBase64Query
     , presets
     , removeMaterial
+    , stepsToStrings
     , tShirtCotonAsie
     , tShirtCotonFrance
     , toQuery
@@ -240,8 +241,8 @@ toQuery inputs =
     }
 
 
-toString : Inputs -> String
-toString inputs =
+stepsToStrings : Inputs -> List (List String)
+stepsToStrings inputs =
     let
         ifStepEnabled label list =
             if not (List.member label inputs.disabledSteps) then
@@ -250,10 +251,12 @@ toString inputs =
             else
                 []
     in
-    [ [ inputs.product.name ++ " de " ++ Format.kgToString inputs.mass ]
-    , [ materialsToString inputs.materials ]
+    [ [ inputs.product.name, Format.kgToString inputs.mass ]
+    , [ "matière"
+      , materialsToString inputs.materials
+      ]
     , ifStepEnabled Label.Material
-        [ "matière"
+        [ "provenance de la matière"
         , inputs.countryMaterial.name
         ]
     , ifStepEnabled Label.Spinning
@@ -262,7 +265,7 @@ toString inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "Titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []
@@ -277,20 +280,20 @@ toString inputs =
     , ifStepEnabled Label.Ennobling
         [ case inputs.dyeingMedium of
             Just dyeingMedium ->
-                "teinture sur " ++ DyeingMedium.toLabel dyeingMedium
+                "ennoblissement\u{00A0}: teinture sur " ++ DyeingMedium.toLabel dyeingMedium
 
             Nothing ->
-                "teinture"
+                "ennoblissement"
         , inputs.countryDyeing.name
         ]
     , ifStepEnabled Label.Ennobling
-        [ case inputs.printing of
+        [ "impression"
+        , case inputs.printing of
             Just printing ->
-                "impression " ++ Printing.toFullLabel printing
+                "impression " ++ Printing.toFullLabel printing ++ "\u{00A0}: " ++ inputs.countryDyeing.name
 
             Nothing ->
-                "pas d'impression"
-        , inputs.countryDyeing.name
+                "non"
         ]
     , ifStepEnabled Label.Making
         [ "confection"
@@ -310,6 +313,12 @@ toString inputs =
         ]
     ]
         |> List.filter (not << List.isEmpty)
+
+
+toString : Inputs -> String
+toString inputs =
+    inputs
+        |> stepsToStrings
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
