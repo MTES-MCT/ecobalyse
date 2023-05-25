@@ -1,90 +1,98 @@
 impacts = {
-    "acd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Acidification"),
-    "ozd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Ozone depletion"),
-    "cch": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Climate change"),
+    "acd": ("Environmental Footprint 3.1 (adapted)", "Acidification"),
+    "ozd": ("Environmental Footprint 3.1 (adapted)", "Ozone depletion"),
+    "cch": ("Environmental Footprint 3.1 (adapted)", "Climate change"),
     "fwe": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Eutrophication, freshwater",
     ),
     "swe": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Eutrophication, marine",
     ),
     "tre": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Eutrophication, terrestrial",
     ),
     "pco": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Photochemical ozone formation",
     ),
-    "pma": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Particulate matter"),
+    "pma": ("Environmental Footprint 3.1 (adapted)", "Particulate matter"),
     "ior": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Ionising radiation",
     ),
     "fru": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Resource use, fossils",
     ),
     "mru": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Resource use, minerals and metals",
     ),
     "ldu": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Land use",
     ),
     "wtu": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Water use",
     ),
     "etf": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Ecotoxicity, freshwater",
     ),
-    "etfo": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
-        "Ecotoxicity, freshwater - organics",
+    "etfo1": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - organics - p.1",
+    ),
+    "etfo2": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - organics - p.2",
     ),
     "etfi": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Ecotoxicity, freshwater - inorganics",
     ),
-    "etfm": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
-        "Ecotoxicity, freshwater - metals",
+    "etf1": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - part 1",
+    ),
+    "etf2": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - part 2",
     ),
     "htc": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer",
     ),
     "htco": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer - organics",
     ),
     "htci": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer - inorganics",
     ),
     "htcm": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer - metals",
     ),
     "htn": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer",
     ),
     "htno": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer - organics",
     ),
     "htni": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer - inorganics",
     ),
     "htnm": (
-        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer - metals",
     ),
 }
