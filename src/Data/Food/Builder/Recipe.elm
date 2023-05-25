@@ -20,7 +20,6 @@ module Data.Food.Builder.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
-    , setCategory
     , toString
     )
 
@@ -766,11 +765,6 @@ resetTransform query =
 resetDistribution : Query -> Query
 resetDistribution query =
     { query | distribution = Nothing }
-
-
-setCategory : Maybe Category.Id -> Query -> Query
-setCategory maybeId query =
-    { query | category = maybeId }
 
 
 toString : Recipe -> String

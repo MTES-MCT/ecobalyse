@@ -3,12 +3,10 @@ module Data.Food.Category exposing
     , Category
     , CategoryBounds
     , Id(..)
-    , all
     , decodeId
     , encodeId
     , get
     , idFromString
-    , idToString
     )
 
 import Json.Decode as Decode exposing (Decoder)
