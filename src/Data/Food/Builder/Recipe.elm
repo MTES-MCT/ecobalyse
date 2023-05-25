@@ -26,7 +26,6 @@ module Data.Food.Builder.Recipe exposing
 import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
-import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -75,7 +74,6 @@ type alias Recipe =
     , packaging : List Packaging
     , distribution : Maybe Retail.Distribution
     , preparation : List Preparation
-    , category : Maybe Category
     }
 
 
@@ -105,20 +103,12 @@ type alias Results =
     }
 
 
-type alias Score =
-    { impact : Unit.Impact
-    , letter : String
-    , outOf100 : Int
-    }
-
-
 type alias Scoring =
-    { category : String
-    , all : Score
-    , climate : Score
-    , biodiversity : Score
-    , health : Score
-    , resources : Score
+    { all : Unit.Impact
+    , climate : Unit.Impact
+    , biodiversity : Unit.Impact
+    , health : Unit.Impact
+    , resources : Unit.Impact
     }
 
 
@@ -140,18 +130,12 @@ availablePackagings usedProcesses processes =
         |> List.filter (\process -> not (List.member process.code usedProcesses))
 
 
-categoryFromQuery : Maybe Category.Id -> Result String (Maybe Category)
-categoryFromQuery =
-    Maybe.map (Category.get >> Result.map Just)
-        >> Maybe.withDefault (Ok Nothing)
-
-
 compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, distribution, preparation, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, preparation } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -284,7 +268,7 @@ compute db =
 
                     scoring =
                         impactsPerKg
-                            |> Result.map (computeScoring db.impacts category)
+                            |> Result.map (computeScoring db.impacts)
                 in
                 Ok
                     (\total perKg distrib distribTransport preparationImpacts_ score ->
@@ -362,10 +346,9 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
     }
 
 
-computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
-computeScoring defs maybeCategory perKg =
+computeScoring : List Impact.Definition -> Impacts -> Scoring
+computeScoring defs perKg =
     let
-        -- Note: Score out of 100 is only computed for ecoscore
         ecsPerKg =
             perKg
                 |> Impact.getImpact (Impact.trg "ecs")
@@ -373,31 +356,12 @@ computeScoring defs maybeCategory perKg =
         subScores =
             perKg
                 |> Impact.toProtectionAreas defs
-
-        makeScore get scoreImpact =
-            let
-                outOf100 =
-                    case maybeCategory of
-                        Just { bounds } ->
-                            scoreImpact
-                                |> Impact.getBoundedScoreOutOf100 (get bounds)
-
-                        Nothing ->
-                            -- Note: if no category is specified, all subscores equal the main score
-                            ecsPerKg
-                                |> Impact.getAggregatedScoreOutOf100
-            in
-            { outOf100 = outOf100
-            , letter = Impact.getAggregatedScoreLetter outOf100
-            , impact = scoreImpact
-            }
     in
-    { category = maybeCategory |> Maybe.map .name |> Maybe.withDefault "Toutes les catégories"
-    , all = makeScore .all ecsPerKg
-    , climate = makeScore .climate subScores.climate
-    , biodiversity = makeScore .biodiversity subScores.biodiversity
-    , health = makeScore .health subScores.health
-    , resources = makeScore .resources subScores.resources
+    { all = ecsPerKg
+    , climate = subScores.climate
+    , biodiversity = subScores.biodiversity
+    , health = subScores.health
+    , resources = subScores.resources
     }
 
 
@@ -562,24 +526,14 @@ encodeResults defs results =
         ]
 
 
-encodeScore : Score -> Encode.Value
-encodeScore score =
-    Encode.object
-        [ ( "impact", Unit.encodeImpact score.impact )
-        , ( "letter", Encode.string score.letter )
-        , ( "outOf100", Encode.int score.outOf100 )
-        ]
-
-
 encodeScoring : Scoring -> Encode.Value
 encodeScoring scoring =
     Encode.object
-        [ ( "category", Encode.string scoring.category )
-        , ( "all", encodeScore scoring.all )
-        , ( "climate", encodeScore scoring.climate )
-        , ( "biodiversity", encodeScore scoring.biodiversity )
-        , ( "health", encodeScore scoring.health )
-        , ( "resources", encodeScore scoring.resources )
+        [ ( "all", Unit.encodeImpact scoring.all )
+        , ( "climate", Unit.encodeImpact scoring.climate )
+        , ( "biodiversity", Unit.encodeImpact scoring.biodiversity )
+        , ( "health", Unit.encodeImpact scoring.health )
+        , ( "resources", Unit.encodeImpact scoring.resources )
         ]
 
 
@@ -591,7 +545,6 @@ fromQuery db query =
         |> RE.andMap (packagingListFromQuery db query)
         |> RE.andMap (Ok query.distribution)
         |> RE.andMap (preparationListFromQuery query)
-        |> RE.andMap (categoryFromQuery query.category)
 
 
 getMassAtPackaging : Recipe -> Mass

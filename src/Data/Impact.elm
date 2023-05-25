@@ -17,9 +17,6 @@ module Data.Impact exposing
     , encodeImpacts
     , filterImpacts
     , getAggregatedScoreData
-    , getAggregatedScoreLetter
-    , getAggregatedScoreOutOf100
-    , getBoundedScoreOutOf100
     , getDefinition
     , getImpact
     , grabImpactFloat
@@ -40,7 +37,6 @@ module Data.Impact exposing
     , updateImpact
     )
 
-import Data.Food.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict
@@ -429,11 +425,6 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
-ln : Float -> Float
-ln =
-    logBase e
-
-
 getAggregatedScoreData :
     List Definition
     -> (Definition -> Maybe AggregatedScoreData)
@@ -462,40 +453,6 @@ getAggregatedScoreData defs getter =
                     acc
         )
         []
-
-
-getAggregatedScoreOutOf100 : Unit.Impact -> Int
-getAggregatedScoreOutOf100 =
-    getBoundedScoreOutOf100 { impact100 = 70.9, impact0 = 2270 }
-
-
-getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
-getBoundedScoreOutOf100 { impact100, impact0 } =
-    -- Docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
-    Unit.impactToFloat
-        >> (\value ->
-                100 * (ln impact0 - ln value) / (ln impact0 - ln impact100)
-           )
-        >> floor
-        >> clamp 0 100
-
-
-getAggregatedScoreLetter : Int -> String
-getAggregatedScoreLetter score =
-    if score >= 80 then
-        "A"
-
-    else if score >= 60 then
-        "B"
-
-    else if score >= 40 then
-        "C"
-
-    else if score >= 20 then
-        "D"
-
-    else
-        "E"
 
 
 encodeAggregatedScoreChartEntry : { name : String, value : Float, color : String } -> Encode.Value

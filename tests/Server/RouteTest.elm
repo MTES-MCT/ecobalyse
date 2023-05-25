@@ -139,11 +139,6 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a packaging code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?category=invalid"
-            |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "category")
-            |> Expect.equal (Just "Catégorie inconnue: invalid")
-            |> asTest "should validate that a category id is valid"
         , testEndpoint db "GET" Encode.null "/food/recipe?distribution=invalid"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "distribution")

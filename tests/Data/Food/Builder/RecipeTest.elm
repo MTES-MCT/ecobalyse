@@ -192,12 +192,11 @@ suite =
 
                                     Ok scoring ->
                                         Expect.equal scoring
-                                            { all = { impact = Unit.impact 199.23268279508642, letter = "B", outOf100 = 64 }
-                                            , biodiversity = { impact = Unit.impact 82.64159511838133, letter = "A", outOf100 = 86 }
-                                            , category = "Gâteaux"
-                                            , climate = { impact = Unit.impact 45.95474483677185, letter = "B", outOf100 = 60 }
-                                            , health = { impact = Unit.impact 34.55246000294004, letter = "A", outOf100 = 89 }
-                                            , resources = { impact = Unit.impact 38.21741808027444, letter = "C", outOf100 = 48 }
+                                            { all = Unit.impact 199.23268279508642
+                                            , biodiversity = Unit.impact 82.64159511838133
+                                            , climate = Unit.impact 45.95474483677185
+                                            , health = Unit.impact 34.55246000294004
+                                            , resources = Unit.impact 38.21741808027444
                                             }
                                             |> asTest "should be properly scored"
                            )
@@ -283,7 +282,6 @@ suite =
                         ]
                   , transform = Nothing
                   , packaging = []
-                  , category = Nothing
                   , distribution = Nothing
                   , preparation = []
                   }
@@ -346,7 +344,6 @@ suite =
                         ]
                   , transform = Nothing
                   , packaging = []
-                  , category = Nothing
                   , distribution = Nothing
                   , preparation = []
                   }
@@ -357,7 +354,6 @@ suite =
                 , { ingredients = [ mango ]
                   , transform = Nothing
                   , packaging = []
-                  , category = Nothing
                   , distribution = Nothing
                   , preparation = []
                   }
@@ -368,7 +364,6 @@ suite =
                 , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
                   , transform = Nothing
                   , packaging = []
-                  , category = Nothing
                   , distribution = Just Retail.ambient
                   , preparation = []
                   }
@@ -379,7 +374,6 @@ suite =
                 , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
                   , transform = Nothing
                   , packaging = []
-                  , category = Nothing
                   , distribution = Just Retail.ambient
                   , preparation = []
                   }

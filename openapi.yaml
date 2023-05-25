@@ -365,7 +365,6 @@ paths:
         - $ref: "#/components/parameters/ingredientsParam"
         - $ref: "#/components/parameters/transformParam"
         - $ref: "#/components/parameters/packagingParam"
-        - $ref: "#/components/parameters/foodCategoryParam"
         - $ref: "#/components/parameters/distributionParam"
         - $ref: "#/components/parameters/preparationParam"
       responses:
@@ -989,34 +988,6 @@ components:
         Cuisson:
           summary: Cuisson d'1kg de matière
           value: "aded2490573207ec7ad5a3813978f6a4;1000"
-    foodCategoryParam:
-      name: category
-      in: query
-      description: |
-        Identifiant de la catégorie de produit, parmi les valeurs possibles suivantes :
-
-        - `meats`: Viandes
-        - `fruitsAndVegetables`: Fruits et légumes
-        - `cakes`: Gâteaux
-
-        Renseigner une catégorie permet de borner les scores au sein d'une même famille de produits.
-      required: false
-      style: form
-      schema:
-        type: string
-      examples:
-        Default:
-          summary: "Tous produits confondus"
-          value: ""
-        meats:
-          summary: Viandes
-          value: meats
-        fruitsAndVegetables:
-          summary: Fruits et légumes
-          value: fruitsAndVegetables
-        cakes:
-          summary: Gâteaux
-          value: cakes
     distributionParam:
       name: distribution
       in: query

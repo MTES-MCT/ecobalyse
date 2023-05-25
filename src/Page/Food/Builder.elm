@@ -1337,8 +1337,11 @@ sidebarView session db model results =
                                 tr []
                                     [ th [ class "fw-normal" ] [ text label ]
                                     , td [ class "text-end" ]
-                                        [ strong [] [ text (String.fromInt subScore.outOf100) ]
-                                        , small [] [ text "/100" ]
+                                        [ strong []
+                                            [ subScore
+                                                |> Unit.impactToFloat
+                                                |> Format.formatImpactFloat model.impact
+                                            ]
                                         ]
                                     ]
                             )

@@ -495,14 +495,6 @@ describe("API", () => {
           );
         });
 
-        it("should validate a category id", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["category=invalid"]),
-            "category",
-            /Catégorie inconnue: invalid/,
-          );
-        });
-
         it("should validate a consumption preparation technique id", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", ["preparation[]=invalid"]),

@@ -28,7 +28,6 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
@@ -70,7 +69,6 @@ type alias Query =
     , packaging : List ProcessQuery
     , distribution : Maybe Retail.Distribution
     , preparation : List Preparation.Id
-    , category : Maybe Category.Id
     }
 
 
@@ -109,7 +107,6 @@ emptyQuery =
     , packaging = []
     , distribution = Nothing
     , preparation = []
-    , category = Nothing
     }
 
 
@@ -159,7 +156,6 @@ carrotCake =
         ]
     , distribution = Just Retail.ambient
     , preparation = [ Preparation.Id "refrigeration" ]
-    , category = Just (Category.Id "cakes")
     }
 
 
@@ -171,7 +167,6 @@ decode =
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
-        |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
@@ -258,7 +253,6 @@ encode v =
         , ( "packaging", Encode.list encodeProcess v.packaging )
         , ( "distribution", v.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         , ( "preparation", Encode.list Preparation.encodeId v.preparation )
-        , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
 
