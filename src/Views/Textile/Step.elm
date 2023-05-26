@@ -559,79 +559,81 @@ stepHeader { current, inputs, toggleStep } =
         ]
 
 
-simpleView : Config msg -> Html msg
+simpleView : Config msg -> { step : Html msg, transport : Html msg }
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
-    div [ class "Step card shadow-sm" ]
-        [ div [ class "StepHeader card-header" ]
-            [ div [ class "row d-flex align-items-center" ]
-                [ div [ class "col-6" ] [ stepHeader config ]
-                , div [ class "col-6 text-end" ]
-                    [ stepActions config current.label
+    { step =
+        div [ class "Step card shadow-sm" ]
+            [ div [ class "StepHeader card-header" ]
+                [ div [ class "row d-flex align-items-center" ]
+                    [ div [ class "col-6" ] [ stepHeader config ]
+                    , div [ class "col-6 text-end" ]
+                        [ stepActions config current.label
+                        ]
                     ]
                 ]
-            ]
-        , div
-            [ class "StepBody card-body row align-items-center"
-            , classList [ ( "disabled", not current.enabled ) ]
-            ]
-            [ div [ class "col-sm-6 col-lg-7" ]
-                [ countryField config
-                , case current.label of
-                    Label.Spinning ->
-                        if Product.isKnitted inputs.product then
-                            text ""
+            , div
+                [ class "StepBody card-body row align-items-center"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
+                [ div [ class "col-sm-6 col-lg-7" ]
+                    [ countryField config
+                    , case current.label of
+                        Label.Spinning ->
+                            if Product.isKnitted inputs.product then
+                                text ""
 
-                        else
-                            div [ class "mt-2 fs-7 text-muted" ]
-                                [ yarnSizeField config inputs.product
+                            else
+                                div [ class "mt-2 fs-7 text-muted" ]
+                                    [ yarnSizeField config inputs.product
+                                    ]
+
+                        Label.Fabric ->
+                            div [ class "mt-2 fs-7" ]
+                                [ surfaceMassField config inputs.product ]
+
+                        Label.Ennobling ->
+                            div [ class "mt-2" ]
+                                [ ennoblingGenericFields config
                                 ]
 
-                    Label.Fabric ->
-                        div [ class "mt-2 fs-7" ]
-                            [ surfaceMassField config inputs.product ]
+                        Label.Making ->
+                            div [ class "mt-2" ]
+                                [ makingWasteField config
+                                , airTransportRatioField config
+                                , fadingField config
+                                ]
 
-                    Label.Ennobling ->
-                        div [ class "mt-2" ]
-                            [ ennoblingGenericFields config
-                            ]
+                        Label.Use ->
+                            div [ class "mt-2" ]
+                                [ qualityField config
+                                , reparabilityField config
+                                , daysOfWearInfo inputs
+                                ]
 
-                    Label.Making ->
-                        div [ class "mt-2" ]
-                            [ makingWasteField config
-                            , airTransportRatioField config
-                            , fadingField config
-                            ]
+                        _ ->
+                            text ""
+                    ]
+                , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
+                    [ div []
+                        [ if current.label /= Label.Distribution then
+                            div [ class "fs-3 fw-normal text-secondary" ]
+                                [ current.impacts
+                                    |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                                ]
 
-                    Label.Use ->
-                        div [ class "mt-2" ]
-                            [ qualityField config
-                            , reparabilityField config
-                            , daysOfWearInfo inputs
-                            ]
-
-                    _ ->
-                        text ""
-                ]
-            , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                [ div []
-                    [ if current.label /= Label.Distribution then
-                        div [ class "fs-3 fw-normal text-secondary" ]
-                            [ current.impacts
-                                |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                            ]
-
-                      else
-                        text ""
-                    , div [ class "fs-7" ]
-                        [ span [ class "me-1 align-bottom" ] [ Icon.info ]
-                        , text "Transport\u{00A0}"
-                        , current.transport.impacts
-                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                          else
+                            text ""
                         ]
                     ]
                 ]
             ]
-        ]
+    , transport =
+        div [ class "d-flex justify-content-between gap-3" ]
+            [ text "Transport\u{00A0}"
+            , current.transport.impacts
+                |> Format.formatTextileSelectedImpact funit daysOfWear impact
+            ]
+    }
 
 
 viewProcessInfo : Maybe String -> Html msg
@@ -957,20 +959,22 @@ threadDensityView threadDensity =
             text ""
 
 
-view : Config msg -> Html msg
+view : Config msg -> { step : Html msg, transport : Html msg }
 view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
     case config.viewMode of
         ViewMode.Dataviz ->
-            text ""
+            { step = text "", transport = text "" }
 
         ViewMode.DetailedAll ->
-            detailedView config
+            { step = detailedView config, transport = text "" }
 
         ViewMode.DetailedStep index ->
             if config.index == index then
-                detailedView config
+                { step = detailedView config
+                , transport = text ""
+                }
 
             else
                 simpleView config
