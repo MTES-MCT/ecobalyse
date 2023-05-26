@@ -8,12 +8,13 @@ PROJECT = "Ecobalyse"
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
-# EF
-METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
 # METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
-METHODNAME = (
-    "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
-)
+# EF
+# METHODNAME = (
+#    "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
+# )
+METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
+METHODNAME = "Environmental Footprint 3.1 (adapted)"
 
 
 def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
