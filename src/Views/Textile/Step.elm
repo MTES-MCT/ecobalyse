@@ -64,6 +64,10 @@ type alias Config msg =
     }
 
 
+type alias ViewWithTransport msg =
+    { step : Html msg, transport : Html msg }
+
+
 stepIcon : Label -> Html msg
 stepIcon label =
     case label of
@@ -559,7 +563,7 @@ stepHeader { current, inputs, toggleStep } =
         ]
 
 
-simpleView : Config msg -> { step : Html msg, transport : Html msg }
+simpleView : Config msg -> ViewWithTransport msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     { step =
         div [ class "Step card shadow-sm" ]
@@ -714,13 +718,13 @@ ennoblingHeatSourceField ({ inputs } as config) =
         ]
 
 
-detailedView : Config msg -> Html msg
+detailedView : Config msg -> ViewWithTransport msg
 detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     let
         transportLabel =
             case next of
                 Just { country } ->
-                    "Transport " ++ current.country.name ++ "\u{202F}→\u{202F}" ++ country.name
+                    "Transport\u{00A0}: " ++ current.country.name ++ "\u{202F}→\u{202F}" ++ country.name
 
                 Nothing ->
                     "Transport"
@@ -731,165 +735,166 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    div [ class "Step card-group shadow-sm" ]
-        [ div [ class "card" ]
-            [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
-                [ stepHeader config
-                , -- Note: hide on desktop, show on mobile
-                  div [ class "d-block d-sm-none" ]
-                    [ stepActions config current.label
+    { step =
+        div [ class "Step card-group shadow-sm" ]
+            [ div [ class "card" ]
+                [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
+                    [ stepHeader config
+                    , -- Note: hide on desktop, show on mobile
+                      div [ class "d-block d-sm-none" ]
+                        [ stepActions config current.label
+                        ]
                     ]
-                ]
-            , infoListElement
-                [ li [ class "list-group-item" ] [ countryField config ]
-                , viewProcessInfo current.processInfo.countryElec
-                , case current.label of
-                    Label.Ennobling ->
-                        ennoblingHeatSourceField config
+                , infoListElement
+                    [ li [ class "list-group-item" ] [ countryField config ]
+                    , viewProcessInfo current.processInfo.countryElec
+                    , case current.label of
+                        Label.Ennobling ->
+                            ennoblingHeatSourceField config
 
-                    _ ->
-                        viewProcessInfo current.processInfo.countryHeat
-                , viewProcessInfo current.processInfo.distribution
-                , viewProcessInfo current.processInfo.useIroning
-                , viewProcessInfo current.processInfo.useNonIroning
-                , viewProcessInfo current.processInfo.passengerCar
-                , viewProcessInfo current.processInfo.endOfLife
-                , if current.label == Label.Fabric && Product.isKnitted inputs.product then
-                    knittingProcessField config
+                        _ ->
+                            viewProcessInfo current.processInfo.countryHeat
+                    , viewProcessInfo current.processInfo.distribution
+                    , viewProcessInfo current.processInfo.useIroning
+                    , viewProcessInfo current.processInfo.useNonIroning
+                    , viewProcessInfo current.processInfo.passengerCar
+                    , viewProcessInfo current.processInfo.endOfLife
+                    , if current.label == Label.Fabric && Product.isKnitted inputs.product then
+                        knittingProcessField config
 
-                  else
-                    viewProcessInfo current.processInfo.fabric
-                , if current.label == Label.Making then
-                    makingComplexityField config
+                      else
+                        viewProcessInfo current.processInfo.fabric
+                    , if current.label == Label.Making then
+                        makingComplexityField config
 
-                  else
-                    text ""
-                , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
-                    viewProcessInfo current.processInfo.fading
+                      else
+                        text ""
+                    , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                        viewProcessInfo current.processInfo.fading
 
-                  else
-                    text ""
+                      else
+                        text ""
+                    ]
+                , div
+                    [ class "StepBody card-body py-2"
+                    , classList [ ( "disabled", not current.enabled ) ]
+                    ]
+                    (case current.label of
+                        Label.Spinning ->
+                            if Product.isKnitted inputs.product then
+                                [ text "" ]
+
+                            else
+                                [ yarnSizeField config inputs.product
+                                ]
+
+                        Label.Fabric ->
+                            [ surfaceMassField config inputs.product ]
+
+                        Label.Ennobling ->
+                            [ div [ class "fs-7 mb-2" ]
+                                [ text "Pré-traitement\u{00A0}: non applicable" ]
+                            , ennoblingGenericFields config
+                            , div [ class "fs-7 mt-2" ]
+                                [ text "Finition\u{00A0}: apprêt chimique" ]
+                            ]
+
+                        Label.Making ->
+                            [ makingWasteField config
+                            , airTransportRatioField config
+                            , fadingField config
+                            ]
+
+                        Label.Use ->
+                            [ qualityField config
+                            , reparabilityField config
+                            , daysOfWearInfo inputs
+                            ]
+
+                        _ ->
+                            []
+                    )
                 ]
             , div
-                [ class "StepBody card-body py-2"
-                , classList [ ( "disabled", not current.enabled ) ]
-                ]
-                (case current.label of
-                    Label.Spinning ->
-                        if Product.isKnitted inputs.product then
-                            [ text "" ]
-
-                        else
-                            [ yarnSizeField config inputs.product
-                            ]
-
-                    Label.Fabric ->
-                        [ surfaceMassField config inputs.product ]
-
-                    Label.Ennobling ->
-                        [ div [ class "fs-7 mb-2" ]
-                            [ text "Pré-traitement\u{00A0}: non applicable" ]
-                        , ennoblingGenericFields config
-                        , div [ class "fs-7 mt-2" ]
-                            [ text "Finition\u{00A0}: apprêt chimique" ]
-                        ]
-
-                    Label.Making ->
-                        [ makingWasteField config
-                        , airTransportRatioField config
-                        , fadingField config
-                        ]
-
-                    Label.Use ->
-                        [ qualityField config
-                        , reparabilityField config
-                        , daysOfWearInfo inputs
-                        ]
-
-                    _ ->
-                        []
-                )
-            ]
-        , div
-            [ class "card text-center mb-0" ]
-            [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
-                [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
-                    span [ class "fw-bold flex-fill" ]
-                        [ current.impacts
-                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                        ]
-
-                  else
-                    span [] [ text "\u{00A0}" ]
-                , -- Note: show on desktop, hide on mobile
-                  div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
-                ]
-            , ul
-                [ class "StepBody list-group list-group-flush fs-7"
-                , classList [ ( "disabled", not current.enabled ) ]
-                ]
-                [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
-                    [ span []
-                        [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
-                    , span []
-                        [ text "Masse sortante", br [] [], Format.kg current.outputMass ]
-                    , span []
-                        [ text "Perte"
-                        , br [] []
-                        , Format.kg current.waste
-                        , inlineDocumentationLink config Gitbook.TextileWaste
-                        ]
-                    ]
-                , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                    li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
-                        [ span [ class "d-flex align-items-center" ]
-                            [ span [ class "me-1" ] [ text "Chaleur" ]
-                            , Format.megajoules current.heat
-                            , inlineDocumentationLink config Gitbook.TextileHeat
-                            ]
-                        , span [ class "d-flex align-items-center" ]
-                            [ span [ class "me-1" ] [ text "Électricité" ]
-                            , Format.kilowattHours current.kwh
-                            , inlineDocumentationLink config Gitbook.TextileElectricity
-                            ]
-                        ]
-
-                  else
-                    text ""
-                , surfaceInfoView inputs current
-                , pickingView current.picking
-                , threadDensityView current.threadDensity
-                , if Transport.totalKm current.transport > 0 then
-                    li [ class "list-group-item text-muted" ]
-                        [ current.transport
-                            |> TransportView.view
-                                { fullWidth = True
-                                , hideNoLength = False
-                                , onlyIcons = False
-                                , airTransportLabel = current.processInfo.airTransport
-                                , seaTransportLabel = current.processInfo.seaTransport
-                                , roadTransportLabel = current.processInfo.roadTransport
-                                }
-                        ]
-
-                  else
-                    text ""
-                , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex flex-wrap justify-content-center align-items-center" ]
-                        (if Transport.totalKm current.transport > 0 then
-                            [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                            , current.transport.impacts
+                [ class "card text-center mb-0" ]
+                [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
+                    [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                        span [ class "fw-bold flex-fill" ]
+                            [ current.impacts
                                 |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                            , inlineDocumentationLink config Gitbook.TextileTransport
                             ]
 
-                         else
-                            [ text "Pas de transport" ]
-                        )
+                      else
+                        span [] [ text "\u{00A0}" ]
+                    , -- Note: show on desktop, hide on mobile
+                      div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
+                    ]
+                , ul
+                    [ class "StepBody list-group list-group-flush fs-7"
+                    , classList [ ( "disabled", not current.enabled ) ]
+                    ]
+                    [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
+                        [ span []
+                            [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
+                        , span []
+                            [ text "Masse sortante", br [] [], Format.kg current.outputMass ]
+                        , span []
+                            [ text "Perte"
+                            , br [] []
+                            , Format.kg current.waste
+                            , inlineDocumentationLink config Gitbook.TextileWaste
+                            ]
+                        ]
+                    , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
+                            [ span [ class "d-flex align-items-center" ]
+                                [ span [ class "me-1" ] [ text "Chaleur" ]
+                                , Format.megajoules current.heat
+                                , inlineDocumentationLink config Gitbook.TextileHeat
+                                ]
+                            , span [ class "d-flex align-items-center" ]
+                                [ span [ class "me-1" ] [ text "Électricité" ]
+                                , Format.kilowattHours current.kwh
+                                , inlineDocumentationLink config Gitbook.TextileElectricity
+                                ]
+                            ]
+
+                      else
+                        text ""
+                    , surfaceInfoView inputs current
+                    , pickingView current.picking
+                    , threadDensityView current.threadDensity
                     ]
                 ]
             ]
-        ]
+    , transport =
+        if Transport.totalKm current.transport > 0 then
+            div []
+                [ div [ class "d-flex justify-content-between gap-3" ]
+                    [ text transportLabel ]
+                , div [ class "d-flex justify-content-between gap-3" ]
+                    [ div [ class "d-flex justify-content-between gap-3" ]
+                        (current.transport
+                            |> TransportView.viewDetails
+                                { fullWidth = False
+                                , hideNoLength = True
+                                , onlyIcons = False
+                                , airTransportLabel = Nothing
+                                , seaTransportLabel = Nothing
+                                , roadTransportLabel = Nothing
+                                }
+                        )
+                    , span []
+                        [ current.transport.impacts
+                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                        , inlineDocumentationLink config Gitbook.TextileTransport
+                        ]
+                    ]
+                ]
+
+        else
+            text ""
+    }
 
 
 surfaceInfoView : Inputs -> Step -> Html msg
@@ -959,7 +964,7 @@ threadDensityView threadDensity =
             text ""
 
 
-view : Config msg -> { step : Html msg, transport : Html msg }
+view : Config msg -> ViewWithTransport msg
 view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
@@ -968,13 +973,11 @@ view config =
             { step = text "", transport = text "" }
 
         ViewMode.DetailedAll ->
-            { step = detailedView config, transport = text "" }
+            detailedView config
 
         ViewMode.DetailedStep index ->
             if config.index == index then
-                { step = detailedView config
-                , transport = text ""
-                }
+                detailedView config
 
             else
                 simpleView config
