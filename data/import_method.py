@@ -30,8 +30,6 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     ef.statistics()
-    # strategies = ef.strategies[:3] + ef.strategies[5:]
-    # ef.strategies = strategies
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
     # ef.add_missing_cfs()
