@@ -90,6 +90,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -98,6 +99,35 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericImpactsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
       responses:
         200:
           description: Opération réussie
@@ -158,6 +188,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -173,6 +204,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SingleImpactResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericImpactsResponse"
         400:
           description: Paramètres invalides
           content:
@@ -197,6 +257,7 @@ paths:
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -205,6 +266,35 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Textile
+      summary: Calcul des impacts environnementaux d'un produit textile
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TextileQuery"
+            examples:
+              tShirtFrance:
+                $ref: "#/components/examples/tShirtFrance"
+              tShirtChina:
+                $ref: "#/components/examples/tShirtChina"
       responses:
         200:
           description: Opération réussie
@@ -275,7 +365,6 @@ paths:
         - $ref: "#/components/parameters/ingredientsParam"
         - $ref: "#/components/parameters/transformParam"
         - $ref: "#/components/parameters/packagingParam"
-        - $ref: "#/components/parameters/foodCategoryParam"
         - $ref: "#/components/parameters/distributionParam"
         - $ref: "#/components/parameters/preparationParam"
       responses:
@@ -291,7 +380,143 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+    post:
+      tags:
+        - Alimentaire
+      summary: Calcul des impacts environnementaux d'une recette alimentaire
+      requestBody:
+        description: Requête modélisant les éléments de la recette à évaluer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FoodQuery"
+            examples:
+              CarrotCake:
+                summary: "Carrot cake conventionnel"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 120
+                  - id: wheat
+                    mass: 140
+                  - id: milk
+                    mass: 60
+                  - id: carrot
+                    mass: 225
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
+              SpanishOrganicCarrotCake:
+                summary: "Carrot cake bio, origine Espagne"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 120
+                    variant: organic
+                    country: ES
+                  - id: wheat
+                    mass: 140
+                    variant: organic
+                    country: ES
+                  - id: milk
+                    mass: 60
+                    variant: organic
+                    country: ES
+                  - id: carrot
+                    mass: 225
+                    variant: organic
+                    country: ES
+                  transform:
+                    code: aded2490573207ec7ad5a3813978f6a4
+                    mass: 545
+                  packaging:
+                  - code: 23b2754e5943bc77916f8f871edc53b6
+                    mass: 105
+                  distribution: ambient
+                  preparation:
+                  - refrigeration
+              BrazilianMango:
+                summary: "Mangue du Brésil"
+                value:
+                  ingredients:
+                  - id: mango
+                    mass: 500
+                    country: BR
+                  transform: null
+                  packaging: []
+                  distribution: ambient
+                  preparation: []
+              CustomBonuses:
+                summary: "Œuf bio France, bonus spécifiques"
+                value:
+                  ingredients:
+                  - id: egg
+                    mass: 100
+                    country: FR
+                    bonuses:
+                      agro-diversity: 30
+                      agro-ecology: 60
+                      animal-welfare: 90
+                  transform: null
+                  packaging: []
+                  distribution: ambient
+                  preparation: []
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResultsResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
 components:
+  examples:
+    tShirtFrance:
+      summary: "T-Shirt France 100% Coton"
+      value:
+        mass: 0.17
+        materials:
+        - id: "coton"
+          share: 1
+        product: "tshirt"
+        countrySpinning: "FR"
+        countryFabric: "FR"
+        countryDyeing: "FR"
+        countryMaking: "FR"
+    tShirtChina:
+      summary: "T-Shirt Chine, low-cost, 100% Coton"
+      value:
+        mass: 0.17
+        materials:
+        - id: "coton"
+          share: 1
+        product: "tshirt"
+        countrySpinning: "CN"
+        countryFabric: "CN"
+        countryDyeing: "CN"
+        countryMaking: "CN"
+        airTransportRatio: 0.33
+        quality: 0.9
+        reparability: 0.9
+        makingWaste: null
+        makingComplexity: null
+        yarnSize: null
+        surfaceMass: null
+        knittingProcess: null
+        disabledSteps:
+        - use
   parameters:
     massParam:
       name: mass
@@ -455,6 +680,7 @@ components:
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
 
         **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+
         **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
@@ -462,25 +688,49 @@ components:
         type: number
         minimum: 0
         maximum: 0.4
+    makingComplexityParam:
+      name: makingComplexity
+      in: query
+      description: |
+        Complexité de la confection, parmi la liste de choix suivants :
+          - `very-high` : très élevée
+          - `high` : élevée
+          - `medium` : moyenne
+          - `low` : faible
+          - `very-low` : très faible
+
+        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: very-low).**
+
+        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["very-high", "high", "medium", "low", "very-low"]
     yarnSizeParam:
       name: yarnSize
       in: query
       description: |
         Titrage du fil exprimé en **numéro métrique** (`Nm`).
+        Il est aussi possible de l'exprimer en décitex (`Dtex`) en spécifiant l'unité.
+        Exemples de saisie :
+          - `40` : 40Nm
+          - `40Nm` : 40Nm
+          - `250Dtex` : 250Dtex, équivalent à 40Nm
 
         **Attention, ce paramètre est uniquement pris en compte pour les produits tissés**
         et inopérant sur les produits tricotés.
       required: false
       style: form
       schema:
-        type: number
+        type: string
         minimum: 9
         maximum: 200
     knittingProcessParam:
       name: knittingProcess
       in: query
       description: |
-        Le processus utilisé pour tricoter le tissu, parmis la liste de choix suivants :
+        Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
           - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
           - fully-fashioned : Tricotage fully-fashioned
           - seamless : Tricotage seamless
@@ -738,34 +988,6 @@ components:
         Cuisson:
           summary: Cuisson d'1kg de matière
           value: "aded2490573207ec7ad5a3813978f6a4;1000"
-    foodCategoryParam:
-      name: category
-      in: query
-      description: |
-        Identifiant de la catégorie de produit, parmi les valeurs possibles suivantes :
-
-        - `meats`: Viandes
-        - `fruitsAndVegetables`: Fruits et légumes
-        - `cakes`: Gâteaux
-
-        Renseigner une catégorie permet de borner les scores au sein d'une même famille de produits.
-      required: false
-      style: form
-      schema:
-        type: string
-      examples:
-        Default:
-          summary: "Tous produits confondus"
-          value: ""
-        meats:
-          summary: Viandes
-          value: meats
-        fruitsAndVegetables:
-          summary: Fruits et légumes
-          value: fruitsAndVegetables
-        cakes:
-          summary: Gâteaux
-          value: cakes
     distributionParam:
       name: distribution
       in: query
@@ -902,6 +1124,224 @@ components:
         wtu:
           type: number
           description: "Utilisation de ressources en eau (m³)"
+    TextileQuery:
+      type: object
+      additionalProperties: false
+      required:
+      - materials
+      - countrySpinning
+      - countryFabric
+      - countryDyeing
+      - countryMaking
+      properties:
+        mass:
+          type: number
+          description: Masse du produit fini
+        materials:
+          type: array
+          description: Liste des matières composant le vêtement
+          items:
+            "$ref": "#/components/schemas/TextileQueryMaterial"
+          minItems: 1
+        product:
+          type: string
+          description: Le type de produit
+          enum:
+          - chemise
+          - jean
+          - jupe
+          - manteau
+          - pantalon
+          - pull
+          - tshirt
+        countrySpinning:
+          type: string
+          description: Pays de filature
+        countryFabric:
+          type: string
+          description: Pays de tissage ou de tricotage
+        countryDyeing:
+          type: string
+          description: Pays de teinture ou d'ennoblissement
+        countryMaking:
+          type: string
+          description: Pays de confection
+        airTransportRatio:
+          type: number
+          description: Part de transport aérien
+          minimum: 0
+          maximum: 1
+          required: false
+        quality:
+          type: number
+          description: Qualité intrinsèque
+          minimum: 0.67
+          maximum: 1.45
+          required: false
+        reparability:
+          type: number
+          description: Indice de réparabilité du produit
+          minimum: 1
+          maximum: 1.15
+          required: false
+        makingWaste:
+          type: number
+          description: Taux de perte en confection
+          minimum: 0
+          maximum: 0.4
+          required: false
+        makingComplexity:
+          type: string
+          description: Complexité de la confection
+          required: false
+          enum:
+          - very-high
+          - high
+          - medium
+          - low
+          - very-low
+          - not-applicable
+        yarnSize:
+          type: number
+          description: Titrage du fil, exprimé en numéro métrique (Nm)
+          required: false
+        surfaceMass:
+          type: number
+          description: Le grammage de l'étoffe, exprimé en gr/m²
+          minimum: 80
+          maximum: 500
+          required: false
+        knittingProcess:
+          type: string
+          required: false
+          enum:
+          - mix
+          - fully-fashioned
+          - seamless
+          - circular
+          - straight
+        disabledSteps:
+          type: string
+          required: false
+          enum:
+          - material
+          - spinning
+          - fabric
+          - making
+          - ennobling
+          - distribution
+          - use
+          - eol
+    TextileQueryMaterial:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - share
+      properties:
+        id:
+          type: string
+        share:
+          type: number
+          min: 0.01
+          max: 1
+    FoodQuery:
+      type: object
+      additionalProperties: false
+      required:
+      - ingredients
+      properties:
+        ingredients:
+          type: array
+          items:
+            "$ref": "#/components/schemas/FoodQueryIngredient"
+          minItems: 1
+        transform:
+          "$ref": "#/components/schemas/FoodQueryTransform"
+        packaging:
+          type: array
+          items:
+            "$ref": "#/components/schemas/FoodQueryPackaging"
+        distribution:
+          type: string
+          description: Distribution
+          enum: [ambient, fresh, frozen]
+        preparation:
+          type: array
+          description: Préparation avant consommation
+          items:
+            type: string
+            enum:
+            - frying
+            - pan-cooking
+            - pan-warming
+            - oven
+            - microwave
+            - refrigeration
+            - freezing
+    FoodQueryIngredient:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - mass
+      properties:
+        id:
+          type: string
+          description: Identifiant de l'ingrédient
+        mass:
+          type: number
+          description: Masse de l'ingrédient, **en grammes**
+        variant:
+          type: string
+          enum: ["", organic]
+        country:
+          type: string
+          description: Code ISO du pays d'origine
+        byPlane:
+          type: string
+          description: Transport par avion
+          enum: ["", byPlane, noPlane]
+        bonuses:
+          required:
+          - "agro-diversity"
+          - "agro-ecology"
+          properties:
+            "agro-diversity":
+              type: number
+              description: Bonus agro-diversité **en pourcentage**
+            "agro-ecology":
+              type: number
+              description: Bonus agro-écologie **en pourcentage**
+            "animal-welfare":
+              type: number
+              description: Si applicable, bonus de bien-être animal **en pourcentage**
+    FoodQueryTransform:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - mass
+      properties:
+        code:
+          type: string
+          description: Identifiant du procédé de transformation
+        mass:
+          type: number
+          description: Masse de produit à transformer, **en grammes**
+    FoodQueryPackaging:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - mass
+      properties:
+        code:
+          type: string
+          description: Identifiant du procédé d'emballage, **en grammes**
+        mass:
+          type: number
+          description: Masse de cet emballage, **en kilogrammes**
     InvalidParametersError:
       type: object
       properties:

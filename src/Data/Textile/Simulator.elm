@@ -114,7 +114,7 @@ compute db query =
         -- Compute Making mass waste - Confection
         |> nextIf Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> nextIf Label.Fabric computeFabricStepWaste
+        |> nextWithDbIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
         |> nextIf Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
@@ -221,7 +221,7 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
                                 { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.makingImpacts step.impacts
-                                            { makingProcess = inputs.product.making.process
+                                            { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                             , fadingProcess =
                                                 -- Note: in the future, we may have distinct fading processes per countries
                                                 if inputs.product.making.fadable && inputs.disabledFading /= Just True then
@@ -470,7 +470,10 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                                                 , surfaceMass = surfaceMass
                                                 , yarnSize =
                                                     inputs.yarnSize
-                                                        |> Maybe.withDefault Unit.minYarnSize
+                                                        |> Maybe.withDefault
+                                                            (inputs.product.yarnSize
+                                                                |> Maybe.withDefault Unit.minYarnSize
+                                                            )
                                                 }
                             in
                             { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
@@ -483,10 +486,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
     let
         { mass, waste } =
             inputs.mass
-                |> Formula.makingWaste
-                    { processWaste = inputs.product.making.process.waste
-                    , pcrWaste = Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste
-                    }
+                |> Formula.makingWaste (Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste)
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
@@ -495,17 +495,22 @@ computeMakingStepWaste ({ inputs } as simulator) =
             (Step.initMass mass)
 
 
-computeFabricStepWaste : Simulator -> Simulator
-computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
-    let
-        { mass, waste } =
-            lifeCycle
-                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste (Product.getFabricProcess inputs.product |> .waste)
-    in
-    simulator
-        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
+computeFabricStepWaste : Db -> Simulator -> Result String Simulator
+computeFabricStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
+    processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\wellknown ->
+                let
+                    { mass, waste } =
+                        lifeCycle
+                            |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
+                            |> Formula.genericWaste (Product.getFabricProcess inputs.knittingProcess inputs.product wellknown |> .waste)
+                in
+                simulator
+                    |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+                    |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
+            )
 
 
 computeMaterialStepWaste : Simulator -> Simulator

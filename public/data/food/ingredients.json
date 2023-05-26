@@ -13,9 +13,9 @@
       "organic": {
         "process": "Egg organic at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       },
       "bleu_blanc_coeur": "Egg Bleu Blanc Coeur outdoor system at farm gate"
@@ -35,9 +35,9 @@
       "organic": {
         "process": "Cow milk organic system 1 at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       }
     }
@@ -57,9 +57,8 @@
         "process": "Carrot organic Lower Normandy at farm gate",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }
@@ -78,8 +77,8 @@
       "organic": {
         "process": "soft wheat grain organic central region",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }
@@ -97,8 +96,8 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         },
         "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
       }
@@ -118,8 +117,8 @@
       "organic": {
         "process": "Sunflower grain organic system 3 at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }
@@ -138,8 +137,8 @@
       "organic": {
         "process": "Winter rapeseed organic at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }
@@ -158,8 +157,8 @@
       "organic": {
         "process": "Tomato organic greenhouse production national average at greenhouse",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }
@@ -188,9 +187,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         },
         "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
       }
@@ -209,9 +208,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         },
         "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
       }
@@ -230,9 +229,9 @@
     "variants": {
       "organic": {
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         },
         "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
       }
@@ -252,8 +251,8 @@
       "organic": {
         "process": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50
         }
       }
     }

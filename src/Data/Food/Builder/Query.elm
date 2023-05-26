@@ -28,7 +28,6 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
@@ -70,7 +69,6 @@ type alias Query =
     , packaging : List ProcessQuery
     , distribution : Maybe Retail.Distribution
     , preparation : List Preparation.Id
-    , category : Maybe Category.Id
     }
 
 
@@ -109,7 +107,6 @@ emptyQuery =
     , packaging = []
     , distribution = Nothing
     , preparation = []
-    , category = Nothing
     }
 
 
@@ -159,7 +156,6 @@ carrotCake =
         ]
     , distribution = Just Retail.ambient
     , preparation = [ Preparation.Id "refrigeration" ]
-    , category = Just (Category.Id "cakes")
     }
 
 
@@ -168,10 +164,9 @@ decode =
     Decode.succeed Query
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
-        |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.custom (Decode.field "distribution" (Decode.maybe Retail.decode))
+        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
+        |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
-        |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
@@ -202,27 +197,27 @@ decodePlaneTransport =
             )
 
 
-decodeMass : Decoder Mass
-decodeMass =
+decodeMassInGrams : Decoder Mass
+decodeMassInGrams =
     Decode.float
-        |> Decode.map Mass.kilograms
+        |> Decode.map Mass.grams
 
 
 decodeProcess : Decoder ProcessQuery
 decodeProcess =
     Decode.map2 ProcessQuery
         (Decode.field "code" Process.decodeCode)
-        (Decode.field "mass" decodeMass)
+        (Decode.field "mass" decodeMassInGrams)
 
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
         |> Pipe.required "id" Ingredient.decodeId
-        |> Pipe.required "mass" decodeMass
-        |> Pipe.required "variant" decodeVariant
-        |> Pipe.required "country" (Decode.maybe Country.decodeCode)
-        |> Pipe.required "byPlane" decodePlaneTransport
+        |> Pipe.required "mass" decodeMassInGrams
+        |> Pipe.optional "variant" decodeVariant DefaultVariant
+        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
         |> Pipe.optional "bonuses" (Decode.maybe Ingredient.decodeBonuses) Nothing
 
 
@@ -258,7 +253,6 @@ encode v =
         , ( "packaging", Encode.list encodeProcess v.packaging )
         , ( "distribution", v.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         , ( "preparation", Encode.list Preparation.encodeId v.preparation )
-        , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -266,7 +260,7 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     Encode.object
         [ ( "id", Ingredient.encodeId v.id )
-        , ( "mass", encodeMass v.mass )
+        , ( "mass", encodeMassAsGrams v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "byPlane", Ingredient.encodePlaneTransport v.planeTransport )
@@ -274,16 +268,16 @@ encodeIngredient v =
         ]
 
 
-encodeMass : Mass -> Encode.Value
-encodeMass =
-    Mass.inKilograms >> Encode.float
+encodeMassAsGrams : Mass -> Encode.Value
+encodeMassAsGrams =
+    Mass.inGrams >> Encode.float
 
 
 encodeProcess : ProcessQuery -> Encode.Value
 encodeProcess v =
     Encode.object
         [ ( "code", Process.encodeCode v.code )
-        , ( "mass", encodeMass v.mass )
+        , ( "mass", encodeMassAsGrams v.mass )
         ]
 
 

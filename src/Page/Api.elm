@@ -54,7 +54,54 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "25 avril 2023"
+    [ { date = "25 mai 2023"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le paramètre `category`, qui permettait d'établir des scores intra-catégoriques,
+            a été supprimé. De la même façon, les notes lettrées et les scores sur 100 ont été
+            retirés des résultats. Le scoring ne contient désormais par conséquent que les
+            impacts par aires de protection.
+"""
+      }
+    , { date = "17 mai 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le calcul de l'écoscore dans le résultat de l'API alimentaire de constructeur
+            de recette prend maintenant correctement en compte les bonus des ingrédients.
+
+            Par ailleurs, le bonus total a été rajouté sous l'entrée `recipe.totalBonusImpact`.
+"""
+      }
+    , { date = "16 mai 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Les points d'accès de simulation textile acceptent désormais le verbe
+            `POST` assorti d'une requête au format JSON.
+"""
+      }
+    , { date = "3 mai 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Un nouveau point d'accès `POST /api/food/recipe` a été créé,
+            acceptant les requêtes au format JSON.
+"""
+      }
+    , { date = "28 avril 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre permettant de choisir la complexité de la confection
+            `makingComplexity` a été rajouté.
+
+            D'autre part, le paramètre de titrage `yarnSize` peut maintenant être exprimé
+            avec une unité, permettant de spécifier le titrage en décitex (Dtex).
+"""
+      }
+    , { date = "25 avril 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =

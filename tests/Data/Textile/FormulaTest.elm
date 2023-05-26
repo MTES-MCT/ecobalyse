@@ -3,6 +3,7 @@ module Data.Textile.FormulaTest exposing (..)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
+import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -39,6 +40,9 @@ noOpProcess =
     , info = ""
     , unit = ""
     , uuid = Process.Uuid ""
+    , source = ""
+    , correctif = ""
+    , stepUsage = ""
     , impacts = Impact.noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0
@@ -59,11 +63,8 @@ suite =
             ]
         , describe "Formula.makingWaste"
             [ kg 1
-                |> Formula.makingWaste
-                    { processWaste = kg 0.5
-                    , pcrWaste = Split.half
-                    }
-                |> Expect.equal { mass = kg 3, waste = kg 2 }
+                |> Formula.makingWaste Split.half
+                |> Expect.equal { mass = kg 2, waste = kg 1 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
         , describe "Formula.makingImpact"
@@ -72,10 +73,7 @@ suite =
                     kg 1
                         |> Formula.makingImpacts
                             defaultImpacts
-                            { makingProcess =
-                                { noOpProcess
-                                    | elec = Energy.megajoules 0.5
-                                }
+                            { makingComplexity = MakingComplexity.Medium
                             , fadingProcess = Nothing
                             , countryElecProcess =
                                 { noOpProcess
@@ -98,16 +96,16 @@ suite =
              [ res.impacts
                 |> Impact.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.07
+                |> Expect.within (Expect.Absolute 0.01) 0.435
                 |> asTest "should compute Making step cch from process and country data"
              , res.impacts
                 |> Impact.getImpact (Impact.trg "fwe")
                 |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.208
+                |> Expect.within (Expect.Absolute 0.01) 1.305
                 |> asTest "should compute Making step fwe from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
-                |> Expect.within (Expect.Absolute 0.01) 0.138
+                |> Expect.within (Expect.Absolute 0.01) 0.87
                 |> asTest "should compute Making step kwh from process and country data"
              ]
             )

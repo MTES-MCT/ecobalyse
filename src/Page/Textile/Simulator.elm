@@ -23,6 +23,7 @@ import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -47,6 +48,7 @@ import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -62,6 +64,7 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , modal : Modal
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
@@ -75,6 +78,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -94,6 +98,7 @@ type Msg
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateKnittingProcess Knitting
+    | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -141,6 +146,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> Result.withDefault (Impact.invalid Scope.Textile)
       , funit = funit
       , modal = NoModal
+      , chartHovering = []
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -210,6 +216,12 @@ update ({ db, queries, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
+            , session
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -318,9 +330,23 @@ update ({ db, queries, navKey } as session) msg model =
                         | knittingProcess = Just knittingProcess
                         , makingWaste =
                             model.simulator
-                                |> Result.map (\simulator -> Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess)
+                                |> Result.map
+                                    (\simulator ->
+                                        Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess
+                                    )
+                                |> Result.toMaybe
+                        , makingComplexity =
+                            model.simulator
+                                |> Result.map
+                                    (\simulator ->
+                                        Knitting.getMakingComplexity simulator.inputs.product.making.complexity knittingProcess
+                                    )
                                 |> Result.toMaybe
                     }
+
+        UpdateMakingComplexity makingComplexity ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | makingComplexity = Just makingComplexity }
 
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
@@ -452,6 +478,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
+                    , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste
                     , updateSurfaceMass = UpdateSurfaceMass
                     , updateYarnSize = UpdateYarnSize
@@ -547,6 +574,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , impact = model.impact
                             , funit = model.funit
                             , reusable = False
+                            , chartHovering = model.chartHovering
+                            , onChartHover = OnChartHover
                             }
                     ]
                 , BookmarkView.view
@@ -601,6 +630,8 @@ view session model =
                                                 , daysOfWear = simulator.daysOfWear
                                                 }
                                         , toggle = ToggleComparedSimulation
+                                        , chartHovering = model.chartHovering
+                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

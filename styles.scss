@@ -179,6 +179,9 @@ input[type="number"].no-arrows {
 .form-select {
   min-height: 37px;
   line-height: initial;
+  &-sm {
+    min-height: 31px;
+  }
 }
 
 .form-select, .form-control, .input-group-text {
@@ -433,78 +436,6 @@ q {
   border-bottom: 1px dashed $primary;
 }
 
-.Abcde {
-  // playground: https://codepen.io/n1k0/pen/OJwagVv?editors=1100
-  $AbcdeStroke: 3px;
-  $AbcdeColors: (
-    "A": $score-letter-A,
-    "B": $score-letter-B,
-    "C": $score-letter-C,
-    "D": $score-letter-D,
-    "E": $score-letter-E
-  );
-
-  display: inline-flex;
-  margin: 0;
-  padding: 0;
-
-  &Letter {
-    list-style-type: none;
-    font-size: 1em;
-    position: relative;
-    font-size: 0;
-
-    &:before {
-      // circled letter
-      display: block;
-      width: 30px;
-      height: 30px;
-      border: $AbcdeStroke solid grey;
-      border-radius: 50%;
-      background-color: #fff;
-      color: grey;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 24px;
-      margin: 0 auto;
-      text-align: center;
-      opacity: 0;
-    }
-
-    &:after {
-      // horizontal bar
-      width: 100%;
-      height: $AbcdeStroke;
-      content: "";
-      position: absolute;
-      background-color: #333;
-      top: 14px;
-    }
-
-    @each $letter, $color in $AbcdeColors {
-      &#{$letter} {
-        &:before {
-          content: $letter;
-          border-color: $color;
-          color: $color;
-        }
-        &:after {
-          background-color: $color;
-        }
-      }
-    }
-
-    &Active {
-      &:before {
-        opacity: 1;
-      }
-      &:after {
-        display: none;
-      }
-    }
-  }
-}
-
 .AccordionButton {
   min-height: 70px;
 }
@@ -655,6 +586,7 @@ q {
 
     th {
       overflow: hidden;
+      padding-bottom: 0.5em;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -1072,6 +1004,13 @@ q {
   top: 15px;
   right: 15px;
   text-align: right;
+  button {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .overlappedImage {

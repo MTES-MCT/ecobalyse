@@ -15,7 +15,6 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -57,6 +56,7 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
 
@@ -68,13 +68,13 @@ type alias Model =
     , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
 type Modal
     = NoModal
     | ComparatorModal
-    | TagPreviewModal
 
 
 type Msg
@@ -91,12 +91,12 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
+    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SetCategory (Result String (Maybe Category.Id))
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchDisplayChoice ComparatorView.DisplayChoice
@@ -131,6 +131,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , comparisonUnit = ComparatorView.PerKgOfProduct
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
+              , chartHovering = []
               }
             , session
                 |> Session.updateFoodQuery query
@@ -282,6 +283,12 @@ update ({ queries } as session) msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
+            , session
+            , Cmd.none
+            )
+
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -316,13 +323,6 @@ update ({ queries } as session) msg model =
                     }
             , Cmd.none
             )
-
-        SetCategory (Ok maybeCategory) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Recipe.setCategory maybeCategory query)
-
-        SetCategory (Err error) ->
-            ( model, session |> Session.notifyError "Erreur de catégorie" error, Cmd.none )
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
@@ -909,15 +909,8 @@ ingredientListView db selectedImpact recipe results =
                 ]
                 [ Icon.search ]
             ]
-        , if shouldRenderBonuses selectedImpact then
-            results.recipe.totalBonusesImpact.total
-                |> Quantity.difference (Impact.getImpact (Impact.trg "ecs") results.recipe.ingredientsTotal)
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat selectedImpact
-
-          else
-            results.recipe.ingredientsTotal
-                |> Format.formatFoodSelectedImpact selectedImpact
+        , results.recipe.ingredientsTotal
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -1224,41 +1217,6 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-productCategorySelectorView : Maybe Category.Id -> Html Msg
-productCategorySelectorView maybeId =
-    Category.all
-        |> List.sortBy .name
-        |> List.map
-            (\{ id, name } ->
-                option
-                    [ value <| Category.idToString id
-                    , selected <| maybeId == Just id
-                    ]
-                    [ text name ]
-            )
-        |> (::)
-            (option
-                [ value "all"
-                , selected <| maybeId == Nothing
-                ]
-                [ text "Toutes catégories" ]
-            )
-        |> select
-            [ class "form-select form-select"
-            , onInput
-                (\s ->
-                    SetCategory
-                        (if s == "all" then
-                            Ok Nothing
-
-                         else
-                            Category.idFromString s
-                                |> Result.map Just
-                        )
-                )
-            ]
-
-
 mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
@@ -1377,7 +1335,29 @@ sidebarView session db model results =
         , absoluteImpactView model results
         , if shouldRenderBonuses model.impact then
             -- We only show subscores for ecs
-            subScoresView session results
+            div [ class "card shadow-sm" ]
+                [ div [ class "card-body py-2" ]
+                    [ [ ( "Climat", results.scoring.climate )
+                      , ( "Biodiversité", results.scoring.biodiversity )
+                      , ( "Santé environnementale", results.scoring.health )
+                      , ( "Ressource", results.scoring.resources )
+                      ]
+                        |> List.map
+                            (\( label, subScore ) ->
+                                tr []
+                                    [ th [ class "fw-normal" ] [ text label ]
+                                    , td [ class "text-end" ]
+                                        [ strong []
+                                            [ subScore
+                                                |> Unit.impactToFloat
+                                                |> Format.formatImpactFloat model.impact
+                                            ]
+                                        ]
+                                    ]
+                            )
+                        |> table [ class "Subscores w-100 m-0" ]
+                    ]
+                ]
 
           else
             text ""
@@ -1399,69 +1379,6 @@ sidebarView session db model results =
             }
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-        ]
-
-
-letterView : List (Attribute Msg) -> String -> Html Msg
-letterView attrs letter =
-    span (class ("ScoreLetter ScoreLetter" ++ letter) :: attrs)
-        [ text letter
-        ]
-
-
-subScoresView : Session -> Recipe.Results -> Html Msg
-subScoresView { queries } { scoring } =
-    -- Note: temporarily hidden until some decision is made about these subscores
-    div [ class "card bg-primary shadow-sm d-none" ]
-        [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ div [ class "input-group" ]
-                    [ productCategorySelectorView queries.food.category
-                    , button
-                        [ class "btn btn-info text-white"
-                        , title "Afficher un exemple d'étiquette"
-                        , onClick (SetModal TagPreviewModal)
-                        ]
-                        [ Icon.lab ]
-                    ]
-                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
-                    [ span []
-                        [ text (String.fromInt scoring.all.outOf100)
-                        , span [ class "fs-7" ] [ text "/100" ]
-                        ]
-                    , letterView [] scoring.all.letter
-                    ]
-                ]
-            ]
-        , div [ class "card-body py-2" ]
-            [ [ ( "Climat", scoring.climate )
-              , ( "Biodiversité", scoring.biodiversity )
-              , ( "Santé environnementale", scoring.health )
-              , ( "Ressource", scoring.resources )
-              ]
-                |> List.map
-                    (\( label, subScore ) ->
-                        tr []
-                            [ th [] [ text label ]
-                            , td [ class "text-end" ]
-                                [ strong [] [ text (String.fromInt subScore.outOf100) ]
-                                , small [] [ text "/100" ]
-                                ]
-                            , td
-                                [ class "text-end align-middle ps-1"
-                                , style "width" "1%"
-                                , subScore.impact
-                                    |> Unit.impactToFloat
-                                    |> Format.formatFloat 2
-                                    |> (\x -> x ++ "\u{202F}µPts/kg")
-                                    |> title
-                                ]
-                                [ letterView [] subScore.letter
-                                ]
-                            ]
-                    )
-                |> table [ class "Subscores w-100 text-white m-0" ]
-            ]
         ]
 
 
@@ -1492,16 +1409,9 @@ stepResultsView model results =
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
-        bonusToApply =
-            if shouldRenderBonuses model.impact then
-                Unit.impactToFloat results.recipe.totalBonusesImpact.total
-
-            else
-                0
-
         stepsData =
             [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal - bonusToApply
+              , impact = toFloat results.recipe.ingredientsTotal
               }
             , { label = "Transformation"
               , impact = toFloat results.recipe.transform
@@ -1593,7 +1503,7 @@ transformView db selectedImpact recipe results =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ builderDb, queries } as session) model =
+view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
             [ case model.dbState of
@@ -1635,100 +1545,15 @@ view ({ builderDb, queries } as session) model =
                                         , switchDisplayChoice = SwitchDisplayChoice
                                         }
                                 , toggle = ToggleComparedSimulation
+                                , chartHovering = model.chartHovering
+                                , onChartHover = OnChartHover
                                 }
                             ]
                         , footer = []
                         }
-
-                TagPreviewModal ->
-                    let
-                        makeModal content footer =
-                            ModalView.view
-                                { size = ModalView.Standard
-                                , close = SetModal NoModal
-                                , noOp = NoOp
-                                , title = "Exemple d'étiquette"
-                                , formAction = Nothing
-                                , content = content
-                                , footer = footer
-                                }
-                    in
-                    case Recipe.compute builderDb queries.food of
-                        Ok ( recipe, results ) ->
-                            recipe.category
-                                |> Maybe.map .id
-                                |> productCategorySelectorView
-                                |> List.singleton
-                                |> makeModal [ tagViewer results ]
-
-                        Err error ->
-                            makeModal [ errorView error ] []
             ]
       ]
     )
-
-
-tagViewer : Recipe.Results -> Html Msg
-tagViewer { scoring } =
-    div [ class "p-3 px-lg-5 d-flex flex-column gap-2" ]
-        [ h1 [ class "m-0 text-center", style "font-size" "44px" ]
-            [ if Unit.impactToFloat scoring.all.impact == 0 then
-                text "0"
-
-              else
-                scoring.all.impact
-                    |> Unit.impactToFloat
-                    |> Format.formatFloat 2
-                    |> text
-            , small [ class "text-muted text-truncate h5 ms-2" ]
-                [ text "µPts d'impact par kg de produit" ]
-            ]
-        , hr [ class "mt-1 mb-2" ] []
-        , div [ class "d-flex gap-1 gap-md-3 justify-content-between" ]
-            [ div []
-                [ div [ class "d-flex flex-column gap-2" ]
-                    [ scoring.all.letter
-                        |> letterView [ class "ScoreLetterLarge" ]
-                    ]
-                , h1 [ class <| "m-0 text-end ScoreColoredText" ++ scoring.all.letter ]
-                    [ span [ class "h2 m-0" ] [ text (String.fromInt scoring.all.outOf100) ]
-                    , span [ class "fs-7" ] [ text "/100" ]
-                    ]
-                ]
-            , div [ class "col-9" ]
-                [ [ ( "Climat", scoring.climate )
-                  , ( "Biodiversité", scoring.biodiversity )
-                  , ( "Santé environnementale", scoring.health )
-                  , ( "Ressource", scoring.resources )
-                  ]
-                    |> List.map
-                        (\( label, subScore ) ->
-                            div [ class "w-100 d-flex justify-content-between align-items-center gap-1 gap-sm-2 gap-md-3 pt-1" ]
-                                [ span
-                                    [ class <| "text-truncate w-100 fs-7 fw-bold ScoreColoredText" ++ subScore.letter ]
-                                    [ text label ]
-                                , abcdeLetter subScore.letter
-                                ]
-                        )
-                    |> div []
-                ]
-            ]
-        ]
-
-
-abcdeLetter : String -> Html Msg
-abcdeLetter letter =
-    "ABCDE"
-        |> String.split ""
-        |> List.map
-            (\l ->
-                li
-                    [ class <| "AbcdeLetter AbcdeLetter" ++ l
-                    , classList [ ( "AbcdeLetterActive", letter == l ) ]
-                    ]
-                    [ text l ]
-            )
-        |> ul [ class "Abcde" ]
 
 
 subscriptions : Model -> Sub Msg

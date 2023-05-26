@@ -11,12 +11,13 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idToString
     , isKnitted
-    , makingComplexityToString
     )
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
+import Data.Textile.Process as Process exposing (Process, WellKnown)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -38,15 +39,8 @@ type FabricOptions
     | Weaved Process
 
 
-type MakingComplexity
-    = High
-    | Medium
-    | Low
-
-
 type alias MakingOptions =
-    { process : Process -- Procédé de Confection
-    , fadable : Bool -- Can this product be faded?
+    { fadable : Bool -- Can this product be faded?
     , pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
     , durationInMinutes : Duration -- How long does it take
@@ -88,32 +82,26 @@ type Id
     = Id String
 
 
-getFabricProcess : Product -> Process
-getFabricProcess { fabric } =
+getFabricProcess : Maybe Knitting -> Product -> WellKnown -> Process
+getFabricProcess maybeKnittingProcess { fabric } wellknown =
     case fabric of
         Knitted process ->
-            process
+            case maybeKnittingProcess of
+                Just knittingProcess ->
+                    Process.getKnittingProcess knittingProcess wellknown
+
+                Nothing ->
+                    process
 
         Weaved process ->
             process
 
 
-makingComplexityToString : MakingComplexity -> String
-makingComplexityToString makingComplexity =
-    case makingComplexity of
-        High ->
-            "Elevée"
-
-        Medium ->
-            "Moyenne"
-
-        Low ->
-            "Faible"
-
-
 getMakingDurationInMinutes : Product -> Duration
 getMakingDurationInMinutes =
-    .making >> .durationInMinutes
+    .making
+        >> .complexity
+        >> MakingComplexity.toDuration
 
 
 findById : Id -> List Product -> Result String Product
@@ -167,33 +155,12 @@ decodeDyeingOptions =
         (Decode.field "defaultMedium" DyeingMedium.decode)
 
 
-decodeMakingComplexity : Decoder MakingComplexity
-decodeMakingComplexity =
-    Decode.string
-        |> Decode.andThen
-            (\complexityStr ->
-                case complexityStr of
-                    "high" ->
-                        Decode.succeed High
-
-                    "medium" ->
-                        Decode.succeed Medium
-
-                    "low" ->
-                        Decode.succeed Low
-
-                    str ->
-                        Decode.fail ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)
-            )
-
-
-decodeMakingOptions : List Process -> Decoder MakingOptions
-decodeMakingOptions processes =
+decodeMakingOptions : Decoder MakingOptions
+decodeMakingOptions =
     Decode.succeed MakingOptions
-        |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
-        |> Pipe.required "complexity" decodeMakingComplexity
+        |> Pipe.required "complexity" MakingComplexity.decode
         |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
@@ -226,7 +193,7 @@ decode processes =
         |> Pipe.required "yarnSize" (Decode.maybe Unit.decodeYarnSize)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
-        |> Pipe.required "making" (decodeMakingOptions processes)
+        |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions
 
@@ -255,10 +222,9 @@ encodeFabricOptions v =
 encodeMakingOptions : MakingOptions -> Encode.Value
 encodeMakingOptions v =
     Encode.object
-        [ ( "processUuid", Process.encodeUuid v.process.uuid )
-        , ( "fadable", Encode.bool v.fadable )
+        [ ( "fadable", Encode.bool v.fadable )
         , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
-        , ( "complexity", Encode.string (makingComplexityToString v.complexity) )
+        , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
         , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 

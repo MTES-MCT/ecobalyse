@@ -19,7 +19,7 @@ module Views.Format exposing
     , ratio
     , splitAsFloat
     , splitAsPercentage
-    , squareMetters
+    , squareMeters
     , surfaceMass
     , threadDensity
     , yarnSize
@@ -156,8 +156,8 @@ percent =
     formatRichFloat 2 "%"
 
 
-squareMetters : Area -> Html msg
-squareMetters =
+squareMeters : Area -> Html msg
+squareMeters =
     Area.inSquareMeters >> formatRichFloat 2 "m²"
 
 

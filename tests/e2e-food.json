@@ -35,32 +35,11 @@
       "wtu": 0.9279621725326074
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 197.34916389461824,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "climate": {
-        "impact": 45.76827368849088,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "biodiversity": {
-        "impact": 82.5374187749449,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "health": {
-        "impact": 34.08106054609479,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "resources": {
-        "impact": 37.095946128368944,
-        "letter": "B",
-        "outOf100": 70
-      }
+      "all": 197.34916389461824,
+      "climate": 45.76827368849088,
+      "biodiversity": 82.5374187749449,
+      "health": 34.08106054609479,
+      "resources": 37.095946128368944
     }
   },
   {
@@ -99,32 +78,11 @@
       "wtu": 0.9198929912397135
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 193.51513020599603,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "climate": {
-        "impact": 41.121739327452154,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "biodiversity": {
-        "impact": 86.5593890851527,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "health": {
-        "impact": 33.82547651365096,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "resources": {
-        "impact": 34.14206052302142,
-        "letter": "B",
-        "outOf100": 71
-      }
+      "all": 193.51513020599603,
+      "climate": 41.121739327452154,
+      "biodiversity": 86.5593890851527,
+      "health": 33.82547651365096,
+      "resources": 34.14206052302142
     }
   },
   {
@@ -163,32 +121,11 @@
       "wtu": 1.3182093930326078
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 160.92322452904392,
-        "letter": "B",
-        "outOf100": 76
-      },
-      "climate": {
-        "impact": 42.87059122141696,
-        "letter": "B",
-        "outOf100": 76
-      },
-      "biodiversity": {
-        "impact": 66.42088157859546,
-        "letter": "B",
-        "outOf100": 76
-      },
-      "health": {
-        "impact": 31.723754763879825,
-        "letter": "B",
-        "outOf100": 76
-      },
-      "resources": {
-        "impact": 40.11172149967763,
-        "letter": "B",
-        "outOf100": 76
-      }
+      "all": 160.92322452904392,
+      "climate": 42.87059122141696,
+      "biodiversity": 66.42088157859546,
+      "health": 31.723754763879825,
+      "resources": 40.11172149967763
     }
   },
   {
@@ -227,32 +164,11 @@
       "wtu": 1.3101402117397136
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 157.08919084042168,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "climate": {
-        "impact": 38.22405686037824,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "biodiversity": {
-        "impact": 70.44285188880326,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "health": {
-        "impact": 31.468170731435997,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "resources": {
-        "impact": 37.15783589433012,
-        "letter": "B",
-        "outOf100": 77
-      }
+      "all": 157.08919084042168,
+      "climate": 38.22405686037824,
+      "biodiversity": 70.44285188880326,
+      "health": 31.468170731435997,
+      "resources": 37.15783589433012
     }
   },
   {
@@ -286,32 +202,11 @@
       "wtu": 1.4519605157538793
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 1003.6706508435723,
-        "letter": "D",
-        "outOf100": 23
-      },
-      "climate": {
-        "impact": 409.8345285808347,
-        "letter": "D",
-        "outOf100": 23
-      },
-      "biodiversity": {
-        "impact": 211.71044259046278,
-        "letter": "D",
-        "outOf100": 23
-      },
-      "health": {
-        "impact": 109.99959248091639,
-        "letter": "D",
-        "outOf100": 23
-      },
-      "resources": {
-        "impact": 272.8139941486418,
-        "letter": "D",
-        "outOf100": 23
-      }
+      "all": 1003.6706508435723,
+      "climate": 409.8345285808347,
+      "biodiversity": 211.71044259046278,
+      "health": 109.99959248091639,
+      "resources": 272.8139941486418
     }
   },
   {
@@ -345,32 +240,11 @@
       "wtu": 1.4309342904720002
     },
     "scoring": {
-      "category": "Fruits et légumes",
-      "all": {
-        "impact": 188.9975550923278,
-        "letter": "D",
-        "outOf100": 32
-      },
-      "climate": {
-        "impact": 37.11694241453817,
-        "letter": "D",
-        "outOf100": 34
-      },
-      "biodiversity": {
-        "impact": 40.700502775189484,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "health": {
-        "impact": 22.830395343240824,
-        "letter": "B",
-        "outOf100": 63
-      },
-      "resources": {
-        "impact": 89.03762151664293,
-        "letter": "E",
-        "outOf100": 0
-      }
+      "all": 188.9975550923278,
+      "climate": 37.11694241453817,
+      "biodiversity": 40.700502775189484,
+      "health": 22.830395343240824,
+      "resources": 89.03762151664293
     }
   },
   {
@@ -404,32 +278,11 @@
       "wtu": 1.4407981633506792
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 508.1983466429696,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "climate": {
-        "impact": 188.14406887774135,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "biodiversity": {
-        "impact": 105.29216507421584,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "health": {
-        "impact": 52.23947960843976,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "resources": {
-        "impact": 163.21054003985626,
-        "letter": "C",
-        "outOf100": 43
-      }
+      "all": 508.1983466429696,
+      "climate": 188.14406887774135,
+      "biodiversity": 105.29216507421584,
+      "health": 52.23947960843976,
+      "resources": 163.21054003985626
     }
   },
   {
@@ -463,32 +316,11 @@
       "wtu": 1.4407981633506792
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 508.1983466429696,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "climate": {
-        "impact": 188.14406887774135,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "biodiversity": {
-        "impact": 105.29216507421584,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "health": {
-        "impact": 52.23947960843976,
-        "letter": "C",
-        "outOf100": 43
-      },
-      "resources": {
-        "impact": 163.21054003985626,
-        "letter": "C",
-        "outOf100": 43
-      }
+      "all": 508.1983466429696,
+      "climate": 188.14406887774135,
+      "biodiversity": 105.29216507421584,
+      "health": 52.23947960843976,
+      "resources": 163.21054003985626
     }
   },
   {
@@ -522,32 +354,11 @@
       "wtu": 1.4350645286166792
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 136.59721356378546,
-        "letter": "A",
-        "outOf100": 81
-      },
-      "climate": {
-        "impact": 16.724209586212584,
-        "letter": "A",
-        "outOf100": 81
-      },
-      "biodiversity": {
-        "impact": 26.50371830764366,
-        "letter": "A",
-        "outOf100": 81
-      },
-      "health": {
-        "impact": 13.296376218832384,
-        "letter": "A",
-        "outOf100": 81
-      },
-      "resources": {
-        "impact": 80.76081640838044,
-        "letter": "A",
-        "outOf100": 81
-      }
+      "all": 136.59721356378546,
+      "climate": 16.724209586212584,
+      "biodiversity": 26.50371830764366,
+      "health": 13.296376218832384,
+      "resources": 80.76081640838044
     }
   },
   {
@@ -586,32 +397,11 @@
       "wtu": 1.3101402117397136
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 157.08919084042168,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "climate": {
-        "impact": 38.22405686037824,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "biodiversity": {
-        "impact": 70.44285188880326,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "health": {
-        "impact": 31.468170731435997,
-        "letter": "B",
-        "outOf100": 77
-      },
-      "resources": {
-        "impact": 37.15783589433012,
-        "letter": "B",
-        "outOf100": 77
-      }
+      "all": 157.08919084042168,
+      "climate": 38.22405686037824,
+      "biodiversity": 70.44285188880326,
+      "health": 31.468170731435997,
+      "resources": 37.15783589433012
     }
   },
   {
@@ -652,32 +442,11 @@
       "wtu": 1.3534862975354918
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 192.2667243785334,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "climate": {
-        "impact": 45.97364392060986,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "biodiversity": {
-        "impact": 68.15447246744128,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "health": {
-        "impact": 39.56827854381425,
-        "letter": "B",
-        "outOf100": 71
-      },
-      "resources": {
-        "impact": 58.774053981193966,
-        "letter": "B",
-        "outOf100": 71
-      }
+      "all": 192.2667243785334,
+      "climate": 45.97364392060986,
+      "biodiversity": 68.15447246744128,
+      "health": 39.56827854381425,
+      "resources": 58.774053981193966
     }
   },
   {
@@ -716,32 +485,11 @@
       "wtu": 0.9279621725326074
     },
     "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 196.7390146013566,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "climate": {
-        "impact": 45.76827368849088,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "biodiversity": {
-        "impact": 82.5374187749449,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "health": {
-        "impact": 34.08106054609479,
-        "letter": "B",
-        "outOf100": 70
-      },
-      "resources": {
-        "impact": 37.095946128368944,
-        "letter": "B",
-        "outOf100": 70
-      }
+      "all": 196.7390146013566,
+      "climate": 45.76827368849088,
+      "biodiversity": 82.5374187749449,
+      "health": 34.08106054609479,
+      "resources": 37.095946128368944
     }
   }
 ]

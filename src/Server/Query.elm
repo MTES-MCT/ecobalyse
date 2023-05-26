@@ -9,7 +9,6 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
@@ -22,6 +21,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -31,6 +31,7 @@ import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Regex
 import Result.Extra as RE
 import Url.Parser.Query as Query exposing (Parser)
 
@@ -70,7 +71,6 @@ parseFoodQuery builderDb =
         |> apply (packagingListParser "packaging" builderDb.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
-        |> apply (maybeFoodCategoryParser "category")
 
 
 ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -100,7 +100,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -114,7 +114,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -128,7 +128,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
@@ -142,7 +142,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
@@ -156,7 +156,7 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
@@ -274,26 +274,13 @@ packagingParser packagings string =
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser packagings code)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
             Err <| "Format d'emballage vide."
 
         _ ->
             Err <| "Format d'emballage invalide : " ++ string ++ "."
-
-
-maybeFoodCategoryParser : String -> Parser (ParseResult (Maybe Category.Id))
-maybeFoodCategoryParser key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (Category.idFromString
-                    >> Result.map Just
-                    >> Result.mapError (\error -> ( key, error ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
 
 
 validateBool : String -> Result String Bool
@@ -343,8 +330,8 @@ validateCountry countryCode scope =
             )
 
 
-validateMass : String -> Result String Mass
-validateMass string =
+validateMassInGrams : String -> Result String Mass
+validateMassInGrams string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Masse invalide : " ++ string)
@@ -401,7 +388,7 @@ parseTransform_ transforms string =
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser transforms code)
-                |> RE.andMap (validateMass mass)
+                |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
             Err <| "Code de procédé de transformation manquant."
@@ -413,7 +400,7 @@ parseTransform_ transforms string =
 parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
 parseTextileQuery textileDb =
     succeed (Ok Inputs.Query)
-        |> apply (massParser "mass")
+        |> apply (massParserInKilograms "mass")
         |> apply (materialListParser "materials" textileDb.materials)
         |> apply (productParser "product" textileDb.products)
         |> apply (maybeTextileCountryParser "countrySpinning" textileDb.countries)
@@ -424,7 +411,8 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (maybeYarnSize "yarnSize")
+        |> apply (maybeMakingComplexityParser "makingComplexity")
+        |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeKnittingProcess "knittingProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
@@ -482,8 +470,8 @@ floatParser key =
                     Nothing
 
 
-massParser : String -> Parser (ParseResult Mass)
-massParser key =
+massParserInKilograms : String -> Parser (ParseResult Mass)
+massParserInKilograms key =
     floatParser key
         |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
         |> Query.map
@@ -725,6 +713,23 @@ maybeReparabilityParser key =
             )
 
 
+maybeMakingComplexityParser : String -> Parser (ParseResult (Maybe MakingComplexity))
+maybeMakingComplexityParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case MakingComplexity.fromString str of
+                        Ok printing ->
+                            Ok (Just printing)
+
+                        Err err ->
+                            Err ( key, err )
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
 maybeMakingWasteParser : String -> Parser (ParseResult (Maybe Split))
 maybeMakingWasteParser key =
     floatParser key
@@ -748,28 +753,69 @@ maybeMakingWasteParser key =
             )
 
 
-maybeYarnSize : String -> Parser (ParseResult (Maybe Unit.YarnSize))
-maybeYarnSize key =
-    Query.int key
+parseYarnSize : String -> Maybe Unit.YarnSize
+parseYarnSize str =
+    let
+        withUnitRegex =
+            -- Match either an int or a int and a unit `Nm` or `Dtex`
+            Regex.fromString "(\\d+)(Nm|Dtex)"
+                |> Maybe.withDefault Regex.never
+
+        subMatches =
+            -- If it matches, returns [ <the value>, <the unit> ]
+            str
+                |> Regex.find withUnitRegex
+                |> List.map .submatches
+    in
+    case String.toInt str of
+        Just int ->
+            Just <| Unit.yarnSizeKilometersPerKg int
+
+        Nothing ->
+            case subMatches of
+                [ [ Just intStr, Just "Nm" ] ] ->
+                    String.toInt intStr
+                        |> Maybe.map Unit.yarnSizeKilometersPerKg
+
+                [ [ Just intStr, Just "Dtex" ] ] ->
+                    String.toInt intStr
+                        |> Maybe.map Unit.yarnSizeGramsPer10km
+
+                _ ->
+                    Nothing
+
+
+maybeYarnSizeParser : String -> Parser (ParseResult (Maybe Unit.YarnSize))
+maybeYarnSizeParser key =
+    Query.string key
         |> Query.map
             (Maybe.map
-                (\int ->
-                    let
-                        yarnSize =
-                            Unit.yarnSizeKilometersPerKg int
-                    in
-                    if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
-                        Err
-                            ( key
-                            , "Le titrage (yarnSize) doit être compris entre "
-                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
-                                ++ " et "
-                                ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
-                                ++ " duites/m."
-                            )
+                (\str ->
+                    case parseYarnSize str of
+                        Just yarnSize ->
+                            if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
+                                Err
+                                    ( key
+                                    , "Le titrage (yarnSize) doit être compris entre "
+                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
+                                        ++ " et "
+                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
+                                        ++ " Nm (entre "
+                                        -- The following two are reversed in Dtex because the unit is "reversed"
+                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.maxYarnSize)
+                                        ++ " et "
+                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.minYarnSize)
+                                        ++ " Dtex)"
+                                    )
 
-                    else
-                        Ok (Just (Unit.yarnSizeKilometersPerKg int))
+                            else
+                                Ok (Just yarnSize)
+
+                        Nothing ->
+                            Err
+                                ( key
+                                , "Le format ne correspond pas au titrage (yarnSize) attendu : soit un entier simple (ie : `40`), ou avec l'unité `Nm` (ie : `40Nm`) ou `Dtex` (ie : `250Dtex`)"
+                                )
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

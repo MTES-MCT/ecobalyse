@@ -2,8 +2,6 @@
 
 > Accélerer la mise en place de l'affichage environnemental
 
-![image](https://user-images.githubusercontent.com/41547/142401805-56783edf-75c8-4f15-97ba-b86a876c6c31.png)
-
 L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/).
 
 > Note: le projet Ecobalyse s'appellait précédemment **Wikicarbone**.

@@ -27,6 +27,7 @@ import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
 import Data.Textile.Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
@@ -55,6 +56,7 @@ type alias Step =
     , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
+    , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , threadDensity : Maybe Unit.ThreadDensity
@@ -107,6 +109,7 @@ create { db, label, editable, country, enabled } =
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
+    , makingComplexity = Nothing
     , makingWaste = Nothing
     , picking = Nothing
     , threadDensity = Nothing
@@ -294,7 +297,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -315,7 +318,14 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , fabric = Just (Product.getFabricProcess inputs.product |> .name)
+                        , fabric =
+                            processes
+                                |> Process.loadWellKnown
+                                |> Result.map
+                                    (Product.getFabricProcess inputs.knittingProcess inputs.product
+                                        >> .name
+                                    )
+                                |> Result.toMaybe
                     }
             }
 
@@ -355,10 +365,10 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
                 , makingWaste = makingWaste
+                , makingComplexity = makingComplexity
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , making = Just inputs.product.making.process.name
                         , fading =
                             if inputs.product.making.fadable then
                                 processes
@@ -480,7 +490,12 @@ makingWasteToString makingWaste =
 
 yarnSizeToString : Unit.YarnSize -> String
 yarnSizeToString yarnSize =
-    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm"
+    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
+
+
+yarnSizeToDtexString : Unit.YarnSize -> String
+yarnSizeToDtexString yarnSize =
+    String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value

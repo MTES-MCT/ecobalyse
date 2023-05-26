@@ -2,7 +2,7 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact as Impact exposing (Definition)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -14,10 +14,14 @@ import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Scope } -> Table Definition msg
+table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
-    [ { label = "Code"
-      , toCell =
+    { toId = .trigram >> Impact.toString
+    , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
+    , rows =
+        { label = "Code"
+        , toValue = .trigram >> Impact.toString
+        , toCell =
             \def ->
                 if detailed then
                     code [] [ text (Impact.toString def.trigram) ]
@@ -25,83 +29,99 @@ table { detailed, scope } =
                 else
                     a [ Route.href (Route.Explore scope (Dataset.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
-      }
-    , { label = "Nom"
-      , toCell =
-            \def ->
-                span [ title def.label ] [ text def.label ]
-      }
-    , { label = "Unité"
-      , toCell = \def -> code [] [ text def.unit ]
-      }
-    , { label = "Données de calcul du score PEF"
-      , toCell =
-            \def ->
-                case def.pefData of
-                    Just pefData ->
-                        div [ class "d-flex gap-2" ]
-                            [ span [ class "d-flex flex-column" ]
-                                [ text "Normalisation"
-                                , pefData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
-                                ]
-                            , span [ class "d-flex flex-column" ]
-                                [ text "Pondération"
-                                , pefData.weighting |> Format.ratio
-                                ]
-                            ]
-
-                    Nothing ->
-                        text "N/A"
-      }
-    , { label = "Données de calcul du score d'impacts"
-      , toCell =
-            \def ->
-                case def.ecoscoreData of
-                    Just ecoscoreData ->
-                        div [ class "d-flex gap-2" ]
-                            [ span [ class "d-flex flex-column" ]
-                                [ text "Normalisation"
-                                , ecoscoreData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
-                                ]
-                            , span [ class "d-flex flex-column" ]
-                                [ text "Pondération"
-                                , ecoscoreData.weighting |> Format.ratio
-                                ]
-                            ]
-
-                    Nothing ->
-                        text "N/A"
-      }
-    , { label = "Niveau de qualité"
-      , toCell =
-            \def ->
-                def.quality
-                    |> ImpactView.impactQuality
-                    |> div [ classList [ ( "text-center", not detailed ) ] ]
-      }
-    , { label = "Source"
-      , toCell =
-            \def ->
-                a
-                    [ href def.source.url
-                    , target "_blank"
+        }
+            :: { label = "Nom"
+               , toValue = .label
+               , toCell =
+                    \def ->
+                        span [ title def.label ] [ text def.label ]
+               }
+            :: { label = "Unité"
+               , toValue = .unit
+               , toCell = \def -> code [] [ text def.unit ]
+               }
+            :: { label = "Normalisation (PEF)"
+               , toValue = .pefData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+               , toCell =
+                    \def ->
+                        def.pefData
+                            |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                            |> Maybe.withDefault (text "N/A")
+               }
+            :: { label = "Pondération (PEF)"
+               , toValue = .pefData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+               , toCell = .pefData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
+               }
+            :: (if scope == Scope.Food then
+                    -- No "scope d'impacts" for textile
+                    [ { label = "Normalisation (Sc. Imp.)"
+                      , toValue = .ecoscoreData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+                      , toCell =
+                            \def ->
+                                def.ecoscoreData
+                                    |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                                    |> Maybe.withDefault (text "N/A")
+                      }
+                    , { label = "Pondération (Sc. Imp.)"
+                      , toValue = .ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+                      , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
+                      }
                     ]
-                    [ text def.source.label ]
-      }
-    , { label = "Domaines"
-      , toCell = Common.scopesView
-      }
-    , { label = "Description"
-      , toCell =
-            \def ->
-                if detailed then
-                    Markdown.simple [] def.description
 
                 else
-                    span [ title def.description ]
-                        [ def.description
-                            |> String.replace "*" ""
-                            |> text
-                        ]
-      }
-    ]
+                    []
+               )
+            ++ [ { label = "Niveau de qualité"
+                 , toValue =
+                    \def ->
+                        case def.quality of
+                            Impact.NotFinished ->
+                                "0"
+
+                            Impact.GoodQuality ->
+                                "4"
+
+                            Impact.AverageQuality ->
+                                "3"
+
+                            Impact.BadQuality ->
+                                "2"
+
+                            Impact.UnknownQuality ->
+                                "1"
+                 , toCell =
+                    \def ->
+                        def.quality
+                            |> ImpactView.impactQuality
+                            |> div [ classList [ ( "text-center", not detailed ) ] ]
+                 }
+               , { label = "Source"
+                 , toValue = .source >> .label
+                 , toCell =
+                    \def ->
+                        a
+                            [ href def.source.url
+                            , target "_blank"
+                            ]
+                            [ text def.source.label ]
+                 }
+               , { label = "Domaines"
+                 , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
+                 , toCell = Common.scopesView
+                 }
+               , { label = "Description"
+                 , toValue = .description
+                 , toCell =
+                    \def ->
+                        if detailed then
+                            Markdown.simple [] def.description
+
+                        else
+                            span [ title def.description ]
+                                [ def.description
+                                    |> String.replace "*" ""
+                                    |> text
+                                ]
+                 }
+               ]
+    }

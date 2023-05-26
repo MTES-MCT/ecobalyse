@@ -17,6 +17,7 @@ module Data.Textile.Inputs exposing
     , parseBase64Query
     , presets
     , removeMaterial
+    , stepsToStrings
     , tShirtCotonAsie
     , tShirtCotonFrance
     , toQuery
@@ -35,6 +36,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -72,6 +74,7 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , knittingProcess : Maybe Knitting
@@ -101,6 +104,7 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , knittingProcess : Maybe Knitting
@@ -192,6 +196,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
+        |> RE.andMap (Ok query.makingComplexity)
         |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.knittingProcess)
@@ -224,6 +229,7 @@ toQuery inputs =
     , quality = inputs.quality
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
+    , makingComplexity = inputs.makingComplexity
     , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
     , knittingProcess = inputs.knittingProcess
@@ -235,8 +241,8 @@ toQuery inputs =
     }
 
 
-toString : Inputs -> String
-toString inputs =
+stepsToStrings : Inputs -> List (List String)
+stepsToStrings inputs =
     let
         ifStepEnabled label list =
             if not (List.member label inputs.disabledSteps) then
@@ -245,10 +251,12 @@ toString inputs =
             else
                 []
     in
-    [ [ inputs.product.name ++ " de " ++ Format.kgToString inputs.mass ]
-    , [ materialsToString inputs.materials ]
+    [ [ inputs.product.name, Format.kgToString inputs.mass ]
+    , [ "matière"
+      , materialsToString inputs.materials
+      ]
     , ifStepEnabled Label.Material
-        [ "matière"
+        [ "provenance de la matière"
         , inputs.countryMaterial.name
         ]
     , ifStepEnabled Label.Spinning
@@ -257,7 +265,7 @@ toString inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "Titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []
@@ -272,20 +280,20 @@ toString inputs =
     , ifStepEnabled Label.Ennobling
         [ case inputs.dyeingMedium of
             Just dyeingMedium ->
-                "teinture sur " ++ DyeingMedium.toLabel dyeingMedium
+                "ennoblissement\u{00A0}: teinture sur " ++ DyeingMedium.toLabel dyeingMedium
 
             Nothing ->
-                "teinture"
+                "ennoblissement"
         , inputs.countryDyeing.name
         ]
     , ifStepEnabled Label.Ennobling
-        [ case inputs.printing of
+        [ "impression"
+        , case inputs.printing of
             Just printing ->
-                "impression " ++ Printing.toFullLabel printing
+                "impression " ++ Printing.toFullLabel printing ++ "\u{00A0}: " ++ inputs.countryDyeing.name
 
             Nothing ->
-                "pas d'impression"
-        , inputs.countryDyeing.name
+                "non"
         ]
     , ifStepEnabled Label.Making
         [ "confection"
@@ -305,6 +313,12 @@ toString inputs =
         ]
     ]
         |> List.filter (not << List.isEmpty)
+
+
+toString : Inputs -> String
+toString inputs =
+    inputs
+        |> stepsToStrings
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
@@ -323,9 +337,11 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading } =
+makingOptionsToString { product, makingWaste, makingComplexity, airTransportRatio, disabledFading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
+    , makingComplexity
+        |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
@@ -503,6 +519,7 @@ updateProduct product query =
             , quality = Nothing
             , reparability = Nothing
             , makingWaste = Nothing
+            , makingComplexity = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
             , knittingProcess = Nothing
@@ -535,6 +552,7 @@ tShirtCotonFrance =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
     , knittingProcess = Nothing
@@ -590,6 +608,7 @@ jupeCircuitAsie =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
     , knittingProcess = Nothing
@@ -615,6 +634,7 @@ manteauCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
     , knittingProcess = Nothing
@@ -640,6 +660,7 @@ pantalonCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
     , knittingProcess = Nothing
@@ -675,6 +696,7 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "knittingProcess", inputs.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
@@ -708,6 +730,7 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "knittingProcess" (Decode.maybe Knitting.decode) Nothing
@@ -739,6 +762,7 @@ encodeQuery query =
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
