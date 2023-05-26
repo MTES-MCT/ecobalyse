@@ -14,9 +14,6 @@ suite =
     suiteWithDb "Data.Impact"
         (\{ builderDb, textileDb } ->
             let
-                defaultBuilderImpacts =
-                    Impact.impactsFromDefinitons builderDb.impacts
-
                 defaultImpacts =
                     Impact.impactsFromDefinitons textileDb.impacts
 
@@ -88,57 +85,6 @@ suite =
                     |> Impact.getImpact (Impact.trg "pef")
                     |> expectScoreEquals 17453.28018196583
                     |> asTest "should update PEF score"
-                ]
-            , describe "getAggregatedScoreOutOf100"
-                [ defaultBuilderImpacts
-                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1)
-                    |> Impact.getImpact (Impact.trg "ecs")
-                    |> Impact.getAggregatedScoreOutOf100
-                    |> Expect.equal 100
-                    |> asTest "should return a score of 100 for a very low impact"
-                , defaultBuilderImpacts
-                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 10000)
-                    |> Impact.getImpact (Impact.trg "ecs")
-                    |> Impact.getAggregatedScoreOutOf100
-                    |> Expect.equal 0
-                    |> asTest "should return a score of 0 for a very high impact"
-                , defaultBuilderImpacts
-                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
-                    |> Impact.getImpact (Impact.trg "ecs")
-                    |> Impact.getAggregatedScoreOutOf100
-                    |> Expect.equal 70
-                    |> asTest "should return a medium score for a medium impact"
-                ]
-            , describe "getAggregatedScoreLetter"
-                [ Impact.getAggregatedScoreLetter 19
-                    |> Expect.equal "E"
-                    |> asTest "should return a letter E for anything below 20"
-                , Impact.getAggregatedScoreLetter 39
-                    |> Expect.equal "D"
-                    |> asTest "should return a letter D for anything below 40"
-                , Impact.getAggregatedScoreLetter 59
-                    |> Expect.equal "C"
-                    |> asTest "should return a letter C for anything below 60"
-                , Impact.getAggregatedScoreLetter 79
-                    |> Expect.equal "B"
-                    |> asTest "should return a letter B for anything below 80"
-                , Impact.getAggregatedScoreLetter 80
-                    |> Expect.equal "A"
-                    |> asTest "should return a letter C for anything equal or above 80"
-                ]
-            , describe "getBoundedScoreOutOf100"
-                [ Unit.impact 500
-                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
-                    |> Expect.equal 30
-                    |> asTest "should compute an average bounded score"
-                , Unit.impact 10000
-                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
-                    |> Expect.equal 0
-                    |> asTest "should compute an a very low bounded score from very high impact"
-                , Unit.impact 1
-                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
-                    |> Expect.equal 100
-                    |> asTest "should compute an a high bounded score from very low impact"
                 ]
             , describe "total weighting for impacts' ecoscoreData"
                 [ builderDb.impacts

@@ -9,7 +9,6 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
@@ -72,7 +71,6 @@ parseFoodQuery builderDb =
         |> apply (packagingListParser "packaging" builderDb.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
-        |> apply (maybeFoodCategoryParser "category")
 
 
 ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -283,19 +281,6 @@ packagingParser packagings string =
 
         _ ->
             Err <| "Format d'emballage invalide : " ++ string ++ "."
-
-
-maybeFoodCategoryParser : String -> Parser (ParseResult (Maybe Category.Id))
-maybeFoodCategoryParser key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (Category.idFromString
-                    >> Result.map Just
-                    >> Result.mapError (\error -> ( key, error ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
 
 
 validateBool : String -> Result String Bool
