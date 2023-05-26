@@ -48,6 +48,7 @@ import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -63,6 +64,7 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , modal : Modal
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
@@ -76,6 +78,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -143,6 +146,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> Result.withDefault (Impact.invalid Scope.Textile)
       , funit = funit
       , modal = NoModal
+      , chartHovering = []
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -212,6 +216,12 @@ update ({ db, queries, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
+            , session
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -564,6 +574,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , impact = model.impact
                             , funit = model.funit
                             , reusable = False
+                            , chartHovering = model.chartHovering
+                            , onChartHover = OnChartHover
                             }
                     ]
                 , BookmarkView.view
@@ -618,6 +630,8 @@ view session model =
                                                 , daysOfWear = simulator.daysOfWear
                                                 }
                                         , toggle = ToggleComparedSimulation
+                                        , chartHovering = model.chartHovering
+                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

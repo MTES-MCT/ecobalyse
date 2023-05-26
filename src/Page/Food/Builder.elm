@@ -57,6 +57,7 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
+import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
 
@@ -68,6 +69,7 @@ type alias Model =
     , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
+    , chartHovering : ComparativeChart.Stacks
     }
 
 
@@ -91,6 +93,7 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
+    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
@@ -131,6 +134,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , comparisonUnit = ComparatorView.PerKgOfProduct
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
+              , chartHovering = []
               }
             , session
                 |> Session.updateFoodQuery query
@@ -281,6 +285,12 @@ update ({ queries } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnChartHover chartHovering ->
+            ( { model | chartHovering = chartHovering }
+            , session
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -1621,6 +1631,8 @@ view ({ builderDb, queries } as session) model =
                                         , switchDisplayChoice = SwitchDisplayChoice
                                         }
                                 , toggle = ToggleComparedSimulation
+                                , chartHovering = model.chartHovering
+                                , onChartHover = OnChartHover
                                 }
                             ]
                         , footer = []
