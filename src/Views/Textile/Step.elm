@@ -719,16 +719,8 @@ ennoblingHeatSourceField ({ inputs } as config) =
 
 
 detailedView : Config msg -> ViewWithTransport msg
-detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
+detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
     let
-        transportLabel =
-            case next of
-                Just { country } ->
-                    "Transport\u{00A0}: " ++ current.country.name ++ "\u{202F}→\u{202F}" ++ country.name
-
-                Nothing ->
-                    "Transport"
-
         infoListElement =
             ul
                 [ class "StepBody list-group list-group-flush fs-7"
@@ -837,8 +829,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         [ span []
                             [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
                         , span []
-                            [ text "Masse sortante", br [] [], Format.kg current.outputMass ]
-                        , span []
                             [ text "Perte"
                             , br [] []
                             , Format.kg current.waste
@@ -868,10 +858,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             ]
     , transport =
-        if Transport.totalKm current.transport > 0 then
-            div []
-                [ div [ class "d-flex justify-content-between gap-3" ]
-                    [ text transportLabel ]
+        div []
+            (if Transport.totalKm current.transport > 0 then
+                [ span []
+                    [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
                 , div [ class "d-flex justify-content-between gap-3" ]
                     [ div [ class "d-flex justify-content-between gap-3" ]
                         (current.transport
@@ -892,8 +882,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     ]
                 ]
 
-        else
-            text ""
+             else
+                []
+            )
     }
 
 

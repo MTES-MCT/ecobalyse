@@ -1010,7 +1010,7 @@ transportToTransformationView selectedImpact recipe results =
     DownArrow.view
         []
         [ div []
-            [ text "Masse : "
+            [ text "Masse\u{00A0}: "
             , recipe.ingredients
                 |> Query.getIngredientMass
                 |> Format.kg
