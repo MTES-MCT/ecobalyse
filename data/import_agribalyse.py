@@ -154,6 +154,9 @@ def import_agribalyse(
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
         datapath, dbname, normalize_biosphere=True
     )
+    agribalyse.strategies = [
+        s for s in agribalyse.strategies if "fix_localized_water_flows" not in repr(s)
+    ]
     agribalyse.apply_strategies()
 
     # Apply provided migrations
@@ -172,12 +175,6 @@ def import_agribalyse(
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
     agribalyse.data = list(dsdict.values())
-
-    # remove exchanges with no inputs (?!)
-    for ds in agribalyse.data:
-        for i, e in enumerate(ds.get("exchanges", [])):
-            if "input" not in e:
-                del ds["exchanges"][i]
 
     dqr_pattern = r"The overall DQR of this product is: (?P<overall>[\d.]+) {P: (?P<P>[\d.]+), TiR: (?P<TiR>[\d.]+), GR: (?P<GR>[\d.]+), TeR: (?P<TeR>[\d.]+)}"
     ciqual_pattern = r"\[Ciqual code: (?P<ciqual>[\d_]+)\]"
