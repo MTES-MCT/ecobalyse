@@ -45,6 +45,7 @@ import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
+import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
@@ -491,6 +492,20 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                 , DownArrow.view [] [ transport ]
                 ]
             )
+        |> (\nodes ->
+                -- Display the first input mass before the first step
+                DownArrow.view []
+                    [ span []
+                        [ text "Masse\u{00A0}: "
+                        , simulator.lifeCycle
+                            |> Array.get 0
+                            |> Maybe.map .inputMass
+                            |> Maybe.map Format.kg
+                            |> Maybe.withDefault (text "")
+                        ]
+                    ]
+                    :: nodes
+           )
         |> div [ class "pt-1" ]
 
 
