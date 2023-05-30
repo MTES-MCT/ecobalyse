@@ -9,6 +9,7 @@
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
   * [🐄 Boeuf haché](alimentaire/ingredients-viandes/boeuf-hache.md)
+  * [🐄 Boeuf haché - feedlot](alimentaire/ingredients-viandes/boeuf-hache-feedlot.md)
   * [🐖 Jambon](alimentaire/ingredients-viandes/jambon.md)
   * [🐣 Poulet (blanc)](alimentaire/ingredients-viandes/poulet-blanc.md)
   * [🐑 Viande d'agneau](alimentaire/ingredients-viandes/viande-dagneau.md)
