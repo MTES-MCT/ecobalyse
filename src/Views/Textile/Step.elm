@@ -631,13 +631,39 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                     ]
                 ]
             ]
-    , transport =
-        div [ class "d-flex justify-content-between gap-3" ]
-            [ text "Transport\u{00A0}"
-            , current.transport.impacts
-                |> Format.formatTextileSelectedImpact funit daysOfWear impact
-            ]
+    , transport = viewTransport config
     }
+
+
+viewTransport : Config msg -> Html msg
+viewTransport ({ funit, daysOfWear, impact, current } as config) =
+    div []
+        (if Transport.totalKm current.transport > 0 then
+            [ span []
+                [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
+            , div [ class "d-flex justify-content-between gap-3" ]
+                [ div [ class "d-flex justify-content-between gap-3" ]
+                    (current.transport
+                        |> TransportView.viewDetails
+                            { fullWidth = False
+                            , hideNoLength = True
+                            , onlyIcons = False
+                            , airTransportLabel = Nothing
+                            , seaTransportLabel = Nothing
+                            , roadTransportLabel = Nothing
+                            }
+                    )
+                , span []
+                    [ current.transport.impacts
+                        |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                    , inlineDocumentationLink config Gitbook.TextileTransport
+                    ]
+                ]
+            ]
+
+         else
+            []
+        )
 
 
 viewProcessInfo : Maybe String -> Html msg
@@ -857,34 +883,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     ]
                 ]
             ]
-    , transport =
-        div []
-            (if Transport.totalKm current.transport > 0 then
-                [ span []
-                    [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
-                , div [ class "d-flex justify-content-between gap-3" ]
-                    [ div [ class "d-flex justify-content-between gap-3" ]
-                        (current.transport
-                            |> TransportView.viewDetails
-                                { fullWidth = False
-                                , hideNoLength = True
-                                , onlyIcons = False
-                                , airTransportLabel = Nothing
-                                , seaTransportLabel = Nothing
-                                , roadTransportLabel = Nothing
-                                }
-                        )
-                    , span []
-                        [ current.transport.impacts
-                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                        , inlineDocumentationLink config Gitbook.TextileTransport
-                        ]
-                    ]
-                ]
-
-             else
-                []
-            )
+    , transport = viewTransport config
     }
 
 
