@@ -506,6 +506,9 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     ]
                     :: nodes
            )
+        -- Drop the very last item, which is the last arrow showing the mass out of the end of life step
+        -- which doesn't really make sense
+        |> (List.reverse >> List.drop 1 >> List.reverse)
         |> div [ class "pt-1" ]
 
 
