@@ -850,17 +850,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     [ class "StepBody list-group list-group-flush fs-7"
                     , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                    [ li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
-                        [ span []
-                            [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
-                        , span []
-                            [ text "Perte"
-                            , br [] []
-                            , Format.kg current.waste
-                            , inlineDocumentationLink config Gitbook.TextileWaste
-                            ]
-                        ]
-                    , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                    [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                             [ span [ class "d-flex align-items-center" ]
                                 [ span [ class "me-1" ] [ text "Chaleur" ]
