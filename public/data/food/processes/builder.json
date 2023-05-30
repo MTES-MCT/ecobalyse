@@ -1674,6 +1674,42 @@
     }
   },
   {
+    "name": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
+    "unit": "kilogram",
+    "simapro_id": "",
+    "system_description": "AGRIBALYSE v1.4",
+    "category_tags": [
+      "Agricultural",
+      "Animal production",
+      "Bovine",
+      "Transformation"
+    ],
+    "comment": "",
+    "category": "material",
+    "impacts": {
+      "acd": 0.341061,
+      "ozd": 6.83774e-07,
+      "cch": 20.6094,
+      "fwe": 0.00222062,
+      "swe": 0.190605,
+      "tre": 1.53117,
+      "pco": 0.0946721,
+      "pma": 2.18325e-06,
+      "ior": 0.505988,
+      "fru": 84.4406,
+      "mru": 8.72627e-05,
+      "ldu": 1296.27,
+      "wtu": 5.22404,
+      "etf": 96.8189,
+      "htc": 2.96048e-09,
+      "htn": 4.71861e-08,
+      "bvi": 6.54173087,
+      "etf-c": 143.06639,
+      "htc-c": 5.5940060000000006e-09,
+      "htn-c": 7.0433072e-08
+    }
+  },
+  {
     "name": "Cull cow, organic, national average, at farm gate/FR U",
     "unit": "kilogram",
     "simapro_id": "cfb9f0014d252d241eda4c65b0abd7fb",
@@ -1983,6 +2019,40 @@
       "etf-c": 141.5594819,
       "htc-c": 3.822710300000113e-09,
       "htn-c": 2.917524503e-08
+    }
+  },
+  {
+    "name": "ground-beef-feedlot, constructed by ecobalyse",
+    "unit": "kilogram",
+    "simapro_id": "53a1ead1-62c9-1131-8841-3218dce10a8d",
+    "system_description": "ecobalyse",
+    "category_tags": [
+      "Agricultural",
+      "Food",
+      "Transformation"
+    ],
+    "category": "ingredient",
+    "impacts": {
+      "acd": 0.7853967,
+      "ozd": 1.60024239e-06,
+      "cch": 47.659967,
+      "fwe": 0.005157721989999999,
+      "swe": 0.43868553299999996,
+      "tre": 3.52423058,
+      "pco": 0.21840701199999998,
+      "pma": 5.0320981e-06,
+      "ior": 1.8395942,
+      "fru": 210.54304100000002,
+      "mru": 0.00020217009599999997,
+      "ldu": 2982.86859,
+      "wtu": 12.2979101,
+      "etf": 223.56723399999998,
+      "htc": 6.9253718e-09,
+      "htn": 1.0979965399999999e-07,
+      "bvi": 15.04866738,
+      "etf-c": 330.03121328000003,
+      "htc-c": 1.3082526471e-08,
+      "htn-c": 1.6334216153999998e-07
     }
   }
 ]
