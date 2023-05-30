@@ -488,12 +488,9 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> List.concatMap
             (\{ step, transport } ->
                 [ step
-                , DownArrow.view
-                    []
-                    [ transport ]
+                , DownArrow.view [] [ transport ]
                 ]
             )
-        -- |> List.intersperse (DownArrow.view [] [])
         |> div [ class "pt-1" ]
 
 
