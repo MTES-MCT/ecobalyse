@@ -638,10 +638,10 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 viewTransport : Config msg -> Html msg
 viewTransport ({ funit, daysOfWear, impact, current } as config) =
     div []
-        (if Transport.totalKm current.transport > 0 then
-            [ span []
-                [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
-            , div [ class "d-flex justify-content-between gap-3" ]
+        [ span []
+            [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
+        , if Transport.totalKm current.transport > 0 then
+            div [ class "d-flex justify-content-between gap-3" ]
                 [ div [ class "d-flex justify-content-between gap-3" ]
                     (current.transport
                         |> TransportView.viewDetails
@@ -659,11 +659,10 @@ viewTransport ({ funit, daysOfWear, impact, current } as config) =
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
-            ]
 
-         else
-            []
-        )
+          else
+            text ""
+        ]
 
 
 viewProcessInfo : Maybe String -> Html msg
