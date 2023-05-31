@@ -10,6 +10,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Route
+import Views.CardTabs as CardTabs
 import Views.Icon as Icon
 
 
@@ -39,29 +40,27 @@ type ActiveTab
 
 view : ManagerConfig msg -> Html msg
 view ({ activeTab, switchTab } as config) =
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ [ ( SaveTab, "Sauvegarder" ), ( ShareTab, "Partager" ) ]
+    CardTabs.view
+        { tabs =
+            [ ( SaveTab, "Sauvegarder" )
+            , ( ShareTab, "Partager" )
+            ]
                 |> List.map
                     (\( tab, label ) ->
-                        li [ class "TabsTab nav-item", classList [ ( "active", activeTab == tab ) ] ]
-                            [ button
-                                [ class "nav-link no-outline border-top-0"
-                                , classList [ ( "active", activeTab == tab ) ]
-                                , onClick <| switchTab tab
-                                ]
-                                [ text label ]
-                            ]
+                        { label = label
+                        , event = switchTab tab
+                        , active = activeTab == tab
+                        }
                     )
-                |> ul [ class "Tabs nav nav-tabs justify-content-end gap-2 px-3" ]
-            ]
-        , case activeTab of
-            ShareTab ->
-                shareLinkView config
+        , content =
+            [ case activeTab of
+                ShareTab ->
+                    shareLinkView config
 
-            SaveTab ->
-                managerView config
-        ]
+                SaveTab ->
+                    managerView config
+            ]
+        }
 
 
 shareLinkView : ManagerConfig msg -> Html msg
