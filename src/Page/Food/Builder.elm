@@ -45,6 +45,7 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
+import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
@@ -69,6 +70,7 @@ type alias Model =
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
+    , activeImpactsTab : ImpactsTab
     }
 
 
@@ -102,6 +104,7 @@ type Msg
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
+    | SwitchImpactsTab ImpactsTab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
@@ -109,6 +112,12 @@ type Msg
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
+
+
+type ImpactsTab
+    = DetailedImpactsTab
+    | StepImpactsTab
+    | SubscoresTab
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -132,6 +141,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
               , chartHovering = []
+              , activeImpactsTab = SubscoresTab
               }
             , session
                 |> Session.updateFoodQuery query
@@ -334,6 +344,12 @@ update ({ queries } as session) msg model =
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
+            )
+
+        SwitchImpactsTab impactsTab ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
             )
 
         SwitchComparisonUnit comparisonUnit ->
@@ -1333,35 +1349,58 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , if shouldRenderBonuses model.impact then
-            -- We only show subscores for ecs
-            div [ class "card shadow-sm" ]
-                [ div [ class "card-body py-2" ]
-                    [ [ ( "Climat", results.scoring.climate )
-                      , ( "Biodiversité", results.scoring.biodiversity )
-                      , ( "Santé environnementale", results.scoring.health )
-                      , ( "Ressource", results.scoring.resources )
-                      ]
-                        |> List.map
-                            (\( label, subScore ) ->
-                                tr []
-                                    [ th [ class "fw-normal" ] [ text label ]
-                                    , td [ class "text-end" ]
-                                        [ strong []
-                                            [ subScore
-                                                |> Unit.impactToFloat
-                                                |> Format.formatImpactFloat model.impact
-                                            ]
-                                        ]
-                                    ]
-                            )
-                        |> table [ class "Subscores w-100 m-0" ]
-                    ]
+        , CardTabs.view
+            { tabs =
+                [ ( SubscoresTab, "Sous-scores" )
+                , ( DetailedImpactsTab, "Impacts" )
+                , ( StepImpactsTab, "Étapes" )
                 ]
+                    |> List.map
+                        (\( tab, label ) ->
+                            { label = label
+                            , event = SwitchImpactsTab tab
+                            , active = model.activeImpactsTab == tab
+                            }
+                        )
+            , content =
+                [ case model.activeImpactsTab of
+                    DetailedImpactsTab ->
+                        div [ class "card-body" ]
+                            [ text "En construction" ]
 
-          else
-            text ""
-        , stepResultsView model results
+                    SubscoresTab ->
+                        div [ class "card-body" ]
+                            [ if shouldRenderBonuses model.impact then
+                                -- We only show subscores for ecs
+                                [ ( "Climat", results.scoring.climate )
+                                , ( "Biodiversité", results.scoring.biodiversity )
+                                , ( "Santé environnementale", results.scoring.health )
+                                , ( "Ressource", results.scoring.resources )
+                                ]
+                                    |> List.map
+                                        (\( label, subScore ) ->
+                                            tr []
+                                                [ th [ class "fw-normal" ] [ text label ]
+                                                , td [ class "text-end" ]
+                                                    [ strong []
+                                                        [ subScore
+                                                            |> Unit.impactToFloat
+                                                            |> Format.formatImpactFloat model.impact
+                                                        ]
+                                                    ]
+                                                ]
+                                        )
+                                    |> table [ class "Subscores w-100 m-0" ]
+
+                              else
+                                -- FIXME: phrase this better
+                                text "Les sous-scores ne sont disponibles que pour le score d'impact"
+                            ]
+
+                    StepImpactsTab ->
+                        stepResultsView model results
+                ]
+            }
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1433,38 +1472,35 @@ stepResultsView model results =
         totalImpact =
             toFloat results.total
     in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ] [ text "Détail des postes" ]
-        , ul [ class "list-group list-group-flush fs-8" ]
-            (stepsData
-                |> List.map
-                    (\{ label, impact } ->
-                        let
-                            percent =
-                                if totalImpact /= 0 then
-                                    impact / totalImpact * 100
+    ul [ class "list-group list-group-flush fs-8" ]
+        (stepsData
+            |> List.map
+                (\{ label, impact } ->
+                    let
+                        percent =
+                            if totalImpact /= 0 then
+                                impact / totalImpact * 100
 
-                                else
-                                    0
-                        in
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                            [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
-                            , span [ class "flex-fill w-50" ]
-                                [ div [ class "progress", style "height" "13px" ]
-                                    [ div
-                                        [ class "progress-bar bg-secondary"
-                                        , style "width" (String.fromFloat percent ++ "%")
-                                        ]
-                                        []
+                            else
+                                0
+                    in
+                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
+                        , span [ class "flex-fill w-50" ]
+                            [ div [ class "progress", style "height" "13px" ]
+                                [ div
+                                    [ class "progress-bar bg-secondary"
+                                    , style "width" (String.fromFloat percent ++ "%")
                                     ]
-                                ]
-                            , span [ class "flex-fill text-end", style "min-width" "62px" ]
-                                [ Format.percent percent
+                                    []
                                 ]
                             ]
-                    )
-            )
-        ]
+                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
+                            [ Format.percent percent
+                            ]
+                        ]
+                )
+        )
 
 
 transformView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
