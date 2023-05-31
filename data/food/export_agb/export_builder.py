@@ -18,6 +18,7 @@ import hashlib
 # Input
 PROJECT = "Ecobalyse"
 DBNAME = "Agribalyse 3.1.1"
+BIOSPHERE = DBNAME + " biosphere"
 PROCESSES2EXPORT = "builder_processes_to_export.csv"
 INGREDIENTS_BASE = "ingredients_base.json"
 # Output
@@ -25,7 +26,8 @@ INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
 
 bw2data.projects.set_current(PROJECT)
-bw2io.bw2setup()
+bw2data.config.p["biosphere_database"] = BIOSPHERE
+# bw2io.bw2setup()
 db = bw2data.Database(DBNAME)
 
 
