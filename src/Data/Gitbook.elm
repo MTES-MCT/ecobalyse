@@ -32,7 +32,6 @@ type Path
     | TextileMaterialAndSpinning -- Matière & filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
-    | TextileWaste -- Pertes et rebut textile
 
 
 pathToString : Path -> String
@@ -82,9 +81,6 @@ pathToString path =
 
         TextileUse ->
             "textile/etapes-du-cycle-de-vie/etape-6-utilisation"
-
-        TextileWaste ->
-            "textile/parametres-transverses/pertes-et-rebus"
 
 
 pathPrefixes : List String
