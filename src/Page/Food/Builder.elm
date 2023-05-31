@@ -141,7 +141,12 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
               , chartHovering = []
-              , activeImpactsTab = SubscoresTab
+              , activeImpactsTab =
+                    if shouldRenderBonuses impact then
+                        SubscoresTab
+
+                    else
+                        StepImpactsTab
               }
             , session
                 |> Session.updateFoodQuery query
@@ -1351,10 +1356,15 @@ sidebarView session db model results =
         , absoluteImpactView model results
         , CardTabs.view
             { tabs =
-                [ ( SubscoresTab, "Sous-scores" )
-                , ( DetailedImpactsTab, "Impacts" )
-                , ( StepImpactsTab, "Étapes" )
-                ]
+                (if shouldRenderBonuses model.impact then
+                    [ ( SubscoresTab, "Sous-scores" )
+                    , ( DetailedImpactsTab, "Impacts" )
+                    , ( StepImpactsTab, "Étapes" )
+                    ]
+
+                 else
+                    [ ( StepImpactsTab, "Étapes" ) ]
+                )
                     |> List.map
                         (\( tab, label ) ->
                             { label = label
@@ -1365,40 +1375,71 @@ sidebarView session db model results =
             , content =
                 [ case model.activeImpactsTab of
                     DetailedImpactsTab ->
-                        div [ class "card-body" ]
-                            [ text "En construction" ]
+                        let
+                            data =
+                                results.total
+                                    |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
 
-                    SubscoresTab ->
-                        div [ class "card-body" ]
-                            [ if shouldRenderBonuses model.impact then
-                                -- We only show subscores for ecs
-                                [ ( "Climat", results.scoring.climate )
-                                , ( "Biodiversité", results.scoring.biodiversity )
-                                , ( "Santé environnementale", results.scoring.health )
-                                , ( "Ressource", results.scoring.resources )
-                                ]
+                            total =
+                                data |> List.map .value |> List.sum
+
+                            dataWithPercentages =
+                                data
                                     |> List.map
-                                        (\( label, subScore ) ->
-                                            tr []
-                                                [ th [ class "fw-normal" ] [ text label ]
-                                                , td [ class "text-end" ]
-                                                    [ strong []
-                                                        [ subScore
-                                                            |> Unit.impactToFloat
-                                                            |> Format.formatImpactFloat model.impact
+                                        (\{ name, value } ->
+                                            { name = name, percent = value / total * 100 }
+                                        )
+                        in
+                        table [ class "table fs-7" ]
+                            [ dataWithPercentages
+                                |> List.sortBy .percent
+                                |> List.reverse
+                                |> List.map
+                                    (\{ name, percent } ->
+                                        tr []
+                                            [ th [ class "text-truncate", style "max-width" "200px" ] [ text name ]
+                                            , td [ style "width" "200px", style "vertical-align" "middle" ]
+                                                [ div [ class "progress", style "width" "100%", style "height" "13px" ]
+                                                    [ div
+                                                        [ class "progress-bar bg-secondary"
+                                                        , style "width" (String.fromFloat percent ++ "%")
                                                         ]
+                                                        []
                                                     ]
                                                 ]
-                                        )
-                                    |> table [ class "Subscores w-100 m-0" ]
-
-                              else
-                                -- FIXME: phrase this better
-                                text "Les sous-scores ne sont disponibles que pour le score d'impact"
+                                            , td [ class "text-end" ]
+                                                [ Format.percent percent
+                                                ]
+                                            ]
+                                    )
+                                |> tbody []
                             ]
 
                     StepImpactsTab ->
                         stepResultsView model results
+
+                    SubscoresTab ->
+                        div [ class "card-body" ]
+                            [ [ ( "Climat", results.scoring.climate )
+                              , ( "Biodiversité", results.scoring.biodiversity )
+                              , ( "Santé environnementale", results.scoring.health )
+                              , ( "Ressource", results.scoring.resources )
+                              ]
+                                |> List.map
+                                    (\( label, subScore ) ->
+                                        tr []
+                                            [ th [ class "fw-normal" ] [ text label ]
+                                            , td [ class "text-end" ]
+                                                [ strong []
+                                                    [ subScore
+                                                        |> Unit.impactToFloat
+                                                        |> Format.formatImpactFloat model.impact
+                                                    ]
+                                                ]
+                                            ]
+                                    )
+                                |> table [ class "Subscores w-100 m-0" ]
+                            ]
                 ]
             }
         , BookmarkView.view
