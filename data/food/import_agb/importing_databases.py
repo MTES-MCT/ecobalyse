@@ -1,14 +1,12 @@
-import brightway2 as bw
 from zipfile import ZipFile
+import brightway2 as bw
+import hashlib
 
-from custom_import_migrations import (
-    # wfldb_technosphere_migration_data,
-    agb_technosphere_migration_data,
-)
+from food.import_agb.custom_import_migrations import agb_technosphere_migration_data
 
 
-def main():
-    bw.projects.set_current("EF calculation")
+def import_agribalyse():
+    bw.projects.set_current("Ecobalyse")
     bw.bw2setup()
 
     """  # Ecoinvent
@@ -36,8 +34,8 @@ def main():
             ei35cut.write_database()
     """
     # Agribalyse
-    # del bw.databases['agribalyse3']
-    if "agribalyse3" in bw.databases:
+    # del bw.databases['Agribalyse 3.0']
+    if "Agribalyse 3.0" in bw.databases:
         print("Database has already been imported.")
     else:
         agb_csv_zip_filepath = r"agribalyse3_no_param.CSV.zip"
@@ -47,7 +45,7 @@ def main():
             print("Extracting the (big) agribalyse zip file, please hold...")
             zf.extractall()
             print("Importing the agribalyse database in the brightway database...")
-            agb_importer = bw.SimaProCSVImporter(agb_csv_filepath, "agribalyse3")
+            agb_importer = bw.SimaProCSVImporter(agb_csv_filepath, "Agribalyse 3.0")
 
         agb_technosphere_migration = bw.Migration("agb-technosphere")
         agb_technosphere_migration.write(
@@ -71,6 +69,10 @@ def main():
         agb_importer.add_unlinked_flows_to_biosphere_database()
         agb_importer.add_unlinked_activities()
         agb_importer.statistics()
+        # remove an inconsistent empty activity
+        data = agb_importer.data
+        hash_of_empty_string = hashlib.md5("".encode()).hexdigest()
+        agb_importer.data = [o for o in data if o["code"] != hash_of_empty_string]
         agb_importer.write_database()
 
     """ # WFLDB
@@ -104,4 +106,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import_agribalyse()

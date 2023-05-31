@@ -1,59 +1,87 @@
 impacts = {
-    "acd": ("EF v3.0", "acidification", "accumulated exceedance (ae)"),
-    "ozd": ("EF v3.0", "ozone depletion", "ozone depletion potential (ODP) "),
-    "cch": ("EF v3.0", "climate change", "global warming potential (GWP100)"),    
+    "acd": ("Environmental Footprint 3.1 (adapted)", "Acidification"),
+    "ozd": ("Environmental Footprint 3.1 (adapted)", "Ozone depletion"),
+    "cch": ("Environmental Footprint 3.1 (adapted)", "Climate change"),
     "fwe": (
-        "EF v3.0",
-        "eutrophication: freshwater",
-        "fraction of nutrients reaching freshwater end compartment (P)",
+        "Environmental Footprint 3.1 (adapted)",
+        "Eutrophication, freshwater",
     ),
     "swe": (
-        "EF v3.0",
-        "eutrophication: marine",
-        "fraction of nutrients reaching marine end compartment (N)",
+        "Environmental Footprint 3.1 (adapted)",
+        "Eutrophication, marine",
     ),
-    "tre": ("EF v3.0", "eutrophication: terrestrial", "accumulated exceedance (AE) "),
+    "tre": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Eutrophication, terrestrial",
+    ),
     "pco": (
-        "EF v3.0",
-        "photochemical ozone formation: human health",
-        "tropospheric ozone concentration increase",
+        "Environmental Footprint 3.1 (adapted)",
+        "Photochemical ozone formation",
     ),
-    "pma": ("EF v3.0", "particulate matter formation", "impact on human health"),
+    "pma": ("Environmental Footprint 3.1 (adapted)", "Particulate matter"),
     "ior": (
-        "EF v3.0",
-        "ionising radiation: human health",
-        "human exposure efficiency relative to u235",
+        "Environmental Footprint 3.1 (adapted)",
+        "Ionising radiation",
     ),
     "fru": (
-        "EF v3.0",
-        "energy resources: non-renewable",
-        "abiotic depletion potential (ADP): fossil fuels",
+        "Environmental Footprint 3.1 (adapted)",
+        "Resource use, fossils",
     ),
     "mru": (
-        "EF v3.0",
-        "material resources: metals/minerals",
-        "abiotic depletion potential (ADP): elements (ultimate reserves)",
+        "Environmental Footprint 3.1 (adapted)",
+        "Resource use, minerals and metals",
     ),
-    "ldu": ("EF v3.0", "land use", "soil quality index"),
+    "ldu": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Land use",
+    ),
     "wtu": (
-        "EF v3.0",
-        "water use",
-        "user deprivation potential (deprivation-weighted water consumption)",
+        "Environmental Footprint 3.1 (adapted)",
+        "Water use",
     ),
-    "etf": (
-        "EF v3.0",
-        "ecotoxicity: freshwater",
-        "comparative toxic unit for ecosystems (CTUe) ",
+    "etf-o1": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - organics - p.1",
+    ),
+    "etf-o2": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - organics - p.2",
+    ),
+    "etf-i": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - inorganics",
+    ),
+    "etf1": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - part 1",
+    ),
+    "etf2": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Ecotoxicity, freshwater - part 2",
     ),
     "htc": (
-        "EF v3.0",
-        "human toxicity: carcinogenic",
-        "comparative toxic unit for human (CTUh) ",
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, cancer",
+    ),
+    "htc-o": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, cancer - organics",
+    ),
+    "htc-i": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, cancer - inorganics",
     ),
     "htn": (
-        "EF v3.0",
-        "human toxicity: non-carcinogenic",
-        "comparative toxic unit for human (CTUh) ",
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, non-cancer",
+    ),
+    "htn-o": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, non-cancer - organics",
+    ),
+    "htn-i": (
+        "Environmental Footprint 3.1 (adapted)",
+        "Human toxicity, non-cancer - inorganics",
     ),
 }
 

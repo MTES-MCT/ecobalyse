@@ -5,7 +5,7 @@
 import json
 
 import argparse
-import brightway2 as bw
+import bw2data, bw2calc
 from collections import defaultdict
 from food.impacts import impacts
 import pandas as pd
@@ -71,9 +71,9 @@ processes_display_name = {
 
 
 def open_db(dbname):
-    bw.projects.set_current("EF calculation")
-    bw.bw2setup()
-    return bw.Database(dbname)
+    bw2data.projects.set_current("Ecobalyse")
+    # bw2io.bw2setup()
+    return bw2data.Database(dbname)
 
 
 def get_ciqual_codes(filename):
@@ -94,7 +94,6 @@ def get_ciqual_products(agribalyse_db, ciqual_codes):
 
 
 def fill_processes(processes, activity):
-
     processes[activity]["name"] = activity["name"]
     activity_name = activity["name"]
     if activity_name in processes_alias:
@@ -102,22 +101,24 @@ def fill_processes(processes, activity):
     if activity_name in processes_display_name:
         processes[activity]["displayName"] = processes_display_name[activity_name]
     processes[activity]["unit"] = activity._data["unit"]
-    processes[activity]["simapro_id"] = activity._data["code"]
+    # processes[activity]["simapro_id"] = activity._data["code"]
 
-    processes[activity]["system_description"] = activity._data["simapro metadata"][
-        "System description"
-    ]
+    if "System description" in activity._data:
+        processes[activity]["system_description"] = activity._data["System description"]
 
-    # Useful info like the category_tags and comment are in the production exchange
-    prod_exchange = list(activity.production())[0]
-    processes[activity]["category_tags"] = prod_exchange._data["categories"]
-    if prod_exchange._data["comment"]:
-        processes[activity]["comment"] = prod_exchange._data["comment"]
-    category = activity._data["simapro metadata"]["Category type"]
+    if "Category type" in activity._data:
+        category = processes[activity]["category_tags"] = activity._data[
+            "Category type"
+        ]
+    else:
+        category = ""
+
+    if "Comment" in activity._data:
+        processes[activity]["comment"] = activity._data["Comment"]
 
     # We have our own classification/categorization.
     if (
-        activity._data["simapro metadata"]["Category type"] == "material"
+        category == "material"
         and "Food" in processes[activity]["category_tags"]
         and processes[activity]["unit"] == "kilogram"
     ):
@@ -217,9 +218,9 @@ def build_product_tree(ciqual_products, max_products=None):
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
-    for (key, method) in impacts.items():
+    for key, method in impacts.items():
         print("initializing method", method)
-        lca = bw.LCA(demand, method)
+        lca = bw2calc.LCA(demand, method)
         lca.lci()
         lca.lcia()
         lcas[key] = lca
@@ -292,8 +293,8 @@ if __name__ == "__main__":
     if args.max:
         ciqual_codes = ciqual_codes[: args.max]
 
-    print("Open the agribalyse3 brightway database")
-    agb = open_db("agribalyse3")
+    print("Open the Agribalyse 3.1.1 brightway database")
+    agb = open_db("Agribalyse 3.1.1")
     print("Search for the ciqual products in the brightway database")
     ciqual_products = get_ciqual_products(agb, ciqual_codes)
 

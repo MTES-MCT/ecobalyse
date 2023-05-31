@@ -1,36 +1,67 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm --name $(NAME) -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
+DOCKEREXEC := docker exec -u jovyan -it
 
-json: image import_agribalyse export_builder
+json: image import_agribalyse import_method import_ecoinvent export_builder
 
 image:
-	docker build -t $(NAME) -f Dockerfile .
+	docker build -t $(NAME) docker
+
+import_ecoinvent:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
 
 import_agribalyse:
-	curl -o food/import_agb/agribalyse3_no_param.CSV.zip https://nextcloud.prelab.fr/index.php/s/kmYtfqHa42EZA9R/download/agribalyse3_no_param.CSV.zip
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py; fi
+
+import_method:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py; fi
+
 
 export_ciqual:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py; fi
 
 export_builder:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py; fi
 
 corrected_impacts:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 update_impacts_311.py
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/manual_update_agb3.1.1 $(NAME) python3 compute_corrected_impacts.py
 
-bash:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash
+python:
+	echo Running Python inside the container...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) $(NAME) python;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python; fi
 
-notebook:
+root_shell:
+	echo starting a root shell inside the container...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -u root $(NAME) bash;\
+	else $(DOCKERRUN) -u root -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
+
+shell:
+	echo starting a user shell inside the container...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) $(NAME) bash;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
+
+start_notebook:
 	$(DOCKERRUN) -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
-	docker logs -f $(NAME)
+	echo ### Run: `make shell` then `jupyter notebook password` to change the jupyter password, then restart with `make stop_notebook` and `make start_notebook`.
 
-kill_notebook:
-	docker kill $(NAME)
-
+stop_notebook:
+	docker exec $(NAME) pkill jupyter
 
 clean_data:
 	docker volume rm $(NAME)

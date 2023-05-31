@@ -15,19 +15,25 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 ## Autres commandes :
 
 * `make image` : pour construire l'image docker choisie
-* `make import_agribalyse` : pour importer la base dans Brightway. Assurez-vous d'avoir le fichier `agribalyse3_no_param.CSV.zip` dans le dossier `food/import_agb/`
+* `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway. Assurez-vous d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans le dossier `data/`
+* `make import_method` : pour importer EF 3.1 adapted dans Brightway. Assurez-vous d'avoir le fichier `Environmental Footprint .1 (adapted).CSV` dans le dossier `data/`
+* `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Assurez-vous d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
-* `make bash` : lance un shell à l'intérieur conteneur
-* `make notebook` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
+* `make shell` : lance un shell à l'intérieur du conteneur
+* `make root_shell` : lance un shell root à l'intérieur du conteneur
+* `make start_notebook` : lance le serveur Jupyter dans le conteneur
+* `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur
 * `make clean_data` : supprime toutes les données (celles de brightway et
   jupyter mais pas les json générés)
 * `make clean_image` : supprime l'image docker
+* `make clean` : lance `clean_data` et `clean_image`
+
 
 ## Travailler dans le conteneur :
 
-Vous pouvez entrer dans le conteneur avec `make bash`.
+Vous pouvez entrer dans le conteneur avec `make shell`.
 
 Toutes les données du conteneur, notamment celles de Brightway et de Jupyter,
 sont dans `/home/jovyan` qui est situé dans un volume docker
@@ -38,9 +44,10 @@ comparées puis commités.
 
 ## Lancer le serveur Jupyter
 
-Vous pouvez démarrer le serveur Jupyter avec : `make notebook`. Ensuite
-ctrl-cliquez sur le lien généré dans le terminal pour vous y connecter sans mot
-de passe
+Vous pouvez démarrer le serveur Jupyter avec : `make start_notebook`. Ensuite
+si vous avez reconstruit l'image, vous pouvez changer le mot de passe de jupyter
+avec : `make shell` puis `jupyter notebook password`, puis exit et redémarrez avec
+`make stop_notebook` puis `make start_notebook`.
 
 ## Remarques
 
@@ -73,7 +80,7 @@ Activez l'environnement virtuel :
 
     $ conda activate ecobalyse-env
 
-Puis installez le package ecobalyse_data :
+Puis installez le package `ecobalyse_data` :
 
     $ conda develop .
 
@@ -83,7 +90,7 @@ Une fois que vous avez [installé
 pip](https://pip.pypa.io/en/stable/installation/) et [créé et activé un
 environnement
 virtuel](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments),
-installez le package ecobalyse_data de la sorte :
+installez le package `ecobalyse_data` de la sorte :
 
     $ pip install -r requirements.txt
     $ pip install -e .
