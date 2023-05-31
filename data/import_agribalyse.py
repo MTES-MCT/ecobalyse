@@ -154,9 +154,7 @@ def import_agribalyse(
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
         datapath, dbname, normalize_biosphere=True
     )
-    agribalyse.strategies = [
-        s for s in agribalyse.strategies if "fix_localized_water_flows" not in repr(s)
-    ]
+    agribalyse.strategies = [s for s in agribalyse.strategies if "water" not in repr(s)]
     agribalyse.apply_strategies()
 
     # Apply provided migrations
