@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 
+# from bw2io.strategies.simapro import fix_localized_water_flows
+# from bw2io.strategies import migrate_exchanges
 import bw2data
 import bw2io
+
+# import functools
 
 PROJECT = "Ecobalyse"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
-# METHODPATH = "181-EF3.1_unofficial_interim_for_AGRIBALYSE_WithSubImpactsEcotox_v20.csv"
-# EF
-# METHODNAME = (
-#    "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)"  # defined inside the csv
-# )
 METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
-METHODNAME = "Environmental Footprint 3.1 (adapted)"
+METHODNAME = "Environmental Footprint 3.1 (adapted)"  # defined inside the csv
 
 
 def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
@@ -31,6 +30,14 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     ef.statistics()
+    # ef.strategies = (
+    #    ef.strategies[:8]
+    #    + [
+    #        functools.partial(migrate_exchanges, migration="simapro-water"),
+    #        fix_localized_water_flows,
+    #    ]
+    #    + ef.strategies[8:]
+    # )
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
     # ef.add_missing_cfs()
