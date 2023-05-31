@@ -188,12 +188,13 @@ if __name__ == "__main__":
             lca.switch_method(method)
             lca.lcia()
             v["export_data"]["impacts"][key] = lca.score
-        # etfo = etfo1 + etfo2
-        v["export_data"]["impacts"]["etfo"] = (
-            v["export_data"]["impacts"]["etfo1"] + v["export_data"]["impacts"]["etfo2"]
+        # etf-o = etf-o1 + etf-o2
+        v["export_data"]["impacts"]["etf-o"] = (
+            v["export_data"]["impacts"]["etf-o1"]
+            + v["export_data"]["impacts"]["etf-o2"]
         )
-        del v["export_data"]["impacts"]["etfo1"]
-        del v["export_data"]["impacts"]["etfo2"]
+        del v["export_data"]["impacts"]["etf-o1"]
+        del v["export_data"]["impacts"]["etf-o2"]
         # etf = etf1 + etf2
         v["export_data"]["impacts"]["etf"] = (
             v["export_data"]["impacts"]["etf1"] + v["export_data"]["impacts"]["etf2"]

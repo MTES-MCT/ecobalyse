@@ -39,15 +39,15 @@ impacts = {
         "Environmental Footprint 3.1 (adapted)",
         "Water use",
     ),
-    "etfo1": (
+    "etf-o1": (
         "Environmental Footprint 3.1 (adapted)",
         "Ecotoxicity, freshwater - organics - p.1",
     ),
-    "etfo2": (
+    "etf-o2": (
         "Environmental Footprint 3.1 (adapted)",
         "Ecotoxicity, freshwater - organics - p.2",
     ),
-    "etfi": (
+    "etf-i": (
         "Environmental Footprint 3.1 (adapted)",
         "Ecotoxicity, freshwater - inorganics",
     ),
@@ -63,11 +63,11 @@ impacts = {
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer",
     ),
-    "htco": (
+    "htc-o": (
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer - organics",
     ),
-    "htci": (
+    "htc-i": (
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, cancer - inorganics",
     ),
@@ -75,11 +75,11 @@ impacts = {
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer",
     ),
-    "htno": (
+    "htn-o": (
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer - organics",
     ),
-    "htni": (
+    "htn-i": (
         "Environmental Footprint 3.1 (adapted)",
         "Human toxicity, non-cancer - inorganics",
     ),
