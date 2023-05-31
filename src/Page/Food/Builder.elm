@@ -1383,31 +1383,34 @@ sidebarView session db model results =
                             total =
                                 data |> List.map .value |> List.sum
 
+                            strongest =
+                                data |> List.map .value |> List.maximum |> Maybe.withDefault 100
+
                             dataWithPercentages =
                                 data
                                     |> List.map
                                         (\{ name, value } ->
-                                            { name = name, percent = value / total * 100 }
+                                            { name = name, percent = value / total * 100, vsStrongest = value / strongest * 100 }
                                         )
                         in
-                        table [ class "table fs-7" ]
+                        table [ class "table mb-0" ]
                             [ dataWithPercentages
                                 |> List.sortBy .percent
                                 |> List.reverse
                                 |> List.map
-                                    (\{ name, percent } ->
+                                    (\{ name, percent, vsStrongest } ->
                                         tr []
-                                            [ th [ class "text-truncate", style "max-width" "200px" ] [ text name ]
+                                            [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
                                             , td [ style "width" "200px", style "vertical-align" "middle" ]
                                                 [ div [ class "progress", style "width" "100%", style "height" "13px" ]
                                                     [ div
                                                         [ class "progress-bar bg-secondary"
-                                                        , style "width" (String.fromFloat percent ++ "%")
+                                                        , style "width" (String.fromFloat vsStrongest ++ "%")
                                                         ]
                                                         []
                                                     ]
                                                 ]
-                                            , td [ class "text-end" ]
+                                            , td [ class "text-end fs-8" ]
                                                 [ Format.percent percent
                                                 ]
                                             ]
@@ -1419,7 +1422,7 @@ sidebarView session db model results =
                         stepResultsView model results
 
                     SubscoresTab ->
-                        div [ class "card-body" ]
+                        table [ class "table Subscores w-100 m-0" ]
                             [ [ ( "Climat", results.scoring.climate )
                               , ( "Biodiversité", results.scoring.biodiversity )
                               , ( "Santé environnementale", results.scoring.health )
@@ -1428,8 +1431,8 @@ sidebarView session db model results =
                                 |> List.map
                                     (\( label, subScore ) ->
                                         tr []
-                                            [ th [ class "fw-normal" ] [ text label ]
-                                            , td [ class "text-end" ]
+                                            [ th [ class "ps-3 fw-normal" ] [ text label ]
+                                            , td [ class "pe-3 text-end" ]
                                                 [ strong []
                                                     [ subScore
                                                         |> Unit.impactToFloat
@@ -1438,7 +1441,7 @@ sidebarView session db model results =
                                                 ]
                                             ]
                                     )
-                                |> table [ class "Subscores w-100 m-0" ]
+                                |> tbody []
                             ]
                 ]
             }
