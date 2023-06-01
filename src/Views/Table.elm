@@ -19,10 +19,27 @@ responsiveDefault attrs content =
         ]
 
 
-percentageTable : List { name : String, percent : Float, vsStrongest : Float } -> Html msg
+percentageTable : List ( String, Float ) -> Html msg
 percentageTable data =
+    let
+        total =
+            data |> List.map Tuple.second |> List.sum
+
+        strongest =
+            data |> List.map Tuple.second |> List.maximum |> Maybe.withDefault 100
+
+        dataWithPercentages =
+            data
+                |> List.map
+                    (\( name, value ) ->
+                        { name = name
+                        , percent = value / total * 100
+                        , vsStrongest = value / strongest * 100
+                        }
+                    )
+    in
     table [ class "table w-100 m-0" ]
-        [ data
+        [ dataWithPercentages
             |> List.map
                 (\{ name, percent, vsStrongest } ->
                     tr []

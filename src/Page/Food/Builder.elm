@@ -1394,29 +1394,10 @@ impactTabsView db model results =
         , content =
             [ case model.activeImpactsTab of
                 DetailedImpactsTab ->
-                    let
-                        data =
-                            results.total
-                                |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
-
-                        total =
-                            data |> List.map .value |> List.sum
-
-                        strongest =
-                            data |> List.map .value |> List.maximum |> Maybe.withDefault 100
-
-                        dataWithPercentages =
-                            data
-                                |> List.map
-                                    (\{ name, value } ->
-                                        { name = name
-                                        , percent = value / total * 100
-                                        , vsStrongest = value / strongest * 100
-                                        }
-                                    )
-                    in
-                    dataWithPercentages
-                        |> List.sortBy .percent
+                    results.total
+                        |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
+                        |> List.map (\{ name, value } -> ( name, value ))
+                        |> List.sortBy Tuple.second
                         |> List.reverse
                         |> Table.percentageTable
 
@@ -1424,74 +1405,22 @@ impactTabsView db model results =
                     let
                         toFloat =
                             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
-
-                        totalImpact =
-                            toFloat results.total
-
-                        data =
-                            [ { name = "Ingrédients"
-                              , impact = toFloat results.recipe.ingredientsTotal
-                              }
-                            , { name = "Transformation"
-                              , impact = toFloat results.recipe.transform
-                              }
-                            , { name = "Emballage"
-                              , impact = toFloat results.packaging
-                              }
-                            , { name = "Transports"
-                              , impact = toFloat results.transports.impacts
-                              }
-                            , { name = "Distribution"
-                              , impact = toFloat results.distribution.total
-                              }
-                            , { name = "Consommation"
-                              , impact = toFloat results.preparation
-                              }
-                            ]
-
-                        strongest =
-                            data |> List.map .impact |> List.maximum |> Maybe.withDefault 100
                     in
-                    data
-                        |> List.map
-                            (\{ name, impact } ->
-                                { name = name
-                                , percent =
-                                    if totalImpact /= 0 then
-                                        impact / totalImpact * 100
-
-                                    else
-                                        0
-                                , vsStrongest = impact / strongest * 100
-                                }
-                            )
-                        |> Table.percentageTable
+                    Table.percentageTable
+                        [ ( "Ingrédients", toFloat results.recipe.ingredientsTotal )
+                        , ( "Transformation", toFloat results.recipe.transform )
+                        , ( "Emballage", toFloat results.packaging )
+                        , ( "Transports", toFloat results.transports.impacts )
+                        , ( "Distribution", toFloat results.distribution.total )
+                        , ( "Consommation", toFloat results.preparation )
+                        ]
 
                 SubscoresTab ->
-                    div []
-                        [ let
-                            data =
-                                [ ( "Climat", Unit.impactToFloat results.scoring.climate )
-                                , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
-                                , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
-                                , ( "Ressource", Unit.impactToFloat results.scoring.resources )
-                                ]
-
-                            total =
-                                data |> List.map Tuple.second |> List.sum
-
-                            strongest =
-                                data |> List.map Tuple.second |> List.maximum |> Maybe.withDefault 100
-                          in
-                          data
-                            |> List.map
-                                (\( name, impact ) ->
-                                    { name = name
-                                    , percent = impact / total * 100
-                                    , vsStrongest = impact / strongest * 100
-                                    }
-                                )
-                            |> Table.percentageTable
+                    Table.percentageTable
+                        [ ( "Climat", Unit.impactToFloat results.scoring.climate )
+                        , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
+                        , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
+                        , ( "Ressource", Unit.impactToFloat results.scoring.resources )
                         ]
             ]
         }
