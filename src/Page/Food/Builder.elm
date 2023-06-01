@@ -57,6 +57,7 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
+import Views.Table as Table
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
@@ -1337,32 +1338,6 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-percentageTable : List { name : String, percent : Float, vsStrongest : Float } -> Html Msg
-percentageTable data =
-    table [ class "table w-100 m-0" ]
-        [ data
-            |> List.map
-                (\{ name, percent, vsStrongest } ->
-                    tr []
-                        [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
-                        , td [ style "width" "200px", style "vertical-align" "middle" ]
-                            [ div [ class "progress", style "width" "100%", style "height" "13px" ]
-                                [ div
-                                    [ class "progress-bar bg-secondary"
-                                    , style "width" (String.fromFloat vsStrongest ++ "%")
-                                    ]
-                                    []
-                                ]
-                            ]
-                        , td [ class "text-end fs-8" ]
-                            [ Format.percent percent
-                            ]
-                        ]
-                )
-            |> tbody []
-        ]
-
-
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -1448,7 +1423,7 @@ impactTabsView db model results =
                     dataWithPercentages
                         |> List.sortBy .percent
                         |> List.reverse
-                        |> percentageTable
+                        |> Table.percentageTable
 
                 StepImpactsTab ->
                     let
@@ -1495,7 +1470,7 @@ impactTabsView db model results =
                                 , vsStrongest = impact / strongest * 100
                                 }
                             )
-                        |> percentageTable
+                        |> Table.percentageTable
 
                 SubscoresTab ->
                     div []
@@ -1521,7 +1496,7 @@ impactTabsView db model results =
                                     , vsStrongest = impact / strongest * 100
                                     }
                                 )
-                            |> percentageTable
+                            |> Table.percentageTable
                         ]
             ]
         }
