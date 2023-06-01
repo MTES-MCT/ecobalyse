@@ -143,7 +143,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , modal = NoModal
               , chartHovering = []
               , activeImpactsTab =
-                    if shouldRenderBonuses impact then
+                    if Impact.isEcoscore impact then
                         SubscoresTab
 
                     else
@@ -424,11 +424,6 @@ findExistingBookmarkName { builderDb, store } query =
             )
 
 
-shouldRenderBonuses : Impact.Definition -> Bool
-shouldRenderBonuses { trigram } =
-    trigram == Impact.trg "ecs"
-
-
 
 -- Views
 
@@ -454,7 +449,7 @@ absoluteImpactView model results =
                     , results.total
                         |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , if shouldRenderBonuses model.impact then
+                , if Impact.isEcoscore model.impact then
                     div [ class "text-center fs-7" ]
                         [ text " dont "
                         , results.recipe.totalBonusesImpact.total
@@ -687,7 +682,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 |> Format.formatFoodSelectedImpact selectedImpact
             ]
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
-        , if shouldRenderBonuses selectedImpact then
+        , if Impact.isEcoscore selectedImpact then
             let
                 { bonuses, ingredient } =
                     recipeIngredient
@@ -1380,7 +1375,7 @@ impactTabsView : Db -> Model -> Recipe.Results -> Html Msg
 impactTabsView db model results =
     CardTabs.view
         { tabs =
-            (if shouldRenderBonuses model.impact then
+            (if Impact.isEcoscore model.impact then
                 [ ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
                 , ( StepImpactsTab, "Étapes" )
