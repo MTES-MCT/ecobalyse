@@ -1337,6 +1337,32 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
+percentageTable : List { name : String, percent : Float, vsStrongest : Float } -> Html Msg
+percentageTable data =
+    table [ class "table w-100 m-0" ]
+        [ data
+            |> List.map
+                (\{ name, percent, vsStrongest } ->
+                    tr []
+                        [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
+                        , td [ style "width" "200px", style "vertical-align" "middle" ]
+                            [ div [ class "progress", style "width" "100%", style "height" "13px" ]
+                                [ div
+                                    [ class "progress-bar bg-secondary"
+                                    , style "width" (String.fromFloat vsStrongest ++ "%")
+                                    ]
+                                    []
+                                ]
+                            ]
+                        , td [ class "text-end fs-8" ]
+                            [ Format.percent percent
+                            ]
+                        ]
+                )
+            |> tbody []
+        ]
+
+
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -1354,97 +1380,7 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , CardTabs.view
-            { tabs =
-                (if shouldRenderBonuses model.impact then
-                    [ ( SubscoresTab, "Sous-scores" )
-                    , ( DetailedImpactsTab, "Impacts" )
-                    , ( StepImpactsTab, "Étapes" )
-                    ]
-
-                 else
-                    [ ( StepImpactsTab, "Étapes" ) ]
-                )
-                    |> List.map
-                        (\( tab, label ) ->
-                            { label = label
-                            , event = SwitchImpactsTab tab
-                            , active = model.activeImpactsTab == tab
-                            }
-                        )
-            , content =
-                [ case model.activeImpactsTab of
-                    DetailedImpactsTab ->
-                        let
-                            data =
-                                results.total
-                                    |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
-
-                            total =
-                                data |> List.map .value |> List.sum
-
-                            strongest =
-                                data |> List.map .value |> List.maximum |> Maybe.withDefault 100
-
-                            dataWithPercentages =
-                                data
-                                    |> List.map
-                                        (\{ name, value } ->
-                                            { name = name, percent = value / total * 100, vsStrongest = value / strongest * 100 }
-                                        )
-                        in
-                        table [ class "table mb-0" ]
-                            [ dataWithPercentages
-                                |> List.sortBy .percent
-                                |> List.reverse
-                                |> List.map
-                                    (\{ name, percent, vsStrongest } ->
-                                        tr []
-                                            [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
-                                            , td [ style "width" "200px", style "vertical-align" "middle" ]
-                                                [ div [ class "progress", style "width" "100%", style "height" "13px" ]
-                                                    [ div
-                                                        [ class "progress-bar bg-secondary"
-                                                        , style "width" (String.fromFloat vsStrongest ++ "%")
-                                                        ]
-                                                        []
-                                                    ]
-                                                ]
-                                            , td [ class "text-end fs-8" ]
-                                                [ Format.percent percent
-                                                ]
-                                            ]
-                                    )
-                                |> tbody []
-                            ]
-
-                    StepImpactsTab ->
-                        stepResultsView model results
-
-                    SubscoresTab ->
-                        table [ class "table Subscores w-100 m-0" ]
-                            [ [ ( "Climat", results.scoring.climate )
-                              , ( "Biodiversité", results.scoring.biodiversity )
-                              , ( "Santé environnementale", results.scoring.health )
-                              , ( "Ressource", results.scoring.resources )
-                              ]
-                                |> List.map
-                                    (\( label, subScore ) ->
-                                        tr []
-                                            [ th [ class "ps-3 fw-normal" ] [ text label ]
-                                            , td [ class "pe-3 text-end" ]
-                                                [ strong []
-                                                    [ subScore
-                                                        |> Unit.impactToFloat
-                                                        |> Format.formatImpactFloat model.impact
-                                                    ]
-                                                ]
-                                            ]
-                                    )
-                                |> tbody []
-                            ]
-                ]
-            }
+        , impactTabsView db model results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1463,6 +1399,132 @@ sidebarView session db model results =
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
         ]
+
+
+impactTabsView : Db -> Model -> Recipe.Results -> Html Msg
+impactTabsView db model results =
+    CardTabs.view
+        { tabs =
+            (if shouldRenderBonuses model.impact then
+                [ ( SubscoresTab, "Sous-scores" )
+                , ( DetailedImpactsTab, "Impacts" )
+                , ( StepImpactsTab, "Étapes" )
+                ]
+
+             else
+                [ ( StepImpactsTab, "Étapes" ) ]
+            )
+                |> List.map
+                    (\( tab, label ) ->
+                        { label = label
+                        , event = SwitchImpactsTab tab
+                        , active = model.activeImpactsTab == tab
+                        }
+                    )
+        , content =
+            [ case model.activeImpactsTab of
+                DetailedImpactsTab ->
+                    let
+                        data =
+                            results.total
+                                |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
+
+                        total =
+                            data |> List.map .value |> List.sum
+
+                        strongest =
+                            data |> List.map .value |> List.maximum |> Maybe.withDefault 100
+
+                        dataWithPercentages =
+                            data
+                                |> List.map
+                                    (\{ name, value } ->
+                                        { name = name
+                                        , percent = value / total * 100
+                                        , vsStrongest = value / strongest * 100
+                                        }
+                                    )
+                    in
+                    dataWithPercentages
+                        |> List.sortBy .percent
+                        |> List.reverse
+                        |> percentageTable
+
+                StepImpactsTab ->
+                    let
+                        toFloat =
+                            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
+
+                        totalImpact =
+                            toFloat results.total
+
+                        data =
+                            [ { name = "Ingrédients"
+                              , impact = toFloat results.recipe.ingredientsTotal
+                              }
+                            , { name = "Transformation"
+                              , impact = toFloat results.recipe.transform
+                              }
+                            , { name = "Emballage"
+                              , impact = toFloat results.packaging
+                              }
+                            , { name = "Transports"
+                              , impact = toFloat results.transports.impacts
+                              }
+                            , { name = "Distribution"
+                              , impact = toFloat results.distribution.total
+                              }
+                            , { name = "Consommation"
+                              , impact = toFloat results.preparation
+                              }
+                            ]
+
+                        strongest =
+                            data |> List.map .impact |> List.maximum |> Maybe.withDefault 100
+                    in
+                    data
+                        |> List.map
+                            (\{ name, impact } ->
+                                { name = name
+                                , percent =
+                                    if totalImpact /= 0 then
+                                        impact / totalImpact * 100
+
+                                    else
+                                        0
+                                , vsStrongest = impact / strongest * 100
+                                }
+                            )
+                        |> percentageTable
+
+                SubscoresTab ->
+                    div []
+                        [ let
+                            data =
+                                [ ( "Climat", Unit.impactToFloat results.scoring.climate )
+                                , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
+                                , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
+                                , ( "Ressource", Unit.impactToFloat results.scoring.resources )
+                                ]
+
+                            total =
+                                data |> List.map Tuple.second |> List.sum
+
+                            strongest =
+                                data |> List.map Tuple.second |> List.maximum |> Maybe.withDefault 100
+                          in
+                          data
+                            |> List.map
+                                (\( name, impact ) ->
+                                    { name = name
+                                    , percent = impact / total * 100
+                                    , vsStrongest = impact / strongest * 100
+                                    }
+                                )
+                            |> percentageTable
+                        ]
+            ]
+        }
 
 
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
@@ -1484,67 +1546,6 @@ stepListView db { impact } recipe results =
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
         ]
-
-
-stepResultsView : Model -> Recipe.Results -> Html Msg
-stepResultsView model results =
-    let
-        toFloat =
-            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
-
-        stepsData =
-            [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal
-              }
-            , { label = "Transformation"
-              , impact = toFloat results.recipe.transform
-              }
-            , { label = "Emballage"
-              , impact = toFloat results.packaging
-              }
-            , { label = "Transports"
-              , impact = toFloat results.transports.impacts
-              }
-            , { label = "Distribution"
-              , impact = toFloat results.distribution.total
-              }
-            , { label = "Consommation"
-              , impact = toFloat results.preparation
-              }
-            ]
-
-        totalImpact =
-            toFloat results.total
-    in
-    ul [ class "list-group list-group-flush fs-8" ]
-        (stepsData
-            |> List.map
-                (\{ label, impact } ->
-                    let
-                        percent =
-                            if totalImpact /= 0 then
-                                impact / totalImpact * 100
-
-                            else
-                                0
-                    in
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
-                        , span [ class "flex-fill w-50" ]
-                            [ div [ class "progress", style "height" "13px" ]
-                                [ div
-                                    [ class "progress-bar bg-secondary"
-                                    , style "width" (String.fromFloat percent ++ "%")
-                                    ]
-                                    []
-                                ]
-                            ]
-                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
-                            [ Format.percent percent
-                            ]
-                        ]
-                )
-        )
 
 
 transformView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)

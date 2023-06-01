@@ -27,7 +27,7 @@ view { tabs, content } =
                                 [ text label ]
                             ]
                     )
-                |> ul [ class "Tabs nav nav-tabs justify-content-end gap-2 px-3" ]
+                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
             ]
             :: content
         )
