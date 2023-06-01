@@ -1387,7 +1387,7 @@ impactTabsView db model results =
                 |> List.map
                     (\( tab, label ) ->
                         { label = label
-                        , event = SwitchImpactsTab tab
+                        , onTabClick = SwitchImpactsTab tab
                         , active = model.activeImpactsTab == tab
                         }
                     )

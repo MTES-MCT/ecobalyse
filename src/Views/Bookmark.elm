@@ -48,7 +48,7 @@ view ({ activeTab, switchTab } as config) =
                 |> List.map
                     (\( tab, label ) ->
                         { label = label
-                        , event = switchTab tab
+                        , onTabClick = switchTab tab
                         , active = activeTab == tab
                         }
                     )

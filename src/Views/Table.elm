@@ -22,41 +22,44 @@ responsiveDefault attrs content =
 percentageTable : List ( String, Float ) -> Html msg
 percentageTable data =
     let
-        total =
-            data |> List.map Tuple.second |> List.sum
+        values =
+            List.map Tuple.second data
 
-        strongest =
-            data |> List.map Tuple.second |> List.maximum |> Maybe.withDefault 100
+        ( total, maximum ) =
+            ( List.sum values
+            , values |> List.maximum |> Maybe.withDefault 0
+            )
+    in
+    if total == 0 || maximum == 0 then
+        text ""
 
-        dataWithPercentages =
-            data
+    else
+        table [ class "table w-100 m-0" ]
+            [ data
                 |> List.map
                     (\( name, value ) ->
                         { name = name
                         , percent = value / total * 100
-                        , vsStrongest = value / strongest * 100
+                        , width = value / maximum * 100
                         }
                     )
-    in
-    table [ class "table w-100 m-0" ]
-        [ dataWithPercentages
-            |> List.map
-                (\{ name, percent, vsStrongest } ->
-                    tr []
-                        [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
-                        , td [ style "width" "200px", style "vertical-align" "middle" ]
-                            [ div [ class "progress bg-white", style "width" "100%", style "height" "13px" ]
-                                [ div
-                                    [ class "progress-bar bg-secondary"
-                                    , style "width" (String.fromFloat vsStrongest ++ "%")
+                |> List.map
+                    (\{ name, percent, width } ->
+                        tr []
+                            [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
+                            , td [ style "width" "200px", style "vertical-align" "middle" ]
+                                [ div [ class "progress bg-white", style "width" "100%", style "height" "13px" ]
+                                    [ div
+                                        [ class "progress-bar bg-secondary"
+                                        , style "width" (String.fromFloat width ++ "%")
+                                        ]
+                                        []
                                     ]
-                                    []
+                                ]
+                            , td [ class "text-end fs-8" ]
+                                [ Format.percent percent
                                 ]
                             ]
-                        , td [ class "text-end fs-8" ]
-                            [ Format.percent percent
-                            ]
-                        ]
-                )
-            |> tbody []
-        ]
+                    )
+                |> tbody []
+            ]

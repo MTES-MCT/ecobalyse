@@ -5,8 +5,15 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
+type alias Tab msg =
+    { label : String
+    , active : Bool
+    , onTabClick : msg
+    }
+
+
 type alias Config msg =
-    { tabs : List { label : String, event : msg, active : Bool }
+    { tabs : List (Tab msg)
     , content : List (Html msg)
     }
 
@@ -17,12 +24,12 @@ view { tabs, content } =
         (div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ tabs
                 |> List.map
-                    (\{ label, event, active } ->
+                    (\{ label, onTabClick, active } ->
                         li [ class "TabsTab nav-item", classList [ ( "active", active ) ] ]
                             [ button
                                 [ class "nav-link no-outline border-top-0"
                                 , classList [ ( "active", active ) ]
-                                , onClick event
+                                , onClick onTabClick
                                 ]
                                 [ text label ]
                             ]
