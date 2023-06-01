@@ -28,7 +28,7 @@ percentageTable data =
                     tr []
                         [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
                         , td [ style "width" "200px", style "vertical-align" "middle" ]
-                            [ div [ class "progress", style "width" "100%", style "height" "13px" ]
+                            [ div [ class "progress bg-white", style "width" "100%", style "height" "13px" ]
                                 [ div
                                     [ class "progress-bar bg-secondary"
                                     , style "width" (String.fromFloat vsStrongest ++ "%")
