@@ -1198,6 +1198,12 @@ q {
     box-shadow: 0 -2px 0 0 $primary;
     color: $text-darker;
     font-weight: 700;
+    font-size: 0.975em;
+
+    .nav-link {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
 
     &.active {
       color: $primary !important;
