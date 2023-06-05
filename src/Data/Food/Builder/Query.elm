@@ -7,6 +7,7 @@ module Data.Food.Builder.Query exposing
     , addPackaging
     , addPreparation
     , b64encode
+    , buildApiQuery
     , carrotCake
     , decode
     , deleteIngredient
@@ -98,6 +99,17 @@ addPackaging packaging query =
             query.packaging
                 ++ [ packaging ]
     }
+
+
+buildApiQuery : String -> Query -> String
+buildApiQuery clientUrl query =
+    """curl -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/food/recipe")
+        |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
 emptyQuery : Query

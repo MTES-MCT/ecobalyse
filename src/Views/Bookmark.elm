@@ -1,13 +1,16 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Textile.Inputs as TextileInputs
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Route
 import Views.CardTabs as CardTabs
@@ -55,7 +58,7 @@ view ({ activeTab, switchTab } as config) =
         , content =
             [ case activeTab of
                 ShareTab ->
-                    shareLinkView config
+                    shareTabView config
 
                 SaveTab ->
                     managerView config
@@ -63,22 +66,34 @@ view ({ activeTab, switchTab } as config) =
         }
 
 
-shareLinkView : ManagerConfig msg -> Html msg
-shareLinkView { session, impact, funit, copyToClipBoard, scope } =
+shareTabView : ManagerConfig msg -> Html msg
+shareTabView { session, impact, funit, copyToClipBoard, scope } =
     let
-        shareableLink =
+        ( shareableLink, apiCall, jsonParams ) =
             case scope of
                 Scope.Food ->
-                    Just session.queries.food
+                    ( Just session.queries.food
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
+                    , session.queries.food
+                        |> FoodQuery.buildApiQuery session.clientUrl
+                    , session.queries.food
+                        |> FoodQuery.encode
+                        |> Encode.encode 2
+                    )
 
                 Scope.Textile ->
-                    Just session.queries.textile
+                    ( Just session.queries.textile
                         |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
                         |> Route.toString
                         |> (++) session.clientUrl
+                    , session.queries.textile
+                        |> TextileInputs.buildApiQuery session.clientUrl
+                    , session.queries.textile
+                        |> TextileInputs.encodeQuery
+                        |> Encode.encode 2
+                    )
     in
     div [ class "card-body" ]
         [ div
@@ -99,6 +114,26 @@ shareLinkView { session, impact, funit, copyToClipBoard, scope } =
             ]
         , div [ class "form-text fs-7" ]
             [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+        , h2 [ class "h5 mt-2" ] [ text "API" ]
+        , pre [ class "bg-dark text-white p-2 m-0" ]
+            [ code [] [ text <| "$ " ++ apiCall ] ]
+        , button
+            [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+            , onClick <| copyToClipBoard apiCall
+            ]
+            [ Icon.clipboard, text "Copier la commande" ]
+        , div [ class "form-text fs-7" ]
+            [ text "Cette commande utilise l'"
+            , a [ Route.href Route.Api ] [ text "API Ecobalyse" ]
+            ]
+        , h2 [ class "h5 mt-2" ] [ text "Paramètres de simulation JSON" ]
+        , pre [ class "bg-dark text-white p-2 m-0", style "max-height" "200px" ]
+            [ code [] [ text jsonParams ] ]
+        , button
+            [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+            , onClick <| copyToClipBoard jsonParams
+            ]
+            [ Icon.clipboard, text "Copier" ]
         ]
 
 
