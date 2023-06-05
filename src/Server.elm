@@ -19,8 +19,11 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Data.Unit as Unit
 import Json.Decode as Decode
 import Json.Encode as Encode
+import Page.Textile.Simulator.ViewMode as ViewMode
+import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
@@ -35,9 +38,14 @@ type alias JsonResponse =
     ( Int, Encode.Value )
 
 
+serverRootUrl : String
+serverRootUrl =
+    "https://ecobalyse.beta.gouv.fr/"
+
+
 apiDocUrl : String
 apiDocUrl =
-    "https://ecobalyse.beta.gouv.fr/#/api"
+    serverRootUrl ++ "#/api"
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
@@ -73,16 +81,34 @@ toResponse encodedResult =
 toAllImpactsSimple : List Impact.Definition -> Simulator -> Encode.Value
 toAllImpactsSimple definitions { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
+        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
 
+toFoodWebUrl : Impact.Trigram -> BuilderQuery.Query -> String
+toFoodWebUrl trigram foodQuery =
+    Just foodQuery
+        |> WebRoute.FoodBuilder trigram
+        |> WebRoute.toString
+
+
+toTextileWebUrl : Maybe Impact.Trigram -> Inputs.Inputs -> String
+toTextileWebUrl maybeTrigram textileQuery =
+    Just (Inputs.toQuery textileQuery)
+        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.defaultTextileTrigram maybeTrigram)
+            Unit.PerItem
+            ViewMode.Simple
+        |> WebRoute.toString
+
+
 toSingleImpactSimple : List Impact.Definition -> Impact.Trigram -> Simulator -> Encode.Value
 toSingleImpactSimple definitions trigram { inputs, impacts } =
     Encode.object
-        [ ( "impacts"
+        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
+        , ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
                 |> Impact.encodeImpacts definitions Scope.Textile
@@ -95,7 +121,8 @@ toSingleImpactSimple definitions trigram { inputs, impacts } =
 toFoodResults : List Impact.Definition -> BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
 toFoodResults definitions query results =
     Encode.object
-        [ ( "results", BuilderRecipe.encodeResults definitions results )
+        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.defaultFoodTrigram query |> Encode.string )
+        , ( "results", BuilderRecipe.encodeResults definitions results )
         , ( "description", Encode.string "TODO" )
         , ( "query", BuilderQuery.encode query )
         ]
