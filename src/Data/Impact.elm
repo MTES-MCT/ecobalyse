@@ -23,6 +23,7 @@ module Data.Impact exposing
     , impactsFromDefinitons
     , invalid
     , isAggregate
+    , isEcoscore
     , mapImpacts
     , noBonusImpacts
     , noImpacts
@@ -260,6 +261,11 @@ decodeQuality =
                     _ ->
                         Decode.succeed UnknownQuality
             )
+
+
+isEcoscore : Definition -> Bool
+isEcoscore { trigram } =
+    trigram == trg "ecs"
 
 
 toString : Trigram -> String
