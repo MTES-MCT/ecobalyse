@@ -34,21 +34,22 @@ percentageTable data =
         text ""
 
     else
-        table [ class "table w-100 m-0" ]
+        table [ class "table table-hover w-100 m-0" ]
             [ data
                 |> List.map
                     (\( name, value ) ->
                         { name = name
+                        , impact = value
                         , percent = value / total * 100
                         , width = value / maximum * 100
                         }
                     )
                 |> List.map
-                    (\{ name, percent, width } ->
-                        tr []
+                    (\{ name, impact, percent, width } ->
+                        tr [ title <| name ++ ": " ++ Format.formatFloat 2 percent ++ "\u{202F}% (" ++ Format.formatFloat 2 impact ++ "\u{202F}µPts)" ]
                             [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
                             , td [ style "width" "200px", style "vertical-align" "middle" ]
-                                [ div [ class "progress bg-white", style "width" "100%", style "height" "13px" ]
+                                [ div [ class "progress bg-transparent", style "width" "100%", style "height" "13px" ]
                                     [ div
                                         [ class "progress-bar bg-secondary"
                                         , style "width" (String.fromFloat width ++ "%")
