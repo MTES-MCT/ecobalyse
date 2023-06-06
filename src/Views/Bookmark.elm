@@ -95,45 +95,52 @@ shareTabView { session, impact, funit, copyToClipBoard, scope } =
                         |> Encode.encode 2
                     )
     in
-    div [ class "card-body" ]
-        [ div
-            [ class "input-group" ]
-            [ input
-                [ type_ "url"
-                , class "form-control"
-                , value shareableLink
+    div []
+        [ div [ class "card-body pt-0 pb-2" ]
+            [ h2 [ class "h5 mt-2" ] [ text "Web" ]
+            , div
+                [ class "input-group" ]
+                [ input
+                    [ type_ "url"
+                    , class "form-control"
+                    , value shareableLink
+                    ]
+                    []
+                , button
+                    [ class "input-group-text"
+                    , title "Copier l'adresse"
+                    , onClick (copyToClipBoard shareableLink)
+                    ]
+                    [ Icon.clipboard
+                    ]
                 ]
-                []
+            , div [ class "form-text fs-7" ]
+                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+            ]
+        , div [ class "card-body border-top pt-0 pb-2" ]
+            [ h2 [ class "h5 mt-2" ] [ text "API" ]
+            , pre [ class "bg-dark text-white p-2 m-0" ]
+                [ code [] [ text <| "$ " ++ apiCall ] ]
             , button
-                [ class "input-group-text"
-                , title "Copier l'adresse"
-                , onClick (copyToClipBoard shareableLink)
+                [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+                , onClick <| copyToClipBoard apiCall
                 ]
-                [ Icon.clipboard
+                [ Icon.clipboard, text "Copier la commande" ]
+            , div [ class "form-text fs-7" ]
+                [ text "Cette commande utilise l'"
+                , a [ Route.href Route.Api ] [ text "API Ecobalyse" ]
                 ]
             ]
-        , div [ class "form-text fs-7" ]
-            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        , h2 [ class "h5 mt-2" ] [ text "API" ]
-        , pre [ class "bg-dark text-white p-2 m-0" ]
-            [ code [] [ text <| "$ " ++ apiCall ] ]
-        , button
-            [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
-            , onClick <| copyToClipBoard apiCall
+        , div [ class "card-body border-top pt-0" ]
+            [ h2 [ class "h5 mt-2" ] [ text "Paramètres de simulation JSON" ]
+            , pre [ class "bg-dark text-white p-2 m-0", style "max-height" "200px" ]
+                [ code [] [ text jsonParams ] ]
+            , button
+                [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+                , onClick <| copyToClipBoard jsonParams
+                ]
+                [ Icon.clipboard, text "Copier" ]
             ]
-            [ Icon.clipboard, text "Copier la commande" ]
-        , div [ class "form-text fs-7" ]
-            [ text "Cette commande utilise l'"
-            , a [ Route.href Route.Api ] [ text "API Ecobalyse" ]
-            ]
-        , h2 [ class "h5 mt-2" ] [ text "Paramètres de simulation JSON" ]
-        , pre [ class "bg-dark text-white p-2 m-0", style "max-height" "200px" ]
-            [ code [] [ text jsonParams ] ]
-        , button
-            [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
-            , onClick <| copyToClipBoard jsonParams
-            ]
-            [ Icon.clipboard, text "Copier" ]
         ]
 
 
