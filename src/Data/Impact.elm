@@ -328,7 +328,7 @@ type alias Impacts =
 
 noImpacts : Impacts
 noImpacts =
-    AnyDict.fromList (always "") []
+    AnyDict.empty toString
 
 
 impactsFromDefinitons : List Definition -> Impacts
