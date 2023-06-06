@@ -137,11 +137,6 @@ compute db =
         >> Result.map
             (\({ ingredients, transform, packaging, distribution, preparation } as recipe) ->
                 let
-                    updateImpacts impacts =
-                        impacts
-                            |> Impact.sumImpacts db.impacts
-                            |> Impact.updateAggregatedScores db.impacts
-
                     ingredientsImpacts =
                         ingredients
                             |> List.map
@@ -165,7 +160,7 @@ compute db =
 
                     transformImpacts =
                         transform
-                            |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
+                            |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
                             |> Maybe.withDefault Impact.noImpacts
 
                     distributionImpacts =
@@ -203,11 +198,11 @@ compute db =
                             |> Result.map (Transport.computeImpacts db.impacts mass transport)
 
                     recipeImpacts =
-                        updateImpacts
-                            [ ingredientsTotalImpacts
-                            , transformImpacts
-                            , ingredientsTransport.impacts
-                            ]
+                        [ ingredientsTotalImpacts
+                        , transformImpacts
+                        , ingredientsTransport.impacts
+                        ]
+                            |> Impact.sumImpacts db.impacts
 
                     transformedIngredientsMass =
                         getTransformedIngredientsMass recipe
@@ -215,20 +210,17 @@ compute db =
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
-                            |> updateImpacts
+                            |> Impact.sumImpacts db.impacts
 
                     preparationImpacts =
                         preparation
                             |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
-                            |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
+                            |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
 
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
                     addIngredientsBonuses impacts =
-                        -- Note: this must be applied at the very last step of the impacts computation
-                        -- pipeline, as it relies on the final ingredients ecoscore and land use values
-                        -- as a base for computation.
                         Impact.applyBonus totalBonusesImpact.total impacts
 
                     totalBonusesImpact =

@@ -407,6 +407,8 @@ decodeImpacts definitions =
         )
         toString
         Unit.decodeImpact
+        -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
+        |> Decode.map (updateAggregatedScores definitions)
 
 
 encodeBonusesImpacts : BonusImpacts -> Encode.Value
