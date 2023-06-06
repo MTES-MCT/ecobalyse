@@ -142,17 +142,17 @@ encodeId (Id str) =
     Encode.string str
 
 
-encodePlaneTransport : PlaneTransport -> Encode.Value
+encodePlaneTransport : PlaneTransport -> Maybe Encode.Value
 encodePlaneTransport planeTransport =
     case planeTransport of
         PlaneNotApplicable ->
-            Encode.null
+            Nothing
 
         ByPlane ->
-            Encode.string "byPlane"
+            Just <| Encode.string "byPlane"
 
         NoPlane ->
-            Encode.string "noPlane"
+            Just <| Encode.string "noPlane"
 
 
 getDefaultOrganicBonuses : Ingredient -> Bonuses

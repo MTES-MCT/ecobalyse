@@ -6,6 +6,7 @@ module Data.Textile.Inputs exposing
     , addMaterial
     , b64decode
     , b64encode
+    , buildApiQuery
     , countryList
     , decodeQuery
     , defaultQuery
@@ -683,6 +684,17 @@ presets =
     ]
 
 
+buildApiQuery : String -> Query -> String
+buildApiQuery clientUrl query =
+    """curl -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/textile/simulator")
+        |> String.replace "%json%" (encodeQuery query |> Encode.encode 0)
+
+
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
@@ -750,28 +762,37 @@ decodeMaterialQuery =
 
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
-    Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "materials", Encode.list encodeMaterialQuery query.materials )
-        , ( "product", query.product |> Product.idToString |> Encode.string )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "countryFabric", query.countryFabric |> Country.encodeCode )
-        , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
-        , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
-        , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
-        , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
-        , ( "printing", query.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
-        , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
-        ]
+    [ ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
+    , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
+    , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
+    , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
+    , ( "countryFabric", query.countryFabric |> Country.encodeCode |> Just )
+    , ( "countryDyeing", query.countryDyeing |> Country.encodeCode |> Just )
+    , ( "countryMaking", query.countryMaking |> Country.encodeCode |> Just )
+    , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
+    , ( "quality", query.quality |> Maybe.map Unit.encodeQuality )
+    , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability )
+    , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
+    , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
+    , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
+    , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
+    , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode )
+    , ( "disabledSteps"
+      , case query.disabledSteps of
+            [] ->
+                Nothing
+
+            list ->
+                Encode.list Label.encode list |> Just
+      )
+    , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool )
+    , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
+    , ( "printing", query.printing |> Maybe.map Printing.encode )
+    , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
+    ]
+        -- For concision, drop keys where no param is defined
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 encodeMaterialQuery : MaterialQuery -> Encode.Value
