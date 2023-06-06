@@ -6,6 +6,7 @@ module Data.Impact exposing
     , Source
     , Trigram(..)
     , addBonusImpacts
+    , applyBonus
     , bonusesImpactAsChartEntries
     , computeAggregatedScore
     , decodeImpacts
@@ -104,6 +105,17 @@ addBonusImpacts a b =
     , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
     , total = Quantity.plus a.total b.total
     }
+
+
+applyBonus : Unit.Impact -> Impacts -> Impacts
+applyBonus bonus impacts =
+    let
+        ecoScore =
+            getImpact (trg "ecs") impacts
+    in
+    impacts
+        |> updateImpact (trg "ecs")
+            (Quantity.difference ecoScore bonus)
 
 
 noBonusImpacts : BonusImpacts

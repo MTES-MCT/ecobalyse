@@ -229,13 +229,7 @@ compute db =
                         -- Note: this must be applied at the very last step of the impacts computation
                         -- pipeline, as it relies on the final ingredients ecoscore and land use values
                         -- as a base for computation.
-                        let
-                            ecoScore =
-                                Impact.getImpact (Impact.trg "ecs") impacts
-                        in
-                        impacts
-                            |> Impact.updateImpact (Impact.trg "ecs")
-                                (Quantity.difference ecoScore totalBonusesImpact.total)
+                        Impact.applyBonus totalBonusesImpact.total impacts
 
                     totalBonusesImpact =
                         ingredients
