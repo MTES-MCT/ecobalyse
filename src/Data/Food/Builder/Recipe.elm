@@ -143,7 +143,6 @@ compute db =
                                 (\recipeIngredient ->
                                     recipeIngredient
                                         |> computeIngredientImpacts
-                                        |> Impact.updateAggregatedScores db.impacts
                                         |> Tuple.pair recipeIngredient
                                 )
 
@@ -160,7 +159,7 @@ compute db =
 
                     transformImpacts =
                         transform
-                            |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
+                            |> Maybe.map (computeProcessImpacts >> List.singleton >> Impact.sumImpacts db.impacts)
                             |> Maybe.withDefault Impact.noImpacts
 
                     distributionImpacts =
@@ -209,7 +208,7 @@ compute db =
 
                     packagingImpacts =
                         packaging
-                            |> List.map (computeProcessImpacts db.impacts)
+                            |> List.map computeProcessImpacts
                             |> Impact.sumImpacts db.impacts
 
                     preparationImpacts =
@@ -358,11 +357,10 @@ computeImpact mass _ =
         >> Unit.impact
 
 
-computeProcessImpacts : List Impact.Definition -> { a | process : Process, mass : Mass } -> Impacts
-computeProcessImpacts defs item =
+computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts item =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
-        |> Impact.updateAggregatedScores defs
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts

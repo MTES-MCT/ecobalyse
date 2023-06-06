@@ -1005,7 +1005,7 @@ packagingListView db selectedImpact recipe results =
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
                             , impact =
                                 packaging
-                                    |> Recipe.computeProcessImpacts db.impacts
+                                    |> Recipe.computeProcessImpacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.code
                             , deleteEvent = DeletePackaging packaging.process.code
