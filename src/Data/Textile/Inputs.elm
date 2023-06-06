@@ -777,7 +777,14 @@ encodeQuery query =
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
     , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode )
-    , ( "disabledSteps", Encode.list Label.encode query.disabledSteps |> Just )
+    , ( "disabledSteps"
+      , case query.disabledSteps of
+            [] ->
+                Nothing
+
+            list ->
+                Encode.list Label.encode list |> Just
+      )
     , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
