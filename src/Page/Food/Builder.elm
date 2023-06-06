@@ -1215,9 +1215,7 @@ consumptionView db selectedImpact recipe results =
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Result.map
-                                        (Impact.updateAggregatedScores db.impacts
-                                            >> Format.formatFoodSelectedImpact selectedImpact
-                                        )
+                                        (Format.formatFoodSelectedImpact selectedImpact)
                                     |> Result.withDefault (text "N/A")
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)

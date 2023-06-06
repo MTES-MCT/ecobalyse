@@ -202,7 +202,7 @@ suite =
                            )
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
-                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288866))
+                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288869))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the total ecs impact with the bonus taken into account"
                      , carrotCakeResults
