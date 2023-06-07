@@ -113,7 +113,7 @@ applyBonus bonus impacts =
             getImpact (trg "ecs") impacts
     in
     impacts
-        |> insert (trg "ecs")
+        |> insertWithoutAggregateComputation (trg "ecs")
             (Quantity.difference ecoScore bonus)
 
 
@@ -344,17 +344,17 @@ noImpacts =
         |> Impacts
 
 
-insert : Trigram -> Unit.Impact -> Impacts -> Impacts
-insert trigram impact (Impacts impacts) =
-    AnyDict.insert trigram impact impacts
-        |> Impacts
-
-
 impactsFromDefinitons : List Definition -> Impacts
 impactsFromDefinitons =
     List.map (\{ trigram } -> ( trigram, Quantity.zero ))
         >> AnyDict.fromList toString
         >> Impacts
+
+
+insertWithoutAggregateComputation : Trigram -> Unit.Impact -> Impacts -> Impacts
+insertWithoutAggregateComputation trigram impact (Impacts impacts) =
+    AnyDict.insert trigram impact impacts
+        |> Impacts
 
 
 getImpact : Trigram -> Impacts -> Unit.Impact
@@ -407,7 +407,7 @@ toDict (Impacts impacts) =
 
 updateImpact : List Definition -> Trigram -> Unit.Impact -> Impacts -> Impacts
 updateImpact definitions trigram value =
-    insert trigram value
+    insertWithoutAggregateComputation trigram value
         >> updateAggregatedScores definitions
 
 
@@ -457,7 +457,7 @@ updateAggregatedScores definitions impacts =
         aggregateScore getter trigram =
             impacts
                 |> computeAggregatedScore getter definitions
-                |> insert trigram
+                |> insertWithoutAggregateComputation trigram
     in
     impacts
         |> aggregateScore .ecoscoreData (trg "ecs")
