@@ -455,8 +455,9 @@ updateAggregatedScores : List Definition -> Impacts -> Impacts
 updateAggregatedScores definitions impacts =
     let
         aggregateScore getter trigram =
-            insert trigram
-                (computeAggregatedScore getter definitions impacts)
+            impacts
+                |> computeAggregatedScore getter definitions
+                |> insert trigram
     in
     impacts
         |> aggregateScore .ecoscoreData (trg "ecs")
