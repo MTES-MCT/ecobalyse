@@ -8,7 +8,6 @@ module Data.Impact exposing
     , addBonusImpacts
     , applyBonus
     , bonusesImpactAsChartEntries
-    , computeAggregatedScore
     , decodeImpacts
     , decodeList
     , defaultFoodTrigram
@@ -35,7 +34,6 @@ module Data.Impact exposing
     , toString
     , totalBonusesImpactAsChartEntry
     , trg
-    , updateAggregatedScores
     , updateImpact
     )
 
@@ -114,7 +112,7 @@ applyBonus bonus impacts =
             getImpact (trg "ecs") impacts
     in
     impacts
-        |> updateImpact (trg "ecs")
+        |> AnyDict.insert (trg "ecs")
             (Quantity.difference ecoScore bonus)
 
 
@@ -390,9 +388,10 @@ sumImpacts defs =
         (impactsFromDefinitons defs)
 
 
-updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts
-updateImpact trigram value =
+updateImpact : List Definition -> Trigram -> Unit.Impact -> Impacts -> Impacts
+updateImpact definitions trigram value =
     AnyDict.insert trigram value
+        >> updateAggregatedScores definitions
 
 
 decodeImpacts : List Definition -> Decoder Impacts
@@ -437,7 +436,7 @@ updateAggregatedScores : List Definition -> Impacts -> Impacts
 updateAggregatedScores definitions impacts =
     let
         aggregateScore getter trigram =
-            updateImpact trigram
+            AnyDict.insert trigram
                 (computeAggregatedScore getter definitions impacts)
     in
     impacts

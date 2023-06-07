@@ -36,8 +36,8 @@ suite =
             [ let
                 testComputedBonuses bonuses =
                     Impact.impactsFromDefinitons builderDb.impacts
-                        |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
-                        |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
+                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact 100)
                         |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
               in
               describe "computeIngredientBonusesImpacts"
@@ -91,8 +91,8 @@ suite =
                     (let
                         bonusImpacts =
                             Impact.impactsFromDefinitons builderDb.impacts
-                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
-                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact -100)
                                 |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
