@@ -151,10 +151,10 @@ suite =
                                 |> Recipe.compute builderDb
                      in
                      [ carrotCakeResults
-                        |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
+                        |> Result.map (Tuple.second >> .total >> Impact.toDict >> AnyDict.toDict)
                         |> Result.withDefault Dict.empty
                         |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
-                        |> Expect.equal
+                        |> Expect.equalDicts
                             (Dict.fromList
                                 -- Note: presented that way to ease diff viewing in test results
                                 [ ( "acd", True )

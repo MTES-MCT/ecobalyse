@@ -2,6 +2,7 @@ module Data.Food.Explorer.RecipeTest exposing (..)
 
 import Data.Food.Explorer.Recipe as Recipe
 import Data.Food.Process as Process
+import Data.Impact as Impact
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -89,7 +90,7 @@ suite =
             , describe "compute"
                 [ Recipe.tunaPizza
                     |> Recipe.compute explorerDb
-                    |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
+                    |> Result.map (Tuple.second >> .impacts >> Impact.toDict >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts
                         (Dict.fromList
