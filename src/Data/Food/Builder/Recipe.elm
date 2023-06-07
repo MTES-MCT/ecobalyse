@@ -159,7 +159,7 @@ compute db =
 
                     transformImpacts =
                         transform
-                            |> Maybe.map (computeProcessImpacts >> List.singleton >> Impact.sumImpacts db.impacts)
+                            |> Maybe.map computeProcessImpacts
                             |> Maybe.withDefault Impact.noImpacts
 
                     distributionImpacts =
@@ -197,11 +197,11 @@ compute db =
                             |> Result.map (Transport.computeImpacts db.impacts mass transport)
 
                     recipeImpacts =
-                        [ ingredientsTotalImpacts
-                        , transformImpacts
-                        , ingredientsTransport.impacts
-                        ]
-                            |> Impact.sumImpacts db.impacts
+                        Impact.sumImpacts db.impacts
+                            [ ingredientsTotalImpacts
+                            , transformImpacts
+                            , ingredientsTransport.impacts
+                            ]
 
                     transformedIngredientsMass =
                         getTransformedIngredientsMass recipe
