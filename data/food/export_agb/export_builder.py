@@ -211,6 +211,9 @@ if __name__ == "__main__":
         else:
             v["export_data"]["impacts"]["bvi"] = 0.0
 
+        # delete wtu results as they are currently incoherent
+        del v["export_data"]["impacts"]["wtu"]
+
     # Compute new processes for complex variants
     new_processes = compute_new_processes(activities, ingredients_base)
 
