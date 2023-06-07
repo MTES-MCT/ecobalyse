@@ -148,11 +148,6 @@ compute db query =
         -- Compute transport summary
         |> next (computeTotalTransportImpacts db)
         --
-        -- PEF scores
-        --
-        -- Compute PEF impact scores
-        |> next (computeAggregatedScores db)
-        --
         -- Final impacts
         --
         |> next (computeFinalImpacts db)
@@ -586,16 +581,6 @@ computeTotalTransportImpacts db simulator =
 computeFinalImpacts : Db -> Simulator -> Simulator
 computeFinalImpacts db ({ lifeCycle } as simulator) =
     { simulator | impacts = LifeCycle.computeFinalImpacts db lifeCycle }
-
-
-computeAggregatedScores : Db -> Simulator -> Simulator
-computeAggregatedScores db =
-    updateLifeCycle
-        (LifeCycle.mapSteps
-            (\({ impacts } as step) ->
-                { step | impacts = impacts |> Impact.updateAggregatedScores db.impacts }
-            )
-        )
 
 
 lifeCycleImpacts : Db -> Simulator -> List ( String, List ( String, Float ) )

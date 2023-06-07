@@ -1005,7 +1005,7 @@ packagingListView db selectedImpact recipe results =
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
                             , impact =
                                 packaging
-                                    |> Recipe.computeProcessImpacts db.impacts
+                                    |> Recipe.computeProcessImpacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.code
                             , deleteEvent = DeletePackaging packaging.process.code
@@ -1215,9 +1215,7 @@ consumptionView db selectedImpact recipe results =
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Result.map
-                                        (Impact.updateAggregatedScores db.impacts
-                                            >> Format.formatFoodSelectedImpact selectedImpact
-                                        )
+                                        (Format.formatFoodSelectedImpact selectedImpact)
                                     |> Result.withDefault (text "N/A")
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
