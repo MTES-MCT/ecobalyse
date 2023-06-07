@@ -2,6 +2,19 @@
 
 <details>
 
+<summary>Mai 2023</summary>
+
+* Ouverture des scénarios de modélisation\
+  L'API et l'interface en ligne permettent désormais d'accéder aux paramètres des modélisations produit. Cela facilite le partage de scénarios entre acteurs.&#x20;
+* Webinaire technique (12 mai 2023)\
+  Mise en place d'un webinaire en ligne présentant les avancées méthodologiques du dispositif d'affichage environnemental Textile.\
+  Replay => [accès](https://ademecloud-my.sharepoint.com/personal/fabien\_fougeroux\_ademe\_fr/\_layouts/15/stream.aspx?id=%2Fpersonal%2Ffabien%5Ffougeroux%5Fademe%5Ffr%2FDocuments%2FPartage%2FAffichage%20Environnemental%20Textile%2Emp4\&ga=1)\
+  Slides => [accès](https://docs.google.com/presentation/d/1xhv6oYeVitYJT9dsPYXUtv1xjIW7MVR\_Fe8eaE1e8FU/edit?usp=sharing)&#x20;
+
+</details>
+
+<details>
+
 <summary>Avril 2023</summary>
 
 * Explorateur produit
