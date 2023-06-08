@@ -218,7 +218,6 @@ if __name__ == "__main__":
     print(f"Export de {len(ingredients_base)} ingrédients vers {INGREDIENTS}")
     with open(INGREDIENTS, "w") as outfile:
         json.dump(ingredients_base, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes
@@ -226,4 +225,3 @@ if __name__ == "__main__":
     print(f"Export de {len(export)} procédés vers {BUILDER}")
     with open(BUILDER, "w") as outfile:
         json.dump(export, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
