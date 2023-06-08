@@ -100,7 +100,7 @@
           "agro-ecology": 0.5
         },
         "ratio": 1.16,
-        "simple_ingredient_default": "Soft wheat grain conventional breadmaking quality 15% moisture at farm gate",
+        "simple_ingredient_default": "Soft wheat grain breadmaking conventional farm",
         "simple_ingredient_variant": "soft wheat grain organic central region"
       }
     }
