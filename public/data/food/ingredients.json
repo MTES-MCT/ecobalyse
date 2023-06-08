@@ -3,7 +3,8 @@
     "id": "egg",
     "name": "Oeuf",
     "category": "animal_product",
-    "default": "Egg national average at farm gate",
+    "default": "376a061d75f5a84dce610a6dd1658024",
+    "default_backup": "Egg national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -11,7 +12,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Egg organic at farm gate",
+        "process": "49ee55e29bb9b4a971e1da2d3a9a418c",
+        "process_backup": "Egg organic at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
@@ -25,7 +27,8 @@
     "id": "milk",
     "name": "Lait",
     "category": "dairy_product",
-    "default": "Cow milk national average at farm gate",
+    "default": "7dea1621b145446a5d3703c33545d99e",
+    "default_backup": "Cow milk national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -33,7 +36,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cow milk organic system 1 at farm gate",
+        "process": "41f9cfe20e28dfb81d7485cac100e6d7",
+        "process_backup": "Cow milk organic system 1 at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
@@ -45,7 +49,8 @@
   {
     "id": "carrot",
     "name": "Carotte",
-    "default": "Carrot conventional national average at farm gate",
+    "default": "9b324ed690a03abe7964f3597cdee9d7",
+    "default_backup": "Carrot conventional national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -54,7 +59,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Carrot organic Lower Normandy at farm gate",
+        "process": "6408f1ffebe26276c8aa852b45d96aa5",
+        "process_backup": "Carrot organic Lower Normandy at farm gate",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -67,7 +73,8 @@
     "id": "wheat",
     "name": "Blé tendre",
     "category": "grain_raw",
-    "default": "Soft wheat grain conventional national average animal feed at farm gate production",
+    "default": "1e16571ca7827afcb050fa6bf74ca455",
+    "default_backup": "Soft wheat grain conventional national average animal feed at farm gate production",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -75,7 +82,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "soft wheat grain organic central region",
+        "process": "2f6161e77241227c4afe32fc7a08dd64",
+        "process_backup": "soft wheat grain organic central region",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
@@ -87,7 +95,8 @@
     "id": "flour",
     "name": "Farine",
     "category": "grain_processed",
-    "default": "Wheat flour at industrial mill",
+    "default": "ef1ca1f1ce46b9a12a0659ff45ddf2cd",
+    "default_backup": "Wheat flour at industrial mill",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -95,11 +104,11 @@
     "visible": true,
     "variants": {
       "organic": {
+        "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
-        },
-        "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
+        }
       }
     }
   },
@@ -107,7 +116,8 @@
     "id": "sunflower",
     "name": "Tournesol",
     "category": "nut_oilseed_raw",
-    "default": "Sunflower at farm FR",
+    "default": "8fd34623de7fcc913f76e05cf3ae6707",
+    "default_backup": "Sunflower at farm FR",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -115,7 +125,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Sunflower grain organic system 3 at farm gate",
+        "process": "5394298ba727ea26d67f06900242e14a",
+        "process_backup": "Sunflower grain organic system 3 at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
@@ -127,7 +138,8 @@
     "id": "rapeseed",
     "name": "Colza",
     "category": "nut_oilseed_raw",
-    "default": "Rape seed FR production Cut-off",
+    "default": "b3b442ab487de414289e0e5cf62265ec",
+    "default_backup": "Rape seed FR production Cut-off",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -135,7 +147,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Winter rapeseed organic at farm gate",
+        "process": "6d9d27b033e72a1d84cbc8485e6c66b2",
+        "process_backup": "Winter rapeseed organic at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
@@ -147,7 +160,8 @@
     "id": "tomato",
     "name": "Tomate",
     "category": "vegetable_fresh",
-    "default": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
+    "default": "d10163485aca6df2ab6c58ca44b8c413",
+    "default_backup": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -155,7 +169,8 @@
     "visible": false,
     "variants": {
       "organic": {
-        "process": "Tomato organic greenhouse production national average at greenhouse",
+        "process": "564cdc80f8d1709eb920d46b2762e297",
+        "process_backup": "Tomato organic greenhouse production national average at greenhouse",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
@@ -167,7 +182,8 @@
     "id": "potato",
     "name": "Pomme de terre",
     "category": "vegetable_fresh",
-    "default": "Ware potato conventional variety mix national average at farm gate",
+    "default": "4fbcfbfd5a34943b4f22ad43ff6f037a",
+    "default_backup": "Ware potato conventional variety mix national average at farm gate",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -178,7 +194,8 @@
     "id": "ground-beef",
     "name": "Boeuf haché",
     "category": "animal_product",
-    "default": "Ground beef fresh case ready for direct consumption at plant",
+    "default": "25193d1c75e82d06f813d525e6b67ae5",
+    "default_backup": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -186,12 +203,12 @@
     "visible": true,
     "variants": {
       "organic": {
+        "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
           "animal-welfare": 50
-        },
-        "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
+        }
       }
     }
   },
@@ -199,23 +216,21 @@
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
     "category": "animal_product",
-    "default": "Beef cattle feedlot or intensive system live weight farm GB",
+    "default": "53a1ead1-62c9-1131-8841-3218dce10a8d",
+    "default_backup": "Beef cattle feedlot or intensive system live weight farm GB",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "transport_cooling": "always",
     "visible": true,
-    "variants": {
-      "organic": {
-        "process": "53a1ead1-62c9-1131-8841-3218dce10a8d"
-      }
-    }
+    "variants": {}
   },
   {
     "id": "cooked-ham",
     "name": "Jambon",
     "category": "animal_product",
-    "default": "Cooked ham case ready at plant",
+    "default": "6eb80837104fb6fa33fee22f85734ea1",
+    "default_backup": "Cooked ham case ready at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -223,12 +238,12 @@
     "visible": true,
     "variants": {
       "organic": {
+        "process": "8cf39ae6-b10d-d055-8d10-8455fa551851",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
           "animal-welfare": 50
-        },
-        "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
+        }
       }
     }
   },
@@ -236,7 +251,8 @@
     "id": "chicken-breast",
     "name": "Poulet",
     "category": "animal_product",
-    "default": "Meat without bone chicken for direct consumption",
+    "default": "4652eded13e1cbacf9df360765997c1d",
+    "default_backup": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -244,12 +260,12 @@
     "visible": true,
     "variants": {
       "organic": {
+        "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
           "animal-welfare": 50
-        },
-        "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
+        }
       }
     }
   },
@@ -257,7 +273,8 @@
     "id": "grape",
     "name": "Raisin de cuve",
     "category": "vegetable_fresh",
-    "default": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
+    "default": "3c80efbea8e1fd1026cf3c143b8fbb8c",
+    "default_backup": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -265,7 +282,8 @@
     "visible": false,
     "variants": {
       "organic": {
-        "process": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
+        "process": "9df4c48b0b4d4a345f36bb93ce01125b",
+        "process_backup": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
@@ -277,7 +295,8 @@
     "id": "mango",
     "name": "Mangue",
     "category": "vegetable_fresh",
-    "default": "Mango conventional Val de San Francisco at orchard",
+    "default": "eb9791a420475648e03f53bfce178f83",
+    "default_backup": "Mango conventional Val de San Francisco at orchard",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
