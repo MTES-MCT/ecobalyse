@@ -9,6 +9,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
+import Json.Decode.Extra as DE
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -44,16 +45,9 @@ decode =
                                 (Decode.field "transports" Transport.decodeDistances)
                                 |> Decode.andThen
                                     (\partiallyLoaded ->
-                                        let
-                                            result =
-                                                Process.loadWellKnown processes
-                                        in
-                                        case result of
-                                            Ok wellKnown ->
-                                                Decode.succeed (partiallyLoaded wellKnown)
-
-                                            Err err ->
-                                                Decode.fail err
+                                        Process.loadWellKnown processes
+                                            |> Result.map partiallyLoaded
+                                            |> DE.fromResult
                                     )
                         )
             )
