@@ -1,7 +1,6 @@
 module Data.Textile.Db exposing
     ( Db
     , buildFromJson
-    , empty
     )
 
 import Data.Country as Country exposing (Country)
@@ -20,17 +19,6 @@ type alias Db =
     , materials : List Material
     , products : List Product
     , transports : Distances
-    }
-
-
-empty : Db
-empty =
-    { impacts = []
-    , processes = []
-    , countries = []
-    , materials = []
-    , products = []
-    , transports = Transport.emptyDistances
     }
 
 

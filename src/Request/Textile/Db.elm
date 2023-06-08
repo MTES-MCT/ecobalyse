@@ -2,7 +2,6 @@ module Request.Textile.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
-import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
@@ -76,8 +75,8 @@ handleImpactsLoaded impactsData =
             Task.succeed RemoteData.Loading
 
 
-loadDb : Session -> (WebData Db -> msg) -> Cmd msg
-loadDb _ event =
+loadDb : (WebData Db -> msg) -> Cmd msg
+loadDb event =
     getJson Impact.decodeList "impacts.json"
         |> Task.andThen handleImpactsLoaded
         |> Task.attempt
