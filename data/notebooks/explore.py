@@ -11,7 +11,6 @@ import os
 import pandas
 
 bw2data.projects.set_current("Ecobalyse")
-bw2io.bw2setup()
 os.chdir("/home/jovyan/ecobalyse/data")
 
 databases = list(bw2data.databases.keys())
