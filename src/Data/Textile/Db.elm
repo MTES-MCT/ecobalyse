@@ -19,6 +19,7 @@ type alias Db =
     , materials : List Material
     , products : List Product
     , transports : Distances
+    , wellKnown : Process.WellKnown
     }
 
 
@@ -41,5 +42,18 @@ decode =
                                 (Decode.field "materials" (Material.decodeList processes))
                                 (Decode.field "products" (Product.decodeList processes))
                                 (Decode.field "transports" Transport.decodeDistances)
+                                |> Decode.andThen
+                                    (\partiallyLoaded ->
+                                        let
+                                            result =
+                                                Process.loadWellKnown processes
+                                        in
+                                        case result of
+                                            Ok wellKnown ->
+                                                Decode.succeed (partiallyLoaded wellKnown)
+
+                                            Err err ->
+                                                Decode.fail err
+                                    )
                         )
             )

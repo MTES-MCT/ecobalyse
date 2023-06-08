@@ -2,7 +2,6 @@ module Data.Textile.ProductTest exposing (..)
 
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting
-import Data.Textile.Process as Process
 import Data.Textile.Product as Product
 import Data.Unit as Unit
 import Duration
@@ -56,33 +55,28 @@ suite =
                         sampleQuery
                             |> Inputs.fromQuery textileDb
                             |> Result.map .product
-
-                    wellKnownResult =
-                        Process.loadWellKnown textileDb.processes
                   in
                   describe "getFabricProcess"
-                    [ Result.map2
-                        (\product wellKnown ->
+                    [ Result.map
+                        (\product ->
                             let
                                 fabricProcess =
-                                    Product.getFabricProcess Nothing product wellKnown
+                                    Product.getFabricProcess Nothing product textileDb.wellKnown
                             in
                             Expect.equal product.fabric (Product.Knitted fabricProcess)
                         )
                         tshirtResult
-                        wellKnownResult
                         |> Result.withDefault (Expect.fail "test failed")
                         |> asTest "should return the default product fabric process when no knitting process is specified"
-                    , Result.map2
-                        (\product wellKnown ->
+                    , Result.map
+                        (\product ->
                             let
                                 fabricProcess =
-                                    Product.getFabricProcess (Just Knitting.Seamless) product wellKnown
+                                    Product.getFabricProcess (Just Knitting.Seamless) product textileDb.wellKnown
                             in
-                            Expect.equal wellKnown.knittingSeamless fabricProcess
+                            Expect.equal textileDb.wellKnown.knittingSeamless fabricProcess
                         )
                         tshirtResult
-                        wellKnownResult
                         |> Result.withDefault (Expect.fail "test failed")
                         |> asTest "should return the selected knitting process over the default product fabric process"
                     ]

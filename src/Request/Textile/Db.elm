@@ -7,6 +7,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
+import Http
 import RemoteData exposing (WebData)
 import Request.Common exposing (getJson)
 import Task exposing (Task)
@@ -26,6 +27,13 @@ buildFromWebData impacts processes countries materials products transports =
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
+        |> RemoteData.andThen
+            (\partiallyLoaded ->
+                Process.loadWellKnown processes
+                    |> Result.map partiallyLoaded
+                    |> RemoteData.fromResult
+                    |> RemoteData.mapError Http.BadBody
+            )
 
 
 loadDependentData : List Impact.Definition -> List Process -> Task () (WebData Db)
