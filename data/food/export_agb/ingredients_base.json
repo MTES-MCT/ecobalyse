@@ -58,7 +58,7 @@
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -78,7 +78,7 @@
         "process": "soft wheat grain organic central region",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -97,7 +97,7 @@
       "organic": {
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         },
         "ratio": 1.16,
         "simple_ingredient_default": "Soft wheat grain breadmaking conventional farm",
@@ -120,7 +120,7 @@
         "process": "Sunflower grain organic system 3 at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -140,7 +140,7 @@
         "process": "Winter rapeseed organic at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -160,7 +160,7 @@
         "process": "Tomato organic greenhouse production national average at greenhouse",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -278,7 +278,7 @@
         "process": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -311,9 +311,9 @@
         "simple_ingredient_default": "rape seed {FR}",
         "simple_ingredient_variant": "winter rapeseed organic",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -334,9 +334,9 @@
         "simple_ingredient_default": "sunflower, at farm {glo}",
         "simple_ingredient_variant": "Sunflower grain organic, system number 3, at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -356,9 +356,9 @@
         "process": "zucchini,  springtime, under tunnel, organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -378,9 +378,9 @@
         "process": "pear, organic,",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -400,9 +400,9 @@
         "process": "peach, organic, ",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -422,9 +422,9 @@
         "process": "melon organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -445,9 +445,9 @@
         "simple_ingredient_default": "cow milk national",
         "simple_ingredient_variant": "cow milk organic system number 1,",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       }
     }
@@ -466,9 +466,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -487,9 +487,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       },
       "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
@@ -509,9 +509,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -530,9 +530,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -551,9 +551,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
