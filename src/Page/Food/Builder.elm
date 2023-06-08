@@ -45,6 +45,7 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
+import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
@@ -56,6 +57,7 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
+import Views.Table as Table
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
@@ -69,6 +71,7 @@ type alias Model =
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
+    , activeImpactsTab : ImpactsTab
     }
 
 
@@ -102,6 +105,7 @@ type Msg
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
+    | SwitchImpactsTab ImpactsTab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
@@ -109,6 +113,12 @@ type Msg
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
+
+
+type ImpactsTab
+    = DetailedImpactsTab
+    | StepImpactsTab
+    | SubscoresTab
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -132,6 +142,12 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , displayChoice = ComparatorView.IndividualImpacts
               , modal = NoModal
               , chartHovering = []
+              , activeImpactsTab =
+                    if Impact.isEcoscore impact then
+                        SubscoresTab
+
+                    else
+                        StepImpactsTab
               }
             , session
                 |> Session.updateFoodQuery query
@@ -336,6 +352,12 @@ update ({ queries } as session) msg model =
                 |> Navigation.pushUrl session.navKey
             )
 
+        SwitchImpactsTab impactsTab ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
         SwitchComparisonUnit comparisonUnit ->
             ( { model | comparisonUnit = comparisonUnit }
             , session
@@ -402,11 +424,6 @@ findExistingBookmarkName { builderDb, store } query =
             )
 
 
-shouldRenderBonuses : Impact.Definition -> Bool
-shouldRenderBonuses { trigram } =
-    trigram == Impact.trg "ecs"
-
-
 
 -- Views
 
@@ -432,7 +449,7 @@ absoluteImpactView model results =
                     , results.total
                         |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , if shouldRenderBonuses model.impact then
+                , if Impact.isEcoscore model.impact then
                     div [ class "text-center fs-7" ]
                         [ text " dont "
                         , results.recipe.totalBonusesImpact.total
@@ -665,7 +682,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 |> Format.formatFoodSelectedImpact selectedImpact
             ]
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
-        , if shouldRenderBonuses selectedImpact then
+        , if Impact.isEcoscore selectedImpact then
             let
                 { bonuses, ingredient } =
                     recipeIngredient
@@ -988,7 +1005,7 @@ packagingListView db selectedImpact recipe results =
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
                             , impact =
                                 packaging
-                                    |> Recipe.computeProcessImpacts db.impacts
+                                    |> Recipe.computeProcessImpacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.code
                             , deleteEvent = DeletePackaging packaging.process.code
@@ -1198,9 +1215,7 @@ consumptionView db selectedImpact recipe results =
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Result.map
-                                        (Impact.updateAggregatedScores db.impacts
-                                            >> Format.formatFoodSelectedImpact selectedImpact
-                                        )
+                                        (Format.formatFoodSelectedImpact selectedImpact)
                                     |> Result.withDefault (text "N/A")
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
@@ -1333,35 +1348,7 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , if shouldRenderBonuses model.impact then
-            -- We only show subscores for ecs
-            div [ class "card shadow-sm" ]
-                [ div [ class "card-body py-2" ]
-                    [ [ ( "Climat", results.scoring.climate )
-                      , ( "Biodiversité", results.scoring.biodiversity )
-                      , ( "Santé environnementale", results.scoring.health )
-                      , ( "Ressource", results.scoring.resources )
-                      ]
-                        |> List.map
-                            (\( label, subScore ) ->
-                                tr []
-                                    [ th [ class "fw-normal" ] [ text label ]
-                                    , td [ class "text-end" ]
-                                        [ strong []
-                                            [ subScore
-                                                |> Unit.impactToFloat
-                                                |> Format.formatImpactFloat model.impact
-                                            ]
-                                        ]
-                                    ]
-                            )
-                        |> table [ class "Subscores w-100 m-0" ]
-                    ]
-                ]
-
-          else
-            text ""
-        , stepResultsView model results
+        , impactTabsView db model results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1382,6 +1369,61 @@ sidebarView session db model results =
         ]
 
 
+impactTabsView : Db -> Model -> Recipe.Results -> Html Msg
+impactTabsView db model results =
+    CardTabs.view
+        { tabs =
+            (if Impact.isEcoscore model.impact then
+                [ ( SubscoresTab, "Sous-scores" )
+                , ( DetailedImpactsTab, "Impacts" )
+                , ( StepImpactsTab, "Étapes" )
+                ]
+
+             else
+                [ ( StepImpactsTab, "Étapes" ) ]
+            )
+                |> List.map
+                    (\( tab, label ) ->
+                        { label = label
+                        , onTabClick = SwitchImpactsTab tab
+                        , active = model.activeImpactsTab == tab
+                        }
+                    )
+        , content =
+            [ case model.activeImpactsTab of
+                DetailedImpactsTab ->
+                    results.total
+                        |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
+                        |> List.map (\{ name, value } -> ( name, value ))
+                        |> List.sortBy Tuple.second
+                        |> List.reverse
+                        |> Table.percentageTable
+
+                StepImpactsTab ->
+                    let
+                        toFloat =
+                            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
+                    in
+                    Table.percentageTable
+                        [ ( "Ingrédients", toFloat results.recipe.ingredientsTotal )
+                        , ( "Transformation", toFloat results.recipe.transform )
+                        , ( "Emballage", toFloat results.packaging )
+                        , ( "Transports", toFloat results.transports.impacts )
+                        , ( "Distribution", toFloat results.distribution.total )
+                        , ( "Consommation", toFloat results.preparation )
+                        ]
+
+                SubscoresTab ->
+                    Table.percentageTable
+                        [ ( "Climat", Unit.impactToFloat results.scoring.climate )
+                        , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
+                        , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
+                        , ( "Ressource", Unit.impactToFloat results.scoring.resources )
+                        ]
+            ]
+        }
+
+
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div []
@@ -1400,70 +1442,6 @@ stepListView db { impact } recipe results =
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
-        ]
-
-
-stepResultsView : Model -> Recipe.Results -> Html Msg
-stepResultsView model results =
-    let
-        toFloat =
-            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
-
-        stepsData =
-            [ { label = "Ingrédients"
-              , impact = toFloat results.recipe.ingredientsTotal
-              }
-            , { label = "Transformation"
-              , impact = toFloat results.recipe.transform
-              }
-            , { label = "Emballage"
-              , impact = toFloat results.packaging
-              }
-            , { label = "Transports"
-              , impact = toFloat results.transports.impacts
-              }
-            , { label = "Distribution"
-              , impact = toFloat results.distribution.total
-              }
-            , { label = "Consommation"
-              , impact = toFloat results.preparation
-              }
-            ]
-
-        totalImpact =
-            toFloat results.total
-    in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ] [ text "Détail des postes" ]
-        , ul [ class "list-group list-group-flush fs-8" ]
-            (stepsData
-                |> List.map
-                    (\{ label, impact } ->
-                        let
-                            percent =
-                                if totalImpact /= 0 then
-                                    impact / totalImpact * 100
-
-                                else
-                                    0
-                        in
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                            [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
-                            , span [ class "flex-fill w-50" ]
-                                [ div [ class "progress", style "height" "13px" ]
-                                    [ div
-                                        [ class "progress-bar bg-secondary"
-                                        , style "width" (String.fromFloat percent ++ "%")
-                                        ]
-                                        []
-                                    ]
-                                ]
-                            , span [ class "flex-fill text-end", style "min-width" "62px" ]
-                                [ Format.percent percent
-                                ]
-                            ]
-                    )
-            )
         ]
 
 

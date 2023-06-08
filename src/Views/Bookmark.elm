@@ -1,15 +1,19 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Textile.Inputs as TextileInputs
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Route
+import Views.CardTabs as CardTabs
 import Views.Icon as Icon
 
 
@@ -39,67 +43,104 @@ type ActiveTab
 
 view : ManagerConfig msg -> Html msg
 view ({ activeTab, switchTab } as config) =
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ [ ( SaveTab, "Sauvegarder" ), ( ShareTab, "Partager" ) ]
+    CardTabs.view
+        { tabs =
+            [ ( SaveTab, "Sauvegarder" )
+            , ( ShareTab, "Partager" )
+            ]
                 |> List.map
                     (\( tab, label ) ->
-                        li [ class "TabsTab nav-item", classList [ ( "active", activeTab == tab ) ] ]
-                            [ button
-                                [ class "nav-link no-outline border-top-0"
-                                , classList [ ( "active", activeTab == tab ) ]
-                                , onClick <| switchTab tab
-                                ]
-                                [ text label ]
-                            ]
+                        { label = label
+                        , onTabClick = switchTab tab
+                        , active = activeTab == tab
+                        }
                     )
-                |> ul [ class "Tabs nav nav-tabs justify-content-end gap-2 px-3" ]
+        , content =
+            [ case activeTab of
+                ShareTab ->
+                    shareTabView config
+
+                SaveTab ->
+                    managerView config
             ]
-        , case activeTab of
-            ShareTab ->
-                shareLinkView config
-
-            SaveTab ->
-                managerView config
-        ]
+        }
 
 
-shareLinkView : ManagerConfig msg -> Html msg
-shareLinkView { session, impact, funit, copyToClipBoard, scope } =
+shareTabView : ManagerConfig msg -> Html msg
+shareTabView { session, impact, funit, copyToClipBoard, scope } =
     let
-        shareableLink =
+        ( shareableLink, apiCall, jsonParams ) =
             case scope of
                 Scope.Food ->
-                    Just session.queries.food
+                    ( Just session.queries.food
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
+                    , session.queries.food
+                        |> FoodQuery.buildApiQuery session.clientUrl
+                    , session.queries.food
+                        |> FoodQuery.encode
+                        |> Encode.encode 2
+                    )
 
                 Scope.Textile ->
-                    Just session.queries.textile
+                    ( Just session.queries.textile
                         |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
                         |> Route.toString
                         |> (++) session.clientUrl
+                    , session.queries.textile
+                        |> TextileInputs.buildApiQuery session.clientUrl
+                    , session.queries.textile
+                        |> TextileInputs.encodeQuery
+                        |> Encode.encode 2
+                    )
     in
-    div [ class "card-body" ]
-        [ div
-            [ class "input-group" ]
-            [ input
-                [ type_ "url"
-                , class "form-control"
-                , value shareableLink
+    div []
+        [ div [ class "card-body pt-0 pb-2" ]
+            [ h2 [ class "h5 mt-2" ] [ text "Web" ]
+            , div
+                [ class "input-group" ]
+                [ input
+                    [ type_ "url"
+                    , class "form-control"
+                    , value shareableLink
+                    ]
+                    []
+                , button
+                    [ class "input-group-text"
+                    , title "Copier l'adresse"
+                    , onClick (copyToClipBoard shareableLink)
+                    ]
+                    [ Icon.clipboard
+                    ]
                 ]
-                []
+            , div [ class "form-text fs-7" ]
+                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+            ]
+        , div [ class "card-body border-top pt-0 pb-2" ]
+            [ h2 [ class "h5 mt-2" ] [ text "API" ]
+            , pre [ class "bg-dark text-white p-2 m-0" ]
+                [ code [] [ text <| "$ " ++ apiCall ] ]
             , button
-                [ class "input-group-text"
-                , title "Copier l'adresse"
-                , onClick (copyToClipBoard shareableLink)
+                [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+                , onClick <| copyToClipBoard apiCall
                 ]
-                [ Icon.clipboard
+                [ Icon.clipboard, text "Copier la commande" ]
+            , div [ class "form-text fs-7" ]
+                [ text "Cette commande utilise l'"
+                , a [ Route.href Route.Api ] [ text "API Ecobalyse" ]
                 ]
             ]
-        , div [ class "form-text fs-7" ]
-            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+        , div [ class "card-body border-top pt-0" ]
+            [ h2 [ class "h5 mt-2" ] [ text "Paramètres de simulation JSON" ]
+            , pre [ class "bg-dark text-white p-2 m-0", style "max-height" "200px" ]
+                [ code [] [ text jsonParams ] ]
+            , button
+                [ class "btn btn-outline-dark btn-sm w-100 d-flex justify-content-center align-items-center gap-1"
+                , onClick <| copyToClipBoard jsonParams
+                ]
+                [ Icon.clipboard, text "Copier" ]
+            ]
         ]
 
 

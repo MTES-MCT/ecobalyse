@@ -36,8 +36,8 @@ suite =
             [ let
                 testComputedBonuses bonuses =
                     Impact.impactsFromDefinitons builderDb.impacts
-                        |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
-                        |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact 100)
+                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
+                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact 100)
                         |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
               in
               describe "computeIngredientBonusesImpacts"
@@ -91,8 +91,8 @@ suite =
                     (let
                         bonusImpacts =
                             Impact.impactsFromDefinitons builderDb.impacts
-                                |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1000)
-                                |> Impact.updateImpact (Impact.trg "ldu") (Unit.impact -100)
+                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
+                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact -100)
                                 |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
@@ -151,10 +151,10 @@ suite =
                                 |> Recipe.compute builderDb
                      in
                      [ carrotCakeResults
-                        |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
+                        |> Result.map (Tuple.second >> .total >> Impact.toDict >> AnyDict.toDict)
                         |> Result.withDefault Dict.empty
                         |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
-                        |> Expect.equal
+                        |> Expect.equalDicts
                             (Dict.fromList
                                 -- Note: presented that way to ease diff viewing in test results
                                 [ ( "acd", True )
@@ -192,7 +192,7 @@ suite =
 
                                     Ok scoring ->
                                         Expect.equal scoring
-                                            { all = Unit.impact 199.23268279508642
+                                            { all = Unit.impact 199.23268279508645
                                             , biodiversity = Unit.impact 82.64159511838133
                                             , climate = Unit.impact 45.95474483677185
                                             , health = Unit.impact 34.55246000294004
@@ -202,7 +202,7 @@ suite =
                            )
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
-                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288866))
+                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288869))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the total ecs impact with the bonus taken into account"
                      , carrotCakeResults

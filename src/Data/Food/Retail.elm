@@ -197,4 +197,3 @@ computeImpacts db volume (Distribution _ needs) wellknown =
     , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
         |> Impact.sumImpacts db.impacts
-        |> Impact.updateAggregatedScores db.impacts

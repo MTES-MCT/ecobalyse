@@ -24,19 +24,19 @@ suite =
             in
             [ describe "computeAggregatedScore"
                 [ defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                    |> Impact.computeAggregatedScore .pefData textileDb.impacts
+                    |> Impact.updateImpact textileDb.impacts (Impact.trg "cch") (Unit.impact 1)
+                    |> Impact.getImpact (Impact.trg "pef")
                     |> expectScoreEquals 27.88266508497196
                     |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.computeAggregatedScore .pefData textileDb.impacts
+                    |> Impact.updateImpact textileDb.impacts (Impact.trg "fwe") (Unit.impact 1)
+                    |> Impact.getImpact (Impact.trg "pef")
                     |> expectScoreEquals 17425.397516880857
                     |> asTest "should compute aggregate score from fwe impact"
                 ]
             , describe "mapImpacts"
                 [ defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
+                    |> Impact.updateImpact textileDb.impacts (Impact.trg "cch") (Unit.impact 1)
                     |> Impact.mapImpacts (\_ -> Quantity.multiplyBy 2)
                     |> Impact.getImpact (Impact.trg "cch")
                     |> Expect.equal (Unit.impact 2)
@@ -44,7 +44,7 @@ suite =
                 ]
             , describe "perKg"
                 [ defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
+                    |> Impact.updateImpact textileDb.impacts (Impact.trg "cch") (Unit.impact 1)
                     |> Impact.perKg (Mass.kilograms 2)
                     |> Impact.getImpact (Impact.trg "cch")
                     |> Expect.equal (Unit.impact 0.5)
@@ -64,7 +64,7 @@ suite =
                 ]
             , describe "updateImpact"
                 [ defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 9)
+                    |> Impact.updateImpact textileDb.impacts (Impact.trg "cch") (Unit.impact 9)
                     |> Impact.getImpact (Impact.trg "cch")
                     |> Expect.equal (Unit.impact 9)
                     |> asTest "should update a given impact"
@@ -72,9 +72,8 @@ suite =
             , let
                 impacts =
                     defaultImpacts
-                        |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                        |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                        |> Impact.updateAggregatedScores textileDb.impacts
+                        |> Impact.updateImpact textileDb.impacts (Impact.trg "cch") (Unit.impact 1)
+                        |> Impact.updateImpact textileDb.impacts (Impact.trg "fwe") (Unit.impact 1)
               in
               describe "updateAggregatedScores"
                 [ impacts

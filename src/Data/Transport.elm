@@ -113,7 +113,6 @@ computeImpacts impactsDefinition mass transport wellKnown =
                                         |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
                                         |> Unit.impact
                                 )
-                            |> Impact.updateAggregatedScores impactsDefinition
                     )
                 |> Impact.sumImpacts impactsDefinition
     in

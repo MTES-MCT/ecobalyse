@@ -7,6 +7,7 @@ module Data.Food.Builder.Query exposing
     , addPackaging
     , addPreparation
     , b64encode
+    , buildApiQuery
     , carrotCake
     , decode
     , deleteIngredient
@@ -98,6 +99,17 @@ addPackaging packaging query =
             query.packaging
                 ++ [ packaging ]
     }
+
+
+buildApiQuery : String -> Query -> String
+buildApiQuery clientUrl query =
+    """curl -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/food/recipe")
+        |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
 emptyQuery : Query
@@ -247,25 +259,50 @@ deleteIngredient id query =
 
 encode : Query -> Encode.Value
 encode v =
-    Encode.object
-        [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
-        , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "distribution", v.distribution |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
-        , ( "preparation", Encode.list Preparation.encodeId v.preparation )
-        ]
+    [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
+    , ( "transform", v.transform |> Maybe.map encodeProcess )
+    , ( "packaging"
+      , case v.packaging of
+            [] ->
+                Nothing
+
+            list ->
+                Encode.list encodeProcess list |> Just
+      )
+    , ( "distribution", v.distribution |> Maybe.map Retail.encode )
+    , ( "preparation"
+      , case v.preparation of
+            [] ->
+                Nothing
+
+            list ->
+                Encode.list Preparation.encodeId list |> Just
+      )
+    ]
+        -- For concision, drop keys where no param is defined
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
-    Encode.object
-        [ ( "id", Ingredient.encodeId v.id )
-        , ( "mass", encodeMassAsGrams v.mass )
-        , ( "variant", encodeVariant v.variant )
-        , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "byPlane", Ingredient.encodePlaneTransport v.planeTransport )
-        , ( "bonuses", v.bonuses |> Maybe.map Ingredient.encodeBonuses |> Maybe.withDefault Encode.null )
-        ]
+    [ ( "id", Ingredient.encodeId v.id |> Just )
+    , ( "mass", encodeMassAsGrams v.mass |> Just )
+    , ( "variant"
+      , case v.variant of
+            DefaultVariant ->
+                Nothing
+
+            Organic ->
+                encodeVariant v.variant |> Just
+      )
+    , ( "country", v.country |> Maybe.map Country.encodeCode )
+    , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
+    , ( "bonuses", v.bonuses |> Maybe.map Ingredient.encodeBonuses )
+    ]
+        -- For concision, drop keys where no param is defined
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 encodeMassAsGrams : Mass -> Encode.Value

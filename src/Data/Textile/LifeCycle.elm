@@ -9,7 +9,6 @@ module Data.Textile.LifeCycle exposing
     , getStep
     , getStepProp
     , init
-    , mapSteps
     , updateStep
     , updateSteps
     )
@@ -151,11 +150,6 @@ updateStep label update_ =
             else
                 step
         )
-
-
-mapSteps : (Step -> Step) -> LifeCycle -> LifeCycle
-mapSteps =
-    Array.map
 
 
 updateSteps : List Label -> (Step -> Step) -> LifeCycle -> LifeCycle
