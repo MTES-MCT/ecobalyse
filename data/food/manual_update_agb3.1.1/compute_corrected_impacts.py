@@ -1,4 +1,4 @@
-"""Update builder.json impacts by adding corrected impacts computed from 
+"""Update builder.json impacts by adding corrected impacts computed from
 sub-impacts from agb3.1.1.csv (manually exported from simapro).
 
 example : python compute_corrected_impacts.py
@@ -9,12 +9,12 @@ the sub-impacts like htc-o, htc-i, htc-m...
 """
 
 import json
-from food.export_agb.export_builder import export_json
 
 # INPUT
 IMPACTS = "../../../public/data/impacts.json"
 # OUTPUT
 PROCESSES = "../../../public/data/food/processes/builder.json"
+BUILDER = "../../../public/data/food/processes/builder.json"
 
 if __name__ == "__main__":
     with open(PROCESSES) as json_file:
@@ -40,4 +40,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"\033[91mFailed to correct impact {impact_to_correct} for \"process {process_data['name']}:\"\033[0m")
 
-    export_json(processes_list, PROCESSES)
+    print(f"Export de {len(processes_list)} procédés vers {BUILDER}")
+    with open(BUILDER, "w") as outfile:
+        json.dump(processes_list, outfile, indent=2, ensure_ascii=False)
+        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
