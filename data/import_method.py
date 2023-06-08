@@ -30,14 +30,13 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     ef.statistics()
-    # ef.strategies = (
-    #    ef.strategies[:8]
-    #    + [
-    #        functools.partial(migrate_exchanges, migration="simapro-water"),
-    #        fix_localized_water_flows,
-    #    ]
-    #    + ef.strategies[8:]
-    # )
+    ef.strategies = [
+        s
+        for s in ef.strategies
+        if "water" not in repr(s)
+        and "normalize_simapro_biosphere_names" not in repr(s)
+        and "normalize_biosphere_names" not in repr(s)
+    ]
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
     # ef.add_missing_cfs()
