@@ -10,7 +10,6 @@ import json
 import argparse
 import bw2data
 import bw2calc
-import bw2io
 from food.impacts import impacts as impacts_definition
 import uuid
 import hashlib
@@ -31,10 +30,10 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 db = bw2data.Database(DBNAME)
 
 
-def compute_new_processes(activities, ingredients_base):
+def compute_new_processes(activities, ingredients):
     new_processes = []
 
-    for ingredient in ingredients_base:
+    for ingredient in ingredients:
         for variant_name, variant in ingredient.get("variants", {}).items():
             # variant_name can be 'organic', 'bleu_blanc_coeur'
             # we build new processes for ingredients defined with 2 sub-ingredients
@@ -75,7 +74,7 @@ def compute_new_processes(activities, ingredients_base):
                 m = hashlib.md5()
                 seed = new_process["name"]
                 m.update(seed.encode("utf-8"))
-                new_process["simapro_id"] = str(uuid.UUID(m.hexdigest()))
+                new_process["identifier"] = str(uuid.UUID(m.hexdigest()))
 
                 for impact in new_process["impacts"]:
                     # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
@@ -89,7 +88,7 @@ def compute_new_processes(activities, ingredients_base):
                 del variant["simple_ingredient_default"]
                 del variant["simple_ingredient_variant"]
                 del variant["ratio"]
-                variant["process"] = new_process["simapro_id"]
+                variant["process"] = new_process["identifier"]
 
                 new_processes.append(new_process)
 
@@ -109,13 +108,19 @@ if __name__ == "__main__":
             for d in list(csv.DictReader(f, dialect="unix"))
         ]
 
-    # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
+    # Parse the ingredients.json, which may contain complex ingredients to add/compute
     with open(INGREDIENTS_BASE, "r") as f:
-        ingredients_base = json.load(f)
+        ingredients = json.load(f)
 
     # we need to add the processes corresponding to sub-ingredients of constructed ingredients
     processes_to_add = []
-    for ingredient in ingredients_base:
+    for i, ingredient in enumerate(ingredients):
+        # we first get the activity from the search string and store its identifier
+        results = db.search(ingredient["default"])
+        assert (
+            len(results) >= 1
+        ), f"In {INGREDIENTS_BASE}:{i}, searching this \"default\" field doesn't give a result: {ingredient['default']}"
+        ingredient["identifier"] = results[0]["Process identifier"]
         for variant in ingredient.get("variants", {}).values():
             if (
                 "simple_ingredient_default" in variant
@@ -135,9 +140,11 @@ if __name__ == "__main__":
     )
 
     activities = {}
-    for p in processes_to_export:
+    for i, p in enumerate(processes_to_export):
         results = db.search(p["name"])
-        assert len(results) >= 1, f"Research doesn't give a result: {p['name']}"
+        assert (
+            len(results) >= 1
+        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {p['name']}"
         activity = results[0]
         activities[p["name"]] = {
             "activity": activity,
@@ -155,7 +162,7 @@ if __name__ == "__main__":
         # move data
         activity, export_data = v["activity"], v["export_data"]
         export_data["unit"] = activity["unit"]
-        export_data["simapro_id"] = activity["code"]
+        export_data["identifier"] = activity["Process identifier"]
         export_data["name"] = activity.get("simapro name", activity["name"])
         export_data["system_description"] = activity["System description"]
 
@@ -212,12 +219,12 @@ if __name__ == "__main__":
             v["export_data"]["impacts"]["bvi"] = 0.0
 
     # Compute new processes for complex variants
-    new_processes = compute_new_processes(activities, ingredients_base)
+    new_processes = compute_new_processes(activities, ingredients)
 
     # Export the ingredients
-    print(f"Export de {len(ingredients_base)} ingrédients vers {INGREDIENTS}")
+    print(f"Export de {len(ingredients)} ingrédients vers {INGREDIENTS}")
     with open(INGREDIENTS, "w") as outfile:
-        json.dump(ingredients_base, outfile, indent=2, ensure_ascii=False)
+        json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes

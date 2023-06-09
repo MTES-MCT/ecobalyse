@@ -19,7 +19,8 @@
         }
       },
       "bleu_blanc_coeur": "Egg Bleu Blanc Coeur outdoor system at farm gate"
-    }
+    },
+    "identifier": "AGRIBALU000000003105162"
   },
   {
     "id": "milk",
@@ -40,7 +41,8 @@
           "animal-welfare": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003104145"
   },
   {
     "id": "carrot",
@@ -61,7 +63,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003102592"
   },
   {
     "id": "wheat",
@@ -81,7 +84,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000024985200247"
   },
   {
     "id": "flour",
@@ -101,7 +105,8 @@
         },
         "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003116999"
   },
   {
     "id": "sunflower",
@@ -121,7 +126,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003115216"
   },
   {
     "id": "rapeseed",
@@ -141,7 +147,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003112430"
   },
   {
     "id": "tomato",
@@ -161,7 +168,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003115753"
   },
   {
     "id": "potato",
@@ -172,7 +180,8 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "identifier": "AGRIBALU000000003116702"
   },
   {
     "id": "ground-beef",
@@ -193,7 +202,8 @@
         },
         "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003107081"
   },
   {
     "id": "ground-beef-feedlot",
@@ -209,7 +219,8 @@
       "organic": {
         "process": "53a1ead1-62c9-1131-8841-3218dce10a8d"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003101053"
   },
   {
     "id": "cooked-ham",
@@ -230,7 +241,8 @@
         },
         "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003103910"
   },
   {
     "id": "chicken-breast",
@@ -251,7 +263,8 @@
         },
         "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003109221"
   },
   {
     "id": "grape",
@@ -271,7 +284,8 @@
           "agro-ecology": 50
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003106864"
   },
   {
     "id": "mango",
@@ -282,7 +296,8 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "identifier": "AGRIBALU000000003109086"
   },
   {
     "id": "huilecolza",
@@ -303,7 +318,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003112448"
   },
   {
     "id": "sunfloweroil",
@@ -324,7 +340,8 @@
         },
         "process": "6c960d7f-6285-703f-b424-f485411e507b"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003115182"
   },
   {
     "id": "zucchini",
@@ -346,7 +363,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000024985200218"
   },
   {
     "id": "pear",
@@ -368,7 +386,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003111019"
   },
   {
     "id": "peach",
@@ -390,7 +409,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003110952"
   },
   {
     "id": "melon",
@@ -412,7 +432,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003109266"
   },
   {
     "id": "butter",
@@ -433,7 +454,8 @@
         },
         "process": "ab9f8f9c-ad6b-89e0-354f-5889456d2d68"
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003102321"
   },
   {
     "id": "onion",
@@ -454,7 +476,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003110467"
   },
   {
     "id": "eggplant",
@@ -476,7 +499,8 @@
         }
       },
       "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
-    }
+    },
+    "identifier": "AGRIBALU000000003117541"
   },
   {
     "id": "lettuce",
@@ -497,7 +521,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000000003108668"
   },
   {
     "id": "frenchbean",
@@ -518,7 +543,8 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000024985200072"
   },
   {
     "id": "durumwheat",
@@ -539,6 +565,7 @@
           "animal-welfare": 0
         }
       }
-    }
+    },
+    "identifier": "AGRIBALU000024985200066"
   }
 ]
