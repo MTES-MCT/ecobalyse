@@ -71,7 +71,7 @@ def show_activity(change):
         scores.append(
             {
                 "Indicateur": method[1],
-                "Montant": str(lca.score),
+                "Score": str(lca.score),
                 "Unité": bw2data.methods[method].get("unit", "(no unit)"),
             }
         )

@@ -33,7 +33,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cow milk organic system 1 at farm gate",
+        "process": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
@@ -195,7 +195,7 @@
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle national average at farm gate",
-        "simple_ingredient_variant": "Cull cow organic milk system 4 at farm gate"
+        "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
       }
     }
   },
@@ -443,7 +443,7 @@
       "organic": {
         "ratio": 0.0,
         "simple_ingredient_default": "cow milk national",
-        "simple_ingredient_variant": "cow milk organic system number 1,",
+        "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
