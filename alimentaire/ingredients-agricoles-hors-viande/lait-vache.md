@@ -13,13 +13,7 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 
 \*Le procédé bio mobilisé (1 kg de **Cow milk, organic, national average, at farm gate/FR U)** est déterminé à partir des procédés suivants :
 
-| ICV constitutifs de l'ICV moyen                  | Quantité de l'ICV dans l'ICV moyen |
-| ------------------------------------------------ | ---------------------------------- |
-| Cow milk, organic, system n°1, at farm gate/FR U | 0,2 kg                             |
-| Cow milk, organic, system n°2, at farm gate/FR U | 0,2 kg                             |
-| Cow milk, organic, system n°3, at farm gate/FR U | 0,2 kg                             |
-| Cow milk, organic, system n°4, at farm gate/FR U | 0,2 kg                             |
-| Cow milk, organic, system n°5, at farm gate/FR U | 0,2 kg                             |
+<table><thead><tr><th width="321.5">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Cow milk, organic, system n°1, at farm gate/FR U</td><td>0,2 kg</td></tr><tr><td>Cow milk, organic, system n°2, at farm gate/FR U</td><td>0,2 kg</td></tr><tr><td>Cow milk, organic, system n°3, at farm gate/FR U</td><td>0,2 kg</td></tr><tr><td>Cow milk, organic, system n°4, at farm gate/FR U</td><td>0,2 kg</td></tr><tr><td>Cow milk, organic, system n°5, at farm gate/FR U</td><td>0,2 kg</td></tr></tbody></table>
 
 {% hint style="danger" %}
 Des étapes de traitement "at farm" qui seraient peut être à intégrer.

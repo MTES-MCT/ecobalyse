@@ -117,11 +117,7 @@ _En l’absence de donnée suffisamment précise dans la Base Impacts, l’étap
 
 Un procédé de teinture est appliqué par défaut selon la catégorie du produit modélisé (jean, jupe, t-shirt, etc.).
 
-| Support de teinture |                                                Catégorie                                                |         Energie consommée par kg de produit         |
-| :-----------------: | :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
-|         Fil         |                                                   jean                                                  | <p>électricité : 2,82 kWh<br>chaleur : 33,42 MJ</p> |
-|        Tissu        | cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste | <p>électricité : 1,99 kWh<br>chaleur : 25,87 MJ</p> |
-|       Article       |                                                                                                         | <p>électricité : 2,56 kWh<br>chaleur : 39,28 MJ</p> |
+<table><thead><tr><th width="137" align="center">Support de teinture</th><th width="384" align="center">Catégorie</th><th align="center">Energie consommée par kg de produit</th></tr></thead><tbody><tr><td align="center">Fil</td><td align="center">jean</td><td align="center">électricité : 2,82 kWh<br>chaleur : 33,42 MJ</td></tr><tr><td align="center">Tissu</td><td align="center">cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste</td><td align="center">électricité : 1,99 kWh<br>chaleur : 25,87 MJ</td></tr><tr><td align="center">Article</td><td align="center"></td><td align="center">électricité : 2,56 kWh<br>chaleur : 39,28 MJ</td></tr></tbody></table>
 
 {% hint style="warning" %}
 Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas un paramètre maîtrisé par les industriels aujourd'hui.&#x20;

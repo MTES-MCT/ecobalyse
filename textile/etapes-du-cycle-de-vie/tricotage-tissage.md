@@ -289,6 +289,9 @@ $$
 
 {% tabs %}
 {% tab title="Tissu" %}
+Hypothèse 1 : Taux embuvage et retrait = 8% \
+Hypothèse 2 : Densité de fils équivalente en chaîne et trame
+
 $$kWh = Duites.m * 0,0003145$$
 
 $$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
@@ -353,12 +356,7 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
 {% tab title="Tissu" %}
 Un titrage (Nm) par défaut est appliqué aux étoffes tissées selon leur grammage (g/m2).&#x20;
 
-| Grammage (g/m2)   | Titrage (Nm / Dtex) |
-| ----------------- | ------------------- |
-| inférieur à 200   | 50 / 200            |
-| entre 200 et 299  | 40 / 250            |
-| entre 300 et 499  | 30 / 333            |
-|  à partir de 500  | 25 / 400            |
+<table><thead><tr><th width="288.5">Grammage (g/m2)</th><th>Titrage (Nm / Dtex)</th></tr></thead><tbody><tr><td>inférieur à 200</td><td>50 / 200</td></tr><tr><td>entre 200 et 299 </td><td>40 / 250</td></tr><tr><td>entre 300 et 499 </td><td>30 / 333</td></tr><tr><td> à partir de 500</td><td>25 / 400</td></tr></tbody></table>
 
 L'utilisateur a la possibilité de modifier ces paramètres dans le calculateur.
 

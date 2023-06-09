@@ -27,19 +27,11 @@ Ecobalyse applique par défaut un procédé de chaleur qui dépend  du pays dans
 
 Trois procédés de chaleur sont disponibles dans la Base Impacts; ils correspondent à des mix moyens :&#x20;
 
-| Zone           | Procédé chaleur                                                                  | UUID                                 |
-| -------------- | -------------------------------------------------------------------------------- | ------------------------------------ |
-| France         | Mix Vapeur (mix technologique \| mix de production, en sortie de chaudière), FR  | 12fc43f2-a007-423b-a619-619d725793ea |
-| Europe         | Mix Vapeur (mix technologique \| mix de production, en sortie de chaudière), RER | 63b1b03f-1f73-4791-829d-d49c06ddc8ee |
-| Asie-Pacifique | Mix Vapeur (mix technologique \| mix de production, en sortie de chaudière), RSA | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
+<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>UUID</th></tr></thead><tbody><tr><td>France</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), FR</td><td>12fc43f2-a007-423b-a619-619d725793ea</td></tr><tr><td>Europe</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), RER</td><td>63b1b03f-1f73-4791-829d-d49c06ddc8ee</td></tr><tr><td>Asie-Pacifique</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), RSA</td><td>2e8de6f6-0ea1-455b-adce-ea74d307d222</td></tr></tbody></table>
 
 En première approche, trois scénarios par défaut sont appliqués : &#x20;
 
-| Pays                     | Procédé chaleur      |
-| ------------------------ | -------------------- |
-| France                   | France (FR)          |
-| Autres pays européens    | Europe (RER)         |
-| Autres pays, hors Europe | Asie-Pacifique (RSA) |
+<table><thead><tr><th width="261">Pays</th><th width="251">Procédé chaleur</th></tr></thead><tbody><tr><td>France</td><td>France (FR)</td></tr><tr><td>Autres pays européens</td><td>Europe (RER)</td></tr><tr><td>Autres pays, hors Europe</td><td>Asie-Pacifique (RSA)</td></tr></tbody></table>
 
 {% hint style="warning" %}
 Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi les procédés proposés dans la base Impacts. Plusieurs points discutables apparaissent :

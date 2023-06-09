@@ -45,17 +45,7 @@ $$
 
 \*Le procédé boeuf bio mobilisé (1kg de **Cull cow, organic, national average, at farm gate/FR U)** a été construit à partir des procédés bio suivants :&#x20;
 
-| ICV constitutifs de l'ICV moyen                                      | Quantité de l'ICV dans l'ICV moyen |
-| -------------------------------------------------------------------- | ---------------------------------- |
-| Cull cow, organic, milk system n°1, at farm gate/FR U                | 0,088 kg                           |
-| Cull cow, organic, milk system n°2, at farm gate/FR U                | 0,088 kg                           |
-| Cull cow, organic, milk system n°3, at farm gate/FR U                | 0,157 kg                           |
-| Cull cow, organic, milk system n°4, at farm gate/FR U                | 0,157 kg                           |
-| Cull cow, organic, milk system n°5, at farm gate/FR U                | 0,157 kg                           |
-| Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U | 0,088 kg                           |
-| Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U | 0,088 kg                           |
-| Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U | 0,088 kg                           |
-| Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U | 0,088 kg                           |
+<table><thead><tr><th width="319">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Cull cow, organic, milk system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°3, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°4, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°5, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U</td><td>0,088 kg</td></tr></tbody></table>
 
 ## Identification de l'origine par défaut
 

@@ -13,26 +13,7 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 
 \*Le procédé bio mobilisé (1kg de **Wheat, organic, national average, at farm gate/FR U)** est construit à partir des procédés bio suivants :&#x20;
 
-| ICV constitutifs de l'ICV moyen                       | Quantité de l'ICV dans l'ICV moyen |
-| ----------------------------------------------------- | ---------------------------------- |
-| Winter wheat, organic, system n°1, at farm gate/FR U  | 0,095 kg                           |
-| Winter wheat, organic, system n°10, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°11, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°12, at farm gate/FR U | 0,095 kg                           |
-| Winter wheat, organic, system n°13, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°14, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°15, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°16, at farm gate/FR U | 0,095 kg                           |
-| Winter wheat, organic, system n°17, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°18, at farm gate/FR U | 0,036 kg                           |
-| Winter wheat, organic, system n°2, at farm gate/FR U  | 0,036 kg                           |
-| Winter wheat, organic, system n°3, at farm gate/FR U  | 0,036 kg                           |
-| Winter wheat, organic, system n°4, at farm gate/FR U  | 0,036 kg                           |
-| Winter wheat, organic, system n°5, at farm gate/FR U  | 0,095 kg                           |
-| Winter wheat, organic, system n°6, at farm gate/FR U  | 0,095 kg                           |
-| Winter wheat, organic, system n°7, at farm gate/FR U  | 0,036 kg                           |
-| Winter wheat, organic, system n°8, at farm gate/FR U  | 0,036 kg                           |
-| Winter wheat, organic, system n°9, at farm gate/FR U  | 0,095 kg                           |
+<table><thead><tr><th width="352.5">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Winter wheat, organic, system n°1, at farm gate/FR U</td><td>0,095 kg</td></tr><tr><td>Winter wheat, organic, system n°10, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°11, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°12, at farm gate/FR U</td><td>0,095 kg</td></tr><tr><td>Winter wheat, organic, system n°13, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°14, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°15, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°16, at farm gate/FR U</td><td>0,095 kg</td></tr><tr><td>Winter wheat, organic, system n°17, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°18, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°2, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°3, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°4, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°5, at farm gate/FR U</td><td>0,095 kg</td></tr><tr><td>Winter wheat, organic, system n°6, at farm gate/FR U</td><td>0,095 kg</td></tr><tr><td>Winter wheat, organic, system n°7, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°8, at farm gate/FR U</td><td>0,036 kg</td></tr><tr><td>Winter wheat, organic, system n°9, at farm gate/FR U</td><td>0,095 kg</td></tr></tbody></table>
 
 ## Mix de consommation
 

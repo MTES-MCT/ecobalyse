@@ -12,14 +12,7 @@ Le transport considéré est la somme des transports à prévoir entre chaque é
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](pertes-et-rebus.md).
 
-| #Etape | De                                                                                                                      | Vers                                                                                                                    | Masse de produit considéré |
-| ------ | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| 1.     | <p>Matière</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p>  | <p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p> | Matière première           |
-| 2.     | <p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p> | <p>Tissage/tricotage</p><p>Pays*</p>                                                                                    | Matière première           |
-| 3.     | <p>Tissage/tricotage</p><p>Pays*</p>                                                                                    | <p>Teinture</p><p>Pays*</p>                                                                                             | Fil                        |
-| 4.     | <p>Teinture</p><p>Pays*</p>                                                                                             | <p>Confection</p><p>Pays*</p>                                                                                           | Etoffe                     |
-| 5.     | <p>Confection</p><p>Pays*</p>                                                                                           | <p>Entrepôt</p><p>Pays : France</p>                                                                                     | Habit                      |
-| 6.     | <p>Entrepôt</p><p>Pays : France</p>                                                                                     | <p>Magasin ou Point de retrait</p><p>Pays : France</p>                                                                  | Habit                      |
+<table><thead><tr><th width="102">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td><p>Matière</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p></td><td><p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p></td><td>Matière première</td></tr><tr><td>2.</td><td><p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p></td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Matière première</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Habit</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Habit</td></tr></tbody></table>
 
 \*Pays paramétré directement dans le calculateur.
 
@@ -123,11 +116,7 @@ Les distances entre pays sont considérées à partir des calculateurs mis en av
 
 Ainsi :
 
-| Type de transport | Site de référence                                                                                      |
-| ----------------- | ------------------------------------------------------------------------------------------------------ |
-| Terrestre         | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/) |
-| Maritime          | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/) |
-| Aérien            | Calcul de distance à vol d'oiseau geopy.distance                                                       |
+<table><thead><tr><th width="197">Type de transport</th><th>Site de référence</th></tr></thead><tbody><tr><td>Terrestre</td><td><a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time/</a></td></tr><tr><td>Maritime</td><td><a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time/</a></td></tr><tr><td>Aérien</td><td>Calcul de distance à vol d'oiseau geopy.distance</td></tr></tbody></table>
 
 Lorsque deux étapes successives sont réalisées dans un même pays, une distance par défaut est considérée. Cette distance est également considérée pour du transport aérien si le curseur "transport aérien" est utilisé.
 
@@ -147,10 +136,4 @@ Pour la distribution, il est considéré une distance par défaut de 500 km, eff
 
 Les procédés utilisés pour modéliser les impacts des différents modes de transport sont les suivants :
 
-| Type de transport                            | Procédé                                                                                             | UUID                                 |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| <p>Terrestre</p><p>Jusqu'à la confection</p> | Transport en camion (dont parc, utilisation et infrastructure) (50%) \[tkm], GLO                    | cf6e9d81-358c-4f44-5ab7-0e7a89440576 |
-| <p>Terrestre</p><p>Confection - Entrepôt</p> | Transport en camion (dont parc, utilisation et infrastructure) (50%) \[tkm], RER                    | c0397088-6a57-eea7-8950-1d6db2e6bfdb |
-| <p>Terrestre</p><p>Distribution</p>          | Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR | f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 |
-| Maritime                                     | Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) \[tkm], GLO  | 8dc4ce62-ff0f-4680-897f-867c3b31a923 |
-| Aérien                                       | Transport aérien long-courrier (dont flotte, utilisation et infrastructure) \[tkm], GLO             | 839b263d-5111-4318-9275-7026937e88b2 |
+<table><thead><tr><th width="153">Type de transport</th><th width="252">Procédé</th><th>UUID</th></tr></thead><tbody><tr><td><p>Terrestre</p><p>Jusqu'à la confection</p></td><td>Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO</td><td>cf6e9d81-358c-4f44-5ab7-0e7a89440576</td></tr><tr><td><p>Terrestre</p><p>Confection - Entrepôt</p></td><td>Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER</td><td>c0397088-6a57-eea7-8950-1d6db2e6bfdb</td></tr><tr><td><p>Terrestre</p><p>Distribution</p></td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR</td><td>f49b27fa-f22e-c6e1-ab4b-e9f873e2e648</td></tr><tr><td>Maritime</td><td>Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO</td><td>8dc4ce62-ff0f-4680-897f-867c3b31a923</td></tr><tr><td>Aérien</td><td>Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO</td><td>839b263d-5111-4318-9275-7026937e88b2</td></tr></tbody></table>

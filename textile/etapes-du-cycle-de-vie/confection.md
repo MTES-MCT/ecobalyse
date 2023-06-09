@@ -93,13 +93,7 @@ Chaque niveau de complexité (cf. ci-dessous) se traduit en un nombre de minutes
 
 Dès lors, une quantité d'électricité est calculée selon le niveau de complexité de la confection.
 
-| Complexité  | Temps de confection    | # minutes | Electricité consommée (MJ / kWh) |
-| ----------- | ---------------------- | --------- | :------------------------------: |
-| Très faible | Moins de 5 minutes     | 5         |            0,36 / 0,1            |
-| Faible      | Entre 5 et 15 minutes  | 15        |            1,44 / 0,4            |
-| Moyenne     | Entre 15 et 30 minutes | 30        |            3,24 / 0,9            |
-| Elevée      | Entre 30 minutes et 1H | 60        |            6,12 / 1,7            |
-| Très élevée | Plus de 1H             | 120       |            12,6 / 3,5            |
+<table><thead><tr><th width="156.33333333333331">Complexité</th><th width="236">Temps de confection</th><th align="center"># minutes</th><th>Electricité consommée (MJ / kWh)</th></tr></thead><tbody><tr><td>Très faible</td><td>Moins de 5 minutes</td><td align="center">5</td><td>0,36 / 0,1</td></tr><tr><td>Faible</td><td>Entre 5 et 15 minutes</td><td align="center">15</td><td>1,44 / 0,4</td></tr><tr><td>Moyenne</td><td>Entre 15 et 30 minutes</td><td align="center">30</td><td>3,24 / 0,9</td></tr><tr><td>Elevée</td><td>Entre 30 minutes et 1H</td><td align="center">60</td><td>6,12 / 1,7</td></tr><tr><td>Très élevée</td><td>Plus de 1H</td><td align="center">120</td><td>12,6 / 3,5</td></tr></tbody></table>
 
 {% hint style="warning" %}
 Le procédé d'électricité mobilisé  (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`) s'exprime en MJ tandis que l'affichage sur le calculateur se fait en kWh car cette unité est plus communément utilisée (1kWh = 3,6MJ).
@@ -130,7 +124,7 @@ le vêtement est fabriqué en une seule pièce sans couture lors de l'étape de 
 2\) tricotage fully-fashioned = 2% (valeur figée) \
 les différentes pièces du vêtement sont tricotées sans couture et la confection consiste "seulement" à les assembler
 
-<table><thead><tr><th>Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="285.5">Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)

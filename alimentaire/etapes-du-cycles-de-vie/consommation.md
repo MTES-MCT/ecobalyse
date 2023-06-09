@@ -52,12 +52,7 @@ En repartant des tableaux 41, 42 et 43 de la méthodologie Agribalyse ([lien](ht
 
 Pour la **cuisson à la poêle**, la durée et la puissance de cuisson dépend de l'ingrédient (cf. tableau 42) :&#x20;
 
-| Ingrédient          | Feu doux (600W) | Feux vif (3500W) | Energie consommée |
-| ------------------- | --------------- | ---------------- | ----------------- |
-| Viandes et poissons |  4 minutes      | 7 minutes        | 0,448 kWh         |
-| Fruits et légumes   | 3 minutes       | 7 minutes        | 0,438 kWh         |
-| Céréales            | 8 minutes       | 0                | 0,08 kWh          |
-| Autres              | 8 minutes       | 0                | 0,08 kWh          |
+<table><thead><tr><th width="128.33333333333331">Ingrédient</th><th>Feu doux (600W)</th><th>Feux vif (3500W)</th><th>Energie consommée</th></tr></thead><tbody><tr><td>Viandes et poissons</td><td> 4 minutes</td><td>7 minutes</td><td>0,448 kWh</td></tr><tr><td>Fruits et légumes</td><td>3 minutes</td><td>7 minutes</td><td>0,438 kWh</td></tr><tr><td>Céréales</td><td>8 minutes</td><td>0</td><td>0,08 kWh</td></tr><tr><td>Autres</td><td>8 minutes</td><td>0</td><td>0,08 kWh</td></tr></tbody></table>
 
 {% hint style="warning" %}
 **En première approche**, il est seulement considéré deux modes de cuisson :&#x20;

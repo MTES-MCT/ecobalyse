@@ -52,7 +52,7 @@ Dans cette hypothèse, la réduction homothétique de la pondération des 12 aut
 
 La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores d'impacts** différentes simulations préalablement sauvegardées.&#x20;
 
-![](../.gitbook/assets/image.png)
+![](<../.gitbook/assets/image (18).png>)
 
 Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les [3 bonus hors ACV](complements-hors-acv.md)) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
 
