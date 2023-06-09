@@ -20,6 +20,7 @@ DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 PROCESSES2EXPORT = "builder_processes_to_export.csv"
 INGREDIENTS_BASE = "ingredients_base.json"
+IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
@@ -111,6 +112,9 @@ if __name__ == "__main__":
     # Parse the ingredients.json, which may contain complex ingredients to add/compute
     with open(INGREDIENTS_BASE, "r") as f:
         ingredients = json.load(f)
+
+    with open(IMPACTS, "r") as f:
+        impacts_ecobalyse = json.load(f)
 
     # we need to add the processes corresponding to sub-ingredients of constructed ingredients
     processes_to_add = []
@@ -228,6 +232,21 @@ if __name__ == "__main__":
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes
+
+    # compute the corrected impacts
+    corrections = {
+        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
+    }
+    for process in export:
+        for impact_to_correct, correction in corrections.items():
+            corrected_impact = 0
+            for correction_item in correction:  # For each sub-impact and its weighting
+                sub_impact_name = correction_item["sub-impact"]
+                if sub_impact_name in process["impacts"]:
+                    sub_impact = process["impacts"].get(sub_impact_name, 1)
+                    corrected_impact += sub_impact * correction_item["weighting"]
+                    del process["impacts"][sub_impact_name]
+            process["impacts"][impact_to_correct] = corrected_impact
 
     print(f"Export de {len(export)} procédés vers {BUILDER}")
     with open(BUILDER, "w") as outfile:
