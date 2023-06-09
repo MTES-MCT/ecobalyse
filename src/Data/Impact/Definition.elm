@@ -1,7 +1,19 @@
-module Data.Impact.Definition exposing (Definition, definitions)
+module Data.Impact.Definition exposing
+    ( AggregatedScoreData
+    , Definition
+    , Quality
+    , Source
+    , Trigram
+    , definitions
+    , get
+    , toString
+    , trg
+    , trigrams
+    )
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
+import Dict exposing (Dict)
 
 
 type alias Definition =
@@ -39,6 +51,59 @@ type alias AggregatedScoreData =
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
     }
+
+
+toString : Trigram -> String
+toString (Trigram string) =
+    string
+
+
+trg : String -> Trigram
+trg =
+    Trigram
+
+
+trigrams : List Trigram
+trigrams =
+    trigramToDefinition
+        |> Dict.toList
+        |> List.map Tuple.first
+        |> List.map Trigram
+
+
+trigramToDefinition : Dict String (Definitions -> Definition)
+trigramToDefinition =
+    [ ( "acd", .acd )
+    , ( "bvi", .bvi )
+    , ( "cch", .cch )
+    , ( "ecs", .ecs )
+    , ( "etf", .etf )
+    , ( "etf-c", .etfc )
+    , ( "fru", .fru )
+    , ( "fwe", .fwe )
+    , ( "htc", .htc )
+    , ( "htc-c", .htcc )
+    , ( "htn", .htn )
+    , ( "htn-c", .htnc )
+    , ( "ior", .ior )
+    , ( "ldu", .ldu )
+    , ( "mru", .mru )
+    , ( "ozd", .ozd )
+    , ( "pco", .pco )
+    , ( "pef", .pef )
+    , ( "pma", .pma )
+    , ( "swe", .swe )
+    , ( "tre", .tre )
+    , ( "wtu", .wtu )
+    ]
+        |> Dict.fromList
+
+
+get : Trigram -> Maybe Definition
+get (Trigram trigram) =
+    trigramToDefinition
+        |> Dict.get trigram
+        |> Maybe.map (\definitionGetter -> definitionGetter definitions)
 
 
 type alias Definitions =
