@@ -16,6 +16,7 @@ module Data.Textile.Process exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
@@ -175,7 +176,7 @@ getPrintingProcess medium { printingPigment, printingSubstantive } =
             printingSubstantive
 
 
-getImpact : Impact.Trigram -> Process -> Unit.Impact
+getImpact : Definition.Trigram -> Process -> Unit.Impact
 getImpact trigram =
     .impacts >> Impact.getImpact trigram
 
@@ -267,8 +268,8 @@ decodeFromUuid processes =
             )
 
 
-decode : List Impact.Definition -> Decoder Process
-decode impacts =
+decode : Decoder Process
+decode =
     Decode.succeed Process
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
@@ -277,7 +278,7 @@ decode impacts =
         |> Pipe.required "correctif" Decode.string
         |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "uuid" decodeUuid
-        |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
+        |> Pipe.required "impacts" Impact.decodeImpacts
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -285,9 +286,9 @@ decode impacts =
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 
-decodeList : List Impact.Definition -> Decoder (List Process)
-decodeList impacts =
-    Decode.list (decode impacts)
+decodeList : Decoder (List Process)
+decodeList =
+    Decode.list decode
 
 
 decodeUuid : Decoder Uuid

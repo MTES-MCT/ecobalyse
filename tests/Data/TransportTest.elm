@@ -33,7 +33,7 @@ suite =
         (\{ textileDb } ->
             let
                 defaultImpacts =
-                    Impact.impactsFromDefinitons textileDb.impacts
+                    Impact.impactsFromDefinitons
             in
             [ textileDb.countries
                 |> List.map

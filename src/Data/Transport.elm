@@ -93,8 +93,8 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : { a | impacts : List Impact.Definition, wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
-computeImpacts { impacts, wellKnown } mass transport =
+computeImpacts : { a | wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
+computeImpacts { wellKnown } mass transport =
     let
         transportImpacts =
             [ ( wellKnown.lorryTransport, transport.road )
@@ -114,13 +114,13 @@ computeImpacts { impacts, wellKnown } mass transport =
                                         |> Unit.impact
                                 )
                     )
-                |> Impact.sumImpacts impacts
+                |> Impact.sumImpacts
     in
     { transport | impacts = transportImpacts }
 
 
-sum : List Impact.Definition -> List Transport -> Transport
-sum defs =
+sum : List Transport -> Transport
+sum =
     List.foldl
         (\{ road, roadCooled, sea, seaCooled, air, impacts } acc ->
             { acc
@@ -129,10 +129,10 @@ sum defs =
                 , sea = acc.sea |> Quantity.plus sea
                 , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
                 , air = acc.air |> Quantity.plus air
-                , impacts = Impact.sumImpacts defs [ acc.impacts, impacts ]
+                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
             }
         )
-        (default (Impact.impactsFromDefinitons defs))
+        (default Impact.impactsFromDefinitons)
 
 
 emptyDistances : Distances
@@ -231,15 +231,15 @@ decode =
         (Decode.succeed Impact.noImpacts)
 
 
-encode : List Impact.Definition -> Transport -> Encode.Value
-encode definitions v =
+encode : Transport -> Encode.Value
+encode v =
     Encode.object
         [ ( "road", encodeKm v.road )
         , ( "roadCooled", encodeKm v.roadCooled )
         , ( "sea", encodeKm v.sea )
         , ( "seaCooled", encodeKm v.seaCooled )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
+        , ( "impacts", Impact.encodeImpacts Scope.Textile v.impacts )
         ]
 
 

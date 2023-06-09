@@ -6,7 +6,6 @@ module Views.Dataviz exposing
 import Chart as C
 import Chart.Attributes as CA
 import Data.Impact as Impact
-import Data.Textile.Db exposing (Db)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -16,14 +15,14 @@ import Svg as S
 import Svg.Attributes as SA
 
 
-view : Db -> Simulator -> Html msg
-view db simulator =
+view : Simulator -> Html msg
+view simulator =
     div [ class "pt-2" ]
         [ h2 [ class "h4 text-center pt-3" ]
             [ text "Composition du score PEF" ]
         , node "chart-pefpie"
             [ simulator.impacts
-                |> Impact.getAggregatedScoreData db.impacts .pefData
+                |> Impact.getAggregatedScoreData .pefData
                 |> List.sortBy .value
                 |> List.reverse
                 |> Encode.list Impact.encodeAggregatedScoreChartEntry
@@ -34,7 +33,7 @@ view db simulator =
         , h2 [ class "h4 text-center pt-5 pb-1" ]
             [ text "Poids des étapes pour chaque impact" ]
         , simulator
-            |> Simulator.lifeCycleImpacts db
+            |> Simulator.lifeCycleImpacts
             |> chart
         ]
 

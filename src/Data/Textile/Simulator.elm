@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
@@ -40,13 +41,13 @@ type alias Simulator =
     }
 
 
-encode : List Impact.Definition -> Simulator -> Encode.Value
-encode definitions v =
+encode : Simulator -> Encode.Value
+encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode definitions v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
-        , ( "transport", Transport.encode definitions v.transport )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+        , ( "impacts", Impact.encodeImpacts Scope.Textile v.impacts )
+        , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
@@ -56,7 +57,7 @@ init : Db -> Inputs.Query -> Result String Simulator
 init db =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons db.impacts
+            Impact.impactsFromDefinitons
     in
     Inputs.fromQuery db
         >> Result.map
@@ -146,11 +147,11 @@ compute db query =
         -- Compute step transport
         |> nextWithDb computeStepsTransport
         -- Compute transport summary
-        |> next (computeTotalTransportImpacts db)
+        |> next computeTotalTransportImpacts
         --
         -- Final impacts
         --
-        |> next (computeFinalImpacts db)
+        |> next computeFinalImpacts
 
 
 initializeFinalMass : Simulator -> Simulator
@@ -257,7 +258,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                 { step
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
                 }
             )
 
@@ -283,7 +284,7 @@ computePrintingImpacts db ({ inputs } as simulator) =
                         { step
                             | heat = step.heat |> Quantity.plus heat
                             , kwh = step.kwh |> Quantity.plus kwh
-                            , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                            , impacts = Impact.sumImpacts [ step.impacts, impacts ]
                         }
 
                     Nothing ->
@@ -308,7 +309,7 @@ computeFinishingImpacts db ({ inputs } as simulator) =
                 { step
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
                 }
             )
 
@@ -345,7 +346,7 @@ computeMaterialImpacts db ({ inputs } as simulator) =
                                         |> stepMaterialImpacts db material
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
-                            |> Impact.sumImpacts db.impacts
+                            |> Impact.sumImpacts
                 }
             )
 
@@ -390,7 +391,7 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                                         |> .impacts
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
-                            |> Impact.sumImpacts db.impacts
+                            |> Impact.sumImpacts
                 }
             )
 
@@ -538,18 +539,18 @@ computeStepsTransport db simulator =
         |> (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
 
 
-computeTotalTransportImpacts : Db -> Simulator -> Simulator
-computeTotalTransportImpacts db simulator =
-    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransportImpacts db }
+computeTotalTransportImpacts : Simulator -> Simulator
+computeTotalTransportImpacts simulator =
+    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransportImpacts }
 
 
-computeFinalImpacts : Db -> Simulator -> Simulator
-computeFinalImpacts db ({ lifeCycle } as simulator) =
-    { simulator | impacts = LifeCycle.computeFinalImpacts db lifeCycle }
+computeFinalImpacts : Simulator -> Simulator
+computeFinalImpacts ({ lifeCycle } as simulator) =
+    { simulator | impacts = LifeCycle.computeFinalImpacts lifeCycle }
 
 
-lifeCycleImpacts : Db -> Simulator -> List ( String, List ( String, Float ) )
-lifeCycleImpacts db simulator =
+lifeCycleImpacts : Simulator -> List ( String, List ( String, Float ) )
+lifeCycleImpacts simulator =
     -- cch:
     --     matiere: 25%
     --     tissage: 10%
@@ -557,8 +558,7 @@ lifeCycleImpacts db simulator =
     --     etc.
     -- wtu:
     --     ...
-    db.impacts
-        |> List.filter (.scopes >> List.member Scope.Textile)
+    Definition.forScope Scope.Textile
         |> List.map
             (\def ->
                 ( def.label

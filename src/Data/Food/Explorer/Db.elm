@@ -8,7 +8,6 @@ module Data.Food.Explorer.Db exposing
 import Data.Country exposing (Country)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Products)
-import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport
 import Json.Decode as Decode
@@ -17,7 +16,6 @@ import Json.Decode as Decode
 type alias Db =
     { -- Common datasources
       countries : List Country
-    , impacts : List Impact.Definition
     , transports : Transport.Distances
 
     ---- Processes are straightforward imports of public/data/food/processes/explorer.json
@@ -35,7 +33,6 @@ type alias Db =
 empty : Db
 empty =
     { countries = []
-    , impacts = []
     , transports = Transport.emptyDistances
     , processes = []
     , products = Product.emptyProducts
@@ -48,13 +45,13 @@ isEmpty db =
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db
-buildFromJson { countries, transports, impacts } processesJson productsJson =
+buildFromJson { countries, transports } processesJson productsJson =
     processesJson
-        |> Decode.decodeString (Process.decodeList impacts)
+        |> Decode.decodeString Process.decodeList
         |> Result.andThen
             (\processes ->
                 productsJson
                     |> Decode.decodeString (Product.decodeProducts processes)
-                    |> Result.map (Db countries impacts transports processes)
+                    |> Result.map (Db countries transports processes)
             )
         |> Result.mapError Decode.errorToString

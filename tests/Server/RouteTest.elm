@@ -1,7 +1,7 @@
 module Server.RouteTest exposing (..)
 
 import Data.Food.Builder.Query as BuilderQuery
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material
@@ -215,7 +215,7 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal
                 (Just <|
-                    Route.GetTextileSimulatorSingle (Impact.trg "fwe") <|
+                    Route.GetTextileSimulatorSingle Definition.Fwe <|
                         Ok tShirtCotonFrance
                 )
             |> asTest "should map the /textile/simulator/{impact} endpoint"

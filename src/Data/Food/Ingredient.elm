@@ -240,11 +240,11 @@ findByID id ingredients =
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
-getDefaultOriginTransport : List Impact.Definition -> PlaneTransport -> Origin -> Transport
-getDefaultOriginTransport defs planeTransport origin =
+getDefaultOriginTransport : PlaneTransport -> Origin -> Transport
+getDefaultOriginTransport planeTransport origin =
     let
         default =
-            Transport.default (Impact.impactsFromDefinitons defs)
+            Transport.default Impact.impactsFromDefinitons
     in
     case origin of
         Origin.France ->

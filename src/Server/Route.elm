@@ -5,6 +5,7 @@ module Server.Route exposing
 
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
@@ -50,14 +51,14 @@ type Route
       --     Textile Detailed version for all impacts (GET, query string)
     | GetTextileSimulatorDetailed (Result Query.Errors TextileInputs.Query)
       --     Textile Simple version for one specific impact (GET, query string)
-    | GetTextileSimulatorSingle Impact.Trigram (Result Query.Errors TextileInputs.Query)
+    | GetTextileSimulatorSingle Definition.Trigram (Result Query.Errors TextileInputs.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
     | PostTextileSimulator
       --     Textile Detailed version for all impacts (POST, JSON body)
     | PostTextileSimulatorDetailed
       --     Textile Simple version for one specific impact (POST, JSON bosy)
-    | PostTextileSimulatorSingle Impact.Trigram
+    | PostTextileSimulatorSingle Definition.Trigram
 
 
 parser : StaticDb.Db -> Parser (Route -> a) a

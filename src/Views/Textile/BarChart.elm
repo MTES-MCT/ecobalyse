@@ -2,6 +2,7 @@ module Views.Textile.BarChart exposing (Bar, view)
 
 import Array
 import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definition)
 import Data.Textile.Product as Product
 import Data.Textile.Simulator exposing (Simulator)
 import Data.Textile.Step.Label as Label
@@ -15,7 +16,7 @@ import Views.PieChart as PieChart
 
 type alias Config =
     { simulator : Simulator
-    , impact : Impact.Definition
+    , impact : Definition
     , funit : Unit.Functional
     }
 

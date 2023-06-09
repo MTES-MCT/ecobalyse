@@ -1,18 +1,26 @@
 module Data.Impact.Definition exposing
     ( AggregatedScoreData
     , Definition
-    , Quality
+    , Definitions
+    , Quality(..)
     , Source
     , Trigram(..)
     , definitions
+    , forScope
     , get
+    , isAggregate
     , toString
     , toTrigram
+    , trigrams
     )
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict exposing (Dict)
+
+
+
+---- Types
 
 
 type alias Definition =
@@ -26,6 +34,32 @@ type alias Definition =
     , pefData : Maybe AggregatedScoreData
     , ecoscoreData : Maybe AggregatedScoreData
     , scopes : List Scope
+    }
+
+
+type alias Definitions =
+    { ecs : Definition
+    , pef : Definition
+    , acd : Definition
+    , ozd : Definition
+    , cch : Definition
+    , fwe : Definition
+    , swe : Definition
+    , tre : Definition
+    , pco : Definition
+    , pma : Definition
+    , ior : Definition
+    , fru : Definition
+    , mru : Definition
+    , ldu : Definition
+    , wtu : Definition
+    , etf : Definition
+    , etfc : Definition
+    , htc : Definition
+    , htcc : Definition
+    , htn : Definition
+    , htnc : Definition
+    , bvi : Definition
     }
 
 
@@ -71,6 +105,37 @@ type alias AggregatedScoreData =
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
     }
+
+
+
+---- Helpers
+
+
+trigrams : List Trigram
+trigrams =
+    [ Acd
+    , Bvi
+    , Cch
+    , Ecs
+    , Etf
+    , EtfC
+    , Fru
+    , Fwe
+    , Htc
+    , HtcC
+    , Htn
+    , HtnC
+    , Ior
+    , Ldu
+    , Mru
+    , Ozd
+    , Pco
+    , Pef
+    , Pma
+    , Swe
+    , Tre
+    , Wtu
+    ]
 
 
 toString : Trigram -> String
@@ -251,30 +316,24 @@ get trigram =
         |> Maybe.map (\definitionGetter -> definitionGetter definitions)
 
 
-type alias Definitions =
-    { ecs : Definition
-    , pef : Definition
-    , acd : Definition
-    , ozd : Definition
-    , cch : Definition
-    , fwe : Definition
-    , swe : Definition
-    , tre : Definition
-    , pco : Definition
-    , pma : Definition
-    , ior : Definition
-    , fru : Definition
-    , mru : Definition
-    , ldu : Definition
-    , wtu : Definition
-    , etf : Definition
-    , etfc : Definition
-    , htc : Definition
-    , htcc : Definition
-    , htn : Definition
-    , htnc : Definition
-    , bvi : Definition
-    }
+forScope : Scope.Scope -> List Definition
+forScope scope =
+    Dict.map
+        (\_ defGetter ->
+            defGetter definitions
+        )
+        trigramToDefinition
+        |> Dict.filter (\_ def -> List.member scope def.scopes)
+        |> Dict.values
+
+
+isAggregate : Trigram -> Bool
+isAggregate trigram =
+    trigram == Pef || trigram == Ecs
+
+
+
+---- Data: the definitions that were originally in impacts.json
 
 
 definitions : Definitions

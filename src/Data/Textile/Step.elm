@@ -88,11 +88,11 @@ type alias ProcessInfo =
     }
 
 
-create : { db : Db, label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
-create { db, label, editable, country, enabled } =
+create : { label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
+create { label, editable, country, enabled } =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons db.impacts
+            Impact.impactsFromDefinitons
     in
     { label = label
     , enabled = enabled
@@ -467,8 +467,8 @@ yarnSizeToDtexString yarnSize =
     String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
-encode : List Impact.Definition -> Step -> Encode.Value
-encode definitions v =
+encode : Step -> Encode.Value
+encode v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
         , ( "enabled", Encode.bool v.enabled )
@@ -477,8 +477,8 @@ encode definitions v =
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
-        , ( "transport", Transport.encode definitions v.transport )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
+        , ( "transport", Transport.encode v.transport )
+        , ( "impacts", Impact.encodeImpacts Scope.Textile v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

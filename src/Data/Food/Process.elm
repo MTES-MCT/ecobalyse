@@ -132,12 +132,12 @@ decodeCategory =
         |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
-decodeProcess : List Impact.Definition -> Decoder Process
-decodeProcess definitions =
+decodeProcess : Decoder Process
+decodeProcess =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
+        |> Pipe.required "impacts" Impact.decodeImpacts
         |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "identifier" decodeCode
         |> Pipe.required "category" decodeCategory
@@ -153,9 +153,9 @@ decodeCode =
         |> Decode.map codeFromString
 
 
-decodeList : List Impact.Definition -> Decoder (List Process)
-decodeList definitions =
-    Decode.list (decodeProcess definitions)
+decodeList : Decoder (List Process)
+decodeList =
+    Decode.list decodeProcess
 
 
 encodeCode : Code -> Encode.Value

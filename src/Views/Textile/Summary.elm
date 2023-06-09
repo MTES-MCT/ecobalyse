@@ -4,6 +4,7 @@ import Array
 import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -28,7 +29,7 @@ import Views.Transport as TransportView
 
 type alias Config msg =
     { session : Session
-    , impact : Impact.Definition
+    , impact : Definition
     , funit : Unit.Functional
     , reusable : Bool
     , chartHovering : Comparator.Stacks
@@ -52,7 +53,7 @@ viewMaterials materials =
 
 
 mainSummaryView : Config msg -> Simulator -> Html msg
-mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
+mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
     SummaryComp.view
         { header =
             [ span [ class "text-nowrap" ]
@@ -103,7 +104,7 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
                     )
                 |> ul [ class "Chevrons" ]
             , lifeCycle
-                |> LifeCycle.computeTotalTransportImpacts session.db
+                |> LifeCycle.computeTotalTransportImpacts
                 |> TransportView.view
                     { fullWidth = False
                     , hideNoLength = False

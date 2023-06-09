@@ -28,6 +28,7 @@ import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Formula as Formula
@@ -209,7 +210,7 @@ decodeProducts processes =
 -- utilities
 
 
-getItemsImpact : Impact.Trigram -> Items -> Float
+getItemsImpact : Definition.Trigram -> Items -> Float
 getItemsImpact trigram items =
     items
         |> List.foldl
@@ -224,7 +225,7 @@ getItemsImpact trigram items =
             0
 
 
-getTotalImpact : Impact.Trigram -> Product -> Float
+getTotalImpact : Definition.Trigram -> Product -> Float
 getTotalImpact trigram product =
     getItemsImpact trigram product.consumer.items
         + getItemsImpact trigram product.supermarket.items
@@ -437,8 +438,8 @@ updateItemsAmounts amountRatio items =
             )
 
 
-updatePlantTransport : Product -> List Process -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updatePlantTransport originalProduct processes impactDefinitions countryCode distances ({ plant } as product) =
+updatePlantTransport : Product -> List Process -> Country.Code -> Distances -> Product -> Product
+updatePlantTransport originalProduct processes countryCode distances ({ plant } as product) =
     let
         defaultTransport =
             originalProduct.plant
@@ -454,7 +455,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
             Quantity.ratio plantWeight originalPlantWeight
 
         impacts =
-            Impact.impactsFromDefinitons impactDefinitions
+            Impact.impactsFromDefinitons
 
         transport =
             distances
