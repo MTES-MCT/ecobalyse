@@ -185,7 +185,7 @@ Des taux de perte par défaut sont appliqués à chaque procédé.&#x20;
 
 Lors de la filature, la fabrication du fil peut être "cardée" ou "peignée" selon la longueur des fibres et les propriétés finales souhaitées. Un fil peigné nécessite une étape supplémentaire par rapport au cardage. De plus, le titrage souhaité du fil impacte aussi le choix d'ajouter une étape de "peignage".&#x20;
 
-Ce niveau de détails n'est pas refléter dans l'outil pour plusieurs raisons dont les principales sont :&#x20;
+Ce niveau de détails n'est pas reflété dans l'outil pour plusieurs raisons, dont :&#x20;
 
 * l'absence de maîtrise de ce niveau de détails par les marques,
 * la faible disponibilité de données (ICV/procédés) permettant de différencier la filature cardée vs peignée),
