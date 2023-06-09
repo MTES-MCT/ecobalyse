@@ -2,12 +2,12 @@ module Request.Textile.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
-import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
+import Http
 import RemoteData exposing (WebData)
 import Request.Common exposing (getJson)
 import Task exposing (Task)
@@ -27,6 +27,13 @@ buildFromWebData impacts processes countries materials products transports =
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
+        |> RemoteData.andThen
+            (\partiallyLoaded ->
+                Process.loadWellKnown processes
+                    |> Result.map partiallyLoaded
+                    |> RemoteData.fromResult
+                    |> RemoteData.mapError Http.BadBody
+            )
 
 
 loadDependentData : List Impact.Definition -> List Process -> Task () (WebData Db)
@@ -76,8 +83,8 @@ handleImpactsLoaded impactsData =
             Task.succeed RemoteData.Loading
 
 
-loadDb : Session -> (WebData Db -> msg) -> Cmd msg
-loadDb _ event =
+loadDb : (WebData Db -> msg) -> Cmd msg
+loadDb event =
     getJson Impact.decodeList "impacts.json"
         |> Task.andThen handleImpactsLoaded
         |> Task.attempt

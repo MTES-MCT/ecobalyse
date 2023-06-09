@@ -166,43 +166,38 @@ displayLabel { knitted, fadable } label =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : Db -> Step -> Step -> Result String Step
+computeTransports : Db -> Step -> Step -> Step
 computeTransports db next ({ processInfo } as current) =
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellKnown ->
-                let
-                    transport =
-                        db.transports
-                            |> Transport.getTransportBetween
-                                Scope.Textile
-                                current.transport.impacts
-                                current.country.code
-                                next.country.code
+    let
+        transport =
+            db.transports
+                |> Transport.getTransportBetween
+                    Scope.Textile
+                    current.transport.impacts
+                    current.country.code
+                    next.country.code
 
-                    stepSummary =
-                        computeTransportSummary current transport
+        stepSummary =
+            computeTransportSummary current transport
 
-                    roadTransportProcess =
-                        getRoadTransportProcess wellKnown current
-                in
-                { current
-                    | processInfo =
-                        { processInfo
-                            | roadTransport = Just roadTransportProcess.name
-                            , seaTransport = Just wellKnown.seaTransport.name
-                            , airTransport = Just wellKnown.airTransport.name
-                        }
-                    , transport =
-                        stepSummary
-                            |> computeTransportImpacts
-                                current.transport.impacts
-                                wellKnown
-                                roadTransportProcess
-                                next.inputMass
-                }
-            )
+        roadTransportProcess =
+            getRoadTransportProcess db.wellKnown current
+    in
+    { current
+        | processInfo =
+            { processInfo
+                | roadTransport = Just roadTransportProcess.name
+                , seaTransport = Just db.wellKnown.seaTransport.name
+                , airTransport = Just db.wellKnown.airTransport.name
+            }
+        , transport =
+            stepSummary
+                |> computeTransportImpacts
+                    current.transport.impacts
+                    db.wellKnown
+                    roadTransportProcess
+                    next.inputMass
+    }
 
 
 computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
@@ -293,7 +288,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 
 
 updateFromInputs : Db -> Inputs -> Step -> Step
-updateFromInputs { processes } inputs ({ label, country } as step) =
+updateFromInputs { wellKnown } inputs ({ label, country } as step) =
     let
         { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
             inputs
@@ -317,13 +312,10 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , fabric =
-                            processes
-                                |> Process.loadWellKnown
-                                |> Result.map
-                                    (Product.getFabricProcess inputs.knittingProcess inputs.product
-                                        >> .name
-                                    )
-                                |> Result.toMaybe
+                            wellKnown
+                                |> Product.getFabricProcess inputs.knittingProcess inputs.product
+                                |> .name
+                                |> Just
                     }
             }
 
@@ -336,24 +328,18 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         | countryHeat = Just country.heatProcess.name
                         , countryElec = Just country.electricityProcess.name
                         , dyeing =
-                            processes
-                                |> Process.loadWellKnown
-                                |> Result.map
-                                    (Process.getDyeingProcess
-                                        (dyeingMedium
-                                            |> Maybe.withDefault inputs.product.dyeing.defaultMedium
-                                        )
-                                        >> .name
+                            wellKnown
+                                |> Process.getDyeingProcess
+                                    (dyeingMedium
+                                        |> Maybe.withDefault inputs.product.dyeing.defaultMedium
                                     )
-                                |> Result.toMaybe
+                                |> .name
+                                |> Just
                         , printing =
                             printing
-                                |> Maybe.andThen
+                                |> Maybe.map
                                     (\{ kind } ->
-                                        processes
-                                            |> Process.loadWellKnown
-                                            |> Result.map (Process.getPrintingProcess kind >> .name)
-                                            |> Result.toMaybe
+                                        Process.getPrintingProcess kind wellKnown |> .name
                                     )
                     }
             }
@@ -369,10 +355,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         | countryElec = Just country.electricityProcess.name
                         , fading =
                             if inputs.product.making.fadable then
-                                processes
-                                    |> Process.loadWellKnown
-                                    |> Result.map (.fading >> .name)
-                                    |> Result.toMaybe
+                                Just wellKnown.fading.name
 
                             else
                                 Nothing
@@ -384,16 +367,10 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             }
 
         Label.Distribution ->
-            processes
-                |> Process.loadWellKnown
-                |> Result.map
-                    (\{ distribution } ->
-                        { step
-                            | processInfo =
-                                { defaultProcessInfo | distribution = Just distribution.name }
-                        }
-                    )
-                |> Result.withDefault step
+            { step
+                | processInfo =
+                    { defaultProcessInfo | distribution = Just wellKnown.distribution.name }
+            }
 
         Label.Use ->
             { step
@@ -417,19 +394,13 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , countryHeat = Just country.heatProcess.name
                     }
             in
-            processes
-                |> Process.loadWellKnown
-                |> Result.map
-                    (\{ endOfLife } ->
-                        { step
-                            | processInfo =
-                                { newProcessInfo
-                                    | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
-                                    , endOfLife = Just endOfLife.name
-                                }
-                        }
-                    )
-                |> Result.withDefault { step | processInfo = newProcessInfo }
+            { step
+                | processInfo =
+                    { newProcessInfo
+                        | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
+                        , endOfLife = Just wellKnown.endOfLife.name
+                    }
+            }
 
         _ ->
             step

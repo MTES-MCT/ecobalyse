@@ -1,10 +1,12 @@
 module Data.Session exposing
     ( Notification(..)
     , Session
+    , UnloadedSession
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
     , deserializeStore
+    , fromUnloaded
     , maxComparedSimulations
     , notifyError
     , notifyHttpError
@@ -46,6 +48,35 @@ type alias Session =
     }
 
 
+type alias UnloadedSession =
+    { navKey : Nav.Key
+    , clientUrl : String
+    , store : Store
+    , currentVersion : Version
+    , builderDb : BuilderDb.Db
+    , explorerDb : ExplorerDb.Db
+    , notifications : List Notification
+    , queries :
+        { food : FoodQuery.Query
+        , textile : TextileInputs.Query
+        }
+    }
+
+
+fromUnloaded : UnloadedSession -> Db -> Session
+fromUnloaded unloadedSession db =
+    { navKey = unloadedSession.navKey
+    , clientUrl = unloadedSession.clientUrl
+    , store = unloadedSession.store
+    , currentVersion = unloadedSession.currentVersion
+    , db = db
+    , builderDb = unloadedSession.builderDb
+    , explorerDb = unloadedSession.explorerDb
+    , notifications = unloadedSession.notifications
+    , queries = unloadedSession.queries
+    }
+
+
 
 -- Notifications
 
@@ -65,7 +96,7 @@ notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
 
 
-notifyHttpError : Http.Error -> Session -> Session
+notifyHttpError : Http.Error -> { a | notifications : List Notification } -> { a | notifications : List Notification }
 notifyHttpError error ({ notifications } as session) =
     { session | notifications = notifications ++ [ HttpError error ] }
 

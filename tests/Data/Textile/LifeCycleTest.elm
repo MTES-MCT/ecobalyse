@@ -21,7 +21,7 @@ suite =
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
                     |> LifeCycle.fromQuery textileDb
-                    |> Result.andThen (LifeCycle.computeStepsTransport textileDb)
+                    |> Result.map (LifeCycle.computeStepsTransport textileDb)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 3000, 21549 ))
@@ -32,7 +32,7 @@ suite =
                         , countryDyeing = Country.Code "IN" -- Ennoblement in India
                         , countryMaking = Country.Code "FR"
                     }
-                    |> Result.andThen (LifeCycle.computeStepsTransport textileDb)
+                    |> Result.map (LifeCycle.computeStepsTransport textileDb)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2000, 45471 ))
