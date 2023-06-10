@@ -35,8 +35,17 @@ def compute_new_processes(activities, ingredients):
     new_processes = []
 
     for ingredient in ingredients:
-        for variant_name, variant in ingredient.get("variants", {}).items():
-            # variant_name can be 'organic', 'bleu_blanc_coeur'
+        for variant_type, variant in ingredient.get("variants", {}).items():
+            # variant_type can be 'organic', 'bleu_blanc_coeur'
+
+            # find the variant from its search string
+            if "process" in variant:
+                results = db.search(variant["process"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'process' field of the {variant_type} variant for '{ingredient['name']}' was not found in {DBNAME}"
+                variant["process"] = results[0]["Process identifier"]
+
             # we build new processes for ingredients defined with 2 sub-ingredients
             if (
                 "simple_ingredient_default" in variant
@@ -45,7 +54,7 @@ def compute_new_processes(activities, ingredients):
                 assert (
                     "simple_ingredient_default" in variant
                     and "simple_ingredient_variant" in variant
-                ), f"Incomplete variant for {ingredient}"
+                ), f"Incomplete variant for {ingredient}: missing either simple_ingredient_default or simple_ingredient_variant"
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 assert (
                     ingredient["default"] in activities
@@ -58,24 +67,34 @@ def compute_new_processes(activities, ingredients):
                 # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 ratio = variant["ratio"]
 
+                results = db.search(variant["simple_ingredient_default"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'simple_ingredient_default' of '{ingredient['name']}' was not found in {DBNAME}"
                 simple_ingredient_default = activities[
-                    variant["simple_ingredient_default"]
+                    results[0]["Process identifier"]
                 ]["export_data"]
+
+                results = db.search(variant["simple_ingredient_variant"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'simple_ingredient_variant' of '{ingredient['name']}' was not found in {DBNAME}"
                 simple_ingredient_variant = activities[
-                    variant["simple_ingredient_variant"]
+                    results[0]["Process identifier"]
                 ]["export_data"]
 
                 new_process = copy.deepcopy(complex_ingredient_default)
                 new_process[
                     "name"
-                ] = f"{ingredient['id']}, {variant_name}, constructed by ecobalyse"
+                ] = f"{ingredient['id']}, {variant_type}, constructed by ecobalyse"
                 new_process["system_description"] = "ecobalyse"
 
                 # We generate a uuid using the process name as a seed
-                m = hashlib.md5()
-                seed = new_process["name"]
-                m.update(seed.encode("utf-8"))
-                new_process["identifier"] = str(uuid.UUID(m.hexdigest()))
+                new_process["identifier"] = str(
+                    uuid.UUID(
+                        hashlib.md5(new_process["name"].encode("utf-8")).hexdigest()
+                    )
+                )
 
                 for impact in new_process["impacts"]:
                     # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
@@ -124,7 +143,7 @@ if __name__ == "__main__":
         assert (
             len(results) >= 1
         ), f"In {INGREDIENTS_BASE}:{i}, searching this \"default\" field doesn't give a result: {ingredient['default']}"
-        ingredient["identifier"] = results[0]["Process identifier"]
+        ingredient["default"] = results[0]["Process identifier"]
         for variant in ingredient.get("variants", {}).values():
             if (
                 "simple_ingredient_default" in variant
@@ -134,40 +153,42 @@ if __name__ == "__main__":
                 processes_to_add.append({"name": variant["simple_ingredient_default"]})
                 processes_to_add.append({"name": variant["simple_ingredient_variant"]})
 
-    print(
-        f"{len(processes_to_add)} procédés construits provenant de {INGREDIENTS_BASE}"
-    )
+    print(f"{len(processes_to_add)} ingrédients construits depuis {INGREDIENTS_BASE}")
 
     processes_to_export += processes_to_add
     print(
-        f"Total de {len(processes_to_export)} procédés à exporter, sélectionnés depuis {PROCESSES2EXPORT}"
+        f"{len(processes_to_export)} procédés exportés depuis depuis {PROCESSES2EXPORT}"
     )
 
     activities = {}
-    for i, p in enumerate(processes_to_export):
-        results = db.search(p["name"])
+    for i, process in enumerate(processes_to_export):
+        results = db.search(process["name"])
         assert (
             len(results) >= 1
-        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {p['name']}"
+        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['name']}"
         activity = results[0]
-        activities[p["name"]] = {
+        activities[activity["Process identifier"]] = {
             "activity": activity,
-            "export_data": p,
+            "export_data": process,
         }
 
     nb_activities = len(activities)
-    print(f"Total de {nb_activities} activités trouvées dans {DBNAME}")
+    print(f"{nb_activities} activités trouvées dans {DBNAME}")
 
+    print("Calcul des impacts:")
     for index, v in enumerate(activities.values()):
         print(
-            "[" + (index) * "•" + (nb_activities - index) * " " + "]",
+            "("
+            + (index) * "•"
+            + (nb_activities - index) * " "
+            + f") {str(index)}/{nb_activities}",
             end="\r",
         )
         # move data
         activity, export_data = v["activity"], v["export_data"]
         export_data["unit"] = activity["unit"]
         export_data["identifier"] = activity["Process identifier"]
-        export_data["name"] = activity.get("simapro name", activity["name"])
+        export_data["name"] = activity["name"]
         export_data["system_description"] = activity["System description"]
 
         # Useful info like the category_tags and comment are in the production exchange
@@ -234,6 +255,7 @@ if __name__ == "__main__":
     export = [v["export_data"] for v in activities.values()] + new_processes
 
     # compute the corrected impacts
+    print("Computing corrected impacts from weihgted subimpacts")
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
     }

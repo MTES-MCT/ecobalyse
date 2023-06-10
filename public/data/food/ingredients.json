@@ -3,7 +3,7 @@
     "id": "egg",
     "name": "Oeuf",
     "category": "animal_product",
-    "default": "Egg national average at farm gate",
+    "default": "AGRIBALU000000003105162",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -11,7 +11,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Egg organic at farm gate",
+        "process": "AGRIBALU000000003105163",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
@@ -19,14 +19,13 @@
         }
       },
       "bleu_blanc_coeur": "Egg Bleu Blanc Coeur outdoor system at farm gate"
-    },
-    "identifier": "AGRIBALU000000003105162"
+    }
   },
   {
     "id": "milk",
     "name": "Lait",
     "category": "dairy_product",
-    "default": "Cow milk national average at farm gate",
+    "default": "AGRIBALU000000003104145",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -34,20 +33,19 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+        "process": "AGRIBALU000000003104412",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
           "animal-welfare": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003104145"
+    }
   },
   {
     "id": "carrot",
     "name": "Carotte",
-    "default": "Carrot conventional national average at farm gate",
+    "default": "AGRIBALU000000003102592",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -56,21 +54,20 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Carrot organic Lower Normandy at farm gate",
+        "process": "AGRIBALU000000003102611",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003102592"
+    }
   },
   {
     "id": "wheat",
     "name": "Blé tendre",
     "category": "grain_raw",
-    "default": "Soft wheat grain conventional national average animal feed at farm gate production",
+    "default": "AGRIBALU000024985200247",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -78,20 +75,19 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "soft wheat grain organic central region",
+        "process": "AGRIBALU000000003114123",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000024985200247"
+    }
   },
   {
     "id": "flour",
     "name": "Farine",
     "category": "grain_processed",
-    "default": "Wheat flour at industrial mill",
+    "default": "AGRIBALU000000003116999",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -105,14 +101,13 @@
         },
         "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
       }
-    },
-    "identifier": "AGRIBALU000000003116999"
+    }
   },
   {
     "id": "sunflower",
     "name": "Tournesol",
     "category": "nut_oilseed_raw",
-    "default": "Sunflower at farm FR",
+    "default": "AGRIBALU000000003115216",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -120,20 +115,19 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Sunflower grain organic system 3 at farm gate",
+        "process": "AGRIBALU000024985200157",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003115216"
+    }
   },
   {
     "id": "rapeseed",
     "name": "Colza",
     "category": "nut_oilseed_raw",
-    "default": "Rape seed FR production Cut-off",
+    "default": "AGRIBALU000000003112430",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -141,20 +135,19 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Winter rapeseed organic at farm gate",
+        "process": "AGRIBALU000024985200196",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003112430"
+    }
   },
   {
     "id": "tomato",
     "name": "Tomate",
     "category": "vegetable_fresh",
-    "default": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
+    "default": "AGRIBALU000000003115753",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -162,32 +155,30 @@
     "visible": false,
     "variants": {
       "organic": {
-        "process": "Tomato organic greenhouse production national average at greenhouse",
+        "process": "AGRIBALU000000003115758",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003115753"
+    }
   },
   {
     "id": "potato",
     "name": "Pomme de terre",
     "category": "vegetable_fresh",
-    "default": "Ware potato conventional variety mix national average at farm gate",
+    "default": "AGRIBALU000000003116702",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "identifier": "AGRIBALU000000003116702"
+    "visible": true
   },
   {
     "id": "ground-beef",
     "name": "Boeuf haché",
     "category": "animal_product",
-    "default": "Ground beef fresh case ready for direct consumption at plant",
+    "default": "AGRIBALU000000003107081",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -202,14 +193,13 @@
         },
         "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
       }
-    },
-    "identifier": "AGRIBALU000000003107081"
+    }
   },
   {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
     "category": "animal_product",
-    "default": "Beef cattle feedlot or intensive system live weight farm GB",
+    "default": "AGRIBALU000000003101053",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -219,14 +209,13 @@
       "organic": {
         "process": "53a1ead1-62c9-1131-8841-3218dce10a8d"
       }
-    },
-    "identifier": "AGRIBALU000000003101053"
+    }
   },
   {
     "id": "cooked-ham",
     "name": "Jambon",
     "category": "animal_product",
-    "default": "Cooked ham case ready at plant",
+    "default": "AGRIBALU000000003103910",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -241,14 +230,13 @@
         },
         "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
       }
-    },
-    "identifier": "AGRIBALU000000003103910"
+    }
   },
   {
     "id": "chicken-breast",
     "name": "Poulet",
     "category": "animal_product",
-    "default": "Meat without bone chicken for direct consumption",
+    "default": "AGRIBALU000000003109221",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -263,14 +251,13 @@
         },
         "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
       }
-    },
-    "identifier": "AGRIBALU000000003109221"
+    }
   },
   {
     "id": "grape",
     "name": "Raisin de cuve",
     "category": "vegetable_fresh",
-    "default": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
+    "default": "AGRIBALU000000003106864",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -278,31 +265,29 @@
     "visible": false,
     "variants": {
       "organic": {
-        "process": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
+        "process": "AGRIBALU000024985200264",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50
         }
       }
-    },
-    "identifier": "AGRIBALU000000003106864"
+    }
   },
   {
     "id": "mango",
     "name": "Mangue",
     "category": "vegetable_fresh",
-    "default": "Mango conventional Val de San Francisco at orchard",
+    "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "identifier": "AGRIBALU000000003109086"
+    "visible": true
   },
   {
     "id": "huilecolza",
     "name": "Huile de colza",
-    "default": "Rapeseed oil mill {GLO}",
+    "default": "AGRIBALU000000003112448",
     "default_origin": "EuropeAndMaghreb",
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
@@ -311,20 +296,19 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "5ce9349d-c81b-789d-7005-538690ecb272",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
           "animal-welfare": 0
-        }
+        },
+        "process": "5ce9349d-c81b-789d-7005-538690ecb272"
       }
-    },
-    "identifier": "AGRIBALU000000003112448"
+    }
   },
   {
     "id": "sunfloweroil",
     "name": "Huile de tournesol",
-    "default": "sunflower oil at mill {glo}",
+    "default": "AGRIBALU000000003115182",
     "default_origin": "EuropeAndMaghreb",
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
@@ -340,13 +324,12 @@
         },
         "process": "6c960d7f-6285-703f-b424-f485411e507b"
       }
-    },
-    "identifier": "AGRIBALU000000003115182"
+    }
   },
   {
     "id": "zucchini",
     "name": "Courgette",
-    "default": "Zucchini springtime under tunnel conventionel at farm gate {FR} U",
+    "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 1.0,
@@ -355,7 +338,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "zucchini,  springtime, under tunnel, organic",
+        "process": "AGRIBALU000024985200219",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -363,13 +346,12 @@
           "animal-welfare": 0
         }
       }
-    },
-    "identifier": "AGRIBALU000024985200218"
+    }
   },
   {
     "id": "pear",
     "name": "Poire",
-    "default": "pear, conventional, at orchard",
+    "default": "AGRIBALU000000003111019",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -378,7 +360,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "pear, organic,",
+        "process": "AGRIBALU000000003111025",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -386,13 +368,12 @@
           "animal-welfare": 0
         }
       }
-    },
-    "identifier": "AGRIBALU000000003111019"
+    }
   },
   {
     "id": "peach",
     "name": "Pêche",
-    "default": "Peach, production mix, national average, at orchard {FR}",
+    "default": "AGRIBALU000000003110952",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -401,7 +382,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "peach, organic, ",
+        "process": "AGRIBALU000000003110947",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -409,13 +390,12 @@
           "animal-welfare": 0
         }
       }
-    },
-    "identifier": "AGRIBALU000000003110952"
+    }
   },
   {
     "id": "melon",
     "name": "Melon",
-    "default": "Melon, conventional, national average, at farm gate",
+    "default": "AGRIBALU000000003109266",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -424,7 +404,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "melon organic",
+        "process": "AGRIBALU000024985200102",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -432,13 +412,12 @@
           "animal-welfare": 0
         }
       }
-    },
-    "identifier": "AGRIBALU000000003109266"
+    }
   },
   {
     "id": "butter",
     "name": "Beurre",
-    "default": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "default": "AGRIBALU000000003102321",
     "default_origin": "France",
     "category": "dairy_product",
     "raw_to_cooked_ratio": 1.0,
@@ -454,118 +433,61 @@
         },
         "process": "ab9f8f9c-ad6b-89e0-354f-5889456d2d68"
       }
-    },
-    "identifier": "AGRIBALU000000003102321"
+    }
   },
   {
     "id": "onion",
     "name": "Oignon",
-    "default": "Onion, national average, at farm",
+    "default": "AGRIBALU000000003110467",
     "default_origin": "OutOfEuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    },
-    "identifier": "AGRIBALU000000003110467"
+    "visible": true
   },
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "default": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "default": "AGRIBALU000000003107617",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        }
-      },
-      "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
-    },
-    "identifier": "AGRIBALU000000003117541"
+    "visible": true
   },
   {
     "id": "lettuce",
     "name": "Laitue",
-    "default": "Lettuce, conventional, national average, at farm gate {FR} U",
+    "default": "AGRIBALU000000003108668",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    },
-    "identifier": "AGRIBALU000000003108668"
+    "visible": true
   },
   {
     "id": "frenchbean",
     "name": "Haricot vert",
-    "default": "French bean, conventional, national average, at farm gate {FR}",
+    "default": "AGRIBALU000024985200072",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
     "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    },
-    "identifier": "AGRIBALU000024985200072"
+    "visible": true
   },
   {
     "id": "durumwheat",
     "name": "Blé dur",
-    "default": "Durum wheat grain, conventional, national average, at farm gate {FR}",
+    "default": "AGRIBALU000024985200066",
     "default_origin": "EuropeAndMaghreb",
     "category": "grain_raw",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    },
-    "identifier": "AGRIBALU000024985200066"
+    "visible": true
   }
 ]

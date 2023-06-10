@@ -306,9 +306,8 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "zucchini,  springtime, under tunnel, organic",
         "ratio": 0.0,
-        "simple_ingredient_default": "rape seed {FR}",
+        "simple_ingredient_default": "Rape seed FR",
         "simple_ingredient_variant": "winter rapeseed organic",
         "beyondLCA": {
           "agro-diversity": 50,
@@ -344,7 +343,7 @@
   {
     "id": "zucchini",
     "name": "Courgette",
-    "default": "Zucchini springtime under tunnel conventionel at farm gate {FR} U",
+    "default": "Zucchini conventional national average farm gate FR",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 1.0,
@@ -353,7 +352,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "zucchini,  springtime, under tunnel, organic",
+        "process": "zucchini springtime under tunnel organic",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -375,7 +374,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "pear, organic,",
+        "process": "pear organic",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -388,7 +387,7 @@
   {
     "id": "peach",
     "name": "Pêche",
-    "default": "Peach, production mix, national average, at orchard {FR}",
+    "default": "Peach production mix national average at orchard FR",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -397,7 +396,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "peach, organic, ",
+        "process": "peach organic",
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
@@ -461,39 +460,18 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
+    "visible": true
   },
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "default": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "default": "In-season eggplant consumption mix",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        }
-      },
-      "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
-    }
+    "visible": true
   },
   {
     "id": "lettuce",
@@ -504,17 +482,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
+    "visible": true
   },
   {
     "id": "frenchbean",
@@ -525,17 +493,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
     "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
+    "visible": true
   },
   {
     "id": "durumwheat",
@@ -546,16 +504,6 @@
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
+    "visible": true
   }
 ]
