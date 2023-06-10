@@ -89,7 +89,7 @@ compute db query =
             Result.map fn
 
         nextWithDb fn =
-            Result.andThen (fn db)
+            next (fn db)
 
         nextIf label fn =
             if not (List.member label query.disabledSteps) then
@@ -159,28 +159,23 @@ initializeFinalMass ({ inputs } as simulator) =
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
 
 
-computeEndOfLifeImpacts : Db -> Simulator -> Result String Simulator
-computeEndOfLifeImpacts { processes } simulator =
-    processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\{ passengerCar, endOfLife } ->
-                simulator
-                    |> updateLifeCycleStep Label.EndOfLife
-                        (\({ country } as step) ->
-                            let
-                                { kwh, heat, impacts } =
-                                    step.outputMass
-                                        |> Formula.endOfLifeImpacts step.impacts
-                                            { volume = simulator.inputs.product.endOfLife.volume
-                                            , passengerCar = passengerCar
-                                            , endOfLife = endOfLife
-                                            , countryElecProcess = country.electricityProcess
-                                            , heatProcess = country.heatProcess
-                                            }
-                            in
-                            { step | impacts = impacts, kwh = kwh, heat = heat }
-                        )
+computeEndOfLifeImpacts : Db -> Simulator -> Simulator
+computeEndOfLifeImpacts { wellKnown } simulator =
+    simulator
+        |> updateLifeCycleStep Label.EndOfLife
+            (\({ country } as step) ->
+                let
+                    { kwh, heat, impacts } =
+                        step.outputMass
+                            |> Formula.endOfLifeImpacts step.impacts
+                                { volume = simulator.inputs.product.endOfLife.volume
+                                , passengerCar = wellKnown.passengerCar
+                                , endOfLife = wellKnown.endOfLife
+                                , countryElecProcess = country.electricityProcess
+                                , heatProcess = country.heatProcess
+                                }
+                in
+                { step | impacts = impacts, kwh = kwh, heat = heat }
             )
 
 
@@ -203,33 +198,28 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
             )
 
 
-computeMakingImpacts : Db -> Simulator -> Result String Simulator
-computeMakingImpacts { processes } ({ inputs } as simulator) =
-    processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\{ fading } ->
-                simulator
-                    |> updateLifeCycleStep Label.Making
-                        (\({ country } as step) ->
-                            let
-                                { kwh, heat, impacts } =
-                                    step.outputMass
-                                        |> Formula.makingImpacts step.impacts
-                                            { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
-                                            , fadingProcess =
-                                                -- Note: in the future, we may have distinct fading processes per countries
-                                                if inputs.product.making.fadable && inputs.disabledFading /= Just True then
-                                                    Just fading
+computeMakingImpacts : Db -> Simulator -> Simulator
+computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Making
+            (\({ country } as step) ->
+                let
+                    { kwh, heat, impacts } =
+                        step.outputMass
+                            |> Formula.makingImpacts step.impacts
+                                { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
+                                , fadingProcess =
+                                    -- Note: in the future, we may have distinct fading processes per countries
+                                    if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                                        Just wellKnown.fading
 
-                                                else
-                                                    Nothing
-                                            , countryElecProcess = country.electricityProcess
-                                            , countryHeatProcess = country.heatProcess
-                                            }
-                            in
-                            { step | impacts = impacts, kwh = kwh, heat = heat }
-                        )
+                                    else
+                                        Nothing
+                                , countryElecProcess = country.electricityProcess
+                                , countryHeatProcess = country.heatProcess
+                                }
+                in
+                { step | impacts = impacts, kwh = kwh, heat = heat }
             )
 
 
@@ -239,102 +229,87 @@ getEnnoblingHeatProcess country wellKnown =
         >> Maybe.withDefault country.heatProcess
 
 
-computeDyeingImpacts : Db -> Simulator -> Result String Simulator
+computeDyeingImpacts : Db -> Simulator -> Simulator
 computeDyeingImpacts db ({ inputs } as simulator) =
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellKnown ->
-                simulator
-                    |> updateLifeCycleStep Label.Ennobling
-                        (\({ country, dyeingMedium } as step) ->
-                            let
-                                heatProcess =
-                                    inputs.ennoblingHeatSource
-                                        |> getEnnoblingHeatProcess country wellKnown
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\({ country, dyeingMedium } as step) ->
+                let
+                    heatProcess =
+                        inputs.ennoblingHeatSource
+                            |> getEnnoblingHeatProcess country db.wellKnown
 
-                                productDefaultMedium =
-                                    dyeingMedium
-                                        |> Maybe.withDefault inputs.product.dyeing.defaultMedium
+                    productDefaultMedium =
+                        dyeingMedium
+                            |> Maybe.withDefault inputs.product.dyeing.defaultMedium
 
-                                dyeingProcess =
-                                    wellKnown
-                                        |> Process.getDyeingProcess productDefaultMedium
+                    dyeingProcess =
+                        db.wellKnown
+                            |> Process.getDyeingProcess productDefaultMedium
 
-                                { heat, kwh, impacts } =
-                                    step.outputMass
-                                        |> Formula.dyeingImpacts step.impacts
-                                            dyeingProcess
-                                            heatProcess
-                                            country.electricityProcess
-                            in
-                            { step
-                                | heat = step.heat |> Quantity.plus heat
-                                , kwh = step.kwh |> Quantity.plus kwh
-                                , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
-                            }
-                        )
+                    { heat, kwh, impacts } =
+                        step.outputMass
+                            |> Formula.dyeingImpacts step.impacts
+                                dyeingProcess
+                                heatProcess
+                                country.electricityProcess
+                in
+                { step
+                    | heat = step.heat |> Quantity.plus heat
+                    , kwh = step.kwh |> Quantity.plus kwh
+                    , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                }
             )
 
 
-computePrintingImpacts : Db -> Simulator -> Result String Simulator
+computePrintingImpacts : Db -> Simulator -> Simulator
 computePrintingImpacts db ({ inputs } as simulator) =
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellKnown ->
-                simulator
-                    |> updateLifeCycleStep Label.Ennobling
-                        (\({ country } as step) ->
-                            case step.printing of
-                                Just { kind, ratio } ->
-                                    let
-                                        { heat, kwh, impacts } =
-                                            step.outputMass
-                                                |> Formula.printingImpacts step.impacts
-                                                    { printingProcess = Process.getPrintingProcess kind wellKnown
-                                                    , heatProcess = getEnnoblingHeatProcess country wellKnown inputs.ennoblingHeatSource
-                                                    , elecProcess = country.electricityProcess
-                                                    , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
-                                                    , ratio = ratio
-                                                    }
-                                    in
-                                    { step
-                                        | heat = step.heat |> Quantity.plus heat
-                                        , kwh = step.kwh |> Quantity.plus kwh
-                                        , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
-                                    }
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\({ country } as step) ->
+                case step.printing of
+                    Just { kind, ratio } ->
+                        let
+                            { heat, kwh, impacts } =
+                                step.outputMass
+                                    |> Formula.printingImpacts step.impacts
+                                        { printingProcess = Process.getPrintingProcess kind db.wellKnown
+                                        , heatProcess = getEnnoblingHeatProcess country db.wellKnown inputs.ennoblingHeatSource
+                                        , elecProcess = country.electricityProcess
+                                        , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                        , ratio = ratio
+                                        }
+                        in
+                        { step
+                            | heat = step.heat |> Quantity.plus heat
+                            , kwh = step.kwh |> Quantity.plus kwh
+                            , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                        }
 
-                                Nothing ->
-                                    step
-                        )
+                    Nothing ->
+                        step
             )
 
 
-computeFinishingImpacts : Db -> Simulator -> Result String Simulator
+computeFinishingImpacts : Db -> Simulator -> Simulator
 computeFinishingImpacts db ({ inputs } as simulator) =
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellKnown ->
-                simulator
-                    |> updateLifeCycleStep Label.Ennobling
-                        (\({ country } as step) ->
-                            let
-                                { heat, kwh, impacts } =
-                                    step.outputMass
-                                        |> Formula.finishingImpacts step.impacts
-                                            { finishingProcess = wellKnown.finishing
-                                            , heatProcess = getEnnoblingHeatProcess country wellKnown inputs.ennoblingHeatSource
-                                            , elecProcess = country.electricityProcess
-                                            }
-                            in
-                            { step
-                                | heat = step.heat |> Quantity.plus heat
-                                , kwh = step.kwh |> Quantity.plus kwh
-                                , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
-                            }
-                        )
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\({ country } as step) ->
+                let
+                    { heat, kwh, impacts } =
+                        step.outputMass
+                            |> Formula.finishingImpacts step.impacts
+                                { finishingProcess = db.wellKnown.finishing
+                                , heatProcess = getEnnoblingHeatProcess country db.wellKnown inputs.ennoblingHeatSource
+                                , elecProcess = country.electricityProcess
+                                }
+                in
+                { step
+                    | heat = step.heat |> Quantity.plus heat
+                    , kwh = step.kwh |> Quantity.plus kwh
+                    , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                }
             )
 
 
@@ -420,59 +395,54 @@ computeSpinningImpacts db ({ inputs } as simulator) =
             )
 
 
-computeFabricImpacts : Db -> Simulator -> Result String Simulator
+computeFabricImpacts : Db -> Simulator -> Simulator
 computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
     let
         fabricOutputMass =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero
     in
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellKnown ->
-                simulator
-                    |> updateLifeCycleStep Label.Fabric
-                        (\({ country, knittingProcess } as step) ->
-                            let
-                                productDefaultKnittingProcess =
-                                    knittingProcess
-                                        |> Maybe.withDefault Knitting.Mix
+    simulator
+        |> updateLifeCycleStep Label.Fabric
+            (\({ country, knittingProcess } as step) ->
+                let
+                    productDefaultKnittingProcess =
+                        knittingProcess
+                            |> Maybe.withDefault Knitting.Mix
 
-                                knitting =
-                                    wellKnown
-                                        |> Process.getKnittingProcess productDefaultKnittingProcess
+                    knitting =
+                        db.wellKnown
+                            |> Process.getKnittingProcess productDefaultKnittingProcess
 
-                                { kwh, threadDensity, picking, impacts } =
-                                    case inputs.product.fabric of
-                                        Product.Knitted _ ->
-                                            Formula.knittingImpacts step.impacts
-                                                { elec = knitting.elec
-                                                , countryElecProcess = country.electricityProcess
-                                                }
-                                                step.outputMass
+                    { kwh, threadDensity, picking, impacts } =
+                        case inputs.product.fabric of
+                            Product.Knitted _ ->
+                                Formula.knittingImpacts step.impacts
+                                    { elec = knitting.elec
+                                    , countryElecProcess = country.electricityProcess
+                                    }
+                                    step.outputMass
 
-                                        Product.Weaved process ->
-                                            let
-                                                surfaceMass =
-                                                    inputs.surfaceMass
-                                                        |> Maybe.withDefault inputs.product.surfaceMass
-                                            in
-                                            Formula.weavingImpacts step.impacts
-                                                { countryElecProcess = country.electricityProcess
-                                                , outputMass = fabricOutputMass
-                                                , pickingElec = process.elec_pppm
-                                                , surfaceMass = surfaceMass
-                                                , yarnSize =
-                                                    inputs.yarnSize
-                                                        |> Maybe.withDefault
-                                                            (inputs.product.yarnSize
-                                                                |> Maybe.withDefault Unit.minYarnSize
-                                                            )
-                                                }
-                            in
-                            { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
-                        )
+                            Product.Weaved process ->
+                                let
+                                    surfaceMass =
+                                        inputs.surfaceMass
+                                            |> Maybe.withDefault inputs.product.surfaceMass
+                                in
+                                Formula.weavingImpacts step.impacts
+                                    { countryElecProcess = country.electricityProcess
+                                    , outputMass = fabricOutputMass
+                                    , pickingElec = process.elec_pppm
+                                    , surfaceMass = surfaceMass
+                                    , yarnSize =
+                                        inputs.yarnSize
+                                            |> Maybe.withDefault
+                                                (inputs.product.yarnSize
+                                                    |> Maybe.withDefault Unit.minYarnSize
+                                                )
+                                    }
+                in
+                { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
             )
 
 
@@ -490,22 +460,17 @@ computeMakingStepWaste ({ inputs } as simulator) =
             (Step.initMass mass)
 
 
-computeFabricStepWaste : Db -> Simulator -> Result String Simulator
-computeFabricStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
-    processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\wellknown ->
-                let
-                    { mass, waste } =
-                        lifeCycle
-                            |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                            |> Formula.genericWaste (Product.getFabricProcess inputs.knittingProcess inputs.product wellknown |> .waste)
-                in
-                simulator
-                    |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
-                    |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
-            )
+computeFabricStepWaste : Db -> Simulator -> Simulator
+computeFabricStepWaste { wellKnown } ({ inputs, lifeCycle } as simulator) =
+    let
+        { mass, waste } =
+            lifeCycle
+                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
+                |> Formula.genericWaste (Product.getFabricProcess inputs.knittingProcess inputs.product wellKnown |> .waste)
+    in
+    simulator
+        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+        |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
 
 
 computeMaterialStepWaste : Simulator -> Simulator
@@ -566,11 +531,11 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
         |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
 
 
-computeStepsTransport : Db -> Simulator -> Result String Simulator
+computeStepsTransport : Db -> Simulator -> Simulator
 computeStepsTransport db simulator =
     simulator.lifeCycle
         |> LifeCycle.computeStepsTransport db
-        |> Result.map (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
+        |> (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
 
 
 computeTotalTransportImpacts : Db -> Simulator -> Simulator

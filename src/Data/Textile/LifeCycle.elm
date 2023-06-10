@@ -23,14 +23,13 @@ import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
-import Result.Extra as RE
 
 
 type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
+computeStepsTransport : Db -> LifeCycle -> LifeCycle
 computeStepsTransport db lifeCycle =
     lifeCycle
         |> Array.map
@@ -44,11 +43,8 @@ computeStepsTransport db lifeCycle =
                             )
 
                 else
-                    Ok step
+                    step
             )
-        |> Array.toList
-        |> RE.combine
-        |> Result.map Array.fromList
 
 
 computeTotalTransportImpacts : Db -> LifeCycle -> Transport
