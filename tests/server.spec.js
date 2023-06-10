@@ -352,7 +352,7 @@ describe("API", () => {
     describe("/food/transforms", () => {
       it("should render with transforms list", async () => {
         await expectListResponseContains("/api/food/transforms", {
-          code: "aded2490573207ec7ad5a3813978f6a4",
+          code: "AGRIBALU000000003103966",
           name: "Cuisson",
         });
       });
@@ -363,7 +363,7 @@ describe("API", () => {
         it("should compute 19 impacts for food", async () => {
           const response = await makeRequest("/api/food/recipe", [
             "ingredients[]=carrot;268",
-            "transform=aded2490573207ec7ad5a3813978f6a4;1050",
+            "transform=AGRIBALU000000003103966;1050",
             "distribution=ambient",
           ]);
 
@@ -462,7 +462,7 @@ describe("API", () => {
         it("should validate a transform mass", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", [
-              "transform=aded2490573207ec7ad5a3813978f6a4;-1",
+              "transform=AGRIBALU000000003103966;-1",
             ]),
             "transform",
             /masse doit être supérieure ou égale à zéro/,
@@ -480,7 +480,7 @@ describe("API", () => {
         it("should validate a packaging mass", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", [
-              "packaging[]=23b2754e5943bc77916f8f871edc53b6;-1",
+              "packaging[]=AGRIBALU000000003104019;-1",
             ]),
             "packaging",
             /masse doit être supérieure ou égale à zéro/,
@@ -514,12 +514,12 @@ describe("API", () => {
               { id: "carrot", mass: 0.225 },
             ],
             transform: {
-              code: "aded2490573207ec7ad5a3813978f6a4",
+              code: "AGRIBALU000000003103966",
               mass: 0.545,
             },
             packaging: [
               {
-                code: "23b2754e5943bc77916f8f871edc53b6",
+                code: "AGRIBALU000000003104019",
                 mass: 0.105,
               },
             ],
