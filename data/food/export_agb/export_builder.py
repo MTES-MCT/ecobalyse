@@ -161,10 +161,10 @@ if __name__ == "__main__":
 
     activities = {}
     for i, process in enumerate(processes_to_export):
-        results = db.search(process["search"])
+        results = db.search(process["name"])
         assert (
             len(results) >= 1
-        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['search']}"
+        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['name']}"
         activity = results[0]
         activities[activity["Process identifier"]] = {
             "activity": activity,
