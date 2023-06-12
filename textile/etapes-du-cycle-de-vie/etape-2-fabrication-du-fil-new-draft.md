@@ -2,7 +2,7 @@
 
 ## Description
 
-La fabrication d’un fil consiste à assembler un ensemble de fibres (filé de fibres) ou filaments (fil continu) afin de le rendre utilisables pour la fabrication de produits textiles. Les propriétés recherchées sont nombreuses (élasticité, régularité, résistance, finesse, etc.) et dépendent de besoins métier eux aussi variés (habillement, ameublement, chaussures, etc.).
+La fabrication d’un fil consiste à assembler un ensemble de fibres (filé de fibres) ou filaments (fil continu) afin de le rendre utilisable pour la fabrication de produits textiles. Les propriétés recherchées sont nombreuses (élasticité, régularité, résistance, finesse, etc.) et dépendent de besoins métier eux aussi variés (habillement, ameublement, chaussures, etc.).
 
 La fabrication d’un fil peut prendre deux formes :&#x20;
 
@@ -10,7 +10,8 @@ La fabrication d’un fil peut prendre deux formes :&#x20;
   Une fibre discontinue se caractérise par une courte longueur; les fibres naturelles ou artificielles sont majoritairement des fibres discontinues. \
   Le fil résultant de l’assemblage de fibres discontinues est un filé (spun yarn).
 * &#x20;le **filage** pour les fibres continues (filaments)\
-  Un filament se caractérise par une très grande longueur (fibre continue); les fibres synthétiques sont des fibres continues. Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente. \
+  Un filament se caractérise par une très grande longueur; les fibres synthétiques sont des fibres continues. \
+  Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente. \
   Le fil résultant de cette opération s’appelle un fil monofilamentaire ou multifilamentaire (si le fil est constitué de plusieurs filaments).
 
 <details>
@@ -26,7 +27,7 @@ De plus, la filature permet de fabriquer des fils plus ou moins **gros.** Plus u
 
 En **synthèse**, les procédés de filature peuvent être appréhendés comme suit :&#x20;
 
-![](<../../.gitbook/assets/image (17).png>)
+![](<../../.gitbook/assets/Filature 2.png>)
 
 
 
@@ -38,11 +39,11 @@ Cinq principales **étapes** sont nécessaires pour la filature :&#x20;
 4. Régulariser et affiner progressivement le ruban de fibres parallélisées afin d’obtenir la grosseur et la régularité requise
 5. Tordre sur elle-même cette mèche afin de donner la cohésion et solidité nécessaire au fil obtenu; puis l’enrouler sur un support&#x20;
 6. Fabriquer le fil (filature)\
-   Deux techniques existent&#x20;
-   * Conventionnelle = filature à anneaux (ring spun)
-   * Non conventionnelle = filature à bouts libérées (open-end)\
-     Productivité : 5x à 10x plus élevée (ne permet cependant pas de fabriquer des fils aussi fins que la filature à anneaux (la limite étant autour de 50 Nm). \
-     En moyenne, la filature conventionnelle permet de fabriquer des fils constitués de 50 fibres tandis que celle non conventionnelle nécessite à minima 80 fibres.&#x20;
+   Deux techniques existent : \
+   \- Conventionnelle = filature à anneaux (ring spun)\
+   \- Non conventionnelle = filature à bouts libérées (open-end)\
+   Productivité : 5x à 10x plus élevée (ne permet cependant pas de fabriquer des fils aussi fins que la filature à anneaux (la limite étant autour de 50 Nm). \
+   En moyenne, la filature conventionnelle permet de fabriquer des fils constitués de 50 fibres tandis que celle non conventionnelle nécessite à minima 80 fibres.&#x20;
 
 </details>
 
@@ -50,7 +51,7 @@ Cinq principales **étapes** sont nécessaires pour la filature :&#x20;
 
 <summary>Focus Filage</summary>
 
-Plusieurs étapes sont nécessaires pour filer une fibre continue :&#x20;
+Plusieurs étapes sont nécessaires pour filer des filaments :&#x20;
 
 1. Extrusion de la matière afin de former des filaments via le passage de la matière dans les orifices de la filière
 2. Etirage des filaments pour former des fibres continues&#x20;
@@ -79,6 +80,20 @@ Les principaux types de fil sont les suivants :&#x20;
 
 </details>
 
+<details>
+
+<summary>La notion de titrage (épaisseur) des fils</summary>
+
+Le titrage indique la grosseur d’un fil textile. L'industrie textile se sert de fils de différentes grosseurs. Le titrage (ou titre) est un système qui identifie la finesse des fils. Il est représenté par le rapport entre le poids et la longueur de ce fil.
+
+Il existe deux systèmes permettant d’exprimer le titrage : \
+\- le système direct : plus le fil est fin, plus le numéro est petit (ex : Dtex)\
+\- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)
+
+Ecobalyse permet de préciser le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
+
+</details>
+
 ## Modélisation Ecobalyse
 
 ### Paramètres mobilisés
@@ -95,22 +110,10 @@ Le choix des matières (laine, coton, mix, polyester, etc.) impacte directement 
 
 <summary>Titrage </summary>
 
-Le titrage indique la grosseur d’un fil textile. L'industrie textile se sert de fils de différentes grosseurs. Le titrage (ou titre) est un système qui identifie la finesse des fils. Il est représenté par le rapport entre le poids et la longueur de ce fil.
+Le titrage du fil est mobilisé à double titre :&#x20;
 
-Il existe deux systèmes permettant d’exprimer le titrage : \
-\- le système direct : plus le fil est fin, plus le numéro est petit (ex : Dtex)\
-\- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)
-
-Ecobalyse permet de préciser le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
-
-
-
-Le titrage (épaisseur) du fil est mobilisé à double titre :&#x20;
-
-* lors de l'étape **Tissage** => le titrage permet de calculer la densité de fils du tissu et donc la consommation d'électricité (kWh) de l'étape Tissage,
-* lors de l'étape de **Fabrication du fil**, le titrage  : &#x20;
-  * impacte la consommation directement d'électricité nécessaire pour actionner le procédé car plus le fil est fin, plus la quantité de matière à transformer est élevée pour produire la quantité de fil désirée,
-  * définit le procédé appliqué par défaut (fil cardé ou peigné).
+* lors de l'étape **Tissage** : permet de calculer la densité de fils du tissu et donc la consommation d'électricité (kWh) de l'étape,
+* lors de l'étape de **Fabrication du fil**  :  la consommation d'électricité moyenne de la filature/filage d'un kg de fil dépend directement de son titrage (plus le fil est fin, plus la quantité de matière à transformer est élevée pour produire la quantité de fil désirée).&#x20;
 
 </details>
 
@@ -143,8 +146,6 @@ A compléter
 
 **Filage** = filaments (matières synthétiques)
 
-
-
 Cf. l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials) pour la catégorisation par défaut des matières selon leurs fibres (fibres longues, fibres courtes, filaments).&#x20;
 
 </details>
@@ -159,23 +160,23 @@ La consommation d'électricité d'un fil dépend :&#x20;
 * de son titrage\
   (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
-Valeurs par défaut (source : Ecoinvent v. 3.9)
+**Valeurs par défaut** (source : revue bibliographique Ecobalyse) :
 
-**Filature conventionnelle (ring)** : 2,8 kwh/kg de fil
+Filature conventionnelle (ring) : 4 kwh/kg de fil
 
-**Filature non conventionnelle (open-end)** : 2,2 kwh/kg de fil
+Filature non conventionnelle (open-end) : 2,2 kwh/kg de fil
 
-**Filage** : 1,1 kwh/kg de fil
+Filage : 2,2 kwh/kg de fil
 
-Pour plus d'info sur les données moyennes de l'industrie => cf. un support de travail utilisé dans le cadre des travaux Ecobalyse [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing).&#x20;
+Pour plus d'info sur les données moyennes de l'industrie => cf. la revue bibliographique réalisée dans le cadre des travaux Ecobalyse [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing).&#x20;
 
 </details>
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués à chaque procédé.&#x20;
+Des taux de perte par défaut sont appliqués selon le type de fibres (naturelle/artificielle vs synthétique) et la technique de filature pour les fibres naturelle/artificielle (conventionnelle vs non-conventionnelle) :&#x20;
 
-<table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>15%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
+<table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>14%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
 
 ## Limites
 
