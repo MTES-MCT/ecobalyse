@@ -2,6 +2,7 @@ module Data.DefinitionTest exposing (..)
 
 import Data.Impact.Definition as Definition
 import Expect
+import Set
 import Test exposing (..)
 import TestUtils exposing (asTest)
 
@@ -14,10 +15,12 @@ suite =
             |> Expect.equal 22
             |> asTest "There are 22 impact trigrams"
         , Definition.trigrams
-            |> List.filterMap Definition.get
+            |> List.map (Definition.get >> .trigramString)
+            |> Set.fromList
+            |> Set.toList
             |> List.length
             |> Expect.equal (List.length Definition.trigrams)
-            |> asTest "There are 22 impact definitions"
+            |> asTest "There are 22 unique impact definitions and trigrams"
         , Definition.trigrams
             |> List.map Definition.toString
             |> List.filterMap Definition.toTrigram

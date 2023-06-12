@@ -15,7 +15,6 @@ module Data.Impact exposing
     , getImpact
     , grabImpactFloat
     , impactsFromDefinitons
-    , invalid
     , mapImpacts
     , noBonusImpacts
     , noImpacts
@@ -99,21 +98,6 @@ type alias ProtectionAreas =
     , biodiversity : Unit.Impact -- Biodiversité
     , resources : Unit.Impact -- Ressources
     , health : Unit.Impact -- Santé environnementale
-    }
-
-
-invalid : Scope -> Definition
-invalid scope =
-    { trigram = defaultTrigram scope
-    , source = { label = "N/A", url = "https://example.com/" }
-    , label = "Not applicable"
-    , description = "Not applicable"
-    , unit = "N/A"
-    , decimals = 0
-    , quality = Definition.GoodQuality
-    , pefData = Nothing
-    , ecoscoreData = Nothing
-    , scopes = []
     }
 
 
@@ -291,8 +275,7 @@ encodeImpacts scope (Impacts impacts) =
             (\trigram _ ->
                 trigram
                     |> Definition.get
-                    |> Maybe.map (.scopes >> List.member scope)
-                    |> Maybe.withDefault False
+                    |> (.scopes >> List.member scope)
             )
         |> AnyDict.encode Definition.toString Unit.encodeImpact
 
@@ -317,21 +300,20 @@ getAggregatedScoreData :
 getAggregatedScoreData getter (Impacts impacts) =
     AnyDict.foldl
         (\trigram impact acc ->
-            case Definition.get trigram of
-                Just def ->
-                    case getter def of
-                        Just { normalization, weighting, color } ->
-                            { name = def.label
-                            , value =
-                                impact
-                                    |> Unit.impactAggregateScore normalization weighting
-                                    |> Unit.impactToFloat
-                            , color = color ++ "bb" -- pastelization through slight transparency
-                            }
-                                :: acc
-
-                        Nothing ->
-                            acc
+            let
+                def =
+                    Definition.get trigram
+            in
+            case getter def of
+                Just { normalization, weighting, color } ->
+                    { name = def.label
+                    , value =
+                        impact
+                            |> Unit.impactAggregateScore normalization weighting
+                            |> Unit.impactToFloat
+                    , color = color ++ "bb" -- pastelization through slight transparency
+                    }
+                        :: acc
 
                 Nothing ->
                     acc
@@ -355,13 +337,14 @@ computeAggregatedScore getter (Impacts impacts) =
     impacts
         |> AnyDict.map
             (\trigram impact ->
-                case Definition.get trigram |> Maybe.map getter of
-                    Just (Just { normalization, weighting }) ->
-                        impact
-                            |> Unit.impactAggregateScore normalization weighting
-
-                    _ ->
-                        Quantity.zero
+                Definition.get trigram
+                    |> getter
+                    |> Maybe.map
+                        (\{ normalization, weighting } ->
+                            impact
+                                |> Unit.impactAggregateScore normalization weighting
+                        )
+                    |> Maybe.withDefault Quantity.zero
             )
         |> AnyDict.foldl (\_ -> Quantity.plus) Quantity.zero
 

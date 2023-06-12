@@ -87,7 +87,7 @@ suite =
             ]
         , describe "total weighting for impacts' ecoscoreData"
             [ Definition.trigrams
-                |> List.filterMap Definition.get
+                |> List.map Definition.get
                 |> List.filterMap .ecoscoreData
                 |> List.map .weighting
                 |> List.map Unit.ratioToFloat
@@ -97,7 +97,7 @@ suite =
             ]
         , describe "total weighting for impacts' pefData"
             [ Definition.trigrams
-                |> List.filterMap Definition.get
+                |> List.map Definition.get
                 |> List.filterMap .pefData
                 |> List.map .weighting
                 |> List.map Unit.ratioToFloat

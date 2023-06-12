@@ -127,7 +127,6 @@ init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
             Definition.get trigram
-                |> Maybe.withDefault (Impact.invalid Scope.Food)
 
         query =
             maybeQuery

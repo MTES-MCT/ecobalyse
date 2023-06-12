@@ -71,9 +71,7 @@ viewExample session model funit impact query =
         |> Simulator.compute session.db
         |> SummaryView.view
             { session = session
-            , impact =
-                Definition.get impact
-                    |> Maybe.withDefault (Impact.invalid Scope.Textile)
+            , impact = Definition.get impact
             , funit = funit
             , reusable = True
             , chartHovering = model.chartHovering
@@ -100,8 +98,7 @@ view session ({ impact, funit } as model) =
                     ]
                 ]
             , Definition.get impact
-                |> Maybe.map ImpactView.viewDefinition
-                |> Maybe.withDefault (text "")
+                |> ImpactView.viewDefinition
             , Inputs.presets
                 |> List.map (viewExample session model funit impact)
                 |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]

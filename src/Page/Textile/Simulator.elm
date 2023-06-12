@@ -12,7 +12,6 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
@@ -142,9 +141,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact =
-            Definition.get trigram
-                |> Maybe.withDefault (Impact.invalid Scope.Textile)
+      , impact = Definition.get trigram
       , funit = funit
       , modal = NoModal
       , chartHovering = []

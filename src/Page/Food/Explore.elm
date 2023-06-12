@@ -324,7 +324,6 @@ view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedI
 
                     definition =
                         Definition.get impact
-                            |> Maybe.withDefault (Impact.invalid Scope.Food)
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact

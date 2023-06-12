@@ -225,7 +225,7 @@ impactsExplorer tableConfig tableState scope maybeTrigram =
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
     , maybeTrigram
-        |> Maybe.andThen Definition.get
+        |> Maybe.map Definition.get
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")

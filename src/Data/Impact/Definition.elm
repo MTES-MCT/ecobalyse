@@ -16,7 +16,6 @@ module Data.Impact.Definition exposing
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
-import Dict exposing (Dict)
 
 
 
@@ -24,7 +23,8 @@ import Dict exposing (Dict)
 
 
 type alias Definition =
-    { trigram : Trigram
+    { trigramString : String
+    , trigram : Trigram
     , source : Source
     , label : String
     , description : String
@@ -140,72 +140,8 @@ trigrams =
 
 toString : Trigram -> String
 toString trigram =
-    case trigram of
-        Acd ->
-            "acd"
-
-        Bvi ->
-            "bvi"
-
-        Cch ->
-            "cch"
-
-        Ecs ->
-            "ecs"
-
-        Etf ->
-            "etf"
-
-        EtfC ->
-            "etf-c"
-
-        Fru ->
-            "fru"
-
-        Fwe ->
-            "fwe"
-
-        Htc ->
-            "htc"
-
-        HtcC ->
-            "htc-c"
-
-        Htn ->
-            "htn"
-
-        HtnC ->
-            "htn-c"
-
-        Ior ->
-            "ior"
-
-        Ldu ->
-            "ldu"
-
-        Mru ->
-            "mru"
-
-        Ozd ->
-            "ozd"
-
-        Pco ->
-            "pco"
-
-        Pef ->
-            "pef"
-
-        Pma ->
-            "pma"
-
-        Swe ->
-            "swe"
-
-        Tre ->
-            "tre"
-
-        Wtu ->
-            "wtu"
+    get trigram
+        |> .trigramString
 
 
 toTrigram : String -> Maybe Trigram
@@ -281,50 +217,81 @@ toTrigram str =
             Nothing
 
 
-trigramToDefinition : Dict String (Definitions -> Definition)
-trigramToDefinition =
-    [ ( "acd", .acd )
-    , ( "bvi", .bvi )
-    , ( "cch", .cch )
-    , ( "ecs", .ecs )
-    , ( "etf", .etf )
-    , ( "etf-c", .etfc )
-    , ( "fru", .fru )
-    , ( "fwe", .fwe )
-    , ( "htc", .htc )
-    , ( "htc-c", .htcc )
-    , ( "htn", .htn )
-    , ( "htn-c", .htnc )
-    , ( "ior", .ior )
-    , ( "ldu", .ldu )
-    , ( "mru", .mru )
-    , ( "ozd", .ozd )
-    , ( "pco", .pco )
-    , ( "pef", .pef )
-    , ( "pma", .pma )
-    , ( "swe", .swe )
-    , ( "tre", .tre )
-    , ( "wtu", .wtu )
-    ]
-        |> Dict.fromList
-
-
-get : Trigram -> Maybe Definition
+get : Trigram -> Definition
 get trigram =
-    trigramToDefinition
-        |> Dict.get (toString trigram)
-        |> Maybe.map (\definitionGetter -> definitionGetter definitions)
+    case trigram of
+        Acd ->
+            definitions.acd
+
+        Bvi ->
+            definitions.bvi
+
+        Cch ->
+            definitions.cch
+
+        Ecs ->
+            definitions.ecs
+
+        Etf ->
+            definitions.etf
+
+        EtfC ->
+            definitions.etfc
+
+        Fru ->
+            definitions.fru
+
+        Fwe ->
+            definitions.fwe
+
+        Htc ->
+            definitions.htc
+
+        HtcC ->
+            definitions.htcc
+
+        Htn ->
+            definitions.htn
+
+        HtnC ->
+            definitions.htnc
+
+        Ior ->
+            definitions.ior
+
+        Ldu ->
+            definitions.ldu
+
+        Mru ->
+            definitions.mru
+
+        Ozd ->
+            definitions.ozd
+
+        Pco ->
+            definitions.pco
+
+        Pef ->
+            definitions.pef
+
+        Pma ->
+            definitions.pma
+
+        Swe ->
+            definitions.swe
+
+        Tre ->
+            definitions.tre
+
+        Wtu ->
+            definitions.wtu
 
 
 forScope : Scope.Scope -> List Definition
 forScope scope =
-    Dict.map
-        (\_ defGetter ->
-            defGetter definitions
-        )
-        trigramToDefinition
-        |> Dict.filter (\_ def -> List.member scope def.scopes)
-        |> Dict.values
+    trigrams
+        |> List.map get
+        |> List.filter (.scopes >> List.member scope)
 
 
 isAggregate : Trigram -> Bool
@@ -339,7 +306,8 @@ isAggregate trigram =
 definitions : Definitions
 definitions =
     { ecs =
-        { trigram = Ecs
+        { trigramString = "ecs"
+        , trigram = Ecs
         , source =
             { label = "Ecobalyse"
             , url = "https://ecobalyse.beta.gouv.fr/"
@@ -354,7 +322,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , pef =
-        { trigram = Pef
+        { trigramString = "pef"
+        , trigram = Pef
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -369,7 +338,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , acd =
-        { trigram = Acd
+        { trigramString = "acd"
+        , trigram = Acd
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -394,7 +364,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , ozd =
-        { trigram = Ozd
+        { trigramString = "ozd"
+        , trigram = Ozd
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -419,7 +390,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , cch =
-        { trigram = Cch
+        { trigramString = "cch"
+        , trigram = Cch
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -444,7 +416,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , fwe =
-        { trigram = Fwe
+        { trigramString = "fwe"
+        , trigram = Fwe
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -469,7 +442,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , swe =
-        { trigram = Swe
+        { trigramString = "swe"
+        , trigram = Swe
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -494,7 +468,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , tre =
-        { trigram = Tre
+        { trigramString = "tre"
+        , trigram = Tre
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -519,7 +494,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , pco =
-        { trigram = Pco
+        { trigramString = "pco"
+        , trigram = Pco
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -544,7 +520,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , pma =
-        { trigram = Pma
+        { trigramString = "pma"
+        , trigram = Pma
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -569,7 +546,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , ior =
-        { trigram = Ior
+        { trigramString = "ior"
+        , trigram = Ior
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -594,7 +572,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , fru =
-        { trigram = Fru
+        { trigramString = "fru"
+        , trigram = Fru
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -619,7 +598,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , mru =
-        { trigram = Mru
+        { trigramString = "mru"
+        , trigram = Mru
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -644,7 +624,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , ldu =
-        { trigram = Ldu
+        { trigramString = "ldu"
+        , trigram = Ldu
         , source =
             { label = "Base Impacts"
             , url = "https://base-impacts.ademe.fr/"
@@ -669,7 +650,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , wtu =
-        { trigram = Wtu
+        { trigramString = "wtu"
+        , trigram = Wtu
         , source =
             { label = "Kering"
             , url = "https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/"
@@ -694,7 +676,8 @@ definitions =
         , scopes = [ Scope.Textile, Scope.Food ]
         }
     , etf =
-        { trigram = Etf
+        { trigramString = "etf"
+        , trigram = Etf
         , source =
             { label = "Agribalyse"
             , url = "https://agribalyse.ademe.fr/"
@@ -714,7 +697,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , etfc =
-        { trigram = EtfC
+        { trigramString = "etf-c"
+        , trigram = EtfC
         , source =
             { label = "Ecobalyse"
             , url = "https://ecobalyse.beta.gouv.fr/"
@@ -734,7 +718,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , htc =
-        { trigram = Htc
+        { trigramString = "htc"
+        , trigram = Htc
         , source =
             { label = "Agribalyse"
             , url = "https://agribalyse.ademe.fr/"
@@ -754,7 +739,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , htcc =
-        { trigram = HtcC
+        { trigramString = "htc-c"
+        , trigram = HtcC
         , source =
             { label = "Ecobalyse"
             , url = "https://ecobalyse.beta.gouv.fr/"
@@ -774,7 +760,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , htn =
-        { trigram = Htn
+        { trigramString = "htn"
+        , trigram = Htn
         , source =
             { label = "Agribalyse"
             , url = "https://agribalyse.ademe.fr/"
@@ -794,7 +781,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , htnc =
-        { trigram = HtnC
+        { trigramString = "htn-c"
+        , trigram = HtnC
         , source =
             { label = "Ecobalyse"
             , url = "https://ecobalyse.beta.gouv.fr/"
@@ -814,7 +802,8 @@ definitions =
         , scopes = [ Scope.Food ]
         }
     , bvi =
-        { trigram = Bvi
+        { trigramString = "bvi"
+        , trigram = Bvi
         , source =
             { label = "Valuing Biodiversity in Life Cycle Impact Assessment, Lindner et al 2019"
             , url = "https://www.researchgate.net/publication/336523544_Valuing_Biodiversity_in_Life_Cycle_Impact_Assessment"
