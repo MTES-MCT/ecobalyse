@@ -149,12 +149,8 @@ if __name__ == "__main__":
                 and "simple_ingredient_variant" in variant
             ):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
-                processes_to_add.append(
-                    {"search": variant["simple_ingredient_default"]}
-                )
-                processes_to_add.append(
-                    {"search": variant["simple_ingredient_variant"]}
-                )
+                processes_to_add.append({"name": variant["simple_ingredient_default"]})
+                processes_to_add.append({"name": variant["simple_ingredient_variant"]})
 
     print(f"{len(processes_to_add)} ingrédients construits depuis {INGREDIENTS_BASE}")
 
