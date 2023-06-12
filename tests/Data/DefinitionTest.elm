@@ -23,7 +23,7 @@ suite =
             |> asTest "There are 22 unique impact definitions and trigrams"
         , Definition.trigrams
             |> List.map Definition.toString
-            |> List.filterMap Definition.toTrigram
+            |> List.filterMap (Definition.toTrigram >> Result.toMaybe)
             |> List.length
             |> Expect.equal (List.length Definition.trigrams)
             |> asTest "There's a string for each trigram and a trigram for each string"

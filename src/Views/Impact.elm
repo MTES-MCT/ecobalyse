@@ -107,7 +107,7 @@ viewSource source =
 
 type alias SelectorConfig msg =
     { selectedImpact : Definition.Trigram
-    , switchImpact : Maybe Definition.Trigram -> msg
+    , switchImpact : Result String Definition.Trigram -> msg
     , selectedFunctionalUnit : Unit.Functional
     , switchFunctionalUnit : Unit.Functional -> msg
     , scope : Scope

@@ -59,7 +59,7 @@ parser =
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
-                </> Impact.parseTrigram Scope.Food
+                </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
             )
         , Parser.map FoodExplore (Parser.s "food")
@@ -75,7 +75,7 @@ parser =
         , Parser.map TextileSimulator
             (Parser.s "textile"
                 </> Parser.s "simulator"
-                </> Impact.parseTrigram Scope.Textile
+                </> Impact.parseTrigram
                 </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> TextileQuery.parseBase64Query

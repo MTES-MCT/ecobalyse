@@ -105,7 +105,7 @@ type Msg
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
-    | SwitchImpact (Maybe Definition.Trigram)
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactsTab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
@@ -331,7 +331,7 @@ update ({ queries } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
-        SwitchImpact (Just impact) ->
+        SwitchImpact (Ok impact) ->
             ( model
             , session
             , Just query
@@ -340,9 +340,9 @@ update ({ queries } as session) msg model =
                 |> Navigation.pushUrl session.navKey
             )
 
-        SwitchImpact Nothing ->
+        SwitchImpact (Err error) ->
             ( model
-            , session
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
 

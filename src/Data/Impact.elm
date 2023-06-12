@@ -28,7 +28,7 @@ module Data.Impact exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Definition, Trigram)
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
@@ -109,16 +109,6 @@ defaultFoodTrigram =
 defaultTextileTrigram : Trigram
 defaultTextileTrigram =
     Definition.Pef
-
-
-defaultTrigram : Scope -> Trigram
-defaultTrigram scope =
-    case scope of
-        Scope.Food ->
-            defaultFoodTrigram
-
-        Scope.Textile ->
-            defaultTextileTrigram
 
 
 toProtectionAreas : Impacts -> ProtectionAreas
@@ -246,11 +236,7 @@ updateImpact trigram value =
 decodeImpacts : Decoder Impacts
 decodeImpacts =
     AnyDict.decode_
-        (\str _ ->
-            Definition.toTrigram str
-                |> Maybe.map Ok
-                |> Maybe.withDefault (Err <| "Trigramme d'impact inconnu: " ++ str)
-        )
+        (\str _ -> Definition.toTrigram str)
         Definition.toString
         Unit.decodeImpact
         |> Decode.map Impacts
@@ -353,10 +339,9 @@ computeAggregatedScore getter (Impacts impacts) =
 -- Parser
 
 
-parseTrigram : Scope -> Parser (Trigram -> a) a
-parseTrigram scope =
+parseTrigram : Parser (Trigram -> a) a
+parseTrigram =
     Parser.custom "TRIGRAM" <|
         \trigram ->
             Definition.toTrigram trigram
-                |> Maybe.map Just
-                |> Maybe.withDefault (Just <| defaultTrigram scope)
+                |> Result.toMaybe

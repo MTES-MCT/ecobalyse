@@ -65,7 +65,7 @@ type Msg
     | NoOp
     | ProductSelected ProductName
     | Reset
-    | SwitchImpact (Maybe Definition.Trigram)
+    | SwitchImpact (Result String Definition.Trigram)
 
 
 tunaPizza : ProductName
@@ -220,11 +220,14 @@ update ({ explorerDb, db } as session) msg ({ currentProductInfo, newIngredientM
             , Cmd.none
             )
 
-        ( SwitchImpact (Just impact), _ ) ->
+        ( SwitchImpact (Ok impact), _ ) ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        ( SwitchImpact Nothing, _ ) ->
-            ( model, session, Cmd.none )
+        ( SwitchImpact (Err error), _ ) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
 
         _ ->
             ( model, session, Cmd.none )

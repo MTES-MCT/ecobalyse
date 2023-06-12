@@ -161,7 +161,7 @@ setIdFromString idString dataset =
             Countries (Just (Country.codeFromString idString))
 
         Impacts _ ->
-            Impacts (Definition.toTrigram idString)
+            Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))

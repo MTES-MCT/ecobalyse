@@ -88,7 +88,7 @@ type Msg
     | SelectInputText String
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
-    | SwitchImpact (Maybe Definition.Trigram)
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
@@ -271,7 +271,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchImpact (Just trigram) ->
+        SwitchImpact (Ok trigram) ->
             ( model
             , session
             , Just query
@@ -280,9 +280,9 @@ update ({ db, queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchImpact Nothing ->
+        SwitchImpact (Err error) ->
             ( model
-            , session
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
 

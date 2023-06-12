@@ -93,10 +93,10 @@ type alias Source =
 
 
 type Quality
-    = NotFinished
-    | GoodQuality
-    | AverageQuality
+    = AverageQuality
     | BadQuality
+    | GoodQuality
+    | NotFinished
     | UnknownQuality
 
 
@@ -144,77 +144,77 @@ toString trigram =
         |> .trigramString
 
 
-toTrigram : String -> Maybe Trigram
+toTrigram : String -> Result String Trigram
 toTrigram str =
     case str of
         "acd" ->
-            Just Acd
+            Ok Acd
 
         "bvi" ->
-            Just Bvi
+            Ok Bvi
 
         "cch" ->
-            Just Cch
+            Ok Cch
 
         "ecs" ->
-            Just Ecs
+            Ok Ecs
 
         "etf" ->
-            Just Etf
+            Ok Etf
 
         "etf-c" ->
-            Just EtfC
+            Ok EtfC
 
         "fru" ->
-            Just Fru
+            Ok Fru
 
         "fwe" ->
-            Just Fwe
+            Ok Fwe
 
         "htc" ->
-            Just Htc
+            Ok Htc
 
         "htc-c" ->
-            Just HtcC
+            Ok HtcC
 
         "htn" ->
-            Just Htn
+            Ok Htn
 
         "htn-c" ->
-            Just HtnC
+            Ok HtnC
 
         "ior" ->
-            Just Ior
+            Ok Ior
 
         "ldu" ->
-            Just Ldu
+            Ok Ldu
 
         "mru" ->
-            Just Mru
+            Ok Mru
 
         "ozd" ->
-            Just Ozd
+            Ok Ozd
 
         "pco" ->
-            Just Pco
+            Ok Pco
 
         "pef" ->
-            Just Pef
+            Ok Pef
 
         "pma" ->
-            Just Pma
+            Ok Pma
 
         "swe" ->
-            Just Swe
+            Ok Swe
 
         "tre" ->
-            Just Tre
+            Ok Tre
 
         "wtu" ->
-            Just Wtu
+            Ok Wtu
 
-        _ ->
-            Nothing
+        invalid ->
+            Err <| "Trigramme d'impact inconnu: " ++ invalid
 
 
 get : Trigram -> Definition
@@ -289,6 +289,8 @@ get trigram =
 
 forScope : Scope.Scope -> List Definition
 forScope scope =
+    -- At some point we'll have the exact same impacts for food and textile (for all scopes).
+    -- This helper will then be useless, and will have to be removed.
     trigrams
         |> List.map get
         |> List.filter (.scopes >> List.member scope)

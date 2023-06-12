@@ -6,7 +6,6 @@ module Server.Route exposing
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -78,10 +77,10 @@ parser { builderDb, textileDb } =
         , Parser.map GetTextileProductList (s "GET" </> s "textile" </> s "products")
         , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)
         , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery textileDb)
-        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile <?> Query.parseTextileQuery textileDb)
+        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
         , Parser.map PostTextileSimulator (s "POST" </> s "textile" </> s "simulator")
         , Parser.map PostTextileSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile)
+        , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
 
 

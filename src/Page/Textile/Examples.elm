@@ -9,7 +9,7 @@ module Page.Textile.Examples exposing
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
@@ -31,7 +31,7 @@ type alias Model =
 
 type Msg
     = OnChartHover ComparativeChart.Stacks
-    | SwitchImpact (Maybe Definition.Trigram)
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchFunctionalUnit Unit.Functional
 
 
@@ -55,11 +55,14 @@ update session msg model =
             , Cmd.none
             )
 
-        SwitchImpact (Just impact) ->
+        SwitchImpact (Ok impact) ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        SwitchImpact Nothing ->
-            ( model, session, Cmd.none )
+        SwitchImpact (Err error) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
 
         SwitchFunctionalUnit funit ->
             ( { model | funit = funit }, session, Cmd.none )
