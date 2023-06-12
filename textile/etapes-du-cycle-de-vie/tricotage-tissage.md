@@ -205,26 +205,12 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <summary>Titrage fil (Nm)</summary>
 
-Le titrage indique la grosseur d’un fil textile. \
-Le titrage (ou titre) est le rapport existant entre le poids et la longueur de ce fil.&#x20;
+Le titrage du fil est mobilisé à double titre :&#x20;
 
-L’unité retenue est le numéro métrique (Nm). Il indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : Nm 50 = 50 km de ce fil pèsent 1 kg).
+* lors de l'étape **Tissage** : permet de calculer la densité de fils du tissu et donc la consommation d'électricité (kWh) de l'étape,
+* lors de l'étape de **Fabrication du fil**  :  la consommation d'électricité moyenne de la filature/filage d'un kg de fil dépend directement de son titrage (plus le fil est fin, plus la quantité de matière à transformer est élevée pour produire la quantité de fil désirée).
 
-La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 200) et maximale (Nm 9).
-
-Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.). Ce paramètre est uniquement mobilisé pour les étoffes tissées afin de préciser la consommation d'électricité du procédé.&#x20;
-
-L'utilisateur a la possibilité de préciser cette valeur par défaut.
-
-:bulb:Afin de simplifier l'expérience utilisateur, il est possible de renseigner le titrage en Dtex (poids en grammes de 10,000 mètres de fil) => 1 Dtex = 10,000 / Nm.\
-Cette unité de mesure est notamment utilisée pour les fibres chimiques. \
-
-
-
-
-Cf. la section _Hypothèses par défaut_ pour plus d'info.
-
-Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
+Rdv dans [Etape 2 - Fabrication du fil](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#modelisation-ecobalyse) pour en savoir plus sur le titrage.&#x20;
 
 </details>
 

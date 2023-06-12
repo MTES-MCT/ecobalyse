@@ -92,6 +92,14 @@ Il existe deux systèmes permettant d’exprimer le titrage : \
 
 Ecobalyse permet de préciser le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
 
+La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 200) et maximale (Nm 9).
+
+Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.).&#x20;
+
+L'utilisateur a la possibilité de préciser cette valeur par défaut.
+
+Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
+
 </details>
 
 ## Modélisation Ecobalyse
@@ -156,19 +164,25 @@ Cf. l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/ma
 
 La consommation d'électricité d'un fil dépend :&#x20;
 
-* du choix de procédé (cf. précédemment),
-* de son titrage\
-  (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
+* du choix de procédé (filature vs filage),
+* de la technologie utilisée (filature conventionnelle vs non-conventionnelle),
+* du titrage du fil (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
-**Valeurs par défaut** (source : revue bibliographique Ecobalyse) :
+**Données moyennes**  (source : revue bibliographique Ecobalyse) :&#x20;
 
-Filature conventionnelle (ring) : 4 kwh/kg de fil
-
-Filature non conventionnelle (open-end) : 2,2 kwh/kg de fil
-
-Filage : 2,2 kwh/kg de fil
+* Filature conventionnelle (ring) (fibres nat./art.) : 4 kwh/kg de fil
+* Filature non conventionnelle (open-end)(fibres nat./art.) : 2,2 kwh/kg de fil
+* Filage (fibres syn.) : 2,2 kwh/kg de fil
 
 Pour plus d'info sur les données moyennes de l'industrie => cf. la revue bibliographique réalisée dans le cadre des travaux Ecobalyse [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing).&#x20;
+
+
+
+**Valeurs par défaut**
+
+Afin de prendre en compte le titrage de fil dans la modélisation, Ecobalyse utilise 3 scénarios selon le titrage du fil.
+
+![](<../../.gitbook/assets/Tableau kWh et titrage.png>)
 
 </details>
 
