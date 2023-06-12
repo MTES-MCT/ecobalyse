@@ -27,7 +27,6 @@ BUILDER = "../../../public/data/food/processes/builder.json"
 
 bw2data.projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
-# bw2io.bw2setup()
 db = bw2data.Database(DBNAME)
 
 
@@ -128,7 +127,7 @@ if __name__ == "__main__":
             for d in list(csv.DictReader(f, dialect="unix"))
         ]
 
-    # Parse the ingredients.json, which may contain complex ingredients to add/compute
+    # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
     with open(INGREDIENTS_BASE, "r") as f:
         ingredients = json.load(f)
 
@@ -162,10 +161,10 @@ if __name__ == "__main__":
 
     activities = {}
     for i, process in enumerate(processes_to_export):
-        results = db.search(process["name"])
+        results = db.search(process["search"])
         assert (
             len(results) >= 1
-        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['name']}"
+        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['search']}"
         activity = results[0]
         activities[activity["Process identifier"]] = {
             "activity": activity,
@@ -250,12 +249,14 @@ if __name__ == "__main__":
     print(f"Export de {len(ingredients)} ingrédients vers {INGREDIENTS}")
     with open(INGREDIENTS, "w") as outfile:
         json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
+        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        outfile.write("\n")
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes
 
     # compute the corrected impacts
-    print("Computing corrected impacts from weihgted subimpacts")
+    print("Computing corrected impacts from weighted subimpacts")
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
     }
@@ -273,3 +274,5 @@ if __name__ == "__main__":
     print(f"Export de {len(export)} procédés vers {BUILDER}")
     with open(BUILDER, "w") as outfile:
         json.dump(export, outfile, indent=2, ensure_ascii=False)
+        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        outfile.write("\n")

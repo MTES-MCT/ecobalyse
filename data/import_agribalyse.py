@@ -13,6 +13,13 @@ DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 
+# excluded strategies and migrations
+EXCLUDED = [
+    "normalize_simapro_biosphere_names",
+    "normalize_biosphere_names",
+    "fix_localized_water_flows",
+    "simapro-water",
+]
 
 AGRIBALYSE_MIGRATIONS = [
     {
@@ -154,13 +161,11 @@ def import_agribalyse(
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
         datapath, dbname, normalize_biosphere=True
     )
+    # exclude strategies/migrations in EXCLUDED
     agribalyse.strategies = [
-        s
-        for s in agribalyse.strategies
-        if "water" not in repr(s)
-        and "normalize_simapro_biosphere_names" not in repr(s)
-        and "normalize_biosphere_names" not in repr(s)
+        s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
     ]
+
     agribalyse.apply_strategies()
 
     # Apply provided migrations
