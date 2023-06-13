@@ -33,7 +33,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+        "process": "cow milk organic system number 5",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,

@@ -35,7 +35,7 @@ packaging,aluminium,Aluminium,0.94,"Aluminium primary ingot {RoW} production Cut
 transformation,canning,Mise en conserve,0.0089,"Canning fruits or vegetables industrial 1kg of canned product FR"
 transformation,mixing,Mélange,,"Mixing processing dummy"
 transformation,cooking,Cuisson,0.012,"Cooking industrial 1kg of cooked product FR"
-,,,0.513278847,"Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
+,,,,"cow milk organic system number 5"
 ,lorry,,0.055765784,"Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
 ,boat,,0.000292724,"Transport freight sea ship"
 ,plane,,0.012214369,"Transport freight aircraft"
