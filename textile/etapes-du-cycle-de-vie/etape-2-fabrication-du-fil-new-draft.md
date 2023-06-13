@@ -141,6 +141,8 @@ Les deux principales techniques de filature sont disponibles dans l'outil :&#x20
 
 A compléter
 
+
+
 ### Hypothèses par défaut
 
 <details>
@@ -164,33 +166,38 @@ Cf. l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/ma
 
 La consommation d'électricité d'un fil dépend :&#x20;
 
-* du choix de procédé (filature vs filage),
-* de la technologie utilisée (filature conventionnelle vs non-conventionnelle),
+* du procédé utilisé (filage, filature conventionnelle, filature non-conventionnelle),
 * du titrage du fil (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
-**Données moyennes**  (source : revue bibliographique Ecobalyse) :&#x20;
+**Valeurs par défaut  (kWh)**&#x20;
 
-* Filature conventionnelle (ring) (fibres nat./art.) : 4 kwh/kg de fil
-* Filature non conventionnelle (open-end)(fibres nat./art.) : 2,2 kwh/kg de fil
-* Filage (fibres syn.) : 2,2 kwh/kg de fil
+![](<../../.gitbook/assets/Tableau kWh et titrage (1).png>)
 
-Pour plus d'info sur les données moyennes de l'industrie => cf. la revue bibliographique réalisée dans le cadre des travaux Ecobalyse [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing).&#x20;
+Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
+</details>
 
+<details>
 
-**Valeurs par défaut**
+<summary>Titrage &#x26; Consommation d'électricité (kW)</summary>
 
-Afin de prendre en compte le titrage de fil dans la modélisation, Ecobalyse utilise 3 scénarios selon le titrage du fil.
+Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm/Dtex) et la consommation d'électricité (kWh).
 
-![](<../../.gitbook/assets/Tableau kWh et titrage.png>)
+Effectivement, toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité donnée. Une telle corrélation a été mise en lumière dans différents travaux tandis que des référentiels de référence dans l'industrie Textile partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent les procédés de filature selon diffférents titrages de fil.&#x20;
+
+**Illustration sur le procédé **_**Filature conventionnelle (ring spinning)**_** :**&#x20;
+
+![](<../../.gitbook/assets/Filature conventionnelle (ring) \_ Conso. électricité (kWh) selon le titrage (Nm).png>)
 
 </details>
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués selon le type de fibres (naturelle/artificielle vs synthétique) et la technique de filature pour les fibres naturelle/artificielle (conventionnelle vs non-conventionnelle) :&#x20;
+Des taux de perte par défaut sont appliqués selon le type de fibres (naturelle/artificielle vs synthétique) et la technique de filature pour les fibres naturelle/artificielle (conventionnelle vs non-conventionnelle).
 
-<table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>14%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
+<table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>15%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
+
+Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
 
 ## Limites
 
