@@ -110,7 +110,14 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <summary>Type de fibre (naturelle, synthétique, artificielle)</summary>
 
-Le choix des matières (laine, coton, mix, polyester, etc.) impacte directement les étapes nécessaires pour la fabrication du fil (ex : filature vs filage, pré-traitements appliqués, etc.).
+Le choix des matières (laine, coton, mix, polyester, etc.) impacte directement les étapes nécessaires pour la fabrication du fil.
+
+\
+Exemple avec un fil en coton : \
+\- la fibre est discontinue = procédé de _filature_ \
+(vs procédé de _filage_ pour les fibres continues/filaments)\
+\- les fibres sont de courte longueur = l'étape de _peignage_ n'est pas nécessaire \
+(on parle de fil cardé)
 
 </details>
 
@@ -147,7 +154,7 @@ A compléter
 
 <details>
 
-<summary>Fibre &#x3C;=> Procédé</summary>
+<summary>Fibre &#x3C;=> Procédé (filature conv., filature non conv., filage)</summary>
 
 **Filature** = fibres naturelles et artificielles
 
@@ -173,7 +180,7 @@ La consommation d'électricité d'un fil dépend :&#x20;
 
 ![](<../../.gitbook/assets/Tableau kWh et titrage (1).png>)
 
-Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
+Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)). Un titrage par défaut (50Nm / 200Dtex) est appliqué à ces valeurs moyennes.&#x20;
 
 </details>
 
@@ -185,7 +192,7 @@ Une corrélation linéraire est appliquée par défaut entre le titrage du fil (
 
 Effectivement, toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité donnée. Une telle corrélation a été mise en lumière dans différents travaux tandis que des référentiels de référence dans l'industrie Textile partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent les procédés de filature selon diffférents titrages de fil.&#x20;
 
-**Illustration sur le procédé **_**Filature conventionnelle (ring spinning)**_** :**&#x20;
+**Illustration: procédé **_**Filature conventionnelle (ring spinning)**_** :**&#x20;
 
 ![](<../../.gitbook/assets/Filature conventionnelle (ring) \_ Conso. électricité (kWh) selon le titrage (Nm).png>)
 
