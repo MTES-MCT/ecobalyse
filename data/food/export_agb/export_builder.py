@@ -218,7 +218,7 @@ if __name__ == "__main__":
         for key, method in impacts_definition.items():
             lca.switch_method(method)
             lca.lcia()
-            v["export_data"]["impacts"][key] = lca.score
+            v["export_data"]["impacts"][key] = float("{:.10g}".format(lca.score))
         # etf-o = etf-o1 + etf-o2
         v["export_data"]["impacts"]["etf-o"] = (
             v["export_data"]["impacts"]["etf-o1"]
