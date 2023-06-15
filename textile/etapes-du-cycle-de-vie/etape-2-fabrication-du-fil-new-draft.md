@@ -1,3 +1,9 @@
+---
+description: >-
+  Une mise à jour est en cours => la méthode/documentation ci-dessous est en
+  cours d'enrichissement.
+---
+
 # 🧶 Etape 2 - Fabrication du fil (new - draft)
 
 ## Description
@@ -108,16 +114,38 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <details>
 
-<summary>Type de fibre (naturelle, synthétique, artificielle)</summary>
+<summary>Type de fibre</summary>
 
-Le choix des matières (laine, coton, mix, polyester, etc.) impacte directement les étapes nécessaires pour la fabrication du fil.
+Le choix des fibres/matières (laine, coton, mix, polyester, etc.) impacte directement les étapes de production du fil.&#x20;
 
-\
-Exemple avec un fil en coton : \
-\- la fibre est discontinue = procédé de _filature_ \
-(vs procédé de _filage_ pour les fibres continues/filaments)\
-\- les fibres sont de courte longueur = l'étape de _peignage_ n'est pas nécessaire \
-(on parle de fil cardé)
+Les paramètres directement impactés par le type de fibre sont :&#x20;
+
+* le procédé de fabrication du fil (filature vs filage)
+* la technique de filature (conventionnelle vs non conventionnelle)
+* le procédé de filature (fil cardé vs peigné)
+
+</details>
+
+<details>
+
+<summary>Filature : technique (conventionnelle vs non-conventionnelle)</summary>
+
+Les deux principales techniques de filature sont disponibles dans l'outil :&#x20;
+
+* ring / à bouts libérés (filature conventionnelle)
+* open-end / à anneaux (filature non conventionnelle)&#x20;
+
+La technique non-conventionnelle (open-end) est plus efficace mais plus contraignante (l'ensemble des propriétés permises par la filature conventionnelle ne le sont pas par la filature non-conventionnelle tandis que les fils fins ne peuvent pas être fabriqués par la technique non-conventionnelle).&#x20;
+
+</details>
+
+<details>
+
+<summary>Filature : procédé (cardée vs peignée)</summary>
+
+La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée des le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
+
+Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impact aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
 
 </details>
 
@@ -132,18 +160,6 @@ Le titrage du fil est mobilisé à double titre :&#x20;
 
 </details>
 
-<details>
-
-<summary>Filature conventionnelle (ring) vs non-conventionnelle (open-end)</summary>
-
-Les deux principales techniques de filature sont disponibles dans l'outil :&#x20;
-
-* ring / à bouts libérés (filature conventionnelle)
-* open-end / à anneaux (filature non conventionnelle) \
-  (technique plus efficace = moins énergivore)
-
-</details>
-
 ### Méthodologie de calcul
 
 A compléter
@@ -154,16 +170,38 @@ A compléter
 
 <details>
 
-<summary>Fibre &#x3C;=> Procédé (filature conv., filature non conv., filage)</summary>
+<summary>Fibre &#x3C;=> Procédé (filature vs filage)</summary>
 
-**Filature** = fibres naturelles et artificielles
+Fibres naturelles et artificielles (coton, laine, lin, viscose, etc.) = **Filature**
 
-* fibres longues (>5cm) = filature conventionnelle (ring spinning)
-* fibres courtes (<5cm) = filature non-conventionnelle (open-end spinning)
+Matières synthétiques (acrylic, elastane, etc.) = **Filage**
 
-**Filage** = filaments (matières synthétiques)
+Mix de matière = **Filature**
 
-Cf. l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials) pour la catégorisation par défaut des matières selon leurs fibres (fibres longues, fibres courtes, filaments).&#x20;
+</details>
+
+<details>
+
+<summary>Filature (technique) </summary>
+
+Par défaut, les fibres naturelles et artificielles sont fabriquées en filature conventionnelle (ring). L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
+
+</details>
+
+<details>
+
+<summary>Filature (procédé)</summary>
+
+Les fibres naturelles et artificielles peuvent être de différentes longueur. Ecobalyse attribue par défaut chaque fibre discontinue en :&#x20;
+
+* fibre courte (longueur <5 cm),
+* fibre longue (longueur >5 cm).
+
+Cf. [Explorateur Matières ](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)pour plus d'info.
+
+Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (19).png>)
+
+L'utilisateur a la possibilité de modifier ce paramètre.
 
 </details>
 
@@ -171,54 +209,57 @@ Cf. l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/ma
 
 <summary>Consommation d'électricité (kWh)</summary>
 
-La consommation d'électricité d'un fil dépend :&#x20;
+La consommation d'électricité de la fabrication d'un fil dépend directement des paramètres susmentionnés  :&#x20;
 
-* du procédé utilisé (filage, filature conventionnelle, filature non-conventionnelle),
-* du titrage du fil (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
+* du procédé utilisé (filage vs filature),
+* de la technologie de filature utilisée (conventionnelle vs non-conventionnelle),
+* du type de filature (cardée vs peignée)
+* du titrage du fil\
+  (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
 **Valeurs par défaut  (kWh)**&#x20;
 
 ![](<../../.gitbook/assets/Tableau kWh et titrage (1).png>)
 
-Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)). Un titrage par défaut (50Nm / 200Dtex) est appliqué à ces valeurs moyennes.&#x20;
+Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
 </details>
 
 <details>
 
-<summary>Titrage &#x26; Consommation d'électricité (kW)</summary>
+<summary>Titrage &#x26; Consommation d'électricité (kWh)</summary>
 
-Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm/Dtex) et la consommation d'électricité (kWh).
+Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).&#x20;
 
-Effectivement, toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité donnée. Une telle corrélation a été mise en lumière dans différents travaux tandis que des référentiels de référence dans l'industrie Textile partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent les procédés de filature selon diffférents titrages de fil.&#x20;
+Par défaut, Ecobalyse considère que les consommations d'électricité pre-définies s'appliquent à un fil moyen dont le titrage est de 50 Nm / 200 Dtex.
 
-**Illustration: procédé **_**Filature conventionnelle (ring spinning)**_** :**&#x20;
+_Illustration: procédé Filature conventionnelle (ring spinning) :_&#x20;
 
 ![](<../../.gitbook/assets/Filature conventionnelle (ring) \_ Conso. électricité (kWh) selon le titrage (Nm).png>)
+
+Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité de fil donnée. Une telle corrélation est mise en lumière dans différents travaux de la filière tandis que plusieurs réferntiels partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent différents procédés de filature selon différents titrages de fil.&#x20;
 
 </details>
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués selon le type de fibres (naturelle/artificielle vs synthétique) et la technique de filature pour les fibres naturelle/artificielle (conventionnelle vs non-conventionnelle).
+Des taux de perte par défaut sont appliqués selon le type de fibres et la technique de filature.
 
 <table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>15%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
 
 Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
 
+L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
+
 ## Limites
 
 <details>
 
-<summary>Titrage &#x3C;=> Procédé de filature (peigné vs cardé)</summary>
+<summary>Agents de préparation </summary>
 
-Lors de la filature, la fabrication du fil peut être "cardée" ou "peignée" selon la longueur des fibres et les propriétés finales souhaitées. Un fil peigné nécessite une étape supplémentaire par rapport au cardage. De plus, le titrage souhaité du fil impacte aussi le choix d'ajouter une étape de "peignage".&#x20;
+Différents agents de préparation (ex : lubrifiants) sont appliqués sur les fibres tout au long des étapes de la fabrication d'un fil afin d'optimiser les étapes. L'inventaire de ces flux de substances chimiques ainsi que leurs caractérisation est aujourd'hui difficile à évaluer.&#x20;
 
-Ce niveau de détails n'est pas reflété dans l'outil pour plusieurs raisons, dont :&#x20;
-
-* l'absence de maîtrise de ce niveau de détails par les marques,
-* la faible disponibilité de données (ICV/procédés) permettant de différencier la filature cardée vs peignée),
-* l'aspect potentiellement "non significatif" de cet enjeu dans une logique ACV
+&#x20;
 
 **Illustration de paramètres modélisables :**&#x20;
 
