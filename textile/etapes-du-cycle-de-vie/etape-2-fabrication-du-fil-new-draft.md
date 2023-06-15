@@ -10,15 +10,11 @@ description: >-
 
 La fabrication d’un fil consiste à assembler un ensemble de fibres (filé de fibres) ou filaments (fil continu) afin de le rendre utilisable pour la fabrication de produits textiles. Les propriétés recherchées sont nombreuses (élasticité, régularité, résistance, finesse, etc.) et dépendent de besoins métier eux aussi variés (habillement, ameublement, chaussures, etc.).
 
-La fabrication d’un fil peut prendre deux formes :&#x20;
-
-* la **filature** pour les fibres discontinues (staple yarn)\
-  Une fibre discontinue se caractérise par une courte longueur; les fibres naturelles ou artificielles sont majoritairement des fibres discontinues. \
-  Le fil résultant de l’assemblage de fibres discontinues est un filé (spun yarn).
-* &#x20;le **filage** pour les fibres continues (filaments)\
-  Un filament se caractérise par une très grande longueur; les fibres synthétiques sont des fibres continues. \
-  Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente. \
-  Le fil résultant de cette opération s’appelle un fil monofilamentaire ou multifilamentaire (si le fil est constitué de plusieurs filaments).
+La fabrication d’un fil peut prendre deux formes : \
+\- la **filature** pour les fibres discontinues (staple yarn)\
+Une fibre discontinue se caractérise par une courte longueur; les fibres naturelles ou artificielles sont majoritairement des fibres discontinues. Le fil résultant de l’assemblage de fibres discontinues est un filé (spun yarn).\
+\- le **filage** pour les fibres continues (filaments)\
+Un filament se caractérise par une très grande longueur; les fibres synthétiques sont des fibres continues. Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente.  Le fil résultant de cette opération s’appelle un fil monofilamentaire ou multifilamentaire (si le fil est constitué de plusieurs filaments).
 
 <details>
 
@@ -184,7 +180,7 @@ Mix de matière = **Filature**
 
 <summary>Filature (technique) </summary>
 
-Par défaut, les fibres naturelles et artificielles sont fabriquées en filature conventionnelle (ring). L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
+Par défaut, les fibres naturelles et artificielles sont fabriquées en filature conventionnelle (ring). L'utilisateur a la possibilité de modifier ce paramètre et de sélectionne la technique open-end (non-conventionnelle).&#x20;
 
 </details>
 
@@ -199,7 +195,7 @@ Les fibres naturelles et artificielles peuvent être de différentes longueur. E
 
 Cf. [Explorateur Matières ](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)pour plus d'info.
 
-Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (19).png>)
+Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](../../.gitbook/assets/image.png)
 
 L'utilisateur a la possibilité de modifier ce paramètre.
 

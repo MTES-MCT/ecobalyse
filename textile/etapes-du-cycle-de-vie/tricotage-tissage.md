@@ -390,7 +390,7 @@ Permettre de préciser la quantité (g) à produire et le type de machine utilis
 
 **Consommation d'énergie**
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (2) (4).png>)
 
 _Une revue bibliographique effectuée par Ecobalyse fait ressortir une consommation moyenne d'électricité pour produire 1kg d'étoffe 2 à 5 fois plus faible pour du tricotage par rapport au tissage._&#x20;
 
