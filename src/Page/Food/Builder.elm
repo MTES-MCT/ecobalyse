@@ -63,7 +63,8 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { impact : Impact.Definition
+    { db : Db
+    , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonUnit : ComparatorView.FoodComparisonUnit
@@ -120,8 +121,8 @@ type ImpactsTab
     | SubscoresTab
 
 
-init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ db, builderDb, queries } as session) trigram maybeQuery =
+init : Db -> Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
             db.impacts
@@ -132,7 +133,8 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault queries.food
     in
-    ( { impact = impact
+    ( { db = db
+      , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonUnit = ComparatorView.PerKgOfProduct
@@ -164,13 +166,6 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
     )
 
 
-updateIfDb : Model -> Session -> (Db -> ( Model, Session, Cmd Msg )) -> ( Model, Session, Cmd Msg )
-updateIfDb model session updateFunction =
-    session.builderDb
-        |> RemoteData.map updateFunction
-        |> RemoteData.withDefault ( model, session, Cmd.none )
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ queries } as session) msg model =
     let
@@ -179,48 +174,40 @@ update ({ queries } as session) msg model =
     in
     case msg of
         AddIngredient ->
-            updateIfDb model
-                session
-                (\db ->
-                    let
-                        firstIngredient =
-                            db.ingredients
-                                |> Recipe.availableIngredients (List.map .id query.ingredients)
-                                |> List.sortBy .name
-                                |> List.head
-                                |> Maybe.map Recipe.ingredientQueryFromIngredient
-                    in
-                    ( model, session, Cmd.none )
-                        |> (case firstIngredient of
-                                Just ingredient ->
-                                    updateQuery (Query.addIngredient ingredient query)
+            let
+                firstIngredient =
+                    model.db.ingredients
+                        |> Recipe.availableIngredients (List.map .id query.ingredients)
+                        |> List.sortBy .name
+                        |> List.head
+                        |> Maybe.map Recipe.ingredientQueryFromIngredient
+            in
+            ( model, session, Cmd.none )
+                |> (case firstIngredient of
+                        Just ingredient ->
+                            updateQuery (Query.addIngredient ingredient query)
 
-                                Nothing ->
-                                    identity
-                           )
-                )
+                        Nothing ->
+                            identity
+                   )
 
         AddPackaging ->
-            updateIfDb model
-                session
-                (\db ->
-                    let
-                        firstPackaging =
-                            db.processes
-                                |> Recipe.availablePackagings (List.map .code query.packaging)
-                                |> List.sortBy Process.getDisplayName
-                                |> List.head
-                                |> Maybe.map Recipe.processQueryFromProcess
-                    in
-                    ( model, session, Cmd.none )
-                        |> (case firstPackaging of
-                                Just packaging ->
-                                    updateQuery (Query.addPackaging packaging query)
+            let
+                firstPackaging =
+                    model.db.processes
+                        |> Recipe.availablePackagings (List.map .code query.packaging)
+                        |> List.sortBy Process.getDisplayName
+                        |> List.head
+                        |> Maybe.map Recipe.processQueryFromProcess
+            in
+            ( model, session, Cmd.none )
+                |> (case firstPackaging of
+                        Just packaging ->
+                            updateQuery (Query.addPackaging packaging query)
 
-                                Nothing ->
-                                    identity
-                           )
-                )
+                        Nothing ->
+                            identity
+                   )
 
         AddPreparation ->
             let
@@ -239,32 +226,28 @@ update ({ queries } as session) msg model =
                    )
 
         AddTransform ->
-            updateIfDb model
-                session
-                (\db ->
-                    let
-                        defaultMass =
-                            query.ingredients |> List.map .mass |> Quantity.sum
+            let
+                defaultMass =
+                    query.ingredients |> List.map .mass |> Quantity.sum
 
-                        firstTransform =
-                            db.processes
-                                |> Process.listByCategory Process.Transform
-                                |> List.sortBy Process.getDisplayName
-                                |> List.head
-                                |> Maybe.map
-                                    (Recipe.processQueryFromProcess
-                                        >> (\processQuery -> { processQuery | mass = defaultMass })
-                                    )
-                    in
-                    ( model, session, Cmd.none )
-                        |> (case firstTransform of
-                                Just transform ->
-                                    updateQuery (Query.setTransform transform query)
+                firstTransform =
+                    model.db.processes
+                        |> Process.listByCategory Process.Transform
+                        |> List.sortBy Process.getDisplayName
+                        |> List.head
+                        |> Maybe.map
+                            (Recipe.processQueryFromProcess
+                                >> (\processQuery -> { processQuery | mass = defaultMass })
+                            )
+            in
+            ( model, session, Cmd.none )
+                |> (case firstTransform of
+                        Just transform ->
+                            updateQuery (Query.setTransform transform query)
 
-                                Nothing ->
-                                    identity
-                           )
-                )
+                        Nothing ->
+                            identity
+                   )
 
         AddDistribution ->
             ( model, session, Cmd.none )
