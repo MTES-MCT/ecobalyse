@@ -28,6 +28,7 @@ import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import RemoteData exposing (WebData)
 import Request.Version exposing (Version)
 import Set exposing (Set)
 
@@ -38,7 +39,7 @@ type alias Session =
     , store : Store
     , currentVersion : Version
     , db : Db
-    , builderDb : BuilderDb.Db
+    , builderDb : WebData BuilderDb.Db
     , explorerDb : ExplorerDb.Db
     , notifications : List Notification
     , queries :
@@ -53,7 +54,7 @@ type alias UnloadedSession =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
-    , builderDb : BuilderDb.Db
+    , builderDb : WebData BuilderDb.Db
     , explorerDb : ExplorerDb.Db
     , notifications : List Notification
     , queries :

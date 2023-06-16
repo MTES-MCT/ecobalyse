@@ -63,8 +63,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { dbState : WebData Db
-    , impact : Impact.Definition
+    { impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonUnit : ComparatorView.FoodComparisonUnit
@@ -132,44 +131,44 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
         query =
             maybeQuery
                 |> Maybe.withDefault queries.food
-
-        ( model, newSession, cmds ) =
-            ( { dbState = RemoteData.Loading
-              , impact = impact
-              , bookmarkName = query |> findExistingBookmarkName session
-              , bookmarkTab = BookmarkView.SaveTab
-              , comparisonUnit = ComparatorView.PerKgOfProduct
-              , displayChoice = ComparatorView.IndividualImpacts
-              , modal = NoModal
-              , chartHovering = []
-              , activeImpactsTab =
-                    if Impact.isEcoscore impact then
-                        SubscoresTab
-
-                    else
-                        StepImpactsTab
-              }
-            , session
-                |> Session.updateFoodQuery query
-            , case maybeQuery of
-                Nothing ->
-                    Ports.scrollTo { x = 0, y = 0 }
-
-                Just _ ->
-                    Cmd.none
-            )
     in
-    if BuilderDb.isEmpty builderDb then
-        ( model
-        , newSession
-        , Cmd.batch [ cmds, FoodRequestDb.loadDb session DbLoaded ]
-        )
+    ( { impact = impact
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonUnit = ComparatorView.PerKgOfProduct
+      , displayChoice = ComparatorView.IndividualImpacts
+      , modal = NoModal
+      , chartHovering = []
+      , activeImpactsTab =
+            if Impact.isEcoscore impact then
+                SubscoresTab
 
-    else
-        ( { model | dbState = RemoteData.Success builderDb }
-        , newSession
-        , cmds
-        )
+            else
+                StepImpactsTab
+      }
+    , session
+        |> Session.updateFoodQuery query
+    , Cmd.batch
+        [ case maybeQuery of
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
+
+            Just _ ->
+                Cmd.none
+        , if builderDb == RemoteData.NotAsked then
+            FoodRequestDb.loadDb session DbLoaded
+
+          else
+            Cmd.none
+        ]
+    )
+
+
+updateIfDb : Model -> Session -> (Db -> ( Model, Session, Cmd Msg )) -> ( Model, Session, Cmd Msg )
+updateIfDb model session updateFunction =
+    session.builderDb
+        |> RemoteData.map updateFunction
+        |> RemoteData.withDefault ( model, session, Cmd.none )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -180,40 +179,48 @@ update ({ queries } as session) msg model =
     in
     case msg of
         AddIngredient ->
-            let
-                firstIngredient =
-                    session.builderDb.ingredients
-                        |> Recipe.availableIngredients (List.map .id query.ingredients)
-                        |> List.sortBy .name
-                        |> List.head
-                        |> Maybe.map Recipe.ingredientQueryFromIngredient
-            in
-            ( model, session, Cmd.none )
-                |> (case firstIngredient of
-                        Just ingredient ->
-                            updateQuery (Query.addIngredient ingredient query)
+            updateIfDb model
+                session
+                (\db ->
+                    let
+                        firstIngredient =
+                            db.ingredients
+                                |> Recipe.availableIngredients (List.map .id query.ingredients)
+                                |> List.sortBy .name
+                                |> List.head
+                                |> Maybe.map Recipe.ingredientQueryFromIngredient
+                    in
+                    ( model, session, Cmd.none )
+                        |> (case firstIngredient of
+                                Just ingredient ->
+                                    updateQuery (Query.addIngredient ingredient query)
 
-                        Nothing ->
-                            identity
-                   )
+                                Nothing ->
+                                    identity
+                           )
+                )
 
         AddPackaging ->
-            let
-                firstPackaging =
-                    session.builderDb.processes
-                        |> Recipe.availablePackagings (List.map .code query.packaging)
-                        |> List.sortBy Process.getDisplayName
-                        |> List.head
-                        |> Maybe.map Recipe.processQueryFromProcess
-            in
-            ( model, session, Cmd.none )
-                |> (case firstPackaging of
-                        Just packaging ->
-                            updateQuery (Query.addPackaging packaging query)
+            updateIfDb model
+                session
+                (\db ->
+                    let
+                        firstPackaging =
+                            db.processes
+                                |> Recipe.availablePackagings (List.map .code query.packaging)
+                                |> List.sortBy Process.getDisplayName
+                                |> List.head
+                                |> Maybe.map Recipe.processQueryFromProcess
+                    in
+                    ( model, session, Cmd.none )
+                        |> (case firstPackaging of
+                                Just packaging ->
+                                    updateQuery (Query.addPackaging packaging query)
 
-                        Nothing ->
-                            identity
-                   )
+                                Nothing ->
+                                    identity
+                           )
+                )
 
         AddPreparation ->
             let
@@ -232,28 +239,32 @@ update ({ queries } as session) msg model =
                    )
 
         AddTransform ->
-            let
-                defaultMass =
-                    query.ingredients |> List.map .mass |> Quantity.sum
+            updateIfDb model
+                session
+                (\db ->
+                    let
+                        defaultMass =
+                            query.ingredients |> List.map .mass |> Quantity.sum
 
-                firstTransform =
-                    session.builderDb.processes
-                        |> Process.listByCategory Process.Transform
-                        |> List.sortBy Process.getDisplayName
-                        |> List.head
-                        |> Maybe.map
-                            (Recipe.processQueryFromProcess
-                                >> (\processQuery -> { processQuery | mass = defaultMass })
-                            )
-            in
-            ( model, session, Cmd.none )
-                |> (case firstTransform of
-                        Just transform ->
-                            updateQuery (Query.setTransform transform query)
+                        firstTransform =
+                            db.processes
+                                |> Process.listByCategory Process.Transform
+                                |> List.sortBy Process.getDisplayName
+                                |> List.head
+                                |> Maybe.map
+                                    (Recipe.processQueryFromProcess
+                                        >> (\processQuery -> { processQuery | mass = defaultMass })
+                                    )
+                    in
+                    ( model, session, Cmd.none )
+                        |> (case firstTransform of
+                                Just transform ->
+                                    updateQuery (Query.setTransform transform query)
 
-                        Nothing ->
-                            identity
-                   )
+                                Nothing ->
+                                    identity
+                           )
+                )
 
         AddDistribution ->
             ( model, session, Cmd.none )
@@ -262,14 +273,9 @@ update ({ queries } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DbLoaded dbState ->
-            ( { model | dbState = dbState }
-            , case dbState of
-                RemoteData.Success db ->
-                    { session | builderDb = db }
-
-                _ ->
-                    session
+        DbLoaded db ->
+            ( model
+            , { session | builderDb = db }
             , Cmd.none
             )
 
@@ -413,15 +419,20 @@ updateQuery query ( model, session, msg ) =
 
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { builderDb, store } query =
-    store.bookmarks
-        |> Bookmark.findByFoodQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
-                |> Recipe.fromQuery builderDb
-                |> Result.map Recipe.toString
-                |> Result.withDefault ""
-            )
+    case builderDb of
+        RemoteData.Success db ->
+            store.bookmarks
+                |> Bookmark.findByFoodQuery query
+                |> Maybe.map .name
+                |> Maybe.withDefault
+                    (query
+                        |> Recipe.fromQuery db
+                        |> Result.map Recipe.toString
+                        |> Result.withDefault ""
+                    )
+
+        _ ->
+            ""
 
 
 
@@ -1484,7 +1495,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ case model.dbState of
+            [ case session.builderDb of
                 RemoteData.Success db ->
                     mainView session db model
 
@@ -1505,30 +1516,36 @@ view session model =
                     text ""
 
                 ComparatorModal ->
-                    ModalView.view
-                        { size = ModalView.ExtraLarge
-                        , close = SetModal NoModal
-                        , noOp = NoOp
-                        , title = "Comparateur de simulations sauvegardées"
-                        , formAction = Nothing
-                        , content =
-                            [ ComparatorView.comparator
-                                { session = session
-                                , impact = model.impact
-                                , options =
-                                    ComparatorView.foodOptions
-                                        { comparisonUnit = model.comparisonUnit
-                                        , switchComparisonUnit = SwitchComparisonUnit
-                                        , displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
+                    case session.builderDb of
+                        RemoteData.Success db ->
+                            ModalView.view
+                                { size = ModalView.ExtraLarge
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Comparateur de simulations sauvegardées"
+                                , formAction = Nothing
+                                , content =
+                                    [ ComparatorView.comparator
+                                        { session = session
+                                        , impact = model.impact
+                                        , options =
+                                            ComparatorView.foodOptions
+                                                { comparisonUnit = model.comparisonUnit
+                                                , switchComparisonUnit = SwitchComparisonUnit
+                                                , displayChoice = model.displayChoice
+                                                , switchDisplayChoice = SwitchDisplayChoice
+                                                , db = db
+                                                }
+                                        , toggle = ToggleComparedSimulation
+                                        , chartHovering = model.chartHovering
+                                        , onChartHover = OnChartHover
                                         }
-                                , toggle = ToggleComparedSimulation
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
+                                    ]
+                                , footer = []
                                 }
-                            ]
-                        , footer = []
-                        }
+
+                        _ ->
+                            text ""
             ]
       ]
     )

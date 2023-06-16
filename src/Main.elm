@@ -2,7 +2,6 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Session as Session exposing (Session, UnloadedSession)
@@ -93,7 +92,7 @@ init flags url navKey =
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
-            , builderDb = BuilderDb.empty
+            , builderDb = RemoteData.NotAsked
             , explorerDb = ExplorerDb.empty
             , notifications = []
             , queries =

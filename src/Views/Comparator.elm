@@ -7,6 +7,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Scope as Scope exposing (Scope)
@@ -56,6 +57,7 @@ type alias FoodOptions msg =
     , switchComparisonUnit : FoodComparisonUnit -> msg
     , displayChoice : DisplayChoice
     , switchDisplayChoice : DisplayChoice -> msg
+    , db : BuilderDb.Db
     }
 
 
@@ -142,15 +144,12 @@ comparator ({ session, options, toggle } as config) =
 
 
 foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayChoice, switchDisplayChoice } =
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayChoice, switchDisplayChoice, db } =
     let
-        { builderDb, store } =
-            session
-
         addToComparison ( id, label, foodQuery ) =
-            if Set.member id store.comparedSimulations then
+            if Set.member id session.store.comparedSimulations then
                 foodQuery
-                    |> Recipe.compute builderDb
+                    |> Recipe.compute db
                     |> Result.map
                         (\( _, { total, perKg, recipe } ) ->
                             case comparisonUnit of
@@ -166,7 +165,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 Nothing
 
         charts =
-            store.bookmarks
+            session.store.bookmarks
                 |> Bookmark.toFoodQueries
                 |> List.filterMap addToComparison
                 |> RE.combine
@@ -220,10 +219,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     data =
                         case displayChoice of
                             IndividualImpacts ->
-                                dataForIndividualImpacts builderDb.impacts chartsData
+                                dataForIndividualImpacts db.impacts chartsData
 
                             Grouped ->
-                                dataForGroupedImpacts builderDb.impacts chartsData
+                                dataForGroupedImpacts db.impacts chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData

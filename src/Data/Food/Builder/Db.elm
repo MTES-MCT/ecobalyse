@@ -1,8 +1,6 @@
 module Data.Food.Builder.Db exposing
     ( Db
     , buildFromJson
-    , empty
-    , isEmpty
     )
 
 import Data.Country exposing (Country)
@@ -27,21 +25,6 @@ type alias Db =
     -- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
     }
-
-
-empty : Db
-empty =
-    { countries = []
-    , impacts = []
-    , transports = Transport.emptyDistances
-    , processes = []
-    , ingredients = []
-    }
-
-
-isEmpty : Db -> Bool
-isEmpty db =
-    db == empty
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db

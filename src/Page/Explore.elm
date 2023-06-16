@@ -83,7 +83,7 @@ init scope dataset session =
     ( { dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
     , session
     , Cmd.batch
-        [ if scope == Scope.Food && BuilderDb.isEmpty session.builderDb then
+        [ if scope == Scope.Food && not (RemoteData.isSuccess session.builderDb) then
             FoodRequestDb.loadDb session FoodDbLoaded
 
           else
@@ -111,12 +111,7 @@ update session msg model =
 
         FoodDbLoaded dbState ->
             ( model
-            , case dbState of
-                RemoteData.Success builderDb ->
-                    { session | builderDb = builderDb }
-
-                _ ->
-                    session
+            , { session | builderDb = dbState }
             , Cmd.none
             )
 
@@ -371,7 +366,9 @@ explore { db, builderDb } { scope, dataset, tableState } =
             db.impacts |> impactsExplorer tableConfig tableState scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
-            builderDb |> foodIngredientsExplorer tableConfig tableState maybeId
+            builderDb
+                |> RemoteData.map (foodIngredientsExplorer tableConfig tableState maybeId)
+                |> RemoteData.withDefault []
 
         Dataset.TextileMaterials maybeId ->
             db |> textileMaterialsExplorer tableConfig tableState maybeId

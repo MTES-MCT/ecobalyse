@@ -30,18 +30,13 @@ handleIngredientsLoaded : Session -> List Process -> WebData (List Ingredient) -
 handleIngredientsLoaded session processes ingredientsData =
     case ingredientsData of
         RemoteData.Success ingredients ->
-            let
-                builderDb =
-                    session.builderDb
-            in
             Task.succeed
                 (RemoteData.succeed
-                    { builderDb
-                        | countries = session.db.countries
-                        , impacts = session.db.impacts
-                        , transports = session.db.transports
-                        , ingredients = ingredients
-                        , processes = processes
+                    { countries = session.db.countries
+                    , impacts = session.db.impacts
+                    , transports = session.db.transports
+                    , processes = processes
+                    , ingredients = ingredients
                     }
                 )
 
