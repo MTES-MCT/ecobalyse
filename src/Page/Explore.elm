@@ -32,8 +32,6 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
-import RemoteData exposing (WebData)
-import Request.Food.BuilderDb as FoodRequestDb
 import Route exposing (Route)
 import Table as SortableTable
 import Views.Alert as Alert
@@ -42,7 +40,8 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { dataset : Dataset
+    { builderDb : BuilderDb.Db
+    , dataset : Dataset
     , scope : Scope
     , tableState : SortableTable.State
     }
@@ -51,14 +50,13 @@ type alias Model =
 type Msg
     = NoOp
     | CloseModal
-    | FoodDbLoaded (WebData BuilderDb.Db)
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
 
 
-init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
-init scope dataset session =
+init : BuilderDb.Db -> Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
+init builderDb scope dataset session =
     let
         initialSort =
             case dataset of
@@ -80,16 +78,9 @@ init scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
+    ( { builderDb = builderDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
     , session
-    , Cmd.batch
-        [ if scope == Scope.Food && not (RemoteData.isSuccess session.builderDb) then
-            FoodRequestDb.loadDb session FoodDbLoaded
-
-          else
-            Cmd.none
-        , Ports.scrollTo { x = 0, y = 0 }
-        ]
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -107,12 +98,6 @@ update session msg model =
                 |> Route.Explore model.scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
-            )
-
-        FoodDbLoaded dbState ->
-            ( model
-            , { session | builderDb = dbState }
-            , Cmd.none
             )
 
         OpenDetail route ->
@@ -343,7 +328,7 @@ textileProcessesExplorer tableConfig tableState maybeId db =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db, builderDb } { scope, dataset, tableState } =
+explore { db } { builderDb, scope, dataset, tableState } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -367,8 +352,7 @@ explore { db, builderDb } { scope, dataset, tableState } =
 
         Dataset.FoodIngredients maybeId ->
             builderDb
-                |> RemoteData.map (foodIngredientsExplorer tableConfig tableState maybeId)
-                |> RemoteData.withDefault []
+                |> foodIngredientsExplorer tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             db |> textileMaterialsExplorer tableConfig tableState maybeId

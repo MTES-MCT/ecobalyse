@@ -163,8 +163,18 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    Explore.init scope dataset session
-                        |> toPage ExplorePage ExploreMsg
+                    case session.builderDb of
+                        RemoteData.Success builderDb ->
+                            Explore.init builderDb scope dataset session
+                                |> toPage ExplorePage ExploreMsg
+
+                        RemoteData.NotAsked ->
+                            ( model
+                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            )
+
+                        _ ->
+                            ( model, cmds )
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     case session.builderDb of
