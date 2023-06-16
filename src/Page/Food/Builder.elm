@@ -1225,9 +1225,7 @@ consumptionView db selectedImpact recipe results =
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
-                                    |> Result.map
-                                        (Format.formatFoodSelectedImpact selectedImpact)
-                                    |> Result.withDefault (text "N/A")
+                                    |> Format.formatFoodSelectedImpact selectedImpact
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]

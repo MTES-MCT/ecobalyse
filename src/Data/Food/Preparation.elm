@@ -11,7 +11,6 @@ module Data.Food.Preparation exposing
     )
 
 import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -83,33 +82,28 @@ all =
     ]
 
 
-apply : BuilderDb.Db -> Mass -> Preparation -> Result String Impacts
-apply db mass preparation =
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map
-            (\{ lowVoltageElectricity, domesticGasHeat } ->
-                Impact.sumImpacts db.impacts
-                    [ lowVoltageElectricity.impacts
-                        |> Impact.mapImpacts
-                            (\_ ->
-                                Unit.impactToFloat
-                                    >> (*) (Energy.inKilowattHours (Tuple.first preparation.elec))
-                                    >> (*) (Mass.inKilograms mass)
-                                    >> (*) (Split.toFloat (Tuple.second preparation.elec))
-                                    >> Unit.impact
-                            )
-                    , domesticGasHeat.impacts
-                        |> Impact.mapImpacts
-                            (\_ ->
-                                Unit.impactToFloat
-                                    >> (*) (Energy.inMegajoules (Tuple.first preparation.heat))
-                                    >> (*) (Mass.inKilograms mass)
-                                    >> (*) (Split.toFloat (Tuple.second preparation.heat))
-                                    >> Unit.impact
-                            )
-                    ]
-            )
+apply : BuilderDb.Db -> Mass -> Preparation -> Impacts
+apply { impacts, wellKnown } mass preparation =
+    Impact.sumImpacts impacts
+        [ wellKnown.lowVoltageElectricity.impacts
+            |> Impact.mapImpacts
+                (\_ ->
+                    Unit.impactToFloat
+                        >> (*) (Energy.inKilowattHours (Tuple.first preparation.elec))
+                        >> (*) (Mass.inKilograms mass)
+                        >> (*) (Split.toFloat (Tuple.second preparation.elec))
+                        >> Unit.impact
+                )
+        , wellKnown.domesticGasHeat.impacts
+            |> Impact.mapImpacts
+                (\_ ->
+                    Unit.impactToFloat
+                        >> (*) (Energy.inMegajoules (Tuple.first preparation.heat))
+                        >> (*) (Mass.inKilograms mass)
+                        >> (*) (Split.toFloat (Tuple.second preparation.heat))
+                        >> Unit.impact
+                )
+        ]
 
 
 decodeId : Decoder Id

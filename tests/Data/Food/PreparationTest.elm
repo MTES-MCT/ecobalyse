@@ -23,8 +23,7 @@ suite =
                   , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply builderDb (Mass.kilograms 1)
-                    |> Result.map (Impact.getImpact (Impact.trg "cch") >> Unit.impactToFloat)
-                    |> Result.withDefault 0
+                    |> (Impact.getImpact (Impact.trg "cch") >> Unit.impactToFloat)
                     |> Expect.within (Expect.Absolute 0.001) 0.08
                     |> asTest "compute impacts from applying a consumption preparation technique"
                 ]

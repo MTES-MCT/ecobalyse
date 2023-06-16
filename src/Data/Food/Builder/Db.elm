@@ -10,6 +10,7 @@ import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport
 import Json.Decode as Decode
+import Json.Decode.Extra as DE
 
 
 type alias Db =
@@ -24,6 +25,7 @@ type alias Db =
 
     -- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
+    , wellKnown : Process.WellKnown
     }
 
 
@@ -34,7 +36,14 @@ buildFromJson { countries, transports, impacts } builderProcessesJson ingredient
         |> Result.andThen
             (\processes ->
                 ingredientsJson
-                    |> Decode.decodeString (Ingredient.decodeIngredients processes)
-                    |> Result.map (Db countries impacts transports processes)
+                    |> Decode.decodeString
+                        (Ingredient.decodeIngredients processes
+                            |> Decode.andThen
+                                (\ingredients ->
+                                    Process.loadWellKnown processes
+                                        |> Result.map (Db countries impacts transports processes ingredients)
+                                        |> DE.fromResult
+                                )
+                        )
             )
         |> Result.mapError Decode.errorToString

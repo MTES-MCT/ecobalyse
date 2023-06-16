@@ -4,6 +4,7 @@ import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Session exposing (Session)
+import Http
 import RemoteData exposing (WebData)
 import Request.Common exposing (getJson)
 import Task exposing (Task)
@@ -31,13 +32,10 @@ handleIngredientsLoaded session processes ingredientsData =
     case ingredientsData of
         RemoteData.Success ingredients ->
             Task.succeed
-                (RemoteData.succeed
-                    { countries = session.db.countries
-                    , impacts = session.db.impacts
-                    , transports = session.db.transports
-                    , processes = processes
-                    , ingredients = ingredients
-                    }
+                (Process.loadWellKnown processes
+                    |> Result.map (Db session.db.countries session.db.impacts session.db.transports processes ingredients)
+                    |> RemoteData.fromResult
+                    |> RemoteData.mapError Http.BadBody
                 )
 
         RemoteData.Failure error ->
