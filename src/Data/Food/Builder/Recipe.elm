@@ -191,7 +191,7 @@ compute db =
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.noImpacts)
                         in
-                        Transport.computeImpacts db.impacts mass transport db.wellKnown
+                        Transport.computeImpacts db mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts db.impacts
@@ -441,7 +441,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    Transport.computeImpacts db.impacts mass transport db.wellKnown
+    Transport.computeImpacts db mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)
