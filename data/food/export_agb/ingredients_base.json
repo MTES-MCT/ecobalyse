@@ -33,7 +33,7 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "Cow milk organic system 1 at farm gate",
+        "process": "cow milk organic system number 5",
         "beyondLCA": {
           "agro-diversity": 50,
           "agro-ecology": 50,
@@ -58,7 +58,7 @@
         "ratio": 0.0,
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -78,7 +78,7 @@
         "process": "soft wheat grain organic central region",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -97,10 +97,10 @@
       "organic": {
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         },
         "ratio": 1.16,
-        "simple_ingredient_default": "Soft wheat grain conventional breadmaking quality 15% moisture at farm gate",
+        "simple_ingredient_default": "Soft wheat grain breadmaking conventional farm",
         "simple_ingredient_variant": "soft wheat grain organic central region"
       }
     }
@@ -120,7 +120,7 @@
         "process": "Sunflower grain organic system 3 at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -140,7 +140,7 @@
         "process": "Winter rapeseed organic at farm gate",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -160,7 +160,7 @@
         "process": "Tomato organic greenhouse production national average at greenhouse",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -195,7 +195,7 @@
         },
         "ratio": 2.3,
         "simple_ingredient_default": "Beef cattle national average at farm gate",
-        "simple_ingredient_variant": "Cull cow organic milk system 4 at farm gate"
+        "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
       }
     }
   },
@@ -203,8 +203,8 @@
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
     "category": "animal_product",
-    "default": "Beef cattle feedlot or intensive system live weight farm GB",
-    "default_origin": "EuropeAndMaghreb",
+    "default": "Ground beef fresh case ready for direct consumption at plant",
+    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "transport_cooling": "always",
@@ -278,7 +278,7 @@
         "process": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
         "beyondLCA": {
           "agro-diversity": 50,
-          "agro-ecology": 0.5
+          "agro-ecology": 50
         }
       }
     }
@@ -306,14 +306,13 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "zucchini,  springtime, under tunnel, organic",
         "ratio": 0.0,
-        "simple_ingredient_default": "rape seed {FR}",
+        "simple_ingredient_default": "Rape seed FR",
         "simple_ingredient_variant": "winter rapeseed organic",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -334,9 +333,9 @@
         "simple_ingredient_default": "sunflower, at farm {glo}",
         "simple_ingredient_variant": "Sunflower grain organic, system number 3, at farm gate",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -344,7 +343,7 @@
   {
     "id": "zucchini",
     "name": "Courgette",
-    "default": "Zucchini springtime under tunnel conventionel at farm gate {FR} U",
+    "default": "Zucchini conventional national average farm gate FR",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 1.0,
@@ -353,12 +352,12 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "zucchini,  springtime, under tunnel, organic",
+        "process": "zucchini springtime under tunnel organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -375,12 +374,12 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "pear, organic,",
+        "process": "pear organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -388,7 +387,7 @@
   {
     "id": "peach",
     "name": "Pêche",
-    "default": "Peach, production mix, national average, at orchard {FR}",
+    "default": "Peach production mix national average at orchard FR",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
@@ -397,12 +396,12 @@
     "visible": true,
     "variants": {
       "organic": {
-        "process": "peach, organic, ",
+        "process": "peach organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -422,9 +421,9 @@
         "process": "melon organic",
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.0
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 0
         }
       }
     }
@@ -443,11 +442,11 @@
       "organic": {
         "ratio": 0.0,
         "simple_ingredient_default": "cow milk national",
-        "simple_ingredient_variant": "cow milk organic system number 1,",
+        "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       }
     }
@@ -466,9 +465,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -487,9 +486,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.5,
-          "agro-ecology": 0.5,
-          "animal-welfare": 0.5
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
         }
       },
       "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
@@ -509,9 +508,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -530,9 +529,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }
@@ -551,9 +550,9 @@
       "organic": {
         "ratio": 0.0,
         "beyondLCA": {
-          "agro-diversity": 0.0,
-          "agro-ecology": 0.0,
-          "animal-welfare": 0.0
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
         }
       }
     }

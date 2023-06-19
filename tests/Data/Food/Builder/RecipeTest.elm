@@ -192,22 +192,22 @@ suite =
 
                                     Ok scoring ->
                                         Expect.equal scoring
-                                            { all = Unit.impact 199.23268279508645
-                                            , biodiversity = Unit.impact 82.64159511838133
-                                            , climate = Unit.impact 45.95474483677185
-                                            , health = Unit.impact 34.55246000294004
-                                            , resources = Unit.impact 38.21741808027444
+                                            { all = Unit.impact 190.90711775476868
+                                            , biodiversity = Unit.impact 76.84351123045501
+                                            , climate = Unit.impact 42.240668746472835
+                                            , health = Unit.impact 37.64797760499371
+                                            , resources = Unit.impact 36.173723072786856
                                             }
                                             |> asTest "should be properly scored"
                            )
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
-                        |> Result.map (expectImpactEqual (Unit.impact 114.63346918288869))
+                        |> Result.map (expectImpactEqual (Unit.impact 108.4322609789048))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the total ecs impact with the bonus taken into account"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact (Impact.trg "ecs"))
-                        |> Result.map (expectImpactEqual (Unit.impact 71.60255160507457))
+                        |> Result.map (expectImpactEqual (Unit.impact 73.23635314324639))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the ingredients' total ecs impact with the bonus taken into account"
                      ]

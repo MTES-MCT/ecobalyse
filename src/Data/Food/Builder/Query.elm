@@ -157,12 +157,12 @@ carrotCake =
     , transform =
         Just
             { -- Cooking, industrial, 1kg of cooked product/ FR U
-              code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
+              code = Process.codeFromString "AGRIBALU000000003103966"
             , mass = Mass.grams 545
             }
     , packaging =
         [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
-            code = Process.codeFromString "23b2754e5943bc77916f8f871edc53b6"
+            code = Process.codeFromString "AGRIBALU000000003104019"
           , mass = Mass.grams 105
           }
         ]

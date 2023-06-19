@@ -11,7 +11,6 @@ import os
 import pandas
 
 bw2data.projects.set_current("Ecobalyse")
-bw2io.bw2setup()
 os.chdir("/home/jovyan/ecobalyse/data")
 
 databases = list(bw2data.databases.keys())
@@ -65,12 +64,18 @@ def show_activity(change):
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
     display(Markdown(f"# IMPACTS for {activity}"))
+    scores = []
     for method in [m for m in bw2data.methods if m[0] == method]:
         lca.switch_method(method)
         lca.lcia()
-        print(
-            f"{method[1].ljust(45,' ')} = {str(lca.score).ljust(25, ' ')} {bw2data.methods[method].get('unit', '(no unit)')}"
+        scores.append(
+            {
+                "Indicateur": method[1],
+                "Score": str(lca.score),
+                "Unité": bw2data.methods[method].get("unit", "(no unit)"),
+            }
         )
+    display(pandas.DataFrame(scores))
     display(Markdown("---"))
 
     # ACTIVITY DATA

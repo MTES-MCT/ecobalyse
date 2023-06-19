@@ -139,7 +139,7 @@ decodeProcess definitions =
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "unit" decodeStringUnit
-        |> Pipe.required "simapro_id" decodeCode
+        |> Pipe.required "identifier" decodeCode
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)

@@ -10,7 +10,6 @@ import json
 import argparse
 import bw2data
 import bw2calc
-import bw2io
 from food.impacts import impacts as impacts_definition
 import uuid
 import hashlib
@@ -21,22 +20,31 @@ DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 PROCESSES2EXPORT = "builder_processes_to_export.csv"
 INGREDIENTS_BASE = "ingredients_base.json"
+IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
 
 bw2data.projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
-# bw2io.bw2setup()
 db = bw2data.Database(DBNAME)
 
 
-def compute_new_processes(activities, ingredients_base):
+def compute_new_processes(activities, ingredients):
     new_processes = []
 
-    for ingredient in ingredients_base:
-        for variant_name, variant in ingredient.get("variants", {}).items():
-            # variant_name can be 'organic', 'bleu_blanc_coeur'
+    for ingredient in ingredients:
+        for variant_type, variant in ingredient.get("variants", {}).items():
+            # variant_type can be 'organic', 'bleu_blanc_coeur'
+
+            # find the variant from its search string
+            if "process" in variant:
+                results = db.search(variant["process"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'process' field of the {variant_type} variant for '{ingredient['name']}' was not found in {DBNAME}"
+                variant["process"] = results[0]["Process identifier"]
+
             # we build new processes for ingredients defined with 2 sub-ingredients
             if (
                 "simple_ingredient_default" in variant
@@ -45,7 +53,7 @@ def compute_new_processes(activities, ingredients_base):
                 assert (
                     "simple_ingredient_default" in variant
                     and "simple_ingredient_variant" in variant
-                ), f"Incomplete variant for {ingredient}"
+                ), f"Incomplete variant for {ingredient}: missing either simple_ingredient_default or simple_ingredient_variant"
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 assert (
                     ingredient["default"] in activities
@@ -58,24 +66,34 @@ def compute_new_processes(activities, ingredients_base):
                 # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 ratio = variant["ratio"]
 
+                results = db.search(variant["simple_ingredient_default"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'simple_ingredient_default' of '{ingredient['name']}' was not found in {DBNAME}"
                 simple_ingredient_default = activities[
-                    variant["simple_ingredient_default"]
+                    results[0]["Process identifier"]
                 ]["export_data"]
+
+                results = db.search(variant["simple_ingredient_variant"])
+                assert (
+                    len(results) >= 1
+                ), f"The 'simple_ingredient_variant' of '{ingredient['name']}' was not found in {DBNAME}"
                 simple_ingredient_variant = activities[
-                    variant["simple_ingredient_variant"]
+                    results[0]["Process identifier"]
                 ]["export_data"]
 
                 new_process = copy.deepcopy(complex_ingredient_default)
                 new_process[
                     "name"
-                ] = f"{ingredient['id']}, {variant_name}, constructed by ecobalyse"
+                ] = f"{ingredient['id']}, {variant_type}, constructed by ecobalyse"
                 new_process["system_description"] = "ecobalyse"
 
                 # We generate a uuid using the process name as a seed
-                m = hashlib.md5()
-                seed = new_process["name"]
-                m.update(seed.encode("utf-8"))
-                new_process["simapro_id"] = str(uuid.UUID(m.hexdigest()))
+                new_process["identifier"] = str(
+                    uuid.UUID(
+                        hashlib.md5(new_process["name"].encode("utf-8")).hexdigest()
+                    )
+                )
 
                 for impact in new_process["impacts"]:
                     # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
@@ -89,7 +107,7 @@ def compute_new_processes(activities, ingredients_base):
                 del variant["simple_ingredient_default"]
                 del variant["simple_ingredient_variant"]
                 del variant["ratio"]
-                variant["process"] = new_process["simapro_id"]
+                variant["process"] = new_process["identifier"]
 
                 new_processes.append(new_process)
 
@@ -111,11 +129,20 @@ if __name__ == "__main__":
 
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
     with open(INGREDIENTS_BASE, "r") as f:
-        ingredients_base = json.load(f)
+        ingredients = json.load(f)
+
+    with open(IMPACTS, "r") as f:
+        impacts_ecobalyse = json.load(f)
 
     # we need to add the processes corresponding to sub-ingredients of constructed ingredients
     processes_to_add = []
-    for ingredient in ingredients_base:
+    for i, ingredient in enumerate(ingredients):
+        # we first get the activity from the search string and store its identifier
+        results = db.search(ingredient["default"])
+        assert (
+            len(results) >= 1
+        ), f"In {INGREDIENTS_BASE}:{i}, searching this \"default\" field doesn't give a result: {ingredient['default']}"
+        ingredient["default"] = results[0]["Process identifier"]
         for variant in ingredient.get("variants", {}).values():
             if (
                 "simple_ingredient_default" in variant
@@ -125,38 +152,42 @@ if __name__ == "__main__":
                 processes_to_add.append({"name": variant["simple_ingredient_default"]})
                 processes_to_add.append({"name": variant["simple_ingredient_variant"]})
 
-    print(
-        f"{len(processes_to_add)} procédés construits provenant de {INGREDIENTS_BASE}"
-    )
+    print(f"{len(processes_to_add)} ingrédients construits depuis {INGREDIENTS_BASE}")
 
     processes_to_export += processes_to_add
     print(
-        f"Total de {len(processes_to_export)} procédés à exporter, sélectionnés depuis {PROCESSES2EXPORT}"
+        f"{len(processes_to_export)} procédés exportés depuis depuis {PROCESSES2EXPORT}"
     )
 
     activities = {}
-    for p in processes_to_export:
-        results = db.search(p["name"])
-        assert len(results) >= 1, f"Research doesn't give a result: {p['name']}"
+    for i, process in enumerate(processes_to_export):
+        results = db.search(process["name"])
+        assert (
+            len(results) >= 1
+        ), f"In {PROCESSES2EXPORT}:{i}, searching this \"name\" field doesn't give a result: {process['name']}"
         activity = results[0]
-        activities[p["name"]] = {
+        activities[activity["Process identifier"]] = {
             "activity": activity,
-            "export_data": p,
+            "export_data": process,
         }
 
     nb_activities = len(activities)
-    print(f"Total de {nb_activities} activités trouvées dans {DBNAME}")
+    print(f"{nb_activities} activités trouvées dans {DBNAME}")
 
+    print("Calcul des impacts:")
     for index, v in enumerate(activities.values()):
         print(
-            "[" + (index) * "•" + (nb_activities - index) * " " + "]",
+            "("
+            + (index) * "•"
+            + (nb_activities - index) * " "
+            + f") {str(index)}/{nb_activities}",
             end="\r",
         )
         # move data
         activity, export_data = v["activity"], v["export_data"]
         export_data["unit"] = activity["unit"]
-        export_data["simapro_id"] = activity["code"]
-        export_data["name"] = activity.get("simapro name", activity["name"])
+        export_data["identifier"] = activity["Process identifier"]
+        export_data["name"] = activity["name"]
         export_data["system_description"] = activity["System description"]
 
         # Useful info like the category_tags and comment are in the production exchange
@@ -187,7 +218,7 @@ if __name__ == "__main__":
         for key, method in impacts_definition.items():
             lca.switch_method(method)
             lca.lcia()
-            v["export_data"]["impacts"][key] = lca.score
+            v["export_data"]["impacts"][key] = float("{:.10g}".format(lca.score))
         # etf-o = etf-o1 + etf-o2
         v["export_data"]["impacts"]["etf-o"] = (
             v["export_data"]["impacts"]["etf-o1"]
@@ -212,18 +243,36 @@ if __name__ == "__main__":
             v["export_data"]["impacts"]["bvi"] = 0.0
 
     # Compute new processes for complex variants
-    new_processes = compute_new_processes(activities, ingredients_base)
+    new_processes = compute_new_processes(activities, ingredients)
 
     # Export the ingredients
-    print(f"Export de {len(ingredients_base)} ingrédients vers {INGREDIENTS}")
+    print(f"Export de {len(ingredients)} ingrédients vers {INGREDIENTS}")
     with open(INGREDIENTS, "w") as outfile:
-        json.dump(ingredients_base, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
+        json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
+        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        outfile.write("\n")
 
     # Add the new processes we computed for the complex ingredients
     export = [v["export_data"] for v in activities.values()] + new_processes
 
+    # compute the corrected impacts
+    print("Computing corrected impacts from weighted subimpacts")
+    corrections = {
+        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
+    }
+    for process in export:
+        for impact_to_correct, correction in corrections.items():
+            corrected_impact = 0
+            for correction_item in correction:  # For each sub-impact and its weighting
+                sub_impact_name = correction_item["sub-impact"]
+                if sub_impact_name in process["impacts"]:
+                    sub_impact = process["impacts"].get(sub_impact_name, 1)
+                    corrected_impact += sub_impact * correction_item["weighting"]
+                    del process["impacts"][sub_impact_name]
+            process["impacts"][impact_to_correct] = corrected_impact
+
     print(f"Export de {len(export)} procédés vers {BUILDER}")
     with open(BUILDER, "w") as outfile:
         json.dump(export, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
+        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        outfile.write("\n")

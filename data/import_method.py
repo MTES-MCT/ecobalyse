@@ -15,6 +15,14 @@ BIOSPHERE = DBNAME + " biosphere"
 METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
 METHODNAME = "Environmental Footprint 3.1 (adapted)"  # defined inside the csv
 
+# excluded strategies and migrations
+EXCLUDED = [
+    "normalize_simapro_biosphere_names",
+    "normalize_biosphere_names",
+    "fix_localized_water_flows",
+    "simapro-water",
+]
+
 
 def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     """
@@ -30,14 +38,10 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     ef.statistics()
-    # ef.strategies = (
-    #    ef.strategies[:8]
-    #    + [
-    #        functools.partial(migrate_exchanges, migration="simapro-water"),
-    #        fix_localized_water_flows,
-    #    ]
-    #    + ef.strategies[8:]
-    # )
+    # exclude strategies/migrations in EXCLUDED
+    ef.strategies = [
+        s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED])
+    ]
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
     # ef.add_missing_cfs()

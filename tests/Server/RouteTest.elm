@@ -47,8 +47,8 @@ foodEndpoints db =
           , "ingredients[]=wheat;140"
           , "ingredients[]=milk;60"
           , "ingredients[]=carrot;225"
-          , "transform=aded2490573207ec7ad5a3813978f6a4;545"
-          , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+          , "transform=AGRIBALU000000003103966;545"
+          , "packaging[]=AGRIBALU000000003104019;105"
           , "distribution=ambient"
           , "preparation[]=refrigeration"
           , "category=cakes"
@@ -119,7 +119,7 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: 110)")
             |> asTest "should validate that an ingredient bonuses splits are valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
+        , testEndpoint db "GET" Encode.null "/food/recipe?transform=AGRIBALU000000003103966;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
@@ -129,7 +129,7 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a transform code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=23b2754e5943bc77916f8f871edc53b6;-1"
+        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=AGRIBALU000000003104019;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
