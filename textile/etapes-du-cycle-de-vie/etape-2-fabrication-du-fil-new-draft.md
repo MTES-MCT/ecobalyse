@@ -10,15 +10,18 @@ description: >-
 
 La fabrication d’un fil consiste à assembler un ensemble de fibres (filé de fibres) ou filaments (fil continu) afin de le rendre utilisable pour la fabrication de produits textiles. Les propriétés recherchées sont nombreuses (élasticité, régularité, résistance, finesse, etc.) et dépendent de besoins métier eux aussi variés (habillement, ameublement, chaussures, etc.).
 
-La fabrication d’un fil peut prendre deux formes : \
-\- la **filature** pour les fibres discontinues (staple yarn)\
-Une fibre discontinue se caractérise par une courte longueur; les fibres naturelles ou artificielles sont majoritairement des fibres discontinues. Le fil résultant de l’assemblage de fibres discontinues est un filé (spun yarn).\
-\- le **filage** pour les fibres continues (filaments)\
-Un filament se caractérise par une très grande longueur; les fibres synthétiques sont des fibres continues. Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente.  Le fil résultant de cette opération s’appelle un fil monofilamentaire ou multifilamentaire (si le fil est constitué de plusieurs filaments).
+La fabrication d’un fil peut prendre deux formes :&#x20;
+
+* la **filature** pour les fibres discontinues (staple yarn)
+* le **filage** pour les fibres continues (filaments)
 
 <details>
 
 <summary>Focus Filature</summary>
+
+La filature concerne la fabrication d'un fil constitué de fibres discontinues. Les fibres naturelles ou artificielles sont majoritairement des fibres discontinues.&#x20;
+
+Le fil résultant de l’assemblage de fibres discontinues est un filé (spun yarn).
 
 Les fibres discontinues sont de différentes **longueurs**, on distingue généralement :&#x20;
 
@@ -53,14 +56,20 @@ Cinq principales **étapes** sont nécessaires pour la filature :&#x20;
 
 <summary>Focus Filage</summary>
 
+Le filage concerne la fabrication d'un fil constitué de filaments (fibres continues). Les fibres synthétiques sont des fibres continues.&#x20;
+
+Un filament se caractérise par une très grande longueur. Le fil résultant du filage s’appelle un fil monofilamentaire ou multifilamentaire (si le fil est constitué de plusieurs filaments).
+
+Les filaments peuvent aussi être découpés afin de devenir des fibres discontinues (par craquage ou convertissage) permettant de mélanger des fibres de nature différente.&#x20;
+
 Plusieurs étapes sont nécessaires pour filer des filaments :&#x20;
 
 1. Extrusion de la matière afin de former des filaments via le passage de la matière dans les orifices de la filière
 2. Etirage des filaments pour former des fibres continues&#x20;
-3. Filage des filaments afin d’obtenir un fil (3 options possibles)
-   * à sec : les polymères en solution passent une filière qui se situe dans un courant d’air chaud qui solidifie les filaments
-   * par voie humide : les polymères en solution sont immergés dans un bain coagulant qui solidifie les filaments
-   * par fusion : les polymères fondus passent dans une filière qui se situe dans un courant d’air froid qui solidifie les filaments
+3. Filage des filaments afin d’obtenir un fil (3 options possibles)\
+   \- à sec : les polymères en solution passent une filière qui se situe dans un courant d’air chaud qui solidifie les filaments\
+   \- par voie humide : les polymères en solution sont immergés dans un bain coagulant qui solidifie les filaments\
+   \- par fusion : les polymères fondus passent dans une filière qui se situe dans un courant d’air froid qui solidifie les filaments
 
 A la sortie de la filière les multi-filaments obtenus sont soit étirés entre plusieurs rouleaux pour former des fils continus soit coupés en fibres discontinues.
 
@@ -139,7 +148,7 @@ La technique non-conventionnelle (open-end) est plus efficace mais plus contraig
 
 <summary>Filature : procédé (cardée vs peignée)</summary>
 
-La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée des le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
+La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée dans le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
 
 Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impact aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
 
@@ -229,9 +238,9 @@ Une corrélation linéraire est appliquée par défaut entre le titrage du fil (
 
 Par défaut, Ecobalyse considère que les consommations d'électricité pre-définies s'appliquent à un fil moyen dont le titrage est de 50 Nm / 200 Dtex.
 
-_Illustration: procédé Filature conventionnelle (ring spinning) :_&#x20;
+_Illustration :_&#x20;
 
-![](<../../.gitbook/assets/Filature conventionnelle (ring) \_ Conso. électricité (kWh) selon le titrage (Nm).png>)
+![](https://lh4.googleusercontent.com/VuoNnhNFXR6IPFHxgiVB-YFL6UEWKkbQz5GdqGbT\_BoS2UKbR1JsbYfYX8JKvOzmz\_Vxu\_0KwJ4stNIdrgcr1vEMdNz9tNotYCbpkRRy5Kk\_C0OSqdLMDtnyPUsEIo85pjHcqmBeki-lg-UM\_aqh30PBKw=s2048)
 
 Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité de fil donnée. Une telle corrélation est mise en lumière dans différents travaux de la filière tandis que plusieurs réferntiels partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent différents procédés de filature selon différents titrages de fil.&#x20;
 
