@@ -290,10 +290,10 @@ trg =
 
 
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
-toProtectionAreas defs (Impacts impactsPerKg) =
+toProtectionAreas defs (Impacts impactsPerKgWithoutBonuses) =
     let
         pick trigrams =
-            impactsPerKg
+            impactsPerKgWithoutBonuses
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
                 |> Impacts
                 |> computeAggregatedScore .ecoscoreData defs

@@ -233,24 +233,30 @@ compute db =
                             , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.total
                         }
 
-                    totalImpacts =
-                        [ recipeImpacts
-                        , packagingImpacts
-                        , distributionImpacts
-                        , distributionTransport.impacts
-                        , preparationImpacts
-                        ]
-                            |> Impact.sumImpacts db.impacts
-                            |> addIngredientsBonuses
+                    totalImpactsWithoutBonuses =
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts
+                            , packagingImpacts
+                            , distributionImpacts
+                            , distributionTransport.impacts
+                            , preparationImpacts
+                            ]
 
+                    totalImpacts =
+                        addIngredientsBonuses totalImpactsWithoutBonuses
+
+                    -- Note: Product impacts per kg is computed against prepared
+                    --       product mass at consumer, excluding packaging
                     impactsPerKg =
-                        -- Note: Product impacts per kg is computed against prepared
-                        --       product mass at consumer, excluding packaging
                         totalImpacts
                             |> Impact.perKg preparedMass
 
+                    impactsPerKgWithoutBonuses =
+                        totalImpactsWithoutBonuses
+                            |> Impact.perKg preparedMass
+
                     scoring =
-                        impactsPerKg
+                        impactsPerKgWithoutBonuses
                             |> computeScoring db.impacts totalBonusesImpactPerKg.total
                 in
                 ( recipe
@@ -320,23 +326,23 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
 
 
 computeScoring : List Impact.Definition -> Unit.Impact -> Impacts -> Scoring
-computeScoring defs totalBonusImpactPerKg perKg =
+computeScoring defs totalBonusImpactPerKg perKgWithoutBonuses =
     let
-        ecsPerKg =
-            perKg
+        ecsPerKgWithoutBonuses =
+            perKgWithoutBonuses
                 |> Impact.getImpact (Impact.trg "ecs")
 
-        subScoresWithoutBonuses =
-            perKg
+        subScores =
+            perKgWithoutBonuses
                 |> Impact.toProtectionAreas defs
     in
-    { all = ecsPerKg
-    , allWithoutBonuses = Quantity.difference ecsPerKg totalBonusImpactPerKg
+    { all = Quantity.plus ecsPerKgWithoutBonuses totalBonusImpactPerKg
+    , allWithoutBonuses = ecsPerKgWithoutBonuses
     , bonuses = totalBonusImpactPerKg
-    , climate = subScoresWithoutBonuses.climate
-    , biodiversity = subScoresWithoutBonuses.biodiversity
-    , health = subScoresWithoutBonuses.health
-    , resources = subScoresWithoutBonuses.resources
+    , climate = subScores.climate
+    , biodiversity = subScores.biodiversity
+    , health = subScores.health
+    , resources = subScores.resources
     }
 
 

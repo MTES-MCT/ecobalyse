@@ -41,7 +41,7 @@ percentageTable data =
                         { name = name
                         , impact = value
                         , percent = value / total * 100
-                        , width = value / maximum * 100
+                        , width = abs value / maximum * 100
                         }
                     )
                 |> List.map
@@ -49,9 +49,14 @@ percentageTable data =
                         tr [ title <| name ++ ": " ++ Format.formatFloat 2 percent ++ "\u{202F}% (" ++ Format.formatFloat 2 impact ++ "\u{202F}µPts)" ]
                             [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
                             , td [ style "width" "200px", style "vertical-align" "middle" ]
-                                [ div [ class "progress bg-transparent", style "width" "100%", style "height" "13px" ]
+                                [ div
+                                    [ class "progress bg-transparent"
+                                    , style "width" "100%"
+                                    , style "height" "13px"
+                                    ]
                                     [ div
-                                        [ class "progress-bar bg-secondary"
+                                        [ class "progress-bar"
+                                        , classList [ ( "bg-secondary", percent > 0 ), ( "bg-success", percent < 0 ) ]
                                         , style "width" (String.fromFloat width ++ "%")
                                         ]
                                         []
