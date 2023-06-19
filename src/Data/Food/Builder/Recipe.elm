@@ -105,6 +105,8 @@ type alias Results =
 
 type alias Scoring =
     { all : Unit.Impact
+    , allWithoutBonuses : Unit.Impact
+    , bonuses : Unit.Impact
     , climate : Unit.Impact
     , biodiversity : Unit.Impact
     , health : Unit.Impact
@@ -253,7 +255,7 @@ compute db =
 
                     scoring =
                         impactsPerKg
-                            |> Result.map (computeScoring db.impacts)
+                            |> Result.map (computeScoring db.impacts totalBonusesImpactPerKg.total)
                 in
                 Ok
                     (\total perKg distrib distribTransport preparationImpacts_ score ->
@@ -331,22 +333,24 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
     }
 
 
-computeScoring : List Impact.Definition -> Impacts -> Scoring
-computeScoring defs perKg =
+computeScoring : List Impact.Definition -> Unit.Impact -> Impacts -> Scoring
+computeScoring defs totalBonusImpactPerKg perKg =
     let
         ecsPerKg =
             perKg
                 |> Impact.getImpact (Impact.trg "ecs")
 
-        subScores =
+        subScoresWithoutBonuses =
             perKg
                 |> Impact.toProtectionAreas defs
     in
     { all = ecsPerKg
-    , climate = subScores.climate
-    , biodiversity = subScores.biodiversity
-    , health = subScores.health
-    , resources = subScores.resources
+    , allWithoutBonuses = Quantity.difference ecsPerKg totalBonusImpactPerKg
+    , bonuses = totalBonusImpactPerKg
+    , climate = subScoresWithoutBonuses.climate
+    , biodiversity = subScoresWithoutBonuses.biodiversity
+    , health = subScoresWithoutBonuses.health
+    , resources = subScoresWithoutBonuses.resources
     }
 
 
