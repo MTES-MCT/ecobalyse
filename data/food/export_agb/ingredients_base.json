@@ -475,7 +475,7 @@
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "default": "In-season eggplant consumption mix",
+    "default": "Zucchini, conventional, national average, at farm gate {FR} U",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
