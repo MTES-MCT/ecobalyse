@@ -1411,6 +1411,7 @@ impactTabsView db model results =
                         , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
                         , ( "Ressource", Unit.impactToFloat results.scoring.resources )
+                        , ( "Bonuses", Unit.impactToFloat results.scoring.bonuses )
                         ]
             ]
         }

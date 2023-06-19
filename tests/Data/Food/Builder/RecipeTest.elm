@@ -193,7 +193,9 @@ suite =
                                     Ok scoring ->
                                         Expect.equal scoring
                                             { all = Unit.impact 190.90711775476868
+                                            , allWithoutBonuses = Unit.impact 188.90835485482899
                                             , biodiversity = Unit.impact 76.84351123045501
+                                            , bonuses = Unit.impact 1.9987628999397031
                                             , climate = Unit.impact 42.240668746472835
                                             , health = Unit.impact 37.64797760499371
                                             , resources = Unit.impact 36.173723072786856
