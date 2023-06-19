@@ -439,18 +439,39 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "variants": {
+      "organic": {
+        "ratio": 0.0,
+        "beyondLCA": {
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
+        }
+      }
+    }
   },
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "default": "AGRIBALU000000003107617",
+    "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "variants": {
+      "organic": {
+        "ratio": 0.0,
+        "beyondLCA": {
+          "agro-diversity": 50,
+          "agro-ecology": 50,
+          "animal-welfare": 50
+        }
+      },
+      "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
+    }
   },
   {
     "id": "lettuce",
@@ -461,7 +482,17 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "variants": {
+      "organic": {
+        "ratio": 0.0,
+        "beyondLCA": {
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
+        }
+      }
+    }
   },
   {
     "id": "frenchbean",
@@ -472,7 +503,17 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "variants": {
+      "organic": {
+        "ratio": 0.0,
+        "beyondLCA": {
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
+        }
+      }
+    }
   },
   {
     "id": "durumwheat",
@@ -483,6 +524,16 @@
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "variants": {
+      "organic": {
+        "ratio": 0.0,
+        "beyondLCA": {
+          "agro-diversity": 0,
+          "agro-ecology": 0,
+          "animal-welfare": 0
+        }
+      }
+    }
   }
 ]
