@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Db as FoodBuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Session as Session exposing (Session, UnloadedSession)
@@ -21,9 +21,10 @@ import Page.Textile.Examples as TextileExamples
 import Page.Textile.Simulator as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import Request.Food.BuilderDb
 import Request.Textile.Db
 import Request.Version
-import Route exposing (Route)
+import Route
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -69,6 +70,7 @@ type Msg
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodExploreMsg FoodExplore.Msg
+    | FoodBuilderDbReceived Url (WebData FoodBuilderDb.Db)
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
@@ -93,7 +95,7 @@ init flags url navKey =
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
-            , builderDb = BuilderDb.empty
+            , builderDb = RemoteData.NotAsked
             , explorerDb = ExplorerDb.empty
             , notifications = []
             , queries =
@@ -113,8 +115,12 @@ init flags url navKey =
     )
 
 
-setRoute : Maybe Route -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute maybeRoute ( { state } as model, cmds ) =
+setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+setRoute url ( { state } as model, cmds ) =
+    let
+        maybeRoute =
+            Route.fromUrl url
+    in
     case state of
         Loaded _ session ->
             let
@@ -157,12 +163,32 @@ setRoute maybeRoute ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    Explore.init scope dataset session
-                        |> toPage ExplorePage ExploreMsg
+                    case session.builderDb of
+                        RemoteData.Success builderDb ->
+                            Explore.init builderDb scope dataset session
+                                |> toPage ExplorePage ExploreMsg
+
+                        RemoteData.NotAsked ->
+                            ( model
+                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            )
+
+                        _ ->
+                            ( model, cmds )
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
-                    FoodBuilder.init session trigram maybeQuery
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                    case session.builderDb of
+                        RemoteData.Success builderDb ->
+                            FoodBuilder.init builderDb session trigram maybeQuery
+                                |> toPage FoodBuilderPage FoodBuilderMsg
+
+                        RemoteData.NotAsked ->
+                            ( model
+                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            )
+
+                        _ ->
+                            ( model, cmds )
 
                 Just Route.FoodExplore ->
                     FoodExplore.init session
@@ -194,11 +220,11 @@ update rawMsg ({ state } as model) =
                 session =
                     Session.fromUnloaded unloadedSession db
             in
-            setRoute (Route.fromUrl url)
+            setRoute url
                 ( { model | state = Loaded BlankPage session }, Cmd.none )
 
         ( Loading unloadedSession, TextileDbReceived url (RemoteData.Failure httpError) ) ->
-            setRoute (Route.fromUrl url)
+            setRoute url
                 ( { model | state = LoadingFailed (unloadedSession |> Session.notifyHttpError httpError) }
                 , Cmd.none
                 )
@@ -248,6 +274,10 @@ update rawMsg ({ state } as model) =
                         |> toPage ExplorePage ExploreMsg
 
                 -- Food
+                ( FoodBuilderDbReceived url builderDb, page_ ) ->
+                    setRoute url
+                        ( { model | state = Loaded page_ { session | builderDb = builderDb } }, Cmd.none )
+
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
@@ -293,7 +323,7 @@ update rawMsg ({ state } as model) =
 
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
-                        |> setRoute (Route.fromUrl url)
+                        |> setRoute url
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( model, Nav.pushUrl session.navKey (Url.toString url) )

@@ -93,10 +93,10 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : List Impact.Definition -> Mass -> Transport -> Process.WellKnown -> Transport
-computeImpacts impactsDefinition mass transport wellKnown =
+computeImpacts : { a | impacts : List Impact.Definition, wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
+computeImpacts { impacts, wellKnown } mass transport =
     let
-        impacts =
+        transportImpacts =
             [ ( wellKnown.lorryTransport, transport.road )
             , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
             , ( wellKnown.boatTransport, transport.sea )
@@ -114,9 +114,9 @@ computeImpacts impactsDefinition mass transport wellKnown =
                                         |> Unit.impact
                                 )
                     )
-                |> Impact.sumImpacts impactsDefinition
+                |> Impact.sumImpacts impacts
     in
-    { transport | impacts = impacts }
+    { transport | impacts = transportImpacts }
 
 
 sum : List Impact.Definition -> List Transport -> Transport

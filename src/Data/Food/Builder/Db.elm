@@ -1,8 +1,6 @@
 module Data.Food.Builder.Db exposing
     ( Db
     , buildFromJson
-    , empty
-    , isEmpty
     )
 
 import Data.Country exposing (Country)
@@ -12,6 +10,7 @@ import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport
 import Json.Decode as Decode
+import Json.Decode.Extra as DE
 
 
 type alias Db =
@@ -26,22 +25,8 @@ type alias Db =
 
     -- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
+    , wellKnown : Process.WellKnown
     }
-
-
-empty : Db
-empty =
-    { countries = []
-    , impacts = []
-    , transports = Transport.emptyDistances
-    , processes = []
-    , ingredients = []
-    }
-
-
-isEmpty : Db -> Bool
-isEmpty db =
-    db == empty
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db
@@ -51,7 +36,14 @@ buildFromJson { countries, transports, impacts } builderProcessesJson ingredient
         |> Result.andThen
             (\processes ->
                 ingredientsJson
-                    |> Decode.decodeString (Ingredient.decodeIngredients processes)
-                    |> Result.map (Db countries impacts transports processes)
+                    |> Decode.decodeString
+                        (Ingredient.decodeIngredients processes
+                            |> Decode.andThen
+                                (\ingredients ->
+                                    Process.loadWellKnown processes
+                                        |> Result.map (Db countries impacts transports processes ingredients)
+                                        |> DE.fromResult
+                                )
+                        )
             )
         |> Result.mapError Decode.errorToString

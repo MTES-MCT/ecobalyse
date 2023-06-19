@@ -23,6 +23,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import RemoteData exposing (WebData)
 import Time exposing (Posix)
 
 
@@ -154,14 +155,19 @@ toFoodQueries =
         )
 
 
-toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
+toQueryDescription : { foodDb : WebData BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
 toQueryDescription { foodDb, textileDb } bookmark =
     case bookmark.query of
         Food foodQuery ->
-            foodQuery
-                |> Recipe.fromQuery foodDb
-                |> Result.map Recipe.toString
-                |> Result.withDefault bookmark.name
+            foodDb
+                |> RemoteData.map
+                    (\db ->
+                        foodQuery
+                            |> Recipe.fromQuery db
+                            |> Result.map Recipe.toString
+                            |> Result.withDefault bookmark.name
+                    )
+                |> RemoteData.withDefault bookmark.name
 
         Textile textileQuery ->
             textileQuery

@@ -170,10 +170,9 @@ compute db =
                                         volume =
                                             getTransformedIngredientsVolume recipe
                                     in
-                                    Result.map (Retail.computeImpacts db volume distrib)
-                                        (Process.loadWellKnown db.processes)
+                                    Retail.computeImpacts db volume distrib db.wellKnown
                                 )
-                            |> Maybe.withDefault (Ok Impact.noImpacts)
+                            |> Maybe.withDefault Impact.noImpacts
 
                     distributionTransportNeedsCooling =
                         ingredients
@@ -192,9 +191,7 @@ compute db =
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.noImpacts)
                         in
-                        db.processes
-                            |> Process.loadWellKnown
-                            |> Result.map (Transport.computeImpacts db.impacts mass transport)
+                        Transport.computeImpacts db mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts db.impacts
@@ -213,8 +210,8 @@ compute db =
 
                     preparationImpacts =
                         preparation
-                            |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
-                            |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
+                            |> List.map (Preparation.apply db transformedIngredientsMass)
+                            |> (Impact.sumImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
 
                     preparedMass =
                         getPreparedMassAtConsumer recipe
@@ -235,66 +232,55 @@ compute db =
                         }
 
                     totalImpacts =
-                        [ Ok recipeImpacts
-                        , Ok packagingImpacts
+                        [ recipeImpacts
+                        , packagingImpacts
                         , distributionImpacts
-                        , distributionTransport |> Result.map .impacts
+                        , distributionTransport.impacts
                         , preparationImpacts
                         ]
-                            |> RE.combine
-                            |> Result.map (Impact.sumImpacts db.impacts)
-                            |> Result.map addIngredientsBonuses
+                            |> Impact.sumImpacts db.impacts
+                            |> addIngredientsBonuses
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
                         --       product mass at consumer, excluding packaging
                         totalImpacts
-                            |> Result.map (Impact.perKg preparedMass)
+                            |> Impact.perKg preparedMass
 
                     scoring =
                         impactsPerKg
-                            |> Result.map (computeScoring db.impacts)
+                            |> computeScoring db.impacts
                 in
-                Ok
-                    (\total perKg distrib distribTransport preparationImpacts_ score ->
-                        ( recipe
-                        , { total = total
-                          , perKg = perKg
-                          , scoring = score
-                          , totalMass = getMassAtPackaging recipe
-                          , preparedMass = preparedMass
-                          , recipe =
-                                { total = addIngredientsBonuses recipeImpacts
-                                , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
-                                , ingredients = ingredientsImpacts
-                                , totalBonusesImpact = totalBonusesImpact
-                                , totalBonusesImpactPerKg = totalBonusesImpactPerKg
-                                , transform = transformImpacts
-                                , transports = ingredientsTransport
-                                , transformedMass = transformedIngredientsMass
-                                }
-                          , packaging = packagingImpacts
-                          , distribution =
-                                { total = distrib
-                                , transports = distribTransport
-                                }
-                          , preparation = preparationImpacts_
-                          , transports =
-                                Transport.sum db.impacts
-                                    [ ingredientsTransport
-                                    , distribTransport
-                                    ]
-                          }
-                        )
-                    )
-                    |> RE.andMap totalImpacts
-                    |> RE.andMap impactsPerKg
-                    |> RE.andMap distributionImpacts
-                    |> RE.andMap distributionTransport
-                    |> RE.andMap preparationImpacts
-                    |> RE.andMap scoring
+                ( recipe
+                , { total = totalImpacts
+                  , perKg = impactsPerKg
+                  , scoring = scoring
+                  , totalMass = getMassAtPackaging recipe
+                  , preparedMass = preparedMass
+                  , recipe =
+                        { total = addIngredientsBonuses recipeImpacts
+                        , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
+                        , ingredients = ingredientsImpacts
+                        , totalBonusesImpact = totalBonusesImpact
+                        , totalBonusesImpactPerKg = totalBonusesImpactPerKg
+                        , transform = transformImpacts
+                        , transports = ingredientsTransport
+                        , transformedMass = transformedIngredientsMass
+                        }
+                  , packaging = packagingImpacts
+                  , distribution =
+                        { total = distributionImpacts
+                        , transports = distributionTransport
+                        }
+                  , preparation = preparationImpacts
+                  , transports =
+                        Transport.sum db.impacts
+                            [ ingredientsTransport
+                            , distributionTransport
+                            ]
+                  }
+                )
             )
-        >> RE.join
 
 
 computeIngredientBonusesImpacts : List Impact.Definition -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
@@ -455,10 +441,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    db.processes
-        |> Process.loadWellKnown
-        |> Result.map (Transport.computeImpacts db.impacts mass transport)
-        |> Result.withDefault (Transport.default Impact.noImpacts)
+    Transport.computeImpacts db mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)

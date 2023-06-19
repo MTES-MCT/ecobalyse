@@ -63,7 +63,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { dbState : WebData Db
+    { db : Db
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -121,8 +121,8 @@ type ImpactsTab
     | SubscoresTab
 
 
-init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ db, builderDb, queries } as session) trigram maybeQuery =
+init : Db -> Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
             db.impacts
@@ -132,44 +132,38 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
         query =
             maybeQuery
                 |> Maybe.withDefault queries.food
-
-        ( model, newSession, cmds ) =
-            ( { dbState = RemoteData.Loading
-              , impact = impact
-              , bookmarkName = query |> findExistingBookmarkName session
-              , bookmarkTab = BookmarkView.SaveTab
-              , comparisonUnit = ComparatorView.PerKgOfProduct
-              , displayChoice = ComparatorView.IndividualImpacts
-              , modal = NoModal
-              , chartHovering = []
-              , activeImpactsTab =
-                    if Impact.isEcoscore impact then
-                        SubscoresTab
-
-                    else
-                        StepImpactsTab
-              }
-            , session
-                |> Session.updateFoodQuery query
-            , case maybeQuery of
-                Nothing ->
-                    Ports.scrollTo { x = 0, y = 0 }
-
-                Just _ ->
-                    Cmd.none
-            )
     in
-    if BuilderDb.isEmpty builderDb then
-        ( model
-        , newSession
-        , Cmd.batch [ cmds, FoodRequestDb.loadDb session DbLoaded ]
-        )
+    ( { db = db
+      , impact = impact
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonUnit = ComparatorView.PerKgOfProduct
+      , displayChoice = ComparatorView.IndividualImpacts
+      , modal = NoModal
+      , chartHovering = []
+      , activeImpactsTab =
+            if Impact.isEcoscore impact then
+                SubscoresTab
 
-    else
-        ( { model | dbState = RemoteData.Success builderDb }
-        , newSession
-        , cmds
-        )
+            else
+                StepImpactsTab
+      }
+    , session
+        |> Session.updateFoodQuery query
+    , Cmd.batch
+        [ case maybeQuery of
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
+
+            Just _ ->
+                Cmd.none
+        , if builderDb == RemoteData.NotAsked then
+            FoodRequestDb.loadDb session DbLoaded
+
+          else
+            Cmd.none
+        ]
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -182,7 +176,7 @@ update ({ queries } as session) msg model =
         AddIngredient ->
             let
                 firstIngredient =
-                    session.builderDb.ingredients
+                    model.db.ingredients
                         |> Recipe.availableIngredients (List.map .id query.ingredients)
                         |> List.sortBy .name
                         |> List.head
@@ -200,7 +194,7 @@ update ({ queries } as session) msg model =
         AddPackaging ->
             let
                 firstPackaging =
-                    session.builderDb.processes
+                    model.db.processes
                         |> Recipe.availablePackagings (List.map .code query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -237,7 +231,7 @@ update ({ queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    session.builderDb.processes
+                    model.db.processes
                         |> Process.listByCategory Process.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -262,14 +256,9 @@ update ({ queries } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DbLoaded dbState ->
-            ( { model | dbState = dbState }
-            , case dbState of
-                RemoteData.Success db ->
-                    { session | builderDb = db }
-
-                _ ->
-                    session
+        DbLoaded db ->
+            ( model
+            , { session | builderDb = db }
             , Cmd.none
             )
 
@@ -413,15 +402,20 @@ updateQuery query ( model, session, msg ) =
 
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { builderDb, store } query =
-    store.bookmarks
-        |> Bookmark.findByFoodQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
-                |> Recipe.fromQuery builderDb
-                |> Result.map Recipe.toString
-                |> Result.withDefault ""
-            )
+    case builderDb of
+        RemoteData.Success db ->
+            store.bookmarks
+                |> Bookmark.findByFoodQuery query
+                |> Maybe.map .name
+                |> Maybe.withDefault
+                    (query
+                        |> Recipe.fromQuery db
+                        |> Result.map Recipe.toString
+                        |> Result.withDefault ""
+                    )
+
+        _ ->
+            ""
 
 
 
@@ -1214,9 +1208,7 @@ consumptionView db selectedImpact recipe results =
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
-                                    |> Result.map
-                                        (Format.formatFoodSelectedImpact selectedImpact)
-                                    |> Result.withDefault (text "N/A")
+                                    |> Format.formatFoodSelectedImpact selectedImpact
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
@@ -1484,7 +1476,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ case model.dbState of
+            [ case session.builderDb of
                 RemoteData.Success db ->
                     mainView session db model
 
@@ -1505,30 +1497,36 @@ view session model =
                     text ""
 
                 ComparatorModal ->
-                    ModalView.view
-                        { size = ModalView.ExtraLarge
-                        , close = SetModal NoModal
-                        , noOp = NoOp
-                        , title = "Comparateur de simulations sauvegardées"
-                        , formAction = Nothing
-                        , content =
-                            [ ComparatorView.comparator
-                                { session = session
-                                , impact = model.impact
-                                , options =
-                                    ComparatorView.foodOptions
-                                        { comparisonUnit = model.comparisonUnit
-                                        , switchComparisonUnit = SwitchComparisonUnit
-                                        , displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
+                    case session.builderDb of
+                        RemoteData.Success db ->
+                            ModalView.view
+                                { size = ModalView.ExtraLarge
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Comparateur de simulations sauvegardées"
+                                , formAction = Nothing
+                                , content =
+                                    [ ComparatorView.comparator
+                                        { session = session
+                                        , impact = model.impact
+                                        , options =
+                                            ComparatorView.foodOptions
+                                                { comparisonUnit = model.comparisonUnit
+                                                , switchComparisonUnit = SwitchComparisonUnit
+                                                , displayChoice = model.displayChoice
+                                                , switchDisplayChoice = SwitchDisplayChoice
+                                                , db = db
+                                                }
+                                        , toggle = ToggleComparedSimulation
+                                        , chartHovering = model.chartHovering
+                                        , onChartHover = OnChartHover
                                         }
-                                , toggle = ToggleComparedSimulation
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
+                                    ]
+                                , footer = []
                                 }
-                            ]
-                        , footer = []
-                        }
+
+                        _ ->
+                            text ""
             ]
       ]
     )
