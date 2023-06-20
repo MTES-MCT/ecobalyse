@@ -1,7 +1,7 @@
 /.env
 /dist
-/elm-stuff
-/tests/elm-stuff
+elm-stuff
+elm-stuff
 /node_modules
 /public/app.js
 /public/icomoon/*.txt
@@ -16,6 +16,7 @@
 /xls
 /public/version.json
 /.parcel-cache/
+/codegen/Gen/
 
 .vscode
 *.pyc

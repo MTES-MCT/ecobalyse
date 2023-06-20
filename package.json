@@ -6,10 +6,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "generate-impacts": "elm-codegen run --output=src --flags-from=public/data/impacts.json",
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
-    "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/",
+    "build:init": "./bin/update-version.sh && npm run generate-impacts && mkdir -p dist && cp -r public/* dist/",
     "db:build": "node tests/prepare.js",
-    "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
+    "server:build": "npm run db:build && npm run generate-impacts && elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",
     "server:start": "node server.js",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.0.1",
+    "elm-codegen": "^0.3.0",
     "elm-format": "^0.8.7",
     "elm-json": "^0.2.13",
     "elm-review": "^2.10.1",
