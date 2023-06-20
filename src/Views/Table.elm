@@ -67,21 +67,6 @@ percentageTable data =
                                         []
                                     ]
                                 ]
-
-                            -- , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
-                            --     [ div
-                            --         [ class "progress bg-transparent"
-                            --         , style "width" "100%"
-                            --         , style "height" "13px"
-                            --         ]
-                            --         [ div
-                            --             [ class "progress-bar"
-                            --             , classList [ ( "bg-secondary pos", percent >= 0 ), ( "bg-success neg", percent < 0 ) ]
-                            --             , style "width" (String.fromFloat width ++ "%")
-                            --             ]
-                            --             []
-                            --         ]
-                            --     ]
                             , td [ class "text-end fs-8" ]
                                 [ Format.percent percent
                                 ]
