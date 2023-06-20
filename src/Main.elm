@@ -59,6 +59,9 @@ type State
 type alias Model =
     { state : State
     , mobileNavigationOpened : Bool
+
+    -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
+    , navKey : Nav.Key
     }
 
 
@@ -106,6 +109,7 @@ init flags url navKey =
     in
     ( { state = Loading unloadedSession
       , mobileNavigationOpened = False
+      , navKey = navKey
       }
     , Cmd.batch
         [ Ports.appStarted ()
