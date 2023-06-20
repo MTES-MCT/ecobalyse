@@ -44,7 +44,7 @@ percentageTable data =
                         , percent = value / total * 100
                         , width =
                             if value < 0 then
-                                abs value / abs minimum * 100
+                                abs (value / minimum * 100)
 
                             else
                                 value / maximum * 100
