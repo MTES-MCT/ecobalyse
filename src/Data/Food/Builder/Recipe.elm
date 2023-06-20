@@ -336,7 +336,7 @@ computeScoring defs totalBonusImpactPerKg perKgWithoutBonuses =
             perKgWithoutBonuses
                 |> Impact.toProtectionAreas defs
     in
-    { all = Quantity.plus ecsPerKgWithoutBonuses totalBonusImpactPerKg
+    { all = Quantity.difference ecsPerKgWithoutBonuses totalBonusImpactPerKg
     , allWithoutBonuses = ecsPerKgWithoutBonuses
     , bonuses = totalBonusImpactPerKg
     , climate = subScores.climate
