@@ -25,8 +25,9 @@ percentageTable data =
         values =
             List.map Tuple.second data
 
-        ( total, maximum ) =
+        ( total, minimum, maximum ) =
             ( List.sum values
+            , values |> List.maximum |> Maybe.withDefault 0
             , values |> List.maximum |> Maybe.withDefault 0
             )
     in
@@ -41,27 +42,46 @@ percentageTable data =
                         { name = name
                         , impact = value
                         , percent = value / total * 100
-                        , width = abs value / maximum * 100
+                        , width =
+                            if value < 0 then
+                                abs value / abs minimum * 100
+
+                            else
+                                value / maximum * 100
                         }
                     )
                 |> List.map
                     (\{ name, impact, percent, width } ->
                         tr [ title <| name ++ ": " ++ Format.formatFloat 2 percent ++ "\u{202F}% (" ++ Format.formatFloat 2 impact ++ "\u{202F}µPts)" ]
                             [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
-                            , td [ style "width" "200px", style "vertical-align" "middle" ]
+                            , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
                                 [ div
-                                    [ class "progress bg-transparent"
-                                    , style "width" "100%"
-                                    , style "height" "13px"
+                                    [ class "ext"
+                                    , classList [ ( "pos", percent >= 0 ), ( "neg", percent < 0 ) ]
                                     ]
                                     [ div
-                                        [ class "progress-bar"
-                                        , classList [ ( "bg-secondary", percent > 0 ), ( "bg-success", percent < 0 ) ]
+                                        [ class "bar"
+                                        , classList [ ( "bg-secondary", percent >= 0 ), ( "bg-success", percent < 0 ) ]
                                         , style "width" (String.fromFloat width ++ "%")
                                         ]
                                         []
                                     ]
                                 ]
+
+                            -- , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
+                            --     [ div
+                            --         [ class "progress bg-transparent"
+                            --         , style "width" "100%"
+                            --         , style "height" "13px"
+                            --         ]
+                            --         [ div
+                            --             [ class "progress-bar"
+                            --             , classList [ ( "bg-secondary pos", percent >= 0 ), ( "bg-success neg", percent < 0 ) ]
+                            --             , style "width" (String.fromFloat width ++ "%")
+                            --             ]
+                            --             []
+                            --         ]
+                            --     ]
                             , td [ class "text-end fs-8" ]
                                 [ Format.percent percent
                                 ]

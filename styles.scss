@@ -765,6 +765,29 @@ q {
   }
 }
 
+.HorizontalBarChart {
+  .ext {
+    width: 50%;
+    padding: 2px 0;
+    .bar {
+      height: 13px;
+    }
+    &.pos {
+      margin-left: 50%;
+      .bar {
+        background-color: green;
+      }
+    }
+    &.neg {
+      .bar {
+        float: right;
+        margin-bottom: 4px;
+        background-color: red;
+      }
+    }
+  }
+}
+
 .ImpactDefinition {
   border-left: .25em solid #6a6af4;
   padding-left: 2em;
