@@ -1387,6 +1387,17 @@ impactTabsView db model results =
                     results.total
                         |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
                         |> List.map (\{ name, value } -> ( name, value ))
+                        |> (++)
+                            [ ( "Bonus de diversité agricole"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroDiversity)
+                              )
+                            , ( "Bonus d'infrastructures agro-écologiques"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroEcology)
+                              )
+                            , ( "Bonus conditions d'élevage"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.animalWelfare)
+                              )
+                            ]
                         |> List.sortBy Tuple.second
                         |> List.reverse
                         |> Table.percentageTable
