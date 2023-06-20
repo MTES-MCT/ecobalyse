@@ -766,14 +766,17 @@ q {
 }
 
 .HorizontalBarChart {
+  text-indent: -30%;
   .ext {
-    width: 50%;
+    position:relative;
+    left: -50%;
+    width: 75%;
     padding: 2px 0;
     .bar {
       height: 13px;
     }
     &.pos {
-      margin-left: 50%;
+      margin-left: 75%;
       .bar {
         background-color: green;
       }
