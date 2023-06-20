@@ -445,11 +445,11 @@ absoluteImpactView model results =
                     ]
                 , if Impact.isEcoscore model.impact then
                     div [ class "text-center fs-7" ]
-                        [ text " dont "
+                        [ text " dont -"
                         , results.recipe.totalBonusesImpact.total
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat model.impact
-                        , text " de bonus inclus"
+                        , text " de bonus déduit"
                         ]
 
                   else

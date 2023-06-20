@@ -67,7 +67,7 @@ percentageTable data =
                                         []
                                     ]
                                 ]
-                            , td [ class "text-end fs-8" ]
+                            , td [ class "text-end text-nowrap fs-8" ]
                                 [ Format.percent percent
                                 ]
                             ]
