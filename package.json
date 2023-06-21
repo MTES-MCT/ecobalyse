@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.0.1",
-    "elm-codegen": "^0.3.0",
+    "elm-codegen": "^0.4.0",
     "elm-format": "^0.8.7",
     "elm-json": "^0.2.13",
     "elm-review": "^2.10.1",

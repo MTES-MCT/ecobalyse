@@ -1,9 +1,12 @@
 {
-    "elm-codegen-version": "0.3.0",
+    "elm-codegen-version": "0.4.0",
     "codegen-helpers": {
         "packages": {
-            "elm/core": "1.0.5"
+            "elm/core": "1.0.5",
+            "elm-community/json-extra": "4.3.0"
         },
-        "local": []
+        "local": [
+            "src/Data/"
+        ]
     }
 }
