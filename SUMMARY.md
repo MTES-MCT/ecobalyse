@@ -38,7 +38,7 @@
   * [🍳 Consommation](alimentaire/etapes-du-cycles-de-vie/consommation.md)
 * [🚣♀ Densité](alimentaire/densite.md)
 * [🍚 Rapport cru/cuit](alimentaire/rapport-cru-cuit.md)
-* [Pertes non comestible](alimentaire/pertes-non-comestible.md)
+* [🥑 Pertes non comestible](alimentaire/pertes-non-comestible.md)
 * [Stock - doc ingrédients](alimentaire/stock-doc-ingredients/README.md)
   * [🌾 Blé dur](alimentaire/stock-doc-ingredients/ble-dur.md)
   * [🍏 Pomme](alimentaire/stock-doc-ingredients/pomme.md)
