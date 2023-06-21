@@ -445,11 +445,11 @@ absoluteImpactView model results =
                     ]
                 , if Impact.isEcoscore model.impact then
                     div [ class "text-center fs-7" ]
-                        [ text " dont "
+                        [ text " dont -"
                         , results.recipe.totalBonusesImpact.total
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat model.impact
-                        , text " de bonus inclus"
+                        , text " de bonus déduit"
                         ]
 
                   else
@@ -1387,6 +1387,17 @@ impactTabsView db model results =
                     results.total
                         |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
                         |> List.map (\{ name, value } -> ( name, value ))
+                        |> (++)
+                            [ ( "Bonus de diversité agricole"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroDiversity)
+                              )
+                            , ( "Bonus d'infrastructures agro-écologiques"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroEcology)
+                              )
+                            , ( "Bonus conditions d'élevage"
+                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.animalWelfare)
+                              )
+                            ]
                         |> List.sortBy Tuple.second
                         |> List.reverse
                         |> Table.percentageTable
@@ -1411,6 +1422,7 @@ impactTabsView db model results =
                         , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
                         , ( "Ressource", Unit.impactToFloat results.scoring.resources )
+                        , ( "Bonus", -(Unit.impactToFloat results.scoring.bonuses) )
                         ]
             ]
         }

@@ -183,24 +183,6 @@ suite =
                             )
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
-                        |> Result.map (Tuple.second >> .scoring)
-                        |> (\scoringResult ->
-                                case scoringResult of
-                                    Err err ->
-                                        Expect.fail err
-                                            |> asTest "should not fail"
-
-                                    Ok scoring ->
-                                        Expect.equal scoring
-                                            { all = Unit.impact 190.90711775476868
-                                            , biodiversity = Unit.impact 76.84351123045501
-                                            , climate = Unit.impact 42.240668746472835
-                                            , health = Unit.impact 37.64797760499371
-                                            , resources = Unit.impact 36.173723072786856
-                                            }
-                                            |> asTest "should be properly scored"
-                           )
-                     , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
                         |> Result.map (expectImpactEqual (Unit.impact 108.4322609789048))
                         |> Expect.equal (Ok Expect.pass)
@@ -210,6 +192,40 @@ suite =
                         |> Result.map (expectImpactEqual (Unit.impact 73.23635314324639))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the ingredients' total ecs impact with the bonus taken into account"
+                     , describe "Scoring"
+                        (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
+                            Err err ->
+                                [ Expect.fail err
+                                    |> asTest "should not fail"
+                                ]
+
+                            Ok scoring ->
+                                [ Unit.impactToFloat scoring.all
+                                    |> Expect.within (Expect.Absolute 0.01) 190.9
+                                    |> asTest "should properly score total impact"
+                                , Unit.impactToFloat scoring.allWithoutBonuses
+                                    |> Expect.within (Expect.Absolute 0.01) 192.9
+                                    |> asTest "should properly score total impact without bonuses"
+                                , Unit.impactToFloat scoring.bonuses
+                                    |> Expect.within (Expect.Absolute 0.01) 2.0
+                                    |> asTest "should properly score bonuses impact"
+                                , (Unit.impactToFloat scoring.allWithoutBonuses - Unit.impactToFloat scoring.bonuses)
+                                    |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
+                                    |> asTest "should expose coherent scoring"
+                                , Unit.impactToFloat scoring.biodiversity
+                                    |> Expect.within (Expect.Absolute 0.01) 76.84
+                                    |> asTest "should properly score impact on biodiversity protected area"
+                                , Unit.impactToFloat scoring.climate
+                                    |> Expect.within (Expect.Absolute 0.01) 42.24
+                                    |> asTest "should properly score impact on climate protected area"
+                                , Unit.impactToFloat scoring.health
+                                    |> Expect.within (Expect.Absolute 0.01) 37.64
+                                    |> asTest "should properly score impact on health protected area"
+                                , Unit.impactToFloat scoring.resources
+                                    |> Expect.within (Expect.Absolute 0.01) 36.17
+                                    |> asTest "should properly score impact on resources protected area"
+                                ]
+                        )
                      ]
                     )
                 , describe "raw-to-cooked checks"

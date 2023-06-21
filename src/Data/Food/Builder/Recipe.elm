@@ -105,6 +105,8 @@ type alias Results =
 
 type alias Scoring =
     { all : Unit.Impact
+    , allWithoutBonuses : Unit.Impact
+    , bonuses : Unit.Impact
     , climate : Unit.Impact
     , biodiversity : Unit.Impact
     , health : Unit.Impact
@@ -231,25 +233,31 @@ compute db =
                             , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.total
                         }
 
-                    totalImpacts =
-                        [ recipeImpacts
-                        , packagingImpacts
-                        , distributionImpacts
-                        , distributionTransport.impacts
-                        , preparationImpacts
-                        ]
-                            |> Impact.sumImpacts db.impacts
-                            |> addIngredientsBonuses
+                    totalImpactsWithoutBonuses =
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts
+                            , packagingImpacts
+                            , distributionImpacts
+                            , distributionTransport.impacts
+                            , preparationImpacts
+                            ]
 
+                    totalImpacts =
+                        addIngredientsBonuses totalImpactsWithoutBonuses
+
+                    -- Note: Product impacts per kg is computed against prepared
+                    --       product mass at consumer, excluding packaging
                     impactsPerKg =
-                        -- Note: Product impacts per kg is computed against prepared
-                        --       product mass at consumer, excluding packaging
                         totalImpacts
                             |> Impact.perKg preparedMass
 
+                    impactsPerKgWithoutBonuses =
+                        totalImpactsWithoutBonuses
+                            |> Impact.perKg preparedMass
+
                     scoring =
-                        impactsPerKg
-                            |> computeScoring db.impacts
+                        impactsPerKgWithoutBonuses
+                            |> computeScoring db.impacts totalBonusesImpactPerKg.total
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -317,18 +325,20 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
     }
 
 
-computeScoring : List Impact.Definition -> Impacts -> Scoring
-computeScoring defs perKg =
+computeScoring : List Impact.Definition -> Unit.Impact -> Impacts -> Scoring
+computeScoring defs totalBonusImpactPerKg perKgWithoutBonuses =
     let
-        ecsPerKg =
-            perKg
+        ecsPerKgWithoutBonuses =
+            perKgWithoutBonuses
                 |> Impact.getImpact (Impact.trg "ecs")
 
         subScores =
-            perKg
+            perKgWithoutBonuses
                 |> Impact.toProtectionAreas defs
     in
-    { all = ecsPerKg
+    { all = Quantity.difference ecsPerKgWithoutBonuses totalBonusImpactPerKg
+    , allWithoutBonuses = ecsPerKgWithoutBonuses
+    , bonuses = totalBonusImpactPerKg
     , climate = subScores.climate
     , biodiversity = subScores.biodiversity
     , health = subScores.health
