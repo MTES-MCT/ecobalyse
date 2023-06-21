@@ -440,7 +440,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -464,7 +464,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -490,7 +490,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -506,7 +506,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -525,7 +525,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -544,7 +544,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -570,7 +570,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -596,7 +596,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -615,7 +615,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -634,7 +634,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -653,7 +653,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -672,7 +672,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -698,7 +698,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -724,7 +724,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -750,7 +750,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -776,7 +776,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -802,7 +802,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -818,7 +818,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -844,7 +844,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -870,7 +870,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -896,7 +896,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -922,7 +922,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.acd
 
@@ -951,7 +951,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -975,7 +975,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -1001,7 +1001,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -1017,7 +1017,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -1036,7 +1036,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -1055,7 +1055,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -1081,7 +1081,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -1107,7 +1107,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -1126,7 +1126,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -1145,7 +1145,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -1164,7 +1164,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -1183,7 +1183,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -1209,7 +1209,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -1235,7 +1235,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -1261,7 +1261,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -1287,7 +1287,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -1313,7 +1313,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -1329,7 +1329,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -1355,7 +1355,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -1381,7 +1381,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -1407,7 +1407,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -1433,7 +1433,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.bvi
 
@@ -1462,7 +1462,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -1486,7 +1486,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -1512,7 +1512,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -1528,7 +1528,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -1547,7 +1547,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -1566,7 +1566,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -1592,7 +1592,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -1618,7 +1618,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -1637,7 +1637,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -1656,7 +1656,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -1675,7 +1675,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -1694,7 +1694,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -1720,7 +1720,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -1746,7 +1746,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -1772,7 +1772,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -1798,7 +1798,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -1824,7 +1824,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -1840,7 +1840,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -1866,7 +1866,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -1892,7 +1892,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -1918,7 +1918,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -1944,7 +1944,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.cch
 
@@ -1973,7 +1973,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -1997,7 +1997,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -2023,7 +2023,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -2039,7 +2039,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -2058,7 +2058,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -2077,7 +2077,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -2103,7 +2103,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -2129,7 +2129,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -2148,7 +2148,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -2167,7 +2167,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -2186,7 +2186,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -2205,7 +2205,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -2231,7 +2231,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -2257,7 +2257,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -2283,7 +2283,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -2309,7 +2309,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -2335,7 +2335,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -2351,7 +2351,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -2377,7 +2377,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -2403,7 +2403,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -2429,7 +2429,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -2455,7 +2455,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.ecs
 
@@ -2484,7 +2484,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -2508,7 +2508,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -2534,7 +2534,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -2550,7 +2550,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -2569,7 +2569,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -2588,7 +2588,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -2614,7 +2614,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -2640,7 +2640,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -2659,7 +2659,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -2678,7 +2678,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -2697,7 +2697,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -2716,7 +2716,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -2742,7 +2742,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -2768,7 +2768,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -2794,7 +2794,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -2820,7 +2820,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -2846,7 +2846,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -2862,7 +2862,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -2888,7 +2888,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -2914,7 +2914,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -2940,7 +2940,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -2966,7 +2966,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.etf
 
@@ -2995,7 +2995,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -3019,7 +3019,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -3045,7 +3045,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -3061,7 +3061,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -3080,7 +3080,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -3099,7 +3099,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -3125,7 +3125,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -3151,7 +3151,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -3170,7 +3170,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -3189,7 +3189,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -3208,7 +3208,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -3227,7 +3227,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -3253,7 +3253,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -3279,7 +3279,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -3305,7 +3305,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -3331,7 +3331,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -3357,7 +3357,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -3373,7 +3373,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -3399,7 +3399,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -3425,7 +3425,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -3451,7 +3451,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -3477,7 +3477,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.etfc
 
@@ -3506,7 +3506,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -3530,7 +3530,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -3556,7 +3556,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -3572,7 +3572,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -3591,7 +3591,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -3610,7 +3610,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -3636,7 +3636,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -3662,7 +3662,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -3681,7 +3681,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -3700,7 +3700,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -3719,7 +3719,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -3738,7 +3738,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -3764,7 +3764,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -3790,7 +3790,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -3816,7 +3816,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -3842,7 +3842,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -3868,7 +3868,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -3884,7 +3884,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -3910,7 +3910,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -3936,7 +3936,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -3962,7 +3962,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -3988,7 +3988,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.fru
 
@@ -4017,7 +4017,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -4041,7 +4041,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -4067,7 +4067,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -4083,7 +4083,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -4102,7 +4102,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -4121,7 +4121,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -4147,7 +4147,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -4173,7 +4173,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -4192,7 +4192,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -4211,7 +4211,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -4230,7 +4230,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -4249,7 +4249,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -4275,7 +4275,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -4301,7 +4301,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -4327,7 +4327,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -4353,7 +4353,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -4379,7 +4379,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -4395,7 +4395,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -4421,7 +4421,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -4447,7 +4447,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -4473,7 +4473,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -4499,7 +4499,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.fwe
 
@@ -4528,7 +4528,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -4552,7 +4552,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -4578,7 +4578,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -4594,7 +4594,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -4613,7 +4613,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -4632,7 +4632,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -4658,7 +4658,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -4684,7 +4684,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -4703,7 +4703,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -4722,7 +4722,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -4741,7 +4741,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -4760,7 +4760,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -4786,7 +4786,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -4812,7 +4812,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -4838,7 +4838,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -4864,7 +4864,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -4890,7 +4890,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -4906,7 +4906,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -4932,7 +4932,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -4958,7 +4958,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -4984,7 +4984,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -5010,7 +5010,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.htc
 
@@ -5039,7 +5039,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -5063,7 +5063,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -5089,7 +5089,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -5105,7 +5105,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -5124,7 +5124,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -5143,7 +5143,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -5169,7 +5169,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -5195,7 +5195,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -5214,7 +5214,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -5233,7 +5233,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -5252,7 +5252,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -5271,7 +5271,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -5297,7 +5297,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -5323,7 +5323,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -5349,7 +5349,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -5375,7 +5375,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -5401,7 +5401,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -5417,7 +5417,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -5443,7 +5443,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -5469,7 +5469,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -5495,7 +5495,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -5521,7 +5521,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.htcc
 
@@ -5550,7 +5550,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -5574,7 +5574,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -5600,7 +5600,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -5616,7 +5616,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -5635,7 +5635,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -5654,7 +5654,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -5680,7 +5680,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -5706,7 +5706,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -5725,7 +5725,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -5744,7 +5744,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -5763,7 +5763,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -5782,7 +5782,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -5808,7 +5808,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -5834,7 +5834,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -5860,7 +5860,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -5886,7 +5886,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -5912,7 +5912,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -5928,7 +5928,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -5954,7 +5954,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -5980,7 +5980,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -6006,7 +6006,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -6032,7 +6032,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.htn
 
@@ -6061,7 +6061,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -6085,7 +6085,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -6111,7 +6111,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -6127,7 +6127,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -6146,7 +6146,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -6165,7 +6165,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -6191,7 +6191,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -6217,7 +6217,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -6236,7 +6236,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -6255,7 +6255,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -6274,7 +6274,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -6293,7 +6293,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -6319,7 +6319,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -6345,7 +6345,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -6371,7 +6371,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -6397,7 +6397,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -6423,7 +6423,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -6439,7 +6439,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -6465,7 +6465,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -6491,7 +6491,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -6517,7 +6517,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -6543,7 +6543,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.htnc
 
@@ -6572,7 +6572,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -6596,7 +6596,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -6622,7 +6622,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -6638,7 +6638,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -6657,7 +6657,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -6676,7 +6676,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -6702,7 +6702,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -6728,7 +6728,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -6747,7 +6747,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -6766,7 +6766,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -6785,7 +6785,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -6804,7 +6804,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -6830,7 +6830,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -6856,7 +6856,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -6882,7 +6882,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -6908,7 +6908,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -6934,7 +6934,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -6950,7 +6950,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -6976,7 +6976,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -7002,7 +7002,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -7028,7 +7028,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -7054,7 +7054,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.ior
 
@@ -7083,7 +7083,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -7107,7 +7107,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -7133,7 +7133,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -7149,7 +7149,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -7168,7 +7168,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -7187,7 +7187,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -7213,7 +7213,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -7239,7 +7239,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -7258,7 +7258,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -7277,7 +7277,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -7296,7 +7296,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -7315,7 +7315,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -7341,7 +7341,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -7367,7 +7367,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -7393,7 +7393,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -7419,7 +7419,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -7445,7 +7445,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -7461,7 +7461,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -7487,7 +7487,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -7513,7 +7513,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -7539,7 +7539,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -7565,7 +7565,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.ldu
 
@@ -7594,7 +7594,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -7618,7 +7618,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -7644,7 +7644,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -7660,7 +7660,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -7679,7 +7679,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -7698,7 +7698,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -7724,7 +7724,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -7750,7 +7750,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -7769,7 +7769,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -7788,7 +7788,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -7807,7 +7807,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -7826,7 +7826,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -7852,7 +7852,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -7878,7 +7878,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -7904,7 +7904,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -7930,7 +7930,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -7956,7 +7956,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -7972,7 +7972,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -7998,7 +7998,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -8024,7 +8024,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -8050,7 +8050,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -8076,7 +8076,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.mru
 
@@ -8105,7 +8105,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -8129,7 +8129,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -8155,7 +8155,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -8171,7 +8171,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -8190,7 +8190,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -8209,7 +8209,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -8235,7 +8235,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -8261,7 +8261,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -8280,7 +8280,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -8299,7 +8299,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -8318,7 +8318,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -8337,7 +8337,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -8363,7 +8363,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -8389,7 +8389,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -8415,7 +8415,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -8441,7 +8441,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -8467,7 +8467,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -8483,7 +8483,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -8509,7 +8509,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -8535,7 +8535,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -8561,7 +8561,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -8587,7 +8587,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.ozd
 
@@ -8616,7 +8616,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -8640,7 +8640,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -8666,7 +8666,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -8682,7 +8682,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -8701,7 +8701,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -8720,7 +8720,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -8746,7 +8746,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -8772,7 +8772,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -8791,7 +8791,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -8810,7 +8810,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -8829,7 +8829,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -8848,7 +8848,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -8874,7 +8874,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -8900,7 +8900,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -8926,7 +8926,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -8952,7 +8952,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -8978,7 +8978,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -8994,7 +8994,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -9020,7 +9020,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -9046,7 +9046,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -9072,7 +9072,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -9098,7 +9098,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.pco
 
@@ -9127,7 +9127,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -9151,7 +9151,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -9177,7 +9177,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -9193,7 +9193,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -9212,7 +9212,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -9231,7 +9231,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -9257,7 +9257,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -9283,7 +9283,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -9302,7 +9302,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -9321,7 +9321,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -9340,7 +9340,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -9359,7 +9359,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -9385,7 +9385,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -9411,7 +9411,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -9437,7 +9437,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -9463,7 +9463,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -9489,7 +9489,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -9505,7 +9505,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -9531,7 +9531,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -9557,7 +9557,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -9583,7 +9583,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -9609,7 +9609,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.pef
 
@@ -9638,7 +9638,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -9662,7 +9662,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -9688,7 +9688,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -9704,7 +9704,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -9723,7 +9723,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -9742,7 +9742,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -9768,7 +9768,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -9794,7 +9794,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -9813,7 +9813,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -9832,7 +9832,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -9851,7 +9851,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -9870,7 +9870,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -9896,7 +9896,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -9922,7 +9922,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -9948,7 +9948,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -9974,7 +9974,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -10000,7 +10000,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -10016,7 +10016,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -10042,7 +10042,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -10068,7 +10068,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -10094,7 +10094,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -10120,7 +10120,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.pma
 
@@ -10149,7 +10149,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -10173,7 +10173,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -10199,7 +10199,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -10215,7 +10215,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -10234,7 +10234,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -10253,7 +10253,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -10279,7 +10279,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -10305,7 +10305,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -10324,7 +10324,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -10343,7 +10343,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -10362,7 +10362,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -10381,7 +10381,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -10407,7 +10407,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -10433,7 +10433,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -10459,7 +10459,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -10485,7 +10485,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -10511,7 +10511,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -10527,7 +10527,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -10553,7 +10553,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -10579,7 +10579,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -10605,7 +10605,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -10631,7 +10631,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.swe
 
@@ -10660,7 +10660,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -10684,7 +10684,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -10710,7 +10710,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -10726,7 +10726,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -10745,7 +10745,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -10764,7 +10764,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -10790,7 +10790,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -10816,7 +10816,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -10835,7 +10835,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -10854,7 +10854,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -10873,7 +10873,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -10892,7 +10892,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -10918,7 +10918,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -10944,7 +10944,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -10970,7 +10970,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -10996,7 +10996,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -11022,7 +11022,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -11038,7 +11038,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -11064,7 +11064,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -11090,7 +11090,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -11116,7 +11116,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -11142,7 +11142,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.tre
 
@@ -11171,7 +11171,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 55.5695
                         , weighting = Data.Unit.ratio 0.0458
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , bvi =
                 { trigramString = "bvi"
@@ -11195,7 +11195,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                         , normalization = Data.Unit.impact 16773
                         , weighting = Data.Unit.ratio 0.125
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , cch =
                 { trigramString = "cch"
@@ -11221,7 +11221,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                         , normalization = Data.Unit.impact 7553.08
                         , weighting = Data.Unit.ratio 0.2106
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ecs =
                 { trigramString = "ecs"
@@ -11237,7 +11237,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etf =
                 { trigramString = "etf"
@@ -11256,7 +11256,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , weighting = Data.Unit.ratio 0.0192
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , etfc =
                 { trigramString = "etf-c"
@@ -11275,7 +11275,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                         , normalization = Data.Unit.impact 56716.6
                         , weighting = Data.Unit.ratio 0.0407
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , fru =
                 { trigramString = "fru"
@@ -11301,7 +11301,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                         , normalization = Data.Unit.impact 65004.3
                         , weighting = Data.Unit.ratio 0.0614
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , fwe =
                 { trigramString = "fwe"
@@ -11327,7 +11327,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 1.60685
                         , weighting = Data.Unit.ratio 0.0207
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , htc =
                 { trigramString = "htc"
@@ -11346,7 +11346,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0213
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htcc =
                 { trigramString = "htc-c"
@@ -11365,7 +11365,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.0000172529
                         , weighting = Data.Unit.ratio 0.0452
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htn =
                 { trigramString = "htn"
@@ -11384,7 +11384,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , weighting = Data.Unit.ratio 0.0184
                         }
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , htnc =
                 { trigramString = "htn-c"
@@ -11403,7 +11403,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                         , normalization = Data.Unit.impact 0.000128736
                         , weighting = Data.Unit.ratio 0.039
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Food ]
                 }
             , ior =
                 { trigramString = "ior"
@@ -11429,7 +11429,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                         , normalization = Data.Unit.impact 4220.16
                         , weighting = Data.Unit.ratio 0.037
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ldu =
                 { trigramString = "ldu"
@@ -11455,7 +11455,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                         , normalization = Data.Unit.impact 819498
                         , weighting = Data.Unit.ratio 0.0586
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , mru =
                 { trigramString = "mru"
@@ -11481,7 +11481,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                         , normalization = Data.Unit.impact 0.0636226
                         , weighting = Data.Unit.ratio 0.0557
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , ozd =
                 { trigramString = "ozd"
@@ -11507,7 +11507,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                         , normalization = Data.Unit.impact 0.053648
                         , weighting = Data.Unit.ratio 0.0466
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pco =
                 { trigramString = "pco"
@@ -11533,7 +11533,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                         , normalization = Data.Unit.impact 40.8592
                         , weighting = Data.Unit.ratio 0.0353
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pef =
                 { trigramString = "pef"
@@ -11549,7 +11549,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , quality = UnknownQuality
                 , pefData = Nothing
                 , ecoscoreData = Nothing
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , pma =
                 { trigramString = "pma"
@@ -11575,7 +11575,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                         , normalization = Data.Unit.impact 0.000595367
                         , weighting = Data.Unit.ratio 0.0662
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , swe =
                 { trigramString = "swe"
@@ -11601,7 +11601,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                         , normalization = Data.Unit.impact 19.5452
                         , weighting = Data.Unit.ratio 0.0219
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , tre =
                 { trigramString = "tre"
@@ -11627,7 +11627,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                         , normalization = Data.Unit.impact 176.755
                         , weighting = Data.Unit.ratio 0.0274
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             , wtu =
                 { trigramString = "wtu"
@@ -11653,7 +11653,7 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                         , normalization = Data.Unit.impact 11468.7
                         , weighting = Data.Unit.ratio 0.0628
                         }
-                , scopes = []
+                , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
                 }
             }.wtu
 
@@ -12075,7 +12075,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                 , normalization = Data.Unit.impact 55.5695
                 , weighting = Data.Unit.ratio 0.0458
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , bvi =
         { trigramString = "bvi"
@@ -12099,7 +12099,7 @@ Cet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hyd
                 , normalization = Data.Unit.impact 16773
                 , weighting = Data.Unit.ratio 0.125
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , cch =
         { trigramString = "cch"
@@ -12125,7 +12125,7 @@ Cet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de
                 , normalization = Data.Unit.impact 7553.08
                 , weighting = Data.Unit.ratio 0.2106
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , ecs =
         { trigramString = "ecs"
@@ -12141,7 +12141,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
         , quality = UnknownQuality
         , pefData = Nothing
         , ecoscoreData = Nothing
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , etf =
         { trigramString = "etf"
@@ -12160,7 +12160,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , weighting = Data.Unit.ratio 0.0192
                 }
         , ecoscoreData = Nothing
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , etfc =
         { trigramString = "etf-c"
@@ -12179,7 +12179,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
                 , normalization = Data.Unit.impact 56716.6
                 , weighting = Data.Unit.ratio 0.0407
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , fru =
         { trigramString = "fru"
@@ -12205,7 +12205,7 @@ Il se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.""
                 , normalization = Data.Unit.impact 65004.3
                 , weighting = Data.Unit.ratio 0.0614
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , fwe =
         { trigramString = "fwe"
@@ -12231,7 +12231,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                 , normalization = Data.Unit.impact 1.60685
                 , weighting = Data.Unit.ratio 0.0207
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , htc =
         { trigramString = "htc"
@@ -12250,7 +12250,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                 , weighting = Data.Unit.ratio 0.0213
                 }
         , ecoscoreData = Nothing
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , htcc =
         { trigramString = "htc-c"
@@ -12269,7 +12269,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                 , normalization = Data.Unit.impact 0.0000172529
                 , weighting = Data.Unit.ratio 0.0452
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , htn =
         { trigramString = "htn"
@@ -12288,7 +12288,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                 , weighting = Data.Unit.ratio 0.0184
                 }
         , ecoscoreData = Nothing
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , htnc =
         { trigramString = "htn-c"
@@ -12307,7 +12307,7 @@ Cet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étan
                 , normalization = Data.Unit.impact 0.000128736
                 , weighting = Data.Unit.ratio 0.039
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Food ]
         }
     , ior =
         { trigramString = "ior"
@@ -12333,7 +12333,7 @@ Il se mesure en kilobecquerel d'equivalent `Uranium 235`."""
                 , normalization = Data.Unit.impact 4220.16
                 , weighting = Data.Unit.ratio 0.037
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , ldu =
         { trigramString = "ldu"
@@ -12359,7 +12359,7 @@ Cet indicateur n'a pas de dimension, il se mesure en Points (`Pt`)."""
                 , normalization = Data.Unit.impact 819498
                 , weighting = Data.Unit.ratio 0.0586
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , mru =
         { trigramString = "mru"
@@ -12385,7 +12385,7 @@ Il se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique)."""
                 , normalization = Data.Unit.impact 0.0636226
                 , weighting = Data.Unit.ratio 0.0557
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , ozd =
         { trigramString = "ozd"
@@ -12411,7 +12411,7 @@ Cet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluor
                 , normalization = Data.Unit.impact 0.053648
                 , weighting = Data.Unit.ratio 0.0466
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , pco =
         { trigramString = "pco"
@@ -12437,7 +12437,7 @@ Cet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non 
                 , normalization = Data.Unit.impact 40.8592
                 , weighting = Data.Unit.ratio 0.0353
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , pef =
         { trigramString = "pef"
@@ -12453,7 +12453,7 @@ Cet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en *
         , quality = UnknownQuality
         , pefData = Nothing
         , ecoscoreData = Nothing
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , pma =
         { trigramString = "pma"
@@ -12479,7 +12479,7 @@ Cet indicateur se mesure en incidence de maladie supplémentaire due aux particu
                 , normalization = Data.Unit.impact 0.000595367
                 , weighting = Data.Unit.ratio 0.0662
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , swe =
         { trigramString = "swe"
@@ -12505,7 +12505,7 @@ Cet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un de
                 , normalization = Data.Unit.impact 19.5452
                 , weighting = Data.Unit.ratio 0.0219
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , tre =
         { trigramString = "tre"
@@ -12531,7 +12531,7 @@ Cet indicateur se mesure en mol d'équivalent azote (`N`)."""
                 , normalization = Data.Unit.impact 176.755
                 , weighting = Data.Unit.ratio 0.0274
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     , wtu =
         { trigramString = "wtu"
@@ -12557,6 +12557,6 @@ Cet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé."""
                 , normalization = Data.Unit.impact 11468.7
                 , weighting = Data.Unit.ratio 0.0628
                 }
-        , scopes = []
+        , scopes = [ Data.Scope.Textile, Data.Scope.Food ]
         }
     }

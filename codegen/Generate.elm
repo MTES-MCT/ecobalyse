@@ -3,6 +3,7 @@ module Generate exposing (main)
 
 {-| -}
 
+import Data.Scope
 import Dict exposing (Dict)
 import Elm
 import Elm.Annotation as Type
@@ -10,6 +11,7 @@ import Elm.Case
 import Elm.Declare
 import Elm.Op
 import Gen.CodeGen.Generate as Generate
+import Gen.Data.Scope
 import Gen.Data.Unit
 import Gen.List
 import Gen.Result
@@ -313,7 +315,7 @@ genDefinition trigram definition =
         , ( "quality", Elm.value { importFrom = [], name = qualityToString definition.quality, annotation = Nothing } )
         , ( "pefData", maybeAggregatedScoreDataToExpression definition.pefData )
         , ( "ecoscoreData", maybeAggregatedScoreDataToExpression definition.ecoscoreData )
-        , ( "scopes", Elm.list [] )
+        , ( "scopes", scopesToExpression definition.scopes )
         ]
 
 
@@ -351,3 +353,15 @@ maybeAggregatedScoreDataToExpression maybeAggregatedScoreData =
 
         Nothing ->
             Elm.nothing
+
+scopesToExpression : List Scope -> Elm.Expression
+scopesToExpression scopes =
+    scopes
+        |> List.map (\scope ->
+            case scope of
+                Data.Scope.Food ->
+                    Gen.Data.Scope.make_.food
+                Data.Scope.Textile ->
+                    Gen.Data.Scope.make_.textile
+            )
+        |> Elm.list
