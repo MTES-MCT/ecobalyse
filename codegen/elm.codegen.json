@@ -6,7 +6,8 @@
             "elm-community/json-extra": "4.3.0"
         },
         "local": [
-            "src/Data/"
+            "src/Data/Scope.elm",
+            "src/Data/Unit.elm"
         ]
     }
 }
