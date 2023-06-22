@@ -191,12 +191,8 @@ sourceType =
 
 toTrigram : String -> String
 toTrigram trigram =
-    case String.uncons trigram of
-        Just ( head, tail ) ->
-            String.fromChar (Char.toUpper head) ++ String.replace "-c" "C" tail
-
-        Nothing ->
-            trigram
+    String.toUpper (String.left 1 trigram) ++ String.dropLeft 1 trigram
+    |> String.replace "-c" "C"
 
 
 genDefinition : String -> Definition -> Elm.Expression
