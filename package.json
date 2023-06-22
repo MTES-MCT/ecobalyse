@@ -20,7 +20,7 @@
     "test:client": "npx elm-test",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && jest",
-    "test": "npm run generate-impacts && npm run db:build && npm run test:review && npm run test:client && npm run test:server"
+    "test": "npm run db:build && npm run test:review && npm run test:client && npm run test:server"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.8.3",
