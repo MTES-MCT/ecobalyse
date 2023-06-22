@@ -1,6 +1,14 @@
 module Generate exposing (main)
 
-{-| -}
+{-| This is the script used to automatically generate the src/Data/Impact/Definition.elm file
+    from the public/data/impacts.json file.
+
+    It uses elm-codegen: https://package.elm-lang.org/packages/mdgriffith/elm-codegen/latest/
+
+    The idea is to first load the impacts.json file and decode it, making sure it's properly
+    formatted, then generate the Definition.elm file from it.
+
+-}
 
 import Data.Scope as Scope exposing (Scope)
 import Dict exposing (Dict)
