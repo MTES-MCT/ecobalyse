@@ -16,6 +16,7 @@ elm-stuff
 /xls
 /public/version.json
 /.parcel-cache/
+/codegen/Gen/
 
 .vscode
 *.pyc

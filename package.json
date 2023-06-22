@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "generate-impacts": "elm-codegen run --output=src --flags-from=public/data/impacts.json",
+    "generate-impacts": "elm-codegen install && elm-codegen run --output=src --flags-from=public/data/impacts.json",
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && npm run generate-impacts && mkdir -p dist && cp -r public/* dist/",
     "db:build": "node tests/prepare.js",
