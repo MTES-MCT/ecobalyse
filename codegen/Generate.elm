@@ -27,6 +27,8 @@ main =
         generateDefinitions
 
 
+---- Types to decode the definitions from the impacts.json file passed as flags
+
 type alias Definition =
     { source : Source
     , label : String
@@ -47,15 +49,6 @@ type alias Source =
     { label : String, url : String }
 
 
-genSource = 
-    (Type.record
-        [ ("label", Type.string)
-        , ("url", Type.string)
-        ]
-    )
-    
-
-
 type Quality
     = AverageQuality
     | BadQuality
@@ -64,13 +57,23 @@ type Quality
     | UnknownQuality
 
 
-qualityType =  Elm.customType "Quality"
-    [ Elm.variant "AverageQuality"
-    , Elm.variant "BadQuality"
-    , Elm.variant "GoodQuality"
-    , Elm.variant "NotFinished"
-    , Elm.variant "UnknownQuality"
-    ]
+qualityToString : Quality -> String
+qualityToString quality =
+    case quality of
+        AverageQuality ->
+            "AverageQuality"
+
+        BadQuality ->
+            "BadQuality"
+
+        GoodQuality ->
+            "GoodQuality"
+
+        NotFinished ->
+            "NotFinished"
+
+        UnknownQuality ->
+            "UnknownQuality"
 
 
 type alias AggregatedScoreData =
@@ -79,14 +82,8 @@ type alias AggregatedScoreData =
     , weighting : Float
     }
 
-genAggregatedScoreData =
-    (Type.record
-        [ ("color", Type.string)
-        , ("normalization", Type.named [ "Data", "Unit" ] "Impact")
-        , ("weighting", Type.named [ "Data", "Unit" ] "Ratio")
-        ]
-    )
 
+---- Decoders to decode the definitions from the impacts.json file passed as flags
 
 decodeDefinitions: Decoder Definitions
 decodeDefinitions =
@@ -143,7 +140,23 @@ decodeDefinition =
         |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
         |> Pipe.required "scopes" (Decode.list Scope.decode)
 
-    
+
+---- Generated types
+
+trigramType = Type.named [] "Trigram"
+definitionType = Type.named [] "Definition"
+definitionsType = Type.named [] "Definitions"
+aggregatedScoreDataRecordType = Type.record
+    [ ("color", Type.string)
+    , ("normalization", Type.named [ "Data", "Unit" ] "Impact")
+    , ("weighting", Type.named [ "Data", "Unit" ] "Ratio")
+    ]
+aggregatedScoreDataType = Type.alias [] "AggregatedScoreData" [] aggregatedScoreDataRecordType
+sourceType = Type.record [ ("label", Type.string) , ("url", Type.string) ]
+
+
+---- Generation helpers
+
 toTrigram : String -> String
 toTrigram trigram =
     case String.uncons trigram of
@@ -152,155 +165,6 @@ toTrigram trigram =
 
         Nothing ->
             trigram
-
-generateDefinitions : Definitions -> List Elm.File
-generateDefinitions definitions =
-    let
-        trigramType =
-            Dict.keys definitions
-                |> List.map toTrigram
-                |> List.map Elm.variant
-
-        definitionType =
-            Type.record
-                [ ( "trigramString", Type.string)
-                , ( "trigram", Type.named [] "Trigram")
-                , ( "source", Type.alias [] "Source" [] genSource)
-                , ( "label", Type.string)
-                , ( "description", Type.string)
-                , ( "unit", Type.string)
-                , ( "decimals", Type.int)
-                , ( "quality", Type.named [] "Quality" )
-                , ( "pefData", Type.maybe (Type.alias [] "AggregatedScoreData" [] genAggregatedScoreData))
-                , ( "ecoscoreData", Type.maybe (Type.alias [] "AggregatedScoreData" [] genAggregatedScoreData))
-                , ( "scopes", Type.list (Type.named [ "Data", "Scope" ] "Scope"))
-                ]
-
-        definitionsType =
-            Type.record
-                (Dict.keys definitions
-                    |> List.map (\trigram ->
-                        (String.replace "-" "" trigram, definitionType)
-                    )
-                )
-
-        definitionsExpression =
-                (Elm.record
-                    (Dict.toList definitions
-                        |> List.map (\(trigram, definition) ->
-                            (String.replace "-" "" trigram
-                            , genDefinition trigram definition)
-                        )
-                    )
-                )
-                |> Elm.withType definitionsType 
-
-        trigramsExpression =
-            Dict.keys definitions
-                |> List.map toTrigram
-                |> List.map (\trigram -> Elm.value { importFrom = [], name = trigram, annotation = Nothing } )
-                |> Elm.list
-                |> Elm.withType (Type.named [] "List Trigram")
-
-        trigrams = Elm.Declare.value "trigrams"
-            trigramsExpression
-
-        get = Elm.Declare.fn "get"
-            ( "trigram", Nothing)
-            (\trigram ->
-                Elm.Case.custom trigram
-                (Type.named [] "Trigram")
-                (Dict.keys definitions
-                    |> List.map toTrigram
-                    |> List.map (\trigramString ->
-                        Elm.Case.branch0 trigramString (Elm.get (String.toLower trigramString) definitionsExpression)
-                    )
-                )
-            )
-    in
-    [ Elm.fileWith
-        -- Module path
-        [ "Data", "Impact", "Definition" ]
-        -- Docs rendering
-        { docs = \docs -> "foobar" :: (List.map Elm.docs docs)
-        , aliases = [] }
-        -- List of declarations
-        [ Elm.comment "/!\\ This file is automatically generated, don't modify!"
-        , Elm.comment "The generation is done with elm-codegen, from the script codegen/Generate.elm"
-        -- Types
-        , Elm.comment "Types"
-        , Elm.alias "Source" genSource
-            |> Elm.expose
-        , qualityType
-            |> Elm.exposeWith { exposeConstructor = True, group = Nothing }
-        , Elm.alias "AggregatedScoreData" genAggregatedScoreData
-            |> Elm.expose
-        , Elm.customType "Trigram" trigramType
-            |> Elm.exposeWith { exposeConstructor = True, group = Nothing }
-        , Elm.alias "Definition"
-            definitionType
-            |> Elm.expose
-        , Elm.alias "Definitions"
-            definitionsType
-            |> Elm.expose
-        -- Helpers
-        , Elm.comment "Helpers"
-        , Elm.declaration "trigrams"
-            trigramsExpression
-            |> Elm.expose
-        , get.declaration
-            |> Elm.expose
-        , Elm.declaration "toString"
-            (Elm.fn ( "trigram", Nothing )
-                (\trigram ->
-                    (get.call trigram)
-                    |> Elm.Op.pipe (Elm.val ".trigramString")
-                )
-                |> Elm.withType (Type.function [ Type.named [] "Trigram" ] Type.string)
-            )
-            |> Elm.expose
-        , Elm.declaration "toTrigram"
-            (Elm.fn ( "str", Nothing )
-                (\str ->
-                    Elm.Case.string str
-                    { cases = (
-                        Dict.keys definitions
-                            |> List.map (\trigram ->
-                                (trigram, Gen.Result.make_.ok (Elm.val (toTrigram trigram)))
-                            )
-                        )
-                    , otherwise = Gen.Result.make_.err (Elm.val "<| \"Trigramme d'impact inconnu: \" ++ str")
-                    }
-                )
-                |> Elm.withType (Type.function [ Type.string ] (Type.result Type.string (Type.named [] "Trigram" )))
-            )
-            |> Elm.expose
-        , Elm.declaration "forScope"
-            (Elm.fn ( "scope", Nothing )
-                (\scope ->
-                    trigrams.value
-                    |> Elm.Op.pipe (Elm.val "List.map get")
-                    |> Elm.Op.pipe (Elm.val "List.filter (.scopes >> List.member scope)")
-                )
-                |> Elm.withType (Type.function [Type.named [ "Data", "Scope" ] "Scope"] (Type.list definitionType))
-            )
-            |> Elm.expose
-        , Elm.declaration "isAggregate"
-            (Elm.fn ( "trigram", Nothing )
-                (\trigram ->
-                    Elm.val "trigram == Pef || trigram == Ecs"
-                )
-                |> Elm.withType (Type.function [Type.named [] "Trigram" ] Type.bool)
-            )
-            |> Elm.expose
-            
-        -- Data
-        , Elm.comment "Data: the definitions imported from public/data/impacts.json"
-        , Elm.declaration "definitions"
-            definitionsExpression
-            |> Elm.expose
-        ]
-    ]
 
 genDefinition : String -> Definition -> Elm.Expression
 genDefinition trigram definition =
@@ -312,30 +176,11 @@ genDefinition trigram definition =
         , ( "description", Elm.string definition.description )
         , ( "unit", Elm.string definition.unit )
         , ( "decimals", Elm.int definition.decimals )
-        , ( "quality", Elm.value { importFrom = [], name = qualityToString definition.quality, annotation = Nothing } )
+        , ( "quality", Elm.val (qualityToString definition.quality))
         , ( "pefData", maybeAggregatedScoreDataToExpression definition.pefData )
         , ( "ecoscoreData", maybeAggregatedScoreDataToExpression definition.ecoscoreData )
         , ( "scopes", scopesToExpression definition.scopes )
         ]
-
-
-qualityToString : Quality -> String
-qualityToString quality =
-    case quality of
-        AverageQuality ->
-            "AverageQuality"
-
-        BadQuality ->
-            "BadQuality"
-
-        GoodQuality ->
-            "GoodQuality"
-
-        NotFinished ->
-            "NotFinished"
-
-        UnknownQuality ->
-            "UnknownQuality"
 
 
 maybeAggregatedScoreDataToExpression : Maybe AggregatedScoreData -> Elm.Expression
@@ -365,3 +210,149 @@ scopesToExpression scopes =
                     Gen.Data.Scope.make_.textile
             )
         |> Elm.list
+        
+---- Generation of the src/Data/Impact/Definition.elm file
+
+generateDefinitions : Definitions -> List Elm.File
+generateDefinitions definitions =
+    [ Elm.fileWith
+        -- Module path
+        [ "Data", "Impact", "Definition" ]
+        -- Docs rendering
+        { docs = \docs ->
+            "/!\\ This file is automatically generated, don't modify!"
+            :: "The generation is done with elm-codegen, from the script codegen/Generate.elm"
+            :: (List.map Elm.docs docs)
+        , aliases = [] }
+        -- List of declarations
+        [ Elm.comment "Types"
+        , Elm.alias "Source" sourceType
+            |> Elm.expose
+        , Elm.customType "Quality"
+            [ Elm.variant "AverageQuality"
+            , Elm.variant "BadQuality"
+            , Elm.variant "GoodQuality"
+            , Elm.variant "NotFinished"
+            , Elm.variant "UnknownQuality"
+            ]
+            |> Elm.exposeWith { exposeConstructor = True, group = Nothing }
+        , Elm.alias "AggregatedScoreData" aggregatedScoreDataRecordType
+            |> Elm.expose
+        , Elm.customType "Trigram"
+            (Dict.keys definitions
+                |> List.map toTrigram
+                |> List.map Elm.variant
+            )
+            |> Elm.exposeWith { exposeConstructor = True, group = Nothing }
+        , Elm.alias "Definition"
+            (Type.record
+                [ ( "trigramString", Type.string)
+                , ( "trigram", trigramType)
+                , ( "source", Type.alias [] "Source" [] sourceType)
+                , ( "label", Type.string)
+                , ( "description", Type.string)
+                , ( "unit", Type.string)
+                , ( "decimals", Type.int)
+                , ( "quality", Type.named [] "Quality" )
+                , ( "pefData", Type.maybe aggregatedScoreDataType)
+                , ( "ecoscoreData", Type.maybe aggregatedScoreDataType)
+                , ( "scopes", Type.list (Type.named [ "Data", "Scope" ] "Scope"))
+                ]
+            )
+            |> Elm.expose
+        , Elm.alias "Definitions"
+            (Type.record
+                (Dict.keys definitions
+                    |> List.map (\trigram ->
+                        (String.replace "-" "" trigram, definitionType)
+                    )
+                )
+            )
+            |> Elm.expose
+        -- Helpers
+        , Elm.comment "Helpers"
+        , Elm.declaration "trigrams"
+            (Dict.keys definitions
+                |> List.map toTrigram
+                |> List.map (\trigram -> Elm.value { importFrom = [], name = trigram, annotation = Nothing } )
+                |> Elm.list
+                |> Elm.withType (Type.list trigramType)
+            )
+            |> Elm.expose
+        , Elm.declaration "get"
+            (Elm.fn ( "trigram", Nothing )
+                (\trigram ->
+                    Elm.Case.custom trigram
+                    trigramType
+                    (Dict.keys definitions
+                        |> List.map toTrigram
+                        |> List.map (\trigramString ->
+                            Elm.Case.branch0 trigramString (Elm.val ("definitions." ++ String.toLower trigramString))
+                        )
+                    )
+                )
+                |> Elm.withType (Type.function [ trigramType ] definitionType)
+            )
+            |> Elm.expose
+        , Elm.declaration "toString"
+            (Elm.fn ( "trigram", Nothing )
+                (\trigram ->
+                    (Elm.val "get trigram")
+                    |> Elm.Op.pipe (Elm.val ".trigramString")
+                )
+                |> Elm.withType (Type.function [trigramType] Type.string)
+            )
+            |> Elm.expose
+        , Elm.declaration "toTrigram"
+            (Elm.fn ( "str", Nothing )
+                (\str ->
+                    Elm.Case.string str
+                    { cases = (
+                        Dict.keys definitions
+                            |> List.map (\trigram ->
+                                (trigram, Gen.Result.make_.ok (Elm.val (toTrigram trigram)))
+                            )
+                        )
+                    , otherwise = Gen.Result.make_.err (Elm.val "<| \"Trigramme d'impact inconnu: \" ++ str")
+                    }
+                )
+                |> Elm.withType (Type.function [ Type.string ] (Type.result Type.string trigramType))
+            )
+            |> Elm.expose
+        , Elm.declaration "forScope"
+            (Elm.fn ( "scope", Nothing )
+                (\scope ->
+                    Elm.val "trigrams"
+                    |> Elm.Op.pipe (Elm.val "List.map get")
+                    |> Elm.Op.pipe (Elm.val "List.filter (.scopes >> List.member scope)")
+                )
+                |> Elm.withType (Type.function [Type.named [ "Data", "Scope" ] "Scope"] (Type.list definitionType))
+            )
+            |> Elm.expose
+        , Elm.declaration "isAggregate"
+            (Elm.fn ( "trigram", Nothing )
+                (\trigram ->
+                    Elm.val "trigram == Pef || trigram == Ecs"
+                )
+                |> Elm.withType (Type.function [trigramType] Type.bool)
+            )
+            |> Elm.expose
+            
+        -- Data
+        , Elm.comment "Data: the definitions imported from public/data/impacts.json"
+        , Elm.declaration "definitions"
+            (
+                (Elm.record
+                    (Dict.toList definitions
+                        |> List.map (\(trigram, definition) ->
+                            (String.replace "-" "" trigram
+                            , genDefinition trigram definition)
+                        )
+                    )
+                )
+                |> Elm.withType definitionsType 
+            )
+            |> Elm.expose
+        ]
+    ]
+
