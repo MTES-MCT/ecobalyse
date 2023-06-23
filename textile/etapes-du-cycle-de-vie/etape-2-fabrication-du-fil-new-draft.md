@@ -204,7 +204,7 @@ Les fibres naturelles et artificielles peuvent être de différentes longueur. E
 
 Cf. [Explorateur Matières ](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)pour plus d'info.
 
-Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (11).png>)
+Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (19).png>)
 
 L'utilisateur a la possibilité de modifier ce paramètre.
 
