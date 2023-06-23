@@ -204,7 +204,7 @@ Les fibres naturelles et artificielles peuvent être de différentes longueur. E
 
 Cf. [Explorateur Matières ](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)pour plus d'info.
 
-Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](../../.gitbook/assets/image.png)
+Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (11).png>)
 
 L'utilisateur a la possibilité de modifier ce paramètre.
 
@@ -212,7 +212,7 @@ L'utilisateur a la possibilité de modifier ce paramètre.
 
 <details>
 
-<summary>Consommation d'électricité (kWh)</summary>
+<summary>Consommation d'électricité (kWh / kg de fil)</summary>
 
 La consommation d'électricité de la fabrication d'un fil dépend directement des paramètres susmentionnés  :&#x20;
 
@@ -222,9 +222,9 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 * du titrage du fil\
   (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
-**Valeurs par défaut  (kWh)**&#x20;
+**Valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/Tableau kWh et titrage (1).png>)
+![](../../.gitbook/assets/image.png)
 
 Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
@@ -232,7 +232,7 @@ Ces valeurs par défaut ont été définies par Ecobalyse sur la base des donné
 
 <details>
 
-<summary>Titrage &#x26; Consommation d'électricité (kWh)</summary>
+<summary>Titrage &#x26; Consommation d'électricité (kWh)/ kg de fil)</summary>
 
 Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).&#x20;
 
