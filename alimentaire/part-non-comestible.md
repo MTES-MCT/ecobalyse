@@ -4,10 +4,9 @@ La part non comestible correspond à une partie d'un produit agricole qui n'est 
 
 Dans le cadre de notre calcul d'impact pour 1 kg de produit comestible, nous devons prendre en compte ces pertes non comestibles. Pour ce faire, nous appliquons un ratio de perte non comestible à chaque ingrédient. Ce ratio peut être trouvé dans la documentation d'Agribalyse.
 
-**Pour simplifier la modélisation, nous considérons le retrait de la part comestible toujours avant l'étape de transformation.**
+**Pour simplifier la modélisation, nous considérons le retrait de la part non comestible toujours avant l'étape de transformation.**
 
-\
-Hypothèses Agribalyse de parts non comestibles&#x20;
+## Hypothèses Agribalyse de parts non comestibles&#x20;
 
 <div>
 

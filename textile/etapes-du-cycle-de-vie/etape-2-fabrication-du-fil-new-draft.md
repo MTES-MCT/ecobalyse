@@ -113,6 +113,22 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 </details>
 
+<details>
+
+<summary>Fil cardé vs peigné</summary>
+
+La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée dans le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
+
+Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impact aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
+
+Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant dans une logique d'impact environnemental produit. De plus, les marques ne maîtrisent généralement pas ce paramètre.
+
+_Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
+
+![](../../.gitbook/assets/image.png)
+
+</details>
+
 ## Modélisation Ecobalyse
 
 ### Paramètres mobilisés
@@ -141,16 +157,6 @@ Les deux principales techniques de filature sont disponibles dans l'outil :&#x20
 * open-end / à anneaux (filature non conventionnelle)&#x20;
 
 La technique non-conventionnelle (open-end) est plus efficace mais plus contraignante (l'ensemble des propriétés permises par la filature conventionnelle ne le sont pas par la filature non-conventionnelle tandis que les fils fins ne peuvent pas être fabriqués par la technique non-conventionnelle).&#x20;
-
-</details>
-
-<details>
-
-<summary>Filature : procédé (cardée vs peignée)</summary>
-
-La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée dans le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
-
-Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impact aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
 
 </details>
 
@@ -195,36 +201,18 @@ Par défaut, les fibres naturelles et artificielles sont fabriquées en filature
 
 <details>
 
-<summary>Filature (procédé)</summary>
-
-Les fibres naturelles et artificielles peuvent être de différentes longueur. Ecobalyse attribue par défaut chaque fibre discontinue en :&#x20;
-
-* fibre courte (longueur <5 cm),
-* fibre longue (longueur >5 cm).
-
-Cf. [Explorateur Matières ](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)pour plus d'info.
-
-Selon le titrage du fil, un procédé de filature (cardée vs peignée) est attribué par défaut : ![](<../../.gitbook/assets/image (19).png>)
-
-L'utilisateur a la possibilité de modifier ce paramètre.
-
-</details>
-
-<details>
-
 <summary>Consommation d'électricité (kWh / kg de fil)</summary>
 
 La consommation d'électricité de la fabrication d'un fil dépend directement des paramètres susmentionnés  :&#x20;
 
 * du procédé utilisé (filage vs filature),
 * de la technologie de filature utilisée (conventionnelle vs non-conventionnelle),
-* du type de filature (cardée vs peignée)
 * du titrage du fil\
   (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
 **Valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (19).png>)
 
 Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
