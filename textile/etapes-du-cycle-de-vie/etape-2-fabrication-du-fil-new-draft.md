@@ -135,28 +135,25 @@ _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#
 
 <details>
 
-<summary>Fabrication du fil : Filature vs Filage </summary>
+<summary>Fabrication du fil (filature vs filage) </summary>
 
-La composition d'un fil (ex : 100% coton, 50% polyester - 50% coton, etc.) impacte directement les procédés utilisés pour sa fabrication.&#x20;
+Un fil peut être fabriqué selon deux procédés : la filature ou le filage.\
+Cf. précédemment pour plus d'informations.
 
-La **filature** est utilisée par défaut pour les fils composés : \
-\- à 100% de matières naturelles ou artificielles,\
-\- d'un mix de matières.
-
-Le **filage** est utilisé par défaut pour les fils composés à 100% de matières synthétiques.&#x20;
+Le choix de ce procédé dépend de la composition d'un fil (ex : 100% coton, 50% polyester - 50% coton, etc.).&#x20;
 
 </details>
 
 <details>
 
-<summary>Filature : technique (conventionnelle vs non-conventionnelle)</summary>
+<summary>Filature conventionnelle vs non-conventionnelle</summary>
 
 Les deux principales techniques de filature sont disponibles dans l'outil :&#x20;
 
 * ring / à bouts libérés (filature conventionnelle)
 * open-end / à anneaux (filature non conventionnelle)&#x20;
 
-La technique non-conventionnelle (open-end) est plus efficace mais plus contraignante (l'ensemble des propriétés permises par la filature conventionnelle ne le sont pas par la filature non-conventionnelle tandis que les fils fins ne peuvent pas être fabriqués par la technique non-conventionnelle).&#x20;
+La technique non-conventionnelle (open-end) est plus efficace mais est plus contraignante (l'ensemble des propriétés permises par la filature conventionnelle ne le sont pas par la filature non-conventionnelle tandis que les fils fins ne peuvent pas être fabriqués par la technique non-conventionnelle).&#x20;
 
 </details>
 
@@ -181,21 +178,23 @@ A compléter
 
 <details>
 
-<summary>Fibre &#x3C;=> Procédé (filature vs filage)</summary>
+<summary>Fabrication du fil (filature vs filage) </summary>
 
-Fibres naturelles et artificielles (coton, laine, lin, viscose, etc.) = **Filature**
+La **filature** est utilisée par défaut pour les fils composés : \
+\- à 100% de matières naturelles ou artificielles,\
+\- d'un mix de matières.
 
-Matières synthétiques (acrylic, elastane, etc.) = **Filage**
-
-Mix de matière = **Filature**
+Le **filage** est utilisé par défaut pour les fils composés à 100% de matières synthétiques.
 
 </details>
 
 <details>
 
-<summary>Filature (technique) </summary>
+<summary>Filature conventionnelle vs non-conventionnelle</summary>
 
-Par défaut, les fibres naturelles et artificielles sont fabriquées en filature conventionnelle (ring). L'utilisateur a la possibilité de modifier ce paramètre et de sélectionne la technique open-end (non-conventionnelle).&#x20;
+Par défaut, les fibres naturelles et artificielles sont fabriquées en filature conventionnelle (ring).&#x20;
+
+L'utilisateur a la possibilité de modifier ce paramètre et de sélectionner la technique de filature open-end (non-conventionnelle).&#x20;
 
 </details>
 
