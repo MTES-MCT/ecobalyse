@@ -135,15 +135,15 @@ _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#
 
 <details>
 
-<summary>Type de fibre</summary>
+<summary>Fabrication du fil : Filature vs Filage </summary>
 
-Le choix des fibres/matières (laine, coton, mix, polyester, etc.) impacte directement les étapes de production du fil.&#x20;
+La composition d'un fil (ex : 100% coton, 50% polyester - 50% coton, etc.) impacte directement les procédés utilisés pour sa fabrication.&#x20;
 
-Les paramètres directement impactés par le type de fibre sont :&#x20;
+La **filature** est utilisée par défaut pour les fils composés : \
+\- à 100% de matières naturelles ou artificielles,\
+\- d'un mix de matières.
 
-* le procédé de fabrication du fil (filature vs filage)
-* la technique de filature (conventionnelle vs non conventionnelle)
-* le procédé de filature (fil cardé vs peigné)
+Le **filage** est utilisé par défaut pour les fils composés à 100% de matières synthétiques.&#x20;
 
 </details>
 
@@ -212,7 +212,7 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 
 **Valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/image (19).png>)
+![](<../../.gitbook/assets/image (2).png>)
 
 Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
