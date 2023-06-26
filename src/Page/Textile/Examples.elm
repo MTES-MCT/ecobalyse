@@ -74,7 +74,7 @@ viewExample session model funit impact query =
         |> Simulator.compute session.db
         |> SummaryView.view
             { session = session
-            , impact = Definition.get impact
+            , impact = Definition.get session.db.impactDefinitions impact
             , funit = funit
             , reusable = True
             , chartHovering = model.chartHovering
@@ -92,6 +92,7 @@ view session ({ impact, funit } as model) =
                     [ h1 [] [ text "Exemples de simulation" ] ]
                 , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
+                        session.db.impactDefinitions
                         { selectedImpact = impact
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
@@ -100,7 +101,7 @@ view session ({ impact, funit } as model) =
                         }
                     ]
                 ]
-            , Definition.get impact
+            , Definition.get session.db.impactDefinitions impact
                 |> ImpactView.viewDefinition
             , Inputs.presets
                 |> List.map (viewExample session model funit impact)

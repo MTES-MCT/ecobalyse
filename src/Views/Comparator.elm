@@ -10,7 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -220,10 +220,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     data =
                         case displayChoice of
                             IndividualImpacts ->
-                                dataForIndividualImpacts chartsData
+                                dataForIndividualImpacts session.db.impactDefinitions chartsData
 
                             Grouped ->
-                                dataForGroupedImpacts chartsData
+                                dataForGroupedImpacts session.db.impactDefinitions chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData
@@ -257,8 +257,8 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         ]
 
 
-dataForIndividualImpacts : List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
-dataForIndividualImpacts chartsData =
+dataForIndividualImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForIndividualImpacts definitions chartsData =
     let
         labelToOrder =
             [ "Changement climatique"
@@ -313,7 +313,7 @@ dataForIndividualImpacts chartsData =
 
                     entries =
                         impacts
-                            |> Impact.getAggregatedScoreData .ecoscoreData
+                            |> Impact.getAggregatedScoreData definitions .ecoscoreData
                             |> List.sortWith labelComparison
 
                     reversed =
@@ -330,8 +330,8 @@ dataForIndividualImpacts chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
-dataForGroupedImpacts chartsData =
+dataForGroupedImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForGroupedImpacts definitions chartsData =
     chartsData
         |> List.map
             (\( name, impacts, bonusesImpact ) ->
@@ -341,7 +341,7 @@ dataForGroupedImpacts chartsData =
 
                     entries =
                         impacts
-                            |> Impact.toProtectionAreas
+                            |> Impact.toProtectionAreas definitions
                             |> (\{ climate, biodiversity, health, resources } ->
                                     List.reverse
                                         [ bonusImpacts

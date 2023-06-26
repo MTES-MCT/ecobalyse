@@ -4,6 +4,7 @@ module Data.Textile.Db exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
@@ -13,7 +14,8 @@ import Json.Decode.Extra as DE
 
 
 type alias Db =
-    { processes : List Process
+    { impactDefinitions : Definitions
+    , processes : List Process
     , countries : List Country
     , materials : List Material
     , products : List Product
@@ -30,18 +32,22 @@ buildFromJson json =
 
 decode : Decoder Db
 decode =
-    Decode.field "processes" Process.decodeList
+    Decode.field "impacts" Definition.decode
         |> Decode.andThen
-            (\processes ->
-                Decode.map4 (Db processes)
-                    (Decode.field "countries" (Country.decodeList processes))
-                    (Decode.field "materials" (Material.decodeList processes))
-                    (Decode.field "products" (Product.decodeList processes))
-                    (Decode.field "transports" Transport.decodeDistances)
+            (\definitions ->
+                Decode.field "processes" (Process.decodeList definitions)
                     |> Decode.andThen
-                        (\partiallyLoaded ->
-                            Process.loadWellKnown processes
-                                |> Result.map partiallyLoaded
-                                |> DE.fromResult
+                        (\processes ->
+                            Decode.map4 (Db definitions processes)
+                                (Decode.field "countries" (Country.decodeList processes))
+                                (Decode.field "materials" (Material.decodeList processes))
+                                (Decode.field "products" (Product.decodeList processes))
+                                (Decode.field "transports" Transport.decodeDistances)
+                                |> Decode.andThen
+                                    (\partiallyLoaded ->
+                                        Process.loadWellKnown processes
+                                            |> Result.map partiallyLoaded
+                                            |> DE.fromResult
+                                    )
                         )
             )

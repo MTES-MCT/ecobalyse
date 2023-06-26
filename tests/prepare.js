@@ -24,6 +24,7 @@ function buildTextileJsonDb(basePath = "public/data") {
     processes: getJson(`${basePath}/processes.json`),
     products: getJson(`${basePath}/products.json`),
     transports: getJson(`${basePath}/transports.json`),
+    impacts: getJson(`${basePath}/impacts.json`),
   });
 }
 

@@ -6,7 +6,7 @@ module Views.Impact exposing
     )
 
 import Data.Gitbook as Gitbook
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -114,8 +114,8 @@ type alias SelectorConfig msg =
     }
 
 
-impactSelector : SelectorConfig msg -> Html msg
-impactSelector { selectedImpact, switchImpact, scope } =
+impactSelector : Definitions -> SelectorConfig msg -> Html msg
+impactSelector definitions { selectedImpact, switchImpact, scope } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -125,7 +125,7 @@ impactSelector { selectedImpact, switchImpact, scope } =
                 [ text label ]
 
         scopeImpacts =
-            Definition.forScope scope
+            Definition.forScope definitions scope
     in
     select
         [ class "form-select"
@@ -164,8 +164,8 @@ funitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
             )
 
 
-selector : SelectorConfig msg -> Html msg
-selector config =
-    impactSelector config
+selector : Definitions -> SelectorConfig msg -> Html msg
+selector definitions config =
+    impactSelector definitions config
         :: funitSelector config
         |> div [ class "ImpactSelector input-group" ]

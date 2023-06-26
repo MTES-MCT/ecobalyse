@@ -45,9 +45,9 @@ isEmpty db =
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db
-buildFromJson { countries, transports } processesJson productsJson =
+buildFromJson { impactDefinitions, countries, transports } processesJson productsJson =
     processesJson
-        |> Decode.decodeString Process.decodeList
+        |> Decode.decodeString (Process.decodeList impactDefinitions)
         |> Result.andThen
             (\processes ->
                 productsJson

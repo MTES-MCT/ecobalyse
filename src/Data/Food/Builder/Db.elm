@@ -6,6 +6,7 @@ module Data.Food.Builder.Db exposing
 import Data.Country exposing (Country)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport
 import Json.Decode as Decode
@@ -14,7 +15,8 @@ import Json.Decode.Extra as DE
 
 type alias Db =
     { -- Common datasources
-      countries : List Country
+      impactDefinitions : Definitions
+    , countries : List Country
     , transports : Transport.Distances
 
     -- Builder specific datasources
@@ -28,9 +30,9 @@ type alias Db =
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db
-buildFromJson { countries, transports } builderProcessesJson ingredientsJson =
+buildFromJson { impactDefinitions, countries, transports } builderProcessesJson ingredientsJson =
     builderProcessesJson
-        |> Decode.decodeString Process.decodeList
+        |> Decode.decodeString (Process.decodeList impactDefinitions)
         |> Result.andThen
             (\processes ->
                 ingredientsJson
@@ -39,7 +41,7 @@ buildFromJson { countries, transports } builderProcessesJson ingredientsJson =
                             |> Decode.andThen
                                 (\ingredients ->
                                     Process.loadWellKnown processes
-                                        |> Result.map (Db countries transports processes ingredients)
+                                        |> Result.map (Db impactDefinitions countries transports processes ingredients)
                                         |> DE.fromResult
                                 )
                         )

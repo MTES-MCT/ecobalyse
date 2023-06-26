@@ -12,7 +12,7 @@ import Data.Food.Explorer.Db as ExplorerDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -233,8 +233,8 @@ update ({ explorerDb, db } as session) msg ({ currentProductInfo, newIngredientM
             ( model, session, Cmd.none )
 
 
-viewSidebar : ItemViewDataConfig -> CurrentProductInfo -> Html Msg
-viewSidebar { definition, trigram, totalImpact } { original, product } =
+viewSidebar : Definitions -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
+viewSidebar definitions { definition, trigram, totalImpact } { original, product } =
     let
         originalWeight =
             Product.getWeightAtPlant original.plant
@@ -273,6 +273,7 @@ viewSidebar { definition, trigram, totalImpact } { original, product } =
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
+            definitions
             { selectedImpact = trigram
             , switchImpact = SwitchImpact
 
@@ -326,7 +327,7 @@ view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedI
                         Product.getTotalImpact impact product
 
                     definition =
-                        Definition.get impact
+                        Definition.get db.impactDefinitions impact
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact
@@ -344,7 +345,7 @@ view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedI
                     [ div [ class "row gap-3 gap-lg-0" ]
                         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
                             [ currentProductInfo
-                                |> viewSidebar itemViewDataConfig
+                                |> viewSidebar db.impactDefinitions itemViewDataConfig
                             ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct explorerDb.products

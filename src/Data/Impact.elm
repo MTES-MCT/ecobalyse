@@ -26,7 +26,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
-import Data.Impact.Definition as Definition exposing (Definition, Trigram)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram)
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -110,14 +110,14 @@ defaultTextileTrigram =
     Definition.Pef
 
 
-toProtectionAreas : Impacts -> ProtectionAreas
-toProtectionAreas (Impacts impactsPerKgWithoutBonuses) =
+toProtectionAreas : Definitions -> Impacts -> ProtectionAreas
+toProtectionAreas definitions (Impacts impactsPerKgWithoutBonuses) =
     let
         pick trigrams =
             impactsPerKgWithoutBonuses
                 |> AnyDict.filter (\t _ -> List.member t trigrams)
                 |> Impacts
-                |> computeAggregatedScore .ecoscoreData
+                |> computeAggregatedScore definitions .ecoscoreData
     in
     { climate =
         pick
@@ -220,21 +220,21 @@ toDict (Impacts impacts) =
     impacts
 
 
-updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts
-updateImpact trigram value =
+updateImpact : Definitions -> Trigram -> Unit.Impact -> Impacts -> Impacts
+updateImpact definitions trigram value =
     insertWithoutAggregateComputation trigram value
-        >> updateAggregatedScores
+        >> updateAggregatedScores definitions
 
 
-decodeImpacts : Decoder Impacts
-decodeImpacts =
+decodeImpacts : Definitions -> Decoder Impacts
+decodeImpacts definitions =
     AnyDict.decode_
         (\str _ -> Definition.toTrigram str)
         Definition.toString
         Unit.decodeImpact
         |> Decode.map Impacts
         -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
-        |> Decode.map updateAggregatedScores
+        |> Decode.map (updateAggregatedScores definitions)
 
 
 encodeBonusesImpacts : BonusImpacts -> Encode.Value
@@ -247,24 +247,24 @@ encodeBonusesImpacts bonuses =
         ]
 
 
-encodeImpacts : Scope -> Impacts -> Encode.Value
-encodeImpacts scope (Impacts impacts) =
+encodeImpacts : Definitions -> Scope -> Impacts -> Encode.Value
+encodeImpacts definitions scope (Impacts impacts) =
     impacts
         |> AnyDict.filter
             (\trigram _ ->
                 trigram
-                    |> Definition.get
+                    |> Definition.get definitions
                     |> (.scopes >> List.member scope)
             )
         |> AnyDict.encode Definition.toString Unit.encodeImpact
 
 
-updateAggregatedScores : Impacts -> Impacts
-updateAggregatedScores impacts =
+updateAggregatedScores : Definitions -> Impacts -> Impacts
+updateAggregatedScores definitions impacts =
     let
         aggregateScore getter trigram =
             impacts
-                |> computeAggregatedScore getter
+                |> computeAggregatedScore definitions getter
                 |> insertWithoutAggregateComputation trigram
     in
     impacts
@@ -273,15 +273,16 @@ updateAggregatedScores impacts =
 
 
 getAggregatedScoreData :
-    (Definition -> Maybe Definition.AggregatedScoreData)
+    Definitions
+    -> (Definition -> Maybe Definition.AggregatedScoreData)
     -> Impacts
     -> List { color : String, name : String, value : Float }
-getAggregatedScoreData getter (Impacts impacts) =
+getAggregatedScoreData definitions getter (Impacts impacts) =
     AnyDict.foldl
         (\trigram impact acc ->
             let
                 def =
-                    Definition.get trigram
+                    Definition.get definitions trigram
             in
             case getter def of
                 Just { normalization, weighting, color } ->
@@ -311,12 +312,12 @@ encodeAggregatedScoreChartEntry entry =
         ]
 
 
-computeAggregatedScore : (Definition -> Maybe Definition.AggregatedScoreData) -> Impacts -> Unit.Impact
-computeAggregatedScore getter (Impacts impacts) =
+computeAggregatedScore : Definitions -> (Definition -> Maybe Definition.AggregatedScoreData) -> Impacts -> Unit.Impact
+computeAggregatedScore definitions getter (Impacts impacts) =
     impacts
         |> AnyDict.map
             (\trigram impact ->
-                Definition.get trigram
+                Definition.get definitions trigram
                     |> getter
                     |> Maybe.map
                         (\{ normalization, weighting } ->

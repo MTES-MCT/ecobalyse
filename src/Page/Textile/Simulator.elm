@@ -141,7 +141,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact = Definition.get trigram
+      , impact = Definition.get db.impactDefinitions trigram
       , funit = funit
       , modal = NoModal
       , chartHovering = []
@@ -566,7 +566,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             , session.queries.textile
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
-                Dataviz.view simulator
+                Dataviz.view db.impactDefinitions simulator
 
               else
                 div []
@@ -586,6 +586,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 [ ImpactView.selector
+                    db.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit

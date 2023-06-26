@@ -13,7 +13,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
@@ -79,11 +79,11 @@ toResponse encodedResult =
             ( 400, encodeStringError error )
 
 
-toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple : Definitions -> Simulator -> Encode.Value
+toAllImpactsSimple definitions { inputs, impacts } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
-        , ( "impacts", Impact.encodeImpacts Scope.Textile impacts )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
@@ -105,41 +105,41 @@ toTextileWebUrl maybeTrigram textileQuery =
         |> WebRoute.toString
 
 
-toSingleImpactSimple : Definition.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple : Definition.Trigram -> Definitions -> Simulator -> Encode.Value
+toSingleImpactSimple trigram definitions { inputs, impacts } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
         , ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts Scope.Textile
+                |> Impact.encodeImpacts definitions Scope.Textile
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
 
-toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
-toFoodResults query results =
+toFoodResults : BuilderQuery.Query -> Definitions -> BuilderRecipe.Results -> Encode.Value
+toFoodResults query definitions results =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.defaultFoodTrigram query |> Encode.string )
-        , ( "results", BuilderRecipe.encodeResults results )
+        , ( "results", BuilderRecipe.encodeResults definitions results )
         , ( "description", Encode.string "TODO" )
         , ( "query", BuilderQuery.encode query )
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery : BuilderDb.Db -> (Definitions -> BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
 executeFoodQuery builderDb encoder =
     BuilderRecipe.compute builderDb
-        >> Result.map (Tuple.second >> encoder)
+        >> Result.map (Tuple.second >> encoder builderDb.impactDefinitions)
         >> toResponse
 
 
-executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
+executeTextileQuery : TextileDb.Db -> (Definitions -> Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
 executeTextileQuery textileDb encoder =
     Simulator.compute textileDb
-        >> Result.map encoder
+        >> Result.map (encoder textileDb.impactDefinitions)
         >> toResponse
 
 

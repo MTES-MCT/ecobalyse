@@ -33,7 +33,7 @@ handleIngredientsLoaded session processes ingredientsData =
         RemoteData.Success ingredients ->
             Task.succeed
                 (Process.loadWellKnown processes
-                    |> Result.map (Db session.db.countries session.db.transports processes ingredients)
+                    |> Result.map (Db session.db.impactDefinitions session.db.countries session.db.transports processes ingredients)
                     |> RemoteData.fromResult
                     |> RemoteData.mapError Http.BadBody
                 )
@@ -50,7 +50,7 @@ handleIngredientsLoaded session processes ingredientsData =
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
 loadDb session event =
-    getJson Process.decodeList "food/processes/builder.json"
+    getJson (Process.decodeList session.db.impactDefinitions) "food/processes/builder.json"
         |> Task.andThen (handleProcessesLoaded session)
         |> Task.attempt
             (\result ->

@@ -37,9 +37,9 @@ suite =
             [ let
                 testComputedBonuses bonuses =
                     Impact.empty
-                        |> Impact.updateImpact Definition.Ecs (Unit.impact 1000)
-                        |> Impact.updateImpact Definition.Ldu (Unit.impact 100)
-                        |> Recipe.computeIngredientBonusesImpacts bonuses
+                        |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
+                        |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact 100)
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions bonuses
               in
               describe "computeIngredientBonusesImpacts"
                 [ describe "with zero bonuses applied"
@@ -92,9 +92,9 @@ suite =
                     (let
                         bonusImpacts =
                             Impact.empty
-                                |> Impact.updateImpact Definition.Ecs (Unit.impact 1000)
-                                |> Impact.updateImpact Definition.Ldu (Unit.impact -100)
-                                |> Recipe.computeIngredientBonusesImpacts
+                                |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
+                                |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
                                     , animalWelfare = Split.full

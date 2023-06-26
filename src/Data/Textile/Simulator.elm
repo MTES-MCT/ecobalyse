@@ -8,7 +8,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
@@ -41,13 +41,13 @@ type alias Simulator =
     }
 
 
-encode : Simulator -> Encode.Value
-encode v =
+encode : Definitions -> Simulator -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts Scope.Textile v.impacts )
-        , ( "transport", Transport.encode v.transport )
+        , ( "lifeCycle", LifeCycle.encode definitions v.lifeCycle )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
+        , ( "transport", Transport.encode definitions v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
@@ -549,8 +549,8 @@ computeFinalImpacts ({ lifeCycle } as simulator) =
     { simulator | impacts = LifeCycle.computeFinalImpacts lifeCycle }
 
 
-lifeCycleImpacts : Simulator -> List ( String, List ( String, Float ) )
-lifeCycleImpacts simulator =
+lifeCycleImpacts : Definitions -> Simulator -> List ( String, List ( String, Float ) )
+lifeCycleImpacts definitions simulator =
     -- cch:
     --     matiere: 25%
     --     tissage: 10%
@@ -558,7 +558,7 @@ lifeCycleImpacts simulator =
     --     etc.
     -- wtu:
     --     ...
-    Definition.forScope Scope.Textile
+    Definition.forScope definitions Scope.Textile
         |> List.map
             (\def ->
                 ( def.label

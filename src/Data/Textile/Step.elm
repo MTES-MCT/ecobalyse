@@ -20,6 +20,7 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
@@ -467,8 +468,8 @@ yarnSizeToDtexString yarnSize =
     String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
-encode : Step -> Encode.Value
-encode v =
+encode : Definitions -> Step -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
         , ( "enabled", Encode.bool v.enabled )
@@ -477,8 +478,8 @@ encode v =
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
-        , ( "transport", Transport.encode v.transport )
-        , ( "impacts", Impact.encodeImpacts Scope.Textile v.impacts )
+        , ( "transport", Transport.encode definitions v.transport )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

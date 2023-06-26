@@ -13,7 +13,7 @@ import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
@@ -219,13 +219,13 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
     ]
 
 
-impactsExplorer : Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Definition.Trigram -> List (Html Msg)
-impactsExplorer tableConfig tableState scope maybeTrigram =
-    [ Definition.forScope scope
+impactsExplorer : Definitions -> Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Definition.Trigram -> List (Html Msg)
+impactsExplorer definitions tableConfig tableState scope maybeTrigram =
+    [ Definition.forScope definitions scope
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
     , maybeTrigram
-        |> Maybe.map Definition.get
+        |> Maybe.map (Definition.get definitions)
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")
@@ -338,7 +338,7 @@ explore { db } { builderDb, scope, dataset, tableState } =
             db.countries |> countriesExplorer tableConfig tableState scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
-            impactsExplorer tableConfig tableState scope maybeTrigram
+            impactsExplorer db.impactDefinitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
             builderDb

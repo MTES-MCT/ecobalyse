@@ -16,7 +16,7 @@ module Data.Textile.Process exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
@@ -268,8 +268,8 @@ decodeFromUuid processes =
             )
 
 
-decode : Decoder Process
-decode =
+decode : Definitions -> Decoder Process
+decode definitions =
     Decode.succeed Process
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
@@ -278,7 +278,7 @@ decode =
         |> Pipe.required "correctif" Decode.string
         |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "uuid" decodeUuid
-        |> Pipe.required "impacts" Impact.decodeImpacts
+        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -286,9 +286,9 @@ decode =
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 
-decodeList : Decoder (List Process)
-decodeList =
-    Decode.list decode
+decodeList : Definitions -> Decoder (List Process)
+decodeList definitions =
+    Decode.list (decode definitions)
 
 
 decodeUuid : Decoder Uuid
