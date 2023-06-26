@@ -163,7 +163,7 @@ compute db =
                     transformImpacts =
                         transform
                             |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     distributionImpacts =
                         distribution
@@ -175,7 +175,7 @@ compute db =
                                     in
                                     Retail.computeImpacts volume distrib db.wellKnown
                                 )
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     distributionTransportNeedsCooling =
                         ingredients
@@ -192,7 +192,7 @@ compute db =
                                         (\distrib ->
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
-                                    |> Maybe.withDefault (Transport.default Impact.noImpacts)
+                                    |> Maybe.withDefault (Transport.default Impact.empty)
                         in
                         Transport.computeImpacts db mass transport
 
@@ -381,7 +381,7 @@ computeIngredientTransport : Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
-            Impact.impactsFromDefinitons
+            Impact.empty
 
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"

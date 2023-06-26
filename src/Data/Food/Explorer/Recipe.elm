@@ -262,7 +262,7 @@ compute db =
                     transformImpacts =
                         transform
                             |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     packagingImpacts =
                         packaging

@@ -28,7 +28,7 @@ km =
 
 defaultImpacts : Impacts
 defaultImpacts =
-    Impact.noImpacts
+    Impact.empty
         |> Impact.updateImpact Definition.Cch Quantity.zero
         |> Impact.updateImpact Definition.Fwe Quantity.zero
 
@@ -42,7 +42,7 @@ noOpProcess =
     , source = ""
     , correctif = ""
     , stepUsage = ""
-    , impacts = Impact.noImpacts
+    , impacts = Impact.empty
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
@@ -77,14 +77,14 @@ suite =
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
-                                        Impact.noImpacts
+                                        Impact.empty
                                             |> Impact.updateImpact Definition.Cch (Unit.impact 0.5)
                                             |> Impact.updateImpact Definition.Fwe (Unit.impact 1.5)
                                 }
                             , countryHeatProcess =
                                 { noOpProcess
                                     | impacts =
-                                        Impact.noImpacts
+                                        Impact.empty
                                             |> Impact.updateImpact Definition.Cch (Unit.impact 0.5)
                                             |> Impact.updateImpact Definition.Fwe (Unit.impact 1.5)
                                 }
@@ -114,7 +114,7 @@ suite =
                         { countryElecProcess =
                             { noOpProcess
                                 | impacts =
-                                    Impact.noImpacts
+                                    Impact.empty
                                         |> Impact.updateImpact Definition.Cch (Unit.impact 8.13225e-2)
                                         |> Impact.updateImpact Definition.Fwe (Unit.impact 3.26897e-8)
                             }
@@ -154,7 +154,7 @@ suite =
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
-                                        Impact.noImpacts
+                                        Impact.empty
                                             |> Impact.updateImpact Definition.Cch (Unit.impact 0.2)
                                             |> Impact.updateImpact Definition.Fwe (Unit.impact 0.5)
                                 }
@@ -228,7 +228,7 @@ testTransportRatio airTransportRatio { road, sea, air } =
     , sea = km sea
     , seaCooled = km 0
     , air = km air
-    , impacts = Impact.noImpacts
+    , impacts = Impact.empty
     }
         |> Formula.transportRatio airTransportRatio
         |> (\t ->

@@ -945,7 +945,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
                                     |> List.head
                                     |> Maybe.map Tuple.second
-                                    |> Maybe.withDefault Impact.noImpacts
+                                    |> Maybe.withDefault Impact.empty
                             , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =

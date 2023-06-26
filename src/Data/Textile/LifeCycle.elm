@@ -66,7 +66,7 @@ computeTotalTransportImpacts =
                             )
             }
         )
-        (Transport.default Impact.impactsFromDefinitons)
+        (Transport.default Impact.empty)
 
 
 computeFinalImpacts : LifeCycle -> Impacts
@@ -83,7 +83,7 @@ computeFinalImpacts =
                             ]
                     )
         )
-        Impact.impactsFromDefinitons
+        Impact.empty
 
 
 getNextEnabledStep : Label -> LifeCycle -> Maybe Step

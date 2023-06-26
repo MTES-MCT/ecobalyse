@@ -7,6 +7,7 @@ module Data.Impact exposing
     , decodeImpacts
     , defaultFoodTrigram
     , defaultTextileTrigram
+    , empty
     , encodeAggregatedScoreChartEntry
     , encodeBonusesImpacts
     , encodeImpacts
@@ -14,10 +15,8 @@ module Data.Impact exposing
     , getAggregatedScoreData
     , getImpact
     , grabImpactFloat
-    , impactsFromDefinitons
     , mapImpacts
     , noBonusImpacts
-    , noImpacts
     , parseTrigram
     , perKg
     , sumImpacts
@@ -160,14 +159,8 @@ type Impacts
     = Impacts (AnyDict String Trigram Unit.Impact)
 
 
-noImpacts : Impacts
-noImpacts =
-    AnyDict.empty Definition.toString
-        |> Impacts
-
-
-impactsFromDefinitons : Impacts
-impactsFromDefinitons =
+empty : Impacts
+empty =
     List.map (\trigram -> ( trigram, Quantity.zero )) Definition.trigrams
         |> AnyDict.fromList Definition.toString
         |> Impacts
@@ -219,7 +212,7 @@ sumImpacts =
                     Quantity.sum [ getImpact trigram impacts, impact ]
                 )
         )
-        impactsFromDefinitons
+        empty
 
 
 toDict : Impacts -> AnyDict.AnyDict String Trigram Unit.Impact

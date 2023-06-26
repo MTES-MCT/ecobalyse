@@ -14,7 +14,7 @@ suite : Test
 suite =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons
+            Impact.empty
 
         expectScoreEquals expectedValue testValue =
             testValue

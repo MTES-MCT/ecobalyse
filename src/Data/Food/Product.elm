@@ -455,7 +455,7 @@ updatePlantTransport originalProduct processes countryCode distances ({ plant } 
             Quantity.ratio plantWeight originalPlantWeight
 
         impacts =
-            Impact.impactsFromDefinitons
+            Impact.empty
 
         transport =
             distances

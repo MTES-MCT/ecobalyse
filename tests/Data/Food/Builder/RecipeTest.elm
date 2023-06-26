@@ -36,7 +36,7 @@ suite =
         (\{ builderDb } ->
             [ let
                 testComputedBonuses bonuses =
-                    Impact.impactsFromDefinitons
+                    Impact.empty
                         |> Impact.updateImpact Definition.Ecs (Unit.impact 1000)
                         |> Impact.updateImpact Definition.Ldu (Unit.impact 100)
                         |> Recipe.computeIngredientBonusesImpacts bonuses
@@ -91,7 +91,7 @@ suite =
                 , describe "with maluses avoided"
                     (let
                         bonusImpacts =
-                            Impact.impactsFromDefinitons
+                            Impact.empty
                                 |> Impact.updateImpact Definition.Ecs (Unit.impact 1000)
                                 |> Impact.updateImpact Definition.Ldu (Unit.impact -100)
                                 |> Recipe.computeIngredientBonusesImpacts

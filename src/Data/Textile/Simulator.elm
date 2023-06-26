@@ -57,7 +57,7 @@ init : Db -> Inputs.Query -> Result String Simulator
 init db =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons
+            Impact.empty
     in
     Inputs.fromQuery db
         >> Result.map

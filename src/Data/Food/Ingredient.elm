@@ -244,7 +244,7 @@ getDefaultOriginTransport : PlaneTransport -> Origin -> Transport
 getDefaultOriginTransport planeTransport origin =
     let
         default =
-            Transport.default Impact.impactsFromDefinitons
+            Transport.default Impact.empty
     in
     case origin of
         Origin.France ->

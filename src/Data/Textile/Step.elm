@@ -92,7 +92,7 @@ create : { label : Label, editable : Bool, country : Country, enabled : Bool } -
 create { label, editable, country, enabled } =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons
+            Impact.empty
     in
     { label = label
     , enabled = enabled

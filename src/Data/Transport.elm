@@ -132,7 +132,7 @@ sum =
                 , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
             }
         )
-        (default Impact.impactsFromDefinitons)
+        (default Impact.empty)
 
 
 emptyDistances : Distances
@@ -228,7 +228,7 @@ decode =
         -- seaCooled
         (Decode.succeed Quantity.zero)
         (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.noImpacts)
+        (Decode.succeed Impact.empty)
 
 
 encode : Transport -> Encode.Value
