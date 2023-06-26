@@ -220,7 +220,7 @@ Ces valeurs par défaut ont été définies par Ecobalyse sur la base des donné
 
 <details>
 
-<summary>Titrage &#x26; Consommation d'électricité (kWh)/ kg de fil)</summary>
+<summary>Titrage &#x26; Consommation d'électricité (kWh/ kg de fil)</summary>
 
 Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).&#x20;
 
