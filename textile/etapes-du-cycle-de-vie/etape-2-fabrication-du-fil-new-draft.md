@@ -125,7 +125,7 @@ Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant
 
 _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (2).png>)
 
 </details>
 
@@ -209,27 +209,29 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 * du titrage du fil\
   (plus le fil est épais, plus la quantité de fil à produire est faible pour un poids donné).&#x20;
 
-**Valeurs par défaut  (kWh / kg de fil)**&#x20;
+**Etape 1 = valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/image (2).png>)
+![](../../.gitbook/assets/image.png)
 
-Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
+Ces valeurs par défaut (constantes) ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
-</details>
+**Etape 2 = prise en compte du titrage du fil**
 
-<details>
+Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).
 
-<summary>Titrage &#x26; Consommation d'électricité (kWh/ kg de fil)</summary>
+Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200 Dtex.&#x20;
 
-Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).&#x20;
+Dès lors, la consommation d'électricité du procédé de fabrication du fil est exprimée ainsi:
 
-Par défaut, Ecobalyse considère que les consommations d'électricité pre-définies s'appliquent à un fil moyen dont le titrage est de 50 Nm / 200 Dtex.
+$$kWh /kgdefil(procédé) =Titrage(Nm) / 50 * constante(procédé)$$
+
+
 
 _Illustration :_&#x20;
 
 ![](https://lh4.googleusercontent.com/VuoNnhNFXR6IPFHxgiVB-YFL6UEWKkbQz5GdqGbT\_BoS2UKbR1JsbYfYX8JKvOzmz\_Vxu\_0KwJ4stNIdrgcr1vEMdNz9tNotYCbpkRRy5Kk\_C0OSqdLMDtnyPUsEIo85pjHcqmBeki-lg-UM\_aqh30PBKw=s2048)
 
-Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité de fil donnée. Une telle corrélation est mise en lumière dans différents travaux de la filière tandis que plusieurs réferntiels partagent ce constat. C'est par exemple le cas des référentiels _PEFCR A\&F_ et _HiggIndex_ qui déclinent différents procédés de filature selon différents titrages de fil.&#x20;
+Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité de fil donnée. Une telle corrélation est mise en lumière dans différents travaux de la filière tandis que plusieurs réferntiels partagent ce constat. C'est par exemple le cas des bases de données _PEFCR A\&F_ et _HiggIndex_ qui déclinent différents procédés de filature selon différents titrages de fil.&#x20;
 
 </details>
 
