@@ -125,7 +125,7 @@ Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant
 
 _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
 
-![](<../../.gitbook/assets/image (2).png>)
+![](../../.gitbook/assets/image.png)
 
 </details>
 
@@ -211,9 +211,11 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 
 **Etape 1 = valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (2).png>)
 
 Ces valeurs par défaut (constantes) ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
+
+
 
 **Etape 2 = prise en compte du titrage du fil**
 
@@ -223,9 +225,9 @@ Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200
 
 Dès lors, la consommation d'électricité du procédé de fabrication du fil est exprimée ainsi:
 
-$$kWh /kgdefil(procédé) =Titrage(Nm) / 50 * constante(procédé)$$
+$$kWh/kg(Procédé) =Titrage(Nm) / 50 * Constante(Procédé)$$
 
-
+Cf. _Etape 1_ pour les options possibles de _Procédé/Constante_.
 
 _Illustration :_&#x20;
 
