@@ -717,7 +717,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                     , domId = "animalWelfare_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.animalWelfare
                     , bonusSplit = bonuses.animalWelfare
-                    , disabled = ingredient.category /= IngredientCategory.AnimalProduct
+                    , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.category)
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
