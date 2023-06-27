@@ -85,6 +85,7 @@ type alias Results =
     , preparedMass : Mass
     , recipe :
         { total : Impacts
+        , initialMass : Mass
         , edibleMass : Mass
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
@@ -268,6 +269,7 @@ compute db =
                   , preparedMass = preparedMass
                   , recipe =
                         { total = addIngredientsBonuses recipeImpacts
+                        , initialMass = recipe.ingredients |> List.map .mass |> Quantity.sum
                         , edibleMass = removeIngredientsInedibleMass recipe.ingredients |> List.map .mass |> Quantity.sum
                         , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
                         , ingredients = ingredientsImpacts

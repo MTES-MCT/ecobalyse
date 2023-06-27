@@ -1021,8 +1021,8 @@ transportToTransformationView selectedImpact results =
     DownArrow.view
         []
         [ div []
-            [ text "Masse comestible\u{00A0}: "
-            , Format.kg results.recipe.edibleMass
+            [ text "Masse : "
+            , Format.kg results.recipe.initialMass
             ]
         , div [ class "d-flex justify-content-between" ]
             [ div [ class "d-flex justify-content-between gap-3" ]
@@ -1041,28 +1041,38 @@ transportToTransformationView selectedImpact results =
         ]
 
 
-transportToPackagingView : Recipe -> Html Msg
-transportToPackagingView recipe =
+transportToPackagingView : Recipe -> Recipe.Results -> Html Msg
+transportToPackagingView recipe results =
     DownArrow.view
         []
         [ div []
-            [ case recipe.transform of
-                Just transform ->
-                    span
-                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
-                        [ text "Masse du produit après transformation : " ]
-
-                Nothing ->
-                    text "Masse : "
-            , Recipe.getTransformedIngredientsMass recipe
-                |> Format.kg
+            [ text "Masse comestible\u{00A0}: "
+            , Format.kg results.recipe.edibleMass
             , Link.smallPillExternal
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio)
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodInediblePart)
                 , title "Accéder à la documentation"
                 , attribute "aria-label" "Accéder à la documentation"
                 ]
                 [ Icon.question ]
             ]
+        , case recipe.transform of
+            Just transform ->
+                div []
+                    [ span
+                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
+                        [ text "Masse après transformation : " ]
+                    , Recipe.getTransformedIngredientsMass recipe
+                        |> Format.kg
+                    , Link.smallPillExternal
+                        [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio)
+                        , title "Accéder à la documentation"
+                        , attribute "aria-label" "Accéder à la documentation"
+                        ]
+                        [ Icon.question ]
+                    ]
+
+            Nothing ->
+                text ""
         ]
 
 
@@ -1434,7 +1444,7 @@ stepListView db { impact } recipe results =
         , transportToTransformationView impact results
         , div [ class "card shadow-sm" ]
             (transformView db impact recipe results)
-        , transportToPackagingView recipe
+        , transportToPackagingView recipe results
         , div [ class "card shadow-sm" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
