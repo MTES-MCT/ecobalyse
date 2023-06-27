@@ -125,7 +125,7 @@ Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant
 
 _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
 
-![](<../../.gitbook/assets/image (1).png>)
+![](<../../.gitbook/assets/image (2).png>)
 
 </details>
 
@@ -160,16 +160,28 @@ La technique non-conventionnelle (open-end) est plus efficace mais est plus cont
 
 Le titrage du fil est mobilisé à double titre :&#x20;
 
-* lors de l'étape **Tissage** : permet de calculer la densité de fils du tissu et donc la consommation d'électricité (kWh) de l'étape,
+* lors de l'étape **Tissage** : permet de calculer la densité de fils du tissu et donc la consommation d'électricité (kWh) de l'étape (plus d'info [ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#parametres-mobilises)),
 * lors de l'étape de **Fabrication du fil**  :  la consommation d'électricité moyenne de la filature/filage d'un kg de fil dépend directement de son titrage (plus le fil est fin, plus la quantité de matière à transformer est élevée pour produire la quantité de fil désirée).&#x20;
 
 </details>
 
 ### Méthodologie de calcul
 
-A compléter
+Pour l'étape de la fabrication du/des fil(s), nous faisons l'hypothèse que celle ci n'a besoin que d'électricité.&#x20;
 
+Nous considérons que les autres impacts (machines, produits auxiliaires, etc.) sont négligeables.
 
+On a donc :
+
+$$
+I_{Filature} = Qté\_élec_{filature} * I_{élec}
+$$
+
+Avec :&#x20;
+
+* `Qté_élec_{filature}`, la quantité d'électricité nécessaire pour filer 1 kg de fil. \
+  Cf. rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ pour le calcul de la quantité d'électricité. &#x20;
+* `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature
 
 ### Hypothèses par défaut
 
@@ -208,7 +220,7 @@ La consommation d'électricité de la fabrication d'un fil, exprimée en kWh / k
 
 **Etape 1 = valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/image (3).png>)
+![](<../../.gitbook/assets/image (19).png>)
 
 Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
@@ -220,7 +232,7 @@ Une corrélation linéraire est appliquée par défaut entre le titrage du fil (
 Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200 Dtex.&#x20;
 
 _Illustration de la corrélation linéaire entre la conso. élec. et le titrage du fil :_ \
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (3).png>)
 
 
 
@@ -228,7 +240,11 @@ Dès lors, la consommation d'électricité nécessaire pour fabriquer un fil s'e
 
 $$kWh(Procédé) =Titrage(Nm) / 50 * Constante(Procédé)*MasseSortante(kg)$$
 
-_Cf. Etape 1 pour les 3 options possibles de Procédé/Constante_
+Avec : \
+\- kWh(Procédé) = consommation d'électricité du procédé de fabrication du fil,\
+\- Procédé = procédé de fabrication du fil sélectionné\
+(3 options : filature conventionnelle, filature non conventionnelle, filage),\
+\- Constante(Procédé) = constante par défaut du procédé sélectionné (exprimée en kWh/kg) présentée lors de l'_Etape 1_ .
 
 
 
@@ -239,7 +255,7 @@ Dans le cas où le vêtement est composé de fibres de différentes natures (ex 
 
 _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x20;
 
-![](<../../.gitbook/assets/image (19).png>)
+![](<../../.gitbook/assets/image (1).png>)
 
 </details>
 
