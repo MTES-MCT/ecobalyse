@@ -120,7 +120,7 @@ Chacun de ces machines est équipée d’une jauge qui détermine la finesse du 
 
 **Techniques de tricotage (schéma simplifié)**
 
-![](<../../.gitbook/assets/image (3).png>)
+![](<../../.gitbook/assets/image (3) (2).png>)
 
 </details>
 

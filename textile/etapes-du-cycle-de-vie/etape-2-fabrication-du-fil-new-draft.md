@@ -77,7 +77,7 @@ A la sortie de la filière les multi-filaments obtenus sont soit étirés entre 
 
 <details>
 
-<summary>Différents types de fil existent (filé, fil simple-retors-cablé-etc.)</summary>
+<summary>Différents types de fil existent (filé, fil simple, retors, etc.)</summary>
 
 Les principaux types de fil sont les suivants :&#x20;
 
@@ -137,10 +137,7 @@ _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#
 
 <summary>Fabrication du fil (filature vs filage) </summary>
 
-Un fil peut être fabriqué selon deux procédés : la filature ou le filage.\
-Cf. précédemment pour plus d'informations.
-
-Le choix de ce procédé dépend de la composition d'un fil (ex : 100% coton, 50% polyester - 50% coton, etc.).&#x20;
+Un fil peut être fabriqué selon deux procédés : la filature ou le filage.&#x20;
 
 </details>
 
@@ -180,11 +177,11 @@ A compléter
 
 <summary>Fabrication du fil (filature vs filage) </summary>
 
-La **filature** est utilisée par défaut pour les fils composés : \
-\- à 100% de matières naturelles ou artificielles,\
-\- d'un mix de matières.
+La **filature** est utilisée par défaut pour les fils composés fibres naturelles ou artificielles.
 
-Le **filage** est utilisé par défaut pour les fils composés à 100% de matières synthétiques.
+Le **filage** est utilisé par défaut pour les fils composés de filaments (matières synthétiques).
+
+:warning: Ecobalyse ne permet pas de modéliser des fils multi-fibres (ex : fil composé à 50% de coton et 50% de polyester). Si un vêtement est composé de plusieurs matières, Ecobalyse considère que différents fils sont assemblés lors de la fabrication de l'étoffe.&#x20;
 
 </details>
 
@@ -213,27 +210,31 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 
 ![](<../../.gitbook/assets/image (2).png>)
 
-Ces valeurs par défaut (constantes) ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
+Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
 
 
 **Etape 2 = prise en compte du titrage du fil**
 
-Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).
-
+Une corrélation linéraire est appliquée par défaut entre le titrage du fil (Nm) et la consommation d'électricité (kWh).\
 Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200 Dtex.&#x20;
 
-Dès lors, la consommation d'électricité du procédé de fabrication du fil est exprimée ainsi:
+_Illustration de la corrélation linéaire entre la conso. élec. et le titrage du fil :_ \
+![](<../../.gitbook/assets/image (1).png>)
 
-$$kWh/kg(Procédé) =Titrage(Nm) / 50 * Constante(Procédé)$$
 
-Cf. _Etape 1_ pour les options possibles de _Procédé/Constante_.
 
-_Illustration :_&#x20;
+Dès lors, la consommation d'électricité nécessaire pour fabriquer un fil s'exprime ainsi :&#x20;
 
-![](https://lh4.googleusercontent.com/VuoNnhNFXR6IPFHxgiVB-YFL6UEWKkbQz5GdqGbT\_BoS2UKbR1JsbYfYX8JKvOzmz\_Vxu\_0KwJ4stNIdrgcr1vEMdNz9tNotYCbpkRRy5Kk\_C0OSqdLMDtnyPUsEIo85pjHcqmBeki-lg-UM\_aqh30PBKw=s2048)
+$$kWh(Procédé) =Titrage(Nm) / 50 * Constante(Procédé)*MasseSortante(kg)$$
 
-Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opérations à effectuer lors de la fabrication du fil est élevé pour produire une quantité de fil donnée. Une telle corrélation est mise en lumière dans différents travaux de la filière tandis que plusieurs réferntiels partagent ce constat. C'est par exemple le cas des bases de données _PEFCR A\&F_ et _HiggIndex_ qui déclinent différents procédés de filature selon différents titrages de fil.&#x20;
+_Cf. Etape 1 pour les 3 options possibles de Procédé/Constante_
+
+
+
+:bulb: Pour les vêtements composés de plusieurs matières, Ecobalyse considère que ce mix intervient lors de l'assemblage de différents fils pour fabriquer l'étoffe. Dès lors, la consommation d'électricité de l'étape de fabrication du fil est égale à la somme des différents procédés utilisés. \
+_Exemple de calcul_ \
+![](<../../.gitbook/assets/image (3).png>)
 
 </details>
 
