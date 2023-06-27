@@ -232,13 +232,15 @@ _Cf. Etape 1 pour les 3 options possibles de Procédé/Constante_
 
 
 
-:bulb: **Focus : vêtements composé de plusieurs matières**  &#x20;
+:bulb: **Focus : vêtements composés de plusieurs matières**  &#x20;
 
 Ecobalyse considère que le mix de matières intervient lors de l'étape de fabrication de l'étoffe (tissage ou tricotage) via l'utilisation de fils spécifiques.\
 Dans le cas où le vêtement est composé de fibres de différentes natures (ex : synthétiques et naturelles), des fils de différentes natures sont donc fabriqués. Dès lors, la consommation d'électricité de l'étape _Fabrication du fil_ est égale à la somme des impacts des différents procédés utilisés.
 
-_Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_ \
-![](../../.gitbook/assets/image.png)
+_Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x20;
+
+![](<../../.gitbook/assets/image (19).png>)\
+
 
 </details>
 
