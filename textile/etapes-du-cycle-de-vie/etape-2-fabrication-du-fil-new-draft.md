@@ -197,9 +197,9 @@ L'utilisateur a la possibilité de modifier ce paramètre et de sélectionner la
 
 <details>
 
-<summary>Consommation d'électricité (kWh / kg de fil)</summary>
+<summary>Consommation d'électricité</summary>
 
-La consommation d'électricité de la fabrication d'un fil dépend directement des paramètres susmentionnés  :&#x20;
+La consommation d'électricité de la fabrication d'un fil, exprimée en kWh / kg, dépend directement des paramètres susmentionnés  :&#x20;
 
 * du procédé utilisé (filage vs filature),
 * de la technologie de filature utilisée (conventionnelle vs non-conventionnelle),
@@ -239,16 +239,19 @@ Dans le cas où le vêtement est composé de fibres de différentes natures (ex 
 
 _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x20;
 
-![](<../../.gitbook/assets/image (19).png>)\
-
+![](<../../.gitbook/assets/image (19).png>)
 
 </details>
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués sur la base de données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)). Pour les matrières recyclées, le taux de pertes de la matière vierge est appliqué.&#x20;
+Des taux de perte par défaut sont appliqués sur la base de données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
 
-<table><thead><tr><th width="246.33333333333331">Fibres</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelles ou Artificielles</td><td>12%</td></tr><tr><td>Synthétiques</td><td>3%</td></tr><tr><td>Mix</td><td>Moyenne pondérée<br>(ex: fil 50/50 coton/polyester = 0,5*12% + 0,5*3% = 7,5%) </td></tr></tbody></table>
+Pour les matrières recyclées, le taux de pertes de la matière vierge est appliqué.&#x20;
+
+Pour les vêtements composés de plusieurs matières, le même raisonnement que celui présenté dans la rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ est applicable.
+
+<table><thead><tr><th width="246.33333333333331">Fibres</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelles ou Artificielles</td><td>12%</td></tr><tr><td>Synthétiques</td><td>3%</td></tr></tbody></table>
 
 ## Limites
 
