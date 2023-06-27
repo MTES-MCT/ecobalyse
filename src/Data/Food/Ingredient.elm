@@ -44,6 +44,7 @@ type alias Ingredient =
     , category : IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
+    , inediblePart : Split
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     , density : Density
@@ -199,6 +200,7 @@ decodeIngredient processes =
         |> Pipe.required "category" IngredientCategory.decode
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
+        |> Pipe.required "inedible_part" Split.decodeFloat
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.optional "variants" (decodeVariants processes) { organic = Nothing }
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
