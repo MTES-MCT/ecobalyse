@@ -125,7 +125,7 @@ Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant
 
 _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (1).png>)
 
 </details>
 
@@ -208,7 +208,7 @@ La consommation d'électricité de la fabrication d'un fil dépend directement d
 
 **Etape 1 = valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (3).png>)
 
 Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
 
@@ -220,7 +220,7 @@ Une corrélation linéraire est appliquée par défaut entre le titrage du fil (
 Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200 Dtex.&#x20;
 
 _Illustration de la corrélation linéaire entre la conso. élec. et le titrage du fil :_ \
-![](<../../.gitbook/assets/image (1).png>)
+![](<../../.gitbook/assets/image (2).png>)
 
 
 
@@ -232,9 +232,13 @@ _Cf. Etape 1 pour les 3 options possibles de Procédé/Constante_
 
 
 
-:bulb: Pour les vêtements composés de plusieurs matières, Ecobalyse considère que ce mix intervient lors de l'assemblage de différents fils pour fabriquer l'étoffe. Dès lors, la consommation d'électricité de l'étape de fabrication du fil est égale à la somme des différents procédés utilisés. \
-_Exemple de calcul_ \
-![](<../../.gitbook/assets/image (3).png>)
+:bulb: **Focus : vêtements composé de plusieurs matières**  &#x20;
+
+Ecobalyse considère que le mix de matières intervient lors de l'étape de fabrication de l'étoffe (tissage ou tricotage) via l'utilisation de fils spécifiques.\
+Dans le cas où le vêtement est composé de fibres de différentes natures (ex : synthétiques et naturelles), des fils de différentes natures sont donc fabriqués. Dès lors, la consommation d'électricité de l'étape _Fabrication du fil_ est égale à la somme des impacts des différents procédés utilisés.
+
+_Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_ \
+![](../../.gitbook/assets/image.png)
 
 </details>
 
