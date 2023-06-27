@@ -239,13 +239,9 @@ Toutes choses égales par ailleurs, plus le fil est fin, plus le nombre d'opéra
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués selon le type de fibres et la technique de filature.
+Des taux de perte par défaut sont appliqués sur la base de données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)). Pour les matrières recyclées, le taux de pertes de la matière vierge est appliqué.&#x20;
 
-<table><thead><tr><th width="227.33333333333331">Fibre</th><th width="354">Procédé</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelle &#x26; Artificielle</td><td>Filature non-conventionnelle (open-end)</td><td>10%</td></tr><tr><td>Naturelle &#x26; Artificielle</td><td>Filature conventionnelle (ring) </td><td>15%</td></tr><tr><td>Synthétique</td><td>Filage</td><td>2%</td></tr></tbody></table>
-
-Ces valeurs par défaut ont été définies par Ecobalyse sur la base des données moyennes collectées dans le cadre des travaux méthodologiques (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
-
-L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
+<table><thead><tr><th width="246.33333333333331">Fibres</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelles ou Artificielles</td><td>12%</td></tr><tr><td>Synthétiques</td><td>3%</td></tr><tr><td>Mix</td><td>Moyenne pondérée<br>(ex: fil 50/50 coton/polyester = 0,5*12% + 0,5*3% = 7,5%) </td></tr></tbody></table>
 
 ## Limites
 
