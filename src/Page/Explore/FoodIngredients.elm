@@ -8,6 +8,7 @@ import Data.Food.Origin as Origin
 import Data.Food.Process as Process
 import Data.Gitbook as Gitbook
 import Data.Scope exposing (Scope)
+import Data.Split as Split
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -45,6 +46,20 @@ table _ { detailed, scope } =
         , { label = "Origine par défaut"
           , toValue = .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
+          }
+        , { label = "Part non-comestible"
+          , toValue = .inediblePart >> Split.toPercentString
+          , toCell =
+                \{ inediblePart } ->
+                    div [ classList [ ( "text-end", not detailed ) ] ]
+                        [ inediblePart
+                            |> Split.toPercent
+                            |> toFloat
+                            |> Format.percent
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodInediblePart) ]
+                            [ Icon.question ]
+                        ]
           }
         , { label = "Rapport cru/cuit"
           , toValue = .rawToCookedRatio >> Unit.ratioToFloat >> String.fromFloat
