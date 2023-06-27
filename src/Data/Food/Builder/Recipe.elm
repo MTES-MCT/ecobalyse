@@ -85,6 +85,7 @@ type alias Results =
     , preparedMass : Mass
     , recipe :
         { total : Impacts
+        , edibleMass : Mass
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
         , totalBonusesImpact : Impact.BonusImpacts
@@ -267,6 +268,7 @@ compute db =
                   , preparedMass = preparedMass
                   , recipe =
                         { total = addIngredientsBonuses recipeImpacts
+                        , edibleMass = removeIngredientsInedibleMass recipe.ingredients |> List.map .mass |> Quantity.sum
                         , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
                         , ingredients = ingredientsImpacts
                         , totalBonusesImpact = totalBonusesImpact
@@ -567,9 +569,23 @@ getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
         getTransformedIngredientsMass recipe
 
 
+removeIngredientsInedibleMass : List RecipeIngredient -> List RecipeIngredient
+removeIngredientsInedibleMass =
+    List.map
+        (\({ mass, ingredient } as recipeIngredient) ->
+            { recipeIngredient
+                | mass =
+                    mass
+                        |> Quantity.multiplyBy (1 - Split.toFloat ingredient.inediblePart)
+            }
+        )
+
+
 getTransformedIngredientsMass : Recipe -> Mass
 getTransformedIngredientsMass { ingredients, transform } =
     ingredients
+        -- Substract inedible mass from the ingredient total mass
+        |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
                 case transform |> Maybe.andThen (.process >> .alias) of

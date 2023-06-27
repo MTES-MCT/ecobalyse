@@ -1016,15 +1016,13 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-transportToTransformationView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
-transportToTransformationView selectedImpact recipe results =
+transportToTransformationView : Impact.Definition -> Recipe.Results -> Html Msg
+transportToTransformationView selectedImpact results =
     DownArrow.view
         []
         [ div []
-            [ text "Masse\u{00A0}: "
-            , recipe.ingredients
-                |> Query.getIngredientMass
-                |> Format.kg
+            [ text "Masse comestible\u{00A0}: "
+            , Format.kg results.recipe.edibleMass
             ]
         , div [ class "d-flex justify-content-between" ]
             [ div [ class "d-flex justify-content-between gap-3" ]
@@ -1433,7 +1431,7 @@ stepListView db { impact } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
-        , transportToTransformationView impact recipe results
+        , transportToTransformationView impact results
         , div [ class "card shadow-sm" ]
             (transformView db impact recipe results)
         , transportToPackagingView recipe
