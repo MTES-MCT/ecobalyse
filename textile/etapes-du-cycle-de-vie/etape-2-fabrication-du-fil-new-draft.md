@@ -174,14 +174,14 @@ Nous considérons que les autres impacts (machines, produits auxiliaires, etc.) 
 On a donc :
 
 $$
-I_{Filature} = Qté\_élec_{filature} * I_{élec}
+I_{Filature} = Qté\_élec_{fil} * I_{élec}
 $$
 
 Avec :&#x20;
 
-* `Qté_élec_{filature}`, la quantité d'électricité nécessaire pour filer 1 kg de fil. \
+* `Qté_élec_{fil}`, la quantité d'électricité nécessaire pour filer 1 kg de fil. \
   Cf. rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ pour le calcul de la quantité d'électricité. &#x20;
-* `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature
+* `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature.
 
 ### Hypothèses par défaut
 
