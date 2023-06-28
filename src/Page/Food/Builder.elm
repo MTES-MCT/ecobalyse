@@ -38,7 +38,6 @@ import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
-import Request.Common
 import Request.Food.BuilderDb as FoodRequestDb
 import Route
 import Task
@@ -57,7 +56,6 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Spinner as Spinner
 import Views.Table as Table
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
@@ -1229,12 +1227,12 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-mainView : Session -> Db -> Model -> Html Msg
-mainView session db model =
+mainView : Session -> Model -> Html Msg
+mainView session model =
     let
         computed =
             session.queries.food
-                |> Recipe.compute db
+                |> Recipe.compute model.db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -1249,12 +1247,12 @@ mainView session db model =
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView db model recipe results
+                    stepListView model recipe results
 
                 Err error ->
                     errorView error
             , session.queries.food
-                |> debugQueryView db
+                |> debugQueryView model.db
             ]
         ]
 
@@ -1433,8 +1431,8 @@ impactTabsView model results =
         }
 
 
-stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView db { impact } recipe results =
+stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView { db, impact } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1493,57 +1491,37 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ case session.builderDb of
-                RemoteData.Success db ->
-                    mainView session db model
-
-                RemoteData.Loading ->
-                    Spinner.view
-
-                RemoteData.Failure error ->
-                    error
-                        |> Request.Common.errorToString
-                        |> text
-                        |> List.singleton
-                        |> div [ class "alert alert-danger" ]
-
-                RemoteData.NotAsked ->
-                    text "Shouldn't happen"
+            [ mainView session model
             , case model.modal of
                 NoModal ->
                     text ""
 
                 ComparatorModal ->
-                    case session.builderDb of
-                        RemoteData.Success db ->
-                            ModalView.view
-                                { size = ModalView.ExtraLarge
-                                , close = SetModal NoModal
-                                , noOp = NoOp
-                                , title = "Comparateur de simulations sauvegardées"
-                                , formAction = Nothing
-                                , content =
-                                    [ ComparatorView.comparator
-                                        { session = session
-                                        , impact = model.impact
-                                        , options =
-                                            ComparatorView.foodOptions
-                                                { comparisonUnit = model.comparisonUnit
-                                                , switchComparisonUnit = SwitchComparisonUnit
-                                                , displayChoice = model.displayChoice
-                                                , switchDisplayChoice = SwitchDisplayChoice
-                                                , db = db
-                                                }
-                                        , toggle = ToggleComparedSimulation
-                                        , chartHovering = model.chartHovering
-                                        , onChartHover = OnChartHover
+                    ModalView.view
+                        { size = ModalView.ExtraLarge
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Comparateur de simulations sauvegardées"
+                        , formAction = Nothing
+                        , content =
+                            [ ComparatorView.comparator
+                                { session = session
+                                , impact = model.impact
+                                , options =
+                                    ComparatorView.foodOptions
+                                        { comparisonUnit = model.comparisonUnit
+                                        , switchComparisonUnit = SwitchComparisonUnit
+                                        , displayChoice = model.displayChoice
+                                        , switchDisplayChoice = SwitchDisplayChoice
+                                        , db = model.db
                                         }
-                                    ]
-                                , footer = []
+                                , toggle = ToggleComparedSimulation
+                                , chartHovering = model.chartHovering
+                                , onChartHover = OnChartHover
                                 }
-
-                        _ ->
-                            text ""
+                            ]
+                        , footer = []
+                        }
             ]
       ]
     )

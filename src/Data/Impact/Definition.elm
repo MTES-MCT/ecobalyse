@@ -56,8 +56,7 @@ type Trigram
 
 
 type alias Definition =
-    { trigramString : String
-    , trigram : Trigram
+    { trigram : Trigram
     , source : Source
     , label : String
     , description : String
@@ -271,73 +270,73 @@ toTrigram : String -> Result String Trigram
 toTrigram str =
     case str of
         "acd" ->
-            Result.Ok Acd
+            Ok Acd
 
         "bvi" ->
-            Result.Ok Bvi
+            Ok Bvi
 
         "cch" ->
-            Result.Ok Cch
+            Ok Cch
 
         "ecs" ->
-            Result.Ok Ecs
+            Ok Ecs
 
         "etf" ->
-            Result.Ok Etf
+            Ok Etf
 
         "etf-c" ->
-            Result.Ok EtfC
+            Ok EtfC
 
         "fru" ->
-            Result.Ok Fru
+            Ok Fru
 
         "fwe" ->
-            Result.Ok Fwe
+            Ok Fwe
 
         "htc" ->
-            Result.Ok Htc
+            Ok Htc
 
         "htc-c" ->
-            Result.Ok HtcC
+            Ok HtcC
 
         "htn" ->
-            Result.Ok Htn
+            Ok Htn
 
         "htn-c" ->
-            Result.Ok HtnC
+            Ok HtnC
 
         "ior" ->
-            Result.Ok Ior
+            Ok Ior
 
         "ldu" ->
-            Result.Ok Ldu
+            Ok Ldu
 
         "mru" ->
-            Result.Ok Mru
+            Ok Mru
 
         "ozd" ->
-            Result.Ok Ozd
+            Ok Ozd
 
         "pco" ->
-            Result.Ok Pco
+            Ok Pco
 
         "pef" ->
-            Result.Ok Pef
+            Ok Pef
 
         "pma" ->
-            Result.Ok Pma
+            Ok Pma
 
         "swe" ->
-            Result.Ok Swe
+            Ok Swe
 
         "tre" ->
-            Result.Ok Tre
+            Ok Tre
 
         "wtu" ->
-            Result.Ok Wtu
+            Ok Wtu
 
         _ ->
-            Result.Err <| "Trigramme d'impact inconnu: " ++ str
+            Err <| "Trigramme d'impact inconnu: " ++ str
 
 
 forScope : Definitions -> Scope -> List Definition
@@ -422,7 +421,6 @@ decodeQuality =
 decodeDefinition : String -> Decoder Definition
 decodeDefinition trigram =
     Decode.succeed Definition
-        |> Pipe.hardcoded trigram
         |> Pipe.custom (toTrigram trigram |> DE.fromResult)
         |> Pipe.required "source" decodeSource
         |> Pipe.required "label_fr" Decode.string

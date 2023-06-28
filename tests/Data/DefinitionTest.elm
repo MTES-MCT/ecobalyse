@@ -16,7 +16,7 @@ suite =
                 |> Expect.equal 22
                 |> asTest "There are 22 impact trigrams"
             , Definition.trigrams
-                |> List.map (Definition.get textileDb.impactDefinitions >> .trigramString)
+                |> List.map (Definition.get textileDb.impactDefinitions >> .trigram >> Definition.toString)
                 |> Set.fromList
                 |> Set.toList
                 |> List.length
