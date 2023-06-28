@@ -35,8 +35,8 @@ Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/eco
 
 ### Un outil **collaboratif**
 
-:bulb: **Rejoindre la communauté =>** transmettez-nous un mail :e-mail: [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr)\
-:question: **Pourquoi rejoindre ?** Pour contribuer et suivre les travaux méthodologiques en cours
+:bulb: **Rejoindre la communauté =>** transmettez-nous un mail :e-mail: [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr) _._\
+:question: **Pourquoi rejoindre ?** Pour contribuer et suivre les travaux méthodologiques en cours via la plateforme de travail en ligne Mattermost.
 
 Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
 
