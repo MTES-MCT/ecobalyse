@@ -1,6 +1,8 @@
 ---
-description: Transformation des fibres de matière première brute en fils.
+description: >-
+  Cette rubrique sera prochainement remplacée lorsque les travaux Matière seront
+  finalisés
 ---
 
-# 🐑 Etape 1 - Matière et filature
+# 🐑 Etape 1 - Matière et filature (old)
 
