@@ -157,7 +157,7 @@ headerMenuLinks : List MenuLink
 headerMenuLinks =
     mainMenuLinks
         ++ [ External "Documentation" Env.gitbookUrl
-           , External "Communauté" Env.mattermostUrl
+           , External "Communauté" "https://fabrique-numerique.gitbook.io/ecobalyse/#un-outil-collaboratif"
            ]
 
 
