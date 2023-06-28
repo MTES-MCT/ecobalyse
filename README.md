@@ -35,9 +35,13 @@ Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/eco
 
 ### Un outil **collaboratif**
 
-Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être **éclairés** par un **outil pédagogique**.
+:bulb: **Rejoindre la communauté =>** transmettez-nous un mail :e-mail: [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr)\
+:question: **Pourquoi rejoindre ?** Pour contribuer et suivre les travaux méthodologiques en cours
 
-Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, un groupe Slack, une [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) riche, une rubrique _Contribuer (en cours)_, etc.). Pour toute question, vous pouvez nous contacter via le mail suivant : [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr)_._
+Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
+
+Ecobalyse permet de rassembler les différents acteurs de chaque industrie (marques, instituts techniques, industriels, associations, experts ACV, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (Comité Experts, Ateliers thématiques, Expérimentations coordonnées par ADEME, Espace de travail en ligne Mattermost, une [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) riche présentant la méthode en construction,  etc.). \
+
 
 ## Ce que n’est pas Ecobalyse
 
