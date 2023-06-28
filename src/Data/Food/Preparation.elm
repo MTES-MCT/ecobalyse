@@ -83,8 +83,8 @@ all =
 
 
 apply : BuilderDb.Db -> Mass -> Preparation -> Impacts
-apply { impacts, wellKnown } mass preparation =
-    Impact.sumImpacts impacts
+apply { wellKnown } mass preparation =
+    Impact.sumImpacts
         [ wellKnown.lowVoltageElectricity.impacts
             |> Impact.mapImpacts
                 (\_ ->

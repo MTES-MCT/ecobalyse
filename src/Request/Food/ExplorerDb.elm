@@ -21,7 +21,6 @@ handleProductsLoaded session processes productsData =
                 (RemoteData.succeed
                     { explorerDb
                         | countries = session.db.countries
-                        , impacts = session.db.impacts
                         , transports = session.db.transports
                         , processes = processes
                         , products = products
@@ -57,7 +56,7 @@ handleProcessesLoaded session processesData =
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
 loadDb session event =
-    getJson (Process.decodeList session.db.impacts) "food/processes/explorer.json"
+    getJson (Process.decodeList session.db.impactDefinitions) "food/processes/explorer.json"
         |> Task.andThen (handleProcessesLoaded session)
         |> Task.attempt
             (\result ->

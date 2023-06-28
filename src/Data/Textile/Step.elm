@@ -20,6 +20,7 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
@@ -88,11 +89,11 @@ type alias ProcessInfo =
     }
 
 
-create : { db : Db, label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
-create { db, label, editable, country, enabled } =
+create : { label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
+create { label, editable, country, enabled } =
     let
         defaultImpacts =
-            Impact.impactsFromDefinitons db.impacts
+            Impact.empty
     in
     { label = label
     , enabled = enabled
@@ -467,7 +468,7 @@ yarnSizeToDtexString yarnSize =
     String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
-encode : List Impact.Definition -> Step -> Encode.Value
+encode : Definitions -> Step -> Encode.Value
 encode definitions v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )

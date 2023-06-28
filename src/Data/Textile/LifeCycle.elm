@@ -15,6 +15,7 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs exposing (Inputs, countryList)
 import Data.Textile.Step as Step exposing (Step)
@@ -47,8 +48,8 @@ computeStepsTransport db lifeCycle =
             )
 
 
-computeTotalTransportImpacts : Db -> LifeCycle -> Transport
-computeTotalTransportImpacts db =
+computeTotalTransportImpacts : LifeCycle -> Transport
+computeTotalTransportImpacts =
     Array.foldl
         (\{ transport } acc ->
             { acc
@@ -66,11 +67,11 @@ computeTotalTransportImpacts db =
                             )
             }
         )
-        (Transport.default (Impact.impactsFromDefinitons db.impacts))
+        (Transport.default Impact.empty)
 
 
-computeFinalImpacts : Db -> LifeCycle -> Impacts
-computeFinalImpacts db =
+computeFinalImpacts : LifeCycle -> Impacts
+computeFinalImpacts =
     Array.foldl
         (\{ impacts, transport } finalImpacts ->
             finalImpacts
@@ -83,7 +84,7 @@ computeFinalImpacts db =
                             ]
                     )
         )
-        (Impact.impactsFromDefinitons db.impacts)
+        Impact.empty
 
 
 getNextEnabledStep : Label -> LifeCycle -> Maybe Step
@@ -116,8 +117,7 @@ init db inputs =
         |> List.map2
             (\( label, editable ) country ->
                 Step.create
-                    { db = db
-                    , label = label
+                    { label = label
                     , editable = editable
                     , country = country
                     , enabled = not (List.member label inputs.disabledSteps)
@@ -153,6 +153,6 @@ updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
 
 
-encode : List Impact.Definition -> LifeCycle -> Encode.Value
+encode : Definitions -> LifeCycle -> Encode.Value
 encode definitions =
     Encode.array (Step.encode definitions)

@@ -10,6 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -28,7 +29,7 @@ import Views.Textile.ComparativeChart as TextileComparativeChart
 
 type alias Config msg =
     { session : Session
-    , impact : Impact.Definition
+    , impact : Definition
     , options : Options msg
     , toggle : Bookmark -> Bool -> msg
     , chartHovering : TextileComparativeChart.Stacks
@@ -219,10 +220,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     data =
                         case displayChoice of
                             IndividualImpacts ->
-                                dataForIndividualImpacts db.impacts chartsData
+                                dataForIndividualImpacts session.db.impactDefinitions chartsData
 
                             Grouped ->
-                                dataForGroupedImpacts db.impacts chartsData
+                                dataForGroupedImpacts session.db.impactDefinitions chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData
@@ -256,8 +257,8 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         ]
 
 
-dataForIndividualImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
-dataForIndividualImpacts defs chartsData =
+dataForIndividualImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForIndividualImpacts definitions chartsData =
     let
         labelToOrder =
             [ "Changement climatique"
@@ -312,7 +313,7 @@ dataForIndividualImpacts defs chartsData =
 
                     entries =
                         impacts
-                            |> Impact.getAggregatedScoreData defs .ecoscoreData
+                            |> Impact.getAggregatedScoreData definitions .ecoscoreData
                             |> List.sortWith labelComparison
 
                     reversed =
@@ -329,8 +330,8 @@ dataForIndividualImpacts defs chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : List Impact.Definition -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
-dataForGroupedImpacts defs chartsData =
+dataForGroupedImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForGroupedImpacts definitions chartsData =
     chartsData
         |> List.map
             (\( name, impacts, bonusesImpact ) ->
@@ -340,7 +341,7 @@ dataForGroupedImpacts defs chartsData =
 
                     entries =
                         impacts
-                            |> Impact.toProtectionAreas defs
+                            |> Impact.toProtectionAreas definitions
                             |> (\{ climate, biodiversity, health, resources } ->
                                     List.reverse
                                         [ bonusImpacts
@@ -368,7 +369,7 @@ dataForTotalImpacts chartsData =
                 let
                     totalImpact =
                         impacts
-                            |> Impact.getImpact (Impact.Trigram "ecs")
+                            |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
 
                     bonusImpacts =
@@ -439,7 +440,7 @@ emptyChartsMessage =
 getTextileChartEntries :
     Session
     -> Unit.Functional
-    -> Impact.Definition
+    -> Definition
     -> Result String (List TextileComparativeChart.Entry)
 getTextileChartEntries { db, store } funit impact =
     store.bookmarks

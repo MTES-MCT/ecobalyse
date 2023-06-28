@@ -8,6 +8,7 @@ module Route exposing
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
 import Data.Unit as Unit
@@ -24,10 +25,10 @@ type Route
     | Changelog
     | Editorial String
     | Explore Scope Dataset
-    | FoodBuilder Impact.Trigram (Maybe FoodQuery.Query)
+    | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodExplore
     | TextileExamples
-    | TextileSimulator Impact.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
+    | TextileSimulator Definition.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
     | Stats
 
 
@@ -58,7 +59,7 @@ parser =
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
-                </> Impact.parseTrigram Scope.Food
+                </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
             )
         , Parser.map FoodExplore (Parser.s "food")
@@ -74,7 +75,7 @@ parser =
         , Parser.map TextileSimulator
             (Parser.s "textile"
                 </> Parser.s "simulator"
-                </> Impact.parseTrigram Scope.Textile
+                </> Impact.parseTrigram
                 </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> TextileQuery.parseBase64Query
@@ -150,14 +151,14 @@ toString route =
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
-                FoodBuilder (Impact.Trigram "ecs") Nothing ->
+                FoodBuilder Definition.Ecs Nothing ->
                     [ "food", "build" ]
 
                 FoodBuilder trigram Nothing ->
-                    [ "food", "build", Impact.toString trigram ]
+                    [ "food", "build", Definition.toString trigram ]
 
                 FoodBuilder trigram (Just query) ->
-                    [ "food", "build", Impact.toString trigram, FoodQuery.b64encode query ]
+                    [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
 
                 FoodExplore ->
                     [ "food" ]
@@ -168,19 +169,19 @@ toString route =
                 TextileSimulator trigram funit viewMode (Just query) ->
                     [ "textile"
                     , "simulator"
-                    , Impact.toString trigram
+                    , Definition.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     , TextileQuery.b64encode query
                     ]
 
-                TextileSimulator (Impact.Trigram "pef") Unit.PerItem _ Nothing ->
+                TextileSimulator Definition.Pef Unit.PerItem _ Nothing ->
                     [ "textile", "simulator" ]
 
                 TextileSimulator trigram funit viewMode Nothing ->
                     [ "textile"
                     , "simulator"
-                    , Impact.toString trigram
+                    , Definition.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     ]

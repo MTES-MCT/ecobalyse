@@ -1,7 +1,7 @@
 module Request.Textile.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
@@ -14,15 +14,15 @@ import Task exposing (Task)
 
 
 buildFromWebData :
-    List Impact.Definition
+    Definitions
     -> List Process
     -> WebData (List Country)
     -> WebData (List Material)
     -> WebData (List Product)
     -> WebData Distances
     -> WebData Db
-buildFromWebData impacts processes countries materials products transports =
-    RemoteData.succeed (Db impacts processes)
+buildFromWebData definitions processes countries materials products transports =
+    RemoteData.succeed (Db definitions processes)
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
@@ -36,25 +36,25 @@ buildFromWebData impacts processes countries materials products transports =
             )
 
 
-loadDependentData : List Impact.Definition -> List Process -> Task () (WebData Db)
-loadDependentData impacts processes =
+loadDependentData : Definitions -> List Process -> Task () (WebData Db)
+loadDependentData definitions processes =
     let
         -- see https://github.com/alex-tan/task-extra/blob/1.1.0/src/Task/Extra.elm#L579-L581
         andMap =
             Task.map2 (|>)
     in
-    Task.succeed (buildFromWebData impacts processes)
+    Task.succeed (buildFromWebData definitions processes)
         |> andMap (getJson (Country.decodeList processes) "countries.json")
         |> andMap (getJson (Material.decodeList processes) "materials.json")
         |> andMap (getJson (Product.decodeList processes) "products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
 
 
-handleProcessesLoaded : List Impact.Definition -> WebData (List Process) -> Task () (WebData Db)
-handleProcessesLoaded impacts processesData =
+handleProcessesLoaded : Definitions -> WebData (List Process) -> Task () (WebData Db)
+handleProcessesLoaded definitions processesData =
     case processesData of
         RemoteData.Success processes ->
-            loadDependentData impacts processes
+            loadDependentData definitions processes
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
@@ -66,12 +66,12 @@ handleProcessesLoaded impacts processesData =
             Task.succeed RemoteData.Loading
 
 
-handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
-handleImpactsLoaded impactsData =
-    case impactsData of
-        RemoteData.Success impacts ->
-            getJson (Process.decodeList impacts) "processes.json"
-                |> Task.andThen (handleProcessesLoaded impacts)
+handleImpactsLoaded : WebData Definitions -> Task () (WebData Db)
+handleImpactsLoaded definitionsData =
+    case definitionsData of
+        RemoteData.Success definitions ->
+            getJson (Process.decodeList definitions) "processes.json"
+                |> Task.andThen (handleProcessesLoaded definitions)
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
@@ -85,7 +85,7 @@ handleImpactsLoaded impactsData =
 
 loadDb : (WebData Db -> msg) -> Cmd msg
 loadDb event =
-    getJson Impact.decodeList "impacts.json"
+    getJson Definition.decode "impacts.json"
         |> Task.andThen handleImpactsLoaded
         |> Task.attempt
             (\result ->

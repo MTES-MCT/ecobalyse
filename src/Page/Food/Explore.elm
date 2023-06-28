@@ -12,6 +12,7 @@ import Data.Food.Explorer.Db as ExplorerDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -46,7 +47,7 @@ type alias CurrentProductInfo =
 type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
     , selectedProduct : ProductName
-    , impact : Impact.Trigram
+    , impact : Definition.Trigram
     , selectedIngredientProcess : Maybe Process
     , newIngredientMass : Mass
     , selectedCountry : Country.Code
@@ -64,7 +65,7 @@ type Msg
     | NoOp
     | ProductSelected ProductName
     | Reset
-    | SwitchImpact Impact.Trigram
+    | SwitchImpact (Result String Definition.Trigram)
 
 
 tunaPizza : ProductName
@@ -119,7 +120,7 @@ update ({ explorerDb, db } as session) msg ({ currentProductInfo, newIngredientM
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> Product.updatePlantTransport selected.original explorerDb.processes db.impacts countryCode db.transports
+                        |> Product.updatePlantTransport selected.original explorerDb.processes countryCode db.transports
             in
             ( { model
                 | currentProductInfo = Just { selected | product = productWithUpdatedTransport }
@@ -219,15 +220,21 @@ update ({ explorerDb, db } as session) msg ({ currentProductInfo, newIngredientM
             , Cmd.none
             )
 
-        ( SwitchImpact impact, _ ) ->
+        ( SwitchImpact (Ok impact), _ ) ->
             ( { model | impact = impact }, session, Cmd.none )
+
+        ( SwitchImpact (Err error), _ ) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
 
         _ ->
             ( model, session, Cmd.none )
 
 
-viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
-viewSidebar session { definition, trigram, totalImpact } { original, product } =
+viewSidebar : Definitions -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
+viewSidebar definitions { definition, trigram, totalImpact } { original, product } =
     let
         originalWeight =
             Product.getWeightAtPlant original.plant
@@ -266,8 +273,8 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
-            { impacts = session.db.impacts
-            , selectedImpact = trigram
+            definitions
+            { selectedImpact = trigram
             , switchImpact = SwitchImpact
 
             -- We don't use the following two configs
@@ -311,7 +318,7 @@ onMassAmountChanged msg =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
+view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
             Just ({ original, product } as currentProductInfo) ->
@@ -320,9 +327,7 @@ view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impa
                         Product.getTotalImpact impact product
 
                     definition =
-                        db.impacts
-                            |> Impact.getDefinition impact
-                            |> Result.withDefault (Impact.invalid Scope.Food)
+                        Definition.get db.impactDefinitions impact
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact
@@ -340,7 +345,7 @@ view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impa
                     [ div [ class "row gap-3 gap-lg-0" ]
                         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
                             [ currentProductInfo
-                                |> viewSidebar session itemViewDataConfig
+                                |> viewSidebar db.impactDefinitions itemViewDataConfig
                             ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct explorerDb.products
@@ -472,8 +477,8 @@ type alias ItemViewData =
 
 type alias ItemViewDataConfig =
     { totalImpact : Float
-    , trigram : Impact.Trigram
-    , definition : Impact.Definition
+    , trigram : Definition.Trigram
+    , definition : Definition.Definition
     }
 
 
@@ -696,7 +701,7 @@ stepNames product =
     ]
 
 
-viewStepsSummary : Impact.Trigram -> Product -> Html Msg
+viewStepsSummary : Definition.Trigram -> Product -> Html Msg
 viewStepsSummary trigram product =
     let
         totalImpact =

@@ -7,8 +7,9 @@ module Page.Textile.Examples exposing
     )
 
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
@@ -22,7 +23,7 @@ import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
-    { impact : Impact.Trigram
+    { impact : Definition.Trigram
     , funit : Unit.Functional
     , chartHovering : ComparativeChart.Stacks
     }
@@ -30,7 +31,7 @@ type alias Model =
 
 type Msg
     = OnChartHover ComparativeChart.Stacks
-    | SwitchImpact Impact.Trigram
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchFunctionalUnit Unit.Functional
 
 
@@ -54,22 +55,26 @@ update session msg model =
             , Cmd.none
             )
 
-        SwitchImpact impact ->
+        SwitchImpact (Ok impact) ->
             ( { model | impact = impact }, session, Cmd.none )
+
+        SwitchImpact (Err error) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
 
         SwitchFunctionalUnit funit ->
             ( { model | funit = funit }, session, Cmd.none )
 
 
-viewExample : Session -> Model -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html Msg
+viewExample : Session -> Model -> Unit.Functional -> Definition.Trigram -> Inputs.Query -> Html Msg
 viewExample session model funit impact query =
     query
         |> Simulator.compute session.db
         |> SummaryView.view
             { session = session
-            , impact =
-                Impact.getDefinition impact session.db.impacts
-                    |> Result.withDefault (Impact.invalid Scope.Textile)
+            , impact = Definition.get session.db.impactDefinitions impact
             , funit = funit
             , reusable = True
             , chartHovering = model.chartHovering
@@ -87,8 +92,8 @@ view session ({ impact, funit } as model) =
                     [ h1 [] [ text "Exemples de simulation" ] ]
                 , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
-                        { impacts = session.db.impacts
-                        , selectedImpact = impact
+                        session.db.impactDefinitions
+                        { selectedImpact = impact
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
                         , switchFunctionalUnit = SwitchFunctionalUnit
@@ -96,10 +101,8 @@ view session ({ impact, funit } as model) =
                         }
                     ]
                 ]
-            , session.db.impacts
-                |> Impact.getDefinition impact
-                |> Result.map ImpactView.viewDefinition
-                |> Result.withDefault (text "")
+            , Definition.get session.db.impactDefinitions impact
+                |> ImpactView.viewDefinition
             , Inputs.presets
                 |> List.map (viewExample session model funit impact)
                 |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]

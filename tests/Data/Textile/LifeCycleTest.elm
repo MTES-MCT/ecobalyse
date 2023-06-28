@@ -22,7 +22,7 @@ suite =
                 [ tShirtCotonFrance
                     |> LifeCycle.fromQuery textileDb
                     |> Result.map (LifeCycle.computeStepsTransport textileDb)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
+                    |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 3000, 21549 ))
                     |> asTest "should compute default distances"
@@ -33,7 +33,7 @@ suite =
                         , countryMaking = Country.Code "FR"
                     }
                     |> Result.map (LifeCycle.computeStepsTransport textileDb)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
+                    |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2000, 45471 ))
                     |> asTest "should compute custom distances"

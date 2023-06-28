@@ -12,7 +12,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -62,7 +62,7 @@ type alias Model =
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
-    , impact : Impact.Definition
+    , impact : Definition
     , funit : Unit.Functional
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
@@ -88,7 +88,7 @@ type Msg
     | SelectInputText String
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
-    | SwitchImpact Impact.Trigram
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
@@ -114,7 +114,7 @@ type Msg
 
 
 init :
-    Impact.Trigram
+    Definition.Trigram
     -> Unit.Functional
     -> ViewMode
     -> Maybe Inputs.Query
@@ -141,10 +141,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact =
-            db.impacts
-                |> Impact.getDefinition trigram
-                |> Result.withDefault (Impact.invalid Scope.Textile)
+      , impact = Definition.get db.impactDefinitions trigram
       , funit = funit
       , modal = NoModal
       , chartHovering = []
@@ -274,13 +271,19 @@ update ({ db, queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchImpact trigram ->
+        SwitchImpact (Ok trigram) ->
             ( model
             , session
             , Just query
                 |> Route.TextileSimulator trigram model.funit model.viewMode
                 |> Route.toString
                 |> Navigation.pushUrl navKey
+            )
+
+        SwitchImpact (Err error) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
             )
 
         SwitchLinksTab bookmarkTab ->
@@ -512,7 +515,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
+displayModeView : Definition.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     let
         tab mode icon label =
@@ -563,7 +566,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             , session.queries.textile
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
-                Dataviz.view db simulator
+                Dataviz.view db.impactDefinitions simulator
 
               else
                 div []
@@ -583,8 +586,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 [ ImpactView.selector
-                    { impacts = session.db.impacts
-                    , selectedImpact = model.impact.trigram
+                    db.impactDefinitions
+                    { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
                     , switchFunctionalUnit = SwitchFunctionalUnit

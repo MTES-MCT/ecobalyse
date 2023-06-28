@@ -7,6 +7,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
@@ -40,7 +41,7 @@ type alias Config msg =
     , inputs : Inputs
     , daysOfWear : Duration
     , viewMode : ViewMode
-    , impact : Impact.Definition
+    , impact : Definition
     , funit : Unit.Functional
     , index : Int
     , current : Step

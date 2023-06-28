@@ -12,7 +12,7 @@ module Data.Dataset exposing
 
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
@@ -27,7 +27,7 @@ It's used by Page.Explore and related routes.
 -}
 type Dataset
     = Countries (Maybe Country.Code)
-    | Impacts (Maybe Impact.Trigram)
+    | Impacts (Maybe Definition.Trigram)
     | FoodIngredients (Maybe Ingredient.Id)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
@@ -161,7 +161,7 @@ setIdFromString idString dataset =
             Countries (Just (Country.codeFromString idString))
 
         Impacts _ ->
-            Impacts (Just (Impact.trg idString))
+            Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
@@ -222,7 +222,7 @@ toRoutePath dataset =
             [ slug dataset, Ingredient.idToString id ]
 
         Impacts (Just trigram) ->
-            [ slug dataset, Impact.toString trigram ]
+            [ slug dataset, Definition.toString trigram ]
 
         TextileProducts Nothing ->
             [ slug dataset ]

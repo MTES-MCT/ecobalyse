@@ -8,6 +8,7 @@ import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Unit as Unit
 import Dict
@@ -35,10 +36,10 @@ suite =
         (\{ builderDb } ->
             [ let
                 testComputedBonuses bonuses =
-                    Impact.impactsFromDefinitons builderDb.impacts
-                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
-                        |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact 100)
-                        |> Recipe.computeIngredientBonusesImpacts builderDb.impacts bonuses
+                    Impact.empty
+                        |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
+                        |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact 100)
+                        |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions bonuses
               in
               describe "computeIngredientBonusesImpacts"
                 [ describe "with zero bonuses applied"
@@ -90,10 +91,10 @@ suite =
                 , describe "with maluses avoided"
                     (let
                         bonusImpacts =
-                            Impact.impactsFromDefinitons builderDb.impacts
-                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ecs") (Unit.impact 1000)
-                                |> Impact.updateImpact builderDb.impacts (Impact.trg "ldu") (Unit.impact -100)
-                                |> Recipe.computeIngredientBonusesImpacts builderDb.impacts
+                            Impact.empty
+                                |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
+                                |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact -100)
+                                |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
                                     , animalWelfare = Split.full
@@ -188,12 +189,12 @@ suite =
                         |> Expect.within (Expect.Absolute 0.01) 0.498
                         |> asTest "should compute ingredients total edible mass"
                      , carrotCakeResults
-                        |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact (Impact.trg "ecs"))
+                        |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs)
                         |> Result.map (expectImpactEqual (Unit.impact 108.4322609789048))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the total ecs impact with the bonus taken into account"
                      , carrotCakeResults
-                        |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact (Impact.trg "ecs"))
+                        |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs)
                         |> Result.map (expectImpactEqual (Unit.impact 73.23635314324639))
                         |> Expect.equal (Ok Expect.pass)
                         |> asTest "should have the ingredients' total ecs impact with the bonus taken into account"
@@ -251,7 +252,7 @@ suite =
                     [ let
                         computeEcoscore =
                             Recipe.compute builderDb
-                                >> Result.map (Tuple.second >> .total >> Impact.getImpact (Impact.trg "ecs") >> Unit.impactToFloat)
+                                >> Result.map (Tuple.second >> .total >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
                                 >> Result.withDefault 0
 
                         carrotCakeResults =
