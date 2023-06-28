@@ -11,8 +11,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Unit as Unit
-import Dict
-import Dict.Any as AnyDict
 import Expect
 import Length
 import Mass
@@ -152,36 +150,32 @@ suite =
                                 |> Recipe.compute builderDb
                      in
                      [ carrotCakeResults
-                        |> Result.map (Tuple.second >> .total >> Impact.toDict >> AnyDict.toDict)
-                        |> Result.withDefault Dict.empty
-                        |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
-                        |> Expect.equalDicts
-                            (Dict.fromList
-                                -- Note: presented that way to ease diff viewing in test results
-                                [ ( "acd", True )
-                                , ( "bvi", True )
-                                , ( "cch", True )
-                                , ( "ecs", True )
-                                , ( "etf", True )
-                                , ( "fru", True )
-                                , ( "fwe", True )
-                                , ( "htc", True )
-                                , ( "htn", True )
-                                , ( "ior", True )
-                                , ( "ldu", True )
-                                , ( "mru", True )
-                                , ( "ozd", True )
-                                , ( "pco", True )
-                                , ( "pef", True )
-                                , ( "pma", True )
-                                , ( "swe", True )
-                                , ( "tre", True )
-                                , ( "wtu", True )
-                                , ( "htc-c", True )
-                                , ( "etf-c", True )
-                                , ( "htn-c", True )
-                                ]
-                            )
+                        |> Result.map (Tuple.second >> .total)
+                        |> Result.withDefault Impact.empty
+                        |> Expect.all
+                            [ \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Acd subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Bvi subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Cch subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ecs subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Etf subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.EtfC subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Fru subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Fwe subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Htc subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.HtcC subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Htn subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.HtnC subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ior subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ldu subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Mru subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ozd subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pco subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pef subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pma subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Swe subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Tre subject))
+                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Wtu subject))
+                            ]
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs)

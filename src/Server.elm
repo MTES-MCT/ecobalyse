@@ -105,14 +105,12 @@ toTextileWebUrl maybeTrigram textileQuery =
         |> WebRoute.toString
 
 
-toSingleImpactSimple : Definition.Trigram -> Definitions -> Simulator -> Encode.Value
-toSingleImpactSimple trigram definitions { inputs, impacts } =
+toSingleImpactSimple : Definition.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple trigram { inputs, impacts } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
         , ( "impacts"
-          , impacts
-                |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts definitions Scope.Textile
+          , Impact.encodeSingleImpact impacts trigram
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
@@ -286,7 +284,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
 
         Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
             query
-                |> executeTextileQuery textileDb (toSingleImpactSimple trigram)
+                |> executeTextileQuery textileDb (always (toSingleImpactSimple trigram))
 
         Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
@@ -314,7 +312,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
         Just (Route.PostTextileSimulatorSingle trigram) ->
             request.body
                 |> handleDecodeBody Inputs.decodeQuery
-                    (executeTextileQuery textileDb (toSingleImpactSimple trigram))
+                    (executeTextileQuery textileDb (always (toSingleImpactSimple trigram)))
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
