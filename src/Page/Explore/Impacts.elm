@@ -1,7 +1,7 @@
 module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Impact as Impact exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -16,19 +16,19 @@ import Views.Markdown as Markdown
 
 table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
-    { toId = .trigram >> Impact.toString
+    { toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
     , rows =
         { label = "Code"
-        , toValue = .trigram >> Impact.toString
+        , toValue = .trigram >> Definition.toString
         , toCell =
             \def ->
                 if detailed then
-                    code [] [ text (Impact.toString def.trigram) ]
+                    code [] [ text (Definition.toString def.trigram) ]
 
                 else
                     a [ Route.href (Route.Explore scope (Dataset.Impacts (Just def.trigram))) ]
-                        [ code [] [ text (Impact.toString def.trigram) ] ]
+                        [ code [] [ text (Definition.toString def.trigram) ] ]
         }
             :: { label = "Nom"
                , toValue = .label
@@ -75,19 +75,19 @@ table { detailed, scope } =
                  , toValue =
                     \def ->
                         case def.quality of
-                            Impact.NotFinished ->
+                            Definition.NotFinished ->
                                 "0"
 
-                            Impact.GoodQuality ->
+                            Definition.GoodQuality ->
                                 "4"
 
-                            Impact.AverageQuality ->
+                            Definition.AverageQuality ->
                                 "3"
 
-                            Impact.BadQuality ->
+                            Definition.BadQuality ->
                                 "2"
 
-                            Impact.UnknownQuality ->
+                            Definition.UnknownQuality ->
                                 "1"
                  , toCell =
                     \def ->

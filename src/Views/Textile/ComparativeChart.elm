@@ -12,6 +12,7 @@ import Chart.Events as CE
 import Chart.Item as CI
 import Data.Country as Country
 import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
@@ -38,7 +39,7 @@ type alias Stacks =
 
 type alias Config msg =
     { session : Session
-    , impact : Impact.Definition
+    , impact : Definition
     , funit : Unit.Functional
     , simulator : Simulator
     , chartHovering : Stacks
@@ -66,7 +67,7 @@ type alias Entry =
 createEntry :
     Db
     -> Unit.Functional
-    -> Impact.Definition
+    -> Definition
     -> { highlight : Bool, label : String }
     -> Inputs.Query
     -> Result String Entry
@@ -124,7 +125,7 @@ toCountry code query =
     }
 
 
-getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
+getEntries : Db -> Unit.Functional -> Definition -> Inputs -> Result String (List Entry)
 getEntries db funit impact inputs =
     let
         query =
@@ -241,7 +242,7 @@ fillLabels entries =
         |> List.map createLabel
 
 
-formatLabel : Unit.Functional -> Impact.Definition -> Duration -> Float -> { x : String, y : String }
+formatLabel : Unit.Functional -> Definition -> Duration -> Float -> { x : String, y : String }
 formatLabel funit { unit } daysOfWear num =
     let
         inFunctionalUnit =
@@ -259,7 +260,7 @@ formatLabel funit { unit } daysOfWear num =
 
 type alias ChartOptions msg =
     { funit : Unit.Functional
-    , impact : Impact.Definition
+    , impact : Definition
     , daysOfWear : Duration
     , size : Maybe ( Float, Float )
     , margins : Maybe { top : Float, bottom : Float, left : Float, right : Float }

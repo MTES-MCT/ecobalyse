@@ -18,6 +18,7 @@ import Data.Country as Country
 import Data.Food.Explorer.Db exposing (Db)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition
 import Data.Unit as Unit
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -261,7 +262,7 @@ compute db =
                     transformImpacts =
                         transform
                             |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     packagingImpacts =
                         packaging
@@ -274,12 +275,12 @@ compute db =
                         , packagingImpacts
                         ]
                             |> List.concat
-                            |> Impact.sumImpacts db.impacts
+                            |> Impact.sumImpacts
                   , recipe =
-                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                        { ingredients = Impact.sumImpacts ingredientsImpacts
                         , transform = transformImpacts
                         }
-                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
+                  , packaging = Impact.sumImpacts packagingImpacts
                   }
                 )
             )
@@ -288,7 +289,7 @@ compute db =
 computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
 computeProcessImpacts item =
     let
-        computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
+        computeImpact : Mass -> Definition.Trigram -> Unit.Impact -> Unit.Impact
         computeImpact mass _ impact =
             impact
                 |> Unit.impactToFloat

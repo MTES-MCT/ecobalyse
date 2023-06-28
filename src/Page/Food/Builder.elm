@@ -23,6 +23,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -37,7 +38,6 @@ import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
-import Request.Common
 import Request.Food.BuilderDb as FoodRequestDb
 import Route
 import Task
@@ -56,7 +56,6 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Spinner as Spinner
 import Views.Table as Table
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
@@ -64,7 +63,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { db : Db
-    , impact : Impact.Definition
+    , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonUnit : ComparatorView.FoodComparisonUnit
@@ -104,7 +103,7 @@ type Msg
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
-    | SwitchImpact Impact.Trigram
+    | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactsTab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
@@ -121,13 +120,11 @@ type ImpactsTab
     | SubscoresTab
 
 
-init : Db -> Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
 init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            db.impacts
-                |> Impact.getDefinition trigram
-                |> Result.withDefault (Impact.invalid Scope.Food)
+            Definition.get db.impactDefinitions trigram
 
         query =
             maybeQuery
@@ -142,7 +139,7 @@ init db ({ builderDb, queries } as session) trigram maybeQuery =
       , modal = NoModal
       , chartHovering = []
       , activeImpactsTab =
-            if Impact.isEcoscore impact then
+            if impact.trigram == Definition.Ecs then
                 SubscoresTab
 
             else
@@ -332,13 +329,19 @@ update ({ queries } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
-        SwitchImpact impact ->
+        SwitchImpact (Ok impact) ->
             ( model
             , session
             , Just query
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
+            )
+
+        SwitchImpact (Err error) ->
+            ( model
+            , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
             )
 
         SwitchImpactsTab impactsTab ->
@@ -443,7 +446,7 @@ absoluteImpactView model results =
                     , results.total
                         |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , if Impact.isEcoscore model.impact then
+                , if model.impact.trigram == Definition.Ecs then
                     div [ class "text-center fs-7" ]
                         [ text " dont -"
                         , results.recipe.totalBonusesImpact.total
@@ -537,7 +540,7 @@ type alias UpdateIngredientConfig =
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , index : Int
-    , selectedImpact : Impact.Definition
+    , selectedImpact : Definition
     , transportImpact : Html Msg
     }
 
@@ -676,14 +679,14 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 |> Format.formatFoodSelectedImpact selectedImpact
             ]
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
-        , if Impact.isEcoscore selectedImpact then
+        , if selectedImpact.trigram == Definition.Ecs then
             let
                 { bonuses, ingredient } =
                     recipeIngredient
 
                 bonusImpacts =
                     impact
-                        |> Recipe.computeIngredientBonusesImpacts db.impacts bonuses
+                        |> Recipe.computeIngredientBonusesImpacts db.impactDefinitions bonuses
             in
             details [ class "IngredientBonuses fs-7" ]
                 [ summary [] [ text "Bonus écologiques" ]
@@ -744,7 +747,7 @@ type alias BonusViewConfig msg =
     , disabled : Bool
     , domId : String
     , name : String
-    , selectedImpact : Impact.Definition
+    , selectedImpact : Definition
     , title : Maybe String
     , updateEvent : Split -> msg
     }
@@ -890,7 +893,7 @@ debugQueryView db query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute db
-                    |> Result.map (Tuple.second >> Recipe.encodeResults db.impacts >> Encode.encode 2)
+                    |> Result.map (Tuple.second >> Recipe.encodeResults db.impactDefinitions >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
                 ]
@@ -908,7 +911,7 @@ errorView error =
         }
 
 
-ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
@@ -940,7 +943,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
                                     |> List.head
                                     |> Maybe.map Tuple.second
-                                    |> Maybe.withDefault Impact.noImpacts
+                                    |> Maybe.withDefault Impact.empty
                             , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =
@@ -972,7 +975,7 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-packagingListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
@@ -1016,7 +1019,7 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-transportToTransformationView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToTransformationView : Definition -> Recipe -> Recipe.Results -> Html Msg
 transportToTransformationView selectedImpact recipe results =
     DownArrow.view
         []
@@ -1068,7 +1071,7 @@ transportToPackagingView recipe =
         ]
 
 
-transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToDistributionView : Definition -> Recipe -> Recipe.Results -> Html Msg
 transportToDistributionView selectedImpact recipe results =
     DownArrow.view
         []
@@ -1122,7 +1125,7 @@ transportAfterConsumptionView recipe result =
         ]
 
 
-distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+distributionView : Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
     let
         impact =
@@ -1174,7 +1177,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : BuilderDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
@@ -1224,18 +1227,18 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-mainView : Session -> Db -> Model -> Html Msg
-mainView session db model =
+mainView : Session -> Model -> Html Msg
+mainView session model =
     let
         computed =
             session.queries.food
-                |> Recipe.compute db
+                |> Recipe.compute model.db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
                 Ok ( _, results ) ->
-                    sidebarView session db model results
+                    sidebarView session model results
 
                 Err error ->
                     errorView error
@@ -1244,12 +1247,12 @@ mainView session db model =
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView db model recipe results
+                    stepListView model recipe results
 
                 Err error ->
                     errorView error
             , session.queries.food
-                |> debugQueryView db
+                |> debugQueryView model.db
             ]
         ]
 
@@ -1323,15 +1326,15 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
-sidebarView session db model results =
+sidebarView : Session -> Model -> Recipe.Results -> Html Msg
+sidebarView session model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
-            { impacts = db.impacts
-            , scope = Scope.Food
+            session.db.impactDefinitions
+            { scope = Scope.Food
             , selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
@@ -1340,7 +1343,7 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , impactTabsView db model results
+        , impactTabsView model results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1361,11 +1364,11 @@ sidebarView session db model results =
         ]
 
 
-impactTabsView : Db -> Model -> Recipe.Results -> Html Msg
-impactTabsView db model results =
+impactTabsView : Model -> Recipe.Results -> Html Msg
+impactTabsView model results =
     CardTabs.view
         { tabs =
-            (if Impact.isEcoscore model.impact then
+            (if model.impact.trigram == Definition.Ecs then
                 [ ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
                 , ( StepImpactsTab, "Étapes" )
@@ -1385,7 +1388,7 @@ impactTabsView db model results =
             [ case model.activeImpactsTab of
                 DetailedImpactsTab ->
                     results.total
-                        |> Impact.getAggregatedScoreData db.impacts .ecoscoreData
+                        |> Impact.getAggregatedScoreData model.db.impactDefinitions .ecoscoreData
                         |> List.map (\{ name, value } -> ( name, value ))
                         |> (++)
                             [ ( "Bonus de diversité agricole"
@@ -1428,8 +1431,8 @@ impactTabsView db model results =
         }
 
 
-stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView db { impact } recipe results =
+stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView { db, impact } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1449,7 +1452,7 @@ stepListView db { impact } recipe results =
         ]
 
 
-transformView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =
@@ -1488,57 +1491,37 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ case session.builderDb of
-                RemoteData.Success db ->
-                    mainView session db model
-
-                RemoteData.Loading ->
-                    Spinner.view
-
-                RemoteData.Failure error ->
-                    error
-                        |> Request.Common.errorToString
-                        |> text
-                        |> List.singleton
-                        |> div [ class "alert alert-danger" ]
-
-                RemoteData.NotAsked ->
-                    text "Shouldn't happen"
+            [ mainView session model
             , case model.modal of
                 NoModal ->
                     text ""
 
                 ComparatorModal ->
-                    case session.builderDb of
-                        RemoteData.Success db ->
-                            ModalView.view
-                                { size = ModalView.ExtraLarge
-                                , close = SetModal NoModal
-                                , noOp = NoOp
-                                , title = "Comparateur de simulations sauvegardées"
-                                , formAction = Nothing
-                                , content =
-                                    [ ComparatorView.comparator
-                                        { session = session
-                                        , impact = model.impact
-                                        , options =
-                                            ComparatorView.foodOptions
-                                                { comparisonUnit = model.comparisonUnit
-                                                , switchComparisonUnit = SwitchComparisonUnit
-                                                , displayChoice = model.displayChoice
-                                                , switchDisplayChoice = SwitchDisplayChoice
-                                                , db = db
-                                                }
-                                        , toggle = ToggleComparedSimulation
-                                        , chartHovering = model.chartHovering
-                                        , onChartHover = OnChartHover
+                    ModalView.view
+                        { size = ModalView.ExtraLarge
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Comparateur de simulations sauvegardées"
+                        , formAction = Nothing
+                        , content =
+                            [ ComparatorView.comparator
+                                { session = session
+                                , impact = model.impact
+                                , options =
+                                    ComparatorView.foodOptions
+                                        { comparisonUnit = model.comparisonUnit
+                                        , switchComparisonUnit = SwitchComparisonUnit
+                                        , displayChoice = model.displayChoice
+                                        , switchDisplayChoice = SwitchDisplayChoice
+                                        , db = model.db
                                         }
-                                    ]
-                                , footer = []
+                                , toggle = ToggleComparedSimulation
+                                , chartHovering = model.chartHovering
+                                , onChartHover = OnChartHover
                                 }
-
-                        _ ->
-                            text ""
+                            ]
+                        , footer = []
+                        }
             ]
       ]
     )

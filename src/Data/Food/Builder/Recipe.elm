@@ -32,6 +32,7 @@ import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Formula as Formula
@@ -151,18 +152,18 @@ compute db =
                     ingredientsTotalImpacts =
                         ingredientsImpacts
                             |> List.map Tuple.second
-                            |> Impact.sumImpacts db.impacts
+                            |> Impact.sumImpacts
 
                     ingredientsTransport =
                         ingredients
                             -- FIXME pass the wellknown to computeIngredientTransport
                             |> List.map (computeIngredientTransport db)
-                            |> Transport.sum db.impacts
+                            |> Transport.sum
 
                     transformImpacts =
                         transform
                             |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     distributionImpacts =
                         distribution
@@ -172,9 +173,9 @@ compute db =
                                         volume =
                                             getTransformedIngredientsVolume recipe
                                     in
-                                    Retail.computeImpacts db volume distrib db.wellKnown
+                                    Retail.computeImpacts volume distrib db.wellKnown
                                 )
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.empty
 
                     distributionTransportNeedsCooling =
                         ingredients
@@ -191,12 +192,12 @@ compute db =
                                         (\distrib ->
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
-                                    |> Maybe.withDefault (Transport.default Impact.noImpacts)
+                                    |> Maybe.withDefault (Transport.default Impact.empty)
                         in
                         Transport.computeImpacts db mass transport
 
                     recipeImpacts =
-                        Impact.sumImpacts db.impacts
+                        Impact.sumImpacts
                             [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
@@ -208,12 +209,12 @@ compute db =
                     packagingImpacts =
                         packaging
                             |> List.map computeProcessImpacts
-                            |> Impact.sumImpacts db.impacts
+                            |> Impact.sumImpacts
 
                     preparationImpacts =
                         preparation
                             |> List.map (Preparation.apply db transformedIngredientsMass)
-                            |> (Impact.sumImpacts db.impacts >> List.singleton >> Impact.sumImpacts db.impacts)
+                            |> (Impact.sumImpacts >> List.singleton >> Impact.sumImpacts)
 
                     preparedMass =
                         getPreparedMassAtConsumer recipe
@@ -223,7 +224,7 @@ compute db =
 
                     totalBonusesImpact =
                         ingredients
-                            |> computeIngredientsTotalBonus db.impacts
+                            |> computeIngredientsTotalBonus db.impactDefinitions
 
                     totalBonusesImpactPerKg =
                         { totalBonusesImpact
@@ -234,7 +235,7 @@ compute db =
                         }
 
                     totalImpactsWithoutBonuses =
-                        Impact.sumImpacts db.impacts
+                        Impact.sumImpacts
                             [ recipeImpacts
                             , packagingImpacts
                             , distributionImpacts
@@ -257,7 +258,7 @@ compute db =
 
                     scoring =
                         impactsPerKgWithoutBonuses
-                            |> computeScoring db.impacts totalBonusesImpactPerKg.total
+                            |> computeScoring db.impactDefinitions totalBonusesImpactPerKg.total
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -282,7 +283,7 @@ compute db =
                         }
                   , preparation = preparationImpacts
                   , transports =
-                        Transport.sum db.impacts
+                        Transport.sum
                             [ ingredientsTransport
                             , distributionTransport
                             ]
@@ -291,21 +292,18 @@ compute db =
             )
 
 
-computeIngredientBonusesImpacts : List Impact.Definition -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
-computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+computeIngredientBonusesImpacts : Definitions -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
+computeIngredientBonusesImpacts definitions { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
         -- docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/complements-hors-acv-en-construction
         ( lduNormalization, lduWeighting ) =
-            defs
-                |> List.filter (.trigram >> (==) (Impact.trg "ldu"))
-                |> List.head
-                |> Maybe.andThen .ecoscoreData
+            definitions.ldu.ecoscoreData
                 |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
                 |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
 
         normalizedLandUse =
             ingredientImpacts
-                |> Impact.getImpact (Impact.trg "ldu")
+                |> Impact.getImpact Definition.Ldu
                 |> Unit.impactAggregateScore lduNormalization lduWeighting
                 |> Unit.impactToFloat
 
@@ -325,16 +323,16 @@ computeIngredientBonusesImpacts defs { agroDiversity, agroEcology, animalWelfare
     }
 
 
-computeScoring : List Impact.Definition -> Unit.Impact -> Impacts -> Scoring
-computeScoring defs totalBonusImpactPerKg perKgWithoutBonuses =
+computeScoring : Definitions -> Unit.Impact -> Impacts -> Scoring
+computeScoring definitions totalBonusImpactPerKg perKgWithoutBonuses =
     let
         ecsPerKgWithoutBonuses =
             perKgWithoutBonuses
-                |> Impact.getImpact (Impact.trg "ecs")
+                |> Impact.getImpact Definition.Ecs
 
         subScores =
             perKgWithoutBonuses
-                |> Impact.toProtectionAreas defs
+                |> Impact.toProtectionAreas definitions
     in
     { all = Quantity.difference ecsPerKgWithoutBonuses totalBonusImpactPerKg
     , allWithoutBonuses = ecsPerKgWithoutBonuses
@@ -346,7 +344,7 @@ computeScoring defs totalBonusImpactPerKg perKgWithoutBonuses =
     }
 
 
-computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
+computeImpact : Mass -> Definition.Trigram -> Unit.Impact -> Unit.Impact
 computeImpact mass _ =
     Unit.impactToFloat
         >> (*) (Mass.inKilograms mass)
@@ -367,13 +365,13 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalBonus : List Impact.Definition -> List RecipeIngredient -> Impact.BonusImpacts
-computeIngredientsTotalBonus defs =
+computeIngredientsTotalBonus : Definitions -> List RecipeIngredient -> Impact.BonusImpacts
+computeIngredientsTotalBonus definitions =
     List.foldl
         (\({ bonuses } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
-                |> computeIngredientBonusesImpacts defs bonuses
+                |> computeIngredientBonusesImpacts definitions bonuses
                 |> Impact.addBonusImpacts acc
         )
         Impact.noBonusImpacts
@@ -383,7 +381,7 @@ computeIngredientTransport : Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
-            Impact.impactsFromDefinitons db.impacts
+            Impact.empty
 
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
@@ -407,7 +405,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
                             ingredient.defaultOrigin
-                                |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+                                |> Ingredient.getDefaultOriginTransport planeTransport
             in
             if ingredient.transportCooling /= Ingredient.NoCooling then
                 -- Switch the distances to use the "cooled" version of the transport medium
@@ -470,11 +468,11 @@ deletePackaging code query =
     }
 
 
-encodeResults : List Impact.Definition -> Results -> Encode.Value
-encodeResults defs results =
+encodeResults : Definitions -> Results -> Encode.Value
+encodeResults definitions results =
     let
         encodeImpacts =
-            Impact.encodeImpacts defs Scope.Food
+            Impact.encodeImpacts definitions Scope.Food
     in
     Encode.object
         [ ( "total", encodeImpacts results.total )
@@ -488,16 +486,16 @@ encodeResults defs results =
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "totalBonusImpact", Impact.encodeBonusesImpacts results.recipe.totalBonusesImpact )
                 , ( "transform", encodeImpacts results.recipe.transform )
-                , ( "transports", Transport.encode defs results.recipe.transports )
+                , ( "transports", Transport.encode definitions results.recipe.transports )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
         , ( "preparation", encodeImpacts results.preparation )
-        , ( "transports", Transport.encode defs results.transports )
+        , ( "transports", Transport.encode definitions results.transports )
         , ( "distribution"
           , Encode.object
                 [ ( "total", encodeImpacts results.distribution.total )
-                , ( "transports", Transport.encode defs results.distribution.transports )
+                , ( "transports", Transport.encode definitions results.distribution.transports )
                 ]
           )
         ]

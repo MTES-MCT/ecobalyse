@@ -27,6 +27,7 @@ module Views.Format exposing
 
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definition)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Decimal
@@ -41,26 +42,26 @@ import Mass exposing (Mass)
 import Volume exposing (Volume)
 
 
-formatImpactFloat : Impact.Definition -> Float -> Html msg
+formatImpactFloat : Definition -> Float -> Html msg
 formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
 
 
-formatFoodSelectedImpact : Impact.Definition -> Impacts -> Html msg
+formatFoodSelectedImpact : Definition -> Impacts -> Html msg
 formatFoodSelectedImpact { trigram, unit, decimals } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
 
 
-formatFoodSelectedImpactPerKg : Impact.Definition -> Impacts -> Html msg
+formatFoodSelectedImpactPerKg : Definition -> Impacts -> Html msg
 formatFoodSelectedImpactPerKg { trigram, unit, decimals } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals (unit ++ "/kg")
 
 
-formatTextileSelectedImpact : Unit.Functional -> Duration -> Impact.Definition -> Impacts -> Html msg
+formatTextileSelectedImpact : Unit.Functional -> Duration -> Definition -> Impacts -> Html msg
 formatTextileSelectedImpact funit daysOfWear { trigram, unit, decimals } =
     Impact.getImpact trigram
         >> Unit.inFunctionalUnit funit daysOfWear

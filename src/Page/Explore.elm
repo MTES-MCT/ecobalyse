@@ -13,7 +13,7 @@ import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Impact as Impact exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
@@ -219,26 +219,16 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
     ]
 
 
-impactsExplorer : Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
-impactsExplorer tableConfig tableState scope maybeTrigram definitions =
-    [ definitions
-        |> List.filter (.scopes >> List.member scope)
-        |> List.sortBy (.trigram >> Impact.toString)
+impactsExplorer : Definitions -> Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Definition.Trigram -> List (Html Msg)
+impactsExplorer definitions tableConfig tableState scope maybeTrigram =
+    [ Definition.forScope definitions scope
+        |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
-    , case maybeTrigram of
-        Just trigram ->
-            detailsModal
-                (case Impact.getDefinition trigram definitions of
-                    Ok definition ->
-                        definition
-                            |> Table.viewDetails scope ExploreImpacts.table
-
-                    Err error ->
-                        alert error
-                )
-
-        Nothing ->
-            text ""
+    , maybeTrigram
+        |> Maybe.map (Definition.get definitions)
+        |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
+        |> Maybe.map detailsModal
+        |> Maybe.withDefault (text "")
     ]
 
 
@@ -348,7 +338,7 @@ explore { db } { builderDb, scope, dataset, tableState } =
             db.countries |> countriesExplorer tableConfig tableState scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
-            db.impacts |> impactsExplorer tableConfig tableState scope maybeTrigram
+            impactsExplorer db.impactDefinitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
             builderDb

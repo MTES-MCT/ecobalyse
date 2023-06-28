@@ -5,7 +5,7 @@ module Server.Route exposing
 
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
-import Data.Scope as Scope
+import Data.Impact.Definition as Definition
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -50,14 +50,14 @@ type Route
       --     Textile Detailed version for all impacts (GET, query string)
     | GetTextileSimulatorDetailed (Result Query.Errors TextileInputs.Query)
       --     Textile Simple version for one specific impact (GET, query string)
-    | GetTextileSimulatorSingle Impact.Trigram (Result Query.Errors TextileInputs.Query)
+    | GetTextileSimulatorSingle Definition.Trigram (Result Query.Errors TextileInputs.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
     | PostTextileSimulator
       --     Textile Detailed version for all impacts (POST, JSON body)
     | PostTextileSimulatorDetailed
       --     Textile Simple version for one specific impact (POST, JSON bosy)
-    | PostTextileSimulatorSingle Impact.Trigram
+    | PostTextileSimulatorSingle Definition.Trigram
 
 
 parser : StaticDb.Db -> Parser (Route -> a) a
@@ -77,10 +77,10 @@ parser { builderDb, textileDb } =
         , Parser.map GetTextileProductList (s "GET" </> s "textile" </> s "products")
         , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)
         , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery textileDb)
-        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile <?> Query.parseTextileQuery textileDb)
+        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
         , Parser.map PostTextileSimulator (s "POST" </> s "textile" </> s "simulator")
         , Parser.map PostTextileSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram Scope.Textile)
+        , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
 
 

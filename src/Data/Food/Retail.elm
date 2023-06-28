@@ -16,7 +16,6 @@ module Data.Food.Retail exposing
    and the impact of storing the product at the store
 -}
 
-import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Process exposing (Process, WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Transport as Transport exposing (Transport)
@@ -186,14 +185,14 @@ elecImpact elecNeeds volume =
 
 distributionTransport : Distribution -> Bool -> Transport
 distributionTransport (Distribution _ needs) needsCooling =
-    Transport.default Impact.noImpacts
+    Transport.default Impact.empty
         |> Transport.addRoadWithCooling needs.transport needsCooling
 
 
-computeImpacts : Db -> Volume -> Distribution -> WellKnown -> Impacts
-computeImpacts db volume (Distribution _ needs) wellknown =
+computeImpacts : Volume -> Distribution -> WellKnown -> Impacts
+computeImpacts volume (Distribution _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
     , elecImpact needs.cooling volume wellknown.lowVoltageElectricity
     , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
-        |> Impact.sumImpacts db.impacts
+        |> Impact.sumImpacts

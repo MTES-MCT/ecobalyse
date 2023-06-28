@@ -1,6 +1,7 @@
 module Data.Textile.SimulatorTest exposing (..)
 
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs exposing (..)
 import Data.Textile.LifeCycle as LifeCycle
@@ -12,7 +13,7 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-getImpact : TextileDb.Db -> Impact.Trigram -> Inputs.Query -> Result String Float
+getImpact : TextileDb.Db -> Definition.Trigram -> Inputs.Query -> Result String Float
 getImpact db trigram =
     Simulator.compute db
         >> Result.map
@@ -22,7 +23,7 @@ getImpact db trigram =
             )
 
 
-expectImpact : TextileDb.Db -> Impact.Trigram -> Float -> Inputs.Query -> Expectation
+expectImpact : TextileDb.Db -> Definition.Trigram -> Float -> Inputs.Query -> Expectation
 expectImpact db trigram value query =
     case getImpact db trigram query of
         Ok result ->
@@ -33,9 +34,9 @@ expectImpact db trigram value query =
             Expect.fail error
 
 
-cch : Impact.Trigram
+cch : Definition.Trigram
 cch =
-    Impact.trg "cch"
+    Definition.Cch
 
 
 suite : Test

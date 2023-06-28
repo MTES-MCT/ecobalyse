@@ -6,7 +6,7 @@ module Views.Impact exposing
     )
 
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -23,7 +23,7 @@ qualityDocumentationUrl =
     Gitbook.publicUrlFromPath Gitbook.ImpactQuality
 
 
-viewDefinition : Impact.Definition -> Html msg
+viewDefinition : Definition -> Html msg
 viewDefinition { source, label, description, quality } =
     div [ class "ImpactDefinition d-none d-sm-block mb-3" ]
         [ h2 [ class "d-flex justify-content-between fs-6 lh-base text-muted fw-bold my-1" ]
@@ -38,12 +38,12 @@ viewDefinition { source, label, description, quality } =
         ]
 
 
-impactQuality : Impact.Quality -> List (Html msg)
+impactQuality : Definition.Quality -> List (Html msg)
 impactQuality quality =
     let
         maybeInfo =
             case quality of
-                Impact.NotFinished ->
+                Definition.NotFinished ->
                     Just
                         { cls = "btn-danger"
                         , icon = Icon.build
@@ -51,7 +51,7 @@ impactQuality quality =
                         , help = "Impact en cours de construction"
                         }
 
-                Impact.GoodQuality ->
+                Definition.GoodQuality ->
                     Just
                         { cls = "btn-success"
                         , icon = Icon.checkCircle
@@ -59,7 +59,7 @@ impactQuality quality =
                         , help = "Qualité satisfaisante"
                         }
 
-                Impact.AverageQuality ->
+                Definition.AverageQuality ->
                     Just
                         { cls = "bg-info text-white"
                         , icon = Icon.info
@@ -67,7 +67,7 @@ impactQuality quality =
                         , help = "Qualité satisfaisante mais nécessitant des améliorations"
                         }
 
-                Impact.BadQuality ->
+                Definition.BadQuality ->
                     Just
                         { cls = "btn-warning"
                         , icon = Icon.warning
@@ -75,7 +75,7 @@ impactQuality quality =
                         , help = "Donnée incomplète à utiliser avec prudence"
                         }
 
-                Impact.UnknownQuality ->
+                Definition.UnknownQuality ->
                     Nothing
     in
     case maybeInfo of
@@ -96,7 +96,7 @@ impactQuality quality =
             []
 
 
-viewSource : Impact.Source -> Html msg
+viewSource : Definition.Source -> Html msg
 viewSource source =
     Link.smallPillExternal
         [ href source.url
@@ -106,39 +106,37 @@ viewSource source =
 
 
 type alias SelectorConfig msg =
-    { impacts : List Impact.Definition
-    , selectedImpact : Impact.Trigram
-    , switchImpact : Impact.Trigram -> msg
+    { selectedImpact : Definition.Trigram
+    , switchImpact : Result String Definition.Trigram -> msg
     , selectedFunctionalUnit : Unit.Functional
     , switchFunctionalUnit : Unit.Functional -> msg
     , scope : Scope
     }
 
 
-impactSelector : SelectorConfig msg -> Html msg
-impactSelector { impacts, selectedImpact, switchImpact, scope } =
+impactSelector : Definitions -> SelectorConfig msg -> Html msg
+impactSelector definitions { selectedImpact, switchImpact, scope } =
     let
         toOption ({ trigram, label } as impact) =
             option
                 [ Attr.selected (selectedImpact == impact.trigram)
-                , value <| Impact.toString trigram
+                , value <| Definition.toString trigram
                 ]
                 [ text label ]
 
         scopeImpacts =
-            impacts
-                |> List.filter (.scopes >> List.member scope)
+            Definition.forScope definitions scope
     in
     select
         [ class "form-select"
-        , onInput (Impact.trg >> switchImpact)
+        , onInput (Definition.toTrigram >> switchImpact)
         ]
         [ scopeImpacts
-            |> List.filter Impact.isAggregate
+            |> List.filter (.trigram >> Definition.isAggregate)
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
         , scopeImpacts
-            |> List.filter (Impact.isAggregate >> not)
+            |> List.filter (.trigram >> Definition.isAggregate >> not)
             |> List.sortBy .label
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts détaillés" ]
@@ -166,8 +164,8 @@ funitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
             )
 
 
-selector : SelectorConfig msg -> Html msg
-selector config =
-    impactSelector config
+selector : Definitions -> SelectorConfig msg -> Html msg
+selector definitions config =
+    impactSelector definitions config
         :: funitSelector config
         |> div [ class "ImpactSelector input-group" ]

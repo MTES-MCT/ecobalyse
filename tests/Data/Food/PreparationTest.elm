@@ -2,6 +2,7 @@ module Data.Food.PreparationTest exposing (..)
 
 import Data.Food.Preparation as Preparation
 import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Unit as Unit
 import Energy
@@ -23,7 +24,7 @@ suite =
                   , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply builderDb (Mass.kilograms 1)
-                    |> Impact.getImpact (Impact.trg "cch")
+                    |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.001) 0.08
                     |> asTest "compute impacts from applying a consumption preparation technique"

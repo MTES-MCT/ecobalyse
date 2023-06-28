@@ -18,6 +18,7 @@ module Data.Transport exposing
 import Data.Country as Country
 import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -93,8 +94,8 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : { a | impacts : List Impact.Definition, wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
-computeImpacts { impacts, wellKnown } mass transport =
+computeImpacts : { a | wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
+computeImpacts { wellKnown } mass transport =
     let
         transportImpacts =
             [ ( wellKnown.lorryTransport, transport.road )
@@ -114,13 +115,13 @@ computeImpacts { impacts, wellKnown } mass transport =
                                         |> Unit.impact
                                 )
                     )
-                |> Impact.sumImpacts impacts
+                |> Impact.sumImpacts
     in
     { transport | impacts = transportImpacts }
 
 
-sum : List Impact.Definition -> List Transport -> Transport
-sum defs =
+sum : List Transport -> Transport
+sum =
     List.foldl
         (\{ road, roadCooled, sea, seaCooled, air, impacts } acc ->
             { acc
@@ -129,10 +130,10 @@ sum defs =
                 , sea = acc.sea |> Quantity.plus sea
                 , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
                 , air = acc.air |> Quantity.plus air
-                , impacts = Impact.sumImpacts defs [ acc.impacts, impacts ]
+                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
             }
         )
-        (default (Impact.impactsFromDefinitons defs))
+        (default Impact.empty)
 
 
 emptyDistances : Distances
@@ -228,10 +229,10 @@ decode =
         -- seaCooled
         (Decode.succeed Quantity.zero)
         (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.noImpacts)
+        (Decode.succeed Impact.empty)
 
 
-encode : List Impact.Definition -> Transport -> Encode.Value
+encode : Definitions -> Transport -> Encode.Value
 encode definitions v =
     Encode.object
         [ ( "road", encodeKm v.road )

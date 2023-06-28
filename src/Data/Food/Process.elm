@@ -19,6 +19,7 @@ module Data.Food.Process exposing
     )
 
 import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definitions)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -132,7 +133,7 @@ decodeCategory =
         |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
-decodeProcess : List Impact.Definition -> Decoder Process
+decodeProcess : Definitions -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
@@ -153,7 +154,7 @@ decodeCode =
         |> Decode.map codeFromString
 
 
-decodeList : List Impact.Definition -> Decoder (List Process)
+decodeList : Definitions -> Decoder (List Process)
 decodeList definitions =
     Decode.list (decodeProcess definitions)
 
