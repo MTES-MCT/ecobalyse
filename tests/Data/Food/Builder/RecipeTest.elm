@@ -184,6 +184,11 @@ suite =
                             )
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
+                        |> Result.map (Tuple.second >> .recipe >> .edibleMass >> Mass.inKilograms)
+                        |> Result.withDefault -99
+                        |> Expect.within (Expect.Absolute 0.01) 0.498
+                        |> asTest "should compute ingredients total edible mass"
+                     , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs)
                         |> Result.map (expectImpactEqual (Unit.impact 108.4322609789048))
                         |> Expect.equal (Ok Expect.pass)
@@ -202,28 +207,28 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 190.9
+                                    |> Expect.within (Expect.Absolute 0.01) 202.41954770573136
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutBonuses
-                                    |> Expect.within (Expect.Absolute 0.01) 192.9
+                                    |> Expect.within (Expect.Absolute 0.01) 204.55082300646757
                                     |> asTest "should properly score total impact without bonuses"
                                 , Unit.impactToFloat scoring.bonuses
-                                    |> Expect.within (Expect.Absolute 0.01) 2.0
+                                    |> Expect.within (Expect.Absolute 0.01) 2.131275300736198
                                     |> asTest "should properly score bonuses impact"
                                 , (Unit.impactToFloat scoring.allWithoutBonuses - Unit.impactToFloat scoring.bonuses)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 76.84
+                                    |> Expect.within (Expect.Absolute 0.01) 81.78986222897198
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 42.24
+                                    |> Expect.within (Expect.Absolute 0.01) 44.68689760990337
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 37.64
+                                    |> Expect.within (Expect.Absolute 0.01) 39.895732543122364
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 36.17
+                                    |> Expect.within (Expect.Absolute 0.01) 38.178330624469915
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -304,12 +309,12 @@ suite =
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                    |> Expect.equal (Ok (Mass.kilograms 0.26))
+                    |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
                     |> asTest "should compute recipe ingredients mass with no cooking involved"
                 , carrotCake
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                    |> Expect.equal (Ok (Mass.kilograms 0.79074))
+                    |> Expect.equal (Ok (Mass.kilograms 0.748104))
                     |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                 ]
             , let
@@ -325,7 +330,7 @@ suite =
               in
               describe "getTransformedIngredientsMass"
                 [ carrotCakeWithPackaging
-                    |> Expect.equal (Ok (Mass.kilograms 0.68574))
+                    |> Expect.equal (Ok (Mass.kilograms 0.643104))
                     |> asTest "should compute recipe treansformed ingredients mass excluding packaging one"
                 , carrotCakeWithPackaging
                     |> Expect.equal carrotCakeWithNoPackaging

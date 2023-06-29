@@ -14,7 +14,6 @@ module Data.Food.Builder.Query exposing
     , deletePreparation
     , emptyQuery
     , encode
-    , getIngredientMass
     , parseBase64Query
     , serialize
     , setDistribution

@@ -7,6 +7,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
+    "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -29,6 +30,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -50,6 +52,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
+    "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -71,6 +74,7 @@
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -91,6 +95,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -111,6 +116,7 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -131,6 +137,7 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -151,6 +158,7 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
     "variants": {
@@ -171,6 +179,7 @@
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
+    "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true
   },
@@ -182,6 +191,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -203,6 +213,7 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true
   },
@@ -214,6 +225,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -235,6 +247,7 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -256,6 +269,7 @@
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": false,
     "variants": {
@@ -276,6 +290,7 @@
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true
   },
@@ -287,6 +302,7 @@
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
+    "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -308,6 +324,7 @@
     "category": "nut_oilseed_processed",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "variants": {
@@ -329,6 +346,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
+    "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -351,6 +369,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -373,6 +392,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -395,6 +415,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
+    "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -417,6 +438,7 @@
     "category": "dairy_product",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
+    "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -438,6 +460,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
+    "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -459,6 +482,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
+    "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -481,6 +505,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
+    "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
@@ -502,6 +527,7 @@
     "category": "vegetable_fresh",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
+    "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
     "variants": {
@@ -523,6 +549,7 @@
     "category": "grain_raw",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
+    "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
     "variants": {
