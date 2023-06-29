@@ -79,8 +79,5 @@
   * [Contribuer aux travaux](textile/contribuer-aux-travaux.md)
 * [Nous contacter](textile/nous-contacter.md)
 * [Echelle comparative](textile/echelle-comparative.md)
+* [Communauté](textile/communaute.md)
 * [FAQ](textile/faq.md)
-
-***
-
-* [Communauté](communaute.md)
