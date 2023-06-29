@@ -147,7 +147,7 @@ secondaryMenuLinks =
     [ Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
-    , External "Communauté" Env.mattermostUrl
+    , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , MailTo "Contact" Env.contactEmail
     ]
@@ -157,7 +157,7 @@ headerMenuLinks : List MenuLink
 headerMenuLinks =
     mainMenuLinks
         ++ [ External "Documentation" Env.gitbookUrl
-           , External "Communauté" "https://fabrique-numerique.gitbook.io/ecobalyse/#un-outil-collaboratif"
+           , External "Communauté" Env.communityUrl
            ]
 
 
@@ -165,7 +165,7 @@ footerMenuLinks : List MenuLink
 footerMenuLinks =
     mainMenuLinks
         ++ [ External "Documentation" Env.gitbookUrl
-           , External "Communauté" Env.mattermostUrl
+           , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
            ]
 

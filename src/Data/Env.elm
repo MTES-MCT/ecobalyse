@@ -1,10 +1,10 @@
 module Data.Env exposing
     ( betagouvUrl
+    , communityUrl
     , contactEmail
     , gitbookUrl
     , githubRepository
     , githubUrl
-    , mattermostUrl
     , maxMakingWasteRatio
     , maxMaterials
     , minMakingWasteRatio
@@ -16,6 +16,11 @@ import Data.Split as Split exposing (Split)
 betagouvUrl : String
 betagouvUrl =
     "https://beta.gouv.fr/startups/ecobalyse.html"
+
+
+communityUrl : String
+communityUrl =
+    "https://fabrique-numerique.gitbook.io/ecobalyse/communaute"
 
 
 contactEmail : String
@@ -36,11 +41,6 @@ githubRepository =
 githubUrl : String
 githubUrl =
     "https://github.com/" ++ githubRepository
-
-
-mattermostUrl : String
-mattermostUrl =
-    "https://chat.ecobalyse.fr/"
 
 
 minMakingWasteRatio : Split
