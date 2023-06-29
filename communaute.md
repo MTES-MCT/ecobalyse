@@ -1,4 +1,4 @@
-# Communauté
+# 🤝 Communauté
 
 Ecobalyse propose aux acteurs des filières Alimentaire et Textile qui le souhaient de rejoindre [son instance Mattermost](https://chat.ecobalyse.fr) afin de s'informer, échanger et participer à la co-construction de la méthodologie d'évaluation des impacts environnementaux.
 
