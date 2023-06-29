@@ -32,7 +32,7 @@ Pour la construction du score d'impacts, **il est considéré les même niveaux 
 Pour la **pondération**, les coefficients appliqués au score d'impacts sont établis comme suit : &#x20;
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
-* l'indicateurs de biodiversité locale est introduit avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
+* l'indicateur d'atteinte à la biodiversité locale est introduit avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
 *   les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer), [considérés dans leurs versions corrigées](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges), sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;
 
     _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
@@ -68,7 +68,7 @@ Pour chacun des inventaires de cycle de vie mobilisés, les impacts relatifs aux
 
 Les inventaires sélectionnés, notamment pour décrire chaque ingrédient, sont introduits dans les pages de la méthodologie relatives à chaque ingrédient.&#x20;
 
-## Indicateur de biodiversité locale
+## Indicateur d'atteinte à la biodiversité locale
 
 Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment).
 
