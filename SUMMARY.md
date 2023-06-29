@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Ecobalyse](README.md)
+* [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
 
 ## 🍕 Alimentaire

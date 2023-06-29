@@ -14,7 +14,7 @@ Hormis les transports, cette étape du cycle de vie a un impact qui provient de 
 
 Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la doc Agribalyse&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 De plus&#x20;
 
