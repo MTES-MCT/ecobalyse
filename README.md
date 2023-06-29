@@ -4,7 +4,7 @@
 
 L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/).
 
-> Note: le projet Ecobalyse s'appellait précédemment **Wikicarbone**.
+> Note: le projet Ecobalyse s'appellait initialement **Wikicarbone**.
 
 ## Socle technique et prérequis
 
@@ -16,7 +16,7 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
 ## Développement
 
-### Environnement de dev local
+### Environnement de développement local
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
@@ -28,18 +28,18 @@ Deux instances de développement sont alors accessibles :
 - [localhost:3000](http://localhost:3000/) sert le frontend et le backend (API) ;
 - [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
 
-### Mode de débogage
+### Mode débogage
 
-Pour lancer le serveur de développement en mode de débuggage :
+Pour lancer le serveur de développement en mode de débogage:
 
     & npm run db:build
     $ npm run start:dev
 
 Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
 
-## Build
+## Compilation
 
-Pour compiler l'application :
+Pour compiler la partie client de l'application :
 
     $ npm run build
 
@@ -47,15 +47,15 @@ Les fichiers sont alors générés dans le répertoire `build` à la racine du p
 
 ## Déploiement
 
-L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) pour toute mise à jour de la branche `master`.
+L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) à chaque mise à jour de la branche `master` sur [le dépôt](https://github.com/MTES-MCT/ecobalyse/tree/master).
 
-Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://wikicarbone-pr44.osc-fr1.scalingo.io/` pour la pull request #44.
+Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://ecobalyse-pr44.osc-fr1.scalingo.io/` pour la pull request #44. **Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.**
 
 # Serveur de production
 
 ## Variables d'environnement
 
-Certaines variables d'environnement peuvent ou doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/wikicarbone/environment) :
+Certaines variables d'environnement doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) :
 
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 - `MATOMO_TOKEN`: le token [Matomo](https://stats.data.gouv.fr/) permettant le suivi d'audience de l'API.
@@ -77,5 +77,5 @@ L'application est alors servie sur le port défini par la variable d'environneme
 Ce dépôt contient aussi les scripts (principalement python) utilisés pour
 importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
 
-Ces scripts se trouvent dans `data/`, et il y a un
-[README](data/README.md) en détaillant l'installation et l'utilisation.
+Ces scripts se trouvent dans `data/`, et un fichier [README](data/README.md) spécifique
+en détaille l'installation et l'utilisation.
