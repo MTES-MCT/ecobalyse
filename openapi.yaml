@@ -147,36 +147,7 @@ paths:
         - Textile
       summary: Calcul d'un impact environnemental spécifique d'un produit textile
       parameters:
-        - name: impact
-          in: path
-          description: |
-            Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
-          required: true
-          schema:
-            type: string
-            minLength: 3
-            maxLength: 3
-            default: "cch"
-            enum:
-              - "acd"
-              - "bvi"
-              - "cch"
-              - "ecs"
-              - "etf"
-              - "fru"
-              - "fwe"
-              - "htc"
-              - "htn"
-              - "ior"
-              - "ldu"
-              - "mru"
-              - "ozd"
-              - "pco"
-              - "pef"
-              - "pma"
-              - "swe"
-              - "tre"
-              - "wtu"
+        - $ref: "#/components/parameters/impactUrlParam"
         - $ref: "#/components/parameters/massParam"
         - $ref: "#/components/parameters/materialsParam"
         - $ref: "#/components/parameters/productParam"
@@ -214,6 +185,8 @@ paths:
       tags:
         - Textile
       summary: Calcul des impacts environnementaux d'un produit textile
+      parameters:
+        - $ref: "#/components/parameters/impactUrlParam"
       requestBody:
         description: Requête modélisant les paramètres du produit à évaluer
         required: true
@@ -518,6 +491,37 @@ components:
         disabledSteps:
         - use
   parameters:
+    impactUrlParam:
+      name: impact
+      in: path
+      description: |
+        Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
+      required: true
+      schema:
+        type: string
+        minLength: 3
+        maxLength: 3
+        default: "cch"
+        enum:
+          - "acd"
+          - "bvi"
+          - "cch"
+          - "ecs"
+          - "etf"
+          - "fru"
+          - "fwe"
+          - "htc"
+          - "htn"
+          - "ior"
+          - "ldu"
+          - "mru"
+          - "ozd"
+          - "pco"
+          - "pef"
+          - "pma"
+          - "swe"
+          - "tre"
+          - "wtu"
     massParam:
       name: mass
       in: query
