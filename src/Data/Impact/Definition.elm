@@ -7,7 +7,7 @@ module Data.Impact.Definition exposing
     , Source
     , Trigram(..)
     , decode
-    , decodeBase
+    , decodeWithoutAggregated
     , encodeBase
     , filter
     , foldl
@@ -57,7 +57,6 @@ type Trigram
     = Acd
     | Bvi
     | Cch
-    | Ecs
     | Etf
     | EtfC
     | Fru
@@ -71,11 +70,13 @@ type Trigram
     | Mru
     | Ozd
     | Pco
-    | Pef
     | Pma
     | Swe
     | Tre
     | Wtu
+      -- Aggregated scores
+    | Ecs
+    | Pef
 
 
 type alias Definition =
@@ -100,7 +101,6 @@ type alias DefinitionsBase a =
     { acd : a
     , bvi : a
     , cch : a
-    , ecs : a
     , etf : a
     , etfc : a
     , fru : a
@@ -114,11 +114,14 @@ type alias DefinitionsBase a =
     , mru : a
     , ozd : a
     , pco : a
-    , pef : a
     , pma : a
     , swe : a
     , tre : a
     , wtu : a
+
+    -- Aggregated scores
+    , ecs : a
+    , pef : a
     }
 
 
@@ -135,7 +138,6 @@ init a =
     { acd = a
     , bvi = a
     , cch = a
-    , ecs = a
     , etf = a
     , etfc = a
     , fru = a
@@ -149,11 +151,14 @@ init a =
     , mru = a
     , ozd = a
     , pco = a
-    , pef = a
     , pma = a
     , swe = a
     , tre = a
     , wtu = a
+
+    -- Aggregated scores
+    , ecs = a
+    , pef = a
     }
 
 
@@ -168,9 +173,6 @@ update trigram updateFunc definitions =
 
         Cch ->
             { definitions | cch = updateFunc definitions.cch }
-
-        Ecs ->
-            { definitions | ecs = updateFunc definitions.ecs }
 
         Etf ->
             { definitions | etf = updateFunc definitions.etf }
@@ -211,9 +213,6 @@ update trigram updateFunc definitions =
         Pco ->
             { definitions | pco = updateFunc definitions.pco }
 
-        Pef ->
-            { definitions | pef = updateFunc definitions.pef }
-
         Pma ->
             { definitions | pma = updateFunc definitions.pma }
 
@@ -226,13 +225,19 @@ update trigram updateFunc definitions =
         Wtu ->
             { definitions | wtu = updateFunc definitions.wtu }
 
+        -- Aggregated scores
+        Ecs ->
+            { definitions | ecs = updateFunc definitions.ecs }
+
+        Pef ->
+            { definitions | pef = updateFunc definitions.pef }
+
 
 trigrams : List Trigram
 trigrams =
     [ Acd
     , Bvi
     , Cch
-    , Ecs
     , Etf
     , EtfC
     , Fru
@@ -246,11 +251,14 @@ trigrams =
     , Mru
     , Ozd
     , Pco
-    , Pef
     , Pma
     , Swe
     , Tre
     , Wtu
+
+    -- Aggregated scores
+    , Ecs
+    , Pef
     ]
 
 
@@ -265,9 +273,6 @@ get trigram definitions =
 
         Cch ->
             definitions.cch
-
-        Ecs ->
-            definitions.ecs
 
         Etf ->
             definitions.etf
@@ -308,9 +313,6 @@ get trigram definitions =
         Pco ->
             definitions.pco
 
-        Pef ->
-            definitions.pef
-
         Pma ->
             definitions.pma
 
@@ -323,13 +325,19 @@ get trigram definitions =
         Wtu ->
             definitions.wtu
 
+        -- Aggregated scores
+        Ecs ->
+            definitions.ecs
+
+        Pef ->
+            definitions.pef
+
 
 map : (Trigram -> a -> b) -> DefinitionsBase a -> DefinitionsBase b
 map func definitions =
     { acd = func Acd definitions.acd
     , bvi = func Bvi definitions.bvi
     , cch = func Cch definitions.cch
-    , ecs = func Ecs definitions.ecs
     , etf = func Etf definitions.etf
     , etfc = func EtfC definitions.etfc
     , fru = func Fru definitions.fru
@@ -343,11 +351,14 @@ map func definitions =
     , mru = func Mru definitions.mru
     , ozd = func Ozd definitions.ozd
     , pco = func Pco definitions.pco
-    , pef = func Pef definitions.pef
     , pma = func Pma definitions.pma
     , swe = func Swe definitions.swe
     , tre = func Tre definitions.tre
     , wtu = func Wtu definitions.wtu
+
+    -- Aggregated scores
+    , ecs = func Ecs definitions.ecs
+    , pef = func Pef definitions.pef
     }
 
 
@@ -388,9 +399,6 @@ toString trigram =
         Cch ->
             "cch"
 
-        Ecs ->
-            "ecs"
-
         Etf ->
             "etf"
 
@@ -430,9 +438,6 @@ toString trigram =
         Pco ->
             "pco"
 
-        Pef ->
-            "pef"
-
         Pma ->
             "pma"
 
@@ -444,6 +449,13 @@ toString trigram =
 
         Wtu ->
             "wtu"
+
+        -- Aggregated scores
+        Ecs ->
+            "ecs"
+
+        Pef ->
+            "pef"
 
 
 toTrigram : String -> Result String Trigram
@@ -457,9 +469,6 @@ toTrigram str =
 
         "cch" ->
             Ok Cch
-
-        "ecs" ->
-            Ok Ecs
 
         "etf" ->
             Ok Etf
@@ -500,9 +509,6 @@ toTrigram str =
         "pco" ->
             Ok Pco
 
-        "pef" ->
-            Ok Pef
-
         "pma" ->
             Ok Pma
 
@@ -514,6 +520,13 @@ toTrigram str =
 
         "wtu" ->
             Ok Wtu
+
+        -- Aggregated scores
+        "ecs" ->
+            Ok Ecs
+
+        "pef" ->
+            Ok Pef
 
         _ ->
             Err <| "Trigramme d'impact inconnu: " ++ str
@@ -533,13 +546,12 @@ isAggregate trigram =
 ---- Decoders
 
 
-decodeBase : (String -> Decoder a) -> Decoder (DefinitionsBase a)
-decodeBase decoder =
+decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> DefinitionsBase a)
+decodeWithoutAggregated decoder =
     Decode.succeed DefinitionsBase
         |> Pipe.required "acd" (decoder "acd")
         |> Pipe.required "bvi" (decoder "bvi")
         |> Pipe.required "cch" (decoder "cch")
-        |> Pipe.required "ecs" (decoder "ecs")
         |> Pipe.required "etf" (decoder "etf")
         |> Pipe.required "etf-c" (decoder "etf-c")
         |> Pipe.required "fru" (decoder "fru")
@@ -553,7 +565,6 @@ decodeBase decoder =
         |> Pipe.required "mru" (decoder "mru")
         |> Pipe.required "ozd" (decoder "ozd")
         |> Pipe.required "pco" (decoder "pco")
-        |> Pipe.required "pef" (decoder "pef")
         |> Pipe.required "pma" (decoder "pma")
         |> Pipe.required "swe" (decoder "swe")
         |> Pipe.required "tre" (decoder "tre")
@@ -562,7 +573,9 @@ decodeBase decoder =
 
 decode : Decoder Definitions
 decode =
-    decodeBase decodeDefinition
+    decodeWithoutAggregated decodeDefinition
+        |> Pipe.required "ecs" (decodeDefinition "ecs")
+        |> Pipe.required "pef" (decodeDefinition "pef")
 
 
 decodeSource : Decoder Source

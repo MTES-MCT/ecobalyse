@@ -30,6 +30,7 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -212,7 +213,9 @@ updateImpact definitions trigram value =
 
 decodeImpacts : Definitions -> Decoder Impacts
 decodeImpacts definitions =
-    Definition.decodeBase (always Unit.decodeImpact)
+    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
         |> Decode.map Impacts
         -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
         |> Decode.map (updateAggregatedScores definitions)
