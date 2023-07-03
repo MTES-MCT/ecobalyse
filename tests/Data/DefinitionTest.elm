@@ -22,7 +22,7 @@ suite =
                 |> Expect.equal 22
                 |> asTest "There are 22 impact trigrams"
             , Definition.trigrams
-                |> List.map (Definition.get textileDb.impactDefinitions >> .trigram >> Definition.toString)
+                |> List.map ((\trigram -> Definition.get trigram textileDb.impactDefinitions) >> .trigram >> Definition.toString)
                 |> Set.fromList
                 |> Set.toList
                 |> List.length
@@ -49,7 +49,7 @@ suite =
                 |> asTest "update will change only one field"
             , Definition.init 0
                 |> Definition.update Definition.Acd ((+) 1)
-                |> (\definitions -> Definition.get definitions Definition.Acd)
+                |> (\definitions -> (\trigram -> Definition.get trigram definitions) Definition.Acd)
                 |> Expect.equal 1
                 |> asTest "get will retrive the value of a field"
             , Definition.init 1

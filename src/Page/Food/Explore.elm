@@ -327,7 +327,7 @@ view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedI
                         Product.getTotalImpact impact product
 
                     definition =
-                        Definition.get db.impactDefinitions impact
+                        Definition.get impact db.impactDefinitions
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact

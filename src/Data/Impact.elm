@@ -170,7 +170,7 @@ insertWithoutAggregateComputation trigram impact (Impacts impacts) =
 
 getImpact : Trigram -> Impacts -> Unit.Impact
 getImpact trigram (Impacts impacts) =
-    Definition.get impacts trigram
+    Definition.get trigram impacts
 
 
 grabImpactFloat : Unit.Functional -> Duration -> Trigram -> { a | impacts : Impacts } -> Float
@@ -240,7 +240,7 @@ encodeImpacts definitions scope (Impacts impacts) =
 encodeSingleImpact : Impacts -> Trigram -> Encode.Value
 encodeSingleImpact (Impacts impacts) trigram =
     Encode.object
-        [ ( Definition.toString trigram, Unit.encodeImpact (Definition.get impacts trigram) )
+        [ ( Definition.toString trigram, Unit.encodeImpact (Definition.get trigram impacts) )
         ]
 
 
@@ -267,7 +267,7 @@ getAggregatedScoreData definitions getter (Impacts impacts) =
         (\trigram impact acc ->
             let
                 def =
-                    Definition.get definitions trigram
+                    Definition.get trigram definitions
             in
             case getter def of
                 Just { normalization, weighting, color } ->
@@ -302,7 +302,7 @@ computeAggregatedScore definitions getter (Impacts impacts) =
     impacts
         |> Definition.map
             (\trigram impact ->
-                Definition.get definitions trigram
+                Definition.get trigram definitions
                     |> getter
                     |> Maybe.map
                         (\{ normalization, weighting } ->

@@ -152,30 +152,30 @@ suite =
                      [ carrotCakeResults
                         |> Result.map (Tuple.second >> .total)
                         |> Result.withDefault Impact.empty
-                        |> Expect.all
-                            [ \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Acd subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Bvi subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Cch subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ecs subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Etf subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.EtfC subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Fru subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Fwe subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Htc subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.HtcC subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Htn subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.HtnC subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ior subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ldu subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Mru subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Ozd subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pco subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pef subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Pma subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Swe subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Tre subject))
-                            , \subject -> Expect.greaterThan 0 (Unit.impactToFloat (Impact.getImpact Definition.Wtu subject))
-                            ]
+                        |> TestUtils.expectImpactsEqual
+                            { acd = Expect.greaterThan 0
+                            , bvi = Expect.greaterThan 0
+                            , cch = Expect.greaterThan 0
+                            , ecs = Expect.greaterThan 0
+                            , etf = Expect.greaterThan 0
+                            , etfc = Expect.greaterThan 0
+                            , fru = Expect.greaterThan 0
+                            , fwe = Expect.greaterThan 0
+                            , htc = Expect.greaterThan 0
+                            , htcc = Expect.greaterThan 0
+                            , htn = Expect.greaterThan 0
+                            , htnc = Expect.greaterThan 0
+                            , ior = Expect.greaterThan 0
+                            , ldu = Expect.greaterThan 0
+                            , mru = Expect.greaterThan 0
+                            , ozd = Expect.greaterThan 0
+                            , pco = Expect.greaterThan 0
+                            , pef = Expect.greaterThan 0
+                            , pma = Expect.greaterThan 0
+                            , swe = Expect.greaterThan 0
+                            , tre = Expect.greaterThan 0
+                            , wtu = Expect.greaterThan 0
+                            }
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs)

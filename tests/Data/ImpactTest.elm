@@ -88,7 +88,7 @@ suite =
                 ]
             , describe "total weighting for impacts' ecoscoreData"
                 [ Definition.trigrams
-                    |> List.map (Definition.get textileDb.impactDefinitions)
+                    |> List.map (\trigram -> Definition.get trigram textileDb.impactDefinitions)
                     |> List.filterMap .ecoscoreData
                     |> List.map .weighting
                     |> List.map Unit.ratioToFloat
@@ -98,7 +98,7 @@ suite =
                 ]
             , describe "total weighting for impacts' pefData"
                 [ Definition.trigrams
-                    |> List.map (Definition.get textileDb.impactDefinitions)
+                    |> List.map (\trigram -> Definition.get trigram textileDb.impactDefinitions)
                     |> List.filterMap .pefData
                     |> List.map .weighting
                     |> List.map Unit.ratioToFloat

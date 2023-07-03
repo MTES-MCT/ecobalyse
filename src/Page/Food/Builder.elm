@@ -124,7 +124,7 @@ init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, C
 init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            Definition.get db.impactDefinitions trigram
+            Definition.get trigram db.impactDefinitions
 
         query =
             maybeQuery

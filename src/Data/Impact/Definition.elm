@@ -1,4 +1,26 @@
-module Data.Impact.Definition exposing (AggregatedScoreData, Definition, Definitions, DefinitionsBase, Quality(..), Source, Trigram(..), decode, decodeBase, encodeBase, filter, foldl, forScope, get, init, isAggregate, map, toString, toTrigram, trigrams, update)
+module Data.Impact.Definition exposing
+    ( AggregatedScoreData
+    , Definition
+    , Definitions
+    , DefinitionsBase
+    , Quality(..)
+    , Source
+    , Trigram(..)
+    , decode
+    , decodeBase
+    , encodeBase
+    , filter
+    , foldl
+    , forScope
+    , get
+    , init
+    , isAggregate
+    , map
+    , toString
+    , toTrigram
+    , trigrams
+    , update
+    )
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
@@ -71,6 +93,10 @@ type alias Definition =
 
 
 type alias DefinitionsBase a =
+    {- We use a type variable here because this type is used for both
+       * impact definitions (Definition.Definition)
+       * processes impacts (Data.Impacts)
+    -}
     { acd : a
     , bvi : a
     , cch : a
@@ -228,8 +254,8 @@ trigrams =
     ]
 
 
-get : DefinitionsBase a -> Trigram -> a
-get definitions trigram =
+get : Trigram -> DefinitionsBase a -> a
+get trigram definitions =
     case trigram of
         Acd ->
             definitions.acd
@@ -345,7 +371,7 @@ foldl func acc base =
     trigrams
         |> List.foldl
             (\trigram acc_ ->
-                func trigram (get base trigram) acc_
+                func trigram (get trigram base) acc_
             )
             acc
 
@@ -495,7 +521,7 @@ toTrigram str =
 
 forScope : Definitions -> Scope -> List Definition
 forScope definitions scope =
-    trigrams |> List.map (get definitions) |> List.filter (.scopes >> List.member scope)
+    trigrams |> List.map (\trigram -> get trigram definitions) |> List.filter (.scopes >> List.member scope)
 
 
 isAggregate : Trigram -> Bool
@@ -602,6 +628,6 @@ encodeBase definitions scope encoder base =
         |> List.map .trigram
         |> List.map
             (\trigram ->
-                ( toString trigram, encoder (get base trigram) )
+                ( toString trigram, encoder (get trigram base) )
             )
         |> Encode.object
