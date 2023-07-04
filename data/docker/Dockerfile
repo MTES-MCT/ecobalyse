@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:python-3.10
+FROM jupyter/minimal-notebook:python-3.11
 
 ENV BRIGHTWAY2_DIR /home/$NB_USER/data
 ENV BRIGHTWAY2_DOCKER 1
