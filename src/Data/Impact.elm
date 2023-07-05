@@ -25,7 +25,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
-import Data.Impact.Definition as Definition exposing (Definition, Definitions, DefinitionsBase, Trigram)
+import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -155,7 +155,7 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutBonuses) =
 
 
 type Impacts
-    = Impacts (DefinitionsBase Unit.Impact)
+    = Impacts (Base Unit.Impact)
 
 
 empty : Impacts

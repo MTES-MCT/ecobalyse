@@ -8,7 +8,7 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-sumDefinitions : Definition.DefinitionsBase Int -> Int
+sumDefinitions : Definition.Base Int -> Int
 sumDefinitions =
     Definition.foldl (\_ a b -> a + b) 0
 
