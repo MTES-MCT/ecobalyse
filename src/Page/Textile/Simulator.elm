@@ -591,7 +591,6 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
                     , switchFunctionalUnit = SwitchFunctionalUnit
-                    , scope = Scope.Textile
                     }
                 , div [ class "Summary" ]
                     [ model.simulator

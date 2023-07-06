@@ -472,34 +472,30 @@ deletePackaging code query =
     }
 
 
-encodeResults : Definitions -> Results -> Encode.Value
-encodeResults definitions results =
-    let
-        encodeImpacts =
-            Impact.encodeImpacts definitions Scope.Food
-    in
+encodeResults : Results -> Encode.Value
+encodeResults results =
     Encode.object
-        [ ( "total", encodeImpacts results.total )
-        , ( "perKg", encodeImpacts results.perKg )
+        [ ( "total", Impact.encode results.total )
+        , ( "perKg", Impact.encode results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "preparedMass", results.preparedMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
-                [ ( "total", encodeImpacts results.recipe.total )
-                , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
+                [ ( "total", Impact.encode results.recipe.total )
+                , ( "ingredientsTotal", Impact.encode results.recipe.ingredientsTotal )
                 , ( "totalBonusImpact", Impact.encodeBonusesImpacts results.recipe.totalBonusesImpact )
-                , ( "transform", encodeImpacts results.recipe.transform )
-                , ( "transports", Transport.encode definitions results.recipe.transports )
+                , ( "transform", Impact.encode results.recipe.transform )
+                , ( "transports", Transport.encode results.recipe.transports )
                 ]
           )
-        , ( "packaging", encodeImpacts results.packaging )
-        , ( "preparation", encodeImpacts results.preparation )
-        , ( "transports", Transport.encode definitions results.transports )
+        , ( "packaging", Impact.encode results.packaging )
+        , ( "preparation", Impact.encode results.preparation )
+        , ( "transports", Transport.encode results.transports )
         , ( "distribution"
           , Encode.object
-                [ ( "total", encodeImpacts results.distribution.total )
-                , ( "transports", Transport.encode definitions results.distribution.transports )
+                [ ( "total", Impact.encode results.distribution.total )
+                , ( "transports", Transport.encode results.distribution.transports )
                 ]
           )
         ]

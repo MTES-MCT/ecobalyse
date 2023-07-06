@@ -378,10 +378,10 @@ paths:
                   - id: carrot
                     mass: 225
                   transform:
-                    code: aded2490573207ec7ad5a3813978f6a4
+                    code: AGRIBALU000000003103966
                     mass: 545
                   packaging:
-                  - code: 23b2754e5943bc77916f8f871edc53b6
+                  - code: AGRIBALU000000003104019
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -407,10 +407,10 @@ paths:
                     variant: organic
                     country: ES
                   transform:
-                    code: aded2490573207ec7ad5a3813978f6a4
+                    code: AGRIBALU000000003103966
                     mass: 545
                   packaging:
-                  - code: 23b2754e5943bc77916f8f871edc53b6
+                  - code: AGRIBALU000000003104019
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -970,7 +970,7 @@ components:
       examples:
         onePackaging:
           summary: "105g de Carton"
-          value: ["23b2754e5943bc77916f8f871edc53b6;105"]
+          value: ["AGRIBALU000000003104019;105"]
     transformParam:
       name: transform
       in: query
@@ -978,7 +978,7 @@ components:
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
         Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-        Par exemple: `aded2490573207ec7ad5a3813978f6a4;1000` pour 1kg de matière à cuire.
+        Par exemple: `AGRIBALU000000003103966;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -991,7 +991,7 @@ components:
           value: ""
         Cuisson:
           summary: Cuisson d'1kg de matière
-          value: "aded2490573207ec7ad5a3813978f6a4;1000"
+          value: "AGRIBALU000000003103966;1000"
     distributionParam:
       name: distribution
       in: query

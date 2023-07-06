@@ -6,7 +6,6 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Common as Common
 import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -104,10 +103,6 @@ table { detailed, scope } =
                             , target "_blank"
                             ]
                             [ text def.source.label ]
-                 }
-               , { label = "Domaines"
-                 , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
-                 , toCell = Common.scopesView
                  }
                , { label = "Description"
                  , toValue = .description
