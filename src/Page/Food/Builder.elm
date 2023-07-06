@@ -586,6 +586,15 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                             | id = newIngredient.id
                             , country = Nothing
                             , planeTransport = Ingredient.byPlaneByDefault newIngredient
+                            , complements =
+                                if newIngredient.id /= recipeIngredient.ingredient.id then
+                                    Just newIngredient.complements
+
+                                else if newIngredient.complements /= recipeIngredient.complements then
+                                    Just recipeIngredient.complements
+
+                                else
+                                    Nothing
                         }
                 )
         , db.countries
