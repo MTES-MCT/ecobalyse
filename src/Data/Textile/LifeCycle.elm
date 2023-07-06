@@ -15,7 +15,6 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs exposing (Inputs, countryList)
 import Data.Textile.Step as Step exposing (Step)
@@ -153,6 +152,6 @@ updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
 
 
-encode : Definitions -> LifeCycle -> Encode.Value
-encode definitions =
-    Encode.array (Step.encode definitions)
+encode : LifeCycle -> Encode.Value
+encode =
+    Encode.array Step.encode

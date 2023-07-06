@@ -472,11 +472,11 @@ deletePackaging code query =
     }
 
 
-encodeResults : Definitions -> Results -> Encode.Value
-encodeResults definitions results =
+encodeResults : Results -> Encode.Value
+encodeResults results =
     let
         encodeImpacts =
-            Impact.encodeImpacts definitions Scope.Food
+            Impact.encodeImpacts
     in
     Encode.object
         [ ( "total", encodeImpacts results.total )
@@ -490,16 +490,16 @@ encodeResults definitions results =
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "totalBonusImpact", Impact.encodeBonusesImpacts results.recipe.totalBonusesImpact )
                 , ( "transform", encodeImpacts results.recipe.transform )
-                , ( "transports", Transport.encode definitions results.recipe.transports )
+                , ( "transports", Transport.encode results.recipe.transports )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
         , ( "preparation", encodeImpacts results.preparation )
-        , ( "transports", Transport.encode definitions results.transports )
+        , ( "transports", Transport.encode results.transports )
         , ( "distribution"
           , Encode.object
                 [ ( "total", encodeImpacts results.distribution.total )
-                , ( "transports", Transport.encode definitions results.distribution.transports )
+                , ( "transports", Transport.encode results.distribution.transports )
                 ]
           )
         ]

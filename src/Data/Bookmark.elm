@@ -3,7 +3,6 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
-    , filterByScope
     , findByFoodQuery
     , findByTextileQuery
     , isFood
@@ -18,7 +17,6 @@ module Data.Bookmark exposing
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Builder.Recipe as Recipe
-import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -94,18 +92,6 @@ isTextile { query } =
             False
 
 
-filterByScope : Scope -> List Bookmark -> List Bookmark
-filterByScope scope_ =
-    List.filter
-        (case scope_ of
-            Scope.Food ->
-                isFood
-
-            Scope.Textile ->
-                isTextile
-        )
-
-
 findByQuery : Query -> List Bookmark -> Maybe Bookmark
 findByQuery query =
     List.filter (.query >> (==) query)
@@ -122,16 +108,6 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
-scope : Bookmark -> Scope
-scope bookmark =
-    case bookmark.query of
-        Food _ ->
-            Scope.Food
-
-        Textile _ ->
-            Scope.Textile
-
-
 sort : List Bookmark -> List Bookmark
 sort =
     List.sortBy (.created >> Time.posixToMillis) >> List.reverse
@@ -139,7 +115,7 @@ sort =
 
 toId : Bookmark -> String
 toId bookmark =
-    Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
+    bookmark.name
 
 
 toFoodQueries : List Bookmark -> List ( String, String, FoodQuery.Query )

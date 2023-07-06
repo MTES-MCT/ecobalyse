@@ -14,8 +14,7 @@
     "decimals": 2,
     "quality": null,
     "pef": null,
-    "ecoscore": null,
-    "scopes": ["food"]
+    "ecoscore": null
   },
   "pef": {
     "source": {
@@ -32,8 +31,7 @@
     "decimals": 2,
     "quality": null,
     "pef": null,
-    "ecoscore": null,
-    "scopes": ["textile", "food"]
+    "ecoscore": null
   },
   "acd": {
     "source": {
@@ -58,8 +56,7 @@
       "color": "#91cf4f",
       "normalization": 5.55695e1,
       "weighting": 0.0458
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "ozd": {
     "source": {
@@ -84,8 +81,7 @@
       "color": "#ffc000",
       "normalization": 5.3648e-2,
       "weighting": 0.0466
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "cch": {
     "source": {
@@ -110,8 +106,7 @@
       "color": "#9025be",
       "normalization": 7.55308e3,
       "weighting": 0.2106
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "fwe": {
     "source": {
@@ -136,8 +131,7 @@
       "color": "#548235",
       "normalization": 1.60685,
       "weighting": 0.0207
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "swe": {
     "source": {
@@ -162,8 +156,7 @@
       "color": "#70ad47",
       "normalization": 1.95452e1,
       "weighting": 0.0219
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "tre": {
     "source": {
@@ -188,8 +181,7 @@
       "color": "#c5e0b4",
       "normalization": 1.76755e2,
       "weighting": 0.0274
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "pco": {
     "source": {
@@ -214,8 +206,7 @@
       "color": "#ff6161",
       "normalization": 4.08592e1,
       "weighting": 0.0353
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "pma": {
     "source": {
@@ -240,8 +231,7 @@
       "color": "#ffc000",
       "normalization": 5.95367e-4,
       "weighting": 0.0662
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "ior": {
     "source": {
@@ -266,8 +256,7 @@
       "color": "#be8f00",
       "normalization": 4.22016e3,
       "weighting": 0.037
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "fru": {
     "source": {
@@ -292,8 +281,7 @@
       "color": "#9dc3e6",
       "normalization": 6.50043e4,
       "weighting": 0.0614
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "mru": {
     "source": {
@@ -318,8 +306,7 @@
       "color": "#698ed0",
       "normalization": 6.36226e-2,
       "weighting": 0.0557
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "ldu": {
     "source": {
@@ -344,8 +331,7 @@
       "color": "#a9d18e",
       "normalization": 8.19498e5,
       "weighting": 0.0586
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "wtu": {
     "source": {
@@ -370,8 +356,7 @@
       "color": "#0070c0",
       "normalization": 1.14687e4,
       "weighting": 0.0628
-    },
-    "scopes": ["textile", "food"]
+    }
   },
   "etf": {
     "source": {
@@ -392,8 +377,7 @@
       "normalization": 5.67166e4,
       "weighting": 0.0192
     },
-    "ecoscore": null,
-    "scopes": ["food"]
+    "ecoscore": null
   },
   "etf-c": {
     "source": {
@@ -419,8 +403,7 @@
       { "sub-impact": "etf-o", "weighting": 2 },
       { "sub-impact": "etf-i", "weighting": 1 },
       { "sub-impact": "etf-m", "weighting": 1 }
-    ],
-    "scopes": ["food"]
+    ]
   },
   "htc": {
     "source": {
@@ -441,8 +424,7 @@
       "normalization": 1.72529e-5,
       "weighting": 0.0213
     },
-    "ecoscore": null,
-    "scopes": ["food"]
+    "ecoscore": null
   },
   "htc-c": {
     "source": {
@@ -468,8 +450,7 @@
       { "sub-impact": "htc-o", "weighting": 2 },
       { "sub-impact": "htc-i", "weighting": 1 },
       { "sub-impact": "htc-m", "weighting": 1 }
-    ],
-    "scopes": ["food"]
+    ]
   },
   "htn": {
     "source": {
@@ -490,8 +471,7 @@
       "normalization": 1.28736e-4,
       "weighting": 0.0184
     },
-    "ecoscore": null,
-    "scopes": ["food"]
+    "ecoscore": null
   },
   "htn-c": {
     "source": {
@@ -517,8 +497,7 @@
       { "sub-impact": "htn-o", "weighting": 2 },
       { "sub-impact": "htn-i", "weighting": 1 },
       { "sub-impact": "htn-m", "weighting": 1 }
-    ],
-    "scopes": ["food"]
+    ]
   },
   "bvi": {
     "source": {
@@ -539,7 +518,6 @@
       "color": "#00b050",
       "normalization": 1.6773e4,
       "weighting": 0.125
-    },
-    "scopes": ["food"]
+    }
   }
 }

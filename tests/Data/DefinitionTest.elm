@@ -1,7 +1,6 @@
 module Data.DefinitionTest exposing (..)
 
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
 import Expect
 import Set
 import Test exposing (..)
@@ -57,14 +56,10 @@ suite =
                 |> sumDefinitions
                 |> Expect.equal 1
                 |> asTest "filter will zero all the values for fields filtered out"
-            , Definition.forScope textileDb.impactDefinitions Scope.Textile
-                |> List.length
-                |> Expect.equal 14
-                |> asTest "there are 14 impacts related to textile"
-            , Definition.forScope textileDb.impactDefinitions Scope.Food
+            , Definition.asList textileDb.impactDefinitions
                 |> List.length
                 |> Expect.equal 22
-                |> asTest "there are 22 impacts related to food"
+                |> asTest "there are 22 impacts in total"
             , Definition.init 1
                 |> Definition.filter Definition.isAggregate (always 0)
                 |> sumDefinitions

@@ -18,7 +18,6 @@ module Data.Transport exposing
 import Data.Country as Country
 import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -232,15 +231,15 @@ decode =
         (Decode.succeed Impact.empty)
 
 
-encode : Definitions -> Transport -> Encode.Value
-encode definitions v =
+encode : Transport -> Encode.Value
+encode v =
     Encode.object
         [ ( "road", encodeKm v.road )
         , ( "roadCooled", encodeKm v.roadCooled )
         , ( "sea", encodeKm v.sea )
         , ( "seaCooled", encodeKm v.seaCooled )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         ]
 
 

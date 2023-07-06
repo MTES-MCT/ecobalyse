@@ -26,7 +26,6 @@ module Data.Impact exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
-import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -231,11 +230,9 @@ encodeBonusesImpacts bonuses =
         ]
 
 
-encodeImpacts : Definitions -> Scope -> Impacts -> Encode.Value
-encodeImpacts definitions scope (Impacts impacts) =
+encodeImpacts : Impacts -> Encode.Value
+encodeImpacts (Impacts impacts) =
     Definition.encodeBase
-        definitions
-        scope
         Unit.encodeImpact
         impacts
 

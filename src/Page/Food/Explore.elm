@@ -280,7 +280,6 @@ viewSidebar definitions { definition, trigram, totalImpact } { original, product
             -- We don't use the following two configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Scope.Food
             }
         , SummaryComp.view
             { header = []
