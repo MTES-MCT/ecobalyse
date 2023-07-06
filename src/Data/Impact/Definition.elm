@@ -6,7 +6,6 @@ module Data.Impact.Definition exposing
     , Quality(..)
     , Source
     , Trigram(..)
-    , asList
     , decode
     , decodeWithoutAggregated
     , encodeBase
@@ -16,6 +15,7 @@ module Data.Impact.Definition exposing
     , init
     , isAggregate
     , map
+    , toList
     , toString
     , toTrigram
     , trigrams
@@ -260,8 +260,8 @@ trigrams =
     ]
 
 
-asList : Definitions -> List Definition
-asList definitions =
+toList : Definitions -> List Definition
+toList definitions =
     trigrams
         |> List.map (\trigram -> get trigram definitions)
 

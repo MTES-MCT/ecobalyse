@@ -126,11 +126,11 @@ impactSelector definitions { selectedImpact, switchImpact } =
         [ class "form-select"
         , onInput (Definition.toTrigram >> switchImpact)
         ]
-        [ Definition.asList definitions
+        [ Definition.toList definitions
             |> List.filter (.trigram >> Definition.isAggregate)
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , Definition.asList definitions
+        , Definition.toList definitions
             |> List.filter (.trigram >> Definition.isAggregate >> not)
             |> List.sortBy .label
             |> List.map toOption

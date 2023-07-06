@@ -56,7 +56,7 @@ suite =
                 |> sumDefinitions
                 |> Expect.equal 1
                 |> asTest "filter will zero all the values for fields filtered out"
-            , Definition.asList textileDb.impactDefinitions
+            , Definition.toList textileDb.impactDefinitions
                 |> List.length
                 |> Expect.equal 22
                 |> asTest "there are 22 impacts in total"

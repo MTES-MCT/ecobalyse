@@ -478,7 +478,7 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "impacts", Impact.encode v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

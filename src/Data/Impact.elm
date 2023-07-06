@@ -6,9 +6,9 @@ module Data.Impact exposing
     , bonusesImpactAsChartEntries
     , decodeImpacts
     , empty
+    , encode
     , encodeAggregatedScoreChartEntry
     , encodeBonusesImpacts
-    , encodeImpacts
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
@@ -218,8 +218,8 @@ encodeBonusesImpacts bonuses =
         ]
 
 
-encodeImpacts : Impacts -> Encode.Value
-encodeImpacts (Impacts impacts) =
+encode : Impacts -> Encode.Value
+encode (Impacts impacts) =
     Definition.encodeBase
         Unit.encodeImpact
         impacts

@@ -83,7 +83,7 @@ toAllImpactsSimple : Simulator -> Encode.Value
 toAllImpactsSimple { inputs, impacts } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
-        , ( "impacts", Impact.encodeImpacts impacts )
+        , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]

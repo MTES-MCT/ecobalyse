@@ -239,7 +239,7 @@ encode v =
         , ( "sea", encodeKm v.sea )
         , ( "seaCooled", encodeKm v.seaCooled )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "impacts", Impact.encode v.impacts )
         ]
 
 

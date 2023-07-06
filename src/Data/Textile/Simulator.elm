@@ -45,7 +45,7 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "impacts", Impact.encode v.impacts )
         , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
@@ -557,7 +557,7 @@ lifeCycleImpacts definitions simulator =
     --     etc.
     -- wtu:
     --     ...
-    Definition.asList definitions
+    Definition.toList definitions
         |> List.map
             (\def ->
                 ( def.label

@@ -17,6 +17,7 @@ module Data.Bookmark exposing
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Builder.Recipe as Recipe
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -108,6 +109,16 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
+scope : Bookmark -> Scope
+scope bookmark =
+    case bookmark.query of
+        Food _ ->
+            Scope.Food
+
+        Textile _ ->
+            Scope.Textile
+
+
 sort : List Bookmark -> List Bookmark
 sort =
     List.sortBy (.created >> Time.posixToMillis) >> List.reverse
@@ -115,7 +126,7 @@ sort =
 
 toId : Bookmark -> String
 toId bookmark =
-    bookmark.name
+    Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
 
 
 toFoodQueries : List Bookmark -> List ( String, String, FoodQuery.Query )

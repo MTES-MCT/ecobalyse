@@ -175,7 +175,7 @@ toString route =
                     , TextileQuery.b64encode query
                     ]
 
-                TextileSimulator Definition.Pef Unit.PerItem _ Nothing ->
+                TextileSimulator Definition.Ecs Unit.PerItem _ Nothing ->
                     [ "textile", "simulator" ]
 
                 TextileSimulator trigram funit viewMode Nothing ->
