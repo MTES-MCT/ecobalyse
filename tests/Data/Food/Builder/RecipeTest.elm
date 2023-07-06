@@ -11,8 +11,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Unit as Unit
-import Dict
-import Dict.Any as AnyDict
 import Expect
 import Length
 import Mass
@@ -152,36 +150,32 @@ suite =
                                 |> Recipe.compute builderDb
                      in
                      [ carrotCakeResults
-                        |> Result.map (Tuple.second >> .total >> Impact.toDict >> AnyDict.toDict)
-                        |> Result.withDefault Dict.empty
-                        |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
-                        |> Expect.equalDicts
-                            (Dict.fromList
-                                -- Note: presented that way to ease diff viewing in test results
-                                [ ( "acd", True )
-                                , ( "bvi", True )
-                                , ( "cch", True )
-                                , ( "ecs", True )
-                                , ( "etf", True )
-                                , ( "fru", True )
-                                , ( "fwe", True )
-                                , ( "htc", True )
-                                , ( "htn", True )
-                                , ( "ior", True )
-                                , ( "ldu", True )
-                                , ( "mru", True )
-                                , ( "ozd", True )
-                                , ( "pco", True )
-                                , ( "pef", True )
-                                , ( "pma", True )
-                                , ( "swe", True )
-                                , ( "tre", True )
-                                , ( "wtu", True )
-                                , ( "htc-c", True )
-                                , ( "etf-c", True )
-                                , ( "htn-c", True )
-                                ]
-                            )
+                        |> Result.map (Tuple.second >> .total)
+                        |> Result.withDefault Impact.empty
+                        |> TestUtils.expectImpactsEqual
+                            { acd = Expect.greaterThan 0
+                            , bvi = Expect.greaterThan 0
+                            , cch = Expect.greaterThan 0
+                            , ecs = Expect.greaterThan 0
+                            , etf = Expect.greaterThan 0
+                            , etfc = Expect.greaterThan 0
+                            , fru = Expect.greaterThan 0
+                            , fwe = Expect.greaterThan 0
+                            , htc = Expect.greaterThan 0
+                            , htcc = Expect.greaterThan 0
+                            , htn = Expect.greaterThan 0
+                            , htnc = Expect.greaterThan 0
+                            , ior = Expect.greaterThan 0
+                            , ldu = Expect.greaterThan 0
+                            , mru = Expect.greaterThan 0
+                            , ozd = Expect.greaterThan 0
+                            , pco = Expect.greaterThan 0
+                            , pef = Expect.greaterThan 0
+                            , pma = Expect.greaterThan 0
+                            , swe = Expect.greaterThan 0
+                            , tre = Expect.greaterThan 0
+                            , wtu = Expect.greaterThan 0
+                            }
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults
                         |> Result.map (Tuple.second >> .recipe >> .edibleMass >> Mass.inKilograms)

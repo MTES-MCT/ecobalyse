@@ -141,7 +141,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact = Definition.get db.impactDefinitions trigram
+      , impact = Definition.get trigram db.impactDefinitions
       , funit = funit
       , modal = NoModal
       , chartHovering = []
