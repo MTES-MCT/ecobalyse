@@ -50,6 +50,7 @@ type alias Ingredient =
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
+    , complements : Bonuses
     }
 
 
@@ -206,6 +207,7 @@ decodeIngredient processes =
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
+        |> Pipe.required "complements" decodeBonuses
 
 
 decodeTransportCooling : Decoder TransportCooling
