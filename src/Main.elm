@@ -5,9 +5,11 @@ import Browser.Navigation as Nav
 import Data.Food.Builder.Db as FoodBuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
+import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as TextileInputs
+import Data.Unit as Unit
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -19,6 +21,7 @@ import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
 import Page.Textile.Simulator as TextileSimulator
+import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.BuilderDb
@@ -180,6 +183,20 @@ setRoute url ( { state } as model, cmds ) =
                         _ ->
                             ( model, cmds )
 
+                Just Route.FoodBuilderHome ->
+                    case session.builderDb of
+                        RemoteData.Success builderDb ->
+                            FoodBuilder.init builderDb session Impact.default Nothing
+                                |> toPage FoodBuilderPage FoodBuilderMsg
+
+                        RemoteData.NotAsked ->
+                            ( model
+                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            )
+
+                        _ ->
+                            ( model, cmds )
+
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     case session.builderDb of
                         RemoteData.Success builderDb ->
@@ -205,6 +222,10 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.TextileExamples ->
                     TextileExamples.init session
                         |> toPage TextileExamplesPage TextileExamplesMsg
+
+                Just Route.TextileSimulatorHome ->
+                    TextileSimulator.init Impact.default Unit.PerItem ViewMode.Simple Nothing session
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Just (Route.TextileSimulator trigram funit detailed maybeQuery) ->
                     TextileSimulator.init trigram funit detailed maybeQuery session

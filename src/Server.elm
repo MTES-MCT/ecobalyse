@@ -99,7 +99,7 @@ toFoodWebUrl trigram foodQuery =
 toTextileWebUrl : Maybe Definition.Trigram -> Inputs.Inputs -> String
 toTextileWebUrl maybeTrigram textileQuery =
     Just (Inputs.toQuery textileQuery)
-        |> WebRoute.TextileSimulator (Maybe.withDefault Definition.Ecs maybeTrigram)
+        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram)
             Unit.PerItem
             ViewMode.Simple
         |> WebRoute.toString
@@ -120,7 +120,7 @@ toSingleImpactSimple trigram { inputs, impacts } =
 toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
 toFoodResults query results =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Definition.Ecs query |> Encode.string )
+        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
         , ( "results", BuilderRecipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
         , ( "query", BuilderQuery.encode query )

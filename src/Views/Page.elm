@@ -9,14 +9,11 @@ module Views.Page exposing
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Session as Session
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Textile.Simulator.ViewMode as ViewMode
 import Request.Version as Version exposing (Version)
 import Route
 import Views.Alert as Alert
@@ -134,8 +131,8 @@ newVersionAlert { session, reloadPage } =
 mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" (Route.TextileSimulator Definition.Ecs Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
-    , Internal "Alimentaire" (Route.FoodBuilder Definition.Ecs Nothing) FoodBuilder
+    , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api

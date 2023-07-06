@@ -5,6 +5,7 @@ module Data.Impact exposing
     , applyBonus
     , bonusesImpactAsChartEntries
     , decodeImpacts
+    , default
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -143,6 +144,11 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutBonuses) =
 
 type Impacts
     = Impacts (Base Unit.Impact)
+
+
+default : Definition.Trigram
+default =
+    Definition.Ecs
 
 
 empty : Impacts

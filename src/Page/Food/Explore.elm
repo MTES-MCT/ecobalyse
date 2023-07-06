@@ -77,7 +77,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
-      , impact = Definition.Ecs
+      , impact = Impact.default
       , selectedIngredientProcess = Nothing
       , newIngredientMass = Mass.grams 100
       , selectedCountry = Product.defaultCountry
@@ -296,7 +296,7 @@ viewSidebar definitions { definition, trigram, totalImpact } { original, product
         , viewStepsSummary trigram product
         , a
             [ class "btn btn-primary"
-            , Route.href (Route.FoodBuilder Definition.Ecs Nothing)
+            , Route.href Route.FoodBuilderHome
             ]
             [ text "Constructeur de recette" ]
         ]

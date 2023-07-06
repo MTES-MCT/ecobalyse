@@ -3,7 +3,8 @@ module Views.Textile.Summary exposing (view)
 import Array
 import Data.Country as Country
 import Data.Env as Env
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -167,7 +168,7 @@ summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHove
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.TextileSimulator Definition.Ecs Unit.PerItem ViewMode.Simple
+                            |> Route.TextileSimulator Impact.default Unit.PerItem ViewMode.Simple
                         )
                     ]
                     [ text "Reprendre cette simulation" ]
