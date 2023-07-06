@@ -111,8 +111,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -149,8 +149,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -186,8 +186,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -209,8 +209,8 @@
       "agro-ecology": 50
     },
     "ratio": 1.16,
-    "simple_ingredient_default": "Soft wheat grain breadmaking conventional farm",
-    "simple_ingredient_variant": "soft wheat grain organic central region"
+    "subingredient_default": "Soft wheat grain breadmaking conventional farm",
+    "subingredient_variant": "soft wheat grain organic central region"
   },
   {
     "id": "sunflower",
@@ -226,8 +226,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -263,8 +263,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -300,8 +300,8 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -351,9 +351,9 @@
     "transport_cooling": "always",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -376,8 +376,8 @@
       "animal-welfare": 50
     },
     "ratio": 2.3,
-    "simple_ingredient_default": "Beef cattle national average at farm gate",
-    "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
+    "subingredient_default": "Beef cattle national average at farm gate",
+    "subingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
   },
   {
     "id": "ground-beef-feedlot",
@@ -408,8 +408,8 @@
     "transport_cooling": "always",
     "visible": true,
     "ratio": 2.3,
-    "simple_ingredient_default": "Beef cattle national average at farm gate",
-    "simple_ingredient_variant": "Beef cattle feedlot or intensive system live weight farm GB"
+    "subingredient_default": "Beef cattle national average at farm gate",
+    "subingredient_variant": "Beef cattle feedlot or intensive system live weight farm GB"
   },
   {
     "id": "cooked-ham",
@@ -425,9 +425,9 @@
     "transport_cooling": "always",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -450,8 +450,8 @@
       "animal-welfare": 50
     },
     "ratio": 2.02,
-    "simple_ingredient_default": "Pig conventional national average at farm gate",
-    "simple_ingredient_variant": "Pig organic system 2 at farm gate"
+    "subingredient_default": "Pig conventional national average at farm gate",
+    "subingredient_variant": "Pig organic system 2 at farm gate"
   },
   {
     "id": "chicken-breast",
@@ -467,9 +467,9 @@
     "transport_cooling": "always",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -492,8 +492,8 @@
       "animal-welfare": 50
     },
     "ratio": 1,
-    "simple_ingredient_default": "Broiler conventional at farm gate",
-    "simple_ingredient_variant": "Broiler organic at farm gate"
+    "subingredient_default": "Broiler conventional at farm gate",
+    "subingredient_variant": "Broiler organic at farm gate"
   },
   {
     "id": "grape",
@@ -509,8 +509,8 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -560,8 +560,8 @@
     "transport_cooling": "none",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -580,8 +580,8 @@
     "transport_cooling": "none",
     "visible": true,
     "ratio": 1.66,
-    "simple_ingredient_default": "Rape seed FR",
-    "simple_ingredient_variant": "winter rapeseed organic",
+    "subingredient_default": "Rape seed FR",
+    "subingredient_variant": "winter rapeseed organic",
     "beyondLCA": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -602,8 +602,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -622,8 +622,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "ratio": 2.45,
-    "simple_ingredient_default": "sunflower, at farm {glo}",
-    "simple_ingredient_variant": "Sunflower grain organic, system number 3, at farm gate",
+    "subingredient_default": "sunflower, at farm {glo}",
+    "subingredient_variant": "Sunflower grain organic, system number 3, at farm gate",
     "beyondLCA": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -644,8 +644,8 @@
     "transport_cooling": "none",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -684,8 +684,8 @@
     "transport_cooling": "none",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -724,27 +724,8 @@
     "transport_cooling": "none",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 0
-    }
-  },
-  {
-    "id": "peach",
-    "name": "Pêche",
-    "default": "Peach production mix national average at orchard FR",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "visible": true,
-    "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -783,8 +764,8 @@
     "transport_cooling": "none",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
+      "agro-diversity": 10,
+      "agro-ecology": 10,
       "animal-welfare": 0
     }
   },
@@ -823,9 +804,9 @@
     "transport_cooling": "always",
     "visible": true,
     "beyondLCA": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -843,8 +824,8 @@
     "transport_cooling": "always",
     "visible": true,
     "ratio": 0,
-    "simple_ingredient_default": "cow milk national",
-    "simple_ingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+    "subingredient_default": "cow milk national",
+    "subingredient_variant": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
     "beyondLCA": {
       "agro-diversity": 50,
       "agro-ecology": 50,
