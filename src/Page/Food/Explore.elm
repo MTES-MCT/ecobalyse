@@ -77,7 +77,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
-      , impact = Impact.defaultFoodTrigram
+      , impact = Impact.default
       , selectedIngredientProcess = Nothing
       , newIngredientMass = Mass.grams 100
       , selectedCountry = Product.defaultCountry
@@ -280,7 +280,6 @@ viewSidebar definitions { definition, trigram, totalImpact } { original, product
             -- We don't use the following two configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Scope.Food
             }
         , SummaryComp.view
             { header = []
@@ -297,7 +296,7 @@ viewSidebar definitions { definition, trigram, totalImpact } { original, product
         , viewStepsSummary trigram product
         , a
             [ class "btn btn-primary"
-            , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+            , Route.href Route.FoodBuilderHome
             ]
             [ text "Constructeur de recette" ]
         ]
@@ -327,7 +326,7 @@ view { explorerDb, db } ({ selectedProduct, newIngredientMass, impact, selectedI
                         Product.getTotalImpact impact product
 
                     definition =
-                        Definition.get db.impactDefinitions impact
+                        Definition.get impact db.impactDefinitions
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact

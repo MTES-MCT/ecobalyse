@@ -8,7 +8,6 @@ module Page.Textile.Examples exposing
 
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
@@ -37,7 +36,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.defaultTextileTrigram
+    ( { impact = Impact.default
       , funit = Unit.PerItem
       , chartHovering = []
       }
@@ -74,7 +73,7 @@ viewExample session model funit impact query =
         |> Simulator.compute session.db
         |> SummaryView.view
             { session = session
-            , impact = Definition.get session.db.impactDefinitions impact
+            , impact = Definition.get impact session.db.impactDefinitions
             , funit = funit
             , reusable = True
             , chartHovering = model.chartHovering
@@ -97,11 +96,10 @@ view session ({ impact, funit } as model) =
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
                         , switchFunctionalUnit = SwitchFunctionalUnit
-                        , scope = Scope.Textile
                         }
                     ]
                 ]
-            , Definition.get session.db.impactDefinitions impact
+            , Definition.get impact session.db.impactDefinitions
                 |> ImpactView.viewDefinition
             , Inputs.presets
                 |> List.map (viewExample session model funit impact)

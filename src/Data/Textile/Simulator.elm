@@ -9,7 +9,6 @@ import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
@@ -41,13 +40,13 @@ type alias Simulator =
     }
 
 
-encode : Definitions -> Simulator -> Encode.Value
-encode definitions v =
+encode : Simulator -> Encode.Value
+encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode definitions v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
-        , ( "transport", Transport.encode definitions v.transport )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
@@ -558,7 +557,7 @@ lifeCycleImpacts definitions simulator =
     --     etc.
     -- wtu:
     --     ...
-    Definition.forScope definitions Scope.Textile
+    Definition.toList definitions
         |> List.map
             (\def ->
                 ( def.label

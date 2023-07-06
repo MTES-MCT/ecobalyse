@@ -227,23 +227,7 @@ def init_lcas(demand):
     return lcas
 
 
-def compute_pef(impacts_ecobalyse, impacts_dic):
-    pef = 0
-    for k in impacts_ecobalyse.keys():
-        if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
-            continue
-        norm = impacts_ecobalyse[k]["pef"]["normalization"]
-        weight = impacts_ecobalyse[k]["pef"]["weighting"]
-        pef += impacts_dic[k] * weight / norm
-    pef *= 1000000  # We need the result in µPt, but we have it in Pt
-    return pef
-
-
 def compute_lca(processes, lcas):
-    impacts_file = "../../../public/data/impacts.json"
-    with open(impacts_file, "r") as f:
-        impacts_ecobalyse = json.load(f)
-
     num_processes = len(processes)
     print(f"computing the impacts for the {num_processes} processes")
     for index, (activity, value) in enumerate(processes.items()):
@@ -254,9 +238,6 @@ def compute_lca(processes, lcas):
             lca.redo_lcia(demand)
             processes[activity]["impacts"][impact] = lca.score
 
-        processes[activity]["impacts"]["pef"] = compute_pef(
-            impacts_ecobalyse, processes[activity]["impacts"]
-        )
         if index % 10 == 0:
             print(f"{round(index * 100 / num_processes)}%", end="\r")
     print("100%")

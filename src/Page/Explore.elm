@@ -221,11 +221,11 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
 
 impactsExplorer : Definitions -> Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Definition.Trigram -> List (Html Msg)
 impactsExplorer definitions tableConfig tableState scope maybeTrigram =
-    [ Definition.forScope definitions scope
+    [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
     , maybeTrigram
-        |> Maybe.map (Definition.get definitions)
+        |> Maybe.map (\trigram -> Definition.get trigram definitions)
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")

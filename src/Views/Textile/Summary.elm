@@ -168,7 +168,7 @@ summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHove
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple
+                            |> Route.TextileSimulator Impact.default Unit.PerItem ViewMode.Simple
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

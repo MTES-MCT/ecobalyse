@@ -124,7 +124,7 @@ init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, C
 init db ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            Definition.get db.impactDefinitions trigram
+            Definition.get trigram db.impactDefinitions
 
         query =
             maybeQuery
@@ -893,7 +893,7 @@ debugQueryView db query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute db
-                    |> Result.map (Tuple.second >> Recipe.encodeResults db.impactDefinitions >> Encode.encode 2)
+                    |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
                 ]
@@ -1342,8 +1342,7 @@ sidebarView session model results =
         ]
         [ ImpactView.impactSelector
             session.db.impactDefinitions
-            { scope = Scope.Food
-            , selectedImpact = model.impact.trigram
+            { selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
             -- FIXME: We don't use the following two textile configs

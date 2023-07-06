@@ -7,7 +7,6 @@ module Views.Impact exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -110,12 +109,11 @@ type alias SelectorConfig msg =
     , switchImpact : Result String Definition.Trigram -> msg
     , selectedFunctionalUnit : Unit.Functional
     , switchFunctionalUnit : Unit.Functional -> msg
-    , scope : Scope
     }
 
 
 impactSelector : Definitions -> SelectorConfig msg -> Html msg
-impactSelector definitions { selectedImpact, switchImpact, scope } =
+impactSelector definitions { selectedImpact, switchImpact } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -123,19 +121,16 @@ impactSelector definitions { selectedImpact, switchImpact, scope } =
                 , value <| Definition.toString trigram
                 ]
                 [ text label ]
-
-        scopeImpacts =
-            Definition.forScope definitions scope
     in
     select
         [ class "form-select"
         , onInput (Definition.toTrigram >> switchImpact)
         ]
-        [ scopeImpacts
+        [ Definition.toList definitions
             |> List.filter (.trigram >> Definition.isAggregate)
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , scopeImpacts
+        , Definition.toList definitions
             |> List.filter (.trigram >> Definition.isAggregate >> not)
             |> List.sortBy .label
             |> List.map toOption

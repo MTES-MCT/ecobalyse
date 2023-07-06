@@ -3,9 +3,6 @@ module Data.Food.Explorer.RecipeTest exposing (..)
 import Data.Food.Explorer.Recipe as Recipe
 import Data.Food.Process as Process
 import Data.Impact as Impact
-import Data.Unit as Unit
-import Dict
-import Dict.Any as AnyDict
 import Expect
 import Mass
 import Test exposing (..)
@@ -87,37 +84,39 @@ suite =
                     |> Expect.equal (Ok Recipe.tunaPizza)
                     |> asTest "should convert a recipe to a query"
                 ]
-            , describe "compute"
+            , let
+                expectImpactEqual =
+                    Expect.within (Expect.Relative 0.01)
+              in
+              describe "compute"
                 [ Recipe.tunaPizza
                     |> Recipe.compute explorerDb
-                    |> Result.map (Tuple.second >> .impacts >> Impact.toDict >> AnyDict.toDict)
-                    |> Result.withDefault Dict.empty
-                    |> Expect.equalDicts
-                        (Dict.fromList
-                            [ ( "acd", Unit.impact 0.03563816517303142 )
-                            , ( "bvi", Unit.impact 0 )
-                            , ( "cch", Unit.impact 2.340400439828958 )
-                            , ( "ecs", Unit.impact 221.38520044798148 )
-                            , ( "etf", Unit.impact 70.13958449015763 )
-                            , ( "fru", Unit.impact 27.7623776311341 )
-                            , ( "fwe", Unit.impact 0.0003131751866055857 )
-                            , ( "htc", Unit.impact 8.16161881596257e-10 )
-                            , ( "htn", Unit.impact 4.2366936866668135e-8 )
-                            , ( "ior", Unit.impact 0.6655424206621998 )
-                            , ( "ldu", Unit.impact 103.19136587989166 )
-                            , ( "mru", Unit.impact 0.000006171700549716389 )
-                            , ( "ozd", Unit.impact 2.6450658409466755e-7 )
-                            , ( "pco", Unit.impact 0.015076022211779597 )
-                            , ( "pef", Unit.impact 307.45215299658 )
-                            , ( "pma", Unit.impact 2.614489711886471e-7 )
-                            , ( "swe", Unit.impact 0.010932969853481399 )
-                            , ( "tre", Unit.impact 0.12407138654493885 )
-                            , ( "wtu", Unit.impact 0.7436928514704245 )
-                            , ( "etf-c", Unit.impact 0 )
-                            , ( "htn-c", Unit.impact 0 )
-                            , ( "htc-c", Unit.impact 0 )
-                            ]
-                        )
+                    |> Result.map (Tuple.second >> .impacts)
+                    |> Result.withDefault Impact.empty
+                    |> TestUtils.expectImpactsEqual
+                        { acd = expectImpactEqual 0.03563816517303142
+                        , bvi = expectImpactEqual 0
+                        , cch = expectImpactEqual 2.340400439828958
+                        , ecs = expectImpactEqual 221.38520044798148
+                        , etf = expectImpactEqual 70.13958449015763
+                        , etfc = expectImpactEqual 0
+                        , fru = expectImpactEqual 27.7623776311341
+                        , fwe = expectImpactEqual 0.0003131751866055857
+                        , htc = expectImpactEqual 8.16161881596257e-10
+                        , htcc = expectImpactEqual 0
+                        , htn = expectImpactEqual 4.2366936866668135e-8
+                        , htnc = expectImpactEqual 0
+                        , ior = expectImpactEqual 0.6655424206621998
+                        , ldu = expectImpactEqual 103.19136587989166
+                        , mru = expectImpactEqual 0.000006171700549716389
+                        , ozd = expectImpactEqual 2.6450658409466755e-7
+                        , pco = expectImpactEqual 0.015076022211779597
+                        , pef = expectImpactEqual 307.45215299658
+                        , pma = expectImpactEqual 2.614489711886471e-7
+                        , swe = expectImpactEqual 0.010932969853481399
+                        , tre = expectImpactEqual 0.12407138654493885
+                        , wtu = expectImpactEqual 0.7436928514704245
+                        }
                     |> asTest "should return computed impacts"
                 ]
             ]
