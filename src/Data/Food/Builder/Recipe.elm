@@ -62,10 +62,9 @@ type alias Packaging =
 type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
-    , variant : BuilderQuery.Variant
     , country : Maybe Country
     , planeTransport : Ingredient.PlaneTransport
-    , bonuses : Ingredient.Bonuses
+    , complements : Ingredient.Bonuses
     }
 
 
@@ -372,10 +371,10 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
 computeIngredientsTotalBonus : Definitions -> List RecipeIngredient -> Impact.BonusImpacts
 computeIngredientsTotalBonus definitions =
     List.foldl
-        (\({ bonuses } as recipeIngredient) acc ->
+        (\({ complements } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
-                |> computeIngredientBonusesImpacts definitions bonuses
+                |> computeIngredientBonusesImpacts definitions complements
                 |> Impact.addBonusImpacts acc
         )
         Impact.noBonusImpacts
@@ -621,15 +620,9 @@ getTransformedIngredientsVolume recipe =
 
 
 getRecipeIngredientProcess : RecipeIngredient -> Process
-getRecipeIngredientProcess { ingredient, variant } =
-    case variant of
-        BuilderQuery.DefaultVariant ->
-            ingredient.default
-
-        BuilderQuery.Organic ->
-            ingredient.variants.organic
-                |> Maybe.map .process
-                |> Maybe.withDefault ingredient.default
+getRecipeIngredientProcess { ingredient } =
+    -- XXX remove obsolete proxy
+    ingredient.default
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
@@ -638,7 +631,7 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, variant, country, planeTransport, bonuses } =
+ingredientFromQuery { countries, ingredients } { id, mass, country, planeTransport, complements } =
     let
         ingredientResult =
             Ingredient.findByID id ingredients
@@ -646,7 +639,6 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, pla
     Ok RecipeIngredient
         |> RE.andMap ingredientResult
         |> RE.andMap (Ok mass)
-        |> RE.andMap (Ok variant)
         |> RE.andMap
             (case Maybe.map (\c -> Country.findByCode c countries) country of
                 Just (Ok country_) ->
@@ -663,9 +655,9 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, pla
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
             )
         |> RE.andMap
-            (bonuses
-                |> Maybe.withDefault (BuilderQuery.updateBonusesFromVariant ingredients id variant)
-                |> Ok
+            (ingredientResult
+                |> Result.map
+                    (\ing -> Maybe.withDefault ing.complements complements)
             )
 
 
@@ -673,10 +665,9 @@ ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
     { id = ingredient.id
     , mass = Mass.grams 100
-    , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
-    , bonuses = Nothing
+    , complements = Nothing
     }
 
 
@@ -721,18 +712,8 @@ toString { ingredients, transform, packaging } =
     in
     [ ingredients
         |> List.map
-            (\{ ingredient, mass, variant } ->
-                ingredient.name
-                    ++ " ("
-                    ++ (case variant of
-                            BuilderQuery.Organic ->
-                                "bio, "
-
-                            _ ->
-                                ""
-                       )
-                    ++ formatMass mass
-                    ++ "g.)"
+            (\{ ingredient, mass } ->
+                ingredient.name ++ " (" ++ formatMass mass ++ "g.)"
             )
         |> String.join ", "
         |> SE.nonEmpty

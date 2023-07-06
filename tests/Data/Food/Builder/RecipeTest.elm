@@ -1,7 +1,7 @@
 module Data.Food.Builder.RecipeTest exposing (..)
 
 import Data.Country as Country
-import Data.Food.Builder.Query as Query exposing (carrotCake)
+import Data.Food.Builder.Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -261,7 +261,7 @@ suite =
                                                 (\ingredientQuery ->
                                                     if ingredientQuery.id == Ingredient.Id "carrot" then
                                                         { ingredientQuery
-                                                            | bonuses =
+                                                            | complements =
                                                                 Just
                                                                     { agroDiversity = Split.full
                                                                     , agroEcology = Split.zero
@@ -283,17 +283,15 @@ suite =
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
                           , mass = Mass.grams 120
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -334,10 +332,9 @@ suite =
                 mango =
                     { id = Ingredient.idFromString "mango"
                     , mass = Mass.grams 120
-                    , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
-                    , bonuses = Nothing
+                    , complements = Nothing
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -352,10 +349,9 @@ suite =
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
                           , mass = Mass.grams 120
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         ]
                   , transform = Nothing

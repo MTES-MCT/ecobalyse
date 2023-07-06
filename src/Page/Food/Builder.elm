@@ -552,10 +552,9 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
-            , variant = recipeIngredient.variant
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
-            , bonuses = Just recipeIngredient.bonuses
+            , complements = Just recipeIngredient.complements
             }
 
         event =
@@ -582,30 +581,11 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 recipeIngredient.ingredient.id
                 excluded
                 (\newIngredient ->
-                    let
-                        newVariant =
-                            case ingredientQuery.variant of
-                                Query.DefaultVariant ->
-                                    Query.DefaultVariant
-
-                                Query.Organic ->
-                                    if newIngredient.variants.organic == Nothing then
-                                        -- Fallback to "Default" if the new ingredient doesn't have an "organic" variant
-                                        Query.DefaultVariant
-
-                                    else
-                                        Query.Organic
-                    in
                     event
                         { ingredientQuery
                             | id = newIngredient.id
-                            , variant = newVariant
                             , country = Nothing
                             , planeTransport = Ingredient.byPlaneByDefault newIngredient
-                            , bonuses =
-                                newVariant
-                                    |> Query.updateBonusesFromVariant db.ingredients newIngredient.id
-                                    |> Just
                         }
                 )
         , db.countries
@@ -641,39 +621,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                             }
                     )
                 ]
-        , label
-            [ class "BioCheckbox"
-            , classList [ ( "text-muted", recipeIngredient.ingredient.variants.organic == Nothing ) ]
-            ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input no-outline"
-                , attribute "role" "switch"
-                , checked <| recipeIngredient.variant == Query.Organic
-                , disabled <| recipeIngredient.ingredient.variants.organic == Nothing
-                , onCheck
-                    (\checked ->
-                        let
-                            variant =
-                                if checked then
-                                    Query.Organic
-
-                                else
-                                    Query.DefaultVariant
-                        in
-                        event
-                            { ingredientQuery
-                                | variant = variant
-                                , bonuses =
-                                    variant
-                                        |> Query.updateBonusesFromVariant db.ingredients recipeIngredient.ingredient.id
-                                        |> Just
-                            }
-                    )
-                ]
-                []
-            , text "bio"
-            ]
+        , span [] [ text "Bio (old)" ]
         , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact
                 |> Format.formatFoodSelectedImpact selectedImpact
@@ -681,12 +629,12 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if selectedImpact.trigram == Definition.Ecs then
             let
-                { bonuses, ingredient } =
+                { complements, ingredient } =
                     recipeIngredient
 
                 bonusImpacts =
                     impact
-                        |> Recipe.computeIngredientBonusesImpacts db.impactDefinitions bonuses
+                        |> Recipe.computeIngredientBonusesImpacts db.impactDefinitions complements
             in
             details [ class "IngredientBonuses fs-7" ]
                 [ summary [] [ text "Bonus écologiques" ]
@@ -695,36 +643,36 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                     , title = Nothing
                     , domId = "agroDiversity_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroDiversity
-                    , bonusSplit = bonuses.agroDiversity
+                    , bonusSplit = complements.agroDiversity
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | agroDiversity = split } }
+                            event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
                     }
                 , ingredientBonusView
                     { name = "Infra. agro-éco."
                     , title = Just "Infrastructures agro-écologiques"
                     , domId = "agroEcology_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.agroEcology
-                    , bonusSplit = bonuses.agroEcology
+                    , bonusSplit = complements.agroEcology
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | agroEcology = split } }
+                            event { ingredientQuery | complements = Just { complements | agroEcology = split } }
                     }
                 , ingredientBonusView
                     { name = "Cond. d'élevage"
                     , title = Nothing
                     , domId = "animalWelfare_" ++ String.fromInt index
                     , bonusImpact = bonusImpacts.animalWelfare
-                    , bonusSplit = bonuses.animalWelfare
+                    , bonusSplit = complements.animalWelfare
                     , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | animalWelfare = split } }
+                            event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
                     }
                 ]
 

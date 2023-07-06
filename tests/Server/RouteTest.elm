@@ -89,32 +89,27 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;invalidVariant"
-            |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "Format de variant invalide : invalidVariant")
-            |> asTest "should validate that an ingredient variant is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;;invalidCountry"
+        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;invalidCountry"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;;FR;byPlane"
+        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;FR;byPlane"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas.")
             |> asTest "should validate that an ingredient can be transported by plane"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;;BD"
+        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg;1;BD"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
             |> asTest "should validate that an ingredient country scope is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;;ES;;10:10:10"
+        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;10:10:10"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "L'ingrédient Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage.")
             |> asTest "should validate that an ingredient bonuses are valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;;ES;;100:110"
+        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;100:110"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: 110)")

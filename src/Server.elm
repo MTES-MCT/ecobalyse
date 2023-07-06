@@ -183,15 +183,6 @@ encodeIngredient ingredient =
     Encode.object
         [ ( "id", Ingredient.idToString ingredient.id |> Encode.string )
         , ( "name", ingredient.name |> Encode.string )
-        , ( "variants"
-          , (if ingredient.variants.organic /= Nothing then
-                [ "organic" ]
-
-             else
-                []
-            )
-                |> Encode.list Encode.string
-          )
         , ( "defaultOrigin", ingredient.defaultOrigin |> Origin.toLabel |> Encode.string )
         ]
 
