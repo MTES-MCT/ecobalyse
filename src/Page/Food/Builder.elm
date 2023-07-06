@@ -621,7 +621,6 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                             }
                     )
                 ]
-        , span [] [ text "Bio (old)" ]
         , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact
                 |> Format.formatFoodSelectedImpact selectedImpact
