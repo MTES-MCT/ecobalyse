@@ -5,12 +5,11 @@ module Data.Impact exposing
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
-    , defaultFoodTrigram
-    , defaultTextileTrigram
+    , default
     , empty
+    , encode
     , encodeAggregatedScoreChartEntry
     , encodeComplementsImpacts
-    , encodeImpacts
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
@@ -26,7 +25,6 @@ module Data.Impact exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
-import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -99,16 +97,6 @@ type alias ProtectionAreas =
     }
 
 
-defaultFoodTrigram : Trigram
-defaultFoodTrigram =
-    Definition.Ecs
-
-
-defaultTextileTrigram : Trigram
-defaultTextileTrigram =
-    Definition.Pef
-
-
 toProtectionAreas : Definitions -> Impacts -> ProtectionAreas
 toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
     let
@@ -156,6 +144,11 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
 
 type Impacts
     = Impacts (Base Unit.Impact)
+
+
+default : Definition.Trigram
+default =
+    Definition.Ecs
 
 
 empty : Impacts
@@ -231,11 +224,9 @@ encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, total } =
         ]
 
 
-encodeImpacts : Definitions -> Scope -> Impacts -> Encode.Value
-encodeImpacts definitions scope (Impacts impacts) =
+encode : Impacts -> Encode.Value
+encode (Impacts impacts) =
     Definition.encodeBase
-        definitions
-        scope
         Unit.encodeImpact
         impacts
 

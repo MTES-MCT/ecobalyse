@@ -154,11 +154,11 @@ describe("API", () => {
           );
         });
 
-        it("should perform a simulation featuring 14 impacts for textile", async () => {
+        it("should perform a simulation featuring 22 impacts for textile", async () => {
           const response = await makeRequest("/api/textile/simulator/", successQuery);
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(14);
+          expect(Object.keys(response.body.impacts)).toHaveLength(22);
         });
 
         it("should validate the airTransportRatio param", async () => {
@@ -271,7 +271,7 @@ describe("API", () => {
       });
 
       describe("POST", () => {
-        it("should compute 14 impacts", async () => {
+        it("should compute 22 impacts", async () => {
           const response = await makePostRequest("/api/textile/simulator", {
             mass: 0.17,
             materials: [{ id: "coton", share: 1 }],
@@ -291,7 +291,7 @@ describe("API", () => {
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(14);
+          expect(Object.keys(response.body.impacts)).toHaveLength(22);
         });
       });
     });

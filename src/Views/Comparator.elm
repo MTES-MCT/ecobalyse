@@ -11,7 +11,6 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
@@ -89,7 +88,6 @@ comparator ({ session, options, toggle } as config) =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    |> Bookmark.filterByScope (optionsScope options)
                     |> List.map
                         (\bookmark ->
                             let
@@ -457,13 +455,3 @@ getTextileChartEntries { db, store } funit impact =
             )
         |> RE.combine
         |> Result.map (List.sortBy .score)
-
-
-optionsScope : Options msg -> Scope
-optionsScope options =
-    case options of
-        Food _ ->
-            Scope.Food
-
-        Textile _ ->
-            Scope.Textile

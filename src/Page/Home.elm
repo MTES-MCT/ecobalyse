@@ -9,14 +9,11 @@ module Page.Home exposing
 
 import Browser.Events
 import Data.Env as Env
-import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Route
 import Views.Container as Container
@@ -109,7 +106,7 @@ calculatorPickerModalContent =
         [ div [ class "Launcher d-flex flex-wrap justify-content-center justify-content-sm-start gap-3" ]
             [ a
                 [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
+                , Route.href Route.TextileSimulatorHome
                 ]
                 [ img
                     [ src "img/picto_textile.png"
@@ -120,7 +117,7 @@ calculatorPickerModalContent =
                 ]
             , a
                 [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                , Route.href Route.FoodBuilderHome
                 ]
                 [ img
                     [ src "img/picto_alimentaire.png"

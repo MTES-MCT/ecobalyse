@@ -13,7 +13,7 @@ import pandas
 bw2data.projects.set_current("Ecobalyse")
 os.chdir("/home/jovyan/ecobalyse/data")
 
-databases = list(bw2data.databases.keys())
+databases = list(bw2data.databases)
 # widgets
 w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"

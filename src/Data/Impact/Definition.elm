@@ -11,18 +11,17 @@ module Data.Impact.Definition exposing
     , encodeBase
     , filter
     , foldl
-    , forScope
     , get
     , init
     , isAggregate
     , map
+    , toList
     , toString
     , toTrigram
     , trigrams
     , update
     )
 
-import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -89,7 +88,6 @@ type alias Definition =
     , quality : Quality
     , pefData : Maybe AggregatedScoreData
     , ecoscoreData : Maybe AggregatedScoreData
-    , scopes : List Scope
     }
 
 
@@ -260,6 +258,12 @@ trigrams =
     , Ecs
     , Pef
     ]
+
+
+toList : Definitions -> List Definition
+toList definitions =
+    trigrams
+        |> List.map (\trigram -> get trigram definitions)
 
 
 get : Trigram -> Base a -> a
@@ -532,11 +536,6 @@ toTrigram str =
             Err <| "Trigramme d'impact inconnu: " ++ str
 
 
-forScope : Definitions -> Scope -> List Definition
-forScope definitions scope =
-    trigrams |> List.map (\trigram -> get trigram definitions) |> List.filter (.scopes >> List.member scope)
-
-
 isAggregate : Trigram -> Bool
 isAggregate trigram =
     trigram == Pef || trigram == Ecs
@@ -628,17 +627,15 @@ decodeDefinition trigram =
         |> Pipe.required "quality" decodeQuality
         |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
         |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
-        |> Pipe.required "scopes" (Decode.list Scope.decode)
 
 
 
 ---- Encoders
 
 
-encodeBase : Definitions -> Scope -> (a -> Encode.Value) -> Base a -> Encode.Value
-encodeBase definitions scope encoder base =
-    forScope definitions scope
-        |> List.map .trigram
+encodeBase : (a -> Encode.Value) -> Base a -> Encode.Value
+encodeBase encoder base =
+    trigrams
         |> List.map
             (\trigram ->
                 ( toString trigram, encoder (get trigram base) )
