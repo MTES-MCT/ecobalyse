@@ -1,7 +1,7 @@
 [
   {
     "id": "egg",
-    "name": "Oeuf",
+    "name": "Œuf",
     "categories": ["animal_product", "conventional"],
     "default": "AGRIBALU000000003105162",
     "default_origin": "EuropeAndMaghreb",
@@ -18,7 +18,7 @@
   },
   {
     "id": "egg-organic",
-    "name": "Oeuf bio",
+    "name": "Œuf bio",
     "categories": ["animal_product", "organic"],
     "default": "AGRIBALU000000003105163",
     "default_origin": "EuropeAndMaghreb",
@@ -117,7 +117,7 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre",
+    "name": "Blé tendre bio",
     "categories": ["grain_raw", "organic"],
     "default": "AGRIBALU000000003114123",
     "default_origin": "France",
