@@ -41,7 +41,7 @@ table _ { detailed, scope } =
           }
         , { label = "Catégories"
           , toValue = .categories >> List.map IngredientCategory.toLabel >> String.join ","
-          , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul []
+          , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
           , toValue = .defaultOrigin >> Origin.toLabel
