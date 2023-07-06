@@ -579,7 +579,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ratio": 0,
+    "ratio": 1.66,
     "simple_ingredient_default": "Rape seed FR",
     "simple_ingredient_variant": "winter rapeseed organic",
     "beyondLCA": {
@@ -621,7 +621,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "ratio": 0,
+    "ratio": 2.45,
     "simple_ingredient_default": "sunflower, at farm {glo}",
     "simple_ingredient_variant": "Sunflower grain organic, system number 3, at farm gate",
     "beyondLCA": {
