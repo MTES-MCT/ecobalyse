@@ -1,15 +1,15 @@
 module Data.Food.Ingredient exposing
-    ( Bonuses
+    ( Complements
     , Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
-    , decodeBonuses
+    , decodeComplements
     , decodeId
     , decodeIngredients
-    , encodeBonuses
+    , encodeComplements
     , encodeId
     , encodePlaneTransport
     , findByID
@@ -47,11 +47,11 @@ type alias Ingredient =
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
-    , complements : Bonuses
+    , complements : Complements
     }
 
 
-type alias Bonuses =
+type alias Complements =
     { agroDiversity : Split
     , agroEcology : Split
     , animalWelfare : Split
@@ -103,8 +103,8 @@ decodeId =
         |> Decode.map idFromString
 
 
-encodeBonuses : Bonuses -> Encode.Value
-encodeBonuses v =
+encodeComplements : Complements -> Encode.Value
+encodeComplements v =
     Encode.object
         [ ( "agro-diversity", Split.encodePercent v.agroDiversity )
         , ( "agro-ecology", Split.encodePercent v.agroEcology )
@@ -140,9 +140,9 @@ idToString (Id str) =
     str
 
 
-decodeBonuses : Decoder Bonuses
-decodeBonuses =
-    Decode.succeed Bonuses
+decodeComplements : Decoder Complements
+decodeComplements =
+    Decode.succeed Complements
         |> Pipe.required "agro-diversity" Split.decodePercent
         |> Pipe.required "agro-ecology" Split.decodePercent
         |> Pipe.optional "animal-welfare" Split.decodePercent Split.zero
@@ -172,7 +172,7 @@ decodeIngredient processes =
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
-        |> Pipe.required "complements" decodeBonuses
+        |> Pipe.required "complements" decodeComplements
 
 
 decodeTransportCooling : Decoder TransportCooling

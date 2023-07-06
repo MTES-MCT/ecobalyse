@@ -449,7 +449,7 @@ absoluteImpactView model results =
                 , if model.impact.trigram == Definition.Ecs then
                     div [ class "text-center fs-7" ]
                         [ text " dont -"
-                        , results.recipe.totalBonusesImpact.total
+                        , results.recipe.totalComplementsImpact.total
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat model.impact
                         , text " de bonus déduit"
@@ -640,42 +640,42 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 { complements, ingredient } =
                     recipeIngredient
 
-                bonusImpacts =
+                complementsImpacts =
                     impact
-                        |> Recipe.computeIngredientBonusesImpacts db.impactDefinitions complements
+                        |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
             in
             details [ class "IngredientBonuses fs-7" ]
                 [ summary [] [ text "Bonus écologiques" ]
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Diversité agricole"
                     , title = Nothing
                     , domId = "agroDiversity_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.agroDiversity
-                    , bonusSplit = complements.agroDiversity
+                    , complementImpact = complementsImpacts.agroDiversity
+                    , complementSplit = complements.agroDiversity
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
                             event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
                     }
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Infra. agro-éco."
                     , title = Just "Infrastructures agro-écologiques"
                     , domId = "agroEcology_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.agroEcology
-                    , bonusSplit = complements.agroEcology
+                    , complementImpact = complementsImpacts.agroEcology
+                    , complementSplit = complements.agroEcology
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
                             event { ingredientQuery | complements = Just { complements | agroEcology = split } }
                     }
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Cond. d'élevage"
                     , title = Nothing
                     , domId = "animalWelfare_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.animalWelfare
-                    , bonusSplit = complements.animalWelfare
+                    , complementImpact = complementsImpacts.animalWelfare
+                    , complementSplit = complements.animalWelfare
                     , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
                     , selectedImpact = selectedImpact
                     , updateEvent =
@@ -697,9 +697,9 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         ]
 
 
-type alias BonusViewConfig msg =
-    { bonusImpact : Unit.Impact
-    , bonusSplit : Split
+type alias ComplementsViewConfig msg =
+    { complementImpact : Unit.Impact
+    , complementSplit : Split
     , disabled : Bool
     , domId : String
     , name : String
@@ -709,8 +709,8 @@ type alias BonusViewConfig msg =
     }
 
 
-ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedImpact, title, updateEvent } =
+ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
+ingredientComplementsView { name, complementImpact, complementSplit, disabled, domId, selectedImpact, title, updateEvent } =
     div
         [ class "IngredientBonus"
         , title |> Maybe.withDefault name |> Attr.title
@@ -728,7 +728,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedIm
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
-            , Attr.value <| Split.toPercentString bonusSplit
+            , Attr.value <| Split.toPercentString complementSplit
             , onInput
                 (String.toInt
                     >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
@@ -738,15 +738,15 @@ ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedIm
             ]
             []
         , div [ class "BonusValue d-flex align-items-center text-muted" ]
-            [ Format.splitAsPercentage bonusSplit
+            [ Format.splitAsPercentage complementSplit
             , Button.smallPillLink
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodBonuses)
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
                 , target "_blank"
                 ]
                 [ Icon.question ]
             ]
         , div [ class "BonusImpact text-end text-muted" ]
-            [ bonusImpact
+            [ complementImpact
                 |> Quantity.negate
                 |> Unit.impactToFloat
                 |> Format.formatImpactFloat selectedImpact
@@ -1356,13 +1356,13 @@ impactTabsView model results =
                         |> List.map (\{ name, value } -> ( name, value ))
                         |> (++)
                             [ ( "Bonus de diversité agricole"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroDiversity)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroDiversity)
                               )
                             , ( "Bonus d'infrastructures agro-écologiques"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroEcology)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroEcology)
                               )
                             , ( "Bonus conditions d'élevage"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.animalWelfare)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.animalWelfare)
                               )
                             ]
                         |> List.sortBy Tuple.second
@@ -1389,7 +1389,7 @@ impactTabsView model results =
                         , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
                         , ( "Ressource", Unit.impactToFloat results.scoring.resources )
-                        , ( "Bonus", -(Unit.impactToFloat results.scoring.bonuses) )
+                        , ( "Bonus", -(Unit.impactToFloat results.scoring.complements) )
                         ]
             ]
         }

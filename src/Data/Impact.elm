@@ -1,27 +1,27 @@
 module Data.Impact exposing
-    ( BonusImpacts
+    ( ComplementsImpacts
     , Impacts
-    , addBonusImpacts
-    , applyBonus
-    , bonusesImpactAsChartEntries
+    , addComplementsImpacts
+    , applyComplements
+    , complementsImpactAsChartEntries
     , decodeImpacts
     , defaultFoodTrigram
     , defaultTextileTrigram
     , empty
     , encodeAggregatedScoreChartEntry
-    , encodeBonusesImpacts
+    , encodeComplementsImpacts
     , encodeImpacts
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
     , grabImpactFloat
     , mapImpacts
-    , noBonusImpacts
+    , noComplementsImpacts
     , parseTrigram
     , perKg
     , sumImpacts
     , toProtectionAreas
-    , totalBonusesImpactAsChartEntry
+    , totalComplementsImpactAsChartEntry
     , updateImpact
     )
 
@@ -37,7 +37,7 @@ import Quantity
 import Url.Parser as Parser exposing (Parser)
 
 
-type alias BonusImpacts =
+type alias ComplementsImpacts =
     -- Note: these are always expressed in ecoscore (ecs) µPt
     { agroDiversity : Unit.Impact
     , agroEcology : Unit.Impact
@@ -46,8 +46,8 @@ type alias BonusImpacts =
     }
 
 
-addBonusImpacts : BonusImpacts -> BonusImpacts -> BonusImpacts
-addBonusImpacts a b =
+addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
+addComplementsImpacts a b =
     { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
     , agroEcology = Quantity.plus a.agroEcology b.agroEcology
     , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
@@ -55,19 +55,19 @@ addBonusImpacts a b =
     }
 
 
-applyBonus : Unit.Impact -> Impacts -> Impacts
-applyBonus bonus impacts =
+applyComplements : Unit.Impact -> Impacts -> Impacts
+applyComplements complement impacts =
     let
         ecoScore =
             getImpact Definition.Ecs impacts
     in
     impacts
         |> insertWithoutAggregateComputation Definition.Ecs
-            (Quantity.difference ecoScore bonus)
+            (Quantity.difference ecoScore complement)
 
 
-noBonusImpacts : BonusImpacts
-noBonusImpacts =
+noComplementsImpacts : ComplementsImpacts
+noComplementsImpacts =
     { agroDiversity = Unit.impact 0
     , agroEcology = Unit.impact 0
     , animalWelfare = Unit.impact 0
@@ -75,17 +75,17 @@ noBonusImpacts =
     }
 
 
-bonusesImpactAsChartEntries : BonusImpacts -> List { name : String, value : Float, color : String }
-bonusesImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
-    -- We want those bonuses to appear as negative values on the chart
+complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
+complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
+    -- We want those complements/bonuses to appear as negative values on the chart
     [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
     , { name = "Bonus infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
     , { name = "Bonus conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
     ]
 
 
-totalBonusesImpactAsChartEntry : BonusImpacts -> { name : String, value : Float, color : String }
-totalBonusesImpactAsChartEntry { total } =
+totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, value : Float, color : String }
+totalComplementsImpactAsChartEntry { total } =
     -- We want those bonuses to appear as negative values on the chart
     { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
 
@@ -110,10 +110,10 @@ defaultTextileTrigram =
 
 
 toProtectionAreas : Definitions -> Impacts -> ProtectionAreas
-toProtectionAreas definitions (Impacts impactsPerKgWithoutBonuses) =
+toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
     let
         pick trigrams =
-            impactsPerKgWithoutBonuses
+            impactsPerKgWithoutComplements
                 |> Definition.filter (\t -> List.member t trigrams) (always Quantity.zero)
                 |> Impacts
                 |> computeAggregatedScore definitions .ecoscoreData
@@ -221,13 +221,13 @@ decodeImpacts definitions =
         |> Decode.map (updateAggregatedScores definitions)
 
 
-encodeBonusesImpacts : BonusImpacts -> Encode.Value
-encodeBonusesImpacts bonuses =
+encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
+encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, total } =
     Encode.object
-        [ ( "agroDiversity", Unit.impactToFloat bonuses.agroDiversity |> Encode.float )
-        , ( "agroEcology", Unit.impactToFloat bonuses.agroEcology |> Encode.float )
-        , ( "animalWelfare", Unit.impactToFloat bonuses.animalWelfare |> Encode.float )
-        , ( "total", Unit.impactToFloat bonuses.total |> Encode.float )
+        [ ( "agroDiversity", Unit.impactToFloat agroDiversity |> Encode.float )
+        , ( "agroEcology", Unit.impactToFloat agroEcology |> Encode.float )
+        , ( "animalWelfare", Unit.impactToFloat animalWelfare |> Encode.float )
+        , ( "total", Unit.impactToFloat total |> Encode.float )
         ]
 
 

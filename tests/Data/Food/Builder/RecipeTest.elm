@@ -37,7 +37,7 @@ suite =
                     Impact.empty
                         |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
                         |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact 100)
-                        |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions bonuses
+                        |> Recipe.computeIngredientComplementsImpacts builderDb.impactDefinitions bonuses
               in
               describe "computeIngredientBonusesImpacts"
                 [ describe "with zero bonuses applied"
@@ -92,7 +92,7 @@ suite =
                             Impact.empty
                                 |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
                                 |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact -100)
-                                |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions
+                                |> Recipe.computeIngredientComplementsImpacts builderDb.impactDefinitions
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
                                     , animalWelfare = Split.full
@@ -203,13 +203,13 @@ suite =
                                 [ Unit.impactToFloat scoring.all
                                     |> Expect.within (Expect.Absolute 0.01) 202.41954770573136
                                     |> asTest "should properly score total impact"
-                                , Unit.impactToFloat scoring.allWithoutBonuses
+                                , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 204.55082300646757
                                     |> asTest "should properly score total impact without bonuses"
-                                , Unit.impactToFloat scoring.bonuses
+                                , Unit.impactToFloat scoring.complements
                                     |> Expect.within (Expect.Absolute 0.01) 2.131275300736198
                                     |> asTest "should properly score bonuses impact"
-                                , (Unit.impactToFloat scoring.allWithoutBonuses - Unit.impactToFloat scoring.bonuses)
+                                , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity

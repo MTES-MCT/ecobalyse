@@ -7,7 +7,7 @@ module Data.Food.Builder.Recipe exposing
     , availableIngredients
     , availablePackagings
     , compute
-    , computeIngredientBonusesImpacts
+    , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
@@ -64,7 +64,7 @@ type alias RecipeIngredient =
     , mass : Mass
     , country : Maybe Country
     , planeTransport : Ingredient.PlaneTransport
-    , complements : Ingredient.Bonuses
+    , complements : Ingredient.Complements
     }
 
 
@@ -89,8 +89,8 @@ type alias Results =
         , edibleMass : Mass
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
-        , totalBonusesImpact : Impact.BonusImpacts
-        , totalBonusesImpactPerKg : Impact.BonusImpacts
+        , totalComplementsImpact : Impact.ComplementsImpacts
+        , totalComplementsImpactPerKg : Impact.ComplementsImpacts
         , transform : Impacts
         , transports : Transport
         , transformedMass : Mass
@@ -107,8 +107,8 @@ type alias Results =
 
 type alias Scoring =
     { all : Unit.Impact
-    , allWithoutBonuses : Unit.Impact
-    , bonuses : Unit.Impact
+    , allWithoutComplements : Unit.Impact
+    , complements : Unit.Impact
     , climate : Unit.Impact
     , biodiversity : Unit.Impact
     , health : Unit.Impact
@@ -220,22 +220,22 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
-                    addIngredientsBonuses impacts =
-                        Impact.applyBonus totalBonusesImpact.total impacts
+                    addIngredientsComplements impacts =
+                        Impact.applyComplements totalComplementsImpact.total impacts
 
-                    totalBonusesImpact =
+                    totalComplementsImpact =
                         ingredients
-                            |> computeIngredientsTotalBonus db.impactDefinitions
+                            |> computeIngredientsTotalComplements db.impactDefinitions
 
-                    totalBonusesImpactPerKg =
-                        { totalBonusesImpact
-                            | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroDiversity
-                            , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.agroEcology
-                            , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.animalWelfare
-                            , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalBonusesImpact.total
+                    totalComplementsImpactPerKg =
+                        { totalComplementsImpact
+                            | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroDiversity
+                            , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroEcology
+                            , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.animalWelfare
+                            , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.total
                         }
 
-                    totalImpactsWithoutBonuses =
+                    totalImpactsWithoutComplements =
                         Impact.sumImpacts
                             [ recipeImpacts
                             , packagingImpacts
@@ -245,7 +245,7 @@ compute db =
                             ]
 
                     totalImpacts =
-                        addIngredientsBonuses totalImpactsWithoutBonuses
+                        addIngredientsComplements totalImpactsWithoutComplements
 
                     -- Note: Product impacts per kg is computed against prepared
                     --       product mass at consumer, excluding packaging
@@ -253,13 +253,13 @@ compute db =
                         totalImpacts
                             |> Impact.perKg preparedMass
 
-                    impactsPerKgWithoutBonuses =
-                        totalImpactsWithoutBonuses
+                    impactsPerKgWithoutComplements =
+                        totalImpactsWithoutComplements
                             |> Impact.perKg preparedMass
 
                     scoring =
-                        impactsPerKgWithoutBonuses
-                            |> computeScoring db.impactDefinitions totalBonusesImpactPerKg.total
+                        impactsPerKgWithoutComplements
+                            |> computeScoring db.impactDefinitions totalComplementsImpactPerKg.total
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -268,13 +268,13 @@ compute db =
                   , totalMass = getMassAtPackaging recipe
                   , preparedMass = preparedMass
                   , recipe =
-                        { total = addIngredientsBonuses recipeImpacts
+                        { total = addIngredientsComplements recipeImpacts
                         , initialMass = recipe.ingredients |> List.map .mass |> Quantity.sum
                         , edibleMass = removeIngredientsInedibleMass recipe.ingredients |> List.map .mass |> Quantity.sum
-                        , ingredientsTotal = addIngredientsBonuses ingredientsTotalImpacts
+                        , ingredientsTotal = addIngredientsComplements ingredientsTotalImpacts
                         , ingredients = ingredientsImpacts
-                        , totalBonusesImpact = totalBonusesImpact
-                        , totalBonusesImpactPerKg = totalBonusesImpactPerKg
+                        , totalComplementsImpact = totalComplementsImpact
+                        , totalComplementsImpactPerKg = totalComplementsImpactPerKg
                         , transform = transformImpacts
                         , transports = ingredientsTransport
                         , transformedMass = transformedIngredientsMass
@@ -295,8 +295,8 @@ compute db =
             )
 
 
-computeIngredientBonusesImpacts : Definitions -> Ingredient.Bonuses -> Impacts -> Impact.BonusImpacts
-computeIngredientBonusesImpacts definitions { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+computeIngredientComplementsImpacts : Definitions -> Ingredient.Complements -> Impacts -> Impact.ComplementsImpacts
+computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
     let
         -- docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/complements-hors-acv-en-construction
         ( lduNormalization, lduWeighting ) =
@@ -313,33 +313,33 @@ computeIngredientBonusesImpacts definitions { agroDiversity, agroEcology, animal
         ensurePositive x =
             clamp 0 x x
 
-        ( agroDiversityBonus, agroEcologyBonus, animalWelfareBonus ) =
+        ( agroDiversityComplement, agroEcologyComplement, animalWelfareComplement ) =
             ( ensurePositive (2.3 * Split.toFloat agroDiversity * normalizedLandUse)
             , ensurePositive (2.3 * Split.toFloat agroEcology * normalizedLandUse)
             , ensurePositive (1.5 * Split.toFloat animalWelfare * normalizedLandUse)
             )
     in
-    { agroDiversity = Unit.impact agroDiversityBonus
-    , agroEcology = Unit.impact agroEcologyBonus
-    , animalWelfare = Unit.impact animalWelfareBonus
-    , total = Unit.impact (agroDiversityBonus + agroEcologyBonus + animalWelfareBonus)
+    { agroDiversity = Unit.impact agroDiversityComplement
+    , agroEcology = Unit.impact agroEcologyComplement
+    , animalWelfare = Unit.impact animalWelfareComplement
+    , total = Unit.impact (agroDiversityComplement + agroEcologyComplement + animalWelfareComplement)
     }
 
 
 computeScoring : Definitions -> Unit.Impact -> Impacts -> Scoring
-computeScoring definitions totalBonusImpactPerKg perKgWithoutBonuses =
+computeScoring definitions totalComplementsImpactPerKg perKgWithoutComplements =
     let
-        ecsPerKgWithoutBonuses =
-            perKgWithoutBonuses
+        ecsPerKgWithoutComplements =
+            perKgWithoutComplements
                 |> Impact.getImpact Definition.Ecs
 
         subScores =
-            perKgWithoutBonuses
+            perKgWithoutComplements
                 |> Impact.toProtectionAreas definitions
     in
-    { all = Quantity.difference ecsPerKgWithoutBonuses totalBonusImpactPerKg
-    , allWithoutBonuses = ecsPerKgWithoutBonuses
-    , bonuses = totalBonusImpactPerKg
+    { all = Quantity.difference ecsPerKgWithoutComplements totalComplementsImpactPerKg
+    , allWithoutComplements = ecsPerKgWithoutComplements
+    , complements = totalComplementsImpactPerKg
     , climate = subScores.climate
     , biodiversity = subScores.biodiversity
     , health = subScores.health
@@ -368,16 +368,16 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalBonus : Definitions -> List RecipeIngredient -> Impact.BonusImpacts
-computeIngredientsTotalBonus definitions =
+computeIngredientsTotalComplements : Definitions -> List RecipeIngredient -> Impact.ComplementsImpacts
+computeIngredientsTotalComplements definitions =
     List.foldl
         (\({ complements } as recipeIngredient) acc ->
             recipeIngredient
                 |> computeIngredientImpacts
-                |> computeIngredientBonusesImpacts definitions complements
-                |> Impact.addBonusImpacts acc
+                |> computeIngredientComplementsImpacts definitions complements
+                |> Impact.addComplementsImpacts acc
         )
-        Impact.noBonusImpacts
+        Impact.noComplementsImpacts
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
@@ -487,7 +487,7 @@ encodeResults definitions results =
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
-                , ( "totalBonusImpact", Impact.encodeBonusesImpacts results.recipe.totalBonusesImpact )
+                , ( "totalBonusImpact", Impact.encodeComplementsImpacts results.recipe.totalComplementsImpact )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode definitions results.recipe.transports )
                 ]

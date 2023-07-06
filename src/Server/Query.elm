@@ -151,11 +151,11 @@ ingredientParser { countries, ingredients } string =
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
 
 
-complementsParser : String -> Ingredient -> Result String (Maybe Ingredient.Bonuses)
+complementsParser : String -> Ingredient -> Result String (Maybe Ingredient.Complements)
 complementsParser string { name, categories } =
     let
-        parseBonus : String -> Result String Split
-        parseBonus str =
+        parseComplement : String -> Result String Split
+        parseComplement str =
             case String.toInt str of
                 Just int ->
                     Split.fromPercent int
@@ -166,9 +166,9 @@ complementsParser string { name, categories } =
     -- Format is either x:y (vegetables) or x:y:z (from animal origin, z being the welfare bonus)
     case String.split ":" string of
         [ a, b ] ->
-            Ok Ingredient.Bonuses
-                |> RE.andMap (parseBonus a)
-                |> RE.andMap (parseBonus b)
+            Ok Ingredient.Complements
+                |> RE.andMap (parseComplement a)
+                |> RE.andMap (parseComplement b)
                 |> RE.andMap (Ok Split.zero)
                 |> Result.map Just
 
@@ -177,10 +177,10 @@ complementsParser string { name, categories } =
                 Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
 
             else
-                Ok Ingredient.Bonuses
-                    |> RE.andMap (parseBonus a)
-                    |> RE.andMap (parseBonus b)
-                    |> RE.andMap (parseBonus c)
+                Ok Ingredient.Complements
+                    |> RE.andMap (parseComplement a)
+                    |> RE.andMap (parseComplement b)
+                    |> RE.andMap (parseComplement c)
                     |> Result.map Just
 
         [ "" ] ->

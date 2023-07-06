@@ -43,7 +43,7 @@ type alias IngredientQuery =
     , mass : Mass
     , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
-    , complements : Maybe Ingredient.Bonuses
+    , complements : Maybe Ingredient.Complements
     }
 
 
@@ -214,7 +214,7 @@ decodeIngredient =
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
-        |> Pipe.optional "complements" (Decode.maybe Ingredient.decodeBonuses) Nothing
+        |> Pipe.optional "complements" (Decode.maybe Ingredient.decodeComplements) Nothing
 
 
 deletePreparation : Preparation.Id -> Query -> Query
@@ -268,7 +268,7 @@ encodeIngredient v =
     , ( "mass", encodeMassAsGrams v.mass |> Just )
     , ( "country", v.country |> Maybe.map Country.encodeCode )
     , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
-    , ( "complements", v.complements |> Maybe.map Ingredient.encodeBonuses )
+    , ( "complements", v.complements |> Maybe.map Ingredient.encodeComplements )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
