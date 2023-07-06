@@ -2,7 +2,7 @@
   {
     "id": "egg",
     "name": "Oeuf",
-    "categories": ["animal_product"],
+    "categories": ["animal_product", "conventional"],
     "default": "AGRIBALU000000003105162",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
@@ -10,22 +10,33 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003105163",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        }
-      },
-      "bleu_blanc_coeur": "Egg Bleu Blanc Coeur outdoor system at farm gate"
+    "beyondLCA": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "egg-organic",
+    "name": "Oeuf bio",
+    "categories": ["animal_product", "organic"],
+    "default": "AGRIBALU000000003105163",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "beyondLCA": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
     "id": "milk",
     "name": "Lait",
-    "categories": ["dairy_product"],
+    "categories": ["dairy_product", "conventional"],
     "default": "AGRIBALU000000003104145",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -33,15 +44,27 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003104151",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        }
-      }
+    "beyondLCA": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "milk-organic",
+    "name": "Lait bio",
+    "categories": ["dairy_product", "organic"],
+    "default": "AGRIBALU000000003104151",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "beyondLCA": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
@@ -49,27 +72,37 @@
     "name": "Carotte",
     "default": "AGRIBALU000000003102592",
     "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
+    "categories": ["vegetable_fresh", "conventional"],
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003102611",
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
+    "beyondLCA": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "carrot-organic",
+    "name": "Carotte",
+    "default": "AGRIBALU000000003102611",
+    "default_origin": "EuropeAndMaghreb",
+    "categories": ["vegetable_fresh", "organic"],
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "beyondLCA": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   },
   {
     "id": "wheat",
     "name": "Blé tendre",
-    "categories": ["grain_raw"],
+    "categories": ["grain_raw", "conventional"],
     "default": "AGRIBALU000024985200247",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
@@ -77,490 +110,41 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003114123",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
+    "beyondLCA": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
-    "id": "flour",
-    "name": "Farine",
-    "categories": ["grain_processed"],
-    "default": "AGRIBALU000000003116999",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        },
-        "process": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
-      }
-    }
-  },
-  {
-    "id": "sunflower",
-    "name": "Tournesol",
-    "categories": ["nut_oilseed_raw"],
-    "default": "AGRIBALU000000003115216",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000024985200157",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
-    }
-  },
-  {
-    "id": "rapeseed",
-    "name": "Colza",
-    "categories": ["nut_oilseed_raw"],
-    "default": "AGRIBALU000000003112430",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000024985200196",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
-    }
-  },
-  {
-    "id": "tomato",
-    "name": "Tomate",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003115753",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": false,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003115758",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
-    }
-  },
-  {
-    "id": "potato",
-    "name": "Pomme de terre",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003116702",
+    "id": "wheat-organic",
+    "name": "Blé tendre",
+    "categories": ["grain_raw", "organic"],
+    "default": "AGRIBALU000000003114123",
     "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6375,
-    "inedible_part": 0.1,
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1,
+    "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
-  },
-  {
-    "id": "ground-beef",
-    "name": "Boeuf haché",
-    "categories": ["animal_product"],
-    "default": "AGRIBALU000000003107081",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
     "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        },
-        "process": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747"
-      }
-    }
-  },
-  {
-    "id": "ground-beef-feedlot",
-    "name": "Boeuf haché (Feedlot)",
-    "categories": ["animal_product"],
-    "default": "53a1ead1-62c9-1131-8841-3218dce10a8d",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true
-  },
-  {
-    "id": "cooked-ham",
-    "name": "Jambon",
-    "categories": ["animal_product"],
-    "default": "AGRIBALU000000003103910",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        },
-        "process": "8cf39ae6-b10d-d055-8d10-8455fa551851"
-      }
-    }
-  },
-  {
-    "id": "chicken-breast",
-    "name": "Poulet",
-    "categories": ["animal_product"],
-    "default": "AGRIBALU000000003109221",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.73,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        },
-        "process": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb"
-      }
-    }
-  },
-  {
-    "id": "grape",
-    "name": "Raisin de cuve",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003106864",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": false,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000024985200264",
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50
-        }
-      }
+    "beyondLCA": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   },
   {
     "id": "mango",
     "name": "Mangue",
-    "categories": ["vegetable_fresh"],
+    "categories": ["vegetable_fresh", "conventional"],
     "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true
-  },
-  {
-    "id": "huilecolza",
-    "name": "Huile de colza",
-    "default": "AGRIBALU000000003112448",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["nut_oilseed_processed"],
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
-    "transport_cooling": "none",
     "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        },
-        "process": "5ce9349d-c81b-789d-7005-538690ecb272"
-      }
-    }
-  },
-  {
-    "id": "sunfloweroil",
-    "name": "Huile de tournesol",
-    "default": "AGRIBALU000000003115182",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["nut_oilseed_processed"],
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        },
-        "process": "6c960d7f-6285-703f-b424-f485411e507b"
-      }
-    }
-  },
-  {
-    "id": "zucchini",
-    "name": "Courgette",
-    "default": "AGRIBALU000000003117541",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000024985200219",
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "pear",
-    "name": "Poire",
-    "default": "AGRIBALU000000003111019",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003111025",
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "peach",
-    "name": "Pêche",
-    "default": "AGRIBALU000000003110952",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000000003110947",
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "melon",
-    "name": "Melon",
-    "default": "AGRIBALU000000003109266",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.4,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "process": "AGRIBALU000024985200102",
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "butter",
-    "name": "Beurre",
-    "default": "AGRIBALU000000003102321",
-    "default_origin": "France",
-    "categories": ["dairy_product"],
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        },
-        "process": "ab9f8f9c-ad6b-89e0-354f-5889456d2d68"
-      }
-    }
-  },
-  {
-    "id": "onion",
-    "name": "Oignon",
-    "default": "AGRIBALU000000003110467",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6195,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "eggplant",
-    "name": "Aubergine",
-    "default": "AGRIBALU000000003117541",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.398,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 50,
-          "agro-ecology": 50,
-          "animal-welfare": 50
-        }
-      },
-      "bleu_blanc_coeur": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U (kilogram)"
-    }
-  },
-  {
-    "id": "lettuce",
-    "name": "Laitue",
-    "default": "AGRIBALU000000003108668",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.118,
-    "inedible_part": 0.4,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "frenchbean",
-    "name": "Haricot vert",
-    "default": "AGRIBALU000024985200072",
-    "default_origin": "OutOfEuropeAndMaghrebByPlane",
-    "categories": ["vegetable_fresh"],
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.271,
-    "inedible_part": 0.1,
-    "transport_cooling": "always",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
-    }
-  },
-  {
-    "id": "durumwheat",
-    "name": "Blé dur",
-    "default": "AGRIBALU000024985200066",
-    "default_origin": "EuropeAndMaghreb",
-    "categories": ["grain_raw"],
-    "raw_to_cooked_ratio": 2.259,
-    "density": 0.24,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "visible": true,
-    "variants": {
-      "organic": {
-        "ratio": 0.0,
-        "beyondLCA": {
-          "agro-diversity": 0,
-          "agro-ecology": 0,
-          "animal-welfare": 0
-        }
-      }
+    "beyondLCA": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]

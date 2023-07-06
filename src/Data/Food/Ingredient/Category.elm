@@ -11,12 +11,14 @@ import Json.Decode.Extra as DE
 
 type Category
     = AnimalProduct
+    | Conventional
     | DairyProduct
     | GrainRaw
     | GrainProcessed
     | Misc
     | NutOilseedRaw
     | NutOilseedProcessed
+    | Organic
     | SpiceCondimentOrAdditive
     | VegetableFresh
     | VegetableProcessed
@@ -34,6 +36,9 @@ fromString str =
         "animal_product" ->
             Ok AnimalProduct
 
+        "conventional" ->
+            Ok Conventional
+
         "dairy_product" ->
             Ok DairyProduct
 
@@ -43,14 +48,17 @@ fromString str =
         "grain_processed" ->
             Ok GrainProcessed
 
+        "misc" ->
+            Ok Misc
+
         "nut_oilseed_raw" ->
             Ok NutOilseedRaw
 
         "nut_oilseed_processed" ->
             Ok NutOilseedProcessed
 
-        "misc" ->
-            Ok Misc
+        "organic" ->
+            Ok Organic
 
         "spice_condiment_additive" ->
             Ok SpiceCondimentOrAdditive
@@ -71,6 +79,9 @@ toLabel category =
         AnimalProduct ->
             "Viandes, œufs, poissons, et dérivés"
 
+        Conventional ->
+            "Conventionnel"
+
         DairyProduct ->
             "Lait et ingrédients laitiers"
 
@@ -80,14 +91,17 @@ toLabel category =
         GrainProcessed ->
             "Céréales transformées"
 
+        Misc ->
+            "Divers"
+
         NutOilseedRaw ->
             "Fruits à coque et oléoprotéagineux bruts"
 
         NutOilseedProcessed ->
             "Graisses végétales et oléoprotéagineux transformés"
 
-        Misc ->
-            "Divers"
+        Organic ->
+            "Bio"
 
         SpiceCondimentOrAdditive ->
             "Condiments, épices, additifs"
