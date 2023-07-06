@@ -10,7 +10,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
@@ -27,7 +27,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
@@ -44,7 +44,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
@@ -61,7 +61,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
@@ -78,14 +78,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
     }
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte",
+    "name": "Carotte bio",
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
     "categories": ["vegetable_fresh", "organic"],
@@ -94,7 +94,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
     }
@@ -110,7 +110,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
     }
@@ -126,7 +126,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
     }
@@ -142,7 +142,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "beyondLCA": {
+    "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
     }
