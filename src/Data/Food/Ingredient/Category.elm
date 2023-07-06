@@ -22,10 +22,10 @@ type Category
     | VegetableProcessed
 
 
-fromAnimalOrigin : Category -> Bool
-fromAnimalOrigin category =
-    List.member category
-        [ AnimalProduct, DairyProduct ]
+fromAnimalOrigin : List Category -> Bool
+fromAnimalOrigin categories =
+    [ AnimalProduct, DairyProduct ]
+        |> List.any (\c -> List.member c categories)
 
 
 fromString : String -> Result String Category

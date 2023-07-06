@@ -170,7 +170,7 @@ ingredientParser { countries, ingredients } string =
 
 
 bonusesParser : String -> Ingredient -> Result String (Maybe Ingredient.Bonuses)
-bonusesParser string { name, category } =
+bonusesParser string { name, categories } =
     let
         parseBonus : String -> Result String Split
         parseBonus str =
@@ -191,16 +191,15 @@ bonusesParser string { name, category } =
                 |> Result.map Just
 
         [ a, b, c ] ->
-            case category of
-                IngredientCategory.AnimalProduct ->
-                    Ok Ingredient.Bonuses
-                        |> RE.andMap (parseBonus a)
-                        |> RE.andMap (parseBonus b)
-                        |> RE.andMap (parseBonus c)
-                        |> Result.map Just
+            if not (List.member IngredientCategory.AnimalProduct categories) then
+                Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
 
-                _ ->
-                    Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
+            else
+                Ok Ingredient.Bonuses
+                    |> RE.andMap (parseBonus a)
+                    |> RE.andMap (parseBonus b)
+                    |> RE.andMap (parseBonus c)
+                    |> Result.map Just
 
         [ "" ] ->
             Ok Nothing

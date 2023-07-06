@@ -41,7 +41,7 @@ import List.Extra as LE
 type alias Ingredient =
     { id : Id
     , name : String
-    , category : IngredientCategory.Category
+    , categories : List IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
     , inediblePart : Split
@@ -116,12 +116,12 @@ decodeId =
         |> Decode.map idFromString
 
 
-defaultBonuses : { a | category : IngredientCategory.Category } -> Bonuses
-defaultBonuses { category } =
+defaultBonuses : { a | categories : List IngredientCategory.Category } -> Bonuses
+defaultBonuses { categories } =
     { agroDiversity = Split.tenth
     , agroEcology = Split.tenth
     , animalWelfare =
-        if IngredientCategory.fromAnimalOrigin category then
+        if IngredientCategory.fromAnimalOrigin categories then
             Split.tenth
 
         else
@@ -197,7 +197,7 @@ decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "id" decodeId
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "category" IngredientCategory.decode
+        |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "inedible_part" Split.decodeFloat
@@ -268,9 +268,13 @@ getDefaultOriginTransport planeTransport origin =
 
 groupCategories : List Ingredient -> List ( IngredientCategory.Category, List Ingredient )
 groupCategories =
-    List.sortBy (.category >> IngredientCategory.toLabel)
-        >> LE.groupWhile (\a b -> a.category == b.category)
-        >> List.map (\( first, rest ) -> ( first.category, first :: rest ))
+    let
+        getFirst =
+            List.head >> Maybe.withDefault IngredientCategory.Misc
+    in
+    List.sortBy (.categories >> getFirst >> IngredientCategory.toLabel)
+        >> LE.groupWhile (\a b -> getFirst a.categories == getFirst b.categories)
+        >> List.map (\( first, rest ) -> ( getFirst first.categories, first :: rest ))
 
 
 linkProcess : Dict String Process -> Decoder Process

@@ -39,9 +39,9 @@ table _ { detailed, scope } =
           , toValue = .name
           , toCell = .name >> text
           }
-        , { label = "Catégorie"
-          , toValue = .category >> IngredientCategory.toLabel
-          , toCell = .category >> IngredientCategory.toLabel >> text
+        , { label = "Catégories"
+          , toValue = .categories >> List.map IngredientCategory.toLabel >> String.join ","
+          , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul []
           }
         , { label = "Origine par défaut"
           , toValue = .defaultOrigin >> Origin.toLabel

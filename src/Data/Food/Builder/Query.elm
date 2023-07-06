@@ -427,7 +427,7 @@ updateBonusesFromVariant ingredients ingredientId variant =
         defaultVariantBonuses =
             ingredientResult
                 |> Result.map Ingredient.defaultBonuses
-                |> Result.withDefault (Ingredient.defaultBonuses { category = IngredientCategory.Misc })
+                |> Result.withDefault (Ingredient.defaultBonuses { categories = [ IngredientCategory.Misc ] })
     in
     case variant of
         Organic ->
