@@ -55,7 +55,7 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map (FoodBuilder Impact.defaultFoodTrigram Nothing) (Parser.s "food" </> Parser.s "build")
+        , Parser.map (FoodBuilder Definition.Ecs Nothing) (Parser.s "food" </> Parser.s "build")
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
@@ -70,7 +70,7 @@ parser =
         , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
 
         -- Textile Simulator
-        , Parser.map (TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
+        , Parser.map (TextileSimulator Definition.Ecs Unit.PerItem ViewMode.Simple Nothing)
             (Parser.s "textile" </> Parser.s "simulator")
         , Parser.map TextileSimulator
             (Parser.s "textile"

@@ -6,7 +6,6 @@ module Page.Textile.Examples exposing
     , view
     )
 
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as Inputs
@@ -36,7 +35,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.defaultTextileTrigram
+    ( { impact = Definition.Ecs
       , funit = Unit.PerItem
       , chartHovering = []
       }

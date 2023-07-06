@@ -5,8 +5,6 @@ module Data.Impact exposing
     , applyBonus
     , bonusesImpactAsChartEntries
     , decodeImpacts
-    , defaultFoodTrigram
-    , defaultTextileTrigram
     , empty
     , encodeAggregatedScoreChartEntry
     , encodeBonusesImpacts
@@ -96,16 +94,6 @@ type alias ProtectionAreas =
     , resources : Unit.Impact -- Ressources
     , health : Unit.Impact -- Santé environnementale
     }
-
-
-defaultFoodTrigram : Trigram
-defaultFoodTrigram =
-    Definition.Ecs
-
-
-defaultTextileTrigram : Trigram
-defaultTextileTrigram =
-    Definition.Pef
 
 
 toProtectionAreas : Definitions -> Impacts -> ProtectionAreas

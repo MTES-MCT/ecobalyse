@@ -9,7 +9,7 @@ module Views.Page exposing
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Session as Session
 import Data.Unit as Unit
@@ -134,8 +134,8 @@ newVersionAlert { session, reloadPage } =
 mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
+    , Internal "Textile" (Route.TextileSimulator Definition.Ecs Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Alimentaire" (Route.FoodBuilder Definition.Ecs Nothing) FoodBuilder
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api

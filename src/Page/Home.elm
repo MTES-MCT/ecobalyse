@@ -9,7 +9,7 @@ module Page.Home exposing
 
 import Browser.Events
 import Data.Env as Env
-import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Key as Key
 import Data.Session exposing (Session)
 import Data.Unit as Unit
@@ -109,7 +109,7 @@ calculatorPickerModalContent =
         [ div [ class "Launcher d-flex flex-wrap justify-content-center justify-content-sm-start gap-3" ]
             [ a
                 [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
+                , Route.href (Route.TextileSimulator Definition.Ecs Unit.PerItem ViewMode.Simple Nothing)
                 ]
                 [ img
                     [ src "img/picto_textile.png"
@@ -120,7 +120,7 @@ calculatorPickerModalContent =
                 ]
             , a
                 [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
+                , Route.href (Route.FoodBuilder Definition.Ecs Nothing)
                 ]
                 [ img
                     [ src "img/picto_alimentaire.png"
