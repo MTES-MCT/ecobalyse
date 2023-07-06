@@ -12,8 +12,8 @@ PROJECT = "Ecobalyse"
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
-METHODPATH = "Environmental Footprint 3.1 (adapted).CSV"
-METHODNAME = "Environmental Footprint 3.1 (adapted)"  # defined inside the csv
+METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
+METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu" # defined inside the csv
 
 # excluded strategies and migrations
 EXCLUDED = [
