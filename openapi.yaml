@@ -390,21 +390,17 @@ paths:
                 summary: "Carrot cake bio, origine Espagne"
                 value:
                   ingredients:
-                  - id: egg
+                  - id: egg-organic
                     mass: 120
-                    variant: organic
                     country: ES
-                  - id: wheat
+                  - id: wheat-organic
                     mass: 140
-                    variant: organic
                     country: ES
-                  - id: milk
+                  - id: milk-organic
                     mass: 60
-                    variant: organic
                     country: ES
-                  - id: carrot
+                  - id: carrot-organic
                     mass: 225
-                    variant: organic
                     country: ES
                   transform:
                     code: aded2490573207ec7ad5a3813978f6a4
@@ -899,10 +895,10 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de
+        Le format de chaque entrée est composé de :
+
         - l'identifiant de la matière (pour avoir la liste, utiliser l'API de liste d'ingrédients)
         - sa masse **exprimée en grammes**
-        - un éventuel mode de production alternatif à utiliser (ex: `organic` pour du bio, laisser vide pour du conventionnel)
         - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
         - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie
           "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)*
@@ -915,19 +911,18 @@ components:
         Quelques exemples :
 
         - `milk;268` signifie *268g de lait*;
-        - `carrot;30;organic` signifie *30g de carrotes bio*;
-        - `tomato;123;;ES` signifie *123g de tomates conventionnelles en provenance d'Espagne*;
+        - `tomato;123;ES` signifie *123g de tomates conventionnelles en provenance d'Espagne*;
         - `mango;123` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
-        - `mango;123;;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
-        - `mango;123;;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
-        - `mango;123;;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
-        - `mango;123;;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
-        - `tomato;123;;ES;;50:20` signifie *123g de tomates conventionnelles en provenance d'Espagne avec 50% de bonus pour la diversité agricole et 75% de bonus pour les infrastructures agro-écologiques*;
+        - `mango;123;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
+        - `mango;123;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
+        - `tomato;123;ES;;50:20` signifie *123g de tomates conventionnelles en provenance d'Espagne avec 50% de bonus pour la diversité agricole et 75% de bonus pour les infrastructures agro-écologiques*;
 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
-        > ingredients[]=milk;268&ingredients[]=carrot;30;organic;ES
+        > ingredients[]=milk;268&ingredients[]=carrot-organic;30;ES
         > ```
       required: true
       style: form
@@ -941,13 +936,13 @@ components:
           value: ["milk;268"]
         twoIngredients:
           summary: Lait, carrotes bio
-          value: ["milk;268", "carrot;30;organic"]
+          value: ["milk;268", "carrot-organic;30"]
         threeIngredients:
           summary: Lait, carrotes bio, oeuf
-          value: ["milk;268", "carrot;30;organic", "egg;149"]
+          value: ["milk;268", "carrot-organic;30", "egg;149"]
         fourIngredients:
           summary: Lait, carrotes bio, oeuf, tomates d'espagne
-          value: ["milk;268", "carrot;30;organic", "egg;149", "tomato;123;;ES"]
+          value: ["milk;268", "carrot-organic;30", "egg;149", "tomato;123;;ES"]
         byPlane:
           summary: Mangue du Brésil par avion
           value: ["mango;123;;BR"]
@@ -1296,9 +1291,6 @@ components:
         mass:
           type: number
           description: Masse de l'ingrédient, **en grammes**
-        variant:
-          type: string
-          enum: ["", organic]
         country:
           type: string
           description: Code ISO du pays d'origine
@@ -1436,9 +1428,6 @@ components:
             type: string
           name:
             type: string
-          variants:
-            type: array
-            description: List des variants d'un ingrédient (par exemple label bio).
           defaultOrigin:
             type: string
             description:
