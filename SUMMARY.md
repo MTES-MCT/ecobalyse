@@ -18,6 +18,7 @@
   * [🍅 Concentré de tomates](alimentaire/ingredients-industrie/concentre-de-tomates.md)
   * [🍞 Farine](alimentaire/ingredients-industrie/farine.md)
   * [🌻 Huile de tournesol](alimentaire/ingredients-industrie/huile-de-tournesol.md)
+  * [🌼 Huile de colza](alimentaire/ingredients-industrie/huile-de-colza.md)
 * [🍅 Ingrédients agricoles (hors viande)](alimentaire/ingredients-agricoles-hors-viande/README.md)
   * [🥕 Carotte](alimentaire/ingredients-agricoles-hors-viande/carotte.md)
   * [🌾 Blé tendre](alimentaire/ingredients-agricoles-hors-viande/ble-tendre.md)

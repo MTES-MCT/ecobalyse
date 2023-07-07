@@ -47,7 +47,7 @@ Le boeuf bio considéré dans un premier temps pour le calcul de la viande de bo
 
 Cull cow, organic, lowland milk system, silage maize 5 to 10%, at farm gate
 
-***
+Choix du boeuf bio parmi :
 
 Cull cow, organic, milk system n°1, at farm gate
 

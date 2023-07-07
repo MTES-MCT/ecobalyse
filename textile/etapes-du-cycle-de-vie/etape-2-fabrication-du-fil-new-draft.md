@@ -255,7 +255,7 @@ Dans le cas où le vêtement est composé de fibres de différentes natures (ex 
 
 _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x20;
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (2) (6).png>)
 
 </details>
 
