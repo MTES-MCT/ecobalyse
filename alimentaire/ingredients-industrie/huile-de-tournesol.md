@@ -60,5 +60,5 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
 4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Huile de tournesol => catégorie 3 : PAYS TIERS** (source : dires d'experts/à confirmer)&#x20;
+**Huile de tournesol => catégorie 2 :** EUROPE/MAGHREB  (source : dires d'experts/à confirmer)&#x20;
 
