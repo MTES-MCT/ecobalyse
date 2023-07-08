@@ -41,6 +41,7 @@ import Quantity
 import RemoteData exposing (WebData)
 import Request.Food.BuilderDb as FoodRequestDb
 import Route
+import String.Normalize as Normalize
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -1505,11 +1506,43 @@ view session model =
                                 , onInput UpdateIngredientModalSearch
                                 ]
                                 []
-                            , model.db.ingredients
-                                |> List.filter (\{ name } -> String.contains (String.toLower search) (String.toLower name))
-                                |> List.sortBy .name
+                            , let
+                                toWords =
+                                    String.toLower
+                                        >> Normalize.removeDiacritics
+                                        >> String.foldl
+                                            (\c acc ->
+                                                if not (List.member c [ '(', ')' ]) then
+                                                    String.cons c acc
+
+                                                else
+                                                    acc
+                                            )
+                                            ""
+                                        >> String.split " "
+
+                                searchWords =
+                                    toWords (String.trim search)
+                              in
+                              model.db.ingredients
                                 |> List.map
                                     (\ingredient ->
+                                        ( toWords ingredient.name
+                                        , ingredient
+                                        )
+                                    )
+                                |> List.filter
+                                    (\( words, _ ) ->
+                                        if search /= "" then
+                                            searchWords
+                                                |> List.all (\w -> List.member w words)
+
+                                        else
+                                            True
+                                    )
+                                |> List.sortBy (Tuple.second >> .name)
+                                |> List.map
+                                    (\( _, ingredient ) ->
                                         let
                                             alreadyUsed =
                                                 session.queries.food.ingredients
