@@ -7,6 +7,7 @@ module Page.Food.Builder exposing
     , view
     )
 
+import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -77,10 +78,11 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
+    | IngredientModal String
 
 
 type Msg
-    = AddIngredient
+    = AddIngredient Ingredient
     | AddPackaging
     | AddPreparation
     | AddTransform
@@ -95,6 +97,7 @@ type Msg
     | NoOp
     | OnChartHover ComparativeChart.Stacks
     | OpenComparator
+    | OpenIngredientModal
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
@@ -108,6 +111,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
+    | UpdateIngredientModalSearch String
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -170,23 +174,12 @@ update ({ queries } as session) msg model =
             queries.food
     in
     case msg of
-        AddIngredient ->
-            let
-                firstIngredient =
-                    model.db.ingredients
-                        |> Recipe.availableIngredients (List.map .id query.ingredients)
-                        |> List.sortBy .name
-                        |> List.head
-                        |> Maybe.map Recipe.ingredientQueryFromIngredient
-            in
-            ( model, session, Cmd.none )
-                |> (case firstIngredient of
-                        Just ingredient ->
-                            updateQuery (Query.addIngredient ingredient query)
-
-                        Nothing ->
-                            identity
-                   )
+        AddIngredient ingredient ->
+            ( { model | modal = NoModal }, session, Cmd.none )
+                |> updateQuery
+                    (query
+                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
+                    )
 
         AddPackaging ->
             let
@@ -297,6 +290,13 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
+        OpenIngredientModal ->
+            ( { model | modal = IngredientModal "" }
+            , session
+            , Dom.focus "ingredient-search"
+                |> Task.attempt (always NoOp)
+            )
+
         ResetDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetDistribution query)
@@ -381,6 +381,9 @@ update ({ queries } as session) msg model =
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
+
+        UpdateIngredientModalSearch search ->
+            ( { model | modal = IngredientModal search }, session, Cmd.none )
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -920,7 +923,7 @@ ingredientListView db selectedImpact recipe results =
                                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                                 |> List.isEmpty
                             )
-                        , onClick AddIngredient
+                        , onClick OpenIngredientModal
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -1482,6 +1485,56 @@ view session model =
                                 , chartHovering = model.chartHovering
                                 , onChartHover = OnChartHover
                                 }
+                            ]
+                        , footer = []
+                        }
+
+                IngredientModal search ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Sélectionnez un ingrédient"
+                        , formAction = Nothing
+                        , content =
+                            [ input
+                                [ type_ "search"
+                                , id "ingredient-search"
+                                , class "form-control"
+                                , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
+                                , onInput UpdateIngredientModalSearch
+                                ]
+                                []
+                            , model.db.ingredients
+                                |> List.filter (\{ name } -> String.contains (String.toLower search) (String.toLower name))
+                                |> List.sortBy .name
+                                |> List.map
+                                    (\ingredient ->
+                                        let
+                                            alreadyUsed =
+                                                session.queries.food.ingredients
+                                                    |> List.map .id
+                                                    |> List.member ingredient.id
+                                        in
+                                        button
+                                            [ class "d-block btn w-100"
+                                            , class "border-0 border-bottom text-start no-outline"
+                                            , classList [ ( "btn-outline-primary", not alreadyUsed ) ]
+                                            , classList [ ( "btn-light", alreadyUsed ) ]
+                                            , onClick (AddIngredient ingredient)
+                                            , disabled alreadyUsed
+                                            ]
+                                            [ text <|
+                                                ingredient.name
+                                                    ++ (if alreadyUsed then
+                                                            " (déjà dans la recette)"
+
+                                                        else
+                                                            ""
+                                                       )
+                                            ]
+                                    )
+                                |> div [ style "height" "204px" ]
                             ]
                         , footer = []
                         }
