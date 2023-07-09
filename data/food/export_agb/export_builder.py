@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Export de l'impact d'une liste de processes
-exemple : python export_builder.py"""
+"""Export des ingrédients et des processes du builder"""
 
 from food.impacts import impacts as impacts_definition
 import bw2calc
@@ -158,11 +157,9 @@ if __name__ == "__main__":
         # and tweak some attributes
         if "ratio" in process:
             for impact in process["impacts"]:
-                # TODO read below
-                # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient
-                # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
+                # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient.
+                # You need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
-                # It takes more than 1kg of wheat to make 1kg of flour. Or more than 1kg of beef to make 1kg of beef meat
                 try:
                     process["impacts"][impact] = process["impacts"][impact] + process[
                         "ratio"
@@ -175,9 +172,9 @@ if __name__ == "__main__":
 
             process["name"] = f"{processid}, organic, constructed by Ecobalyse"
             process["system_description"] = "Ecobalyse"
-            process["identifier"] = hashlib.md5(
-                process["name"].encode("utf-8")
-            ).hexdigest()
+            process["identifier"] = uuid.UUID(
+                hashlib.md5(process["name"].encode("utf-8")).hexdigest()
+            )
 
         # remove unneeded attributes
         for attribute in (
