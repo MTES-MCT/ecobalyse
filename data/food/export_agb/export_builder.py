@@ -189,7 +189,7 @@ if __name__ == "__main__":
                 except:
                     import pdb; pdb.set_trace()  # fmt: skip
 
-            process["name"] = f"{processid}, organic, constructed by Ecobalyse"
+            process["name"] = f"{processid}, constructed by Ecobalyse"
             process["system_description"] = "Ecobalyse"
             process["identifier"] = str(
                 uuid.UUID(hashlib.md5(process["name"].encode("utf-8")).hexdigest())
