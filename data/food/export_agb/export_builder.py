@@ -107,14 +107,16 @@ if __name__ == "__main__":
             "ratio": activity.get("ratio"),
             "subingredient_default": activity.get("subingredient_default"),
             "subingredient_variant": activity.get("subingredient_variant"),
-            "impacts": {},
+            "impacts": {"bvi": activity.get("bvi")},
         }
         for activity in activities
     }
-    # remove empty category
+    # remove empty bvi and empty category
     for p in builder:
         if not builder[p]["category"]:
             del builder[p]["category"]
+        if builder[p]["impacts"]["bvi"] is None:
+            del builder[p]["impacts"]["bvi"]
     # remove complex ingredient attributes on simple ingredients
     for processid in builder.keys():
         if not builder[processid]["ratio"]:
