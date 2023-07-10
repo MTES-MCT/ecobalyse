@@ -17,7 +17,7 @@ type alias Page =
 
 
 type Path
-    = FoodBonuses -- Bonus et compléments hors-ACV
+    = FoodComplements -- Bonus et compléments hors-ACV
     | FoodInediblePart -- Part non-comestible
     | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
     | ImpactQuality -- Niveau de qualité d'impact
@@ -38,7 +38,7 @@ type Path
 pathToString : Path -> String
 pathToString path =
     case path of
-        FoodBonuses ->
+        FoodComplements ->
             "alimentaire/impacts-consideres/complements-hors-acv-en-construction"
 
         FoodInediblePart ->

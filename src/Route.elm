@@ -25,9 +25,11 @@ type Route
     | Changelog
     | Editorial String
     | Explore Scope Dataset
+    | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodExplore
     | TextileExamples
+    | TextileSimulatorHome
     | TextileSimulator Definition.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
     | Stats
 
@@ -55,7 +57,7 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map (FoodBuilder Impact.defaultFoodTrigram Nothing) (Parser.s "food" </> Parser.s "build")
+        , Parser.map FoodBuilderHome (Parser.s "food" </> Parser.s "build")
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
@@ -70,7 +72,7 @@ parser =
         , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
 
         -- Textile Simulator
-        , Parser.map (TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
+        , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
         , Parser.map TextileSimulator
             (Parser.s "textile"
@@ -151,7 +153,7 @@ toString route =
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
-                FoodBuilder Definition.Ecs Nothing ->
+                FoodBuilderHome ->
                     [ "food", "build" ]
 
                 FoodBuilder trigram Nothing ->
@@ -166,6 +168,9 @@ toString route =
                 TextileExamples ->
                     [ "textile", "examples" ]
 
+                TextileSimulatorHome ->
+                    [ "textile", "simulator" ]
+
                 TextileSimulator trigram funit viewMode (Just query) ->
                     [ "textile"
                     , "simulator"
@@ -174,9 +179,6 @@ toString route =
                     , ViewMode.toUrlSegment viewMode
                     , TextileQuery.b64encode query
                     ]
-
-                TextileSimulator Definition.Pef Unit.PerItem _ Nothing ->
-                    [ "textile", "simulator" ]
 
                 TextileSimulator trigram funit viewMode Nothing ->
                     [ "textile"

@@ -11,7 +11,6 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
@@ -89,7 +88,6 @@ comparator ({ session, options, toggle } as config) =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    |> Bookmark.filterByScope (optionsScope options)
                     |> List.map
                         (\bookmark ->
                             let
@@ -155,10 +153,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                         (\( _, { total, perKg, recipe } ) ->
                             case comparisonUnit of
                                 PerItem ->
-                                    ( label, total, recipe.totalBonusesImpact )
+                                    ( label, total, recipe.totalComplementsImpact )
 
                                 PerKgOfProduct ->
-                                    ( label, perKg, recipe.totalBonusesImpactPerKg )
+                                    ( label, perKg, recipe.totalComplementsImpactPerKg )
                         )
                     |> Just
 
@@ -257,7 +255,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         ]
 
 
-dataForIndividualImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForIndividualImpacts : Definitions -> List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
 dataForIndividualImpacts definitions chartsData =
     let
         labelToOrder =
@@ -306,10 +304,10 @@ dataForIndividualImpacts definitions chartsData =
     in
     chartsData
         |> List.map
-            (\( name, impacts, bonusesImpact ) ->
+            (\( name, impacts, complementsImpact ) ->
                 let
-                    bonusImpacts =
-                        Impact.bonusesImpactAsChartEntries bonusesImpact
+                    complementImpacts =
+                        Impact.complementsImpactAsChartEntries complementsImpact
 
                     entries =
                         impacts
@@ -317,7 +315,7 @@ dataForIndividualImpacts definitions chartsData =
                             |> List.sortWith labelComparison
 
                     reversed =
-                        bonusImpacts
+                        complementImpacts
                             ++ entries
                             |> List.reverse
                 in
@@ -330,21 +328,21 @@ dataForIndividualImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : Definitions -> List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForGroupedImpacts : Definitions -> List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
 dataForGroupedImpacts definitions chartsData =
     chartsData
         |> List.map
-            (\( name, impacts, bonusesImpact ) ->
+            (\( name, impacts, complementsImpact ) ->
                 let
-                    bonusImpacts =
-                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
+                    complementImpacts =
+                        Impact.totalComplementsImpactAsChartEntry complementsImpact
 
                     entries =
                         impacts
                             |> Impact.toProtectionAreas definitions
                             |> (\{ climate, biodiversity, health, resources } ->
                                     List.reverse
-                                        [ bonusImpacts
+                                        [ complementImpacts
                                         , { name = "Climat", color = "#9025be", value = Unit.impactToFloat climate }
                                         , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
                                         , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
@@ -361,19 +359,19 @@ dataForGroupedImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForTotalImpacts : List ( String, Impact.Impacts, Impact.BonusImpacts ) -> String
+dataForTotalImpacts : List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
 dataForTotalImpacts chartsData =
     chartsData
         |> List.map
-            (\( name, impacts, bonusesImpact ) ->
+            (\( name, impacts, complementsImpact ) ->
                 let
                     totalImpact =
                         impacts
                             |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
 
-                    bonusImpacts =
-                        Impact.totalBonusesImpactAsChartEntry bonusesImpact
+                    complementImpacts =
+                        Impact.totalComplementsImpactAsChartEntry complementsImpact
                             |> (\entry ->
                                     -- In this particular case we want the bonus as a positive value, displayed "on top" of the bar
                                     -- in white
@@ -383,7 +381,7 @@ dataForTotalImpacts chartsData =
                     entries =
                         List.reverse
                             [ { name = "Impact total", color = "#333333", value = totalImpact }
-                            , bonusImpacts
+                            , complementImpacts
                             ]
                 in
                 Encode.object
@@ -457,13 +455,3 @@ getTextileChartEntries { db, store } funit impact =
             )
         |> RE.combine
         |> Result.map (List.sortBy .score)
-
-
-optionsScope : Options msg -> Scope
-optionsScope options =
-    case options of
-        Food _ ->
-            Scope.Food
-
-        Textile _ ->
-            Scope.Textile

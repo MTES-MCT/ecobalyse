@@ -3,7 +3,6 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
-    , filterByScope
     , findByFoodQuery
     , findByTextileQuery
     , isFood
@@ -92,18 +91,6 @@ isTextile { query } =
 
         _ ->
             False
-
-
-filterByScope : Scope -> List Bookmark -> List Bookmark
-filterByScope scope_ =
-    List.filter
-        (case scope_ of
-            Scope.Food ->
-                isFood
-
-            Scope.Textile ->
-                isTextile
-        )
 
 
 findByQuery : Query -> List Bookmark -> Maybe Bookmark

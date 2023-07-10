@@ -154,11 +154,11 @@ describe("API", () => {
           );
         });
 
-        it("should perform a simulation featuring 14 impacts for textile", async () => {
+        it("should perform a simulation featuring 22 impacts for textile", async () => {
           const response = await makeRequest("/api/textile/simulator/", successQuery);
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(14);
+          expect(Object.keys(response.body.impacts)).toHaveLength(22);
         });
 
         it("should validate the airTransportRatio param", async () => {
@@ -271,7 +271,7 @@ describe("API", () => {
       });
 
       describe("POST", () => {
-        it("should compute 14 impacts", async () => {
+        it("should compute 22 impacts", async () => {
           const response = await makePostRequest("/api/textile/simulator", {
             mass: 0.17,
             materials: [{ id: "coton", share: 1 }],
@@ -291,7 +291,7 @@ describe("API", () => {
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(14);
+          expect(Object.keys(response.body.impacts)).toHaveLength(22);
         });
       });
     });
@@ -395,17 +395,9 @@ describe("API", () => {
           );
         });
 
-        it("should validate an ingredient variant", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadVariant"]),
-            "ingredients",
-            /Format de variant invalide : BadVariant/,
-          );
-        });
-
         it("should validate an ingredient country code", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BadCountryCode"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadCountryCode"]),
             "ingredients",
             /Code pays invalide: BadCountryCode/,
           );
@@ -413,7 +405,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane value", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;;BR;badValue"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;BR;badValue"]),
             "ingredients",
             /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
           );
@@ -421,7 +413,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;byPlane"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;byPlane"]),
             "ingredients",
             /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
           );
@@ -429,7 +421,7 @@ describe("API", () => {
 
         it("should validate an ingredient bonuses format", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;invalid"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;invalid"]),
             "ingredients",
             /Format de bonus d'ingrédient invalide: invalid./,
           );
@@ -437,7 +429,7 @@ describe("API", () => {
 
         it("should validate an ingredient bonus boundaries", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;110:100"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;110:100"]),
             "ingredients",
             /comprise entre 0 et 100/,
           );
@@ -445,13 +437,13 @@ describe("API", () => {
 
         it("should validate an ingredient bonus applicability", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;;100:100:100"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;100:100:100"]),
             "ingredients",
             /Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage/,
           );
         });
 
-        it("should validate transform code", async () => {
+        it("should validate a transform code", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", ["transform=invalid;268"]),
             "transform",
@@ -461,9 +453,7 @@ describe("API", () => {
 
         it("should validate a transform mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", [
-              "transform=AGRIBALU000000003103966;-1",
-            ]),
+            await makeRequest("/api/food/recipe", ["transform=AGRIBALU000000003103966;-1"]),
             "transform",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -479,9 +469,7 @@ describe("API", () => {
 
         it("should validate a packaging mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", [
-              "packaging[]=AGRIBALU000000003104019;-1",
-            ]),
+            await makeRequest("/api/food/recipe", ["packaging[]=AGRIBALU000000003104019;-1"]),
             "packaging",
             /masse doit être supérieure ou égale à zéro/,
           );

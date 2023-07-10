@@ -13,7 +13,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
@@ -79,11 +79,11 @@ toResponse encodedResult =
             ( 400, encodeStringError error )
 
 
-toAllImpactsSimple : Definitions -> Simulator -> Encode.Value
-toAllImpactsSimple definitions { inputs, impacts } =
+toAllImpactsSimple : Simulator -> Encode.Value
+toAllImpactsSimple { inputs, impacts } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
-        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
+        , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
@@ -99,7 +99,7 @@ toFoodWebUrl trigram foodQuery =
 toTextileWebUrl : Maybe Definition.Trigram -> Inputs.Inputs -> String
 toTextileWebUrl maybeTrigram textileQuery =
     Just (Inputs.toQuery textileQuery)
-        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.defaultTextileTrigram maybeTrigram)
+        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram)
             Unit.PerItem
             ViewMode.Simple
         |> WebRoute.toString
@@ -117,27 +117,27 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-toFoodResults : BuilderQuery.Query -> Definitions -> BuilderRecipe.Results -> Encode.Value
-toFoodResults query definitions results =
+toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
+toFoodResults query results =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.defaultFoodTrigram query |> Encode.string )
-        , ( "results", BuilderRecipe.encodeResults definitions results )
+        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
+        , ( "results", BuilderRecipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
         , ( "query", BuilderQuery.encode query )
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> (Definitions -> BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
 executeFoodQuery builderDb encoder =
     BuilderRecipe.compute builderDb
-        >> Result.map (Tuple.second >> encoder builderDb.impactDefinitions)
+        >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
 
-executeTextileQuery : TextileDb.Db -> (Definitions -> Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
+executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
 executeTextileQuery textileDb encoder =
     Simulator.compute textileDb
-        >> Result.map (encoder textileDb.impactDefinitions)
+        >> Result.map encoder
         >> toResponse
 
 
@@ -183,15 +183,6 @@ encodeIngredient ingredient =
     Encode.object
         [ ( "id", Ingredient.idToString ingredient.id |> Encode.string )
         , ( "name", ingredient.name |> Encode.string )
-        , ( "variants"
-          , (if ingredient.variants.organic /= Nothing then
-                [ "organic" ]
-
-             else
-                []
-            )
-                |> Encode.list Encode.string
-          )
         , ( "defaultOrigin", ingredient.defaultOrigin |> Origin.toLabel |> Encode.string )
         ]
 
@@ -284,7 +275,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
 
         Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
             query
-                |> executeTextileQuery textileDb (always (toSingleImpactSimple trigram))
+                |> executeTextileQuery textileDb (toSingleImpactSimple trigram)
 
         Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
@@ -312,7 +303,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
         Just (Route.PostTextileSimulatorSingle trigram) ->
             request.body
                 |> handleDecodeBody Inputs.decodeQuery
-                    (executeTextileQuery textileDb (always (toSingleImpactSimple trigram)))
+                    (executeTextileQuery textileDb (toSingleImpactSimple trigram))
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"

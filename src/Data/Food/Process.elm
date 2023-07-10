@@ -39,7 +39,6 @@ type alias Process =
     , code : Code
     , category : Category
     , systemDescription : String
-    , categoryTags : List String
     , comment : Maybe String
     , id_ : Maybe String
     }
@@ -143,7 +142,6 @@ decodeProcess definitions =
         |> Pipe.required "identifier" decodeCode
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
-        |> Pipe.required "category_tags" (Decode.list Decode.string)
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" (Decode.maybe Decode.string)
 
