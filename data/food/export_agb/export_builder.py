@@ -95,6 +95,7 @@ if __name__ == "__main__":
     print("Creating builder process list...")
     builder = {
         activity["id"]: {
+            "id": activity["id"],
             "name": search(activity["search"])["name"],
             "unit": search(activity["search"])["unit"],
             "identifier": search(activity["search"])["Process identifier"],

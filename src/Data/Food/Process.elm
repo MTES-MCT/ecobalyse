@@ -41,7 +41,7 @@ type alias Process =
     , systemDescription : String
     , categoryTags : List String
     , comment : Maybe String
-    , alias : Maybe String
+    , id_ : Maybe String
     }
 
 
@@ -145,7 +145,7 @@ decodeProcess definitions =
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
-        |> Pipe.optional "alias" (Decode.maybe Decode.string) Nothing
+        |> Pipe.required "id" (Decode.maybe Decode.string)
 
 
 decodeCode : Decoder Code
@@ -164,12 +164,12 @@ encodeCode =
     codeToString >> Encode.string
 
 
-findByAlias : List Process -> String -> Result String Process
-findByAlias processes alias =
+findById : List Process -> String -> Result String Process
+findById processes id_ =
     processes
-        |> List.filter (.alias >> (==) (Just alias))
+        |> List.filter (.id_ >> (==) (Just id_))
         |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias)
+        |> Result.fromMaybe ("Procédé introuvable par id : " ++ id_)
 
 
 findByCode : List Process -> Code -> Result String Process
@@ -239,8 +239,8 @@ listByCategory category =
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown processes =
     let
-        resolve alias =
-            RE.andMap (findByAlias processes alias)
+        resolve id_ =
+            RE.andMap (findById processes id_)
     in
     Ok WellKnown
         |> resolve "lorry"
