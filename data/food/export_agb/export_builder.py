@@ -98,6 +98,7 @@ if __name__ == "__main__":
             "unit": search(activity["search"])["unit"],
             "identifier": search(activity["search"])["Process identifier"],
             "system_description": search(activity["search"])["System description"],
+            "category": activity.get("category"),
             "category_tags": activity.get("categories", [])
             + list(list(search(activity["search"]).production())[0]["categories"]),
             "comment": list(search(activity["search"]).production())[0]["comment"],
@@ -110,6 +111,10 @@ if __name__ == "__main__":
         }
         for activity in activities
     }
+    # remove empty category
+    for p in builder:
+        if not builder[p]["category"]:
+            del builder[p]["category"]
     # remove complex ingredient attributes on simple ingredients
     for processid in builder.keys():
         if not builder[processid]["ratio"]:
@@ -225,7 +230,7 @@ if __name__ == "__main__":
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
 
     with open(BUILDER, "w") as outfile:
-        json.dump(builder, outfile, indent=2, ensure_ascii=False)
+        json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(builder)} processes to {BUILDER}")

@@ -1,9 +1,10 @@
-{
-  "egg": {
+[
+  {
     "name": "Egg, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105162",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "animal_product",
       "Agricultural",
@@ -34,11 +35,12 @@
       "htn-c": 4.727717237e-08
     }
   },
-  "egg-organic": {
+  {
     "name": "Egg, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105163",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "animal_product",
       "organic",
@@ -70,11 +72,12 @@
       "htn-c": 1.110299309696e-07
     }
   },
-  "egg-bleublanccoeur": {
+  {
     "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105149",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "animal_product",
       "bleublanccoeur",
@@ -106,11 +109,12 @@
       "htn-c": 3.270783217e-08
     }
   },
-  "milk": {
+  {
     "name": "Cow milk, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104145",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "dairy_product",
       "Agricultural",
@@ -141,11 +145,12 @@
       "htn-c": 1.6994789568e-08
     }
   },
-  "milk-organic": {
+  {
     "name": "Cow milk, organic, system number 5, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104151",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "dairy_product",
       "organic",
@@ -177,11 +182,12 @@
       "htn-c": 1.2512413262e-08
     }
   },
-  "carrot": {
+  {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -212,11 +218,12 @@
       "htn-c": 9.641644246999999e-09
     }
   },
-  "carrot-organic": {
+  {
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -248,11 +255,12 @@
       "htn-c": 2.46769729382e-09
     }
   },
-  "wheat": {
+  {
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "grain_raw",
       "Agricultural",
@@ -283,11 +291,12 @@
       "htn-c": 3.3563192609999996e-09
     }
   },
-  "wheat-organic": {
+  {
     "name": "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114123",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "grain_raw",
@@ -320,11 +329,12 @@
       "htn-c": 5.85299053873e-08
     }
   },
-  "flour": {
+  {
     "name": "Wheat flour, at industrial mill {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116999",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "grain_processed",
       "Agricultural",
@@ -354,11 +364,12 @@
       "htn-c": 4.149994296e-09
     }
   },
-  "flour-organic": {
-    "name": "flour-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "flour-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "8947c05b-24af-d16c-a6f2-b82635abf027",
+    "identifier": "190daa18-c636-9b3a-1bee-aaba811fdaf6",
     "system_description": "Ecobalyse",
+    "category": "ingredient",
     "category_tags": [
       "organic",
       "grain_processed",
@@ -389,11 +400,12 @@
       "htn-c": 6.8151354202508e-08
     }
   },
-  "sunflower": {
+  {
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115216",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "nut_oilseed_raw",
       "Others",
@@ -422,11 +434,12 @@
       "htn-c": 1.09283125842e-07
     }
   },
-  "sunflower-organic": {
+  {
     "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200157",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "nut_oilseed_raw",
@@ -458,11 +471,12 @@
       "htn-c": 2.25943894726e-09
     }
   },
-  "rapeseed": {
+  {
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112430",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "material",
     "category_tags": [
       "nut_oilseed_raw",
       "Others",
@@ -491,11 +505,12 @@
       "htn-c": 4.8372031378e-08
     }
   },
-  "rapeseed-organic": {
+  {
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200196",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "organic",
       "nut_oilseed_raw",
@@ -527,11 +542,12 @@
       "htn-c": 6.69258599221e-08
     }
   },
-  "tomato": {
+  {
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -562,11 +578,12 @@
       "htn-c": 9.376106424260001e-09
     }
   },
-  "tomato-organic": {
+  {
     "name": "Tomato, organic, greenhouse production, national average, at greenhouse {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115758",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -598,11 +615,12 @@
       "htn-c": 3.352293287636e-08
     }
   },
-  "potato": {
+  {
     "name": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116702",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -633,11 +651,12 @@
       "htn-c": 4.2032319238e-09
     }
   },
-  "ground-beef": {
+  {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107081",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "animal_product",
       "Agricultural",
@@ -667,11 +686,12 @@
       "htn-c": 5.299051838e-07
     }
   },
-  "ground-beef-organic": {
-    "name": "ground-beef-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "ground-beef-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "9a2a5809-2c34-4ff8-5953-dd2918c7be50",
+    "identifier": "2c35501a-0556-ff94-03e9-f4140aa9990b",
     "system_description": "Ecobalyse",
+    "category": "ingredient",
     "category_tags": [
       "organic",
       "animal_product",
@@ -702,7 +722,7 @@
       "htn-c": 3.4934508289000006e-07
     }
   },
-  "beef-cattle": {
+  {
     "name": "Beef cattle, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101057",
@@ -736,7 +756,7 @@
       "htn-c": 2.2949856678e-07
     }
   },
-  "beef-cattle-feedlot": {
+  {
     "name": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101053",
@@ -768,7 +788,7 @@
       "htn-c": 4.1440846911999997e-07
     }
   },
-  "cull-cow-organic": {
+  {
     "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104412",
@@ -802,11 +822,12 @@
       "htn-c": 1.5099417508e-07
     }
   },
-  "ground-beef-feedlot": {
+  {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107081",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "animal_product",
       "Agricultural",
@@ -836,11 +857,12 @@
       "htn-c": 5.299051838e-07
     }
   },
-  "ground-beef-feedlot-organic": {
-    "name": "ground-beef-feedlot-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "ground-beef-feedlot-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "fed1bc2d-e551-f313-732a-c965d6aaabf9",
+    "identifier": "c7267ca4-5583-27c6-d33c-3ca6f2018014",
     "system_description": "Ecobalyse",
+    "category": "ingredient",
     "category_tags": [
       "organic",
       "animal_product",
@@ -871,11 +893,12 @@
       "htn-c": 9.55197959182e-07
     }
   },
-  "cooked-ham": {
+  {
     "name": "Cooked ham, case ready, at plant {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103910",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "animal_product",
       "Agricultural",
@@ -905,11 +928,12 @@
       "htn-c": 7.188188784999999e-08
     }
   },
-  "cooked-ham-organic": {
-    "name": "cooked-ham-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "cooked-ham-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "c0c12f49-e1aa-f562-7cee-04bbc52d5d1e",
+    "identifier": "3ec54ea9-9c8e-87fb-986d-85784048c354",
     "system_description": "Ecobalyse",
+    "category": "ingredient",
     "category_tags": [
       "organic",
       "animal_product",
@@ -940,7 +964,7 @@
       "htn-c": 1.1771495773716e-07
     }
   },
-  "pig": {
+  {
     "name": "Pig, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111220",
@@ -974,7 +998,7 @@
       "htn-c": 3.2676040136e-08
     }
   },
-  "pig-organic": {
+  {
     "name": "Pig, organic, system number 2, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111256",
@@ -1008,11 +1032,12 @@
       "htn-c": 5.5365678694e-08
     }
   },
-  "lamb": {
+  {
     "name": "Meat with bone, lamb {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109215",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "Agricultural",
       "Food",
@@ -1041,11 +1066,12 @@
       "htn-c": 5.1925316144e-07
     }
   },
-  "chicken-breast": {
+  {
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109221",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "animal_product",
       "Agricultural",
@@ -1075,11 +1101,12 @@
       "htn-c": 1.0187603854e-07
     }
   },
-  "chicken-breast-organic": {
-    "name": "chicken-breast-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "chicken-breast-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "9d0f65fb-ce4e-7cc7-3308-e401158c3d8e",
+    "identifier": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
     "system_description": "Ecobalyse",
+    "category": "material",
     "category_tags": [
       "organic",
       "animal_product",
@@ -1110,7 +1137,7 @@
       "htn-c": 1.9409601218e-07
     }
   },
-  "broiler": {
+  {
     "name": "Broiler, conventional, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102132",
@@ -1144,7 +1171,7 @@
       "htn-c": 4.9045707923999996e-08
     }
   },
-  "broiler-organic": {
+  {
     "name": "Broiler, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102137",
@@ -1178,11 +1205,12 @@
       "htn-c": 1.4126568156399998e-07
     }
   },
-  "grape": {
+  {
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106864",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1214,11 +1242,12 @@
       "htn-c": 5.4632704284e-08
     }
   },
-  "grape-organic": {
+  {
     "name": "Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200264",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -1251,11 +1280,12 @@
       "htn-c": 1.2418013956e-08
     }
   },
-  "mango": {
+  {
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1286,11 +1316,12 @@
       "htn-c": 4.8263202469999996e-09
     }
   },
-  "huilecolza": {
+  {
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112448",
     "system_description": "",
+    "category": "processing",
     "category_tags": [
       "nut_oilseed_processed",
       "Others",
@@ -1319,11 +1350,12 @@
       "htn-c": 1.94506811498e-07
     }
   },
-  "huilecolza-organic": {
-    "name": "huilecolza-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "huilecolza-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "7e1861a7-263c-2664-e7d9-50dffe1bbcad",
+    "identifier": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
     "system_description": "Ecobalyse",
+    "category": "processing",
     "category_tags": [
       "organic",
       "nut_oilseed_processed",
@@ -1353,11 +1385,12 @@
       "htn-c": 2.25306166881206e-07
     }
   },
-  "sunfloweroil": {
+  {
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115182",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "nut_oilseed_processed",
       "Others",
@@ -1386,11 +1419,12 @@
       "htn-c": 2.1025157078199998e-07
     }
   },
-  "sunfloweroil-organic": {
-    "name": "sunfloweroil-organic, organic, constructed by Ecobalyse",
+  {
+    "name": "sunfloweroil-organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "f7bdd0f4-5677-df9d-9e9b-ca70e4bb8bcf",
+    "identifier": "aad2f55d-4b47-8126-0a70-47d8e317e238",
     "system_description": "Ecobalyse",
+    "category": "material",
     "category_tags": [
       "organic",
       "nut_oilseed_processed",
@@ -1420,11 +1454,12 @@
       "htn-c": -5.195646211011304e-08
     }
   },
-  "zucchini": {
+  {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1455,11 +1490,12 @@
       "htn-c": 4.2204866506e-09
     }
   },
-  "zucchini-organic": {
+  {
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -1491,11 +1527,12 @@
       "htn-c": 5.48127013142e-09
     }
   },
-  "pear": {
+  {
     "name": "Pear, conventional, at orchard {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111019",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1526,11 +1563,12 @@
       "htn-c": 4.2754218544e-09
     }
   },
-  "pear-organic": {
+  {
     "name": "Pear, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111025",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -1562,11 +1600,12 @@
       "htn-c": 6.531013954e-09
     }
   },
-  "peach": {
+  {
     "name": "Peach, production mix, national average, at orchard {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110952",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1597,11 +1636,12 @@
       "htn-c": 1.7939166934399998e-08
     }
   },
-  "peach-organic": {
+  {
     "name": "Peach, organic, national average, at orchard {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110947",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -1633,11 +1673,12 @@
       "htn-c": 1.54670060338e-08
     }
   },
-  "melon": {
+  {
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1668,11 +1709,12 @@
       "htn-c": 7.4018180206e-09
     }
   },
-  "melon-organic": {
+  {
     "name": "Melon, organic, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "organic",
       "vegetable_fresh",
@@ -1704,11 +1746,12 @@
       "htn-c": 6.9849842428999996e-09
     }
   },
-  "butter": {
+  {
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102321",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "dairy_product",
       "Agricultural",
@@ -1738,11 +1781,12 @@
       "htn-c": 1.1372085945999999e-07
     }
   },
-  "butter-organic": {
+  {
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102321",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "organic",
       "dairy_product",
@@ -1773,11 +1817,12 @@
       "htn-c": 1.1372085945999999e-07
     }
   },
-  "onion": {
+  {
     "name": "Onion, national average, at farm {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1808,11 +1853,12 @@
       "htn-c": 3.6008341664e-09
     }
   },
-  "eggplant": {
+  {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
+    "category": "ingredient",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1843,11 +1889,12 @@
       "htn-c": 4.2204866506e-09
     }
   },
-  "lettuce": {
+  {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1878,11 +1925,12 @@
       "htn-c": 1.3512814544200001e-08
     }
   },
-  "frenchbean": {
+  {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "vegetable_fresh",
       "Agricultural",
@@ -1913,11 +1961,12 @@
       "htn-c": 2.3833369035e-09
     }
   },
-  "durumwheat": {
+  {
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200066",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "grain_raw",
       "Agricultural",
@@ -1948,13 +1997,13 @@
       "htn-c": 4.209218255e-09
     }
   },
-  "steel": {
+  {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114927",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -1981,13 +2030,13 @@
       "htn-c": 5.4099074336e-09
     }
   },
-  "ldpe": {
+  {
     "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110698",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2014,13 +2063,13 @@
       "htn-c": 1.3252202732e-08
     }
   },
-  "ps": {
+  {
     "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111575",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2047,13 +2096,13 @@
       "htn-c": 5.501316283e-09
     }
   },
-  "glass": {
+  {
     "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110706",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2080,13 +2129,13 @@
       "htn-c": 7.9925525474e-09
     }
   },
-  "pp": {
+  {
     "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111571",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2113,13 +2162,13 @@
       "htn-c": 7.230795419999999e-09
     }
   },
-  "cardboard": {
+  {
     "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104019",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2146,13 +2195,13 @@
       "htn-c": 7.1945960442e-09
     }
   },
-  "paper": {
+  {
     "name": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108113",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2179,13 +2228,13 @@
       "htn-c": 4.3084083077999996e-09
     }
   },
-  "pvc": {
+  {
     "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111586",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2212,13 +2261,13 @@
       "htn-c": 2.6066999732e-08
     }
   },
-  "pet": {
+  {
     "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111562",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2245,13 +2294,13 @@
       "htn-c": 2.3636885388e-08
     }
   },
-  "hdpe": {
+  {
     "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2278,13 +2327,13 @@
       "htn-c": 7.607800624999999e-09
     }
   },
-  "aluminium": {
+  {
     "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100294",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "packaging",
     "category_tags": [
-      "packaging",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2311,13 +2360,13 @@
       "htn-c": 1.27848525734e-07
     }
   },
-  "canning": {
+  {
     "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102449",
     "system_description": "AGRIBALYSE",
+    "category": "transformation",
     "category_tags": [
-      "transformation",
       "Agricultural",
       "Food"
     ],
@@ -2344,13 +2393,13 @@
       "htn-c": 4.9296318864e-10
     }
   },
-  "mixing": {
+  {
     "name": "[Dummy] Mixing, processing, at plant {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100079",
     "system_description": "AGRIBALYSE",
+    "category": "transformation",
     "category_tags": [
-      "transformation",
       "Others",
       "Dummies"
     ],
@@ -2377,13 +2426,13 @@
       "htn-c": 0.0
     }
   },
-  "cooking": {
+  {
     "name": "Cooking, industrial, 1kg of cooked product {FR} U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103966",
     "system_description": "AGRIBALYSE",
+    "category": "transformation",
     "category_tags": [
-      "transformation",
       "Agricultural",
       "Food"
     ],
@@ -2410,13 +2459,13 @@
       "htn-c": 3.74103853888e-09
     }
   },
-  "lorry": {
+  {
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115929",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "transport",
     "category_tags": [
-      "transport",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2443,13 +2492,13 @@
       "htn-c": 1.5060826831e-09
     }
   },
-  "boat": {
+  {
     "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115957",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "transport",
     "category_tags": [
-      "transport",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2476,13 +2525,13 @@
       "htn-c": 2.6061013678e-11
     }
   },
-  "aircraft": {
+  {
     "name": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115903",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "transport",
     "category_tags": [
-      "transport",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2509,13 +2558,13 @@
       "htn-c": 8.33575108046e-09
     }
   },
-  "boat-cooling": {
+  {
     "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "transport",
     "category_tags": [
-      "transport",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2542,13 +2591,14 @@
       "htn-c": 7.574318053399999e-11
     }
   },
-  "lorry-cooling": {
+  {
     "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115944",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "transport",
     "category_tags": [
-      "transport",
+      "energy",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2575,13 +2625,13 @@
       "htn-c": 2.1048244794e-09
     }
   },
-  "low-voltage-electricity": {
+  {
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilowatt hour",
     "identifier": "AGRIBALU000000003105270",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "energy",
     "category_tags": [
-      "energy",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2608,11 +2658,12 @@
       "htn-c": 1.4871535301e-09
     }
   },
-  "tapwater": {
+  {
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115449",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "material",
     "category_tags": [
       "water",
       "Others",
@@ -2641,13 +2692,13 @@
       "htn-c": 1.644217119874e-11
     }
   },
-  "domestic-gas-heat": {
+  {
     "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "unit": "megajoule",
     "identifier": "AGRIBALU000000003107383",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "energy",
     "category_tags": [
-      "energy",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2674,4 +2725,4 @@
       "htn-c": 1.4114904768e-10
     }
   }
-}
+]
