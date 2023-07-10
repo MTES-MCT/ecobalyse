@@ -387,7 +387,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.338079058
+    "bvi": 0.338079058,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "ground-beef",
@@ -439,6 +443,7 @@
   },
   {
     "id": "beef-cattle",
+    "name": "Bovins de boucherie",
     "category": "material",
     "search": "Beef cattle national average at farm gate",
     "bvi": 0,
@@ -446,6 +451,7 @@
   },
   {
     "id": "beef-cattle-feedlot",
+    "name": "Bovins de boucherie (Feedlot)",
     "category": "material",
     "search": "Beef cattle feedlot or intensive system live weight farm GB",
     "bvi": 0,
@@ -453,6 +459,7 @@
   },
   {
     "id": "cull-cow-organic",
+    "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
     "bvi": 0,
@@ -473,7 +480,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 15.04866738
+    "bvi": 15.04866738,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "ground-beef-feedlot-organic",
@@ -494,7 +506,12 @@
     "bvi": 15.04866738,
     "ratio": 2.3,
     "subingredient_default": "beef-cattle",
-    "subingredient_variant": "beef-cattle-feedlot"
+    "subingredient_variant": "beef-cattle-feedlot",
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "cooked-ham",
@@ -546,6 +563,7 @@
   },
   {
     "id": "pig",
+    "name": "Porc",
     "category": "material",
     "search": "Pig conventional national average at farm gate",
     "bvi": 0,
@@ -553,6 +571,7 @@
   },
   {
     "id": "pig-organic",
+    "name": "Porc bio",
     "category": "material",
     "search": "Pig organic system 2 at farm gate",
     "bvi": 0,
@@ -560,6 +579,7 @@
   },
   {
     "id": "lamb",
+    "name": "Agneau",
     "search": "Meat with bone lamb",
     "category": "ingredient",
     "bvi": 20.6954393,
@@ -615,6 +635,7 @@
   },
   {
     "id": "broiler",
+    "name": "Poulet",
     "category": "material",
     "search": "Broiler conventional at farm gate",
     "bvi": 0,
@@ -622,6 +643,7 @@
   },
   {
     "id": "broiler-organic",
+    "name": "Poulet bio",
     "category": "material",
     "search": "Broiler organic at farm gate",
     "bvi": 0,
@@ -684,7 +706,11 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "huilecolza",
@@ -1039,7 +1065,11 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "frenchbean",
@@ -1055,7 +1085,11 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "durumwheat",
@@ -1071,7 +1105,11 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "steel",
@@ -1202,7 +1240,7 @@
   },
   {
     "category": "transport",
-    "id": "aircraft",
+    "id": "plane",
     "name": "Avion",
     "bvi": 0.012214369,
     "search": "Transport freight aircraft",

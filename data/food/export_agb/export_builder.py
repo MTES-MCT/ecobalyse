@@ -88,14 +88,13 @@ if __name__ == "__main__":
             "categories"
         ] and "animal-welfare" in ingredient.get("complements"):
             del ingredient["complements"]["animal-welfare"]
-        if not ingredient.get("complements"):
-            del ingredient["complements"]
 
     print("Creating builder process list...")
     builder = {
         activity["id"]: {
             "id": activity["id"],
             "name": search(activity["search"])["name"],
+            "displayName": activity["name"],
             "unit": search(activity["search"])["unit"],
             "identifier": search(activity["search"])["Process identifier"],
             "system_description": search(activity["search"])["System description"],

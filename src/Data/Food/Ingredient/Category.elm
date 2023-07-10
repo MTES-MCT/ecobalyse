@@ -18,7 +18,6 @@ type Category
     | Misc
     | NutOilseedRaw
     | NutOilseedProcessed
-    | Organic
     | SpiceCondimentOrAdditive
     | VegetableFresh
     | VegetableProcessed
@@ -58,9 +57,6 @@ fromString str =
 
         "nut_oilseed_processed" ->
             Ok NutOilseedProcessed
-
-        "organic" ->
-            Ok Organic
 
         "spice_condiment_additive" ->
             Ok SpiceCondimentOrAdditive
@@ -108,9 +104,6 @@ toLabel category =
         NutOilseedProcessed ->
             "Graisses végétales et oléoprotéagineux transformés"
 
-        Organic ->
-            "Bio"
-
         SpiceCondimentOrAdditive ->
             "Condiments, épices, additifs"
 
@@ -121,10 +114,10 @@ toLabel category =
             "Fruits et légumes transformés"
 
         Organic ->
-            "organic"
+            "Bio"
 
         BleuBlancCoeur ->
-            "bleublanccoeur"
+            "Bleu-Blanc-Cœur"
 
 
 decode : Decoder Category
