@@ -69,7 +69,6 @@ if __name__ == "__main__":
         {
             "id": activity["id"],
             "name": activity["name"],
-            "category": activity.get("category"),
             "categories": [c for c in activity["categories"] if c != "ingredient"],
             "default": search(activity["search"])["Process identifier"],
             "default_origin": activity["default_origin"],

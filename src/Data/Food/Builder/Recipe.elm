@@ -545,7 +545,7 @@ getPreparedMassAtConsumer : Recipe -> Mass
 getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtPlant =
-            case transform |> Maybe.andThen (.process >> .alias) of
+            case transform |> Maybe.andThen (.process >> .id_) of
                 Just "cooking" ->
                     True
 
@@ -588,7 +588,7 @@ getTransformedIngredientsMass { ingredients, transform } =
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                case transform |> Maybe.andThen (.process >> .alias) of
+                case transform |> Maybe.andThen (.process >> .id_) of
                     Just "cooking" ->
                         -- If the product is cooked, apply raw to cook ratio to ingredient masses
                         mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
