@@ -21,6 +21,7 @@ type Category
     | VegetableFresh
     | VegetableProcessed
     | Organic
+    | BleuBlancCoeur
 
 
 fromAnimalOrigin : Category -> Bool
@@ -65,6 +66,9 @@ fromString str =
         "organic" ->
             Ok Organic
 
+        "bleublanccoeur" ->
+            Ok BleuBlancCoeur
+
         _ ->
             Err <| "Categorie d'ingrédient invalide : " ++ str
 
@@ -104,6 +108,9 @@ toLabel category =
 
         Organic ->
             "organic"
+
+        BleuBlancCoeur ->
+            "bleublanccoeur"
 
 
 decode : Decoder Category
