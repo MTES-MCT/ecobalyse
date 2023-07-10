@@ -27,8 +27,8 @@
     "ingredient": true,
     "category": "material",
     "categories": [
-      "organic",
-      "animal_product"
+      "animal_product",
+      "organic"
     ],
     "search": "Egg organic at farm gate",
     "default_origin": "EuropeAndMaghreb",
@@ -95,8 +95,8 @@
     "ingredient": true,
     "category": "material",
     "categories": [
-      "organic",
-      "dairy_product"
+      "dairy_product",
+      "organic"
     ],
     "search": "cow milk organic system number 5",
     "default_origin": "EuropeAndMaghreb",
@@ -140,8 +140,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -356,8 +356,8 @@
     "ingredient": true,
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "search": "Tomato organic greenhouse production national average at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -417,8 +417,8 @@
     "ingredient": true,
     "category": "ingredient",
     "categories": [
-      "organic",
-      "animal_product"
+      "animal_product",
+      "organic"
     ],
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
@@ -481,8 +481,8 @@
     "ingredient": true,
     "category": "ingredient",
     "categories": [
-      "organic",
-      "animal_product"
+      "animal_product",
+      "organic"
     ],
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -524,8 +524,8 @@
     "ingredient": true,
     "category": "ingredient",
     "categories": [
-      "organic",
-      "animal_product"
+      "animal_product",
+      "organic"
     ],
     "search": "Cooked ham case ready at plant",
     "default_origin": "EuropeAndMaghreb",
@@ -593,8 +593,8 @@
     "ingredient": true,
     "category": "material",
     "categories": [
-      "organic",
-      "animal_product"
+      "animal_product",
+      "organic"
     ],
     "search": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
@@ -654,8 +654,8 @@
     "ingredient": true,
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
@@ -714,8 +714,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "processing",
     "categories": [
-      "organic",
-      "nut_oilseed_processed"
+      "nut_oilseed_processed",
+      "organic"
     ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -758,8 +758,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "nut_oilseed_processed"
+      "nut_oilseed_processed",
+      "organic"
     ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -802,8 +802,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -843,8 +843,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -884,8 +884,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -925,8 +925,8 @@
     "default_origin": "EuropeAndMaghreb",
     "category": "material",
     "categories": [
-      "organic",
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -967,8 +967,8 @@
     "default_origin": "France",
     "category": "ingredient",
     "categories": [
-      "organic",
-      "dairy_product"
+      "dairy_product",
+      "organic"
     ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1079,8 +1079,7 @@
     "category": "packaging",
     "bvi": 0.1133,
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1088,8 +1087,7 @@
     "name": "Polyéthylène basse densité",
     "bvi": 0.3318,
     "search": "Packaging film low density polyethylene {RER} production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1097,8 +1095,7 @@
     "name": "Polystyrène",
     "bvi": 0.0011,
     "search": "Polystyrene expandable {RER} production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1106,8 +1103,7 @@
     "name": "Verre",
     "bvi": 0.3211,
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1115,8 +1111,7 @@
     "name": "Polypropylène",
     "bvi": 0.0003,
     "search": "Polypropylene granulate {RER}| production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1124,8 +1119,7 @@
     "name": "Carton",
     "bvi": 1.1059,
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1133,8 +1127,7 @@
     "name": "Papier",
     "bvi": 7.4795,
     "search": "Kraft paper production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1142,8 +1135,7 @@
     "name": "PVC",
     "bvi": 0.0004,
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1151,8 +1143,7 @@
     "name": "PET",
     "bvi": 0.245,
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1160,8 +1151,7 @@
     "name": "Polyéthylène haute densité",
     "bvi": 0.0004,
     "search": "Polyethylene high density granulate {RER} production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "packaging",
@@ -1169,8 +1159,7 @@
     "name": "Aluminium",
     "bvi": 0.94,
     "search": "Aluminium primary ingot {RoW} production",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "transformation",
@@ -1178,16 +1167,14 @@
     "name": "Mise en conserve",
     "bvi": 0.0089,
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "transformation",
     "id": "mixing",
     "name": "Mélange",
     "search": "Mixing processing dummy",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "transformation",
@@ -1195,8 +1182,7 @@
     "name": "Cuisson",
     "bvi": 0.012,
     "search": "Cooking industrial 1kg of cooked product FR",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "transport",
@@ -1204,8 +1190,7 @@
     "name": "Camion",
     "bvi": 0.055765784,
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
-    "categories": [
-    ]
+    "categories": []
   },
   {
     "category": "transport",
