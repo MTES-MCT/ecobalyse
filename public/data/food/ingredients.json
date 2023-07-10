@@ -2,6 +2,7 @@
   {
     "id": "egg",
     "name": "Oeuf",
+    "category": "material",
     "categories": [
       "animal_product"
     ],
@@ -21,9 +22,10 @@
   {
     "id": "egg-organic",
     "name": "Oeuf bio",
+    "category": "material",
     "categories": [
-      "animal_product",
-      "organic"
+      "organic",
+      "animal_product"
     ],
     "default": "AGRIBALU000000003105163",
     "default_origin": "EuropeAndMaghreb",
@@ -41,9 +43,10 @@
   {
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur",
+    "category": "material",
     "categories": [
-      "animal_product",
-      "bleublanccoeur"
+      "bleublanccoeur",
+      "animal_product"
     ],
     "default": "AGRIBALU000000003105149",
     "default_origin": "EuropeAndMaghreb",
@@ -61,6 +64,7 @@
   {
     "id": "milk",
     "name": "Lait",
+    "category": "material",
     "categories": [
       "dairy_product"
     ],
@@ -79,9 +83,10 @@
   {
     "id": "milk-organic",
     "name": "Lait bio",
+    "category": "material",
     "categories": [
-      "dairy_product",
-      "organic"
+      "organic",
+      "dairy_product"
     ],
     "default": "AGRIBALU000000003104151",
     "default_origin": "EuropeAndMaghreb",
@@ -98,6 +103,7 @@
   {
     "id": "carrot",
     "name": "Carotte",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -116,6 +122,7 @@
   {
     "id": "carrot-organic",
     "name": "Carotte bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -135,6 +142,7 @@
   {
     "id": "wheat",
     "name": "Blé tendre",
+    "category": "material",
     "categories": [
       "grain_raw"
     ],
@@ -153,9 +161,10 @@
   {
     "id": "wheat-organic",
     "name": "Blé tendre bio",
+    "category": "material",
     "categories": [
-      "organic",
-      "grain_raw"
+      "grain_raw",
+      "organic"
     ],
     "default": "AGRIBALU000000003114123",
     "default_origin": "France",
@@ -172,6 +181,7 @@
   {
     "id": "flour",
     "name": "Farine",
+    "category": "ingredient",
     "categories": [
       "grain_processed"
     ],
@@ -190,9 +200,10 @@
   {
     "id": "flour-organic",
     "name": "Farine bio",
+    "category": "ingredient",
     "categories": [
-      "organic",
-      "grain_processed"
+      "grain_processed",
+      "organic"
     ],
     "default": "AGRIBALU000000003116999",
     "default_origin": "EuropeAndMaghreb",
@@ -209,6 +220,7 @@
   {
     "id": "sunflower",
     "name": "Tournesol",
+    "category": "material",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -227,9 +239,10 @@
   {
     "id": "sunflower-organic",
     "name": "Tournesol bio",
+    "category": "material",
     "categories": [
-      "organic",
-      "nut_oilseed_raw"
+      "nut_oilseed_raw",
+      "organic"
     ],
     "default": "AGRIBALU000024985200157",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -246,6 +259,7 @@
   {
     "id": "rapeseed",
     "name": "Colza",
+    "category": "material",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -264,9 +278,10 @@
   {
     "id": "rapeseed-organic",
     "name": "Colza bio",
+    "category": "material",
     "categories": [
-      "organic",
-      "nut_oilseed_raw"
+      "nut_oilseed_raw",
+      "organic"
     ],
     "default": "AGRIBALU000024985200196",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -283,6 +298,7 @@
   {
     "id": "tomato",
     "name": "Tomate",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -301,6 +317,7 @@
   {
     "id": "tomato-organic",
     "name": "Tomate bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -320,6 +337,7 @@
   {
     "id": "potato",
     "name": "Pomme de terre",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -334,6 +352,7 @@
   {
     "id": "ground-beef",
     "name": "Boeuf haché",
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
@@ -353,6 +372,7 @@
   {
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio",
+    "category": "ingredient",
     "categories": [
       "organic",
       "animal_product"
@@ -373,6 +393,7 @@
   {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
@@ -387,6 +408,7 @@
   {
     "id": "ground-beef-feedlot-organic",
     "name": "Boeuf haché (Feedlot) bio",
+    "category": "ingredient",
     "categories": [
       "organic",
       "animal_product"
@@ -402,6 +424,7 @@
   {
     "id": "cooked-ham",
     "name": "Jambon",
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
@@ -421,6 +444,7 @@
   {
     "id": "cooked-ham-organic",
     "name": "Jambon bio",
+    "category": "ingredient",
     "categories": [
       "organic",
       "animal_product"
@@ -441,6 +465,7 @@
   {
     "id": "chicken-breast",
     "name": "Poulet",
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
@@ -460,6 +485,7 @@
   {
     "id": "chicken-breast-organic",
     "name": "Poulet bio",
+    "category": "material",
     "categories": [
       "organic",
       "animal_product"
@@ -480,6 +506,7 @@
   {
     "id": "grape",
     "name": "Raisin de cuve",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -498,6 +525,7 @@
   {
     "id": "grape-organic",
     "name": "Raisin de cuve bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -517,6 +545,7 @@
   {
     "id": "mango",
     "name": "Mangue",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -531,6 +560,7 @@
   {
     "id": "huilecolza",
     "name": "Huile de colza",
+    "category": "processing",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -549,6 +579,7 @@
   {
     "id": "huilecolza-organic",
     "name": "Huile de colza bio",
+    "category": "processing",
     "categories": [
       "organic",
       "nut_oilseed_processed"
@@ -568,6 +599,7 @@
   {
     "id": "sunfloweroil",
     "name": "Huile de tournesol",
+    "category": "material",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -586,6 +618,7 @@
   {
     "id": "sunfloweroil-organic",
     "name": "Huile de tournesol bio",
+    "category": "material",
     "categories": [
       "organic",
       "nut_oilseed_processed"
@@ -605,6 +638,7 @@
   {
     "id": "zucchini",
     "name": "Courgette",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -623,6 +657,7 @@
   {
     "id": "zucchini-organic",
     "name": "Courgette bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -642,6 +677,7 @@
   {
     "id": "pear",
     "name": "Poire",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -660,6 +696,7 @@
   {
     "id": "pear-organic",
     "name": "Poire bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -679,6 +716,7 @@
   {
     "id": "peach",
     "name": "Pêche",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -697,6 +735,7 @@
   {
     "id": "peach-organic",
     "name": "Pêche bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -716,6 +755,7 @@
   {
     "id": "melon",
     "name": "Melon",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -734,6 +774,7 @@
   {
     "id": "melon-organic",
     "name": "Melon bio",
+    "category": "material",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -753,6 +794,7 @@
   {
     "id": "butter",
     "name": "Beurre",
+    "category": "ingredient",
     "categories": [
       "dairy_product"
     ],
@@ -771,6 +813,7 @@
   {
     "id": "butter-organic",
     "name": "Beurre bio",
+    "category": "ingredient",
     "categories": [
       "organic",
       "dairy_product"
@@ -790,6 +833,7 @@
   {
     "id": "onion",
     "name": "Oignon",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -808,6 +852,7 @@
   {
     "id": "eggplant",
     "name": "Aubergine",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -826,6 +871,7 @@
   {
     "id": "lettuce",
     "name": "Laitue",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -840,6 +886,7 @@
   {
     "id": "frenchbean",
     "name": "Haricot vert",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
@@ -854,6 +901,7 @@
   {
     "id": "durumwheat",
     "name": "Blé dur",
+    "category": "material",
     "categories": [
       "grain_raw"
     ],

@@ -43,8 +43,8 @@
     "system_description": "",
     "category": "material",
     "category_tags": [
-      "animal_product",
       "organic",
+      "animal_product",
       "Agricultural",
       "Animal production",
       "Avian",
@@ -81,8 +81,8 @@
     "system_description": "",
     "category": "material",
     "category_tags": [
-      "animal_product",
       "bleublanccoeur",
+      "animal_product",
       "Agricultural",
       "Animal production",
       "Avian",
@@ -156,8 +156,8 @@
     "system_description": "AGRIBALYSE",
     "category": "material",
     "category_tags": [
-      "dairy_product",
       "organic",
+      "dairy_product",
       "Agricultural",
       "Animal production",
       "Dairy",
@@ -306,8 +306,8 @@
     "system_description": "AGRIBALYSE",
     "category": "material",
     "category_tags": [
-      "organic",
       "grain_raw",
+      "organic",
       "Agricultural",
       "Animal feed",
       "Feed ingredients",
@@ -381,8 +381,8 @@
     "system_description": "Ecobalyse",
     "category": "ingredient",
     "category_tags": [
-      "organic",
       "grain_processed",
+      "organic",
       "Agricultural",
       "Food",
       "Transformation"
@@ -453,8 +453,8 @@
     "system_description": "AGRIBALYSE",
     "category": "material",
     "category_tags": [
-      "organic",
       "nut_oilseed_raw",
+      "organic",
       "Agricultural",
       "Plant production",
       "Oil seeds",
@@ -526,8 +526,8 @@
     "system_description": "",
     "category": "material",
     "category_tags": [
-      "organic",
       "nut_oilseed_raw",
+      "organic",
       "Agricultural",
       "Plant production",
       "Oil seeds",
@@ -747,6 +747,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101057",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -782,6 +783,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101053",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "Others",
       "Adapted from WFLDB"
@@ -815,6 +817,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104412",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -996,6 +999,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111220",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -1031,6 +1035,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111256",
     "system_description": "AGRIBALYSE",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -1174,6 +1179,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102132",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -1209,6 +1215,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102137",
     "system_description": "",
+    "category": "material",
     "category_tags": [
       "Agricultural",
       "Animal production",
@@ -2672,7 +2679,6 @@
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
     "category_tags": [
-      "energy",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
@@ -2741,7 +2747,6 @@
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "material",
     "category_tags": [
-      "water",
       "Others",
       "Copied from Ecoinvent cut-off S"
     ],
