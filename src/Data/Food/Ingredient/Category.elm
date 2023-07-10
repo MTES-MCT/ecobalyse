@@ -20,6 +20,7 @@ type Category
     | SpiceCondimentOrAdditive
     | VegetableFresh
     | VegetableProcessed
+    | Organic
 
 
 fromAnimalOrigin : Category -> Bool
@@ -61,6 +62,9 @@ fromString str =
         "vegetable_processed" ->
             Ok VegetableProcessed
 
+        "organic" ->
+            Ok Organic
+
         _ ->
             Err <| "Categorie d'ingrédient invalide : " ++ str
 
@@ -97,6 +101,9 @@ toLabel category =
 
         VegetableProcessed ->
             "Fruits et légumes transformés"
+
+        Organic ->
+            "organic"
 
 
 decode : Decoder Category
