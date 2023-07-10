@@ -1535,7 +1535,7 @@ view session model =
                                     (\( words, _ ) ->
                                         if search /= "" then
                                             searchWords
-                                                |> List.all (\w -> List.member w words)
+                                                |> List.all (\w -> List.any (String.contains w) words)
 
                                         else
                                             True
