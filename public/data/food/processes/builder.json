@@ -165,6 +165,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "impacts": {
+      "bvi": 0,
       "acd": 0.01090399923,
       "ozd": 1.771648049e-08,
       "cch": 0.9395660923,
@@ -1330,6 +1331,7 @@
     ],
     "comment": "BRAZIL",
     "impacts": {
+      "bvi": 0,
       "acd": 0.002357373342,
       "ozd": 1.452813549e-08,
       "cch": 0.1158190906,
@@ -1364,6 +1366,7 @@
     ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
+      "bvi": 0,
       "acd": 0.07014550942,
       "ozd": 1.302589423e-07,
       "cch": 1.862426905,
@@ -1399,6 +1402,7 @@
     ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
+      "bvi": 2.3100463388,
       "acd": 0.0677832443616,
       "ozd": 4.396315876179999e-08,
       "cch": 1.418998461124,
@@ -1433,6 +1437,7 @@
     ],
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
+      "bvi": 0,
       "acd": 0.03793268774,
       "ozd": 3.576238512e-07,
       "cch": 2.926141215,
@@ -1468,6 +1473,7 @@
     ],
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
+      "bvi": -2.6277846836500003,
       "acd": -0.00696551375605,
       "ozd": 3.4213975807549995e-07,
       "cch": 2.42716732756,
@@ -1504,6 +1510,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -1541,6 +1548,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001430362878,
       "ozd": 1.242213465e-08,
       "cch": 0.1506652557,
@@ -1577,6 +1585,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001063020569,
       "ozd": 1.51545277e-08,
       "cch": 0.08498353051,
@@ -1614,6 +1623,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001055930136,
       "ozd": 1.54726007e-08,
       "cch": 0.1092394833,
@@ -1650,6 +1660,7 @@
     ],
     "comment": "FRANCE",
     "impacts": {
+      "bvi": 0,
       "acd": 0.002966754072,
       "ozd": 2.144693708e-08,
       "cch": 0.1937259794,
@@ -1687,6 +1698,7 @@
     ],
     "comment": "FRANCE",
     "impacts": {
+      "bvi": 0,
       "acd": 0.002346851875,
       "ozd": 2.547973728e-08,
       "cch": 0.2177953028,
@@ -1723,6 +1735,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001605987544,
       "ozd": 2.026981958e-08,
       "cch": 0.1714125947,
@@ -1760,6 +1773,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.0009546475062,
       "ozd": 1.72211414e-08,
       "cch": 0.133539105,
@@ -1795,6 +1809,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.08331013834,
       "ozd": 1.674373109e-07,
       "cch": 7.336583023,
@@ -1831,6 +1846,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.08331013834,
       "ozd": 1.674373109e-07,
       "cch": 7.336583023,
@@ -1867,6 +1883,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-09,
       "cch": 0.06625188562,
@@ -1903,6 +1920,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -1939,6 +1957,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-08,
       "cch": 0.1616214521,
@@ -1975,6 +1994,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.004458319487,
       "ozd": 1.906621473e-08,
       "cch": 0.1200867845,
@@ -2011,6 +2031,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.008923922824,
       "ozd": 3.866495553e-08,
       "cch": 0.7143680097,
@@ -2452,6 +2473,7 @@
     ],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "impacts": {
+      "bvi": 0,
       "acd": 0.0,
       "ozd": 0.0,
       "cch": 0.0,
@@ -2621,6 +2643,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.0004537352686,
       "ozd": 4.213638586e-09,
       "cch": 0.02076433973,
@@ -2655,6 +2678,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.00105646401,
       "ozd": 7.080355415e-08,
       "cch": 0.2903140091,
@@ -2688,6 +2712,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 0.0005211115145,
       "ozd": 9.152534817e-09,
       "cch": 0.0858905795,
@@ -2722,6 +2747,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 1.837222173e-06,
       "ozd": 2.207175443e-11,
       "cch": 0.0003241962812,
@@ -2755,6 +2781,7 @@
     ],
     "comment": "",
     "impacts": {
+      "bvi": 0,
       "acd": 8.941536142e-05,
       "ozd": 8.097868353e-09,
       "cch": 0.07490435835,
