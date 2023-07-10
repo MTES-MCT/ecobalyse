@@ -156,6 +156,19 @@ if __name__ == "__main__":
             lca.lcia()
             process.setdefault("impacts", {})[key] = float("{:.10g}".format(lca.score))
 
+        # etf-o = etf-o1 + etf-o2
+        process["impacts"]["etf-o"] = (
+            process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
+        )
+        del process["impacts"]["etf-o1"]
+        del process["impacts"]["etf-o2"]
+        # etf = etf1 + etf2
+        process["impacts"]["etf"] = (
+            process["impacts"]["etf1"] + process["impacts"]["etf2"]
+        )
+        del process["impacts"]["etf1"]
+        del process["impacts"]["etf2"]
+
         # Now compute an identifier for complex ingredients
         # Compute the impacts of complex ingredients
 
