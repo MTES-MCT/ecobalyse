@@ -1,7 +1,7 @@
 [
   {
     "id": "egg",
-    "name": "Egg, national average, at farm gate {FR} U",
+    "name": "Oeuf",
     "categories": [
       "animal_product"
     ],
@@ -12,13 +12,15 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "egg-organic",
-    "name": "Egg, organic, at farm gate {FR} U",
+    "name": "Oeuf bio",
     "categories": [
       "animal_product",
       "organic"
@@ -30,13 +32,15 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "egg-bleublanccoeur",
-    "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
+    "name": "Oeuf Bleu-Blanc-Cœur",
     "categories": [
       "animal_product",
       "bleublanccoeur"
@@ -48,13 +52,15 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "milk",
-    "name": "Cow milk, national average, at farm gate {FR} U",
+    "name": "Lait",
     "categories": [
       "dairy_product"
     ],
@@ -65,13 +71,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "milk-organic",
-    "name": "Cow milk, organic, system number 5, at farm gate {FR} U",
+    "name": "Lait bio",
     "categories": [
       "dairy_product",
       "organic"
@@ -83,13 +90,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "carrot",
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
+    "name": "Carotte",
     "categories": [
       "vegetable_fresh"
     ],
@@ -100,13 +108,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "carrot-organic",
-    "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
+    "name": "Carotte bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -118,13 +127,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "wheat",
-    "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
+    "name": "Blé tendre",
     "categories": [
       "grain_raw"
     ],
@@ -135,13 +145,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "wheat-organic",
-    "name": "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U",
+    "name": "Blé tendre bio",
     "categories": [
       "organic",
       "grain_raw"
@@ -153,13 +164,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "flour",
-    "name": "Wheat flour, at industrial mill {FR} U",
+    "name": "Farine",
     "categories": [
       "grain_processed"
     ],
@@ -170,13 +182,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "flour-organic",
-    "name": "Wheat flour, at industrial mill {FR} U",
+    "name": "Farine bio",
     "categories": [
       "organic",
       "grain_processed"
@@ -188,13 +201,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "sunflower",
-    "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
+    "name": "Tournesol",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -205,13 +219,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "sunflower-organic",
-    "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U",
+    "name": "Tournesol bio",
     "categories": [
       "organic",
       "nut_oilseed_raw"
@@ -223,13 +238,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "rapeseed",
-    "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Colza",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -240,13 +256,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "rapeseed-organic",
-    "name": "Winter rapeseed, organic, at farm gate {FR} U",
+    "name": "Colza bio",
     "categories": [
       "organic",
       "nut_oilseed_raw"
@@ -258,13 +275,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "tomato",
-    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
+    "name": "Tomate",
     "categories": [
       "vegetable_fresh"
     ],
@@ -275,13 +293,14 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "tomato-organic",
-    "name": "Tomato, organic, greenhouse production, national average, at greenhouse {FR} U",
+    "name": "Tomate bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -293,13 +312,14 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "potato",
-    "name": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
+    "name": "Pomme de terre",
     "categories": [
       "vegetable_fresh"
     ],
@@ -309,14 +329,11 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "agro-diversity": null,
-    "agro-ecology": null,
-    "animal-welfare": null
+    "visible": true
   },
   {
     "id": "ground-beef",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "name": "Boeuf haché",
     "categories": [
       "animal_product"
     ],
@@ -327,13 +344,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "ground-beef-organic",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "name": "Boeuf haché bio",
     "categories": [
       "organic",
       "animal_product"
@@ -345,13 +364,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "ground-beef-feedlot",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "name": "Boeuf haché (Feedlot)",
     "categories": [
       "animal_product"
     ],
@@ -361,14 +382,11 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "agro-diversity": null,
-    "agro-ecology": null,
-    "animal-welfare": null
+    "visible": true
   },
   {
     "id": "ground-beef-feedlot-organic",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "name": "Boeuf haché (Feedlot) bio",
     "categories": [
       "organic",
       "animal_product"
@@ -379,14 +397,11 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "agro-diversity": null,
-    "agro-ecology": null,
-    "animal-welfare": null
+    "visible": true
   },
   {
     "id": "cooked-ham",
-    "name": "Cooked ham, case ready, at plant {FR} U",
+    "name": "Jambon",
     "categories": [
       "animal_product"
     ],
@@ -397,13 +412,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Cooked ham, case ready, at plant {FR} U",
+    "name": "Jambon bio",
     "categories": [
       "organic",
       "animal_product"
@@ -415,13 +432,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "chicken-breast",
-    "name": "Meat without bone, chicken, for direct consumption {FR} U",
+    "name": "Poulet",
     "categories": [
       "animal_product"
     ],
@@ -432,13 +451,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Meat without bone, chicken, for direct consumption {FR} U",
+    "name": "Poulet bio",
     "categories": [
       "organic",
       "animal_product"
@@ -450,13 +471,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "grape",
-    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "name": "Raisin de cuve",
     "categories": [
       "vegetable_fresh"
     ],
@@ -467,13 +490,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "grape-organic",
-    "name": "Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "name": "Raisin de cuve bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -485,13 +509,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": null
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "mango",
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
+    "name": "Mangue",
     "categories": [
       "vegetable_fresh"
     ],
@@ -501,14 +526,11 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "agro-diversity": null,
-    "agro-ecology": null,
-    "animal-welfare": null
+    "visible": true
   },
   {
     "id": "huilecolza",
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "name": "Huile de colza",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -519,13 +541,14 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "huilecolza-organic",
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "name": "Huile de colza bio",
     "categories": [
       "organic",
       "nut_oilseed_processed"
@@ -537,13 +560,14 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "sunfloweroil",
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "name": "Huile de tournesol",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -554,13 +578,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "sunfloweroil-organic",
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "name": "Huile de tournesol bio",
     "categories": [
       "organic",
       "nut_oilseed_processed"
@@ -572,13 +597,14 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "zucchini",
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "name": "Courgette",
     "categories": [
       "vegetable_fresh"
     ],
@@ -589,13 +615,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "zucchini-organic",
-    "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
+    "name": "Courgette bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -607,13 +634,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "pear",
-    "name": "Pear, conventional, at orchard {FR} U",
+    "name": "Poire",
     "categories": [
       "vegetable_fresh"
     ],
@@ -624,13 +652,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "pear-organic",
-    "name": "Pear, organic, at farm gate {FR} U",
+    "name": "Poire bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -642,13 +671,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "peach",
-    "name": "Peach, production mix, national average, at orchard {FR} U",
+    "name": "Pêche",
     "categories": [
       "vegetable_fresh"
     ],
@@ -659,13 +689,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "peach-organic",
-    "name": "Peach, organic, national average, at orchard {FR} U",
+    "name": "Pêche bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -677,13 +708,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "melon",
-    "name": "Melon, conventional, national average, at farm gate {FR} U",
+    "name": "Melon",
     "categories": [
       "vegetable_fresh"
     ],
@@ -694,13 +726,14 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "melon-organic",
-    "name": "Melon, organic, at farm gate {FR} U",
+    "name": "Melon bio",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -712,13 +745,14 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "butter",
-    "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
+    "name": "Beurre",
     "categories": [
       "dairy_product"
     ],
@@ -729,13 +763,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "butter-organic",
-    "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
+    "name": "Beurre bio",
     "categories": [
       "organic",
       "dairy_product"
@@ -747,13 +782,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "onion",
-    "name": "Onion, national average, at farm {FR} U",
+    "name": "Oignon",
     "categories": [
       "vegetable_fresh"
     ],
@@ -764,13 +800,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
   },
   {
     "id": "eggplant",
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "name": "Aubergine",
     "categories": [
       "vegetable_fresh"
     ],
@@ -781,13 +818,14 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "lettuce",
-    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
+    "name": "Laitue",
     "categories": [
       "vegetable_fresh"
     ],
@@ -797,14 +835,11 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   },
   {
     "id": "frenchbean",
-    "name": "French bean, conventional, national average, at farm gate {FR} U",
+    "name": "Haricot vert",
     "categories": [
       "vegetable_fresh"
     ],
@@ -814,14 +849,11 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   },
   {
     "id": "durumwheat",
-    "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
+    "name": "Blé dur",
     "categories": [
       "grain_raw"
     ],
@@ -831,9 +863,6 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   }
 ]

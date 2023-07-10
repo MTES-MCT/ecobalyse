@@ -14,9 +14,11 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 2.8229,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "egg-organic",
@@ -34,9 +36,11 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 2.7312,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "egg-bleublanccoeur",
@@ -54,9 +58,11 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 3.7279,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "milk",
@@ -73,9 +79,11 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 0.8161,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "milk-organic",
@@ -92,9 +100,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
   },
   {
     "id": "carrot",
@@ -111,8 +121,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0.1321,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "carrot-organic",
@@ -130,8 +142,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0.2271,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "wheat",
@@ -148,8 +162,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.2164,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "wheat-organic",
@@ -167,8 +183,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0.9939,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "flour",
@@ -185,8 +203,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.411313691,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "flour-organic",
@@ -204,8 +224,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.411313691,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    },
     "ratio": 1.16,
     "subingredient_default": "wheat",
     "subingredient_variant": "wheat-organic"
@@ -225,8 +247,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 3.423726823,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "sunflower-organic",
@@ -244,8 +268,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 2.351161646,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "rapeseed",
@@ -262,8 +288,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0.073211803,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "rapeseed-organic",
@@ -281,8 +309,10 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.464805983,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "tomato",
@@ -299,8 +329,10 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "bvi": 0.074402694,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   },
   {
     "id": "tomato-organic",
@@ -318,8 +350,10 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "bvi": 0.131792529,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
   },
   {
     "id": "potato",
@@ -352,9 +386,11 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 10
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   },
   {
     "id": "ground-beef-organic",
@@ -372,9 +408,11 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 50,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    },
     "ratio": 2.3,
     "subingredient_default": "beef-cattle",
     "subingredient_variant": "cull-cow-organic"
@@ -445,9 +483,9 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 6.087620104,
-    "agro-diversity": 10,
+    "complements":{"agro-diversity": 10,
     "agro-ecology": 10,
-    "animal-welfare": 10
+    "animal-welfare": 10}
   },
   {
     "id": "cooked-ham-organic",
@@ -465,9 +503,9 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 6.087620104,
-    "agro-diversity": 50,
+    "complements":{"agro-diversity": 50,
     "agro-ecology": 50,
-    "animal-welfare": 50,
+    "animal-welfare": 50},
     "ratio": 2.02,
     "subingredient_default": "pig",
     "subingredient_variant": "pig-organic"
@@ -502,9 +540,9 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 5.408719682,
-    "agro-diversity": 10,
+    "complements":{"agro-diversity": 10,
     "agro-ecology": 10,
-    "animal-welfare": 10
+    "animal-welfare": 10}
   },
   {
     "id": "chicken-breast-organic",
@@ -522,9 +560,9 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 5.408719682,
-    "agro-diversity": 50,
+    "complements":{"agro-diversity": 50,
     "agro-ecology": 50,
-    "animal-welfare": 50,
+    "animal-welfare": 50},
     "ratio": 1,
     "subingredient_default": "broiler",
     "subingredient_variant": "broiler-organic"
@@ -554,8 +592,8 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "bvi": 0.728840715,
-    "agro-diversity": 10,
-    "agro-ecology": 10
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "grape-organic",
@@ -573,8 +611,8 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "bvi": 0.539152617,
-    "agro-diversity": 50,
-    "agro-ecology": 50
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "mango",
@@ -605,9 +643,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "huilecolza-organic",
@@ -627,9 +664,8 @@
     "ratio": 1.66,
     "subingredient_default": "rapeseed",
     "subingredient_variant": "rapeseed-organic",
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "sunfloweroil",
@@ -645,9 +681,8 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "sunfloweroil-organic",
@@ -667,9 +702,8 @@
     "ratio": 2.45,
     "subingredient_default": "sunflower",
     "subingredient_variant": "sunflower-organic",
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "zucchini",
@@ -685,9 +719,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "zucchini-organic",
@@ -704,9 +737,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "pear",
@@ -722,9 +754,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "pear-organic",
@@ -741,9 +772,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "peach",
@@ -759,9 +789,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "peach-organic",
@@ -778,9 +807,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "melon",
@@ -796,9 +824,8 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 10,
-    "agro-ecology": 10,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 10,
+    "agro-ecology": 10}
   },
   {
     "id": "melon-organic",
@@ -815,9 +842,8 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
-    "agro-ecology": 50,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 50,
+    "agro-ecology": 50}
   },
   {
     "id": "butter",
@@ -833,9 +859,9 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "agro-diversity": 10,
+    "complements":{"agro-diversity": 10,
     "agro-ecology": 10,
-    "animal-welfare": 10
+    "animal-welfare": 10}
   },
   {
     "id": "butter-organic",
@@ -855,9 +881,9 @@
     "ratio": 0,
     "subingredient_default": "milk",
     "subingredient_variant": "milk-organic",
-    "agro-diversity": 50,
+    "complements":{"agro-diversity": 50,
     "agro-ecology": 50,
-    "animal-welfare": 50
+    "animal-welfare": 50}
   },
   {
     "id": "onion",
@@ -873,9 +899,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "complements":{"agro-diversity": 0,
+    "agro-ecology": 0}
   },
   {
     "id": "eggplant",
@@ -891,9 +916,9 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "agro-diversity": 50,
+    "complements":{"agro-diversity": 50,
     "agro-ecology": 50,
-    "animal-welfare": 50
+    "animal-welfare": 50}
   },
   {
     "id": "lettuce",
@@ -908,10 +933,7 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   },
   {
     "id": "frenchbean",
@@ -926,10 +948,7 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   },
   {
     "id": "durumwheat",
@@ -944,155 +963,196 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "agro-diversity": 0,
-    "agro-ecology": 0,
-    "animal-welfare": 0
+    "visible": true
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "steel",
     "name": "Acier",
     "bvi": 0.1133,
     "search": "Steel unalloyed {RER} steel production converter unalloyed"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "bvi": 0.3318,
     "search": "Packaging film low density polyethylene {RER} production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "ps",
     "name": "Polystyrène",
     "bvi": 0.0011,
     "search": "Polystyrene expandable {RER} production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "glass",
     "name": "Verre",
     "bvi": 0.3211,
     "search": "Packaging glass white {RER} w/o CH+DE production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "pp",
     "name": "Polypropylène",
     "bvi": 0.0003,
     "search": "Polypropylene granulate {RER}| production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "cardboard",
     "name": "Carton",
     "bvi": 1.1059,
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "paper",
     "name": "Papier",
     "bvi": 7.4795,
     "search": "Kraft paper production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "pvc",
     "name": "PVC",
     "bvi": 0.0004,
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "pet",
     "name": "PET",
     "bvi": 0.245,
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "bvi": 0.0004,
     "search": "Polyethylene high density granulate {RER} production"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "id": "aluminium",
     "name": "Aluminium",
     "bvi": 0.94,
     "search": "Aluminium primary ingot {RoW} production"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "id": "canning",
     "name": "Mise en conserve",
     "bvi": 0.0089,
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "id": "mixing",
     "name": "Mélange",
     "search": "Mixing processing dummy"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "id": "cooking",
     "name": "Cuisson",
     "bvi": 0.012,
     "search": "Cooking industrial 1kg of cooked product FR"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "id": "lorry",
     "name": "Camion",
     "bvi": 0.055765784,
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "id": "boat",
     "name": "Bateau",
     "bvi": 0.000292724,
     "search": "Transport freight sea ship"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "id": "aircraft",
     "name": "Avion",
     "bvi": 0.012214369,
     "search": "Transport freight aircraft"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "search": "Transport freight sea ship reefer"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "id": "lorry-cooling",
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}"
   },
   {
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "search": "Electricity low voltage {FR} market"
   },
   {
-    "categories": ["water"],
+    "categories": [
+      "water"
+    ],
     "id": "tapwater",
     "name": "Eau du robinet",
     "search": "Tap water Europe market"
   },
   {
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "search": "Heat central or small-scale natural gas Europe market"

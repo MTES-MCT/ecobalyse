@@ -68,7 +68,7 @@ if __name__ == "__main__":
     ingredients = [
         {
             "id": activity["id"],
-            "name": search(activity["search"])["name"],
+            "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
             "default": search(activity["search"])["Process identifier"],
             "default_origin": activity["default_origin"],
@@ -77,13 +77,19 @@ if __name__ == "__main__":
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
             "visible": activity["visible"],
-            "agro-diversity": activity.get("agro-diversity"),
-            "agro-ecology": activity.get("agro-ecology"),
-            "animal-welfare": activity.get("animal-welfare"),
+            "complements": activity.get("complements", []),
         }
         for activity in activities
         if activity.get("ingredient")
     ]
+    # cleanup unuseful attributes
+    for ingredient in ingredients:
+        if "animal_product" not in ingredient[
+            "categories"
+        ] and "animal-welfare" in ingredient.get("complements"):
+            del ingredient["complements"]["animal-welfare"]
+        if not ingredient.get("complements"):
+            del ingredient["complements"]
 
     print("Creating builder process list...")
     builder = {
@@ -172,8 +178,8 @@ if __name__ == "__main__":
 
             process["name"] = f"{processid}, organic, constructed by Ecobalyse"
             process["system_description"] = "Ecobalyse"
-            process["identifier"] = uuid.UUID(
-                hashlib.md5(process["name"].encode("utf-8")).hexdigest()
+            process["identifier"] = str(
+                uuid.UUID(hashlib.md5(process["name"].encode("utf-8")).hexdigest())
             )
 
         # remove unneeded attributes

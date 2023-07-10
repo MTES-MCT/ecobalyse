@@ -387,7 +387,7 @@
   "flour-organic": {
     "name": "flour-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "8947c05b24afd16ca6f2b82635abf027",
+    "identifier": "8947c05b-24af-d16c-a6f2-b82635abf027",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -727,7 +727,7 @@
   "ground-beef-organic": {
     "name": "ground-beef-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "9a2a58092c344ff85953dd2918c7be50",
+    "identifier": "9a2a5809-2c34-4ff8-5953-dd2918c7be50",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -911,7 +911,7 @@
   "ground-beef-feedlot-organic": {
     "name": "ground-beef-feedlot-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "fed1bc2de551f313732ac965d6aaabf9",
+    "identifier": "fed1bc2d-e551-f313-732a-c965d6aaabf9",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -986,7 +986,7 @@
   "cooked-ham-organic": {
     "name": "cooked-ham-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "c0c12f49e1aaf5627cee04bbc52d5d1e",
+    "identifier": "c0c12f49-e1aa-f562-7cee-04bbc52d5d1e",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -1171,7 +1171,7 @@
   "chicken-breast-organic": {
     "name": "chicken-breast-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "9d0f65fbce4e7cc73308e401158c3d8e",
+    "identifier": "9d0f65fb-ce4e-7cc7-3308-e401158c3d8e",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -1436,7 +1436,7 @@
   "huilecolza-organic": {
     "name": "huilecolza-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "7e1861a7263c2664e7d950dffe1bbcad",
+    "identifier": "7e1861a7-263c-2664-e7d9-50dffe1bbcad",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
@@ -1509,7 +1509,7 @@
   "sunfloweroil-organic": {
     "name": "sunfloweroil-organic, organic, constructed by Ecobalyse",
     "unit": "kilogram",
-    "identifier": "f7bdd0f45677df9d9e9bca70e4bb8bcf",
+    "identifier": "f7bdd0f4-5677-df9d-9e9b-ca70e4bb8bcf",
     "system_description": "Ecobalyse",
     "category_tags": [
       "organic",
