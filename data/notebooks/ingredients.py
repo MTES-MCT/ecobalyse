@@ -11,8 +11,8 @@ import subprocess
 
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "Ecobalyse"
-INGREDIENTS_BASE = "/home/jovyan/ecobalyse/data/food/export_agb/ingredients_base.json"
-INGREDIENTS_TEMP = "/home/jovyan/ingredients_base.json"
+ACTIVITIES = "/home/jovyan/ecobalyse/data/food/export_agb/activities.json"
+ACTIVITIES_TEMP = "/home/jovyan/activities.json"
 os.getcwd()
 
 bw2data.projects.set_current(PROJECT)
@@ -24,7 +24,7 @@ def dbsearch(term, **kw):
 
 
 def save_ingredients(ingredients):
-    with open(INGREDIENTS_TEMP, "w") as fp:
+    with open(ACTIVITIES_TEMP, "w") as fp:
         fp.write(
             json.dumps(
                 [from_flat(from_pretty(i)) for i in ingredients.values()],
@@ -84,14 +84,14 @@ def from_pretty(d):
 
 def read_ingredients():
     """Return the ingredients as a dict indexed with id"""
-    if not os.path.exists(INGREDIENTS_TEMP):
-        shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
+    if not os.path.exists(ACTIVITIES_TEMP):
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     try:
-        with open(INGREDIENTS_TEMP) as fp:
+        with open(ACTIVITIES_TEMP) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
     except json.JSONDecodeError:
-        shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
-        with open(INGREDIENTS_TEMP) as fp:
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
+        with open(ACTIVITIES_TEMP) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
 
     return igs
@@ -275,7 +275,7 @@ outgit = ipywidgets.Output()
 @out.capture()
 def list_ingredients():
     ingredients = read_ingredients()
-    with open(INGREDIENTS_TEMP) as fp:
+    with open(ACTIVITIES_TEMP) as fp:
         display(
             Markdown(f"# List of {len(ingredients)} ingredients:"),
             pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
@@ -323,12 +323,12 @@ def del_ingredient(_):
 
 
 def commit_ingredients(_):
-    shutil.copy(INGREDIENTS_TEMP, INGREDIENTS_BASE)
+    shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     outgit.clear_output()
     with outgit:
         try:
             assert (
-                subprocess.run(["git", "add", INGREDIENTS_BASE]).returncode == 0
+                subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
             ), "git add failed"
             assert (
                 subprocess.run(
@@ -352,7 +352,7 @@ def commit_ingredients(_):
 
 
 def reset_ingredients(_):
-    shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
+    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     out.clear_output()
     list_ingredients()
     w_id.options = tuple(read_ingredients().keys())
