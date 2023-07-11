@@ -23,11 +23,11 @@ def dbsearch(term, **kw):
     return DATABASE.search(term, **kw)
 
 
-def save_ingredients(ingredients):
+def save_activities(activities):
     with open(ACTIVITIES_TEMP, "w") as fp:
         fp.write(
             json.dumps(
-                [from_flat(from_pretty(i)) for i in ingredients.values()],
+                [from_flat(from_pretty(i)) for i in activities.values()],
                 indent=2,
                 ensure_ascii=False,
             )
@@ -76,13 +76,13 @@ def to_pretty(d):
 
 def from_pretty(d):
     """turn a dict with pretty keys to a dict with dotted keys"""
-    ingredient = {reverse(FIELDS)[k]: v for k, v in d.items()}
-    # if not ingredient.get("variants"):
-    #    ingredient["variants"] = {}
-    return ingredient
+    activity = {reverse(FIELDS)[k]: v for k, v in d.items()}
+    # if not activity.get("variants"):
+    #    activity["variants"] = {}
+    return activity
 
 
-def read_ingredients():
+def read_activities():
     """Return the ingredients as a dict indexed with id"""
     if not os.path.exists(ACTIVITIES_TEMP):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
@@ -98,19 +98,19 @@ def read_ingredients():
 
 
 # WIDGETS
-## technical identifier of the ingredient (for API/URL)
+## technical identifier of the activity (for API/URL)
 style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
     placeholder="Identifier",
     style=style,
-    options=tuple([""] + list(read_ingredients().keys())),
+    options=tuple([""] + list(read_activities().keys())),
 )
-## Name of the ingredient (for users)
+## Name of the activity (for users)
 w_name = ipywidgets.Text(
     placeholder="Name",
     style=style,
 )
-## brightway search terms to find the ingredient process
+## brightway search terms to find the activity
 w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
 w_default = ipywidgets.RadioButtons(
     rows=1,
@@ -241,13 +241,13 @@ w_bleu_blanc_coeur = ipywidgets.RadioButtons(
 savebutton = ipywidgets.Button(
     description="Save",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Add or update the ingredient",
+    tooltip="Add or update the activity",
     icon="check",
 )
 delbutton = ipywidgets.Button(
     description="Delete",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the ingredient with the 'id' field above",
+    tooltip="Delete the activity with the 'id' field above",
     icon="trash",
 )
 getbutton = ipywidgets.Button(
@@ -259,13 +259,13 @@ getbutton = ipywidgets.Button(
 resetbutton = ipywidgets.Button(
     description="Reset from branch",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Reset the ingredients to the branch state",
+    tooltip="Reset the activities to the branch state",
     icon="sparkles",
 )
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Commit the ingredients into the branch",
+    tooltip="Commit the activities into the branch",
     icon="code-commit",
 )
 out = ipywidgets.Output()
@@ -273,19 +273,19 @@ outgit = ipywidgets.Output()
 
 
 @out.capture()
-def list_ingredients():
-    ingredients = read_ingredients()
+def list_activities():
+    activities = read_activities()
     with open(ACTIVITIES_TEMP) as fp:
         display(
-            Markdown(f"# List of {len(ingredients)} ingredients:"),
-            pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
+            Markdown(f"# List of {len(activities)} activities:"),
+            pandas.DataFrame(activities.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
         )
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
-def add_ingredient(_):
-    ingredient = {
+def add_activity(_):
+    activity = {
         "id": w_id.value,
         "name": w_name.value,
         "default": w_search.value,
@@ -304,25 +304,25 @@ def add_ingredient(_):
         "variants.organic.beyondLCA.animal-welfare": w_organic_animal_welfare.value,
         "variants.bleu_blanc_coeur": w_bleu_blanc_coeur.value,
     }
-    ingredient = {k: v for k, v in ingredient.items() if v != ""}
-    ingredients = read_ingredients()
-    if "id" in ingredient:
-        ingredients.update({ingredient["id"]: to_pretty(ingredient)})
-        save_ingredients(ingredients)
+    activity = {k: v for k, v in activity.items() if v != ""}
+    ingredients = read_activities()
+    if "id" in activity:
+        ingredients.update({activity["id"]: to_pretty(activity)})
+        save_activities(ingredients)
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def del_ingredient(_):
-    ingredients = read_ingredients()
+def del_activity(_):
+    ingredients = read_activities()
     if w_id.value in ingredients:
         del ingredients[w_id.value]
-        save_ingredients(ingredients)
+        save_activities(ingredients)
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def commit_ingredients(_):
+def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     outgit.clear_output()
     with outgit:
@@ -348,18 +348,18 @@ def commit_ingredients(_):
             subprocess.run(["git", "co", "ingredients"])
             print("FAILED. Please tell the devs")
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def reset_ingredients(_):
+def reset_activities(_):
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     out.clear_output()
-    list_ingredients()
-    w_id.options = tuple(read_ingredients().keys())
+    list_activities()
+    w_id.options = tuple(read_activities().keys())
 
 
 def clear_form():
-    w_id.options = tuple([""] + list(read_ingredients().keys()))
+    w_id.options = tuple([""] + list(read_activities().keys()))
     w_id.value = ""
     w_name.value = ""
     w_search.value = ""
@@ -404,7 +404,7 @@ def change_id(change):
     if not change.new:
         clear_form()
         return
-    i = from_pretty(read_ingredients().get(change.new, {}))
+    i = from_pretty(read_activities().get(change.new, {}))
     if not i:
         return
     set_field(w_name, i.get("name"), "")
@@ -498,14 +498,14 @@ w_organic_variant_search.observe(
     change_search_of(w_organic_simple_ingredient_variant), names="value"
 )
 w_bleu_blanc_coeur_search.observe(change_search_of(w_bleu_blanc_coeur), names="value")
-savebutton.on_click(add_ingredient)
-delbutton.on_click(del_ingredient)
-resetbutton.on_click(reset_ingredients)
-commitbutton.on_click(commit_ingredients)
+savebutton.on_click(add_activity)
+delbutton.on_click(del_activity)
+resetbutton.on_click(reset_activities)
+commitbutton.on_click(commit_activities)
 
 
 display(
-    Markdown("# Get/Add/Modify an ingredient :"),
+    Markdown("# Get/Add/Modify an activity :"),
     ipywidgets.HBox(
         (
             ipywidgets.Label(
@@ -732,13 +732,13 @@ display(
         ],
     ),
     ipywidgets.HBox((savebutton, delbutton)),
-    Markdown("# Reset or Publish ingredients :"),
+    Markdown("# Reset or Publish activities :"),
     Markdown(
-        "Reset the ingredients to the branch state, or Publish to the `ingredients` branch"
+        "Reset the activities to the branch state, or Publish to the `ingredients` branch"
     ),
     ipywidgets.HBox((resetbutton, commitbutton)),
     outgit,
     out,
 )
 
-list_ingredients()
+list_activities()
