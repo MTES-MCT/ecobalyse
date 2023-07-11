@@ -8,7 +8,7 @@ module Page.Food.Builder exposing
     )
 
 import Browser.Dom as Dom
-import Browser.Events
+import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
@@ -79,7 +79,7 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
-    | IngredientModal String
+    | IngredientModal { terms : String, highlighted : Int }
 
 
 type Msg
@@ -98,7 +98,6 @@ type Msg
     | NoOp
     | OnChartHover ComparativeChart.Stacks
     | OpenComparator
-    | OpenIngredientModal
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
@@ -176,7 +175,7 @@ update ({ queries } as session) msg model =
     in
     case msg of
         AddIngredient ingredient ->
-            ( { model | modal = NoModal }, session, Cmd.none )
+            update session (SetModal NoModal) model
                 |> updateQuery
                     (query
                         |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
@@ -291,13 +290,6 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        OpenIngredientModal ->
-            ( { model | modal = IngredientModal "" }
-            , session
-            , Dom.focus "ingredient-search"
-                |> Task.attempt (always NoOp)
-            )
-
         ResetDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetDistribution query)
@@ -328,7 +320,22 @@ update ({ queries } as session) msg model =
             )
 
         SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
+            ( { model | modal = modal }
+            , session
+            , case modal of
+                NoModal ->
+                    Ports.removeBodyClass "prevent-scrolling"
+
+                ComparatorModal ->
+                    Ports.addBodyClass "prevent-scrolling"
+
+                IngredientModal _ ->
+                    Cmd.batch
+                        [ Ports.addBodyClass "prevent-scrolling"
+                        , Dom.focus "ingredient-search"
+                            |> Task.attempt (always NoOp)
+                        ]
+            )
 
         SwitchImpact (Ok impact) ->
             ( model
@@ -383,8 +390,8 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
 
-        UpdateIngredientModalSearch search ->
-            ( { model | modal = IngredientModal search }, session, Cmd.none )
+        UpdateIngredientModalSearch terms ->
+            ( { model | modal = IngredientModal { terms = terms, highlighted = 0 } }, session, Cmd.none )
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -924,7 +931,7 @@ ingredientListView db selectedImpact recipe results =
                                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                                 |> List.isEmpty
                             )
-                        , onClick OpenIngredientModal
+                        , onClick (SetModal (IngredientModal { terms = "", highlighted = 0 }))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -1490,7 +1497,7 @@ view session model =
                         , footer = []
                         }
 
-                IngredientModal search ->
+                IngredientModal { terms, highlighted } ->
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
@@ -1522,7 +1529,7 @@ view session model =
                                         >> String.split " "
 
                                 searchWords =
-                                    toWords (String.trim search)
+                                    toWords (String.trim terms)
                               in
                               model.db.ingredients
                                 |> List.map
@@ -1533,7 +1540,7 @@ view session model =
                                     )
                                 |> List.filter
                                     (\( words, _ ) ->
-                                        if search /= "" then
+                                        if terms /= "" then
                                             searchWords
                                                 |> List.all (\w -> List.any (String.contains w) words)
 
@@ -1541,8 +1548,8 @@ view session model =
                                             True
                                     )
                                 |> List.sortBy (Tuple.second >> .name)
-                                |> List.map
-                                    (\( _, ingredient ) ->
+                                |> List.indexedMap
+                                    (\index ( _, ingredient ) ->
                                         let
                                             alreadyUsed =
                                                 session.queries.food.ingredients
@@ -1550,13 +1557,23 @@ view session model =
                                                     |> List.member ingredient.id
                                         in
                                         button
-                                            [ class "d-flex justify-content-between align-items-center w-100"
-                                            , class "btn border-0 border-bottom text-start no-outline"
-                                            , classList [ ( "btn-outline-primary", not alreadyUsed ) ]
-                                            , classList [ ( "btn-light", alreadyUsed ) ]
-                                            , onClick (AddIngredient ingredient)
-                                            , disabled alreadyUsed
-                                            ]
+                                            ([ id <| "ingredient-autocomplete-" ++ String.fromInt index
+                                             , class "d-flex justify-content-between align-items-center w-100"
+                                             , class "btn border-0 border-bottom text-start no-outline"
+                                             , classList
+                                                [ ( "btn-outline-primary", not (highlighted == index) && not alreadyUsed )
+                                                , ( "btn-light", not (highlighted == index) && alreadyUsed )
+                                                , ( "bg-primary", not alreadyUsed && highlighted == index )
+                                                ]
+                                             , onClick (AddIngredient ingredient)
+                                             , disabled alreadyUsed
+                                             ]
+                                             -- ++ (if alreadyUsed then
+                                             --         [ tabindex -1 ]
+                                             --     else
+                                             --         []
+                                             --    )
+                                            )
                                             [ span []
                                                 [ text <|
                                                     ingredient.name
@@ -1590,5 +1607,14 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+        ComparatorModal ->
+            BE.onKeyDown (Key.escape (SetModal NoModal))
+
+        IngredientModal search ->
+            Sub.batch
+                [ BE.onKeyDown (Key.escape (SetModal NoModal))
+                , BE.onKeyDown (Key.arrowDown (SetModal (IngredientModal { search | highlighted = search.highlighted + 1 })))
+                , BE.onKeyDown (Key.arrowUp (SetModal (IngredientModal { search | highlighted = search.highlighted - 1 })))
+
+                -- , BE.onKeyDown (Key.enter (SetModal (IngredientModal { search | highlighted = search.highlighted - 1 })))
+                ]

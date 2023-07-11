@@ -272,6 +272,16 @@ q {
   background: linear-gradient(15deg, #054a80, $primary);
 }
 
+.cursor {
+  &-help {
+    cursor: help;
+  }
+
+  &-pointer {
+    cursor: pointer;
+  }
+}
+
 .icon {
   position: relative;
 }
@@ -281,16 +291,6 @@ q {
   font-size: 8px;
   position: absolute;
   top: -2px;
-}
-
-.cursor {
-  &-help {
-    cursor: help;
-  }
-
-  &-pointer {
-    cursor: pointer;
-  }
 }
 
 .fs {
@@ -396,6 +396,11 @@ q {
   &-y-scroll {
     overflow-y: scroll;
   }
+}
+
+.prevent-scrolling {
+  overflow: hidden;
+  padding-right: 0px;
 }
 
 .stacked-card {
