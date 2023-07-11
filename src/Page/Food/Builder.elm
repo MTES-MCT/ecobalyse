@@ -79,7 +79,7 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
-    | IngredientModal { terms : String, highlighted : Int }
+    | IngredientModal { terms : String }
 
 
 type Msg
@@ -391,7 +391,7 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
 
         UpdateIngredientModalSearch terms ->
-            ( { model | modal = IngredientModal { terms = terms, highlighted = 0 } }, session, Cmd.none )
+            ( { model | modal = IngredientModal { terms = terms } }, session, Cmd.none )
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -931,7 +931,7 @@ ingredientListView db selectedImpact recipe results =
                                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                                 |> List.isEmpty
                             )
-                        , onClick (SetModal (IngredientModal { terms = "", highlighted = 0 }))
+                        , onClick (SetModal (IngredientModal { terms = "" }))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -1497,7 +1497,7 @@ view session model =
                         , footer = []
                         }
 
-                IngredientModal { terms, highlighted } ->
+                IngredientModal { terms } ->
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
@@ -1548,8 +1548,8 @@ view session model =
                                             True
                                     )
                                 |> List.sortBy (Tuple.second >> .name)
-                                |> List.indexedMap
-                                    (\index ( _, ingredient ) ->
+                                |> List.map
+                                    (\( _, ingredient ) ->
                                         let
                                             alreadyUsed =
                                                 session.queries.food.ingredients
@@ -1557,23 +1557,15 @@ view session model =
                                                     |> List.member ingredient.id
                                         in
                                         button
-                                            ([ id <| "ingredient-autocomplete-" ++ String.fromInt index
-                                             , class "d-flex justify-content-between align-items-center w-100"
-                                             , class "btn border-0 border-bottom text-start no-outline"
-                                             , classList
-                                                [ ( "btn-outline-primary", not (highlighted == index) && not alreadyUsed )
-                                                , ( "btn-light", not (highlighted == index) && alreadyUsed )
-                                                , ( "bg-primary", not alreadyUsed && highlighted == index )
+                                            [ class "d-flex justify-content-between align-items-center w-100"
+                                            , class "btn border-0 border-bottom text-start no-outline"
+                                            , classList
+                                                [ ( "btn-outline-primary", not alreadyUsed )
+                                                , ( "btn-light", alreadyUsed )
                                                 ]
-                                             , onClick (AddIngredient ingredient)
-                                             , disabled alreadyUsed
-                                             ]
-                                             -- ++ (if alreadyUsed then
-                                             --         [ tabindex -1 ]
-                                             --     else
-                                             --         []
-                                             --    )
-                                            )
+                                            , onClick (AddIngredient ingredient)
+                                            , disabled alreadyUsed
+                                            ]
                                             [ span []
                                                 [ text <|
                                                     ingredient.name
@@ -1607,14 +1599,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        ComparatorModal ->
+        _ ->
             BE.onKeyDown (Key.escape (SetModal NoModal))
-
-        IngredientModal search ->
-            Sub.batch
-                [ BE.onKeyDown (Key.escape (SetModal NoModal))
-                , BE.onKeyDown (Key.arrowDown (SetModal (IngredientModal { search | highlighted = search.highlighted + 1 })))
-                , BE.onKeyDown (Key.arrowUp (SetModal (IngredientModal { search | highlighted = search.highlighted - 1 })))
-
-                -- , BE.onKeyDown (Key.enter (SetModal (IngredientModal { search | highlighted = search.highlighted - 1 })))
-                ]
