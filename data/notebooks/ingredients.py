@@ -328,6 +328,9 @@ def commit_activities(_):
     with outgit:
         try:
             assert (
+                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode == 0
+            ), "git pull failed"
+            assert (
                 subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
             ), "git add failed"
             assert (
