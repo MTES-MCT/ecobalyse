@@ -2,16 +2,19 @@
   {
     "id": "egg",
     "name": "Oeuf",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003105162",
+    "search": "Egg national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 2.8229,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -21,17 +24,20 @@
   {
     "id": "egg-organic",
     "name": "Oeuf bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003105163",
+    "search": "Egg organic at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 2.7312,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -41,17 +47,20 @@
   {
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "bleublanccoeur",
       "animal_product"
     ],
-    "default": "AGRIBALU000000003105149",
+    "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 3.7279,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -61,29 +70,35 @@
   {
     "id": "milk",
     "name": "Lait",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "dairy_product"
     ],
-    "default": "AGRIBALU000000003104145",
+    "search": "Cow milk national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 0.8161,
     "complements": {
       "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
     "id": "milk-organic",
     "name": "Lait bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "dairy_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003104151",
+    "search": "cow milk organic system number 5",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -92,22 +107,26 @@
     "visible": true,
     "complements": {
       "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
     "id": "carrot",
     "name": "Carotte",
+    "ingredient": true,
+    "search": "Carrot conventional national average at farm gate",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003102592",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.1321,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -116,17 +135,20 @@
   {
     "id": "carrot-organic",
     "name": "Carotte bio",
+    "ingredient": true,
+    "search": "Carrot organic Lower Normandy at farm gate",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000000003102611",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.2271,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -135,16 +157,19 @@
   {
     "id": "wheat",
     "name": "Blé tendre",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "grain_raw"
     ],
-    "default": "AGRIBALU000024985200247",
+    "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 1.2164,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -153,17 +178,20 @@
   {
     "id": "wheat-organic",
     "name": "Blé tendre bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "grain_raw",
       "organic"
     ],
-    "default": "AGRIBALU000000003114123",
+    "search": "soft wheat grain organic central region",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.9939,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -172,16 +200,19 @@
   {
     "id": "flour",
     "name": "Farine",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "grain_processed"
     ],
-    "default": "AGRIBALU000000003116999",
+    "search": "Wheat flour at industrial mill",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -190,35 +221,44 @@
   {
     "id": "flour-organic",
     "name": "Farine bio",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "grain_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003116999",
+    "search": "Wheat flour at industrial mill",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
-    }
+    },
+    "ratio": 1.16,
+    "subingredient_default": "wheat",
+    "subingredient_variant": "wheat-organic"
   },
   {
     "id": "sunflower",
     "name": "Tournesol",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "nut_oilseed_raw"
     ],
-    "default": "AGRIBALU000000003115216",
+    "search": "Sunflower at farm FR",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 3.423726823,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -227,17 +267,20 @@
   {
     "id": "sunflower-organic",
     "name": "Tournesol bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "nut_oilseed_raw",
       "organic"
     ],
-    "default": "AGRIBALU000024985200157",
+    "search": "Sunflower grain organic system 3 at farm gate",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 2.351161646,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -246,16 +289,19 @@
   {
     "id": "rapeseed",
     "name": "Colza",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "nut_oilseed_raw"
     ],
-    "default": "AGRIBALU000000003112430",
+    "search": "Rape seed FR production Cut-off",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.073211803,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -264,17 +310,20 @@
   {
     "id": "rapeseed-organic",
     "name": "Colza bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "nut_oilseed_raw",
       "organic"
     ],
-    "default": "AGRIBALU000024985200196",
+    "search": "Winter rapeseed organic at farm gate",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 1.464805983,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -283,16 +332,19 @@
   {
     "id": "tomato",
     "name": "Tomate",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003115753",
+    "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
+    "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -301,17 +353,20 @@
   {
     "id": "tomato-organic",
     "name": "Tomate bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000000003115758",
+    "search": "Tomato organic greenhouse production national average at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
+    "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -320,16 +375,19 @@
   {
     "id": "potato",
     "name": "Pomme de terre",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003116702",
+    "search": "Ware potato conventional variety mix national average at farm gate",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.338079058,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -338,16 +396,19 @@
   {
     "id": "ground-beef",
     "name": "Boeuf haché",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003107081",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -357,36 +418,69 @@
   {
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003107081",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    }
+    },
+    "ratio": 2.3,
+    "subingredient_default": "beef-cattle",
+    "subingredient_variant": "cull-cow-organic"
+  },
+  {
+    "id": "beef-cattle",
+    "name": "Bovins de boucherie",
+    "category": "material",
+    "search": "Beef cattle national average at farm gate",
+    "bvi": 0,
+    "categories": []
+  },
+  {
+    "id": "beef-cattle-feedlot",
+    "name": "Bovins de boucherie (Feedlot)",
+    "category": "material",
+    "search": "Beef cattle feedlot or intensive system live weight farm GB",
+    "bvi": 0,
+    "categories": []
+  },
+  {
+    "id": "cull-cow-organic",
+    "name": "Vache de réforme bio",
+    "category": "material",
+    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+    "bvi": 0,
+    "categories": []
   },
   {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003107081",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -396,17 +490,23 @@
   {
     "id": "ground-beef-feedlot-organic",
     "name": "Boeuf haché (Feedlot) bio",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003107081",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 15.04866738,
+    "ratio": 2.3,
+    "subingredient_default": "beef-cattle",
+    "subingredient_variant": "beef-cattle-feedlot",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -416,16 +516,19 @@
   {
     "id": "cooked-ham",
     "name": "Jambon",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003103910",
+    "search": "Cooked ham case ready at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -435,36 +538,69 @@
   {
     "id": "cooked-ham-organic",
     "name": "Jambon bio",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003103910",
+    "search": "Cooked ham case ready at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    }
+    },
+    "ratio": 2.02,
+    "subingredient_default": "pig",
+    "subingredient_variant": "pig-organic"
+  },
+  {
+    "id": "pig",
+    "name": "Porc",
+    "category": "material",
+    "search": "Pig conventional national average at farm gate",
+    "bvi": 0,
+    "categories": []
+  },
+  {
+    "id": "pig-organic",
+    "name": "Porc bio",
+    "category": "material",
+    "search": "Pig organic system 2 at farm gate",
+    "bvi": 0,
+    "categories": []
+  },
+  {
+    "id": "lamb",
+    "name": "Agneau",
+    "search": "Meat with bone lamb",
+    "category": "ingredient",
+    "bvi": 20.6954393,
+    "categories": []
   },
   {
     "id": "chicken-breast",
     "name": "Poulet",
+    "ingredient": true,
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003109221",
+    "search": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -474,36 +610,61 @@
   {
     "id": "chicken-breast-organic",
     "name": "Poulet bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003109221",
+    "search": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    }
+    },
+    "ratio": 1,
+    "subingredient_default": "broiler",
+    "subingredient_variant": "broiler-organic"
+  },
+  {
+    "id": "broiler",
+    "name": "Poulet",
+    "category": "material",
+    "search": "Broiler conventional at farm gate",
+    "bvi": 0,
+    "categories": []
+  },
+  {
+    "id": "broiler-organic",
+    "name": "Poulet bio",
+    "category": "material",
+    "search": "Broiler organic at farm gate",
+    "bvi": 0,
+    "categories": []
   },
   {
     "id": "grape",
     "name": "Raisin de cuve",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003106864",
+    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": false,
+    "bvi": 0.728840715,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -512,17 +673,20 @@
   {
     "id": "grape-organic",
     "name": "Raisin de cuve bio",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000024985200264",
+    "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": false,
+    "bvi": 0.539152617,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -531,10 +695,12 @@
   {
     "id": "mango",
     "name": "Mangue",
+    "ingredient": true,
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003109086",
+    "search": "Mango conventional Val de San Francisco at orchard",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -549,11 +715,13 @@
   {
     "id": "huilecolza",
     "name": "Huile de colza",
+    "ingredient": true,
+    "search": "Rapeseed oil mill {GLO}",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "processing",
     "categories": [
       "nut_oilseed_processed"
     ],
-    "default": "AGRIBALU000000003112448",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
@@ -567,17 +735,22 @@
   {
     "id": "huilecolza-organic",
     "name": "Huile de colza bio",
+    "ingredient": true,
+    "search": "Rapeseed oil mill {GLO}",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "processing",
     "categories": [
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003112448",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
+    "ratio": 1.66,
+    "subingredient_default": "rapeseed",
+    "subingredient_variant": "rapeseed-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -586,11 +759,13 @@
   {
     "id": "sunfloweroil",
     "name": "Huile de tournesol",
+    "ingredient": true,
+    "search": "sunflower oil at mill {glo}",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "nut_oilseed_processed"
     ],
-    "default": "AGRIBALU000000003115182",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
@@ -604,17 +779,22 @@
   {
     "id": "sunfloweroil-organic",
     "name": "Huile de tournesol bio",
+    "ingredient": true,
+    "search": "sunflower oil at mill {glo}",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003115182",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "ratio": 2.45,
+    "subingredient_default": "sunflower",
+    "subingredient_variant": "sunflower-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -623,11 +803,13 @@
   {
     "id": "zucchini",
     "name": "Courgette",
+    "ingredient": true,
+    "search": "Zucchini conventional national average farm gate FR",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003117541",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0.1,
@@ -641,12 +823,14 @@
   {
     "id": "zucchini-organic",
     "name": "Courgette bio",
+    "ingredient": true,
+    "search": "zucchini springtime under tunnel organic",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000024985200219",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0.1,
@@ -660,11 +844,13 @@
   {
     "id": "pear",
     "name": "Poire",
+    "ingredient": true,
+    "search": "pear, conventional, at orchard",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003111019",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
@@ -678,12 +864,14 @@
   {
     "id": "pear-organic",
     "name": "Poire bio",
+    "ingredient": true,
+    "search": "pear organic",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000000003111025",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
@@ -697,11 +885,13 @@
   {
     "id": "peach",
     "name": "Pêche",
+    "ingredient": true,
+    "search": "Peach production mix national average at orchard FR",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003110952",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
@@ -715,12 +905,14 @@
   {
     "id": "peach-organic",
     "name": "Pêche bio",
+    "ingredient": true,
+    "search": "peach organic",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000000003110947",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
@@ -734,11 +926,13 @@
   {
     "id": "melon",
     "name": "Melon",
+    "ingredient": true,
+    "search": "Melon, conventional, national average, at farm gate",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003109266",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.4,
@@ -752,12 +946,14 @@
   {
     "id": "melon-organic",
     "name": "Melon bio",
+    "ingredient": true,
+    "search": "melon organic",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "default": "AGRIBALU000024985200102",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.4,
@@ -771,11 +967,13 @@
   {
     "id": "butter",
     "name": "Beurre",
+    "ingredient": true,
+    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "default_origin": "France",
+    "category": "ingredient",
     "categories": [
       "dairy_product"
     ],
-    "default": "AGRIBALU000000003102321",
-    "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
@@ -783,36 +981,45 @@
     "visible": true,
     "complements": {
       "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
     "id": "butter-organic",
     "name": "Beurre bio",
+    "ingredient": true,
+    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "default_origin": "France",
+    "category": "ingredient",
     "categories": [
       "dairy_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003102321",
-    "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "ratio": 0,
+    "subingredient_default": "milk",
+    "subingredient_variant": "milk-organic",
     "complements": {
       "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
     "id": "onion",
     "name": "Oignon",
+    "ingredient": true,
+    "search": "Onion, national average, at farm",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003110467",
-    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
     "inedible_part": 0.1,
@@ -826,11 +1033,13 @@
   {
     "id": "eggplant",
     "name": "Aubergine",
+    "ingredient": true,
+    "search": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003117541",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
     "inedible_part": 0.1,
@@ -838,17 +1047,20 @@
     "visible": true,
     "complements": {
       "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
     "id": "lettuce",
     "name": "Laitue",
+    "ingredient": true,
+    "search": "Lettuce, conventional, national average, at farm gate {FR} U",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003108668",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
     "inedible_part": 0.4,
@@ -862,11 +1074,13 @@
   {
     "id": "frenchbean",
     "name": "Haricot vert",
+    "ingredient": true,
+    "search": "French bean, conventional, national average, at farm gate {FR}",
+    "default_origin": "OutOfEuropeAndMaghrebByPlane",
+    "category": "material",
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000024985200072",
-    "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
     "inedible_part": 0.1,
@@ -880,11 +1094,13 @@
   {
     "id": "durumwheat",
     "name": "Blé dur",
+    "ingredient": true,
+    "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
+    "default_origin": "EuropeAndMaghreb",
+    "category": "material",
     "categories": [
       "grain_raw"
     ],
-    "default": "AGRIBALU000024985200066",
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "inedible_part": 0,
@@ -894,5 +1110,175 @@
       "agro-diversity": 10,
       "agro-ecology": 10
     }
+  },
+  {
+    "id": "steel",
+    "name": "Acier",
+    "category": "packaging",
+    "bvi": 0.1133,
+    "search": "Steel unalloyed {RER} steel production converter unalloyed",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "ldpe",
+    "name": "Polyéthylène basse densité",
+    "bvi": 0.3318,
+    "search": "Packaging film low density polyethylene {RER} production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "ps",
+    "name": "Polystyrène",
+    "bvi": 0.0011,
+    "search": "Polystyrene expandable {RER} production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "glass",
+    "name": "Verre",
+    "bvi": 0.3211,
+    "search": "Packaging glass white {RER} w/o CH+DE production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "pp",
+    "name": "Polypropylène",
+    "bvi": 0.0003,
+    "search": "Polypropylene granulate {RER}| production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "cardboard",
+    "name": "Carton",
+    "bvi": 1.1059,
+    "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "paper",
+    "name": "Papier",
+    "bvi": 7.4795,
+    "search": "Kraft paper production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "pvc",
+    "name": "PVC",
+    "bvi": 0.0004,
+    "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "pet",
+    "name": "PET",
+    "bvi": 0.245,
+    "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "hdpe",
+    "name": "Polyéthylène haute densité",
+    "bvi": 0.0004,
+    "search": "Polyethylene high density granulate {RER} production",
+    "categories": []
+  },
+  {
+    "category": "packaging",
+    "id": "aluminium",
+    "name": "Aluminium",
+    "bvi": 0.94,
+    "search": "Aluminium primary ingot {RoW} production",
+    "categories": []
+  },
+  {
+    "category": "transformation",
+    "id": "canning",
+    "name": "Mise en conserve",
+    "bvi": 0.0089,
+    "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
+    "categories": []
+  },
+  {
+    "category": "transformation",
+    "id": "mixing",
+    "name": "Mélange",
+    "search": "Mixing processing dummy",
+    "categories": []
+  },
+  {
+    "category": "transformation",
+    "id": "cooking",
+    "name": "Cuisson",
+    "bvi": 0.012,
+    "search": "Cooking industrial 1kg of cooked product FR",
+    "categories": []
+  },
+  {
+    "category": "transport",
+    "id": "lorry",
+    "name": "Camion",
+    "bvi": 0.055765784,
+    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
+    "categories": []
+  },
+  {
+    "category": "transport",
+    "id": "boat",
+    "name": "Bateau",
+    "bvi": 0.000292724,
+    "search": "Transport freight sea ship",
+    "categories": []
+  },
+  {
+    "category": "transport",
+    "id": "plane",
+    "name": "Avion",
+    "bvi": 0.012214369,
+    "search": "Transport freight aircraft",
+    "categories": []
+  },
+  {
+    "category": "transport",
+    "id": "boat-cooling",
+    "name": "Bateau frigorifique",
+    "search": "Transport freight sea ship reefer",
+    "categories": []
+  },
+  {
+    "category": "transport",
+    "id": "lorry-cooling",
+    "categories": [],
+    "name": "Camion frigorifique",
+    "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}"
+  },
+  {
+    "category": "energy",
+    "id": "low-voltage-electricity",
+    "name": "Electricité basse tension",
+    "search": "Electricity low voltage {FR} market",
+    "categories": []
+  },
+  {
+    "category": "material",
+    "categories": [],
+    "id": "tapwater",
+    "name": "Eau du robinet",
+    "search": "Tap water Europe market"
+  },
+  {
+    "category": "energy",
+    "id": "domestic-gas-heat",
+    "name": "Gaz de ville",
+    "search": "Heat central or small-scale natural gas Europe market",
+    "categories": []
   }
 ]

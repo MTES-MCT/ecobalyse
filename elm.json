@@ -28,6 +28,7 @@
             "gingko/time-distance": "2.4.0",
             "ianmackenzie/elm-units": "2.9.0",
             "krisajenkins/remotedata": "6.0.1",
+            "kuon/elm-string-normalize": "1.0.5",
             "ohanhi/remotedata-http": "4.0.0",
             "rtfeldman/elm-iso8601-date-strings": "1.1.4",
             "terezka/elm-charts": "3.0.0",

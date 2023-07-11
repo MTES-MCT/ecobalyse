@@ -40,7 +40,7 @@
   {
     "name": "Mango from default origin, but by boat",
     "query": [
-      "ingredients[]=mango;120;;;noPlane",
+      "ingredients[]=mango;120;;noPlane",
       "category=fruitsAndVegetables"
     ],
     "impacts": {
@@ -78,7 +78,7 @@
   {
     "name": "Mango by plane from Brazil (by default)",
     "query": [
-      "ingredients[]=mango;120;;BR",
+      "ingredients[]=mango;120;BR",
       "distribution=ambient"
     ],
     "impacts": {
@@ -116,7 +116,7 @@
   {
     "name": "Mango by plane from Brazil (explicitely)",
     "query": [
-      "ingredients[]=mango;120;;BR;byPlane",
+      "ingredients[]=mango;120;BR;byPlane",
       "distribution=ambient"
     ],
     "impacts": {
@@ -154,7 +154,7 @@
   {
     "name": "Mango by boat from Brazil",
     "query": [
-      "ingredients[]=mango;120;;BR;noPlane",
+      "ingredients[]=mango;120;BR;noPlane",
       "distribution=ambient"
     ],
     "impacts": {

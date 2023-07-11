@@ -39,9 +39,9 @@ table _ { detailed, scope } =
           , toValue = .name
           , toCell = .name >> text
           }
-        , { label = "Catégorie"
-          , toValue = .category >> IngredientCategory.toLabel
-          , toCell = .category >> IngredientCategory.toLabel >> text
+        , { label = "Catégories"
+          , toValue = .categories >> List.map IngredientCategory.toLabel >> String.join ","
+          , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
           , toValue = .defaultOrigin >> Origin.toLabel
@@ -79,34 +79,25 @@ table _ { detailed, scope } =
           , toValue = .default >> .name >> Process.nameToString
           , toCell = .default >> .name >> Process.nameToString >> text
           }
-        , { label = "Procédé biologique"
-          , toValue = .variants >> .organic >> Maybe.map (.process >> .name >> Process.nameToString) >> Maybe.withDefault "N/A"
+        , { label = "Compléments"
+          , toValue = always "N/A"
           , toCell =
                 \ingredient ->
                     div [ class "overflow-scroll" ]
-                        [ p []
-                            [ ingredient.variants.organic
-                                |> Maybe.map (.process >> .name >> Process.nameToString)
-                                |> Maybe.withDefault "N/A"
-                                |> text
-                            ]
-                        , [ ( "Bonus agro-diversité", .agroDiversity )
+                        [ [ ( "Bonus agro-diversité", .agroDiversity )
                           , ( "Bonus agro-ecologie", .agroEcology )
                           , ( "Bonus conditions d'élevage", .animalWelfare )
                           ]
-                            |> List.filterMap
+                            |> List.map
                                 (\( label, getter ) ->
-                                    ingredient.variants.organic
-                                        |> Maybe.map
-                                            (.defaultBonuses
-                                                >> getter
-                                                >> (\split ->
-                                                        span []
-                                                            [ text <| label ++ ": "
-                                                            , Format.splitAsPercentage split
-                                                            ]
-                                                   )
-                                            )
+                                    ingredient.complements
+                                        |> getter
+                                        |> (\split ->
+                                                span []
+                                                    [ text <| label ++ ": "
+                                                    , Format.splitAsPercentage split
+                                                    ]
+                                           )
                                 )
                             |> div [ class "d-flex gap-2" ]
                         ]

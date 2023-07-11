@@ -2,7 +2,6 @@ module Data.Food.Builder.Query exposing
     ( IngredientQuery
     , ProcessQuery
     , Query
-    , Variant(..)
     , addIngredient
     , addPackaging
     , addPreparation
@@ -18,7 +17,6 @@ module Data.Food.Builder.Query exposing
     , serialize
     , setDistribution
     , setTransform
-    , updateBonusesFromVariant
     , updateDistribution
     , updateIngredient
     , updatePackaging
@@ -28,13 +26,11 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Ingredient.Category as IngredientCategory
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -42,18 +38,12 @@ import Quantity
 import Url.Parser as Parser exposing (Parser)
 
 
-type Variant
-    = DefaultVariant
-    | Organic
-
-
 type alias IngredientQuery =
     { id : Ingredient.Id
     , mass : Mass
-    , variant : Variant
     , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
-    , bonuses : Maybe Ingredient.Bonuses
+    , complements : Maybe Ingredient.Complements
     }
 
 
@@ -126,31 +116,27 @@ carrotCake =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
           , mass = Mass.grams 120
-          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Nothing
+          , complements = Nothing
           }
         , { id = Ingredient.idFromString "wheat"
           , mass = Mass.grams 140
-          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Nothing
+          , complements = Nothing
           }
         , { id = Ingredient.idFromString "milk"
           , mass = Mass.grams 60
-          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Nothing
+          , complements = Nothing
           }
         , { id = Ingredient.idFromString "carrot"
           , mass = Mass.grams 225
-          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , bonuses = Nothing
+          , complements = Nothing
           }
         ]
     , transform =
@@ -226,16 +212,9 @@ decodeIngredient =
     Decode.succeed IngredientQuery
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
-        |> Pipe.optional "variant" decodeVariant DefaultVariant
         |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
-        |> Pipe.optional "bonuses" (Decode.maybe Ingredient.decodeBonuses) Nothing
-
-
-decodeVariant : Decoder Variant
-decodeVariant =
-    Decode.string
-        |> Decode.andThen (variantFromString >> DE.fromResult)
+        |> Pipe.optional "complements" (Decode.maybe Ingredient.decodeComplements) Nothing
 
 
 deletePreparation : Preparation.Id -> Query -> Query
@@ -287,17 +266,9 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     [ ( "id", Ingredient.encodeId v.id |> Just )
     , ( "mass", encodeMassAsGrams v.mass |> Just )
-    , ( "variant"
-      , case v.variant of
-            DefaultVariant ->
-                Nothing
-
-            Organic ->
-                encodeVariant v.variant |> Just
-      )
     , ( "country", v.country |> Maybe.map Country.encodeCode )
     , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
-    , ( "bonuses", v.bonuses |> Maybe.map Ingredient.encodeBonuses )
+    , ( "complements", v.complements |> Maybe.map Ingredient.encodeComplements )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -315,11 +286,6 @@ encodeProcess v =
         [ ( "code", Process.encodeCode v.code )
         , ( "mass", encodeMassAsGrams v.mass )
         ]
-
-
-encodeVariant : Variant -> Encode.Value
-encodeVariant =
-    variantToString >> Encode.string
 
 
 getIngredientMass : List { a | mass : Mass } -> Mass
@@ -415,51 +381,6 @@ updateDistribution distribution query =
                 |> Result.withDefault Retail.ambient
                 |> Just
     }
-
-
-updateBonusesFromVariant : List Ingredient -> Ingredient.Id -> Variant -> Ingredient.Bonuses
-updateBonusesFromVariant ingredients ingredientId variant =
-    let
-        ingredientResult =
-            ingredients
-                |> Ingredient.findByID ingredientId
-
-        defaultVariantBonuses =
-            ingredientResult
-                |> Result.map Ingredient.defaultBonuses
-                |> Result.withDefault (Ingredient.defaultBonuses { category = IngredientCategory.Misc })
-    in
-    case variant of
-        Organic ->
-            ingredientResult
-                |> Result.map Ingredient.getDefaultOrganicBonuses
-                |> Result.withDefault defaultVariantBonuses
-
-        DefaultVariant ->
-            defaultVariantBonuses
-
-
-variantFromString : String -> Result String Variant
-variantFromString string =
-    case string of
-        "" ->
-            Ok DefaultVariant
-
-        "organic" ->
-            Ok Organic
-
-        _ ->
-            Err <| "Variante inconnnue: " ++ string
-
-
-variantToString : Variant -> String
-variantToString variant =
-    case variant of
-        DefaultVariant ->
-            ""
-
-        Organic ->
-            "organic"
 
 
 serialize : Query -> String
