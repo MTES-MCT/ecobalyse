@@ -99,8 +99,6 @@ if __name__ == "__main__":
             "identifier": search(activity["search"])["Process identifier"],
             "system_description": search(activity["search"])["System description"],
             "category": activity.get("category"),
-            "category_tags": activity.get("categories", [])
-            + list(list(search(activity["search"]).production())[0]["categories"]),
             "comment": list(search(activity["search"]).production())[0]["comment"],
             # those are removed at the end:
             "search": activity["search"],
