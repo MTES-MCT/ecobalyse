@@ -1550,21 +1550,29 @@ view session model =
                                                     |> List.member ingredient.id
                                         in
                                         button
-                                            [ class "d-block btn w-100"
-                                            , class "border-0 border-bottom text-start no-outline"
+                                            [ class "d-flex justify-content-between align-items-center w-100"
+                                            , class "btn border-0 border-bottom text-start no-outline"
                                             , classList [ ( "btn-outline-primary", not alreadyUsed ) ]
                                             , classList [ ( "btn-light", alreadyUsed ) ]
                                             , onClick (AddIngredient ingredient)
                                             , disabled alreadyUsed
                                             ]
-                                            [ text <|
-                                                ingredient.name
-                                                    ++ (if alreadyUsed then
-                                                            " (déjà dans la recette)"
+                                            [ span []
+                                                [ text <|
+                                                    ingredient.name
+                                                        ++ (if alreadyUsed then
+                                                                " (déjà dans la recette)"
 
-                                                        else
-                                                            ""
-                                                       )
+                                                            else
+                                                                ""
+                                                           )
+                                                ]
+                                            , span [ class "text-muted fs-7" ]
+                                                [ ingredient.categories
+                                                    |> List.head
+                                                    |> Maybe.map (IngredientCategory.toLabel >> text)
+                                                    |> Maybe.withDefault (text "")
+                                                ]
                                             ]
                                     )
                                 |> div [ style "height" "204px" ]
