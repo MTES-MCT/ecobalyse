@@ -823,6 +823,17 @@ q {
   }
 }
 
+.IngredientAutocomplete {
+  height: 204px;
+  &Choice {
+    &:hover {
+      span {
+        color: #fff !important;
+      }
+    }
+  }
+}
+
 .IngredientFormWrapper {
   border-bottom: $list-group-border-width solid $list-group-border-color;
   display: grid;

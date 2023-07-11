@@ -1557,7 +1557,8 @@ view session model =
                                                     |> List.member ingredient.id
                                         in
                                         button
-                                            [ class "d-flex justify-content-between align-items-center w-100"
+                                            [ class "IngredientAutocompleteChoice"
+                                            , class "d-flex justify-content-between align-items-center w-100"
                                             , class "btn border-0 border-bottom text-start no-outline"
                                             , classList
                                                 [ ( "btn-outline-primary", not alreadyUsed )
@@ -1566,16 +1567,14 @@ view session model =
                                             , onClick (AddIngredient ingredient)
                                             , disabled alreadyUsed
                                             ]
-                                            [ span []
-                                                [ text <|
-                                                    ingredient.name
-                                                        ++ (if alreadyUsed then
-                                                                " (déjà dans la recette)"
+                                            [ text <|
+                                                ingredient.name
+                                                    ++ (if alreadyUsed then
+                                                            " (déjà dans la recette)"
 
-                                                            else
-                                                                ""
-                                                           )
-                                                ]
+                                                        else
+                                                            ""
+                                                       )
                                             , span [ class "text-muted fs-7" ]
                                                 [ ingredient.categories
                                                     |> List.head
@@ -1584,7 +1583,7 @@ view session model =
                                                 ]
                                             ]
                                     )
-                                |> div [ style "height" "204px" ]
+                                |> div [ class "IngredientAutocomplete" ]
                             ]
                         , footer = []
                         }
