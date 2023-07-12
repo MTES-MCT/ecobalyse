@@ -75,7 +75,7 @@ table _ { detailed, scope } =
                             [ Icon.question ]
                         ]
           }
-        , { label = "Procédé conventionnel"
+        , { label = "Procédé"
           , toValue = .default >> .name >> Process.nameToString
           , toCell = .default >> .name >> Process.nameToString >> text
           }
