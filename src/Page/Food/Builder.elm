@@ -1575,14 +1575,24 @@ view session model =
 
                                 renderChoice : (Int -> List (Attribute Msg)) -> Maybe Int -> Int -> Ingredient -> Html Msg
                                 renderChoice events selectedIndex_ index ingredient =
+                                    let
+                                        selected =
+                                            Autocomplete.isSelected selectedIndex_ index
+                                    in
                                     button
                                         (events index
                                             ++ [ class "IngredientAutocompleteChoice"
                                                , class "d-flex justify-content-between align-items-center gap-1 w-100"
                                                , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
-                                               , classList
-                                                    [ ( "btn-primary selected", Autocomplete.isSelected selectedIndex_ index )
-                                                    ]
+                                               , classList [ ( "btn-primary selected", selected ) ]
+                                               , attribute "role" "option"
+                                               , attribute "aria-selected"
+                                                    (if selected then
+                                                        "true"
+
+                                                     else
+                                                        "false"
+                                                    )
                                                ]
                                         )
                                         [ span [ class "text-nowrap" ] [ text ingredient.name ]
@@ -1599,6 +1609,10 @@ view session model =
                                     ++ [ type_ "search"
                                        , id "ingredient-search"
                                        , class "form-control"
+                                       , autocomplete False
+                                       , attribute "role" "combobox"
+                                       , attribute "aria-autocomplete" "list"
+                                       , attribute "aria-owns" "ingredients-autocomplete-choices"
                                        , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
                                        , value query
                                        ]
@@ -1606,7 +1620,7 @@ view session model =
                                 []
                             , choices
                                 |> List.indexedMap (renderChoice choiceEvents selectedIndex)
-                                |> div [ class "IngredientAutocomplete" ]
+                                |> div [ class "IngredientAutocomplete", id "ingredients-autocomplete-choices" ]
                             ]
                         , footer = []
                         }
