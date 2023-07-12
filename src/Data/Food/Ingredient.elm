@@ -4,6 +4,7 @@ module Data.Food.Ingredient exposing
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
+    , autocomplete
     , byPlaneAllowed
     , byPlaneByDefault
     , decodeComplements
@@ -34,6 +35,7 @@ import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length
 import List.Extra as LE
+import String.Normalize as Normalize
 
 
 type alias Ingredient =
@@ -72,6 +74,35 @@ type TransportCooling
     = NoCooling
     | AlwaysCool
     | CoolOnceTransformed
+
+
+autocomplete : String -> List Ingredient -> List Ingredient
+autocomplete query =
+    let
+        toWords =
+            String.toLower
+                >> Normalize.removeDiacritics
+                >> String.foldl
+                    (\c acc ->
+                        if not (List.member c [ '(', ')' ]) then
+                            String.cons c acc
+
+                        else
+                            acc
+                    )
+                    ""
+                >> String.split " "
+
+        searchWords =
+            toWords (String.trim query)
+    in
+    List.map (\ingredient -> ( toWords ingredient.name, ingredient ))
+        >> List.filter
+            (\( words, _ ) ->
+                query == "" || List.all (\w -> List.any (String.contains w) words) searchWords
+            )
+        >> List.sortBy (Tuple.second >> .name)
+        >> List.map Tuple.second
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
