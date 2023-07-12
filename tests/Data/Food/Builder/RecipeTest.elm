@@ -1,7 +1,7 @@
 module Data.Food.Builder.RecipeTest exposing (..)
 
 import Data.Country as Country
-import Data.Food.Builder.Query as Query exposing (carrotCake)
+import Data.Food.Builder.Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -37,7 +37,7 @@ suite =
                     Impact.empty
                         |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
                         |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact 100)
-                        |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions bonuses
+                        |> Recipe.computeIngredientComplementsImpacts builderDb.impactDefinitions bonuses
               in
               describe "computeIngredientBonusesImpacts"
                 [ describe "with zero bonuses applied"
@@ -92,7 +92,7 @@ suite =
                             Impact.empty
                                 |> Impact.updateImpact builderDb.impactDefinitions Definition.Ecs (Unit.impact 1000)
                                 |> Impact.updateImpact builderDb.impactDefinitions Definition.Ldu (Unit.impact -100)
-                                |> Recipe.computeIngredientBonusesImpacts builderDb.impactDefinitions
+                                |> Recipe.computeIngredientComplementsImpacts builderDb.impactDefinitions
                                     { agroDiversity = Split.full
                                     , agroEcology = Split.full
                                     , animalWelfare = Split.full
@@ -188,7 +188,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 105.15077733750101) result
+                                expectImpactEqual (Unit.impact 108.83961330812544) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the bonus taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -196,7 +196,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 69.94933533406538) result
+                                expectImpactEqual (Unit.impact 73.64370547246703) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -206,20 +206,20 @@ suite =
                                 ]
 
                             Ok scoring ->
-                                [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 197.3204396840012
+                                [ Unit.impactToFloat scoring.allWithoutComplements
+                                    |> Expect.within (Expect.Absolute 0.01) 205.11825351633945
                                     |> asTest "should properly score total impact"
-                                , Unit.impactToFloat scoring.allWithoutBonuses
-                                    |> Expect.within (Expect.Absolute 0.01) 199.4517149847374
+                                , Unit.impactToFloat scoring.allWithoutComplements
+                                    |> Expect.within (Expect.Absolute 0.01) 205.11825351633945
                                     |> asTest "should properly score total impact without bonuses"
-                                , Unit.impactToFloat scoring.bonuses
-                                    |> Expect.within (Expect.Absolute 0.01) 2.131275300736198
+                                , Unit.impactToFloat scoring.complements
+                                    |> Expect.within (Expect.Absolute 0.01) 2.0652898635440664
                                     |> asTest "should properly score bonuses impact"
-                                , (Unit.impactToFloat scoring.allWithoutBonuses - Unit.impactToFloat scoring.bonuses)
+                                , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 81.78986222897198
+                                    |> Expect.within (Expect.Absolute 0.01) 82.35729273884385
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
                                     |> Expect.within (Expect.Absolute 0.01) 44.68689760990337
@@ -228,7 +228,7 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.01) 39.895732543122364
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 33.07922260273967
+                                    |> Expect.within (Expect.Absolute 0.01) 38.178330624469915
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -267,7 +267,7 @@ suite =
                                                 (\ingredientQuery ->
                                                     if ingredientQuery.id == Ingredient.Id "carrot" then
                                                         { ingredientQuery
-                                                            | bonuses =
+                                                            | complements =
                                                                 Just
                                                                     { agroDiversity = Split.full
                                                                     , agroEcology = Split.zero
@@ -289,17 +289,15 @@ suite =
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
                           , mass = Mass.grams 120
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , mass = Mass.grams 140
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -340,10 +338,9 @@ suite =
                 mango =
                     { id = Ingredient.idFromString "mango"
                     , mass = Mass.grams 120
-                    , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
-                    , bonuses = Nothing
+                    , complements = Nothing
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -358,10 +355,9 @@ suite =
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
                           , mass = Mass.grams 120
-                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
-                          , bonuses = Nothing
+                          , complements = Nothing
                           }
                         ]
                   , transform = Nothing

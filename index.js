@@ -74,9 +74,18 @@ app.ports.saveStore.subscribe((rawStore) => {
   localStorage[storeKey] = rawStore;
 });
 
+app.ports.addBodyClass.subscribe((cls) => {
+  document.body.classList.add(cls);
+});
+
+app.ports.removeBodyClass.subscribe((cls) => {
+  document.body.classList.remove(cls);
+});
+
 app.ports.scrollTo.subscribe((pos) => {
   window.scrollTo(pos.x, pos.y);
 });
+
 app.ports.scrollIntoView.subscribe((id) => {
   let node = document.getElementById(id);
   node.scrollIntoView({ behavior: "smooth" });

@@ -8,12 +8,6 @@ escape msg =
     succeedForKeyCode 27 msg
 
 
-succeedForKeyCode : Int -> msg -> Decoder msg
-succeedForKeyCode key msg =
-    Decode.field "keyCode" Decode.int
-        |> Decode.andThen (forKeyCode key msg)
-
-
 forKeyCode : Int -> msg -> Int -> Decoder msg
 forKeyCode key msg keyCode =
     if keyCode == key then
@@ -21,3 +15,9 @@ forKeyCode key msg keyCode =
 
     else
         Decode.fail (String.fromInt keyCode)
+
+
+succeedForKeyCode : Int -> msg -> Decoder msg
+succeedForKeyCode key msg =
+    Decode.field "keyCode" Decode.int
+        |> Decode.andThen (forKeyCode key msg)

@@ -101,12 +101,11 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
                 |> RE.andMap (Ok Nothing)
 
-        [ id, mass, variant ] ->
+        [ id, mass, countryCode ] ->
             let
                 ingredient =
                     ingredients
@@ -115,26 +114,11 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (variantParser variant)
-                |> RE.andMap (Ok Nothing)
-                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Nothing)
-
-        [ id, mass, variant, countryCode ] ->
-            let
-                ingredient =
-                    ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
                 |> RE.andMap (Ok Nothing)
 
-        [ id, mass, variant, countryCode, byPlane ] ->
+        [ id, mass, countryCode, byPlane ] ->
             let
                 ingredient =
                     ingredients
@@ -143,12 +127,11 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
                 |> RE.andMap (Ok Nothing)
 
-        [ id, mass, variant, countryCode, byPlane, bonuses ] ->
+        [ id, mass, countryCode, byPlane, complements ] ->
             let
                 ingredient =
                     ingredients
@@ -157,10 +140,9 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (ingredient |> Result.andThen (bonusesParser bonuses))
+                |> RE.andMap (ingredient |> Result.andThen (complementsParser complements))
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -169,11 +151,11 @@ ingredientParser { countries, ingredients } string =
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
 
 
-bonusesParser : String -> Ingredient -> Result String (Maybe Ingredient.Bonuses)
-bonusesParser string { name, category } =
+complementsParser : String -> Ingredient -> Result String (Maybe Ingredient.Complements)
+complementsParser string { name, categories } =
     let
-        parseBonus : String -> Result String Split
-        parseBonus str =
+        parseComplement : String -> Result String Split
+        parseComplement str =
             case String.toInt str of
                 Just int ->
                     Split.fromPercent int
@@ -184,42 +166,28 @@ bonusesParser string { name, category } =
     -- Format is either x:y (vegetables) or x:y:z (from animal origin, z being the welfare bonus)
     case String.split ":" string of
         [ a, b ] ->
-            Ok Ingredient.Bonuses
-                |> RE.andMap (parseBonus a)
-                |> RE.andMap (parseBonus b)
+            Ok Ingredient.Complements
+                |> RE.andMap (parseComplement a)
+                |> RE.andMap (parseComplement b)
                 |> RE.andMap (Ok Split.zero)
                 |> Result.map Just
 
         [ a, b, c ] ->
-            case category of
-                IngredientCategory.AnimalProduct ->
-                    Ok Ingredient.Bonuses
-                        |> RE.andMap (parseBonus a)
-                        |> RE.andMap (parseBonus b)
-                        |> RE.andMap (parseBonus c)
-                        |> Result.map Just
+            if not (List.member IngredientCategory.AnimalProduct categories) then
+                Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
 
-                _ ->
-                    Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
+            else
+                Ok Ingredient.Complements
+                    |> RE.andMap (parseComplement a)
+                    |> RE.andMap (parseComplement b)
+                    |> RE.andMap (parseComplement c)
+                    |> Result.map Just
 
         [ "" ] ->
             Ok Nothing
 
         _ ->
             Err <| "Format de bonus d'ingrédient invalide: " ++ string ++ "."
-
-
-variantParser : String -> Result String BuilderQuery.Variant
-variantParser variant =
-    case variant of
-        "" ->
-            Ok BuilderQuery.DefaultVariant
-
-        "organic" ->
-            Ok BuilderQuery.Organic
-
-        _ ->
-            Err <| "Format de variant invalide : " ++ variant
 
 
 foodCountryParser : List Country -> String -> Result String (Maybe Country.Code)

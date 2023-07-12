@@ -54,7 +54,17 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "25 mai 2023"
+    [ { date = "6 juillet 2023"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Le paramétrage de la variante a été supprimé du mode de requêtage en query string;
+            là où on passait `?ingredients=carrot;100;organic;ES` pour 100g de carrot bio
+            d'espagne, on passe désormais `?ingredients=carrot;100;ES`; le segment définissant
+            la variante — `organic` — a été légitimement supprimé.
+"""
+      }
+    , { date = "25 mai 2023"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =

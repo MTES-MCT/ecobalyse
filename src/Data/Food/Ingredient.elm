@@ -1,20 +1,18 @@
 module Data.Food.Ingredient exposing
-    ( Bonuses
+    ( Complements
     , Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
-    , decodeBonuses
+    , decodeComplements
     , decodeId
     , decodeIngredients
-    , defaultBonuses
-    , encodeBonuses
+    , encodeComplements
     , encodeId
     , encodePlaneTransport
     , findByID
-    , getDefaultOrganicBonuses
     , getDefaultOriginTransport
     , groupCategories
     , idFromString
@@ -41,19 +39,19 @@ import List.Extra as LE
 type alias Ingredient =
     { id : Id
     , name : String
-    , category : IngredientCategory.Category
+    , categories : List IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
     , inediblePart : Split
     , rawToCookedRatio : Unit.Ratio
-    , variants : Variants
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
+    , complements : Complements
     }
 
 
-type alias Bonuses =
+type alias Complements =
     { agroDiversity : Split
     , agroEcology : Split
     , animalWelfare : Split
@@ -62,12 +60,6 @@ type alias Bonuses =
 
 type Id
     = Id String
-
-
-type alias OrganicVariant =
-    { process : Process
-    , defaultBonuses : Bonuses
-    }
 
 
 type PlaneTransport
@@ -80,11 +72,6 @@ type TransportCooling
     = NoCooling
     | AlwaysCool
     | CoolOnceTransformed
-
-
-type alias Variants =
-    { organic : Maybe OrganicVariant
-    }
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
@@ -116,21 +103,8 @@ decodeId =
         |> Decode.map idFromString
 
 
-defaultBonuses : { a | category : IngredientCategory.Category } -> Bonuses
-defaultBonuses { category } =
-    { agroDiversity = Split.tenth
-    , agroEcology = Split.tenth
-    , animalWelfare =
-        if IngredientCategory.fromAnimalOrigin category then
-            Split.tenth
-
-        else
-            Split.zero
-    }
-
-
-encodeBonuses : Bonuses -> Encode.Value
-encodeBonuses v =
+encodeComplements : Complements -> Encode.Value
+encodeComplements v =
     Encode.object
         [ ( "agro-diversity", Split.encodePercent v.agroDiversity )
         , ( "agro-ecology", Split.encodePercent v.agroEcology )
@@ -156,13 +130,6 @@ encodePlaneTransport planeTransport =
             Just <| Encode.string "noPlane"
 
 
-getDefaultOrganicBonuses : Ingredient -> Bonuses
-getDefaultOrganicBonuses ingredient =
-    ingredient.variants.organic
-        |> Maybe.map .defaultBonuses
-        |> Maybe.withDefault (defaultBonuses ingredient)
-
-
 idFromString : String -> Id
 idFromString str =
     Id str
@@ -173,9 +140,9 @@ idToString (Id str) =
     str
 
 
-decodeBonuses : Decoder Bonuses
-decodeBonuses =
-    Decode.succeed Bonuses
+decodeComplements : Decoder Complements
+decodeComplements =
+    Decode.succeed Complements
         |> Pipe.required "agro-diversity" Split.decodePercent
         |> Pipe.required "agro-ecology" Split.decodePercent
         |> Pipe.optional "animal-welfare" Split.decodePercent Split.zero
@@ -197,15 +164,15 @@ decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "id" decodeId
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "category" IngredientCategory.decode
+        |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "inedible_part" Split.decodeFloat
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
-        |> Pipe.optional "variants" (decodeVariants processes) { organic = Nothing }
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
+        |> Pipe.required "complements" decodeComplements
 
 
 decodeTransportCooling : Decoder TransportCooling
@@ -226,12 +193,6 @@ decodeTransportCooling =
                     invalid ->
                         Decode.fail <| "Valeur de transport frigorifique invalide : " ++ invalid
             )
-
-
-decodeVariants : Dict String Process -> Decoder Variants
-decodeVariants processes =
-    Decode.succeed Variants
-        |> Pipe.optional "organic" (Decode.maybe (linkOrganicVariant processes)) Nothing
 
 
 findByID : Id -> List Ingredient -> Result String Ingredient
@@ -268,9 +229,13 @@ getDefaultOriginTransport planeTransport origin =
 
 groupCategories : List Ingredient -> List ( IngredientCategory.Category, List Ingredient )
 groupCategories =
-    List.sortBy (.category >> IngredientCategory.toLabel)
-        >> LE.groupWhile (\a b -> a.category == b.category)
-        >> List.map (\( first, rest ) -> ( first.category, first :: rest ))
+    let
+        getFirst =
+            List.head >> Maybe.withDefault IngredientCategory.Misc
+    in
+    List.sortBy (.categories >> getFirst >> IngredientCategory.toLabel)
+        >> LE.groupWhile (\a b -> getFirst a.categories == getFirst b.categories)
+        >> List.map (\( first, rest ) -> ( getFirst first.categories, first :: rest ))
 
 
 linkProcess : Dict String Process -> Decoder Process
@@ -283,11 +248,3 @@ linkProcess processes =
                             |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
                    )
             )
-
-
-linkOrganicVariant : Dict String Process -> Decoder OrganicVariant
-linkOrganicVariant processes =
-    Decode.succeed OrganicVariant
-        |> Pipe.required "process" (linkProcess processes)
-        -- FIXME: rename beyondLCA to bonuses in JSON sources
-        |> Pipe.required "beyondLCA" decodeBonuses

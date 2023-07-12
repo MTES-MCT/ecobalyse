@@ -7,7 +7,8 @@ module Page.Food.Builder exposing
     , view
     )
 
-import Browser.Events
+import Browser.Dom as Dom
+import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
@@ -40,6 +41,7 @@ import Quantity
 import RemoteData exposing (WebData)
 import Request.Food.BuilderDb as FoodRequestDb
 import Route
+import String.Normalize as Normalize
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -77,10 +79,11 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
+    | IngredientModal { terms : String }
 
 
 type Msg
-    = AddIngredient
+    = AddIngredient Ingredient
     | AddPackaging
     | AddPreparation
     | AddTransform
@@ -108,6 +111,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
+    | UpdateIngredientModalSearch String
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -170,23 +174,12 @@ update ({ queries } as session) msg model =
             queries.food
     in
     case msg of
-        AddIngredient ->
-            let
-                firstIngredient =
-                    model.db.ingredients
-                        |> Recipe.availableIngredients (List.map .id query.ingredients)
-                        |> List.sortBy .name
-                        |> List.head
-                        |> Maybe.map Recipe.ingredientQueryFromIngredient
-            in
-            ( model, session, Cmd.none )
-                |> (case firstIngredient of
-                        Just ingredient ->
-                            updateQuery (Query.addIngredient ingredient query)
-
-                        Nothing ->
-                            identity
-                   )
+        AddIngredient ingredient ->
+            update session (SetModal NoModal) model
+                |> updateQuery
+                    (query
+                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
+                    )
 
         AddPackaging ->
             let
@@ -327,7 +320,22 @@ update ({ queries } as session) msg model =
             )
 
         SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
+            ( { model | modal = modal }
+            , session
+            , case modal of
+                NoModal ->
+                    Ports.removeBodyClass "prevent-scrolling"
+
+                ComparatorModal ->
+                    Ports.addBodyClass "prevent-scrolling"
+
+                IngredientModal _ ->
+                    Cmd.batch
+                        [ Ports.addBodyClass "prevent-scrolling"
+                        , Dom.focus "ingredient-search"
+                            |> Task.attempt (always NoOp)
+                        ]
+            )
 
         SwitchImpact (Ok impact) ->
             ( model
@@ -381,6 +389,9 @@ update ({ queries } as session) msg model =
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
+
+        UpdateIngredientModalSearch terms ->
+            ( { model | modal = IngredientModal { terms = terms } }, session, Cmd.none )
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -449,7 +460,7 @@ absoluteImpactView model results =
                 , if model.impact.trigram == Definition.Ecs then
                     div [ class "text-center fs-7" ]
                         [ text " dont -"
-                        , results.recipe.totalBonusesImpact.total
+                        , results.recipe.totalComplementsImpact.total
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat model.impact
                         , text " de bonus déduit"
@@ -552,10 +563,9 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
-            , variant = recipeIngredient.variant
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
-            , bonuses = Just recipeIngredient.bonuses
+            , complements = Just recipeIngredient.complements
             }
 
         event =
@@ -582,30 +592,20 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 recipeIngredient.ingredient.id
                 excluded
                 (\newIngredient ->
-                    let
-                        newVariant =
-                            case ingredientQuery.variant of
-                                Query.DefaultVariant ->
-                                    Query.DefaultVariant
-
-                                Query.Organic ->
-                                    if newIngredient.variants.organic == Nothing then
-                                        -- Fallback to "Default" if the new ingredient doesn't have an "organic" variant
-                                        Query.DefaultVariant
-
-                                    else
-                                        Query.Organic
-                    in
                     event
                         { ingredientQuery
                             | id = newIngredient.id
-                            , variant = newVariant
                             , country = Nothing
                             , planeTransport = Ingredient.byPlaneByDefault newIngredient
-                            , bonuses =
-                                newVariant
-                                    |> Query.updateBonusesFromVariant db.ingredients newIngredient.id
-                                    |> Just
+                            , complements =
+                                if newIngredient.id /= recipeIngredient.ingredient.id then
+                                    Just newIngredient.complements
+
+                                else if newIngredient.complements /= recipeIngredient.complements then
+                                    Just recipeIngredient.complements
+
+                                else
+                                    Nothing
                         }
                 )
         , db.countries
@@ -641,39 +641,6 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                             }
                     )
                 ]
-        , label
-            [ class "BioCheckbox"
-            , classList [ ( "text-muted", recipeIngredient.ingredient.variants.organic == Nothing ) ]
-            ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input no-outline"
-                , attribute "role" "switch"
-                , checked <| recipeIngredient.variant == Query.Organic
-                , disabled <| recipeIngredient.ingredient.variants.organic == Nothing
-                , onCheck
-                    (\checked ->
-                        let
-                            variant =
-                                if checked then
-                                    Query.Organic
-
-                                else
-                                    Query.DefaultVariant
-                        in
-                        event
-                            { ingredientQuery
-                                | variant = variant
-                                , bonuses =
-                                    variant
-                                        |> Query.updateBonusesFromVariant db.ingredients recipeIngredient.ingredient.id
-                                        |> Just
-                            }
-                    )
-                ]
-                []
-            , text "bio"
-            ]
         , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact
                 |> Format.formatFoodSelectedImpact selectedImpact
@@ -681,50 +648,50 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if selectedImpact.trigram == Definition.Ecs then
             let
-                { bonuses, ingredient } =
+                { complements, ingredient } =
                     recipeIngredient
 
-                bonusImpacts =
+                complementsImpacts =
                     impact
-                        |> Recipe.computeIngredientBonusesImpacts db.impactDefinitions bonuses
+                        |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
             in
             details [ class "IngredientBonuses fs-7" ]
                 [ summary [] [ text "Bonus écologiques" ]
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Diversité agricole"
                     , title = Nothing
                     , domId = "agroDiversity_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.agroDiversity
-                    , bonusSplit = bonuses.agroDiversity
+                    , complementImpact = complementsImpacts.agroDiversity
+                    , complementSplit = complements.agroDiversity
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | agroDiversity = split } }
+                            event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
                     }
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Infra. agro-éco."
                     , title = Just "Infrastructures agro-écologiques"
                     , domId = "agroEcology_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.agroEcology
-                    , bonusSplit = bonuses.agroEcology
+                    , complementImpact = complementsImpacts.agroEcology
+                    , complementSplit = complements.agroEcology
                     , disabled = False
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | agroEcology = split } }
+                            event { ingredientQuery | complements = Just { complements | agroEcology = split } }
                     }
-                , ingredientBonusView
+                , ingredientComplementsView
                     { name = "Cond. d'élevage"
                     , title = Nothing
                     , domId = "animalWelfare_" ++ String.fromInt index
-                    , bonusImpact = bonusImpacts.animalWelfare
-                    , bonusSplit = bonuses.animalWelfare
-                    , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.category)
+                    , complementImpact = complementsImpacts.animalWelfare
+                    , complementSplit = complements.animalWelfare
+                    , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
                     , selectedImpact = selectedImpact
                     , updateEvent =
                         \split ->
-                            event { ingredientQuery | bonuses = Just { bonuses | animalWelfare = split } }
+                            event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
                     }
                 ]
 
@@ -741,9 +708,9 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         ]
 
 
-type alias BonusViewConfig msg =
-    { bonusImpact : Unit.Impact
-    , bonusSplit : Split
+type alias ComplementsViewConfig msg =
+    { complementImpact : Unit.Impact
+    , complementSplit : Split
     , disabled : Bool
     , domId : String
     , name : String
@@ -753,8 +720,8 @@ type alias BonusViewConfig msg =
     }
 
 
-ingredientBonusView : BonusViewConfig Msg -> Html Msg
-ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedImpact, title, updateEvent } =
+ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
+ingredientComplementsView { name, complementImpact, complementSplit, disabled, domId, selectedImpact, title, updateEvent } =
     div
         [ class "IngredientBonus"
         , title |> Maybe.withDefault name |> Attr.title
@@ -772,7 +739,7 @@ ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedIm
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
-            , Attr.value <| Split.toPercentString bonusSplit
+            , Attr.value <| Split.toPercentString complementSplit
             , onInput
                 (String.toInt
                     >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
@@ -782,15 +749,15 @@ ingredientBonusView { name, bonusImpact, bonusSplit, disabled, domId, selectedIm
             ]
             []
         , div [ class "BonusValue d-flex align-items-center text-muted" ]
-            [ Format.splitAsPercentage bonusSplit
+            [ Format.splitAsPercentage complementSplit
             , Button.smallPillLink
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodBonuses)
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
                 , target "_blank"
                 ]
                 [ Icon.question ]
             ]
         , div [ class "BonusImpact text-end text-muted" ]
-            [ bonusImpact
+            [ complementImpact
                 |> Quantity.negate
                 |> Unit.impactToFloat
                 |> Format.formatImpactFloat selectedImpact
@@ -964,7 +931,7 @@ ingredientListView db selectedImpact recipe results =
                                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                                 |> List.isEmpty
                             )
-                        , onClick AddIngredient
+                        , onClick (SetModal (IngredientModal { terms = "" }))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -1399,13 +1366,13 @@ impactTabsView model results =
                         |> List.map (\{ name, value } -> ( name, value ))
                         |> (++)
                             [ ( "Bonus de diversité agricole"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroDiversity)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroDiversity)
                               )
                             , ( "Bonus d'infrastructures agro-écologiques"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.agroEcology)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroEcology)
                               )
                             , ( "Bonus conditions d'élevage"
-                              , -(Unit.impactToFloat results.recipe.totalBonusesImpact.animalWelfare)
+                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.animalWelfare)
                               )
                             ]
                         |> List.sortBy Tuple.second
@@ -1432,7 +1399,7 @@ impactTabsView model results =
                         , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
                         , ( "Ressource", Unit.impactToFloat results.scoring.resources )
-                        , ( "Bonus", -(Unit.impactToFloat results.scoring.bonuses) )
+                        , ( "Bonus", -(Unit.impactToFloat results.scoring.complements) )
                         ]
             ]
         }
@@ -1529,6 +1496,97 @@ view session model =
                             ]
                         , footer = []
                         }
+
+                IngredientModal { terms } ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Sélectionnez un ingrédient"
+                        , formAction = Nothing
+                        , content =
+                            [ input
+                                [ type_ "search"
+                                , id "ingredient-search"
+                                , class "form-control"
+                                , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
+                                , onInput UpdateIngredientModalSearch
+                                ]
+                                []
+                            , let
+                                toWords =
+                                    String.toLower
+                                        >> Normalize.removeDiacritics
+                                        >> String.foldl
+                                            (\c acc ->
+                                                if not (List.member c [ '(', ')' ]) then
+                                                    String.cons c acc
+
+                                                else
+                                                    acc
+                                            )
+                                            ""
+                                        >> String.split " "
+
+                                searchWords =
+                                    toWords (String.trim terms)
+                              in
+                              model.db.ingredients
+                                |> List.map
+                                    (\ingredient ->
+                                        ( toWords ingredient.name
+                                        , ingredient
+                                        )
+                                    )
+                                |> List.filter
+                                    (\( words, _ ) ->
+                                        if terms /= "" then
+                                            searchWords
+                                                |> List.all (\w -> List.any (String.contains w) words)
+
+                                        else
+                                            True
+                                    )
+                                |> List.sortBy (Tuple.second >> .name)
+                                |> List.map
+                                    (\( _, ingredient ) ->
+                                        let
+                                            alreadyUsed =
+                                                session.queries.food.ingredients
+                                                    |> List.map .id
+                                                    |> List.member ingredient.id
+                                        in
+                                        button
+                                            [ class "IngredientAutocompleteChoice"
+                                            , class "d-flex justify-content-between align-items-center w-100"
+                                            , class "btn border-0 border-bottom text-start no-outline"
+                                            , classList
+                                                [ ( "btn-outline-primary", not alreadyUsed )
+                                                , ( "btn-light", alreadyUsed )
+                                                ]
+                                            , onClick (AddIngredient ingredient)
+                                            , disabled alreadyUsed
+                                            ]
+                                            [ text <|
+                                                ingredient.name
+                                                    ++ (if alreadyUsed then
+                                                            " (déjà dans la recette)"
+
+                                                        else
+                                                            ""
+                                                       )
+                                            , span [ class "text-muted fs-7" ]
+                                                [ ingredient.categories
+                                                    |> List.head
+                                                    |> Maybe.map (IngredientCategory.toLabel >> text)
+                                                    |> Maybe.withDefault (text "")
+                                                ]
+                                            ]
+                                    )
+                                |> div [ class "IngredientAutocomplete" ]
+                            ]
+                        , footer = []
+                        }
             ]
       ]
     )
@@ -1541,4 +1599,4 @@ subscriptions { modal } =
             Sub.none
 
         _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+            BE.onKeyDown (Key.escape (SetModal NoModal))
