@@ -1578,15 +1578,15 @@ view session model =
                                     button
                                         (events index
                                             ++ [ class "IngredientAutocompleteChoice"
-                                               , class "d-flex justify-content-between align-items-center w-100"
+                                               , class "d-flex justify-content-between align-items-center gap-1 w-100"
                                                , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
                                                , classList
                                                     [ ( "btn-primary selected", Autocomplete.isSelected selectedIndex_ index )
                                                     ]
                                                ]
                                         )
-                                        [ text ingredient.name
-                                        , span [ class "text-muted fs-7" ]
+                                        [ span [ class "text-nowrap" ] [ text ingredient.name ]
+                                        , span [ class "text-muted fs-8 text-truncate" ]
                                             [ ingredient.categories
                                                 |> List.head
                                                 |> Maybe.map (IngredientCategory.toLabel >> text)
