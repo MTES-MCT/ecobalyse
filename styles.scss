@@ -824,9 +824,11 @@ q {
 }
 
 .IngredientAutocomplete {
-  height: 204px;
+  height: 368px;
   &Choice {
+    &.selected,
     &:hover {
+      color: #fff !important;
       span {
         color: #fff !important;
       }
