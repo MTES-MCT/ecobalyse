@@ -553,7 +553,7 @@ toTrigram str =
 
         -- Complements
         "cage" ->
-            Ok Pef
+            Ok CAge
 
         _ ->
             Err <| "Trigramme d'impact inconnu: " ++ str
