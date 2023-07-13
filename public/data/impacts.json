@@ -523,7 +523,7 @@
   "cage": {
     "source": {
       "label": "Ecobalyse",
-      "url": ""
+      "url": "https://ecobalyse.beta.gouv.fr/"
     },
     "label_en": "Agro-ecology complement",
     "label_fr": "Complément agro-écologique",
@@ -533,8 +533,6 @@
     "description_fr": "",
     "short_unit": "µPt",
     "decimals": 2,
-    "quality": 3,
-    "pef": {},
-    "ecoscore": {}
+    "quality": 3
   }
 }

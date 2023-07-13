@@ -131,10 +131,14 @@ impactSelector definitions { selectedImpact, switchImpact } =
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
         , Definition.toList definitions
-            |> List.filter (.trigram >> Definition.isAggregate >> not)
+            |> List.filter (\{ trigram } -> not (Definition.isAggregate trigram) && not (Definition.isComplement trigram))
             |> List.sortBy .label
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts détaillés" ]
+        , Definition.toList definitions
+            |> List.filter (.trigram >> Definition.isComplement)
+            |> List.map toOption
+            |> optgroup [ attribute "label" "Compléments" ]
         ]
 
 

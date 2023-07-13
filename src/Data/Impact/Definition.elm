@@ -14,6 +14,7 @@ module Data.Impact.Definition exposing
     , get
     , init
     , isAggregate
+    , isComplement
     , map
     , toList
     , toString
@@ -122,6 +123,8 @@ type alias Base a =
     -- Aggregated scores
     , ecs : a
     , pef : a
+
+    -- Complements
     , cage : a
     }
 
@@ -160,6 +163,8 @@ init a =
     -- Aggregated scores
     , ecs = a
     , pef = a
+
+    -- Complements
     , cage = a
     }
 
@@ -234,6 +239,7 @@ update trigram updateFunc definitions =
         Pef ->
             { definitions | pef = updateFunc definitions.pef }
 
+        -- Complements
         CAge ->
             { definitions | cage = updateFunc definitions.cage }
 
@@ -377,7 +383,9 @@ map func definitions =
     -- Aggregated scores
     , ecs = func Ecs definitions.ecs
     , pef = func Pef definitions.pef
-    , cage = func CAge definitions.pef
+
+    -- Complements
+    , cage = func CAge definitions.cage
     }
 
 
@@ -564,6 +572,11 @@ isAggregate trigram =
     trigram == Pef || trigram == Ecs
 
 
+isComplement : Trigram -> Bool
+isComplement trigram =
+    trigram == CAge
+
+
 
 ---- Decoders
 
@@ -649,8 +662,8 @@ decodeDefinition trigram =
         |> Pipe.required "short_unit" Decode.string
         |> Pipe.required "decimals" Decode.int
         |> Pipe.required "quality" decodeQuality
-        |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
-        |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
+        |> Pipe.optional "pef" (Decode.maybe decodeAggregatedScoreData) Nothing
+        |> Pipe.optional "ecoscore" (Decode.maybe decodeAggregatedScoreData) Nothing
 
 
 
