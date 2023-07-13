@@ -29,7 +29,7 @@ Deux correctifs sont appliqués temporairement par Ecobalyse  :&#x20;
 1\) pour les **radiations ionisantes**, un correctif est appliqué sur les procédés Mix Electriques nationaux : une division par 4,5 du total.\
 En effet, les données Base Impacts datent de 2010 et surestiment considérablement les radiations ionisantes liées aux déchets radioactifs générés par l'utilisation du nucléaire dans les mix électriques nationaux. Sur la base d'une analyse de sensibilité réalisée avec les données EF 2.0 (qui datent de 2018), un écart moyen de 4,5 est constaté.
 
-2\) pour l'**épuisement des ressources en eau**, un impact est proposé, en construction, à partir des données de la [base EP\&L de Kering](https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/).
+2\) pour l'**épuisement des ressources en eau**, un impact est proposé, en construction, à partir des données de la [base EP\&L de Kering](https://kering-group.opendatasoft.com/pages/material-intensities/).
 {% endhint %}
 
 <details>
