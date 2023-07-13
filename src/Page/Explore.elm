@@ -78,7 +78,11 @@ init builderDb scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { builderDb = builderDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
+    ( { builderDb = builderDb
+      , dataset = dataset
+      , scope = scope
+      , tableState = SortableTable.initialSort initialSort
+      }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
     )
@@ -225,7 +229,7 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
     , maybeTrigram
-        |> Maybe.map (\trigram -> Definition.get trigram definitions)
+        |> Maybe.map (\trigram -> Definition.get trigram definitions |> Debug.log "plop")
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")

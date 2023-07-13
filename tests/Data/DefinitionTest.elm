@@ -16,7 +16,12 @@ suite : Test
 suite =
     suiteWithDb "Data.Impact.Definition"
         (\{ textileDb } ->
-            [ Definition.trigrams
+            [ textileDb.impactDefinitions
+                |> Definition.get Definition.CAge
+                |> .label
+                |> Expect.equal "Complément agro-écologique"
+                |> asTest "should resolve to the expected trigram definition"
+            , Definition.trigrams
                 |> List.length
                 |> Expect.equal 23
                 |> asTest "There are 23 impact trigrams"

@@ -529,8 +529,8 @@
     "label_fr": "Complément agro-écologique",
     "unit_fr": "µPt d'impact",
     "unit_en": "impact µPt",
-    "description_en": "",
-    "description_fr": "",
+    "description_en": "Desc english",
+    "description_fr": "Desc fr",
     "short_unit": "µPt",
     "decimals": 2,
     "quality": 3

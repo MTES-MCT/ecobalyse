@@ -120,12 +120,18 @@ type alias Base a =
     , tre : a
     , wtu : a
 
-    -- Aggregated scores
-    , ecs : a
-    , pef : a
-
     -- Complements
     , cage : a
+
+    -- Aggregated scores
+    -- WARNING: these must be defined at the last positions because of
+    -- the way we decode things in decodeWithoutAggregated and decode.
+    -- Took me 3 full hours investigating why adding a new impact
+    -- definition was breaking absolutely everything in the app while
+    -- the code compiled just fine.
+    -- FIXME: fix this situation.
+    , ecs : a
+    , pef : a
     }
 
 
@@ -160,12 +166,12 @@ init a =
     , tre = a
     , wtu = a
 
+    -- Complements
+    , cage = a
+
     -- Aggregated scores
     , ecs = a
     , pef = a
-
-    -- Complements
-    , cage = a
     }
 
 
@@ -232,16 +238,16 @@ update trigram updateFunc definitions =
         Wtu ->
             { definitions | wtu = updateFunc definitions.wtu }
 
+        -- Complements
+        CAge ->
+            { definitions | cage = updateFunc definitions.cage }
+
         -- Aggregated scores
         Ecs ->
             { definitions | ecs = updateFunc definitions.ecs }
 
         Pef ->
             { definitions | pef = updateFunc definitions.pef }
-
-        -- Complements
-        CAge ->
-            { definitions | cage = updateFunc definitions.cage }
 
 
 trigrams : List Trigram
@@ -267,12 +273,12 @@ trigrams =
     , Tre
     , Wtu
 
+    -- Complements
+    , CAge
+
     -- Aggregated scores
     , Ecs
     , Pef
-
-    -- Complements
-    , CAge
     ]
 
 
@@ -345,16 +351,16 @@ get trigram definitions =
         Wtu ->
             definitions.wtu
 
+        -- Complements
+        CAge ->
+            definitions.cage
+
         -- Aggregated scores
         Ecs ->
             definitions.ecs
 
         Pef ->
             definitions.pef
-
-        -- Complements
-        CAge ->
-            definitions.cage
 
 
 map : (Trigram -> a -> b) -> Base a -> Base b
@@ -380,12 +386,12 @@ map func definitions =
     , tre = func Tre definitions.tre
     , wtu = func Wtu definitions.wtu
 
+    -- Complements
+    , cage = func CAge definitions.cage
+
     -- Aggregated scores
     , ecs = func Ecs definitions.ecs
     , pef = func Pef definitions.pef
-
-    -- Complements
-    , cage = func CAge definitions.cage
     }
 
 
@@ -477,16 +483,16 @@ toString trigram =
         Wtu ->
             "wtu"
 
+        -- Complements
+        CAge ->
+            "cage"
+
         -- Aggregated scores
         Ecs ->
             "ecs"
 
         Pef ->
             "pef"
-
-        -- Complements
-        CAge ->
-            "cage"
 
 
 toTrigram : String -> Result String Trigram
@@ -552,16 +558,16 @@ toTrigram str =
         "wtu" ->
             Ok Wtu
 
+        -- Complements
+        "cage" ->
+            Ok CAge
+
         -- Aggregated scores
         "ecs" ->
             Ok Ecs
 
         "pef" ->
             Ok Pef
-
-        -- Complements
-        "cage" ->
-            Ok CAge
 
         _ ->
             Err <| "Trigramme d'impact inconnu: " ++ str
