@@ -76,6 +76,8 @@ type Trigram
       -- Aggregated scores
     | Ecs
     | Pef
+      -- Complements
+    | CAge
 
 
 type alias Definition =
@@ -120,6 +122,7 @@ type alias Base a =
     -- Aggregated scores
     , ecs : a
     , pef : a
+    , cage : a
     }
 
 
@@ -157,6 +160,7 @@ init a =
     -- Aggregated scores
     , ecs = a
     , pef = a
+    , cage = a
     }
 
 
@@ -230,6 +234,9 @@ update trigram updateFunc definitions =
         Pef ->
             { definitions | pef = updateFunc definitions.pef }
 
+        CAge ->
+            { definitions | cage = updateFunc definitions.cage }
+
 
 trigrams : List Trigram
 trigrams =
@@ -257,6 +264,9 @@ trigrams =
     -- Aggregated scores
     , Ecs
     , Pef
+
+    -- Complements
+    , CAge
     ]
 
 
@@ -336,6 +346,10 @@ get trigram definitions =
         Pef ->
             definitions.pef
 
+        -- Complements
+        CAge ->
+            definitions.cage
+
 
 map : (Trigram -> a -> b) -> Base a -> Base b
 map func definitions =
@@ -363,6 +377,7 @@ map func definitions =
     -- Aggregated scores
     , ecs = func Ecs definitions.ecs
     , pef = func Pef definitions.pef
+    , cage = func CAge definitions.pef
     }
 
 
@@ -461,6 +476,10 @@ toString trigram =
         Pef ->
             "pef"
 
+        -- Complements
+        CAge ->
+            "cage"
+
 
 toTrigram : String -> Result String Trigram
 toTrigram str =
@@ -532,6 +551,10 @@ toTrigram str =
         "pef" ->
             Ok Pef
 
+        -- Complements
+        "cage" ->
+            Ok Pef
+
         _ ->
             Err <| "Trigramme d'impact inconnu: " ++ str
 
@@ -568,6 +591,7 @@ decodeWithoutAggregated decoder =
         |> Pipe.required "swe" (decoder "swe")
         |> Pipe.required "tre" (decoder "tre")
         |> Pipe.required "wtu" (decoder "wtu")
+        |> Pipe.required "cage" (decoder "cage")
 
 
 decode : Decoder Definitions

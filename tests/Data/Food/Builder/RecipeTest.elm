@@ -175,6 +175,7 @@ suite =
                             , swe = Expect.greaterThan 0
                             , tre = Expect.greaterThan 0
                             , wtu = Expect.greaterThan 0
+                            , cage = Expect.equal 0
                             }
                         |> asTest "should return computed impacts where none equals zero"
                      , carrotCakeResults

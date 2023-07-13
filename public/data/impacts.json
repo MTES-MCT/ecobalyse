@@ -519,5 +519,22 @@
       "normalization": 1.6773e4,
       "weighting": 0.125
     }
+  },
+  "cage": {
+    "source": {
+      "label": "Ecobalyse",
+      "url": ""
+    },
+    "label_en": "Agro-ecology complement",
+    "label_fr": "Complément agro-écologique",
+    "unit_fr": "µPt d'impact",
+    "unit_en": "impact µPt",
+    "description_en": "",
+    "description_fr": "",
+    "short_unit": "µPt",
+    "decimals": 2,
+    "quality": 3,
+    "pef": {},
+    "ecoscore": {}
   }
 }

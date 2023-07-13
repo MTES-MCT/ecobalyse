@@ -116,6 +116,7 @@ suite =
                         , swe = expectImpactEqual 0.010932969853481399
                         , tre = expectImpactEqual 0.12407138654493885
                         , wtu = expectImpactEqual 0.7436928514704245
+                        , cage = expectImpactEqual 0
                         }
                     |> asTest "should return computed impacts"
                 ]
