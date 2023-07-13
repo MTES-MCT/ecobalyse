@@ -47,8 +47,8 @@
     "name": "Oeuf Bleu-Blanc-Cœur",
     "category": "ingredient",
     "categories": [
-      "bleublanccoeur",
-      "animal_product"
+      "animal_product",
+      "bleublanccoeur"
     ],
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "default_origin": "EuropeAndMaghreb",
