@@ -80,7 +80,7 @@ if __name__ == "__main__":
             "complements": activity.get("complements", []),
         }
         for activity in activities
-        if activity.get("ingredient")
+        if activity["category"] == "ingredient"
     ]
     # cleanup unuseful attributes
     for ingredient in ingredients:

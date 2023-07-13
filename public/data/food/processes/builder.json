@@ -6,7 +6,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105162",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 2.8229,
@@ -38,7 +38,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105163",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 2.7312,
@@ -70,7 +70,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105149",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 3.7279,
@@ -102,7 +102,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104145",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 0.8161,
@@ -134,7 +134,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104151",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "impacts": {
       "bvi": 0,
@@ -166,7 +166,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.1321,
@@ -198,7 +198,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.2271,
@@ -230,7 +230,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 1.2164,
@@ -262,7 +262,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114123",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.9939,
@@ -358,7 +358,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115216",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 3.423726823,
@@ -390,7 +390,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200157",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 2.351161646,
@@ -422,7 +422,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112430",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "material",
+    "category": "ingredient",
     "comment": "EcoSpold01Location=FRProduction Volume Amount: 4532871168",
     "impacts": {
       "bvi": 0.073211803,
@@ -454,7 +454,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200196",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 1.464805983,
@@ -486,7 +486,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.074402694,
@@ -518,7 +518,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115758",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.131792529,
@@ -550,7 +550,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116702",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 0.338079058,
@@ -934,7 +934,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109215",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "category": "material",
     "comment": "",
     "impacts": {
       "bvi": 20.6954393,
@@ -998,7 +998,7 @@
     "unit": "kilogram",
     "identifier": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
     "system_description": "Ecobalyse",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 5.408719682,
@@ -1094,7 +1094,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106864",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.728840715,
@@ -1126,7 +1126,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200264",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0.539152617,
@@ -1158,7 +1158,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "BRAZIL",
     "impacts": {
       "bvi": 0,
@@ -1190,7 +1190,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112448",
     "system_description": "",
-    "category": "processing",
+    "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
       "bvi": 0,
@@ -1222,7 +1222,7 @@
     "unit": "kilogram",
     "identifier": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
     "system_description": "Ecobalyse",
-    "category": "processing",
+    "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
       "bvi": 2.3100463388,
@@ -1254,7 +1254,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115182",
     "system_description": "",
-    "category": "material",
+    "category": "ingredient",
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
       "bvi": 0,
@@ -1286,7 +1286,7 @@
     "unit": "kilogram",
     "identifier": "aad2f55d-4b47-8126-0a70-47d8e317e238",
     "system_description": "Ecobalyse",
-    "category": "material",
+    "category": "ingredient",
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
       "bvi": -2.6277846836500003,
@@ -1318,7 +1318,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1350,7 +1350,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1382,7 +1382,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111019",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1414,7 +1414,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111025",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1446,7 +1446,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110952",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 0,
@@ -1478,7 +1478,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110947",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
       "bvi": 0,
@@ -1510,7 +1510,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1542,7 +1542,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1638,7 +1638,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1702,7 +1702,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1734,7 +1734,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,
@@ -1766,7 +1766,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200066",
     "system_description": "AGRIBALYSE",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
       "bvi": 0,

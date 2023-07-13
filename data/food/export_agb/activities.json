@@ -688,7 +688,7 @@
     "name": "Huile de colza",
     "search": "Rapeseed oil mill {GLO}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "processing",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -707,7 +707,7 @@
     "name": "Huile de colza bio",
     "search": "Rapeseed oil mill {GLO}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "processing",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed",
       "organic"
