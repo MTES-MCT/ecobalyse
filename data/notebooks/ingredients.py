@@ -61,6 +61,7 @@ FIELDS = {
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
     "bvi": "Bio-diversité",
+    "explain": "Détails",
     "subingredient_default": "Sous-ingrédient conventionnel",
     "subingredient_organic": "Sous-ingrédient bio",
     "ratio": "Ratio Complexe/Simple",
@@ -204,16 +205,23 @@ w_bvi = ipywidgets.BoundedFloatText(
     min=0,
     style=style,
 )
+w_explain = ipywidgets.Textarea(
+    placeholder="Détails sur les valeurs de l'ingredient",
+    layout=ipywidgets.Layout(width="450px", height="200px"),
+    disabled=False,
+)
 
 # Missing Organic activity, we need to build one using subingredients
 w_subingredient_default = ipywidgets.Combobox(
     placeholder="wheat grain conventional",
     style=style,
+    ensure_option=False,
     options=tuple([""] + list(read_activities().keys())),
 )
 w_subingredient_organic = ipywidgets.Combobox(
     placeholder="wheat grain organic",
     style=style,
+    ensure_option=False,
     options=tuple([""] + list(read_activities().keys())),
 )
 ## Quantity of component necessary to produce 1 unit of constructed process.
@@ -312,9 +320,10 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "bvi": w_bvi.value,
-        "subingredient_default": w_subingredient_default,
-        "subingredient_organic": w_subingredient_organic,
-        "ratio": w_ratio,
+        "explain": w_explain.value,
+        "subingredient_default": w_subingredient_default.value,
+        "subingredient_organic": w_subingredient_organic.value,
+        "ratio": w_ratio.value,
         "complements.agro-diversity": w_complement_agrodiv.value,
         "complements.agro-ecology": w_complement_agroeco.value,
         "complements.animal-welfare": w_complement_animal_welfare.value,
@@ -383,7 +392,7 @@ def clear_form():
     w_search.value = ""
     w_results.options = [""]
     w_results.value = ""
-    w_category.value = ""
+    w_category.value = None
     w_categories.value = []
     w_default_origin.value = "EuropeAndMaghreb"
     w_raw_to_cooked_ratio.value = 0
@@ -583,6 +592,14 @@ display(
                                 FIELDS["transport_cooling"],
                             ),
                             w_cooling,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["explain"],
+                            ),
+                            w_explain,
                         ),
                     ),
                 ),
