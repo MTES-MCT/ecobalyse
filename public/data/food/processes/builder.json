@@ -768,38 +768,6 @@
     }
   },
   {
-    "id": "ground-beef-feedlot-organic",
-    "name": "ground-beef-feedlot-organic, constructed by Ecobalyse",
-    "displayName": "Boeuf haché (Feedlot) bio",
-    "unit": "kilogram",
-    "identifier": "c7267ca4-5583-27c6-d33c-3ca6f2018014",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "",
-    "impacts": {
-      "bvi": 15.04866738,
-      "acd": 0.78475272851,
-      "ozd": 1.59370826268e-06,
-      "cch": 47.231229152000004,
-      "fwe": 0.0050321388781799994,
-      "swe": 0.43857662026,
-      "tre": 3.52327826216,
-      "pco": 0.22034698154999996,
-      "pma": 5.0295634594e-06,
-      "ior": 1.7728513662699998,
-      "fru": 207.97412599399996,
-      "mru": 0.00020106826985999998,
-      "ldu": 2977.59145489,
-      "wtu": 12.054943328899999,
-      "htc": 3.39548514847e-08,
-      "htn": 9.0157932505e-07,
-      "etf": 232.54951652899996,
-      "etf-c": 339.20119101800003,
-      "htc-c": 4.00945248596e-08,
-      "htn-c": 9.55197959182e-07
-    }
-  },
-  {
     "id": "cooked-ham",
     "name": "Cooked ham, case ready, at plant {FR} U",
     "displayName": "Jambon",

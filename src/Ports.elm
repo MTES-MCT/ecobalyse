@@ -1,7 +1,9 @@
 port module Ports exposing
-    ( appStarted
+    ( addBodyClass
+    , appStarted
     , copyToClipboard
     , loadRapidoc
+    , removeBodyClass
     , saveStore
     , scrollIntoView
     , scrollTo
@@ -12,16 +14,22 @@ port module Ports exposing
 -- Outgoing
 
 
+port addBodyClass : String -> Cmd msg
+
+
 port appStarted : () -> Cmd msg
+
+
+port copyToClipboard : String -> Cmd msg
 
 
 port loadRapidoc : String -> Cmd msg
 
 
+port removeBodyClass : String -> Cmd msg
+
+
 port saveStore : String -> Cmd msg
-
-
-port copyToClipboard : String -> Cmd msg
 
 
 port scrollIntoView : String -> Cmd msg
