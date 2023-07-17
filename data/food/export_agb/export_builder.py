@@ -143,9 +143,7 @@ if __name__ == "__main__":
         for key, method in impacts_definition.items():
             lca.switch_method(method)
             lca.lcia()
-            process.setdefault("impacts", {})[key] = (
-                float("{:.10g}".format(lca.score)) * 1.06
-            )
+            process.setdefault("impacts", {})[key] = float("{:.10g}".format(lca.score))
 
         # etf-o = etf-o1 + etf-o2
         process["impacts"]["etf-o"] = (
