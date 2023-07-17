@@ -49,6 +49,14 @@ si vous avez reconstruit l'image, vous pouvez changer le mot de passe de jupyter
 avec : `make shell` puis `jupyter notebook password`, puis exit et redémarrez avec
 `make stop_notebook` puis `make start_notebook`.
 
+## Lancer l'explorateur de procédés
+
+Créez un notebook dans Jupyter puis tapez `import notebooks.explore`, puis shift-Enter
+
+## Lancer l'éditeur de procédés/ingrédients
+
+Créez un notebook dans Jupyter puis tapez `import notebooks.ingredients`, puis shift-Enter
+
 ## Remarques
 
 Si l'`export_ciqual` prend des heures, c'est un problème d'installation de
