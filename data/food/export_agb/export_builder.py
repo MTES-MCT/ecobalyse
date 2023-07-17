@@ -84,9 +84,11 @@ if __name__ == "__main__":
     ]
     # cleanup unuseful attributes
     for ingredient in ingredients:
-        if "animal_product" not in ingredient[
-            "categories"
-        ] and "animal-welfare" in ingredient.get("complements"):
+        if (
+            "animal_product" not in ingredient["categories"]
+            and "dairy_product" not in ingredient["categories"]
+            and "animal-welfare" in ingredient.get("complements")
+        ):
             del ingredient["complements"]["animal-welfare"]
 
     print("Creating builder process list...")
