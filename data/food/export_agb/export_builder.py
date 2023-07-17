@@ -9,7 +9,6 @@ import bw2data
 import functools
 import hashlib
 import json
-import sys
 import uuid
 
 # Input
@@ -22,7 +21,6 @@ IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
 # maximum variation for new impacts compared to old impacts
-maxN = 0.05
 
 bw2data.projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
@@ -210,23 +208,26 @@ if __name__ == "__main__":
         outfile.write("\n")
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
 
-    # warn and stop if impacts changed by more than maxN%
+    # display impacts that have changed
     old = {p["id"]: p["impacts"] for p in oldbuilder}
-    stop = False
+    review = False
     for p in builder:
         for impact in builder[p]["impacts"]:
-            if (
-                old.get(p, {}).get(impact, {})
-                and abs(builder[p]["impacts"][impact] - old[p][impact]) / old[p][impact]
-                > maxN
-            ):
-                print(
-                    f"Impact {impact} of process {p} has evolved by more than {maxN*100}%:\nfrom {old[p][impact]} to {builder[p]['impacts'][impact]}."
+            if old.get(p, {}).get(impact, {}):
+                percent_change = (
+                    100
+                    * abs(builder[p]["impacts"][impact] - old[p][impact])
+                    / old[p][impact]
                 )
-                stop = True
-    if stop:
-        print("\nNot recording builder.json")
-        sys.exit(1)
+                if percent_change > 0.1:
+                    print(
+                        f"Impact {impact} of process {p} has evolved by {percent_change:.2g}%: from {old[p][impact]} to {builder[p]['impacts'][impact]}."
+                    )
+                    review = True
+    if review:
+        print("######################################")
+        print("Please review the impact changes above")
+        print("######################################")
 
     with open(BUILDER, "w") as outfile:
         json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
