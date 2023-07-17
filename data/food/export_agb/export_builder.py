@@ -9,6 +9,7 @@ import bw2data
 import functools
 import hashlib
 import json
+import sys
 import uuid
 
 # Input
@@ -20,31 +21,12 @@ IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition
 # Output
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
+# maximum variation for new impacts compared to old impacts
+maxN = 0.05
 
 bw2data.projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 db = bw2data.Database(DBNAME)
-
-
-def compute_impacts(activity):
-    # Compute the impacts
-    print(f"Computing impacts for {activity}")
-    impacts = {}
-    lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    for key, method in impacts_definition.items():
-        lca.switch_method(method)
-        lca.lcia()
-        impacts[key] = float("{:.10g}".format(lca.score))
-    # etf-o = etf-o1 + etf-o2
-    impacts["etf-o"] = impacts["etf-o1"] + impacts["etf-o2"]
-    del impacts["etf-o1"]
-    del impacts["etf-o2"]
-    # etf = etf1 + etf2
-    impacts["etf"] = impacts["etf1"] + impacts["etf2"]
-    del impacts["etf1"]
-    del impacts["etf2"]
-    return impacts
 
 
 @functools.cache
@@ -55,6 +37,10 @@ def search(name):
 
 
 if __name__ == "__main__":
+    # backup the previous builder with old impacts
+    with open(BUILDER) as f:
+        oldbuilder = json.load(f)
+
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
 
@@ -157,7 +143,9 @@ if __name__ == "__main__":
         for key, method in impacts_definition.items():
             lca.switch_method(method)
             lca.lcia()
-            process.setdefault("impacts", {})[key] = float("{:.10g}".format(lca.score))
+            process.setdefault("impacts", {})[key] = (
+                float("{:.10g}".format(lca.score)) * 1.06
+            )
 
         # etf-o = etf-o1 + etf-o2
         process["impacts"]["etf-o"] = (
@@ -223,6 +211,24 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
+
+    # warn and stop if impacts changed by more than maxN%
+    old = {p["id"]: p["impacts"] for p in oldbuilder}
+    stop = False
+    for p in builder:
+        for impact in builder[p]["impacts"]:
+            if (
+                old.get(p, {}).get(impact, {})
+                and abs(builder[p]["impacts"][impact] - old[p][impact]) / old[p][impact]
+                > maxN
+            ):
+                print(
+                    f"Impact {impact} of process {p} has evolved by more than {maxN*100}%:\nfrom {old[p][impact]} to {builder[p]['impacts'][impact]}."
+                )
+                stop = True
+    if stop:
+        print("\nNot recording builder.json")
+        sys.exit(1)
 
     with open(BUILDER, "w") as outfile:
         json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
