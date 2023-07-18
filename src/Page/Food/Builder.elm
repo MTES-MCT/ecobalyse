@@ -697,15 +697,13 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             in
             details [ class "IngredientBonuses fs-7" ]
                 [ summary []
-                    [ table [ class "BonusesTable" ]
-                        [ tr []
-                            [ td [] [ text "Bonus écologiques" ]
-                            , td [ class "text-success text-end" ]
-                                [ complementsImpacts.total
-                                    |> Quantity.negate
-                                    |> Unit.impactToFloat
-                                    |> Format.formatImpactFloat selectedImpact
-                                ]
+                    [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
+                        [ span [] [ text "Bonus écologiques" ]
+                        , span [ class "text-success text-end" ]
+                            [ complementsImpacts.total
+                                |> Quantity.negate
+                                |> Unit.impactToFloat
+                                |> Format.formatImpactFloat selectedImpact
                             ]
                         ]
                     ]
