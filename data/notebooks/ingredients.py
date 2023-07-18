@@ -488,14 +488,6 @@ display(
     ipywidgets.HBox(
         (
             ipywidgets.Label(
-                FIELDS["visible"],
-            ),
-            w_visible,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
                 FIELDS["id"],
             ),
             w_id,
@@ -508,6 +500,9 @@ display(
             ),
             w_name,
         ),
+    ),
+    ipywidgets.HTML(
+        value="Le terme de recherche doit être minimal et permettre d'arriver au bon procédé. Le procédé sélectionné est le premier de la liste. Si vous ne pouvez pas différencier deux procédés vous pouvez indiquer son code avec : <i>code:1234567890....</i>"
     ),
     ipywidgets.HBox(
         (
@@ -546,6 +541,14 @@ display(
         children=[
             ipywidgets.VBox(
                 (
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["visible"],
+                            ),
+                            w_visible,
+                        ),
+                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
@@ -611,6 +614,9 @@ display(
         children=[
             ipywidgets.VBox(
                 (
+                    ipywidgets.HTML(
+                        value="Sélectionnez les sous-ingrédients conventionnel et bio permettant de créer le nouvel ingrédient bio. Ces sous-ingrédients doivent prélablement avoir été ajoutés à la liste"
+                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
@@ -627,6 +633,9 @@ display(
                             w_subingredient_organic,
                         ),
                     ),
+                    ipywidgets.HTML(
+                        value="Le ratio est la quantité de sous-ingrédient simple nécessaire pour produire 1 unité d'ingrédient bio. Vous avez besoin de 1.16 kg de blé (sous-ingrédient) pour produire 1 kg de farine (ingrédient final) -> ratio = 1.16. Formule: Impact farine bio = impact farine conventionnelle + ratio * ( impact blé bio -  impact blé c  onventionnel)"
+                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
@@ -640,7 +649,7 @@ display(
         ],
     ),
     ipywidgets.Accordion(
-        titles=["Compléments hors ACV"],
+        titles=["Compléments hors ACV (ingrédient uniquement)"],
         children=[
             ipywidgets.VBox(
                 (
@@ -659,6 +668,9 @@ display(
                             ),
                             w_complement_agroeco,
                         ),
+                    ),
+                    ipywidgets.HTML(
+                        value="Le bien-être animal n'est exporté que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>"
                     ),
                     ipywidgets.HBox(
                         (
