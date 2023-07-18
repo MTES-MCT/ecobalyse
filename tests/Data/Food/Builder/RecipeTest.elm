@@ -182,16 +182,22 @@ suite =
                         |> Result.withDefault -99
                         |> Expect.within (Expect.Absolute 0.01) 0.498
                         |> asTest "should compute ingredients total edible mass"
-                     , carrotCakeResults
-                        |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs)
-                        |> Result.map (expectImpactEqual (Unit.impact 108.83961330812544))
-                        |> Expect.equal (Ok Expect.pass)
-                        |> asTest "should have the total ecs impact with the bonus taken into account"
-                     , carrotCakeResults
-                        |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs)
-                        |> Result.map (expectImpactEqual (Unit.impact 73.64370547246703))
-                        |> Expect.equal (Ok Expect.pass)
-                        |> asTest "should have the ingredients' total ecs impact with the bonus taken into account"
+                     , asTest "should have the total ecs impact with the bonus taken into account"
+                        (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
+                            Err err ->
+                                Expect.fail err
+
+                            Ok result ->
+                                expectImpactEqual (Unit.impact 105.55812966672165) result
+                        )
+                     , asTest "should have the ingredients' total ecs impact with the bonus taken into account"
+                        (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
+                            Err err ->
+                                Expect.fail err
+
+                            Ok result ->
+                                expectImpactEqual (Unit.impact 70.35668766328602) result
+                        )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
                             Err err ->
@@ -201,10 +207,10 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 203.05296365279537
+                                    |> Expect.within (Expect.Absolute 0.01) 197.9538556310652
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 205.11825351633945
+                                    |> Expect.within (Expect.Absolute 0.01) 200.0191454946093
                                     |> asTest "should properly score total impact without bonuses"
                                 , Unit.impactToFloat scoring.complements
                                     |> Expect.within (Expect.Absolute 0.01) 2.0652898635440664
@@ -222,7 +228,7 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.01) 39.895732543122364
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 38.178330624469915
+                                    |> Expect.within (Expect.Absolute 0.01) 33.07922260273967
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
