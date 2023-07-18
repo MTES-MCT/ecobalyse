@@ -933,7 +933,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ratio": 0,
+    "ratio":6.58,
     "subingredient_default": "milk",
     "subingredient_organic": "milk-organic",
     "complements": {

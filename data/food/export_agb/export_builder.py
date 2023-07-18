@@ -55,8 +55,8 @@ def search(name):
 
 def find_id(activity):
     # if this is a complex ingredient, the id is the one constructed by ecobalyse
-    if activity["ratio"]:
-        return uuid.UUID(hashlib.md5(f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")).hexdigest())    
+    if "ratio" in activity.keys():
+        return str(uuid.UUID(hashlib.md5(f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")).hexdigest()))    
     else:
         return search(activity["search"])["Process identifier"]
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "complex": True if activity["ratio"] else False,
+            "complex": True if "ratio" in activity.keys() else False,
             "default": find_id(activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             "name": search(activity["search"])["name"],
             "displayName": activity["name"],
             "unit": search(activity["search"])["unit"],
-            "identifier": search(activity["search"])["Process identifier"],
+            "identifier": find_id(activity),
             "system_description": search(activity["search"])["System description"],
             "category": activity.get("category"),
             "comment": list(search(activity["search"]).production())[0]["comment"],
@@ -201,9 +201,6 @@ if __name__ == "__main__":
 
             process["name"] = f"{processid}, constructed by Ecobalyse"
             process["system_description"] = "Ecobalyse"
-            process["identifier"] = str(
-                uuid.UUID(hashlib.md5(process["name"].encode("utf-8")).hexdigest())
-            )
 
         # remove unneeded attributes
         for attribute in (
