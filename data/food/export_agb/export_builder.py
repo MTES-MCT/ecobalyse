@@ -53,6 +53,13 @@ def search(name):
     assert len(results) >= 1, f"'{name}' was not found in Brightway"
     return results[0]
 
+def find_id(activity):
+    # if this is a complex ingredient, the id is the one constructed by ecobalyse
+    if activity["ratio"]:
+        return uuid.UUID(hashlib.md5(f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")).hexdigest())    
+    else:
+        return search(activity["search"])["Process identifier"]
+
 
 if __name__ == "__main__":
     with open(ACTIVITIES, "r") as f:
@@ -70,7 +77,8 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": search(activity["search"])["Process identifier"],
+            "complex": True if activity["ratio"] else False,
+            "default": find_id(activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
             "density": activity["density"],
