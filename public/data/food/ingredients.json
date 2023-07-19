@@ -5,7 +5,6 @@
     "categories": [
       "animal_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003105162",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
@@ -26,7 +25,6 @@
       "animal_product",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003105163",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
@@ -47,7 +45,6 @@
       "animal_product",
       "bleublanccoeur"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003105149",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
@@ -67,7 +64,6 @@
     "categories": [
       "dairy_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003104145",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -88,7 +84,6 @@
       "dairy_product",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003104151",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -108,7 +103,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003102592",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -128,7 +122,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -147,7 +140,6 @@
     "categories": [
       "grain_raw"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200247",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
@@ -167,7 +159,6 @@
       "grain_raw",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003114123",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
@@ -186,7 +177,6 @@
     "categories": [
       "grain_processed"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003116999",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -206,7 +196,6 @@
       "grain_processed",
       "organic"
     ],
-    "complex": true,
     "default": "190daa18-c636-9b3a-1bee-aaba811fdaf6",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -225,7 +214,6 @@
     "categories": [
       "nut_oilseed_raw"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003115216",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -245,7 +233,6 @@
       "nut_oilseed_raw",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200157",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -264,7 +251,6 @@
     "categories": [
       "nut_oilseed_raw"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003112430",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -284,7 +270,6 @@
       "nut_oilseed_raw",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200196",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -303,7 +288,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003115753",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -323,7 +307,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003115758",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -342,7 +325,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003116702",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
@@ -361,7 +343,6 @@
     "categories": [
       "animal_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003107081",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
@@ -382,7 +363,6 @@
       "animal_product",
       "organic"
     ],
-    "complex": true,
     "default": "2c35501a-0556-ff94-03e9-f4140aa9990b",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
@@ -402,7 +382,6 @@
     "categories": [
       "animal_product"
     ],
-    "complex": true,
     "default": "4b2010be-ff2d-5fe3-416b-187ec8428963",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
@@ -422,7 +401,6 @@
     "categories": [
       "animal_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003103910",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
@@ -443,7 +421,6 @@
       "animal_product",
       "organic"
     ],
-    "complex": true,
     "default": "3ec54ea9-9c8e-87fb-986d-85784048c354",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
@@ -463,7 +440,6 @@
     "categories": [
       "animal_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003109221",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
@@ -484,7 +460,6 @@
       "animal_product",
       "organic"
     ],
-    "complex": true,
     "default": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
@@ -504,7 +479,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003106864",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
@@ -524,7 +498,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200264",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
@@ -543,7 +516,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
@@ -562,7 +534,6 @@
     "categories": [
       "nut_oilseed_processed"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003112448",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -582,7 +553,6 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "complex": true,
     "default": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -601,7 +571,6 @@
     "categories": [
       "nut_oilseed_processed"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003115182",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -621,7 +590,6 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "complex": true,
     "default": "aad2f55d-4b47-8126-0a70-47d8e317e238",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -640,7 +608,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -660,7 +627,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200219",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -679,7 +645,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003111019",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -699,7 +664,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003111025",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -718,7 +682,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003110952",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -738,7 +701,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003110947",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -757,7 +719,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003109266",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -777,7 +738,6 @@
       "vegetable_fresh",
       "organic"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200102",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -796,7 +756,6 @@
     "categories": [
       "dairy_product"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003102321",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
@@ -817,7 +776,6 @@
       "dairy_product",
       "organic"
     ],
-    "complex": true,
     "default": "636d2fa2-8c3f-206a-7a92-02fbc6a487ec",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
@@ -837,7 +795,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003110467",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -856,7 +813,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -875,7 +831,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000000003108668",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -894,7 +849,6 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200072",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
@@ -913,7 +867,6 @@
     "categories": [
       "grain_raw"
     ],
-    "complex": false,
     "default": "AGRIBALU000024985200066",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,

@@ -77,7 +77,6 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "complex": True if "ratio" in activity.keys() else False,
             "default": find_id(activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
