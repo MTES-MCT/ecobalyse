@@ -445,6 +445,11 @@ q {
   min-height: 70px;
 }
 
+.BonusesTable {
+  margin-top: -1.5em;
+  text-indent: 11px;
+}
+
 .CardList {
   .list-group-item {
     padding-top: 1.1em;
@@ -901,7 +906,7 @@ q {
     .IngredientBonus {
       display: grid;
       margin-top: 4px;
-      grid-gap: 0 12px;
+      grid-gap: 0 14px;
       grid-template-columns: 1fr 7fr 1fr 1fr;
       grid-template-areas:
         "BonusName BonusRange BonusValue BonusImpact";
@@ -923,7 +928,7 @@ q {
       }
       .BonusValue {
         grid-area: BonusValue;
-        min-width: 70px;
+        min-width: 50px;
       }
       .BonusImpact {
         grid-area: BonusImpact;
