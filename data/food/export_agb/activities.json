@@ -464,7 +464,11 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    }
+    },
+    "ratio": 2.3,
+    "subingredient_default": "beef-cattle",
+    "subingredient_organic": "beef-cattle-feedlot"
+
   },
   {
     "id": "cooked-ham",
@@ -933,7 +937,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ratio": 0,
+    "ratio":6.58,
     "subingredient_default": "milk",
     "subingredient_organic": "milk-organic",
     "complements": {

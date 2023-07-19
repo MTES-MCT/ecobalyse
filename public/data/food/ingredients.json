@@ -42,8 +42,8 @@
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur",
     "categories": [
-      "bleublanccoeur",
-      "animal_product"
+      "animal_product",
+      "bleublanccoeur"
     ],
     "default": "AGRIBALU000000003105149",
     "default_origin": "EuropeAndMaghreb",
@@ -73,7 +73,8 @@
     "visible": true,
     "complements": {
       "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -92,7 +93,8 @@
     "visible": true,
     "complements": {
       "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
@@ -194,7 +196,7 @@
       "grain_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003116999",
+    "default": "190daa18-c636-9b3a-1bee-aaba811fdaf6",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -361,7 +363,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003107081",
+    "default": "2c35501a-0556-ff94-03e9-f4140aa9990b",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -380,7 +382,7 @@
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003107081",
+    "default": "4b2010be-ff2d-5fe3-416b-187ec8428963",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -419,7 +421,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003103910",
+    "default": "3ec54ea9-9c8e-87fb-986d-85784048c354",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -458,7 +460,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003109221",
+    "default": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -551,7 +553,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003112448",
+    "default": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -588,7 +590,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003115182",
+    "default": "aad2f55d-4b47-8126-0a70-47d8e317e238",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -763,7 +765,8 @@
     "visible": true,
     "complements": {
       "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   },
   {
@@ -773,7 +776,7 @@
       "dairy_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003102321",
+    "default": "636d2fa2-8c3f-206a-7a92-02fbc6a487ec",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -782,7 +785,8 @@
     "visible": true,
     "complements": {
       "agro-diversity": 50,
-      "agro-ecology": 50
+      "agro-ecology": 50,
+      "animal-welfare": 50
     }
   },
   {
