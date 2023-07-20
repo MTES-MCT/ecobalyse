@@ -172,15 +172,15 @@ w_cooling = ipywidgets.Dropdown(
     ],
     style=style,
 )
-## Cooked/Raw ratio
-# w_raw_to_cooked_ratio = ipywidgets.BoundedFloatText(
-#    placeholder="Coef",
-#    value=1,
-#    min=0,
-#    step=0.05,
-#    style=style,
-# )
-w_raw_to_cooked_ratio = ipywidgets.Dropdown(
+# Cooked/Raw ratio
+w_raw_to_cooked_ratio = ipywidgets.BoundedFloatText(
+    placeholder="Coef",
+    value=1,
+    min=0,
+    step=0.05,
+    style=style,
+)
+w_density = ipywidgets.Dropdown(
     options=[
         ("", ""),
         ("0,6375 (Pomme de terre, frites, racines)", 0.6375),
@@ -210,13 +210,13 @@ w_raw_to_cooked_ratio = ipywidgets.Dropdown(
     ],
 )
 ## density of the ingredient
-w_density = ipywidgets.BoundedFloatText(
-    placeholder="Coef",
-    value=1,
-    min=0,
-    step=0.05,
-    style=style,
-)
+# w_density = ipywidgets.BoundedFloatText(
+#    placeholder="Coef",
+#    value=1,
+#    min=0,
+#    step=0.05,
+#    style=style,
+# )
 ## inedible part of the ingredient
 w_inedible = ipywidgets.BoundedFloatText(
     placeholder="Part non comestible",
