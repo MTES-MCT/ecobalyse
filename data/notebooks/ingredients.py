@@ -21,6 +21,11 @@ DATABASE = bw2data.Database("Agribalyse 3.1.1")
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
 
+pandas.set_option("display.max_columns", 500)
+pandas.set_option("display.max_rows", 500)
+pandas.set_option("notebook_repr_html", True)
+pandas.set_option("max_colwidth", 15)
+
 
 def dbsearch(term, **kw):
     return DATABASE.search(term, **kw)
@@ -67,12 +72,12 @@ FIELDS = {
     "visible": "Visible",
     "bvi": "Bio-diversité",
     "explain": "Détails",
-    "subingredient_default": "Sous-ingrédient conventionnel",
+    "subingredient_default": "Sous-ingrédient conv.",
     "subingredient_organic": "Sous-ingrédient bio",
-    "ratio": "Ratio Complexe/Simple",
-    "complements.agro-diversity": "Agro Diversity",
-    "complements.agro-ecology": "Agro Ecology",
-    "complements.animal-welfare": "Animal Welfare",
+    "ratio": "Ratio",
+    "complements.agro-diversity": "AgroDiv",
+    "complements.agro-ecology": "AgroEco",
+    "complements.animal-welfare": "Animal welf",
 }
 
 
@@ -180,7 +185,7 @@ w_cooling = ipywidgets.Dropdown(
 # Cooked/Raw ratio
 w_raw_to_cooked_ratio = ipywidgets.Dropdown(
     options=[
-        ("", ""),
+        ("1.0", 1.0),
         ("2,330 (Légumineuses)", 2.33),
         ("2,259 (Céréales)", 2.259),
         ("0,974 (Oeufs)", 0.974),
@@ -193,7 +198,7 @@ w_raw_to_cooked_ratio = ipywidgets.Dropdown(
 )
 w_density = ipywidgets.Dropdown(
     options=[
-        ("", ""),
+        ("", 0),
         ("0,6375 (Pomme de terre, frites, racines)", 0.6375),
         ("0,6195 (Onion, poireau, échalote, chou-rave)", 0.6195),
         ("0,3980 (Aubergine, courgette)", 0.398),
@@ -220,18 +225,10 @@ w_density = ipywidgets.Dropdown(
         ),
     ],
 )
-## density of the ingredient
-# w_density = ipywidgets.BoundedFloatText(
-#    placeholder="Coef",
-#    value=1,
-#    min=0,
-#    step=0.05,
-#    style=style,
-# )
 ## inedible part of the ingredient
 w_inedible = ipywidgets.Dropdown(
     options=[
-        ("", ""),
+        ("", 1),
         ("◼◼◼◼◼ FRUITS ◼◼◼◼◼", ""),
         (" 3% (tomate, mures, myrtilles, framboises, fraises)", 0.03),
         ("10% (pommes, poire, raisin)", 0.1),
@@ -364,10 +361,12 @@ commitbutton = ipywidgets.Button(
 def list_activities():
     activities = read_activities()
     with open(ACTIVITIES_TEMP) as fp:
-        pandas.set_option("display.max_rows", 500)
+
+        df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
+        df.style
         display(
             Markdown(f"# List of {len(activities)} activities/ingredients:"),
-            pandas.DataFrame(activities.values(), columns=list(FIELDS.values())),
+            df,
             Markdown(f"# Resulting JSON file:"),
         )
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
@@ -388,9 +387,9 @@ def clear_form():
     w_category.value = None
     w_categories.value = []
     w_default_origin.value = "EuropeAndMaghreb"
-    w_raw_to_cooked_ratio.value = ""
-    w_density.value = ""
-    w_inedible.value = ""
+    w_raw_to_cooked_ratio.value = 1
+    w_density.value = 0
+    w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
     w_bvi.value = 0
@@ -439,7 +438,7 @@ def change_id(change):
     )
     set_field(w_category, i.get("category"), "")
     set_field(w_categories, i.get("categories"), [])
-    set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 0)
+    set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
     set_field(w_density, i.get("density"), 0)
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
