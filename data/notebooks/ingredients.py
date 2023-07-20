@@ -173,38 +173,44 @@ w_cooling = ipywidgets.Dropdown(
     style=style,
 )
 # Cooked/Raw ratio
-w_raw_to_cooked_ratio = ipywidgets.BoundedFloatText(
-    placeholder="Coef",
-    value=1,
-    min=0,
-    step=0.05,
-    style=style,
+w_raw_to_cooked_ratio = ipywidgets.Dropdown(
+    options=[
+        ("", ""),
+        ("2,330 (Légumineuses)", 2.33),
+        ("2,259 (Céréales)", 2.259),
+        ("0,974 (Oeufs)", 0.974),
+        ("0,856 (Fruits et légumes)", 0.856),
+        ("0,819 (Poissons et fruits de mer)", 0.819),
+        ("0,792 (Viandes rouges)", 0.792),
+        ("0,755 (Volaille)", 0.755),
+        ("0,730 (Abats)", 0.730),
+    ]
 )
 w_density = ipywidgets.Dropdown(
     options=[
         ("", ""),
         ("0,6375 (Pomme de terre, frites, racines)", 0.6375),
         ("0,6195 (Onion, poireau, échalote, chou-rave)", 0.6195),
-        ("0,398 (Aubergine, courgette)", 0.398),
-        ("0,362 (Chou, asperge, artichaut, chou de Bruxelles, citrouille)", 0.362),
-        ("0,575 (Citron, agrumes)", 0.575),
-        ("0,271 (Haricots verts/blancs/plat, soja)", 0.271),
+        ("0,3980 (Aubergine, courgette)", 0.398),
+        ("0,3620 (Chou, asperge, artichaut, chou de Bruxelles, citrouille)", 0.362),
+        ("0,5750 (Citron, agrumes)", 0.575),
+        ("0,2710 (Haricots verts/blancs/plat, soja)", 0.271),
         ("0,2355 (Chou-fleur, brocoli, romanesco)", 0.2355),
         (
-            "0,24 (Niébé, flageolet, mungo, petits pois, légumineuses, lentilles, noix, graines, maïs)",
+            "0,2400 (Niébé, flageolet, mungo, petits pois, légumineuses, lentilles, noix, graines, maïs)",
             0.24,
         ),
         (
-            "0,118 (Épinard, laitue, endives, cresson, champignons, autres légers)",
+            "0,1180 (Épinard, laitue, endives, cresson, champignons, autres légers)",
             0.118,
         ),
-        ("0,295 (Piment doux)", 0.295),
+        ("0,2950 (Piment doux)", 0.295),
         (
-            "0,447 (Concombre, melon, pastèque, tous fruits et baies, noix de coco, céléri, rhubarbe (autres riches en eau)",
+            "0,4470 (Concombre, melon, pastèque, tous fruits et baies, noix de coco, céléri, rhubarbe (autres riches en eau)",
             0.447,
         ),
         (
-            "1.0 (Autres, oeuf, algues, fruits de mer, laitiers, viande, farines, poisson, sauce tomate)",
+            "1.0000 (Autres, oeuf, algues, fruits de mer, laitiers, viande, farines, poisson, sauce tomate)",
             1.0,
         ),
     ],
