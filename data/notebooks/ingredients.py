@@ -342,10 +342,10 @@ def commit_ingredients(_):
             print("SUCCEEDED. Please tell the devs")
         except:
             subprocess.run(["git", "reset", "--hard"])
-            subprocess.run(["git", "co", "origin/ingredients"])
+            subprocess.run(["git", "checkout", "origin/ingredients"])
             subprocess.run(["git", "branch", "-D", "ingredients"])
             subprocess.run(["git", "branch", "ingredients", "origin/ingredients"])
-            subprocess.run(["git", "co", "ingredients"])
+            subprocess.run(["git", "checkout", "ingredients"])
             print("FAILED. Please tell the devs")
     out.clear_output()
     list_ingredients()
