@@ -204,7 +204,7 @@ w_density = ipywidgets.Dropdown(
             "0,1180 (Épinard, laitue, endives, cresson, champignons, autres légers)",
             0.118,
         ),
-        ("0,2950 (Piment doux)", 0.295),
+        ("0,2950 (Poivrons)", 0.295),
         (
             "0,4470 (Concombre, melon, pastèque, tous fruits et baies, noix de coco, céléri, rhubarbe (autres riches en eau)",
             0.447,
@@ -224,12 +224,42 @@ w_density = ipywidgets.Dropdown(
 #    style=style,
 # )
 ## inedible part of the ingredient
-w_inedible = ipywidgets.BoundedFloatText(
-    placeholder="Part non comestible",
-    value=0,
-    min=0,
-    max=1,
-    style=style,
+w_inedible = ipywidgets.Dropdown(
+    options=[
+        ("", ""),
+        ("◼◼◼◼◼ FRUITS ◼◼◼◼◼", ""),
+        (" 3% (tomate, mures, myrtilles, framboises, fraises)", 0.03),
+        ("10% (pommes, poire, raisin)", 0.1),
+        (
+            "20% (abricot, groseille, mandarine, mangue, orange, pêche, prune, grenade)",
+            0.2,
+        ),
+        ("30% (banane, pamplemousse, citron)", 0.3),
+        ("40% (melon)", 0.4),
+        ("50% (amandes, ananas, noix)", 0.5),
+        ("◼◼◼◼◼ LEGUMES ◼◼◼◼◼", ""),
+        (" 0% (pois verts)", 0),
+        (" 3% (céleri, céleri vert, poivron, radis, épinard)", 0.03),
+        (
+            "10% (basilic, betterave, chou de Bruxelles, carotte, manioc, céleri-rave, artichaut chinois/japonais, coriandre, concombre, aubergine)",
+            0.1,
+        ),
+        (
+            "10% (harico vert, topinambour, menthe, champignon, onion, persil, pomme de terre, échalote, patate douce, igname)",
+            0.1,
+        ),
+        (
+            "20% (estragon, navet, broccoli, chou, chou-fleur, chicorée, endive, fenouil, cresson, petits pois, poireau, citrouille, endive rouge, salsifis)",
+            0.2,
+        ),
+        ("30% (avocat)", 0.3),
+        ("40% (asperge, scarole, laitue, salade)", 0.4),
+        ("50% (chataîgne, olive)", 0.5),
+        ("60% (artichaut)", 0.6),
+        ("◼◼◼◼◼ AUTRES ◼◼◼◼◼", ""),
+        (" 0% (viande désossée)", 0),
+        ("20% (oeuf, viande avec os)", 0.2),
+    ]
 )
 ## Enable/disable the ingredient
 w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
