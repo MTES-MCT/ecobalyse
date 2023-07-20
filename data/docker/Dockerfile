@@ -23,6 +23,8 @@ ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/heads/ma
 ADD https://api.github.com/repos/brightway-lca/brightway2-analyzer/git/refs/heads/main bw2-analyzer.json
 
 COPY requirements.txt .
+COPY gitconfig ~/.gitconfig
+
 USER root
 RUN apt update \
     && apt install -y gosu \
