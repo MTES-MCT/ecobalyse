@@ -2,12 +2,11 @@
   {
     "id": "egg",
     "name": "Oeuf",
-    "ingredient": true,
-    "category": "material",
+    "search": "Egg national average at farm gate",
+    "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "search": "Egg national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -24,8 +23,7 @@
   {
     "id": "egg-organic",
     "name": "Oeuf bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
@@ -47,11 +45,10 @@
   {
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
-      "bleublanccoeur",
-      "animal_product"
+      "animal_product",
+      "bleublanccoeur"
     ],
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "default_origin": "EuropeAndMaghreb",
@@ -70,8 +67,7 @@
   {
     "id": "milk",
     "name": "Lait",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "dairy_product"
     ],
@@ -92,8 +88,7 @@
   {
     "id": "milk-organic",
     "name": "Lait bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "dairy_product",
       "organic"
@@ -114,10 +109,9 @@
   {
     "id": "carrot",
     "name": "Carotte",
-    "ingredient": true,
     "search": "Carrot conventional national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -135,10 +129,9 @@
   {
     "id": "carrot-organic",
     "name": "Carotte bio",
-    "ingredient": true,
     "search": "Carrot organic Lower Normandy at farm gate",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -157,8 +150,7 @@
   {
     "id": "wheat",
     "name": "Blé tendre",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "grain_raw"
     ],
@@ -178,8 +170,7 @@
   {
     "id": "wheat-organic",
     "name": "Blé tendre bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "grain_raw",
       "organic"
@@ -200,7 +191,6 @@
   {
     "id": "flour",
     "name": "Farine",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "grain_processed"
@@ -221,7 +211,6 @@
   {
     "id": "flour-organic",
     "name": "Farine bio",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "grain_processed",
@@ -241,13 +230,12 @@
     },
     "ratio": 1.16,
     "subingredient_default": "wheat",
-    "subingredient_variant": "wheat-organic"
+    "subingredient_organic": "wheat-organic"
   },
   {
     "id": "sunflower",
     "name": "Tournesol",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -267,8 +255,7 @@
   {
     "id": "sunflower-organic",
     "name": "Tournesol bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -289,8 +276,7 @@
   {
     "id": "rapeseed",
     "name": "Colza",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -310,8 +296,7 @@
   {
     "id": "rapeseed-organic",
     "name": "Colza bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -332,8 +317,7 @@
   {
     "id": "tomato",
     "name": "Tomate",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -353,8 +337,7 @@
   {
     "id": "tomato-organic",
     "name": "Tomate bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -375,8 +358,7 @@
   {
     "id": "potato",
     "name": "Pomme de terre",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -396,7 +378,6 @@
   {
     "id": "ground-beef",
     "name": "Boeuf haché",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product"
@@ -418,7 +399,6 @@
   {
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product",
@@ -439,7 +419,7 @@
     },
     "ratio": 2.3,
     "subingredient_default": "beef-cattle",
-    "subingredient_variant": "cull-cow-organic"
+    "subingredient_organic": "cull-cow-organic"
   },
   {
     "id": "beef-cattle",
@@ -468,7 +448,6 @@
   {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché (Feedlot)",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product"
@@ -488,35 +467,8 @@
     }
   },
   {
-    "id": "ground-beef-feedlot-organic",
-    "name": "Boeuf haché (Feedlot) bio",
-    "ingredient": true,
-    "category": "ingredient",
-    "categories": [
-      "animal_product",
-      "organic"
-    ],
-    "search": "Ground beef fresh case ready for direct consumption at plant",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "bvi": 15.04866738,
-    "ratio": 2.3,
-    "subingredient_default": "beef-cattle",
-    "subingredient_variant": "beef-cattle-feedlot",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
-  },
-  {
     "id": "cooked-ham",
     "name": "Jambon",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product"
@@ -538,7 +490,6 @@
   {
     "id": "cooked-ham-organic",
     "name": "Jambon bio",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product",
@@ -559,7 +510,7 @@
     },
     "ratio": 2.02,
     "subingredient_default": "pig",
-    "subingredient_variant": "pig-organic"
+    "subingredient_organic": "pig-organic"
   },
   {
     "id": "pig",
@@ -581,14 +532,13 @@
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
-    "category": "ingredient",
+    "category": "material",
     "bvi": 20.6954393,
     "categories": []
   },
   {
     "id": "chicken-breast",
     "name": "Poulet",
-    "ingredient": true,
     "category": "ingredient",
     "categories": [
       "animal_product"
@@ -610,8 +560,7 @@
   {
     "id": "chicken-breast-organic",
     "name": "Poulet bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
@@ -631,7 +580,7 @@
     },
     "ratio": 1,
     "subingredient_default": "broiler",
-    "subingredient_variant": "broiler-organic"
+    "subingredient_organic": "broiler-organic"
   },
   {
     "id": "broiler",
@@ -652,8 +601,7 @@
   {
     "id": "grape",
     "name": "Raisin de cuve",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -673,8 +621,7 @@
   {
     "id": "grape-organic",
     "name": "Raisin de cuve bio",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -695,8 +642,7 @@
   {
     "id": "mango",
     "name": "Mangue",
-    "ingredient": true,
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -715,10 +661,9 @@
   {
     "id": "huilecolza",
     "name": "Huile de colza",
-    "ingredient": true,
     "search": "Rapeseed oil mill {GLO}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "processing",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -735,10 +680,9 @@
   {
     "id": "huilecolza-organic",
     "name": "Huile de colza bio",
-    "ingredient": true,
     "search": "Rapeseed oil mill {GLO}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "processing",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -750,7 +694,7 @@
     "visible": true,
     "ratio": 1.66,
     "subingredient_default": "rapeseed",
-    "subingredient_variant": "rapeseed-organic",
+    "subingredient_organic": "rapeseed-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -759,10 +703,9 @@
   {
     "id": "sunfloweroil",
     "name": "Huile de tournesol",
-    "ingredient": true,
     "search": "sunflower oil at mill {glo}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -779,10 +722,9 @@
   {
     "id": "sunfloweroil-organic",
     "name": "Huile de tournesol bio",
-    "ingredient": true,
     "search": "sunflower oil at mill {glo}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -794,7 +736,7 @@
     "visible": true,
     "ratio": 2.45,
     "subingredient_default": "sunflower",
-    "subingredient_variant": "sunflower-organic",
+    "subingredient_organic": "sunflower-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -803,10 +745,9 @@
   {
     "id": "zucchini",
     "name": "Courgette",
-    "ingredient": true,
     "search": "Zucchini conventional national average farm gate FR",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -823,10 +764,9 @@
   {
     "id": "zucchini-organic",
     "name": "Courgette bio",
-    "ingredient": true,
     "search": "zucchini springtime under tunnel organic",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -844,10 +784,9 @@
   {
     "id": "pear",
     "name": "Poire",
-    "ingredient": true,
     "search": "pear, conventional, at orchard",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -864,10 +803,9 @@
   {
     "id": "pear-organic",
     "name": "Poire bio",
-    "ingredient": true,
     "search": "pear organic",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -885,10 +823,9 @@
   {
     "id": "peach",
     "name": "Pêche",
-    "ingredient": true,
     "search": "Peach production mix national average at orchard FR",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -905,10 +842,9 @@
   {
     "id": "peach-organic",
     "name": "Pêche bio",
-    "ingredient": true,
     "search": "peach organic",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -926,10 +862,9 @@
   {
     "id": "melon",
     "name": "Melon",
-    "ingredient": true,
     "search": "Melon, conventional, national average, at farm gate",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -946,10 +881,9 @@
   {
     "id": "melon-organic",
     "name": "Melon bio",
-    "ingredient": true,
     "search": "melon organic",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -967,7 +901,6 @@
   {
     "id": "butter",
     "name": "Beurre",
-    "ingredient": true,
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
     "default_origin": "France",
     "category": "ingredient",
@@ -988,7 +921,6 @@
   {
     "id": "butter-organic",
     "name": "Beurre bio",
-    "ingredient": true,
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
     "default_origin": "France",
     "category": "ingredient",
@@ -1003,7 +935,7 @@
     "visible": true,
     "ratio": 0,
     "subingredient_default": "milk",
-    "subingredient_variant": "milk-organic",
+    "subingredient_organic": "milk-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -1013,10 +945,9 @@
   {
     "id": "onion",
     "name": "Oignon",
-    "ingredient": true,
     "search": "Onion, national average, at farm",
     "default_origin": "OutOfEuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1033,7 +964,6 @@
   {
     "id": "eggplant",
     "name": "Aubergine",
-    "ingredient": true,
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
@@ -1054,10 +984,9 @@
   {
     "id": "lettuce",
     "name": "Laitue",
-    "ingredient": true,
     "search": "Lettuce, conventional, national average, at farm gate {FR} U",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1074,10 +1003,9 @@
   {
     "id": "frenchbean",
     "name": "Haricot vert",
-    "ingredient": true,
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1094,10 +1022,9 @@
   {
     "id": "durumwheat",
     "name": "Blé dur",
-    "ingredient": true,
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "default_origin": "EuropeAndMaghreb",
-    "category": "material",
+    "category": "ingredient",
     "categories": [
       "grain_raw"
     ],
@@ -1120,164 +1047,164 @@
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
+    "category": "packaging",
     "bvi": 0.3318,
     "search": "Packaging film low density polyethylene {RER} production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "ps",
     "name": "Polystyrène",
+    "category": "packaging",
     "bvi": 0.0011,
     "search": "Polystyrene expandable {RER} production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "glass",
     "name": "Verre",
+    "category": "packaging",
     "bvi": 0.3211,
     "search": "Packaging glass white {RER} w/o CH+DE production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "pp",
     "name": "Polypropylène",
+    "category": "packaging",
     "bvi": 0.0003,
     "search": "Polypropylene granulate {RER}| production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "cardboard",
     "name": "Carton",
+    "category": "packaging",
     "bvi": 1.1059,
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "paper",
     "name": "Papier",
+    "category": "packaging",
     "bvi": 7.4795,
     "search": "Kraft paper production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "pvc",
     "name": "PVC",
+    "category": "packaging",
     "bvi": 0.0004,
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "pet",
     "name": "PET",
+    "category": "packaging",
     "bvi": 0.245,
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
+    "category": "packaging",
     "bvi": 0.0004,
     "search": "Polyethylene high density granulate {RER} production",
     "categories": []
   },
   {
-    "category": "packaging",
     "id": "aluminium",
     "name": "Aluminium",
+    "category": "packaging",
     "bvi": 0.94,
     "search": "Aluminium primary ingot {RoW} production",
     "categories": []
   },
   {
-    "category": "transformation",
     "id": "canning",
     "name": "Mise en conserve",
+    "category": "transformation",
     "bvi": 0.0089,
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
     "categories": []
   },
   {
-    "category": "transformation",
     "id": "mixing",
     "name": "Mélange",
+    "category": "transformation",
     "search": "Mixing processing dummy",
     "categories": []
   },
   {
-    "category": "transformation",
     "id": "cooking",
     "name": "Cuisson",
+    "category": "transformation",
     "bvi": 0.012,
     "search": "Cooking industrial 1kg of cooked product FR",
     "categories": []
   },
   {
-    "category": "transport",
     "id": "lorry",
     "name": "Camion",
+    "category": "transport",
     "bvi": 0.055765784,
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
     "categories": []
   },
   {
-    "category": "transport",
     "id": "boat",
     "name": "Bateau",
+    "category": "transport",
     "bvi": 0.000292724,
     "search": "Transport freight sea ship",
     "categories": []
   },
   {
-    "category": "transport",
     "id": "plane",
     "name": "Avion",
+    "category": "transport",
     "bvi": 0.012214369,
     "search": "Transport freight aircraft",
     "categories": []
   },
   {
-    "category": "transport",
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
+    "category": "transport",
     "search": "Transport freight sea ship reefer",
     "categories": []
   },
   {
-    "category": "transport",
     "id": "lorry-cooling",
     "categories": [],
+    "category": "transport",
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}"
   },
   {
-    "category": "energy",
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
+    "category": "energy",
     "search": "Electricity low voltage {FR} market",
     "categories": []
   },
   {
-    "category": "material",
     "categories": [],
     "id": "tapwater",
+    "category": "material",
     "name": "Eau du robinet",
     "search": "Tap water Europe market"
   },
   {
-    "category": "energy",
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
+    "category": "energy",
     "search": "Heat central or small-scale natural gas Europe market",
     "categories": []
   }

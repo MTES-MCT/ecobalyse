@@ -11,8 +11,8 @@ import subprocess
 
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "Ecobalyse"
-INGREDIENTS_BASE = "/home/jovyan/ecobalyse/data/food/export_agb/ingredients_base.json"
-INGREDIENTS_TEMP = "/home/jovyan/ingredients_base.json"
+ACTIVITIES = "/home/jovyan/ecobalyse/data/food/export_agb/activities.json"
+ACTIVITIES_TEMP = "/home/jovyan/activities.json"
 os.getcwd()
 
 bw2data.projects.set_current(PROJECT)
@@ -23,11 +23,11 @@ def dbsearch(term, **kw):
     return DATABASE.search(term, **kw)
 
 
-def save_ingredients(ingredients):
-    with open(INGREDIENTS_TEMP, "w") as fp:
+def save_activities(activities):
+    with open(ACTIVITIES_TEMP, "w") as fp:
         fp.write(
             json.dumps(
-                [from_flat(from_pretty(i)) for i in ingredients.values()],
+                [from_flat(from_pretty(i)) for i in activities.values()],
                 indent=2,
                 ensure_ascii=False,
             )
@@ -50,22 +50,24 @@ def reverse(d):
 
 FIELDS = {
     "id": "id",
-    "name": "Name",
-    "default": "Selected process",
+    "name": "Nom",
+    "search": "Terme de recherche",
     "default_origin": "Default Origin",
-    "category": "Category",
-    "raw_to_cooked_ratio": "Cooked/Raw Ratio",
-    "density": "Density",
+    "category": "Categorie de procédé",
+    "categories": "Categories d'ingrédient",
+    "raw_to_cooked_ratio": "Ratio cuit/cru",
+    "density": "Densité",
+    "inedible_part": "Part non comestible",
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
-    "variants.organic.process": "Selected Organic Process",
-    "variants.organic.ratio": "Complex/Simple Ratio",
-    "variants.organic.simple_ingredient_default": "Selected Default component",
-    "variants.organic.simple_ingredient_variant": "Selected Organic component",
-    "variants.organic.beyondLCA.agro-diversity": "Agro Diversity",
-    "variants.organic.beyondLCA.agro-ecology": "Agro Ecology",
-    "variants.organic.beyondLCA.animal-welfare": "Animal Welfare",
-    "variants.bleu_blanc_coeur": "Selected BleuBlancCoeur Process",
+    "bvi": "Bio-diversité",
+    "explain": "Détails",
+    "subingredient_default": "Sous-ingrédient conventionnel",
+    "subingredient_organic": "Sous-ingrédient bio",
+    "ratio": "Ratio Complexe/Simple",
+    "complements.agro-diversity": "Agro Diversity",
+    "complements.agro-ecology": "Agro Ecology",
+    "complements.animal-welfare": "Animal Welfare",
 }
 
 
@@ -76,43 +78,45 @@ def to_pretty(d):
 
 def from_pretty(d):
     """turn a dict with pretty keys to a dict with dotted keys"""
-    ingredient = {reverse(FIELDS)[k]: v for k, v in d.items()}
-    # if not ingredient.get("variants"):
-    #    ingredient["variants"] = {}
-    return ingredient
+    activity = {reverse(FIELDS)[k]: v for k, v in d.items()}
+    # if not activity.get("variants"):
+    #    activity["variants"] = {}
+    return activity
 
 
-def read_ingredients():
-    """Return the ingredients as a dict indexed with id"""
-    if not os.path.exists(INGREDIENTS_TEMP):
-        shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
+def read_activities():
+    """Return the activities as a dict indexed with id"""
+    if not os.path.exists(ACTIVITIES_TEMP):
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     try:
-        with open(INGREDIENTS_TEMP) as fp:
+        with open(ACTIVITIES_TEMP) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
     except json.JSONDecodeError:
-        shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
-        with open(INGREDIENTS_TEMP) as fp:
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
+        with open(ACTIVITIES_TEMP) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
 
     return igs
 
 
 # WIDGETS
-## technical identifier of the ingredient (for API/URL)
+## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
     placeholder="Identifier",
     style=style,
-    options=tuple([""] + list(read_ingredients().keys())),
+    options=tuple([""] + list(read_activities().keys())),
 )
-## Name of the ingredient (for users)
+## Name of the activity (for users)
 w_name = ipywidgets.Text(
     placeholder="Name",
     style=style,
 )
-## brightway search terms to find the ingredient process
+## Is the activity an ingredient?
+w_ingredient = ipywidgets.Checkbox(indent=False, style=style, value=False)
+## brightway search terms to find the activity
 w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
-w_default = ipywidgets.RadioButtons(
+w_results = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
@@ -131,17 +135,33 @@ w_default_origin = ipywidgets.Dropdown(
 )
 w_category = ipywidgets.Dropdown(
     options=[
-        ("Viandes, œufs, poissons, et dérivés", "animal_product"),
-        ("Lait et ingrédients laitiers", "dairy_product"),
-        ("Céréales brutes", "grain_raw"),
-        ("Céréales transformées", "grain_processed"),
-        ("Fruits à coque et oléoprotéagineux bruts", "nut_oilseed_raw"),
-        ("Graisses végétales et oléoprotéagineux transformés", "nut_oilseed_processed"),
-        ("Divers", "misc"),
-        ("Condiments, épices, additifs", "spice_condiment_additive"),
-        ("Fruits et légumes frais", "vegetable_fresh"),
-        ("Fruits et légumes transformés", "vegetable_processed"),
+        ("Ingrédient", "ingredient"),
+        ("Autre ou sous-ingrédient", "material"),
+        ("Énergie", "energy"),
+        ("Packaging", "packaging"),
+        ("Processing", "processing"),
+        ("Transformation", "transformation"),
+        ("Transport", "transport"),
+        ("Waste Treatment", "waste treatment"),
     ],
+)
+w_categories = ipywidgets.TagsInput(
+    allowed_tags=[
+        ("animal_product"),
+        ("dairy_product"),
+        ("grain_raw"),
+        ("grain_processed"),
+        ("nut_oilseed_raw"),
+        ("nut_oilseed_processed"),
+        ("misc"),
+        ("spice_condiment_additive"),
+        ("vegetable_fresh"),
+        ("vegetable_processed"),
+        ("organic"),
+        ("bleublanccoeur"),
+    ],
+    style=style,
+    allow_duplicates=False,
 )
 ## Transport cooling
 w_cooling = ipywidgets.Dropdown(
@@ -168,86 +188,87 @@ w_density = ipywidgets.BoundedFloatText(
     step=0.05,
     style=style,
 )
+## inedible part of the ingredient
+w_inedible = ipywidgets.BoundedFloatText(
+    placeholder="Part non comestible",
+    value=0,
+    min=0,
+    max=1,
+    style=style,
+)
 ## Enable/disable the ingredient
 w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
-
-# fields for (hardcoded) variants
-## search terms to find the organic process if any
-w_organic_search = ipywidgets.Text(placeholder="flour organic", style=style)
-w_organic_process = ipywidgets.RadioButtons(
-    options=[""],
-    rows=1,
+## Biodiv
+w_bvi = ipywidgets.BoundedFloatText(
+    placeholder="Bio diversité",
+    # value=0,
+    min=0,
     style=style,
-    disabled=True,
-    layout=ipywidgets.Layout(width="auto"),
+)
+w_explain = ipywidgets.Textarea(
+    placeholder="Détails sur les valeurs de l'ingredient",
+    layout=ipywidgets.Layout(width="450px", height="200px"),
+    disabled=False,
+)
+
+# Missing Organic activity, we need to build one using subingredients
+w_subingredient_default = ipywidgets.Combobox(
+    placeholder="wheat grain conventional",
+    style=style,
+    ensure_option=False,
+    options=tuple([""] + list(read_activities().keys())),
+)
+w_subingredient_organic = ipywidgets.Combobox(
+    placeholder="wheat grain organic",
+    style=style,
+    ensure_option=False,
+    options=tuple([""] + list(read_activities().keys())),
 )
 ## Quantity of component necessary to produce 1 unit of constructed process.
 ##For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
-w_organic_ratio = ipywidgets.BoundedFloatText(
+w_ratio = ipywidgets.BoundedFloatText(
     placeholder="Coef",
     min=0,
     step=0.05,
     style=style,
 )
-w_organic_default_search = ipywidgets.Text(placeholder="wheat conventio*", style=style)
-w_organic_simple_ingredient_default = ipywidgets.RadioButtons(
-    options=[""],
-    rows=1,
-    style=style,
-    disabled=True,
-    layout=ipywidgets.Layout(width="auto"),
-)
-w_organic_variant_search = ipywidgets.Text(placeholder="wheat organic", style=style)
-w_organic_simple_ingredient_variant = ipywidgets.RadioButtons(
-    style=style,
-    options=[""],
-    rows=1,
-    disabled=True,
-    layout=ipywidgets.Layout(width="auto"),
-)
-# default coef for the beyond-lca indicators
-w_organic_agrodiv = ipywidgets.FloatSlider(
+
+## COMPLEMENTS
+
+# default coef for the complement indicators
+w_complement_agrodiv = ipywidgets.IntSlider(
     placeholder="Agro-diversity coefficient",
     style=style,
     min=0,
-    max=1,
-    step=0.05,
+    max=100,
+    step=5,
 )
-w_organic_agroeco = ipywidgets.FloatSlider(
+w_complement_agroeco = ipywidgets.IntSlider(
     placeholder="Agro-ecology coefficient",
     min=0,
-    max=1,
-    step=0.05,
+    max=100,
+    step=5,
     style=style,
 )
-w_organic_animal_welfare = ipywidgets.FloatSlider(
+w_complement_animal_welfare = ipywidgets.IntSlider(
     placeholder="Animal Welfare coefficient",
     min=0,
-    max=1,
-    step=0.05,
+    max=100,
+    step=5,
     style=style,
 )
-## Search terms to find the BleuBlanCoeur process if any
-w_bleu_blanc_coeur_search = ipywidgets.Text(placeholder="bleu blanc", style=style)
-w_bleu_blanc_coeur = ipywidgets.RadioButtons(
-    style=style,
-    options=[""],
-    rows=1,
-    disabled=True,
-)
-
 
 # buttons
 savebutton = ipywidgets.Button(
     description="Save",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Add or update the ingredient",
+    tooltip="Add or update the activity",
     icon="check",
 )
 delbutton = ipywidgets.Button(
     description="Delete",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the ingredient with the 'id' field above",
+    tooltip="Delete the activity with the 'id' field above",
     icon="trash",
 )
 getbutton = ipywidgets.Button(
@@ -259,13 +280,13 @@ getbutton = ipywidgets.Button(
 resetbutton = ipywidgets.Button(
     description="Reset from branch",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Reset the ingredients to the branch state",
+    tooltip="Reset the activities to the branch state",
     icon="sparkles",
 )
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Commit the ingredients into the branch",
+    tooltip="Commit the activities into the branch",
     icon="code-commit",
 )
 out = ipywidgets.Output()
@@ -273,62 +294,68 @@ outgit = ipywidgets.Output()
 
 
 @out.capture()
-def list_ingredients():
-    ingredients = read_ingredients()
-    with open(INGREDIENTS_TEMP) as fp:
+def list_activities():
+    activities = read_activities()
+    with open(ACTIVITIES_TEMP) as fp:
+        pandas.set_option("display.max_rows", 500)
         display(
-            Markdown(f"# List of {len(ingredients)} ingredients:"),
-            pandas.DataFrame(ingredients.values(), columns=list(FIELDS.values())),
+            Markdown(f"# List of {len(activities)} activities/ingredients:"),
+            pandas.DataFrame(activities.values(), columns=list(FIELDS.values())),
             Markdown(f"# Resulting JSON file:"),
         )
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
-def add_ingredient(_):
-    ingredient = {
+def add_activity(_):
+    activity = {
         "id": w_id.value,
         "name": w_name.value,
-        "default": w_search.value,
-        "default_origin": w_default_origin.value,
+        "search": w_search.value,
         "category": w_category.value,
+        "categories": w_categories.value,
+        "default_origin": w_default_origin.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
         "density": w_density.value,
+        "inedible_part": w_inedible.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "variants.organic.process": w_organic_search.value,
-        "variants.organic.ratio": w_organic_ratio.value,
-        "variants.organic.simple_ingredient_default": w_organic_default_search.value,
-        "variants.organic.simple_ingredient_variant": w_organic_variant_search.value,
-        "variants.organic.beyondLCA.agro-diversity": w_organic_agrodiv.value,
-        "variants.organic.beyondLCA.agro-ecology": w_organic_agroeco.value,
-        "variants.organic.beyondLCA.animal-welfare": w_organic_animal_welfare.value,
-        "variants.bleu_blanc_coeur": w_bleu_blanc_coeur.value,
+        "bvi": w_bvi.value,
+        "explain": w_explain.value,
+        "subingredient_default": w_subingredient_default.value,
+        "subingredient_organic": w_subingredient_organic.value,
+        "ratio": w_ratio.value,
+        "complements.agro-diversity": w_complement_agrodiv.value,
+        "complements.agro-ecology": w_complement_agroeco.value,
+        "complements.animal-welfare": w_complement_animal_welfare.value,
     }
-    ingredient = {k: v for k, v in ingredient.items() if v != ""}
-    ingredients = read_ingredients()
-    if "id" in ingredient:
-        ingredients.update({ingredient["id"]: to_pretty(ingredient)})
-        save_ingredients(ingredients)
+    activity = {k: v for k, v in activity.items() if v != ""}
+    activities = read_activities()
+    if "id" in activity:
+        activities.update({activity["id"]: to_pretty(activity)})
+        save_activities(activities)
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def del_ingredient(_):
-    ingredients = read_ingredients()
-    if w_id.value in ingredients:
-        del ingredients[w_id.value]
-        save_ingredients(ingredients)
+def delete_activity(_):
+    activities = read_activities()
+    if w_id.value in activities:
+        del activities[w_id.value]
+        save_activities(activities)
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def commit_ingredients(_):
-    shutil.copy(INGREDIENTS_TEMP, INGREDIENTS_BASE)
+def commit_activities(_):
+    shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     outgit.clear_output()
     with outgit:
         try:
             assert (
-                subprocess.run(["git", "add", INGREDIENTS_BASE]).returncode == 0
+                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode == 0
+            ), "git pull failed"
+            assert (
+                subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
             ), "git add failed"
             assert (
                 subprocess.run(
@@ -348,45 +375,38 @@ def commit_ingredients(_):
             subprocess.run(["git", "checkout", "ingredients"])
             print("FAILED. Please tell the devs")
     out.clear_output()
-    list_ingredients()
+    list_activities()
 
 
-def reset_ingredients(_):
-    shutil.copy(INGREDIENTS_BASE, INGREDIENTS_TEMP)
+def reset_activities(_):
+    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     out.clear_output()
-    list_ingredients()
-    w_id.options = tuple(read_ingredients().keys())
+    list_activities()
+    w_id.options = tuple(read_activities().keys())
 
 
 def clear_form():
-    w_id.options = tuple([""] + list(read_ingredients().keys()))
+    w_id.options = tuple([""] + list(read_activities().keys()))
     w_id.value = ""
     w_name.value = ""
     w_search.value = ""
-    w_default.options = [""]
-    w_default.value = ""
+    w_results.options = [""]
+    w_results.value = ""
+    w_category.value = None
+    w_categories.value = []
     w_default_origin.value = "EuropeAndMaghreb"
-    w_category.value = "misc"
     w_raw_to_cooked_ratio.value = 0
     w_density.value = 0
+    w_inedible.value = 0
     w_cooling.value = "none"
     w_visible.value = True
-    w_organic_search.value = ""
-    w_organic_process.options = [""]
-    w_organic_process.value = ""
-    w_organic_ratio.value = 0
-    w_organic_default_search.value = ""
-    w_organic_simple_ingredient_default.options = [""]
-    w_organic_simple_ingredient_default.value = ""
-    w_organic_variant_search.value = ""
-    w_organic_simple_ingredient_variant.options = [""]
-    w_organic_simple_ingredient_variant.value = ""
-    w_organic_agrodiv.value = 0
-    w_organic_agroeco.value = 0
-    w_organic_animal_welfare.value = 0
-    w_bleu_blanc_coeur_search.value = ""
-    w_bleu_blanc_coeur.options = [""]
-    w_bleu_blanc_coeur.value = ""
+    w_bvi.value = 0
+    w_subingredient_default.value = ""
+    w_subingredient_organic.value = ""
+    w_ratio.value = 0
+    w_complement_agrodiv.value = 0
+    w_complement_agroeco.value = 0
+    w_complement_animal_welfare.value = 0
 
 
 def set_field(field, value, default):
@@ -404,77 +424,44 @@ def change_id(change):
     if not change.new:
         clear_form()
         return
-    i = from_pretty(read_ingredients().get(change.new, {}))
+    i = from_pretty(read_activities().get(change.new, {}))
     if not i:
         return
     set_field(w_name, i.get("name"), "")
-    terms = i.get("default", "")
-    set_field(w_search, terms, "")
+    terms = i.get("search", "")
+    set_field(w_search, i.get("search"), "")
     res = dbsearch(terms)
     if res:
-        w_default.options = [
-            [f"{r['name']} ({r.get('unit','no unit')})" for r in res][0]
-        ]
+        w_results.options = [[display_of(r) for r in res][0]]
     else:
-        w_default.options = []
+        w_results.options = []
     set_field(
         w_default_origin,
         i.get("default_origin"),
         "EuropeAndMaghreb",
     )
-    set_field(w_category, i.get("category"), "misc")
+    set_field(w_category, i.get("category"), "")
+    set_field(w_categories, i.get("categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 0)
     set_field(w_density, i.get("density"), 0)
+    set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    terms = i.get("variants.organic.process")
-    if terms:
-        set_field(w_organic_search, terms, "")
-        res = dbsearch(terms)
-        if res:
-            w_organic_process.options = [display_of(r) for r in res]
-            w_organic_process.value = display_of(res[0])
-        else:
-            w_organic_process.options = []
-    set_field(w_organic_ratio, i.get("variants.organic.ratio"), 0)
-    terms = i.get("variants.organic.simple_ingredient_default")
-    if terms:
-        set_field(w_organic_default_search, terms, "")
-        res = dbsearch(terms)
-        if res:
-            w_organic_simple_ingredient_default.options = [display_of(r) for r in res]
-            w_organic_simple_ingredient_default.value = display_of(res[0])
-        else:
-            w_organic_simple_ingredient_default.options = []
-    terms = i.get("variants.organic.simple_ingredient_variant")
-    if terms:
-        set_field(w_organic_variant_search, terms, "")
-        res = dbsearch(terms)
-        if res:
-            w_organic_simple_ingredient_variant.options = [display_of(r) for r in res]
-            w_organic_simple_ingredient_variant.value = display_of(res[0])
-        else:
-            w_organic_simple_ingredient_variant.options = []
-
-        set_field(w_organic_simple_ingredient_variant, terms, "")
-    set_field(w_organic_agrodiv, i.get("variants.organic.beyondLCA.agro-diversity"), 0)
-    set_field(w_organic_agroeco, i.get("variants.organic.beyondLCA.agro-ecology"), 0)
+    set_field(w_bvi, i.get("bvi"), 0)
+    set_field(w_subingredient_default, i.get("subingredient_default"), "")
+    set_field(w_subingredient_organic, i.get("subingredient_organic"), "")
+    set_field(w_ratio, i.get("ratio"), 0)
+    set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
+    set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
     set_field(
-        w_organic_animal_welfare, i.get("variants.organic.beyondLCA.animal-welfare"), 0
+        w_complement_animal_welfare,
+        i.get("complements.animal-welfare"),
+        0,
     )
-    terms = i.get("variants.bleu_blanc_coeur")
-    if terms:
-        set_field(w_bleu_blanc_coeur_search, terms, "")
-        res = dbsearch(terms)
-        if res:
-            w_bleu_blanc_coeur.options = [display_of(r) for r in res]
-            w_bleu_blanc_coeur.value = display_of(res[0])
-        else:
-            w_bleu_blanc_coeur.options = []
 
 
 def display_of(activity):
-    return f"{activity['name']} ({activity.get('unit','no unit')})"
+    return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
 def change_search_of(field):
@@ -489,23 +476,23 @@ def change_search_of(field):
 
 
 w_id.observe(change_id, names="value")
-w_search.observe(change_search_of(w_default), names="value")
-w_organic_search.observe(change_search_of(w_organic_process), names="value")
-w_organic_default_search.observe(
-    change_search_of(w_organic_simple_ingredient_default), names="value"
-)
-w_organic_variant_search.observe(
-    change_search_of(w_organic_simple_ingredient_variant), names="value"
-)
-w_bleu_blanc_coeur_search.observe(change_search_of(w_bleu_blanc_coeur), names="value")
-savebutton.on_click(add_ingredient)
-delbutton.on_click(del_ingredient)
-resetbutton.on_click(reset_ingredients)
-commitbutton.on_click(commit_ingredients)
+w_search.observe(change_search_of(w_results), names="value")
+savebutton.on_click(add_activity)
+delbutton.on_click(delete_activity)
+resetbutton.on_click(reset_activities)
+commitbutton.on_click(commit_activities)
 
 
 display(
-    Markdown("# Get/Add/Modify an ingredient :"),
+    Markdown("# Procédé à ajouter/modifier/supprimer :"),
+    ipywidgets.HBox(
+        (
+            ipywidgets.Label(
+                FIELDS["visible"],
+            ),
+            w_visible,
+        ),
+    ),
     ipywidgets.HBox(
         (
             ipywidgets.Label(
@@ -525,7 +512,7 @@ display(
     ipywidgets.HBox(
         (
             ipywidgets.Label(
-                "Search in " + DATABASE.name,
+                "Search (" + DATABASE.name + ")",
             ),
             w_search,
         ),
@@ -533,9 +520,9 @@ display(
     ipywidgets.HBox(
         (
             ipywidgets.Label(
-                FIELDS["default"],
+                "Résultat de recherche",
             ),
-            w_default,
+            w_results,
         ),
     ),
     ipywidgets.HBox(
@@ -549,196 +536,150 @@ display(
     ipywidgets.HBox(
         (
             ipywidgets.Label(
-                FIELDS["default_origin"],
+                FIELDS["bvi"],
             ),
-            w_default_origin,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["raw_to_cooked_ratio"],
-            ),
-            w_raw_to_cooked_ratio,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["density"],
-            ),
-            w_density,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["transport_cooling"],
-            ),
-            w_cooling,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["visible"],
-            ),
-            w_visible,
+            w_bvi,
         ),
     ),
     ipywidgets.Accordion(
-        titles=["Organic", "Bleu Blanc Coeur"],
+        titles=["Si le procédé est un ingrédient"],
         children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HBox(
                         (
-                            ipywidgets.HTML(
-                                "If you find an organic process, select it in just below. Otherwise keep the field blank, and select two components (conventional and organic) and provide the ratio for the impacts.",
-                                disabled=True,
-                            ),
-                        ),
-                    ),
-                    ipywidgets.Accordion(
-                        titles=[
-                            "Organic process",
-                            "If there is no organic process",
-                        ],
-                        children=[
-                            ipywidgets.VBox(
-                                (
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                "Search organic process",
-                                            ),
-                                            w_organic_search,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["variants.organic.process"],
-                                            ),
-                                            w_organic_process,
-                                        ),
-                                    ),
-                                ),
-                            ),
-                            ipywidgets.VBox(
-                                (
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.HTML(
-                                                "The Ratio is the quantity of component necessary to produce 1 unit of constructed process. For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
-                                                disabled=True,
-                                            ),
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["variants.organic.ratio"],
-                                            ),
-                                            w_organic_ratio,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                "Search default component",
-                                            ),
-                                            w_organic_default_search,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "variants.organic.simple_ingredient_default"
-                                                ],
-                                            ),
-                                            w_organic_simple_ingredient_default,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                "Search organic component",
-                                            ),
-                                            w_organic_variant_search,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "variants.organic.simple_ingredient_variant"
-                                                ],
-                                            ),
-                                            w_organic_simple_ingredient_variant,
-                                        ),
-                                    ),
-                                )
-                            ),
-                        ],
-                    ),
-                    ipywidgets.HBox(
-                        (
                             ipywidgets.Label(
-                                FIELDS["variants.organic.beyondLCA.agro-diversity"],
+                                FIELDS["categories"],
                             ),
-                            w_organic_agrodiv,
+                            w_categories,
                         ),
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["variants.organic.beyondLCA.agro-ecology"],
+                                FIELDS["default_origin"],
                             ),
-                            w_organic_agroeco,
+                            w_default_origin,
                         ),
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["variants.organic.beyondLCA.animal-welfare"],
+                                FIELDS["raw_to_cooked_ratio"],
                             ),
-                            w_organic_animal_welfare,
+                            w_raw_to_cooked_ratio,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["density"],
+                            ),
+                            w_density,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["inedible_part"],
+                            ),
+                            w_inedible,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["transport_cooling"],
+                            ),
+                            w_cooling,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["explain"],
+                            ),
+                            w_explain,
                         ),
                     ),
                 ),
             ),
+        ],
+    ),
+    ipywidgets.Accordion(
+        titles=["Si l'ingrédient est bio mais n'a pas de procédé bio"],
+        children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                "Search bleu blanc coeur process",
+                                FIELDS["subingredient_default"],
                             ),
-                            w_bleu_blanc_coeur_search,
+                            w_subingredient_default,
                         ),
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["variants.bleu_blanc_coeur"],
+                                FIELDS["subingredient_organic"],
                             ),
-                            w_bleu_blanc_coeur,
+                            w_subingredient_organic,
                         ),
                     ),
-                )
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["ratio"],
+                            ),
+                            w_ratio,
+                        ),
+                    ),
+                ),
+            ),
+        ],
+    ),
+    ipywidgets.Accordion(
+        titles=["Compléments hors ACV"],
+        children=[
+            ipywidgets.VBox(
+                (
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["complements.agro-diversity"],
+                            ),
+                            w_complement_agrodiv,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["complements.agro-ecology"],
+                            ),
+                            w_complement_agroeco,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["complements.animal-welfare"],
+                            ),
+                            w_complement_animal_welfare,
+                        ),
+                    ),
+                ),
             ),
         ],
     ),
     ipywidgets.HBox((savebutton, delbutton)),
-    Markdown("# Reset or Publish ingredients :"),
+    Markdown("# Reset or Publish activities :"),
     Markdown(
-        "Reset the ingredients to the branch state, or Publish to the `ingredients` branch"
+        "Reset the activities to the branch state, or Publish to the `ingredients` branch"
     ),
     ipywidgets.HBox((resetbutton, commitbutton)),
     outgit,
     out,
 )
 
-list_ingredients()
+list_activities()

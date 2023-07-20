@@ -80,13 +80,15 @@ if __name__ == "__main__":
             "complements": activity.get("complements", []),
         }
         for activity in activities
-        if activity.get("ingredient")
+        if activity["category"] == "ingredient"
     ]
     # cleanup unuseful attributes
     for ingredient in ingredients:
-        if "animal_product" not in ingredient[
-            "categories"
-        ] and "animal-welfare" in ingredient.get("complements"):
+        if (
+            "animal_product" not in ingredient["categories"]
+            and "dairy_product" not in ingredient["categories"]
+            and "animal-welfare" in ingredient.get("complements")
+        ):
             del ingredient["complements"]["animal-welfare"]
 
     print("Creating builder process list...")
@@ -104,7 +106,7 @@ if __name__ == "__main__":
             "search": activity["search"],
             "ratio": activity.get("ratio"),
             "subingredient_default": activity.get("subingredient_default"),
-            "subingredient_variant": activity.get("subingredient_variant"),
+            "subingredient_organic": activity.get("subingredient_organic"),
             "impacts": {"bvi": activity.get("bvi", 0)},
         }
         for activity in activities
@@ -118,14 +120,14 @@ if __name__ == "__main__":
         if not builder[processid]["ratio"]:
             del builder[processid]["ratio"]
             del builder[processid]["subingredient_default"]
-            del builder[processid]["subingredient_variant"]
+            del builder[processid]["subingredient_organic"]
 
     # check that all three attributes are present on complex ingredients
     for activity in activities:
         if any(
             [
                 key in activity
-                for key in ("ratio", "subingredient_default", "subingredient_variant")
+                for key in ("ratio", "subingredient_default", "subingredient_organic")
             ]
         ):
             assert all(
@@ -134,10 +136,10 @@ if __name__ == "__main__":
                     for key in (
                         "ratio",
                         "subingredient_default",
-                        "subingredient_variant",
+                        "subingredient_organic",
                     )
                 ]
-            ), f"{activity} seems is missing either ratio or subingredient_default or subingredient_variant"
+            ), f"{activity} seems is missing either ratio or subingredient_default or subingredient_organic"
 
     # compute the impacts of base processes
     print("Computing impacts:")
@@ -185,7 +187,7 @@ if __name__ == "__main__":
                 process["impacts"][impact] = process["impacts"][impact] + process[
                     "ratio"
                 ] * (
-                    builder[process["subingredient_variant"]]["impacts"][impact]
+                    builder[process["subingredient_organic"]]["impacts"][impact]
                     - builder[process["subingredient_default"]]["impacts"][impact]
                 )
 
@@ -200,7 +202,7 @@ if __name__ == "__main__":
             "search",
             "ratio",
             "subingredient_default",
-            "subingredient_variant",
+            "subingredient_organic",
         ):
             if attribute in process:
                 del process[attribute]
