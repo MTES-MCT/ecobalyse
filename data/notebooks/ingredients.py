@@ -517,22 +517,23 @@ def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     with git_output:
         try:
-            assert (
-                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode == 0
-            ), "git pull failed"
-            assert (
-                subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
-            ), "git add failed"
-            assert (
+            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
+                print("git pull failed")
+            elif subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
+                print("git add failed")
+            elif (
                 subprocess.run(
                     ["git", "commit", "-m", "Changed ingredients"]
                 ).returncode
-                == 0
-            ), "git commit failed"
-            assert (
-                subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
-            ), "git push failed"
-            print("SUCCEEDED. Please tell the devs")
+                != 0
+            ):
+                print("git commit failed")
+            elif (
+                subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
+            ):
+                print("git push failed")
+            else:
+                print("SUCCEEDED. Please tell the devs to merge the ingredients branch")
         except:
             subprocess.run(["git", "reset", "--hard"])
             subprocess.run(["git", "checkout", "origin/ingredients"])
