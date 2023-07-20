@@ -575,10 +575,14 @@ describe("API", () => {
             const deviation = 100 - (devEcs / prodEcs) * 100;
             expect(deviation).toBeLessThan(5);
           } catch (err) {
+            // Check for an HTTP error
             if (err.status && err.response && err.response.text) {
-              // HTTP error
-              throw `${err.status} ${err.message}: ${err.response.text}`;
+              // Only process ingredients existing in production, skip otherwise
+              if (!err.response.text.includes(`Ingrédient introuvable par id : ${id}`)) {
+                throw `${err.status} ${err.message}: ${err.response.text}`;
+              }
             } else {
+              // Not an HTTP error, re-raise
               throw err;
             }
           }
