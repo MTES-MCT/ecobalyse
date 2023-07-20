@@ -1,4 +1,4 @@
-from IPython.core.display import display, Markdown
+from IPython.core.display import display, Markdown, clear_output
 from flatdict import FlatDict
 import bw2data
 import ipywidgets
@@ -18,6 +18,9 @@ os.getcwd()
 bw2data.projects.set_current(PROJECT)
 DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
+list_output = ipywidgets.Output()
+git_output = ipywidgets.Output()
+
 
 def dbsearch(term, **kw):
     return DATABASE.search(term, **kw)
@@ -32,7 +35,9 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
-    clear_form()
+    with list_output:
+        clear_output()
+        list_activities()
 
 
 def to_flat(d):
@@ -354,11 +359,8 @@ commitbutton = ipywidgets.Button(
     tooltip="Commit the activities into the branch",
     icon="code-commit",
 )
-out = ipywidgets.Output()
-outgit = ipywidgets.Output()
 
 
-@out.capture()
 def list_activities():
     activities = read_activities()
     with open(ACTIVITIES_TEMP) as fp:
@@ -371,83 +373,9 @@ def list_activities():
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
-def add_activity(_):
-    activity = {
-        "id": w_id.value,
-        "name": w_name.value,
-        "search": w_search.value,
-        "category": w_category.value,
-        "categories": w_categories.value,
-        "default_origin": w_default_origin.value,
-        "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
-        "density": w_density.value,
-        "inedible_part": w_inedible.value,
-        "transport_cooling": w_cooling.value,
-        "visible": w_visible.value,
-        "bvi": w_bvi.value,
-        "explain": w_explain.value,
-        "subingredient_default": w_subingredient_default.value,
-        "subingredient_organic": w_subingredient_organic.value,
-        "ratio": w_ratio.value,
-        "complements.agro-diversity": w_complement_agrodiv.value,
-        "complements.agro-ecology": w_complement_agroeco.value,
-        "complements.animal-welfare": w_complement_animal_welfare.value,
-    }
-    activity = {k: v for k, v in activity.items() if v != ""}
-    activities = read_activities()
-    if "id" in activity:
-        activities.update({activity["id"]: to_pretty(activity)})
-        save_activities(activities)
-    out.clear_output()
+with list_output:
+    clear_output()
     list_activities()
-
-
-def delete_activity(_):
-    activities = read_activities()
-    if w_id.value in activities:
-        del activities[w_id.value]
-        save_activities(activities)
-    out.clear_output()
-    list_activities()
-
-
-def commit_activities(_):
-    shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
-    outgit.clear_output()
-    with outgit:
-        try:
-            assert (
-                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode == 0
-            ), "git pull failed"
-            assert (
-                subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
-            ), "git add failed"
-            assert (
-                subprocess.run(
-                    ["git", "commit", "-m", "Changed ingredients"]
-                ).returncode
-                == 0
-            ), "git commit failed"
-            assert (
-                subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
-            ), "git push failed"
-            print("SUCCEEDED. Please tell the devs")
-        except:
-            subprocess.run(["git", "reset", "--hard"])
-            subprocess.run(["git", "checkout", "origin/ingredients"])
-            subprocess.run(["git", "branch", "-D", "ingredients"])
-            subprocess.run(["git", "branch", "ingredients", "origin/ingredients"])
-            subprocess.run(["git", "checkout", "ingredients"])
-            print("FAILED. Please tell the devs")
-    out.clear_output()
-    list_activities()
-
-
-def reset_activities(_):
-    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
-    out.clear_output()
-    list_activities()
-    w_id.options = tuple(read_activities().keys())
 
 
 def clear_form():
@@ -460,9 +388,9 @@ def clear_form():
     w_category.value = None
     w_categories.value = []
     w_default_origin.value = "EuropeAndMaghreb"
-    w_raw_to_cooked_ratio.value = 0
-    w_density.value = 0
-    w_inedible.value = 0
+    w_raw_to_cooked_ratio.value = ""
+    w_density.value = ""
+    w_inedible.value = ""
     w_cooling.value = "none"
     w_visible.value = True
     w_bvi.value = 0
@@ -483,6 +411,10 @@ def set_field(field, value, default):
     else:
         field.value = value
     return field
+
+
+def display_of(activity):
+    return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
 def change_id(change):
@@ -525,10 +457,6 @@ def change_id(change):
     )
 
 
-def display_of(activity):
-    return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
-
-
 def change_search_of(field):
     def change_search(change):
         results = list(dbsearch(change.new, limit=20))
@@ -538,6 +466,80 @@ def change_search_of(field):
             field.value = display_of(results[0])
 
     return change_search
+
+
+def add_activity(_):
+    activity = {
+        "id": w_id.value,
+        "name": w_name.value,
+        "search": w_search.value,
+        "category": w_category.value,
+        "categories": w_categories.value,
+        "default_origin": w_default_origin.value,
+        "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
+        "density": w_density.value,
+        "inedible_part": w_inedible.value,
+        "transport_cooling": w_cooling.value,
+        "visible": w_visible.value,
+        "bvi": w_bvi.value,
+        "explain": w_explain.value,
+        "subingredient_default": w_subingredient_default.value,
+        "subingredient_organic": w_subingredient_organic.value,
+        "ratio": w_ratio.value,
+        "complements.agro-diversity": w_complement_agrodiv.value,
+        "complements.agro-ecology": w_complement_agroeco.value,
+        "complements.animal-welfare": w_complement_animal_welfare.value,
+    }
+    activity = {k: v for k, v in activity.items() if v != ""}
+    activities = read_activities()
+    if "id" in activity:
+        activities.update({activity["id"]: to_pretty(activity)})
+        save_activities(activities)
+
+
+def delete_activity(_):
+    activities = read_activities()
+    if w_id.value in activities:
+        del activities[w_id.value]
+        save_activities(activities)
+        clear_form()
+
+
+def reset_activities(_):
+    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
+    w_id.options = tuple(read_activities().keys())
+    with list_output:
+        clear_output()
+        list_activities()
+
+
+def commit_activities(_):
+    shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
+    with git_output:
+        try:
+            assert (
+                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode == 0
+            ), "git pull failed"
+            assert (
+                subprocess.run(["git", "add", ACTIVITIES]).returncode == 0
+            ), "git add failed"
+            assert (
+                subprocess.run(
+                    ["git", "commit", "-m", "Changed ingredients"]
+                ).returncode
+                == 0
+            ), "git commit failed"
+            assert (
+                subprocess.run(["git", "push", "origin", "ingredients"]).returncode == 0
+            ), "git push failed"
+            print("SUCCEEDED. Please tell the devs")
+        except:
+            subprocess.run(["git", "reset", "--hard"])
+            subprocess.run(["git", "checkout", "origin/ingredients"])
+            subprocess.run(["git", "branch", "-D", "ingredients"])
+            subprocess.run(["git", "branch", "ingredients", "origin/ingredients"])
+            subprocess.run(["git", "checkout", "ingredients"])
+            print("FAILED. Please tell the devs")
 
 
 w_id.observe(change_id, names="value")
@@ -743,8 +745,6 @@ display(
         "Reset the activities to the branch state, or Publish to the `ingredients` branch"
     ),
     ipywidgets.HBox((resetbutton, commitbutton)),
-    outgit,
-    out,
+    git_output,
+    list_output,
 )
-
-list_activities()
