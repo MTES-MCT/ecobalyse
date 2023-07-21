@@ -555,7 +555,6 @@ def reset_activities(_):
 
 def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
-    return
     with git_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
