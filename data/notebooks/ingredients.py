@@ -31,11 +31,41 @@ def dbsearch(term, **kw):
     return DATABASE.search(term, **kw)
 
 
+def cleanup_json(activities):
+    for i, a in enumerate(activities):
+        # remove uneeded complex ingredient attributes on simple ingredients
+        if not a.get("subingredient_default") or not a.get("subingredient_organic"):
+            for x in ("subingredient_default", "subingredient_organic", "ratio"):
+                _ = activities[i].pop(x, None)
+        # remove animal-welfare for non animal products
+        if (
+            "animal_product" not in a.get("categories", {})
+            and "dairy_product" not in a.get("categories", {})
+            and "animal-welfare" in a.get("complements", {})
+        ):
+            del activities[i]["complements"]["animal-welfare"]
+        # remove categories for non-ingredients
+        if a["category"] != "ingredient":
+            for x in (
+                "categories",
+                "raw_to_cooked_ratio",
+                "density",
+                "inedible_part",
+                "transport_cooling",
+                "visible",
+                "explain",
+            ):
+                if x in a:
+                    del activities[i][x]
+                # _ = activities[i].pop(x, None)
+    return activities
+
+
 def save_activities(activities):
     with open(ACTIVITIES_TEMP, "w") as fp:
         fp.write(
             json.dumps(
-                [from_flat(from_pretty(i)) for i in activities.values()],
+                cleanup_json([from_flat(from_pretty(i)) for i in activities.values()]),
                 indent=2,
                 ensure_ascii=False,
             )
@@ -59,22 +89,26 @@ def reverse(d):
 
 
 FIELDS = {
+    # process attributes
     "id": "id",
     "name": "Nom",
     "search": "Terme de recherche",
     "default_origin": "Default Origin",
     "category": "Categorie de procédé",
+    "bvi": "Bio-diversité",
+    # ingredients attributes
     "categories": "Categories d'ingrédient",
     "raw_to_cooked_ratio": "Ratio cuit/cru",
     "density": "Densité",
     "inedible_part": "Part non comestible",
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
-    "bvi": "Bio-diversité",
     "explain": "Détails",
+    # complex ingredients attributes
     "subingredient_default": "Sous-ingrédient conv.",
     "subingredient_organic": "Sous-ingrédient bio",
     "ratio": "Ratio",
+    # complements
     "complements.agro-diversity": "AgroDiv",
     "complements.agro-ecology": "AgroEco",
     "complements.animal-welfare": "Animal welf",
@@ -275,7 +309,6 @@ w_bvi = ipywidgets.BoundedFloatText(
 w_explain = ipywidgets.Textarea(
     placeholder="Détails sur les valeurs de l'ingredient",
     layout=ipywidgets.Layout(width="450px", height="200px"),
-    disabled=False,
 )
 
 # Missing Organic activity, we need to build one using subingredients
@@ -293,32 +326,24 @@ w_subingredient_organic = ipywidgets.Combobox(
 )
 ## Quantity of component necessary to produce 1 unit of constructed process.
 ##For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
-w_ratio = ipywidgets.BoundedFloatText(
-    placeholder="Coef",
-    min=0,
-    step=0.05,
-    style=style,
-)
+w_ratio = ipywidgets.BoundedFloatText(placeholder="Coef", min=0, step=0.05, style=style)
 
 ## COMPLEMENTS
 
 # default coef for the complement indicators
 w_complement_agrodiv = ipywidgets.IntSlider(
-    placeholder="Agro-diversity coefficient",
     style=style,
     min=0,
     max=100,
     step=5,
 )
 w_complement_agroeco = ipywidgets.IntSlider(
-    placeholder="Agro-ecology coefficient",
     min=0,
     max=100,
     step=5,
     style=style,
 )
 w_complement_animal_welfare = ipywidgets.IntSlider(
-    placeholder="Animal Welfare coefficient",
     min=0,
     max=100,
     step=5,
@@ -361,7 +386,6 @@ commitbutton = ipywidgets.Button(
 def list_activities():
     activities = read_activities()
     with open(ACTIVITIES_TEMP) as fp:
-
         df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
         df.style
         display(
@@ -398,6 +422,7 @@ def clear_form():
     w_ratio.value = 0
     w_complement_agrodiv.value = 0
     w_complement_agroeco.value = 0
+    w_complement_animal_welfare.disabled = False
     w_complement_animal_welfare.value = 0
 
 
@@ -414,6 +439,19 @@ def set_field(field, value, default):
 
 def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
+
+
+def change_categories(change):
+    w_complement_animal_welfare.disabled = (
+        False
+        if "animal_product" in w_categories.value
+        or "dairy_product" in w_categories.value
+        or not w_categories.value
+        else True
+    )
+
+
+w_categories.observe(change_categories, names="value")
 
 
 def change_id(change):
@@ -454,6 +492,9 @@ def change_id(change):
         i.get("complements.animal-welfare"),
         0,
     )
+
+
+w_id.observe(change_id, names="value")
 
 
 def change_search_of(field):
@@ -514,35 +555,49 @@ def reset_activities(_):
 
 def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
+    return
     with git_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("git pull failed")
+                print("FAILED: git pull")
             elif subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
-                print("git add failed")
+                print("FAILED: git add")
             elif (
                 subprocess.run(
                     ["git", "commit", "-m", "Changed ingredients"]
                 ).returncode
                 != 0
             ):
-                print("git commit failed")
+                print("FAILED: git commit")
             elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
-                print("git push failed")
+                print("FAILED: git push")
             else:
                 print("SUCCEEDED. Please tell the devs to merge the ingredients branch")
         except:
-            subprocess.run(["git", "reset", "--hard"])
-            subprocess.run(["git", "checkout", "origin/ingredients"])
-            subprocess.run(["git", "branch", "-D", "ingredients"])
-            subprocess.run(["git", "branch", "ingredients", "origin/ingredients"])
-            subprocess.run(["git", "checkout", "ingredients"])
-            print("FAILED. Please tell the devs")
+            if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
+                print("FAILED: git reset --hard")
+            elif (
+                subprocess.run(["git", "checkout", "origin/ingredients"]).returncode
+                != 0
+            ):
+                print("FAILED: git checkout origin/ingredients")
+            elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
+                print("FAILED: git branch -D ingredients")
+            elif (
+                subprocess.run(
+                    ["git", "branch", "ingredients", "origin/ingredients"]
+                ).returncode
+                != 0
+            ):
+                print("FAILED: git branch ingredients origin/ingredients")
+            elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
+                print("FAILED: git checkout ingredients")
+            else:
+                print("FAILED. Please tell the devs")
 
 
-w_id.observe(change_id, names="value")
 w_search.observe(change_search_of(w_results), names="value")
 savebutton.on_click(add_activity)
 delbutton.on_click(delete_activity)
