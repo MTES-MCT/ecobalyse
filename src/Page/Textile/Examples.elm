@@ -79,7 +79,7 @@ viewExample session model funit impact query =
             , chartHovering = model.chartHovering
             , onChartHover = OnChartHover
             }
-        |> (\v -> div [ class "col" ] [ v ])
+        |> div [ class "col" ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

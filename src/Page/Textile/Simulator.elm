@@ -585,40 +585,40 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             ]
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ ImpactView.selector
+                (ImpactView.selector
                     db.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
                     , switchFunctionalUnit = SwitchFunctionalUnit
                     }
-                , div [ class "Summary" ]
-                    [ model.simulator
-                        |> SummaryView.view
+                    :: (model.simulator
+                            |> SummaryView.view
+                                { session = session
+                                , impact = model.impact
+                                , funit = model.funit
+                                , reusable = False
+                                , chartHovering = model.chartHovering
+                                , onChartHover = OnChartHover
+                                }
+                       )
+                    ++ [ BookmarkView.view
                             { session = session
+                            , activeTab = model.bookmarkTab
+                            , bookmarkName = model.bookmarkName
                             , impact = model.impact
                             , funit = model.funit
-                            , reusable = False
-                            , chartHovering = model.chartHovering
-                            , onChartHover = OnChartHover
+                            , scope = Scope.Textile
+                            , viewMode = model.viewMode
+                            , copyToClipBoard = CopyToClipBoard
+                            , compare = OpenComparator
+                            , delete = DeleteBookmark
+                            , save = SaveBookmark
+                            , update = UpdateBookmarkName
+                            , switchTab = SwitchLinksTab
                             }
-                    ]
-                , BookmarkView.view
-                    { session = session
-                    , activeTab = model.bookmarkTab
-                    , bookmarkName = model.bookmarkName
-                    , impact = model.impact
-                    , funit = model.funit
-                    , scope = Scope.Textile
-                    , viewMode = model.viewMode
-                    , copyToClipBoard = CopyToClipBoard
-                    , compare = OpenComparator
-                    , delete = DeleteBookmark
-                    , save = SaveBookmark
-                    , update = UpdateBookmarkName
-                    , switchTab = SwitchLinksTab
-                    }
-                ]
+                       ]
+                )
             ]
         ]
 

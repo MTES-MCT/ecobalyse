@@ -179,19 +179,19 @@ summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHove
         ]
 
 
-view : Config msg -> Result String Simulator -> Html msg
+view : Config msg -> Result String Simulator -> List (Html msg)
 view config result =
     case result of
         Ok simulator ->
-            div [ class "stacked-card" ]
-                [ mainSummaryView config simulator
-                , summaryChartsView config simulator
-                ]
+            [ mainSummaryView config simulator
+            , summaryChartsView config simulator
+            ]
 
         Err error ->
-            Alert.simple
+            [ Alert.simple
                 { level = Alert.Info
                 , content = [ text error ]
                 , title = Just "Impossible de charger l'exemple"
                 , close = Nothing
                 }
+            ]
