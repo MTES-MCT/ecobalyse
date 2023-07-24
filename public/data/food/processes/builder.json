@@ -1609,7 +1609,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-09,
       "cch": 0.06625188562,
@@ -1641,7 +1641,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,

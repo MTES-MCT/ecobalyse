@@ -9,7 +9,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -426,24 +426,21 @@
     "name": "Bovins de boucherie",
     "category": "material",
     "search": "Beef cattle national average at farm gate",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "beef-cattle-feedlot",
     "name": "Bovins de boucherie (Feedlot)",
     "category": "material",
     "search": "Beef cattle feedlot or intensive system live weight farm GB",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "ground-beef-feedlot",
@@ -521,24 +518,21 @@
     "name": "Porc",
     "category": "material",
     "search": "Pig conventional national average at farm gate",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "pig-organic",
     "name": "Porc bio",
     "category": "material",
     "search": "Pig organic system 2 at farm gate",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
     "category": "material",
-    "bvi": 20.6954393,
-    "categories": []
+    "bvi": 20.6954393
   },
   {
     "id": "chicken-breast",
@@ -591,16 +585,14 @@
     "name": "Poulet",
     "category": "material",
     "search": "Broiler conventional at farm gate",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "broiler-organic",
     "name": "Poulet bio",
     "category": "material",
     "search": "Broiler organic at farm gate",
-    "bvi": 0,
-    "categories": []
+    "bvi": 0
   },
   {
     "id": "grape",
@@ -950,39 +942,40 @@
     "id": "onion",
     "name": "Oignon",
     "search": "Onion, national average, at farm",
-    "default_origin": "OutOfEuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
     "id": "eggplant",
     "name": "Aubergine",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   },
   {
@@ -1047,146 +1040,127 @@
     "name": "Acier",
     "category": "packaging",
     "bvi": 0.1133,
-    "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "categories": []
+    "search": "Steel unalloyed {RER} steel production converter unalloyed"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
     "bvi": 0.3318,
-    "search": "Packaging film low density polyethylene {RER} production",
-    "categories": []
+    "search": "Packaging film low density polyethylene {RER} production"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
     "bvi": 0.0011,
-    "search": "Polystyrene expandable {RER} production",
-    "categories": []
+    "search": "Polystyrene expandable {RER} production"
   },
   {
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
     "bvi": 0.3211,
-    "search": "Packaging glass white {RER} w/o CH+DE production",
-    "categories": []
+    "search": "Packaging glass white {RER} w/o CH+DE production"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
     "bvi": 0.0003,
-    "search": "Polypropylene granulate {RER}| production",
-    "categories": []
+    "search": "Polypropylene granulate {RER}| production"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
     "bvi": 1.1059,
-    "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "categories": []
+    "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
   {
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
     "bvi": 7.4795,
-    "search": "Kraft paper production",
-    "categories": []
+    "search": "Kraft paper production"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
     "bvi": 0.0004,
-    "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "categories": []
+    "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation"
   },
   {
     "id": "pet",
     "name": "PET",
     "category": "packaging",
     "bvi": 0.245,
-    "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "categories": []
+    "search": "Polyethylene terephthalate granulate bottle grade {RER} production"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
     "bvi": 0.0004,
-    "search": "Polyethylene high density granulate {RER} production",
-    "categories": []
+    "search": "Polyethylene high density granulate {RER} production"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
     "bvi": 0.94,
-    "search": "Aluminium primary ingot {RoW} production",
-    "categories": []
+    "search": "Aluminium primary ingot {RoW} production"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
     "bvi": 0.0089,
-    "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "categories": []
+    "search": "Canning fruits or vegetables industrial 1kg of canned product FR"
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "category": "transformation",
-    "search": "Mixing processing dummy",
-    "categories": []
+    "search": "Mixing processing dummy"
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
     "bvi": 0.012,
-    "search": "Cooking industrial 1kg of cooked product FR",
-    "categories": []
+    "search": "Cooking industrial 1kg of cooked product FR"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
     "bvi": 0.055765784,
-    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
-    "categories": []
+    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
     "bvi": 0.000292724,
-    "search": "Transport freight sea ship",
-    "categories": []
+    "search": "Transport freight sea ship"
   },
   {
     "id": "plane",
     "name": "Avion",
     "category": "transport",
     "bvi": 0.012214369,
-    "search": "Transport freight aircraft",
-    "categories": []
+    "search": "Transport freight aircraft"
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "category": "transport",
-    "search": "Transport freight sea ship reefer",
-    "categories": []
+    "search": "Transport freight sea ship reefer"
   },
   {
     "id": "lorry-cooling",
-    "categories": [],
     "category": "transport",
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}"
@@ -1195,11 +1169,9 @@
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "category": "energy",
-    "search": "Electricity low voltage {FR} market",
-    "categories": []
+    "search": "Electricity low voltage {FR} market"
   },
   {
-    "categories": [],
     "id": "tapwater",
     "category": "material",
     "name": "Eau du robinet",
@@ -1209,7 +1181,6 @@
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "category": "energy",
-    "search": "Heat central or small-scale natural gas Europe market",
-    "categories": []
+    "search": "Heat central or small-scale natural gas Europe market"
   }
 ]
