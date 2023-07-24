@@ -188,7 +188,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 105.55812966672165) result
+                                expectImpactEqual (Unit.impact 105.51569416812166) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the bonus taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -196,7 +196,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 70.35668766328602) result
+                                expectImpactEqual (Unit.impact 70.31425216468602) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -207,13 +207,13 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 197.9538556310652
+                                    |> Expect.within (Expect.Absolute 0.01) 197.88787019387308
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 200.0191454946093
                                     |> asTest "should properly score total impact without bonuses"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) 2.0652898635440664
+                                    |> Expect.within (Expect.Absolute 0.01) 2.131275300736198
                                     |> asTest "should properly score bonuses impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
