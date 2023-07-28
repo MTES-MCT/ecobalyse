@@ -131,6 +131,8 @@ if __name__ == "__main__":
         # keep complex ingredients at the end since they depend on subingredient processes
         sorted(builder.items(), key=lambda x: "ratio" in x[1])
     ):
+        if index > 5:
+            continue
         print(
             "("
             + (index) * "•"
@@ -213,6 +215,7 @@ if __name__ == "__main__":
     # display impacts that have changed
     old = {p["id"]: p["impacts"] for p in oldbuilder}
     review = False
+    changes = []
     for p in builder:
         for impact in builder[p]["impacts"]:
             if old.get(p, {}).get(impact, {}):
@@ -222,14 +225,32 @@ if __name__ == "__main__":
                     / old[p][impact]
                 )
                 if percent_change > 0.1:
-                    print(
-                        f"Impact {impact} of process {p} has evolved by {percent_change:.2g}%: from {old[p][impact]} to {builder[p]['impacts'][impact]}."
+                    changes.append(
+                        {
+                            "trg": impact,
+                            "name": p,
+                            "diff": percent_change,
+                            "from": old[p][impact],
+                            "to": builder[p]["impacts"][impact],
+                        }
                     )
                     review = True
+    changes.sort(key=lambda c: c["diff"])
     if review:
-        print("######################################")
+        keys = ("trg", "name", "diff", "from", "to")
+        widths = {key: max([len(str(c[key])) for c in changes]) for key in keys}
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("Please review the impact changes below")
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
+        for c in changes:
+            print("  ".join([f"{str(c[key]).ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
         print("Please review the impact changes above")
-        print("######################################")
+        print("==".join(["=" * widths[key] for key in keys]))
 
     with open(BUILDER, "w") as outfile:
         json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
