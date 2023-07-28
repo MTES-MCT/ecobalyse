@@ -696,7 +696,17 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                         |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
             in
             details [ class "IngredientBonuses fs-7" ]
-                [ summary [] [ text "Bonus écologiques" ]
+                [ summary []
+                    [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
+                        [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
+                        , span [ class "text-success text-end", title "Total des bonus" ]
+                            [ complementsImpacts.total
+                                |> Quantity.negate
+                                |> Unit.impactToFloat
+                                |> Format.formatImpactFloat selectedImpact
+                            ]
+                        ]
+                    ]
                 , ingredientComplementsView
                     { name = "Diversité agricole"
                     , title = Nothing
@@ -739,11 +749,12 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             text ""
         , displayTransportDistances db recipeIngredient ingredientQuery event
         , span
-            [ class "text-muted text-end IngredientTransportImpact fs-7"
+            [ class "text-black-50 text-end IngredientTransportImpact fs-8"
             , title "Impact du transport pour cet ingrédient"
             ]
-            [ text "+ "
+            [ text "(+ "
             , transportImpact
+            , text ")"
             ]
         ]
 
@@ -788,7 +799,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
                 )
             ]
             []
-        , div [ class "BonusValue d-flex align-items-center text-muted" ]
+        , div [ class "BonusValue d-flex justify-content-end align-items-center text-muted" ]
             [ Format.splitAsPercentage complementSplit
             , Button.smallPillLink
                 [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
@@ -796,7 +807,14 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
                 ]
                 [ Icon.question ]
             ]
-        , div [ class "BonusImpact text-end text-muted" ]
+        , div
+            [ class "BonusImpact text-end"
+            , classList
+                [ ( "text-black-50", disabled )
+                , ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
+                , ( "text-success", Unit.impactToFloat complementImpact > 0 )
+                ]
+            ]
             [ complementImpact
                 |> Quantity.negate
                 |> Unit.impactToFloat

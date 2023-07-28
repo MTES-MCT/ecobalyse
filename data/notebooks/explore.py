@@ -109,16 +109,6 @@ def show_activity(change):
         display(Markdown(f"{comment}"))
     display(Markdown("---"))
 
-    # BIOSPHERE
-    exchanges = activity.biosphere()
-    display(Markdown(f"# There are {len(exchanges)} exchanges with the biosphere:"))
-    for exchange in exchanges:
-        amount = exchange.get("amount", "N/A")
-        unit = exchange.get("unit", "N/A")
-        name = exchange.get("name", "N/A")
-        display(Markdown(f"{amount} {unit} of {name}"))
-    display(Markdown("---"))
-
     # TECHNOSPHERE
     exchanges = activity.technosphere()
     display(Markdown(f"# There are {len(exchanges)} exchanges with the technosphere:"))
@@ -131,6 +121,16 @@ def show_activity(change):
         act = get_activity(flow)
         comment = act.get("comment", "N/A")
         display(Markdown(f"{comment}"))
+    display(Markdown("---"))
+
+    # BIOSPHERE
+    exchanges = activity.biosphere()
+    display(Markdown(f"# There are {len(exchanges)} exchanges with the biosphere:"))
+    for exchange in exchanges:
+        amount = exchange.get("amount", "N/A")
+        unit = exchange.get("unit", "N/A")
+        name = exchange.get("name", "N/A")
+        display(Markdown(f"{amount} {unit} of {name}"))
     display(Markdown("---"))
 
     # SUBSTITUTIONS
