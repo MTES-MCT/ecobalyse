@@ -20,31 +20,11 @@ IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition
 # Output
 INGREDIENTS = "../../../public/data/food/ingredients.json"
 BUILDER = "../../../public/data/food/processes/builder.json"
+# maximum variation for new impacts compared to old impacts
 
 bw2data.projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 db = bw2data.Database(DBNAME)
-
-
-def compute_impacts(activity):
-    # Compute the impacts
-    print(f"Computing impacts for {activity}")
-    impacts = {}
-    lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    for key, method in impacts_definition.items():
-        lca.switch_method(method)
-        lca.lcia()
-        impacts[key] = float("{:.10g}".format(lca.score))
-    # etf-o = etf-o1 + etf-o2
-    impacts["etf-o"] = impacts["etf-o1"] + impacts["etf-o2"]
-    del impacts["etf-o1"]
-    del impacts["etf-o2"]
-    # etf = etf1 + etf2
-    impacts["etf"] = impacts["etf1"] + impacts["etf2"]
-    del impacts["etf1"]
-    del impacts["etf2"]
-    return impacts
 
 
 @functools.cache
@@ -62,6 +42,10 @@ def find_id(activity):
 
 
 if __name__ == "__main__":
+    # backup the previous builder with old impacts
+    with open(BUILDER) as f:
+        oldbuilder = json.load(f)
+
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
 
@@ -154,6 +138,8 @@ if __name__ == "__main__":
         # keep complex ingredients at the end since they depend on subingredient processes
         sorted(builder.items(), key=lambda x: "ratio" in x[1])
     ):
+        if index > 5:
+            continue
         print(
             "("
             + (index) * "•"
@@ -229,6 +215,46 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
+
+    # display impacts that have changed
+    old = {p["id"]: p["impacts"] for p in oldbuilder}
+    review = False
+    changes = []
+    for p in builder:
+        for impact in builder[p]["impacts"]:
+            if old.get(p, {}).get(impact, {}):
+                percent_change = (
+                    100
+                    * abs(builder[p]["impacts"][impact] - old[p][impact])
+                    / old[p][impact]
+                )
+                if percent_change > 0.1:
+                    changes.append(
+                        {
+                            "trg": impact,
+                            "name": p,
+                            "diff": percent_change,
+                            "from": old[p][impact],
+                            "to": builder[p]["impacts"][impact],
+                        }
+                    )
+                    review = True
+    changes.sort(key=lambda c: c["diff"])
+    if review:
+        keys = ("trg", "name", "diff", "from", "to")
+        widths = {key: max([len(str(c[key])) for c in changes]) for key in keys}
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("Please review the impact changes below")
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
+        for c in changes:
+            print("  ".join([f"{str(c[key]).ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
+        print("==".join(["=" * widths[key] for key in keys]))
+        print("Please review the impact changes above")
+        print("==".join(["=" * widths[key] for key in keys]))
 
     with open(BUILDER, "w") as outfile:
         json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
