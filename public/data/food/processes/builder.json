@@ -137,7 +137,7 @@
     "category": "ingredient",
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.513278847,
       "acd": 0.01090399923,
       "ozd": 1.771648049e-08,
       "cch": 0.9395660923,
@@ -617,7 +617,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 15.04866738,
+      "bvi": 14.276153085999999,
       "acd": 0.5533807936899999,
       "ozd": 6.144707925400002e-07,
       "cch": 30.336235302,
@@ -649,7 +649,7 @@
     "category": "material",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 6.54173087,
       "acd": 0.1929274776,
       "ozd": 2.557710685e-07,
       "cch": 13.5280446,
@@ -713,7 +713,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 6.20585509,
       "acd": 0.2401844979,
       "ozd": 2.551766933e-07,
       "cch": 13.07659934,
@@ -745,7 +745,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 15.04866738,
+      "bvi": 0.0026863790000000165,
       "acd": 0.78475272851,
       "ozd": 1.59370826268e-06,
       "cch": 47.231229152000004,
@@ -809,7 +809,7 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 6.087620104,
+      "bvi": 6.47467708534,
       "acd": 0.1890652295814,
       "ozd": 1.6757052934472e-06,
       "cch": 9.455704302180001,
@@ -841,7 +841,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 2.988408615,
       "acd": 0.05963402551,
       "ozd": 9.796827224e-08,
       "cch": 2.707805111,
@@ -873,7 +873,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 3.180020982,
       "acd": 0.09189192758,
       "ozd": 1.189698586e-07,
       "cch": 4.23757707,
@@ -905,7 +905,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 20.6954393,
+      "bvi": 10.82526301,
       "acd": 0.5525694,
       "ozd": 6.459290256e-07,
       "cch": 30.27003951,
@@ -969,7 +969,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 5.408719682,
+      "bvi": 6.172227475,
       "acd": 0.13590991037,
       "ozd": 3.942651002e-07,
       "cch": 6.119538066,
@@ -1001,7 +1001,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 2.767972021,
       "acd": 0.04878622902,
       "ozd": 1.128934718e-07,
       "cch": 2.554735281,
@@ -1033,7 +1033,7 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 3.531479814,
       "acd": 0.08515249935,
       "ozd": 1.672957775e-07,
       "cch": 2.646213154,
@@ -1577,7 +1577,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": -5.369938,
+      "bvi": -1.99256318674,
       "acd": 0.07241023575300001,
       "ozd": 1.324579942494e-07,
       "cch": 6.281097095293999,
@@ -1737,7 +1737,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.940864665,
       "acd": 0.008923922824,
       "ozd": 3.866495553e-08,
       "cch": 0.7143680097,
