@@ -93,6 +93,7 @@
       "dairy_product",
       "organic"
     ],
+    "bvi": 0.513278847,
     "search": "cow milk organic system number 5",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
@@ -426,7 +427,7 @@
     "name": "Bovins de boucherie",
     "category": "material",
     "search": "Beef cattle national average at farm gate",
-    "bvi": 0
+    "bvi": 6.54173087
   },
   {
     "id": "beef-cattle-feedlot",
@@ -440,7 +441,7 @@
     "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "bvi": 0
+    "bvi": 6.20585509
   },
   {
     "id": "ground-beef-feedlot",
@@ -518,21 +519,21 @@
     "name": "Porc",
     "category": "material",
     "search": "Pig conventional national average at farm gate",
-    "bvi": 0
+    "bvi": 2.988408615
   },
   {
     "id": "pig-organic",
     "name": "Porc bio",
     "category": "material",
     "search": "Pig organic system 2 at farm gate",
-    "bvi": 0
+    "bvi": 3.180020982
   },
   {
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
     "category": "material",
-    "bvi": 20.6954393
+    "bvi": 10.82526301
   },
   {
     "id": "chicken-breast",
@@ -585,14 +586,14 @@
     "name": "Poulet",
     "category": "material",
     "search": "Broiler conventional at farm gate",
-    "bvi": 0
+    "bvi": 2.767972021
   },
   {
     "id": "broiler-organic",
     "name": "Poulet bio",
     "category": "material",
     "search": "Broiler organic at farm gate",
-    "bvi": 0
+    "bvi": 3.531479814
   },
   {
     "id": "grape",
@@ -1025,6 +1026,7 @@
     "categories": [
       "grain_raw"
     ],
+    "bvi": 0.940864665,
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "inedible_part": 0,

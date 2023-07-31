@@ -53,10 +53,17 @@ def search(name):
     assert len(results) >= 1, f"'{name}' was not found in Brightway"
     return results[0]
 
+
 def find_id(activity):
     # if this is a complex ingredient, the id is the one constructed by ecobalyse
     if "ratio" in activity.keys():
-        return str(uuid.UUID(hashlib.md5(f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")).hexdigest()))    
+        return str(
+            uuid.UUID(
+                hashlib.md5(
+                    f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")
+                ).hexdigest()
+            )
+        )
     else:
         return search(activity["search"])["Process identifier"]
 
@@ -182,8 +189,6 @@ if __name__ == "__main__":
         del process["impacts"]["etf2"]
 
         # Now compute an identifier for complex ingredients
-        # Compute the impacts of complex ingredients
-
         # Compute impacts of complex ingredients
         # and tweak some attributes
         if "ratio" in process:
