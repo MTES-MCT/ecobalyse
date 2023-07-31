@@ -56,12 +56,6 @@ if __name__ == "__main__":
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
 
-    with open(IMPACTS, "r") as f:
-        impacts_ecobalyse = json.load(f)
-    corrections = {
-        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
-    }
-
     print("Creating ingredient list...")
     ingredients = [
         {
@@ -145,8 +139,6 @@ if __name__ == "__main__":
         # keep complex ingredients at the end since they depend on subingredient processes
         sorted(builder.items(), key=lambda x: "ratio" in x[1])
     ):
-        if index > 5:
-            continue
         print(
             "("
             + (index) * "•"
@@ -182,6 +174,9 @@ if __name__ == "__main__":
                 # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient.
                 # You need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
+                if impact == "bvi" and process["impacts"][impact] == 0:
+                    # if the base ingredient has no bvi, neither the organic
+                    continue
                 process["impacts"][impact] = process["impacts"][impact] + process[
                     "ratio"
                 ] * (
@@ -203,6 +198,12 @@ if __name__ == "__main__":
                 del process[attribute]
 
     print("Computing corrected impacts...")
+    with open(IMPACTS, "r") as f:
+        impacts_ecobalyse = json.load(f)
+    corrections = {
+        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
+    }
+
     for process in builder.values():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():

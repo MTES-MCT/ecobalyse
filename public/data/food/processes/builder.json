@@ -1193,7 +1193,7 @@
     "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
-      "bvi": 2.3100463388,
+      "bvi": 0,
       "acd": 0.0677832443616,
       "ozd": 4.396315876179999e-08,
       "cch": 1.418998461124,
@@ -1257,7 +1257,7 @@
     "category": "ingredient",
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
-      "bvi": -2.6277846836500003,
+      "bvi": 0,
       "acd": -0.00696551375605,
       "ozd": 3.4213975807549995e-07,
       "cch": 2.42716732756,
@@ -1577,7 +1577,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": -1.99256318674,
+      "bvi": 0,
       "acd": 0.07241023575300001,
       "ozd": 1.324579942494e-07,
       "cch": 6.281097095293999,
