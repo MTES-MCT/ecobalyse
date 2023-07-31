@@ -174,7 +174,11 @@ if __name__ == "__main__":
                 # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient.
                 # You need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
-                if impact == "bvi" and process["impacts"][impact] == 0:
+                if impact == "bvi" and (
+                    process["impacts"][impact] == 0
+                    or builder[process["subingredient_organic"]]["impacts"][impact] == 0
+                    or builder[process["subingredient_default"]]["impacts"][impact] == 0
+                ):
                     # if the base ingredient has no bvi, neither the organic
                     continue
                 process["impacts"][impact] = process["impacts"][impact] + process[
