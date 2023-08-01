@@ -572,7 +572,7 @@ def reset_activities(_):
     with git_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("FAILED: git pull")
+                print("FAILED: git pull origin ingredients")
             else:
                 print(
                     "SUCCEEDED. The activity is now up to date with the ingredients branch"
