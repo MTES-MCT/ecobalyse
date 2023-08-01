@@ -546,7 +546,40 @@ def delete_activity(_):
         clear_form()
 
 
+def reset_branch():
+    if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
+        print("FAILED: git reset --hard")
+    elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
+        print("FAILED: git fetch --all")
+    elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
+        print("FAILED: git checkout origin/ingredients")
+    elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
+        print("FAILED: git branch -D ingredients")
+    elif (
+        subprocess.run(
+            ["git", "branch", "ingredients", "origin/ingredients"]
+        ).returncode
+        != 0
+    ):
+        print("FAILED: git branch ingredients origin/ingredients")
+    elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
+        print("FAILED: git checkout ingredients")
+    else:
+        print("FAILED. Please tell the devs")
+
+
 def reset_activities(_):
+    with git_output:
+        try:
+            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
+                print("FAILED: git pull")
+            else:
+                print(
+                    "SUCCEEDED. The activity is now up to date with the ingredients branch"
+                )
+        except:
+            reset_branch()
+
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     w_id.options = tuple(read_activities().keys())
     with list_output:
@@ -576,26 +609,7 @@ def commit_activities(_):
             else:
                 print("SUCCEEDED. Please tell the devs to merge the ingredients branch")
         except:
-            if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
-                print("FAILED: git reset --hard")
-            elif (
-                subprocess.run(["git", "checkout", "origin/ingredients"]).returncode
-                != 0
-            ):
-                print("FAILED: git checkout origin/ingredients")
-            elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
-                print("FAILED: git branch -D ingredients")
-            elif (
-                subprocess.run(
-                    ["git", "branch", "ingredients", "origin/ingredients"]
-                ).returncode
-                != 0
-            ):
-                print("FAILED: git branch ingredients origin/ingredients")
-            elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
-                print("FAILED: git checkout ingredients")
-            else:
-                print("FAILED. Please tell the devs")
+            reset_branch()
 
 
 w_search.observe(change_search_of(w_results), names="value")
