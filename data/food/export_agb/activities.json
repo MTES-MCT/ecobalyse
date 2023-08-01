@@ -9,7 +9,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -31,7 +31,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -53,7 +53,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -73,8 +73,8 @@
       "dairy_product"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -95,12 +95,12 @@
       "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0.513278847,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -158,7 +158,7 @@
     ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -179,7 +179,7 @@
     ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -198,8 +198,8 @@
       "grain_processed"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -219,8 +219,8 @@
       "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -242,8 +242,8 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -263,8 +263,8 @@
       "organic"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -283,8 +283,8 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -305,8 +305,8 @@
       "organic"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -429,7 +429,7 @@
     "name": "Bovins de boucherie",
     "category": "material",
     "search": "Beef cattle national average at farm gate",
-    "bvi": 0
+    "bvi": 6.54173087
   },
   {
     "id": "beef-cattle-feedlot",
@@ -443,7 +443,7 @@
     "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "bvi": 0
+    "bvi": 6.20585509
   },
   {
     "id": "ground-beef-feedlot",
@@ -464,7 +464,10 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    }
+    },
+    "ratio": 2.3,
+    "subingredient_default": "beef-cattle",
+    "subingredient_organic": "beef-cattle-feedlot"
   },
   {
     "id": "cooked-ham",
@@ -517,21 +520,21 @@
     "name": "Porc",
     "category": "material",
     "search": "Pig conventional national average at farm gate",
-    "bvi": 0
+    "bvi": 2.988408615
   },
   {
     "id": "pig-organic",
     "name": "Porc bio",
     "category": "material",
     "search": "Pig organic system 2 at farm gate",
-    "bvi": 0
+    "bvi": 3.180020982
   },
   {
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
     "category": "material",
-    "bvi": 20.6954393
+    "bvi": 10.82526301
   },
   {
     "id": "chicken-breast",
@@ -584,14 +587,14 @@
     "name": "Poulet",
     "category": "material",
     "search": "Broiler conventional at farm gate",
-    "bvi": 0
+    "bvi": 2.767972021
   },
   {
     "id": "broiler-organic",
     "name": "Poulet bio",
     "category": "material",
     "search": "Broiler organic at farm gate",
-    "bvi": 0
+    "bvi": 3.531479814
   },
   {
     "id": "grape",
@@ -662,12 +665,12 @@
       "nut_oilseed_processed"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -683,12 +686,12 @@
       "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "subingredient_default": "rapeseed",
     "subingredient_organic": "rapeseed-organic",
     "ratio": 1.66,
@@ -706,12 +709,12 @@
       "nut_oilseed_processed"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -727,12 +730,12 @@
       "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "subingredient_default": "sunflower",
     "subingredient_organic": "sunflower-organic",
     "ratio": 2.45,
@@ -750,12 +753,12 @@
       "vegetable_fresh"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -771,12 +774,12 @@
       "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -796,7 +799,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -817,7 +820,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -837,7 +840,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -858,7 +861,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -878,7 +881,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -899,7 +902,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -940,7 +943,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ratio": 0,
+    "ratio": 6.58,
     "subingredient_default": "milk",
     "subingredient_organic": "milk-organic",
     "complements": {
@@ -963,7 +966,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -983,7 +986,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1022,7 +1025,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1042,7 +1045,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0.940864665,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1210,7 +1213,7 @@
     "inedible_part": 1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1230,7 +1233,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
