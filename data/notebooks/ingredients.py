@@ -410,6 +410,7 @@ def clear_form():
     w_results.value = ""
     w_category.value = None
     w_categories.value = []
+    w_explain.value = ""
     w_default_origin.value = "EuropeAndMaghreb"
     w_raw_to_cooked_ratio.value = 1
     w_density.value = 0
