@@ -1,7 +1,7 @@
 [
   {
     "id": "egg",
-    "name": "Oeuf",
+    "name": "Oeuf (sortie de ferme)",
     "search": "Egg national average at farm gate",
     "category": "ingredient",
     "categories": [
@@ -22,16 +22,16 @@
   },
   {
     "id": "egg-organic",
-    "name": "Oeuf bio",
+    "name": "Oeuf bio (sortie de ferme)",
+    "search": "Egg organic at farm gate",
     "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "search": "Egg organic at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -44,16 +44,16 @@
   },
   {
     "id": "egg-bleublanccoeur",
-    "name": "Oeuf Bleu-Blanc-Cœur",
+    "name": "Oeuf Bleu-Blanc-Cœur (sorite de ferme)",
+    "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "category": "ingredient",
     "categories": [
       "animal_product",
       "bleublanccoeur"
     ],
-    "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -66,15 +66,15 @@
   },
   {
     "id": "milk",
-    "name": "Lait",
+    "name": "Lait (sortie de ferme)",
+    "search": "Cow milk national average at farm gate",
     "category": "ingredient",
     "categories": [
       "dairy_product"
     ],
-    "search": "Cow milk national average at farm gate",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -87,20 +87,20 @@
   },
   {
     "id": "milk-organic",
-    "name": "Lait bio",
+    "name": "Lait bio (sortie de ferme)",
+    "search": "cow milk organic system number 5",
     "category": "ingredient",
     "categories": [
       "dairy_product",
       "organic"
     ],
-    "bvi": 0.513278847,
-    "search": "cow milk organic system number 5",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -109,13 +109,13 @@
   },
   {
     "id": "carrot",
-    "name": "Carotte",
+    "name": "Carotte (sortie de ferme)",
     "search": "Carrot conventional national average at farm gate",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
@@ -129,14 +129,14 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio",
+    "name": "Carotte bio (sortie de ferme)",
     "search": "Carrot organic Lower Normandy at farm gate",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
@@ -150,15 +150,15 @@
   },
   {
     "id": "wheat",
-    "name": "Blé tendre",
+    "name": "Blé tendre (sortie de ferme)",
+    "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "category": "ingredient",
     "categories": [
       "grain_raw"
     ],
-    "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -170,16 +170,16 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio",
+    "name": "Blé tendre bio (sortie de moulin)",
+    "search": "soft wheat grain organic central region",
     "category": "ingredient",
     "categories": [
       "grain_raw",
       "organic"
     ],
-    "search": "soft wheat grain organic central region",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -191,15 +191,15 @@
   },
   {
     "id": "flour",
-    "name": "Farine",
+    "name": "Farine (sortie de moulin)",
+    "search": "Wheat flour at industrial mill",
     "category": "ingredient",
     "categories": [
       "grain_processed"
     ],
-    "search": "Wheat flour at industrial mill",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -211,39 +211,39 @@
   },
   {
     "id": "flour-organic",
-    "name": "Farine bio",
+    "name": "Farine bio (sortie de moulin)",
+    "search": "Wheat flour at industrial mill",
     "category": "ingredient",
     "categories": [
       "grain_processed",
       "organic"
     ],
-    "search": "Wheat flour at industrial mill",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.411313691,
+    "subingredient_default": "wheat",
+    "subingredient_organic": "wheat-organic",
+    "ratio": 1.16,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
-    },
-    "ratio": 1.16,
-    "subingredient_default": "wheat",
-    "subingredient_organic": "wheat-organic"
+    }
   },
   {
     "id": "sunflower",
-    "name": "Tournesol",
+    "name": "Tournesol (sortie de ferme)",
+    "search": "Sunflower at farm FR",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_raw"
     ],
-    "search": "Sunflower at farm FR",
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -255,16 +255,16 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio",
+    "name": "Tournesol bio (sortie de ferme)",
+    "search": "Sunflower grain organic system 3 at farm gate",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_raw",
       "organic"
     ],
-    "search": "Sunflower grain organic system 3 at farm gate",
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
@@ -276,19 +276,20 @@
   },
   {
     "id": "rapeseed",
-    "name": "Colza",
+    "name": "Colza (sortie de ferme)",
+    "search": "Rape seed FR production Cut-off",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_raw"
     ],
-    "search": "Rape seed FR production Cut-off",
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0.073211803,
+    "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\"",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -296,20 +297,21 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio",
+    "name": "Colza bio (sortie de ferme)",
+    "search": "Winter rapeseed organic at farm gate",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_raw",
       "organic"
     ],
-    "search": "Winter rapeseed organic at farm gate",
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.464805983,
+    "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -317,12 +319,12 @@
   },
   {
     "id": "tomato",
-    "name": "Tomate",
+    "name": "Tomate (sous serre non chauffée)",
+    "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -337,13 +339,13 @@
   },
   {
     "id": "tomato-organic",
-    "name": "Tomate bio",
+    "name": "Tomate bio (sous serre non chauffée)",
+    "search": "Tomato organic greenhouse production national average at greenhouse",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "search": "Tomato organic greenhouse production national average at greenhouse",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -358,12 +360,12 @@
   },
   {
     "id": "potato",
-    "name": "Pomme de terre",
+    "name": "Pomme de terre (sortie de ferme)",
+    "search": "Ware potato conventional variety mix national average at farm gate",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "search": "Ware potato conventional variety mix national average at farm gate",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -427,7 +429,7 @@
     "name": "Bovins de boucherie",
     "category": "material",
     "search": "Beef cattle national average at farm gate",
-    "bvi": 6.54173087
+    "bvi": 0
   },
   {
     "id": "beef-cattle-feedlot",
@@ -441,7 +443,7 @@
     "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "bvi": 6.20585509
+    "bvi": 0
   },
   {
     "id": "ground-beef-feedlot",
@@ -462,11 +464,7 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    },
-    "ratio": 2.3,
-    "subingredient_default": "beef-cattle",
-    "subingredient_organic": "beef-cattle-feedlot"
-
+    }
   },
   {
     "id": "cooked-ham",
@@ -519,21 +517,21 @@
     "name": "Porc",
     "category": "material",
     "search": "Pig conventional national average at farm gate",
-    "bvi": 2.988408615
+    "bvi": 0
   },
   {
     "id": "pig-organic",
     "name": "Porc bio",
     "category": "material",
     "search": "Pig organic system 2 at farm gate",
-    "bvi": 3.180020982
+    "bvi": 0
   },
   {
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
     "category": "material",
-    "bvi": 10.82526301
+    "bvi": 20.6954393
   },
   {
     "id": "chicken-breast",
@@ -586,23 +584,23 @@
     "name": "Poulet",
     "category": "material",
     "search": "Broiler conventional at farm gate",
-    "bvi": 2.767972021
+    "bvi": 0
   },
   {
     "id": "broiler-organic",
     "name": "Poulet bio",
     "category": "material",
     "search": "Broiler organic at farm gate",
-    "bvi": 3.531479814
+    "bvi": 0
   },
   {
     "id": "grape",
-    "name": "Raisin de cuve",
+    "name": "Raisin de cuve (sortie de vignoble)",
+    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -617,13 +615,13 @@
   },
   {
     "id": "grape-organic",
-    "name": "Raisin de cuve bio",
+    "name": "Raisin de cuve bio (sortie de vignoble)",
+    "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -657,18 +655,19 @@
   },
   {
     "id": "huilecolza",
-    "name": "Huile de colza",
+    "name": "Huile de colza (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO}",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_processed"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -676,22 +675,23 @@
   },
   {
     "id": "huilecolza-organic",
-    "name": "Huile de colza bio",
+    "name": "Huile de colza bio (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO}",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_processed",
       "organic"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ratio": 1.66,
+    "bvi": 0.0,
     "subingredient_default": "rapeseed",
     "subingredient_organic": "rapeseed-organic",
+    "ratio": 1.66,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -699,18 +699,19 @@
   },
   {
     "id": "sunfloweroil",
-    "name": "Huile de tournesol",
+    "name": "Huile de tournesol (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_processed"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -718,22 +719,23 @@
   },
   {
     "id": "sunfloweroil-organic",
-    "name": "Huile de tournesol bio",
+    "name": "Huile de tournesol bio (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "nut_oilseed_processed",
       "organic"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "ratio": 2.45,
+    "bvi": 0.0,
     "subingredient_default": "sunflower",
     "subingredient_organic": "sunflower-organic",
+    "ratio": 2.45,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -741,18 +743,19 @@
   },
   {
     "id": "zucchini",
-    "name": "Courgette",
+    "name": "Courgette (sortie de ferme)",
     "search": "Zucchini conventional national average farm gate FR",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -760,19 +763,20 @@
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio",
+    "name": "Courgette bio (sortie de ferme)",
     "search": "zucchini springtime under tunnel organic",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -780,18 +784,19 @@
   },
   {
     "id": "pear",
-    "name": "Poire",
+    "name": "Poire (sortie de ferme)",
     "search": "pear, conventional, at orchard",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -799,19 +804,20 @@
   },
   {
     "id": "pear-organic",
-    "name": "Poire bio",
+    "name": "Poire bio (sortie de ferme)",
     "search": "pear organic",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -819,18 +825,19 @@
   },
   {
     "id": "peach",
-    "name": "Pêche",
+    "name": "Pêche (sortie de ferme)",
     "search": "Peach production mix national average at orchard FR",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -838,19 +845,20 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio",
+    "name": "Pêche bio (sortie de ferme)",
     "search": "peach organic",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -858,18 +866,19 @@
   },
   {
     "id": "melon",
-    "name": "Melon",
+    "name": "Melon (sortie de ferme)",
     "search": "Melon, conventional, national average, at farm gate",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -877,19 +886,20 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio",
+    "name": "Melon bio (sortie de ferme)",
     "search": "melon organic",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh",
       "organic"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -930,7 +940,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ratio":6.58,
+    "ratio": 0,
     "subingredient_default": "milk",
     "subingredient_organic": "milk-organic",
     "complements": {
@@ -941,7 +951,7 @@
   },
   {
     "id": "onion",
-    "name": "Oignon",
+    "name": "Oignon (sortie de ferme)",
     "search": "Onion, national average, at farm",
     "category": "ingredient",
     "categories": [
@@ -961,7 +971,7 @@
   },
   {
     "id": "eggplant",
-    "name": "Aubergine",
+    "name": "Aubergine (sortie de ferme)",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
     "categories": [
@@ -1000,18 +1010,19 @@
   },
   {
     "id": "frenchbean",
-    "name": "Haricot vert",
+    "name": "Haricot vert (sortie de ferme)",
     "search": "French bean, conventional, national average, at farm gate {FR}",
-    "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1019,19 +1030,19 @@
   },
   {
     "id": "durumwheat",
-    "name": "Blé dur",
+    "name": "Blé dur (sortie de ferme)",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "grain_raw"
     ],
-    "bvi": 0.940864665,
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1184,5 +1195,86 @@
     "name": "Gaz de ville",
     "category": "energy",
     "search": "Heat central or small-scale natural gas Europe market"
+  },
+  {
+    "id": "lentils-uncooked",
+    "name": "Lentilles (sortie de ferme)",
+    "search": "winter pea ",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "garden-peas",
+    "name": "Petit pois (sortie de ferme)",
+    "search": "annual vining",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-organic-greenhouse",
+    "name": "Tomate bio (sous serre non chauffée)",
+    "search": "Tomato organic greenhouse production national average at greenhouse",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": false,
+    "bvi": 0.131792529,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "tomato-greenhouse",
+    "name": "Tomate (sous serre non chauffée)",
+    "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": false,
+    "bvi": 0.074402694,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   }
 ]
