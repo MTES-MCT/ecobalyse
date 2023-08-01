@@ -345,7 +345,7 @@ describe("API", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
-          name: "Lait",
+          name: "Lait (sortie de ferme)",
           defaultOrigin: "Europe et Maghreb",
         });
       });
@@ -441,7 +441,7 @@ describe("API", () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;100:100:100"]),
             "ingredients",
-            /Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage/,
+            /Carotte \(sortie de ferme\) ne permet pas l'application d'un bonus sur les conditions d'élevage/,
           );
         });
 
