@@ -1,14 +1,14 @@
 [
   {
     "id": "egg",
-    "name": "Oeuf",
+    "name": "Oeuf (sortie de ferme)",
     "categories": [
       "animal_product"
     ],
     "default": "AGRIBALU000000003105162",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -20,7 +20,7 @@
   },
   {
     "id": "egg-organic",
-    "name": "Oeuf bio",
+    "name": "Oeuf bio (sortie de ferme)",
     "categories": [
       "animal_product",
       "organic"
@@ -40,7 +40,7 @@
   },
   {
     "id": "egg-bleublanccoeur",
-    "name": "Oeuf Bleu-Blanc-Cœur",
+    "name": "Oeuf Bleu-Blanc-Cœur (sorite de ferme)",
     "categories": [
       "animal_product",
       "bleublanccoeur"
@@ -60,7 +60,7 @@
   },
   {
     "id": "milk",
-    "name": "Lait",
+    "name": "Lait (sortie de ferme)",
     "categories": [
       "dairy_product"
     ],
@@ -79,7 +79,7 @@
   },
   {
     "id": "milk-organic",
-    "name": "Lait bio",
+    "name": "Lait bio (sortie de ferme)",
     "categories": [
       "dairy_product",
       "organic"
@@ -99,7 +99,7 @@
   },
   {
     "id": "carrot",
-    "name": "Carotte",
+    "name": "Carotte (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -117,7 +117,7 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio",
+    "name": "Carotte bio (sortie de ferme)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -136,7 +136,7 @@
   },
   {
     "id": "wheat",
-    "name": "Blé tendre",
+    "name": "Blé tendre (sortie de ferme)",
     "categories": [
       "grain_raw"
     ],
@@ -154,7 +154,7 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio",
+    "name": "Blé tendre bio (sortie de moulin)",
     "categories": [
       "grain_raw",
       "organic"
@@ -173,7 +173,7 @@
   },
   {
     "id": "flour",
-    "name": "Farine",
+    "name": "Farine (sortie de moulin)",
     "categories": [
       "grain_processed"
     ],
@@ -191,7 +191,7 @@
   },
   {
     "id": "flour-organic",
-    "name": "Farine bio",
+    "name": "Farine bio (sortie de moulin)",
     "categories": [
       "grain_processed",
       "organic"
@@ -210,7 +210,7 @@
   },
   {
     "id": "sunflower",
-    "name": "Tournesol",
+    "name": "Tournesol (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -228,7 +228,7 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio",
+    "name": "Tournesol bio (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -247,7 +247,7 @@
   },
   {
     "id": "rapeseed",
-    "name": "Colza",
+    "name": "Colza (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -265,7 +265,7 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio",
+    "name": "Colza bio (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -284,7 +284,7 @@
   },
   {
     "id": "tomato",
-    "name": "Tomate",
+    "name": "Tomate (sous serre non chauffée)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -302,7 +302,7 @@
   },
   {
     "id": "tomato-organic",
-    "name": "Tomate bio",
+    "name": "Tomate bio (sous serre non chauffée)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -321,7 +321,7 @@
   },
   {
     "id": "potato",
-    "name": "Pomme de terre",
+    "name": "Pomme de terre (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -475,7 +475,7 @@
   },
   {
     "id": "grape",
-    "name": "Raisin de cuve",
+    "name": "Raisin de cuve (sortie de vignoble)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -493,7 +493,7 @@
   },
   {
     "id": "grape-organic",
-    "name": "Raisin de cuve bio",
+    "name": "Raisin de cuve bio (sortie de vignoble)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -530,7 +530,7 @@
   },
   {
     "id": "huilecolza",
-    "name": "Huile de colza",
+    "name": "Huile de colza (sortie de moulin)",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -548,7 +548,7 @@
   },
   {
     "id": "huilecolza-organic",
-    "name": "Huile de colza bio",
+    "name": "Huile de colza bio (sortie de moulin)",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -567,7 +567,7 @@
   },
   {
     "id": "sunfloweroil",
-    "name": "Huile de tournesol",
+    "name": "Huile de tournesol (sortie de moulin)",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -585,7 +585,7 @@
   },
   {
     "id": "sunfloweroil-organic",
-    "name": "Huile de tournesol bio",
+    "name": "Huile de tournesol bio (sortie de moulin)",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -604,7 +604,7 @@
   },
   {
     "id": "zucchini",
-    "name": "Courgette",
+    "name": "Courgette (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -622,7 +622,7 @@
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio",
+    "name": "Courgette bio (sortie de ferme)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -641,7 +641,7 @@
   },
   {
     "id": "pear",
-    "name": "Poire",
+    "name": "Poire (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -659,7 +659,7 @@
   },
   {
     "id": "pear-organic",
-    "name": "Poire bio",
+    "name": "Poire bio (sortie de ferme)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -678,7 +678,7 @@
   },
   {
     "id": "peach",
-    "name": "Pêche",
+    "name": "Pêche (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -696,7 +696,7 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio",
+    "name": "Pêche bio (sortie de ferme)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -715,7 +715,7 @@
   },
   {
     "id": "melon",
-    "name": "Melon",
+    "name": "Melon (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -733,7 +733,7 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio",
+    "name": "Melon bio (sortie de ferme)",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -791,7 +791,7 @@
   },
   {
     "id": "onion",
-    "name": "Oignon",
+    "name": "Oignon (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -809,7 +809,7 @@
   },
   {
     "id": "eggplant",
-    "name": "Aubergine",
+    "name": "Aubergine (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -845,7 +845,7 @@
   },
   {
     "id": "frenchbean",
-    "name": "Haricot vert",
+    "name": "Haricot vert (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -863,7 +863,7 @@
   },
   {
     "id": "durumwheat",
-    "name": "Blé dur",
+    "name": "Blé dur (sortie de ferme)",
     "categories": [
       "grain_raw"
     ],
@@ -874,6 +874,79 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "lentils-uncooked",
+    "name": "Lentilles (sortie de ferme)",
+    "categories": [
+      "grain_raw"
+    ],
+    "default": "AGRIBALU000024985200191",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 1,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "garden-peas",
+    "name": "Petit pois (sortie de ferme)",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default": "AGRIBALU000024985200024",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-organic-greenhouse",
+    "name": "Tomate bio (sous serre non chauffée)",
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
+    "default": "AGRIBALU000000003115758",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": false,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "tomato-greenhouse",
+    "name": "Tomate (sous serre non chauffée)",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default": "AGRIBALU000000003115753",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": false,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10

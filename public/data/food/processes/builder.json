@@ -2,7 +2,7 @@
   {
     "id": "egg",
     "name": "Egg, national average, at farm gate {FR} U",
-    "displayName": "Oeuf",
+    "displayName": "Oeuf (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105162",
     "system_description": "AGRIBALYSE",
@@ -34,7 +34,7 @@
   {
     "id": "egg-organic",
     "name": "Egg, organic, at farm gate {FR} U",
-    "displayName": "Oeuf bio",
+    "displayName": "Oeuf bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105163",
     "system_description": "",
@@ -66,7 +66,7 @@
   {
     "id": "egg-bleublanccoeur",
     "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
-    "displayName": "Oeuf Bleu-Blanc-Cœur",
+    "displayName": "Oeuf Bleu-Blanc-Cœur (sorite de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105149",
     "system_description": "",
@@ -98,7 +98,7 @@
   {
     "id": "milk",
     "name": "Cow milk, national average, at farm gate {FR} U",
-    "displayName": "Lait",
+    "displayName": "Lait (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104145",
     "system_description": "AGRIBALYSE",
@@ -130,7 +130,7 @@
   {
     "id": "milk-organic",
     "name": "Cow milk, organic, system number 5, at farm gate {FR} U",
-    "displayName": "Lait bio",
+    "displayName": "Lait bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104151",
     "system_description": "AGRIBALYSE",
@@ -162,7 +162,7 @@
   {
     "id": "carrot",
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Carotte",
+    "displayName": "Carotte (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
@@ -194,7 +194,7 @@
   {
     "id": "carrot-organic",
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
-    "displayName": "Carotte bio",
+    "displayName": "Carotte bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
@@ -226,7 +226,7 @@
   {
     "id": "wheat",
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Blé tendre",
+    "displayName": "Blé tendre (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
@@ -258,7 +258,7 @@
   {
     "id": "wheat-organic",
     "name": "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U",
-    "displayName": "Blé tendre bio",
+    "displayName": "Blé tendre bio (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114123",
     "system_description": "AGRIBALYSE",
@@ -290,7 +290,7 @@
   {
     "id": "flour",
     "name": "Wheat flour, at industrial mill {FR} U",
-    "displayName": "Farine",
+    "displayName": "Farine (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116999",
     "system_description": "AGRIBALYSE",
@@ -322,7 +322,7 @@
   {
     "id": "flour-organic",
     "name": "flour-organic, constructed by Ecobalyse",
-    "displayName": "Farine bio",
+    "displayName": "Farine bio (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "190daa18-c636-9b3a-1bee-aaba811fdaf6",
     "system_description": "Ecobalyse",
@@ -354,7 +354,7 @@
   {
     "id": "sunflower",
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
-    "displayName": "Tournesol",
+    "displayName": "Tournesol (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115216",
     "system_description": "",
@@ -386,7 +386,7 @@
   {
     "id": "sunflower-organic",
     "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U",
-    "displayName": "Tournesol bio",
+    "displayName": "Tournesol bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200157",
     "system_description": "AGRIBALYSE",
@@ -418,7 +418,7 @@
   {
     "id": "rapeseed",
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Colza",
+    "displayName": "Colza (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112430",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
@@ -450,7 +450,7 @@
   {
     "id": "rapeseed-organic",
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
-    "displayName": "Colza bio",
+    "displayName": "Colza bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200196",
     "system_description": "",
@@ -482,7 +482,7 @@
   {
     "id": "tomato",
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate",
+    "displayName": "Tomate (sous serre non chauffée)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
@@ -514,7 +514,7 @@
   {
     "id": "tomato-organic",
     "name": "Tomato, organic, greenhouse production, national average, at greenhouse {FR} U",
-    "displayName": "Tomate bio",
+    "displayName": "Tomate bio (sous serre non chauffée)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115758",
     "system_description": "AGRIBALYSE",
@@ -546,7 +546,7 @@
   {
     "id": "potato",
     "name": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
-    "displayName": "Pomme de terre",
+    "displayName": "Pomme de terre (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116702",
     "system_description": "AGRIBALYSE",
@@ -1058,7 +1058,7 @@
   {
     "id": "grape",
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "displayName": "Raisin de cuve",
+    "displayName": "Raisin de cuve (sortie de vignoble)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106864",
     "system_description": "AGRIBALYSE",
@@ -1090,7 +1090,7 @@
   {
     "id": "grape-organic",
     "name": "Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "displayName": "Raisin de cuve bio",
+    "displayName": "Raisin de cuve bio (sortie de vignoble)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200264",
     "system_description": "AGRIBALYSE",
@@ -1154,7 +1154,7 @@
   {
     "id": "huilecolza",
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de colza",
+    "displayName": "Huile de colza (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112448",
     "system_description": "",
@@ -1186,7 +1186,7 @@
   {
     "id": "huilecolza-organic",
     "name": "huilecolza-organic, constructed by Ecobalyse",
-    "displayName": "Huile de colza bio",
+    "displayName": "Huile de colza bio (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
     "system_description": "Ecobalyse",
@@ -1218,7 +1218,7 @@
   {
     "id": "sunfloweroil",
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de tournesol",
+    "displayName": "Huile de tournesol (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115182",
     "system_description": "",
@@ -1250,7 +1250,7 @@
   {
     "id": "sunfloweroil-organic",
     "name": "sunfloweroil-organic, constructed by Ecobalyse",
-    "displayName": "Huile de tournesol bio",
+    "displayName": "Huile de tournesol bio (sortie de moulin)",
     "unit": "kilogram",
     "identifier": "aad2f55d-4b47-8126-0a70-47d8e317e238",
     "system_description": "Ecobalyse",
@@ -1282,7 +1282,7 @@
   {
     "id": "zucchini",
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Courgette",
+    "displayName": "Courgette (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
@@ -1314,7 +1314,7 @@
   {
     "id": "zucchini-organic",
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courgette bio",
+    "displayName": "Courgette bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
@@ -1346,7 +1346,7 @@
   {
     "id": "pear",
     "name": "Pear, conventional, at orchard {FR} U",
-    "displayName": "Poire",
+    "displayName": "Poire (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111019",
     "system_description": "AGRIBALYSE",
@@ -1378,7 +1378,7 @@
   {
     "id": "pear-organic",
     "name": "Pear, organic, at farm gate {FR} U",
-    "displayName": "Poire bio",
+    "displayName": "Poire bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111025",
     "system_description": "AGRIBALYSE",
@@ -1410,7 +1410,7 @@
   {
     "id": "peach",
     "name": "Peach, production mix, national average, at orchard {FR} U",
-    "displayName": "Pêche",
+    "displayName": "Pêche (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110952",
     "system_description": "AGRIBALYSE",
@@ -1442,7 +1442,7 @@
   {
     "id": "peach-organic",
     "name": "Peach, organic, national average, at orchard {FR} U",
-    "displayName": "Pêche bio",
+    "displayName": "Pêche bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110947",
     "system_description": "AGRIBALYSE",
@@ -1474,7 +1474,7 @@
   {
     "id": "melon",
     "name": "Melon, conventional, national average, at farm gate {FR} U",
-    "displayName": "Melon",
+    "displayName": "Melon (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
@@ -1506,7 +1506,7 @@
   {
     "id": "melon-organic",
     "name": "Melon, organic, at farm gate {FR} U",
-    "displayName": "Melon bio",
+    "displayName": "Melon bio (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
@@ -1602,14 +1602,14 @@
   {
     "id": "onion",
     "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Oignon",
+    "displayName": "Oignon (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-09,
       "cch": 0.06625188562,
@@ -1634,14 +1634,14 @@
   {
     "id": "eggplant",
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Aubergine",
+    "displayName": "Aubergine (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -1698,7 +1698,7 @@
   {
     "id": "frenchbean",
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert",
+    "displayName": "Haricot vert (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
@@ -1730,7 +1730,7 @@
   {
     "id": "durumwheat",
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "displayName": "Blé dur",
+    "displayName": "Blé dur (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200066",
     "system_description": "AGRIBALYSE",
@@ -2461,6 +2461,134 @@
       "etf-c": 0.3685987877102,
       "htc-c": 2.5892130919000002e-11,
       "htn-c": 1.4114904768e-10
+    }
+  },
+  {
+    "id": "lentils-uncooked",
+    "name": "Winter pea seed, organic, at farm gate {FR} U",
+    "displayName": "Lentilles (sortie de ferme)",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000024985200191",
+    "system_description": "",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0,
+      "acd": 0.004805229766,
+      "ozd": 1.549372724e-08,
+      "cch": 0.4155736072,
+      "fwe": 0.0001453311826,
+      "swe": 0.009433622163,
+      "tre": 0.02182421923,
+      "pco": 0.001188191795,
+      "pma": 2.843683076e-08,
+      "ior": 0.006727665228,
+      "fru": 1.045795983,
+      "mru": 5.705255224e-07,
+      "ldu": 156.4091895,
+      "wtu": 0.002996901865,
+      "htc": 9.653049444e-10,
+      "htn": 7.742533388e-09,
+      "etf": 0.7162473521,
+      "etf-c": 0.7773570891378,
+      "htc-c": 9.838926876800001e-10,
+      "htn-c": 7.77376063206e-09
+    }
+  },
+  {
+    "id": "garden-peas",
+    "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
+    "displayName": "Petit pois (sortie de ferme)",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000024985200024",
+    "system_description": "AGRIBALYSE",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0,
+      "acd": 0.006443464489,
+      "ozd": 3.94192098e-08,
+      "cch": 0.3951920591,
+      "fwe": 8.941541221e-05,
+      "swe": 0.006033205652,
+      "tre": 0.02884934038,
+      "pco": 0.001855369966,
+      "pma": 3.858701918e-08,
+      "ior": 0.01201342992,
+      "fru": 2.197645185,
+      "mru": 1.025120196e-06,
+      "ldu": 69.16222048,
+      "wtu": 0.5324089724,
+      "htc": 2.884490779e-10,
+      "htn": 1.491230846e-09,
+      "etf": 9.270012795,
+      "etf-c": 16.558900202,
+      "htc-c": 3.2342998244e-10,
+      "htn-c": 1.8568156e-09
+    }
+  },
+  {
+    "id": "tomato-organic-greenhouse",
+    "name": "Tomato, organic, greenhouse production, national average, at greenhouse {FR} U",
+    "displayName": "Tomate bio (sous serre non chauffée)",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003115758",
+    "system_description": "AGRIBALYSE",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0.131792529,
+      "acd": 0.001360300191,
+      "ozd": 2.021899175e-08,
+      "cch": 0.1969220817,
+      "fwe": 2.943025281e-05,
+      "swe": 0.0009077670219,
+      "tre": 0.0072393077,
+      "pco": 0.0006303072708,
+      "pma": 1.519375862e-08,
+      "ior": 0.03649367568,
+      "fru": 3.439919449,
+      "mru": 2.464405676e-06,
+      "ldu": -4.877699826,
+      "wtu": 0.2551523711,
+      "htc": 5.297844728e-10,
+      "htn": 3.343100513e-08,
+      "etf": 0.8535638286,
+      "etf-c": 0.905073688758,
+      "htc-c": 6.2487962076e-10,
+      "htn-c": 3.352293287636e-08
+    }
+  },
+  {
+    "id": "tomato-greenhouse",
+    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
+    "displayName": "Tomate (sous serre non chauffée)",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003115753",
+    "system_description": "AGRIBALYSE",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0.074402694,
+      "acd": 0.001234928752,
+      "ozd": 1.714410002e-08,
+      "cch": 0.1519781873,
+      "fwe": 2.276172962e-05,
+      "swe": 0.0007357329623,
+      "tre": 0.004797268826,
+      "pco": 0.0004277787815,
+      "pma": 9.995441384e-09,
+      "ior": 0.029203775,
+      "fru": 2.768396591,
+      "mru": 1.996145038e-06,
+      "ldu": -3.187743329,
+      "wtu": 0.2584271385,
+      "htc": 2.660287495e-10,
+      "htn": 9.306900232e-09,
+      "etf": 1.2272870962,
+      "etf-c": 1.4686556131000001,
+      "htc-c": 3.2479501073999997e-10,
+      "htn-c": 9.376106424260001e-09
     }
   }
 ]
