@@ -606,6 +606,9 @@ commitbutton.on_click(commit_activities)
 
 
 display(
+    ipywidgets.HTML(
+        value="<h1>Avant de commencer</h1>Appuyez sur le bouton ▸▸ dans la barre d'outil, puis sur le bouton vert « Reset from branch »"
+    ),
     Markdown("# Procédé à ajouter/modifier/supprimer :"),
     ipywidgets.HBox(
         (
