@@ -951,5 +951,116 @@
       "agro-diversity": 10,
       "agro-ecology": 10
     }
+  },
+  {
+    "id": "comte-AOP",
+    "name": "Comté AOP",
+    "categories": [
+      "dairy_product"
+    ],
+    "default": "AGRIBALU000000003103732",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "emmental",
+    "name": "Emmental",
+    "categories": [
+      "dairy_product"
+    ],
+    "default": "AGRIBALU000000003105529",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "mozzarella",
+    "name": "Mozzarella",
+    "categories": [
+      "dairy_product"
+    ],
+    "default": "AGRIBALU000000003110032",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "tomato-heated-greenhouse",
+    "name": "Tomate (sous serre chauffée)",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default": "AGRIBALU000000003115752",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cucumber",
+    "name": "Concombre (sous serre chauffée)",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default": "AGRIBALU000000003104392",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cucumber-greenhouse-non-heated",
+    "name": "Concombre (sous serre non chauffée)",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default": "AGRIBALU000000003115753",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   }
 ]
