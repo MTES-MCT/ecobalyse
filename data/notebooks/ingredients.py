@@ -591,9 +591,7 @@ def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     with git_output:
         try:
-            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("FAILED: git pull")
-            elif subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
+            if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
                 print("FAILED: git add")
             elif (
                 subprocess.run(
@@ -602,6 +600,10 @@ def commit_activities(_):
                 != 0
             ):
                 print("FAILED: git commit")
+            elif (
+                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
+            ):
+                print("FAILED: git pull")
             elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
