@@ -1405,5 +1405,297 @@
       "agro-diversity": 10,
       "agro-ecology": 10
     }
+  },
+  {
+    "id": "apricot",
+    "name": "Abricot (sortie de ferme)",
+    "search": "code:f6f01b92fe478ddbf62a9f0b07512158",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "artichoke",
+    "name": "Artichaut (sortie de ferme)",
+    "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.6,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cauliflower",
+    "name": "Chou-fleur (sortie de ferme)",
+    "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.2355,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible.",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "beetroot",
+    "name": "Betterave rouge (sortie de ferme)",
+    "search": "Carrot, conventional, national average, at farm gate ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "beetroot-organic",
+    "name": "Betterave rouge bio (sortie de ferme)",
+    "search": "code:6408f1ffebe26276c8aa852b45d96aa5",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé betterave rouge bio approximé par la carotte bio (donc carotte bio de Basse-Normandie)",
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "swiss-chard",
+    "name": "Blette (sortie de ferme)",
+    "search": "Spinach {GLO}| production | ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "spinach",
+    "name": "Epinard (sortie de ferme)",
+    "search": "Spinach {GLO}| production |",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "broccoli",
+    "name": "Brocoli (sortie de ferme)",
+    "search": "Broccoli {GLO}| production ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.2355,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé issu de WDFDB (GLO)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "celery",
+    "name": "Céleri branche (sortie de ferme)",
+    "search": "Celery {GLO}| 675 production | Cut-off",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé issu de WDFDB (GLO)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "celeriac",
+    "name": "Céleri-rave (sortie de ferme)",
+    "search": "Carrot, conventional, national average, at farm gate ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "celeriac-organic",
+    "name": "Céleri-rave bio (sortie de ferme)",
+    "search": "carrot organic lower",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "procédé céleri-rave bio approximé par la carotte bio (cohérence avec hypothèse sur le céleri-rave conventionnel reprise d'Agribalyse)\n\n",
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "cherry",
+    "name": "Cerise (sortie de ferme)",
+    "search": "Cherry, conventional, national average, at orchard {FR}",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Part non comestible => hypothèse de la prune\n",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "mushroom",
+    "name": "Champignon frais",
+    "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chestnut",
+    "name": "Châtaigne en coque (sortie de ferme)",
+    "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé châtaigne approximé par la noix. Hyp. sur la part non comestible de la châtaigne, les autres de la noix.",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   }
 ]
