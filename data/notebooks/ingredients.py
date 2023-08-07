@@ -219,7 +219,10 @@ w_cooling = ipywidgets.Dropdown(
 # Cooked/Raw ratio
 w_raw_to_cooked_ratio = ipywidgets.Dropdown(
     options=[
-        ("1.0", 1.0),
+        (
+            "1.0 (Prod laitiers, noix, boiss liquides, herbes, fruits et légumes séchés, farines, sel, sucre, épices, cornichons, câpres, condiments)",
+            1.0,
+        ),
         ("2,330 (Légumineuses)", 2.33),
         ("2,259 (Céréales)", 2.259),
         ("0,974 (Oeufs)", 0.974),
