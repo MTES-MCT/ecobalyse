@@ -1495,7 +1495,8 @@
     "search": "code:6408f1ffebe26276c8aa852b45d96aa5",
     "category": "ingredient",
     "categories": [
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -1504,7 +1505,7 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 0.0,
-    "explain": "Procédé betterave rouge bio approximé par la carotte bio (donc carotte bio de Basse-Normandie)",
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -1620,7 +1621,8 @@
     "search": "carrot organic lower",
     "category": "ingredient",
     "categories": [
-      "vegetable_fresh"
+      "vegetable_fresh",
+      "organic"
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
@@ -1629,7 +1631,7 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 0.0,
-    "explain": "procédé céleri-rave bio approximé par la carotte bio (cohérence avec hypothèse sur le céleri-rave conventionnel reprise d'Agribalyse)\n\n",
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -1692,10 +1694,764 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 0.0,
-    "explain": "Procédé châtaigne approximé par la noix. Hyp. sur la part non comestible de la châtaigne, les autres de la noix.",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
+    }
+  },
+  {
+    "id": "walnut",
+    "name": "Noix en coque (sortie de ferme)",
+    "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chinese-cabbage",
+    "name": "Chou chinois (sortie de ferme)",
+    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "white-cabbage",
+    "name": "Chou blanc (sortie de ferme)",
+    "search": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "green-cabbage",
+    "name": "Chou vert (sortie de ferme)",
+    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "red-cabbage",
+    "name": "Chou rouge (sortie de ferme)",
+    "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "brussels-sprout",
+    "name": "Chou de Bruxelles (sortie de ferme)",
+    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "curly-kale",
+    "name": "Chou frisé (sortie de ferme)",
+    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "lemon",
+    "name": "Citron (sortie de ferme)",
+    "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.3,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé du citron ES issu d'Ecoinvent",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "pumpkin",
+    "name": "Citrouille (sortie de ferme)",
+    "search": "Zucchini, conventional, national average, at farm gate {FR}",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "squash",
+    "name": "Courge (sortie de ferme)",
+    "search": "Zucchini, conventional, national average, at farm gate {FR}",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "clementine",
+    "name": "Clémentine (sortie de ferme)",
+    "search": "Clementine, export quality, Souss, at orchard {MA} ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "mandarin",
+    "name": "Mandarine (sortie de ferme)",
+    "search": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "orange",
+    "name": "Orange (sortie de ferme)",
+    "search": "Orange, fresh grade, at farm {ES} ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "shallot",
+    "name": "Echalotte (sortie de ferme)",
+    "search": "Onion, national average, at farm {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "endive",
+    "name": "Endive (sortie de ferme)",
+    "search": "Lettuce, conventional, national average, at farm gate ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.118,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de l'endive approximé par la laitue.",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "fennel",
+    "name": "Fenouil (sortie de ferme)",
+    "search": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "broad-beans",
+    "name": "Fève (sortie de ferme)",
+    "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "strawberry",
+    "name": "Fraise - plein champ (sortie de ferme)",
+    "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Par défaut : fraise espagnole",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "raspberry",
+    "name": "Framboise (sortie de ferme)",
+    "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "flageolet-bean",
+    "name": "Haricot flageolet (sortie de ferme)",
+    "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm ",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Densité : même hyp que petit pois",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "kiwi",
+    "name": "Kiwi (sortie de ferme)",
+    "search": "Kiwi FR, conventional, national average, at plant {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Part non comestible : même hyp que pomme",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "lambs-lettuce",
+    "name": "Mâche (sortie de ferme)",
+    "search": "Lettuce, conventional, national average, at farm gate",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.4,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "sweet-corn",
+    "name": "Maïs doux (sortie de ferme)",
+    "search": "aize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Part non comestible : chataigne, olive",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "blackberry",
+    "name": "Mûre (sortie de ferme)",
+    "search": "Blackberry, at farm {RS} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "blueberry",
+    "name": "Myrtille (sortie de ferme)",
+    "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "turnip",
+    "name": "Navet (sortie de ferme)",
+    "search": "Carrot, conventional, national average, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la carotte (hypothèse mix de conso AGB)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "turnip-organic",
+    "name": "Navet bio (sortie de ferme)",
+    "search": "carrot organic lower",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "hazelnut",
+    "name": "Noisette (sortie de ferme)",
+    "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé Turquie (hypothèse reprise du mix de conso AGB)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "pistachio",
+    "name": "Pistache avec coque (sortie de ferme)",
+    "search": "Peanut {AR}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "leek",
+    "name": "Poireau (sortie de ferme)",
+    "search": "Leek, national average, at plant",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire.",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chickpea",
+    "name": "Pois chiche (sortie de ferme)",
+    "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Part non comestible : hypothèse petit pois",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chickpea-organic",
+    "name": "Pois chiche bio (sortie de ferme)",
+    "search": "Chickpea, organic, system number 1, at farm gate {FR} U \t",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Part non comestible : hypothèse petit pois",
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "bellpepper-unheated-greenhouse",
+    "name": "Poivron sous serre non chauffée (sortie de ferme)",
+    "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.295,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "plum",
+    "name": "Prune (sortie de ferme)",
+    "search": "Cherry, conventional, national average, at orchard ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Procédé de la cerise (hypothèse mix de conso AGB)",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "soybean-humanconsumption",
+    "name": "Soja (sortie de ferme)",
+    "search": "Soybean, national average, animal feed, at farm gate {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw"
+    ],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "soybean-organic",
+    "name": "Soja bio (sortie de ferme)",
+    "search": "soybean organic animal {FR}",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   }
 ]
