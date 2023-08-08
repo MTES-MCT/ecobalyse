@@ -578,7 +578,7 @@ def reset_activities(_):
                 print("FAILED: git pull origin ingredients")
             else:
                 print(
-                    "SUCCEEDED. The activity is now up to date with the ingredients branch"
+                    "SUCCEEDED. The activities are now up to date with the ingredients branch"
                 )
         except:
             reset_branch()
