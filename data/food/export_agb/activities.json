@@ -2163,7 +2163,7 @@
   {
     "id": "sweet-corn",
     "name": "Maïs doux (sortie de ferme)",
-    "search": "aize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
+    "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "category": "ingredient",
     "categories": [
       "grain_raw"
