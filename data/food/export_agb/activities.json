@@ -380,15 +380,15 @@
   },
   {
     "id": "ground-beef",
-    "name": "Boeuf haché",
+    "name": "Boeuf haché (cru)",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -401,28 +401,28 @@
   },
   {
     "id": "ground-beef-organic",
-    "name": "Boeuf haché bio",
+    "name": "Boeuf haché bio (cru)",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
+    "subingredient_default": "beef-cattle",
+    "subingredient_organic": "cull-cow-organic",
+    "ratio": 2.3,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    },
-    "ratio": 2.3,
-    "subingredient_default": "beef-cattle",
-    "subingredient_organic": "cull-cow-organic"
+    }
   },
   {
     "id": "beef-cattle",
@@ -447,39 +447,39 @@
   },
   {
     "id": "ground-beef-feedlot",
-    "name": "Boeuf haché (Feedlot)",
+    "name": "Boeuf haché Feedlot (cru)",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "search": "Ground beef fresh case ready for direct consumption at plant",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
+    "subingredient_default": "beef-cattle",
+    "subingredient_organic": "beef-cattle-feedlot",
+    "ratio": 2.3,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    },
-    "ratio": 2.3,
-    "subingredient_default": "beef-cattle",
-    "subingredient_organic": "beef-cattle-feedlot"
+    }
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon",
+    "name": "Jambon (cuit)",
+    "search": "Cooked ham case ready at plant",
     "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "search": "Cooked ham case ready at plant",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -538,15 +538,15 @@
   },
   {
     "id": "chicken-breast",
-    "name": "Poulet",
+    "name": "Poulet (cru)",
+    "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
     "categories": [
       "animal_product"
     ],
-    "search": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -559,28 +559,28 @@
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Poulet bio",
+    "name": "Poulet bio (cru)",
+    "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
     "categories": [
       "animal_product",
       "organic"
     ],
-    "search": "Meat without bone chicken for direct consumption",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "bvi": 5.408719682,
+    "subingredient_default": "broiler",
+    "subingredient_organic": "broiler-organic",
+    "ratio": 1.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    },
-    "ratio": 1,
-    "subingredient_default": "broiler",
-    "subingredient_organic": "broiler-organic"
+    }
   },
   {
     "id": "broiler",
@@ -639,18 +639,19 @@
   },
   {
     "id": "mango",
-    "name": "Mangue",
+    "name": "Mangue BR (sortie de ferme)",
+    "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
-    "search": "Mango conventional Val de San Francisco at orchard",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -747,7 +748,7 @@
   {
     "id": "zucchini",
     "name": "Courgette (sortie de ferme)",
-    "search": "Zucchini conventional national average farm gate FR",
+    "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
@@ -994,18 +995,19 @@
   },
   {
     "id": "lettuce",
-    "name": "Laitue",
+    "name": "Laitue (sortie de ferme)",
     "search": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "default_origin": "EuropeAndMaghreb",
     "category": "ingredient",
     "categories": [
       "vegetable_fresh"
     ],
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1681,7 +1683,7 @@
   },
   {
     "id": "chestnut",
-    "name": "Châtaigne en coque (sortie de ferme)",
+    "name": "Châtaigne avec coque (sortie de ferme)",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
     "categories": [
@@ -1701,7 +1703,7 @@
   },
   {
     "id": "walnut",
-    "name": "Noix en coque (sortie de ferme)",
+    "name": "Noix avec coque (sortie de ferme)",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "category": "ingredient",
     "categories": [
@@ -2268,7 +2270,7 @@
   },
   {
     "id": "hazelnut",
-    "name": "Noisette (sortie de ferme)",
+    "name": "Noisette avec coque (sortie de ferme)",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "category": "ingredient",
     "categories": [
@@ -2281,7 +2283,6 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 0.0,
-    "explain": "Procédé Turquie (hypothèse reprise du mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2415,7 +2416,7 @@
   },
   {
     "id": "soybean-humanconsumption",
-    "name": "Soja (sortie de ferme)",
+    "name": "Soja FR (sortie de ferme)",
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "category": "ingredient",
     "categories": [
@@ -2435,7 +2436,7 @@
   },
   {
     "id": "soybean-organic",
-    "name": "Soja bio (sortie de ferme)",
+    "name": "Soja FR bio (sortie de ferme)",
     "search": "soybean organic animal {FR}",
     "category": "ingredient",
     "categories": [
@@ -2452,6 +2453,248 @@
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
+    }
+  },
+  {
+    "id": "soybeanBRno-deforestation",
+    "name": "Soja BR non déforestant (sortie de ferme)",
+    "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent \t",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "soybeanBRdeforestation",
+    "name": "Soja BR déforestant",
+    "search": "Soybean {BR}| market for soybean | Cut-off, U ",
+    "category": "ingredient",
+    "categories": [
+      "grain_raw"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "sausage-meat",
+    "name": "Chair à saucisse (crue)",
+    "search": "Sausage meat, raw, at plant {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-toulouse",
+    "name": "Saucisse de Toulouse (crue)",
+    "search": "Toulouse sausage, raw, at plant {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-toulouse-cooked",
+    "name": "Saucisse de Toulouse (cuite)",
+    "search": "Toulouse sausage, cooked, at plant {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-tofu",
+    "name": "Saucisse végétale tofu",
+    "search": "Plant-based sausage with tofu (vegan), at plant {FR} U \t",
+    "category": "ingredient",
+    "categories": [],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chicken-ham",
+    "name": "Blanc de poulet ",
+    "search": "Chicken cooked ham, in slices, processed in FR | Chilled | PS | at packaging {",
+    "category": "ingredient",
+    "categories": [],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-paste",
+    "name": "Purée de tomates",
+    "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_processed"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-concentrated",
+    "name": "Concentré de tomates",
+    "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_processed"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "rib-steak",
+    "name": "Entrecôte (crue)",
+    "search": "Meat with bone, beef, for direct consumption",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "Flank-steak",
+    "name": "Bavette (crue)",
+    "search": "Meat without bone, beef, for direct consumption ",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "rumsteak",
+    "name": "Rumsteak (cru)",
+    "search": "Meat without bone, beef, for direct consumption {FR} U",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   }
 ]
