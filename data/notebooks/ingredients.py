@@ -219,7 +219,10 @@ w_cooling = ipywidgets.Dropdown(
 # Cooked/Raw ratio
 w_raw_to_cooked_ratio = ipywidgets.Dropdown(
     options=[
-        ("1.0", 1.0),
+        (
+            "1.0 (Prod laitiers, noix, boiss liquides, herbes, fruits et légumes séchés, farines, sel, sucre, épices, cornichons, câpres, condiments)",
+            1.0,
+        ),
         ("2,330 (Légumineuses)", 2.33),
         ("2,259 (Céréales)", 2.259),
         ("0,974 (Oeufs)", 0.974),
@@ -410,6 +413,7 @@ def clear_form():
     w_results.value = ""
     w_category.value = None
     w_categories.value = []
+    w_explain.value = ""
     w_default_origin.value = "EuropeAndMaghreb"
     w_raw_to_cooked_ratio.value = 1
     w_density.value = 0
@@ -545,7 +549,40 @@ def delete_activity(_):
         clear_form()
 
 
+def reset_branch():
+    if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
+        print("FAILED: git reset --hard")
+    elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
+        print("FAILED: git fetch --all")
+    elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
+        print("FAILED: git checkout origin/ingredients")
+    elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
+        print("FAILED: git branch -D ingredients")
+    elif (
+        subprocess.run(
+            ["git", "branch", "ingredients", "origin/ingredients"]
+        ).returncode
+        != 0
+    ):
+        print("FAILED: git branch ingredients origin/ingredients")
+    elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
+        print("FAILED: git checkout ingredients")
+    else:
+        print("FAILED. Please tell the devs")
+
+
 def reset_activities(_):
+    with git_output:
+        try:
+            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
+                print("FAILED: git pull origin ingredients")
+            else:
+                print(
+                    "SUCCEEDED. The activities are now up to date with the ingredients branch"
+                )
+        except:
+            reset_branch()
+
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     w_id.options = tuple(read_activities().keys())
     with list_output:
@@ -557,9 +594,7 @@ def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
     with git_output:
         try:
-            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("FAILED: git pull")
-            elif subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
+            if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
                 print("FAILED: git add")
             elif (
                 subprocess.run(
@@ -569,32 +604,17 @@ def commit_activities(_):
             ):
                 print("FAILED: git commit")
             elif (
+                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
+            ):
+                print("FAILED: git pull")
+            elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
                 print("FAILED: git push")
             else:
                 print("SUCCEEDED. Please tell the devs to merge the ingredients branch")
         except:
-            if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
-                print("FAILED: git reset --hard")
-            elif (
-                subprocess.run(["git", "checkout", "origin/ingredients"]).returncode
-                != 0
-            ):
-                print("FAILED: git checkout origin/ingredients")
-            elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
-                print("FAILED: git branch -D ingredients")
-            elif (
-                subprocess.run(
-                    ["git", "branch", "ingredients", "origin/ingredients"]
-                ).returncode
-                != 0
-            ):
-                print("FAILED: git branch ingredients origin/ingredients")
-            elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
-                print("FAILED: git checkout ingredients")
-            else:
-                print("FAILED. Please tell the devs")
+            reset_branch()
 
 
 w_search.observe(change_search_of(w_results), names="value")
@@ -605,6 +625,9 @@ commitbutton.on_click(commit_activities)
 
 
 display(
+    ipywidgets.HTML(
+        value="<h1>Avant de commencer</h1>Appuyez sur le bouton ▸▸ dans la barre d'outil, puis sur le bouton vert « Reset from branch »"
+    ),
     Markdown("# Procédé à ajouter/modifier/supprimer :"),
     ipywidgets.HBox(
         (

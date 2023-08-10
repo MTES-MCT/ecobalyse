@@ -107,7 +107,7 @@ foodEndpoints db =
         , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;10:10:10"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "L'ingrédient Carotte ne permet pas l'application d'un bonus sur les conditions d'élevage.")
+            |> Expect.equal (Just "L'ingrédient Carotte (sortie de ferme) ne permet pas l'application d'un bonus sur les conditions d'élevage.")
             |> asTest "should validate that an ingredient bonuses are valid"
         , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;100:110"
             |> Maybe.andThen extractFoodErrors
