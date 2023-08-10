@@ -294,7 +294,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -313,7 +313,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -416,7 +416,7 @@
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Jambon bio",
+    "name": "Jambon bio (cuit)",
     "categories": [
       "animal_product",
       "organic"
@@ -424,7 +424,7 @@
     "default": "3ec54ea9-9c8e-87fb-986d-85784048c354",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -883,13 +883,13 @@
     "id": "lentils-uncooked",
     "name": "Lentilles (sortie de ferme)",
     "categories": [
-      "grain_raw"
+      "nut_oilseed_raw"
     ],
-    "default": "AGRIBALU000024985200191",
+    "default": "AGRIBALU000024985200192",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
-    "inedible_part": 1,
+    "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
     "complements": {
@@ -1935,7 +1935,7 @@
     "id": "soybean-humanconsumption",
     "name": "Soja FR (sortie de ferme)",
     "categories": [
-      "grain_raw"
+      "nut_oilseed_raw"
     ],
     "default": "AGRIBALU000024985200128",
     "default_origin": "France",
@@ -1953,7 +1953,7 @@
     "id": "soybean-organic",
     "name": "Soja FR bio (sortie de ferme)",
     "categories": [
-      "grain_raw",
+      "nut_oilseed_raw",
       "organic"
     ],
     "default": "AGRIBALU000000003114674",
@@ -1972,7 +1972,7 @@
     "id": "soybeanBRno-deforestation",
     "name": "Soja BR non déforestant (sortie de ferme)",
     "categories": [
-      "grain_raw"
+      "nut_oilseed_raw"
     ],
     "default": "AGRIBALU000024985200001",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1990,7 +1990,7 @@
     "id": "soybeanBRdeforestation",
     "name": "Soja BR déforestant",
     "categories": [
-      "grain_raw"
+      "nut_oilseed_raw"
     ],
     "default": "AGRIBALU000024985200302",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -2081,7 +2081,7 @@
     "id": "chicken-ham",
     "name": "Blanc de poulet ",
     "categories": [],
-    "default": "AGRIBALU000000003103000",
+    "default": "AGRIBALU000000003109221",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2184,6 +2184,24 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
+    }
+  },
+  {
+    "id": "durumwheat-semolina",
+    "name": "Semoule de blé dur",
+    "categories": [
+      "grain_processed"
+    ],
+    "default": "AGRIBALU000000003105079",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]
