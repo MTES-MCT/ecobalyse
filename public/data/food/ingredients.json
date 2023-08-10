@@ -339,14 +339,14 @@
   },
   {
     "id": "ground-beef",
-    "name": "Boeuf haché",
+    "name": "Boeuf haché (cru)",
     "categories": [
       "animal_product"
     ],
     "default": "AGRIBALU000000003107081",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -358,7 +358,7 @@
   },
   {
     "id": "ground-beef-organic",
-    "name": "Boeuf haché bio",
+    "name": "Boeuf haché bio (cru)",
     "categories": [
       "animal_product",
       "organic"
@@ -366,7 +366,7 @@
     "default": "2c35501a-0556-ff94-03e9-f4140aa9990b",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -378,14 +378,14 @@
   },
   {
     "id": "ground-beef-feedlot",
-    "name": "Boeuf haché (Feedlot)",
+    "name": "Boeuf haché Feedlot (cru)",
     "categories": [
       "animal_product"
     ],
     "default": "4b2010be-ff2d-5fe3-416b-187ec8428963",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -397,14 +397,14 @@
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon",
+    "name": "Jambon (cuit)",
     "categories": [
       "animal_product"
     ],
     "default": "AGRIBALU000000003103910",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -436,14 +436,14 @@
   },
   {
     "id": "chicken-breast",
-    "name": "Poulet",
+    "name": "Poulet (cru)",
     "categories": [
       "animal_product"
     ],
     "default": "AGRIBALU000000003109221",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -455,7 +455,7 @@
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Poulet bio",
+    "name": "Poulet bio (cru)",
     "categories": [
       "animal_product",
       "organic"
@@ -463,7 +463,7 @@
     "default": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -512,7 +512,7 @@
   },
   {
     "id": "mango",
-    "name": "Mangue",
+    "name": "Mangue BR (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -608,10 +608,10 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "default": "AGRIBALU000000003117541",
+    "default": "AGRIBALU000024985200218",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
@@ -827,7 +827,7 @@
   },
   {
     "id": "lettuce",
-    "name": "Laitue",
+    "name": "Laitue (sortie de ferme)",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1301,7 +1301,7 @@
   },
   {
     "id": "chestnut",
-    "name": "Châtaigne en coque (sortie de ferme)",
+    "name": "Châtaigne avec coque (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1319,7 +1319,7 @@
   },
   {
     "id": "walnut",
-    "name": "Noix en coque (sortie de ferme)",
+    "name": "Noix avec coque (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1806,7 +1806,7 @@
   },
   {
     "id": "hazelnut",
-    "name": "Noisette (sortie de ferme)",
+    "name": "Noisette avec coque (sortie de ferme)",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1933,7 +1933,7 @@
   },
   {
     "id": "soybean-humanconsumption",
-    "name": "Soja (sortie de ferme)",
+    "name": "Soja FR (sortie de ferme)",
     "categories": [
       "grain_raw"
     ],
@@ -1951,7 +1951,7 @@
   },
   {
     "id": "soybean-organic",
-    "name": "Soja bio (sortie de ferme)",
+    "name": "Soja FR bio (sortie de ferme)",
     "categories": [
       "grain_raw",
       "organic"
@@ -1966,6 +1966,224 @@
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
+    }
+  },
+  {
+    "id": "soybeanBRno-deforestation",
+    "name": "Soja BR non déforestant (sortie de ferme)",
+    "categories": [
+      "grain_raw"
+    ],
+    "default": "AGRIBALU000024985200001",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "soybeanBRdeforestation",
+    "name": "Soja BR déforestant",
+    "categories": [
+      "grain_raw"
+    ],
+    "default": "AGRIBALU000024985200302",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "sausage-meat",
+    "name": "Chair à saucisse (crue)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003113461",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-toulouse",
+    "name": "Saucisse de Toulouse (crue)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003115859",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-toulouse-cooked",
+    "name": "Saucisse de Toulouse (cuite)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003115854",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 0
+    }
+  },
+  {
+    "id": "sausage-tofu",
+    "name": "Saucisse végétale tofu",
+    "categories": [],
+    "default": "AGRIBALU000000003111467",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "chicken-ham",
+    "name": "Blanc de poulet ",
+    "categories": [],
+    "default": "AGRIBALU000000003103000",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-paste",
+    "name": "Purée de tomates",
+    "categories": [
+      "vegetable_processed"
+    ],
+    "default": "AGRIBALU000000003115655",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-concentrated",
+    "name": "Concentré de tomates",
+    "categories": [
+      "vegetable_processed"
+    ],
+    "default": "AGRIBALU000000003115656",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "rib-steak",
+    "name": "Entrecôte (crue)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003109214",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "Flank-steak",
+    "name": "Bavette (crue)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003109219",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "rumsteak",
+    "name": "Rumsteak (cru)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "AGRIBALU000000003109219",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
     }
   }
 ]

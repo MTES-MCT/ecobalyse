@@ -243,15 +243,15 @@ if __name__ == "__main__":
                         {
                             "trg": impact,
                             "name": p,
-                            "diff": percent_change,
+                            "%diff": percent_change,
                             "from": old[p][impact],
                             "to": builder[p]["impacts"][impact],
                         }
                     )
                     review = True
-    changes.sort(key=lambda c: c["diff"])
+    changes.sort(key=lambda c: c["%diff"])
     if review:
-        keys = ("trg", "name", "diff", "from", "to")
+        keys = ("trg", "name", "%diff", "from", "to")
         widths = {key: max([len(str(c[key])) for c in changes]) for key in keys}
         print("==".join(["=" * widths[key] for key in keys]))
         print("Please review the impact changes below")
