@@ -1385,7 +1385,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.001055930136,
       "ozd": 1.54726007e-08,
       "cch": 0.1092394833,
@@ -1449,7 +1449,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.002346851875,
       "ozd": 2.547973728e-08,
       "cch": 0.2177953028,
@@ -4418,7 +4418,7 @@
   {
     "id": "soybeanBRdeforestation",
     "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Soja BR déforestant",
+    "displayName": "Soja BR déforestant (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200302",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
