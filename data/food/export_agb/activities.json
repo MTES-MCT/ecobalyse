@@ -351,7 +351,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
+    "visible": false,
     "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
@@ -820,8 +820,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "bvi": 0,
+    "visible": false,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -861,8 +861,8 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "bvi": 0,
+    "visible": false,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -2448,7 +2448,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
+    "visible": false,
     "bvi": 0.0,
     "complements": {
       "agro-diversity": 50,
