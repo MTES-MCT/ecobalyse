@@ -330,7 +330,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
@@ -351,7 +351,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
