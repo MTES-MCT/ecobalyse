@@ -2477,7 +2477,7 @@
   },
   {
     "id": "soybeanBRdeforestation",
-    "name": "Soja BR déforestant",
+    "name": "Soja BR déforestant (sortie de ferme)",
     "search": "Soybean {BR}| market for soybean | Cut-off, U ",
     "category": "ingredient",
     "categories": [
