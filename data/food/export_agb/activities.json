@@ -9,7 +9,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
@@ -319,7 +319,7 @@
   },
   {
     "id": "tomato",
-    "name": "Tomate (sous serre non chauffée)",
+    "name": "Tomate - sous serre non chauffée (sortie de ferme)",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
     "categories": [
@@ -388,7 +388,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -410,7 +410,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -455,7 +455,7 @@
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -479,7 +479,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -501,7 +501,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -546,7 +546,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -568,14 +568,14 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "bvi": 5.408719682,
     "subingredient_default": "broiler",
     "subingredient_organic": "broiler-organic",
-    "ratio": 1.0,
+    "ratio": 1,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -651,7 +651,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -759,7 +759,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -821,7 +821,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": false,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -862,7 +862,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": false,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -987,7 +987,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1007,7 +1007,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1215,7 +1215,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1291,12 +1291,12 @@
       "dairy_product"
     ],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1313,12 +1313,12 @@
       "dairy_product"
     ],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1335,12 +1335,12 @@
       "dairy_product"
     ],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1350,7 +1350,7 @@
   },
   {
     "id": "tomato-heated-greenhouse",
-    "name": "Tomate (sous serre chauffée)",
+    "name": "Tomate - sous serre chauffée (sortie de ferme)",
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "category": "ingredient",
     "categories": [
@@ -1362,7 +1362,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1382,7 +1382,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1402,7 +1402,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1422,7 +1422,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1442,7 +1442,7 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
     "complements": {
       "agro-diversity": 10,
@@ -1463,7 +1463,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible.",
     "complements": {
       "agro-diversity": 10,
@@ -1484,7 +1484,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1506,7 +1506,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
@@ -1527,7 +1527,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1548,7 +1548,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1568,7 +1568,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé issu de WDFDB (GLO)",
     "complements": {
       "agro-diversity": 10,
@@ -1589,7 +1589,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé issu de WDFDB (GLO)",
     "complements": {
       "agro-diversity": 10,
@@ -1610,7 +1610,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n",
     "complements": {
       "agro-diversity": 10,
@@ -1632,7 +1632,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
@@ -1653,7 +1653,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Part non comestible => hypothèse de la prune\n",
     "complements": {
       "agro-diversity": 10,
@@ -1674,7 +1674,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
     "complements": {
       "agro-diversity": 10,
@@ -1690,12 +1690,12 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 1,
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1710,12 +1710,12 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 1,
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1735,7 +1735,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1756,7 +1756,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)",
     "complements": {
       "agro-diversity": 10,
@@ -1777,7 +1777,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1798,7 +1798,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
     "complements": {
       "agro-diversity": 10,
@@ -1819,7 +1819,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)",
     "complements": {
       "agro-diversity": 10,
@@ -1840,7 +1840,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
     "complements": {
       "agro-diversity": 10,
@@ -1861,7 +1861,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé du citron ES issu d'Ecoinvent",
     "complements": {
       "agro-diversity": 10,
@@ -1882,7 +1882,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques",
     "complements": {
       "agro-diversity": 10,
@@ -1903,7 +1903,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille",
     "complements": {
       "agro-diversity": 10,
@@ -1924,7 +1924,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1945,7 +1945,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1966,7 +1966,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)",
     "complements": {
       "agro-diversity": 10,
@@ -1987,7 +1987,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
     "complements": {
       "agro-diversity": 10,
@@ -2003,12 +2003,12 @@
       "vegetable_fresh"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 1,
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de l'endive approximé par la laitue.",
     "complements": {
       "agro-diversity": 10,
@@ -2029,7 +2029,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives",
     "complements": {
       "agro-diversity": 10,
@@ -2050,7 +2050,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois",
     "complements": {
       "agro-diversity": 10,
@@ -2071,7 +2071,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Par défaut : fraise espagnole",
     "complements": {
       "agro-diversity": 10,
@@ -2092,7 +2092,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2113,7 +2113,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Densité : même hyp que petit pois",
     "complements": {
       "agro-diversity": 10,
@@ -2134,7 +2134,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Part non comestible : même hyp que pomme",
     "complements": {
       "agro-diversity": 10,
@@ -2155,7 +2155,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2176,7 +2176,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Part non comestible : chataigne, olive",
     "complements": {
       "agro-diversity": 10,
@@ -2197,7 +2197,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2218,7 +2218,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2239,7 +2239,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la carotte (hypothèse mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2261,7 +2261,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 10,
@@ -2277,12 +2277,12 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 1,
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2297,12 +2297,12 @@
       "nut_oilseed_raw"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 1,
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2323,7 +2323,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire.",
     "complements": {
       "agro-diversity": 10,
@@ -2344,7 +2344,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Part non comestible : hypothèse petit pois",
     "complements": {
       "agro-diversity": 10,
@@ -2366,7 +2366,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Part non comestible : hypothèse petit pois",
     "complements": {
       "agro-diversity": 50,
@@ -2387,7 +2387,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2407,7 +2407,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "explain": "Procédé de la cerise (hypothèse mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2428,7 +2428,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2449,7 +2449,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": false,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -2469,7 +2469,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2489,7 +2489,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2505,11 +2505,11 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2526,11 +2526,11 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2546,12 +2546,12 @@
       "animal_product"
     ],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2565,12 +2565,12 @@
     "category": "ingredient",
     "categories": [],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2581,14 +2581,14 @@
     "name": "Blanc de poulet ",
     "search": "Meat without bone, chicken, for direct consumption",
     "category": "ingredient",
-    "categories": [],
+    "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2603,12 +2603,12 @@
       "vegetable_processed"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2623,12 +2623,12 @@
       "vegetable_processed"
     ],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
+    "raw_to_cooked_ratio": 1,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2644,11 +2644,11 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2665,11 +2665,11 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2686,11 +2686,11 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
+    "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2711,7 +2711,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
+    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
