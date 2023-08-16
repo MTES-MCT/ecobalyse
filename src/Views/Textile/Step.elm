@@ -152,7 +152,10 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
-            , disabled = not current.enabled
+            , disabled =
+                not current.enabled
+                    || -- Note: disallow air transport from France to France at the Making step
+                       (current.label == Label.Making && current.country.code == Country.codeFromString "FR")
             , min = 0
             , max = 100
             }
