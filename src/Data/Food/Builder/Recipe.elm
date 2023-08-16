@@ -2,7 +2,6 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
-    , Scoring
     , Transform
     , availableIngredients
     , availablePackagings
@@ -20,6 +19,7 @@ module Data.Food.Builder.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
+    , resultsToImpactTabsConfig
     , toString
     )
 
@@ -34,6 +34,7 @@ import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
+import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
@@ -45,6 +46,7 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+import Views.ImpactTabs as ImpactTabs
 import Volume exposing (Volume)
 
 
@@ -105,14 +107,25 @@ type alias Results =
     }
 
 
-type alias Scoring =
-    { all : Unit.Impact
-    , allWithoutComplements : Unit.Impact
-    , complements : Unit.Impact
-    , climate : Unit.Impact
-    , biodiversity : Unit.Impact
-    , health : Unit.Impact
-    , resources : Unit.Impact
+resultsToImpactTabsConfig : Definition.Trigram -> Results -> ImpactTabs.Config
+resultsToImpactTabsConfig trigram results =
+    let
+        getImpact =
+            Impact.getImpact trigram
+    in
+    { trigram = trigram
+    , total = results.total
+    , totalComplementsImpact = results.recipe.totalComplementsImpact
+    , scoring = results.scoring
+    , steps =
+        { materials = getImpact results.recipe.ingredientsTotal
+        , transform = getImpact results.recipe.transform
+        , packaging = getImpact results.packaging
+        , transports = getImpact results.transports.impacts
+        , distribution = getImpact results.distribution.total
+        , usage = getImpact results.preparation
+        , endOfLife = Quantity.zero
+        }
     }
 
 
@@ -259,7 +272,7 @@ compute db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> computeScoring db.impactDefinitions totalComplementsImpactPerKg.total
+                            |> Scoring.compute db.impactDefinitions totalComplementsImpactPerKg.total
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -323,27 +336,6 @@ computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, an
     , agroEcology = Unit.impact agroEcologyComplement
     , animalWelfare = Unit.impact animalWelfareComplement
     , total = Unit.impact (agroDiversityComplement + agroEcologyComplement + animalWelfareComplement)
-    }
-
-
-computeScoring : Definitions -> Unit.Impact -> Impacts -> Scoring
-computeScoring definitions totalComplementsImpactPerKg perKgWithoutComplements =
-    let
-        ecsPerKgWithoutComplements =
-            perKgWithoutComplements
-                |> Impact.getImpact Definition.Ecs
-
-        subScores =
-            perKgWithoutComplements
-                |> Impact.toProtectionAreas definitions
-    in
-    { all = Quantity.difference ecsPerKgWithoutComplements totalComplementsImpactPerKg
-    , allWithoutComplements = ecsPerKgWithoutComplements
-    , complements = totalComplementsImpactPerKg
-    , climate = subScores.climate
-    , biodiversity = subScores.biodiversity
-    , health = subScores.health
-    , resources = subScores.resources
     }
 
 

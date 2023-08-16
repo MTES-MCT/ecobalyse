@@ -48,6 +48,7 @@ import Views.Dataviz as Dataviz
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
@@ -66,6 +67,7 @@ type alias Model =
     , funit : Unit.Functional
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
+    , activeImpactsTab : ImpactTabs.Tab
     }
 
 
@@ -89,6 +91,7 @@ type Msg
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
+    | SwitchImpactsTab ImpactTabs.Tab
     | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
@@ -145,6 +148,12 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
       , funit = funit
       , modal = NoModal
       , chartHovering = []
+      , activeImpactsTab =
+            if trigram == Definition.Ecs then
+                ImpactTabs.SubscoresTab
+
+            else
+                ImpactTabs.StepImpactsTab
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -283,6 +292,12 @@ update ({ db, queries, navKey } as session) msg model =
         SwitchImpact (Err error) ->
             ( model
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
+
+        SwitchImpactsTab impactsTab ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
             , Cmd.none
             )
 
@@ -600,6 +615,8 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                                 , reusable = False
                                 , chartHovering = model.chartHovering
                                 , onChartHover = OnChartHover
+                                , activeImpactsTab = model.activeImpactsTab
+                                , switchImpactsTab = SwitchImpactsTab
                                 }
                        )
                     ++ [ BookmarkView.view

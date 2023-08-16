@@ -17,6 +17,7 @@ import Html.Attributes exposing (..)
 import Ports
 import Views.Container as Container
 import Views.Impact as ImpactView
+import Views.ImpactTabs as ImpactTabs
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Summary as SummaryView
 
@@ -25,6 +26,7 @@ type alias Model =
     { impact : Definition.Trigram
     , funit : Unit.Functional
     , chartHovering : ComparativeChart.Stacks
+    , activeImpactsTab : ImpactTabs.Tab
     }
 
 
@@ -32,6 +34,7 @@ type Msg
     = OnChartHover ComparativeChart.Stacks
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchFunctionalUnit Unit.Functional
+    | SwitchImpactsTab ImpactTabs.Tab
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -39,6 +42,7 @@ init session =
     ( { impact = Impact.default
       , funit = Unit.PerItem
       , chartHovering = []
+      , activeImpactsTab = ImpactTabs.SubscoresTab
       }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
@@ -66,6 +70,12 @@ update session msg model =
         SwitchFunctionalUnit funit ->
             ( { model | funit = funit }, session, Cmd.none )
 
+        SwitchImpactsTab impactsTab ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
 
 viewExample : Session -> Model -> Unit.Functional -> Definition.Trigram -> Inputs.Query -> Html Msg
 viewExample session model funit impact query =
@@ -78,6 +88,8 @@ viewExample session model funit impact query =
             , reusable = True
             , chartHovering = model.chartHovering
             , onChartHover = OnChartHover
+            , activeImpactsTab = model.activeImpactsTab
+            , switchImpactsTab = SwitchImpactsTab
             }
         |> div [ class "col" ]
 

@@ -3,6 +3,7 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , lifeCycleImpacts
+    , toImpactTabsConfig
     )
 
 import Array
@@ -28,6 +29,7 @@ import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
 import Quantity
+import Views.ImpactTabs as ImpactTabs
 
 
 type alias Simulator =
@@ -151,6 +153,57 @@ compute db query =
         -- Final impacts
         --
         |> next computeFinalImpacts
+
+
+toImpactTabsConfig : Definition.Trigram -> Simulator -> ImpactTabs.Config
+toImpactTabsConfig trigram simulator =
+    let
+        getImpacts label =
+            LifeCycle.getStep label simulator.lifeCycle
+                |> Maybe.map .impacts
+                |> Maybe.withDefault Impact.empty
+
+        getImpact =
+            Impact.getImpact trigram
+    in
+    { trigram = trigram
+    , total =
+        simulator.lifeCycle
+            |> Array.map .impacts
+            |> Array.toList
+            |> Impact.sumImpacts
+    , totalComplementsImpact =
+        { agroDiversity = Quantity.zero
+        , agroEcology = Quantity.zero
+        , animalWelfare = Quantity.zero
+        , total = Quantity.zero
+        }
+    , scoring =
+        { all = Quantity.zero
+        , allWithoutComplements = Quantity.zero
+        , complements = Quantity.zero
+        , climate = Quantity.zero
+        , biodiversity = Quantity.zero
+        , health = Quantity.zero
+        , resources = Quantity.zero
+        }
+    , steps =
+        { materials = getImpacts Label.Material |> getImpact
+        , transform =
+            [ getImpacts Label.Spinning
+            , getImpacts Label.Fabric
+            , getImpacts Label.Ennobling
+            , getImpacts Label.Making
+            ]
+                |> Impact.sumImpacts
+                |> getImpact
+        , packaging = Quantity.zero
+        , transports = getImpact simulator.transport.impacts
+        , distribution = Quantity.zero
+        , usage = getImpacts Label.Use |> getImpact
+        , endOfLife = getImpacts Label.EndOfLife |> getImpact
+        }
+    }
 
 
 initializeFinalMass : Simulator -> Simulator

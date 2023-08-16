@@ -9,7 +9,7 @@ import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product
-import Data.Textile.Simulator exposing (Simulator)
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
@@ -20,6 +20,7 @@ import Views.Alert as Alert
 import Views.Component.Summary as SummaryComp
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Textile.BarChart as Chart
 import Views.Textile.ComparativeChart as Comparator
@@ -34,6 +35,8 @@ type alias Config msg =
     , reusable : Bool
     , chartHovering : Comparator.Stacks
     , onChartHover : Comparator.Stacks -> msg
+    , activeImpactsTab : ImpactTabs.Tab
+    , switchImpactsTab : ImpactTabs.Tab -> msg
     }
 
 
@@ -119,9 +122,12 @@ mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
 
 
 summaryChartsView : Config msg -> Simulator -> Html msg
-summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHover } ({ inputs } as simulator) =
+summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHover, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     div [ class "card shadow-sm" ]
-        [ details [ class "card-body p-2 border-bottom" ]
+        [ simulator
+            |> Simulator.toImpactTabsConfig impact.trigram
+            |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
+        , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
             , Chart.view
                 { simulator = simulator
