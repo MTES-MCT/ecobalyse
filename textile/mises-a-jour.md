@@ -1,3 +1,9 @@
+---
+description: >-
+  Uniquement les mises à jour visibles sur le produit (interface utilisateur)
+  sont listées ci-dessous.
+---
+
 # Mises à jour
 
 <details>

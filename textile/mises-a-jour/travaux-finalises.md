@@ -77,3 +77,24 @@ Dès lors, appréhender correctement ces paramètres (% pertes & temps-minute <=
 [https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw\_t9MdmJi9xk/edit?usp=sharing](https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw\_t9MdmJi9xk/edit?usp=sharing)
 
 </details>
+
+## Filature (mai2023)
+
+<details>
+
+<summary>Eléments de contexte </summary>
+
+La modélisation de l'étape de Filature était limitée car le socle technique historique (Base Impacts) ne permettait pas de différencier les procédés Matière et Filature. Ces derniers étaient regroupés dans des procédés génériques.
+
+L'étape de filature est complexe car les propriétés recherchées par le donneur d'ordre sont nombreuses (coût, finesse, élasticité, régularité, etc.).&#x20;
+
+La prise en compte de paramètres plus précis pour cette étape fut nécessaire afin de mieux refléter/différencier les réalités métier. Illustration de paramètres pris en compte :&#x20;
+
+* procédé utilisé (Filature vs Filage)
+* technique de filature (open-end vs ring)
+* titrage du fil&#x20;
+
+**Support de travail (illustratif)**\
+[**https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing**](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)
+
+</details>
