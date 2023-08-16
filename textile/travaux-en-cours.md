@@ -29,12 +29,6 @@ Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.
 Le cadre ACV n'intègre pas encore ces nouveaux enjeux. \
 L'impact négatif des microfibres (dont microplastiques) sur les écosystèmes et la santé sont connus et progressivement documentés.&#x20;
 
-## Filature
-
-Objectif = enrichir la modélisation actuelle de l'étape Filature dans le calculateur.
-
-L'impact de la filature peut être significatif pour plusieurs vêtements. Une modélisation approfondie de cette étape est possible et souhaitable avec l'utilisation d'un socle technique enrichi (Méthode en construction + Nouvelle base de données en cours de mise en place). Le socle technique historique (Base Impacts) ne permettait pas cela car les procédés Matière et Filature étaient regroupés dans des procédés génériques.&#x20;
-
 ## Matière (à venir)
 
 Objectif = enrichir et préciser les matières disponibles dans le calculateur.
