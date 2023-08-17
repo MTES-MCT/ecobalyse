@@ -112,6 +112,7 @@ resultsToImpactTabsConfig trigram results =
     let
         getImpact =
             Impact.getImpact trigram
+                >> Just
     in
     { trigram = trigram
     , total = results.total
@@ -124,7 +125,7 @@ resultsToImpactTabsConfig trigram results =
         , transports = getImpact results.transports.impacts
         , distribution = getImpact results.distribution.total
         , usage = getImpact results.preparation
-        , endOfLife = Quantity.zero
+        , endOfLife = Nothing
         }
     }
 

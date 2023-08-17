@@ -165,6 +165,7 @@ toImpactTabsConfig trigram simulator =
 
         getImpact =
             Impact.getImpact trigram
+                >> Just
     in
     { trigram = trigram
     , total =
@@ -197,9 +198,9 @@ toImpactTabsConfig trigram simulator =
             ]
                 |> Impact.sumImpacts
                 |> getImpact
-        , packaging = Quantity.zero
+        , packaging = Nothing
         , transports = getImpact simulator.transport.impacts
-        , distribution = Quantity.zero
+        , distribution = Nothing
         , usage = getImpacts Label.Use |> getImpact
         , endOfLife = getImpacts Label.EndOfLife |> getImpact
         }

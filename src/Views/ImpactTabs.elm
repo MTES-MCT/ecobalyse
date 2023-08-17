@@ -25,13 +25,13 @@ type alias Config =
 
 
 type alias Steps =
-    { materials : Unit.Impact
-    , transform : Unit.Impact
-    , packaging : Unit.Impact
-    , transports : Unit.Impact
-    , distribution : Unit.Impact
-    , usage : Unit.Impact
-    , endOfLife : Unit.Impact
+    { materials : Maybe Unit.Impact
+    , transform : Maybe Unit.Impact
+    , packaging : Maybe Unit.Impact
+    , transports : Maybe Unit.Impact
+    , distribution : Maybe Unit.Impact
+    , usage : Maybe Unit.Impact
+    , endOfLife : Maybe Unit.Impact
     }
 
 
@@ -77,19 +77,21 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
                         |> Table.percentageTable
 
                 StepImpactsTab ->
-                    let
-                        toFloat =
-                            Unit.impactToFloat
-                    in
-                    Table.percentageTable
-                        [ ( "Matières premières", toFloat steps.materials )
-                        , ( "Transformation", toFloat steps.transform )
-                        , ( "Emballage", toFloat steps.packaging )
-                        , ( "Transports", toFloat steps.transports )
-                        , ( "Distribution", toFloat steps.distribution )
-                        , ( "Utilisation", toFloat steps.usage )
-                        , ( "Fin de vie", toFloat steps.endOfLife )
-                        ]
+                    [ ( "Matières premières", steps.materials )
+                    , ( "Transformation", steps.transform )
+                    , ( "Emballage", steps.packaging )
+                    , ( "Transports", steps.transports )
+                    , ( "Distribution", steps.distribution )
+                    , ( "Utilisation", steps.usage )
+                    , ( "Fin de vie", steps.endOfLife )
+                    ]
+                        |> List.filterMap
+                            (\( label, maybeValue ) ->
+                                maybeValue
+                                    |> Maybe.map (\value -> Just ( label, Unit.impactToFloat value ))
+                                    |> Maybe.withDefault Nothing
+                            )
+                        |> Table.percentageTable
 
                 SubscoresTab ->
                     Table.percentageTable
