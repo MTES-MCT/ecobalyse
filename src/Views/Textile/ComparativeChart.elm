@@ -3,48 +3,33 @@ module Views.Textile.ComparativeChart exposing
     , Stacks
     , chart
     , createEntry
-    , view
     )
 
 import Chart as C
 import Chart.Attributes as CA
 import Chart.Events as CE
 import Chart.Item as CI
-import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
-import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product
-import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Quantity
-import Result.Extra as RE
 import Svg as S
 import Svg.Attributes as SA
-import Views.Alert as Alert
 import Views.Dataviz as Dataviz
 import Views.Format as Format
 
 
 type alias Stacks =
     List (CI.Many Entry CI.Any)
-
-
-type alias Config msg =
-    { session : Session
-    , impact : Definition
-    , funit : Unit.Functional
-    , simulator : Simulator
-    , chartHovering : Stacks
-    , onChartHover : Stacks -> msg
-    }
 
 
 type alias Entry =
@@ -114,81 +99,6 @@ toolTip inputs =
         |> List.map text
         |> List.intersperse (br [] [])
         |> p []
-
-
-toCountry : Country.Code -> Inputs.Query -> Inputs.Query
-toCountry code query =
-    { query
-        | countryFabric = code
-        , countryDyeing = code
-        , countryMaking = code
-    }
-
-
-getEntries : Db -> Unit.Functional -> Definition -> Inputs -> Result String (List Entry)
-getEntries db funit impact inputs =
-    let
-        query =
-            Inputs.toQuery inputs
-
-        currentName =
-            "Votre simulation, Q="
-                ++ (query.quality
-                        |> Maybe.withDefault Unit.standardQuality
-                        |> Unit.qualityToFloat
-                        |> String.fromFloat
-                   )
-                ++ ", R="
-                ++ (query.reparability
-                        |> Maybe.withDefault Unit.standardReparability
-                        |> Unit.reparabilityToFloat
-                        |> String.fromFloat
-                   )
-
-        createEntry_ =
-            createEntry db funit impact
-
-        entries =
-            [ query
-                |> createEntry_ { highlight = True, label = currentName }
-            , query
-                |> toCountry (Country.Code "FR")
-                |> createEntry_ { highlight = False, label = "France, Q=1" }
-            , query
-                |> toCountry (Country.Code "PT")
-                |> createEntry_ { highlight = False, label = "Portugal, Q=1" }
-            , query
-                |> toCountry (Country.Code "IN")
-                |> createEntry_ { highlight = False, label = "Inde, Q=1" }
-            ]
-    in
-    entries
-        |> RE.combine
-        |> Result.map (List.sortBy .score)
-
-
-view : Config msg -> Html msg
-view { session, impact, funit, simulator, chartHovering, onChartHover } =
-    case simulator.inputs |> getEntries session.db funit impact of
-        Ok entries ->
-            entries
-                |> chart
-                    { funit = funit
-                    , impact = impact
-                    , daysOfWear = simulator.daysOfWear
-                    , size = Nothing
-                    , margins = Nothing
-                    , chartHovering = chartHovering
-                    , onChartHover = onChartHover
-                    }
-
-        Err error ->
-            Alert.simple
-                { level = Alert.Danger
-                , close = Nothing
-                , title = Just "Erreur"
-                , content = [ text error ]
-                }
 
 
 chartTextColor : String

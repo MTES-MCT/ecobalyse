@@ -18,21 +18,18 @@ import Ports
 import Views.Container as Container
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
-import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
     { impact : Definition.Trigram
     , funit : Unit.Functional
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
 
 type Msg
-    = OnChartHover ComparativeChart.Stacks
-    | SwitchImpact (Result String Definition.Trigram)
+    = SwitchImpact (Result String Definition.Trigram)
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpactsTab ImpactTabs.Tab
 
@@ -41,7 +38,6 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { impact = Impact.default
       , funit = Unit.PerItem
-      , chartHovering = []
       , activeImpactsTab = ImpactTabs.SubscoresTab
       }
     , session
@@ -52,12 +48,6 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
-
         SwitchImpact (Ok impact) ->
             ( { model | impact = impact }, session, Cmd.none )
 
@@ -86,8 +76,6 @@ viewExample session model funit impact query =
             , impact = Definition.get impact session.db.impactDefinitions
             , funit = funit
             , reusable = True
-            , chartHovering = model.chartHovering
-            , onChartHover = OnChartHover
             , activeImpactsTab = model.activeImpactsTab
             , switchImpactsTab = SwitchImpactsTab
             }

@@ -613,8 +613,6 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                                 , impact = model.impact
                                 , funit = model.funit
                                 , reusable = False
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
                                 , activeImpactsTab = model.activeImpactsTab
                                 , switchImpactsTab = SwitchImpactsTab
                                 }

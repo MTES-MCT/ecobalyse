@@ -168,9 +168,6 @@ toImpactTabsConfig definitions trigram simulator =
             Impact.getImpact trigram
                 >> Just
 
-        mass =
-            simulator.inputs.mass
-
         -- TODO: compute the complements once we have them in the database
         totalComplementsImpact =
             Impact.noComplementsImpacts
