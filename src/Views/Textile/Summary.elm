@@ -22,7 +22,6 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
-import Views.Textile.BarChart as Chart
 import Views.Textile.ComparativeChart as Comparator
 import Views.Textile.Step as StepView
 import Views.Transport as TransportView
@@ -127,14 +126,6 @@ summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHove
         [ simulator
             |> Simulator.toImpactTabsConfig session.db.impactDefinitions impact.trigram
             |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
-        , details [ class "card-body p-2 border-bottom" ]
-            [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
-            , Chart.view
-                { simulator = simulator
-                , impact = impact
-                , funit = funit
-                }
-            ]
         , div
             [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
