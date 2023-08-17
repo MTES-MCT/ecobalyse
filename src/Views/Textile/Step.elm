@@ -152,7 +152,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
-            , disabled = not current.enabled
+            , disabled = Step.airTransportDisabled current
             , min = 0
             , max = 100
             }

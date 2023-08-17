@@ -1,5 +1,6 @@
 module Data.Textile.Step exposing
     ( Step
+    , airTransportDisabled
     , airTransportRatioToString
     , computeTransports
     , create
@@ -421,6 +422,13 @@ updateWaste waste mass step =
         , inputMass = mass
         , outputMass = Quantity.difference mass waste
     }
+
+
+airTransportDisabled : Step -> Bool
+airTransportDisabled { enabled, label, country } =
+    not enabled
+        || -- Note: disallow air transport from France to France at the Making step
+           (label == Label.Making && country.code == Country.codeFromString "FR")
 
 
 airTransportRatioToString : Split -> String
