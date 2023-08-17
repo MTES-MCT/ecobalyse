@@ -10,6 +10,7 @@ import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Scoring as Scoring
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
@@ -155,8 +156,8 @@ compute db query =
         |> next computeFinalImpacts
 
 
-toImpactTabsConfig : Definition.Trigram -> Simulator -> ImpactTabs.Config
-toImpactTabsConfig trigram simulator =
+toImpactTabsConfig : Definitions -> Definition.Trigram -> Simulator -> ImpactTabs.Config
+toImpactTabsConfig definitions trigram simulator =
     let
         getImpacts label =
             LifeCycle.getStep label simulator.lifeCycle
@@ -166,28 +167,26 @@ toImpactTabsConfig trigram simulator =
         getImpact =
             Impact.getImpact trigram
                 >> Just
+
+        mass =
+            simulator.inputs.mass
+
+        -- TODO: compute the complements once we have them in the database
+        totalComplementsImpact =
+            Impact.noComplementsImpacts
+
+        totalImpactsWithoutComplements =
+            simulator.lifeCycle
+                |> Array.map .impacts
+                |> Array.toList
+                |> Impact.sumImpacts
     in
     { trigram = trigram
-    , total =
-        simulator.lifeCycle
-            |> Array.map .impacts
-            |> Array.toList
-            |> Impact.sumImpacts
-    , totalComplementsImpact =
-        { agroDiversity = Quantity.zero
-        , agroEcology = Quantity.zero
-        , animalWelfare = Quantity.zero
-        , total = Quantity.zero
-        }
+    , total = totalImpactsWithoutComplements
+    , totalComplementsImpact = totalComplementsImpact
     , scoring =
-        { all = Quantity.zero
-        , allWithoutComplements = Quantity.zero
-        , complements = Quantity.zero
-        , climate = Quantity.zero
-        , biodiversity = Quantity.zero
-        , health = Quantity.zero
-        , resources = Quantity.zero
-        }
+        totalImpactsWithoutComplements
+            |> Scoring.compute definitions totalComplementsImpact.total
     , steps =
         { materials = getImpacts Label.Material |> getImpact
         , transform =

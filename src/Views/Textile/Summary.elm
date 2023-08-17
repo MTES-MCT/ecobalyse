@@ -125,7 +125,7 @@ summaryChartsView : Config msg -> Simulator -> Html msg
 summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHover, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     div [ class "card shadow-sm" ]
         [ simulator
-            |> Simulator.toImpactTabsConfig impact.trigram
+            |> Simulator.toImpactTabsConfig session.db.impactDefinitions impact.trigram
             |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
         , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
