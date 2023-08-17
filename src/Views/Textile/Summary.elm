@@ -117,7 +117,7 @@ mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
 
 summaryChartsView : Config msg -> Simulator -> Html msg
 summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
-    div [ class "card shadow-sm" ]
+    div []
         [ simulator
             |> Simulator.toImpactTabsConfig session.db.impactDefinitions impact.trigram
             |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
