@@ -1,8 +1,19 @@
-module Views.ImpactTabs exposing (Config, Tab(..), view)
+module Views.ImpactTabs exposing
+    ( Config
+    , Tab(..)
+    , foodResultsToImpactTabsConfig
+    , textileSimulatorToImpactTabsConfig
+    , view
+    )
 
+import Array
+import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
-import Data.Scoring exposing (Scoring)
+import Data.Scoring as Scoring exposing (Scoring)
+import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.Simulator exposing (Simulator)
+import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
 import Views.CardTabs as CardTabs
@@ -103,3 +114,73 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
                         ]
             ]
         }
+
+
+foodResultsToImpactTabsConfig : Definition.Trigram -> Recipe.Results -> Config
+foodResultsToImpactTabsConfig trigram results =
+    let
+        getImpact =
+            Impact.getImpact trigram
+                >> Just
+    in
+    { trigram = trigram
+    , total = results.total
+    , totalComplementsImpact = results.recipe.totalComplementsImpact
+    , scoring = results.scoring
+    , steps =
+        { materials = getImpact results.recipe.ingredientsTotal
+        , transform = getImpact results.recipe.transform
+        , packaging = getImpact results.packaging
+        , transports = getImpact results.transports.impacts
+        , distribution = getImpact results.distribution.total
+        , usage = getImpact results.preparation
+        , endOfLife = Nothing
+        }
+    }
+
+
+textileSimulatorToImpactTabsConfig : Definitions -> Definition.Trigram -> Simulator -> Config
+textileSimulatorToImpactTabsConfig definitions trigram simulator =
+    let
+        getImpacts label =
+            LifeCycle.getStep label simulator.lifeCycle
+                |> Maybe.map .impacts
+                |> Maybe.withDefault Impact.empty
+
+        getImpact =
+            Impact.getImpact trigram
+                >> Just
+
+        -- TODO: compute the complements once we have them in the database
+        totalComplementsImpact =
+            Impact.noComplementsImpacts
+
+        totalImpactsWithoutComplements =
+            simulator.lifeCycle
+                |> Array.map .impacts
+                |> Array.toList
+                |> Impact.sumImpacts
+    in
+    { trigram = trigram
+    , total = totalImpactsWithoutComplements
+    , totalComplementsImpact = totalComplementsImpact
+    , scoring =
+        totalImpactsWithoutComplements
+            |> Scoring.compute definitions totalComplementsImpact.total
+    , steps =
+        { materials = getImpacts Label.Material |> getImpact
+        , transform =
+            [ getImpacts Label.Spinning
+            , getImpacts Label.Fabric
+            , getImpacts Label.Ennobling
+            , getImpacts Label.Making
+            ]
+                |> Impact.sumImpacts
+                |> getImpact
+        , packaging = Nothing
+        , transports = getImpact simulator.transport.impacts
+        , distribution = Nothing
+        , usage = getImpacts Label.Use |> getImpact
+        , endOfLife = getImpacts Label.EndOfLife |> getImpact
+        }
+    }

@@ -8,7 +8,7 @@ import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product
-import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Simulator exposing (Simulator)
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
@@ -119,12 +119,12 @@ summaryChartsView : Config msg -> Simulator -> Html msg
 summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     div []
         [ simulator
-            |> Simulator.toImpactTabsConfig session.db.impactDefinitions impact.trigram
+            |> ImpactTabs.textileSimulatorToImpactTabsConfig session.db.impactDefinitions impact.trigram
             |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
         , if reusable then
             div [ class "card-footer text-center" ]
                 [ a
-                    [ class "btn btn-primary"
+                    [ class "btn btn-primary w-100"
                     , Route.href
                         (inputs
                             |> Inputs.toQuery

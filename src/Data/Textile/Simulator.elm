@@ -3,14 +3,12 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , lifeCycleImpacts
-    , toImpactTabsConfig
     )
 
 import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Scoring as Scoring
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
@@ -30,7 +28,6 @@ import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
 import Quantity
-import Views.ImpactTabs as ImpactTabs
 
 
 type alias Simulator =
@@ -154,53 +151,6 @@ compute db query =
         -- Final impacts
         --
         |> next computeFinalImpacts
-
-
-toImpactTabsConfig : Definitions -> Definition.Trigram -> Simulator -> ImpactTabs.Config
-toImpactTabsConfig definitions trigram simulator =
-    let
-        getImpacts label =
-            LifeCycle.getStep label simulator.lifeCycle
-                |> Maybe.map .impacts
-                |> Maybe.withDefault Impact.empty
-
-        getImpact =
-            Impact.getImpact trigram
-                >> Just
-
-        -- TODO: compute the complements once we have them in the database
-        totalComplementsImpact =
-            Impact.noComplementsImpacts
-
-        totalImpactsWithoutComplements =
-            simulator.lifeCycle
-                |> Array.map .impacts
-                |> Array.toList
-                |> Impact.sumImpacts
-    in
-    { trigram = trigram
-    , total = totalImpactsWithoutComplements
-    , totalComplementsImpact = totalComplementsImpact
-    , scoring =
-        totalImpactsWithoutComplements
-            |> Scoring.compute definitions totalComplementsImpact.total
-    , steps =
-        { materials = getImpacts Label.Material |> getImpact
-        , transform =
-            [ getImpacts Label.Spinning
-            , getImpacts Label.Fabric
-            , getImpacts Label.Ennobling
-            , getImpacts Label.Making
-            ]
-                |> Impact.sumImpacts
-                |> getImpact
-        , packaging = Nothing
-        , transports = getImpact simulator.transport.impacts
-        , distribution = Nothing
-        , usage = getImpacts Label.Use |> getImpact
-        , endOfLife = getImpacts Label.EndOfLife |> getImpact
-        }
-    }
 
 
 initializeFinalMass : Simulator -> Simulator

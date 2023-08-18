@@ -19,7 +19,6 @@ module Data.Food.Builder.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
-    , resultsToImpactTabsConfig
     , toString
     )
 
@@ -46,7 +45,6 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
-import Views.ImpactTabs as ImpactTabs
 import Volume exposing (Volume)
 
 
@@ -104,29 +102,6 @@ type alias Results =
         }
     , preparation : Impacts
     , transports : Transport
-    }
-
-
-resultsToImpactTabsConfig : Definition.Trigram -> Results -> ImpactTabs.Config
-resultsToImpactTabsConfig trigram results =
-    let
-        getImpact =
-            Impact.getImpact trigram
-                >> Just
-    in
-    { trigram = trigram
-    , total = results.total
-    , totalComplementsImpact = results.recipe.totalComplementsImpact
-    , scoring = results.scoring
-    , steps =
-        { materials = getImpact results.recipe.ingredientsTotal
-        , transform = getImpact results.recipe.transform
-        , packaging = getImpact results.packaging
-        , transports = getImpact results.transports.impacts
-        , distribution = getImpact results.distribution.total
-        , usage = getImpact results.preparation
-        , endOfLife = Nothing
-        }
     }
 
 

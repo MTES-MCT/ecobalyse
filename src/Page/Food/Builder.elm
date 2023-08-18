@@ -1387,7 +1387,7 @@ sidebarView session model results =
             }
         , absoluteImpactView model results
         , results
-            |> Recipe.resultsToImpactTabsConfig model.impact.trigram
+            |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
             |> ImpactTabs.view session.db.impactDefinitions model.activeImpactsTab SwitchImpactsTab
         , BookmarkView.view
             { session = session
