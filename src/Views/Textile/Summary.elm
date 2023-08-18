@@ -2,7 +2,6 @@ module Views.Textile.Summary exposing (view)
 
 import Array
 import Data.Country as Country
-import Data.Env as Env
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
@@ -20,9 +19,7 @@ import Views.Alert as Alert
 import Views.Component.Summary as SummaryComp
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Link as Link
-import Views.Textile.BarChart as Chart
-import Views.Textile.ComparativeChart as Comparator
+import Views.ImpactTabs as ImpactTabs
 import Views.Textile.Step as StepView
 import Views.Transport as TransportView
 
@@ -32,8 +29,8 @@ type alias Config msg =
     , impact : Definition
     , funit : Unit.Functional
     , reusable : Bool
-    , chartHovering : Comparator.Stacks
-    , onChartHover : Comparator.Stacks -> msg
+    , activeImpactsTab : ImpactTabs.Tab
+    , switchImpactsTab : ImpactTabs.Tab -> msg
     }
 
 
@@ -119,51 +116,15 @@ mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
 
 
 summaryChartsView : Config msg -> Simulator -> Html msg
-summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHover } ({ inputs } as simulator) =
-    div [ class "card shadow-sm" ]
-        [ details [ class "card-body p-2 border-bottom" ]
-            [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
-            , Chart.view
-                { simulator = simulator
-                , impact = impact
-                , funit = funit
-                }
-            ]
-        , div
-            [ class "d-none d-sm-block card-body" ]
-            -- TODO: how/where to render this for smaller viewports?
-            [ Comparator.view
-                { session = session
-                , impact = impact
-                , funit = funit
-                , simulator = simulator
-                , chartHovering = chartHovering
-                , onChartHover = onChartHover
-                }
-            ]
-        , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
-            [ [ text "Comparaison pour"
-              , text <| simulator.inputs.product.name ++ ", "
-              , viewMaterials simulator.inputs.materials
-              , text "de"
-              , Format.kg simulator.inputs.mass
-              , span [ class "text-nowrap" ]
-                    [ funit |> Unit.functionalToString |> text
-                    , Link.smallPillExternal
-                        [ class "ms-0"
-                        , title "Accéder à la documentation"
-                        , href (Env.gitbookUrl ++ "/methodologie/echelle-comparative")
-                        ]
-                        [ Icon.info ]
-                    ]
-              ]
-                |> List.intersperse (text " ")
-                |> span []
-            ]
+summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
+    div []
+        [ simulator
+            |> ImpactTabs.textileSimulatorToImpactTabsConfig session.db.impactDefinitions impact.trigram
+            |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
         , if reusable then
             div [ class "card-footer text-center" ]
                 [ a
-                    [ class "btn btn-primary"
+                    [ class "btn btn-primary w-100"
                     , Route.href
                         (inputs
                             |> Inputs.toQuery
@@ -179,19 +140,19 @@ summaryChartsView { session, impact, funit, reusable, chartHovering, onChartHove
         ]
 
 
-view : Config msg -> Result String Simulator -> Html msg
+view : Config msg -> Result String Simulator -> List (Html msg)
 view config result =
     case result of
         Ok simulator ->
-            div [ class "stacked-card" ]
-                [ mainSummaryView config simulator
-                , summaryChartsView config simulator
-                ]
+            [ mainSummaryView config simulator
+            , summaryChartsView config simulator
+            ]
 
         Err error ->
-            Alert.simple
+            [ Alert.simple
                 { level = Alert.Info
                 , content = [ text error ]
                 , title = Just "Impossible de charger l'exemple"
                 , close = Nothing
                 }
+            ]

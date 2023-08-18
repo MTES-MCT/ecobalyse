@@ -48,7 +48,6 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
-import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
@@ -57,9 +56,9 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Table as Table
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
@@ -73,7 +72,7 @@ type alias Model =
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
-    , activeImpactsTab : ImpactsTab
+    , activeImpactsTab : ImpactTabs.Tab
     }
 
 
@@ -110,7 +109,7 @@ type Msg
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
-    | SwitchImpactsTab ImpactsTab
+    | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
@@ -118,12 +117,6 @@ type Msg
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
-
-
-type ImpactsTab
-    = DetailedImpactsTab
-    | StepImpactsTab
-    | SubscoresTab
 
 
 init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -146,10 +139,10 @@ init db ({ builderDb, queries } as session) trigram maybeQuery =
       , chartHovering = []
       , activeImpactsTab =
             if impact.trigram == Definition.Ecs then
-                SubscoresTab
+                ImpactTabs.SubscoresTab
 
             else
-                StepImpactsTab
+                ImpactTabs.StepImpactsTab
       }
     , session
         |> Session.updateFoodQuery query
@@ -1393,7 +1386,9 @@ sidebarView session model results =
             , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
-        , impactTabsView model results
+        , results
+            |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
+            |> ImpactTabs.view session.db.impactDefinitions model.activeImpactsTab SwitchImpactsTab
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1412,73 +1407,6 @@ sidebarView session model results =
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
         ]
-
-
-impactTabsView : Model -> Recipe.Results -> Html Msg
-impactTabsView model results =
-    CardTabs.view
-        { tabs =
-            (if model.impact.trigram == Definition.Ecs then
-                [ ( SubscoresTab, "Sous-scores" )
-                , ( DetailedImpactsTab, "Impacts" )
-                , ( StepImpactsTab, "Étapes" )
-                ]
-
-             else
-                [ ( StepImpactsTab, "Étapes" ) ]
-            )
-                |> List.map
-                    (\( tab, label ) ->
-                        { label = label
-                        , onTabClick = SwitchImpactsTab tab
-                        , active = model.activeImpactsTab == tab
-                        }
-                    )
-        , content =
-            [ case model.activeImpactsTab of
-                DetailedImpactsTab ->
-                    results.total
-                        |> Impact.getAggregatedScoreData model.db.impactDefinitions .ecoscoreData
-                        |> List.map (\{ name, value } -> ( name, value ))
-                        |> (++)
-                            [ ( "Bonus de diversité agricole"
-                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroDiversity)
-                              )
-                            , ( "Bonus d'infrastructures agro-écologiques"
-                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.agroEcology)
-                              )
-                            , ( "Bonus conditions d'élevage"
-                              , -(Unit.impactToFloat results.recipe.totalComplementsImpact.animalWelfare)
-                              )
-                            ]
-                        |> List.sortBy Tuple.second
-                        |> List.reverse
-                        |> Table.percentageTable
-
-                StepImpactsTab ->
-                    let
-                        toFloat =
-                            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
-                    in
-                    Table.percentageTable
-                        [ ( "Ingrédients", toFloat results.recipe.ingredientsTotal )
-                        , ( "Transformation", toFloat results.recipe.transform )
-                        , ( "Emballage", toFloat results.packaging )
-                        , ( "Transports", toFloat results.transports.impacts )
-                        , ( "Distribution", toFloat results.distribution.total )
-                        , ( "Consommation", toFloat results.preparation )
-                        ]
-
-                SubscoresTab ->
-                    Table.percentageTable
-                        [ ( "Climat", Unit.impactToFloat results.scoring.climate )
-                        , ( "Biodiversité", Unit.impactToFloat results.scoring.biodiversity )
-                        , ( "Santé environnementale", Unit.impactToFloat results.scoring.health )
-                        , ( "Ressource", Unit.impactToFloat results.scoring.resources )
-                        , ( "Bonus", -(Unit.impactToFloat results.scoring.complements) )
-                        ]
-            ]
-        }
 
 
 stepListView : Model -> Recipe -> Recipe.Results -> Html Msg

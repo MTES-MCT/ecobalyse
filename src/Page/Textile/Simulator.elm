@@ -48,6 +48,7 @@ import Views.Dataviz as Dataviz
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
@@ -66,6 +67,7 @@ type alias Model =
     , funit : Unit.Functional
     , modal : Modal
     , chartHovering : ComparativeChart.Stacks
+    , activeImpactsTab : ImpactTabs.Tab
     }
 
 
@@ -89,6 +91,7 @@ type Msg
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
+    | SwitchImpactsTab ImpactTabs.Tab
     | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
@@ -145,6 +148,12 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
       , funit = funit
       , modal = NoModal
       , chartHovering = []
+      , activeImpactsTab =
+            if trigram == Definition.Ecs then
+                ImpactTabs.SubscoresTab
+
+            else
+                ImpactTabs.StepImpactsTab
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -283,6 +292,12 @@ update ({ db, queries, navKey } as session) msg model =
         SwitchImpact (Err error) ->
             ( model
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
+            , Cmd.none
+            )
+
+        SwitchImpactsTab impactsTab ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
             , Cmd.none
             )
 
@@ -585,40 +600,40 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             ]
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ ImpactView.selector
+                (ImpactView.selector
                     db.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
                     , switchFunctionalUnit = SwitchFunctionalUnit
                     }
-                , div [ class "Summary" ]
-                    [ model.simulator
-                        |> SummaryView.view
+                    :: (model.simulator
+                            |> SummaryView.view
+                                { session = session
+                                , impact = model.impact
+                                , funit = model.funit
+                                , reusable = False
+                                , activeImpactsTab = model.activeImpactsTab
+                                , switchImpactsTab = SwitchImpactsTab
+                                }
+                       )
+                    ++ [ BookmarkView.view
                             { session = session
+                            , activeTab = model.bookmarkTab
+                            , bookmarkName = model.bookmarkName
                             , impact = model.impact
                             , funit = model.funit
-                            , reusable = False
-                            , chartHovering = model.chartHovering
-                            , onChartHover = OnChartHover
+                            , scope = Scope.Textile
+                            , viewMode = model.viewMode
+                            , copyToClipBoard = CopyToClipBoard
+                            , compare = OpenComparator
+                            , delete = DeleteBookmark
+                            , save = SaveBookmark
+                            , update = UpdateBookmarkName
+                            , switchTab = SwitchLinksTab
                             }
-                    ]
-                , BookmarkView.view
-                    { session = session
-                    , activeTab = model.bookmarkTab
-                    , bookmarkName = model.bookmarkName
-                    , impact = model.impact
-                    , funit = model.funit
-                    , scope = Scope.Textile
-                    , viewMode = model.viewMode
-                    , copyToClipBoard = CopyToClipBoard
-                    , compare = OpenComparator
-                    , delete = DeleteBookmark
-                    , save = SaveBookmark
-                    , update = UpdateBookmarkName
-                    , switchTab = SwitchLinksTab
-                    }
-                ]
+                       ]
+                )
             ]
         ]
 

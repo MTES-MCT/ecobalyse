@@ -2,7 +2,6 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
-    , Scoring
     , Transform
     , availableIngredients
     , availablePackagings
@@ -34,6 +33,7 @@ import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Scope as Scope
+import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
@@ -102,17 +102,6 @@ type alias Results =
         }
     , preparation : Impacts
     , transports : Transport
-    }
-
-
-type alias Scoring =
-    { all : Unit.Impact
-    , allWithoutComplements : Unit.Impact
-    , complements : Unit.Impact
-    , climate : Unit.Impact
-    , biodiversity : Unit.Impact
-    , health : Unit.Impact
-    , resources : Unit.Impact
     }
 
 
@@ -259,7 +248,7 @@ compute db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> computeScoring db.impactDefinitions totalComplementsImpactPerKg.total
+                            |> Scoring.compute db.impactDefinitions totalComplementsImpactPerKg.total
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -323,27 +312,6 @@ computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, an
     , agroEcology = Unit.impact agroEcologyComplement
     , animalWelfare = Unit.impact animalWelfareComplement
     , total = Unit.impact (agroDiversityComplement + agroEcologyComplement + animalWelfareComplement)
-    }
-
-
-computeScoring : Definitions -> Unit.Impact -> Impacts -> Scoring
-computeScoring definitions totalComplementsImpactPerKg perKgWithoutComplements =
-    let
-        ecsPerKgWithoutComplements =
-            perKgWithoutComplements
-                |> Impact.getImpact Definition.Ecs
-
-        subScores =
-            perKgWithoutComplements
-                |> Impact.toProtectionAreas definitions
-    in
-    { all = Quantity.difference ecsPerKgWithoutComplements totalComplementsImpactPerKg
-    , allWithoutComplements = ecsPerKgWithoutComplements
-    , complements = totalComplementsImpactPerKg
-    , climate = subScores.climate
-    , biodiversity = subScores.biodiversity
-    , health = subScores.health
-    , resources = subScores.resources
     }
 
 
