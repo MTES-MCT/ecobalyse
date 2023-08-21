@@ -80,14 +80,14 @@
     "cff": null
   },
   {
-    "id": "jute",
+    "id": "jute-kenaf",
     "materialAndSpinningProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "materialProcessUuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
-    "name": "Fil de jute",
-    "shortName": "Jute",
+    "name": "Fil de jute / kenaf",
+    "shortName": "Jute / kenaf",
     "category": "Naturelles",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
