@@ -43,13 +43,13 @@ table { countries } { detailed, scope } =
           , toValue = .name
           , toCell = .name >> text
           }
-        , { label = "Catégorie"
+        , { label = "Origine"
           , toValue = .category >> Category.toString
           , toCell = .category >> Category.toString >> text
           }
         , { label = "Recyclée ?"
-          , toValue = .category >> Category.isRecycled >> boolToString
-          , toCell = .category >> Category.isRecycled >> boolToString >> text
+          , toValue = .recycled >> boolToString
+          , toCell = .recycled >> boolToString >> text
           }
         , { label = "Procédé"
           , toValue = .materialProcess >> .name
