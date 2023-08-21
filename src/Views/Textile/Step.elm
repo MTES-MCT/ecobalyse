@@ -451,19 +451,14 @@ surfaceMassField { current, updateSurfaceMass } product =
 
 yarnSizeField : Config msg -> Product -> Html msg
 yarnSizeField { current, updateYarnSize } product =
-    let
-        yarnSize =
-            product.yarnSize
-                |> Maybe.withDefault Unit.minYarnSize
-    in
     span
         [ title "Le titrage indique la grosseur d’un fil textile" ]
         [ RangeSlider.yarnSize
             { id = "yarnSize"
             , update = updateYarnSize
-            , value = current.yarnSize |> Maybe.withDefault yarnSize
+            , value = current.yarnSize |> Maybe.withDefault product.yarnSize
             , toString = Step.yarnSizeToString
-            , disabled = not current.enabled || Product.isKnitted product
+            , disabled = not current.enabled
             }
         ]
 
@@ -578,13 +573,9 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                     [ countryField config
                     , case current.label of
                         Label.Spinning ->
-                            if Product.isKnitted inputs.product then
-                                text ""
-
-                            else
-                                div [ class "mt-2 fs-7 text-muted" ]
-                                    [ yarnSizeField config inputs.product
-                                    ]
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ yarnSizeField config inputs.product
+                                ]
 
                         Label.Fabric ->
                             div [ class "mt-2 fs-7" ]
@@ -793,12 +784,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     ]
                     (case current.label of
                         Label.Spinning ->
-                            if Product.isKnitted inputs.product then
-                                [ text "" ]
-
-                            else
-                                [ yarnSizeField config inputs.product
-                                ]
+                            [ yarnSizeField config inputs.product
+                            ]
 
                         Label.Fabric ->
                             [ surfaceMassField config inputs.product ]
