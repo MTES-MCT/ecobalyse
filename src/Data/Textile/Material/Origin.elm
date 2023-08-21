@@ -1,6 +1,7 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
+    , threadProcess
     , toString
     )
 
@@ -45,3 +46,13 @@ toString origin =
 
         Synthetic ->
             "Synthétiques"
+
+
+threadProcess : Origin -> String
+threadProcess origin =
+    case origin of
+        Synthetic ->
+            "Filage"
+
+        _ ->
+            "Filature"

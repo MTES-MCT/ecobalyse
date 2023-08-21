@@ -55,6 +55,10 @@ table { countries } { detailed, scope } =
           , toValue = .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
           }
+        , { label = "Procédé de fabrication du fil"
+          , toValue = .origin >> Origin.threadProcess
+          , toCell = .origin >> Origin.threadProcess >> text
+          }
         , { label = "Procédé de recyclage"
           , toValue = .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
           , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
