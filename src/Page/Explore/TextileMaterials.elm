@@ -6,7 +6,7 @@ import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Material.Category as Category
+import Data.Textile.Material.Origin as Origin
 import Html exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
@@ -44,8 +44,8 @@ table { countries } { detailed, scope } =
           , toCell = .name >> text
           }
         , { label = "Origine"
-          , toValue = .category >> Category.toString
-          , toCell = .category >> Category.toString >> text
+          , toValue = .origin >> Origin.toString
+          , toCell = .origin >> Origin.toString >> text
           }
         , { label = "Recyclée ?"
           , toValue = .recycled >> boolToString

@@ -1,5 +1,5 @@
-module Data.Textile.Material.Category exposing
-    ( Category(..)
+module Data.Textile.Material.Origin exposing
+    ( Origin(..)
     , decode
     , isRecycled
     , toString
@@ -8,20 +8,20 @@ module Data.Textile.Material.Category exposing
 import Json.Decode as Decode exposing (Decoder)
 
 
-type Category
+type Origin
     = Natural
     | Recycled
     | Synthetic
 
 
-decode : Decoder Category
+decode : Decoder Origin
 decode =
     Decode.map fromString Decode.string
 
 
-fromString : String -> Category
-fromString category =
-    case category of
+fromString : String -> Origin
+fromString origin =
+    case origin of
         "Naturelles" ->
             Natural
 
@@ -35,9 +35,9 @@ fromString category =
             Natural
 
 
-toString : Category -> String
-toString category =
-    case category of
+toString : Origin -> String
+toString origin =
+    case origin of
         Natural ->
             "Naturelles"
 
@@ -48,6 +48,6 @@ toString category =
             "Synthétiques et artificielles"
 
 
-isRecycled : Category -> Bool
-isRecycled category =
-    category == Recycled
+isRecycled : Origin -> Bool
+isRecycled origin =
+    origin == Recycled
