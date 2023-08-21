@@ -1,7 +1,6 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
-    , isRecycled
     , toString
     )
 
@@ -10,7 +9,7 @@ import Json.Decode as Decode exposing (Decoder)
 
 type Origin
     = Natural
-    | Recycled
+    | Artificial
     | Synthetic
 
 
@@ -25,10 +24,10 @@ fromString origin =
         "Naturelles" ->
             Natural
 
-        "Recyclées" ->
-            Recycled
+        "Artificielles" ->
+            Artificial
 
-        "Synthétiques et artificielles" ->
+        "Synthétiques" ->
             Synthetic
 
         _ ->
@@ -41,13 +40,8 @@ toString origin =
         Natural ->
             "Naturelles"
 
-        Recycled ->
-            "Recyclées"
+        Artificial ->
+            "Artificielles"
 
         Synthetic ->
-            "Synthétiques et artificielles"
-
-
-isRecycled : Origin -> Bool
-isRecycled origin =
-    origin == Recycled
+            "Synthétiques"

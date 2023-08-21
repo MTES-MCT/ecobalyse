@@ -85,7 +85,7 @@ groupByOrigins : List Material -> ( List Material, List Material, List Material 
 groupByOrigins materials =
     ( materials |> fromOrigin Origin.Natural
     , materials |> fromOrigin Origin.Synthetic
-    , materials |> fromOrigin Origin.Recycled
+    , materials |> fromOrigin Origin.Artificial
     )
 
 
