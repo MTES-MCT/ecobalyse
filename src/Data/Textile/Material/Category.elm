@@ -1,6 +1,7 @@
 module Data.Textile.Material.Category exposing
     ( Category(..)
     , decode
+    , isRecycled
     , toString
     )
 
@@ -45,3 +46,8 @@ toString category =
 
         Synthetic ->
             "Synthétiques et artificielles"
+
+
+isRecycled : Category -> Bool
+isRecycled category =
+    category == Recycled

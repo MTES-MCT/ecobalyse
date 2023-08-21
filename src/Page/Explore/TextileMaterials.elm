@@ -14,6 +14,15 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
+boolToString : Bool -> String
+boolToString bool =
+    if bool then
+        "oui"
+
+    else
+        "non"
+
+
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table { countries } { detailed, scope } =
     { toId = .id >> Material.idToString
@@ -37,6 +46,10 @@ table { countries } { detailed, scope } =
         , { label = "Catégorie"
           , toValue = .category >> Category.toString
           , toCell = .category >> Category.toString >> text
+          }
+        , { label = "Recyclée ?"
+          , toValue = .category >> Category.isRecycled >> boolToString
+          , toCell = .category >> Category.isRecycled >> boolToString >> text
           }
         , { label = "Procédé"
           , toValue = .materialProcess >> .name
