@@ -144,14 +144,14 @@
     "cff": null
   },
   {
-    "id": "angora",
+    "id": "angora-mohair",
     "materialAndSpinningProcessUuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
-    "name": "Fil d'angora",
-    "shortName": "Angora",
+    "name": "Fil d'angora / mohair",
+    "shortName": "Angora / mohair",
     "category": "Naturelles",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
