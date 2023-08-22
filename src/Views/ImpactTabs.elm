@@ -7,7 +7,7 @@ module Views.ImpactTabs exposing
     )
 
 import Array
-import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Scoring as Scoring exposing (Scoring)

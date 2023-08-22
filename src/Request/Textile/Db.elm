@@ -45,8 +45,8 @@ loadDependentData definitions processes =
     in
     Task.succeed (buildFromWebData definitions processes)
         |> andMap (getJson (Country.decodeList processes) "countries.json")
-        |> andMap (getJson (Material.decodeList processes) "materials.json")
-        |> andMap (getJson (Product.decodeList processes) "products.json")
+        |> andMap (getJson (Material.decodeList processes) "textile/materials.json")
+        |> andMap (getJson (Product.decodeList processes) "textile/products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
 
 
@@ -70,7 +70,7 @@ handleImpactsLoaded : WebData Definitions -> Task () (WebData Db)
 handleImpactsLoaded definitionsData =
     case definitionsData of
         RemoteData.Success definitions ->
-            getJson (Process.decodeList definitions) "processes.json"
+            getJson (Process.decodeList definitions) "textile/processes.json"
                 |> Task.andThen (handleProcessesLoaded definitions)
 
         RemoteData.Failure error ->

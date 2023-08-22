@@ -11,7 +11,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
@@ -40,7 +40,7 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { builderDb : BuilderDb.Db
+    { foodDb : BuilderDb.Db
     , dataset : Dataset
     , scope : Scope
     , tableState : SortableTable.State
@@ -78,7 +78,7 @@ init builderDb scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { builderDb = builderDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
+    ( { foodDb = builderDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
     )
@@ -318,7 +318,7 @@ textileProcessesExplorer tableConfig tableState maybeId db =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db } { builderDb, scope, dataset, tableState } =
+explore { textileDb } { foodDb, scope, dataset, tableState } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -335,23 +335,23 @@ explore { db } { builderDb, scope, dataset, tableState } =
     in
     case dataset of
         Dataset.Countries maybeCode ->
-            db.countries |> countriesExplorer tableConfig tableState scope maybeCode
+            textileDb.countries |> countriesExplorer tableConfig tableState scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
-            impactsExplorer db.impactDefinitions tableConfig tableState scope maybeTrigram
+            impactsExplorer textileDb.impactDefinitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
-            builderDb
+            foodDb
                 |> foodIngredientsExplorer tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
-            db |> textileMaterialsExplorer tableConfig tableState maybeId
+            textileDb |> textileMaterialsExplorer tableConfig tableState maybeId
 
         Dataset.TextileProducts maybeId ->
-            db |> textileProductsExplorer tableConfig tableState maybeId
+            textileDb |> textileProductsExplorer tableConfig tableState maybeId
 
         Dataset.TextileProcesses maybeId ->
-            db |> textileProcessesExplorer tableConfig tableState maybeId
+            textileDb |> textileProcessesExplorer tableConfig tableState maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

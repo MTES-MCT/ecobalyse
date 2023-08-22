@@ -7,8 +7,8 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Db as BuilderDb
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Session as Session exposing (Session)
@@ -94,7 +94,7 @@ comparator ({ session, options, toggle } as config) =
                                 ( description, isCompared ) =
                                     ( bookmark
                                         |> Bookmark.toQueryDescription
-                                            { foodDb = session.builderDb, textileDb = session.db }
+                                            { foodDb = session.foodDb, textileDb = session.textileDb }
                                     , session.store.comparedSimulations
                                         |> Set.member (Bookmark.toId bookmark)
                                     )
@@ -218,10 +218,10 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     data =
                         case displayChoice of
                             IndividualImpacts ->
-                                dataForIndividualImpacts session.db.impactDefinitions chartsData
+                                dataForIndividualImpacts session.textileDb.impactDefinitions chartsData
 
                             Grouped ->
-                                dataForGroupedImpacts session.db.impactDefinitions chartsData
+                                dataForGroupedImpacts session.textileDb.impactDefinitions chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData
@@ -440,14 +440,14 @@ getTextileChartEntries :
     -> Unit.Functional
     -> Definition
     -> Result String (List TextileComparativeChart.Entry)
-getTextileChartEntries { db, store } funit impact =
+getTextileChartEntries { textileDb, store } funit impact =
     store.bookmarks
         |> Bookmark.toTextileQueries
         |> List.filterMap
             (\( id, label, textileQuery ) ->
                 if Set.member id store.comparedSimulations then
                     textileQuery
-                        |> TextileComparativeChart.createEntry db funit impact { highlight = True, label = label }
+                        |> TextileComparativeChart.createEntry textileDb funit impact { highlight = True, label = label }
                         |> Just
 
                 else

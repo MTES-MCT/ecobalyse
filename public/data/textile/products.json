@@ -1,0 +1,212 @@
+[
+  {
+    "id": "chemise",
+    "name": "Chemise",
+    "mass": 0.25,
+    "surfaceMass": 200,
+    "yarnSize": 40,
+    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.2,
+      "complexity": "low",
+      "durationInMinutes": 15
+    },
+    "use": {
+      "ironingProcessUuid": "33773966-2704-4420-8663-ea4231a12040",
+      "nonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
+      "daysOfWear": 40,
+      "defaultNbCycles": 20,
+      "ratioDryer": 0.12,
+      "ratioIroning": 0.7,
+      "timeIroning": 0.043,
+      "wearsPerCycle": 2
+    },
+    "endOfLife": {
+      "volume": 0.006
+    }
+  },
+  {
+    "id": "jean",
+    "name": "Jean",
+    "mass": 0.45,
+    "surfaceMass": 250,
+    "yarnSize": 40,
+    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "yarn"
+    },
+    "making": {
+      "fadable": true,
+      "pcrWaste": 0.22,
+      "complexity": "medium",
+      "durationInMinutes": 30
+    },
+    "use": {
+      "ironingProcessUuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
+      "nonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
+      "daysOfWear": 70,
+      "defaultNbCycles": 23,
+      "ratioDryer": 0.3,
+      "ratioIroning": 0.63,
+      "timeIroning": 0.072,
+      "wearsPerCycle": 3
+    },
+    "endOfLife": {
+      "volume": 0.004
+    }
+  },
+  {
+    "id": "jupe",
+    "name": "Jupe / Robe",
+    "mass": 0.3,
+    "surfaceMass": 200,
+    "yarnSize": 40,
+    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.2,
+      "complexity": "low",
+      "durationInMinutes": 15
+    },
+    "use": {
+      "ironingProcessUuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
+      "nonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
+      "daysOfWear": 70,
+      "defaultNbCycles": 23,
+      "ratioDryer": 0.12,
+      "ratioIroning": 0.18,
+      "timeIroning": 0.075,
+      "wearsPerCycle": 3
+    },
+    "endOfLife": {
+      "volume": 0.007
+    }
+  },
+  {
+    "id": "manteau",
+    "name": "Manteau / Veste",
+    "mass": 0.95,
+    "surfaceMass": 450,
+    "yarnSize": 30,
+    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.2,
+      "complexity": "high",
+      "durationInMinutes": 60
+    },
+    "use": {
+      "ironingProcessUuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
+      "nonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
+      "daysOfWear": 100,
+      "defaultNbCycles": 5,
+      "ratioDryer": 0.25,
+      "ratioIroning": 0.05,
+      "timeIroning": 0.067,
+      "wearsPerCycle": 20
+    },
+    "endOfLife": {
+      "volume": 0.015
+    }
+  },
+  {
+    "id": "pantalon",
+    "name": "Pantalon / Short",
+    "mass": 0.45,
+    "surfaceMass": 250,
+    "yarnSize": 40,
+    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.2,
+      "complexity": "medium",
+      "durationInMinutes": 30
+    },
+    "use": {
+      "ironingProcessUuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
+      "nonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
+      "daysOfWear": 70,
+      "defaultNbCycles": 23,
+      "ratioDryer": 0.3,
+      "ratioIroning": 0.63,
+      "timeIroning": 0.072,
+      "wearsPerCycle": 3
+    },
+    "endOfLife": {
+      "volume": 0.004
+    }
+  },
+  {
+    "id": "pull",
+    "name": "Pull / Couche intermédiaire",
+    "mass": 0.5,
+    "surfaceMass": 250,
+    "yarnSize": null,
+    "fabric": "knitting",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.2,
+      "complexity": "low",
+      "durationInMinutes": 15
+    },
+    "use": {
+      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "daysOfWear": 85,
+      "defaultNbCycles": 17,
+      "ratioDryer": 0.3,
+      "ratioIroning": 0.0,
+      "timeIroning": 0.0,
+      "wearsPerCycle": 5
+    },
+    "endOfLife": {
+      "volume": 0.0102
+    }
+  },
+  {
+    "id": "tshirt",
+    "name": "T-shirt / Polo",
+    "mass": 0.17,
+    "surfaceMass": 200,
+    "yarnSize": null,
+    "fabric": "knitting",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "making": {
+      "fadable": false,
+      "pcrWaste": 0.15,
+      "complexity": "low",
+      "durationInMinutes": 15
+    },
+    "use": {
+      "ironingProcessUuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
+      "nonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
+      "daysOfWear": 45,
+      "defaultNbCycles": 45,
+      "ratioDryer": 0.3,
+      "ratioIroning": 0.4,
+      "timeIroning": 0.043,
+      "wearsPerCycle": 1
+    },
+    "endOfLife": {
+      "volume": 0.0018
+    }
+  }
+]

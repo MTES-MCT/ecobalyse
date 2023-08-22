@@ -2,9 +2,8 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Builder.Db as FoodBuilderDb
-import Data.Food.Builder.Query as FoodQuery
-import Data.Food.Explorer.Db as ExplorerDb
+import Data.Food.Db as FoodDb
+import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
 import Data.Textile.Db exposing (Db)
@@ -16,7 +15,6 @@ import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food.Builder as FoodBuilder
-import Page.Food.Explore as FoodExplore
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
@@ -24,7 +22,7 @@ import Page.Textile.Simulator as TextileSimulator
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
-import Request.Food.BuilderDb
+import Request.Food.Db
 import Request.Textile.Db
 import Request.Version
 import Route
@@ -45,7 +43,6 @@ type Page
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
-    | FoodExplorePage FoodExplore.Model
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
@@ -75,8 +72,7 @@ type Msg
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
-    | FoodExploreMsg FoodExplore.Msg
-    | FoodBuilderDbReceived Url (WebData FoodBuilderDb.Db)
+    | FoodDbReceived Url (WebData FoodDb.Db)
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
@@ -101,8 +97,7 @@ init flags url navKey =
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
-            , builderDb = RemoteData.NotAsked
-            , explorerDb = ExplorerDb.empty
+            , foodDb = RemoteData.NotAsked
             , notifications = []
             , queries =
                 { food = FoodQuery.carrotCake
@@ -170,50 +165,46 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             Explore.init builderDb scope dataset session
                                 |> toPage ExplorePage ExploreMsg
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
                             ( model, cmds )
 
                 Just Route.FoodBuilderHome ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             FoodBuilder.init builderDb session Impact.default Nothing
                                 |> toPage FoodBuilderPage FoodBuilderMsg
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
                             ( model, cmds )
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             FoodBuilder.init builderDb session trigram maybeQuery
                                 |> toPage FoodBuilderPage FoodBuilderMsg
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
                             ( model, cmds )
-
-                Just Route.FoodExplore ->
-                    FoodExplore.init session
-                        |> toPage FoodExplorePage FoodExploreMsg
 
                 Just Route.Stats ->
                     Stats.init session
@@ -299,17 +290,13 @@ update rawMsg ({ state } as model) =
                         |> toPage ExplorePage ExploreMsg
 
                 -- Food
-                ( FoodBuilderDbReceived url builderDb, page_ ) ->
+                ( FoodDbReceived url foodDb, page_ ) ->
                     setRoute url
-                        ( { model | state = Loaded page_ { session | builderDb = builderDb } }, Cmd.none )
+                        ( { model | state = Loaded page_ { session | foodDb = foodDb } }, Cmd.none )
 
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                ( FoodExploreMsg foodMsg, FoodExplorePage foodModel ) ->
-                    FoodExplore.update session foodMsg foodModel
-                        |> toPage FoodExplorePage FoodExploreMsg
 
                 ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
                     TextileExamples.update session examplesMsg examplesModel
@@ -445,11 +432,6 @@ view { state, mobileNavigationOpened } =
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
-
-                FoodExplorePage foodModel ->
-                    FoodExplore.view session foodModel
-                        |> mapMsg FoodExploreMsg
-                        |> Page.frame (pageConfig Page.FoodExplore)
 
                 TextileExamplesPage examplesModel ->
                     TextileExamples.view session examplesModel

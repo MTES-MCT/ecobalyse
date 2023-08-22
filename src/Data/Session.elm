@@ -19,10 +19,9 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Query as FoodQuery
-import Data.Food.Explorer.Db as ExplorerDb
-import Data.Textile.Db exposing (Db)
+import Data.Food.Db as FoodDb
+import Data.Food.Query as FoodQuery
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
@@ -38,9 +37,8 @@ type alias Session =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
-    , db : Db
-    , builderDb : WebData BuilderDb.Db
-    , explorerDb : ExplorerDb.Db
+    , textileDb : TextileDb.Db
+    , foodDb : WebData FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -54,8 +52,7 @@ type alias UnloadedSession =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
-    , builderDb : WebData BuilderDb.Db
-    , explorerDb : ExplorerDb.Db
+    , foodDb : WebData FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -64,15 +61,14 @@ type alias UnloadedSession =
     }
 
 
-fromUnloaded : UnloadedSession -> Db -> Session
-fromUnloaded unloadedSession db =
+fromUnloaded : UnloadedSession -> TextileDb.Db -> Session
+fromUnloaded unloadedSession textileDb =
     { navKey = unloadedSession.navKey
     , clientUrl = unloadedSession.clientUrl
     , store = unloadedSession.store
     , currentVersion = unloadedSession.currentVersion
-    , db = db
-    , builderDb = unloadedSession.builderDb
-    , explorerDb = unloadedSession.explorerDb
+    , textileDb = textileDb
+    , foodDb = unloadedSession.foodDb
     , notifications = unloadedSession.notifications
     , queries = unloadedSession.queries
     }

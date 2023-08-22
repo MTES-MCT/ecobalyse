@@ -1,7 +1,7 @@
 module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
