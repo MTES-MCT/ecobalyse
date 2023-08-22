@@ -13,7 +13,7 @@ module Data.Textile.Material exposing
 
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
-import Data.Textile.Material.Category as Category exposing (Category)
+import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -24,7 +24,7 @@ type alias Material =
     { id : Id
     , name : String
     , shortName : String
-    , category : Category
+    , origin : Origin
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
@@ -72,19 +72,19 @@ groupAll :
     List Material
     -> ( List Material, List Material, List Material )
 groupAll =
-    List.sortBy .shortName >> groupByCategories
+    List.sortBy .shortName >> groupByOrigins
 
 
-fromCategory : Category -> List Material -> List Material
-fromCategory category =
-    List.filter (.category >> (==) category)
+fromOrigin : Origin -> List Material -> List Material
+fromOrigin origin =
+    List.filter (.origin >> (==) origin)
 
 
-groupByCategories : List Material -> ( List Material, List Material, List Material )
-groupByCategories materials =
-    ( materials |> fromCategory Category.Natural
-    , materials |> fromCategory Category.Synthetic
-    , materials |> fromCategory Category.Recycled
+groupByOrigins : List Material -> ( List Material, List Material, List Material )
+groupByOrigins materials =
+    ( materials |> fromOrigin Origin.Natural
+    , materials |> fromOrigin Origin.Synthetic
+    , materials |> fromOrigin Origin.Artificial
     )
 
 
@@ -94,7 +94,7 @@ decode processes =
         |> JDP.required "id" (Decode.map Id Decode.string)
         |> JDP.required "name" Decode.string
         |> JDP.required "shortName" Decode.string
-        |> JDP.required "category" Category.decode
+        |> JDP.required "origin" Origin.decode
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
@@ -123,7 +123,7 @@ encode v =
         [ ( "id", encodeId v.id )
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
-        , ( "category", v.category |> Category.toString |> Encode.string )
+        , ( "origin", v.origin |> Origin.toString |> Encode.string )
         , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
         , ( "recycledProcessUuid"
           , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null

@@ -145,7 +145,7 @@ materialSelector :
     -> List (Html msg)
 materialSelector index { materials, exclude, update } id =
     let
-        ( natural, synthetic, recycled ) =
+        ( natural, synthetic, artificial ) =
             Material.groupAll materials
 
         toOption m =
@@ -168,7 +168,7 @@ materialSelector index { materials, exclude, update } id =
     in
     [ [ toGroup "Matières naturelles" natural
       , toGroup "Matières synthétiques" synthetic
-      , toGroup "Matières recyclées" recycled
+      , toGroup "Matières artificielles" artificial
       ]
         |> select
             [ Attr.id "material"
