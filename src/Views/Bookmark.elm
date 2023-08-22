@@ -1,7 +1,7 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Builder.Query as FoodQuery
+import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
@@ -256,7 +256,7 @@ bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query 
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
-                |> Bookmark.toQueryDescription { foodDb = session.builderDb, textileDb = session.db }
+                |> Bookmark.toQueryDescription { foodDb = session.foodDb, textileDb = session.textileDb }
                 |> title
             , bookmarkRoute
                 |> Route.toString

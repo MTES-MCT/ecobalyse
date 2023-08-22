@@ -70,10 +70,10 @@ update session msg model =
 viewExample : Session -> Model -> Unit.Functional -> Definition.Trigram -> Inputs.Query -> Html Msg
 viewExample session model funit impact query =
     query
-        |> Simulator.compute session.db
+        |> Simulator.compute session.textileDb
         |> SummaryView.view
             { session = session
-            , impact = Definition.get impact session.db.impactDefinitions
+            , impact = Definition.get impact session.textileDb.impactDefinitions
             , funit = funit
             , reusable = True
             , activeImpactsTab = model.activeImpactsTab
@@ -91,7 +91,7 @@ view session ({ impact, funit } as model) =
                     [ h1 [] [ text "Exemples de simulation" ] ]
                 , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
-                        session.db.impactDefinitions
+                        session.textileDb.impactDefinitions
                         { selectedImpact = impact
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
@@ -99,7 +99,7 @@ view session ({ impact, funit } as model) =
                         }
                     ]
                 ]
-            , Definition.get impact session.db.impactDefinitions
+            , Definition.get impact session.textileDb.impactDefinitions
                 |> ImpactView.viewDefinition
             , Inputs.presets
                 |> List.map (viewExample session model funit impact)

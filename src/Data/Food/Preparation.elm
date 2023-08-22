@@ -10,7 +10,7 @@ module Data.Food.Preparation exposing
     , unused
     )
 
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Db as BuilderDb
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit

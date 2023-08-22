@@ -6,12 +6,19 @@ import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Material.Category as Category
+import Data.Textile.Material.Origin as Origin
 import Html exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
 import Views.Alert as Alert
 import Views.Format as Format
+
+
+recycledToString : Maybe Material.Id -> String
+recycledToString maybeMaterialID =
+    maybeMaterialID
+        |> Maybe.map (always "oui")
+        |> Maybe.withDefault "non"
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
@@ -34,13 +41,21 @@ table { countries } { detailed, scope } =
           , toValue = .name
           , toCell = .name >> text
           }
-        , { label = "Catégorie"
-          , toValue = .category >> Category.toString
-          , toCell = .category >> Category.toString >> text
+        , { label = "Origine"
+          , toValue = .origin >> Origin.toString
+          , toCell = .origin >> Origin.toString >> text
+          }
+        , { label = "Recyclée ?"
+          , toValue = .recycledFrom >> recycledToString
+          , toCell = .recycledFrom >> recycledToString >> text
           }
         , { label = "Procédé"
           , toValue = .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
+          }
+        , { label = "Procédé de fabrication du fil"
+          , toValue = .origin >> Origin.threadProcess
+          , toCell = .origin >> Origin.threadProcess >> text
           }
         , { label = "Procédé de recyclage"
           , toValue = .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"

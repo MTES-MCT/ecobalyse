@@ -15,14 +15,14 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
-import Data.Food.Builder.Db as BuilderDb exposing (Db)
-import Data.Food.Builder.Query as Query exposing (Query)
-import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
+import Data.Food.Db as BuilderDb exposing (Db)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Query as Query exposing (Query)
+import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
@@ -41,7 +41,7 @@ import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
-import Request.Food.BuilderDb as FoodRequestDb
+import Request.Food.Db as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)
@@ -92,7 +92,7 @@ type Msg
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
-    | DeletePackaging Process.Code
+    | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
@@ -113,14 +113,14 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
-    | UpdatePackaging Process.Code Query.ProcessQuery
+    | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
 
 
 init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init db ({ builderDb, queries } as session) trigram maybeQuery =
+init db ({ foodDb, queries } as session) trigram maybeQuery =
     let
         impact =
             Definition.get trigram db.impactDefinitions
@@ -153,7 +153,7 @@ init db ({ builderDb, queries } as session) trigram maybeQuery =
 
             Just _ ->
                 Cmd.none
-        , if builderDb == RemoteData.NotAsked then
+        , if foodDb == RemoteData.NotAsked then
             FoodRequestDb.loadDb session DbLoaded
 
           else
@@ -241,9 +241,9 @@ update ({ queries } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DbLoaded db ->
+        DbLoaded foodDb ->
             ( model
-            , { session | builderDb = db }
+            , { session | foodDb = foodDb }
             , Cmd.none
             )
 
@@ -432,8 +432,8 @@ updateQuery query ( model, session, msg ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { builderDb, store } query =
-    case builderDb of
+findExistingBookmarkName { foodDb, store } query =
+    case foodDb of
         RemoteData.Success db ->
             store.bookmarks
                 |> Bookmark.findByFoodQuery query
@@ -531,7 +531,7 @@ addProcessFormView { isDisabled, event, kind } =
 
 type alias UpdateProcessConfig =
     { processes : List Process
-    , excluded : List Process.Code
+    , excluded : List Process.Identifier
     , processQuery : Query.ProcessQuery
     , impact : Html Msg
     , updateEvent : Query.ProcessQuery -> Msg
@@ -1319,7 +1319,12 @@ menuView query =
         ]
 
 
-processSelectorView : Process.Code -> (Process.Code -> msg) -> List Process.Code -> List Process -> Html msg
+processSelectorView :
+    Process.Identifier
+    -> (Process.Identifier -> msg)
+    -> List Process.Identifier
+    -> List Process
+    -> Html msg
 processSelectorView selectedCode event excluded processes =
     select
         [ class "form-select form-select"
@@ -1377,7 +1382,7 @@ sidebarView session model results =
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
-            session.db.impactDefinitions
+            session.textileDb.impactDefinitions
             { selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
@@ -1388,7 +1393,7 @@ sidebarView session model results =
         , absoluteImpactView model results
         , results
             |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
-            |> ImpactTabs.view session.db.impactDefinitions model.activeImpactsTab SwitchImpactsTab
+            |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -1404,8 +1409,6 @@ sidebarView session model results =
             , update = UpdateBookmarkName
             , switchTab = SwitchLinksTab
             }
-        , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
-            [ text "Explorateur de recettes" ]
         ]
 
 

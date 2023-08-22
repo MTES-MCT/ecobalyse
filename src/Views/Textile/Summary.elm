@@ -119,8 +119,8 @@ summaryChartsView : Config msg -> Simulator -> Html msg
 summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     div []
         [ simulator
-            |> ImpactTabs.textileSimulatorToImpactTabsConfig session.db.impactDefinitions impact.trigram
-            |> ImpactTabs.view session.db.impactDefinitions activeImpactsTab switchImpactsTab
+            |> ImpactTabs.textileSimulatorToImpactTabsConfig session.textileDb.impactDefinitions impact.trigram
+            |> ImpactTabs.view session.textileDb.impactDefinitions activeImpactsTab switchImpactsTab
         , if reusable then
             div [ class "card-footer text-center" ]
                 [ a

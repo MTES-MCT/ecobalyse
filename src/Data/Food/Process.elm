@@ -1,20 +1,18 @@
 module Data.Food.Process exposing
     ( Category(..)
-    , Code
+    , Identifier
     , Process
     , ProcessName
     , WellKnown
     , codeFromString
     , codeToString
-    , decodeCode
+    , decodeIdentifier
     , decodeList
-    , encodeCode
-    , findByCode
-    , findByName
+    , encodeIdentifier
+    , findByIdentifier
     , getDisplayName
     , listByCategory
     , loadWellKnown
-    , nameFromString
     , nameToString
     )
 
@@ -36,7 +34,7 @@ type alias Process =
     , displayName : Maybe String
     , impacts : Impact.Impacts
     , unit : String
-    , code : Code
+    , code : Identifier
     , category : Category
     , systemDescription : String
     , comment : Maybe String
@@ -55,8 +53,8 @@ type Category
     | WasteTreatment
 
 
-type Code
-    = Code String
+type Identifier
+    = Identifier String
 
 
 type ProcessName
@@ -106,13 +104,13 @@ categoryFromString string =
             Err <| "Catégorie de procédé invalide: " ++ string
 
 
-codeFromString : String -> Code
+codeFromString : String -> Identifier
 codeFromString =
-    Code
+    Identifier
 
 
-codeToString : Code -> String
-codeToString (Code string) =
+codeToString : Identifier -> String
+codeToString (Identifier string) =
     string
 
 
@@ -139,15 +137,15 @@ decodeProcess definitions =
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "unit" decodeStringUnit
-        |> Pipe.required "identifier" decodeCode
+        |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" (Decode.maybe Decode.string)
 
 
-decodeCode : Decoder Code
-decodeCode =
+decodeIdentifier : Decoder Identifier
+decodeIdentifier =
     Decode.string
         |> Decode.map codeFromString
 
@@ -157,8 +155,8 @@ decodeList definitions =
     Decode.list (decodeProcess definitions)
 
 
-encodeCode : Code -> Encode.Value
-encodeCode =
+encodeIdentifier : Identifier -> Encode.Value
+encodeIdentifier =
     codeToString >> Encode.string
 
 
@@ -170,20 +168,12 @@ findById processes id_ =
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ id_)
 
 
-findByCode : List Process -> Code -> Result String Process
-findByCode processes ((Code codeString) as code) =
+findByIdentifier : List Process -> Identifier -> Result String Process
+findByIdentifier processes ((Identifier codeString) as code) =
     processes
         |> List.filter (.code >> (==) code)
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par code : " ++ codeString)
-
-
-findByName : List Process -> ProcessName -> Result String Process
-findByName processes ((ProcessName name) as procName) =
-    processes
-        |> List.filter (.name >> (==) procName)
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
 decodeStringUnit : Decoder String

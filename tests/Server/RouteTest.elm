@@ -1,6 +1,6 @@
 module Server.RouteTest exposing (..)
 
-import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Query as BuilderQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)

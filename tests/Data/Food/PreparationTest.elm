@@ -15,7 +15,7 @@ import TestUtils exposing (asTest, suiteWithDb)
 suite : Test
 suite =
     suiteWithDb "Data.Food.Preparation"
-        (\{ builderDb } ->
+        (\{ foodDb } ->
             [ describe "apply"
                 [ { id = Preparation.Id "sample"
                   , name = "Sample"
@@ -23,7 +23,7 @@ suite =
                   , heat = ( Energy.megajoules 1, Split.half )
                   , applyRawToCookedRatio = False
                   }
-                    |> Preparation.apply builderDb (Mass.kilograms 1)
+                    |> Preparation.apply foodDb (Mass.kilograms 1)
                     |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.001) 0.08

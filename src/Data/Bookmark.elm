@@ -14,9 +14,9 @@ module Data.Bookmark exposing
     , toTextileQueries
     )
 
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Query as FoodQuery
-import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Db as BuilderDb
+import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery

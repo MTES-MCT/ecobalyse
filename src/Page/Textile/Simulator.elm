@@ -123,7 +123,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ db } as session) =
+init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -133,7 +133,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
 
         simulator =
             initialQuery
-                |> Simulator.compute db
+                |> Simulator.compute textileDb
     in
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -144,7 +144,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
                 |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact = Definition.get trigram db.impactDefinitions
+      , impact = Definition.get trigram textileDb.impactDefinitions
       , funit = funit
       , modal = NoModal
       , chartHovering = []
@@ -178,13 +178,13 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
 
 
 findExistingBookmarkName : Session -> Inputs.Query -> String
-findExistingBookmarkName { db, store } query =
+findExistingBookmarkName { textileDb, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery db
+                |> Inputs.fromQuery textileDb
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )
@@ -193,7 +193,7 @@ findExistingBookmarkName { db, store } query =
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
     ( { model
-        | simulator = query |> Simulator.compute session.db
+        | simulator = query |> Simulator.compute session.textileDb
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
@@ -202,7 +202,7 @@ updateQuery query ( model, session, msg ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, queries, navKey } as session) msg model =
+update ({ textileDb, queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -210,7 +210,7 @@ update ({ db, queries, navKey } as session) msg model =
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.addMaterial db query)
+                |> updateQuery (Inputs.addMaterial textileDb query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -381,7 +381,7 @@ update ({ db, queries, navKey } as session) msg model =
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial index materialId ->
-            case Material.findById materialId db.materials of
+            case Material.findById materialId textileDb.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
                         |> updateQuery (Inputs.updateMaterial index material query)
@@ -398,7 +398,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> updateQuery { query | printing = printing }
 
         UpdateProduct productId ->
-            case Product.findById productId db.products of
+            case Product.findById productId textileDb.products of
                 Ok product ->
                     ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
                         |> updateQuery (Inputs.updateProduct product query)
@@ -556,21 +556,21 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-sm-6 mb-3" ]
-                    [ productField db inputs.product
+                    [ productField textileDb inputs.product
                     ]
                 , div [ class "col-sm-6 mb-3" ]
                     [ massField model.massInput
                     ]
                 ]
             , MaterialView.formSet
-                { materials = db.materials
+                { materials = textileDb.materials
                 , inputs = inputs.materials
                 , add = AddMaterial
                 , remove = RemoveMaterial
@@ -581,11 +581,11 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             , session.queries.textile
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
-                Dataviz.view db.impactDefinitions simulator
+                Dataviz.view textileDb.impactDefinitions simulator
 
               else
                 div []
-                    [ lifeCycleStepsView db model simulator
+                    [ lifeCycleStepsView textileDb model simulator
                     , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                         [ a [ Route.href Route.Home ]
                             [ text "« Retour à l'accueil" ]
@@ -601,7 +601,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 (ImpactView.selector
-                    db.impactDefinitions
+                    textileDb.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
