@@ -11,7 +11,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key

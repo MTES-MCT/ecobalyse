@@ -6,7 +6,7 @@ module Route exposing
     )
 
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.Builder.Query as FoodQuery
+import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)

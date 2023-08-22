@@ -2,8 +2,8 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Builder.Db as FoodBuilderDb
-import Data.Food.Builder.Query as FoodQuery
+import Data.Food.Db as FoodBuilderDb
+import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
 import Data.Textile.Db exposing (Db)

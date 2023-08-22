@@ -3,7 +3,7 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Textile.Inputs as TextileInputs

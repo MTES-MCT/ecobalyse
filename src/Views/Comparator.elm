@@ -7,8 +7,8 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Db as BuilderDb
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Session as Session exposing (Session)

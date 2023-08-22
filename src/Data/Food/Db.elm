@@ -1,4 +1,4 @@
-module Data.Food.Builder.Db exposing
+module Data.Food.Db exposing
     ( Db
     , buildFromJson
     )

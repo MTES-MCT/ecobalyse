@@ -1,6 +1,6 @@
 module Server.ServerTest exposing (..)
 
-import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Query as BuilderQuery
 import Expect
 import Json.Encode as Encode
 import Server

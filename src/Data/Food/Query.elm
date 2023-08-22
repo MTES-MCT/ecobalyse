@@ -1,4 +1,4 @@
-module Data.Food.Builder.Query exposing
+module Data.Food.Query exposing
     ( IngredientQuery
     , ProcessQuery
     , Query

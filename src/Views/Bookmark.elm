@@ -1,7 +1,7 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Builder.Query as FoodQuery
+import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)

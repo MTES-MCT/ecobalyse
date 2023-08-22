@@ -1,6 +1,6 @@
 module Request.Food.BuilderDb exposing (loadDb)
 
-import Data.Food.Builder.Db exposing (Db)
+import Data.Food.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Session exposing (Session)

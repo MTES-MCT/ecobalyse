@@ -6,12 +6,12 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Query as BuilderQuery
-import Data.Food.Builder.Recipe as BuilderRecipe
+import Data.Food.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
+import Data.Food.Query as BuilderQuery
+import Data.Food.Recipe as BuilderRecipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope

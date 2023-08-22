@@ -7,12 +7,12 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
+import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)

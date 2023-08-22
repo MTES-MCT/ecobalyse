@@ -1,11 +1,11 @@
-module Data.Food.Builder.RecipeTest exposing (..)
+module Data.Food.RecipeTest exposing (..)
 
 import Data.Country as Country
-import Data.Food.Builder.Query exposing (carrotCake)
-import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
+import Data.Food.Query exposing (carrotCake)
+import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition

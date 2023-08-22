@@ -15,14 +15,14 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
-import Data.Food.Builder.Db as BuilderDb exposing (Db)
-import Data.Food.Builder.Query as Query exposing (Query)
-import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
+import Data.Food.Db as BuilderDb exposing (Db)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Query as Query exposing (Query)
+import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact

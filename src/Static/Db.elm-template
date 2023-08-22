@@ -1,7 +1,7 @@
 module Static.Db exposing (Db, db)
 
 
-import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Db as BuilderDb
 import Data.Textile.Db as TextileDb
 
 
