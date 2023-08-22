@@ -37,8 +37,8 @@ type alias Session =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
-    , db : TextileDb.Db
-    , builderDb : WebData FoodDb.Db
+    , textileDb : TextileDb.Db
+    , foodDb : WebData FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -52,7 +52,7 @@ type alias UnloadedSession =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
-    , builderDb : WebData FoodDb.Db
+    , foodDb : WebData FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -62,13 +62,13 @@ type alias UnloadedSession =
 
 
 fromUnloaded : UnloadedSession -> TextileDb.Db -> Session
-fromUnloaded unloadedSession db =
+fromUnloaded unloadedSession textileDb =
     { navKey = unloadedSession.navKey
     , clientUrl = unloadedSession.clientUrl
     , store = unloadedSession.store
     , currentVersion = unloadedSession.currentVersion
-    , db = db
-    , builderDb = unloadedSession.builderDb
+    , textileDb = textileDb
+    , foodDb = unloadedSession.foodDb
     , notifications = unloadedSession.notifications
     , queries = unloadedSession.queries
     }

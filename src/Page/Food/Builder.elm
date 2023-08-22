@@ -120,7 +120,7 @@ type Msg
 
 
 init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init db ({ builderDb, queries } as session) trigram maybeQuery =
+init db ({ foodDb, queries } as session) trigram maybeQuery =
     let
         impact =
             Definition.get trigram db.impactDefinitions
@@ -153,7 +153,7 @@ init db ({ builderDb, queries } as session) trigram maybeQuery =
 
             Just _ ->
                 Cmd.none
-        , if builderDb == RemoteData.NotAsked then
+        , if foodDb == RemoteData.NotAsked then
             FoodRequestDb.loadDb session DbLoaded
 
           else
@@ -241,9 +241,9 @@ update ({ queries } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DbLoaded db ->
+        DbLoaded foodDb ->
             ( model
-            , { session | builderDb = db }
+            , { session | foodDb = foodDb }
             , Cmd.none
             )
 
@@ -432,8 +432,8 @@ updateQuery query ( model, session, msg ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { builderDb, store } query =
-    case builderDb of
+findExistingBookmarkName { foodDb, store } query =
+    case foodDb of
         RemoteData.Success db ->
             store.bookmarks
                 |> Bookmark.findByFoodQuery query
@@ -1382,7 +1382,7 @@ sidebarView session model results =
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
-            session.db.impactDefinitions
+            session.textileDb.impactDefinitions
             { selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
@@ -1393,7 +1393,7 @@ sidebarView session model results =
         , absoluteImpactView model results
         , results
             |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
-            |> ImpactTabs.view session.db.impactDefinitions model.activeImpactsTab SwitchImpactsTab
+            |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab

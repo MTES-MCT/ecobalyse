@@ -256,7 +256,7 @@ bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query 
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
-                |> Bookmark.toQueryDescription { foodDb = session.builderDb, textileDb = session.db }
+                |> Bookmark.toQueryDescription { foodDb = session.foodDb, textileDb = session.textileDb }
                 |> title
             , bookmarkRoute
                 |> Route.toString

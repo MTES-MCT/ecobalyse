@@ -97,7 +97,7 @@ init flags url navKey =
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
-            , builderDb = RemoteData.NotAsked
+            , foodDb = RemoteData.NotAsked
             , notifications = []
             , queries =
                 { food = FoodQuery.carrotCake
@@ -165,7 +165,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             Explore.init builderDb scope dataset session
                                 |> toPage ExplorePage ExploreMsg
@@ -179,7 +179,7 @@ setRoute url ( { state } as model, cmds ) =
                             ( model, cmds )
 
                 Just Route.FoodBuilderHome ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             FoodBuilder.init builderDb session Impact.default Nothing
                                 |> toPage FoodBuilderPage FoodBuilderMsg
@@ -193,7 +193,7 @@ setRoute url ( { state } as model, cmds ) =
                             ( model, cmds )
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
-                    case session.builderDb of
+                    case session.foodDb of
                         RemoteData.Success builderDb ->
                             FoodBuilder.init builderDb session trigram maybeQuery
                                 |> toPage FoodBuilderPage FoodBuilderMsg
@@ -290,9 +290,9 @@ update rawMsg ({ state } as model) =
                         |> toPage ExplorePage ExploreMsg
 
                 -- Food
-                ( FoodDbReceived url builderDb, page_ ) ->
+                ( FoodDbReceived url foodDb, page_ ) ->
                     setRoute url
-                        ( { model | state = Loaded page_ { session | builderDb = builderDb } }, Cmd.none )
+                        ( { model | state = Loaded page_ { session | foodDb = foodDb } }, Cmd.none )
 
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
