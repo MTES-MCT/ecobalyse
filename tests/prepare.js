@@ -19,25 +19,19 @@ function serializeForElmTemplateString(toStringify) {
 
 function buildTextileJsonDb(basePath = "public/data") {
   return serializeForElmTemplateString({
+    // common data
     countries: getJson(`${basePath}/countries.json`),
-    materials: getJson(`${basePath}/materials.json`),
-    processes: getJson(`${basePath}/processes.json`),
-    products: getJson(`${basePath}/products.json`),
-    transports: getJson(`${basePath}/transports.json`),
     impacts: getJson(`${basePath}/impacts.json`),
+    transports: getJson(`${basePath}/transports.json`),
+    // textile data
+    materials: getJson(`${basePath}/textile/materials.json`),
+    processes: getJson(`${basePath}/textile/processes.json`),
+    products: getJson(`${basePath}/textile/products.json`),
   });
 }
 
-function buildFoodProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes/explorer.json`));
-}
-
-function buildFoodProductsJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
-}
-
 function buildFoodBuilderProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes/builder.json`));
+  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
 }
 
 function buildFoodIngredientsJsonDb(basePath = "public/data/food") {

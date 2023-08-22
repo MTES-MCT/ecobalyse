@@ -50,7 +50,7 @@ handleIngredientsLoaded session processes ingredientsData =
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
 loadDb session event =
-    getJson (Process.decodeList session.db.impactDefinitions) "food/processes/builder.json"
+    getJson (Process.decodeList session.db.impactDefinitions) "food/processes.json"
         |> Task.andThen (handleProcessesLoaded session)
         |> Task.attempt
             (\result ->
