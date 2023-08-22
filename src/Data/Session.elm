@@ -21,7 +21,6 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
-import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as TextileInputs
 import Http
@@ -40,7 +39,6 @@ type alias Session =
     , currentVersion : Version
     , db : Db
     , builderDb : WebData BuilderDb.Db
-    , explorerDb : ExplorerDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -55,7 +53,6 @@ type alias UnloadedSession =
     , store : Store
     , currentVersion : Version
     , builderDb : WebData BuilderDb.Db
-    , explorerDb : ExplorerDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
@@ -72,7 +69,6 @@ fromUnloaded unloadedSession db =
     , currentVersion = unloadedSession.currentVersion
     , db = db
     , builderDb = unloadedSession.builderDb
-    , explorerDb = unloadedSession.explorerDb
     , notifications = unloadedSession.notifications
     , queries = unloadedSession.queries
     }

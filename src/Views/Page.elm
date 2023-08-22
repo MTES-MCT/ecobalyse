@@ -29,7 +29,6 @@ type ActivePage
     | Editorial String
     | Explore
     | FoodBuilder
-    | FoodExplore
     | Home
     | Other
     | Stats

@@ -4,7 +4,6 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Food.Builder.Db as FoodBuilderDb
 import Data.Food.Builder.Query as FoodQuery
-import Data.Food.Explorer.Db as ExplorerDb
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
 import Data.Textile.Db exposing (Db)
@@ -16,7 +15,6 @@ import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food.Builder as FoodBuilder
-import Page.Food.Explore as FoodExplore
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
@@ -45,7 +43,6 @@ type Page
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
-    | FoodExplorePage FoodExplore.Model
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
@@ -75,7 +72,6 @@ type Msg
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
-    | FoodExploreMsg FoodExplore.Msg
     | FoodBuilderDbReceived Url (WebData FoodBuilderDb.Db)
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
@@ -102,7 +98,6 @@ init flags url navKey =
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
             , builderDb = RemoteData.NotAsked
-            , explorerDb = ExplorerDb.empty
             , notifications = []
             , queries =
                 { food = FoodQuery.carrotCake
@@ -211,10 +206,6 @@ setRoute url ( { state } as model, cmds ) =
                         _ ->
                             ( model, cmds )
 
-                Just Route.FoodExplore ->
-                    FoodExplore.init session
-                        |> toPage FoodExplorePage FoodExploreMsg
-
                 Just Route.Stats ->
                     Stats.init session
                         |> toPage StatsPage StatsMsg
@@ -306,10 +297,6 @@ update rawMsg ({ state } as model) =
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                ( FoodExploreMsg foodMsg, FoodExplorePage foodModel ) ->
-                    FoodExplore.update session foodMsg foodModel
-                        |> toPage FoodExplorePage FoodExploreMsg
 
                 ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
                     TextileExamples.update session examplesMsg examplesModel
@@ -445,11 +432,6 @@ view { state, mobileNavigationOpened } =
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
-
-                FoodExplorePage foodModel ->
-                    FoodExplore.view session foodModel
-                        |> mapMsg FoodExploreMsg
-                        |> Page.frame (pageConfig Page.FoodExplore)
 
                 TextileExamplesPage examplesModel ->
                     TextileExamples.view session examplesModel

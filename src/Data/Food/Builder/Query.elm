@@ -48,7 +48,7 @@ type alias IngredientQuery =
 
 
 type alias ProcessQuery =
-    { code : Process.Code
+    { code : Process.Identifier
     , mass : Mass
     }
 
@@ -203,7 +203,7 @@ decodeMassInGrams =
 decodeProcess : Decoder ProcessQuery
 decodeProcess =
     Decode.map2 ProcessQuery
-        (Decode.field "code" Process.decodeCode)
+        (Decode.field "code" Process.decodeIdentifier)
         (Decode.field "mass" decodeMassInGrams)
 
 
@@ -283,7 +283,7 @@ encodeMassAsGrams =
 encodeProcess : ProcessQuery -> Encode.Value
 encodeProcess v =
     Encode.object
-        [ ( "code", Process.encodeCode v.code )
+        [ ( "code", Process.encodeIdentifier v.code )
         , ( "mass", encodeMassAsGrams v.mass )
         ]
 
@@ -338,7 +338,7 @@ updateIngredient oldIngredientId newIngredient query =
         |> updateTransformMass
 
 
-updatePackaging : Process.Code -> ProcessQuery -> Query -> Query
+updatePackaging : Process.Identifier -> ProcessQuery -> Query -> Query
 updatePackaging oldPackagingCode newPackaging query =
     { query
         | packaging =

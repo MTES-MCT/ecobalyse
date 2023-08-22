@@ -201,11 +201,11 @@ foodCountryParser countries countryStr =
             |> Result.map Just
 
 
-foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Code
+foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
 foodProcessCodeParser ingredients string =
     string
         |> FoodProcess.codeFromString
-        |> FoodProcess.findByCode ingredients
+        |> FoodProcess.findByIdentifier ingredients
         |> Result.map .code
 
 

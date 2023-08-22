@@ -7,7 +7,6 @@ module Data.Transport exposing
     , decodeDistances
     , default
     , defaultInland
-    , emptyDistances
     , encode
     , getTransportBetween
     , roadSeaTransportRatio
@@ -133,11 +132,6 @@ sum =
             }
         )
         (default Impact.empty)
-
-
-emptyDistances : Distances
-emptyDistances =
-    Dict.fromList Country.codeToString []
 
 
 totalKm : Transport -> Float

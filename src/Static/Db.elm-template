@@ -1,12 +1,12 @@
 module Static.Db exposing (Db, db)
 
-import Data.Food.Explorer.Db as ExplorerDb
+
 import Data.Food.Builder.Db as BuilderDb
 import Data.Textile.Db as TextileDb
 
 
 type alias Db =
-    { builderDb : BuilderDb.Db, explorerDb : ExplorerDb.Db,  textileDb : TextileDb.Db }
+    { builderDb : BuilderDb.Db,  textileDb : TextileDb.Db }
 
 
 textileDb : Result String TextileDb.Db
@@ -14,30 +14,15 @@ textileDb =
     """%textileJson%""" |> TextileDb.buildFromJson
 
 
-foodProcessesJson : String
-foodProcessesJson =
-    """%foodProcessesJson%"""
-
-
-foodProductsJson : String
-foodProductsJson =
-    """%foodProductsJson%"""
-
 foodBuilderProcessesJson : String
 foodBuilderProcessesJson =
     """%foodBuilderProcessesJson%"""
+
 
 foodIngredientsJson : String
 foodIngredientsJson =
     """%foodIngredientsJson%"""
 
-explorerDb : Result String ExplorerDb.Db
-explorerDb =
-    textileDb
-        |> Result.andThen
-            (\textileDbParsed ->
-                ExplorerDb.buildFromJson textileDbParsed foodProcessesJson foodProductsJson
-            )
 
 builderDb : Result String BuilderDb.Db
 builderDb =
@@ -50,4 +35,4 @@ builderDb =
 
 db : Result String Db
 db =
-    Result.map3 Db builderDb explorerDb textileDb
+    Result.map2 Db builderDb textileDb

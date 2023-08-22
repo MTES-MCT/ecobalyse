@@ -48,8 +48,6 @@ const targetDbFile = "src/Static/Db.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   .replace("%textileJson%", buildTextileJsonDb())
-  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodProductsJson%", buildFoodProductsJsonDb())
   .replace("%foodBuilderProcessesJson%", buildFoodBuilderProcessesJsonDb())
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
 

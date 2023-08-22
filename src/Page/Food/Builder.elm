@@ -92,7 +92,7 @@ type Msg
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
-    | DeletePackaging Process.Code
+    | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
@@ -113,7 +113,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
-    | UpdatePackaging Process.Code Query.ProcessQuery
+    | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
@@ -531,7 +531,7 @@ addProcessFormView { isDisabled, event, kind } =
 
 type alias UpdateProcessConfig =
     { processes : List Process
-    , excluded : List Process.Code
+    , excluded : List Process.Identifier
     , processQuery : Query.ProcessQuery
     , impact : Html Msg
     , updateEvent : Query.ProcessQuery -> Msg
@@ -1319,7 +1319,12 @@ menuView query =
         ]
 
 
-processSelectorView : Process.Code -> (Process.Code -> msg) -> List Process.Code -> List Process -> Html msg
+processSelectorView :
+    Process.Identifier
+    -> (Process.Identifier -> msg)
+    -> List Process.Identifier
+    -> List Process
+    -> Html msg
 processSelectorView selectedCode event excluded processes =
     select
         [ class "form-select form-select"
@@ -1404,8 +1409,6 @@ sidebarView session model results =
             , update = UpdateBookmarkName
             , switchTab = SwitchLinksTab
             }
-        , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
-            [ text "Explorateur de recettes" ]
         ]
 
 

@@ -116,7 +116,7 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-availablePackagings : List Process.Code -> List Process -> List Process
+availablePackagings : List Process.Identifier -> List Process -> List Process
 availablePackagings usedProcesses processes =
     processes
         |> Process.listByCategory Process.Packaging
@@ -430,7 +430,7 @@ preparationListFromQuery =
         >> RE.combine
 
 
-deletePackaging : Process.Code -> Query -> Query
+deletePackaging : Process.Identifier -> Query -> Query
 deletePackaging code query =
     { query
         | packaging =
@@ -647,7 +647,7 @@ packagingListFromQuery db query =
 packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
-        (Process.findByCode processes code)
+        (Process.findByIdentifier processes code)
         (Ok mass)
 
 
@@ -705,7 +705,7 @@ transformFromQuery { processes } query =
         |> Maybe.map
             (\transform ->
                 Result.map2 Transform
-                    (Process.findByCode processes transform.code)
+                    (Process.findByIdentifier processes transform.code)
                     (Ok transform.mass)
                     |> Result.map Just
             )
