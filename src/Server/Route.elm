@@ -61,14 +61,14 @@ type Route
 
 
 parser : StaticDb.Db -> Parser (Route -> a) a
-parser { builderDb, textileDb } =
+parser { foodDb, textileDb } =
     Parser.oneOf
         [ -- Food
           Parser.map GetFoodCountryList (s "GET" </> s "food" </> s "countries")
         , Parser.map GetFoodIngredientList (s "GET" </> s "food" </> s "ingredients")
         , Parser.map GetFoodTransformList (s "GET" </> s "food" </> s "transforms")
         , Parser.map GetFoodPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery builderDb)
+        , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery foodDb)
         , Parser.map PostFoodRecipe (s "POST" </> s "food" </> s "recipe")
 
         -- Textile

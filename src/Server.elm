@@ -128,8 +128,8 @@ toFoodResults query results =
 
 
 executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
-executeFoodQuery builderDb encoder =
-    BuilderRecipe.compute builderDb
+executeFoodQuery foodDb encoder =
+    BuilderRecipe.compute foodDb
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
@@ -207,35 +207,35 @@ respondWith =
 
 
 handleRequest : StaticDb.Db -> Request -> JsonResponse
-handleRequest ({ builderDb, textileDb } as dbs) request =
+handleRequest ({ foodDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
         -- GET routes
         Just Route.GetFoodCountryList ->
-            builderDb.countries
+            foodDb.countries
                 |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
         Just Route.GetFoodIngredientList ->
-            builderDb.ingredients
+            foodDb.ingredients
                 |> encodeIngredients
                 |> respondWith 200
 
         Just Route.GetFoodPackagingList ->
-            builderDb.processes
+            foodDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just Route.GetFoodTransformList ->
-            builderDb.processes
+            foodDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just (Route.GetFoodRecipe (Ok query)) ->
             query
-                |> executeFoodQuery builderDb (toFoodResults query)
+                |> executeFoodQuery foodDb (toFoodResults query)
 
         Just (Route.GetFoodRecipe (Err errors)) ->
             Query.encodeErrors errors
@@ -287,7 +287,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> handleDecodeBody BuilderQuery.decode
                     (\query ->
                         query
-                            |> executeFoodQuery builderDb (toFoodResults query)
+                            |> executeFoodQuery foodDb (toFoodResults query)
                     )
 
         Just Route.PostTextileSimulator ->
