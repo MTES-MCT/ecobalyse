@@ -41,7 +41,7 @@ import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
-import Request.Food.BuilderDb as FoodRequestDb
+import Request.Food.Db as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)

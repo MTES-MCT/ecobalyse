@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Db as FoodBuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
@@ -22,7 +22,7 @@ import Page.Textile.Simulator as TextileSimulator
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
-import Request.Food.BuilderDb
+import Request.Food.Db
 import Request.Textile.Db
 import Request.Version
 import Route
@@ -72,7 +72,7 @@ type Msg
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
-    | FoodBuilderDbReceived Url (WebData FoodBuilderDb.Db)
+    | FoodDbReceived Url (WebData FoodDb.Db)
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
@@ -172,7 +172,7 @@ setRoute url ( { state } as model, cmds ) =
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
@@ -186,7 +186,7 @@ setRoute url ( { state } as model, cmds ) =
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
@@ -200,7 +200,7 @@ setRoute url ( { state } as model, cmds ) =
 
                         RemoteData.NotAsked ->
                             ( model
-                            , Request.Food.BuilderDb.loadDb session (FoodBuilderDbReceived url)
+                            , Request.Food.Db.loadDb session (FoodDbReceived url)
                             )
 
                         _ ->
@@ -290,7 +290,7 @@ update rawMsg ({ state } as model) =
                         |> toPage ExplorePage ExploreMsg
 
                 -- Food
-                ( FoodBuilderDbReceived url builderDb, page_ ) ->
+                ( FoodDbReceived url builderDb, page_ ) ->
                     setRoute url
                         ( { model | state = Loaded page_ { session | builderDb = builderDb } }, Cmd.none )
 

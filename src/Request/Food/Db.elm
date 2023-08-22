@@ -1,4 +1,4 @@
-module Request.Food.BuilderDb exposing (loadDb)
+module Request.Food.Db exposing (loadDb)
 
 import Data.Food.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
