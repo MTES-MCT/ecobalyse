@@ -14,13 +14,11 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
-boolToString : Bool -> String
-boolToString bool =
-    if bool then
-        "oui"
-
-    else
-        "non"
+recycledToString : Maybe Material.Id -> String
+recycledToString maybeMaterialID =
+    maybeMaterialID
+        |> Maybe.map (always "oui")
+        |> Maybe.withDefault "non"
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
@@ -48,8 +46,8 @@ table { countries } { detailed, scope } =
           , toCell = .origin >> Origin.toString >> text
           }
         , { label = "Recyclée ?"
-          , toValue = .recycled >> boolToString
-          , toCell = .recycled >> boolToString >> text
+          , toValue = .recycledFrom >> recycledToString
+          , toCell = .recycledFrom >> recycledToString >> text
           }
         , { label = "Procédé"
           , toValue = .materialProcess >> .name

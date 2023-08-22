@@ -25,7 +25,6 @@ type alias Material =
     , name : String
     , shortName : String
     , origin : Origin
-    , recycled : Bool
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
@@ -96,7 +95,6 @@ decode processes =
         |> JDP.required "name" Decode.string
         |> JDP.required "shortName" Decode.string
         |> JDP.required "origin" Origin.decode
-        |> JDP.required "recycled" Decode.bool
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
@@ -126,7 +124,6 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
-        , ( "recycled", v.recycled |> Encode.bool )
         , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
         , ( "recycledProcessUuid"
           , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
