@@ -563,31 +563,31 @@ describe("API", () => {
       // - merge your branch onto master
       // - uncomment this test on master, commit, push
       // - done.
-      for (const { id } of ingredients.filter(({ visible }) => visible)) {
-        it(`${id} should not have ecoscore deviating with production more than 5%`, async () => {
-          const path = "/api/food/recipe";
-          const query = { ingredients: [{ id, mass: 0.1 }] };
-          try {
-            const dev = await requestDev(path, query);
-            const prod = await requestProd(path, query);
-            const devEcs = dev.body.results.total.ecs;
-            const prodEcs = prod.body.results.total.ecs;
-            const deviation = 100 - (devEcs / prodEcs) * 100;
-            expect(deviation).toBeLessThan(5);
-          } catch (err) {
-            // Check for an HTTP error
-            if (err.status && err.response && err.response.text) {
-              // Only process ingredients existing in production, skip otherwise
-              if (!err.response.text.includes(`Ingrédient introuvable par id : ${id}`)) {
-                throw `${err.status} ${err.message}: ${err.response.text}`;
-              }
-            } else {
-              // Not an HTTP error, re-raise
-              throw err;
-            }
-          }
-        });
-      }
+      //for (const { id } of ingredients.filter(({ visible }) => visible)) {
+      //  it(`${id} should not have ecoscore deviating with production more than 5%`, async () => {
+      //    const path = "/api/food/recipe";
+      //    const query = { ingredients: [{ id, mass: 0.1 }] };
+      //    try {
+      //      const dev = await requestDev(path, query);
+      //      const prod = await requestProd(path, query);
+      //      const devEcs = dev.body.results.total.ecs;
+      //      const prodEcs = prod.body.results.total.ecs;
+      //      const deviation = 100 - (devEcs / prodEcs) * 100;
+      //      expect(deviation).toBeLessThan(5);
+      //    } catch (err) {
+      //      // Check for an HTTP error
+      //      if (err.status && err.response && err.response.text) {
+      //        // Only process ingredients existing in production, skip otherwise
+      //        if (!err.response.text.includes(`Ingrédient introuvable par id : ${id}`)) {
+      //          throw `${err.status} ${err.message}: ${err.response.text}`;
+      //        }
+      //      } else {
+      //        // Not an HTTP error, re-raise
+      //        throw err;
+      //      }
+      //    }
+      //  });
+      //}
     });
   });
 });
