@@ -33,8 +33,17 @@ def switch_domain(change):
     w_details.clear_output()
     domain = change.new
     projects.create_project(domain, activate=True, exist_ok=True)
-    w_database.options = []  # list(bw2data.databases)
-    w_method.options = []  # sorted({m[0] for m in bw2data.methods})
+    databases = list(bw2data.databases)
+    w_database.options = databases
+    methods = sorted({m[0] for m in bw2data.methods})
+    w_method.options = methods
+    # default values
+    if domain == "Food":
+        w_method.value = methods[0] if len(methods) >= 1 else ""
+        w_database.value = databases[1] if len(databases) >= 2 else ""
+    if domain == "Textile":
+        w_method.value = "EF v3.1"
+        w_database.value = databases[1] if len(databases) >= 2 else ""
 
 
 @w_results.capture()
