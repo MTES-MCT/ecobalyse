@@ -482,7 +482,7 @@
   {
     "id": "tomato",
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate (sous serre non chauffée)",
+    "displayName": "Tomate - sous serre non chauffée (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
@@ -1129,7 +1129,7 @@
     "category": "ingredient",
     "comment": "BRAZIL",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002357373342,
       "ozd": 1.452813549e-08,
       "cch": 0.1158190906,
@@ -1289,7 +1289,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002251478428,
       "ozd": 1.39644206e-08,
       "cch": 0.1686609915,
@@ -1385,7 +1385,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001055930136,
       "ozd": 1.54726007e-08,
       "cch": 0.1092394833,
@@ -1449,7 +1449,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002346851875,
       "ozd": 2.547973728e-08,
       "cch": 0.2177953028,
@@ -1641,7 +1641,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -1673,7 +1673,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-08,
       "cch": 0.1616214521,
@@ -2473,7 +2473,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002474623816,
       "ozd": 4.275096111e-08,
       "cch": 0.3825325813,
@@ -2601,7 +2601,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0579921312,
       "ozd": 1.785746965e-07,
       "cch": 5.357304046,
@@ -2633,7 +2633,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.06097697679,
       "ozd": 1.797979299e-07,
       "cch": 5.602059731,
@@ -2665,7 +2665,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.04454688761,
       "ozd": 1.401626808e-07,
       "cch": 4.096169136,
@@ -2690,14 +2690,14 @@
   {
     "id": "tomato-heated-greenhouse",
     "name": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate (sous serre chauffée)",
+    "displayName": "Tomate - sous serre chauffée (sortie de ferme)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115752",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004059475034,
       "ozd": 2.713816785e-07,
       "cch": 1.672148436,
@@ -2729,7 +2729,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 57559834624",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.01574045498,
       "ozd": 7.27190679e-08,
       "cch": 2.858319577,
@@ -2761,7 +2761,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-08,
       "cch": 0.1519781873,
@@ -2793,7 +2793,7 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003618111182,
       "ozd": 1.216415426e-08,
       "cch": 0.1063274777,
@@ -2825,7 +2825,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003947979106,
       "ozd": 2.521871141e-08,
       "cch": 0.2546589625,
@@ -2857,7 +2857,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003947979106,
       "ozd": 2.521871141e-08,
       "cch": 0.2546589625,
@@ -2889,7 +2889,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-09,
       "cch": 0.06519435654,
@@ -2921,7 +2921,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-08,
       "cch": 0.09007249944,
@@ -2953,7 +2953,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0008604068401,
       "ozd": 6.638499864e-09,
       "cch": 0.1025850566,
@@ -2985,7 +2985,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0008604068401,
       "ozd": 6.638499864e-09,
       "cch": 0.1025850566,
@@ -3017,7 +3017,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18174699520",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002746065099,
       "ozd": 2.795967777e-08,
       "cch": 0.3766522964,
@@ -3049,7 +3049,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 8969982976",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002567304112,
       "ozd": 2.202318634e-08,
       "cch": 0.3766005634,
@@ -3081,7 +3081,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-09,
       "cch": 0.06519435654,
@@ -3113,7 +3113,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-08,
       "cch": 0.09007249944,
@@ -3145,7 +3145,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.005172325716,
       "ozd": 7.859095882e-08,
       "cch": 0.430361257,
@@ -3177,7 +3177,7 @@
     "category": "ingredient",
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. This dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. The infrastructure are excluded as well as the mushroom packaging.",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.01267641142,
       "ozd": 1.092132364e-07,
       "cch": 4.140418399,
@@ -3209,7 +3209,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.02139517193,
       "ozd": 1.991094153e-07,
       "cch": 1.459217034,
@@ -3241,7 +3241,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.02059834014,
       "ozd": 1.997213192e-07,
       "cch": 1.456426436,
@@ -3273,7 +3273,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-08,
       "cch": 0.2555257988,
@@ -3305,7 +3305,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 28512262144",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001360464686,
       "ozd": 1.51578403e-08,
       "cch": 0.2078829362,
@@ -3337,7 +3337,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-08,
       "cch": 0.2555257988,
@@ -3369,7 +3369,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 28983492608",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001689315419,
       "ozd": 1.460983768e-08,
       "cch": 0.2632261756,
@@ -3401,7 +3401,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-08,
       "cch": 0.2555257988,
@@ -3433,7 +3433,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-08,
       "cch": 0.2555257988,
@@ -3465,7 +3465,7 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 37000 kg/haProduction Volume Amount: 674371008",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002552098718,
       "ozd": 1.26876026e-08,
       "cch": 0.1184020749,
@@ -3497,7 +3497,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -3529,7 +3529,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-08,
       "cch": 0.1587384206,
@@ -3561,7 +3561,7 @@
     "category": "ingredient",
     "comment": "MOROCCO",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003326450011,
       "ozd": 3.940592053e-08,
       "cch": 0.2793400762,
@@ -3593,7 +3593,7 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit qualityProduction Volume Amount: 2046639488",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002950977977,
       "ozd": 1.349945578e-08,
       "cch": 0.003349365636,
@@ -3625,7 +3625,7 @@
     "category": "ingredient",
     "comment": "SPAIN",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003038615453,
       "ozd": 1.307364277e-08,
       "cch": 0.150200231,
@@ -3657,7 +3657,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-09,
       "cch": 0.06625188562,
@@ -3689,7 +3689,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-08,
       "cch": 0.1616214521,
@@ -3721,7 +3721,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 240114696192",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002566396981,
       "ozd": 2.88194829e-08,
       "cch": 0.3510746972,
@@ -3753,7 +3753,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002151058724,
       "ozd": 3.565603861e-08,
       "cch": 0.4785456236,
@@ -3785,7 +3785,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.005628138672,
       "ozd": 3.36844567e-08,
       "cch": 0.2300959147,
@@ -3817,7 +3817,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.03454653631,
       "ozd": 7.425109575e-08,
       "cch": 0.8864299594,
@@ -3849,7 +3849,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002151058724,
       "ozd": 3.565603861e-08,
       "cch": 0.4785456236,
@@ -3881,7 +3881,7 @@
     "category": "ingredient",
     "comment": "This process describes the average process of kiwifruits transformed in France. Transformations include fruit sorting, washing and energy necessary for packaging.  Consumptions are based several french kiwifruit producers and 1 greek producer (EPD Zeus). Transport from the farm gates to the conditionning site have been counted. 50% is assumed to come by tractor and the other 50% by truck lorryTransport is included from farm gates to the conditionning plant. We assume that 50% of the quinoa is delivered by tractor and 50% by lorry.",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.003677914248,
       "ozd": 2.727632458e-08,
       "cch": 0.3552698235,
@@ -3913,7 +3913,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-08,
       "cch": 0.1616214521,
@@ -3945,7 +3945,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.008045804476,
       "ozd": 2.460906952e-08,
       "cch": 0.3829091812,
@@ -3977,7 +3977,7 @@
     "category": "ingredient",
     "comment": "According to Strik 2008: typical Yield_s in Europe are from 5 to 8 t/haand to http://www.usz.gov.rs/files/publikacije/FruitIndustryInSerbia.pdf: 4.8 t/ha. The average is considered",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.02592290188,
       "ozd": 4.340160811e-08,
       "cch": 0.5928820896,
@@ -4009,7 +4009,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.01445483472,
       "ozd": 2.070756097e-07,
       "cch": 0.5504869224,
@@ -4041,7 +4041,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-09,
       "cch": 0.06519435654,
@@ -4073,7 +4073,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-08,
       "cch": 0.09007249944,
@@ -4105,7 +4105,7 @@
     "category": "ingredient",
     "comment": "FAOstats average 2013-2017",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0341275994,
       "ozd": 1.248736204e-07,
       "cch": 2.194991251,
@@ -4137,7 +4137,7 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 2570 kg/haProduction Volume Amount: 650947008",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.006969044406,
       "ozd": 8.797253962e-08,
       "cch": 3.044161476,
@@ -4169,7 +4169,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.00364908551,
       "ozd": 2.86454837e-08,
       "cch": 0.2886906925,
@@ -4201,7 +4201,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002474623816,
       "ozd": 4.275096111e-08,
       "cch": 0.3825325813,
@@ -4233,7 +4233,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004712431746,
       "ozd": 5.499057016e-08,
       "cch": 0.9098931339,
@@ -4265,7 +4265,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 34497462272",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002781039964,
       "ozd": 2.165017857e-08,
       "cch": 0.5443616356,
@@ -4297,7 +4297,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.005172325716,
       "ozd": 7.859095882e-08,
       "cch": 0.430361257,
@@ -4329,7 +4329,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.002651525846,
       "ozd": 2.852118269e-08,
       "cch": 0.4605271062,
@@ -4361,7 +4361,7 @@
     "category": "ingredient",
     "comment": "Rdt mean = 2,25 t/ha",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.006887214886,
       "ozd": 4.985304801e-08,
       "cch": 0.8150970721,
@@ -4393,7 +4393,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.00176247041,
       "ozd": 2.736398573e-08,
       "cch": 0.9630220579,
@@ -4425,7 +4425,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004034871574,
       "ozd": 3.388084879e-08,
       "cch": 2.622717626,
@@ -4457,7 +4457,7 @@
     "category": "ingredient",
     "comment": "None",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.1553444745,
       "ozd": 1.02515047e-06,
       "cch": 7.893791511,
@@ -4489,7 +4489,7 @@
     "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.2588552628,
       "ozd": 1.46335519e-06,
       "cch": 14.38334443,
@@ -4521,7 +4521,7 @@
     "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.2599272225,
       "ozd": 1.478797907e-06,
       "cch": 14.52092541,
@@ -4553,7 +4553,7 @@
     "category": "ingredient",
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.004407947465,
       "ozd": 5.597643664e-08,
       "cch": 0.5626626343,
@@ -4585,7 +4585,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.09954364004,
       "ozd": 3.398627945e-07,
       "cch": 6.028060193,
@@ -4617,7 +4617,7 @@
     "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.01443885901,
       "ozd": 3.516727712e-07,
       "cch": 2.425432328,
@@ -4649,7 +4649,7 @@
     "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.02468088422,
       "ozd": 5.322442583e-07,
       "cch": 3.720333552,
@@ -4681,7 +4681,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.2895769696,
       "ozd": 3.934447147e-07,
       "cch": 20.35132619,
@@ -4713,7 +4713,7 @@
     "category": "ingredient",
     "comment": "This dataset includes packaging",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.3621961849,
       "ozd": 4.930407211e-07,
       "cch": 25.48660615,
@@ -4745,7 +4745,7 @@
     "category": "ingredient",
     "comment": "This dataset includes packaging",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.3621961849,
       "ozd": 4.930407211e-07,
       "cch": 25.48660615,
@@ -4777,7 +4777,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
+      "bvi": 0,
       "acd": 0.0170529158,
       "ozd": 8.380743606e-08,
       "cch": 1.247353241,
