@@ -26,5 +26,9 @@ processes-no-impacts.json
 /data/food/import_agb/agribalyse3_no_param.CSV.zip
 /data/food/import_agb3.1/AGB31.bw2package
 /data/Dockerfile
-data/ecobalyse_data.egg-info/
+/data/ecobalyse_data.egg-info/
 /data/ECOINVENT3.9.1/*
+/data/AGB3.1.1.20230306.CSV
+/data/Environmental Footprint 3.1 (adapted) patch wtu.CSV
+/data/Environmental Footprint 3.1 (adapted).CSV
+/data/venv/
