@@ -20,7 +20,6 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 * `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Assurez-vous d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
-* `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
 * `make shell` : lance un shell à l'intérieur du conteneur
 * `make root_shell` : lance un shell root à l'intérieur du conteneur
 * `make start_notebook` : lance le serveur Jupyter dans le conteneur
@@ -59,7 +58,7 @@ Créez un notebook dans Jupyter puis tapez `import notebooks.ingredients`, puis 
 
 ## Remarques
 
-Si l'`export_ciqual` prend des heures, c'est un problème d'installation de
+Si l'`export` prend plus de 2 secondes par procédé, c'est un problème d'installation de
 `pypardiso` ou de la bibliothèque `mkl` (Math Kernel Library d'intel) ou une
 incompatibilité avec l'architecture CPU utilisée. Dans ce cas c'est le solveur
 de Scipy qui est utilisé. Il est possible que cela explique les très légères
