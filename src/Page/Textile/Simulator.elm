@@ -24,7 +24,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material as Material
+import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
@@ -101,6 +101,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
+    | UpdateMaterialSpinning Material Material.Spinning
     | UpdateKnittingProcess Knitting
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
@@ -342,6 +343,28 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
+        UpdateMaterialSpinning material spinning ->
+            ( model, session, Cmd.none )
+
+        -- TODO : UPDATE THE MATERIAL SPINNING
+        -- |> updateQuery
+        --     { query
+        --         | knittingProcess = Just knittingProcess
+        --         , makingWaste =
+        --             model.simulator
+        --                 |> Result.map
+        --                     (\simulator ->
+        --                         Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess
+        --                     )
+        --                 |> Result.toMaybe
+        --         , makingComplexity =
+        --             model.simulator
+        --                 |> Result.map
+        --                     (\simulator ->
+        --                         Knitting.getMakingComplexity simulator.inputs.product.making.complexity knittingProcess
+        --                     )
+        --                 |> Result.toMaybe
+        --     }
         UpdateKnittingProcess knittingProcess ->
             ( model, session, Cmd.none )
                 |> updateQuery
@@ -493,6 +516,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality

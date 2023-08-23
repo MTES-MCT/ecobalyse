@@ -2,15 +2,21 @@ module Data.Textile.Material exposing
     ( CFFData
     , Id(..)
     , Material
+    , Spinning(..)
     , decodeList
+    , decodeSpinning
     , encode
     , encodeId
+    , encodeSpinning
     , findById
+    , getAvailableSpinningProcesses
     , getDefaultSpinning
     , getRecyclingData
     , getSpinningElec
     , groupAll
     , idToString
+    , spinningFromString
+    , spinningToString
     )
 
 import Data.Country as Country
@@ -19,6 +25,7 @@ import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -50,13 +57,53 @@ type Id
 
 type Spinning
     = ConventionalSpinning
-      -- TODO: when the user will be able to select the spinning process
-      -- | UnconventionalSpinning
+    | UnconventionalSpinning
     | SyntheticSpinning
 
 
 type alias SpinningProcessData =
     { normalization : Float, waste : Float }
+
+
+spinningFromString : String -> Result String Spinning
+spinningFromString string =
+    case string of
+        "Filature conventionnelle" ->
+            Ok ConventionalSpinning
+
+        "Filature non conventionnelle" ->
+            Ok UnconventionalSpinning
+
+        "Filage" ->
+            Ok SyntheticSpinning
+
+        other ->
+            Err <| "Le procédé de filature ou filage " ++ other ++ " n'est pas valide"
+
+
+spinningToString : Spinning -> String
+spinningToString spinning =
+    case spinning of
+        ConventionalSpinning ->
+            "Filature conventionnelle"
+
+        UnconventionalSpinning ->
+            "Filature non conventionnelle"
+
+        SyntheticSpinning ->
+            "Filage"
+
+
+decodeSpinning : Decoder Spinning
+decodeSpinning =
+    Decode.string
+        |> Decode.andThen (spinningFromString >> DE.fromResult)
+
+
+encodeSpinning : Spinning -> Encode.Value
+encodeSpinning spinning =
+    spinningToString spinning
+        |> Encode.string
 
 
 spinningProcessesData : { conventional : SpinningProcessData, unconventional : SpinningProcessData, synthetic : SpinningProcessData }
@@ -80,15 +127,25 @@ getDefaultSpinning origin =
             ConventionalSpinning
 
 
+getAvailableSpinningProcesses : Origin -> List Spinning
+getAvailableSpinningProcesses origin =
+    case origin of
+        Origin.Synthetic ->
+            [ SyntheticSpinning ]
+
+        _ ->
+            [ ConventionalSpinning, UnconventionalSpinning ]
+
+
 normalizationForSpinning : Spinning -> Float
 normalizationForSpinning spinning =
     case spinning of
         ConventionalSpinning ->
             spinningProcessesData.conventional.normalization
 
-        -- TODO: when the user will be able to select the spinning process
-        -- UnconventionalSpinning ->
-        --     spinningProcessesData.unconventional.normalization
+        UnconventionalSpinning ->
+            spinningProcessesData.unconventional.normalization
+
         SyntheticSpinning ->
             spinningProcessesData.synthetic.normalization
 

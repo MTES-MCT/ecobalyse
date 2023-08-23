@@ -16,6 +16,7 @@ import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
+import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -55,6 +56,7 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
+    , updateMaterialSpinning : Material -> Material.Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingComplexity : MakingComplexity -> msg
@@ -182,6 +184,41 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                         >> updateDyeingMedium
                     )
                 ]
+        ]
+
+
+spinningProcessField : Config msg -> Html msg
+spinningProcessField { inputs, updateMaterialSpinning } =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ div [ class "d-flex flex-column gap-1 w-100" ]
+            (inputs.materials
+                |> List.map
+                    (\{ material } ->
+                        div [ class "d-flex justify-content-between align-items-center fs-7" ]
+                            [ label
+                                [ for <| "spinning-for-" ++ Material.idToString material.id
+                                , class "text-truncate w-25"
+                                ]
+                                [ text material.shortName ]
+                            , Material.getAvailableSpinningProcesses material.origin
+                                |> List.map
+                                    (\spinningProcess ->
+                                        option [ value <| Material.spinningToString spinningProcess ]
+                                            [ text <| Material.spinningToString spinningProcess
+                                            ]
+                                    )
+                                |> select
+                                    [ class "form-select form-select-sm w-75"
+                                    , id <| "spinning-for-" ++ Material.idToString material.id
+                                    , onInput
+                                        (Material.spinningFromString
+                                            >> Result.withDefault (Material.getDefaultSpinning material.origin)
+                                            >> updateMaterialSpinning material
+                                        )
+                                    ]
+                            ]
+                    )
+            )
         ]
 
 
@@ -762,6 +799,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     , viewProcessInfo current.processInfo.useNonIroning
                     , viewProcessInfo current.processInfo.passengerCar
                     , viewProcessInfo current.processInfo.endOfLife
+                    , if current.label == Label.Spinning then
+                        spinningProcessField config
+
+                      else
+                        text ""
                     , if current.label == Label.Fabric && Product.isKnitted inputs.product then
                         knittingProcessField config
 

@@ -56,6 +56,7 @@ import Views.Format as Format
 type alias MaterialInput =
     { material : Material
     , share : Split
+    , spinning : Maybe Material.Spinning
     }
 
 
@@ -90,6 +91,7 @@ type alias Inputs =
 type alias MaterialQuery =
     { id : Material.Id
     , share : Split
+    , spinning : Maybe Material.Spinning
     }
 
 
@@ -120,12 +122,13 @@ type alias Query =
 toMaterialInputs : List Material -> List MaterialQuery -> Result String (List MaterialInput)
 toMaterialInputs materials =
     List.map
-        (\{ id, share } ->
+        (\{ id, share, spinning } ->
             Material.findById id materials
                 |> Result.map
                     (\material_ ->
                         { material = material_
                         , share = share
+                        , spinning = spinning
                         }
                     )
         )
@@ -134,7 +137,7 @@ toMaterialInputs materials =
 
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
-    List.map (\{ material, share } -> { id = material.id, share = share })
+    List.map (\{ material, share, spinning } -> { id = material.id, share = share, spinning = spinning })
 
 
 getMainMaterial : List MaterialInput -> Result String Material
@@ -474,7 +477,7 @@ addMaterial db query =
         Just id ->
             { query
                 | materials =
-                    query.materials ++ [ { id = id, share = Split.zero } ]
+                    query.materials ++ [ { id = id, share = Split.zero, spinning = Nothing } ]
             }
 
         Nothing ->
@@ -543,7 +546,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full } ]
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -599,7 +602,7 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Split.full } ]
+    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing } ]
     , product = Product.Id "jupe"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
@@ -625,7 +628,7 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , materials = [ { id = Material.Id "cachemire", share = Split.full } ]
+    , materials = [ { id = Material.Id "cachemire", share = Split.full, spinning = Nothing } ]
     , product = Product.Id "manteau"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -651,7 +654,7 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , materials = [ { id = Material.Id "lin-filasse", share = Split.full } ]
+    , materials = [ { id = Material.Id "lin-filasse", share = Split.full, spinning = Nothing } ]
     , product = Product.Id "pantalon"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -722,10 +725,12 @@ encode inputs =
 
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
-    Encode.object
-        [ ( "material", Material.encode v.material )
-        , ( "share", Split.encodeFloat v.share )
-        ]
+    [ ( "material", Material.encode v.material |> Just )
+    , ( "share", Split.encodeFloat v.share |> Just )
+    , ( "spinning", v.spinning |> Maybe.map Material.encodeSpinning )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 decodeQuery : Decoder Query
@@ -758,6 +763,7 @@ decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
+        |> Pipe.optional "spinningProcess" (Decode.maybe Material.decodeSpinning) Nothing
 
 
 encodeQuery : Query -> Encode.Value
@@ -797,10 +803,12 @@ encodeQuery query =
 
 encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
-    Encode.object
-        [ ( "id", Material.encodeId v.id )
-        , ( "share", Split.encodeFloat v.share )
-        ]
+    [ ( "id", Material.encodeId v.id |> Just )
+    , ( "share", Split.encodeFloat v.share |> Just )
+    , ( "spinning", v.spinning |> Maybe.map Material.encodeSpinning )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 b64decode : String -> Result String Query
