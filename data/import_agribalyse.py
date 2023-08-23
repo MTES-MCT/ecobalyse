@@ -8,7 +8,7 @@ import bw2data
 import bw2io
 import re
 
-PROJECT = "Ecobalyse"
+PROJECT = "Food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"

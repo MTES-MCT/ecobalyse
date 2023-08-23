@@ -6,7 +6,7 @@ import bw2io
 
 # import functools
 
-PROJECT = "Ecobalyse"
+PROJECT = "Food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
