@@ -352,17 +352,22 @@ computeMaterialImpacts db ({ inputs } as simulator) =
 
 stepSpinningImpacts : Db -> Material -> Step -> { impacts : Impacts, kwh : Energy }
 stepSpinningImpacts _ material step =
-    case material.spinningProcess of
-        Nothing ->
-            -- Some materials, eg. Neoprene, don't use Spinning *at all*, so this step has basically no impacts.
-            { impacts = step.impacts, kwh = Quantity.zero }
+    let
+        yarnSize =
+            step.yarnSize
+                -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#fabrication-du-fil-filature-vs-filage-1
+                -- that defines the default yarnSize for a thread
+                |> Maybe.withDefault (Unit.yarnSizeKilometersPerKg 50)
 
-        Just spinningProcess ->
-            step.outputMass
-                |> Formula.spinningImpacts step.impacts
-                    { spinningProcess = spinningProcess
-                    , countryElecProcess = step.country.electricityProcess
-                    }
+        kwh =
+            Material.getDefaultSpinning material.origin
+                |> Material.getSpinningElec step.outputMass yarnSize
+                |> Energy.kilowattHours
+    in
+    Formula.spinningImpacts step.impacts
+        { spinningKwh = kwh
+        , countryElecProcess = step.country.electricityProcess
+        }
 
 
 computeSpinningImpacts : Db -> Simulator -> Simulator

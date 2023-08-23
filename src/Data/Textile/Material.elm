@@ -6,7 +6,9 @@ module Data.Textile.Material exposing
     , encode
     , encodeId
     , findById
+    , getDefaultSpinning
     , getRecyclingData
+    , getSpinningElec
     , groupAll
     , idToString
     )
@@ -15,9 +17,11 @@ import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Process as Process exposing (Process)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import Mass exposing (Mass)
 
 
 type alias Material =
@@ -40,6 +44,73 @@ type Id
     = Id String
 
 
+
+---- Spinning
+
+
+type Spinning
+    = ConventionalSpinning
+      -- TODO: when the user will be able to select the spinning process
+      -- | UnconventionalSpinning
+    | SyntheticSpinning
+
+
+type alias SpinningProcessData =
+    { normalization : Float, waste : Float }
+
+
+spinningProcessesData : { conventional : SpinningProcessData, unconventional : SpinningProcessData, synthetic : SpinningProcessData }
+spinningProcessesData =
+    -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
+    -- and https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#taux-de-pertes
+    { conventional = { normalization = 4, waste = 0.12 }
+    , unconventional = { normalization = 2, waste = 0.12 }
+    , synthetic = { normalization = 1.5, waste = 0.03 }
+    }
+
+
+getDefaultSpinning : Origin -> Spinning
+getDefaultSpinning origin =
+    -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#fabrication-du-fil-filature-vs-filage-1
+    case origin of
+        Origin.Synthetic ->
+            SyntheticSpinning
+
+        _ ->
+            ConventionalSpinning
+
+
+normalizationForSpinning : Spinning -> Float
+normalizationForSpinning spinning =
+    case spinning of
+        ConventionalSpinning ->
+            spinningProcessesData.conventional.normalization
+
+        -- TODO: when the user will be able to select the spinning process
+        -- UnconventionalSpinning ->
+        --     spinningProcessesData.unconventional.normalization
+        SyntheticSpinning ->
+            spinningProcessesData.synthetic.normalization
+
+
+getSpinningElec : Mass -> Unit.YarnSize -> Spinning -> Float
+getSpinningElec mass yarnSize spinning =
+    -- See the formula in https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
+    -- Formula : kWh(Process)=YarnSize(Nm)/50∗Normalization(Process)∗OutputMass(kg)
+    let
+        normalization =
+            normalizationForSpinning spinning
+    in
+    (Unit.yarnSizeInKilometers yarnSize |> toFloat)
+        / 50
+        * normalization
+        * Mass.inKilograms mass
+
+
+
+---- Recycling
+
+
 type alias CFFData =
     -- Circular Footprint Formula data
     { manufacturerAllocation : Split
@@ -59,6 +130,10 @@ getRecyclingData material materials =
                 )
         )
         material.cffData
+
+
+
+---- Helpers
 
 
 findById : Id -> List Material -> Result String Material
