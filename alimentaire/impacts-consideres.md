@@ -99,9 +99,11 @@ Chacun de ces impacts toxicité est décomposé en 2 composantes : "organic" et 
 
 ### Exclusion temporaire des impacts de toxicité humaine inorganique
 
-Des anomalies ont été identifiées sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons nous avons pour le moment fait le choix le choix d'exclure la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
+Un point d'attention a été identifié concernant la partie inorganique des impacts de toxicité humaine, qui conduit à exclure provisoirement cette composante.&#x20;
 
-On observe en effet que les métaux lourds représentent un impact très important pour les produits biologiques sur les impacts de toxicité humaine et non sur l'écotoxicité, comme on peut le voir sur les graphiques ci-dessous.
+Sans correctif, cette toxicité inorganique correspond très majoritairement à l'exposition aux métaux, lesquels sont notamment présents dans les effluents mobilisés pour fertiliser les sols, en particulier en agriculture biologique. Par conséquent, une production de blé biologique apparaîtrait comme ayant un impact toxique plus important qu'une production de blé conventionnel (cf. deux premiers graphiques ci-après). Cet effet ne s'observe en revanche pas pour l'écotoxicité qui mobilise plus de molécules avec une moindre sensibilité des métaux relativement aux autres molécules (3ème graphique). Plusieurs biais pourraient être à l'origine de ce résultat surprenant, en particulier le fait que les métaux sont tracés avec une attention particulièrement dans les effluents. Toutefois, avant d'être concentrés dans des effluents, ces métaux étaient déjà présents dans l'environnement (engrais de synthèse, pièces métalliques dans les exploitations...) où ils pouvaient déjà être en contact avec des hommes et provoquer des effets toxiques.
+
+Pour ces raisons nous avons pour le moment fait le choix le choix d'exclure la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
 
 <figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
