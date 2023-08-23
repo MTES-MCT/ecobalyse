@@ -81,11 +81,11 @@ Pour les produits d'origine animale, ce calcul prend bien en compte les hypothè
 
 Un facteur de normalisation est introduit (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/food)). Il correspond au niveau de BVI calculé sur l'ensemble de la planète.
 
-## Correctif des indicateurs de toxicité et d'écotoxicité
+## Correction des indicateurs de toxicité et d'écotoxicité
 
-### Amplification des impacts de toxicité humaine et ecotoxicité organique
+### Amplification des impacts de toxicité humaine et écotoxicité organique
 
-Pour la toxicité et l'écotoxicité, des impacts "corrigés" sont calculés pour prendre en compte les limites de connaissances non intégrées à ce jour dans les indicateurs PEF. Parmi ces limites, on peut notamment citer : les effets toxiques sur les pollinisateurs, la biodiversité des sols, les effets cocktails, les impacts des co-adjuvants et co-formulants, des métabolites...
+Pour la toxicité et l'écotoxicité, des impacts "corrigés" sont calculés pour prendre en compte les limites de connaissances non intégrées à ce jour dans les indicateurs PEF. Parmi ces limites, on peut notamment citer : les effets toxiques sur les pollinisateurs, la biodiversité des sols, les effets cocktails, les impacts des co-adjuvants et co-formulants, les métabolites...
 
 Ces limites conduisent très vraisemblablement, en l'absence de correction, à sous-estimer les effets toxiques, en particulier pour les pesticides de synthèses.&#x20;
 
@@ -95,13 +95,13 @@ Les 3 impacts relatifs à la toxicité sont considérés : &#x20;
 * Toxicité humaine - cancer
 * Toxicité humaine - non-cancer&#x20;
 
-Chacun de ses impacts toxicité est décomposé en 2 composantes : "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
+Chacun de ces impacts toxicité est décomposé en 2 composantes : "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
 
-### Omission provisoire des impacts de toxicité humaine inorganique
+### Exclusion temporaire des impacts de toxicité humaine inorganique
 
-De plus il existe des anomalies sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons on fait pour l'instant le choix de négliger la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
+Des anomalies ont été identifiées sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons nous avons pour le moment fait le choix le choix d'exclure la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
 
-On observe en effet que les métaux lourds représentent un impact très important pour les produits biologique sur les impacts de toxicité humaine et non sur l'écotoxicité, comme on peut le voir sur les graphiques ci-dessous.
+On observe en effet que les métaux lourds représentent un impact très important pour les produits biologiques sur les impacts de toxicité humaine et non sur l'écotoxicité, comme on peut le voir sur les graphiques ci-dessous.
 
 <figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
