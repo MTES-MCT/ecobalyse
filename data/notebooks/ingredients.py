@@ -14,8 +14,8 @@ import subprocess
 
 
 os.chdir("/home/jovyan/ecobalyse/data")
-PROJECT = "Ecobalyse"
-ACTIVITIES = "/home/jovyan/ecobalyse/data/food/export_agb/activities.json"
+PROJECT = "Food"
+ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.json"
 os.getcwd()
 
