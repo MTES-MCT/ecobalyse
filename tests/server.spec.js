@@ -554,15 +554,15 @@ describe("API", () => {
           .set("accept", "json");
       }
 
-       The purpose of these checks is to ensure we don't inadvertandly introduce
-       unoticed large deviations for ingredients impacts.
-       Procedure in case of test failure:
-       - check if the large deviation is legit or not
-       - if it's not, fix it
-       - if it's intended, comment the test below, commit, push
-       - merge your branch onto master
-       - uncomment this test on master, commit, push
-       - done.
+      // The purpose of these checks is to ensure we don't inadvertandly introduce
+      // unoticed large deviations for ingredients impacts.
+      // Procedure in case of test failure:
+      // - check if the large deviation is legit or not
+      // - if it's not, fix it
+      // - if it's intended, comment the test below, commit, push
+      // - merge your branch onto master
+      // - uncomment this test on master, commit, push
+      // - done.
       for (const { id } of ingredients.filter(({ visible }) => visible)) {
         it(`${id} should not have ecoscore deviating with production more than 5%`, async () => {
           const path = "/api/food/recipe";
