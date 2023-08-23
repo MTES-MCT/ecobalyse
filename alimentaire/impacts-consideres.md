@@ -104,3 +104,14 @@ htc = htc_metals + htc_organic + htc_inorganic
 htc_corrigé = htc_metals + 2 * htc_organic + htc_inorganic  
 ```
 
+## Correctif sur l'indicateur "consommation d'eau"
+
+Dans les ICV d'Agribalyse les flux de consommation d'eaux étaient des flux mondiaux, même pour des produits Français. Etant donné que l'impact de la consommation d'1L d'eau mondial est plus impactant (42.95) que la consommation d'1L d'eau en France (6.98), cela surestime les impacts des produits faits en France.
+
+Pour corriger cela nous avons appliqué un patch (imaginé par WeLoop) sur la méthode de caractérisation : en modifiant l'impact des flux de consommations d'eaux mondiaux afin que cela corresponde à l'impact de la consommation d'eau en FR.
+
+Ainsi les impacts de consommation d'eaux sont maintenant plus proche de la réalité pour les produits faits en France.
+
+Limites : pour les produits importés utilisant de l'eau mondiale ({GLO}), les résultats sont faussés. Ce patch doit rester temporaire en attendant un correctif lors de la prochaine mise à jour des données par Agribalyse.
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
