@@ -81,7 +81,9 @@ Pour les produits d'origine animale, ce calcul prend bien en compte les hypothè
 
 Un facteur de normalisation est introduit (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/food)). Il correspond au niveau de BVI calculé sur l'ensemble de la planète.
 
-## Correctif indicateurs de toxicité et d'écotoxicité
+## Correctif des indicateurs de toxicité et d'écotoxicité
+
+### Amplification des impacts de toxicité humaine et ecotoxicité organique
 
 Pour la toxicité et l'écotoxicité, des impacts "corrigés" sont calculés pour prendre en compte les limites de connaissances non intégrées à ce jour dans les indicateurs PEF. Parmi ces limites, on peut notamment citer : les effets toxiques sur les pollinisateurs, la biodiversité des sols, les effets cocktails, les impacts des co-adjuvants et co-formulants, des métabolites...
 
@@ -93,27 +95,34 @@ Les 3 impacts relatifs à la toxicité sont considérés : &#x20;
 * Toxicité humaine - cancer
 * Toxicité humaine - non-cancer&#x20;
 
-**Calcul**
+Chacun de ses impacts toxicité est décomposé en 2 composantes : "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
 
-Chacun de ses impacts toxicité est décomposé en 3 composantes : "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
+### Omission provisoire des impacts de toxicité humaine inorganique
 
-Par exemple pour la toxicité humaine - cancer (htc : human toxicity - cancer) :
+De plus il existe des anomalies sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons on fait pour l'instant le choix de négliger la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
 
-```
-htc = htc_organic + htc_inorganic  
-htc_corrigé = 2 * htc_organic + htc_inorganic  
-```
+On observe en effet que les métaux lourds représentent un impact très important pour les produits biologique sur les impacts de toxicité humaine et non sur l'écotoxicité, comme on peut le voir sur les graphiques ci-dessous.
 
-{% hint style="danger" %}
-Il existe de plus des anomalies sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons on fait pour l'instant le choix de négliger la partie inorganique des impacts (toxicité humaine - cancer et toxicité humaine - non-cancer )
+<figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
-Finalement on a :
+<figure><img src="../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot 2023-08-23 at 18.05.02 (1).png" alt="" width="375"><figcaption><p>Impact sur l'écotoxicité de l'eau douce du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+
+### Bilan&#x20;
+
+En appliquant l'ensemble de ces correctifs on obtient les impacts corrigés suivant :&#x20;
 
 ```
 htc = htc_organic + htc_inorganic  
 htc_corrigé = 2 * htc_organic
+
+htn = htn_organic + htn_inorganic  
+htn_corrigé = 2 * htn_organic
+
+etf = etf_organic + etf_inorganic  
+etf_corrigé = 2 * etf_organic + etf_inorganic
 ```
-{% endhint %}
 
 ## Correctif sur l'indicateur "consommation d'eau"
 
