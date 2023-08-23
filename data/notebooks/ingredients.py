@@ -1,4 +1,8 @@
+"""
+This file is the ingredient/activity editor Jupyter Notebook
+"""
 from IPython.core.display import display, Markdown, clear_output
+from bw2data.project import projects
 from flatdict import FlatDict
 import bw2data
 import ipywidgets
@@ -15,7 +19,7 @@ ACTIVITIES = "/home/jovyan/ecobalyse/data/food/export_agb/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.json"
 os.getcwd()
 
-bw2data.projects.set_current(PROJECT)
+projects.create_project(PROJECT, activate=True, exist_ok=True)
 DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 list_output = ipywidgets.Output()

@@ -1,16 +1,16 @@
 """
-This file is used in the `explore` Jupyter Notebook
+This file is `explore` Jupyter Notebook
 """
 from IPython.core.display import display, Markdown
+from bw2data.project import projects
 from bw2data.utils import get_activity
 import bw2calc
 import bw2data
-import bw2io
 import ipywidgets
 import os
 import pandas
 
-bw2data.projects.set_current("Ecobalyse")
+projects.create_project("Ecobalyse", activate=True, exist_ok=True)
 os.chdir("/home/jovyan/ecobalyse/data")
 
 databases = list(bw2data.databases)
