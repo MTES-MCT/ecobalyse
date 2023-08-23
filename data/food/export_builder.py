@@ -18,8 +18,8 @@ BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
-INGREDIENTS = "../../../public/data/food/ingredients.json"
-BUILDER = "../../../public/data/food/processes.json"
+INGREDIENTS = "../../public/data/food/ingredients.json"
+BUILDER = "../../public/data/food/processes.json"
 # maximum variation for new impacts compared to old impacts
 
 bw2data.projects.set_current(PROJECT)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from bw2data.project import projects
 from subprocess import call
 from tqdm import tqdm
 from zipfile import ZipFile
@@ -134,7 +135,7 @@ def import_agribalyse(
     """
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
-    bw2data.projects.set_current(project)
+    projects.create_project(project, activate=True, exist_ok=True)
     bw2data.config.p["biosphere_database"] = biosphere
 
     # Core migrations
@@ -150,6 +151,7 @@ def import_agribalyse(
         zf.extractall()
         datapath = datapath[0:-4]
 
+    print("### Patching Agribalyse...")
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
     call("sed -i 's/yield/Yield_/g' " + datapath, shell=True)
@@ -157,10 +159,13 @@ def import_agribalyse(
     call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + datapath, shell=True)
     call("sed -i 's/0;001172/0,001172/' " + datapath, shell=True)
 
+    print("### Importing Agribalyse...")
     # Do the import and apply "strategies"
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
         datapath, dbname, normalize_biosphere=True
     )
+
+    print("### Applying strategies...")
     # exclude strategies/migrations in EXCLUDED
     agribalyse.strategies = [
         s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
@@ -178,6 +183,7 @@ def import_agribalyse(
         agribalyse.migrate(migration["name"])
 
     agribalyse.statistics()
+    print("### Adding unlinked flows and activities...")
     bw2data.Database(biosphere).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
     agribalyse.add_unlinked_activities()
@@ -190,6 +196,7 @@ def import_agribalyse(
     location_pattern = r"\{(?P<location>[\w ,\/\-\+]+)\}"
     location_pattern_2 = r"\/\ *(?P<location>[\w ,\/\-]+) U$"
 
+    print("### Applying additional transformations...")
     for activity in tqdm(agribalyse):
         # Getting activities locations
         if activity.get("location") is None:
@@ -270,6 +277,7 @@ def import_agribalyse(
 
 def main():
     # Import Agribalyse
+    projects.create_project(PROJECT, activate=True, exist_ok=True)
     if DBNAME not in bw2data.databases:
         import_agribalyse()
     else:
