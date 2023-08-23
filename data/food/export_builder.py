@@ -3,6 +3,7 @@
 
 """Export des ingrédients et des processes du builder"""
 
+from bw2data.project import projects
 from food.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
@@ -22,7 +23,7 @@ INGREDIENTS = "../../public/data/food/ingredients.json"
 BUILDER = "../../public/data/food/processes.json"
 # maximum variation for new impacts compared to old impacts
 
-bw2data.projects.set_current(PROJECT)
+projects.create_project(PROJECT, activate=True, exist_ok=True)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 db = bw2data.Database(DBNAME)
 
