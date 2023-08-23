@@ -81,7 +81,7 @@ Pour les produits d'origine animale, ce calcul prend bien en compte les hypothè
 
 Un facteur de normalisation est introduit (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/food)). Il correspond au niveau de BVI calculé sur l'ensemble de la planète.
 
-## Indicateurs de toxicité et d'écotoxicité corrigés
+## Correctif indicateurs de toxicité et d'écotoxicité
 
 Pour la toxicité et l'écotoxicité, des impacts "corrigés" sont calculés pour prendre en compte les limites de connaissances non intégrées à ce jour dans les indicateurs PEF. Parmi ces limites, on peut notamment citer : les effets toxiques sur les pollinisateurs, la biodiversité des sols, les effets cocktails, les impacts des co-adjuvants et co-formulants, des métabolites...
 
@@ -95,14 +95,25 @@ Les 3 impacts relatifs à la toxicité sont considérés : &#x20;
 
 **Calcul**
 
-Chacun de ses impacts toxicité est décomposé en 3 composantes : "metals" , "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
+Chacun de ses impacts toxicité est décomposé en 3 composantes : "organic" et "inorganic". La correction consiste à multiplier l'impact de la composante "organic" (liée à l'utilisation de pesticides de synthèse) par 2.
 
 Par exemple pour la toxicité humaine - cancer (htc : human toxicity - cancer) :
 
 ```
-htc = htc_metals + htc_organic + htc_inorganic  
-htc_corrigé = htc_metals + 2 * htc_organic + htc_inorganic  
+htc = htc_organic + htc_inorganic  
+htc_corrigé = 2 * htc_organic + htc_inorganic  
 ```
+
+{% hint style="danger" %}
+Il existe de plus des anomalies sur la partie inorganique des impacts de toxicité humaine. Pour ces raisons on fait pour l'instant le choix de négliger la partie inorganique des impacts (toxicité humaine - cancer et toxicité humaine - non-cancer )
+
+Finalement on a :
+
+```
+htc = htc_organic + htc_inorganic  
+htc_corrigé = 2 * htc_organic
+```
+{% endhint %}
 
 ## Correctif sur l'indicateur "consommation d'eau"
 
