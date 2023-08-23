@@ -17,7 +17,7 @@ PROJECT = "Ecobalyse"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"
-IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
+IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
 BUILDER = "../../public/data/food/processes.json"
