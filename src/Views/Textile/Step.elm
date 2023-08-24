@@ -16,7 +16,7 @@ import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material as Material exposing (Material, getAvailableSpinningProcesses)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -194,28 +194,43 @@ spinningProcessField { inputs, updateMaterialSpinning } =
             (inputs.materials
                 |> List.map
                     (\{ material } ->
+                        let
+                            availableSpinningProcesses =
+                                Material.getAvailableSpinningProcesses material.origin
+                        in
                         div [ class "d-flex justify-content-between align-items-center fs-7" ]
                             [ label
                                 [ for <| "spinning-for-" ++ Material.idToString material.id
                                 , class "text-truncate w-25"
                                 ]
                                 [ text material.shortName ]
-                            , Material.getAvailableSpinningProcesses material.origin
-                                |> List.map
-                                    (\spinningProcess ->
-                                        option [ value <| Material.spinningToString spinningProcess ]
-                                            [ text <| Material.spinningToString spinningProcess
+                            , case availableSpinningProcesses of
+                                [ spinningProcess ] ->
+                                    input
+                                        [ type_ "text"
+                                        , class "form-control w-75"
+                                        , disabled True
+                                        , value <| Material.spinningToString spinningProcess
+                                        ]
+                                        []
+
+                                _ ->
+                                    availableSpinningProcesses
+                                        |> List.map
+                                            (\spinningProcess ->
+                                                option [ value <| Material.spinningToString spinningProcess ]
+                                                    [ text <| Material.spinningToString spinningProcess
+                                                    ]
+                                            )
+                                        |> select
+                                            [ class "form-select form-select-sm w-75"
+                                            , id <| "spinning-for-" ++ Material.idToString material.id
+                                            , onInput
+                                                (Material.spinningFromString
+                                                    >> Result.withDefault (Material.getDefaultSpinning material.origin)
+                                                    >> updateMaterialSpinning material
+                                                )
                                             ]
-                                    )
-                                |> select
-                                    [ class "form-select form-select-sm w-75"
-                                    , id <| "spinning-for-" ++ Material.idToString material.id
-                                    , onInput
-                                        (Material.spinningFromString
-                                            >> Result.withDefault (Material.getDefaultSpinning material.origin)
-                                            >> updateMaterialSpinning material
-                                        )
-                                    ]
                             ]
                     )
             )
