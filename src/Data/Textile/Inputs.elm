@@ -33,7 +33,7 @@ module Data.Textile.Inputs exposing
 import Base64
 import Data.Country as Country exposing (Country)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
@@ -155,7 +155,7 @@ getMainMaterialCountry countries =
             )
 
 
-fromQuery : Db -> Query -> Result String Inputs
+fromQuery : TextileDb.Db -> Query -> Result String Inputs
 fromQuery db query =
     let
         materials =
@@ -441,7 +441,7 @@ toggleStep label query =
     }
 
 
-addMaterial : Db -> Query -> Query
+addMaterial : TextileDb.Db -> Query -> Query
 addMaterial db query =
     let
         ( length, polyester, elasthanne ) =

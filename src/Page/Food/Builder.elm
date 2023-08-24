@@ -15,7 +15,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
-import Data.Food.Db as BuilderDb exposing (Db)
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -64,7 +64,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : Db
+    { db : FoodDb.Db
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -89,7 +89,7 @@ type Msg
     | AddTransform
     | AddDistribution
     | CopyToClipBoard String
-    | DbLoaded (WebData Db)
+    | DbLoaded (WebData FoodDb.Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
@@ -119,7 +119,7 @@ type Msg
     | UpdateDistribution String
 
 
-init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init : FoodDb.Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
 init db ({ foodDb, queries } as session) trigram maybeQuery =
     let
         impact =
@@ -580,7 +580,7 @@ deleteItemButton event =
 
 type alias UpdateIngredientConfig =
     { excluded : List Id
-    , db : Db
+    , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , index : Int
@@ -816,7 +816,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
         ]
 
 
-displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances db ingredient ingredientQuery event =
     span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
@@ -894,7 +894,7 @@ displayTransportDistances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : Db -> Query -> Html Msg
+debugQueryView : FoodDb.Db -> Query -> Html Msg
 debugQueryView db query =
     let
         debugView =
@@ -929,7 +929,7 @@ errorView error =
         }
 
 
-ingredientListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
@@ -1011,7 +1011,7 @@ initAutocomplete availableIngredients =
         )
 
 
-packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
@@ -1221,7 +1221,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : BuilderDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
@@ -1433,7 +1433,7 @@ stepListView { db, impact } recipe results =
         ]
 
 
-transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =

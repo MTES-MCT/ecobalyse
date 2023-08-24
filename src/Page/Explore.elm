@@ -11,13 +11,13 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
@@ -40,7 +40,7 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { foodDb : BuilderDb.Db
+    { foodDb : FoodDb.Db
     , dataset : Dataset
     , scope : Scope
     , tableState : SortableTable.State
@@ -55,8 +55,8 @@ type Msg
     | SetTableState SortableTable.State
 
 
-init : BuilderDb.Db -> Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
-init builderDb scope dataset session =
+init : FoodDb.Db -> Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
+init foodDb scope dataset session =
     let
         initialSort =
             case dataset of
@@ -78,7 +78,7 @@ init builderDb scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { foodDb = builderDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
+    ( { foodDb = foodDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
     )
@@ -197,7 +197,13 @@ alert error =
         ]
 
 
-countriesExplorer : Table.Config Country Msg -> SortableTable.State -> Scope -> Maybe Country.Code -> List Country -> List (Html Msg)
+countriesExplorer :
+    Table.Config Country Msg
+    -> SortableTable.State
+    -> Scope
+    -> Maybe Country.Code
+    -> List Country
+    -> List (Html Msg)
 countriesExplorer tableConfig tableState scope maybeCode countries =
     [ countries
         |> List.filter (.scopes >> List.member scope)
@@ -219,7 +225,13 @@ countriesExplorer tableConfig tableState scope maybeCode countries =
     ]
 
 
-impactsExplorer : Definitions -> Table.Config Definition Msg -> SortableTable.State -> Scope -> Maybe Definition.Trigram -> List (Html Msg)
+impactsExplorer :
+    Definitions
+    -> Table.Config Definition Msg
+    -> SortableTable.State
+    -> Scope
+    -> Maybe Definition.Trigram
+    -> List (Html Msg)
 impactsExplorer definitions tableConfig tableState scope maybeTrigram =
     [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
@@ -232,7 +244,12 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
     ]
 
 
-foodIngredientsExplorer : Table.Config Ingredient Msg -> SortableTable.State -> Maybe Ingredient.Id -> BuilderDb.Db -> List (Html Msg)
+foodIngredientsExplorer :
+    Table.Config Ingredient Msg
+    -> SortableTable.State
+    -> Maybe Ingredient.Id
+    -> FoodDb.Db
+    -> List (Html Msg)
 foodIngredientsExplorer tableConfig tableState maybeId db =
     [ db.ingredients
         |> List.sortBy .name
@@ -254,7 +271,12 @@ foodIngredientsExplorer tableConfig tableState maybeId db =
     ]
 
 
-textileProductsExplorer : Table.Config Product Msg -> SortableTable.State -> Maybe Product.Id -> Db -> List (Html Msg)
+textileProductsExplorer :
+    Table.Config Product Msg
+    -> SortableTable.State
+    -> Maybe Product.Id
+    -> TextileDb.Db
+    -> List (Html Msg)
 textileProductsExplorer tableConfig tableState maybeId db =
     [ db.products
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
@@ -275,7 +297,12 @@ textileProductsExplorer tableConfig tableState maybeId db =
     ]
 
 
-textileMaterialsExplorer : Table.Config Material Msg -> SortableTable.State -> Maybe Material.Id -> Db -> List (Html Msg)
+textileMaterialsExplorer :
+    Table.Config Material Msg
+    -> SortableTable.State
+    -> Maybe Material.Id
+    -> TextileDb.Db
+    -> List (Html Msg)
 textileMaterialsExplorer tableConfig tableState maybeId db =
     [ db.materials
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
@@ -296,7 +323,12 @@ textileMaterialsExplorer tableConfig tableState maybeId db =
     ]
 
 
-textileProcessesExplorer : Table.Config Process.Process Msg -> SortableTable.State -> Maybe Process.Uuid -> Db -> List (Html Msg)
+textileProcessesExplorer :
+    Table.Config Process.Process Msg
+    -> SortableTable.State
+    -> Maybe Process.Uuid
+    -> TextileDb.Db
+    -> List (Html Msg)
 textileProcessesExplorer tableConfig tableState maybeId db =
     [ db.processes
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProcesses.table

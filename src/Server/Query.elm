@@ -7,7 +7,7 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
@@ -63,27 +63,27 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : BuilderDb.Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery builderDb =
+parseFoodQuery : FoodDb.Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery foodDb =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" builderDb)
-        |> apply (maybeTransformParser "transform" builderDb.processes)
-        |> apply (packagingListParser "packaging" builderDb.processes)
+        |> apply (ingredientListParser "ingredients" foodDb)
+        |> apply (maybeTransformParser "transform" foodDb.processes)
+        |> apply (packagingListParser "packaging" foodDb.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
 
 
-ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key builderDb =
+ingredientListParser : String -> FoodDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key foodDb =
     Query.custom (key ++ "[]")
-        (List.map (ingredientParser builderDb)
+        (List.map (ingredientParser foodDb)
             >> RE.combine
             >> Result.andThen validateIngredientList
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-ingredientParser : BuilderDb.Db -> String -> Result String BuilderQuery.IngredientQuery
+ingredientParser : FoodDb.Db -> String -> Result String BuilderQuery.IngredientQuery
 ingredientParser { countries, ingredients } string =
     let
         byPlaneParser byPlane ingredient =

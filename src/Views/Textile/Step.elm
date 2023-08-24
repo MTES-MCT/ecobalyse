@@ -10,7 +10,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
@@ -37,7 +37,7 @@ import Views.Transport as TransportView
 
 
 type alias Config msg =
-    { db : Db
+    { db : TextileDb.Db
     , inputs : Inputs
     , daysOfWear : Duration
     , viewMode : ViewMode

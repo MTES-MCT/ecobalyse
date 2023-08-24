@@ -14,7 +14,7 @@ module Data.Bookmark exposing
     , toTextileQueries
     )
 
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
@@ -142,7 +142,7 @@ toFoodQueries =
         )
 
 
-toQueryDescription : { foodDb : WebData BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
+toQueryDescription : { foodDb : WebData FoodDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
 toQueryDescription { foodDb, textileDb } bookmark =
     case bookmark.query of
         Food foodQuery ->

@@ -26,7 +26,7 @@ import Result.Extra as RE
 
 
 {-| Process
-A process is an entry from public/data/food/processes/(explorer|builder).json. It has impacts and
+A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =

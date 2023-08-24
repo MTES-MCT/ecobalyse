@@ -23,7 +23,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
@@ -167,7 +167,7 @@ displayLabel { knitted, fadable } label =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : Db -> Step -> Step -> Step
+computeTransports : TextileDb.Db -> Step -> Step -> Step
 computeTransports db next ({ processInfo } as current) =
     let
         transport =
@@ -288,7 +288,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
     Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) outputMass
 
 
-updateFromInputs : Db -> Inputs -> Step -> Step
+updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country } as step) =
     let
         { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =

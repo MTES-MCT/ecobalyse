@@ -6,7 +6,7 @@ import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session, UnloadedSession)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
 import Data.Unit as Unit
 import Html
@@ -80,7 +80,7 @@ type Msg
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | TextileDbReceived Url (WebData Db)
+    | TextileDbReceived Url (WebData TextileDb.Db)
     | TextileExamplesMsg TextileExamples.Msg
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
@@ -166,8 +166,8 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.Explore scope dataset) ->
                     case session.foodDb of
-                        RemoteData.Success builderDb ->
-                            Explore.init builderDb scope dataset session
+                        RemoteData.Success foodDb ->
+                            Explore.init foodDb scope dataset session
                                 |> toPage ExplorePage ExploreMsg
 
                         RemoteData.NotAsked ->
@@ -180,8 +180,8 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.FoodBuilderHome ->
                     case session.foodDb of
-                        RemoteData.Success builderDb ->
-                            FoodBuilder.init builderDb session Impact.default Nothing
+                        RemoteData.Success foodDb ->
+                            FoodBuilder.init foodDb session Impact.default Nothing
                                 |> toPage FoodBuilderPage FoodBuilderMsg
 
                         RemoteData.NotAsked ->
@@ -194,8 +194,8 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     case session.foodDb of
-                        RemoteData.Success builderDb ->
-                            FoodBuilder.init builderDb session trigram maybeQuery
+                        RemoteData.Success foodDb ->
+                            FoodBuilder.init foodDb session trigram maybeQuery
                                 |> toPage FoodBuilderPage FoodBuilderMsg
 
                         RemoteData.NotAsked ->
@@ -229,12 +229,12 @@ setRoute url ( { state } as model, cmds ) =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
-        ( Loading unloadedSession, TextileDbReceived url (RemoteData.Success db) ) ->
+        ( Loading unloadedSession, TextileDbReceived url (RemoteData.Success textileDb) ) ->
             -- Db successfully loaded, attach it to session and process to requested page.
             -- That way, the page will always access a fully loaded Db.
             let
                 session =
-                    Session.fromUnloaded unloadedSession db
+                    Session.fromUnloaded unloadedSession textileDb
             in
             setRoute url
                 ( { model | state = Loaded BlankPage session }, Cmd.none )

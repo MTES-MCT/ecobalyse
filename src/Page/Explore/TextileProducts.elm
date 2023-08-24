@@ -4,7 +4,7 @@ import Area
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
@@ -30,7 +30,7 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope

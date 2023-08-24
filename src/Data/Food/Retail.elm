@@ -102,7 +102,7 @@ displayNeeds (Distribution _ needs) =
 
 all : List Distribution
 all =
-    -- for selection list in the builder
+    -- for selection list in the recipe builder
     [ ambient, fresh, frozen ]
 
 

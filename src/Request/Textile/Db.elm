@@ -2,7 +2,7 @@ module Request.Textile.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
@@ -20,9 +20,9 @@ buildFromWebData :
     -> WebData (List Material)
     -> WebData (List Product)
     -> WebData Distances
-    -> WebData Db
+    -> WebData TextileDb.Db
 buildFromWebData definitions processes countries materials products transports =
-    RemoteData.succeed (Db definitions processes)
+    RemoteData.succeed (TextileDb.Db definitions processes)
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
@@ -36,7 +36,7 @@ buildFromWebData definitions processes countries materials products transports =
             )
 
 
-loadDependentData : Definitions -> List Process -> Task () (WebData Db)
+loadDependentData : Definitions -> List Process -> Task () (WebData TextileDb.Db)
 loadDependentData definitions processes =
     let
         -- see https://github.com/alex-tan/task-extra/blob/1.1.0/src/Task/Extra.elm#L579-L581
@@ -50,7 +50,7 @@ loadDependentData definitions processes =
         |> andMap (getJson Transport.decodeDistances "transports.json")
 
 
-handleProcessesLoaded : Definitions -> WebData (List Process) -> Task () (WebData Db)
+handleProcessesLoaded : Definitions -> WebData (List Process) -> Task () (WebData TextileDb.Db)
 handleProcessesLoaded definitions processesData =
     case processesData of
         RemoteData.Success processes ->
@@ -66,7 +66,7 @@ handleProcessesLoaded definitions processesData =
             Task.succeed RemoteData.Loading
 
 
-handleImpactsLoaded : WebData Definitions -> Task () (WebData Db)
+handleImpactsLoaded : WebData Definitions -> Task () (WebData TextileDb.Db)
 handleImpactsLoaded definitionsData =
     case definitionsData of
         RemoteData.Success definitions ->
@@ -83,7 +83,7 @@ handleImpactsLoaded definitionsData =
             Task.succeed RemoteData.Loading
 
 
-loadDb : (WebData Db -> msg) -> Cmd msg
+loadDb : (WebData TextileDb.Db -> msg) -> Cmd msg
 loadDb event =
     getJson Definition.decode "impacts.json"
         |> Task.andThen handleImpactsLoaded
@@ -94,7 +94,7 @@ loadDb event =
                         event wd
 
                     Err _ ->
-                        -- Note: this `Task () (WebData Db)` error situation can never happen
+                        -- Note: this `Task () (WebData TextileDb.Db)` error situation can never happen
                         -- This is a limitation from the types returned by RemoteData.Http tasks
                         event RemoteData.NotAsked
             )
