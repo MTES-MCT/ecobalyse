@@ -210,7 +210,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
                                         [ type_ "text"
                                         , class "form-control w-75"
                                         , disabled True
-                                        , value <| Material.spinningToString spinningProcess
+                                        , value <| Material.spinningToLabel spinningProcess
                                         ]
                                         []
 
@@ -219,7 +219,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
                                         |> List.map
                                             (\spinningProcess ->
                                                 option [ value <| Material.spinningToString spinningProcess ]
-                                                    [ text <| Material.spinningToString spinningProcess
+                                                    [ text <| Material.spinningToLabel spinningProcess
                                                     ]
                                             )
                                         |> select

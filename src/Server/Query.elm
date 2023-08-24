@@ -482,6 +482,27 @@ materialListParser key materials =
 parseMaterial_ : List Material -> String -> Result String Inputs.MaterialQuery
 parseMaterial_ materials string =
     case String.split ";" string of
+        [ id, share, spinningString ] ->
+            Ok Inputs.MaterialQuery
+                |> RE.andMap (parseMaterialId_ materials id)
+                |> RE.andMap (parseSplit share)
+                |> Result.andThen
+                    (\constructor ->
+                        let
+                            materialQuery =
+                                constructor Nothing
+
+                            materialResult =
+                                Material.findById materialQuery.id materials
+                        in
+                        materialResult
+                            |> Result.andThen
+                                (\material ->
+                                    parseSpinning material spinningString
+                                        |> Result.map (\spinning -> { materialQuery | spinning = Just spinning })
+                                )
+                    )
+
         [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
@@ -508,6 +529,35 @@ parseSplit string =
         |> String.toFloat
         |> Result.fromMaybe ("Ratio invalide : " ++ string)
         |> Result.andThen Split.fromFloat
+
+
+parseSpinning : Material -> String -> Result String Material.Spinning
+parseSpinning material spinningString =
+    let
+        spinningResult =
+            spinningString
+                |> Material.spinningFromString
+
+        availableSpinningProcesses =
+            Material.getAvailableSpinningProcesses material.origin
+    in
+    spinningResult
+        |> Result.andThen
+            (\spinning ->
+                if List.member spinning availableSpinningProcesses then
+                    Ok spinning
+
+                else
+                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Material.spinningToString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
+            )
+        |> Result.mapError
+            (always <|
+                "Un procédé de filature/filage doit être choisi parmi ("
+                    ++ (availableSpinningProcesses |> List.map Material.spinningToString |> String.join "|")
+                    ++ ") (ici: "
+                    ++ spinningString
+                    ++ ")"
+            )
 
 
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)

@@ -82,10 +82,10 @@ paths:
         - $ref: "#/components/parameters/massParam"
         - $ref: "#/components/parameters/materialsParam"
         - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
@@ -151,10 +151,10 @@ paths:
         - $ref: "#/components/parameters/massParam"
         - $ref: "#/components/parameters/materialsParam"
         - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
@@ -222,10 +222,10 @@ paths:
         - $ref: "#/components/parameters/massParam"
         - $ref: "#/components/parameters/materialsParam"
         - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
@@ -534,16 +534,22 @@ components:
       description: |
         Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
-        qu'elle représente :
+        qu'elle représente, et optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#hypotheses-par-defaut) :
 
         - `coton;0.3` signifie *30% coton*;
         - `coton-rdp;0.7` signifie *70% coton recyclé (déchets de production)*;
+        - `coton;0.3;UnconventionalSpinning` signifie *30% coton avec un procédé de filature non conventionel*
 
         > Par exemple, les paramètres à passer pour un t-shirt 30% coton, 30% coton recyclé et 40% acrylique sont :
         >
         > ```js
         > materials[]=coton;0.3&materials[]=coton-rdp;0.3&materials[]=acrylique;0.4
         > ```
+
+        Le procédé de filature est à choisir entre :
+        - ConventionalSpinning : pour les matières naturelles ou artificielles
+        - UnconventionalSpinning : pour les matières naturelles ou artificielles
+        - SyntheticSpinning : pour les matières synthétiques
       required: true
       style: form
       schema:
@@ -557,6 +563,8 @@ components:
           value: ["coton;0.7", "acrylique;0.3"]
         mixed:
           value: ["coton;0.3", "coton-rdp;0.3", "acrylique;0.4"]
+        spinning:
+          value: ["coton;0.96;UnconventionalSpinning"]
     productParam:
       name: product
       in: query

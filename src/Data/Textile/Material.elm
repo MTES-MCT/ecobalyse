@@ -16,6 +16,7 @@ module Data.Textile.Material exposing
     , groupAll
     , idToString
     , spinningFromString
+    , spinningToLabel
     , spinningToString
     )
 
@@ -68,13 +69,13 @@ type alias SpinningProcessData =
 spinningFromString : String -> Result String Spinning
 spinningFromString string =
     case string of
-        "Filature conventionnelle" ->
+        "ConventionalSpinning" ->
             Ok ConventionalSpinning
 
-        "Filature non conventionnelle" ->
+        "UnconventionalSpinning" ->
             Ok UnconventionalSpinning
 
-        "Filage" ->
+        "SyntheticSpinning" ->
             Ok SyntheticSpinning
 
         other ->
@@ -83,6 +84,19 @@ spinningFromString string =
 
 spinningToString : Spinning -> String
 spinningToString spinning =
+    case spinning of
+        ConventionalSpinning ->
+            "ConventionalSpinning"
+
+        UnconventionalSpinning ->
+            "UnconventionalSpinning"
+
+        SyntheticSpinning ->
+            "SyntheticSpinning"
+
+
+spinningToLabel : Spinning -> String
+spinningToLabel spinning =
     case spinning of
         ConventionalSpinning ->
             "Filature conventionnelle"
