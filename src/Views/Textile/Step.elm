@@ -193,7 +193,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
         [ div [ class "d-flex flex-column gap-1 w-100" ]
             (inputs.materials
                 |> List.map
-                    (\{ material } ->
+                    (\{ material, spinning } ->
                         let
                             availableSpinningProcesses =
                                 Material.getAvailableSpinningProcesses material.origin
@@ -218,7 +218,10 @@ spinningProcessField { inputs, updateMaterialSpinning } =
                                     availableSpinningProcesses
                                         |> List.map
                                             (\spinningProcess ->
-                                                option [ value <| Material.spinningToString spinningProcess ]
+                                                option
+                                                    [ value <| Material.spinningToString spinningProcess
+                                                    , selected <| Just spinningProcess == spinning
+                                                    ]
                                                     [ text <| Material.spinningToLabel spinningProcess
                                                     ]
                                             )

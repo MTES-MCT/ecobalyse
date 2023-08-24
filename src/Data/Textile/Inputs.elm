@@ -780,7 +780,7 @@ decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinningProcess" (Decode.maybe Material.decodeSpinning) Nothing
+        |> Pipe.optional "spinning" (Decode.maybe Material.decodeSpinning) Nothing
 
 
 encodeQuery : Query -> Encode.Value
