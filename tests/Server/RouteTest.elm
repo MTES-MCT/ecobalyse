@@ -247,12 +247,15 @@ textileEndpoints db =
                     (\thirty fourty ->
                         [ { id = Material.Id "coton"
                           , share = thirty
+                          , spinning = Nothing
                           }
                         , { id = Material.Id "coton-rdp"
                           , share = thirty
+                          , spinning = Nothing
                           }
                         , { id = Material.Id "acrylique"
                           , share = fourty
+                          , spinning = Nothing
                           }
                         ]
                     )

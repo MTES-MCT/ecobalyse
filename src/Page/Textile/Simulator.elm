@@ -101,13 +101,13 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
-    | UpdateMaterialSpinning Material Material.Spinning
     | UpdateKnittingProcess Knitting
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Split
+    | UpdateMaterialSpinning Material Material.Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
@@ -343,28 +343,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
-        UpdateMaterialSpinning material spinning ->
-            ( model, session, Cmd.none )
-
-        -- TODO : UPDATE THE MATERIAL SPINNING
-        -- |> updateQuery
-        --     { query
-        --         | knittingProcess = Just knittingProcess
-        --         , makingWaste =
-        --             model.simulator
-        --                 |> Result.map
-        --                     (\simulator ->
-        --                         Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess
-        --                     )
-        --                 |> Result.toMaybe
-        --         , makingComplexity =
-        --             model.simulator
-        --                 |> Result.map
-        --                     (\simulator ->
-        --                         Knitting.getMakingComplexity simulator.inputs.product.making.complexity knittingProcess
-        --                     )
-        --                 |> Result.toMaybe
-        --     }
         UpdateKnittingProcess knittingProcess ->
             ( model, session, Cmd.none )
                 |> updateQuery
@@ -415,6 +393,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateMaterialShare index share ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
+
+        UpdateMaterialSpinning material spinning ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
 
         UpdatePrinting printing ->
             ( model, session, Cmd.none )

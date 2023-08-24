@@ -486,6 +486,7 @@ parseMaterial_ materials string =
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
+                |> Result.map (\constructor -> constructor Nothing)
 
         [ "" ] ->
             Err <| "Format de matière vide."

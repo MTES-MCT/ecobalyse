@@ -26,6 +26,7 @@ module Data.Textile.Inputs exposing
     , toggleStep
     , updateMaterial
     , updateMaterialShare
+    , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
     )
@@ -498,6 +499,22 @@ updateMaterial index { id } =
 updateMaterialShare : Int -> Split -> Query -> Query
 updateMaterialShare index share =
     updateMaterialAt index (\m -> { m | share = share })
+
+
+updateMaterialSpinning : Material -> Material.Spinning -> Query -> Query
+updateMaterialSpinning material spinning query =
+    { query
+        | materials =
+            query.materials
+                |> List.map
+                    (\materialQuery ->
+                        if materialQuery.id == material.id then
+                            { materialQuery | spinning = Just spinning }
+
+                        else
+                            materialQuery
+                    )
+    }
 
 
 removeMaterial : Int -> Query -> Query

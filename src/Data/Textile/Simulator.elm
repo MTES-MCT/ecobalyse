@@ -350,8 +350,8 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Db -> Material -> Step -> { impacts : Impacts, kwh : Energy }
-stepSpinningImpacts _ material step =
+stepSpinningImpacts : Db -> Material -> Maybe Material.Spinning -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts _ material maybeSpinning step =
     let
         yarnSize =
             step.yarnSize
@@ -359,8 +359,12 @@ stepSpinningImpacts _ material step =
                 -- that defines the default yarnSize for a thread
                 |> Maybe.withDefault (Unit.yarnSizeKilometersPerKg 50)
 
+        spinning =
+            maybeSpinning
+                |> Maybe.withDefault (Material.getDefaultSpinning material.origin)
+
         kwh =
-            Material.getDefaultSpinning material.origin
+            spinning
                 |> Material.getSpinningElec step.outputMass yarnSize
                 |> Energy.kilowattHours
     in
@@ -379,9 +383,9 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                     | kwh =
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts db material
+                                        |> stepSpinningImpacts db material spinning
                                         |> .kwh
                                         |> Quantity.multiplyBy (Split.toFloat share)
                                 )
@@ -389,9 +393,9 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                     , impacts =
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts db material
+                                        |> stepSpinningImpacts db material spinning
                                         |> .impacts
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
