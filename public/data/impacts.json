@@ -446,7 +446,8 @@
       "weighting": 0.0452
     },
     "correction": [
-      { "sub-impact": "htc-o", "weighting": 2 }
+      { "sub-impact": "htc-o", "weighting": 2 },
+      { "sub-impact": "htc-i", "weighting": 0 }
     ]
   },
   "htn": {
@@ -491,7 +492,8 @@
       "weighting": 0.039
     },
     "correction": [
-      { "sub-impact": "htn-o", "weighting": 2 }
+      { "sub-impact": "htn-o", "weighting": 2 },
+      { "sub-impact": "htn-i", "weighting": 0 }
     ]
   },
   "bvi": {
