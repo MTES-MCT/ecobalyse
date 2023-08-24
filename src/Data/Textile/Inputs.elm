@@ -493,7 +493,7 @@ updateMaterialAt index update query =
 updateMaterial : Int -> Material -> Query -> Query
 updateMaterial index { id } =
     -- Note: The first material country is always extracted and applied in `fromQuery`.
-    updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share })
+    updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share, spinning = Nothing })
 
 
 updateMaterialShare : Int -> Split -> Query -> Query

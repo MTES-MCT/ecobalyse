@@ -18,6 +18,7 @@ module Data.Textile.Material exposing
     , spinningFromString
     , spinningToLabel
     , spinningToString
+    , wasteForSpinning
     )
 
 import Data.Country as Country
@@ -40,7 +41,6 @@ type alias Material =
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
-    , spinningProcess : Maybe Process -- Optional, as some materials are not spinned (eg. Neoprene)
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , priority : Int -- Used to sort materials
@@ -164,6 +164,19 @@ normalizationForSpinning spinning =
             spinningProcessesData.synthetic.normalization
 
 
+wasteForSpinning : Spinning -> Float
+wasteForSpinning spinning =
+    case spinning of
+        ConventionalSpinning ->
+            spinningProcessesData.conventional.waste
+
+        UnconventionalSpinning ->
+            spinningProcessesData.unconventional.waste
+
+        SyntheticSpinning ->
+            spinningProcessesData.synthetic.waste
+
+
 getSpinningElec : Mass -> Unit.YarnSize -> Spinning -> Float
 getSpinningElec mass yarnSize spinning =
     -- See the formula in https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
@@ -244,7 +257,6 @@ decode processes =
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
-        |> JDP.required "spinningProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "priority" Decode.int
@@ -275,9 +287,6 @@ encode v =
           , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
           )
         , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
-        , ( "spinningProcessUuid"
-          , v.spinningProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
-          )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         , ( "priority", Encode.int v.priority )

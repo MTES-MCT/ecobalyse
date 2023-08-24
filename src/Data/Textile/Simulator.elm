@@ -515,12 +515,16 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                 |> (\inputMass ->
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     let
+                                        spinningProcess =
+                                            spinning
+                                                |> Maybe.withDefault (Material.getDefaultSpinning material.origin)
+
                                         processWaste =
-                                            material.spinningProcess
-                                                |> Maybe.map .waste
-                                                |> Maybe.withDefault (Mass.kilograms 0)
+                                            Material.wasteForSpinning spinningProcess
+                                                -- TODO : Process.waste shouldn't be a mass, but rather a float
+                                                |> Mass.kilograms
                                     in
                                     Formula.genericWaste processWaste
                                         (inputMass |> Quantity.multiplyBy (Split.toFloat share))
