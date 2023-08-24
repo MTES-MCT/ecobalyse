@@ -3,6 +3,7 @@
 
 """Export des ingrédients et des processes du builder"""
 
+from bw2data.project import projects
 from food.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
@@ -12,17 +13,17 @@ import json
 import uuid
 
 # Input
-PROJECT = "Ecobalyse"
+PROJECT = "Food"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"
-IMPACTS = "../../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
+IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
-INGREDIENTS = "../../../public/data/food/ingredients.json"
-BUILDER = "../../../public/data/food/processes.json"
+INGREDIENTS = "../../public/data/food/ingredients.json"
+BUILDER = "../../public/data/food/processes.json"
 # maximum variation for new impacts compared to old impacts
 
-bw2data.projects.set_current(PROJECT)
+projects.create_project(PROJECT, activate=True, exist_ok=True)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 db = bw2data.Database(DBNAME)
 

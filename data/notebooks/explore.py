@@ -1,32 +1,49 @@
 """
-This file is used in the `explore` Jupyter Notebook
+This file is `explore` Jupyter Notebook
 """
 from IPython.core.display import display, Markdown
+from bw2data.project import projects
 from bw2data.utils import get_activity
 import bw2calc
 import bw2data
-import bw2io
 import ipywidgets
 import os
 import pandas
 
-bw2data.projects.set_current("Ecobalyse")
+DOMAINS = ["", "Food", "Textile"]
 os.chdir("/home/jovyan/ecobalyse/data")
 
-databases = list(bw2data.databases)
+databases = [""]
 # widgets
+w_project = ipywidgets.Dropdown(value="", options=DOMAINS, description="DOMAIN")
 w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"
 )
 w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
-METHODS = sorted({m[0] for m in bw2data.methods})
-w_method = ipywidgets.Dropdown(options=METHODS, description="METHOD")
+w_method = ipywidgets.Dropdown(options=[], description="METHOD")
 w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
 w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
 w_details = ipywidgets.Output(value="Détails")
 
 display(Markdown("# Search in the database :"))
+
+
+def switch_domain(change):
+    w_details.clear_output()
+    domain = change.new
+    projects.create_project(domain, activate=True, exist_ok=True)
+    databases = list(bw2data.databases)
+    w_database.options = databases
+    methods = sorted({m[0] for m in bw2data.methods})
+    w_method.options = methods
+    # default values
+    if domain == "Food":
+        w_method.value = methods[0] if len(methods) >= 1 else ""
+        w_database.value = databases[1] if len(databases) >= 2 else ""
+    if domain == "Textile":
+        w_method.value = "EF v3.1"
+        w_database.value = databases[1] if len(databases) >= 2 else ""
 
 
 @w_results.capture()
@@ -37,6 +54,8 @@ def search_activity(change):
     limit = change.new if change.owner is w_limit else w_limit.value
     w_activity.value = None
     db = bw2data.Database(database)
+    if not db:
+        return
     results = list(db.search(search, limit=limit))
     if len(results) == 0:
         w_results.clear_output()
@@ -148,11 +167,13 @@ def show_activity(change):
     display(Markdown("---"))
 
 
+w_project.observe(switch_domain, names="value")
 w_database.observe(search_activity, names="value")
 w_search.observe(search_activity, names="value")
 w_limit.observe(search_activity, names="value")
 w_activity.observe(show_activity, names="value")
 w_method.observe(show_activity, names="value")
+display(w_project)
 display(w_database, w_search, w_limit)
 display(w_results)
 display(w_activity)

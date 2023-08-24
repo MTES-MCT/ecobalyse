@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+from bw2data.project import projects
 import bw2data
 import bw2io
 
-PROJECT = "Ecobalyse"
+PROJECT = "Textile"
 # Ecoinvent
 DATAPATH = "./ECOINVENT3.9.1/datasets"
 DBNAME = "Ecoinvent 3.9.1"
@@ -16,7 +17,7 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
     """
     Import file at path `datapath` into database named `dbname` in the project
     """
-    bw2data.projects.set_current(project)
+    projects.create_project(project, activate=True, exist_ok=True)
 
     print(f"### Importing {dbname} database from {datapath}...")
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(datapath, dbname)
@@ -28,7 +29,7 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
 
 def main():
     # biosphere
-    bw2data.projects.set_current(PROJECT)
+    projects.create_project(PROJECT, activate=True, exist_ok=True)
     if BIOSPHERE not in bw2data.databases:
         print("### Creating default biosphere")
         bw2io.create_default_biosphere3()

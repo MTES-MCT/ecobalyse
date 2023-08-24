@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-# from bw2io.strategies.simapro import fix_localized_water_flows
-# from bw2io.strategies import migrate_exchanges
+from bw2data.project import projects
 import bw2data
 import bw2io
 
 # import functools
 
-PROJECT = "Ecobalyse"
+PROJECT = "Food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
@@ -29,7 +28,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     Import file at path `datapath` linked to biosphere named `dbname`
     """
     print(f"### Importing {datapath}...")
-    bw2data.projects.set_current(project)
+    projects.create_project(project, activate=True, exist_ok=True)
     bw2data.config.p["biosphere_database"] = biosphere
     ef = bw2io.importers.SimaProLCIACSVImporter(
         datapath,
@@ -53,6 +52,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
 
 def main():
     # Import custom method
+    projects.create_project(PROJECT, activate=True, exist_ok=True)
     if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
         import_method()
     else:

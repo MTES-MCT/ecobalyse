@@ -24,15 +24,10 @@ import_method:
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py; fi
 
 
-export_ciqual:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py; fi
-
 export_builder:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export_builder.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export_builder.py; fi
 
 python:
 	echo Running Python inside the container...
