@@ -21,7 +21,6 @@ IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition so
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
 BUILDER = "../../public/data/food/processes.json"
-# maximum variation for new impacts compared to old impacts
 
 projects.create_project(PROJECT, activate=True, exist_ok=True)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
@@ -50,7 +49,7 @@ def find_id(activity):
 
 
 if __name__ == "__main__":
-    # backup the previous builder with old impacts
+    # keep the previous processes with old impacts
     with open(BUILDER) as f:
         oldbuilder = json.load(f)
 
