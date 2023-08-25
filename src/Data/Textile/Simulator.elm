@@ -523,11 +523,20 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
 
                                         processWaste =
                                             Material.wasteForSpinning spinningProcess
-                                                -- TODO : Process.waste shouldn't be a mass, but rather a float
+
+                                        outputMaterialMass =
+                                            -- The output mass is the input mass of the next step
+                                            inputMass
+                                                |> Quantity.multiplyBy (Split.toFloat share)
+
+                                        inputMaterialMass =
+                                            -- Formula : inputMass - inputMass * waste = outputMass
+                                            -- => inputMass * (1 - waste) = outputMass
+                                            -- => inputMass = outputMass / (1 - waste)
+                                            Split.divideBy (Mass.inKilograms outputMaterialMass) (Split.complement processWaste)
                                                 |> Mass.kilograms
                                     in
-                                    Formula.genericWaste processWaste
-                                        (inputMass |> Quantity.multiplyBy (Split.toFloat share))
+                                    { waste = Quantity.difference inputMaterialMass outputMaterialMass, mass = inputMaterialMass }
                                 )
                             |> List.foldl
                                 (\curr acc ->

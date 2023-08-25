@@ -63,7 +63,7 @@ type Spinning
 
 
 type alias SpinningProcessData =
-    { normalization : Float, waste : Float }
+    { normalization : Float, waste : Split }
 
 
 spinningFromString : String -> Result String Spinning
@@ -124,9 +124,9 @@ spinningProcessesData : { conventional : SpinningProcessData, unconventional : S
 spinningProcessesData =
     -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- and https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#taux-de-pertes
-    { conventional = { normalization = 4, waste = 0.12 }
-    , unconventional = { normalization = 2, waste = 0.12 }
-    , synthetic = { normalization = 1.5, waste = 0.03 }
+    { conventional = { normalization = 4, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
+    , unconventional = { normalization = 2, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
+    , synthetic = { normalization = 1.5, waste = Split.fromPercent 3 |> Result.withDefault Split.zero }
     }
 
 
@@ -164,7 +164,7 @@ normalizationForSpinning spinning =
             spinningProcessesData.synthetic.normalization
 
 
-wasteForSpinning : Spinning -> Float
+wasteForSpinning : Spinning -> Split
 wasteForSpinning spinning =
     case spinning of
         ConventionalSpinning ->
