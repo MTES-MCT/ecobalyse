@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-
 from bw2data.project import projects
 import bw2data
 import bw2io
+import sys
 
-# import functools
-
-PROJECT = "Food"
+PROJECT = sys.argv[1]
 # Agribalyse
 BIOSPHERE = "Agribalyse 3.1.1 biosphere"
 METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
@@ -46,6 +44,13 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     ef.drop_unlinked()
     ef.write_methods()
     print(f"### Finished importing {METHODNAME}")
+
+    # Default methods
+    if "EF v3.1" not in set([m[0] for m in bw2data.methods]):
+        print("### Creating default LCIA methods")
+        bw2io.create_default_lcia_methods()
+    else:
+        print(f"### Default methods already imported")
 
 
 def main():

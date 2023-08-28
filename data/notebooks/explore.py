@@ -11,6 +11,9 @@ import os
 import pandas
 
 DOMAINS = ["", "Food", "Textile"]
+METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+TEXTILEDB = "Ecoinvent 3.9.1"
+FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
 
 databases = [""]
@@ -38,12 +41,14 @@ def switch_domain(change):
     methods = sorted({m[0] for m in bw2data.methods})
     w_method.options = methods
     # default values
-    if domain == "Food":
-        w_method.value = methods[0] if len(methods) >= 1 else ""
-        w_database.value = databases[1] if len(databases) >= 2 else ""
-    if domain == "Textile":
-        w_method.value = "EF v3.1"
-        w_database.value = databases[1] if len(databases) >= 2 else ""
+    if domain == "Food" and METHOD in methods:
+        w_method.value = METHOD
+    elif domain == "Textile" and METHOD in methods:
+        w_method.value = METHOD
+    if domain == "Food" and FOODDB in databases:
+        w_database.value = FOODDB
+    elif domain == "Textile" and TEXTILEDB in databases:
+        w_database.value = TEXTILEDB
 
 
 @w_results.capture()

@@ -9,8 +9,6 @@ PROJECT = "Textile"
 DATAPATH = "./ECOINVENT3.9.1/datasets"
 DBNAME = "Ecoinvent 3.9.1"
 BIOSPHERE = "biosphere3"
-# Method (See bw2data.methods for available methods)
-METHODNAME = "EF v3.1"
 
 
 def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
@@ -35,13 +33,6 @@ def main():
         bw2io.create_default_biosphere3()
     else:
         print(f"### {BIOSPHERE} database is already imported")
-
-    # EF v3.1
-    if METHODNAME not in set([m[0] for m in bw2data.methods]):
-        print("### Creating default LCIA methods")
-        bw2io.create_default_lcia_methods()
-    else:
-        print(f"### {METHODNAME} already imported")
 
     # Core migrations
     print("### Creating core data migrations")
