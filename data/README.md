@@ -15,9 +15,10 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 ## Autres commandes :
 
 * `make image` : pour construire l'image docker choisie
-* `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway. Assurez-vous d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans le dossier `data/`
-* `make import_method` : pour importer EF 3.1 adapted dans Brightway. Assurez-vous d'avoir le fichier `Environmental Footprint .1 (adapted).CSV` dans le dossier `data/`
-* `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Assurez-vous d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
+* `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway (projet Food). Assurez-vous d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans le dossier `data/`
+* `make import_food_method` : pour importer EF 3.1 adapted dans Brightway (projet Foos). Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier `data/`
+* `make import_textile_method` : pour importer EF 3.1 adapted dans Brightway (projet Textile). Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier `data/`
+* `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet Textile). Assurez-vous d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make shell` : lance un shell à l'intérieur du conteneur
