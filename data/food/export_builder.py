@@ -4,10 +4,15 @@
 """Export des ingrédients et des processes du builder"""
 
 from bw2data.project import projects
+from common.export import (
+    with_subimpacts,
+    search,
+    with_corrected_impacts,
+    display_changes,
+)
 from impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
-import functools
 import hashlib
 import json
 import uuid
@@ -24,17 +29,9 @@ PROCESSES = "../../public/data/food/processes.json"
 
 projects.create_project(PROJECT, activate=True, exist_ok=True)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
-db = bw2data.Database(DBNAME)
 
 
-@functools.cache
-def search(name):
-    results = db.search(name)
-    assert len(results) >= 1, f"'{name}' was not found in Brightway"
-    return results[0]
-
-
-def find_id(activity):
+def find_id(dbname, activity):
     # if this is a complex ingredient, the id is the one constructed by ecobalyse
     if "ratio" in activity.keys():
         return str(
@@ -45,13 +42,15 @@ def find_id(activity):
             )
         )
     else:
-        return search(activity["search"])["Process identifier"]
+        return search(bw2data.Database(dbname), activity["search"])[
+            "Process identifier"
+        ]
 
 
 if __name__ == "__main__":
     # keep the previous processes with old impacts
     with open(PROCESSES) as f:
-        oldbuilder = json.load(f)
+        oldprocesses = json.load(f)
 
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
@@ -62,7 +61,7 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": find_id(activity),
+            "default": find_id(DBNAME, activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
             "density": activity["density"],
@@ -90,7 +89,7 @@ if __name__ == "__main__":
             "name": search(activity["search"])["name"],
             "displayName": activity["name"],
             "unit": search(activity["search"])["unit"],
-            "identifier": find_id(activity),
+            "identifier": find_id(DBNAME, activity),
             "system_description": search(activity["search"])["System description"],
             "category": activity.get("category"),
             "comment": list(search(activity["search"]).production())[0]["comment"],
@@ -153,18 +152,8 @@ if __name__ == "__main__":
             lca.lcia()
             process.setdefault("impacts", {})[key] = float("{:.10g}".format(lca.score))
 
-        # etf-o = etf-o1 + etf-o2
-        process["impacts"]["etf-o"] = (
-            process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
-        )
-        del process["impacts"]["etf-o1"]
-        del process["impacts"]["etf-o2"]
-        # etf = etf1 + etf2
-        process["impacts"]["etf"] = (
-            process["impacts"]["etf1"] + process["impacts"]["etf2"]
-        )
-        del process["impacts"]["etf1"]
-        del process["impacts"]["etf2"]
+        # compute subimpacts
+        process = with_subimpacts(process)
 
         # Now compute an identifier for complex ingredients
         # Compute impacts of complex ingredients
@@ -205,23 +194,9 @@ if __name__ == "__main__":
 
     print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
     with open(IMPACTS, "r") as f:
-        impacts_ecobalyse = json.load(f)
-    corrections = {
-        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
-    }
+        processes = with_corrected_impacts(json.load(f), processes)
 
-    for process in processes.values():
-        # compute corrected impacts
-        for impact_to_correct, correction in corrections.items():
-            corrected_impact = 0
-            for correction_item in correction:  # For each sub-impact and its weighting
-                sub_impact_name = correction_item["sub-impact"]
-                if sub_impact_name in process["impacts"]:
-                    sub_impact = process["impacts"].get(sub_impact_name, 1)
-                    corrected_impact += sub_impact * correction_item["weighting"]
-                    del process["impacts"][sub_impact_name]
-            process["impacts"][impact_to_correct] = corrected_impact
-
+    # export ingredients
     with open(INGREDIENTS, "w") as outfile:
         json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
@@ -229,45 +204,9 @@ if __name__ == "__main__":
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
 
     # display impacts that have changed
-    old = {p["id"]: p["impacts"] for p in oldbuilder}
-    review = False
-    changes = []
-    for p in processes:
-        for impact in processes[p]["impacts"]:
-            if old.get(p, {}).get(impact, {}):
-                percent_change = (
-                    100
-                    * abs(processes[p]["impacts"][impact] - old[p][impact])
-                    / old[p][impact]
-                )
-                if percent_change > 0.1:
-                    changes.append(
-                        {
-                            "trg": impact,
-                            "name": p,
-                            "%diff": percent_change,
-                            "from": old[p][impact],
-                            "to": processes[p]["impacts"][impact],
-                        }
-                    )
-                    review = True
-    changes.sort(key=lambda c: c["%diff"])
-    if review:
-        keys = ("trg", "name", "%diff", "from", "to")
-        widths = {key: max([len(str(c[key])) for c in changes]) for key in keys}
-        print("==".join(["=" * widths[key] for key in keys]))
-        print("Please review the impact changes below")
-        print("==".join(["=" * widths[key] for key in keys]))
-        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
-        print("==".join(["=" * widths[key] for key in keys]))
-        for c in changes:
-            print("  ".join([f"{str(c[key]).ljust(widths[key])}" for key in keys]))
-        print("==".join(["=" * widths[key] for key in keys]))
-        print("  ".join([f"{key.ljust(widths[key])}" for key in keys]))
-        print("==".join(["=" * widths[key] for key in keys]))
-        print("Please review the impact changes above")
-        print("==".join(["=" * widths[key] for key in keys]))
+    display_changes(oldprocesses, processes)
 
+    # export processes
     with open(PROCESSES, "w") as outfile:
         json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
