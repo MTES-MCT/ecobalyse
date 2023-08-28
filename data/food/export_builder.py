@@ -20,7 +20,7 @@ ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
-BUILDER = "../../public/data/food/processes.json"
+PROCESSES = "../../public/data/food/processes.json"
 
 projects.create_project(PROJECT, activate=True, exist_ok=True)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
@@ -50,7 +50,7 @@ def find_id(activity):
 
 if __name__ == "__main__":
     # keep the previous processes with old impacts
-    with open(BUILDER) as f:
+    with open(PROCESSES) as f:
         oldbuilder = json.load(f)
 
     with open(ACTIVITIES, "r") as f:
@@ -83,8 +83,8 @@ if __name__ == "__main__":
         ):
             del ingredient["complements"]["animal-welfare"]
 
-    print("Creating builder process list...")
-    builder = {
+    print("Creating process list...")
+    processes = {
         activity["id"]: {
             "id": activity["id"],
             "name": search(activity["search"])["name"],
@@ -104,15 +104,15 @@ if __name__ == "__main__":
         for activity in activities
     }
     # remove empty category
-    for p in builder:
-        if not builder[p]["category"]:
-            del builder[p]["category"]
+    for p in processes:
+        if not processes[p]["category"]:
+            del processes[p]["category"]
     # remove complex ingredient attributes on simple ingredients
-    for processid in builder.keys():
-        if not builder[processid]["ratio"]:
-            del builder[processid]["ratio"]
-            del builder[processid]["subingredient_default"]
-            del builder[processid]["subingredient_organic"]
+    for processid in processes.keys():
+        if not processes[processid]["ratio"]:
+            del processes[processid]["ratio"]
+            del processes[processid]["subingredient_default"]
+            del processes[processid]["subingredient_organic"]
 
     # check that all three attributes are present on complex ingredients
     for activity in activities:
@@ -137,13 +137,13 @@ if __name__ == "__main__":
     print("Computing impacts:")
     for index, (processid, process) in enumerate(
         # keep complex ingredients at the end since they depend on subingredient processes
-        sorted(builder.items(), key=lambda x: "ratio" in x[1])
+        sorted(processes.items(), key=lambda x: "ratio" in x[1])
     ):
         print(
             "("
             + (index) * "•"
-            + (len(builder) - index) * " "
-            + f") {str(index)}/{len(builder)}",
+            + (len(processes) - index) * " "
+            + f") {str(index)}/{len(processes)}",
             end="\r",
         )
         lca = bw2calc.LCA({search(process["search"]): 1})
@@ -176,16 +176,18 @@ if __name__ == "__main__":
                 # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
                 if impact == "bvi" and (
                     process["impacts"][impact] == 0
-                    or builder[process["subingredient_organic"]]["impacts"][impact] == 0
-                    or builder[process["subingredient_default"]]["impacts"][impact] == 0
+                    or processes[process["subingredient_organic"]]["impacts"][impact]
+                    == 0
+                    or processes[process["subingredient_default"]]["impacts"][impact]
+                    == 0
                 ):
                     # if the base ingredient has no bvi, neither the organic
                     continue
                 process["impacts"][impact] = process["impacts"][impact] + process[
                     "ratio"
                 ] * (
-                    builder[process["subingredient_organic"]]["impacts"][impact]
-                    - builder[process["subingredient_default"]]["impacts"][impact]
+                    processes[process["subingredient_organic"]]["impacts"][impact]
+                    - processes[process["subingredient_default"]]["impacts"][impact]
                 )
 
             process["name"] = f"{processid}, constructed by Ecobalyse"
@@ -208,7 +210,7 @@ if __name__ == "__main__":
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
     }
 
-    for process in builder.values():
+    for process in processes.values():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
             corrected_impact = 0
@@ -230,12 +232,12 @@ if __name__ == "__main__":
     old = {p["id"]: p["impacts"] for p in oldbuilder}
     review = False
     changes = []
-    for p in builder:
-        for impact in builder[p]["impacts"]:
+    for p in processes:
+        for impact in processes[p]["impacts"]:
             if old.get(p, {}).get(impact, {}):
                 percent_change = (
                     100
-                    * abs(builder[p]["impacts"][impact] - old[p][impact])
+                    * abs(processes[p]["impacts"][impact] - old[p][impact])
                     / old[p][impact]
                 )
                 if percent_change > 0.1:
@@ -245,7 +247,7 @@ if __name__ == "__main__":
                             "name": p,
                             "%diff": percent_change,
                             "from": old[p][impact],
-                            "to": builder[p]["impacts"][impact],
+                            "to": processes[p]["impacts"][impact],
                         }
                     )
                     review = True
@@ -266,8 +268,8 @@ if __name__ == "__main__":
         print("Please review the impact changes above")
         print("==".join(["=" * widths[key] for key in keys]))
 
-    with open(BUILDER, "w") as outfile:
-        json.dump(list(builder.values()), outfile, indent=2, ensure_ascii=False)
+    with open(PROCESSES, "w") as outfile:
+        json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
-    print(f"Exported {len(builder)} processes to {BUILDER}")
+    print(f"Exported {len(processes)} processes to {PROCESSES}")

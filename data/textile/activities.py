@@ -9,54 +9,59 @@ projects.create_project("Ecobalyse", activate=True, exist_ok=True)
 with open("processes.json") as f:
     processes = json.loads(f.read())
 with open("materials.json") as f:
-    materials = json.loads(f.read())
+    materials = {m["name"]: m for m in json.loads(f.read())}
 with open("codes.json") as f:
     codes = {c["code"]: c["name"] for c in json.loads(f.read())}
 
-dmaterials = {m["name"]: m for m in materials}
+# check no missing process
+for material in materials.keys():
+    if material not in [p["name"] for p in processes]:
+        assert f"missing process: {material}"
 
 for process in processes:
-    if process["name"] in dmaterials:
-        process.update(dmaterials[process["name"]])
+    name = process["name"]
+    if name in materials:
+        process.update(materials[name])
     if process["step_usage"] == "Energie":
         process["source"] = "Ecoinvent 3.9.1"
         del process["impacts"]
         # ELEC
-        if process["name"].startswith("Mix électrique réseau"):
-            (pname, ccode) = process["name"].split(", ", maxsplit=1)
+        if name.startswith("Mix électrique réseau"):
+            (pname, ccode) = name.split(", ", maxsplit=1)
             pname = pname.replace(
                 "Mix électrique réseau", "Market for electricity, medium voltage"
             )
-            process["name"] = f"{pname} {codes[ccode]}"
+            name = f"{pname} {codes[ccode]}"
         # STEAM
-        elif process["name"].startswith("Mix Vapeur"):
-            if process["name"].endswith("FR") or process["name"].endswith("RER"):
-                process["name"] = "heat from steam in chemical industry RER"
-            elif process["name"].endswith("RSA"):
-                process["name"] = "heat from steam in chemical industry ROW"
+        elif name.startswith("Mix Vapeur"):
+            if name.endswith("FR") or name.endswith("RER"):
+                name = "heat from steam in chemical industry RER"
+            elif name.endswith("RSA"):
+                name = "heat from steam in chemical industry ROW"
             else:
                 assert False
-        elif process["name"].startswith("Vapeur à partir de gaz naturel"):
-            if process["name"].endswith("RER"):
-                process["name"] = "market for heat natural gas europe"
-            elif process["name"].endswith("RSA"):
-                process["name"] = "market for heat natural gas ROW"
+        elif name.startswith("Vapeur à partir de gaz naturel"):
+            if name.endswith("RER"):
+                name = "market for heat natural gas europe"
+            elif name.endswith("RSA"):
+                name = "market for heat natural gas ROW"
             else:
                 assert False
-        elif process["name"].startswith("Vapeur à partir de fioul") or process[
-            "name"
-        ].startswith("Vapeur à partir de charbon"):
-            if process["name"].endswith("RER"):
-                process["name"] = "market for heat other Europe"
-            elif process["name"].endswith("RSA"):
-                process["name"] = "market for heat other ROW"
+        elif name.startswith("Vapeur à partir de fioul") or name.startswith(
+            "Vapeur à partir de charbon"
+        ):
+            if name.endswith("RER"):
+                name = "market for heat other Europe"
+            elif name.endswith("RSA"):
+                name = "market for heat other ROW"
             else:
                 assert False
 
-        new_process = bw2data.Database("Ecoinvent 3.9.1").search(process["name"])
+        process["name"] = name
+        new_process = bw2data.Database("Ecoinvent 3.9.1").search(name)
         match len(new_process):
             case 0:
-                print(f'Could not find process {process["name"]}')
+                print(f"Could not find process {name}")
             case _:
                 process["uuid"] = new_process[0].as_dict()["activity"]
     if process["source"] == "Base Impacts":
