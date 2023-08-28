@@ -4,13 +4,11 @@
 """Export des matières et procédés du builder textile"""
 
 from bw2data.project import projects
-from textile.impacts import impacts as impacts_definition
+from impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import functools
-import hashlib
 import json
-import uuid
 
 # Input
 PROJECT = "Textile"

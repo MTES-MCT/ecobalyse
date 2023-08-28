@@ -4,7 +4,7 @@
 """Export des ingrédients et des processes du builder"""
 
 from bw2data.project import projects
-from food.impacts import impacts as impacts_definition
+from impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import functools
