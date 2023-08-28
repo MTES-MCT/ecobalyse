@@ -8,9 +8,7 @@ import bw2io
 
 PROJECT = "Food"
 # Agribalyse
-DATAPATH = "AGB3.1.1.20230306.CSV.zip"
-DBNAME = "Agribalyse 3.1.1"
-BIOSPHERE = DBNAME + " biosphere"
+BIOSPHERE = "Agribalyse 3.1.1 biosphere"
 METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
 

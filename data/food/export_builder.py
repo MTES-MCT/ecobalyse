@@ -203,7 +203,7 @@ if __name__ == "__main__":
             if attribute in process:
                 del process[attribute]
 
-    print("Computing corrected impacts...")
+    print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
     with open(IMPACTS, "r") as f:
         impacts_ecobalyse = json.load(f)
     corrections = {

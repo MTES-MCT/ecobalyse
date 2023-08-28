@@ -1,34 +1,9 @@
 impacts = {
     "acd": ("EF v3.1", "acidification", "accumulated exceedance (AE)"),
     "cch": ("EF v3.1", "climate change", "global warming potential (GWP100)"),
-    "cch-b": (
-        "EF v3.1",
-        "climate change: biogenic",
-        "global warming potential (GWP100)",
-    ),
-    "cch-f": (
-        "EF v3.1",
-        "climate change: fossil",
-        "global warming potential (GWP100)",
-    ),
-    "cch-l": (
-        "EF v3.1",
-        "climate change: land use and land use change",
-        "global warming potential (GWP100)",
-    ),
     "etf": (
         "EF v3.1",
         "ecotoxicity: freshwater",
-        "comparative toxic unit for ecosystems (CTUe)",
-    ),
-    "etf-i": (
-        "EF v3.1",
-        "ecotoxicity: freshwater, inorganics",
-        "comparative toxic unit for ecosystems (CTUe)",
-    ),
-    "etf-o": (
-        "EF v3.1",
-        "ecotoxicity: freshwater, organics",
         "comparative toxic unit for ecosystems (CTUe)",
     ),
     "fru": (
@@ -56,29 +31,9 @@ impacts = {
         "human toxicity: carcinogenic",
         "comparative toxic unit for human (CTUh)",
     ),
-    "htc-i": (
-        "EF v3.1",
-        "human toxicity: carcinogenic, inorganics",
-        "comparative toxic unit for human (CTUh)",
-    ),
-    "htc-o": (
-        "EF v3.1",
-        "human toxicity: carcinogenic, organics",
-        "comparative toxic unit for human (CTUh)",
-    ),
     "htn": (
         "EF v3.1",
         "human toxicity: non-carcinogenic",
-        "comparative toxic unit for human (CTUh)",
-    ),
-    "htn-i": (
-        "EF v3.1",
-        "human toxicity: non-carcinogenic, inorganics",
-        "comparative toxic unit for human (CTUh)",
-    ),
-    "htn-o": (
-        "EF v3.1",
-        "human toxicity: non-carcinogenic, organics",
         "comparative toxic unit for human (CTUh)",
     ),
     "ior": (
@@ -87,13 +42,13 @@ impacts = {
         "human exposure efficiency relative to u235",
     ),
     "ldu": ("EF v3.1", "land use", "soil quality index"),
-    "material resources: metals/minerals": (
+    "mru": (
         "EF v3.1",
         "material resources: metals/minerals",
         "abiotic depletion potential (ADP): elements (ultimate reserves)",
     ),
     "ozd": ("EF v3.1", "ozone depletion", "ozone depletion potential (ODP)"),
-    "particulate matter formation": (
+    "pma": (
         "EF v3.1",
         "particulate matter formation",
         "impact on human health",

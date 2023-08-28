@@ -56,6 +56,13 @@ if __name__ == "__main__":
     materials = [
         {
             "id": activity["id"],
+            "materialAndSpinningProcessUuid": uuidOrSearch(
+                activity["materialAndSpinningProcessUuid"]
+            ),
+            "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
+            "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
+            "recycledFrom": activity["recycledFrom"],
+            "spinningProcessUuid": uuidOrSearch(activity["spinningProcessUuid"]),
             "name": activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
@@ -64,12 +71,6 @@ if __name__ == "__main__":
             "defaultCountry": activity["defaultCountry"],
             "priority": activity["priority"],
             "cff": activity["cff"],
-            "materialAndSpinningProcessUuid": uuidOrSearch(
-                activity["materialAndSpinningProcessUuid"]
-            ),
-            "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
-            "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
-            "recycledFrom": activity["recycledFrom"],
         }
         for activity in activities
         if "id" in activity
@@ -86,9 +87,9 @@ if __name__ == "__main__":
             "impacts": activity["impacts"]
             if activity["source"].startswith("Base Impacts")
             else {},
-            "heatMJ": activity.get("heatMJ", "XXXX"),
-            "elec_pppm": activity.get("elec_pppm"),
-            "elec_MJ": activity.get("elec_MJ"),
+            "heatMJ": activity.get("heatMJ", 0),
+            "elec_pppm": activity.get("elec_pppm", 0),
+            "elec_MJ": activity.get("elec_MJ", 0),
             "waste": activity["waste"],
             "alias": activity["alias"],
             "step_usage": activity["step_usage"],
@@ -112,6 +113,25 @@ if __name__ == "__main__":
                     )
             case _:
                 continue
+
+    print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
+    with open(IMPACTS, "r") as f:
+        impacts_ecobalyse = json.load(f)
+    corrections = {
+        k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
+    }
+
+    for process in processes.values():
+        # compute corrected impacts
+        for impact_to_correct, correction in corrections.items():
+            corrected_impact = 0
+            for correction_item in correction:  # For each sub-impact and its weighting
+                sub_impact_name = correction_item["sub-impact"]
+                if sub_impact_name in process["impacts"]:
+                    sub_impact = process["impacts"].get(sub_impact_name, 1)
+                    corrected_impact += sub_impact * correction_item["weighting"]
+                    del process["impacts"][sub_impact_name]
+            process["impacts"][impact_to_correct] = corrected_impact
 
     with open(MATERIALS, "w") as outfile:
         json.dump(materials, outfile, indent=2, ensure_ascii=False)
