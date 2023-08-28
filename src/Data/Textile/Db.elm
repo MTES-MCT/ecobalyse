@@ -3,10 +3,13 @@ module Data.Textile.Db exposing
     , buildFromJson
     )
 
+-- import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+
 import Data.Country as Country exposing (Country)
+import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Process as TextileProcess
 import Data.Textile.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
@@ -15,12 +18,15 @@ import Json.Decode.Extra as DE
 
 type alias Db =
     { impactDefinitions : Definitions
-    , processes : List Process
+    , textileProcesses : List TextileProcess.Process
     , countries : List Country
-    , materials : List Material
-    , products : List Product
+    , textileMaterials : List Material
+    , textileProducts : List Product
     , transports : Distances
-    , wellKnown : Process.WellKnown
+    , foodProcesses : List FoodProcess.Process
+    , textileWellKnown : TextileProcess.WellKnown
+
+    -- , foodIngredients : List Ingredient
     }
 
 
@@ -35,17 +41,18 @@ decode =
     Decode.field "impacts" Definition.decode
         |> Decode.andThen
             (\definitions ->
-                Decode.field "processes" (Process.decodeList definitions)
+                Decode.field "processes" (TextileProcess.decodeList definitions)
                     |> Decode.andThen
                         (\processes ->
-                            Decode.map4 (Db definitions processes)
+                            Decode.map5 (Db definitions processes)
                                 (Decode.field "countries" (Country.decodeList processes))
                                 (Decode.field "materials" (Material.decodeList processes))
                                 (Decode.field "products" (Product.decodeList processes))
                                 (Decode.field "transports" Transport.decodeDistances)
+                                (Decode.field "foodProcesses" (FoodProcess.decodeList definitions))
                                 |> Decode.andThen
                                     (\partiallyLoaded ->
-                                        Process.loadWellKnown processes
+                                        TextileProcess.loadWellKnown processes
                                             |> Result.map partiallyLoaded
                                             |> DE.fromResult
                                     )

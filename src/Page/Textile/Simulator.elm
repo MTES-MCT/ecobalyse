@@ -381,7 +381,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial index materialId ->
-            case Material.findById materialId textileDb.materials of
+            case Material.findById materialId textileDb.textileMaterials of
                 Ok material ->
                     ( model, session, Cmd.none )
                         |> updateQuery (Inputs.updateMaterial index material query)
@@ -398,7 +398,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 |> updateQuery { query | printing = printing }
 
         UpdateProduct productId ->
-            case Product.findById productId textileDb.products of
+            case Product.findById productId textileDb.textileProducts of
                 Ok product ->
                     ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
                         |> updateQuery (Inputs.updateProduct product query)
@@ -454,7 +454,7 @@ productField db product =
     div []
         [ label [ for "product", class "form-label fw-bold" ]
             [ text "Type de produit" ]
-        , db.products
+        , db.textileProducts
             |> List.map
                 (\p ->
                     option
@@ -570,7 +570,7 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                     ]
                 ]
             , MaterialView.formSet
-                { materials = textileDb.materials
+                { materials = textileDb.textileMaterials
                 , inputs = inputs.materials
                 , add = AddMaterial
                 , remove = RemoveMaterial

@@ -248,12 +248,12 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> respondWith 200
 
         Just Route.GetTextileMaterialList ->
-            textileDb.materials
+            textileDb.textileMaterials
                 |> Encode.list encodeMaterial
                 |> respondWith 200
 
         Just Route.GetTextileProductList ->
-            textileDb.products
+            textileDb.textileProducts
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
