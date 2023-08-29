@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Export des matières et procédés du builder textile"""
+"""Export des matières et procédés du textile"""
 
 from bw2data.project import projects
 from common.export import (

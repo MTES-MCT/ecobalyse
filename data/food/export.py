@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Export des ingrédients et des processes du builder"""
+"""Export des ingrédients et des processes de l'alimentaire"""
 
 from bw2data.project import projects
 from common.export import (
