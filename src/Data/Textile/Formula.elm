@@ -108,21 +108,15 @@ recycledMaterialImpacts impacts { recycledProcess, nonRecycledProcess, cffData }
 
 spinningImpacts :
     Impacts
-    -> { spinningProcess : Process, countryElecProcess : Process }
-    -> Mass
+    -> { spinningKwh : Energy, countryElecProcess : Process }
     -> { kwh : Energy, impacts : Impacts }
-spinningImpacts impacts { spinningProcess, countryElecProcess } mass =
-    let
-        kwh =
-            spinningProcess.elec
-                |> Quantity.multiplyBy (Mass.inKilograms mass)
-    in
-    { kwh = kwh
+spinningImpacts impacts { spinningKwh, countryElecProcess } =
+    { kwh = spinningKwh
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
-                    kwh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                    spinningKwh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                 )
     }
 

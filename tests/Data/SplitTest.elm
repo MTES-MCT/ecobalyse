@@ -119,7 +119,7 @@ suite =
             [ Split.zero
                 |> Split.apply 123.45
                 |> Expect.equal 0
-                |> asTest "should return 0 when applying a 'zero' split"
+                |> asTest "should return infinity when applying a 'zero' split"
             , Split.full
                 |> Split.apply 123.45
                 |> Expect.within (Expect.Absolute 0) 123.45
@@ -128,6 +128,21 @@ suite =
                 |> Result.map (Split.apply 123.45)
                 |> Expect.equal (Ok 61.725)
                 |> asTest "should return half of the float when applying a 0.5 split"
+            ]
+        , describe "divideBy"
+            [ Split.zero
+                |> Split.divideBy 123.45
+                |> isInfinite
+                |> Expect.equal True
+                |> asTest "should return infinity when dividing by a 'zero' split"
+            , Split.full
+                |> Split.divideBy 123.45
+                |> Expect.within (Expect.Absolute 0) 123.45
+                |> asTest "should return the float when dividing by a 'full' split"
+            , Split.fromFloat 0.5
+                |> Result.map (Split.divideBy 123.45)
+                |> Expect.equal (Ok 246.9)
+                |> asTest "should return double the float when dividing by a 0.5 split"
             ]
         , describe "decoder"
             [ "0.12"

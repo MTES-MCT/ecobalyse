@@ -23,6 +23,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -482,10 +483,32 @@ materialListParser key materials =
 parseMaterial_ : List Material -> String -> Result String Inputs.MaterialQuery
 parseMaterial_ materials string =
     case String.split ";" string of
+        [ id, share, spinningString ] ->
+            Ok Inputs.MaterialQuery
+                |> RE.andMap (parseMaterialId_ materials id)
+                |> RE.andMap (parseSplit share)
+                |> Result.andThen
+                    (\partiallyApplied ->
+                        let
+                            materialQuery =
+                                partiallyApplied Nothing
+
+                            materialResult =
+                                Material.findById materialQuery.id materials
+                        in
+                        materialResult
+                            |> Result.andThen
+                                (\material ->
+                                    parseSpinning material spinningString
+                                        |> Result.map (\spinning -> { materialQuery | spinning = Just spinning })
+                                )
+                    )
+
         [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
+                |> Result.map (\partiallyApplied -> partiallyApplied Nothing)
 
         [ "" ] ->
             Err <| "Format de matière vide."
@@ -507,6 +530,35 @@ parseSplit string =
         |> String.toFloat
         |> Result.fromMaybe ("Ratio invalide : " ++ string)
         |> Result.andThen Split.fromFloat
+
+
+parseSpinning : Material -> String -> Result String Spinning
+parseSpinning material spinningString =
+    let
+        spinningResult =
+            spinningString
+                |> Spinning.fromString
+
+        availableSpinningProcesses =
+            Spinning.getAvailableProcesses material.origin
+    in
+    spinningResult
+        |> Result.andThen
+            (\spinning ->
+                if List.member spinning availableSpinningProcesses then
+                    Ok spinning
+
+                else
+                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
+            )
+        |> Result.mapError
+            (always <|
+                "Un procédé de filature/filage doit être choisi parmi ("
+                    ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|")
+                    ++ ") (ici: "
+                    ++ spinningString
+                    ++ ")"
+            )
 
 
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
