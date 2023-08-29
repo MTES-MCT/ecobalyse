@@ -1,4 +1,15 @@
-module Data.Textile.Material.Spinning exposing (Spinning(..), decodeSpinning, encodeSpinning, getAvailableSpinningProcesses, getDefaultSpinning, getSpinningElec, spinningFromString, spinningToLabel, spinningToString, wasteForSpinning)
+module Data.Textile.Material.Spinning exposing
+    ( Spinning(..)
+    , decode
+    , encode
+    , fromString
+    , getAvailableProcesses
+    , getDefault
+    , getElec
+    , toLabel
+    , toString
+    , waste
+    )
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -10,70 +21,70 @@ import Mass exposing (Mass)
 
 
 type Spinning
-    = ConventionalSpinning
-    | UnconventionalSpinning
-    | SyntheticSpinning
+    = Conventional
+    | Unconventional
+    | Synthetic
 
 
 type alias SpinningProcessData =
     { normalization : Float, waste : Split }
 
 
-spinningFromString : String -> Result String Spinning
-spinningFromString string =
+fromString : String -> Result String Spinning
+fromString string =
     case string of
         "ConventionalSpinning" ->
-            Ok ConventionalSpinning
+            Ok Conventional
 
         "UnconventionalSpinning" ->
-            Ok UnconventionalSpinning
+            Ok Unconventional
 
         "SyntheticSpinning" ->
-            Ok SyntheticSpinning
+            Ok Synthetic
 
         other ->
             Err <| "Le procédé de filature ou filage " ++ other ++ " n'est pas valide"
 
 
-spinningToString : Spinning -> String
-spinningToString spinning =
+toString : Spinning -> String
+toString spinning =
     case spinning of
-        ConventionalSpinning ->
+        Conventional ->
             "ConventionalSpinning"
 
-        UnconventionalSpinning ->
+        Unconventional ->
             "UnconventionalSpinning"
 
-        SyntheticSpinning ->
+        Synthetic ->
             "SyntheticSpinning"
 
 
-spinningToLabel : Spinning -> String
-spinningToLabel spinning =
+toLabel : Spinning -> String
+toLabel spinning =
     case spinning of
-        ConventionalSpinning ->
+        Conventional ->
             "Filature conventionnelle"
 
-        UnconventionalSpinning ->
+        Unconventional ->
             "Filature non conventionnelle"
 
-        SyntheticSpinning ->
+        Synthetic ->
             "Filage"
 
 
-decodeSpinning : Decoder Spinning
-decodeSpinning =
+decode : Decoder Spinning
+decode =
     Decode.string
-        |> Decode.andThen (spinningFromString >> DE.fromResult)
+        |> Decode.andThen (fromString >> DE.fromResult)
 
 
-encodeSpinning : Spinning -> Encode.Value
-encodeSpinning =
-    spinningToString >> Encode.string
+encode : Spinning -> Encode.Value
+encode =
+    toString >> Encode.string
 
 
-spinningProcessesData : { conventional : SpinningProcessData, unconventional : SpinningProcessData, synthetic : SpinningProcessData }
-spinningProcessesData =
+processesData : { conventional : SpinningProcessData, unconventional : SpinningProcessData, synthetic : SpinningProcessData }
+processesData =
     -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- and https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#taux-de-pertes
     { conventional = { normalization = 4, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
@@ -82,61 +93,61 @@ spinningProcessesData =
     }
 
 
-getDefaultSpinning : Origin -> Spinning
-getDefaultSpinning origin =
+getDefault : Origin -> Spinning
+getDefault origin =
     -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#fabrication-du-fil-filature-vs-filage-1
     -- Depending on the origin of the fiber, the default spinning process to use is different:
     -- * natural or artificial origin: conventional spinning (can be changed by the user to unconventional spinning)
     -- * synthetic origin: synthetic spinning (can't be changed to anything else)
     case origin of
         Origin.Synthetic ->
-            SyntheticSpinning
+            Synthetic
 
         _ ->
-            ConventionalSpinning
+            Conventional
 
 
-getAvailableSpinningProcesses : Origin -> List Spinning
-getAvailableSpinningProcesses origin =
+getAvailableProcesses : Origin -> List Spinning
+getAvailableProcesses origin =
     case origin of
         Origin.Synthetic ->
-            [ SyntheticSpinning ]
+            [ Synthetic ]
 
         _ ->
-            [ ConventionalSpinning, UnconventionalSpinning ]
+            [ Conventional, Unconventional ]
 
 
-normalizationForSpinning : Spinning -> Float
-normalizationForSpinning spinning =
+normalization : Spinning -> Float
+normalization spinning =
     case spinning of
-        ConventionalSpinning ->
-            spinningProcessesData.conventional.normalization
+        Conventional ->
+            processesData.conventional.normalization
 
-        UnconventionalSpinning ->
-            spinningProcessesData.unconventional.normalization
+        Unconventional ->
+            processesData.unconventional.normalization
 
-        SyntheticSpinning ->
-            spinningProcessesData.synthetic.normalization
+        Synthetic ->
+            processesData.synthetic.normalization
 
 
-wasteForSpinning : Spinning -> Split
-wasteForSpinning spinning =
+waste : Spinning -> Split
+waste spinning =
     case spinning of
-        ConventionalSpinning ->
-            spinningProcessesData.conventional.waste
+        Conventional ->
+            processesData.conventional.waste
 
-        UnconventionalSpinning ->
-            spinningProcessesData.unconventional.waste
+        Unconventional ->
+            processesData.unconventional.waste
 
-        SyntheticSpinning ->
-            spinningProcessesData.synthetic.waste
+        Synthetic ->
+            processesData.synthetic.waste
 
 
-getSpinningElec : Mass -> Unit.YarnSize -> Spinning -> Float
-getSpinningElec mass yarnSize spinning =
+getElec : Mass -> Unit.YarnSize -> Spinning -> Float
+getElec mass yarnSize spinning =
     -- See the formula in https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- Formula: kWh(Process) = YarnSize(Nm) / 50 * Normalization(Process) * OutputMass(kg)
     (Unit.yarnSizeInKilometers yarnSize |> toFloat)
         / 50
-        * normalizationForSpinning spinning
+        * normalization spinning
         * Mass.inKilograms mass

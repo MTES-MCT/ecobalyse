@@ -532,9 +532,9 @@ components:
       name: "materials[]"
       in: query
       description: |
-        Liste des matières composant le produit (lis ou filagete disponible sur le point d'entrée `/textile/materials`).
+        Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
-        qu'elle représente, et optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-filage draft#hypotheses-par-defaut) :
+        qu'elle représente, et optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#hypotheses-par-defaut) :
 
         - `coton;0.3` signifie *30% coton*;
         - `coton-rdp;0.7` signifie *70% coton recyclé (déchets de production)*;
@@ -1242,7 +1242,6 @@ components:
       required:
       - id
       - share
-      - spinning
       properties:
         id:
           type: string

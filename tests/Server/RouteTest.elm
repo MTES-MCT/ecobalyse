@@ -253,7 +253,7 @@ textileEndpoints db =
                           }
                         , { id = Material.Id "coton-rdp"
                           , share = thirty
-                          , spinning = Just Spinning.UnconventionalSpinning
+                          , spinning = Just Spinning.Unconventional
                           }
                         , { id = Material.Id "acrylique"
                           , share = fourty
@@ -308,12 +308,12 @@ textileEndpoints db =
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=coton;0.3;PasUnProcedeDeFilature"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableSpinningProcesses Origin.Natural |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: PasUnProcedeDeFilature)")
+            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Natural |> List.map Spinning.toString |> String.join "|") ++ ") (ici: PasUnProcedeDeFilature)")
             |> asTest "should validate invalid material spinning for natural/artificial threads"
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=neoprene;0.3;UnconventionalSpinning"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableSpinningProcesses Origin.Synthetic |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
+            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
             |> asTest "should validate invalid material spinning for synthetic threads"
         , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors

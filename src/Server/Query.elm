@@ -537,10 +537,10 @@ parseSpinning material spinningString =
     let
         spinningResult =
             spinningString
-                |> Spinning.spinningFromString
+                |> Spinning.fromString
 
         availableSpinningProcesses =
-            Spinning.getAvailableSpinningProcesses material.origin
+            Spinning.getAvailableProcesses material.origin
     in
     spinningResult
         |> Result.andThen
@@ -549,12 +549,12 @@ parseSpinning material spinningString =
                     Ok spinning
 
                 else
-                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
+                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
             )
         |> Result.mapError
             (always <|
                 "Un procédé de filature/filage doit être choisi parmi ("
-                    ++ (availableSpinningProcesses |> List.map Spinning.spinningToString |> String.join "|")
+                    ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|")
                     ++ ") (ici: "
                     ++ spinningString
                     ++ ")"

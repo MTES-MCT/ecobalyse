@@ -25,7 +25,7 @@ import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Material.Spinning as Spinning
+import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
@@ -108,7 +108,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Split
-    | UpdateMaterialSpinning Material Spinning.Spinning
+    | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
