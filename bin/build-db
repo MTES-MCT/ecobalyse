@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * This script generates JSON Db fixtures so tests can perform assertions
  * against actual JSON data without having to rely on Http requests, which
@@ -46,11 +48,12 @@ const elmWithFixtures = elmTemplate
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
 
 const header =
-  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/tests/prepare.js` SCRIPT";
+  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db.js` SCRIPT";
 
 try {
   fs.writeFileSync(targetDbFile, `${header}\n\n${elmWithFixtures}`);
-  console.log(`Successfully generated Elm static database at ${targetDbFile}`);
+  const fileSizeInKB = Math.ceil(fs.statSync(targetDbFile).size / 1024);
+  console.log(`Successfully generated Elm static database at ${targetDbFile} (${fileSizeInKB} KB)`);
 } catch (err) {
   throw new Error(`Unable to generate Elm static database: ${err}`);
 }
