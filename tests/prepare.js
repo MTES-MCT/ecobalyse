@@ -30,7 +30,7 @@ function buildTextileJsonDb(basePath = "public/data") {
   });
 }
 
-function buildFoodBuilderProcessesJsonDb(basePath = "public/data/food") {
+function buildFoodProcessesJsonDb(basePath = "public/data/food") {
   return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
 }
 
@@ -42,7 +42,7 @@ const targetDbFile = "src/Static/Db.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   .replace("%textileJson%", buildTextileJsonDb())
-  .replace("%foodBuilderProcessesJson%", buildFoodBuilderProcessesJsonDb())
+  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
 
 const header =

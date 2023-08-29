@@ -30,7 +30,7 @@ expectImpactEqual expectedImpactUnit =
 
 suite : Test
 suite =
-    suiteWithDb "Data.Food.Builder.Recipe"
+    suiteWithDb "Data.Food.Recipe"
         (\{ foodDb } ->
             [ let
                 testComputedBonuses bonuses =

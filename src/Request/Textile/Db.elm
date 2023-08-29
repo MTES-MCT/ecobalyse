@@ -1,7 +1,6 @@
 module Request.Textile.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
@@ -21,15 +20,13 @@ buildFromWebData :
     -> WebData (List Material)
     -> WebData (List Product)
     -> WebData Distances
-    -> WebData (List FoodProcess.Process)
     -> WebData TextileDb.Db
-buildFromWebData definitions processes countries materials products transports foodProcesses =
+buildFromWebData definitions processes countries materials products transports =
     RemoteData.succeed (TextileDb.Db definitions processes)
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
-        |> RemoteData.andMap foodProcesses
         |> RemoteData.andThen
             (\partiallyLoaded ->
                 Process.loadWellKnown processes
@@ -51,7 +48,6 @@ loadDependentData definitions processes =
         |> andMap (getJson (Material.decodeList processes) "textile/materials.json")
         |> andMap (getJson (Product.decodeList processes) "textile/products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
-        |> andMap (getJson (FoodProcess.decodeList definitions) "food/processes.json")
 
 
 handleProcessesLoaded : Definitions -> WebData (List Process) -> Task () (WebData TextileDb.Db)

@@ -3,10 +3,7 @@ module Data.Textile.Db exposing
     , buildFromJson
     )
 
--- import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-
 import Data.Country as Country exposing (Country)
-import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as TextileProcess
@@ -23,10 +20,7 @@ type alias Db =
     , textileMaterials : List Material
     , textileProducts : List Product
     , transports : Distances
-    , foodProcesses : List FoodProcess.Process
     , textileWellKnown : TextileProcess.WellKnown
-
-    -- , foodIngredients : List Ingredient
     }
 
 
@@ -44,12 +38,11 @@ decode =
                 Decode.field "processes" (TextileProcess.decodeList definitions)
                     |> Decode.andThen
                         (\processes ->
-                            Decode.map5 (Db definitions processes)
+                            Decode.map4 (Db definitions processes)
                                 (Decode.field "countries" (Country.decodeList processes))
                                 (Decode.field "materials" (Material.decodeList processes))
                                 (Decode.field "products" (Product.decodeList processes))
                                 (Decode.field "transports" Transport.decodeDistances)
-                                (Decode.field "foodProcesses" (FoodProcess.decodeList definitions))
                                 |> Decode.andThen
                                     (\partiallyLoaded ->
                                         TextileProcess.loadWellKnown processes

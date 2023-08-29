@@ -14,9 +14,9 @@ textileDb =
     """%textileJson%""" |> TextileDb.buildFromJson
 
 
-foodBuilderProcessesJson : String
-foodBuilderProcessesJson =
-    """%foodBuilderProcessesJson%"""
+foodProcessesJson : String
+foodProcessesJson =
+    """%foodProcessesJson%"""
 
 
 foodIngredientsJson : String
@@ -29,7 +29,7 @@ foodDb =
     textileDb
         |> Result.andThen
             (\textileDbParsed ->
-                FoodDb.buildFromJson textileDbParsed foodBuilderProcessesJson foodIngredientsJson
+                FoodDb.buildFromJson textileDbParsed foodProcessesJson foodIngredientsJson
             )
 
 
