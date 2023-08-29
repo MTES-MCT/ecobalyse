@@ -40,8 +40,6 @@ import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
-import RemoteData exposing (WebData)
-import Request.Food.Db as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)
@@ -89,7 +87,6 @@ type Msg
     | AddTransform
     | AddDistribution
     | CopyToClipBoard String
-    | DbLoaded (WebData FoodDb.Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
@@ -119,17 +116,17 @@ type Msg
     | UpdateDistribution String
 
 
-init : FoodDb.Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init db ({ foodDb, queries } as session) trigram maybeQuery =
+init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init ({ foodDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            Definition.get trigram db.impactDefinitions
+            Definition.get trigram foodDb.impactDefinitions
 
         query =
             maybeQuery
                 |> Maybe.withDefault queries.food
     in
-    ( { db = db
+    ( { db = foodDb
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
@@ -144,21 +141,13 @@ init db ({ foodDb, queries } as session) trigram maybeQuery =
             else
                 ImpactTabs.StepImpactsTab
       }
-    , session
-        |> Session.updateFoodQuery query
-    , Cmd.batch
-        [ case maybeQuery of
-            Nothing ->
-                Ports.scrollTo { x = 0, y = 0 }
+    , session |> Session.updateFoodQuery query
+    , case maybeQuery of
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
 
-            Just _ ->
-                Cmd.none
-        , if foodDb == RemoteData.NotAsked then
-            FoodRequestDb.loadDb session DbLoaded
-
-          else
+        Just _ ->
             Cmd.none
-        ]
     )
 
 
@@ -240,12 +229,6 @@ update ({ queries } as session) msg model =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
-
-        DbLoaded foodDb ->
-            ( model
-            , { session | foodDb = foodDb }
-            , Cmd.none
-            )
 
         DeleteBookmark bookmark ->
             updateQuery query
@@ -433,20 +416,15 @@ updateQuery query ( model, session, msg ) =
 
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { foodDb, store } query =
-    case foodDb of
-        RemoteData.Success db ->
-            store.bookmarks
-                |> Bookmark.findByFoodQuery query
-                |> Maybe.map .name
-                |> Maybe.withDefault
-                    (query
-                        |> Recipe.fromQuery db
-                        |> Result.map Recipe.toString
-                        |> Result.withDefault ""
-                    )
-
-        _ ->
-            ""
+    store.bookmarks
+        |> Bookmark.findByFoodQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
+            (query
+                |> Recipe.fromQuery foodDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault ""
+            )
 
 
 selectIngredient : Session -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )

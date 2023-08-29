@@ -78,7 +78,11 @@ init foodDb scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { foodDb = foodDb, dataset = dataset, scope = scope, tableState = SortableTable.initialSort initialSort }
+    ( { foodDb = foodDb
+      , dataset = dataset
+      , scope = scope
+      , tableState = SortableTable.initialSort initialSort
+      }
     , session
     , Ports.scrollTo { x = 0, y = 0 }
     )

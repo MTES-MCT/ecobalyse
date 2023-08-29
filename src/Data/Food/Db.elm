@@ -19,11 +19,8 @@ type alias Db =
     , countries : List Country
     , transports : Transport.Distances
 
-    -- Builder specific datasources
-    -- Builder Processes are straightforward imports of public/data/food/processes.json
+    -- Food specific datasources
     , processes : List Process
-
-    -- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
     , wellKnown : Process.WellKnown
     }
