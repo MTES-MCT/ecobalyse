@@ -40,6 +40,7 @@ import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -57,7 +58,7 @@ import Views.Format as Format
 type alias MaterialInput =
     { material : Material
     , share : Split
-    , spinning : Maybe Material.Spinning
+    , spinning : Maybe Spinning
     }
 
 
@@ -92,7 +93,7 @@ type alias Inputs =
 type alias MaterialQuery =
     { id : Material.Id
     , share : Split
-    , spinning : Maybe Material.Spinning
+    , spinning : Maybe Spinning
     }
 
 
@@ -501,7 +502,7 @@ updateMaterialShare index share =
     updateMaterialAt index (\m -> { m | share = share })
 
 
-updateMaterialSpinning : Material -> Material.Spinning -> Query -> Query
+updateMaterialSpinning : Material -> Spinning -> Query -> Query
 updateMaterialSpinning material spinning query =
     { query
         | materials =
@@ -744,7 +745,7 @@ encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     [ ( "material", Material.encode v.material |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
-    , ( "spinning", v.spinning |> Maybe.map Material.encodeSpinning )
+    , ( "spinning", v.spinning |> Maybe.map Spinning.encodeSpinning )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object
@@ -780,7 +781,7 @@ decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinning" (Decode.maybe Material.decodeSpinning) Nothing
+        |> Pipe.optional "spinning" (Decode.maybe Spinning.decodeSpinning) Nothing
 
 
 encodeQuery : Query -> Encode.Value
@@ -822,7 +823,7 @@ encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     [ ( "id", Material.encodeId v.id |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
-    , ( "spinning", v.spinning |> Maybe.map Material.encodeSpinning )
+    , ( "spinning", v.spinning |> Maybe.map Spinning.encodeSpinning )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object

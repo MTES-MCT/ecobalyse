@@ -134,7 +134,7 @@ suite =
                 |> Split.divideBy 123.45
                 |> isInfinite
                 |> Expect.equal True
-                |> asTest "should return 0 when dividing by a 'zero' split"
+                |> asTest "should return infinity when dividing by a 'zero' split"
             , Split.full
                 |> Split.divideBy 123.45
                 |> Expect.within (Expect.Absolute 0) 123.45

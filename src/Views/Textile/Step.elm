@@ -17,6 +17,7 @@ import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -56,7 +57,7 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
-    , updateMaterialSpinning : Material -> Material.Spinning -> msg
+    , updateMaterialSpinning : Material -> Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingComplexity : MakingComplexity -> msg
@@ -194,43 +195,36 @@ spinningProcessField { inputs, updateMaterialSpinning } =
             (inputs.materials
                 |> List.map
                     (\{ material, spinning } ->
-                        let
-                            availableSpinningProcesses =
-                                Material.getAvailableSpinningProcesses material.origin
-                        in
                         div [ class "d-flex justify-content-between align-items-center fs-7" ]
                             [ label
                                 [ for <| "spinning-for-" ++ Material.idToString material.id
                                 , class "text-truncate w-25"
                                 ]
                                 [ text material.shortName ]
-                            , case availableSpinningProcesses of
+                            , case Spinning.getAvailableSpinningProcesses material.origin of
                                 [ spinningProcess ] ->
-                                    input
-                                        [ type_ "text"
-                                        , class "form-control w-75"
-                                        , disabled True
-                                        , value <| Material.spinningToLabel spinningProcess
+                                    span
+                                        [ class " w-75" ]
+                                        [ text <| Spinning.spinningToLabel spinningProcess
                                         ]
-                                        []
 
-                                _ ->
+                                availableSpinningProcesses ->
                                     availableSpinningProcesses
                                         |> List.map
                                             (\spinningProcess ->
                                                 option
-                                                    [ value <| Material.spinningToString spinningProcess
+                                                    [ value <| Spinning.spinningToString spinningProcess
                                                     , selected <| Just spinningProcess == spinning
                                                     ]
-                                                    [ text <| Material.spinningToLabel spinningProcess
+                                                    [ text <| Spinning.spinningToLabel spinningProcess
                                                     ]
                                             )
                                         |> select
                                             [ class "form-select form-select-sm w-75"
                                             , id <| "spinning-for-" ++ Material.idToString material.id
                                             , onInput
-                                                (Material.spinningFromString
-                                                    >> Result.withDefault (Material.getDefaultSpinning material.origin)
+                                                (Spinning.spinningFromString
+                                                    >> Result.withDefault (Spinning.getDefaultSpinning material.origin)
                                                     >> updateMaterialSpinning material
                                                 )
                                             ]

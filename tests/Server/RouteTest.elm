@@ -6,6 +6,7 @@ import Data.Split as Split
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
+import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Dict exposing (Dict)
@@ -252,7 +253,7 @@ textileEndpoints db =
                           }
                         , { id = Material.Id "coton-rdp"
                           , share = thirty
-                          , spinning = Just Material.UnconventionalSpinning
+                          , spinning = Just Spinning.UnconventionalSpinning
                           }
                         , { id = Material.Id "acrylique"
                           , share = fourty
@@ -307,12 +308,12 @@ textileEndpoints db =
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=coton;0.3;PasUnProcedeDeFilature"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Material.getAvailableSpinningProcesses Origin.Natural |> List.map Material.spinningToString |> String.join "|") ++ ") (ici: PasUnProcedeDeFilature)")
+            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableSpinningProcesses Origin.Natural |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: PasUnProcedeDeFilature)")
             |> asTest "should validate invalid material spinning for natural/artificial threads"
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=neoprene;0.3;UnconventionalSpinning"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Material.getAvailableSpinningProcesses Origin.Synthetic |> List.map Material.spinningToString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
+            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableSpinningProcesses Origin.Synthetic |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
             |> asTest "should validate invalid material spinning for synthetic threads"
         , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors

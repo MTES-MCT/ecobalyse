@@ -17,6 +17,7 @@ import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
 import Data.Textile.Step as Step exposing (Step)
@@ -350,7 +351,7 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Db -> Material -> Maybe Material.Spinning -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts : Db -> Material -> Maybe Spinning -> Step -> { impacts : Impacts, kwh : Energy }
 stepSpinningImpacts _ material maybeSpinning step =
     let
         yarnSize =
@@ -361,11 +362,11 @@ stepSpinningImpacts _ material maybeSpinning step =
 
         spinning =
             maybeSpinning
-                |> Maybe.withDefault (Material.getDefaultSpinning material.origin)
+                |> Maybe.withDefault (Spinning.getDefaultSpinning material.origin)
 
         kwh =
             spinning
-                |> Material.getSpinningElec step.outputMass yarnSize
+                |> Spinning.getSpinningElec step.outputMass yarnSize
                 |> Energy.kilowattHours
     in
     Formula.spinningImpacts step.impacts
@@ -443,10 +444,7 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                                     , outputMass = fabricOutputMass
                                     , pickingElec = process.elec_pppm
                                     , surfaceMass = surfaceMass
-                                    , yarnSize =
-                                        inputs.yarnSize
-                                            |> Maybe.withDefault
-                                                inputs.product.yarnSize
+                                    , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
                                     }
                 in
                 { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
@@ -519,10 +517,10 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                                     let
                                         spinningProcess =
                                             spinning
-                                                |> Maybe.withDefault (Material.getDefaultSpinning material.origin)
+                                                |> Maybe.withDefault (Spinning.getDefaultSpinning material.origin)
 
                                         processWaste =
-                                            Material.wasteForSpinning spinningProcess
+                                            Spinning.wasteForSpinning spinningProcess
 
                                         outputMaterialMass =
                                             -- The output mass is the input mass of the next step

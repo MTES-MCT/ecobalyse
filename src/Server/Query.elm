@@ -23,6 +23,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -487,10 +488,10 @@ parseMaterial_ materials string =
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
                 |> Result.andThen
-                    (\constructor ->
+                    (\partiallyApplied ->
                         let
                             materialQuery =
-                                constructor Nothing
+                                partiallyApplied Nothing
 
                             materialResult =
                                 Material.findById materialQuery.id materials
@@ -507,7 +508,7 @@ parseMaterial_ materials string =
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
-                |> Result.map (\constructor -> constructor Nothing)
+                |> Result.map (\partiallyApplied -> partiallyApplied Nothing)
 
         [ "" ] ->
             Err <| "Format de matière vide."
@@ -531,15 +532,15 @@ parseSplit string =
         |> Result.andThen Split.fromFloat
 
 
-parseSpinning : Material -> String -> Result String Material.Spinning
+parseSpinning : Material -> String -> Result String Spinning
 parseSpinning material spinningString =
     let
         spinningResult =
             spinningString
-                |> Material.spinningFromString
+                |> Spinning.spinningFromString
 
         availableSpinningProcesses =
-            Material.getAvailableSpinningProcesses material.origin
+            Spinning.getAvailableSpinningProcesses material.origin
     in
     spinningResult
         |> Result.andThen
@@ -548,12 +549,12 @@ parseSpinning material spinningString =
                     Ok spinning
 
                 else
-                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Material.spinningToString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
+                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.spinningToString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
             )
         |> Result.mapError
             (always <|
                 "Un procédé de filature/filage doit être choisi parmi ("
-                    ++ (availableSpinningProcesses |> List.map Material.spinningToString |> String.join "|")
+                    ++ (availableSpinningProcesses |> List.map Spinning.spinningToString |> String.join "|")
                     ++ ") (ici: "
                     ++ spinningString
                     ++ ")"
