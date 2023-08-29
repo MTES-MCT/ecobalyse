@@ -10,7 +10,7 @@ from common.export import (
     with_corrected_impacts,
     display_changes,
 )
-from impacts import impacts as impacts_definition
+from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import hashlib
