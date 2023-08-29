@@ -18,6 +18,7 @@ import json
 # Input
 PROJECT = "Textile"
 DBNAME = "Ecoinvent 3.9.1"
+DB=bw2data.Database(DBNAME)
 BIOSPHERE = "biopshere3"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
@@ -34,7 +35,7 @@ def isUuid(txt):
 
 
 def uuidOrSearch(txt):
-    return txt if isUuid(txt) or txt is None else search(txt)
+    return txt if isUuid(txt) or txt is None else search(DB, txt)
 
 
 if __name__ == "__main__":
@@ -96,7 +97,7 @@ if __name__ == "__main__":
         print(f"Computing impacts: {str(index)}/{len(processes)}", end="\r")
         match process["source"]:
             case "Ecoinvent 3.9.1":
-                lca = bw2calc.LCA({search(process["name"]): 1})
+                lca = bw2calc.LCA({search(DB, process["name"]): 1})
                 lca.lci()
                 for key, method in impacts_definition.items():
                     lca.switch_method(method)
