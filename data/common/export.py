@@ -44,9 +44,10 @@ def with_corrected_impacts(impacts_ecobalyse, processes):
     return processes
 
 
-def display_changes(oldprocesses, processes):
-    """Display a nice sorted table of impact changes to review"""
-    old = {p["id"]: p["impacts"] for p in oldprocesses}
+def display_changes(key, oldprocesses, processes):
+    """Display a nice sorted table of impact changes to review
+    key is the field to display (id for food, uuid for textile)"""
+    old = {p[key]: p["impacts"] for p in oldprocesses}
     review = False
     changes = []
     for p in processes:

@@ -125,7 +125,7 @@ if __name__ == "__main__":
     print(f"\nExported {len(materials)} materials to {MATERIALS}")
 
     # display impacts that have changed
-    display_changes(oldprocesses, processes)
+    display_changes("uuid", oldprocesses, processes)
 
     # export processes
     with open(PROCESSES, "w") as outfile:

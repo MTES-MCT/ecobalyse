@@ -205,7 +205,7 @@ if __name__ == "__main__":
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
 
     # display impacts that have changed
-    display_changes(oldprocesses, processes)
+    display_changes("id", oldprocesses, processes)
 
     # export processes
     with open(PROCESSES, "w") as outfile:
