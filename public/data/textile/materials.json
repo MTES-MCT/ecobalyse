@@ -80,22 +80,6 @@
     "cff": null
   },
   {
-    "id": "jute-kenaf",
-    "materialAndSpinningProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
-    "materialProcessUuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
-    "name": "Fil de jute / kenaf",
-    "shortName": "Jute / kenaf",
-    "origin": "Naturelles",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "coton",
     "materialAndSpinningProcessUuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
     "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
@@ -144,22 +128,6 @@
     "cff": null
   },
   {
-    "id": "angora-mohair",
-    "materialAndSpinningProcessUuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
-    "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
-    "name": "Fil d'angora / mohair",
-    "shortName": "Angora / mohair",
-    "origin": "Naturelles",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "viscose",
     "materialAndSpinningProcessUuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "materialProcessUuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
@@ -173,22 +141,6 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
-  },
-  {
-    "id": "pu",
-    "materialAndSpinningProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
-    "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
-    "name": "Filament de polyuréthane / Élasthanne",
-    "shortName": "Polyuréthane/Élasthanne",
-    "origin": "Synthétiques",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 60,
     "cff": null
   },
   {
@@ -381,7 +333,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pet-rcp",
@@ -397,7 +352,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pet-rcc",
@@ -413,7 +371,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pa-rc",
@@ -429,7 +390,10 @@
     "geographicOrigin": "Europe puis Asie",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "viscose-r",
@@ -445,7 +409,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "pa-rm",
@@ -461,7 +428,10 @@
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "laine-r",
@@ -477,7 +447,10 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "coton-rdpc",
@@ -493,7 +466,10 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "coton-rdp",
@@ -509,7 +485,10 @@
     "geographicOrigin": "Espagne & France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "acrylique-r",
@@ -525,6 +504,25 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
+  },
+  {
+    "id": "neoprene",
+    "materialAndSpinningProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
+    "materialProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "spinningProcessUuid": null,
+    "name": "Feuille de néoprène, inventaire agrégé",
+    "shortName": "Néoprène",
+    "origin": "Synthétiques",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 0,
+    "cff": null
   }
 ]
