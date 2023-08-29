@@ -26,7 +26,7 @@ type Spinning
     | Synthetic
 
 
-type alias SpinningProcessData =
+type alias ProcessData =
     { normalization : Float, waste : Split }
 
 
@@ -83,7 +83,7 @@ encode =
     toString >> Encode.string
 
 
-processesData : { conventional : SpinningProcessData, unconventional : SpinningProcessData, synthetic : SpinningProcessData }
+processesData : { conventional : ProcessData, unconventional : ProcessData, synthetic : ProcessData }
 processesData =
     -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- and https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#taux-de-pertes
