@@ -26,20 +26,8 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
 
 
 def main():
-    # biosphere
     projects.create_project(PROJECT, activate=True, exist_ok=True)
-    if BIOSPHERE not in bw2data.databases:
-        print("### Creating default biosphere")
-        bw2io.create_default_biosphere3()
-    else:
-        print(f"### {BIOSPHERE} database is already imported")
-
-    # Core migrations
-    print("### Creating core data migrations")
-    if len(bw2io.migrations) < 13:
-        bw2io.create_core_migrations()
-    else:
-        print("### Core migrations are already installed")
+    bw2io.bw2setup()
 
     # Import Ecoinvent
     if DBNAME not in bw2data.databases:

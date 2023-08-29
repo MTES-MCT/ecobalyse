@@ -278,6 +278,8 @@ def import_agribalyse(
 def main():
     # Import Agribalyse
     projects.create_project(PROJECT, activate=True, exist_ok=True)
+    bw2io.bw2setup()
+
     if DBNAME not in bw2data.databases:
         import_agribalyse()
     else:

@@ -6,7 +6,7 @@ import sys
 
 PROJECT = sys.argv[1]
 # Agribalyse
-BIOSPHERE = "Agribalyse 3.1.1 biosphere"
+BIOSPHERE = "Agribalyse 3.1.1 biosphere" if PROJECT == "Food" else "biosphere3"
 METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
 
@@ -45,22 +45,16 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     ef.write_methods()
     print(f"### Finished importing {METHODNAME}")
 
-    # Default methods
-    if "EF v3.1" not in set([m[0] for m in bw2data.methods]):
-        print("### Creating default LCIA methods")
-        bw2io.create_default_lcia_methods()
-    else:
-        print(f"### Default methods already imported")
-
 
 def main():
     # Import custom method
     projects.create_project(PROJECT, activate=True, exist_ok=True)
+    bw2io.bw2setup()
+
     if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
         import_method()
     else:
         print(f"{METHODNAME} already imported")
-
 
 if __name__ == "__main__":
     main()

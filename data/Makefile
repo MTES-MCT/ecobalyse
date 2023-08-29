@@ -3,15 +3,10 @@ NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
 DOCKEREXEC := docker exec -u jovyan -it
 
-json: image import_agribalyse import_method import_ecoinvent export_builder
+json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_builder
 
 image:
 	docker build -t $(NAME) docker
-
-import_ecoinvent:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
 
 import_agribalyse:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
@@ -22,6 +17,11 @@ import_food_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py Food;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py Food; fi
+
+import_ecoinvent:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
 
 import_textile_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
