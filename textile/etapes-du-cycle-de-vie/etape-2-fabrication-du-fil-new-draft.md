@@ -147,8 +147,8 @@ Un fil peut être fabriqué selon deux procédés : la filature ou le filage.&#x
 
 Les deux principales techniques de filature sont disponibles dans l'outil :&#x20;
 
-* ring / à bouts libérés (filature conventionnelle)
-* open-end / à anneaux (filature non conventionnelle)&#x20;
+* ring / à anneaux (filature conventionnelle)
+* open-end / à bouts libérés (filature non conventionnelle)&#x20;
 
 La technique non-conventionnelle (open-end) est plus efficace mais est plus contraignante (l'ensemble des propriétés permises par la filature conventionnelle ne le sont pas par la filature non-conventionnelle tandis que les fils fins ne peuvent pas être fabriqués par la technique non-conventionnelle).&#x20;
 
