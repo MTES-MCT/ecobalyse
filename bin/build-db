@@ -48,7 +48,7 @@ const elmWithFixtures = elmTemplate
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
 
 const header =
-  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db.js` SCRIPT";
+  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db` SCRIPT";
 
 try {
   fs.writeFileSync(targetDbFile, `${header}\n\n${elmWithFixtures}`);
