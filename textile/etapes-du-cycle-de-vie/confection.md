@@ -81,13 +81,10 @@ Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
 ### Hypothèses par défaut&#x20;
 
-#### Complexité <=> Vêtement
+#### Complexité <=> Electricité consommée <=> Vêtement
 
-Chaque vêtement se voit attribuer un niveau de complexité (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)) en confection.
-
-Chaque niveau de complexité (cf. ci-dessous) se traduit en un nombre de minutes. Le terme anglais généralement utilisé dans l'industrie pour désigner ce "temps-minute" est le Standard Minute Value (SMV) ou Standard Allowed Minute (SAM).
-
-#### Électricité consommée
+Chaque vêtement se voit attribuer un niveau de complexité (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)) en confection. \
+Chaque niveau de complexité se traduit en un nombre de minutes. Le terme anglais généralement utilisé dans l'industrie pour désigner ce "temps-minute" est le Standard Minute Value (SMV) ou Standard Allowed Minute (SAM).
 
 **0,029 kWh** d'électricité est retenue par défaut pour chaque minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
 
@@ -95,36 +92,39 @@ Dès lors, une quantité d'électricité est calculée selon le niveau de comple
 
 <table><thead><tr><th width="156.33333333333331">Complexité</th><th width="236">Temps de confection</th><th align="center"># minutes</th><th>Electricité consommée (MJ / kWh)</th></tr></thead><tbody><tr><td>Très faible</td><td>Moins de 5 minutes</td><td align="center">5</td><td>0,36 / 0,1</td></tr><tr><td>Faible</td><td>Entre 5 et 15 minutes</td><td align="center">15</td><td>1,44 / 0,4</td></tr><tr><td>Moyenne</td><td>Entre 15 et 30 minutes</td><td align="center">30</td><td>3,24 / 0,9</td></tr><tr><td>Elevée</td><td>Entre 30 minutes et 1H</td><td align="center">60</td><td>6,12 / 1,7</td></tr><tr><td>Très élevée</td><td>Plus de 1H</td><td align="center">120</td><td>12,6 / 3,5</td></tr></tbody></table>
 
-{% hint style="warning" %}
+{% hint style="info" %}
 Le procédé d'électricité mobilisé  (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`) s'exprime en MJ tandis que l'affichage sur le calculateur se fait en kWh car cette unité est plus communément utilisée (1kWh = 3,6MJ).
 {% endhint %}
 
-#### Délavage (jean)&#x20;
+#### Délavage (jean)
 
 Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environnemental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
 
-Il existe différents procédés de délavage dans le socle technique actuellement utilisé :
-
-* mécanique ou chimique
-* représentatif ou majorant
-* traitement des eaux très efficace à inefficace
+Il existe différents procédés de délavage dans le socle technique actuellement utilisé : \
+\- mécanique ou chimique\
+\- représentatif ou majorant\
+\- traitement des eaux très efficace à inefficace
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
 
+#### Accessoires : sont considérés comme non significatifs
+
+Les accessoires (boutons, fermeture éclair, étiquettes, etc.) ne sont pas modélisés dans Ecobalyse car leur contribution à l'impact environnemental global des vêtements est considérée comme non significative. Une analyse de sensibilité sur l'impact carbone (kg CO2 eq.) d'un jean a été réalisée et est disponible [ici](https://docs.google.com/presentation/d/1FGudBZK\_3sD\_8VqYwb6tdbpgB-TOKXhfQmMxEdiUCpg/edit?usp=sharing).&#x20;
+
 #### Taux de perte (%)&#x20;
 
-Un taux de perte est appliqué par défaut à chaque vêtement sur la base du socle technique ADEME et de retours métiers (cf. ci-dessous).
-
-L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
-
-\
-Une exception concerne cependant deux situations liées aux vêtements tricotés : \
-1\) tricotage seamless = 0% (pas d'étape de confection) \
-le vêtement est fabriqué en une seule pièce sans couture lors de l'étape de tricotage\
-2\) tricotage fully-fashioned = 2% (valeur figée) \
-les différentes pièces du vêtement sont tricotées sans couture et la confection consiste "seulement" à les assembler
+Un taux de perte est appliqué par défaut à chaque vêtement sur la base du socle technique ADEME et de retours métiers (cf. ci-dessous). L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
 
 <table><thead><tr><th width="285.5">Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
+
+{% hint style="warning" %}
+Deux exceptions existent pour les taux de pertes:&#x20;
+
+* &#x20;tricotage seamless = 0% (pas d'étape de confection) \
+  le vêtement est fabriqué en une seule pièce sans couture lors de l'étape de tricotage
+* tricotage fully-fashioned = 2% (valeur figée) \
+  les différentes pièces du vêtement sont tricotées sans couture et la confection consiste "seulement" à les assembler
+{% endhint %}
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)
