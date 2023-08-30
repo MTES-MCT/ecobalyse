@@ -85,30 +85,27 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
-    let
-        state =
-            case StaticDb.db of
-                Ok db ->
-                    Loaded
-                        { clientUrl = flags.clientUrl
-                        , navKey = navKey
-                        , store = Session.deserializeStore flags.rawStore
-                        , currentVersion = Request.Version.Unknown
-                        , foodDb = db.foodDb
-                        , textileDb = db.textileDb
-                        , notifications = []
-                        , queries =
-                            { food = FoodQuery.carrotCake
-                            , textile = TextileInputs.defaultQuery
-                            }
-                        }
-                        BlankPage
-
-                Err err ->
-                    Errored err
-    in
     setRoute url
-        ( { state = state
+        ( { state =
+                case StaticDb.db of
+                    Ok db ->
+                        Loaded
+                            { clientUrl = flags.clientUrl
+                            , navKey = navKey
+                            , store = Session.deserializeStore flags.rawStore
+                            , currentVersion = Request.Version.Unknown
+                            , foodDb = db.foodDb
+                            , textileDb = db.textileDb
+                            , notifications = []
+                            , queries =
+                                { food = FoodQuery.carrotCake
+                                , textile = TextileInputs.defaultQuery
+                                }
+                            }
+                            BlankPage
+
+                    Err err ->
+                        Errored err
           , mobileNavigationOpened = False
           , navKey = navKey
           }
@@ -121,15 +118,7 @@ init flags url navKey =
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 setRoute url ( { state } as model, cmds ) =
-    let
-        maybeRoute =
-            Route.fromUrl url
-    in
     case state of
-        Errored _ ->
-            -- FIXME: render the error message (which is a decoding error which is highly unlikely to ever happen)
-            ( model, cmds )
-
         Loaded session _ ->
             let
                 -- TODO: factor this with `update` internal `toPage`
@@ -150,7 +139,7 @@ setRoute url ( { state } as model, cmds ) =
                         ]
                     )
             in
-            case maybeRoute of
+            case Route.fromUrl url of
                 Nothing ->
                     ( { model | state = Loaded session NotFoundPage }, Cmd.none )
 
@@ -198,13 +187,14 @@ setRoute url ( { state } as model, cmds ) =
                     TextileSimulator.init trigram funit detailed maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
+        Errored _ ->
+            -- FIXME: Static database decoding error, highly unlikely to ever happen
+            ( model, cmds )
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
-        ( Errored _, _ ) ->
-            ( model, Cmd.none )
-
         ( Loaded session page, msg ) ->
             let
                 -- TODO: factor this with `setRoute` internal `toPage`
@@ -324,6 +314,9 @@ update rawMsg ({ state } as model) =
                 _ ->
                     ( model, Cmd.none )
 
+        ( Errored _, _ ) ->
+            ( model, Cmd.none )
+
 
 subscriptions : Model -> Sub Msg
 subscriptions { state } =
@@ -358,7 +351,7 @@ view { state, mobileNavigationOpened } =
         Errored error ->
             { title = "Erreur lors du chargement…"
             , body =
-                [ Html.p [] [ Html.text <| "Dtabase couldn't be parsed: " ]
+                [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
                 , Html.pre [] [ Html.text error ]
                 ]
             }
