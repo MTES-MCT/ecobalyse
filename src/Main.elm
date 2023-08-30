@@ -12,7 +12,7 @@ import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
-import Page.Food.Builder as FoodBuilder
+import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
