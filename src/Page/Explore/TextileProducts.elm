@@ -58,14 +58,11 @@ table db { detailed, scope } =
                         [ Format.kg product.mass ]
           }
         , { label = "Titrage"
-          , toValue = .yarnSize >> Maybe.map (Unit.yarnSizeInKilometers >> String.fromInt) >> Maybe.withDefault "N/A"
+          , toValue = .yarnSize >> Unit.yarnSizeInKilometers >> String.fromInt
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ product.yarnSize
-                            |> Maybe.map Format.yarnSize
-                            |> Maybe.withDefault (text "n/a")
-                        ]
+                        [ product.yarnSize |> Format.yarnSize ]
           }
         , { label = "Grammage"
           , toValue = .surfaceMass >> Unit.surfaceMassInGramsPerSquareMeters >> String.fromInt
@@ -78,12 +75,12 @@ table db { detailed, scope } =
         , let
             computeThreadDensity { surfaceMass, yarnSize } =
                 yarnSize
-                    |> Maybe.map (Formula.computeThreadDensity surfaceMass)
+                    |> Formula.computeThreadDensity surfaceMass
           in
           { label = "Densité de fils"
-          , toValue = computeThreadDensity >> Maybe.map (Unit.threadDensityToFloat >> String.fromFloat) >> Maybe.withDefault "N/A"
+          , toValue = computeThreadDensity >> Unit.threadDensityToFloat >> String.fromFloat
           , toCell =
-                computeThreadDensity >> Maybe.map Format.threadDensity >> Maybe.withDefault (text "n/a")
+                computeThreadDensity >> Format.threadDensity
           }
         , let
             computeSurface { mass, surfaceMass } =
@@ -136,24 +133,14 @@ table db { detailed, scope } =
           { label = "Duites.m"
           , toValue =
                 \({ surfaceMass, yarnSize } as product) ->
-                    case yarnSize of
-                        Just ys ->
-                            picking product surfaceMass ys
-                                |> Unit.pickPerMeterToFloat
-                                |> String.fromFloat
-
-                        Nothing ->
-                            "N/A"
+                    picking product surfaceMass yarnSize
+                        |> Unit.pickPerMeterToFloat
+                        |> String.fromFloat
           , toCell =
                 \({ surfaceMass, yarnSize } as product) ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ case yarnSize of
-                            Just ys ->
-                                picking product surfaceMass ys
-                                    |> Format.picking
-
-                            Nothing ->
-                                text "n/a"
+                        [ picking product surfaceMass yarnSize
+                            |> Format.picking
                         ]
           }
         , let

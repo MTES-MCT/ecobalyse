@@ -4,6 +4,7 @@ module Data.Split exposing
     , complement
     , decodeFloat
     , decodePercent
+    , divideBy
     , encodeFloat
     , encodePercent
     , fourty
@@ -121,6 +122,11 @@ complement (Split int) =
 apply : Float -> Split -> Float
 apply input split =
     toFloat split * input
+
+
+divideBy : Float -> Split -> Float
+divideBy input split =
+    input / toFloat split
 
 
 decodeFloat : Decoder Split

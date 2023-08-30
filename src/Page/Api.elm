@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "6 juillet 2023"
+    [ { date = "29 août 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramétrage optionnel `spinning` du procédé de filature ou filage pour la
+            matière a été rajouté.
+"""
+      }
+    , { date = "6 juillet 2023"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =

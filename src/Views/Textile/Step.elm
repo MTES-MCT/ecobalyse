@@ -16,6 +16,8 @@ import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
+import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
@@ -55,6 +57,7 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
+    , updateMaterialSpinning : Material -> Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingComplexity : MakingComplexity -> msg
@@ -182,6 +185,52 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                         >> updateDyeingMedium
                     )
                 ]
+        ]
+
+
+spinningProcessField : Config msg -> Html msg
+spinningProcessField { inputs, updateMaterialSpinning } =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ div [ class "d-flex flex-column gap-1 w-100" ]
+            (inputs.materials
+                |> List.map
+                    (\{ material, spinning } ->
+                        div [ class "d-flex justify-content-between align-items-center fs-7" ]
+                            [ label
+                                [ for <| "spinning-for-" ++ Material.idToString material.id
+                                , class "text-truncate w-25"
+                                ]
+                                [ text material.shortName ]
+                            , case Spinning.getAvailableProcesses material.origin of
+                                [ spinningProcess ] ->
+                                    span
+                                        [ class " w-75" ]
+                                        [ text <| Spinning.toLabel spinningProcess
+                                        ]
+
+                                availableSpinningProcesses ->
+                                    availableSpinningProcesses
+                                        |> List.map
+                                            (\spinningProcess ->
+                                                option
+                                                    [ value <| Spinning.toString spinningProcess
+                                                    , selected <| Just spinningProcess == spinning
+                                                    ]
+                                                    [ text <| Spinning.toLabel spinningProcess
+                                                    ]
+                                            )
+                                        |> select
+                                            [ class "form-select form-select-sm w-75"
+                                            , id <| "spinning-for-" ++ Material.idToString material.id
+                                            , onInput
+                                                (Spinning.fromString
+                                                    >> Result.withDefault (Spinning.getDefault material.origin)
+                                                    >> updateMaterialSpinning material
+                                                )
+                                            ]
+                            ]
+                    )
+            )
         ]
 
 
@@ -451,19 +500,14 @@ surfaceMassField { current, updateSurfaceMass } product =
 
 yarnSizeField : Config msg -> Product -> Html msg
 yarnSizeField { current, updateYarnSize } product =
-    let
-        yarnSize =
-            product.yarnSize
-                |> Maybe.withDefault Unit.minYarnSize
-    in
     span
         [ title "Le titrage indique la grosseur d’un fil textile" ]
         [ RangeSlider.yarnSize
             { id = "yarnSize"
             , update = updateYarnSize
-            , value = current.yarnSize |> Maybe.withDefault yarnSize
+            , value = current.yarnSize |> Maybe.withDefault product.yarnSize
             , toString = Step.yarnSizeToString
-            , disabled = not current.enabled || Product.isKnitted product
+            , disabled = not current.enabled
             }
         ]
 
@@ -578,13 +622,9 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                     [ countryField config
                     , case current.label of
                         Label.Spinning ->
-                            if Product.isKnitted inputs.product then
-                                text ""
-
-                            else
-                                div [ class "mt-2 fs-7 text-muted" ]
-                                    [ yarnSizeField config inputs.product
-                                    ]
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ yarnSizeField config inputs.product
+                                ]
 
                         Label.Fabric ->
                             div [ class "mt-2 fs-7" ]
@@ -771,6 +811,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     , viewProcessInfo current.processInfo.useNonIroning
                     , viewProcessInfo current.processInfo.passengerCar
                     , viewProcessInfo current.processInfo.endOfLife
+                    , if current.label == Label.Spinning then
+                        spinningProcessField config
+
+                      else
+                        text ""
                     , if current.label == Label.Fabric && Product.isKnitted inputs.product then
                         knittingProcessField config
 
@@ -793,12 +838,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     ]
                     (case current.label of
                         Label.Spinning ->
-                            if Product.isKnitted inputs.product then
-                                [ text "" ]
-
-                            else
-                                [ yarnSizeField config inputs.product
-                                ]
+                            [ yarnSizeField config inputs.product
+                            ]
 
                         Label.Fabric ->
                             [ surfaceMassField config inputs.product ]
