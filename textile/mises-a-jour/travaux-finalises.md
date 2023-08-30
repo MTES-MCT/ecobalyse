@@ -78,7 +78,7 @@ Dès lors, appréhender correctement ces paramètres (% pertes & temps-minute <=
 
 </details>
 
-## Filature (mai2023)
+## Filature (mai 2023)
 
 <details>
 

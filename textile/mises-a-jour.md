@@ -8,6 +8,23 @@ description: >-
 
 <details>
 
+<summary>Eté 2023 (juin à août)</summary>
+
+* Filage vs Filature\
+  Distinction du procédé de fabrication du fil selon le type de fibre\
+  procédé Filage = fibres synthétiques\
+  procédé Filature = autres fibres &#x20;
+* Filature conventionnelle (ring spinning) vs non conventionnelle (open-end spinning)\
+  Possibilité de préciser le procédé de filature
+* Consommation d'électricité (étape Fabrication du fil)\
+  Nouveau calcul de la consommation d'électricité => prise en compte de l'épaisseur (titrage) du fil à fabriquer et du procédé utilisé (filage, filature conventionnelle, filature non-conventionnelle)
+* Harmonisation de l'interface avec l'Alimentaire\
+  La présentation des résultats (bloc bleu en haut à droite du calculateur) évolue.
+
+</details>
+
+<details>
+
 <summary>Mai 2023</summary>
 
 * Ouverture des scénarios de modélisation\
