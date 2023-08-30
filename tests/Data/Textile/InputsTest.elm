@@ -60,7 +60,7 @@ suite =
                 ]
             , describe "Product update"
                 [ asTest "should update step masses"
-                    (case Product.findById (Product.Id "jean") textileDb.textileProducts of
+                    (case Product.findById (Product.Id "jean") textileDb.products of
                         Ok jean ->
                             tShirtCotonAsie
                                 |> Inputs.updateProduct jean

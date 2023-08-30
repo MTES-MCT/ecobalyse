@@ -61,7 +61,7 @@ suite =
                         (\product ->
                             let
                                 fabricProcess =
-                                    Product.getFabricProcess Nothing product textileDb.textileWellKnown
+                                    Product.getFabricProcess Nothing product textileDb.wellKnown
                             in
                             Expect.equal product.fabric (Product.Knitted fabricProcess)
                         )
@@ -72,9 +72,9 @@ suite =
                         (\product ->
                             let
                                 fabricProcess =
-                                    Product.getFabricProcess (Just Knitting.Seamless) product textileDb.textileWellKnown
+                                    Product.getFabricProcess (Just Knitting.Seamless) product textileDb.wellKnown
                             in
-                            Expect.equal textileDb.textileWellKnown.knittingSeamless fabricProcess
+                            Expect.equal textileDb.wellKnown.knittingSeamless fabricProcess
                         )
                         tshirtResult
                         |> Result.withDefault (Expect.fail "test failed")

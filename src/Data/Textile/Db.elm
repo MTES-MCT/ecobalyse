@@ -15,12 +15,12 @@ import Json.Decode.Extra as DE
 
 type alias Db =
     { impactDefinitions : Definitions
-    , textileProcesses : List TextileProcess.Process
+    , processes : List TextileProcess.Process
     , countries : List Country
-    , textileMaterials : List Material
-    , textileProducts : List Product
+    , materials : List Material
+    , products : List Product
     , transports : Distances
-    , textileWellKnown : TextileProcess.WellKnown
+    , wellKnown : TextileProcess.WellKnown
     }
 
 

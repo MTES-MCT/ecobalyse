@@ -460,7 +460,7 @@ makingWasteField : Config msg -> Html msg
 makingWasteField { current, db, inputs, updateMakingWaste } =
     let
         processName =
-            db.textileWellKnown
+            db.wellKnown
                 |> Product.getFabricProcess inputs.knittingProcess inputs.product
                 |> .name
     in

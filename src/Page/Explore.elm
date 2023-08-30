@@ -282,12 +282,12 @@ textileProductsExplorer :
     -> TextileDb.Db
     -> List (Html Msg)
 textileProductsExplorer tableConfig tableState maybeId db =
-    [ db.textileProducts
+    [ db.products
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Product.findById id db.textileProducts of
+                (case Product.findById id db.products of
                     Ok product ->
                         product
                             |> Table.viewDetails Scope.Textile (TextileProducts.table db)
@@ -308,12 +308,12 @@ textileMaterialsExplorer :
     -> TextileDb.Db
     -> List (Html Msg)
 textileMaterialsExplorer tableConfig tableState maybeId db =
-    [ db.textileMaterials
+    [ db.materials
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Material.findById id db.textileMaterials of
+                (case Material.findById id db.materials of
                     Ok material ->
                         material
                             |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
@@ -334,12 +334,12 @@ textileProcessesExplorer :
     -> TextileDb.Db
     -> List (Html Msg)
 textileProcessesExplorer tableConfig tableState maybeId db =
-    [ db.textileProcesses
+    [ db.processes
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProcesses.table
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findByUuid id db.textileProcesses of
+                (case Process.findByUuid id db.processes of
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Textile TextileProcesses.table

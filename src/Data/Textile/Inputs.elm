@@ -165,7 +165,7 @@ fromQuery db query =
     let
         materials =
             query.materials
-                |> toMaterialInputs db.textileMaterials
+                |> toMaterialInputs db.materials
 
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
@@ -176,7 +176,7 @@ fromQuery db query =
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap materials
-        |> RE.andMap (db.textileProducts |> Product.findById query.product)
+        |> RE.andMap (db.products |> Product.findById query.product)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default
@@ -469,7 +469,7 @@ addMaterial db query =
                 Just elasthanne
 
             else
-                db.textileMaterials
+                db.materials
                     |> List.filter (.id >> notUsed)
                     |> List.sortBy .priority
                     |> List.map .id
