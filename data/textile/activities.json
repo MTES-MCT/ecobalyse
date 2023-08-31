@@ -1,6 +1,5 @@
 [
   {
-    "name": "Market for electricity, medium voltage China",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -12,10 +11,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TW"
+    "country": "TW",
+    "search": "Market for electricity, medium voltage China"
   },
   {
-    "name": "Market for electricity, medium voltage Spain",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -27,10 +26,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ES"
+    "country": "ES",
+    "search": "Market for electricity, medium voltage Spain"
   },
   {
-    "name": "Market for electricity, medium voltage France",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -42,10 +41,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "FR"
+    "country": "FR",
+    "search": "Market for electricity, medium voltage France"
   },
   {
-    "name": "Market for electricity, medium voltage India",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -57,10 +56,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IN"
+    "country": "IN",
+    "search": "Market for electricity, medium voltage India"
   },
   {
-    "name": "Market for electricity, medium voltage Portugal",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -72,7 +71,8 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PT"
+    "country": "PT",
+    "search": "Market for electricity, medium voltage Portugal"
   },
   {
     "name": "Plume de canard, inventaire agrégé",
@@ -94,10 +94,10 @@
       "htn-c": 0,
       "ior": 2.02503,
       "ldu": 402.462,
-      "mru": 0.0000163213,
-      "ozd": 0.00000150538,
+      "mru": 1.63213e-05,
+      "ozd": 1.50538e-06,
       "pco": 0.0585537,
-      "pma": 0.00000381494,
+      "pma": 3.81494e-06,
       "swe": 0.0900067,
       "tre": 0.787872,
       "wtu": 0.379011
@@ -131,10 +131,10 @@
       "htn-c": 0,
       "ior": 0.217894,
       "ldu": 4716.32,
-      "mru": 0.0000188195,
-      "ozd": 8.73107e-7,
+      "mru": 1.88195e-05,
+      "ozd": 8.73107e-07,
       "pco": 0.058398,
-      "pma": 0.0000154333,
+      "pma": 1.54333e-05,
       "swe": 0.214701,
       "tre": 2.08908,
       "wtu": 36.6807
@@ -180,10 +180,10 @@
       "htn-c": 0,
       "ior": 6.18463,
       "ldu": 10.4125,
-      "mru": 0.0000236122,
-      "ozd": 9.19125e-7,
+      "mru": 2.36122e-05,
+      "ozd": 9.19125e-07,
       "pco": 0.0574054,
-      "pma": 0.0000029546,
+      "pma": 2.9546e-06,
       "swe": 0.028925,
       "tre": 0.225852,
       "wtu": 0.00450116
@@ -229,10 +229,10 @@
       "htn-c": 0,
       "ior": 5.96535,
       "ldu": 7.58111,
-      "mru": 0.0000142677,
-      "ozd": 7.42863e-7,
+      "mru": 1.42677e-05,
+      "ozd": 7.42863e-07,
       "pco": 0.0547921,
-      "pma": 0.00000280418,
+      "pma": 2.80418e-06,
       "swe": 0.0234715,
       "tre": 0.206896,
       "wtu": 0.00450116
@@ -279,9 +279,9 @@
       "ior": 6.23913,
       "ldu": 1465.27,
       "mru": 0.000193353,
-      "ozd": 0.00000353466,
+      "ozd": 3.53466e-06,
       "pco": 0.0938408,
-      "pma": 0.00000468642,
+      "pma": 4.68642e-06,
       "swe": 0.0749463,
       "tre": 0.471136,
       "wtu": 0.351234
@@ -327,10 +327,10 @@
       "htn-c": 0,
       "ior": 1.38297,
       "ldu": 7712.22,
-      "mru": 0.0000635123,
-      "ozd": 0.00000267242,
+      "mru": 6.35123e-05,
+      "ozd": 2.67242e-06,
       "pco": 0.0633881,
-      "pma": 0.0000136075,
+      "pma": 1.36075e-05,
       "swe": 0.321943,
       "tre": 7.20749,
       "wtu": 0.351234
@@ -376,10 +376,10 @@
       "htn-c": 0,
       "ior": -0.133703,
       "ldu": 232501,
-      "mru": 0.0000222221,
-      "ozd": 8.42207e-7,
+      "mru": 2.22221e-05,
+      "ozd": 8.42207e-07,
       "pco": 0.114578,
-      "pma": 0.000014739,
+      "pma": 1.4739e-05,
       "swe": 0.0731482,
       "tre": 6.39218,
       "wtu": 0.351234
@@ -413,10 +413,10 @@
       "htn-c": 0,
       "ior": 0.412757,
       "ldu": 22.9254,
-      "mru": 0.0000142838,
-      "ozd": 8.03167e-7,
+      "mru": 1.42838e-05,
+      "ozd": 8.03167e-07,
       "pco": 0.0401706,
-      "pma": 0.00000213649,
+      "pma": 2.13649e-06,
       "swe": 0.0239917,
       "tre": 0.24293,
       "wtu": 5.02892
@@ -462,10 +462,10 @@
       "htn-c": 0,
       "ior": 2.51078,
       "ldu": 703.366,
-      "mru": 0.0000381526,
-      "ozd": 0.00000107152,
+      "mru": 3.81526e-05,
+      "ozd": 1.07152e-06,
       "pco": 0.0477582,
-      "pma": 0.000003041,
+      "pma": 3.041e-06,
       "swe": 0.103968,
       "tre": 0.352476,
       "wtu": 5.02892
@@ -511,10 +511,10 @@
       "htn-c": 0,
       "ior": 1.40834,
       "ldu": 11.2154,
-      "mru": 0.0000206849,
-      "ozd": 9.67422e-7,
+      "mru": 2.06849e-05,
+      "ozd": 9.67422e-07,
       "pco": 0.0700225,
-      "pma": 0.00000382709,
+      "pma": 3.82709e-06,
       "swe": 0.0736843,
       "tre": 0.318022,
       "wtu": 0.0222062
@@ -560,10 +560,10 @@
       "htn-c": 0,
       "ior": 0.536425,
       "ldu": 1623150,
-      "mru": 0.0000406024,
-      "ozd": 0.00000191427,
+      "mru": 4.06024e-05,
+      "ozd": 1.91427e-06,
       "pco": 0.165203,
-      "pma": 0.000049137,
+      "pma": 4.9137e-05,
       "swe": 0.221925,
       "tre": 29.4712,
       "wtu": 105.787
@@ -609,10 +609,10 @@
       "htn-c": 0,
       "ior": 2.4474,
       "ldu": 4088.91,
-      "mru": 0.0000651926,
-      "ozd": 0.00000328002,
+      "mru": 6.51926e-05,
+      "ozd": 3.28002e-06,
       "pco": 0.100685,
-      "pma": 0.0000210314,
+      "pma": 2.10314e-05,
       "swe": 0.402182,
       "tre": 11.6477,
       "wtu": 0.675034
@@ -658,10 +658,10 @@
       "htn-c": 0,
       "ior": 0.116285,
       "ldu": -31.7719,
-      "mru": 0.00000527283,
-      "ozd": 7.02024e-8,
+      "mru": 5.27283e-06,
+      "ozd": 7.02024e-08,
       "pco": 0.00162426,
-      "pma": 7.27537e-8,
+      "pma": 7.27537e-08,
       "swe": -0.000514053,
       "tre": -0.00456534,
       "wtu": 5.02892
@@ -695,10 +695,10 @@
       "htn-c": 0,
       "ior": 0.395013,
       "ldu": 497.076,
-      "mru": 0.0000130682,
-      "ozd": 5.13299e-7,
+      "mru": 1.30682e-05,
+      "ozd": 5.13299e-07,
       "pco": 0.0264538,
-      "pma": 0.00000188459,
+      "pma": 1.88459e-06,
       "swe": 0.0107847,
       "tre": 0.0842916,
       "wtu": 0.0295386
@@ -744,10 +744,10 @@
       "htn-c": 0,
       "ior": 6.04044,
       "ldu": 3.6287,
-      "mru": 0.00000768645,
-      "ozd": 2.95942e-7,
+      "mru": 7.68645e-06,
+      "ozd": 2.95942e-07,
       "pco": 0.0810339,
-      "pma": 0.00000431241,
+      "pma": 4.31241e-06,
       "swe": 0.0326394,
       "tre": 0.294416,
       "wtu": 0.0295386
@@ -793,10 +793,10 @@
       "htn-c": 0,
       "ior": 6.04855,
       "ldu": 86.4794,
-      "mru": 0.0000229856,
-      "ozd": 0.00000122071,
+      "mru": 2.29856e-05,
+      "ozd": 1.22071e-06,
       "pco": 0.0352412,
-      "pma": 0.00000127029,
+      "pma": 1.27029e-06,
       "swe": 0.0183514,
       "tre": 0.104997,
       "wtu": 0.0295386
@@ -842,10 +842,10 @@
       "htn-c": 0,
       "ior": 3.515,
       "ldu": 26.1942,
-      "mru": 0.0000205044,
-      "ozd": 4.35996e-7,
+      "mru": 2.05044e-05,
+      "ozd": 4.35996e-07,
       "pco": 0.0346983,
-      "pma": 0.00000161925,
+      "pma": 1.61925e-06,
       "swe": 0.01316,
       "tre": 0.109655,
       "wtu": 0.0295386
@@ -891,10 +891,10 @@
       "htn-c": 0,
       "ior": 4.20667,
       "ldu": 3.58197,
-      "mru": 0.0000024338,
-      "ozd": 3.08043e-7,
+      "mru": 2.4338e-06,
+      "ozd": 3.08043e-07,
       "pco": 0.0149108,
-      "pma": 3.46971e-7,
+      "pma": 3.46971e-07,
       "swe": 0.00526731,
       "tre": 0.0273836,
       "wtu": 0.0295386
@@ -940,10 +940,10 @@
       "htn-c": 0,
       "ior": 4.08581,
       "ldu": 10.5955,
-      "mru": 0.00000730883,
-      "ozd": 6.09401e-7,
+      "mru": 7.30883e-06,
+      "ozd": 6.09401e-07,
       "pco": 0.0245282,
-      "pma": 9.01373e-7,
+      "pma": 9.01373e-07,
       "swe": 0.0200355,
       "tre": 0.0939001,
       "wtu": 0.0295386
@@ -989,10 +989,10 @@
       "htn-c": 0,
       "ior": 4.20627,
       "ldu": 3.57873,
-      "mru": 0.0000023884,
-      "ozd": 3.07569e-7,
+      "mru": 2.3884e-06,
+      "ozd": 3.07569e-07,
       "pco": 0.0160151,
-      "pma": 3.51994e-7,
+      "pma": 3.51994e-07,
       "swe": 0.00523998,
       "tre": 0.0273944,
       "wtu": 0.0295386
@@ -1038,10 +1038,10 @@
       "htn-c": 0,
       "ior": 1.50994,
       "ldu": 23.5316,
-      "mru": 0.0000205077,
-      "ozd": 3.06394e-7,
+      "mru": 2.05077e-05,
+      "ozd": 3.06394e-07,
       "pco": 0.043633,
-      "pma": 0.00000193075,
+      "pma": 1.93075e-06,
       "swe": 0.0149349,
       "tre": 0.128688,
       "wtu": 0.767274
@@ -1087,10 +1087,10 @@
       "htn-c": 0,
       "ior": 4.31511,
       "ldu": 3.61651,
-      "mru": 0.00000526757,
-      "ozd": 3.07202e-7,
+      "mru": 5.26757e-06,
+      "ozd": 3.07202e-07,
       "pco": 0.0177015,
-      "pma": 5.71268e-7,
+      "pma": 5.71268e-07,
       "swe": 0.0138544,
       "tre": 0.0374048,
       "wtu": 0.0295386
@@ -1136,10 +1136,10 @@
       "htn-c": 0,
       "ior": 16.137,
       "ldu": 4.05646,
-      "mru": 8.62709e-7,
+      "mru": 8.62709e-07,
       "ozd": 0.000280342,
       "pco": 0.0216061,
-      "pma": 0.00000123932,
+      "pma": 1.23932e-06,
       "swe": 0.00658183,
       "tre": 0.0614476,
       "wtu": 0.0295386
@@ -1185,10 +1185,10 @@
       "htn-c": 0,
       "ior": 7.10451,
       "ldu": 5.41896,
-      "mru": 0.00000972208,
-      "ozd": 5.25589e-7,
+      "mru": 9.72208e-06,
+      "ozd": 5.25589e-07,
       "pco": 0.0717722,
-      "pma": 0.00000365297,
+      "pma": 3.65297e-06,
       "swe": 0.0356034,
       "tre": 0.292909,
       "wtu": 0.07195
@@ -1234,10 +1234,10 @@
       "htn-c": 0,
       "ior": 4.20696,
       "ldu": 3.61447,
-      "mru": 0.00000301832,
-      "ozd": 3.09893e-7,
+      "mru": 3.01832e-06,
+      "ozd": 3.09893e-07,
       "pco": 0.0154543,
-      "pma": 3.91327e-7,
+      "pma": 3.91327e-07,
       "swe": 0.00697581,
       "tre": 0.0292923,
       "wtu": 0.0295386
@@ -1283,10 +1283,10 @@
       "htn-c": 0,
       "ior": 3.08841,
       "ldu": 10.2618,
-      "mru": 0.00000881388,
-      "ozd": 0.0000011716,
+      "mru": 8.81388e-06,
+      "ozd": 1.1716e-06,
       "pco": 0.0133511,
-      "pma": 6.30576e-7,
+      "pma": 6.30576e-07,
       "swe": 0.00399181,
       "tre": 0.0409916,
       "wtu": 0.0295386
@@ -1332,10 +1332,10 @@
       "htn-c": 0,
       "ior": 0.620714,
       "ldu": 25.0698,
-      "mru": 0.0000145517,
-      "ozd": 4.1313e-7,
+      "mru": 1.45517e-05,
+      "ozd": 4.1313e-07,
       "pco": 0.0321404,
-      "pma": 0.00000131439,
+      "pma": 1.31439e-06,
       "swe": 0.0107371,
       "tre": 0.09158,
       "wtu": 0
@@ -1384,10 +1384,10 @@
       "htn-c": 0,
       "ior": 3.90501,
       "ldu": 35.1259,
-      "mru": 0.0000553081,
-      "ozd": 5.37531e-7,
+      "mru": 5.53081e-05,
+      "ozd": 5.37531e-07,
       "pco": 0.0924308,
-      "pma": 0.00000402144,
+      "pma": 4.02144e-06,
       "swe": 0.0288718,
       "tre": 0.285928,
       "wtu": 0
@@ -1436,10 +1436,10 @@
       "htn-c": 0,
       "ior": 0.793348,
       "ldu": 26,
-      "mru": 0.0000145795,
-      "ozd": 8.49849e-7,
+      "mru": 1.45795e-05,
+      "ozd": 8.49849e-07,
       "pco": 0.033851,
-      "pma": 0.00000134056,
+      "pma": 1.34056e-06,
       "swe": 0.0107768,
       "tre": 0.0933317,
       "wtu": 0
@@ -1488,10 +1488,10 @@
       "htn-c": 0,
       "ior": 2.01067,
       "ldu": 25.101,
-      "mru": 0.0000148745,
-      "ozd": 3.67059e-7,
+      "mru": 1.48745e-05,
+      "ozd": 3.67059e-07,
       "pco": 0.0403677,
-      "pma": 0.00000180654,
+      "pma": 1.80654e-06,
       "swe": 0.01437,
       "tre": 0.123957,
       "wtu": 0
@@ -1540,10 +1540,10 @@
       "htn-c": 0,
       "ior": 0.612437,
       "ldu": 23.9223,
-      "mru": 0.0000141903,
-      "ozd": 2.61489e-7,
+      "mru": 1.41903e-05,
+      "ozd": 2.61489e-07,
       "pco": 0.0244383,
-      "pma": 0.00000139435,
+      "pma": 1.39435e-06,
       "swe": 0.0103902,
       "tre": 0.0869738,
       "wtu": 0
@@ -1592,10 +1592,10 @@
       "htn-c": 0,
       "ior": 1.8377,
       "ldu": 20.8575,
-      "mru": 0.0000135588,
-      "ozd": 2.13528e-7,
+      "mru": 1.35588e-05,
+      "ozd": 2.13528e-07,
       "pco": 0.0158555,
-      "pma": 7.95042e-7,
+      "pma": 7.95042e-07,
       "swe": 0.00718195,
       "tre": 0.0520093,
       "wtu": 0
@@ -1644,10 +1644,10 @@
       "htn-c": 0,
       "ior": 10.7524,
       "ldu": 12.002,
-      "mru": 0.0000100942,
-      "ozd": 5.78225e-8,
+      "mru": 1.00942e-05,
+      "ozd": 5.78225e-08,
       "pco": 0.00145941,
-      "pma": 3.63424e-8,
+      "pma": 3.63424e-08,
       "swe": 0.000526683,
       "tre": 0.00251755,
       "wtu": 0
@@ -1696,10 +1696,10 @@
       "htn-c": 0,
       "ior": 14.4964,
       "ldu": 24.0622,
-      "mru": 0.0000116873,
-      "ozd": 2.90048e-7,
+      "mru": 1.16873e-05,
+      "ozd": 2.90048e-07,
       "pco": 0.00402507,
-      "pma": 8.13448e-8,
+      "pma": 8.13448e-08,
       "swe": 0.00117899,
       "tre": 0.00365224,
       "wtu": 0
@@ -1748,10 +1748,10 @@
       "htn-c": 0,
       "ior": 11.0846,
       "ldu": 28.9386,
-      "mru": 0.0000123725,
-      "ozd": 3.53564e-7,
+      "mru": 1.23725e-05,
+      "ozd": 3.53564e-07,
       "pco": 0.00469048,
-      "pma": 1.28197e-7,
+      "pma": 1.28197e-07,
       "swe": 0.00129263,
       "tre": 0.00443397,
       "wtu": 0
@@ -1800,10 +1800,10 @@
       "htn-c": 0,
       "ior": 0.640211,
       "ldu": 24.2332,
-      "mru": 0.0000143209,
-      "ozd": 2.98967e-7,
+      "mru": 1.43209e-05,
+      "ozd": 2.98967e-07,
       "pco": 0.0250282,
-      "pma": 0.0000014073,
+      "pma": 1.4073e-06,
       "swe": 0.0104644,
       "tre": 0.0878088,
       "wtu": 0
@@ -1852,10 +1852,10 @@
       "htn-c": 0,
       "ior": 0.157837,
       "ldu": 4339.01,
-      "mru": 0.0000170625,
-      "ozd": 8.03257e-7,
+      "mru": 1.70625e-05,
+      "ozd": 8.03257e-07,
       "pco": 0.0345564,
-      "pma": 0.000013218,
+      "pma": 1.3218e-05,
       "swe": 0.190572,
       "tre": 1.84608,
       "wtu": 33.7462
@@ -1889,10 +1889,10 @@
       "htn-c": 0,
       "ior": 5.64723,
       "ldu": 9.5795,
-      "mru": 0.0000214717,
-      "ozd": 8.45593e-7,
+      "mru": 2.14717e-05,
+      "ozd": 8.45593e-07,
       "pco": 0.0336432,
-      "pma": 0.0000017376,
+      "pma": 1.7376e-06,
       "swe": 0.0196583,
       "tre": 0.131909,
       "wtu": 0.00414107
@@ -1926,10 +1926,10 @@
       "htn-c": 0,
       "ior": 5.4455,
       "ldu": 6.97462,
-      "mru": 0.0000128748,
-      "ozd": 6.83432e-7,
+      "mru": 1.28748e-05,
+      "ozd": 6.83432e-07,
       "pco": 0.031239,
-      "pma": 0.00000159921,
+      "pma": 1.59921e-06,
       "swe": 0.0146411,
       "tre": 0.11447,
       "wtu": 0.00414107
@@ -1964,9 +1964,9 @@
       "ior": 5.69737,
       "ldu": 1348.05,
       "mru": 0.000177633,
-      "ozd": 0.00000325189,
+      "ozd": 3.25189e-06,
       "pco": 0.0671638,
-      "pma": 0.00000333088,
+      "pma": 3.33088e-06,
       "swe": 0.0619979,
       "tre": 0.35757,
       "wtu": 0.323135
@@ -1974,7 +1974,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.0000032,
+    "waste": 3.2e-06,
     "alias": null,
     "step_usage": "Matières, Filature",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
@@ -2000,10 +2000,10 @@
       "htn-c": 0,
       "ior": 1.22971,
       "ldu": 7095.24,
-      "mru": 0.0000581798,
-      "ozd": 0.00000245862,
+      "mru": 5.81798e-05,
+      "ozd": 2.45862e-06,
       "pco": 0.0391473,
-      "pma": 0.0000115383,
+      "pma": 1.15383e-05,
       "swe": 0.289235,
       "tre": 6.55502,
       "wtu": 0.323135
@@ -2037,10 +2037,10 @@
       "htn-c": 0,
       "ior": 0.337111,
       "ldu": 21.0914,
-      "mru": 0.0000128896,
-      "ozd": 7.38912e-7,
+      "mru": 1.28896e-05,
+      "ozd": 7.38912e-07,
       "pco": 0.0177872,
-      "pma": 9.8494e-7,
+      "pma": 9.8494e-07,
       "swe": 0.0151197,
       "tre": 0.147621,
       "wtu": 4.62661
@@ -2074,10 +2074,10 @@
       "htn-c": 0,
       "ior": 2.26729,
       "ldu": 647.097,
-      "mru": 0.0000348489,
-      "ozd": 9.85797e-7,
+      "mru": 3.48489e-05,
+      "ozd": 9.85797e-07,
       "pco": 0.0247678,
-      "pma": 0.00000181709,
+      "pma": 1.81709e-06,
       "swe": 0.0886979,
       "tre": 0.248403,
       "wtu": 4.62661
@@ -2111,10 +2111,10 @@
       "htn-c": 0,
       "ior": 1.25305,
       "ldu": 10.3182,
-      "mru": 0.0000187786,
-      "ozd": 8.90026e-7,
+      "mru": 1.87786e-05,
+      "ozd": 8.90026e-07,
       "pco": 0.045251,
-      "pma": 0.00000254029,
+      "pma": 2.54029e-06,
       "swe": 0.0608369,
       "tre": 0.216705,
       "wtu": 0.0204297
@@ -2148,10 +2148,10 @@
       "htn-c": 0,
       "ior": 0.450886,
       "ldu": 1493300,
-      "mru": 0.0000371027,
-      "ozd": 0.00000176113,
+      "mru": 3.71027e-05,
+      "ozd": 1.76113e-06,
       "pco": 0.132817,
-      "pma": 0.0000442254,
+      "pma": 4.42254e-05,
       "swe": 0.197218,
       "tre": 27.0376,
       "wtu": 97.324
@@ -2185,10 +2185,10 @@
       "htn-c": 0,
       "ior": 2.20898,
       "ldu": 3761.8,
-      "mru": 0.0000597257,
-      "ozd": 0.00000301762,
+      "mru": 5.97257e-05,
+      "ozd": 3.01762e-06,
       "pco": 0.0734605,
-      "pma": 0.0000183683,
+      "pma": 1.83683e-05,
       "swe": 0.363055,
       "tre": 10.64,
       "wtu": 0.621031
@@ -2222,10 +2222,10 @@
       "htn-c": 0,
       "ior": 0.341708,
       "ldu": 487.134,
-      "mru": 0.000012539,
-      "ozd": 5.03031e-7,
+      "mru": 1.2539e-05,
+      "ozd": 5.03031e-07,
       "pco": 0.0055048,
-      "pma": 8.02313e-7,
+      "pma": 8.02313e-07,
       "swe": 0.00316288,
       "tre": 0.00178262,
       "wtu": 0.0289478
@@ -2259,10 +2259,10 @@
       "htn-c": 0,
       "ior": 5.87423,
       "ldu": 3.55613,
-      "mru": 0.00000726484,
-      "ozd": 2.90021e-7,
+      "mru": 7.26484e-06,
+      "ozd": 2.90021e-07,
       "pco": 0.0589933,
-      "pma": 0.00000318158,
+      "pma": 3.18158e-06,
       "swe": 0.0245805,
       "tre": 0.207705,
       "wtu": 0.0289478
@@ -2296,10 +2296,10 @@
       "htn-c": 0,
       "ior": 5.88217,
       "ldu": 84.7498,
-      "mru": 0.000022258,
-      "ozd": 0.00000119629,
+      "mru": 2.2258e-05,
+      "ozd": 1.19629e-06,
       "pco": 0.0141165,
-      "pma": 2.00299e-7,
+      "pma": 2.00299e-07,
       "swe": 0.0105782,
       "tre": 0.0220739,
       "wtu": 0.0289478
@@ -2333,10 +2333,10 @@
       "htn-c": 0,
       "ior": 3.39929,
       "ldu": 25.6703,
-      "mru": 0.0000198264,
-      "ozd": 4.27274e-7,
+      "mru": 1.98264e-05,
+      "ozd": 4.27274e-07,
       "pco": 0.0135844,
-      "pma": 5.4228e-7,
+      "pma": 5.4228e-07,
       "swe": 0.00549067,
       "tre": 0.0266387,
       "wtu": 0.0289478
@@ -2370,10 +2370,10 @@
       "htn-c": 0,
       "ior": 1.86146,
       "ldu": 3.51033,
-      "mru": 0.0000022323,
-      "ozd": 2.99123e-7,
+      "mru": 2.2323e-06,
+      "ozd": 2.99123e-07,
       "pco": 0.0139493,
-      "pma": 3.2695e-7,
+      "pma": 3.2695e-07,
       "swe": 0.00492249,
       "tre": 0.0252705,
       "wtu": 0.0289478
@@ -2407,8 +2407,8 @@
       "htn-c": 0,
       "ior": 3.95869,
       "ldu": 10.3836,
-      "mru": 0.00000689477,
-      "ozd": 5.97211e-7,
+      "mru": 6.89477e-06,
+      "ozd": 5.97211e-07,
       "pco": 0.00361771,
       "pma": 0,
       "swe": 0.0122287,
@@ -2444,10 +2444,10 @@
       "htn-c": 0,
       "ior": 1.86106,
       "ldu": 3.50716,
-      "mru": 0.00000218781,
-      "ozd": 2.98658e-7,
+      "mru": 2.18781e-06,
+      "ozd": 2.98658e-07,
       "pco": 0.0150315,
-      "pma": 3.31872e-7,
+      "pma": 3.31872e-07,
       "swe": 0.00489571,
       "tre": 0.0252811,
       "wtu": 0.0289478
@@ -2481,10 +2481,10 @@
       "htn-c": 0,
       "ior": 1.43434,
       "ldu": 23.061,
-      "mru": 0.0000198297,
-      "ozd": 3.00264e-7,
+      "mru": 1.98297e-05,
+      "ozd": 3.00264e-07,
       "pco": 0.0223404,
-      "pma": 8.4755e-7,
+      "pma": 8.4755e-07,
       "swe": 0.00723008,
       "tre": 0.0452911,
       "wtu": 0.751929
@@ -2518,10 +2518,10 @@
       "htn-c": 0,
       "ior": 1.96773,
       "ldu": 3.54418,
-      "mru": 0.0000050094,
-      "ozd": 2.98299e-7,
+      "mru": 5.0094e-06,
+      "ozd": 2.98299e-07,
       "pco": 0.0166842,
-      "pma": 5.46761e-7,
+      "pma": 5.46761e-07,
       "swe": 0.0133378,
       "tre": 0.0350913,
       "wtu": 0.0289478
@@ -2555,10 +2555,10 @@
       "htn-c": 0,
       "ior": 15.7689,
       "ldu": 3.97533,
-      "mru": 5.77574e-7,
+      "mru": 5.77574e-07,
       "ozd": 0.000274735,
       "pco": 0.000754055,
-      "pma": 1.69949e-7,
+      "pma": 1.69949e-07,
       "swe": 0,
       "tre": 0,
       "wtu": 0.0289478
@@ -2592,10 +2592,10 @@
       "htn-c": 0,
       "ior": 6.91701,
       "ldu": 5.31058,
-      "mru": 0.00000925976,
-      "ozd": 5.15075e-7,
+      "mru": 9.25976e-06,
+      "ozd": 5.15075e-07,
       "pco": 0.0499168,
-      "pma": 0.00000253533,
+      "pma": 2.53533e-06,
       "swe": 0.0274852,
       "tre": 0.206228,
       "wtu": 0.070511
@@ -2629,10 +2629,10 @@
       "htn-c": 0,
       "ior": 1.86174,
       "ldu": 3.54218,
-      "mru": 0.00000280513,
-      "ozd": 3.00936e-7,
+      "mru": 2.80513e-06,
+      "ozd": 3.00936e-07,
       "pco": 0.0144819,
-      "pma": 3.70419e-7,
+      "pma": 3.70419e-07,
       "swe": 0.00659682,
       "tre": 0.0271411,
       "wtu": 0.0289478
@@ -2666,10 +2666,10 @@
       "htn-c": 0,
       "ior": 3.08841,
       "ldu": 10.2618,
-      "mru": 0.00000881388,
-      "ozd": 0.0000011716,
+      "mru": 8.81388e-06,
+      "ozd": 1.1716e-06,
       "pco": 0.0133511,
-      "pma": 6.30576e-7,
+      "pma": 6.30576e-07,
       "swe": 0.00399181,
       "tre": 0.0409916,
       "wtu": 0.0295386
@@ -2715,10 +2715,10 @@
       "htn-c": 0,
       "ior": 0.562895,
       "ldu": 24.5684,
-      "mru": 0.0000139928,
-      "ozd": 4.04865e-7,
+      "mru": 1.39928e-05,
+      "ozd": 4.04865e-07,
       "pco": 0.0110777,
-      "pma": 2.43517e-7,
+      "pma": 2.43517e-07,
       "swe": 0.00311623,
       "tre": 0.00892525,
       "wtu": 0
@@ -2752,10 +2752,10 @@
       "htn-c": 0,
       "ior": 3.7815,
       "ldu": 34.4234,
-      "mru": 0.0000539341,
-      "ozd": 5.26778e-7,
+      "mru": 5.39341e-05,
+      "ozd": 5.26778e-07,
       "pco": 0.0701623,
-      "pma": 0.00000289643,
+      "pma": 2.89643e-06,
       "swe": 0.0208882,
       "tre": 0.199386,
       "wtu": 0
@@ -2789,10 +2789,10 @@
       "htn-c": 0,
       "ior": 0.732076,
       "ldu": 25.48,
-      "mru": 0.00001402,
-      "ozd": 8.3285e-7,
+      "mru": 1.402e-05,
+      "ozd": 8.3285e-07,
       "pco": 0.0127541,
-      "pma": 2.69164e-7,
+      "pma": 2.69164e-07,
       "swe": 0.00315514,
       "tre": 0.0106419,
       "wtu": 0
@@ -2826,10 +2826,10 @@
       "htn-c": 0,
       "ior": 1.92505,
       "ldu": 24.599,
-      "mru": 0.0000143091,
-      "ozd": 3.59716e-7,
+      "mru": 1.43091e-05,
+      "ozd": 3.59716e-07,
       "pco": 0.0191404,
-      "pma": 7.25824e-7,
+      "pma": 7.25824e-07,
       "swe": 0.00667647,
       "tre": 0.0406547,
       "wtu": 0
@@ -2863,10 +2863,10 @@
       "htn-c": 0,
       "ior": 0.554783,
       "ldu": 23.4439,
-      "mru": 0.0000136386,
-      "ozd": 2.56257e-7,
+      "mru": 1.36386e-05,
+      "ozd": 2.56257e-07,
       "pco": 0.00352961,
-      "pma": 3.21878e-7,
+      "pma": 3.21878e-07,
       "swe": 0.00277627,
       "tre": 0.00441117,
       "wtu": 0
@@ -2900,10 +2900,10 @@
       "htn-c": 0,
       "ior": 0,
       "ldu": 20.4404,
-      "mru": 0.0000131348,
-      "ozd": 2.06498e-7,
+      "mru": 1.31348e-05,
+      "ozd": 2.06498e-07,
       "pco": 0.0148751,
-      "pma": 7.6606e-7,
+      "pma": 7.6606e-07,
       "swe": 0.00679884,
       "tre": 0.0494037,
       "wtu": 0
@@ -2937,10 +2937,10 @@
       "htn-c": 0,
       "ior": 7.76956,
       "ldu": 11.0418,
-      "mru": 0.0000091432,
-      "ozd": 5.06064e-8,
+      "mru": 9.1432e-06,
+      "ozd": 5.06064e-08,
       "pco": 0.000719987,
-      "pma": 2.11543e-8,
+      "pma": 2.11543e-08,
       "swe": 0.000259736,
       "tre": 0.000846604,
       "wtu": 0
@@ -2974,10 +2974,10 @@
       "htn-c": 0,
       "ior": 11.214,
       "ldu": 22.1372,
-      "mru": 0.0000106089,
-      "ozd": 2.64254e-7,
+      "mru": 1.06089e-05,
+      "ozd": 2.64254e-07,
       "pco": 0.00308039,
-      "pma": 6.25565e-8,
+      "pma": 6.25565e-08,
       "swe": 0.000859858,
       "tre": 0.00189052,
       "wtu": 0
@@ -3011,10 +3011,10 @@
       "htn-c": 0,
       "ior": 8.07518,
       "ldu": 26.6235,
-      "mru": 0.0000112392,
-      "ozd": 3.22689e-7,
+      "mru": 1.12392e-05,
+      "ozd": 3.22689e-07,
       "pco": 0.00369257,
-      "pma": 1.05661e-7,
+      "pma": 1.05661e-07,
       "swe": 0.000964407,
       "tre": 0.00260971,
       "wtu": 0
@@ -3048,10 +3048,10 @@
       "htn-c": 0,
       "ior": 0.582002,
       "ldu": 23.7485,
-      "mru": 0.0000137666,
-      "ozd": 2.92986e-7,
+      "mru": 1.37666e-05,
+      "ozd": 2.92986e-07,
       "pco": 0.00410771,
-      "pma": 3.34569e-7,
+      "pma": 3.34569e-07,
       "swe": 0.00284899,
       "tre": 0.00522947,
       "wtu": 0
@@ -3085,10 +3085,10 @@
       "htn-c": 0,
       "ior": 1.39498,
       "ldu": 7.67968,
-      "mru": 0.00000537362,
-      "ozd": 3.92493e-8,
+      "mru": 5.37362e-06,
+      "ozd": 3.92493e-08,
       "pco": 0.000416466,
-      "pma": 2.55443e-8,
+      "pma": 2.55443e-08,
       "swe": 0.000175056,
       "tre": 0.000650187,
       "wtu": 0
@@ -3270,10 +3270,10 @@
       "htn-c": 0,
       "ior": 0.0148535,
       "ldu": 1.02655,
-      "mru": 0.00000477854,
-      "ozd": 7.34809e-7,
+      "mru": 4.77854e-06,
+      "ozd": 7.34809e-07,
       "pco": 0.00137811,
-      "pma": 6.49641e-8,
+      "pma": 6.49641e-08,
       "swe": 0.00458661,
       "tre": 0.00115881,
       "wtu": 0
@@ -3307,10 +3307,10 @@
       "htn-c": 0,
       "ior": 0.0250611,
       "ldu": 1.78086,
-      "mru": 0.00000676817,
-      "ozd": 7.86588e-7,
+      "mru": 6.76817e-06,
+      "ozd": 7.86588e-07,
       "pco": 0.00191568,
-      "pma": 9.21259e-8,
+      "pma": 9.21259e-08,
       "swe": 0.0080911,
       "tre": 0.00289027,
       "wtu": 0
@@ -3344,10 +3344,10 @@
       "htn-c": 0,
       "ior": 0.0186994,
       "ldu": 1.31679,
-      "mru": 0.00000508255,
-      "ozd": 7.56778e-7,
+      "mru": 5.08255e-06,
+      "ozd": 7.56778e-07,
       "pco": 0.00150931,
-      "pma": 6.93262e-8,
+      "pma": 6.93262e-08,
       "swe": 0.00654367,
       "tre": 0.00220525,
       "wtu": 0
@@ -3374,17 +3374,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 0.255129,
-      "fwe": 4.33885e-9,
+      "fwe": 4.33885e-09,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.000481343,
       "ldu": 0,
-      "mru": 1.47513e-9,
+      "mru": 1.47513e-09,
       "ozd": 4.90964e-11,
       "pco": 0.000526131,
-      "pma": 5.99782e-9,
+      "pma": 5.99782e-09,
       "swe": 0.000186192,
       "tre": 0.00203843,
       "wtu": 0
@@ -3411,17 +3411,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 16.6229,
-      "fwe": 1.52e-7,
+      "fwe": 1.52e-07,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.0400805,
       "ldu": 0,
-      "mru": 6.13605e-8,
+      "mru": 6.13605e-08,
       "ozd": 1.11302e-11,
       "pco": 0.00600068,
-      "pma": 2.01468e-8,
+      "pma": 2.01468e-08,
       "swe": 0.00215675,
       "tre": 0.0236048,
       "wtu": 0
@@ -3448,17 +3448,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 2.87171,
-      "fwe": 3.80014e-7,
+      "fwe": 3.80014e-07,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.0128564,
       "ldu": 0,
-      "mru": 6.17779e-7,
+      "mru": 6.17779e-07,
       "ozd": 5.30757e-11,
       "pco": 0.00181528,
-      "pma": 2.35709e-8,
+      "pma": 2.35709e-08,
       "swe": 0.000926191,
       "tre": 0.0100967,
       "wtu": 0
@@ -3485,17 +3485,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 2.26004,
-      "fwe": 1.79964e-7,
+      "fwe": 1.79964e-07,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.0113717,
       "ldu": 0,
-      "mru": 4.6569e-7,
+      "mru": 4.6569e-07,
       "ozd": 3.95377e-11,
       "pco": 0.00111635,
-      "pma": 1.26451e-8,
+      "pma": 1.26451e-08,
       "swe": 0.000580492,
       "tre": 0.00647978,
       "wtu": 0
@@ -3522,17 +3522,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 4.00542,
-      "fwe": 9.94279e-8,
+      "fwe": 9.94279e-08,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.0327635,
       "ldu": 0,
-      "mru": 8.96321e-7,
+      "mru": 8.96321e-07,
       "ozd": 5.37976e-10,
       "pco": 0.00167797,
-      "pma": 1.94827e-8,
+      "pma": 1.94827e-08,
       "swe": 0.000851857,
       "tre": 0.00889829,
       "wtu": 0
@@ -3547,7 +3547,6 @@
     "country": ""
   },
   {
-    "name": "Market for electricity, medium voltage Greece",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3559,10 +3558,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GR"
+    "country": "GR",
+    "search": "Market for electricity, medium voltage Greece"
   },
   {
-    "name": "Market for electricity, medium voltage Tunisia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3574,10 +3573,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TN"
+    "country": "TN",
+    "search": "Market for electricity, medium voltage Tunisia"
   },
   {
-    "name": "Market for electricity, medium voltage Turkey",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3589,10 +3588,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TR"
+    "country": "TR",
+    "search": "Market for electricity, medium voltage Turkey"
   },
   {
-    "name": "Market for electricity, medium voltage United Arab Emirates",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3604,10 +3603,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AE"
+    "country": "AE",
+    "search": "Market for electricity, medium voltage United Arab Emirates"
   },
   {
-    "name": "Market for electricity, medium voltage Albania",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3619,10 +3618,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AL"
+    "country": "AL",
+    "search": "Market for electricity, medium voltage Albania"
   },
   {
-    "name": "Market for electricity, medium voltage Armenia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3634,10 +3633,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AM"
+    "country": "AM",
+    "search": "Market for electricity, medium voltage Armenia"
   },
   {
-    "name": "Market for electricity, medium voltage Row",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3649,10 +3648,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "Market for electricity, medium voltage Row"
   },
   {
-    "name": "Market for electricity, medium voltage Angola",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3664,10 +3663,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AO"
+    "country": "AO",
+    "search": "Market for electricity, medium voltage Angola"
   },
   {
-    "name": "Market for electricity, medium voltage Argentina",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3679,10 +3678,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AR"
+    "country": "AR",
+    "search": "Market for electricity, medium voltage Argentina"
   },
   {
-    "name": "Market for electricity, medium voltage Austria",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3694,10 +3693,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AT"
+    "country": "AT",
+    "search": "Market for electricity, medium voltage Austria"
   },
   {
-    "name": "Market for electricity, medium voltage Australia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3709,10 +3708,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AU"
+    "country": "AU",
+    "search": "Market for electricity, medium voltage Australia"
   },
   {
-    "name": "Market for electricity, medium voltage Azerbaijan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3724,10 +3723,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "AZ"
+    "country": "AZ",
+    "search": "Market for electricity, medium voltage Azerbaijan"
   },
   {
-    "name": "Market for electricity, medium voltage Bosnia Herzegovina",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3739,10 +3738,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BA"
+    "country": "BA",
+    "search": "Market for electricity, medium voltage Bosnia Herzegovina"
   },
   {
-    "name": "Market for electricity, medium voltage Bangladesh",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3754,10 +3753,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BD"
+    "country": "BD",
+    "search": "Market for electricity, medium voltage Bangladesh"
   },
   {
-    "name": "Market for electricity, medium voltage Belgium",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3769,10 +3768,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BE"
+    "country": "BE",
+    "search": "Market for electricity, medium voltage Belgium"
   },
   {
-    "name": "Market for electricity, medium voltage Bulgaria",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3784,10 +3783,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BG"
+    "country": "BG",
+    "search": "Market for electricity, medium voltage Bulgaria"
   },
   {
-    "name": "Market for electricity, medium voltage Bahrain",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3799,10 +3798,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BH"
+    "country": "BH",
+    "search": "Market for electricity, medium voltage Bahrain"
   },
   {
-    "name": "Market for electricity, medium voltage Benin",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3814,10 +3813,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BJ"
+    "country": "BJ",
+    "search": "Market for electricity, medium voltage Benin"
   },
   {
-    "name": "Market for electricity, medium voltage Brunei Darussalam",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3829,10 +3828,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BN"
+    "country": "BN",
+    "search": "Market for electricity, medium voltage Brunei Darussalam"
   },
   {
-    "name": "Market for electricity, medium voltage Bolivia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3844,10 +3843,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BO"
+    "country": "BO",
+    "search": "Market for electricity, medium voltage Bolivia"
   },
   {
-    "name": "Market for electricity, group medium voltage Brazil",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3859,10 +3858,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BR"
+    "country": "BR",
+    "search": "Market for electricity, group medium voltage Brazil"
   },
   {
-    "name": "Market for electricity, medium voltage Botswana",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3874,10 +3873,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BW"
+    "country": "BW",
+    "search": "Market for electricity, medium voltage Botswana"
   },
   {
-    "name": "Market for electricity, medium voltage Belarus",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3889,10 +3888,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "BY"
+    "country": "BY",
+    "search": "Market for electricity, medium voltage Belarus"
   },
   {
-    "name": "Market for electricity, medium voltage Canada",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3904,10 +3903,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CA"
+    "country": "CA",
+    "search": "Market for electricity, medium voltage Canada"
   },
   {
-    "name": "Market for electricity, medium voltage Congo Democratic",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3919,10 +3918,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CD"
+    "country": "CD",
+    "search": "Market for electricity, medium voltage Congo Democratic"
   },
   {
-    "name": "Market for electricity, medium voltage Congo",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3934,10 +3933,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CG"
+    "country": "CG",
+    "search": "Market for electricity, medium voltage Congo"
   },
   {
-    "name": "Market for electricity, medium voltage CH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3949,10 +3948,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CH"
+    "country": "CH",
+    "search": "Market for electricity, medium voltage CH"
   },
   {
-    "name": "Market for electricity, medium voltage Cote d'Ivoire",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3964,10 +3963,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CI"
+    "country": "CI",
+    "search": "Market for electricity, medium voltage Cote d'Ivoire"
   },
   {
-    "name": "Market for electricity, medium voltage Chile",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3979,10 +3978,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CL"
+    "country": "CL",
+    "search": "Market for electricity, medium voltage Chile"
   },
   {
-    "name": "Market for electricity, medium voltage Cameroon",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -3994,10 +3993,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CM"
+    "country": "CM",
+    "search": "Market for electricity, medium voltage Cameroon"
   },
   {
-    "name": "Market for electricity, medium voltage Colombia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4009,10 +4008,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CO"
+    "country": "CO",
+    "search": "Market for electricity, medium voltage Colombia"
   },
   {
-    "name": "Market for electricity, medium voltage Costa Rica",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4024,10 +4023,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CR"
+    "country": "CR",
+    "search": "Market for electricity, medium voltage Costa Rica"
   },
   {
-    "name": "Market for electricity, medium voltage Cuba",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4039,10 +4038,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CU"
+    "country": "CU",
+    "search": "Market for electricity, medium voltage Cuba"
   },
   {
-    "name": "Market for electricity, medium voltage Cyprus",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4054,10 +4053,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CY"
+    "country": "CY",
+    "search": "Market for electricity, medium voltage Cyprus"
   },
   {
-    "name": "Market for electricity, medium voltage CZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4069,10 +4068,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "CZ"
+    "country": "CZ",
+    "search": "Market for electricity, medium voltage CZ"
   },
   {
-    "name": "Market for electricity, medium voltage Germany",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4084,10 +4083,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "DE"
+    "country": "DE",
+    "search": "Market for electricity, medium voltage Germany"
   },
   {
-    "name": "Market for electricity, medium voltage Denmark",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4099,10 +4098,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "DK"
+    "country": "DK",
+    "search": "Market for electricity, medium voltage Denmark"
   },
   {
-    "name": "Market for electricity, medium voltage Dominican Republic",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4114,10 +4113,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "DO"
+    "country": "DO",
+    "search": "Market for electricity, medium voltage Dominican Republic"
   },
   {
-    "name": "Market for electricity, medium voltage Algeria",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4129,10 +4128,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "DZ"
+    "country": "DZ",
+    "search": "Market for electricity, medium voltage Algeria"
   },
   {
-    "name": "Market for electricity, medium voltage Ecuador",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4144,10 +4143,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "EC"
+    "country": "EC",
+    "search": "Market for electricity, medium voltage Ecuador"
   },
   {
-    "name": "Market for electricity, medium voltage Estonia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4159,10 +4158,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "EE"
+    "country": "EE",
+    "search": "Market for electricity, medium voltage Estonia"
   },
   {
-    "name": "Market for electricity, medium voltage Egypt",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4174,10 +4173,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "EG"
+    "country": "EG",
+    "search": "Market for electricity, medium voltage Egypt"
   },
   {
-    "name": "Market for electricity, medium voltage Eritrea",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4189,10 +4188,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ER"
+    "country": "ER",
+    "search": "Market for electricity, medium voltage Eritrea"
   },
   {
-    "name": "Market for electricity, medium voltage Ethiopia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4204,10 +4203,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ET"
+    "country": "ET",
+    "search": "Market for electricity, medium voltage Ethiopia"
   },
   {
-    "name": "Market for electricity, medium voltage Finland",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4219,10 +4218,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "FI"
+    "country": "FI",
+    "search": "Market for electricity, medium voltage Finland"
   },
   {
-    "name": "Market for electricity, medium voltage Gabon",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4234,10 +4233,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GA"
+    "country": "GA",
+    "search": "Market for electricity, medium voltage Gabon"
   },
   {
-    "name": "Market for electricity, medium voltage United Kingdom",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4249,10 +4248,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GB"
+    "country": "GB",
+    "search": "Market for electricity, medium voltage United Kingdom"
   },
   {
-    "name": "Market for electricity, medium voltage Georgia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4264,10 +4263,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GE"
+    "country": "GE",
+    "search": "Market for electricity, medium voltage Georgia"
   },
   {
-    "name": "Market for electricity, medium voltage Ghana",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4279,10 +4278,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GH"
+    "country": "GH",
+    "search": "Market for electricity, medium voltage Ghana"
   },
   {
-    "name": "Market for electricity, medium voltage Gibraltar",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4294,10 +4293,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GI"
+    "country": "GI",
+    "search": "Market for electricity, medium voltage Gibraltar"
   },
   {
-    "name": "Market for electricity, medium voltage Guatemala",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4309,10 +4308,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "GT"
+    "country": "GT",
+    "search": "Market for electricity, medium voltage Guatemala"
   },
   {
-    "name": "Market for electricity, medium voltage Hong Kong",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4324,10 +4323,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "HK"
+    "country": "HK",
+    "search": "Market for electricity, medium voltage Hong Kong"
   },
   {
-    "name": "Market for electricity, medium voltage Honduras",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4339,10 +4338,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "HN"
+    "country": "HN",
+    "search": "Market for electricity, medium voltage Honduras"
   },
   {
-    "name": "Market for electricity, medium voltage Croatia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4354,10 +4353,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "HR"
+    "country": "HR",
+    "search": "Market for electricity, medium voltage Croatia"
   },
   {
-    "name": "Market for electricity, medium voltage Haiti",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4369,10 +4368,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "HT"
+    "country": "HT",
+    "search": "Market for electricity, medium voltage Haiti"
   },
   {
-    "name": "Market for electricity, medium voltage Hungary",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4384,10 +4383,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "HU"
+    "country": "HU",
+    "search": "Market for electricity, medium voltage Hungary"
   },
   {
-    "name": "Market for electricity, medium voltage Indonesia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4399,10 +4398,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ID"
+    "country": "ID",
+    "search": "Market for electricity, medium voltage Indonesia"
   },
   {
-    "name": "Market for electricity, medium voltage Ireland",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4414,10 +4413,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IE"
+    "country": "IE",
+    "search": "Market for electricity, medium voltage Ireland"
   },
   {
-    "name": "Market for electricity, medium voltage Israel",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4429,10 +4428,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IL"
+    "country": "IL",
+    "search": "Market for electricity, medium voltage Israel"
   },
   {
-    "name": "Market for electricity, medium voltage Iraq",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4444,10 +4443,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IQ"
+    "country": "IQ",
+    "search": "Market for electricity, medium voltage Iraq"
   },
   {
-    "name": "Market for electricity, medium voltage Iran",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4459,10 +4458,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IR"
+    "country": "IR",
+    "search": "Market for electricity, medium voltage Iran"
   },
   {
-    "name": "Market for electricity, medium voltage Iceland",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4474,10 +4473,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IS"
+    "country": "IS",
+    "search": "Market for electricity, medium voltage Iceland"
   },
   {
-    "name": "Market for electricity, medium voltage Italy",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4489,10 +4488,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "IT"
+    "country": "IT",
+    "search": "Market for electricity, medium voltage Italy"
   },
   {
-    "name": "Market for electricity, medium voltage Jamaica",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4504,10 +4503,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "JM"
+    "country": "JM",
+    "search": "Market for electricity, medium voltage Jamaica"
   },
   {
-    "name": "Market for electricity, medium voltage Jordan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4519,10 +4518,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "JO"
+    "country": "JO",
+    "search": "Market for electricity, medium voltage Jordan"
   },
   {
-    "name": "Market for electricity, medium voltage Japan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4534,10 +4533,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "JP"
+    "country": "JP",
+    "search": "Market for electricity, medium voltage Japan"
   },
   {
-    "name": "Market for electricity, medium voltage Kenya",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4549,10 +4548,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KE"
+    "country": "KE",
+    "search": "Market for electricity, medium voltage Kenya"
   },
   {
-    "name": "Market for electricity, medium voltage Kyrgyzstan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4564,10 +4563,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KG"
+    "country": "KG",
+    "search": "Market for electricity, medium voltage Kyrgyzstan"
   },
   {
-    "name": "Market for electricity, medium voltage Cambodia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4579,10 +4578,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KH"
+    "country": "KH",
+    "search": "Market for electricity, medium voltage Cambodia"
   },
   {
-    "name": "Market for electricity, medium voltage Korea People",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4594,10 +4593,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KP"
+    "country": "KP",
+    "search": "Market for electricity, medium voltage Korea People"
   },
   {
-    "name": "Market for electricity, medium voltage Korea Republic",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4609,10 +4608,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KR"
+    "country": "KR",
+    "search": "Market for electricity, medium voltage Korea Republic"
   },
   {
-    "name": "Market for electricity, medium voltage Kuwait",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4624,10 +4623,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KW"
+    "country": "KW",
+    "search": "Market for electricity, medium voltage Kuwait"
   },
   {
-    "name": "Market for electricity, medium voltage Kazakhstan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4639,10 +4638,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "KZ"
+    "country": "KZ",
+    "search": "Market for electricity, medium voltage Kazakhstan"
   },
   {
-    "name": "Market for electricity, medium voltage Lebanon",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4654,10 +4653,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LB"
+    "country": "LB",
+    "search": "Market for electricity, medium voltage Lebanon"
   },
   {
-    "name": "Market for electricity, medium voltage Sri Lanka",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4669,10 +4668,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LK"
+    "country": "LK",
+    "search": "Market for electricity, medium voltage Sri Lanka"
   },
   {
-    "name": "Market for electricity, medium voltage Lithuania",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4684,10 +4683,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LT"
+    "country": "LT",
+    "search": "Market for electricity, medium voltage Lithuania"
   },
   {
-    "name": "Market for electricity, medium voltage Luxembourg",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4699,10 +4698,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LU"
+    "country": "LU",
+    "search": "Market for electricity, medium voltage Luxembourg"
   },
   {
-    "name": "Market for electricity, medium voltage Latvia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4714,10 +4713,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LV"
+    "country": "LV",
+    "search": "Market for electricity, medium voltage Latvia"
   },
   {
-    "name": "Market for electricity, medium voltage Libya",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4729,10 +4728,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "LY"
+    "country": "LY",
+    "search": "Market for electricity, medium voltage Libya"
   },
   {
-    "name": "Market for electricity, medium voltage Morocco",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4744,10 +4743,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MA"
+    "country": "MA",
+    "search": "Market for electricity, medium voltage Morocco"
   },
   {
-    "name": "Market for electricity, medium voltage Moldova",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4759,10 +4758,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MD"
+    "country": "MD",
+    "search": "Market for electricity, medium voltage Moldova"
   },
   {
-    "name": "Market for electricity, medium voltage Macedonia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4774,10 +4773,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MK"
+    "country": "MK",
+    "search": "Market for electricity, medium voltage Macedonia"
   },
   {
-    "name": "Market for electricity, medium voltage Myanmar",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4789,10 +4788,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MM"
+    "country": "MM",
+    "search": "Market for electricity, medium voltage Myanmar"
   },
   {
-    "name": "Market for electricity, medium voltage Mongolia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4804,10 +4803,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MN"
+    "country": "MN",
+    "search": "Market for electricity, medium voltage Mongolia"
   },
   {
-    "name": "Market for electricity, medium voltage RER",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4819,10 +4818,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RER"
+    "country": "RER",
+    "search": "Market for electricity, medium voltage RER"
   },
   {
-    "name": "Market for electricity, medium voltage Malta",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4834,10 +4833,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MT"
+    "country": "MT",
+    "search": "Market for electricity, medium voltage Malta"
   },
   {
-    "name": "Market for electricity, medium voltage Mexico",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4849,10 +4848,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MX"
+    "country": "MX",
+    "search": "Market for electricity, medium voltage Mexico"
   },
   {
-    "name": "Market for electricity, medium voltage Malaysia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4864,10 +4863,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MY"
+    "country": "MY",
+    "search": "Market for electricity, medium voltage Malaysia"
   },
   {
-    "name": "Market for electricity, medium voltage Mozambique",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4879,10 +4878,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "MZ"
+    "country": "MZ",
+    "search": "Market for electricity, medium voltage Mozambique"
   },
   {
-    "name": "Market for electricity, medium voltage Namibia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4894,10 +4893,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NA"
+    "country": "NA",
+    "search": "Market for electricity, medium voltage Namibia"
   },
   {
-    "name": "Market for electricity, medium voltage Nigeria",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4909,10 +4908,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NG"
+    "country": "NG",
+    "search": "Market for electricity, medium voltage Nigeria"
   },
   {
-    "name": "Market for electricity, medium voltage Nicaragua",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4924,10 +4923,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NI"
+    "country": "NI",
+    "search": "Market for electricity, medium voltage Nicaragua"
   },
   {
-    "name": "Market for electricity, medium voltage Netherlands",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4939,10 +4938,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NL"
+    "country": "NL",
+    "search": "Market for electricity, medium voltage Netherlands"
   },
   {
-    "name": "Market for electricity, medium voltage Norway",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4954,10 +4953,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NO"
+    "country": "NO",
+    "search": "Market for electricity, medium voltage Norway"
   },
   {
-    "name": "Market for electricity, medium voltage ROW",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4969,10 +4968,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "Market for electricity, medium voltage ROW"
   },
   {
-    "name": "Market for electricity, medium voltage Nepal",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4984,10 +4983,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NP"
+    "country": "NP",
+    "search": "Market for electricity, medium voltage Nepal"
   },
   {
-    "name": "Market for electricity, medium voltage New Zealand",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -4999,10 +4998,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "NZ"
+    "country": "NZ",
+    "search": "Market for electricity, medium voltage New Zealand"
   },
   {
-    "name": "Market for electricity, medium voltage Oman",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5014,10 +5013,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "OM"
+    "country": "OM",
+    "search": "Market for electricity, medium voltage Oman"
   },
   {
-    "name": "Market for electricity, medium voltage Panama",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5029,10 +5028,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PA"
+    "country": "PA",
+    "search": "Market for electricity, medium voltage Panama"
   },
   {
-    "name": "Market for electricity, medium voltage Peru",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5044,10 +5043,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PE"
+    "country": "PE",
+    "search": "Market for electricity, medium voltage Peru"
   },
   {
-    "name": "Market for electricity, medium voltage Philippines",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5059,10 +5058,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PH"
+    "country": "PH",
+    "search": "Market for electricity, medium voltage Philippines"
   },
   {
-    "name": "Market for electricity, medium voltage Pakistan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5074,10 +5073,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PK"
+    "country": "PK",
+    "search": "Market for electricity, medium voltage Pakistan"
   },
   {
-    "name": "Market for electricity, medium voltage Poland",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5089,10 +5088,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PL"
+    "country": "PL",
+    "search": "Market for electricity, medium voltage Poland"
   },
   {
-    "name": "Market for electricity, medium voltage Paraguay",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5104,10 +5103,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "PY"
+    "country": "PY",
+    "search": "Market for electricity, medium voltage Paraguay"
   },
   {
-    "name": "Market for electricity, medium voltage Qatar",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5119,10 +5118,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "QA"
+    "country": "QA",
+    "search": "Market for electricity, medium voltage Qatar"
   },
   {
-    "name": "Market for electricity, medium voltage Romania",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5134,10 +5133,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RO"
+    "country": "RO",
+    "search": "Market for electricity, medium voltage Romania"
   },
   {
-    "name": "Market for electricity, medium voltage Serbia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5149,10 +5148,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RS"
+    "country": "RS",
+    "search": "Market for electricity, medium voltage Serbia"
   },
   {
-    "name": "Market for electricity, medium voltage Russia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5164,10 +5163,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RU"
+    "country": "RU",
+    "search": "Market for electricity, medium voltage Russia"
   },
   {
-    "name": "Market for electricity, medium voltage Saudi Arabia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5179,10 +5178,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SA"
+    "country": "SA",
+    "search": "Market for electricity, medium voltage Saudi Arabia"
   },
   {
-    "name": "Market for electricity, medium voltage Sudan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5194,10 +5193,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SS"
+    "country": "SS",
+    "search": "Market for electricity, medium voltage Sudan"
   },
   {
-    "name": "Market for electricity, medium voltage Sweden",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5209,10 +5208,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SE"
+    "country": "SE",
+    "search": "Market for electricity, medium voltage Sweden"
   },
   {
-    "name": "Market for electricity, medium voltage Singapore",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5224,10 +5223,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SG"
+    "country": "SG",
+    "search": "Market for electricity, medium voltage Singapore"
   },
   {
-    "name": "Market for electricity, medium voltage Slovenia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5239,10 +5238,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SI"
+    "country": "SI",
+    "search": "Market for electricity, medium voltage Slovenia"
   },
   {
-    "name": "Market for electricity, medium voltage Slovakia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5254,10 +5253,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SK"
+    "country": "SK",
+    "search": "Market for electricity, medium voltage Slovakia"
   },
   {
-    "name": "Market for electricity, medium voltage Senegal",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5269,10 +5268,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SN"
+    "country": "SN",
+    "search": "Market for electricity, medium voltage Senegal"
   },
   {
-    "name": "Market for electricity, medium voltage El Salvador",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5284,10 +5283,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SV"
+    "country": "SV",
+    "search": "Market for electricity, medium voltage El Salvador"
   },
   {
-    "name": "Market for electricity, medium voltage Syrian Arab Republic",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5299,10 +5298,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "SY"
+    "country": "SY",
+    "search": "Market for electricity, medium voltage Syrian Arab Republic"
   },
   {
-    "name": "Market for electricity, medium voltage Togo",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5314,10 +5313,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TG"
+    "country": "TG",
+    "search": "Market for electricity, medium voltage Togo"
   },
   {
-    "name": "Market for electricity, medium voltage Thailand",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5329,10 +5328,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TH"
+    "country": "TH",
+    "search": "Market for electricity, medium voltage Thailand"
   },
   {
-    "name": "Market for electricity, medium voltage Tajikistan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5344,10 +5343,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TJ"
+    "country": "TJ",
+    "search": "Market for electricity, medium voltage Tajikistan"
   },
   {
-    "name": "Market for electricity, medium voltage Turkmenistan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5359,10 +5358,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TM"
+    "country": "TM",
+    "search": "Market for electricity, medium voltage Turkmenistan"
   },
   {
-    "name": "Market for electricity, medium voltage Trinidad Tobago",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5374,10 +5373,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TT"
+    "country": "TT",
+    "search": "Market for electricity, medium voltage Trinidad Tobago"
   },
   {
-    "name": "Market for electricity, medium voltage Taiwan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5389,10 +5388,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TW"
+    "country": "TW",
+    "search": "Market for electricity, medium voltage Taiwan"
   },
   {
-    "name": "Market for electricity, medium voltage Tanzania",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5404,10 +5403,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "TZ"
+    "country": "TZ",
+    "search": "Market for electricity, medium voltage Tanzania"
   },
   {
-    "name": "Market for electricity, medium voltage Ukraine",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5419,10 +5418,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "UA"
+    "country": "UA",
+    "search": "Market for electricity, medium voltage Ukraine"
   },
   {
-    "name": "Market for electricity, medium voltage United States",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5434,10 +5433,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "US"
+    "country": "US",
+    "search": "Market for electricity, medium voltage United States"
   },
   {
-    "name": "Market for electricity, medium voltage Uruguay",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5449,10 +5448,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "UY"
+    "country": "UY",
+    "search": "Market for electricity, medium voltage Uruguay"
   },
   {
-    "name": "Market for electricity, medium voltage Uzbekistan",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5464,10 +5463,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "UZ"
+    "country": "UZ",
+    "search": "Market for electricity, medium voltage Uzbekistan"
   },
   {
-    "name": "Market for electricity, medium voltage Venezuela",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5479,10 +5478,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "VE"
+    "country": "VE",
+    "search": "Market for electricity, medium voltage Venezuela"
   },
   {
-    "name": "Market for electricity, medium voltage Viet-nam",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5494,10 +5493,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "VN"
+    "country": "VN",
+    "search": "Market for electricity, medium voltage Viet-nam"
   },
   {
-    "name": "Market for electricity, medium voltage Yemen",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5509,10 +5508,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "YE"
+    "country": "YE",
+    "search": "Market for electricity, medium voltage Yemen"
   },
   {
-    "name": "Market for electricity, medium voltage South Africa",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5524,10 +5523,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ZA"
+    "country": "ZA",
+    "search": "Market for electricity, medium voltage South Africa"
   },
   {
-    "name": "Market for electricity, medium voltage Zambia",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5539,10 +5538,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ZM"
+    "country": "ZM",
+    "search": "Market for electricity, medium voltage Zambia"
   },
   {
-    "name": "Market for electricity, medium voltage Zimbabwe",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -5554,10 +5553,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "ZW"
+    "country": "ZW",
+    "search": "Market for electricity, medium voltage Zimbabwe"
   },
   {
-    "name": "heat from steam in chemical industry RER",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -5569,10 +5568,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RER"
+    "country": "RER",
+    "search": "heat from steam in chemical industry RER"
   },
   {
-    "name": "heat from steam in chemical industry ROW",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -5584,10 +5583,10 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "heat from steam in chemical industry ROW"
   },
   {
-    "name": "market for heat natural gas europe",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -5599,7 +5598,8 @@
     "alias": "steam-gas-rer",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "Europe without Switzerland"
+    "country": "Europe without Switzerland",
+    "search": "market for heat natural gas europe"
   },
   {
     "name": "Utilisation : Repassage - Ironing (Cape)",
@@ -6126,24 +6126,24 @@
     "source": "Ecobalyse",
     "uuid": "86db560b-d31f-4745-a01e-ec74be00f865",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6163,24 +6163,24 @@
     "source": "Ecobalyse",
     "uuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6200,24 +6200,24 @@
     "source": "Ecobalyse",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6237,24 +6237,24 @@
     "source": "Ecobalyse",
     "uuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6274,24 +6274,24 @@
     "source": "Ecobalyse",
     "uuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6311,24 +6311,24 @@
     "source": "Ecobalyse",
     "uuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6348,24 +6348,24 @@
     "source": "Ecobalyse",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6385,24 +6385,24 @@
     "source": "Ecobalyse",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6422,24 +6422,24 @@
     "source": "Ecobalyse",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6459,24 +6459,24 @@
     "source": "Ecobalyse",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6496,24 +6496,24 @@
     "source": "Ecobalyse",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6533,24 +6533,24 @@
     "source": "Ecobalyse",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6570,24 +6570,24 @@
     "source": "Ecobalyse",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6607,24 +6607,24 @@
     "source": "Ecobalyse",
     "uuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
     "impacts": {
-      "acd": 0.0000939401,
+      "acd": 9.39401e-05,
       "bvi": 0,
       "cch": 0.0340193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0.717395,
-      "fwe": 0.0000110861,
+      "fwe": 1.10861e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 1.34883,
       "ldu": 1.05972,
-      "mru": 1.25858e-7,
-      "ozd": 8.43237e-9,
-      "pco": 0.0000566588,
-      "pma": 1.93206e-9,
-      "swe": 0.0000200761,
+      "mru": 1.25858e-07,
+      "ozd": 8.43237e-09,
+      "pco": 5.66588e-05,
+      "pma": 1.93206e-09,
+      "swe": 2.00761e-05,
       "tre": 0.000109398,
       "wtu": 0
     },
@@ -6650,18 +6650,18 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 0.471935,
-      "fwe": 1.8876e-7,
+      "fwe": 1.8876e-07,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
-      "ior": 0.0000741,
+      "ior": 7.41e-05,
       "ldu": 0.146289,
-      "mru": 2.7105e-9,
+      "mru": 2.7105e-09,
       "ozd": 8.6775e-14,
-      "pco": 0.00009165,
+      "pco": 9.165e-05,
       "pma": 9.945e-10,
-      "swe": 0.00003705,
+      "swe": 3.705e-05,
       "tre": 0.0004758,
       "wtu": 0
     },
@@ -6687,17 +6687,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 1.10287,
-      "fwe": 0.0000194935,
+      "fwe": 1.94935e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.0313935,
       "ldu": 0,
-      "mru": 3.10063e-9,
+      "mru": 3.10063e-09,
       "ozd": 1.25701e-11,
       "pco": 0.00105709,
-      "pma": 4.76351e-9,
+      "pma": 4.76351e-09,
       "swe": 0.00103294,
       "tre": 0.00113587,
       "wtu": 0
@@ -6724,17 +6724,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": -1.19948,
-      "fwe": 0.00000892823,
+      "fwe": 8.92823e-06,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": -0.140706,
       "ldu": 0,
-      "mru": 5.50423e-8,
+      "mru": 5.50423e-08,
       "ozd": -1.59271e-10,
       "pco": 0.00103153,
-      "pma": 3.88588e-9,
+      "pma": 3.88588e-09,
       "swe": 0.000700685,
       "tre": 0.00245086,
       "wtu": 0
@@ -6823,7 +6823,6 @@
     "country": ""
   },
   {
-    "name": "heat from steam in chemical industry RER",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -6835,7 +6834,8 @@
     "alias": null,
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RER"
+    "country": "RER",
+    "search": "heat from steam in chemical industry RER"
   },
   {
     "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
@@ -6857,10 +6857,10 @@
       "htn-c": 0,
       "ior": 0.00336641,
       "ldu": 0.720837,
-      "mru": 5.70479e-7,
-      "ozd": 9.90771e-9,
+      "mru": 5.70479e-07,
+      "ozd": 9.90771e-09,
       "pco": 0.000386687,
-      "pma": 9.24585e-9,
+      "pma": 9.24585e-09,
       "swe": 0.00337439,
       "tre": 0.000366822,
       "wtu": 0
@@ -6887,17 +6887,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 1.35876,
-      "fwe": 0.0000681551,
+      "fwe": 6.81551e-05,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ior": 0.000938064,
       "ldu": 0.29734,
-      "mru": 2.87832e-7,
-      "ozd": 7.62257e-9,
+      "mru": 2.87832e-07,
+      "ozd": 7.62257e-09,
       "pco": 0.000253113,
-      "pma": 4.09434e-9,
+      "pma": 4.09434e-09,
       "swe": 0.00138926,
       "tre": 0.000257148,
       "wtu": 0
@@ -6924,17 +6924,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 0.624761,
-      "fwe": 0.0000907767,
+      "fwe": 9.07767e-05,
       "ior": 0.00143026,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ldu": 0.234857,
-      "mru": 5.70619e-7,
-      "ozd": 3.79884e-9,
+      "mru": 5.70619e-07,
+      "ozd": 3.79884e-09,
       "pco": 0.000185692,
-      "pma": 5.63363e-9,
+      "pma": 5.63363e-09,
       "swe": 0.00142631,
       "tre": 0.000133536,
       "wtu": 0
@@ -6961,17 +6961,17 @@
       "etf": 0,
       "etf-c": 0,
       "fru": 6.79917,
-      "fwe": 0.000034782,
+      "fwe": 3.4782e-05,
       "ior": 0.00957356,
       "htc": 0,
       "htc-c": 0,
       "htn": 0,
       "htn-c": 0,
       "ldu": 1.00838,
-      "mru": 0.0000957786,
-      "ozd": 0.0000851755,
+      "mru": 9.57786e-05,
+      "ozd": 8.51755e-05,
       "pco": 0.00106633,
-      "pma": 2.32444e-8,
+      "pma": 2.32444e-08,
       "swe": 0.00128288,
       "tre": 0.00123719,
       "wtu": 0
@@ -6986,7 +6986,6 @@
     "country": ""
   },
   {
-    "name": "market for heat natural gas ROW",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -6998,10 +6997,10 @@
     "alias": "steam-gas-rsa",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "market for heat natural gas ROW"
   },
   {
-    "name": "market for heat other Europe",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7013,10 +7012,10 @@
     "alias": "steam-light-fuel-rer",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "Europe without Switzerland"
+    "country": "Europe without Switzerland",
+    "search": "market for heat other Europe"
   },
   {
-    "name": "market for heat other ROW",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7028,10 +7027,10 @@
     "alias": "steam-light-fuel-rsa",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "market for heat other ROW"
   },
   {
-    "name": "market for heat other Europe",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7043,10 +7042,10 @@
     "alias": "steam-heavy-fuel-rer",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "Europe without Switzerland"
+    "country": "Europe without Switzerland",
+    "search": "market for heat other Europe"
   },
   {
-    "name": "market for heat other ROW",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7058,10 +7057,10 @@
     "alias": "steam-heavy-fuel-rsa",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "market for heat other ROW"
   },
   {
-    "name": "market for heat other Europe",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7073,10 +7072,10 @@
     "alias": "steam-coal-rer",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "Europe without Switzerland"
+    "country": "Europe without Switzerland",
+    "search": "market for heat other Europe"
   },
   {
-    "name": "market for heat other ROW",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -7088,6 +7087,7 @@
     "alias": "steam-coal-rsa",
     "step_usage": "Energie",
     "correctif": "",
-    "country": "RoW"
+    "country": "RoW",
+    "search": "market for heat other ROW"
   }
 ]

@@ -38,6 +38,18 @@ def uuidOrSearch(txt):
     return txt if isUuid(txt) or txt is None else search(DB, txt)
 
 
+def nameOrSearch(db, activity):
+    """returns the provided name or the real name of the activity if there is a search field"""
+    return (
+        activity["name"]
+        if "name" in activity
+        else search(db, activity["search"])["name"]
+        + " {"
+        + search(db, activity["search"])["location"]
+        + "}"
+    )
+
+
 if __name__ == "__main__":
     # keep the previous processes with old impacts
     with open(PROCESSES) as f:
@@ -45,6 +57,10 @@ if __name__ == "__main__":
 
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
+
+    print("Computing real name of activities...")
+    for activity in activities:
+        activity["name"] = nameOrSearch(DB, activity)
 
     print("Creating material list...")
     materials = [
@@ -56,9 +72,8 @@ if __name__ == "__main__":
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
-            "name": search(DB, activity["name"])["name"]
-            if activity["source"].startswith("Ecoinvent")
-            else activity["name"],
+            "search": activity["search"] if "search" in activity else "",
+            "name": activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
             "primary": activity["primary"],
@@ -74,9 +89,8 @@ if __name__ == "__main__":
     print("Creating process list...")
     processes = {
         activity["name"]: {
-            "name": search(DB, activity["name"])["name"]
-            if activity["source"].startswith("Ecoinvent")
-            else activity["name"],
+            "search": activity["search"] if "search" in activity else "",
+            "name": activity["name"],
             "info": activity["info"],
             "unit": activity["unit"],
             "source": activity["source"],
@@ -100,7 +114,7 @@ if __name__ == "__main__":
         print(f"Computing impacts: {str(index)}/{len(processes)}", end="\r")
         match process["source"]:
             case "Ecoinvent 3.9.1":
-                lca = bw2calc.LCA({search(DB, process["name"]): 1})
+                lca = bw2calc.LCA({search(DB, process["search"]): 1})
                 lca.lci()
                 for key, method in impacts_definition.items():
                     lca.switch_method(method)
@@ -115,6 +129,14 @@ if __name__ == "__main__":
 
             case _:
                 continue
+
+    # cleanup the search term
+    for m in materials:
+        if "search" in m:
+            del m["search"]
+    for m in materials:
+        if "search" in m:
+            del m["search"]
 
     print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
     with open(IMPACTS, "r") as f:
