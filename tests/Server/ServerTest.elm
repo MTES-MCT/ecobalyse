@@ -1,6 +1,6 @@
 module Server.ServerTest exposing (..)
 
-import Data.Food.Query as BuilderQuery
+import Data.Food.Query as FoodQuery
 import Expect
 import Json.Encode as Encode
 import Server
@@ -52,7 +52,7 @@ suite =
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
                 , "/food/recipe"
-                    |> request "POST" (BuilderQuery.encode BuilderQuery.carrotCake)
+                    |> request "POST" (FoodQuery.encode FoodQuery.carrotCake)
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200

@@ -1,15 +1,12 @@
 module Data.Session exposing
     ( Notification(..)
     , Session
-    , UnloadedSession
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
     , deserializeStore
-    , fromUnloaded
     , maxComparedSimulations
     , notifyError
-    , notifyHttpError
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
@@ -23,11 +20,9 @@ import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
-import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
-import RemoteData exposing (WebData)
 import Request.Version exposing (Version)
 import Set exposing (Set)
 
@@ -38,39 +33,12 @@ type alias Session =
     , store : Store
     , currentVersion : Version
     , textileDb : TextileDb.Db
-    , foodDb : WebData FoodDb.Db
+    , foodDb : FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
         , textile : TextileInputs.Query
         }
-    }
-
-
-type alias UnloadedSession =
-    { navKey : Nav.Key
-    , clientUrl : String
-    , store : Store
-    , currentVersion : Version
-    , foodDb : WebData FoodDb.Db
-    , notifications : List Notification
-    , queries :
-        { food : FoodQuery.Query
-        , textile : TextileInputs.Query
-        }
-    }
-
-
-fromUnloaded : UnloadedSession -> TextileDb.Db -> Session
-fromUnloaded unloadedSession textileDb =
-    { navKey = unloadedSession.navKey
-    , clientUrl = unloadedSession.clientUrl
-    , store = unloadedSession.store
-    , currentVersion = unloadedSession.currentVersion
-    , textileDb = textileDb
-    , foodDb = unloadedSession.foodDb
-    , notifications = unloadedSession.notifications
-    , queries = unloadedSession.queries
     }
 
 
@@ -79,8 +47,7 @@ fromUnloaded unloadedSession textileDb =
 
 
 type Notification
-    = HttpError Http.Error
-    | GenericError String String
+    = GenericError String String
 
 
 closeNotification : Notification -> Session -> Session
@@ -91,11 +58,6 @@ closeNotification notification ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
-
-
-notifyHttpError : Http.Error -> { a | notifications : List Notification } -> { a | notifications : List Notification }
-notifyHttpError error ({ notifications } as session) =
-    { session | notifications = notifications ++ [ HttpError error ] }
 
 
 

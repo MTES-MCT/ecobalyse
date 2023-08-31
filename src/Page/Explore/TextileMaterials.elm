@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Html exposing (..)
@@ -21,7 +21,7 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
+table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table { countries } { detailed, scope } =
     { toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope

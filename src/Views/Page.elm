@@ -338,9 +338,6 @@ notificationView { closeNotification } notification =
     -- TODO:
     -- - absolute positionning
     case notification of
-        Session.HttpError error ->
-            Alert.httpError error
-
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger

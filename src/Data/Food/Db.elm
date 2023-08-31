@@ -19,19 +19,16 @@ type alias Db =
     , countries : List Country
     , transports : Transport.Distances
 
-    -- Builder specific datasources
-    -- Builder Processes are straightforward imports of public/data/food/processes/builder.json
+    -- Food specific datasources
     , processes : List Process
-
-    -- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
     , wellKnown : Process.WellKnown
     }
 
 
 buildFromJson : TextileDb.Db -> String -> String -> Result String Db
-buildFromJson { impactDefinitions, countries, transports } builderProcessesJson ingredientsJson =
-    builderProcessesJson
+buildFromJson { impactDefinitions, countries, transports } foodProcessesJson ingredientsJson =
+    foodProcessesJson
         |> Decode.decodeString (Process.decodeList impactDefinitions)
         |> Result.andThen
             (\processes ->

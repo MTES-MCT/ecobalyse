@@ -11,7 +11,7 @@ import Chart.Events as CE
 import Chart.Item as CI
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product
@@ -50,7 +50,7 @@ type alias Entry =
 
 
 createEntry :
-    Db
+    TextileDb.Db
     -> Unit.Functional
     -> Definition
     -> { highlight : Bool, label : String }

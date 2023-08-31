@@ -1,4 +1,4 @@
-module Page.Food.Builder exposing
+module Page.Food exposing
     ( Model
     , Msg(..)
     , init
@@ -15,7 +15,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
-import Data.Food.Db as BuilderDb exposing (Db)
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -40,8 +40,6 @@ import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
-import RemoteData exposing (WebData)
-import Request.Food.Db as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)
@@ -64,7 +62,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : Db
+    { db : FoodDb.Db
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -89,7 +87,6 @@ type Msg
     | AddTransform
     | AddDistribution
     | CopyToClipBoard String
-    | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
@@ -119,17 +116,17 @@ type Msg
     | UpdateDistribution String
 
 
-init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init db ({ foodDb, queries } as session) trigram maybeQuery =
+init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init ({ foodDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            Definition.get trigram db.impactDefinitions
+            Definition.get trigram foodDb.impactDefinitions
 
         query =
             maybeQuery
                 |> Maybe.withDefault queries.food
     in
-    ( { db = db
+    ( { db = foodDb
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
@@ -144,21 +141,13 @@ init db ({ foodDb, queries } as session) trigram maybeQuery =
             else
                 ImpactTabs.StepImpactsTab
       }
-    , session
-        |> Session.updateFoodQuery query
-    , Cmd.batch
-        [ case maybeQuery of
-            Nothing ->
-                Ports.scrollTo { x = 0, y = 0 }
+    , session |> Session.updateFoodQuery query
+    , case maybeQuery of
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
 
-            Just _ ->
-                Cmd.none
-        , if foodDb == RemoteData.NotAsked then
-            FoodRequestDb.loadDb session DbLoaded
-
-          else
+        Just _ ->
             Cmd.none
-        ]
     )
 
 
@@ -240,12 +229,6 @@ update ({ queries } as session) msg model =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
-
-        DbLoaded foodDb ->
-            ( model
-            , { session | foodDb = foodDb }
-            , Cmd.none
-            )
 
         DeleteBookmark bookmark ->
             updateQuery query
@@ -433,20 +416,15 @@ updateQuery query ( model, session, msg ) =
 
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { foodDb, store } query =
-    case foodDb of
-        RemoteData.Success db ->
-            store.bookmarks
-                |> Bookmark.findByFoodQuery query
-                |> Maybe.map .name
-                |> Maybe.withDefault
-                    (query
-                        |> Recipe.fromQuery db
-                        |> Result.map Recipe.toString
-                        |> Result.withDefault ""
-                    )
-
-        _ ->
-            ""
+    store.bookmarks
+        |> Bookmark.findByFoodQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
+            (query
+                |> Recipe.fromQuery foodDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault ""
+            )
 
 
 selectIngredient : Session -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -580,7 +558,7 @@ deleteItemButton event =
 
 type alias UpdateIngredientConfig =
     { excluded : List Id
-    , db : Db
+    , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , index : Int
@@ -816,7 +794,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
         ]
 
 
-displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances db ingredient ingredientQuery event =
     span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
@@ -894,7 +872,7 @@ displayTransportDistances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : Db -> Query -> Html Msg
+debugQueryView : FoodDb.Db -> Query -> Html Msg
 debugQueryView db query =
     let
         debugView =
@@ -929,7 +907,7 @@ errorView error =
         }
 
 
-ingredientListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
@@ -1011,7 +989,7 @@ initAutocomplete availableIngredients =
         )
 
 
-packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
@@ -1221,7 +1199,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : BuilderDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
@@ -1433,7 +1411,7 @@ stepListView { db, impact } recipe results =
         ]
 
 
-transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =

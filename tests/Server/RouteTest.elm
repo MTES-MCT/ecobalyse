@@ -1,6 +1,6 @@
 module Server.RouteTest exposing (..)
 
-import Data.Food.Query as BuilderQuery
+import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
@@ -57,12 +57,12 @@ foodEndpoints db =
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok BuilderQuery.carrotCake))
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.carrotCake))
             |> asTest "should map the /food/recipe endpoint"
         ]
     , describe "POST endpoints"
         [ "/food/recipe"
-            |> testEndpoint db "POST" (BuilderQuery.encode BuilderQuery.carrotCake)
+            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.carrotCake)
             |> Expect.equal (Just Route.PostFoodRecipe)
             |> asTest "should map the POST /food/recipe endpoint"
         , "/food/recipe"
