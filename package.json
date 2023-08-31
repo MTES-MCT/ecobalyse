@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
-    "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/",
-    "db:build": "node tests/prepare.js",
+    "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
+    "db:build": "./bin/build-db",
     "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",

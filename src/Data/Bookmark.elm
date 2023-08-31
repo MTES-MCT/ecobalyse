@@ -14,7 +14,7 @@ module Data.Bookmark exposing
     , toTextileQueries
     )
 
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
@@ -22,7 +22,6 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import RemoteData exposing (WebData)
 import Time exposing (Posix)
 
 
@@ -142,19 +141,14 @@ toFoodQueries =
         )
 
 
-toQueryDescription : { foodDb : WebData BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
+toQueryDescription : { foodDb : FoodDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
 toQueryDescription { foodDb, textileDb } bookmark =
     case bookmark.query of
         Food foodQuery ->
-            foodDb
-                |> RemoteData.map
-                    (\db ->
-                        foodQuery
-                            |> Recipe.fromQuery db
-                            |> Result.map Recipe.toString
-                            |> Result.withDefault bookmark.name
-                    )
-                |> RemoteData.withDefault bookmark.name
+            foodQuery
+                |> Recipe.fromQuery foodDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault bookmark.name
 
         Textile textileQuery ->
             textileQuery

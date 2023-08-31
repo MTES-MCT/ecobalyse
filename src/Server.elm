@@ -6,7 +6,7 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
@@ -127,7 +127,7 @@ toFoodResults query results =
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery : FoodDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
 executeFoodQuery foodDb encoder =
     BuilderRecipe.compute foodDb
         >> Result.map (Tuple.second >> encoder)

@@ -7,7 +7,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -57,7 +57,7 @@ type alias FoodOptions msg =
     , switchComparisonUnit : FoodComparisonUnit -> msg
     , displayChoice : DisplayChoice
     , switchDisplayChoice : DisplayChoice -> msg
-    , db : BuilderDb.Db
+    , db : FoodDb.Db
     }
 
 

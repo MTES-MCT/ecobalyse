@@ -23,7 +23,7 @@ module Data.Food.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db exposing (Db)
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -123,7 +123,7 @@ availablePackagings usedProcesses processes =
         |> List.filter (\process -> not (List.member process.code usedProcesses))
 
 
-compute : Db -> Query -> Result String ( Recipe, Results )
+compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
 compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
@@ -348,7 +348,7 @@ computeIngredientsTotalComplements definitions =
         Impact.noComplementsImpacts
 
 
-computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport : FoodDb.Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
@@ -479,7 +479,7 @@ encodeScoring scoring =
         ]
 
 
-fromQuery : Db -> Query -> Result String Recipe
+fromQuery : FoodDb.Db -> Query -> Result String Recipe
 fromQuery db query =
     Ok Recipe
         |> RE.andMap (ingredientListFromQuery db query)
@@ -589,12 +589,12 @@ getRecipeIngredientProcess { ingredient } =
     ingredient.default
 
 
-ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List RecipeIngredient)
 ingredientListFromQuery db =
     .ingredients >> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { countries, ingredients } { id, mass, country, planeTransport, complements } =
     let
         ingredientResult =
@@ -636,7 +636,7 @@ ingredientQueryFromIngredient ingredient =
 
 
 packagingListFromQuery :
-    Db
+    FoodDb.Db
     -> { a | packaging : List BuilderQuery.ProcessQuery }
     -> Result String (List Packaging)
 packagingListFromQuery db query =
@@ -644,7 +644,7 @@ packagingListFromQuery db query =
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
+packagingFromQuery : FoodDb.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByIdentifier processes code)
@@ -697,7 +697,7 @@ toString { ingredients, transform, packaging } =
 
 
 transformFromQuery :
-    Db
+    FoodDb.Db
     -> { a | transform : Maybe BuilderQuery.ProcessQuery }
     -> Result String (Maybe Transform)
 transformFromQuery { processes } query =

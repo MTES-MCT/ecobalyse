@@ -17,7 +17,7 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
@@ -455,7 +455,7 @@ massField massInput =
         ]
 
 
-productField : Db -> Product -> Html Msg
+productField : TextileDb.Db -> Product -> Html Msg
 productField db product =
     div []
         [ label [ for "product", class "form-label fw-bold" ]
@@ -477,7 +477,7 @@ productField db product =
         ]
 
 
-lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
+lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
 lifeCycleStepsView db { viewMode, funit, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap

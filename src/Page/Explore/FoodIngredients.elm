@@ -1,7 +1,7 @@
 module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Food.Db as BuilderDb
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -19,7 +19,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
+table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
 table _ { detailed, scope } =
     { toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
