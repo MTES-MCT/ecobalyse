@@ -11,7 +11,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Spain",
@@ -25,7 +25,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage France",
@@ -39,7 +39,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage India",
@@ -53,7 +53,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Portugal",
@@ -67,7 +67,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Plume de canard, inventaire agrégé",
@@ -3471,7 +3471,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Tunisia",
@@ -3485,7 +3485,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Turkey",
@@ -3499,7 +3499,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage United Arab Emirates",
@@ -3513,7 +3513,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Albania",
@@ -3527,7 +3527,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Armenia",
@@ -3541,7 +3541,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Row",
@@ -3555,7 +3555,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Angola",
@@ -3569,7 +3569,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Argentina",
@@ -3583,7 +3583,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Austria",
@@ -3597,7 +3597,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Australia",
@@ -3611,7 +3611,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Azerbaijan",
@@ -3625,7 +3625,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Bosnia Herzegovina",
@@ -3639,7 +3639,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Bangladesh",
@@ -3653,7 +3653,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Belgium",
@@ -3667,7 +3667,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Bulgaria",
@@ -3681,7 +3681,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Bahrain",
@@ -3695,7 +3695,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Benin",
@@ -3709,7 +3709,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Brunei Darussalam",
@@ -3723,7 +3723,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Bolivia",
@@ -3737,7 +3737,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, group medium voltage Brazil",
@@ -3751,7 +3751,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Botswana",
@@ -3765,7 +3765,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Belarus",
@@ -3779,7 +3779,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Canada",
@@ -3793,7 +3793,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Congo Democratic",
@@ -3807,7 +3807,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Congo",
@@ -3821,7 +3821,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Switzerland",
@@ -3835,7 +3835,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Cote d'Ivoire",
@@ -3849,7 +3849,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Chile",
@@ -3863,7 +3863,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Cameroon",
@@ -3877,7 +3877,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Colombia",
@@ -3891,7 +3891,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Costa Rica",
@@ -3905,7 +3905,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Cuba",
@@ -3919,7 +3919,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Cyprus",
@@ -3933,7 +3933,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage CZ",
@@ -3947,7 +3947,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Germany",
@@ -3961,7 +3961,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Denmark",
@@ -3975,7 +3975,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Dominican Republic",
@@ -3989,7 +3989,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Algeria",
@@ -4003,7 +4003,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Ecuador",
@@ -4017,7 +4017,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Estonia",
@@ -4031,7 +4031,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Egypt",
@@ -4045,7 +4045,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Eritrea",
@@ -4059,7 +4059,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Ethiopia",
@@ -4073,7 +4073,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Finland",
@@ -4087,7 +4087,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Gabon",
@@ -4101,7 +4101,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage United Kingdom",
@@ -4115,7 +4115,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Georgia",
@@ -4129,7 +4129,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Ghana",
@@ -4143,7 +4143,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Gibraltar",
@@ -4157,7 +4157,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Guatemala",
@@ -4171,7 +4171,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Hong Kong",
@@ -4185,7 +4185,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Honduras",
@@ -4199,7 +4199,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Croatia",
@@ -4213,7 +4213,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Haiti",
@@ -4227,7 +4227,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Hungary",
@@ -4241,7 +4241,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Indonesia",
@@ -4255,7 +4255,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Ireland",
@@ -4269,7 +4269,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Israel",
@@ -4283,7 +4283,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Iraq",
@@ -4297,7 +4297,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Iran",
@@ -4311,7 +4311,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Iceland",
@@ -4325,7 +4325,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Italy",
@@ -4339,7 +4339,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Jamaica",
@@ -4353,7 +4353,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Jordan",
@@ -4367,7 +4367,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Japan",
@@ -4381,7 +4381,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Kenya",
@@ -4395,7 +4395,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Kyrgyzstan",
@@ -4409,7 +4409,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Cambodia",
@@ -4423,7 +4423,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Korea People",
@@ -4437,7 +4437,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Korea Republic",
@@ -4451,7 +4451,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Kuwait",
@@ -4465,7 +4465,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Kazakhstan",
@@ -4479,7 +4479,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Lebanon",
@@ -4493,7 +4493,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Sri Lanka",
@@ -4507,7 +4507,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Lithuania",
@@ -4521,7 +4521,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Luxembourg",
@@ -4535,7 +4535,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Latvia",
@@ -4549,7 +4549,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Libya",
@@ -4563,7 +4563,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Morocco",
@@ -4577,7 +4577,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Moldova",
@@ -4591,7 +4591,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Macedonia",
@@ -4605,7 +4605,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Myanmar",
@@ -4619,7 +4619,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Mongolia",
@@ -4633,7 +4633,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage RER",
@@ -4647,7 +4647,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Malta",
@@ -4661,7 +4661,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Mexico",
@@ -4675,7 +4675,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Malaysia",
@@ -4689,7 +4689,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Mozambique",
@@ -4703,7 +4703,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Namibia",
@@ -4717,7 +4717,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Nigeria",
@@ -4731,7 +4731,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Nicaragua",
@@ -4745,7 +4745,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Netherlands",
@@ -4759,7 +4759,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Norway",
@@ -4773,7 +4773,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage ROW",
@@ -4787,7 +4787,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Nepal",
@@ -4801,7 +4801,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage New Zealand",
@@ -4815,7 +4815,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Oman",
@@ -4829,7 +4829,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Panama",
@@ -4843,7 +4843,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Peru",
@@ -4857,7 +4857,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Philippines",
@@ -4871,7 +4871,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Pakistan",
@@ -4885,7 +4885,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Poland",
@@ -4899,7 +4899,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Paraguay",
@@ -4913,7 +4913,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Qatar",
@@ -4927,7 +4927,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Romania",
@@ -4941,7 +4941,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Serbia",
@@ -4955,7 +4955,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Russia",
@@ -4969,7 +4969,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Saudi Arabia",
@@ -4983,7 +4983,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Sudan",
@@ -4997,7 +4997,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Sweden",
@@ -5011,7 +5011,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Singapore",
@@ -5025,7 +5025,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Slovenia",
@@ -5039,7 +5039,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Slovakia",
@@ -5053,7 +5053,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Senegal",
@@ -5067,7 +5067,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage El Salvador",
@@ -5081,7 +5081,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Syrian Arab Republic",
@@ -5095,7 +5095,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Togo",
@@ -5109,7 +5109,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Thailand",
@@ -5123,7 +5123,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Tajikistan",
@@ -5137,7 +5137,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Turkmenistan",
@@ -5151,7 +5151,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Trinidad Tobago",
@@ -5165,7 +5165,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Taiwan",
@@ -5179,7 +5179,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Tanzania",
@@ -5193,7 +5193,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Ukraine",
@@ -5207,7 +5207,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage United States",
@@ -5221,7 +5221,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Uruguay",
@@ -5235,7 +5235,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Uzbekistan",
@@ -5249,7 +5249,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Venezuela",
@@ -5263,7 +5263,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Viet-nam",
@@ -5277,7 +5277,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Yemen",
@@ -5291,7 +5291,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage South Africa",
@@ -5305,7 +5305,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Zambia",
@@ -5319,7 +5319,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "Market for electricity, medium voltage Zimbabwe",
@@ -5333,7 +5333,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "name": "heat from steam in chemical industry RER",
@@ -5347,7 +5347,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "heat from steam in chemical industry ROW",
@@ -5361,7 +5361,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat natural gas europe",
@@ -5375,7 +5375,7 @@
     "waste": 0,
     "alias": "steam-gas-rer",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "Utilisation : Repassage - Ironing (Cape)",
@@ -6577,7 +6577,7 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
@@ -6735,7 +6735,7 @@
     "waste": 0,
     "alias": "steam-gas-rsa",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other Europe",
@@ -6749,7 +6749,7 @@
     "waste": 0,
     "alias": "steam-light-fuel-rer",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other ROW",
@@ -6763,7 +6763,7 @@
     "waste": 0,
     "alias": "steam-light-fuel-rsa",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other Europe",
@@ -6777,7 +6777,7 @@
     "waste": 0,
     "alias": "steam-heavy-fuel-rer",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other ROW",
@@ -6791,7 +6791,7 @@
     "waste": 0,
     "alias": "steam-heavy-fuel-rsa",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other Europe",
@@ -6805,7 +6805,7 @@
     "waste": 0,
     "alias": "steam-coal-rer",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   },
   {
     "name": "market for heat other ROW",
@@ -6819,6 +6819,6 @@
     "waste": 0,
     "alias": "steam-coal-rsa",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": ""
   }
 ]
