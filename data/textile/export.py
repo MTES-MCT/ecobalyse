@@ -56,7 +56,9 @@ if __name__ == "__main__":
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
-            "name": activity["name"],
+            "name": search(DB, activity["name"])["name"]
+            if activity["source"].startswith("Ecoinvent")
+            else activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
             "primary": activity["primary"],
@@ -72,7 +74,9 @@ if __name__ == "__main__":
     print("Creating process list...")
     processes = {
         activity["name"]: {
-            "name": activity["name"],
+            "name": search(DB, activity["name"])["name"]
+            if activity["source"].startswith("Ecoinvent")
+            else activity["name"],
             "info": activity["info"],
             "unit": activity["unit"],
             "source": activity["source"],
