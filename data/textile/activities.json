@@ -3740,7 +3740,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "name": "Market for electricity, medium voltage Brazil",
+    "name": "Market for electricity, group medium voltage Brazil",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
