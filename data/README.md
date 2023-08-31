@@ -19,7 +19,8 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 * `make import_food_method` : pour importer EF 3.1 adapted dans Brightway (projet Foos). Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier `data/`
 * `make import_textile_method` : pour importer EF 3.1 adapted dans Brightway (projet Textile). Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier `data/`
 * `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet Textile). Assurez-vous d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
-* `make export_builder` : pour exporter les json pour le builder
+* `make export_food` : pour exporter les json pour le builder alimentaire
+* `make export_textile` : pour exporter les json pour le builder textile
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make shell` : lance un shell à l'intérieur du conteneur
 * `make root_shell` : lance un shell root à l'intérieur du conteneur
