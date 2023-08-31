@@ -6,7 +6,7 @@ import sys
 
 PROJECT = sys.argv[1]
 # Agribalyse
-BIOSPHERE = "Agribalyse 3.1.1 biosphere" if PROJECT == "Food" else "biosphere3"
+BIOSPHERE = "biosphere3"
 METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
 
@@ -55,6 +55,7 @@ def main():
         import_method()
     else:
         print(f"{METHODNAME} already imported")
+
 
 if __name__ == "__main__":
     main()

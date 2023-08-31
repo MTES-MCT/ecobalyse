@@ -12,7 +12,7 @@ PROJECT = "Food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
-BIOSPHERE = DBNAME + " biosphere"
+BIOSPHERE = "biosphere3"
 
 # excluded strategies and migrations
 EXCLUDED = [
