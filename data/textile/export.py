@@ -18,7 +18,7 @@ import json
 # Input
 PROJECT = "Textile"
 DBNAME = "Ecoinvent 3.9.1"
-DB=bw2data.Database(DBNAME)
+DB = bw2data.Database(DBNAME)
 BIOSPHERE = "biopshere3"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             "impacts": activity["impacts"]
             if activity["source"].startswith("Base Impacts")
             else {},
-            "heatMJ": activity.get("heatMJ", 0),
+            "heat_MJ": activity.get("heatMJ", 0),
             "elec_pppm": activity.get("elec_pppm", 0),
             "elec_MJ": activity.get("elec_MJ", 0),
             "waste": activity["waste"],
