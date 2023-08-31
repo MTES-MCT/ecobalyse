@@ -122,6 +122,13 @@ view _ model =
     ( "Changelog"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Changelog" ]
+            , """Le développement du projet Ecobalyse est effectué [sur Github](https://github.com/MTES-MCT/ecobalyse),
+            où l'[historique complète](https://github.com/MTES-MCT/ecobalyse/commits/master) des modifications du code
+            est disponible.
+
+            Vous pouvez également vous tenir informé des avancées fonctionnelles et plans futurs de développement
+            en rejoignant [la communauté ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute)."""
+                |> Markdown.simple [ class "pb-3" ]
             , case model.changelog of
                 RemoteData.Success commits ->
                     TableView.responsiveDefault []
