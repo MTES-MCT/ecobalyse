@@ -357,7 +357,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pet-rcp",
@@ -372,7 +375,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pet-rcc",
@@ -387,7 +393,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 0.7
+    }
   },
   {
     "id": "pa-rc",
@@ -402,7 +411,10 @@
     "geographicOrigin": "Europe puis Asie",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "viscose-r",
@@ -417,7 +429,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "pa-rm",
@@ -432,7 +447,10 @@
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "laine-r",
@@ -447,7 +465,10 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "coton-rdpc",
@@ -462,7 +483,10 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "coton-rdp",
@@ -477,7 +501,10 @@
     "geographicOrigin": "Espagne & France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    }
   },
   {
     "id": "acrylique-r",
@@ -492,6 +519,24 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 1
+    }
+  },
+  {
+    "id": "neoprene",
+    "materialAndSpinningProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
+    "materialProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "name": "Feuille de néoprène, inventaire agrégé",
+    "shortName": "Néoprène",
+    "origin": "Synthétiques",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 0,
+    "cff": null
   }
 ]

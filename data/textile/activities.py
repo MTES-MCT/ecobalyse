@@ -13,10 +13,11 @@ with open("materials.json") as f:
 with open("codes.json") as f:
     codes = {c["code"]: c["name"] for c in json.loads(f.read())}
 
+
 # check no missing process
 for material in materials.keys():
     if material not in [p["name"] for p in processes]:
-        assert f"missing process: {material}"
+        print( f"missing process: {material}")
 
 for process in processes:
     name = process["name"]

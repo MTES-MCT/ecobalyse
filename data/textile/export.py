@@ -56,7 +56,6 @@ if __name__ == "__main__":
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
-            "spinningProcessUuid": uuidOrSearch(activity["spinningProcessUuid"]),
             "name": activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
