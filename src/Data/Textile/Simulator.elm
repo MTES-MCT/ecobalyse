@@ -17,6 +17,7 @@ import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
 import Data.Textile.Step as Step exposing (Step)
@@ -350,19 +351,28 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Db -> Material -> Step -> { impacts : Impacts, kwh : Energy }
-stepSpinningImpacts _ material step =
-    case material.spinningProcess of
-        Nothing ->
-            -- Some materials, eg. Neoprene, don't use Spinning *at all*, so this step has basically no impacts.
-            { impacts = step.impacts, kwh = Quantity.zero }
+stepSpinningImpacts : Db -> Material -> Maybe Spinning -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts _ material maybeSpinning step =
+    let
+        yarnSize =
+            step.yarnSize
+                -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#fabrication-du-fil-filature-vs-filage-1
+                -- that defines the default yarnSize for a thread
+                |> Maybe.withDefault (Unit.yarnSizeKilometersPerKg 50)
 
-        Just spinningProcess ->
-            step.outputMass
-                |> Formula.spinningImpacts step.impacts
-                    { spinningProcess = spinningProcess
-                    , countryElecProcess = step.country.electricityProcess
-                    }
+        spinning =
+            maybeSpinning
+                |> Maybe.withDefault (Spinning.getDefault material.origin)
+
+        kwh =
+            spinning
+                |> Spinning.getElec step.outputMass yarnSize
+                |> Energy.kilowattHours
+    in
+    Formula.spinningImpacts step.impacts
+        { spinningKwh = kwh
+        , countryElecProcess = step.country.electricityProcess
+        }
 
 
 computeSpinningImpacts : Db -> Simulator -> Simulator
@@ -374,9 +384,9 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                     | kwh =
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts db material
+                                        |> stepSpinningImpacts db material spinning
                                         |> .kwh
                                         |> Quantity.multiplyBy (Split.toFloat share)
                                 )
@@ -384,9 +394,9 @@ computeSpinningImpacts db ({ inputs } as simulator) =
                     , impacts =
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts db material
+                                        |> stepSpinningImpacts db material spinning
                                         |> .impacts
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
@@ -434,12 +444,7 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                                     , outputMass = fabricOutputMass
                                     , pickingElec = process.elec_pppm
                                     , surfaceMass = surfaceMass
-                                    , yarnSize =
-                                        inputs.yarnSize
-                                            |> Maybe.withDefault
-                                                (inputs.product.yarnSize
-                                                    |> Maybe.withDefault Unit.minYarnSize
-                                                )
+                                    , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
                                     }
                 in
                 { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
@@ -508,15 +513,28 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                 |> (\inputMass ->
                         inputs.materials
                             |> List.map
-                                (\{ material, share } ->
+                                (\{ material, share, spinning } ->
                                     let
+                                        spinningProcess =
+                                            spinning
+                                                |> Maybe.withDefault (Spinning.getDefault material.origin)
+
                                         processWaste =
-                                            material.spinningProcess
-                                                |> Maybe.map .waste
-                                                |> Maybe.withDefault (Mass.kilograms 0)
+                                            Spinning.waste spinningProcess
+
+                                        outputMaterialMass =
+                                            -- The output mass is the input mass of the next step
+                                            inputMass
+                                                |> Quantity.multiplyBy (Split.toFloat share)
+
+                                        inputMaterialMass =
+                                            -- Formula : inputMass - inputMass * waste = outputMass
+                                            -- => inputMass * (1 - waste) = outputMass
+                                            -- => inputMass = outputMass / (1 - waste)
+                                            Split.divideBy (Mass.inKilograms outputMaterialMass) (Split.complement processWaste)
+                                                |> Mass.kilograms
                                     in
-                                    Formula.genericWaste processWaste
-                                        (inputMass |> Quantity.multiplyBy (Split.toFloat share))
+                                    { waste = Quantity.difference inputMaterialMass outputMaterialMass, mass = inputMaterialMass }
                                 )
                             |> List.foldl
                                 (\curr acc ->

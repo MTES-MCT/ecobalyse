@@ -24,7 +24,8 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material as Material
+import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
@@ -107,6 +108,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Split
+    | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
@@ -393,6 +395,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
 
+        UpdateMaterialSpinning material spinning ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
+
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
@@ -493,6 +499,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality

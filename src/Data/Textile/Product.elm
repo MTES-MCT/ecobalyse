@@ -69,7 +69,7 @@ type alias Product =
     , name : String
     , mass : Mass
     , surfaceMass : Unit.SurfaceMass
-    , yarnSize : Maybe Unit.YarnSize
+    , yarnSize : Unit.YarnSize
     , fabric : FabricOptions
     , dyeing : DyeingOptions
     , making : MakingOptions
@@ -190,7 +190,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
-        |> Pipe.required "yarnSize" (Decode.maybe Unit.decodeYarnSize)
+        |> Pipe.required "yarnSize" Unit.decodeYarnSize
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" decodeMakingOptions

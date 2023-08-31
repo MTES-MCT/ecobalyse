@@ -401,8 +401,7 @@
     },
     "correction": [
       { "sub-impact": "etf-o", "weighting": 2 },
-      { "sub-impact": "etf-i", "weighting": 1 },
-      { "sub-impact": "etf-m", "weighting": 1 }
+      { "sub-impact": "etf-i", "weighting": 1 }
     ]
   },
   "htc": {
@@ -448,8 +447,7 @@
     },
     "correction": [
       { "sub-impact": "htc-o", "weighting": 2 },
-      { "sub-impact": "htc-i", "weighting": 1 },
-      { "sub-impact": "htc-m", "weighting": 1 }
+      { "sub-impact": "htc-i", "weighting": 0 }
     ]
   },
   "htn": {
@@ -495,8 +493,7 @@
     },
     "correction": [
       { "sub-impact": "htn-o", "weighting": 2 },
-      { "sub-impact": "htn-i", "weighting": 1 },
-      { "sub-impact": "htn-m", "weighting": 1 }
+      { "sub-impact": "htn-i", "weighting": 0 }
     ]
   },
   "bvi": {

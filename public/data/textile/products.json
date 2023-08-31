@@ -154,7 +154,7 @@
     "name": "Pull / Couche intermédiaire",
     "mass": 0.5,
     "surfaceMass": 250,
-    "yarnSize": null,
+    "yarnSize": 35,
     "fabric": "knitting",
     "dyeing": {
       "defaultMedium": "fabric"
@@ -184,7 +184,7 @@
     "name": "T-shirt / Polo",
     "mass": 0.17,
     "surfaceMass": 200,
-    "yarnSize": null,
+    "yarnSize": 40,
     "fabric": "knitting",
     "dyeing": {
       "defaultMedium": "fabric"
