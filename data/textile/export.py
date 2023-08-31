@@ -38,18 +38,6 @@ def uuidOrSearch(txt):
     return txt if isUuid(txt) or txt is None else search(DB, txt)
 
 
-def nameOrSearch(db, activity):
-    """returns the provided name or the real name of the activity if there is a search field"""
-    return (
-        activity["name"]
-        if "name" in activity
-        else search(db, activity["search"])["name"]
-        + " {"
-        + search(db, activity["search"])["location"]
-        + "}"
-    )
-
-
 if __name__ == "__main__":
     # keep the previous processes with old impacts
     with open(PROCESSES) as f:
@@ -60,7 +48,14 @@ if __name__ == "__main__":
 
     print("Computing real name of activities...")
     for activity in activities:
-        activity["name"] = nameOrSearch(DB, activity)
+        activity["name"] = (
+            activity["name"]
+            if "name" in activity
+            else search(DB, activity["search"])["name"]
+            + " {"
+            + search(DB, activity["search"])["location"]
+            + "}"
+        )
 
     print("Creating material list...")
     materials = [
