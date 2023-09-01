@@ -123,7 +123,7 @@ Rq : le cas particulier d'un ingrédient dont le pays d'origine n'aurait pas ét
 
 ## Distances
 
-Toutes les distances considérées entre pays sont visibles sur cette page \[<mark style="color:red;">**lien à ajouter**</mark>]
+Toutes les distances considérées entre pays sont visibles sur [cette page](https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/transports.json).
 
 Les distances entre pays sont considérées à partir des calculateurs mis en avant dans le projet de PEF CR Apparel & Footwear rendu public à l'été 2021 (Version 1.1 – Second draft PEFCR, 28 May 2021). Ainsi :
 
