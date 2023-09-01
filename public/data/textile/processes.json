@@ -114,7 +114,7 @@
     "country": "FR"
   },
   {
-    "search": "Market for electricity, group medium voltage India",
+    "search": "Market group for electricity, medium voltage India",
     "name": "market group for electricity, medium voltage {IN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4028,7 +4028,7 @@
     "country": "BO"
   },
   {
-    "search": "Market for electricity, group medium voltage Brazil",
+    "search": "Market group for electricity, medium voltage Brazil",
     "name": "market group for electricity, medium voltage {BR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7904,7 +7904,7 @@
     "country": "UA"
   },
   {
-    "search": "Market for electricity, medium voltage United States group",
+    "search": "Market group for electricity, medium voltage United States",
     "name": "market group for electricity, medium voltage {US}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",

@@ -57,7 +57,7 @@
     "step_usage": "Energie",
     "correctif": "",
     "country": "IN",
-    "search": "Market for electricity, group medium voltage India"
+    "search": "Market group for electricity, medium voltage India"
   },
   {
     "info": "Energie > Electricité > Mix moyen",
@@ -3859,7 +3859,7 @@
     "step_usage": "Energie",
     "correctif": "",
     "country": "BR",
-    "search": "Market for electricity, group medium voltage Brazil"
+    "search": "Market group for electricity, medium voltage Brazil"
   },
   {
     "info": "Energie > Electricité > Mix moyen",
@@ -5434,7 +5434,7 @@
     "step_usage": "Energie",
     "correctif": "",
     "country": "US",
-    "search": "Market for electricity, medium voltage United States group"
+    "search": "Market group for electricity, medium voltage United States"
   },
   {
     "info": "Energie > Electricité > Mix moyen",
