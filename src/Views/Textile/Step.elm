@@ -753,7 +753,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
-        , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
+        , [ HeatSource.Other, HeatSource.NaturalGas ]
             |> List.map
                 (\heatSource ->
                     option

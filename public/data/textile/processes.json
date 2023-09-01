@@ -9874,7 +9874,7 @@
     "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
-    "alias": "steam-coal-rer",
+    "alias": "steam-other-rer",
     "step_usage": "Energie",
     "correctif": "",
     "country": "Europe without Switzerland"
@@ -9912,7 +9912,7 @@
     "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
-    "alias": "steam-coal-rsa",
+    "alias": "steam-other-rsa",
     "step_usage": "Energie",
     "correctif": "",
     "country": "RoW"
