@@ -58,7 +58,7 @@ if __name__ == "__main__":
         )
         activity["uuid"] = (
             activity["uuid"]
-            if not activity["source"].startswith("Ecoinvent")
+            if not activity["source"].startswith("BaseImpact")
             else search(DB, activity["search"])["activity"]
         )
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             "source": activity["source"],
             "uuid": activity["uuid"],
             "impacts": activity["impacts"]
-            if not activity["source"].startswith("Ecoinvent")
+            if not activity["source"].startswith("BaseImpact")
             else {},
             "heat_MJ": activity.get("heatMJ", 0),
             "elec_pppm": activity.get("elec_pppm", 0),
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     for index, (key, process) in enumerate(processes.items()):
         print(f"Computing impacts: {str(index)}/{len(processes)}", end="\r")
         match process["source"]:
-            case "Ecoinvent 3.9.1":
+            case "BaseImpact":
                 lca = bw2calc.LCA({search(DB, process["search"]): 1})
                 lca.lci()
                 for key, method in impacts_definition.items():

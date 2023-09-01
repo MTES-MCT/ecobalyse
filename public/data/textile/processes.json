@@ -4,7 +4,7 @@
     "name": "market for electricity, medium voltage {TW}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "53598d93-8d7f-5a46-9c3e-b2791fc30cd4",
     "impacts": {
       "acd": 0.002956275259,
@@ -42,7 +42,7 @@
     "name": "market for electricity, medium voltage {ES}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "5d6be9ff-5db6-56ac-b35c-837fa84254e8",
     "impacts": {
       "acd": 0.001369741841,
@@ -80,7 +80,7 @@
     "name": "market for electricity, medium voltage {FR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "2b0ae208-b177-5bb1-b3f0-8eb82baa0ca0",
     "impacts": {
       "acd": 0.0003318023476,
@@ -118,7 +118,7 @@
     "name": "market group for electricity, medium voltage {IN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "ceb1e210-87c4-550b-a8f1-023fecabd342",
     "impacts": {
       "acd": 0.006198441279,
@@ -156,7 +156,7 @@
     "name": "market for electricity, medium voltage {PT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "23e9672e-7947-51c1-b06d-2eb55ea3a959",
     "impacts": {
       "acd": 0.001996798309,
@@ -3272,7 +3272,7 @@
     "name": "market for electricity, medium voltage {GR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "fdd7a3f0-f1a5-5dfa-894d-605e15c210a5",
     "impacts": {
       "acd": 0.004156032104,
@@ -3310,7 +3310,7 @@
     "name": "market for electricity, medium voltage {TN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "c682f04f-ecdb-538a-95ae-d93fa480bda3",
     "impacts": {
       "acd": 0.0005885285289,
@@ -3348,7 +3348,7 @@
     "name": "market for electricity, medium voltage {TR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8f26fdff-adcc-561b-9400-2655053caccd",
     "impacts": {
       "acd": 0.004136907238,
@@ -3386,7 +3386,7 @@
     "name": "market for electricity, medium voltage {AE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "39bcd70c-c66e-5ce5-8014-905c504fc28d",
     "impacts": {
       "acd": 0.0005504759502,
@@ -3424,7 +3424,7 @@
     "name": "market for electricity, medium voltage {AL}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "385870cb-6d49-596f-bea8-f15ca977aee2",
     "impacts": {
       "acd": 0.0006761289302,
@@ -3462,7 +3462,7 @@
     "name": "market for electricity, medium voltage {AM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "e803515e-cb2f-57a6-882a-30ea5c8199f6",
     "impacts": {
       "acd": 0.0003098816999,
@@ -3500,7 +3500,7 @@
     "name": "market for electricity, medium voltage, aluminium industry {RoW}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "b9ad1a5d-2b18-514c-9c98-e2b69f1c9b5d",
     "impacts": {
       "acd": 0.01062889205,
@@ -3538,7 +3538,7 @@
     "name": "market for electricity, medium voltage {AO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "0dab2cb7-fc04-523b-ae3c-97a69ba7882e",
     "impacts": {
       "acd": 0.001623905114,
@@ -3576,7 +3576,7 @@
     "name": "market for electricity, medium voltage {AR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "2158b2a0-1b05-51cb-9a76-b2f3c17c8c97",
     "impacts": {
       "acd": 0.0007350032234,
@@ -3614,7 +3614,7 @@
     "name": "market for electricity, medium voltage {AT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "3de31935-d8c2-5aab-a466-1005580104e3",
     "impacts": {
       "acd": 0.0007073191874,
@@ -3652,7 +3652,7 @@
     "name": "market for electricity, medium voltage {AU}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "fec06595-73a7-5dcb-b737-632e95077fee",
     "impacts": {
       "acd": 0.004538201288,
@@ -3690,7 +3690,7 @@
     "name": "market for electricity, medium voltage {AZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "11f244f3-a504-5771-90a5-1f267df3046e",
     "impacts": {
       "acd": 0.0005956780482,
@@ -3728,7 +3728,7 @@
     "name": "market for electricity, medium voltage {BA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "dc9c6ef6-0ab9-57fd-bf22-3e5be388db46",
     "impacts": {
       "acd": 0.01843755283,
@@ -3766,7 +3766,7 @@
     "name": "market for electricity, medium voltage {BD}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "4f6707a9-6ce9-59c4-945e-be2478b8db6e",
     "impacts": {
       "acd": 0.003092566268,
@@ -3804,7 +3804,7 @@
     "name": "market for electricity, medium voltage {BE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "2a32762d-2bd6-52a6-ba1e-029bd7af262f",
     "impacts": {
       "acd": 0.0003705013918,
@@ -3842,7 +3842,7 @@
     "name": "market for electricity, medium voltage {BG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "48f3f4d9-3dd5-54eb-a19e-a67d0017ee9e",
     "impacts": {
       "acd": 0.003747052993,
@@ -3880,7 +3880,7 @@
     "name": "market for electricity, medium voltage {BH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8c3cbb47-7eb0-5f99-a962-eae2f478f47c",
     "impacts": {
       "acd": 0.0007085711141,
@@ -3918,7 +3918,7 @@
     "name": "market for electricity, medium voltage {BJ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "cb17d064-8bc3-5f91-9302-1297469b7d6f",
     "impacts": {
       "acd": 0.0008472284259,
@@ -3956,7 +3956,7 @@
     "name": "market for electricity, medium voltage {BN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a29c7b0e-4613-5765-b111-c8960e5871c5",
     "impacts": {
       "acd": 0.0007397033384,
@@ -3994,7 +3994,7 @@
     "name": "market for electricity, medium voltage {BO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "da8e98f3-168e-55d6-9528-469599118ae4",
     "impacts": {
       "acd": 0.0005263809297,
@@ -4032,7 +4032,7 @@
     "name": "market group for electricity, medium voltage {BR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "7a852747-2214-5ea2-a8dd-4c3ec0393c28",
     "impacts": {
       "acd": 0.0008601335413,
@@ -4070,7 +4070,7 @@
     "name": "market for electricity, medium voltage {BW}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "255e6acf-58c5-5f9f-b3f9-00008e1f0d38",
     "impacts": {
       "acd": 0.01355714972,
@@ -4108,7 +4108,7 @@
     "name": "market for electricity, medium voltage {BY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "907c9809-9497-5075-bda2-fddeb8000364",
     "impacts": {
       "acd": 0.0008873132041,
@@ -4146,7 +4146,7 @@
     "name": "market group for electricity, medium voltage {Canada without Quebec}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "d28fdbda-46b3-5706-9a92-77ade7292065",
     "impacts": {
       "acd": 0.001020880875,
@@ -4184,7 +4184,7 @@
     "name": "market for electricity, medium voltage {CD}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "7ab08b5c-42b3-52d0-bfa8-4879718794d8",
     "impacts": {
       "acd": 0.0001347416599,
@@ -4222,7 +4222,7 @@
     "name": "market for electricity, medium voltage {CG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "f4c9f1c2-5392-5cce-81e2-3d7a07b99670",
     "impacts": {
       "acd": 8.195972529e-05,
@@ -4260,7 +4260,7 @@
     "name": "market for electricity, medium voltage {CH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "92380ce0-f5d3-5222-a7d6-82ec8a23ebfe",
     "impacts": {
       "acd": 0.0001660175233,
@@ -4298,7 +4298,7 @@
     "name": "market for electricity, medium voltage {CI}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "e4c70618-3631-52bf-b32f-a04372d6dcf7",
     "impacts": {
       "acd": 0.0005466314584,
@@ -4336,7 +4336,7 @@
     "name": "market for electricity, medium voltage {CL}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "e3c3a015-fb84-5f12-b533-9c92783f40e7",
     "impacts": {
       "acd": 0.004438744001,
@@ -4374,7 +4374,7 @@
     "name": "market for electricity, medium voltage {CM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "4f287c39-5ef0-5bc4-b1f7-e8ca9182562a",
     "impacts": {
       "acd": 0.0005058371433,
@@ -4412,7 +4412,7 @@
     "name": "market for electricity, medium voltage {CO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8420c784-a407-569c-9637-6a027119d1b5",
     "impacts": {
       "acd": 0.001902866085,
@@ -4450,7 +4450,7 @@
     "name": "market for electricity, medium voltage {CR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "339897ae-31a6-508a-ae63-8e7d3966e047",
     "impacts": {
       "acd": 0.0002866943777,
@@ -4488,7 +4488,7 @@
     "name": "market for electricity, medium voltage {CU}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "063f3c7d-dc31-5dcd-9e85-a252f303ee4e",
     "impacts": {
       "acd": 0.00847035776,
@@ -4526,7 +4526,7 @@
     "name": "market for electricity, medium voltage {CY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "f2d32eda-c509-5a51-b72d-119ef5566a12",
     "impacts": {
       "acd": 0.009502712501,
@@ -4564,7 +4564,7 @@
     "name": "market for electricity, medium voltage {CZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "97cd71a4-c562-5060-abe3-aa406ff1664c",
     "impacts": {
       "acd": 0.002744898515,
@@ -4602,7 +4602,7 @@
     "name": "market for electricity, medium voltage {DE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "42422e73-c847-5777-ba88-f3415dff7074",
     "impacts": {
       "acd": 0.001014957908,
@@ -4640,7 +4640,7 @@
     "name": "market for electricity, medium voltage {DK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8040742c-5e38-5af8-930d-56e22af210a3",
     "impacts": {
       "acd": 0.0008190364141,
@@ -4678,7 +4678,7 @@
     "name": "market for electricity, medium voltage {DO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "6c89ff9b-078f-5b03-ad94-c79aa94d873a",
     "impacts": {
       "acd": 0.006306094406,
@@ -4716,7 +4716,7 @@
     "name": "market for electricity, medium voltage {DZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "1af0cd19-d4c6-5185-bc8d-2543c4ed3539",
     "impacts": {
       "acd": 0.0007365308659,
@@ -4754,7 +4754,7 @@
     "name": "market for electricity, medium voltage {EC}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "91e75909-4c06-5b12-9f1d-bff96a9413c2",
     "impacts": {
       "acd": 0.0008732814331,
@@ -4792,7 +4792,7 @@
     "name": "market for electricity, medium voltage {EE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8c9027fd-0b8c-502a-a72f-f8e581d182c5",
     "impacts": {
       "acd": 0.004797713391,
@@ -4830,7 +4830,7 @@
     "name": "market for electricity, medium voltage {EG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "838eea47-2ae5-5947-8b0b-8a1828eddd06",
     "impacts": {
       "acd": 0.001762722817,
@@ -4868,7 +4868,7 @@
     "name": "market for electricity, medium voltage {ER}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "29c82017-9834-55e1-b3f5-901d180b561f",
     "impacts": {
       "acd": 0.009433561242,
@@ -4906,7 +4906,7 @@
     "name": "market for electricity, medium voltage {ET}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "f2e49877-b56f-553e-a775-23db049b35f0",
     "impacts": {
       "acd": 0.0001195804374,
@@ -4944,7 +4944,7 @@
     "name": "market for electricity, medium voltage {FI}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "1c26f629-ecfa-520d-8826-b42a89d2f9ba",
     "impacts": {
       "acd": 0.0008690361376,
@@ -4982,7 +4982,7 @@
     "name": "market for electricity, medium voltage {GA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a7a81c0a-de98-532b-80fb-8adca7c506f3",
     "impacts": {
       "acd": 0.0007144364999,
@@ -5020,7 +5020,7 @@
     "name": "market for electricity, medium voltage {GB}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "783c4265-4c36-5081-bfea-02d8dc2eebe1",
     "impacts": {
       "acd": 0.0007498782545,
@@ -5058,7 +5058,7 @@
     "name": "market for electricity, medium voltage {GE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "76933980-222d-52d0-9e0f-0d065d8f90f1",
     "impacts": {
       "acd": 0.0002114586398,
@@ -5096,7 +5096,7 @@
     "name": "market for electricity, medium voltage {GH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "ea5bd757-aeda-558f-ac06-9a9965797e92",
     "impacts": {
       "acd": 0.001839161657,
@@ -5134,7 +5134,7 @@
     "name": "market for electricity, medium voltage {GI}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "ffacd688-c958-50be-9950-4b95ece8111b",
     "impacts": {
       "acd": 0.006170611373,
@@ -5172,7 +5172,7 @@
     "name": "market for electricity, medium voltage {GT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "87d01d08-d7bc-5e12-9660-0d09b1510429",
     "impacts": {
       "acd": 0.005452286785,
@@ -5210,7 +5210,7 @@
     "name": "market for electricity, medium voltage {HK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "dd524340-e553-506c-a5f4-ab2978a7daaa",
     "impacts": {
       "acd": 0.006647160236,
@@ -5248,7 +5248,7 @@
     "name": "market for electricity, medium voltage {HN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "32923094-973e-5989-a709-441b963cd827",
     "impacts": {
       "acd": 0.005516700241,
@@ -5286,7 +5286,7 @@
     "name": "market for electricity, medium voltage {HR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "637aea8c-186f-50be-b7bd-23233ae78367",
     "impacts": {
       "acd": 0.004654909934,
@@ -5324,7 +5324,7 @@
     "name": "market for electricity, medium voltage {HT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "82778d64-c7b2-5080-8cae-d74e6928f408",
     "impacts": {
       "acd": 0.009202419328,
@@ -5362,7 +5362,7 @@
     "name": "market for electricity, medium voltage {HU}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "00b76bec-22fa-5b94-96a9-d1864abb1a0a",
     "impacts": {
       "acd": 0.001744310016,
@@ -5400,7 +5400,7 @@
     "name": "market for electricity, medium voltage {ID}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "b5a49e10-cdcf-5bfa-8f81-74d68f5d5da0",
     "impacts": {
       "acd": 0.005880859528,
@@ -5438,7 +5438,7 @@
     "name": "market for electricity, medium voltage {IE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "df544230-3f09-5b6a-8cab-10023eff55a1",
     "impacts": {
       "acd": 0.0008567594534,
@@ -5476,7 +5476,7 @@
     "name": "market for electricity, medium voltage {IL}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "cd5d4049-aab5-576b-aab1-19e18a93ec07",
     "impacts": {
       "acd": 0.004514044938,
@@ -5514,7 +5514,7 @@
     "name": "market for electricity, medium voltage {IQ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "2f2269cd-91f7-5435-80e4-6d4f181578c9",
     "impacts": {
       "acd": 0.004937001375,
@@ -5552,7 +5552,7 @@
     "name": "market for electricity, medium voltage {IR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "9a286d06-dc4b-5887-af4f-eea17b5e1741",
     "impacts": {
       "acd": 0.001709817627,
@@ -5590,7 +5590,7 @@
     "name": "market for electricity, medium voltage {IS}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "22b0b281-f96f-5e40-8851-bb35ad30d4b4",
     "impacts": {
       "acd": 8.953423188e-05,
@@ -5628,7 +5628,7 @@
     "name": "market for electricity, medium voltage {IT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "2c1b76e2-9734-583a-97e1-6338b522d26b",
     "impacts": {
       "acd": 0.001432774967,
@@ -5666,7 +5666,7 @@
     "name": "market for electricity, medium voltage {JM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "30e14839-d4a9-50e8-aad7-f7712b333f5f",
     "impacts": {
       "acd": 0.005274961475,
@@ -5704,7 +5704,7 @@
     "name": "market for electricity, medium voltage {JO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "d4807372-3ed7-50ff-a1d0-039737427a3f",
     "impacts": {
       "acd": 0.0006228908492,
@@ -5742,7 +5742,7 @@
     "name": "market for electricity, medium voltage {JP}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "90371d56-2663-5525-b402-fdb251808eca",
     "impacts": {
       "acd": 0.003154004053,
@@ -5780,7 +5780,7 @@
     "name": "market for electricity, medium voltage {KE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a5747e4e-7ef1-5d46-9809-88ee37f104fe",
     "impacts": {
       "acd": 0.001428698286,
@@ -5818,7 +5818,7 @@
     "name": "market for electricity, medium voltage {KG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "5bc2e4bc-d77f-5eac-ae31-3acc6d302a59",
     "impacts": {
       "acd": 0.0007898919159,
@@ -5856,7 +5856,7 @@
     "name": "market for electricity, medium voltage {KH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "889149b0-7145-5d1c-a50d-6da099cd15d3",
     "impacts": {
       "acd": 0.005487180364,
@@ -5894,7 +5894,7 @@
     "name": "market for electricity, medium voltage {KP}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "cd2cc54c-fb24-5112-9e59-89f912427fef",
     "impacts": {
       "acd": 0.002126408529,
@@ -5932,7 +5932,7 @@
     "name": "market for electricity, medium voltage {KR}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "fb6616f7-8625-540d-9b7b-bfcfc3fef9b3",
     "impacts": {
       "acd": 0.002290940648,
@@ -5970,7 +5970,7 @@
     "name": "market for electricity, medium voltage {KW}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "5b578619-4e49-5ffc-b504-69cf0ac82956",
     "impacts": {
       "acd": 0.003869356987,
@@ -6008,7 +6008,7 @@
     "name": "market for electricity, medium voltage {KZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "7900af18-fa63-5a11-8730-e05becddba6a",
     "impacts": {
       "acd": 0.007379774553,
@@ -6046,7 +6046,7 @@
     "name": "market for electricity, medium voltage {LB}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "3d5bf089-f929-5dad-bbb3-14bf86289db8",
     "impacts": {
       "acd": 0.008615596961,
@@ -6084,7 +6084,7 @@
     "name": "market for electricity, medium voltage {LK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "75d75575-0510-5276-b7b0-2aa5b42a7082",
     "impacts": {
       "acd": 0.007633008327,
@@ -6122,7 +6122,7 @@
     "name": "market for electricity, medium voltage {LT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "84650444-f741-598a-bdc0-5f6c645bc26d",
     "impacts": {
       "acd": 0.001661466225,
@@ -6160,7 +6160,7 @@
     "name": "market for electricity, medium voltage {LU}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a5cfb381-afdc-5d9c-81fc-8a0ebe4d538f",
     "impacts": {
       "acd": 0.0008933083748,
@@ -6198,7 +6198,7 @@
     "name": "market for electricity, medium voltage {LV}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "141c5194-9f0d-59dd-8085-4ed165431379",
     "impacts": {
       "acd": 0.002179555938,
@@ -6236,7 +6236,7 @@
     "name": "market for electricity, medium voltage {LY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "45bc85a4-d791-5916-ba45-04c2acdc6534",
     "impacts": {
       "acd": 0.003629241713,
@@ -6274,7 +6274,7 @@
     "name": "market for electricity, medium voltage {MA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8a143541-8aa7-5efb-b04c-64bf373e6b2a",
     "impacts": {
       "acd": 0.008901692088,
@@ -6312,7 +6312,7 @@
     "name": "market for electricity, medium voltage {MD}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "cbf5018f-65a0-546a-9c87-d467cd4d0225",
     "impacts": {
       "acd": 0.001186664048,
@@ -6350,7 +6350,7 @@
     "name": "market for electricity, medium voltage {MK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "3b47263d-adb4-59a5-844a-ac48a8ef718a",
     "impacts": {
       "acd": 0.006856971344,
@@ -6388,7 +6388,7 @@
     "name": "market for electricity, medium voltage {MM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "5002604b-14e9-50f3-a3b4-1a4557fdebc2",
     "impacts": {
       "acd": 0.001468850537,
@@ -6426,7 +6426,7 @@
     "name": "market for electricity, medium voltage {MN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "08b58e3a-0706-53ab-80d6-245a8cd68a5e",
     "impacts": {
       "acd": 0.008287974674,
@@ -6464,7 +6464,7 @@
     "name": "market group for electricity, medium voltage {RER}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "18bf15d9-aebc-5dee-b460-f04a3305f964",
     "impacts": {
       "acd": 0.001746319068,
@@ -6502,7 +6502,7 @@
     "name": "market for electricity, medium voltage {MT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "df3964ff-0378-5ce2-95f2-346c88922117",
     "impacts": {
       "acd": 0.0008849706743,
@@ -6540,7 +6540,7 @@
     "name": "market for electricity, medium voltage {MX}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "0efce575-8bb3-5973-aca5-506b8d9206be",
     "impacts": {
       "acd": 0.002832914269,
@@ -6578,7 +6578,7 @@
     "name": "market for electricity, medium voltage {MY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "c5550a3d-87a5-53e4-8c2d-efd918bed1bb",
     "impacts": {
       "acd": 0.004054856486,
@@ -6616,7 +6616,7 @@
     "name": "market for electricity, medium voltage {MZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "64e4f952-17b7-5a28-84c6-fa101a7391e1",
     "impacts": {
       "acd": 0.005156494248,
@@ -6654,7 +6654,7 @@
     "name": "market for electricity, medium voltage {NA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "cfe4e753-cbde-5c51-9455-5d6eb4134b1e",
     "impacts": {
       "acd": 0.01183355628,
@@ -6692,7 +6692,7 @@
     "name": "market for electricity, medium voltage {NG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8980b70d-98ff-5f49-a1c6-06be9de6e74d",
     "impacts": {
       "acd": 0.00051652656,
@@ -6730,7 +6730,7 @@
     "name": "market for electricity, medium voltage {NI}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "067c471d-906a-5662-8815-3acfea4c5c68",
     "impacts": {
       "acd": 0.004792112339,
@@ -6768,7 +6768,7 @@
     "name": "market for electricity, medium voltage {NL}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "ab6738d1-98c0-50ea-9e52-086384078627",
     "impacts": {
       "acd": 0.0008670371169,
@@ -6806,7 +6806,7 @@
     "name": "market for electricity, medium voltage {NO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "04a7777f-5b92-544e-b1b4-b7ad6457adb5",
     "impacts": {
       "acd": 0.0001077952691,
@@ -6844,7 +6844,7 @@
     "name": "market for electricity, medium voltage {NP}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "f67a799e-4103-576e-ada3-63419744e8ba",
     "impacts": {
       "acd": 0.001430059225,
@@ -6882,7 +6882,7 @@
     "name": "market for electricity, medium voltage {NZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "1cbd61aa-e608-5a8e-adcc-3b1aa3a847f4",
     "impacts": {
       "acd": 0.0004955624175,
@@ -6920,7 +6920,7 @@
     "name": "market for electricity, medium voltage {OM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "aa457ee6-4e88-5487-b058-87ff079687e7",
     "impacts": {
       "acd": 0.0008811863041,
@@ -6958,7 +6958,7 @@
     "name": "market for electricity, medium voltage {PA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "f837fa8a-42d7-51c1-8c59-e0562af0c002",
     "impacts": {
       "acd": 0.002051305817,
@@ -6996,7 +6996,7 @@
     "name": "market for electricity, medium voltage {PE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "6d825cdd-b020-5d84-b33d-7a0490be267d",
     "impacts": {
       "acd": 0.0004482294413,
@@ -7034,7 +7034,7 @@
     "name": "market for electricity, medium voltage {PH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "1d2de259-c756-5797-843d-44d3e6b9ba93",
     "impacts": {
       "acd": 0.006052188212,
@@ -7072,7 +7072,7 @@
     "name": "market for electricity, medium voltage {PK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "d569bf34-1726-5a55-beda-180d59133198",
     "impacts": {
       "acd": 0.00275795042,
@@ -7110,7 +7110,7 @@
     "name": "market for electricity, medium voltage {PL}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "b9b4a8a3-377a-5fe2-8c9b-6ca79560bb52",
     "impacts": {
       "acd": 0.006786613733,
@@ -7148,7 +7148,7 @@
     "name": "market for electricity, medium voltage {PY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "aeb2a8d2-7b1f-5f47-8395-9f95fb476479",
     "impacts": {
       "acd": 7.488536884e-05,
@@ -7186,7 +7186,7 @@
     "name": "market for electricity, medium voltage {QA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "c1c04d79-0d04-5791-968a-8830576a813d",
     "impacts": {
       "acd": 0.0008272286485,
@@ -7224,7 +7224,7 @@
     "name": "market for electricity, medium voltage {RO}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "c6198a6f-c0d1-5c98-abd6-67e0d4550f0b",
     "impacts": {
       "acd": 0.002840613287,
@@ -7262,7 +7262,7 @@
     "name": "market for electricity, medium voltage {RS}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "52b78334-6b27-5f6b-9c7d-3f7c0a1540c1",
     "impacts": {
       "acd": 0.01374296904,
@@ -7300,7 +7300,7 @@
     "name": "market for electricity, medium voltage {RU}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "32729b48-eda9-5a7f-bfd1-3461c8e73dec",
     "impacts": {
       "acd": 0.003124734145,
@@ -7338,7 +7338,7 @@
     "name": "market for electricity, medium voltage {SA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "d3e07614-a0e1-5a8d-bbe5-842dea37722e",
     "impacts": {
       "acd": 0.006236966179,
@@ -7376,7 +7376,7 @@
     "name": "market for electricity, medium voltage {SS}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8a70f8ca-f161-5b93-a50e-f07659c947dc",
     "impacts": {
       "acd": 0.008996343366,
@@ -7414,7 +7414,7 @@
     "name": "market for electricity, medium voltage {SE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "c61a1fa7-e5f2-5184-9fc1-01a5656ea42a",
     "impacts": {
       "acd": 0.0001928003692,
@@ -7452,7 +7452,7 @@
     "name": "market for electricity, medium voltage {SG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "4f2e8d81-ea30-5197-a0f9-77495af32b2a",
     "impacts": {
       "acd": 0.0005789587367,
@@ -7490,7 +7490,7 @@
     "name": "market for electricity, medium voltage {SI}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "7a857a3f-b893-5b93-9ae8-39eafa86a093",
     "impacts": {
       "acd": 0.006234983394,
@@ -7528,7 +7528,7 @@
     "name": "market for electricity, medium voltage {SK}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "264a902e-7a9c-5756-853f-7aa0da894f87",
     "impacts": {
       "acd": 0.002595758192,
@@ -7566,7 +7566,7 @@
     "name": "market for electricity, medium voltage {SN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "b8f8d71d-63fa-59e4-89d3-63c33492c67e",
     "impacts": {
       "acd": 0.009364037742,
@@ -7604,7 +7604,7 @@
     "name": "market for electricity, medium voltage {SV}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "6af4ddde-c51b-5f73-bd0e-c9bbb6989658",
     "impacts": {
       "acd": 0.003958901599,
@@ -7642,7 +7642,7 @@
     "name": "market for electricity, medium voltage {SY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "9bc39c5c-aeac-577b-a793-73473df1bb1a",
     "impacts": {
       "acd": 0.003954602025,
@@ -7680,7 +7680,7 @@
     "name": "market for electricity, medium voltage {TG}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a3def483-fe77-582e-9223-e3aaafbb92ba",
     "impacts": {
       "acd": 0.001411792172,
@@ -7718,7 +7718,7 @@
     "name": "market for electricity, medium voltage {TH}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "fc6318fe-b0a6-5752-b87f-b6e4bb6a5a7d",
     "impacts": {
       "acd": 0.002552161938,
@@ -7756,7 +7756,7 @@
     "name": "market for electricity, medium voltage {TJ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "621751af-25d4-5553-a43f-a4670c6535f3",
     "impacts": {
       "acd": 0.0008109753708,
@@ -7794,7 +7794,7 @@
     "name": "market for electricity, medium voltage {TM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "50f63370-2b2e-5b0e-a59d-9a27afbfd1d7",
     "impacts": {
       "acd": 0.0007399652374,
@@ -7832,7 +7832,7 @@
     "name": "market for electricity, medium voltage {TT}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "93248049-6bce-5f35-b60e-36691c9d7e88",
     "impacts": {
       "acd": 0.0006615257979,
@@ -7870,7 +7870,7 @@
     "name": "market for electricity, medium voltage {TZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "146c64e2-032f-5e7f-9c7f-487d2a774f61",
     "impacts": {
       "acd": 0.003459608746,
@@ -7908,7 +7908,7 @@
     "name": "market for electricity, medium voltage {UA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "91536aa5-c78d-5a9f-8a4f-05f02e8f85b6",
     "impacts": {
       "acd": 0.005234690295,
@@ -7946,7 +7946,7 @@
     "name": "market group for electricity, medium voltage {US}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "21071c4d-b8a2-5f95-8a01-bd40ca0d6f63",
     "impacts": {
       "acd": 0.001327939725,
@@ -7984,7 +7984,7 @@
     "name": "market for electricity, medium voltage {UY}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "84802dd0-7107-537a-918f-6d9255fe731f",
     "impacts": {
       "acd": 0.0003364569031,
@@ -8022,7 +8022,7 @@
     "name": "market for electricity, medium voltage {UZ}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "ac38e92a-fcc3-55f8-98e8-a3936810df4f",
     "impacts": {
       "acd": 0.00140063565,
@@ -8060,7 +8060,7 @@
     "name": "market for electricity, medium voltage {VE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "15109563-46a4-598d-847c-293911eaddbf",
     "impacts": {
       "acd": 0.00196700416,
@@ -8098,7 +8098,7 @@
     "name": "market for electricity, medium voltage {VN}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "e3415bb7-9cd8-5aa3-875e-04d034ed7561",
     "impacts": {
       "acd": 0.006208652704,
@@ -8136,7 +8136,7 @@
     "name": "market for electricity, medium voltage {YE}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "8375e4ef-255d-5dc2-8899-9238f7113b1c",
     "impacts": {
       "acd": 0.009168238723,
@@ -8174,7 +8174,7 @@
     "name": "market for electricity, medium voltage {ZA}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "9aab6b9d-f2ee-50cb-9687-7b3da8e73f49",
     "impacts": {
       "acd": 0.01470836918,
@@ -8212,7 +8212,7 @@
     "name": "market for electricity, medium voltage {ZM}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "0a87e96a-d88b-5c98-937c-4656aab8b7ff",
     "impacts": {
       "acd": 0.001852246018,
@@ -8250,7 +8250,7 @@
     "name": "market for electricity, medium voltage {ZW}",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "b71ddb5a-172b-5cee-83fc-041a3e92224c",
     "impacts": {
       "acd": 0.008458603234,
@@ -8288,7 +8288,7 @@
     "name": "market for heat, from steam, in chemical industry {RER}",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "impacts": {
       "acd": 0.0003037768354,
@@ -8326,7 +8326,7 @@
     "name": "market for heat, from steam, in chemical industry {RoW}",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "impacts": {
       "acd": 0.0004430278938,
@@ -8364,7 +8364,7 @@
     "name": "market for heat, district or industrial, natural gas {Europe without Switzerland}",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a0954929-db39-5ace-ba03-77c375b50eb5",
     "impacts": {
       "acd": 4.370480229e-05,
@@ -9808,7 +9808,7 @@
     "name": "market for heat, district or industrial, natural gas {RoW}",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "bb84a4e6-2111-5fd2-8949-d62bfdb50f70",
     "impacts": {
       "acd": 3.519694708e-05,
@@ -9846,7 +9846,7 @@
     "name": "market for heat, district or industrial, other than natural gas {Europe without Switzerland}",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "fd5229c1-cacd-5056-a965-b44a46b8ccd8",
     "impacts": {
       "acd": 0.0005424615937,
@@ -9884,7 +9884,7 @@
     "name": "market for heat, district or industrial, other than natural gas {RoW}",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
-    "source": "Ecoinvent 3.9.1",
+    "source": "BaseImpact",
     "uuid": "a01ac2c9-c1a7-5add-b477-bc537ee57de4",
     "impacts": {
       "acd": 0.0009138136811,
