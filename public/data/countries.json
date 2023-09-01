@@ -4,7 +4,7 @@
     "name": "Albanie",
     "zone": "Europe",
     "electricityProcessUuid": "385870cb-6d49-596f-bea8-f15ca977aee2",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -13,7 +13,7 @@
     "name": "Bangladesh",
     "zone": "Asia",
     "electricityProcessUuid": "4f6707a9-6ce9-59c4-945e-be2478b8db6e",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -22,7 +22,7 @@
     "name": "Belgique",
     "zone": "Europe",
     "electricityProcessUuid": "2a32762d-2bd6-52a6-ba1e-029bd7af262f",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -31,7 +31,7 @@
     "name": "Br\u00e9sil",
     "zone": "South_America",
     "electricityProcessUuid": "3b0a0c74-c172-5b2f-a758-5ee4f67d876e",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food"]
   },
@@ -40,7 +40,7 @@
     "name": "Suisse",
     "zone": "Europe",
     "electricityProcessUuid": "c97473e8-658c-5290-8a1f-e140aedd52ff",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -49,7 +49,7 @@
     "name": "Chine",
     "zone": "Asia",
     "electricityProcessUuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food", "textile"]
   },
@@ -58,7 +58,7 @@
     "name": "Tch\u00e8quie",
     "zone": "Europe",
     "electricityProcessUuid": "97cd71a4-c562-5060-abe3-aa406ff1664c",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -67,7 +67,7 @@
     "name": "Allemagne",
     "zone": "Europe",
     "electricityProcessUuid": "42422e73-c847-5777-ba88-f3415dff7074",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -76,7 +76,7 @@
     "name": "Egypte",
     "zone": "Africa",
     "electricityProcessUuid": "838eea47-2ae5-5947-8b0b-8a1828eddd06",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -85,7 +85,7 @@
     "name": "Espagne",
     "zone": "Europe",
     "electricityProcessUuid": "5d6be9ff-5db6-56ac-b35c-837fa84254e8",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"]
   },
@@ -94,7 +94,7 @@
     "name": "Ethiopie",
     "zone": "Africa",
     "electricityProcessUuid": "f2e49877-b56f-553e-a775-23db049b35f0",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -103,7 +103,7 @@
     "name": "France",
     "zone": "Europe",
     "electricityProcessUuid": "2b0ae208-b177-5bb1-b3f0-8eb82baa0ca0",
-    "heatProcessUuid": "12fc43f2-a007-423b-a619-619d725793ea",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"]
   },
@@ -112,7 +112,7 @@
     "name": "Royaume-Uni",
     "zone": "Europe",
     "electricityProcessUuid": "783c4265-4c36-5081-bfea-02d8dc2eebe1",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -121,7 +121,7 @@
     "name": "Gr\u00e8ce",
     "zone": "Europe",
     "electricityProcessUuid": "fdd7a3f0-f1a5-5dfa-894d-605e15c210a5",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -130,7 +130,7 @@
     "name": "Hongrie",
     "zone": "Europe",
     "electricityProcessUuid": "00b76bec-22fa-5b94-96a9-d1864abb1a0a",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -139,7 +139,7 @@
     "name": "Inde",
     "zone": "Asia",
     "electricityProcessUuid": "c01c98e4-9d61-556a-8e5f-ab2b5767c5ae",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -148,7 +148,7 @@
     "name": "Italie",
     "zone": "Europe",
     "electricityProcessUuid": "2c1b76e2-9734-583a-97e1-6338b522d26b",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"]
   },
@@ -157,7 +157,7 @@
     "name": "Kenya",
     "zone": "Africa",
     "electricityProcessUuid": "a5747e4e-7ef1-5d46-9809-88ee37f104fe",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food"]
   },
@@ -166,7 +166,7 @@
     "name": "Cambodge",
     "zone": "Asia",
     "electricityProcessUuid": "889149b0-7145-5d1c-a50d-6da099cd15d3",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -175,7 +175,7 @@
     "name": "Maroc",
     "zone": "Africa",
     "electricityProcessUuid": "8a143541-8aa7-5efb-b04c-64bf373e6b2a",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"]
   },
@@ -184,7 +184,7 @@
     "name": "Myanmar",
     "zone": "Asia",
     "electricityProcessUuid": "5002604b-14e9-50f3-a3b4-1a4557fdebc2",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -193,7 +193,7 @@
     "name": "Pays-Bas",
     "zone": "Europe",
     "electricityProcessUuid": "ab6738d1-98c0-50ea-9e52-086384078627",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -202,7 +202,7 @@
     "name": "Nouvelle-Z\u00e9lande",
     "zone": "Oceania",
     "electricityProcessUuid": "1cbd61aa-e608-5a8e-adcc-3b1aa3a847f4",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food"]
   },
@@ -211,7 +211,7 @@
     "name": "P\u00e9rou",
     "zone": "South_America",
     "electricityProcessUuid": "6d825cdd-b020-5d84-b33d-7a0490be267d",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food"]
   },
@@ -220,7 +220,7 @@
     "name": "Pakistan",
     "zone": "Asia",
     "electricityProcessUuid": "d569bf34-1726-5a55-beda-180d59133198",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -229,7 +229,7 @@
     "name": "Pologne",
     "zone": "Europe",
     "electricityProcessUuid": "b9b4a8a3-377a-5fe2-8c9b-6ca79560bb52",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -238,7 +238,7 @@
     "name": "Portugal",
     "zone": "Europe",
     "electricityProcessUuid": "23e9672e-7947-51c1-b06d-2eb55ea3a959",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -247,7 +247,7 @@
     "name": "Roumanie",
     "zone": "Europe",
     "electricityProcessUuid": "c6198a6f-c0d1-5c98-abd6-67e0d4550f0b",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "heatProcessUuid": "99a357e4-2044-5262-8467-44bd484a08f0",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -256,7 +256,7 @@
     "name": "Sri Lanka",
     "zone": "Asia",
     "electricityProcessUuid": "75d75575-0510-5276-b7b0-2aa5b42a7082",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -265,7 +265,7 @@
     "name": "Tunisie",
     "zone": "Africa",
     "electricityProcessUuid": "c682f04f-ecdb-538a-95ae-d93fa480bda3",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0,
     "scopes": ["textile"]
   },
@@ -274,7 +274,7 @@
     "name": "Turquie",
     "zone": "Middle_East",
     "electricityProcessUuid": "8f26fdff-adcc-561b-9400-2655053caccd",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -283,7 +283,7 @@
     "name": "Taiwan",
     "zone": "Asia",
     "electricityProcessUuid": "53598d93-8d7f-5a46-9c3e-b2791fc30cd4",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   },
@@ -292,7 +292,7 @@
     "name": "Etats-Unis",
     "zone": "North_America",
     "electricityProcessUuid": "a1694741-3e1a-5ddb-a36b-c650e3b701ee",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["food"]
   },
@@ -301,7 +301,7 @@
     "name": "Vietnam",
     "zone": "Asia",
     "electricityProcessUuid": "e3415bb7-9cd8-5aa3-875e-04d034ed7561",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "9100eb0f-0869-5279-9983-54c655c289be",
     "airTransportRatio": 0.33,
     "scopes": ["textile"]
   }
