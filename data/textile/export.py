@@ -91,7 +91,7 @@ if __name__ == "__main__":
             "source": activity["source"],
             "uuid": activity["uuid"],
             "impacts": activity["impacts"]
-            if activity["source"].startswith("Base Impacts")
+            if not activity["source"].startswith("Ecoinvent")
             else {},
             "heat_MJ": activity.get("heatMJ", 0),
             "elec_pppm": activity.get("elec_pppm", 0),
@@ -100,6 +100,7 @@ if __name__ == "__main__":
             "alias": activity["alias"],
             "step_usage": activity["step_usage"],
             "correctif": activity["correctif"],
+            "country": activity["country"],
         }
         for activity in activities
     }
