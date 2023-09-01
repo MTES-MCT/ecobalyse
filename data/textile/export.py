@@ -46,7 +46,7 @@ if __name__ == "__main__":
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
 
-    print("Computing real name of activities...")
+    print("Getting real name and uuid of activities...")
     for activity in activities:
         activity["name"] = (
             activity["name"]
@@ -55,6 +55,11 @@ if __name__ == "__main__":
             + " {"
             + search(DB, activity["search"])["location"]
             + "}"
+        )
+        activity["uuid"] = (
+            activity["uuid"]
+            if not activity["source"].startswith("Ecoinvent")
+            else search(DB, activity["search"])["activity"]
         )
 
     print("Creating material list...")
@@ -127,9 +132,6 @@ if __name__ == "__main__":
                 continue
 
     # cleanup the search term
-    for m in materials:
-        if "search" in m:
-            del m["search"]
     for m in materials:
         if "search" in m:
             del m["search"]
