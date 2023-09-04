@@ -107,24 +107,11 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
 
 foodResultsToImpactTabsConfig : Definition.Trigram -> Recipe.Results -> Config
 foodResultsToImpactTabsConfig trigram results =
-    let
-        getImpact =
-            Impact.getImpact trigram
-                >> Just
-    in
     { trigram = trigram
     , total = results.total
     , totalComplementsImpact = results.recipe.totalComplementsImpact
     , scoring = results.scoring
-    , steps =
-        { materials = getImpact results.recipe.ingredientsTotal
-        , transform = getImpact results.recipe.transform
-        , packaging = getImpact results.packaging
-        , transports = getImpact results.transports.impacts
-        , distribution = getImpact results.distribution.total
-        , usage = getImpact results.preparation
-        , endOfLife = Nothing
-        }
+    , steps = Recipe.toStepsImpacts trigram results
     }
 
 

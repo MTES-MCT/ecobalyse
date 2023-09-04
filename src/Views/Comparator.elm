@@ -158,34 +158,27 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 foodQuery
                     |> Recipe.compute db
                     |> Result.map
-                        (\( _, { distribution, packaging, perKg, preparation, recipe, total, totalMass } ) ->
+                        (\( _, { perKg, recipe, total, totalMass } as results ) ->
                             let
-                                getImpact =
-                                    Impact.getImpact Definition.Ecs >> Just
-
-                                stepsImpacts =
-                                    { materials = getImpact recipe.ingredientsTotal
-                                    , transform = getImpact recipe.transform
-                                    , packaging = getImpact packaging
-                                    , transports = getImpact recipe.transports.impacts
-                                    , distribution = getImpact distribution.total
-                                    , usage = getImpact preparation
-                                    , endOfLife = Nothing
-                                    }
+                                stepsImpactsPerProduct =
+                                    results
+                                        |> Recipe.toStepsImpacts Definition.Ecs
                             in
                             case comparisonUnit of
                                 PerItem ->
                                     { label = label
                                     , impacts = total
                                     , complementsImpact = recipe.totalComplementsImpact
-                                    , stepsImpacts = stepsImpacts
+                                    , stepsImpacts = stepsImpactsPerProduct
                                     }
 
                                 PerKgOfProduct ->
                                     { label = label
                                     , impacts = perKg
                                     , complementsImpact = recipe.totalComplementsImpactPerKg
-                                    , stepsImpacts = stepsImpacts |> Impact.stepsImpactsPerKg totalMass
+                                    , stepsImpacts =
+                                        stepsImpactsPerProduct
+                                            |> Impact.stepsImpactsPerKg totalMass
                                     }
                         )
                     |> Just
