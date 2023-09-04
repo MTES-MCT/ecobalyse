@@ -205,7 +205,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 , text caption
                 ]
 
-        displayChoiceRadio caption current to =
+        displayChoiceTab caption current to =
             label [ class "form-check-label d-flex align-items-center gap-1 fs-7" ]
                 [ input
                     [ type_ "radio"
@@ -222,17 +222,28 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         [ h2 [ class "h5 text-center" ]
             [ text "Composition du score d'impact des recettes sélectionnées" ]
         , div [ class "d-flex justify-content-between align-items-center gap-3" ]
-            [ div [ class "d-flex gap-3" ]
-                [ text "par "
+            [ div [ class "d-flex gap-2" ]
+                [ strong [] [ text "Unité" ]
                 , unitChoiceRadio "produit" comparisonUnit PerItem
                 , unitChoiceRadio "kg de produit" comparisonUnit PerKgOfProduct
                 ]
-            , div [ class "d-flex gap-3" ]
-                [ displayChoiceRadio "Sous-scores" displayChoice Subscores
-                , displayChoiceRadio "Impacts" displayChoice IndividualImpacts
-                , displayChoiceRadio "Étapes" displayChoice Steps
-                , displayChoiceRadio "Total" displayChoice Total
-                ]
+            , [ ( "Sous-scores", Subscores )
+              , ( "Impacts", IndividualImpacts )
+              , ( "Étapes", Steps )
+              , ( "Total", Total )
+              ]
+                |> List.map
+                    (\( label, toDisplayChoice ) ->
+                        li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
+                            [ button
+                                [ class "nav-link no-outline border-top-0 py-1"
+                                , classList [ ( "active", displayChoice == toDisplayChoice ) ]
+                                , onClick (switchDisplayChoice toDisplayChoice)
+                                ]
+                                [ text label ]
+                            ]
+                    )
+                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-2 px-2" ]
             ]
         , case charts of
             Ok [] ->
