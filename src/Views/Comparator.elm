@@ -396,15 +396,14 @@ dataForSteps chartsData =
     chartsData
         |> List.map
             (\{ label, stepsImpacts } ->
-                let
-                    entries =
-                        stepsImpacts
-                            |> Impact.stepsImpactsAsChartEntries
-                            |> List.reverse
-                in
                 Encode.object
                     [ ( "label", Encode.string label )
-                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                    , ( "data"
+                      , stepsImpacts
+                            |> Impact.stepsImpactsAsChartEntries
+                            |> List.reverse
+                            |> Encode.list Impact.encodeAggregatedScoreChartEntry
+                      )
                     ]
             )
         |> Encode.list identity

@@ -129,21 +129,22 @@ stepsImpactsAsChartEntries stepsImpacts =
             )
 
 
-stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
-stepsImpactsPerKg mass ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
-    let
-        impactPerKg =
-            Maybe.map (Quantity.divideBy (Mass.inKilograms mass))
-    in
+mapStepsImpacts : (Maybe Unit.Impact -> Maybe Unit.Impact) -> StepsImpacts -> StepsImpacts
+mapStepsImpacts fn ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
     { stepsImpacts
-        | materials = impactPerKg materials
-        , transform = impactPerKg transform
-        , packaging = impactPerKg packaging
-        , transports = impactPerKg transports
-        , distribution = impactPerKg distribution
-        , usage = impactPerKg usage
-        , endOfLife = impactPerKg endOfLife
+        | materials = fn materials
+        , transform = fn transform
+        , packaging = fn packaging
+        , transports = fn transports
+        , distribution = fn distribution
+        , usage = fn usage
+        , endOfLife = fn endOfLife
     }
+
+
+stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
+stepsImpactsPerKg mass =
+    mapStepsImpacts (Maybe.map (Quantity.divideBy (Mass.inKilograms mass)))
 
 
 
