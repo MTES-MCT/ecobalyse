@@ -204,19 +204,6 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     []
                 , text caption
                 ]
-
-        displayChoiceTab caption current to =
-            label [ class "form-check-label d-flex align-items-center gap-1 fs-7" ]
-                [ input
-                    [ type_ "radio"
-                    , class "form-check-input"
-                    , name "displayChoice"
-                    , checked <| current == to
-                    , onInput <| always (switchDisplayChoice to)
-                    ]
-                    []
-                , text caption
-                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
