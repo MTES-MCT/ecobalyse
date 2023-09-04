@@ -29,8 +29,9 @@ config =
         |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
       -- Common
     , NoExposingEverything.rule
-        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Color.elm" ]
         |> Rule.ignoreErrorsForFiles [ "src/Views/Icon.elm" ]
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoImportingEverything.rule
         [ "Html"
         , "Html.Attributes"

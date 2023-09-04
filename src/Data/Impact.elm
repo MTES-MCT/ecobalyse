@@ -27,6 +27,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
+import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -112,13 +113,13 @@ type alias StepsImpacts =
 
 stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
 stepsImpactsAsChartEntries stepsImpacts =
-    [ ( "Matières premières", stepsImpacts.materials, "#808080" )
-    , ( "Transformation", stepsImpacts.transform, "#a0a0a0" )
-    , ( "Emballage", stepsImpacts.packaging, "#c0c0c0" )
-    , ( "Transports", stepsImpacts.transports, "#ffc000" )
-    , ( "Distribution", stepsImpacts.distribution, "#91cf4f" )
-    , ( "Utilisation", stepsImpacts.usage, "#375622" )
-    , ( "Fin de vie", stepsImpacts.endOfLife, "#9dc3e6" )
+    [ ( "Matières premières", stepsImpacts.materials, Color.purple )
+    , ( "Transformation", stepsImpacts.transform, Color.pink )
+    , ( "Emballage", stepsImpacts.packaging, Color.blue )
+    , ( "Transports", stepsImpacts.transports, Color.green )
+    , ( "Distribution", stepsImpacts.distribution, Color.red )
+    , ( "Utilisation", stepsImpacts.usage, Color.yellow )
+    , ( "Fin de vie", stepsImpacts.endOfLife, Color.turquoise )
     ]
         |> List.filterMap
             (\( label, maybeValue, color ) ->
