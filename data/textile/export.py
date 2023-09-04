@@ -98,7 +98,7 @@ if __name__ == "__main__":
             "impacts": activity["impacts"]
             if not activity["source"].startswith("BaseImpact")
             else {},
-            "heat_MJ": activity.get("heatMJ", 0),
+            "heat_MJ": activity.get("heat_MJ", 0),
             "elec_pppm": activity.get("elec_pppm", 0),
             "elec_MJ": activity.get("elec_MJ", 0),
             "waste": activity["waste"],
