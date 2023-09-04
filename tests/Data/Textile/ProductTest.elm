@@ -72,7 +72,7 @@ suite =
                         (\product ->
                             let
                                 fabricProcess =
-                                    Product.getFabricProcess (Just Knitting.Seamless) product textileDb.wellKnown
+                                    Product.getFabricProcess (Just Knitting.Integral) product textileDb.wellKnown
                             in
                             Expect.equal textileDb.wellKnown.knittingSeamless fabricProcess
                         )

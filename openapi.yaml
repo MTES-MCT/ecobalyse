@@ -687,9 +687,9 @@ components:
       description: |
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
 
-        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
 
-        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
+        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
       schema:
@@ -707,9 +707,9 @@ components:
           - `low` : faible
           - `very-low` : très faible
 
-        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: very-low).**
+        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: very-low).**
 
-        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
+        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
       required: false
       style: form
       schema:
@@ -737,8 +737,8 @@ components:
       description: |
         Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
           - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
-          - fully-fashioned : Tricotage fully-fashioned
-          - seamless : Tricotage seamless
+          - fully-fashioned : Tricotage fully-fashioned / seamless
+          - integral : Tricotage intégral / whole garment
           - circular : Tricotage circulaire, inventaire désagrégé
           - straight : Tricotage rectiligne, inventaire désagrégé
 
@@ -747,7 +747,7 @@ components:
       style: form
       schema:
         type: string
-        enum: ["mix", "fully-fashioned", "seamless", "circular", "straight"]
+        enum: ["mix", "fully-fashioned", "integral", "circular", "straight"]
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -1221,7 +1221,7 @@ components:
           enum:
           - mix
           - fully-fashioned
-          - seamless
+          - integral
           - circular
           - straight
         disabledSteps:
