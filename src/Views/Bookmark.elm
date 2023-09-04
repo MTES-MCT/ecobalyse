@@ -11,7 +11,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Page.Textile.Simulator.ViewMode exposing (ViewMode)
 import Route
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
@@ -67,7 +67,7 @@ view ({ activeTab, switchTab } as config) =
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { session, impact, funit, copyToClipBoard, scope } =
+shareTabView { session, impact, funit, copyToClipBoard, scope, viewMode } =
     let
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
@@ -85,7 +85,7 @@ shareTabView { session, impact, funit, copyToClipBoard, scope } =
 
                 Scope.Textile ->
                     ( Just session.queries.textile
-                        |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
+                        |> Route.TextileSimulator impact.trigram funit viewMode
                         |> Route.toString
                         |> (++) session.clientUrl
                     , session.queries.textile
