@@ -57,6 +57,7 @@ type alias ChartsData =
     { label : String
     , impacts : Impact.Impacts
     , complementsImpact : Impact.ComplementsImpacts
+    , stepsImpacts : Impact.StepsImpacts
     }
 
 
@@ -157,21 +158,34 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 foodQuery
                     |> Recipe.compute db
                     |> Result.map
-                        (\( _, { total, perKg, recipe } ) ->
+                        (\( _, { distribution, packaging, perKg, preparation, recipe, total, totalMass } ) ->
+                            let
+                                getImpact =
+                                    Impact.getImpact Definition.Ecs >> Just
+
+                                stepsImpacts =
+                                    { materials = getImpact recipe.ingredientsTotal
+                                    , transform = getImpact recipe.transform
+                                    , packaging = getImpact packaging
+                                    , transports = getImpact recipe.transports.impacts
+                                    , distribution = getImpact distribution.total
+                                    , usage = getImpact preparation
+                                    , endOfLife = Nothing
+                                    }
+                            in
                             case comparisonUnit of
                                 PerItem ->
-                                    -- XXX: move this to a record and add steps data
                                     { label = label
                                     , impacts = total
                                     , complementsImpact = recipe.totalComplementsImpact
+                                    , stepsImpacts = stepsImpacts
                                     }
 
                                 PerKgOfProduct ->
-                                    -- XXX: move this to a record and add steps data
-                                    --      + apply ratio with mass so we have the steps data per kg
                                     { label = label
                                     , impacts = perKg
                                     , complementsImpact = recipe.totalComplementsImpactPerKg
+                                    , stepsImpacts = stepsImpacts |> Impact.stepsImpactsPerKg totalMass
                                     }
                         )
                     |> Just
@@ -243,7 +257,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                                 dataForGroupedImpacts session.foodDb.impactDefinitions chartsData
 
                             Steps ->
-                                dataForSteps session.foodDb.impactDefinitions chartsData
+                                dataForSteps chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData
@@ -384,27 +398,16 @@ dataForGroupedImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForSteps : Definitions -> List ChartsData -> String
-dataForSteps definitions chartsData =
+dataForSteps : List ChartsData -> String
+dataForSteps chartsData =
     chartsData
         |> List.map
-            (\{ label, impacts, complementsImpact } ->
+            (\{ label, stepsImpacts } ->
                 let
-                    complementImpacts =
-                        Impact.totalComplementsImpactAsChartEntry complementsImpact
-
                     entries =
-                        impacts
-                            |> Impact.toProtectionAreas definitions
-                            |> (\{ climate, biodiversity, health, resources } ->
-                                    List.reverse
-                                        [ complementImpacts
-                                        , { name = "Climat", color = "#9025be", value = Unit.impactToFloat climate }
-                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
-                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
-                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
-                                        ]
-                               )
+                        stepsImpacts
+                            |> Impact.stepsImpactsAsChartEntries
+                            |> List.reverse
                 in
                 Encode.object
                     [ ( "label", Encode.string label )

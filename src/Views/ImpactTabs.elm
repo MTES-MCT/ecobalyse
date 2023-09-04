@@ -31,18 +31,7 @@ type alias Config =
     , total : Impacts
     , totalComplementsImpact : Impact.ComplementsImpacts
     , scoring : Scoring
-    , steps : Steps
-    }
-
-
-type alias Steps =
-    { materials : Maybe Unit.Impact
-    , transform : Maybe Unit.Impact
-    , packaging : Maybe Unit.Impact
-    , transports : Maybe Unit.Impact
-    , distribution : Maybe Unit.Impact
-    , usage : Maybe Unit.Impact
-    , endOfLife : Maybe Unit.Impact
+    , steps : Impact.StepsImpacts
     }
 
 

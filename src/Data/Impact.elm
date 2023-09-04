@@ -1,6 +1,7 @@
 module Data.Impact exposing
     ( ComplementsImpacts
     , Impacts
+    , StepsImpacts
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
@@ -18,6 +19,8 @@ module Data.Impact exposing
     , noComplementsImpacts
     , parseTrigram
     , perKg
+    , stepsImpactsAsChartEntries
+    , stepsImpactsPerKg
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
@@ -33,6 +36,10 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Url.Parser as Parser exposing (Parser)
+
+
+
+-- Complements impacts
 
 
 type alias ComplementsImpacts =
@@ -86,6 +93,60 @@ totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, valu
 totalComplementsImpactAsChartEntry { total } =
     -- We want those bonuses to appear as negative values on the chart
     { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
+
+
+
+-- Steps impacts
+
+
+type alias StepsImpacts =
+    { materials : Maybe Unit.Impact
+    , transform : Maybe Unit.Impact
+    , packaging : Maybe Unit.Impact
+    , transports : Maybe Unit.Impact
+    , distribution : Maybe Unit.Impact
+    , usage : Maybe Unit.Impact
+    , endOfLife : Maybe Unit.Impact
+    }
+
+
+stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
+stepsImpactsAsChartEntries stepsImpacts =
+    [ ( "Matières premières", stepsImpacts.materials, "#808080" )
+    , ( "Transformation", stepsImpacts.transform, "#a0a0a0" )
+    , ( "Emballage", stepsImpacts.packaging, "#c0c0c0" )
+    , ( "Transports", stepsImpacts.transports, "#ffc000" )
+    , ( "Distribution", stepsImpacts.distribution, "#91cf4f" )
+    , ( "Utilisation", stepsImpacts.usage, "#375622" )
+    , ( "Fin de vie", stepsImpacts.endOfLife, "#9dc3e6" )
+    ]
+        |> List.filterMap
+            (\( label, maybeValue, color ) ->
+                maybeValue
+                    |> Maybe.map (\value -> Just { name = label, value = Unit.impactToFloat value, color = color })
+                    |> Maybe.withDefault Nothing
+            )
+
+
+stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
+stepsImpactsPerKg mass ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
+    let
+        impactPerKg =
+            Maybe.map (Quantity.divideBy (Mass.inKilograms mass))
+    in
+    { stepsImpacts
+        | materials = impactPerKg materials
+        , transform = impactPerKg transform
+        , packaging = impactPerKg packaging
+        , transports = impactPerKg transports
+        , distribution = impactPerKg distribution
+        , usage = impactPerKg usage
+        , endOfLife = impactPerKg endOfLife
+    }
+
+
+
+-- Protection areas
 
 
 type alias ProtectionAreas =
