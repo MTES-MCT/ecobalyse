@@ -2992,7 +2992,7 @@
       "tre": 0.00115881,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 25.87,
     "elec_pppm": 0,
     "elec_MJ": 7.17,
     "waste": 0,
@@ -3030,7 +3030,7 @@
       "tre": 0.00289027,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 30.06,
     "elec_pppm": 0,
     "elec_MJ": 9.22,
     "waste": 0,
@@ -3068,7 +3068,7 @@
       "tre": 0.00220525,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 33.42,
     "elec_pppm": 0,
     "elec_MJ": 10.15,
     "waste": 0,
@@ -9680,7 +9680,7 @@
       "tre": 0.000366822,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 37.81,
     "elec_pppm": 0,
     "elec_MJ": 6.53,
     "waste": 0,
@@ -9718,7 +9718,7 @@
       "tre": 0.000257148,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 7.25,
     "elec_pppm": 0,
     "elec_MJ": 4.56,
     "waste": 0,
@@ -9756,7 +9756,7 @@
       "tre": 0.000133536,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 8.72,
     "elec_pppm": 0,
     "elec_MJ": 5.22,
     "waste": 0,
@@ -9794,7 +9794,7 @@
       "tre": 0.00123719,
       "wtu": 0
     },
-    "heat_MJ": 0,
+    "heat_MJ": 10.74,
     "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
