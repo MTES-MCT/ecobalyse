@@ -48,9 +48,9 @@ type FoodComparisonUnit
 
 type DisplayChoice
     = IndividualImpacts
-    | Grouped
-    | Total
     | Steps
+    | Subscores
+    | Total
 
 
 type alias ChartsData =
@@ -221,16 +221,15 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
     div []
         [ h2 [ class "h5 text-center" ]
             [ text "Composition du score d'impact des recettes sélectionnées" ]
-        , div [ class "text-danger text-center mb-1 fs-7" ]
-            [ text "Attention, ces résultats sont provisoires" ]
         , div [ class "d-flex justify-content-between align-items-center gap-3" ]
             [ div [ class "d-flex gap-3" ]
-                [ unitChoiceRadio "par produit" comparisonUnit PerItem
-                , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+                [ text "par "
+                , unitChoiceRadio "produit" comparisonUnit PerItem
+                , unitChoiceRadio "kg de produit" comparisonUnit PerKgOfProduct
                 ]
             , div [ class "d-flex gap-3" ]
-                [ displayChoiceRadio "Impacts individuels" displayChoice IndividualImpacts
-                , displayChoiceRadio "Impacts groupés" displayChoice Grouped
+                [ displayChoiceRadio "Sous-scores" displayChoice Subscores
+                , displayChoiceRadio "Impacts" displayChoice IndividualImpacts
                 , displayChoiceRadio "Étapes" displayChoice Steps
                 , displayChoiceRadio "Total" displayChoice Total
                 ]
@@ -246,8 +245,8 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                             IndividualImpacts ->
                                 dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
 
-                            Grouped ->
-                                dataForGroupedImpacts session.foodDb.impactDefinitions chartsData
+                            Subscores ->
+                                dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
 
                             Steps ->
                                 dataForSteps chartsData
@@ -262,7 +261,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                             IndividualImpacts ->
                                 "individual-impacts"
 
-                            Grouped ->
+                            Subscores ->
                                 "grouped-impacts"
 
                             Steps ->
@@ -360,8 +359,8 @@ dataForIndividualImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : Definitions -> List ChartsData -> String
-dataForGroupedImpacts definitions chartsData =
+dataForSubscoresImpacts : Definitions -> List ChartsData -> String
+dataForSubscoresImpacts definitions chartsData =
     chartsData
         |> List.map
             (\{ label, impacts, complementsImpact } ->

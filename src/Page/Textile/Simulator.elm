@@ -666,6 +666,7 @@ view session model =
                                         ++ model.impact.label
                                         ++ ", "
                                         ++ Unit.functionalToString model.funit
+                                , subTitle = Nothing
                                 , formAction = Nothing
                                 , content =
                                     [ ComparatorView.comparator

@@ -183,6 +183,7 @@ detailsModal content =
         , close = CloseModal
         , noOp = NoOp
         , title = "Détail de l'enregistrement"
+        , subTitle = Nothing
         , formAction = Nothing
         , content = [ content ]
         , footer = []
