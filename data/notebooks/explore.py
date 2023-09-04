@@ -52,16 +52,7 @@ def switch_domain(change):
 
 
 @w_results.capture()
-def search_activity(change):
-    w_details.clear_output()
-    database = change.new if change.owner is w_database else w_database.value
-    search = change.new if change.owner is w_search else w_search.value
-    limit = change.new if change.owner is w_limit else w_limit.value
-    w_activity.value = None
-    db = bw2data.Database(database)
-    if not db:
-        return
-    results = list(db.search(search, limit=limit))
+def display_results(results):
     if len(results) == 0:
         w_results.clear_output()
         display(Markdown("(No results)"))
@@ -74,6 +65,26 @@ def search_activity(change):
     with pandas.option_context("display.max_colwidth", None):
         display(pandas.DataFrame(results, columns=["name", "code", "location"]))
     display(Markdown("---"))
+
+
+def search_activity(change):
+    w_details.clear_output()
+    database = change.new if change.owner is w_database else w_database.value
+    search = change.new if change.owner is w_search else w_search.value
+    limit = change.new if change.owner is w_limit else w_limit.value
+    w_activity.value = None
+    results = list(bw2data.Database(w_database.value).search(search, limit=limit))
+    if not database:
+        return
+    display_results(results)
+
+
+def linkto(button):
+    results = list(
+        bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
+    )
+    display_results(results)
+    w_activity.value = results[0] if len(results) > 0 else None
 
 
 @w_details.capture()
@@ -141,6 +152,15 @@ def show_activity(change):
         unit = exchange.get("unit", "N/A")
         name = exchange.get("name", "N/A")
         display(Markdown(f"## {amount} {unit} of {name}"))
+        link = ipywidgets.Button(
+            description="→",
+            button_style="",
+            tooltip="Add or update the activity",
+            icon="check",
+        )
+        setattr(link, "search", name)
+        link.on_click(linkto)
+        display(link)
         flow = exchange.get("input")
         act = get_activity(flow)
         comment = act.get("comment", "N/A")
