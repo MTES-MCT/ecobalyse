@@ -174,8 +174,9 @@ L'utilisateur a la possibilité de préciser la technique de tricotage utilisée
 
 * tricotage rectiligne
 * tricotage circulaire
-* tricotage fully-fashioned = tricotage pièce par pièce
-* tricotage seamless = tricotage en une seule pièce sans couture
+* tricotage fully-fashioned / seamless = tricotage pièce par pièce\
+  (permet de limiter les coutures et pertes en confection)
+* tricotage intégral (whole garment) = tricotage du vêtement en entier
 
 :bulb: L'utilisation d'un tricotage fully-fashioned ou seamless réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage fully-fashioned) ou disparaissent (tricotage seamless).&#x20;
 
@@ -296,8 +297,8 @@ kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
 Procédés mobilisés :\
 \- tricotage rectiligne : 1,2 kWh/kg\
 \- tricotage circulaire 1,2 kWh/kg\
-\- tricotage fully-fashioned : 1,7 kWh/kg\
-\- tricotage seamless : 3,7 kWh/kg\
+\- tricotage fully-fashioned / seamless : 1,7 kWh/kg\
+\- tricotage intégral : 3,7 kWh/kg\
 \- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
 {% endtab %}
 {% endtabs %}
@@ -331,10 +332,14 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
   En l'absence de précision de la part de l'utilisateur, un procédé par défaut est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe). \
   Procédé par défaut = _Tricotage moyen (mix de métiers circulaire & rectiligne) / UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d_
 * Cas particuliers
-  * _Tricotage fully-fashioned_ (optionnel)\
-    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (Complexité = Très faible / Taux de pertes = 2%) et figés. Cette technique permet de fabriquer les différentes pièces du vêtement sans couture lors du tricotage.
-  * _Tricotage seamless_ (optionnel)\
-    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (étape de confection non applicable) et figés. Cette technique permet de fabriquer le vêtement en une seule pièce sans couture lors du tricotage.
+  * _Tricotage fully-fashioned / seamless_ (optionnel)\
+    Dans le cas où l'utilisateur sélectionne l'un de ces procédés, les paramètres de la confection sont modifiés en conséquence et figés. \
+    Complexité = Très faible\
+    Taux de pertes = 2%
+  * _Tricotage intégral / whole garment (_optionnel)\
+    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (étape de confection non applicable) et figés. Cette technique permet de fabriquer le vêtement en une seule pièce sans couture lors du tricotage.\
+    Complexité = non applicable \
+    Taux de pertes = non applicable
 
 #### Titrage & Densité de fils (contexture du tissu)
 
@@ -434,12 +439,10 @@ Les taux de perte appliqués par défaut correspondent à ceux retenus par le so
 * Tricotage circulaire, inventaire désagrégé : 3,4%
 * Tricotage rectiligne, inventaire désagrégé : 4%
 * Tricotage moyen (par défaut) : 5,45%
-* Tricotage seamless : 0,5%
-* Tricotage fully-fashioned : 0,5%
+* Tricotage seamless / fully-fashioned : 0,5%
+* Tricotage intégral : 0,5%
 
 </details>
-
-
 
 ## Limites générales
 
