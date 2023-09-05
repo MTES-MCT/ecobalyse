@@ -549,7 +549,6 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-sm-6 mb-3" ]
                     [ productField textileDb inputs.product
