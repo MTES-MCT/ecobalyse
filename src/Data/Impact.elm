@@ -14,7 +14,6 @@ module Data.Impact exposing
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
-    , grabImpactFloat
     , mapImpacts
     , noComplementsImpacts
     , parseTrigram
@@ -30,7 +29,6 @@ module Data.Impact exposing
 import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -228,14 +226,6 @@ insertWithoutAggregateComputation trigram impact (Impacts impacts) =
 getImpact : Trigram -> Impacts -> Unit.Impact
 getImpact trigram (Impacts impacts) =
     Definition.get trigram impacts
-
-
-grabImpactFloat : Unit.Functional -> Duration -> Trigram -> { a | impacts : Impacts } -> Float
-grabImpactFloat funit daysOfWear trigram { impacts } =
-    impacts
-        |> getImpact trigram
-        |> Unit.inFunctionalUnit funit daysOfWear
-        |> Unit.impactToFloat
 
 
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts

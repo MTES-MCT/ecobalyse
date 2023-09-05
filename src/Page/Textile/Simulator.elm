@@ -51,7 +51,6 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -67,7 +66,6 @@ type alias Model =
     , impact : Definition
     , funit : Unit.Functional
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -82,7 +80,6 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -149,7 +146,6 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
       , impact = Definition.get trigram textileDb.impactDefinitions
       , funit = funit
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -225,12 +221,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
-
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -678,8 +668,6 @@ view session model =
                                                 , daysOfWear = simulator.daysOfWear
                                                 }
                                         , toggle = ToggleComparedSimulation
-                                        , chartHovering = model.chartHovering
-                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

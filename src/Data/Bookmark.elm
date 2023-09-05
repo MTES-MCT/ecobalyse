@@ -11,7 +11,6 @@ module Data.Bookmark exposing
     , toFoodQueries
     , toId
     , toQueryDescription
-    , toTextileQueries
     )
 
 import Data.Food.Db as FoodDb
@@ -155,16 +154,3 @@ toQueryDescription { foodDb, textileDb } bookmark =
                 |> TextileQuery.fromQuery textileDb
                 |> Result.map TextileQuery.toString
                 |> Result.withDefault bookmark.name
-
-
-toTextileQueries : List Bookmark -> List ( String, String, TextileQuery.Query )
-toTextileQueries =
-    List.filterMap
-        (\b ->
-            case b.query of
-                Food _ ->
-                    Nothing
-
-                Textile q ->
-                    Just ( toId b, b.name, q )
-        )

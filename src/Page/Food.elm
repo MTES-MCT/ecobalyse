@@ -57,7 +57,6 @@ import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
 
@@ -69,7 +68,6 @@ type alias Model =
     , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -95,7 +93,6 @@ type Msg
     | NoOp
     | OnAutocomplete (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
@@ -133,7 +130,6 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , comparisonUnit = ComparatorView.PerKgOfProduct
       , displayChoice = ComparatorView.Subscores
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if impact.trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -280,12 +276,6 @@ update ({ queries } as session) msg model =
 
                 _ ->
                     ( model, session, Cmd.none )
-
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -1476,8 +1466,6 @@ view session model =
                                         , db = model.db
                                         }
                                 , toggle = ToggleComparedSimulation
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
                                 }
                             ]
                         , footer = []

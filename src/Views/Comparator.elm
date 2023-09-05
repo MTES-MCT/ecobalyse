@@ -23,7 +23,6 @@ import Result.Extra as RE
 import Set
 import Views.Alert as Alert
 import Views.Container as Container
-import Views.Textile.ComparativeChart as TextileComparativeChart
 
 
 type alias Config msg =
@@ -31,8 +30,6 @@ type alias Config msg =
     , impact : Definition
     , options : Options msg
     , toggle : Bookmark -> Bool -> msg
-    , chartHovering : TextileComparativeChart.Stacks
-    , onChartHover : TextileComparativeChart.Stacks -> msg
     }
 
 
@@ -446,32 +443,9 @@ dataForTotalImpacts chartsData =
 
 
 textileComparatorView : Config msg -> TextileOptions -> Html msg
-textileComparatorView { session, impact, chartHovering, onChartHover } { funit, daysOfWear } =
+textileComparatorView { impact } { funit } =
     div []
-        [ case getTextileChartEntries session funit impact of
-            Ok [] ->
-                emptyChartsMessage
-
-            Ok entries ->
-                entries
-                    |> TextileComparativeChart.chart
-                        { funit = funit
-                        , impact = impact
-                        , daysOfWear = daysOfWear
-                        , size = Just ( 700, 500 )
-                        , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
-                        , chartHovering = chartHovering
-                        , onChartHover = onChartHover
-                        }
-
-            Err error ->
-                Alert.simple
-                    { level = Alert.Danger
-                    , close = Nothing
-                    , title = Just "Erreur"
-                    , content = [ text error ]
-                    }
-        , div [ class "fs-7 text-end text-muted" ]
+        [ div [ class "fs-7 text-end text-muted" ]
             [ text impact.label
             , text ", "
             , funit |> Unit.functionalToString |> text
@@ -485,25 +459,3 @@ emptyChartsMessage =
         [ class "d-flex h-100 justify-content-center align-items-center"
         ]
         [ text "Merci de sélectionner des simulations à comparer" ]
-
-
-getTextileChartEntries :
-    Session
-    -> Unit.Functional
-    -> Definition
-    -> Result String (List TextileComparativeChart.Entry)
-getTextileChartEntries { textileDb, store } funit impact =
-    store.bookmarks
-        |> Bookmark.toTextileQueries
-        |> List.filterMap
-            (\( id, label, textileQuery ) ->
-                if Set.member id store.comparedSimulations then
-                    textileQuery
-                        |> TextileComparativeChart.createEntry textileDb funit impact { highlight = True, label = label }
-                        |> Just
-
-                else
-                    Nothing
-            )
-        |> RE.combine
-        |> Result.map (List.sortBy .score)
