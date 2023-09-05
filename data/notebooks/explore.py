@@ -125,7 +125,7 @@ def show_activity(change):
                 (
                     (
                         (
-                            [f"<div><ul<b>>dict{title}</b>"]
+                            [f"<div><ul<b>>{title}</b>"]
                             + [
                                 f"<div><b>{subtitle}</b>: {subcontent}</div>"
                                 for (subtitle, subcontent) in content.items()
@@ -134,7 +134,7 @@ def show_activity(change):
                         )
                         if type(content) is dict
                         else (
-                            [f"<div><ul><b>list{title}</b>"]
+                            [f"<div><ul><b>{title}</b>"]
                             + [
                                 f"<li><b>{item[0]}</b>: {item[1]}</li>"
                                 if type(item) is tuple and len(item) == 2
@@ -144,7 +144,7 @@ def show_activity(change):
                             + ["</ul></div>"]
                         )
                         if type(content) is list
-                        else [f"<div><b>str{title}</b>: {content}</div>"]
+                        else [f"<div><b>{title}</b>: {content}</div>"]
                     )
                 )
                 for title, content in activity.items()
