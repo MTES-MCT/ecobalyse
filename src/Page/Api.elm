@@ -60,11 +60,11 @@ changelog =
       , md =
             """Le choix de valeurs pour le paramétrage `knittingProcess` a changé.
             Il faut maintenant choisir entre
-            - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
-            - fully-fashioned : Tricotage fully-fashioned / seamless
-            - integral : Tricotage intégral / whole garment
-            - circular : Tricotage circulaire, inventaire désagrégé
-            - straight : Tricotage rectiligne, inventaire désagrégé
+            - `mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+            - `fully-fashioned` : Tricotage fully-fashioned / seamless
+            - `integral` : Tricotage intégral / whole garment
+            - `circular` : Tricotage circulaire, inventaire désagrégé
+            - `straight` : Tricotage rectiligne, inventaire désagrégé
 
 """
       }

@@ -736,18 +736,28 @@ components:
       in: query
       description: |
         Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
-          - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
-          - fully-fashioned : Tricotage fully-fashioned / seamless
-          - integral : Tricotage intégral / whole garment
-          - circular : Tricotage circulaire, inventaire désagrégé
-          - straight : Tricotage rectiligne, inventaire désagrégé
+          - `mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - `fully-fashioned` : Tricotage fully-fashioned / seamless
+          - `integral` : Tricotage intégral / whole garment
+          - `circular` : Tricotage circulaire, inventaire désagrégé
+          - `straight` : Tricotage rectiligne, inventaire désagrégé
 
           **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
       required: false
       style: form
       schema:
         type: string
-        enum: ["mix", "fully-fashioned", "integral", "circular", "straight"]
+      examples:
+        mix:
+          value: "mix"
+        fully-fashioned:
+          value: "fully-fashioned"
+        integral:
+          value: "integral"
+        circular:
+          value: "circular"
+        straight:
+          value: "straight"
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -1219,11 +1229,11 @@ components:
           type: string
           required: false
           enum:
-          - mix
-          - fully-fashioned
-          - integral
-          - circular
-          - straight
+            - mix
+            - fully-fashioned
+            - integral
+            - circular
+            - straight
         disabledSteps:
           type: string
           required: false
