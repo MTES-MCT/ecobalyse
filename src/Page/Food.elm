@@ -131,7 +131,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonUnit = ComparatorView.PerKgOfProduct
-      , displayChoice = ComparatorView.IndividualImpacts
+      , displayChoice = ComparatorView.Subscores
       , modal = NoModal
       , chartHovering = []
       , activeImpactsTab =
@@ -1461,6 +1461,7 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
+                        , subTitle = Just "⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
                             [ ComparatorView.comparator
@@ -1488,6 +1489,7 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Sélectionnez un ingrédient"
+                        , subTitle = Nothing
                         , formAction = Nothing
                         , content =
                             let

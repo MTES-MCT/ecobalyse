@@ -1,6 +1,7 @@
 module Data.Impact exposing
     ( ComplementsImpacts
     , Impacts
+    , StepsImpacts
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
@@ -18,12 +19,15 @@ module Data.Impact exposing
     , noComplementsImpacts
     , parseTrigram
     , perKg
+    , stepsImpactsAsChartEntries
+    , stepsImpactsPerKg
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
     , updateImpact
     )
 
+import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -33,6 +37,10 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Url.Parser as Parser exposing (Parser)
+
+
+
+-- Complements impacts
 
 
 type alias ComplementsImpacts =
@@ -86,6 +94,61 @@ totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, valu
 totalComplementsImpactAsChartEntry { total } =
     -- We want those bonuses to appear as negative values on the chart
     { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
+
+
+
+-- Steps impacts
+
+
+type alias StepsImpacts =
+    { materials : Maybe Unit.Impact
+    , transform : Maybe Unit.Impact
+    , packaging : Maybe Unit.Impact
+    , transports : Maybe Unit.Impact
+    , distribution : Maybe Unit.Impact
+    , usage : Maybe Unit.Impact
+    , endOfLife : Maybe Unit.Impact
+    }
+
+
+stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
+stepsImpactsAsChartEntries stepsImpacts =
+    [ ( "Matières premières", stepsImpacts.materials, Color.purple )
+    , ( "Transformation", stepsImpacts.transform, Color.pink )
+    , ( "Emballage", stepsImpacts.packaging, Color.blue )
+    , ( "Transports", stepsImpacts.transports, Color.green )
+    , ( "Distribution", stepsImpacts.distribution, Color.red )
+    , ( "Utilisation", stepsImpacts.usage, Color.yellow )
+    , ( "Fin de vie", stepsImpacts.endOfLife, Color.turquoise )
+    ]
+        |> List.filterMap
+            (\( label, maybeValue, color ) ->
+                maybeValue
+                    |> Maybe.map (\value -> Just { name = label, value = Unit.impactToFloat value, color = color })
+                    |> Maybe.withDefault Nothing
+            )
+
+
+mapStepsImpacts : (Maybe Unit.Impact -> Maybe Unit.Impact) -> StepsImpacts -> StepsImpacts
+mapStepsImpacts fn ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
+    { stepsImpacts
+        | materials = fn materials
+        , transform = fn transform
+        , packaging = fn packaging
+        , transports = fn transports
+        , distribution = fn distribution
+        , usage = fn usage
+        , endOfLife = fn endOfLife
+    }
+
+
+stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
+stepsImpactsPerKg mass =
+    mapStepsImpacts (Maybe.map (Quantity.divideBy (Mass.inKilograms mass)))
+
+
+
+-- Protection areas
 
 
 type alias ProtectionAreas =

@@ -31,18 +31,7 @@ type alias Config =
     , total : Impacts
     , totalComplementsImpact : Impact.ComplementsImpacts
     , scoring : Scoring
-    , steps : Steps
-    }
-
-
-type alias Steps =
-    { materials : Maybe Unit.Impact
-    , transform : Maybe Unit.Impact
-    , packaging : Maybe Unit.Impact
-    , transports : Maybe Unit.Impact
-    , distribution : Maybe Unit.Impact
-    , usage : Maybe Unit.Impact
-    , endOfLife : Maybe Unit.Impact
+    , steps : Impact.StepsImpacts
     }
 
 
@@ -118,24 +107,11 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
 
 foodResultsToImpactTabsConfig : Definition.Trigram -> Recipe.Results -> Config
 foodResultsToImpactTabsConfig trigram results =
-    let
-        getImpact =
-            Impact.getImpact trigram
-                >> Just
-    in
     { trigram = trigram
     , total = results.total
     , totalComplementsImpact = results.recipe.totalComplementsImpact
     , scoring = results.scoring
-    , steps =
-        { materials = getImpact results.recipe.ingredientsTotal
-        , transform = getImpact results.recipe.transform
-        , packaging = getImpact results.packaging
-        , transports = getImpact results.transports.impacts
-        , distribution = getImpact results.distribution.total
-        , usage = getImpact results.preparation
-        , endOfLife = Nothing
-        }
+    , steps = Recipe.toStepsImpacts trigram results
     }
 
 
