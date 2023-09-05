@@ -241,7 +241,7 @@ knittingProcessField { inputs, updateKnittingProcess } =
         [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
         , [ Knitting.Mix
           , Knitting.FullyFashioned
-          , Knitting.Seamless
+          , Knitting.Integral
           , Knitting.Circular
           , Knitting.Straight
           ]
@@ -425,7 +425,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
         , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-        , if inputs.knittingProcess == Just Knitting.Seamless then
+        , if inputs.knittingProcess == Just Knitting.Integral then
             text "Non applicable"
 
           else
@@ -475,7 +475,7 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
             , disabled =
                 not current.enabled
                     || (inputs.knittingProcess == Just Knitting.FullyFashioned)
-                    || (inputs.knittingProcess == Just Knitting.Seamless)
+                    || (inputs.knittingProcess == Just Knitting.Integral)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }

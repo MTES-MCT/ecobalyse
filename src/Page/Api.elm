@@ -54,7 +54,21 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "29 août 2023"
+    [ { date = "4 septembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le choix de valeurs pour le paramétrage `knittingProcess` a changé.
+            Il faut maintenant choisir entre
+            - `mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+            - `fully-fashioned` : Tricotage fully-fashioned / seamless
+            - `integral` : Tricotage intégral / whole garment
+            - `circular` : Tricotage circulaire, inventaire désagrégé
+            - `straight` : Tricotage rectiligne, inventaire désagrégé
+
+"""
+      }
+    , { date = "29 août 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =

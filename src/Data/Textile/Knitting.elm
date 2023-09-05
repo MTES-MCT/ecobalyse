@@ -20,7 +20,7 @@ type Knitting
     = Circular
     | FullyFashioned
     | Mix
-    | Seamless
+    | Integral
     | Straight
 
 
@@ -44,8 +44,8 @@ fromString string =
         "fully-fashioned" ->
             Ok FullyFashioned
 
-        "seamless" ->
-            Ok Seamless
+        "integral" ->
+            Ok Integral
 
         "circular" ->
             Ok Circular
@@ -63,7 +63,7 @@ getMakingComplexity productDefaultMakingComplexity knitting =
         FullyFashioned ->
             MakingComplexity.VeryLow
 
-        Seamless ->
+        Integral ->
             MakingComplexity.NotApplicable
 
         _ ->
@@ -78,7 +78,7 @@ getMakingWaste productDefaultWaste knitting =
                 |> Result.toMaybe
                 |> Maybe.withDefault productDefaultWaste
 
-        Seamless ->
+        Integral ->
             Split.fromFloat 0
                 |> Result.toMaybe
                 |> Maybe.withDefault productDefaultWaste
@@ -94,10 +94,10 @@ toLabel knittingProcess =
             "Tricotage moyen (par défaut)"
 
         FullyFashioned ->
-            "Fully fashioned"
+            "Fully fashioned / Seamless"
 
-        Seamless ->
-            "Seamless"
+        Integral ->
+            "Intégral / Whole garment"
 
         Circular ->
             "Circulaire"
@@ -115,8 +115,8 @@ toString knittingProcess =
         FullyFashioned ->
             "fully-fashioned"
 
-        Seamless ->
-            "seamless"
+        Integral ->
+            "integral"
 
         Circular ->
             "circular"
