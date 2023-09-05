@@ -210,7 +210,6 @@ def show_activity(change):
             ],
             children=[
                 ipywidgets.HTML(value=activity_fields),
-                # ipywidgets.HTML(value="".join(production)),
                 ipywidgets.VBox(technosphere_widgets),
                 ipywidgets.HTML(value="".join(biosphere)),
                 ipywidgets.HTML(value="".join(substitution)),
@@ -232,5 +231,3 @@ display(w_method)
 display(w_activity)
 display(w_results)
 display(w_details)
-
-# _ = interact(show_activity, method=w_method, activity=w_activity)
