@@ -48,8 +48,17 @@ type FoodComparisonUnit
 
 type DisplayChoice
     = IndividualImpacts
-    | Grouped
+    | Steps
+    | Subscores
     | Total
+
+
+type alias ChartsData =
+    { label : String
+    , impacts : Impact.Impacts
+    , complementsImpact : Impact.ComplementsImpacts
+    , stepsImpacts : Impact.StepsImpacts
+    }
 
 
 type alias FoodOptions msg =
@@ -130,8 +139,7 @@ comparator ({ session, options, toggle } as config) =
                         ]
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
-                [ text ""
-                , case options of
+                [ case options of
                     Food foodOptions_ ->
                         foodComparatorView config foodOptions_
 
@@ -150,13 +158,28 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 foodQuery
                     |> Recipe.compute db
                     |> Result.map
-                        (\( _, { total, perKg, recipe } ) ->
+                        (\( _, { perKg, recipe, total, totalMass } as results ) ->
+                            let
+                                stepsImpactsPerProduct =
+                                    results
+                                        |> Recipe.toStepsImpacts Definition.Ecs
+                            in
                             case comparisonUnit of
                                 PerItem ->
-                                    ( label, total, recipe.totalComplementsImpact )
+                                    { label = label
+                                    , impacts = total
+                                    , complementsImpact = recipe.totalComplementsImpact
+                                    , stepsImpacts = stepsImpactsPerProduct
+                                    }
 
                                 PerKgOfProduct ->
-                                    ( label, perKg, recipe.totalComplementsImpactPerKg )
+                                    { label = label
+                                    , impacts = perKg
+                                    , complementsImpact = recipe.totalComplementsImpactPerKg
+                                    , stepsImpacts =
+                                        stepsImpactsPerProduct
+                                            |> Impact.stepsImpactsPerKg totalMass
+                                    }
                         )
                     |> Just
 
@@ -170,7 +193,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 |> RE.combine
 
         unitChoiceRadio caption current to =
-            label [ class "form-check-label d-flex align-items-center gap-1" ]
+            label [ class "form-check-label d-flex align-items-center gap-1 fs-8" ]
                 [ input
                     [ type_ "radio"
                     , class "form-check-input"
@@ -181,32 +204,36 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     []
                 , text caption
                 ]
-
-        displayChoiceRadio caption current to =
-            label [ class "form-check-label d-flex align-items-center gap-1" ]
-                [ input
-                    [ type_ "radio"
-                    , class "form-check-input"
-                    , name "displayChoice"
-                    , checked <| current == to
-                    , onInput <| always (switchDisplayChoice to)
-                    ]
-                    []
-                , text caption
-                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
-            [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
-        , div [ class "d-flex justify-content-between align-items-center gap-3" ]
-            [ div [ class "d-flex gap-3" ]
-                [ unitChoiceRadio "par produit" comparisonUnit PerItem
-                , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+            [ text "Composition du score d'impact des recettes sélectionnées" ]
+        , div [ class "row gap-2 gap-lg-0" ]
+            [ div [ class "col-xl-5" ]
+                [ div [ class "d-flex align-items-center gap-2 lh-lg pt-2" ]
+                    [ strong [] [ text "Unité" ]
+                    , unitChoiceRadio "produit" comparisonUnit PerItem
+                    , unitChoiceRadio "kg de produit" comparisonUnit PerKgOfProduct
+                    ]
                 ]
-            , div [ class "d-flex gap-3" ]
-                [ displayChoiceRadio "impacts individuels" displayChoice IndividualImpacts
-                , displayChoiceRadio "impacts groupés" displayChoice Grouped
-                , displayChoiceRadio "total" displayChoice Total
+            , div [ class "col-xl-7" ]
+                [ [ ( "Sous-scores", Subscores )
+                  , ( "Impacts", IndividualImpacts )
+                  , ( "Étapes", Steps )
+                  , ( "Total", Total )
+                  ]
+                    |> List.map
+                        (\( label, toDisplayChoice ) ->
+                            li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
+                                [ button
+                                    [ class "nav-link no-outline border-top-0 py-1"
+                                    , classList [ ( "active", displayChoice == toDisplayChoice ) ]
+                                    , onClick (switchDisplayChoice toDisplayChoice)
+                                    ]
+                                    [ text label ]
+                                ]
+                        )
+                    |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-2 px-2" ]
                 ]
             ]
         , case charts of
@@ -218,10 +245,13 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                     data =
                         case displayChoice of
                             IndividualImpacts ->
-                                dataForIndividualImpacts session.textileDb.impactDefinitions chartsData
+                                dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
 
-                            Grouped ->
-                                dataForGroupedImpacts session.textileDb.impactDefinitions chartsData
+                            Subscores ->
+                                dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
+
+                            Steps ->
+                                dataForSteps chartsData
 
                             Total ->
                                 dataForTotalImpacts chartsData
@@ -233,8 +263,11 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                             IndividualImpacts ->
                                 "individual-impacts"
 
-                            Grouped ->
+                            Subscores ->
                                 "grouped-impacts"
+
+                            Steps ->
+                                "steps-impacts"
 
                             Total ->
                                 "total-impacts"
@@ -255,7 +288,7 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
         ]
 
 
-dataForIndividualImpacts : Definitions -> List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
+dataForIndividualImpacts : Definitions -> List ChartsData -> String
 dataForIndividualImpacts definitions chartsData =
     let
         labelToOrder =
@@ -304,7 +337,7 @@ dataForIndividualImpacts definitions chartsData =
     in
     chartsData
         |> List.map
-            (\( name, impacts, complementsImpact ) ->
+            (\{ label, impacts, complementsImpact } ->
                 let
                     complementImpacts =
                         Impact.complementsImpactAsChartEntries complementsImpact
@@ -320,7 +353,7 @@ dataForIndividualImpacts definitions chartsData =
                             |> List.reverse
                 in
                 Encode.object
-                    [ ( "label", Encode.string name )
+                    [ ( "label", Encode.string label )
                     , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry reversed )
                     ]
             )
@@ -328,11 +361,11 @@ dataForIndividualImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForGroupedImpacts : Definitions -> List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
-dataForGroupedImpacts definitions chartsData =
+dataForSubscoresImpacts : Definitions -> List ChartsData -> String
+dataForSubscoresImpacts definitions chartsData =
     chartsData
         |> List.map
-            (\( name, impacts, complementsImpact ) ->
+            (\{ label, impacts, complementsImpact } ->
                 let
                     complementImpacts =
                         Impact.totalComplementsImpactAsChartEntry complementsImpact
@@ -351,7 +384,7 @@ dataForGroupedImpacts definitions chartsData =
                                )
                 in
                 Encode.object
-                    [ ( "label", Encode.string name )
+                    [ ( "label", Encode.string label )
                     , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
                     ]
             )
@@ -359,11 +392,30 @@ dataForGroupedImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForTotalImpacts : List ( String, Impact.Impacts, Impact.ComplementsImpacts ) -> String
+dataForSteps : List ChartsData -> String
+dataForSteps chartsData =
+    chartsData
+        |> List.map
+            (\{ label, stepsImpacts } ->
+                Encode.object
+                    [ ( "label", Encode.string label )
+                    , ( "data"
+                      , stepsImpacts
+                            |> Impact.stepsImpactsAsChartEntries
+                            |> List.reverse
+                            |> Encode.list Impact.encodeAggregatedScoreChartEntry
+                      )
+                    ]
+            )
+        |> Encode.list identity
+        |> Encode.encode 0
+
+
+dataForTotalImpacts : List ChartsData -> String
 dataForTotalImpacts chartsData =
     chartsData
         |> List.map
-            (\( name, impacts, complementsImpact ) ->
+            (\{ label, impacts, complementsImpact } ->
                 let
                     totalImpact =
                         impacts
@@ -385,7 +437,7 @@ dataForTotalImpacts chartsData =
                             ]
                 in
                 Encode.object
-                    [ ( "label", Encode.string name )
+                    [ ( "label", Encode.string label )
                     , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
                     ]
             )

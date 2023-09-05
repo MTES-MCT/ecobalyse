@@ -210,7 +210,7 @@ bookmarksView ({ session, compare, scope } as config) =
             , button
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer vos simulations sauvegardées"
-                , disabled (List.length bookmarks < 2)
+                , disabled (List.isEmpty bookmarks)
                 , onClick compare
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]

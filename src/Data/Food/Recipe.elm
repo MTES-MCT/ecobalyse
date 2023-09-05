@@ -19,6 +19,7 @@ module Data.Food.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
+    , toStepsImpacts
     , toString
     )
 
@@ -666,6 +667,23 @@ resetTransform query =
 resetDistribution : Query -> Query
 resetDistribution query =
     { query | distribution = Nothing }
+
+
+toStepsImpacts : Definition.Trigram -> Results -> Impact.StepsImpacts
+toStepsImpacts trigram results =
+    let
+        getImpact =
+            Impact.getImpact trigram
+                >> Just
+    in
+    { materials = getImpact results.recipe.ingredientsTotal
+    , transform = getImpact results.recipe.transform
+    , packaging = getImpact results.packaging
+    , transports = getImpact results.transports.impacts
+    , distribution = getImpact results.distribution.total
+    , usage = getImpact results.preparation
+    , endOfLife = Nothing
+    }
 
 
 toString : Recipe -> String

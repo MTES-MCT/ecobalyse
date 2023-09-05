@@ -93,6 +93,7 @@ viewHero modal =
                     , close = CloseModal
                     , noOp = NoOp
                     , title = "Sélectionnez le secteur concerné"
+                    , subTitle = Nothing
                     , formAction = Nothing
                     , content = [ calculatorPickerModalContent ]
                     , footer = []
