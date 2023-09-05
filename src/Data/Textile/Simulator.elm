@@ -2,14 +2,12 @@ module Data.Textile.Simulator exposing
     ( Simulator
     , compute
     , encode
-    , lifeCycleImpacts
     , toStepsImpacts
     )
 
-import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
 import Data.Textile.Formula as Formula
@@ -581,39 +579,6 @@ computeFinalImpacts ({ lifeCycle } as simulator) =
             LifeCycle.computeFinalImpacts lifeCycle
                 |> Impact.impactsWithComplements complementsImpacts
     }
-
-
-lifeCycleImpacts : Definitions -> Simulator -> List ( String, List ( String, Float ) )
-lifeCycleImpacts definitions simulator =
-    -- cch:
-    --     matiere: 25%
-    --     tissage: 10%
-    --     transports: 10%
-    --     etc.
-    -- wtu:
-    --     ...
-    Definition.toList definitions
-        |> List.map
-            (\def ->
-                ( def.label
-                , simulator.lifeCycle
-                    |> Array.toList
-                    |> List.map
-                        (\{ label, impacts } ->
-                            ( Label.toString label
-                            , Unit.impactToFloat (Impact.getImpact def.trigram impacts)
-                                / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
-                                * 100
-                            )
-                        )
-                    |> (::)
-                        ( "Transports"
-                        , Unit.impactToFloat (Impact.getImpact def.trigram simulator.transport.impacts)
-                            / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
-                            * 100
-                        )
-                )
-            )
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

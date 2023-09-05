@@ -536,9 +536,6 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
             , onClick (toggleStepViewMode index)
             ]
             [ case viewMode of
-                ViewMode.Dataviz ->
-                    Icon.stats
-
                 ViewMode.DetailedAll ->
                     Icon.zoomout
 
@@ -1001,9 +998,6 @@ view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
     case config.viewMode of
-        ViewMode.Dataviz ->
-            { step = text "", transport = text "" }
-
         ViewMode.DetailedAll ->
             detailedView config
 

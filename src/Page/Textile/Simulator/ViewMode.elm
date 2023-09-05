@@ -10,8 +10,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type ViewMode
-    = Dataviz
-    | DetailedAll
+    = DetailedAll
     | DetailedStep Int
     | Simple
 
@@ -19,9 +18,6 @@ type ViewMode
 isActive : ViewMode -> ViewMode -> Bool
 isActive vm1 vm2 =
     case ( vm1, vm2 ) of
-        ( Dataviz, Dataviz ) ->
-            True
-
         ( DetailedAll, DetailedAll ) ->
             True
 
@@ -38,9 +34,6 @@ isActive vm1 vm2 =
 toggle : Int -> ViewMode -> ViewMode
 toggle index viewMode =
     case viewMode of
-        Dataviz ->
-            Dataviz
-
         DetailedAll ->
             Simple
 
@@ -60,9 +53,6 @@ parse =
     Parser.custom "VIEW_MODE" <|
         \string ->
             case string of
-                "dataviz" ->
-                    Just Dataviz
-
                 "detailed" ->
                     Just DetailedAll
 
@@ -73,9 +63,6 @@ parse =
 toUrlSegment : ViewMode -> String
 toUrlSegment viewMode =
     case viewMode of
-        Dataviz ->
-            "dataviz"
-
         Simple ->
             "simple"
 

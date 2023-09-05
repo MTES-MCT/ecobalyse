@@ -45,7 +45,6 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
-import Views.Dataviz as Dataviz
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
@@ -540,7 +539,6 @@ displayModeView trigram viewMode query =
         ]
         [ tab ViewMode.Simple Icon.zoomout "Simplifier"
         , tab ViewMode.DetailedAll Icon.zoomin "Détailler"
-        , tab ViewMode.Dataviz Icon.stats "Visualiser"
         ]
 
 
@@ -568,23 +566,19 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                 }
             , session.queries.textile
                 |> displayModeView impact.trigram viewMode
-            , if viewMode == ViewMode.Dataviz then
-                Dataviz.view textileDb.impactDefinitions simulator
-
-              else
-                div []
-                    [ lifeCycleStepsView textileDb model simulator
-                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                        [ a [ Route.href Route.Home ]
-                            [ text "« Retour à l'accueil" ]
-                        , button
-                            [ class "btn btn-secondary"
-                            , onClick Reset
-                            , disabled (session.queries.textile == model.initialQuery)
-                            ]
-                            [ text "Réinitialiser le simulateur" ]
+            , div []
+                [ lifeCycleStepsView textileDb model simulator
+                , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+                    [ a [ Route.href Route.Home ]
+                        [ text "« Retour à l'accueil" ]
+                    , button
+                        [ class "btn btn-secondary"
+                        , onClick Reset
+                        , disabled (session.queries.textile == model.initialQuery)
                         ]
+                        [ text "Réinitialiser le simulateur" ]
                     ]
+                ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
