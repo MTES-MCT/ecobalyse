@@ -747,6 +747,8 @@ components:
       style: form
       schema:
         type: string
+        enum:
+          "$ref": "#/components/schemas/KnittingProcessEnum"
       examples:
         mix:
           value: "mix"
@@ -1229,11 +1231,7 @@ components:
           type: string
           required: false
           enum:
-            - mix
-            - fully-fashioned
-            - integral
-            - circular
-            - straight
+            "$ref": "#/components/schemas/KnittingProcessEnum"
         disabledSteps:
           type: string
           required: false
@@ -1370,6 +1368,12 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    KnittingProcessEnum:
+      - mix
+      - fully-fashioned
+      - integral
+      - circular
+      - straight
     CountryListResponse:
       type: array
       description: Liste des pays.
