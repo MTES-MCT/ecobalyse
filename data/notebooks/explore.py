@@ -98,7 +98,7 @@ def show_activity(change):
         return
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
-    display(Markdown(f"# IMPACTS for {activity}"))
+    display(Markdown(f"# {activity}"))
     scores = []
     for method in [m for m in bw2data.methods if m[0] == method]:
         lca.switch_method(method)
@@ -110,86 +110,114 @@ def show_activity(change):
                 "Unité": bw2data.methods[method].get("unit", "(no unit)"),
             }
         )
-    display(pandas.DataFrame(scores))
-    display(Markdown("---"))
-
-    # ACTIVITY DATA
-    display(Markdown(f"# {activity}"))
-    for title, content in activity.items():
-        display(Markdown(f"## {title}"))
-        if type(content) is dict:
-            for subtitle, subcontent in content.items():
-                display(Markdown(f"**{subtitle}**: {subcontent}"))
-        elif type(content) is list:
-            for item in content:
-                if type(item) is tuple and len(item) == 2:
-                    display(Markdown(f"**{item[0]}**: {item[1]}"))
-                else:
-                    print(str(item))
-        else:
-            print(content)
-    display(Markdown("---"))
 
     # PRODUCTION
-    exchanges = activity.production()
-    display(Markdown(f"# There are {len(exchanges)} production exchanges:"))
-    for exchange in exchanges:
-        amount = exchange.get("amount", "N/A")
-        unit = exchange.get("unit", "N/A")
-        name = exchange.get("name", "N/A")
-        display(Markdown(f"## {amount} {unit} of {name}"))
-        flow = exchange.get("input")
-        act = get_activity(flow)
-        comment = act.get("comment", "N/A")
-        display(Markdown(f"{comment}"))
-    display(Markdown("---"))
+    production = [
+        f"<h3>Production: {exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>{get_activity(exchange.get('input')).get('comment', '')}"
+        for exchange in activity.production()
+    ]
+
+    # ACTIVITY DATA
+    activity_fields = "".join(
+        ["".join(production)]
+        + sum(
+            [
+                (
+                    (
+                        (
+                            [f"<div><ul<b>>dict{title}</b>"]
+                            + [
+                                f"<div><b>{subtitle}</b>: {subcontent}</div>"
+                                for (subtitle, subcontent) in content.items()
+                            ]
+                            + ["</ul></div>"]
+                        )
+                        if type(content) is dict
+                        else (
+                            [f"<div><ul><b>list{title}</b>"]
+                            + [
+                                f"<li><b>{item[0]}</b>: {item[1]}</li>"
+                                if type(item) is tuple and len(item) == 2
+                                else f"<li>{item}</li>"
+                                for item in content
+                            ]
+                            + ["</ul></div>"]
+                        )
+                        if type(content) is list
+                        else [f"<div><b>str{title}</b>: {content}</div>"]
+                    )
+                )
+                for title, content in activity.items()
+            ],
+            [],
+        ),
+    )
 
     # TECHNOSPHERE
-    exchanges = activity.technosphere()
-    display(Markdown(f"# There are {len(exchanges)} exchanges with the technosphere:"))
-    for exchange in exchanges:
+    technosphere_widgets = []
+    technosphere = activity.technosphere()
+    for exchange in technosphere:
+        # activity title
         amount = exchange.get("amount", "N/A")
         unit = exchange.get("unit", "N/A")
         name = exchange.get("name", "N/A")
-        display(Markdown(f"## {amount} {unit} of {name}"))
-        link = ipywidgets.Button(
-            description="→",
-            button_style="",
-            tooltip="Add or update the activity",
-            icon="check",
-        )
+        title = ipywidgets.HTML(value=f"<h3>{amount} {unit} of {name}</h3>")
+        # activity button
+        link = ipywidgets.Button(description="visit")
         setattr(link, "search", name)
         link.on_click(linkto)
-        display(link)
+        # activity comments
         flow = exchange.get("input")
         act = get_activity(flow)
-        comment = act.get("comment", "N/A")
-        display(Markdown(f"{comment}"))
-    display(Markdown("---"))
+        comment = ipywidgets.HTML(value=f"{act.get('comment', '')}")
+        technosphere_widgets.append(
+            ipywidgets.VBox(
+                [
+                    ipywidgets.HBox(
+                        [link, title],
+                        layout=ipywidgets.Layout(
+                            display="flex",
+                            flex_flow="row",
+                            align_items="center",
+                            width="50%",
+                        ),
+                    ),
+                    comment,
+                ],
+            )
+        )
 
     # BIOSPHERE
-    exchanges = activity.biosphere()
-    display(Markdown(f"# There are {len(exchanges)} exchanges with the biosphere:"))
-    for exchange in exchanges:
-        amount = exchange.get("amount", "N/A")
-        unit = exchange.get("unit", "N/A")
-        name = exchange.get("name", "N/A")
-        display(Markdown(f"{amount} {unit} of {name}"))
-    display(Markdown("---"))
+    biosphere = [
+        f"<h3>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>"
+        for exchange in activity.biosphere()
+    ]
 
     # SUBSTITUTIONS
-    exchanges = activity.substitution()
-    display(Markdown(f"# There are {len(exchanges)} substitution exchanges:"))
-    for exchange in exchanges:
-        amount = exchange.get("amount", "N/A")
-        unit = exchange.get("unit", "N/A")
-        name = exchange.get("name", "N/A")
-        display(Markdown(f"## {amount} {unit} of {name}"))
-        flow = exchange.get("input")
-        act = get_activity(flow)
-        comment = act.get("comment", "N/A")
-        display(Markdown(f"{comment}"))
-    display(Markdown("---"))
+    substitution = [
+        f"<h3>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>{get_activity(exchange.get('input')).get('comment', '')}"
+        for exchange in activity.substitution()
+    ]
+
+    display(
+        ipywidgets.Tab(
+            titles=[
+                "Data",
+                f"Technosphere ({int(len(technosphere)/3)})",
+                f"Biosphere ({len(biosphere)})",
+                f"Substitution ({len(substitution)})",
+                "Impacts",
+            ],
+            children=[
+                ipywidgets.HTML(value=activity_fields),
+                # ipywidgets.HTML(value="".join(production)),
+                ipywidgets.VBox(technosphere_widgets),
+                ipywidgets.HTML(value="".join(biosphere)),
+                ipywidgets.HTML(value="".join(substitution)),
+                ipywidgets.HTML(pandas.DataFrame(scores).to_html()),
+            ],
+        )
+    )
 
 
 w_project.observe(switch_domain, names="value")
@@ -200,9 +228,9 @@ w_activity.observe(show_activity, names="value")
 w_method.observe(show_activity, names="value")
 display(w_project)
 display(w_database, w_search, w_limit)
-display(w_results)
-display(w_activity)
 display(w_method)
+display(w_activity)
+display(w_results)
 display(w_details)
 
 # _ = interact(show_activity, method=w_method, activity=w_activity)
