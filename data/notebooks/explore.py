@@ -203,7 +203,7 @@ def show_activity(change):
         ipywidgets.Tab(
             titles=[
                 "Data",
-                f"Technosphere ({int(len(technosphere)/3)})",
+                f"Technosphere ({int(len(technosphere))})",
                 f"Biosphere ({len(biosphere)})",
                 f"Substitution ({len(substitution)})",
                 "Impacts",
