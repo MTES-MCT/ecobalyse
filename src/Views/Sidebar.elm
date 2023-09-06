@@ -8,7 +8,6 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
-import Page.Textile.Simulator.ViewMode exposing (ViewMode)
 import Views.Bookmark as BookmarkView
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
@@ -18,7 +17,6 @@ import Views.Score as ScoreView
 type alias Config msg =
     { session : Session
     , scope : Scope
-    , viewMode : ViewMode
 
     -- Impact selector
     , selectedImpact : Definition
@@ -67,7 +65,6 @@ view config =
             , bookmarkName = config.bookmarkName
             , impact = config.selectedImpact
             , scope = config.scope
-            , viewMode = config.viewMode
             , copyToClipBoard = config.copyToClipBoard
             , compare = config.compareBookmarks
             , delete = config.deleteBookmark

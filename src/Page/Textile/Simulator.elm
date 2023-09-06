@@ -46,8 +46,6 @@ import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Format as Format
-import Views.Icon as Icon
-import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -116,11 +114,10 @@ type Msg
 
 init :
     Definition.Trigram
-    -> ViewMode
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
+init trigram maybeUrlQuery ({ textileDb } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -141,7 +138,7 @@ init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
                 |> Mass.inKilograms
                 |> String.fromFloat
       , initialQuery = initialQuery
-      , viewMode = viewMode
+      , viewMode = ViewMode.Simple
       , impact = Definition.get trigram textileDb.impactDefinitions
       , modal = NoModal
       , activeImpactsTab =
@@ -274,7 +271,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model
             , session
             , Just query
-                |> Route.TextileSimulator trigram model.viewMode
+                |> Route.TextileSimulator trigram
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -518,32 +515,8 @@ lifeCycleStepsView db { viewMode, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-displayModeView : Definition.Trigram -> ViewMode -> Inputs.Query -> Html Msg
-displayModeView trigram viewMode query =
-    let
-        tab mode icon label =
-            a
-                [ classList
-                    [ ( "TabsTab nav-link", True )
-                    , ( "active", ViewMode.isActive viewMode mode )
-                    ]
-                , Just query
-                    |> Route.TextileSimulator trigram mode
-                    |> Route.href
-                ]
-                [ span [ class "fs-7 me-1" ] [ icon ], text label ]
-    in
-    nav
-        [ class "Tabs nav nav-tabs nav-fill pt-3 bg-white sticky-md-top justify-content-between"
-        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2 mt-2 mb-2 px-3"
-        ]
-        [ tab ViewMode.Simple Icon.zoomout "Simplifier"
-        , tab ViewMode.DetailedAll Icon.zoomin "Détailler"
-        ]
-
-
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs, impacts } as simulator) =
+simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -564,8 +537,6 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , session.queries.textile
-                |> displayModeView impact.trigram viewMode
             , div []
                 [ lifeCycleStepsView textileDb model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
@@ -584,7 +555,6 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
             [ SidebarView.view
                 { session = session
                 , scope = Scope.Textile
-                , viewMode = model.viewMode
 
                 -- Impact selector
                 , selectedImpact = model.impact

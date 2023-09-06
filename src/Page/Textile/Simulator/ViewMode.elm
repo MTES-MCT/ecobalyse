@@ -1,42 +1,17 @@
 module Page.Textile.Simulator.ViewMode exposing
     ( ViewMode(..)
-    , isActive
-    , parse
-    , toUrlSegment
     , toggle
     )
 
-import Url.Parser as Parser exposing (Parser)
-
 
 type ViewMode
-    = DetailedAll
-    | DetailedStep Int
+    = DetailedStep Int
     | Simple
-
-
-isActive : ViewMode -> ViewMode -> Bool
-isActive vm1 vm2 =
-    case ( vm1, vm2 ) of
-        ( DetailedAll, DetailedAll ) ->
-            True
-
-        ( DetailedStep _, DetailedStep _ ) ->
-            True
-
-        ( Simple, Simple ) ->
-            True
-
-        _ ->
-            False
 
 
 toggle : Int -> ViewMode -> ViewMode
 toggle index viewMode =
     case viewMode of
-        DetailedAll ->
-            Simple
-
         DetailedStep current ->
             if index == current then
                 Simple
@@ -46,25 +21,3 @@ toggle index viewMode =
 
         Simple ->
             DetailedStep index
-
-
-parse : Parser (ViewMode -> a) a
-parse =
-    Parser.custom "VIEW_MODE" <|
-        \string ->
-            case string of
-                "detailed" ->
-                    Just DetailedAll
-
-                _ ->
-                    Just Simple
-
-
-toUrlSegment : ViewMode -> String
-toUrlSegment viewMode =
-    case viewMode of
-        Simple ->
-            "simple"
-
-        _ ->
-            "detailed"

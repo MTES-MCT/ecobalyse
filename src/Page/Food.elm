@@ -37,7 +37,6 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
-import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
 import Route
@@ -1301,7 +1300,6 @@ sidebarView session model results =
     SidebarView.view
         { session = session
         , scope = Scope.Food
-        , viewMode = ViewMode.Simple
 
         -- Impact selector
         , selectedImpact = model.impact

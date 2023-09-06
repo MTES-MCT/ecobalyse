@@ -536,9 +536,6 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
             , onClick (toggleStepViewMode index)
             ]
             [ case viewMode of
-                ViewMode.DetailedAll ->
-                    Icon.zoomout
-
                 ViewMode.DetailedStep currentIndex ->
                     if index == currentIndex then
                         Icon.zoomout
@@ -998,9 +995,6 @@ view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
     case config.viewMode of
-        ViewMode.DetailedAll ->
-            detailedView config
-
         ViewMode.DetailedStep index ->
             if config.index == index then
                 detailedView config
