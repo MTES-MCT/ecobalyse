@@ -1,5 +1,5 @@
 module Views.Comparator exposing
-    ( DisplayChoice(..)
+    ( ComparisonType(..)
     , view
     )
 
@@ -23,17 +23,13 @@ import Views.Container as Container
 type alias Config msg =
     { session : Session
     , impact : Definition
-
-    -- FIXME: rename to comparisonType
-    , displayChoice : DisplayChoice
-    , switchDisplayChoice : DisplayChoice -> msg
+    , comparisonType : ComparisonType
+    , switchComparisonType : ComparisonType -> msg
     , toggle : Bookmark -> Bool -> msg
     }
 
 
-type
-    DisplayChoice
-    -- FIXME: rename to ComparisonType
+type ComparisonType
     = IndividualImpacts
     | Steps
     | Subscores
@@ -110,7 +106,7 @@ sidebarView { session, toggle } =
 
 
 comparatorView : Config msg -> List (Html msg)
-comparatorView { session, displayChoice, switchDisplayChoice } =
+comparatorView { session, comparisonType, switchComparisonType } =
     let
         addToComparison ( id, label, foodQuery ) =
             if Set.member id session.store.comparedSimulations then
@@ -145,12 +141,12 @@ comparatorView { session, displayChoice, switchDisplayChoice } =
       , ( "Total", Total )
       ]
         |> List.map
-            (\( label, toDisplayChoice ) ->
-                li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
+            (\( label, toComparisonType ) ->
+                li [ class "TabsTab nav-item", classList [ ( "active", comparisonType == toComparisonType ) ] ]
                     [ button
                         [ class "nav-link no-outline border-top-0 py-1"
-                        , classList [ ( "active", displayChoice == toDisplayChoice ) ]
-                        , onClick (switchDisplayChoice toDisplayChoice)
+                        , classList [ ( "active", comparisonType == toComparisonType ) ]
+                        , onClick (switchComparisonType toComparisonType)
                         ]
                         [ text label ]
                     ]
@@ -163,7 +159,7 @@ comparatorView { session, displayChoice, switchDisplayChoice } =
         Ok chartsData ->
             let
                 data =
-                    case displayChoice of
+                    case comparisonType of
                         IndividualImpacts ->
                             dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
 
@@ -179,7 +175,7 @@ comparatorView { session, displayChoice, switchDisplayChoice } =
             div
                 [ class "h-100"
                 , class
-                    (case displayChoice of
+                    (case comparisonType of
                         IndividualImpacts ->
                             "individual-impacts"
 

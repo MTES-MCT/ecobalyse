@@ -65,7 +65,7 @@ type alias Model =
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , displayChoice : ComparatorView.DisplayChoice
+    , comparisonType : ComparatorView.ComparisonType
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -98,7 +98,7 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchDisplayChoice ComparatorView.DisplayChoice
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
@@ -125,7 +125,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , displayChoice = ComparatorView.Subscores
+      , comparisonType = ComparatorView.Subscores
       , modal = NoModal
       , activeImpactsTab =
             if impact.trigram == Definition.Ecs then
@@ -327,8 +327,8 @@ update ({ queries } as session) msg model =
                         ]
             )
 
-        SwitchDisplayChoice displayChoice ->
-            ( { model | displayChoice = displayChoice }, session, Cmd.none )
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         SwitchImpact (Ok impact) ->
             ( model
@@ -1448,8 +1448,8 @@ view session model =
                             [ ComparatorView.view
                                 { session = session
                                 , impact = model.impact
-                                , displayChoice = model.displayChoice
-                                , switchDisplayChoice = SwitchDisplayChoice
+                                , comparisonType = model.comparisonType
+                                , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }
                             ]

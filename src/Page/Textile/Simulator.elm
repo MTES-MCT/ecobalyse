@@ -60,7 +60,7 @@ type alias Model =
     { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , displayChoice : ComparatorView.DisplayChoice
+    , comparisonType : ComparatorView.ComparisonType
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
@@ -88,7 +88,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
-    | SwitchDisplayChoice ComparatorView.DisplayChoice
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
@@ -139,7 +139,7 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , displayChoice = ComparatorView.Subscores
+      , comparisonType = ComparatorView.Subscores
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -266,8 +266,8 @@ update ({ textileDb, queries, navKey } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
-        SwitchDisplayChoice displayChoice ->
-            ( { model | displayChoice = displayChoice }, session, Cmd.none )
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -668,8 +668,8 @@ view session model =
                                     [ ComparatorView.view
                                         { session = session
                                         , impact = model.impact
-                                        , displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
+                                        , comparisonType = model.comparisonType
+                                        , switchComparisonType = SwitchComparisonType
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]
