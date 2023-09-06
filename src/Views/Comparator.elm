@@ -455,7 +455,5 @@ textileComparatorView { impact } { funit } =
 
 emptyChartsMessage : Html msg
 emptyChartsMessage =
-    p
-        [ class "d-flex h-100 justify-content-center align-items-center"
-        ]
-        [ text "Merci de sélectionner des simulations à comparer" ]
+    p [ class "d-flex h-100 justify-content-center align-items-center" ]
+        [ text "Sélectionnez une simulation" ]
