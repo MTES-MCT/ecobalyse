@@ -8,6 +8,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Session as Session exposing (Session)
+import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Dict
 import Html exposing (..)
@@ -105,37 +106,56 @@ sidebarView { session, toggle } =
     ]
 
 
+addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
+addToComparison session label query =
+    case query of
+        Bookmark.Food foodQuery ->
+            foodQuery
+                |> Recipe.compute session.foodDb
+                |> Result.map
+                    (\( _, { recipe, total } as results ) ->
+                        { label = label
+                        , impacts = total
+                        , complementsImpact = recipe.totalComplementsImpact
+                        , stepsImpacts =
+                            results
+                                |> Recipe.toStepsImpacts Definition.Ecs
+                        }
+                    )
+
+        Bookmark.Textile textileQuery ->
+            textileQuery
+                |> Simulator.compute session.textileDb
+                |> Result.map
+                    (\simulator ->
+                        { label = label
+                        , impacts = simulator.impacts
+
+                        -- FIXME: we don't compute textile complements just yet
+                        , complementsImpact = Impact.noComplementsImpacts
+                        , stepsImpacts =
+                            simulator
+                                |> Simulator.toStepsImpacts Definition.Ecs
+                        }
+                    )
+
+
 comparatorView : Config msg -> List (Html msg)
 comparatorView { session, comparisonType, switchComparisonType } =
     let
-        addToComparison ( id, label, foodQuery ) =
-            if Set.member id session.store.comparedSimulations then
-                foodQuery
-                    |> Recipe.compute session.foodDb
-                    |> Result.map
-                        (\( _, { recipe, total } as results ) ->
-                            { label = label
-                            , impacts = total
-                            , complementsImpact = recipe.totalComplementsImpact
-                            , stepsImpacts =
-                                results
-                                    |> Recipe.toStepsImpacts Definition.Ecs
-                            }
-                        )
-                    |> Just
-
-            else
-                Nothing
-
         charts =
             session.store.bookmarks
-                |> Bookmark.toFoodQueries
-                |> List.filterMap addToComparison
+                |> List.filterMap
+                    (\bookmark ->
+                        if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
+                            Just (addToComparison session bookmark.name bookmark.query)
+
+                        else
+                            Nothing
+                    )
                 |> RE.combine
     in
-    [ h2 [ class "h5 text-center" ]
-        [ text "Composition du score d'impact des produits sélectionnés" ]
-    , [ ( "Sous-scores", Subscores )
+    [ [ ( "Sous-scores", Subscores )
       , ( "Impacts", IndividualImpacts )
       , ( "Étapes", Steps )
       , ( "Total", Total )
@@ -151,10 +171,11 @@ comparatorView { session, comparisonType, switchComparisonType } =
                         [ text label ]
                     ]
             )
-        |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-3 px-2" ]
+        |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-2 px-2" ]
     , case charts of
         Ok [] ->
-            emptyChartsMessage
+            p [ class "d-flex h-100 justify-content-center align-items-center pb-5" ]
+                [ text "Sélectionnez une ou plusieurs simulations pour les comparer" ]
 
         Ok chartsData ->
             let
@@ -359,9 +380,3 @@ dataForTotalImpacts chartsData =
             )
         |> Encode.list identity
         |> Encode.encode 0
-
-
-emptyChartsMessage : Html msg
-emptyChartsMessage =
-    p [ class "d-flex h-100 justify-content-center align-items-center" ]
-        [ text "Sélectionnez une simulation" ]

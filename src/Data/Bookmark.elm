@@ -8,7 +8,6 @@ module Data.Bookmark exposing
     , isFood
     , isTextile
     , sort
-    , toFoodQueries
     , toId
     , toQueryDescription
     )
@@ -125,19 +124,6 @@ sort =
 toId : Bookmark -> String
 toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
-
-
-toFoodQueries : List Bookmark -> List ( String, String, FoodQuery.Query )
-toFoodQueries =
-    List.filterMap
-        (\b ->
-            case b.query of
-                Food q ->
-                    Just ( toId b, b.name, q )
-
-                Textile _ ->
-                    Nothing
-        )
 
 
 toQueryDescription : { foodDb : FoodDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String

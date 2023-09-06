@@ -657,12 +657,8 @@ view session model =
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title =
-                                    "Comparateur de simulations sauvegardées\u{00A0}: "
-                                        ++ model.impact.label
-                                        ++ ", "
-                                        ++ Unit.functionalToString model.funit
-                                , subTitle = Nothing
+                                , title = "Comparateur de simulations sauvegardées"
+                                , subTitle = Just "en score d'impact, par produit"
                                 , formAction = Nothing
                                 , content =
                                     [ ComparatorView.view

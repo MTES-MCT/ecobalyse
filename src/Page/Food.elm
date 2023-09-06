@@ -1442,7 +1442,7 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
-                        , subTitle = Just "⚠️\u{00A0}Attention, ces résultats sont provisoires"
+                        , subTitle = Just "en score d'impact, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
                             [ ComparatorView.view
