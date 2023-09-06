@@ -327,6 +327,9 @@ update ({ queries } as session) msg model =
                         ]
             )
 
+        SwitchDisplayChoice displayChoice ->
+            ( { model | displayChoice = displayChoice }, session, Cmd.none )
+
         SwitchImpact (Ok impact) ->
             ( model
             , session
@@ -347,9 +350,6 @@ update ({ queries } as session) msg model =
             , session
             , Cmd.none
             )
-
-        SwitchDisplayChoice displayChoice ->
-            ( { model | displayChoice = displayChoice }, session, Cmd.none )
 
         SwitchLinksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
@@ -1445,15 +1445,11 @@ view session model =
                         , subTitle = Just "⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
-                            [ ComparatorView.comparator
+                            [ ComparatorView.view
                                 { session = session
                                 , impact = model.impact
-                                , options =
-                                    ComparatorView.foodOptions
-                                        { displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
-                                        , db = model.db
-                                        }
+                                , displayChoice = model.displayChoice
+                                , switchDisplayChoice = SwitchDisplayChoice
                                 , toggle = ToggleComparedSimulation
                                 }
                             ]

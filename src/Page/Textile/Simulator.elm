@@ -60,6 +60,7 @@ type alias Model =
     { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
+    , displayChoice : ComparatorView.DisplayChoice
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
@@ -87,6 +88,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
+    | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
@@ -137,6 +139,7 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
+      , displayChoice = ComparatorView.Subscores
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -262,6 +265,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
+
+        SwitchDisplayChoice displayChoice ->
+            ( { model | displayChoice = displayChoice }, session, Cmd.none )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -659,14 +665,11 @@ view session model =
                                 , subTitle = Nothing
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparatorView.comparator
+                                    [ ComparatorView.view
                                         { session = session
                                         , impact = model.impact
-                                        , options =
-                                            ComparatorView.textileOptions
-                                                { funit = model.funit
-                                                , daysOfWear = simulator.daysOfWear
-                                                }
+                                        , displayChoice = model.displayChoice
+                                        , switchDisplayChoice = SwitchDisplayChoice
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]

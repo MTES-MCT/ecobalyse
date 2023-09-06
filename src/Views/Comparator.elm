@@ -1,19 +1,15 @@
 module Views.Comparator exposing
     ( DisplayChoice(..)
-    , comparator
-    , foodOptions
-    , textileOptions
+    , view
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Db as FoodDb
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
-import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -27,17 +23,17 @@ import Views.Container as Container
 type alias Config msg =
     { session : Session
     , impact : Definition
-    , options : Options msg
+
+    -- FIXME: rename to comparisonType
+    , displayChoice : DisplayChoice
+    , switchDisplayChoice : DisplayChoice -> msg
     , toggle : Bookmark -> Bool -> msg
     }
 
 
-type Options msg
-    = Food (FoodOptions msg)
-    | Textile TextileOptions
-
-
-type DisplayChoice
+type
+    DisplayChoice
+    -- FIXME: rename to ComparisonType
     = IndividualImpacts
     | Steps
     | Subscores
@@ -52,111 +48,82 @@ type alias ChartsData =
     }
 
 
-type alias FoodOptions msg =
-    { displayChoice : DisplayChoice
-    , switchDisplayChoice : DisplayChoice -> msg
-    , db : FoodDb.Db
-    }
-
-
-type alias TextileOptions =
-    { funit : Unit.Functional
-    , daysOfWear : Duration
-    }
-
-
-foodOptions : FoodOptions msg -> Options msg
-foodOptions =
-    Food
-
-
-textileOptions : TextileOptions -> Options msg
-textileOptions =
-    Textile
-
-
-comparator : Config msg -> Html msg
-comparator ({ session, options, toggle } as config) =
+view : Config msg -> Html msg
+view config =
     Container.fluid []
         [ div [ class "row" ]
-            [ div [ class "col-lg-4 border-end fs-7 p-0" ]
-                [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
-                    [ text "Sélectionnez jusqu'à "
-                    , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
-                    , text " simulations pour les comparer\u{00A0}:"
-                    ]
-                , session.store.bookmarks
-                    |> List.map
-                        (\bookmark ->
-                            let
-                                ( description, isCompared ) =
-                                    ( bookmark
-                                        |> Bookmark.toQueryDescription
-                                            { foodDb = session.foodDb, textileDb = session.textileDb }
-                                    , session.store.comparedSimulations
-                                        |> Set.member (Bookmark.toId bookmark)
-                                    )
-                            in
-                            label
-                                [ class "form-check-label list-group-item text-nowrap ps-3"
-                                , title description
-                                ]
-                                [ input
-                                    [ type_ "checkbox"
-                                    , class "form-check-input"
-                                    , onCheck (toggle bookmark)
-                                    , checked isCompared
-                                    , disabled
-                                        (not isCompared
-                                            && Set.size session.store.comparedSimulations
-                                            >= Session.maxComparedSimulations
-                                        )
-                                    ]
-                                    []
-                                , span [ class "ps-2" ]
-                                    [ span [ class "me-2 fw-500" ] [ text bookmark.name ]
-                                    , if description /= bookmark.name then
-                                        span [ class "text-muted fs-7" ] [ text description ]
-
-                                      else
-                                        text ""
-                                    ]
-                                ]
-                        )
-                    |> div
-                        [ class "list-group list-group-flush overflow-x-hidden"
-                        ]
-                ]
-            , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
-                [ case options of
-                    Food foodOptions_ ->
-                        foodComparatorView config foodOptions_
-
-                    Textile textileOptions_ ->
-                        textileComparatorView config textileOptions_
-                ]
+            [ sidebarView config
+                |> div [ class "col-lg-4 border-end fs-7 p-0" ]
+            , comparatorView config
+                |> div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
             ]
         ]
 
 
-foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { displayChoice, switchDisplayChoice, db } =
+sidebarView : Config msg -> List (Html msg)
+sidebarView { session, toggle } =
+    [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
+        [ text "Sélectionnez jusqu'à "
+        , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
+        , text " simulations pour les comparer\u{00A0}:"
+        ]
+    , session.store.bookmarks
+        |> List.map
+            (\bookmark ->
+                let
+                    ( description, isCompared ) =
+                        ( bookmark
+                            |> Bookmark.toQueryDescription
+                                { foodDb = session.foodDb, textileDb = session.textileDb }
+                        , session.store.comparedSimulations
+                            |> Set.member (Bookmark.toId bookmark)
+                        )
+                in
+                label
+                    [ class "form-check-label list-group-item text-nowrap ps-3"
+                    , title description
+                    ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , onCheck (toggle bookmark)
+                        , checked isCompared
+                        , disabled
+                            (not isCompared
+                                && Set.size session.store.comparedSimulations
+                                >= Session.maxComparedSimulations
+                            )
+                        ]
+                        []
+                    , span [ class "ps-2" ]
+                        [ span [ class "me-2 fw-500" ] [ text bookmark.name ]
+                        , if description /= bookmark.name then
+                            span [ class "text-muted fs-7" ] [ text description ]
+
+                          else
+                            text ""
+                        ]
+                    ]
+            )
+        |> div [ class "list-group list-group-flush overflow-x-hidden" ]
+    ]
+
+
+comparatorView : Config msg -> List (Html msg)
+comparatorView { session, displayChoice, switchDisplayChoice } =
     let
         addToComparison ( id, label, foodQuery ) =
             if Set.member id session.store.comparedSimulations then
                 foodQuery
-                    |> Recipe.compute db
+                    |> Recipe.compute session.foodDb
                     |> Result.map
                         (\( _, { recipe, total } as results ) ->
-                            let
-                                stepsImpactsPerProduct =
-                                    results
-                                        |> Recipe.toStepsImpacts Definition.Ecs
-                            in
                             { label = label
                             , impacts = total
                             , complementsImpact = recipe.totalComplementsImpact
-                            , stepsImpacts = stepsImpactsPerProduct
+                            , stepsImpacts =
+                                results
+                                    |> Recipe.toStepsImpacts Definition.Ecs
                             }
                         )
                     |> Just
@@ -170,78 +137,75 @@ foodComparatorView { session } { displayChoice, switchDisplayChoice, db } =
                 |> List.filterMap addToComparison
                 |> RE.combine
     in
-    div []
-        [ h2 [ class "h5 text-center" ]
-            [ text "Composition du score d'impact des recettes sélectionnées" ]
-        , div [ class "" ]
-            [ [ ( "Sous-scores", Subscores )
-              , ( "Impacts", IndividualImpacts )
-              , ( "Étapes", Steps )
-              , ( "Total", Total )
-              ]
-                |> List.map
-                    (\( label, toDisplayChoice ) ->
-                        li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
-                            [ button
-                                [ class "nav-link no-outline border-top-0 py-1"
-                                , classList [ ( "active", displayChoice == toDisplayChoice ) ]
-                                , onClick (switchDisplayChoice toDisplayChoice)
-                                ]
-                                [ text label ]
-                            ]
+    [ h2 [ class "h5 text-center" ]
+        [ text "Composition du score d'impact des produits sélectionnés" ]
+    , [ ( "Sous-scores", Subscores )
+      , ( "Impacts", IndividualImpacts )
+      , ( "Étapes", Steps )
+      , ( "Total", Total )
+      ]
+        |> List.map
+            (\( label, toDisplayChoice ) ->
+                li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
+                    [ button
+                        [ class "nav-link no-outline border-top-0 py-1"
+                        , classList [ ( "active", displayChoice == toDisplayChoice ) ]
+                        , onClick (switchDisplayChoice toDisplayChoice)
+                        ]
+                        [ text label ]
+                    ]
+            )
+        |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-3 px-2" ]
+    , case charts of
+        Ok [] ->
+            emptyChartsMessage
+
+        Ok chartsData ->
+            let
+                data =
+                    case displayChoice of
+                        IndividualImpacts ->
+                            dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
+
+                        Subscores ->
+                            dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
+
+                        Steps ->
+                            dataForSteps chartsData
+
+                        Total ->
+                            dataForTotalImpacts chartsData
+            in
+            div
+                [ class "h-100"
+                , class
+                    (case displayChoice of
+                        IndividualImpacts ->
+                            "individual-impacts"
+
+                        Subscores ->
+                            "grouped-impacts"
+
+                        Steps ->
+                            "steps-impacts"
+
+                        Total ->
+                            "total-impacts"
                     )
-                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-3 px-2" ]
-            ]
-        , case charts of
-            Ok [] ->
-                emptyChartsMessage
+                ]
+                [ node "chart-food-comparator"
+                    [ attribute "data" data ]
+                    []
+                ]
 
-            Ok chartsData ->
-                let
-                    data =
-                        case displayChoice of
-                            IndividualImpacts ->
-                                dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
-
-                            Subscores ->
-                                dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
-
-                            Steps ->
-                                dataForSteps chartsData
-
-                            Total ->
-                                dataForTotalImpacts chartsData
-                in
-                div
-                    [ class "h-100"
-                    , class
-                        (case displayChoice of
-                            IndividualImpacts ->
-                                "individual-impacts"
-
-                            Subscores ->
-                                "grouped-impacts"
-
-                            Steps ->
-                                "steps-impacts"
-
-                            Total ->
-                                "total-impacts"
-                        )
-                    ]
-                    [ node "chart-food-comparator"
-                        [ attribute "data" data ]
-                        []
-                    ]
-
-            Err error ->
-                Alert.simple
-                    { level = Alert.Danger
-                    , close = Nothing
-                    , title = Just "Erreur"
-                    , content = [ text error ]
-                    }
-        ]
+        Err error ->
+            Alert.simple
+                { level = Alert.Danger
+                , close = Nothing
+                , title = Just "Erreur"
+                , content = [ text error ]
+                }
+    ]
 
 
 dataForIndividualImpacts : Definitions -> List ChartsData -> String
@@ -399,17 +363,6 @@ dataForTotalImpacts chartsData =
             )
         |> Encode.list identity
         |> Encode.encode 0
-
-
-textileComparatorView : Config msg -> TextileOptions -> Html msg
-textileComparatorView { impact } { funit } =
-    div []
-        [ div [ class "fs-7 text-end text-muted" ]
-            [ text impact.label
-            , text ", "
-            , funit |> Unit.functionalToString |> text
-            ]
-        ]
 
 
 emptyChartsMessage : Html msg
