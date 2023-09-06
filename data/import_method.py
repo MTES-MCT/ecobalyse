@@ -25,7 +25,6 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     """
     print(f"### Importing {datapath}...")
     projects.create_project(project, activate=True, exist_ok=True)
-    bw2data.config.p["biosphere_database"] = biosphere
     ef = bw2io.importers.SimaProLCIACSVImporter(
         datapath,
         biosphere=biosphere,
@@ -34,9 +33,10 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     )
     ef.statistics()
     # exclude strategies/migrations in EXCLUDED
-    ef.strategies = [
-        s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED])
-    ]
+    if project == "Food":
+        ef.strategies = [
+            s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED])
+        ]
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
     # ef.add_missing_cfs()

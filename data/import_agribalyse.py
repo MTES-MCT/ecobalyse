@@ -136,7 +136,6 @@ def import_agribalyse(
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
     projects.create_project(project, activate=True, exist_ok=True)
-    bw2data.config.p["biosphere_database"] = biosphere
 
     # Core migrations
     print("### Creating core data migrations")
