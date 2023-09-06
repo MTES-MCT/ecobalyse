@@ -19,7 +19,6 @@ module Data.Impact exposing
     , parseTrigram
     , perKg
     , stepsImpactsAsChartEntries
-    , stepsImpactsPerKg
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
@@ -125,24 +124,6 @@ stepsImpactsAsChartEntries stepsImpacts =
                     |> Maybe.map (\value -> Just { name = label, value = Unit.impactToFloat value, color = color })
                     |> Maybe.withDefault Nothing
             )
-
-
-mapStepsImpacts : (Maybe Unit.Impact -> Maybe Unit.Impact) -> StepsImpacts -> StepsImpacts
-mapStepsImpacts fn ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
-    { stepsImpacts
-        | materials = fn materials
-        , transform = fn transform
-        , packaging = fn packaging
-        , transports = fn transports
-        , distribution = fn distribution
-        , usage = fn usage
-        , endOfLife = fn endOfLife
-    }
-
-
-stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
-stepsImpactsPerKg mass =
-    mapStepsImpacts (Maybe.map (Quantity.divideBy (Mass.inKilograms mass)))
 
 
 

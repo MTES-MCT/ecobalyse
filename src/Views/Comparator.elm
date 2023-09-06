@@ -1,6 +1,5 @@
 module Views.Comparator exposing
     ( DisplayChoice(..)
-    , FoodComparisonUnit(..)
     , comparator
     , foodOptions
     , textileOptions
@@ -38,11 +37,6 @@ type Options msg
     | Textile TextileOptions
 
 
-type FoodComparisonUnit
-    = PerItem
-    | PerKgOfProduct
-
-
 type DisplayChoice
     = IndividualImpacts
     | Steps
@@ -59,9 +53,7 @@ type alias ChartsData =
 
 
 type alias FoodOptions msg =
-    { comparisonUnit : FoodComparisonUnit
-    , switchComparisonUnit : FoodComparisonUnit -> msg
-    , displayChoice : DisplayChoice
+    { displayChoice : DisplayChoice
     , switchDisplayChoice : DisplayChoice -> msg
     , db : FoodDb.Db
     }
@@ -148,35 +140,24 @@ comparator ({ session, options, toggle } as config) =
 
 
 foodComparatorView : Config msg -> FoodOptions msg -> Html msg
-foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayChoice, switchDisplayChoice, db } =
+foodComparatorView { session } { displayChoice, switchDisplayChoice, db } =
     let
         addToComparison ( id, label, foodQuery ) =
             if Set.member id session.store.comparedSimulations then
                 foodQuery
                     |> Recipe.compute db
                     |> Result.map
-                        (\( _, { perKg, recipe, total, totalMass } as results ) ->
+                        (\( _, { recipe, total } as results ) ->
                             let
                                 stepsImpactsPerProduct =
                                     results
                                         |> Recipe.toStepsImpacts Definition.Ecs
                             in
-                            case comparisonUnit of
-                                PerItem ->
-                                    { label = label
-                                    , impacts = total
-                                    , complementsImpact = recipe.totalComplementsImpact
-                                    , stepsImpacts = stepsImpactsPerProduct
-                                    }
-
-                                PerKgOfProduct ->
-                                    { label = label
-                                    , impacts = perKg
-                                    , complementsImpact = recipe.totalComplementsImpactPerKg
-                                    , stepsImpacts =
-                                        stepsImpactsPerProduct
-                                            |> Impact.stepsImpactsPerKg totalMass
-                                    }
+                            { label = label
+                            , impacts = total
+                            , complementsImpact = recipe.totalComplementsImpact
+                            , stepsImpacts = stepsImpactsPerProduct
+                            }
                         )
                     |> Just
 
@@ -188,50 +169,28 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit, displayCh
                 |> Bookmark.toFoodQueries
                 |> List.filterMap addToComparison
                 |> RE.combine
-
-        unitChoiceRadio caption current to =
-            label [ class "form-check-label d-flex align-items-center gap-1 fs-8" ]
-                [ input
-                    [ type_ "radio"
-                    , class "form-check-input"
-                    , name "unit"
-                    , checked <| current == to
-                    , onInput <| always (switchComparisonUnit to)
-                    ]
-                    []
-                , text caption
-                ]
     in
     div []
         [ h2 [ class "h5 text-center" ]
             [ text "Composition du score d'impact des recettes sélectionnées" ]
-        , div [ class "row gap-2 gap-lg-0" ]
-            [ div [ class "col-xl-5" ]
-                [ div [ class "d-flex align-items-center gap-2 lh-lg pt-2" ]
-                    [ strong [] [ text "Unité" ]
-                    , unitChoiceRadio "produit" comparisonUnit PerItem
-                    , unitChoiceRadio "kg de produit" comparisonUnit PerKgOfProduct
-                    ]
-                ]
-            , div [ class "col-xl-7" ]
-                [ [ ( "Sous-scores", Subscores )
-                  , ( "Impacts", IndividualImpacts )
-                  , ( "Étapes", Steps )
-                  , ( "Total", Total )
-                  ]
-                    |> List.map
-                        (\( label, toDisplayChoice ) ->
-                            li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
-                                [ button
-                                    [ class "nav-link no-outline border-top-0 py-1"
-                                    , classList [ ( "active", displayChoice == toDisplayChoice ) ]
-                                    , onClick (switchDisplayChoice toDisplayChoice)
-                                    ]
-                                    [ text label ]
+        , div [ class "" ]
+            [ [ ( "Sous-scores", Subscores )
+              , ( "Impacts", IndividualImpacts )
+              , ( "Étapes", Steps )
+              , ( "Total", Total )
+              ]
+                |> List.map
+                    (\( label, toDisplayChoice ) ->
+                        li [ class "TabsTab nav-item", classList [ ( "active", displayChoice == toDisplayChoice ) ] ]
+                            [ button
+                                [ class "nav-link no-outline border-top-0 py-1"
+                                , classList [ ( "active", displayChoice == toDisplayChoice ) ]
+                                , onClick (switchDisplayChoice toDisplayChoice)
                                 ]
-                        )
-                    |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-2 px-2" ]
-                ]
+                                [ text label ]
+                            ]
+                    )
+                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-3 px-2" ]
             ]
         , case charts of
             Ok [] ->

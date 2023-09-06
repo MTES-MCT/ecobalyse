@@ -65,7 +65,6 @@ type alias Model =
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , comparisonUnit : ComparatorView.FoodComparisonUnit
     , displayChoice : ComparatorView.DisplayChoice
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
@@ -99,7 +98,6 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchDisplayChoice ComparatorView.DisplayChoice
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
@@ -127,7 +125,6 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonUnit = ComparatorView.PerKgOfProduct
       , displayChoice = ComparatorView.Subscores
       , modal = NoModal
       , activeImpactsTab =
@@ -347,12 +344,6 @@ update ({ queries } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchComparisonUnit comparisonUnit ->
-            ( { model | comparisonUnit = comparisonUnit }
             , session
             , Cmd.none
             )
@@ -1459,9 +1450,7 @@ view session model =
                                 , impact = model.impact
                                 , options =
                                     ComparatorView.foodOptions
-                                        { comparisonUnit = model.comparisonUnit
-                                        , switchComparisonUnit = SwitchComparisonUnit
-                                        , displayChoice = model.displayChoice
+                                        { displayChoice = model.displayChoice
                                         , switchDisplayChoice = SwitchDisplayChoice
                                         , db = model.db
                                         }
