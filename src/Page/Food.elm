@@ -1238,15 +1238,7 @@ mainView session model =
                 |> Recipe.compute model.db
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-            [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session model results
-
-                Err error ->
-                    errorView error
-            ]
-        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
@@ -1256,6 +1248,14 @@ mainView session model =
                     errorView error
             , session.queries.food
                 |> debugQueryView model.db
+            ]
+        , div [ class "col-lg-4 d-flex flex-column gap-3" ]
+            [ case computed of
+                Ok ( _, results ) ->
+                    sidebarView session model results
+
+                Err error ->
+                    errorView error
             ]
         ]
 
