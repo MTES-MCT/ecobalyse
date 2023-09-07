@@ -118,11 +118,17 @@ stepsImpactsAsChartEntries stepsImpacts =
     , ( "Utilisation", stepsImpacts.usage, Color.yellow )
     , ( "Fin de vie", stepsImpacts.endOfLife, Color.turquoise )
     ]
-        |> List.filterMap
+        |> List.map
             (\( label, maybeValue, color ) ->
-                maybeValue
-                    |> Maybe.map (\value -> Just { name = label, value = Unit.impactToFloat value, color = color })
-                    |> Maybe.withDefault Nothing
+                { name = label
+                , color = color
+                , value =
+                    -- All categories MUST be filled in order to allow comparing Food and Textile simulations
+                    -- So, when we don't have a value for a given step, we fallback to zero
+                    maybeValue
+                        |> Maybe.map Unit.impactToFloat
+                        |> Maybe.withDefault 0
+                }
             )
 
 
