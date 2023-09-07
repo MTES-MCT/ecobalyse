@@ -1,7 +1,4 @@
-module Views.Dataviz exposing
-    ( stepsLegendData
-    , view
-    )
+module Views.Dataviz exposing (view)
 
 import Chart as C
 import Chart.Attributes as CA

@@ -57,7 +57,6 @@ import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Transport as TransportView
 
 
@@ -66,10 +65,8 @@ type alias Model =
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , comparisonUnit : ComparatorView.FoodComparisonUnit
-    , displayChoice : ComparatorView.DisplayChoice
+    , comparisonType : ComparatorView.ComparisonType
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -95,15 +92,13 @@ type Msg
     | NoOp
     | OnAutocomplete (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
-    | SwitchDisplayChoice ComparatorView.DisplayChoice
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
@@ -130,10 +125,8 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonUnit = ComparatorView.PerKgOfProduct
-      , displayChoice = ComparatorView.Subscores
+      , comparisonType = ComparatorView.Subscores
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if impact.trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -281,12 +274,6 @@ update ({ queries } as session) msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
-
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -340,6 +327,9 @@ update ({ queries } as session) msg model =
                         ]
             )
 
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
+
         SwitchImpact (Ok impact) ->
             ( model
             , session
@@ -360,15 +350,6 @@ update ({ queries } as session) msg model =
             , session
             , Cmd.none
             )
-
-        SwitchComparisonUnit comparisonUnit ->
-            ( { model | comparisonUnit = comparisonUnit }
-            , session
-            , Cmd.none
-            )
-
-        SwitchDisplayChoice displayChoice ->
-            ( { model | displayChoice = displayChoice }, session, Cmd.none )
 
         SwitchLinksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
@@ -1257,15 +1238,7 @@ mainView session model =
                 |> Recipe.compute model.db
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-            [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session model results
-
-                Err error ->
-                    errorView error
-            ]
-        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
@@ -1275,6 +1248,14 @@ mainView session model =
                     errorView error
             , session.queries.food
                 |> debugQueryView model.db
+            ]
+        , div [ class "col-lg-4 d-flex flex-column gap-3" ]
+            [ case computed of
+                Ok ( _, results ) ->
+                    sidebarView session model results
+
+                Err error ->
+                    errorView error
             ]
         ]
 
@@ -1461,23 +1442,15 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
-                        , subTitle = Just "⚠️\u{00A0}Attention, ces résultats sont provisoires"
+                        , subTitle = Just "en score d'impact, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
-                            [ ComparatorView.comparator
+                            [ ComparatorView.view
                                 { session = session
                                 , impact = model.impact
-                                , options =
-                                    ComparatorView.foodOptions
-                                        { comparisonUnit = model.comparisonUnit
-                                        , switchComparisonUnit = SwitchComparisonUnit
-                                        , displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
-                                        , db = model.db
-                                        }
+                                , comparisonType = model.comparisonType
+                                , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
                                 }
                             ]
                         , footer = []

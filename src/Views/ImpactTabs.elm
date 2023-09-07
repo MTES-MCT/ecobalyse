@@ -11,9 +11,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Scoring as Scoring exposing (Scoring)
-import Data.Textile.LifeCycle as LifeCycle
-import Data.Textile.Simulator exposing (Simulator)
-import Data.Textile.Step.Label as Label
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Views.CardTabs as CardTabs
@@ -118,15 +116,6 @@ foodResultsToImpactTabsConfig trigram results =
 textileSimulatorToImpactTabsConfig : Definitions -> Definition.Trigram -> Simulator -> Config
 textileSimulatorToImpactTabsConfig definitions trigram simulator =
     let
-        getImpacts label =
-            LifeCycle.getStep label simulator.lifeCycle
-                |> Maybe.map .impacts
-                |> Maybe.withDefault Impact.empty
-
-        getImpact =
-            Impact.getImpact trigram
-                >> Just
-
         -- TODO: compute the complements once we have them in the database
         totalComplementsImpact =
             Impact.noComplementsImpacts
@@ -143,20 +132,5 @@ textileSimulatorToImpactTabsConfig definitions trigram simulator =
     , scoring =
         totalImpactsWithoutComplements
             |> Scoring.compute definitions totalComplementsImpact.total
-    , steps =
-        { materials = getImpacts Label.Material |> getImpact
-        , transform =
-            [ getImpacts Label.Spinning
-            , getImpacts Label.Fabric
-            , getImpacts Label.Ennobling
-            , getImpacts Label.Making
-            ]
-                |> Impact.sumImpacts
-                |> getImpact
-        , packaging = Nothing
-        , transports = getImpact simulator.transport.impacts
-        , distribution = Nothing
-        , usage = getImpacts Label.Use |> getImpact
-        , endOfLife = getImpacts Label.EndOfLife |> getImpact
-        }
+    , steps = Simulator.toStepsImpacts trigram simulator
     }

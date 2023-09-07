@@ -51,7 +51,6 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -61,13 +60,13 @@ type alias Model =
     { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonType : ComparatorView.ComparisonType
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
     , impact : Definition
     , funit : Unit.Functional
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -82,7 +81,6 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -90,6 +88,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
@@ -140,6 +139,7 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -149,7 +149,6 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
       , impact = Definition.get trigram textileDb.impactDefinitions
       , funit = funit
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -226,12 +225,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
-
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -272,6 +265,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
+
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -661,25 +657,16 @@ view session model =
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title =
-                                    "Comparateur de simulations sauvegardées\u{00A0}: "
-                                        ++ model.impact.label
-                                        ++ ", "
-                                        ++ Unit.functionalToString model.funit
-                                , subTitle = Nothing
+                                , title = "Comparateur de simulations sauvegardées"
+                                , subTitle = Just "en score d'impact, par produit"
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparatorView.comparator
+                                    [ ComparatorView.view
                                         { session = session
                                         , impact = model.impact
-                                        , options =
-                                            ComparatorView.textileOptions
-                                                { funit = model.funit
-                                                , daysOfWear = simulator.daysOfWear
-                                                }
+                                        , comparisonType = model.comparisonType
+                                        , switchComparisonType = SwitchComparisonType
                                         , toggle = ToggleComparedSimulation
-                                        , chartHovering = model.chartHovering
-                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

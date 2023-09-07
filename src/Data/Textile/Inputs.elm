@@ -18,7 +18,6 @@ module Data.Textile.Inputs exposing
     , parseBase64Query
     , presets
     , removeMaterial
-    , stepsToStrings
     , tShirtCotonAsie
     , tShirtCotonFrance
     , toQuery
