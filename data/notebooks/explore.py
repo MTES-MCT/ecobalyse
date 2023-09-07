@@ -10,6 +10,8 @@ import ipywidgets
 import os
 import pandas
 
+BIOSPHERE = "biosphere3"
+STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
 DOMAINS = ["", "Food", "Textile"]
 METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
 TEXTILEDB = "Ecoinvent 3.9.1"
@@ -18,6 +20,7 @@ os.chdir("/home/jovyan/ecobalyse/data")
 
 databases = [""]
 # widgets
+w_statistics = ipywidgets.HTML(value=STATSTYLE)
 w_project = ipywidgets.Dropdown(value="", options=DOMAINS, description="DOMAIN")
 w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"
@@ -49,6 +52,13 @@ def switch_domain(change):
         w_database.value = FOODDB
     elif domain == "Textile" and TEXTILEDB in databases:
         w_database.value = TEXTILEDB
+    biosphere_name = bw2data.config.p["biosphere_database"]
+    biosphere = bw2data.Database(biosphere_name)
+    w_statistics.value = STATSTYLE + (
+        f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
+        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
+        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
+    )
 
 
 @w_results.capture()
@@ -225,9 +235,27 @@ w_search.observe(search_activity, names="value")
 w_limit.observe(search_activity, names="value")
 w_activity.observe(show_activity, names="value")
 w_method.observe(show_activity, names="value")
-display(w_project)
-display(w_database, w_search, w_limit)
-display(w_method)
-display(w_activity)
+
+details = ipywidgets.VBox(
+    [w_statistics],
+)
+details.add_class("details")
+display(
+    ipywidgets.HBox(
+        [
+            ipywidgets.VBox(
+                [w_project, w_database, w_search, w_limit, w_method, w_activity],
+                layout=ipywidgets.Layout(margin="2em"),
+            ),
+            details,
+        ],
+        layout=ipywidgets.Layout(
+            display="flex",
+            flex_flow="row",
+            padding="2em",
+            justify_content="flex-start",
+        ),
+    )
+)
 display(w_results)
 display(w_details)
