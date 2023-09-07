@@ -20,7 +20,7 @@ import uuid
 # Input
 PROJECT = "Food"
 DBNAME = "Agribalyse 3.1.1"
-DB=bw2data.Database(DBNAME)
+DB = bw2data.Database(DBNAME)
 BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
@@ -28,7 +28,7 @@ IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition so
 INGREDIENTS = "../../public/data/food/ingredients.json"
 PROCESSES = "../../public/data/food/processes.json"
 
-projects.create_project(PROJECT, activate=True, exist_ok=True)
+projects.activate_project(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
@@ -43,9 +43,7 @@ def find_id(dbname, activity):
             )
         )
     else:
-        return search(DB, activity["search"])[
-            "Process identifier"
-        ]
+        return search(DB, activity["search"])["Process identifier"]
 
 
 if __name__ == "__main__":
