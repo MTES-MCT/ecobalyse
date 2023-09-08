@@ -12,16 +12,17 @@ import pandas
 
 BIOSPHERE = "biosphere3"
 STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
-DOMAINS = ["", "Food", "Textile"]
+PROJECTS = ["", "Food", "Textile"]
 METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
 TEXTILEDB = "Ecoinvent 3.9.1"
 FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
+STACK = []
 
 databases = [""]
 # widgets
 w_statistics = ipywidgets.HTML(value=STATSTYLE)
-w_project = ipywidgets.Dropdown(value="", options=DOMAINS, description="DOMAIN")
+w_project = ipywidgets.Dropdown(value="", options=PROJECTS, description="PROJECT")
 w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"
 )
@@ -35,10 +36,19 @@ w_details = ipywidgets.Output(value="Détails")
 display(Markdown("# Search in the database :"))
 
 
+def go_back(button):
+    linkto(button, stack=False)
+
+
+back = ipywidgets.Button(description="←back")
+setattr(back, "search", "")
+back.on_click(go_back)
+
+
 def switch_domain(change):
     w_details.clear_output()
     domain = change.new
-    projects.create_project(domain, activate=True, exist_ok=True)
+    projects.activate_project(domain)
     databases = list(bw2data.databases)
     w_database.options = databases
     methods = sorted({m[0] for m in bw2data.methods})
@@ -81,6 +91,9 @@ def search_activity(change):
     w_details.clear_output()
     database = change.new if change.owner is w_database else w_database.value
     search = change.new if change.owner is w_search else w_search.value
+    global STACK  # 🤮
+    STACK = [search]
+    setattr(back, "search", STACK[-1])
     limit = change.new if change.owner is w_limit else w_limit.value
     w_activity.value = None
     results = list(bw2data.Database(w_database.value).search(search, limit=limit))
@@ -89,7 +102,12 @@ def search_activity(change):
     display_results(results)
 
 
-def linkto(button):
+def linkto(button, stack=True):
+    if stack:
+        STACK.append(button.search)
+    elif len(STACK) > 0:
+        STACK.pop()
+    setattr(back, "search", STACK[-1] if len(STACK) > 0 else "")
     results = list(
         bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
     )
@@ -98,9 +116,10 @@ def linkto(button):
 
 
 @w_details.capture()
-def show_activity(change):
+def select_activity(change):
     activity = change.new if change.owner is w_activity else w_activity.value
     method = change.new if change.owner is w_method else w_method.value
+    w_results.clear_output()
     w_details.clear_output()
 
     # IMPACTS
@@ -110,20 +129,20 @@ def show_activity(change):
     lca.lci()
     display(Markdown(f"# {activity}"))
     scores = []
-    for method in [m for m in bw2data.methods if m[0] == method]:
-        lca.switch_method(method)
+    for m in [m for m in bw2data.methods if m[0] == method]:
+        lca.switch_method(m)
         lca.lcia()
         scores.append(
             {
-                "Indicateur": method[1],
+                "Indicateur": m[1],
                 "Score": str(lca.score),
-                "Unité": bw2data.methods[method].get("unit", "(no unit)"),
+                "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
         )
 
     # PRODUCTION
     production = [
-        f"<h3>Production: {exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>{get_activity(exchange.get('input')).get('comment', '')}"
+        f"<h3>Production: {exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>"
         for exchange in activity.production()
     ]
 
@@ -167,24 +186,23 @@ def show_activity(change):
     technosphere_widgets = []
     technosphere = activity.technosphere()
     for exchange in technosphere:
-        # activity title
         amount = exchange.get("amount", "N/A")
         unit = exchange.get("unit", "N/A")
         name = exchange.get("name", "N/A")
-        title = ipywidgets.HTML(value=f"<h3>{amount} {unit} of {name}</h3>")
-        # activity button
+        (db, code) = exchange.get("input")
+        upstream = get_activity((db, code))
+        location = upstream.get("location", "N/A")
+        comment = upstream.get("comment", "N/A")
+        title = f"<h3>{amount} {unit} of {name} {{{location}}}</h3>"
+        # link button
         link = ipywidgets.Button(description="visit")
-        setattr(link, "search", name)
+        setattr(link, "search", f"code:{code}")
         link.on_click(linkto)
-        # activity comments
-        flow = exchange.get("input")
-        act = get_activity(flow)
-        comment = ipywidgets.HTML(value=f"{act.get('comment', '')}")
         technosphere_widgets.append(
             ipywidgets.VBox(
                 [
                     ipywidgets.HBox(
-                        [link, title],
+                        [link, ipywidgets.HTML(value=title)],
                         layout=ipywidgets.Layout(
                             display="flex",
                             flex_flow="row",
@@ -192,16 +210,42 @@ def show_activity(change):
                             width="50%",
                         ),
                     ),
-                    comment,
+                    ipywidgets.HTML(
+                        value=(
+                            f"<h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
+                            f"<ul>"
+                            f"<li><b>Code</b>: {code}</li>"
+                            f"<li><b>Name</b>: {upstream.get('name')}</li>"
+                            f"<li><b>Location</b>: {upstream.get('location', 'N/A')}</li>"
+                            f"</ul>"
+                        )
+                    ),
                 ],
             )
         )
 
     # BIOSPHERE
-    biosphere = [
-        f"<h3>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>"
-        for exchange in activity.biosphere()
-    ]
+    biosphere = []
+    for exchange in activity.biosphere():
+        amount = exchange.get("amount", "N/A")
+        unit = exchange.get("unit", "N/A")
+        name = exchange.get("name", "N/A")
+        flow = exchange.get("flow", "N/A")
+        (bio, element) = exchange.get("input", "N/A")
+        elem = bw2data.Database(bio).get(element).as_dict()
+        comment = exchange.get("comment", "N/A")
+        biosphere.append(
+            f"<h3>{amount} {unit} of {name} ({flow})</h3>"
+            f"<h4>This exchange was linked to this element of <b>{bio}</b>:</h4>"
+            "<ul>"
+            f"<li><b>Code</b>: {elem.get('code', 'N/A')}</li>"
+            f"<li><b>Name</b>: {elem.get('name', 'N/A')}</li>"
+            f"<li><b>Type</b>: {elem.get('type', 'N/A')}</li>"
+            f"<li><b>Categories</b>: {', '.join(elem.get('categories', 'N/A'))}</li>"
+            f"<li><b>CAS number</b>: <a href=\"https://pubchem.ncbi.nlm.nih.gov/#query={str(elem.get('CAS number')).lstrip('0')}\">{str(elem.get('CAS number'))}</a></li>"
+            "</ul>"
+            f"{comment}"
+        )
 
     # SUBSTITUTIONS
     substitution = [
@@ -233,8 +277,8 @@ w_project.observe(switch_domain, names="value")
 w_database.observe(search_activity, names="value")
 w_search.observe(search_activity, names="value")
 w_limit.observe(search_activity, names="value")
-w_activity.observe(show_activity, names="value")
-w_method.observe(show_activity, names="value")
+w_activity.observe(select_activity, names="value")
+w_method.observe(select_activity, names="value")
 
 details = ipywidgets.VBox(
     [w_statistics],
@@ -244,7 +288,7 @@ display(
     ipywidgets.HBox(
         [
             ipywidgets.VBox(
-                [w_project, w_database, w_search, w_limit, w_method, w_activity],
+                [back, w_project, w_database, w_search, w_limit, w_method, w_activity],
                 layout=ipywidgets.Layout(margin="2em"),
             ),
             details,
