@@ -4,7 +4,7 @@ description: >-
   calculateur pédagogique et collaboratif.
 ---
 
-# Ecobalyse
+# 🇫🇷 Ecobalyse
 
 ## Ce qu’est Ecobalyse
 
