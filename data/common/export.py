@@ -1,5 +1,6 @@
 # Only pure functions here
 import functools
+import bw2data
 
 
 def with_subimpacts(process):
@@ -18,8 +19,8 @@ def with_subimpacts(process):
 
 
 @functools.cache
-def search(db, name):
-    results = db.search(name)
+def search(dbname, name):
+    results = bw2data.Database(dbname).search(name)
     assert len(results) >= 1, f"'{name}' was not found in Brightway"
     return results[0]
 

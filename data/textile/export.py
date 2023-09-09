@@ -12,14 +12,11 @@ from common.export import (
 )
 from common.impacts import impacts as impacts_definition
 import bw2calc
-import bw2data
 import json
 
 # Input
 PROJECT = "Textile"
 DBNAME = "Ecoinvent 3.9.1"
-DB = bw2data.Database(DBNAME)
-BIOSPHERE = "biopshere3"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
@@ -35,7 +32,7 @@ def isUuid(txt):
 
 
 def uuidOrSearch(txt):
-    return txt if isUuid(txt) or txt is None else search(DB, txt)
+    return txt if isUuid(txt) or txt is None else search(DBNAME, txt)
 
 
 if __name__ == "__main__":
@@ -51,15 +48,15 @@ if __name__ == "__main__":
         activity["name"] = (
             activity["name"]
             if "name" in activity
-            else search(DB, activity["search"])["name"]
+            else search(DBNAME, activity["search"])["name"]
             + " {"
-            + search(DB, activity["search"])["location"]
+            + search(DBNAME, activity["search"])["location"]
             + "}"
         )
         activity["uuid"] = (
             activity["uuid"]
             if not activity["source"].startswith("BaseImpact")
-            else search(DB, activity["search"])["activity"]
+            else search(DBNAME, activity["search"])["activity"]
         )
 
     print("Creating material list...")
@@ -115,7 +112,7 @@ if __name__ == "__main__":
         print(f"Computing impacts: {str(index)}/{len(processes)}", end="\r")
         match process["source"]:
             case "BaseImpact":
-                lca = bw2calc.LCA({search(DB, process["search"]): 1})
+                lca = bw2calc.LCA({search(DBNAME, process["search"]): 1})
                 lca.lci()
                 for key, method in impacts_definition.items():
                     lca.switch_method(method)

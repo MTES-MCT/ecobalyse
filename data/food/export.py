@@ -20,7 +20,6 @@ import uuid
 # Input
 PROJECT = "Food"
 DBNAME = "Agribalyse 3.1.1"
-DB = bw2data.Database(DBNAME)
 BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
@@ -43,7 +42,7 @@ def find_id(dbname, activity):
             )
         )
     else:
-        return search(DB, activity["search"])["Process identifier"]
+        return search(dbname, activity["search"])["Process identifier"]
 
 
 if __name__ == "__main__":
@@ -85,13 +84,17 @@ if __name__ == "__main__":
     processes = {
         activity["id"]: {
             "id": activity["id"],
-            "name": search(DB, activity["search"])["name"],
+            "name": search(DBNAME, activity["search"])["name"],
             "displayName": activity["name"],
-            "unit": search(DB, activity["search"])["unit"],
+            "unit": search(DBNAME, activity["search"])["unit"],
             "identifier": find_id(DBNAME, activity),
-            "system_description": search(DB, activity["search"])["System description"],
+            "system_description": search(DBNAME, activity["search"])[
+                "System description"
+            ],
             "category": activity.get("category"),
-            "comment": list(search(DB, activity["search"]).production())[0]["comment"],
+            "comment": list(search(DBNAME, activity["search"]).production())[0][
+                "comment"
+            ],
             # those are removed at the end:
             "search": activity["search"],
             "ratio": activity.get("ratio"),
@@ -144,7 +147,7 @@ if __name__ == "__main__":
             + f") {str(index)}/{len(processes)}",
             end="\r",
         )
-        lca = bw2calc.LCA({search(DB, process["search"]): 1})
+        lca = bw2calc.LCA({search(DBNAME, process["search"]): 1})
         lca.lci()
         for key, method in impacts_definition.items():
             lca.switch_method(method)
