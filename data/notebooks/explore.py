@@ -10,6 +10,7 @@ import ipywidgets
 import os
 import pandas
 
+Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"
 STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
 PROJECTS = ["", "Food", "Textile"]
@@ -71,6 +72,7 @@ def switch_domain(change):
             f"<div><b>biosphere name</b>: {biosphere_name}</div>"
             f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
         )
+    back.layout.display = "none" if len(VISITED) == 0 else "block"
 
 
 @w_results.capture()
@@ -262,6 +264,7 @@ def select_activity(change):
         ipywidgets.Tab(
             titles=[
                 "Data",
+                "Illustration",
                 f"Technosphere ({int(len(technosphere))})",
                 f"Biosphere ({len(biosphere)})",
                 f"Substitution ({len(substitution)})",
@@ -269,6 +272,7 @@ def select_activity(change):
             ],
             children=[
                 ipywidgets.HTML(value=activity_fields),
+                ipywidgets.HTML(value=Illustration),
                 ipywidgets.VBox(technosphere_widgets),
                 ipywidgets.HTML(value="".join(biosphere)),
                 ipywidgets.HTML(value="".join(substitution)),
