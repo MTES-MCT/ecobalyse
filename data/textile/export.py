@@ -24,7 +24,6 @@ MATERIALS = "../../public/data/textile/materials.json"
 PROCESSES = "../../public/data/textile/processes.json"
 
 projects.activate_project(PROJECT)
-bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
 def isUuid(txt):
