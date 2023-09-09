@@ -39,7 +39,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
         ]
     ef.apply_strategies()
     # add unlinked CFs to the biosphere database
-    ef.add_missing_cfs()
+    # ef.add_missing_cfs()  # uncomment and get zero impacts on Food!
     # drop CFs which are not linked to a biosphere substance since they are not used by any activity
     ef.drop_unlinked()
     ef.write_methods()
