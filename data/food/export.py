@@ -76,7 +76,7 @@ if __name__ == "__main__":
         if (
             "animal_product" not in ingredient["categories"]
             and "dairy_product" not in ingredient["categories"]
-            and "animal-welfare" in ingredient.get("complements")
+            and "animal-welfare" in ingredient.get("complements", [])
         ):
             del ingredient["complements"]["animal-welfare"]
 
