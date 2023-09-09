@@ -42,7 +42,7 @@ def go_back(button):
 
 back = ipywidgets.Button(description="←back")
 back.layout.display = "none"
-setattr(back, "search", "")
+back.search = ""
 back.on_click(go_back)
 
 
@@ -97,7 +97,7 @@ def search_activity(change):
     global VISITED  # 🤮
     VISITED = [search] if search else []
     if VISITED:
-        setattr(back, "search", VISITED[-1])
+        back.search = VISITED[-1]
         limit = change.new if change.owner is w_limit else w_limit.value
         w_activity.value = None
         results = list(bw2data.Database(w_database.value).search(search, limit=limit))
@@ -111,7 +111,7 @@ def linkto(button, stack=True):
         VISITED.append(button.search)
     elif len(VISITED) > 0:
         VISITED.pop()
-    setattr(back, "search", VISITED[-1] if len(VISITED) > 0 else "")
+    back.search = VISITED[-1] if len(VISITED) > 0 else ""
     results = list(
         bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
     )
@@ -201,7 +201,7 @@ def select_activity(change):
         title = f"<h3>{amount} {unit} of {name} {{{location}}}</h3>"
         # link button
         link = ipywidgets.Button(description="visit")
-        setattr(link, "search", f"code:{code}")
+        link.search = f"code:{code}"
         link.on_click(linkto)
         technosphere_widgets.append(
             ipywidgets.VBox(
