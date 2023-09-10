@@ -4,6 +4,7 @@ This file is `explore` Jupyter Notebook
 from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from bw2data.utils import get_activity
+import pandas.io.formats.style
 import bw2calc
 import bw2data
 import ipywidgets
@@ -122,6 +123,42 @@ def linkto(button, stack=True):
     back.layout.display = "none" if len(VISITED) == 0 else "block"
 
 
+def lookup_cf(loaded_method, element):
+    cfs = [cf for cf in loaded_method if cf[0] == element]
+    if len(cfs) == 0:
+        return ""
+    elif len(cfs) == 1:
+        return str(cfs[0][1])
+    else:
+        return "Multiple CFs : " + " | ".join([str(cf[1]) for cf in cfs])
+
+
+def dict2html(d):
+    return (
+        "<ul>"
+        + "".join(
+            [
+                f"<li><b>{k}</b>: {dict2html(v) if type(v) is dict else list2html(v) if type(v) in (list, tuple) else str(v)}</li>"
+                for k, v in d.items()
+            ]
+        )
+        + "</ul>"
+    )
+
+
+def list2html(l):
+    return (
+        "<ul>"
+        + "".join(
+            [
+                f"<li><b>{list2html(i) if type(i) in (list,tuple) else dict2html(i) if type(i) is dict else str(i)}</b></li>"
+                for i in l
+            ]
+        )
+        + "</ul>"
+    )
+
+
 @w_details.capture()
 def select_activity(change):
     activity = change.new if change.owner is w_activity else w_activity.value
@@ -154,40 +191,7 @@ def select_activity(change):
     ]
 
     # ACTIVITY DATA
-    activity_fields = "".join(
-        ["".join(production)]
-        + sum(
-            [
-                (
-                    (
-                        (
-                            [f"<div><ul<b>>{title}</b>"]
-                            + [
-                                f"<div><b>{subtitle}</b>: {subcontent}</div>"
-                                for (subtitle, subcontent) in content.items()
-                            ]
-                            + ["</ul></div>"]
-                        )
-                        if type(content) is dict
-                        else (
-                            [f"<div><ul><b>{title}</b>"]
-                            + [
-                                f"<li><b>{item[0]}</b>: {item[1]}</li>"
-                                if type(item) is tuple and len(item) == 2
-                                else f"<li>{item}</li>"
-                                for item in content
-                            ]
-                            + ["</ul></div>"]
-                        )
-                        if type(content) is list
-                        else [f"<div><b>{title}</b>: {content}</div>"]
-                    )
-                )
-                for title, content in activity.items()
-            ],
-            [],
-        ),
-    )
+    activity_fields = dict2html(activity) + repr(activity.get("classifications"))
 
     # TECHNOSPHERE
     technosphere_widgets = []
@@ -200,33 +204,25 @@ def select_activity(change):
         upstream = get_activity((db, code))
         location = upstream.get("location", "N/A")
         comment = upstream.get("comment", "N/A")
-        title = f"<h3>{amount} {unit} of {name} {{{location}}}</h3>"
         # link button
-        link = ipywidgets.Button(description="visit")
+        link = ipywidgets.Button(description="→ visit")
         link.search = f"code:{code}"
         link.on_click(linkto)
         technosphere_widgets.append(
             ipywidgets.VBox(
                 [
-                    ipywidgets.HBox(
-                        [link, ipywidgets.HTML(value=title)],
-                        layout=ipywidgets.Layout(
-                            display="flex",
-                            flex_flow="row",
-                            align_items="center",
-                            width="50%",
-                        ),
-                    ),
                     ipywidgets.HTML(
                         value=(
-                            f"<h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
+                            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit} of {name} {{{location}}}</b></summary>{dict2html(exchange)}</details>'
                             f"<ul>"
-                            f"<li><b>Code</b>: {code}</li>"
+                            f"<h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
                             f"<li><b>Name</b>: {upstream.get('name')}</li>"
                             f"<li><b>Location</b>: {upstream.get('location', 'N/A')}</li>"
+                            f"<li><b>Code</b>: {code}</li>"
                             f"</ul>"
                         )
                     ),
+                    link,
                 ],
             )
         )
@@ -238,20 +234,41 @@ def select_activity(change):
         unit = exchange.get("unit", "N/A")
         name = exchange.get("name", "N/A")
         flow = exchange.get("flow", "N/A")
-        (bio, element) = exchange.get("input", "N/A")
-        elem = bw2data.Database(bio).get(element).as_dict()
+        (dbname, code) = element = exchange.get("input", "N/A")
+        input_ = bw2data.Database(dbname).get(code).as_dict()
         comment = exchange.get("comment", "N/A")
+        allcfs = {
+            method: bw2data.Method(method).load()
+            for method in [m for m in bw2data.methods if m[0] == METHOD]
+        }
+        dataframe = pandas.DataFrame(
+            [
+                (
+                    method[1],
+                    lookup_cf(allcfs[method], element),
+                    bw2data.methods.get(method)["unit"],
+                )
+                for method in [m for m in bw2data.methods if m[0] == METHOD]
+            ],
+            columns=["Indicator", "CF", "Unit"],
+        )
+        impacts = pandas.io.formats.style.Styler(dataframe)
+        impacts.set_properties(**{"background-color": "#EEE"})
+
         biosphere.append(
-            f"<h3>{amount} {unit} of {name} ({flow})</h3>"
-            f"<h4>This exchange was linked to this element of <b>{bio}</b>:</h4>"
+            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit} of {name} ({flow})</b></summary>{dict2html(exchange)}</details>'
             "<ul>"
-            f"<li><b>Code</b>: {elem.get('code', 'N/A')}</li>"
-            f"<li><b>Name</b>: {elem.get('name', 'N/A')}</li>"
-            f"<li><b>Type</b>: {elem.get('type', 'N/A')}</li>"
-            f"<li><b>Categories</b>: {', '.join(elem.get('categories', 'N/A'))}</li>"
-            f"<li><b>CAS number</b>: <a href=\"https://pubchem.ncbi.nlm.nih.gov/#query={str(elem.get('CAS number')).lstrip('0')}\">{str(elem.get('CAS number'))}</a></li>"
+            f"<h4>This exchange was linked to this element of <b>{dbname}</b>:</h4>"
+            f"<li><b>Name</b>: {input_.get('name', 'N/A')}</li>"
+            f"<li><b>Code</b>: {input_.get('code', 'N/A')}</li>"
+            f"<li><b>Type</b>: {input_.get('type', 'N/A')}</li>"
+            f"<li><b>Categories</b>: {', '.join(input_.get('categories', 'N/A'))}</li>"
+            f"<li><b>CAS number</b>: <a href=\"https://pubchem.ncbi.nlm.nih.gov/#query={str(input_.get('CAS number')).lstrip('0')}\">{str(input_.get('CAS number'))}</a></li>"
+            f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
+            f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
+            f"<li><b>Comment</b>: {comment}</li>"
+            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Impacts</b></summary>{impacts.to_html()}</details></li>'
             "</ul>"
-            f"{comment}"
         )
 
     # SUBSTITUTIONS
@@ -260,6 +277,10 @@ def select_activity(change):
         for exchange in activity.substitution()
     ]
 
+    impacts = pandas.io.formats.style.Styler(
+        pandas.DataFrame(scores), caption="Impacts"
+    )
+    impacts.set_properties(**{"background-color": "#EEE"})
     display(
         ipywidgets.Tab(
             titles=[
@@ -276,7 +297,7 @@ def select_activity(change):
                 ipywidgets.VBox(technosphere_widgets),
                 ipywidgets.HTML(value="".join(biosphere)),
                 ipywidgets.HTML(value="".join(substitution)),
-                ipywidgets.HTML(pandas.DataFrame(scores).to_html()),
+                ipywidgets.HTML(impacts.to_html()),
             ],
         )
     )
