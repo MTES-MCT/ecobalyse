@@ -719,36 +719,5 @@
          x="149.353"
          y="99.461128"
          id="tspan20421">output</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:4.9389px;line-height:1em;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:center;text-decoration-color:#000000;fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       x="200.96626"
-       y="132.33012"
-       id="text13"><tspan
-         sodipodi:role="line"
-         style="fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765"
-         x="200.96626"
-         y="132.33012"
-         id="tspan22">Notes:</tspan><tspan
-         sodipodi:role="line"
-         style="fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765"
-         x="200.96626"
-         y="137.26903"
-         id="tspan21">input and output are attached to the exchange.</tspan><tspan
-         sodipodi:role="line"
-         style="fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765"
-         x="200.96626"
-         y="142.20793"
-         id="tspan23">&quot;Linking&quot; in Brightway</tspan><tspan
-         sodipodi:role="line"
-         style="fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765"
-         x="200.96626"
-         y="147.14682"
-         id="tspan14">consists in setting the &quot;input&quot; field of the exchange</tspan><tspan
-         sodipodi:role="line"
-         style="fill:#010001;fill-opacity:1;stroke:none;stroke-width:0.765"
-         x="200.96626"
-         y="152.08572"
-         id="tspan17">by finding the right Activity</tspan></text>
   </g>
 </svg>

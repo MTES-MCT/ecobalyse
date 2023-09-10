@@ -185,13 +185,15 @@ def select_activity(change):
         )
 
     # PRODUCTION
-    production = [
-        f"<h3>Production: {exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>"
-        for exchange in activity.production()
-    ]
+    production = "".join(
+        [
+            f"<div style=\"font-size: 1.5em;\">Production: <b>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')}</b> of <b>{exchange.get('name', 'N/A')}</b></div>"
+            for exchange in activity.production()
+        ]
+    )
 
     # ACTIVITY DATA
-    activity_fields = dict2html(activity) + repr(activity.get("classifications"))
+    activity_fields = f"{production}" + dict2html(activity)
 
     # TECHNOSPHERE
     technosphere_widgets = []
@@ -213,7 +215,7 @@ def select_activity(change):
                 [
                     ipywidgets.HTML(
                         value=(
-                            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit} of {name} {{{location}}}</b></summary>{dict2html(exchange)}</details>'
+                            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name} {{{location}}}</b></summary>{dict2html(exchange)}</details>'
                             f"<ul>"
                             f"<h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
                             f"<li><b>Name</b>: {upstream.get('name')}</li>"
@@ -256,7 +258,7 @@ def select_activity(change):
         impacts.set_properties(**{"background-color": "#EEE"})
 
         biosphere.append(
-            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit} of {name} ({flow})</b></summary>{dict2html(exchange)}</details>'
+            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name}</b>)</summary>{dict2html(exchange)}</details>'
             "<ul>"
             f"<h4>This exchange was linked to this element of <b>{dbname}</b>:</h4>"
             f"<li><b>Name</b>: {input_.get('name', 'N/A')}</li>"
@@ -273,7 +275,7 @@ def select_activity(change):
 
     # SUBSTITUTIONS
     substitution = [
-        f"<h3>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')} of {exchange.get('name', 'N/A')}</h3>{get_activity(exchange.get('input')).get('comment', '')}"
+        f"<span style=\"font-size: 1.5em;\"><b>{exchange.get('amount', 'N/A')} {exchange.get('unit', 'N/A')}</b> of <b>{exchange.get('name', 'N/A')}</b></span>{get_activity(exchange.get('input')).get('comment', '')}"
         for exchange in activity.substitution()
     ]
 
@@ -293,7 +295,16 @@ def select_activity(change):
             ],
             children=[
                 ipywidgets.HTML(value=activity_fields),
-                ipywidgets.HTML(value=Illustration),
+                ipywidgets.HTML(
+                    value=(
+                        "In this illustration, the studied activity in the center has four exchanges (in grey). "
+                        "Two technosphere exchanges are linked to upstream activities (in purple), "
+                        "and two biosphere activities are linked to emission or consumption of substances in the environment (in green). "
+                        'The notion of "linking" in Brightway consists in setting the "input" field '
+                        "of the exchanges by finding the right Activity."
+                    )
+                    + Illustration
+                ),
                 ipywidgets.VBox(technosphere_widgets),
                 ipywidgets.HTML(value="".join(biosphere)),
                 ipywidgets.HTML(value="".join(substitution)),
