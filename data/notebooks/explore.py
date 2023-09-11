@@ -269,7 +269,7 @@ def select_activity(change):
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
             f"<li><b>Comment</b>: {comment}</li>"
-            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Impacts</b></summary>{impacts.to_html()}</details></li>'
+            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{impacts.to_html()}</details></li>'
             "</ul>"
         )
 
