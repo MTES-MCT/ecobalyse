@@ -4,12 +4,12 @@ This file is `explore` Jupyter Notebook
 from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from bw2data.utils import get_activity
-import pandas.io.formats.style
 import bw2calc
 import bw2data
 import ipywidgets
 import os
 import pandas
+import pandas.io.formats.style
 
 Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"
