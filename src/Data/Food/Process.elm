@@ -4,6 +4,7 @@ module Data.Food.Process exposing
     , Process
     , ProcessName
     , WellKnown
+    , categoryToString
     , codeFromString
     , codeToString
     , decodeIdentifier
@@ -38,7 +39,7 @@ type alias Process =
     , category : Category
     , systemDescription : String
     , comment : Maybe String
-    , id_ : Maybe String
+    , id_ : String
     }
 
 
@@ -104,6 +105,34 @@ categoryFromString string =
             Err <| "Catégorie de procédé invalide: " ++ string
 
 
+categoryToString : Category -> String
+categoryToString category =
+    case category of
+        Energy ->
+            "Énergie"
+
+        Ingredient ->
+            "Ingrédient"
+
+        Material ->
+            "Matériau"
+
+        Packaging ->
+            "Emballage"
+
+        Processing ->
+            "Traitement"
+
+        Transform ->
+            "Transformation"
+
+        Transport ->
+            "Transport"
+
+        WasteTreatment ->
+            "Traitement des déchets"
+
+
 codeFromString : String -> Identifier
 codeFromString =
     Identifier
@@ -141,7 +170,7 @@ decodeProcess definitions =
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "id" (Decode.maybe Decode.string)
+        |> Pipe.required "id" Decode.string
 
 
 decodeIdentifier : Decoder Identifier
@@ -163,13 +192,13 @@ encodeIdentifier =
 findById : List Process -> String -> Result String Process
 findById processes id_ =
     processes
-        |> List.filter (.id_ >> (==) (Just id_))
+        |> List.filter (.id_ >> (==) id_)
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ id_)
 
 
-findByIdentifier : List Process -> Identifier -> Result String Process
-findByIdentifier processes ((Identifier codeString) as code) =
+findByIdentifier : Identifier -> List Process -> Result String Process
+findByIdentifier ((Identifier codeString) as code) processes =
     processes
         |> List.filter (.code >> (==) code)
         |> List.head

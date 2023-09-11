@@ -509,7 +509,7 @@ getPreparedMassAtConsumer : Recipe -> Mass
 getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtPlant =
-            case transform |> Maybe.andThen (.process >> .id_) of
+            case transform |> Maybe.map (.process >> .id_) of
                 Just "cooking" ->
                     True
 
@@ -552,7 +552,7 @@ getTransformedIngredientsMass { ingredients, transform } =
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                case transform |> Maybe.andThen (.process >> .id_) of
+                case transform |> Maybe.map (.process >> .id_) of
                     Just "cooking" ->
                         -- If the product is cooked, apply raw to cook ratio to ingredient masses
                         mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
@@ -648,7 +648,7 @@ packagingListFromQuery db query =
 packagingFromQuery : FoodDb.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
-        (Process.findByIdentifier processes code)
+        (Process.findByIdentifier code processes)
         (Ok mass)
 
 
@@ -723,7 +723,7 @@ transformFromQuery { processes } query =
         |> Maybe.map
             (\transform ->
                 Result.map2 Transform
-                    (Process.findByIdentifier processes transform.code)
+                    (Process.findByIdentifier transform.code processes)
                     (Ok transform.mass)
                     |> Result.map Just
             )

@@ -11,8 +11,8 @@ suite =
     suiteWithDb "Data.Food.Process"
         (\{ foodDb } ->
             [ describe "findByCode"
-                [ Process.codeFromString "AGRIBALU000000003104412"
-                    |> Process.findByIdentifier foodDb.processes
+                [ foodDb.processes
+                    |> Process.findByIdentifier (Process.codeFromString "AGRIBALU000000003104412")
                     |> Result.map (.name >> Process.nameToString)
                     |> Expect.equal (Ok "Cull cow, organic, milk system number 1, at farm gate {FR} U")
                     |> asTest "should find a process by its identifier"
