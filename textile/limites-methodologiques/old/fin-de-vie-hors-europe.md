@@ -36,7 +36,7 @@ En l'absence d'inventaires de cycle de vie adaptés, un complément générique 
 
 ## Matérialité du complément
 
-Le complément, exprimé en points d'impacts (pt), reflète l'impact de la fin de vie qui terminerait sa vie sous forme de déchet hors Europe. &#x20;
+Le complément, exprimé en points d'impacts (pt), reflète l'impact de la fin de vie d'un vêtement qui terminerait sa vie sous forme de déchet hors Europe. &#x20;
 
 {% hint style="info" %}
 Il n'existe pas encore suffisament de littérature scientifique permettant d'estimer, de manière quantitative, l'impact de la fin de vie des vêtements se retrouvant sous forme de déchets hors Europe.&#x20;
