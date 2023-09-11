@@ -12,6 +12,7 @@ import Autocomplete.View as AutocompleteView
 import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
+import Data.AutoCompleteSelector as AutoCompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
@@ -267,7 +268,7 @@ update ({ queries } as session) msg model =
                 IngredientModal autocompleteState ->
                     model
                         |> update session (SetModal NoModal)
-                        |> selectIngredient session autocompleteState
+                        |> selectIngredient autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -406,8 +407,8 @@ findExistingBookmarkName { foodDb, store } query =
             )
 
 
-selectIngredient : Session -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectIngredient session autocompleteState ( model, _, _ ) =
+selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectIngredient autocompleteState ( model, session, _ ) =
     let
         ingredient =
             Autocomplete.selectedValue autocompleteState
@@ -903,7 +904,7 @@ ingredientListView db selectedImpact recipe results =
                         , class "d-flex justify-content-center align-items-center"
                         , class " gap-1 w-100"
                         , disabled <| List.isEmpty availableIngredients
-                        , onClick (SetModal (IngredientModal (initAutocomplete availableIngredients)))
+                        , onClick (SetModal (IngredientModal (AutoCompleteSelector.init availableIngredients)))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -912,23 +913,6 @@ ingredientListView db selectedImpact recipe results =
                ]
         )
     ]
-
-
-initAutocomplete : List Ingredient -> Autocomplete Ingredient
-initAutocomplete availableIngredients =
-    Autocomplete.init
-        { query = ""
-        , choices = List.sortBy .name availableIngredients
-        , ignoreList = []
-        }
-        (\lastChoices ->
-            Task.succeed
-                { lastChoices
-                    | choices =
-                        availableIngredients
-                            |> Ingredient.autocomplete lastChoices.query
-                }
-        )
 
 
 packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
