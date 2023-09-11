@@ -561,7 +561,7 @@ displayModeView trigram funit viewMode query =
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
-        [ div [ class "col-lg-7" ]
+        [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
@@ -601,7 +601,7 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                         ]
                     ]
             ]
-        , div [ class "col-lg-5 bg-white" ]
+        , div [ class "col-lg-4 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 (ImpactView.selector
                     textileDb.impactDefinitions
