@@ -1,7 +1,4 @@
-module Views.Textile.Step exposing
-    ( stepIcon
-    , view
-    )
+module Views.Textile.Step exposing (view)
 
 import Data.Country as Country
 import Data.Env as Env

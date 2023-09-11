@@ -1,15 +1,11 @@
 module Views.Textile.Summary exposing (view)
 
-import Array
-import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
-import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Product as Product
 import Data.Textile.Simulator exposing (Simulator)
-import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -20,8 +16,6 @@ import Views.Component.Summary as SummaryComp
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
-import Views.Textile.Step as StepView
-import Views.Transport as TransportView
 
 
 type alias Config msg =
@@ -50,7 +44,7 @@ viewMaterials materials =
 
 
 mainSummaryView : Config msg -> Simulator -> Html msg
-mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
+mainSummaryView { impact, funit } { inputs, impacts, daysOfWear } =
     SummaryComp.view
         { header =
             [ span [ class "text-nowrap" ]
@@ -83,33 +77,6 @@ mainSummaryView { impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
                         ]
                     ]
                 ]
-            , lifeCycle
-                |> Array.toList
-                |> List.filter .enabled
-                |> List.take 5
-                |> List.map
-                    (\{ label, country } ->
-                        li
-                            [ class "cursor-help"
-                            , title <| Label.toString label ++ ": " ++ country.name
-                            ]
-                            [ span [ class "d-flex gap-1 align-items-center" ]
-                                [ span [ class "fs-6" ] [ StepView.stepIcon label ]
-                                , text <| Country.codeToString country.code
-                                ]
-                            ]
-                    )
-                |> ul [ class "Chevrons" ]
-            , lifeCycle
-                |> LifeCycle.computeTotalTransportImpacts
-                |> TransportView.view
-                    { fullWidth = False
-                    , hideNoLength = False
-                    , onlyIcons = False
-                    , airTransportLabel = Just "Transport aérien total"
-                    , seaTransportLabel = Just "Transport maritime total"
-                    , roadTransportLabel = Just "Transport routier total"
-                    }
             ]
         , footer = []
         }
