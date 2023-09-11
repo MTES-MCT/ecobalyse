@@ -49,6 +49,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
 def main():
     # Import custom method
     projects.create_project(PROJECT, activate=True, exist_ok=True)
+    bw2data.config.p["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 
     if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
