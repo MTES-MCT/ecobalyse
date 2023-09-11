@@ -171,7 +171,7 @@ def select_activity(change):
         return
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
-    display(Markdown(f"# {activity}"))
+    display(Markdown(f"# (Computing...)"))
     scores = []
     for m in [m for m in bw2data.methods if m[0] == method]:
         lca.switch_method(m)
@@ -283,6 +283,9 @@ def select_activity(change):
         pandas.DataFrame(scores), caption="Impacts"
     )
     impacts.set_properties(**{"background-color": "#EEE"})
+
+    w_details.clear_output()
+    display(Markdown(f"# {activity}"))
     display(
         ipywidgets.Tab(
             titles=[
