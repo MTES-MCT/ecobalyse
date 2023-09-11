@@ -4,7 +4,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
-import Data.Textile.Product as Product
 import Data.Textile.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -14,7 +13,6 @@ import Route
 import Views.Alert as Alert
 import Views.Component.Summary as SummaryComp
 import Views.Format as Format
-import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 
 
@@ -28,57 +26,26 @@ type alias Config msg =
     }
 
 
-viewMaterials : List Inputs.MaterialInput -> Html msg
-viewMaterials materials =
-    materials
-        |> List.map
-            (\{ material, share } ->
-                span []
-                    [ Format.splitAsPercentage share
-                    , text " "
-                    , text material.shortName
-                    ]
-            )
-        |> List.intersperse (text ", ")
-        |> span []
-
-
 mainSummaryView : Config msg -> Simulator -> Html msg
 mainSummaryView { impact, funit } { inputs, impacts, daysOfWear } =
     SummaryComp.view
-        { header =
-            [ span [ class "text-nowrap" ]
-                [ strong [] [ text inputs.product.name ] ]
-            , span
-                [ class "text-truncate" ]
-                [ viewMaterials inputs.materials
-                ]
-            , span [ class "text-nowrap" ]
-                [ Format.kg inputs.mass ]
-            , span [ class "text-nowrap" ]
-                [ Icon.day, Format.days daysOfWear ]
-            ]
+        { header = []
         , body =
-            [ div [ class "d-flex justify-content-center align-items-center" ]
-                [ img
-                    [ src <| "img/product/" ++ Product.idToString inputs.product.id ++ ".svg"
-                    , alt <| inputs.product.name
-                    , class "SummaryProductImage invert me-2"
-                    ]
-                    []
-                , div [ class "SummaryScore d-flex flex-column" ]
-                    [ div [ class "display-5" ]
-                        [ impacts
-                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                        ]
-                    , small [ class "SummaryScoreFunit text-end" ]
-                        [ Unit.functionalToString funit
-                            |> text
-                        ]
+            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
+                [ div [ class "display-3 lh-1" ]
+                    [ impacts
+                        |> Format.formatTextileSelectedImpact funit daysOfWear impact
                     ]
                 ]
             ]
-        , footer = []
+        , footer =
+            [ div [ class "w-100" ]
+                [ div [ class "text-center" ]
+                    [ text "Pour "
+                    , Format.kg inputs.mass
+                    ]
+                ]
+            ]
         }
 
 

@@ -435,31 +435,17 @@ absoluteImpactView model results =
         , body =
             [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                 [ div [ class "display-3 lh-1" ]
-                    [ results.perKg
-                        |> Format.formatFoodSelectedImpactPerKg model.impact
+                    [ results.total
+                        |> Format.formatFoodSelectedImpact model.impact
                     ]
                 ]
             ]
         , footer =
             [ div [ class "w-100" ]
                 [ div [ class "text-center" ]
-                    [ text "Soit pour "
+                    [ text "Pour "
                     , Format.kg results.preparedMass
-                    , text "\u{00A0}:\u{00A0}"
-                    , results.total
-                        |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , if model.impact.trigram == Definition.Ecs then
-                    div [ class "text-center fs-7" ]
-                        [ text " dont -"
-                        , results.recipe.totalComplementsImpact.total
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat model.impact
-                        , text " de bonus déduit"
-                        ]
-
-                  else
-                    text ""
                 ]
             ]
         }
