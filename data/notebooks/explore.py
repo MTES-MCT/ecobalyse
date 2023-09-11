@@ -4,6 +4,7 @@ This file is `explore` Jupyter Notebook
 from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from bw2data.utils import get_activity
+import bw2analyzer
 import bw2calc
 import bw2data
 import ipywidgets
@@ -34,11 +35,16 @@ w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT"
 w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
 w_details = ipywidgets.Output(value="Détails")
+w_focus = ipywidgets.Dropdown(
+    options=[],
+    description="FOCUS",
+)
 
 display(Markdown("# Search in the database :"))
 
 
 def go_back(button):
+    """We clicked on the Back button"""
     linkto(button, stack=False)
 
 
@@ -48,22 +54,24 @@ back.search = ""
 back.on_click(go_back)
 
 
-def switch_domain(change):
+def switch_project(change):
+    """We changed the project in the PROJECT dropdown"""
     w_details.clear_output()
-    domain = change.new
-    projects.activate_project(domain)
+    project = change.new
+    projects.activate_project(project)
     databases = list(bw2data.databases)
     w_database.options = databases
     methods = sorted({m[0] for m in bw2data.methods})
     w_method.options = methods
+    w_focus.options = [""] + sorted([m[1] for m in bw2data.methods if m[0] == METHOD])
     # default values
-    if domain == "Food" and METHOD in methods:
+    if project == "Food" and METHOD in methods:
         w_method.value = METHOD
-    elif domain == "Textile" and METHOD in methods:
+    elif project == "Textile" and METHOD in methods:
         w_method.value = METHOD
-    if domain == "Food" and FOODDB in databases:
+    if project == "Food" and FOODDB in databases:
         w_database.value = FOODDB
-    elif domain == "Textile" and TEXTILEDB in databases:
+    elif project == "Textile" and TEXTILEDB in databases:
         w_database.value = TEXTILEDB
     if "biosphere_database" in bw2data.config.p:
         biosphere_name = bw2data.config.p["biosphere_database"]
@@ -78,6 +86,7 @@ def switch_domain(change):
 
 @w_results.capture()
 def display_results(results):
+    """display the list of search results in the w_results widget"""
     if len(results) == 0:
         w_results.clear_output()
         if w_search.value:
@@ -94,6 +103,7 @@ def display_results(results):
 
 
 def search_activity(change):
+    """We changed the database, search term, or limit of results"""
     w_details.clear_output()
     database = change.new if change.owner is w_database else w_database.value
     search = change.new if change.owner is w_search else w_search.value
@@ -110,6 +120,7 @@ def search_activity(change):
 
 
 def linkto(button, stack=True):
+    """We clicked on an activity button to visit"""
     if stack:
         VISITED.append(button.search)
     elif len(VISITED) > 0:
@@ -124,6 +135,7 @@ def linkto(button, stack=True):
 
 
 def lookup_cf(loaded_method, element):
+    """Find a Characterization Factor by name in the list of already loaded CFs"""
     cfs = [cf for cf in loaded_method if cf[0] == element]
     if len(cfs) == 0:
         return ""
@@ -134,6 +146,7 @@ def lookup_cf(loaded_method, element):
 
 
 def dict2html(d):
+    """Display a dict in HTML"""
     return (
         "<ul>"
         + "".join(
@@ -147,6 +160,7 @@ def dict2html(d):
 
 
 def list2html(l):
+    """Display a list in HTML"""
     return (
         "<ul>"
         + "".join(
@@ -161,6 +175,7 @@ def list2html(l):
 
 @w_details.capture()
 def select_activity(change):
+    """We selected an activity in the ACTIVITY dropdown"""
     activity = change.new if change.owner is w_activity else w_activity.value
     method = change.new if change.owner is w_method else w_method.value
     w_results.clear_output()
@@ -183,6 +198,10 @@ def select_activity(change):
                 "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
         )
+    impacts = pandas.io.formats.style.Styler(
+        pandas.DataFrame(scores), caption="Impacts"
+    )
+    impacts.set_properties(**{"background-color": "#EEE"})
 
     # PRODUCTION
     production = "".join(
@@ -235,7 +254,6 @@ def select_activity(change):
         amount = exchange.get("amount", "N/A")
         unit = exchange.get("unit", "N/A")
         name = exchange.get("name", "N/A")
-        flow = exchange.get("flow", "N/A")
         (dbname, code) = element = exchange.get("input", "N/A")
         input_ = bw2data.Database(dbname).get(code).as_dict()
         comment = exchange.get("comment", "N/A")
@@ -243,18 +261,24 @@ def select_activity(change):
             method: bw2data.Method(method).load()
             for method in [m for m in bw2data.methods if m[0] == METHOD]
         }
-        dataframe = pandas.DataFrame(
-            [
-                (
-                    method[1],
-                    lookup_cf(allcfs[method], element),
-                    bw2data.methods.get(method)["unit"],
-                )
-                for method in [m for m in bw2data.methods if m[0] == METHOD]
-            ],
-            columns=["Indicator", "CF", "Unit"],
+        impacts = pandas.io.formats.style.Styler(
+            pandas.DataFrame(
+                [
+                    (
+                        method[1],
+                        lookup_cf(allcfs[method], element),
+                        bw2data.methods.get(method)["unit"],
+                    )
+                    for method in [
+                        m
+                        for m in bw2data.methods
+                        if m[0] == METHOD
+                        and (not w_focus.value or w_focus.value == m[1])
+                    ]
+                ],
+                columns=["Indicator", "CF", "Unit"],
+            )
         )
-        impacts = pandas.io.formats.style.Styler(dataframe)
         impacts.set_properties(**{"background-color": "#EEE"})
 
         biosphere.append(
@@ -279,10 +303,31 @@ def select_activity(change):
         for exchange in activity.substitution()
     ]
 
-    impacts = pandas.io.formats.style.Styler(
-        pandas.DataFrame(scores), caption="Impacts"
-    )
-    impacts.set_properties(**{"background-color": "#EEE"})
+    # ANALYSIS
+    if w_focus.value:
+        lca.switch_method((METHOD, w_focus.value))
+        lca.lcia()
+        top_emissions = pandas.io.formats.style.Styler(
+            pandas.DataFrame(
+                bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca),
+                columns=["Score", "Supply amount", "Activity"],
+            )
+        )
+        top_emissions.set_properties(**{"background-color": "#EEE"})
+        top_processes = pandas.io.formats.style.Styler(
+            pandas.DataFrame(
+                bw2analyzer.ContributionAnalysis().annotated_top_processes(lca),
+                columns=["Score", "inventory amount", "Activity"],
+            )
+        )
+        top_processes.set_properties(**{"background-color": "#EEE"})
+        analysis = (
+            f"<h2>{lca.method[1]}</h2>"
+            f"<h3>Top Processes</h3>{top_processes.to_html()}"
+            f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
+        )
+    else:
+        analysis = "💡 Please select a FOCUS"
 
     w_details.clear_output()
     display(Markdown(f"# {activity}"))
@@ -295,6 +340,7 @@ def select_activity(change):
                 f"Biosphere ({len(biosphere)})",
                 f"Substitution ({len(substitution)})",
                 "Impacts",
+                "Analysis",
             ],
             children=[
                 ipywidgets.HTML(value=activity_fields),
@@ -312,17 +358,19 @@ def select_activity(change):
                 ipywidgets.HTML(value="".join(biosphere)),
                 ipywidgets.HTML(value="".join(substitution)),
                 ipywidgets.HTML(impacts.to_html()),
+                ipywidgets.HTML(analysis),
             ],
         )
     )
 
 
-w_project.observe(switch_domain, names="value")
+w_project.observe(switch_project, names="value")
 w_database.observe(search_activity, names="value")
 w_search.observe(search_activity, names="value")
 w_limit.observe(search_activity, names="value")
 w_activity.observe(select_activity, names="value")
 w_method.observe(select_activity, names="value")
+w_focus.observe(select_activity, names="value")
 
 details = ipywidgets.VBox(
     [w_statistics],
@@ -332,7 +380,16 @@ display(
     ipywidgets.HBox(
         [
             ipywidgets.VBox(
-                [w_project, w_database, w_search, w_limit, w_method, w_activity, back],
+                [
+                    w_project,
+                    w_database,
+                    w_search,
+                    w_limit,
+                    w_method,
+                    w_focus,
+                    w_activity,
+                    back,
+                ],
                 layout=ipywidgets.Layout(margin="2em"),
             ),
             details,
