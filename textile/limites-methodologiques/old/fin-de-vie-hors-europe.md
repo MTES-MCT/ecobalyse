@@ -36,7 +36,7 @@ En l'absence d'inventaires de cycle de vie adaptés, un complément générique 
 
 ## Matérialité du complément
 
-Le complément, exprimé en points d'impacts (pt), est calculé selon l'hypothèse suivante : **50%** de l'impact total d'un vêtement doit être imputable à sa fin de vie lorsqu'il se retrouve sous forme de déchet hors Europe.&#x20;
+Le complément, exprimé en points d'impacts (pt), reflète l'impact de la fin de vie qui terminerait sa vie sous forme de déchet hors Europe. &#x20;
 
 {% hint style="info" %}
 Il n'existe pas encore suffisament de littérature scientifique permettant d'estimer, de manière quantitative, l'impact de la fin de vie des vêtements se retrouvant sous forme de déchets hors Europe.&#x20;
@@ -56,29 +56,21 @@ Trois grands scénarios se dessinent pour les  vêtements "déchets hors Europe"
 Un nombre croissant d'études sont publiées sur les effets nocifs de ces scénarios sur l'environnement et l'Homme. Ecobalyse se doit de les intégrer afin de refléter cet "hotspot" de la chaîne de valeur Textile.
 {% endhint %}
 
-Sur la base des ordres de grandeur des vêtements standards proposés dans l'Explorateur Produit de l'outil Ecobalyse, le complément "fin de vie hors Europe" retenu est :
+Le complément "fin de vie hors Europe" retenu est :
 
 $$
-CoefDechet = 4861microPts / kg = 0,004861 Pts/kg
+CoefDechet = 5000microPts / kg = 0,005 Pts/kg
 $$
 
 <details>
 
-<summary>En savoir plus sur le calcul du CoefDechet </summary>
+<summary>Illustration</summary>
 
-Le coefficient "fin de vie hors Europe" correspond à la moyenne des coefficients calculés pour les 7 vêtements disponibles dans l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) en date du 8 septembre 2023. &#x20;
+Dans le cas théorique d'un jean (poids 450g, fabrication Inde) terminant sa vie sous forme de déchets hors Europe, la fin de vie pèserait entre 62% et 69% de l'impact total du produit (hors compléments) selon sa composition.  &#x20;
 
-Chacun de ces vêtements a été décliné "100% coton" et "100% polyesther" afin de générer 14 configurations de vêtement.&#x20;
-
-Dès lors, la moyenne des 14 _Scores d'impacts_ "Fin de vie Hors Europe" a été retenue pour estimer le _CoefDechet_.&#x20;
-
-![](<../../../.gitbook/assets/image (21).png>)
-
-Prenons l'exemple du T-shirt en coton de 170 g terminant sa vie sous forme de déchet hors Europe. Son impact hors fin de vie est de 909 micro-points. On considère que l'impact fin de vie doit représenter 50% de l'impact total du vêtement. Dès lors, le CoefDechet (hors Europe) de ce t-shirt pèse autant que les autres étapes du cycle de vie du produit; c'est à dire 909 micro-points par kg.
+![](<../../../.gitbook/assets/Impact d'un jean terminant sa fin de vie sous forme de déchet Hors Europe.png>)
 
 </details>
-
-
 
 ## Probabilité de fin de vie hors Europe, valeurs par défaut
 
@@ -120,11 +112,11 @@ $$
 
 <details>
 
-<summary>Illustration Avant vs Après</summary>
+<summary>Illustration</summary>
 
-![](<../../../.gitbook/assets/image (24).png>)
+Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la fin de vie passerait de 0% (avant introduction du complément Fin de vie Hors Europe) à 5% ou 11% selon la composition du vêtement.&#x20;
 
-![](<../../../.gitbook/assets/image (23).png>)
+![](<../../../.gitbook/assets/Comparaison avant après jean.png>)
 
 </details>
 
