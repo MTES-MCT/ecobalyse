@@ -154,6 +154,9 @@ same a b =
         ( FoodIngredients _, FoodIngredients _ ) ->
             True
 
+        ( FoodProcesses _, FoodProcesses _ ) ->
+            True
+
         ( TextileProducts _, TextileProducts _ ) ->
             True
 
