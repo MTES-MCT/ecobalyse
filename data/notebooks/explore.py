@@ -261,7 +261,7 @@ def select_activity(change):
             method: bw2data.Method(method).load()
             for method in [m for m in bw2data.methods if m[0] == METHOD]
         }
-        impacts = pandas.io.formats.style.Styler(
+        cfs = pandas.io.formats.style.Styler(
             pandas.DataFrame(
                 [
                     (
@@ -279,7 +279,7 @@ def select_activity(change):
                 columns=["Indicator", "Score", "Unit"],
             )
         )
-        impacts.set_properties(**{"background-color": "#EEE"})
+        cfs.set_properties(**{"background-color": "#EEE"})
 
         biosphere.append(
             f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name}</b></summary>{dict2html(exchange)}</details>'
@@ -293,7 +293,7 @@ def select_activity(change):
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
             f"<li><b>Comment</b>: {comment}</li>"
-            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{impacts.to_html()}</details></li>'
+            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{cfs.to_html()}</details></li>'
             "</ul>"
         )
 
