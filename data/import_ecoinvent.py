@@ -27,7 +27,7 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
 
 def main():
     projects.create_project(PROJECT, activate=True, exist_ok=True)
-    bw2data.config.p["biosphere_database"] = BIOSPHERE
+    bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 
     # Import Ecoinvent
