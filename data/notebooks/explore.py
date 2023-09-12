@@ -282,7 +282,7 @@ def select_activity(change):
         impacts.set_properties(**{"background-color": "#EEE"})
 
         biosphere.append(
-            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name}</b>)</summary>{dict2html(exchange)}</details>'
+            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name}</b></summary>{dict2html(exchange)}</details>'
             "<ul>"
             f"<h4>This exchange was linked to this element of <b>{dbname}</b>:</h4>"
             f"<li><b>Name</b>: {input_.get('name', 'N/A')}</li>"
