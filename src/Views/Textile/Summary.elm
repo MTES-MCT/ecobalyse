@@ -47,38 +47,35 @@ mainSummaryView { impact } { inputs, impacts } =
         }
 
 
-summaryChartsView : Config msg -> Simulator -> Html msg
+summaryChartsView : Config msg -> Simulator -> List (Html msg)
 summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
-    div []
-        [ simulator
-            |> ImpactTabs.textileSimulatorToImpactTabsConfig session.textileDb.impactDefinitions impact.trigram
-            |> ImpactTabs.view session.textileDb.impactDefinitions activeImpactsTab switchImpactsTab
-        , if reusable then
-            div [ class "card-footer text-center" ]
-                [ a
-                    [ class "btn btn-primary w-100"
-                    , Route.href
-                        (inputs
-                            |> Inputs.toQuery
-                            |> Just
-                            |> Route.TextileSimulator Impact.default ViewMode.Simple
-                        )
-                    ]
-                    [ text "Reprendre cette simulation" ]
+    [ simulator
+        |> ImpactTabs.textileSimulatorToImpactTabsConfig session.textileDb.impactDefinitions impact.trigram
+        |> ImpactTabs.view session.textileDb.impactDefinitions activeImpactsTab switchImpactsTab
+    , if reusable then
+        div [ class "card-footer text-center" ]
+            [ a
+                [ class "btn btn-primary w-100"
+                , inputs
+                    |> Inputs.toQuery
+                    |> Just
+                    |> Route.TextileSimulator Impact.default ViewMode.Simple
+                    |> Route.href
                 ]
+                [ text "Reprendre cette simulation" ]
+            ]
 
-          else
-            text ""
-        ]
+      else
+        text ""
+    ]
 
 
 view : Config msg -> Result String Simulator -> List (Html msg)
 view config result =
     case result of
         Ok simulator ->
-            [ mainSummaryView config simulator
-            , summaryChartsView config simulator
-            ]
+            mainSummaryView config simulator
+                :: summaryChartsView config simulator
 
         Err error ->
             [ Alert.simple
