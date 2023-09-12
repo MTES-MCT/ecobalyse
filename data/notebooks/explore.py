@@ -73,7 +73,7 @@ def switch_project(change):
         w_database.value = FOODDB
     elif project == "Textile" and TEXTILEDB in databases:
         w_database.value = TEXTILEDB
-    biosphere_name = bw2data.config.p.get("biosphere_database", "")
+    biosphere_name = bw2data.preferences.get("biosphere_database", "")
     biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
     w_panel.value = STATSTYLE + (
         f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
