@@ -32,7 +32,7 @@ mainSummaryView { impact } { inputs, impacts } =
             [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                 [ div [ class "display-3 lh-1" ]
                     [ impacts
-                        |> Format.formatTextileSelectedImpact impact
+                        |> Format.formatImpact impact
                     ]
                 ]
             ]

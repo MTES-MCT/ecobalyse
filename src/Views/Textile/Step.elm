@@ -653,7 +653,7 @@ simpleView ({ inputs, impact, current } as config) =
                         [ if current.label /= Label.Distribution then
                             div [ class "fs-3 fw-normal text-secondary" ]
                                 [ current.impacts
-                                    |> Format.formatTextileSelectedImpact impact
+                                    |> Format.formatImpact impact
                                 ]
 
                           else
@@ -686,7 +686,7 @@ viewTransport ({ impact, current } as config) =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatTextileSelectedImpact impact
+                        |> Format.formatImpact impact
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
@@ -870,7 +870,7 @@ detailedView ({ inputs, impact, current } as config) =
                     [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
-                                |> Format.formatTextileSelectedImpact impact
+                                |> Format.formatImpact impact
                             ]
 
                       else

@@ -1,10 +1,9 @@
 module Views.Format exposing
     ( days
     , formatFloat
-    , formatFoodSelectedImpact
+    , formatImpact
     , formatImpactFloat
     , formatRichFloat
-    , formatTextileSelectedImpact
     , hours
     , kg
     , kgToString
@@ -46,15 +45,8 @@ formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
 
 
-formatFoodSelectedImpact : Definition -> Impacts -> Html msg
-formatFoodSelectedImpact { trigram, unit, decimals } =
-    Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatRichFloat decimals unit
-
-
-formatTextileSelectedImpact : Definition -> Impacts -> Html msg
-formatTextileSelectedImpact { trigram, unit, decimals } =
+formatImpact : Definition -> Impacts -> Html msg
+formatImpact { trigram, unit, decimals } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
