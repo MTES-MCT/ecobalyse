@@ -53,10 +53,9 @@ formatFoodSelectedImpact { trigram, unit, decimals } =
         >> formatRichFloat decimals unit
 
 
-formatTextileSelectedImpact : Unit.Functional -> Duration -> Definition -> Impacts -> Html msg
-formatTextileSelectedImpact funit daysOfWear { trigram, unit, decimals } =
+formatTextileSelectedImpact : Definition -> Impacts -> Html msg
+formatTextileSelectedImpact { trigram, unit, decimals } =
     Impact.getImpact trigram
-        >> Unit.inFunctionalUnit funit daysOfWear
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
 

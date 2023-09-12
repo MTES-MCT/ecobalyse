@@ -5,7 +5,6 @@ import Data.Impact.Definition exposing (Definition)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator exposing (Simulator)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
@@ -19,7 +18,6 @@ import Views.ImpactTabs as ImpactTabs
 type alias Config msg =
     { session : Session
     , impact : Definition
-    , funit : Unit.Functional
     , reusable : Bool
     , activeImpactsTab : ImpactTabs.Tab
     , switchImpactsTab : ImpactTabs.Tab -> msg
@@ -27,14 +25,14 @@ type alias Config msg =
 
 
 mainSummaryView : Config msg -> Simulator -> Html msg
-mainSummaryView { impact, funit } { inputs, impacts, daysOfWear } =
+mainSummaryView { impact } { inputs, impacts } =
     SummaryComp.view
         { header = []
         , body =
             [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                 [ div [ class "display-3 lh-1" ]
                     [ impacts
-                        |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                        |> Format.formatTextileSelectedImpact impact
                     ]
                 ]
             ]
@@ -63,7 +61,7 @@ summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTa
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.TextileSimulator Impact.default Unit.PerItem ViewMode.Simple
+                            |> Route.TextileSimulator Impact.default ViewMode.Simple
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

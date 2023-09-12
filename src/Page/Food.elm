@@ -1330,10 +1330,6 @@ sidebarView session model results =
             session.textileDb.impactDefinitions
             { selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
-
-            -- FIXME: We don't use the following two textile configs
-            , selectedFunctionalUnit = Unit.PerItem
-            , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
         , results
@@ -1344,7 +1340,6 @@ sidebarView session model results =
             , activeTab = model.bookmarkTab
             , bookmarkName = model.bookmarkName
             , impact = model.impact
-            , funit = Unit.PerItem
             , scope = Scope.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard

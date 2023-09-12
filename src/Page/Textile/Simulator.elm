@@ -65,7 +65,6 @@ type alias Model =
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
     , impact : Definition
-    , funit : Unit.Functional
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -89,7 +88,6 @@ type Msg
     | SelectInputText String
     | SetModal Modal
     | SwitchComparisonType ComparatorView.ComparisonType
-    | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -119,12 +117,11 @@ type Msg
 
 init :
     Definition.Trigram
-    -> Unit.Functional
     -> ViewMode
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
+init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -147,7 +144,6 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
       , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = Definition.get trigram textileDb.impactDefinitions
-      , funit = funit
       , modal = NoModal
       , activeImpactsTab =
             if trigram == Definition.Ecs then
@@ -269,20 +265,11 @@ update ({ textileDb, queries, navKey } as session) msg model =
         SwitchComparisonType displayChoice ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
-        SwitchFunctionalUnit funit ->
-            ( model
-            , session
-            , Just query
-                |> Route.TextileSimulator model.impact.trigram funit model.viewMode
-                |> Route.toString
-                |> Navigation.pushUrl navKey
-            )
-
         SwitchImpact (Ok trigram) ->
             ( model
             , session
             , Just query
-                |> Route.TextileSimulator trigram model.funit model.viewMode
+                |> Route.TextileSimulator trigram model.viewMode
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -474,7 +461,7 @@ productField db product =
 
 
 lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { viewMode, funit, impact } simulator =
+lifeCycleStepsView db { viewMode, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -483,7 +470,6 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , inputs = simulator.inputs
                     , viewMode = viewMode
                     , impact = impact
-                    , funit = funit
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
@@ -533,8 +519,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-displayModeView : Definition.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
-displayModeView trigram funit viewMode query =
+displayModeView : Definition.Trigram -> ViewMode -> Inputs.Query -> Html Msg
+displayModeView trigram viewMode query =
     let
         tab mode icon label =
             a
@@ -543,7 +529,7 @@ displayModeView trigram funit viewMode query =
                     , ( "active", ViewMode.isActive viewMode mode )
                     ]
                 , Just query
-                    |> Route.TextileSimulator trigram funit mode
+                    |> Route.TextileSimulator trigram mode
                     |> Route.href
                 ]
                 [ span [ class "fs-7 me-1" ] [ icon ], text label ]
@@ -559,7 +545,7 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -582,7 +568,7 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                 , selectInputText = SelectInputText
                 }
             , session.queries.textile
-                |> displayModeView impact.trigram funit viewMode
+                |> displayModeView impact.trigram viewMode
             , if viewMode == ViewMode.Dataviz then
                 Dataviz.view textileDb.impactDefinitions simulator
 
@@ -607,14 +593,11 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                     textileDb.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
-                    , selectedFunctionalUnit = model.funit
-                    , switchFunctionalUnit = SwitchFunctionalUnit
                     }
                     :: (model.simulator
                             |> SummaryView.view
                                 { session = session
                                 , impact = model.impact
-                                , funit = model.funit
                                 , reusable = False
                                 , activeImpactsTab = model.activeImpactsTab
                                 , switchImpactsTab = SwitchImpactsTab
@@ -625,7 +608,6 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                             , activeTab = model.bookmarkTab
                             , bookmarkName = model.bookmarkName
                             , impact = model.impact
-                            , funit = model.funit
                             , scope = Scope.Textile
                             , viewMode = model.viewMode
                             , copyToClipBoard = CopyToClipBoard
