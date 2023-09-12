@@ -24,7 +24,7 @@ VISITED = []  # visited activities since the last search
 
 databases = [""]
 # widgets
-w_statistics = ipywidgets.HTML(value=STATSTYLE)
+w_panel = ipywidgets.HTML(value=STATSTYLE)
 w_project = ipywidgets.Dropdown(value="", options=PROJECTS, description="PROJECT")
 w_database = ipywidgets.Dropdown(
     value=databases[0], options=databases, description="DATABASE"
@@ -73,14 +73,13 @@ def switch_project(change):
         w_database.value = FOODDB
     elif project == "Textile" and TEXTILEDB in databases:
         w_database.value = TEXTILEDB
-    if "biosphere_database" in bw2data.config.p:
-        biosphere_name = bw2data.config.p["biosphere_database"]
-        biosphere = bw2data.Database(biosphere_name)
-        w_statistics.value = STATSTYLE + (
-            f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
-            f"<div><b>biosphere name</b>: {biosphere_name}</div>"
-            f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
-        )
+    biosphere_name = bw2data.config.p.get("biosphere_database", "")
+    biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
+    w_panel.value = STATSTYLE + (
+        f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
+        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
+        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
+    )
     back.layout.display = "none" if len(VISITED) == 0 else "block"
 
 
@@ -373,7 +372,7 @@ w_method.observe(select_activity, names="value")
 w_focus.observe(select_activity, names="value")
 
 details = ipywidgets.VBox(
-    [w_statistics],
+    [w_panel],
 )
 details.add_class("details")
 display(
