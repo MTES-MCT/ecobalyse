@@ -276,7 +276,7 @@ def select_activity(change):
                         and (not w_focus.value or w_focus.value == m[1])
                     ]
                 ],
-                columns=["Indicator", "CF", "Unit"],
+                columns=["Indicator", "Score", "Unit"],
             )
         )
         impacts.set_properties(**{"background-color": "#EEE"})
