@@ -79,7 +79,7 @@ A partir des données moyennes compilées dans le cadre de nos travaux, la proba
 {% hint style="info" %}
 Deux hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 
-* 18% des vêtements jetés pour la première fois en France sont exportés hors Europe,
+* 19% des vêtements jetés pour la première fois en France sont exportés hors Europe,
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé.
 {% endhint %}
 
@@ -87,12 +87,12 @@ Pour en savoir plus sur les principales sources utilisées par Ecobalyse => cf. 
 
 Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Les observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés. Voici une [liste](https://docs.google.com/spreadsheets/d/1dGGVrQ8yT2vv7XYGQYBx5hLjcSxy3qIxgLfm5\_5jt8A/edit?usp=sharing) des principales sources mobilisées à ce sujet.
 
-On considère donc les probabilités suivantes (P_robaDechet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
+On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
-<table><thead><tr><th width="241">Scénario</th><th>ProbaDechet(%)</th></tr></thead><tbody><tr><td>Moyenne</td><td>50%</td></tr><tr><td>Vêtements synthétiques</td><td>60%</td></tr><tr><td>Autres vêtements</td><td>34%</td></tr></tbody></table>
+<table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19%</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>19%</td><td>60%</td><td>11%</td></tr><tr><td>Autres vêtements</td><td>19%</td><td>34%</td><td>6%</td></tr></tbody></table>
 
 {% hint style="info" %}
-Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^2])
+Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne (50% des vêtements exportés hors Europe ne sont pas portés) en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^2])
 {% endhint %}
 
 ## Calcul du complément "Fin de vie hors Europe"
