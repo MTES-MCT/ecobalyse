@@ -1333,7 +1333,7 @@ sidebarView session model results =
             }
         , absoluteImpactView model results
         , results
-            |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
+            |> ImpactTabs.configForFood model.impact.trigram
             |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
         , BookmarkView.view
             { session = session

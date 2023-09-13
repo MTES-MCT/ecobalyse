@@ -1,8 +1,8 @@
 module Views.ImpactTabs exposing
     ( Config
     , Tab(..)
-    , foodResultsToImpactTabsConfig
-    , textileSimulatorToImpactTabsConfig
+    , configForFood
+    , configForTextile
     , view
     )
 
@@ -103,8 +103,8 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
         }
 
 
-foodResultsToImpactTabsConfig : Definition.Trigram -> Recipe.Results -> Config
-foodResultsToImpactTabsConfig trigram results =
+configForFood : Definition.Trigram -> Recipe.Results -> Config
+configForFood trigram results =
     { trigram = trigram
     , total = results.total
     , totalComplementsImpact = results.recipe.totalComplementsImpact
@@ -113,8 +113,8 @@ foodResultsToImpactTabsConfig trigram results =
     }
 
 
-textileSimulatorToImpactTabsConfig : Definitions -> Definition.Trigram -> Simulator -> Config
-textileSimulatorToImpactTabsConfig definitions trigram simulator =
+configForTextile : Definitions -> Definition.Trigram -> Simulator -> Config
+configForTextile definitions trigram simulator =
     let
         -- TODO: compute the complements once we have them in the database
         totalComplementsImpact =

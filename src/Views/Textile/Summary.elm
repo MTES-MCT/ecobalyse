@@ -48,7 +48,7 @@ mainSummaryView { impact } { inputs, impacts } =
 summaryChartsView : Config msg -> Simulator -> List (Html msg)
 summaryChartsView { session, impact, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     [ simulator
-        |> ImpactTabs.textileSimulatorToImpactTabsConfig session.textileDb.impactDefinitions impact.trigram
+        |> ImpactTabs.configForTextile session.textileDb.impactDefinitions impact.trigram
         |> ImpactTabs.view session.textileDb.impactDefinitions activeImpactsTab switchImpactsTab
     , div [ class "card-footer text-center" ]
         [ a
