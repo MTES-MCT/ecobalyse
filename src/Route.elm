@@ -26,7 +26,6 @@ type Route
     | Explore Scope Dataset
     | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
-    | TextileExamples
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram ViewMode (Maybe TextileQuery.Query)
     | Stats
@@ -63,12 +62,7 @@ parser =
                 </> FoodQuery.parseBase64Query
             )
 
-        --
         -- Textile specific routes
-        --
-        , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
-
-        -- Textile Simulator
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
         , Parser.map TextileSimulator
@@ -157,9 +151,6 @@ toString route =
 
                 FoodBuilder trigram (Just query) ->
                     [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
-
-                TextileExamples ->
-                    [ "textile", "examples" ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]

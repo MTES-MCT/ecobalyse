@@ -14,7 +14,6 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Examples as TextileExamples
 import Page.Textile.Simulator as TextileSimulator
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
@@ -42,7 +41,6 @@ type Page
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
-    | TextileExamplesPage TextileExamples.Model
     | TextileSimulatorPage TextileSimulator.Model
 
 
@@ -74,7 +72,6 @@ type Msg
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | TextileExamplesMsg TextileExamples.Msg
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -174,10 +171,6 @@ setRoute url ( { state } as model, cmds ) =
                     Stats.init session
                         |> toPage StatsPage StatsMsg
 
-                Just Route.TextileExamples ->
-                    TextileExamples.init session
-                        |> toPage TextileExamplesPage TextileExamplesMsg
-
                 Just Route.TextileSimulatorHome ->
                     TextileSimulator.init Impact.default ViewMode.Simple Nothing session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
@@ -236,10 +229,6 @@ update rawMsg ({ state } as model) =
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
-                    TextileExamples.update session examplesMsg examplesModel
-                        |> toPage TextileExamplesPage TextileExamplesMsg
 
                 ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
                     TextileSimulator.update session counterMsg counterModel
@@ -399,11 +388,6 @@ view { state, mobileNavigationOpened } =
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
-
-                TextileExamplesPage examplesModel ->
-                    TextileExamples.view session examplesModel
-                        |> mapMsg TextileExamplesMsg
-                        |> Page.frame (pageConfig Page.TextileExamples)
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
