@@ -8,6 +8,7 @@ import bw2analyzer
 import bw2calc
 import bw2data
 import ipywidgets
+import logging
 import os
 import pandas
 import pandas.io.formats.style
@@ -184,22 +185,23 @@ def select_activity(change):
     if not activity or not method:
         return
     lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    display(Markdown(f"# (Computing...)"))
     scores = []
-    for m in [m for m in bw2data.methods if m[0] == method]:
-        lca.switch_method(m)
-        lca.lcia()
-        scores.append(
-            {
-                "Indicateur": m[1],
-                "Score": str(lca.score),
-                "Unité": bw2data.methods[m].get("unit", "(no unit)"),
-            }
-        )
-    impacts = pandas.io.formats.style.Styler(
-        pandas.DataFrame(scores), caption="Impacts"
-    )
+    try:
+        lca.lci()
+        display(Markdown(f"# (Computing...)"))
+        for m in [m for m in bw2data.methods if m[0] == method]:
+            lca.switch_method(m)
+            lca.lcia()
+            scores.append(
+                {
+                    "Indicateur": m[1],
+                    "Score": str(lca.score),
+                    "Unité": bw2data.methods[m].get("unit", "(no unit)"),
+                }
+            )
+    except:
+        logging.info("Could not compute impact. Maybe you selected the biosphere?")
+    impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
     impacts.set_properties(**{"background-color": "#EEE"})
 
     # PRODUCTION
@@ -304,27 +306,30 @@ def select_activity(change):
 
     # ANALYSIS
     if w_focus.value:
-        lca.switch_method((METHOD, w_focus.value))
-        lca.lcia()
-        top_emissions = pandas.io.formats.style.Styler(
-            pandas.DataFrame(
-                bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca),
-                columns=["Score", "Supply amount", "Activity"],
+        try:
+            lca.switch_method((METHOD, w_focus.value))
+            lca.lcia()
+            top_emissions = pandas.io.formats.style.Styler(
+                pandas.DataFrame(
+                    bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca),
+                    columns=["Score", "Supply amount", "Activity"],
+                )
             )
-        )
-        top_emissions.set_properties(**{"background-color": "#EEE"})
-        top_processes = pandas.io.formats.style.Styler(
-            pandas.DataFrame(
-                bw2analyzer.ContributionAnalysis().annotated_top_processes(lca),
-                columns=["Score", "inventory amount", "Activity"],
+            top_emissions.set_properties(**{"background-color": "#EEE"})
+            top_processes = pandas.io.formats.style.Styler(
+                pandas.DataFrame(
+                    bw2analyzer.ContributionAnalysis().annotated_top_processes(lca),
+                    columns=["Score", "inventory amount", "Activity"],
+                )
             )
-        )
-        top_processes.set_properties(**{"background-color": "#EEE"})
-        analysis = (
-            f"<h2>{lca.method[1]}</h2>"
-            f"<h3>Top Processes</h3>{top_processes.to_html()}"
-            f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
-        )
+            top_processes.set_properties(**{"background-color": "#EEE"})
+            analysis = (
+                f"<h2>{lca.method[1]}</h2>"
+                f"<h3>Top Processes</h3>{top_processes.to_html()}"
+                f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
+            )
+        except:
+            analysis = "Nothing to display. Maybe you selected the biosphere?"
     else:
         analysis = "💡 Please select a FOCUS"
 
