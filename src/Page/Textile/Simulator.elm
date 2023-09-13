@@ -589,12 +589,11 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                (ImpactView.selector
-                    textileDb.impactDefinitions
+                (ImpactView.selector textileDb.impactDefinitions
                     { selectedImpact = model.impact.trigram
                     , switchImpact = SwitchImpact
                     }
-                    :: (model.simulator
+                    :: (simulator
                             |> SummaryView.view
                                 { session = session
                                 , impact = model.impact

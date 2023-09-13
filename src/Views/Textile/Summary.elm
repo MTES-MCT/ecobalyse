@@ -9,7 +9,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Route
-import Views.Alert as Alert
 import Views.Component.Summary as SummaryComp
 import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
@@ -65,18 +64,7 @@ summaryChartsView { session, impact, activeImpactsTab, switchImpactsTab } ({ inp
     ]
 
 
-view : Config msg -> Result String Simulator -> List (Html msg)
-view config result =
-    case result of
-        Ok simulator ->
-            mainSummaryView config simulator
-                :: summaryChartsView config simulator
-
-        Err error ->
-            [ Alert.simple
-                { level = Alert.Info
-                , content = [ text error ]
-                , title = Just "Impossible de charger l'exemple"
-                , close = Nothing
-                }
-            ]
+view : Config msg -> Simulator -> List (Html msg)
+view config simulator =
+    mainSummaryView config simulator
+        :: summaryChartsView config simulator
