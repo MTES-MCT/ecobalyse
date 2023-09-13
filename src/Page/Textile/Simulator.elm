@@ -598,7 +598,6 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                             |> SummaryView.view
                                 { session = session
                                 , impact = model.impact
-                                , reusable = False
                                 , activeImpactsTab = model.activeImpactsTab
                                 , switchImpactsTab = SwitchImpactsTab
                                 }

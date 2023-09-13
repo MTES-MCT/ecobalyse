@@ -18,7 +18,6 @@ import Views.ImpactTabs as ImpactTabs
 type alias Config msg =
     { session : Session
     , impact : Definition
-    , reusable : Bool
     , activeImpactsTab : ImpactTabs.Tab
     , switchImpactsTab : ImpactTabs.Tab -> msg
     }
@@ -48,25 +47,21 @@ mainSummaryView { impact } { inputs, impacts } =
 
 
 summaryChartsView : Config msg -> Simulator -> List (Html msg)
-summaryChartsView { session, impact, reusable, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
+summaryChartsView { session, impact, activeImpactsTab, switchImpactsTab } ({ inputs } as simulator) =
     [ simulator
         |> ImpactTabs.textileSimulatorToImpactTabsConfig session.textileDb.impactDefinitions impact.trigram
         |> ImpactTabs.view session.textileDb.impactDefinitions activeImpactsTab switchImpactsTab
-    , if reusable then
-        div [ class "card-footer text-center" ]
-            [ a
-                [ class "btn btn-primary w-100"
-                , inputs
-                    |> Inputs.toQuery
-                    |> Just
-                    |> Route.TextileSimulator Impact.default ViewMode.Simple
-                    |> Route.href
-                ]
-                [ text "Reprendre cette simulation" ]
+    , div [ class "card-footer text-center" ]
+        [ a
+            [ class "btn btn-primary w-100"
+            , inputs
+                |> Inputs.toQuery
+                |> Just
+                |> Route.TextileSimulator Impact.default ViewMode.Simple
+                |> Route.href
             ]
-
-      else
-        text ""
+            [ text "Reprendre cette simulation" ]
+        ]
     ]
 
 
