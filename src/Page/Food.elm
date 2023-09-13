@@ -49,7 +49,6 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
-import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
@@ -57,6 +56,7 @@ import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
+import Views.Score as ScoreView
 import Views.Transport as TransportView
 
 
@@ -430,24 +430,10 @@ selectIngredient session autocompleteState ( model, _, _ ) =
 
 absoluteImpactView : Model -> Recipe.Results -> Html Msg
 absoluteImpactView model results =
-    SummaryComp.view
-        { header = []
-        , body =
-            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                [ div [ class "display-3 lh-1" ]
-                    [ results.total
-                        |> Format.formatImpact model.impact
-                    ]
-                ]
-            ]
-        , footer =
-            [ div [ class "w-100" ]
-                [ div [ class "text-center" ]
-                    [ text "Pour "
-                    , Format.kg results.preparedMass
-                    ]
-                ]
-            ]
+    ScoreView.view
+        { impactDefinition = model.impact
+        , score = results.total
+        , mass = results.preparedMass
         }
 
 

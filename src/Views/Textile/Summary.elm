@@ -9,9 +9,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Route
-import Views.Component.Summary as SummaryComp
-import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
+import Views.Score as ScoreView
 
 
 type alias Config msg =
@@ -20,29 +19,6 @@ type alias Config msg =
     , activeImpactsTab : ImpactTabs.Tab
     , switchImpactsTab : ImpactTabs.Tab -> msg
     }
-
-
-mainSummaryView : Config msg -> Simulator -> Html msg
-mainSummaryView { impact } { inputs, impacts } =
-    SummaryComp.view
-        { header = []
-        , body =
-            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                [ div [ class "display-3 lh-1" ]
-                    [ impacts
-                        |> Format.formatImpact impact
-                    ]
-                ]
-            ]
-        , footer =
-            [ div [ class "w-100" ]
-                [ div [ class "text-center" ]
-                    [ text "Pour "
-                    , Format.kg inputs.mass
-                    ]
-                ]
-            ]
-        }
 
 
 summaryChartsView : Config msg -> Simulator -> List (Html msg)
@@ -66,5 +42,9 @@ summaryChartsView { session, impact, activeImpactsTab, switchImpactsTab } ({ inp
 
 view : Config msg -> Simulator -> List (Html msg)
 view config simulator =
-    mainSummaryView config simulator
+    ScoreView.view
+        { impactDefinition = config.impact
+        , score = simulator.impacts
+        , mass = simulator.inputs.mass
+        }
         :: summaryChartsView config simulator
