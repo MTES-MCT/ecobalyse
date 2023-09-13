@@ -8,7 +8,7 @@ import bw2data
 import bw2io
 import re
 
-PROJECT = "Food"
+PROJECT = "food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
@@ -277,7 +277,7 @@ def import_agribalyse(
 def main():
     # Import Agribalyse
     projects.create_project(PROJECT, activate=True, exist_ok=True)
-    bw2data.config.p["biosphere_database"] = BIOSPHERE
+    bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 
     if DBNAME not in bw2data.databases:

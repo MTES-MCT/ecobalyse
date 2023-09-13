@@ -18,7 +18,7 @@ import json
 import uuid
 
 # Input
-PROJECT = "Food"
+PROJECT = "food"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = DBNAME + " biosphere"
 ACTIVITIES = "activities.json"

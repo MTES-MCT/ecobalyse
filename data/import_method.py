@@ -33,7 +33,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     )
     ef.statistics()
     # exclude strategies/migrations in EXCLUDED
-    if project == "Food" or project == "Textile":
+    if project == "food" or project == "textile":
         ef.strategies = [
             s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED])
         ]

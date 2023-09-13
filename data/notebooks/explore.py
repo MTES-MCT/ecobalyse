@@ -16,122 +16,95 @@ import pandas.io.formats.style
 Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"
 STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
-PROJECTS = ["", "Food", "Textile"]
+PROJECTS = [p.name for p in bw2data.projects]
 METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
 TEXTILEDB = "Ecoinvent 3.9.1"
 FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
 VISITED = []  # visited activities since the last search
 
-databases = [""]
 # widgets
 w_panel = ipywidgets.HTML(value=STATSTYLE)
-w_project = ipywidgets.Dropdown(value="", options=PROJECTS, description="PROJECT")
-w_database = ipywidgets.Dropdown(
-    value=databases[0], options=databases, description="DATABASE"
+w_project = ipywidgets.Dropdown(
+    value=PROJECTS[0] if len(PROJECTS) > 0 else "",
+    options=PROJECTS,
+    description="PROJECT",
 )
+w_database = ipywidgets.Dropdown(value="", options=[""], description="DATABASE")
 w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 w_method = ipywidgets.Dropdown(options=[], description="METHOD")
 w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
 w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
 w_details = ipywidgets.Output(value="Détails")
-w_focus = ipywidgets.Dropdown(
+w_impact_category = ipywidgets.Dropdown(
     options=[],
-    description="FOCUS",
+    description="IMPACT CATEG",
 )
 
-display(Markdown("# Search in the database :"))
+display(Markdown("# Brightway explorer :"))
 
 
 def go_back(button):
     """We clicked on the Back button"""
-    linkto(button, stack=False)
+    linkto(button, append_to_stack=False)
 
 
-back = ipywidgets.Button(description="←back")
-back.layout.display = "none"
-back.search = ""
-back.on_click(go_back)
-
-
-def switch_project(change):
-    """We changed the project in the PROJECT dropdown"""
-    w_details.clear_output()
-    project = change.new
-    projects.activate_project(project)
-    databases = list(bw2data.databases)
-    w_database.options = databases
-    methods = sorted({m[0] for m in bw2data.methods})
-    w_method.options = methods
-    w_focus.options = [""] + sorted([m[1] for m in bw2data.methods if m[0] == METHOD])
-    # default values
-    if project == "Food" and METHOD in methods:
-        w_method.value = METHOD
-    elif project == "Textile" and METHOD in methods:
-        w_method.value = METHOD
-    if project == "Food" and FOODDB in databases:
-        w_database.value = FOODDB
-    elif project == "Textile" and TEXTILEDB in databases:
-        w_database.value = TEXTILEDB
-    biosphere_name = bw2data.preferences.get("biosphere_database", "")
-    biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
-    w_panel.value = STATSTYLE + (
-        f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
-        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
-        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
-    )
-    back.layout.display = "none" if len(VISITED) == 0 else "block"
+w_back_button = ipywidgets.Button(description="←back")
+w_back_button.layout.display = "none"
+w_back_button.search = ""
+w_back_button.on_click(go_back)
 
 
 @w_results.capture()
 def display_results(results):
     """display the list of search results in the w_results widget"""
-    if len(results) == 0:
-        w_results.clear_output()
-        if w_search.value:
-            display(Markdown("(No results)"))
-        return
+    w_results.clear_output()
+    w_details.clear_output()
     w_activity.options = [("", "")] + [
         (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
     ]
+    if len(results) == 0 and w_search.value:
+        display(Markdown("(No results)"))
+        return
+    else:
+        display(Markdown("## Results"))
+        with pandas.option_context("display.max_colwidth", None):
+            display(pandas.DataFrame(results, columns=["name", "code", "location"]))
+
+
+@w_results.capture()
+def display_characterization_factors(cfs):
     w_results.clear_output()
-    display(Markdown("## Results"))
-    with pandas.option_context("display.max_colwidth", None):
-        display(pandas.DataFrame(results, columns=["name", "code", "location"]))
-    display(Markdown("---"))
-
-
-def search_activity(change):
-    """We changed the database, search term, or limit of results"""
     w_details.clear_output()
-    database = change.new if change.owner is w_database else w_database.value
-    search = change.new if change.owner is w_search else w_search.value
-    global VISITED  # 🤮
-    VISITED = [search] if search else []
-    if VISITED:
-        back.search = VISITED[-1]
-        limit = change.new if change.owner is w_limit else w_limit.value
-        w_activity.value = None
-        results = list(bw2data.Database(w_database.value).search(search, limit=limit))
-        if not database:
-            return
-        display_results(results)
+    display(
+        Markdown(
+            f"# Characterization factors for <b>{w_impact_category.value}</b> in {w_method.value}"
+        )
+    )
+    display(ipywidgets.HTML(cfs.to_html()))
 
 
-def linkto(button, stack=True):
+def linkto(button, append_to_stack=True):
     """We clicked on an activity button to visit"""
-    if stack:
+
+    if append_to_stack:
         VISITED.append(button.search)
-    elif len(VISITED) > 0:
-        VISITED.pop()
-    back.search = VISITED[-1] if len(VISITED) > 0 else ""
+    else:
+        if len(VISITED) > 1:
+            VISITED.pop()
+        elif len(VISITED) == 1:
+            w_search.value = VISITED.pop()
+    w_back_button.search = VISITED[-1] if len(VISITED) > 0 else ""
     results = list(
         bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
     )
-    display_results(results)
+    if len(VISITED) == 0:
+        w_search.value = ""
+    w_activity.options = [("", "")] + [
+        (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
+    ]
     w_activity.value = results[0] if len(results) > 0 else None
-    back.layout.display = "none" if len(VISITED) == 0 else "block"
 
 
 def lookup_cf(loaded_method, element):
@@ -173,22 +146,120 @@ def list2html(l):
     )
 
 
-@w_details.capture()
-def select_activity(change):
-    """We selected an activity in the ACTIVITY dropdown"""
-    activity = change.new if change.owner is w_activity else w_activity.value
+def compute(change):
+    global VISITED  # 🤮
+    project = change.new if change.owner is w_project else w_project.value
+    database = change.new if change.owner is w_database else w_database.value
+    search = change.new if change.owner is w_search else w_search.value
+    limit = change.new if change.owner is w_limit else w_limit.value
     method = change.new if change.owner is w_method else w_method.value
-    w_results.clear_output()
-    w_details.clear_output()
+    impact_category = (
+        change.new if change.owner is w_impact_category else w_impact_category.value
+    )
+    activity = change.new if change.owner is w_activity else w_activity.value
+    if not activity:
+        w_details.clear_output()
+    if not search and not impact_category:
+        w_results.clear_output()
 
-    # IMPACTS
-    if not activity or not method:
+    # We changed the project
+    projects.activate_project(project)
+    databases = [""] + list(bw2data.databases)
+    w_database.options = databases
+    methods = sorted({m[0] for m in bw2data.methods})
+    w_method.options = methods
+    w_impact_category.options = [""] + sorted(
+        [m[1] for m in bw2data.methods if m[0] == METHOD]
+    )
+    # default database
+    if not list(bw2data.databases):
+        w_results.clear_output()
+        w_details.clear_output()
         return
+    if project == "food" and FOODDB in databases:
+        w_database.value = (
+            w_database.value if w_database.value in bw2data.databases else FOODDB
+        )
+    elif project == "textile" and TEXTILEDB in databases:
+        w_database.value = (
+            w_database.value if w_database.value in bw2data.databases else TEXTILEDB
+        )
+    else:
+        w_database.value = ""
+    # default method
+    if not list(bw2data.methods):
+        w_results.clear_output()
+        w_details.clear_output()
+        return
+    if project == "food" and METHOD in methods and not w_method.value:
+        w_method.value = METHOD
+    elif project == "textile" and METHOD in methods and not w_method.value:
+        w_method.value = METHOD
+
+    # right panel
+    biosphere_name = bw2data.preferences.get("biosphere_database", "")
+    biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
+    if search and len(VISITED) <= 1:
+        VISITED = [search]
+    breadcrumb = [
+        f"<li>{bw2data.Database(database).search(a)[0] if a.startswith('code:') else a}</li>"
+        for a in VISITED
+    ]
+    w_panel.value = STATSTYLE + (
+        f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
+        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
+        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
+        f"{('<ul>⛏️  Breadcrumb: ' + ''.join(breadcrumb)) if len(breadcrumb)>1 else ''}"
+    )
+    w_back_button.layout.display = "none" if len(VISITED) <= 1 else "block"
+
+    if not search and not impact_category:
+        w_results.clear_output()
+    if not activity and not search and (not method or not impact_category):
+        return
+    # METHOD CFs
+    if not search and not activity and impact_category:
+        cfs = pandas.io.formats.style.Styler(
+            pandas.DataFrame(
+                [
+                    (
+                        cf[0][1],
+                        bw2data.Database(cf[0][0]).get(cf[0][1]),
+                        bw2data.methods[(method, impact_category)]["unit"],
+                    )
+                    for cf in bw2data.Method((method, impact_category)).load()
+                    if method
+                ],
+                columns=["id", "substance found in biosphere", "unit"],
+            )
+        )
+        cfs.set_properties(**{"background-color": "#EEE"})
+        display_characterization_factors(cfs)
+        return
+
+    # Changed search
+    logging.info(VISITED)
+    if VISITED and len(VISITED) == 1 and search and database:
+        results = list(bw2data.Database(database).search(search, limit=limit))
+        display_results(results)
+        if not activity:
+            return
+
+    w_details.clear_output()
+    w_results.clear_output()
+    # IMPACTS
+    if not activity or not database or not method:
+        return
+    display_main_data(search, method, impact_category, activity)
+
+
+@w_details.capture()
+def display_main_data(search, method, impact_category, activity):
+    display(Markdown(f"# (Computing...)"))
     lca = bw2calc.LCA({activity: 1})
     scores = []
     try:
         lca.lci()
-        display(Markdown(f"# (Computing...)"))
         for m in [m for m in bw2data.methods if m[0] == method]:
             lca.switch_method(m)
             lca.lcia()
@@ -199,8 +270,9 @@ def select_activity(change):
                     "Unité": bw2data.methods[m].get("unit", "(no unit)"),
                 }
             )
-    except:
-        logging.info("Could not compute impact. Maybe you selected the biosphere?")
+    except Exception as e:
+        print("Could not compute impact. Maybe you selected the biosphere?")
+        print(e)
     impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
     impacts.set_properties(**{"background-color": "#EEE"})
 
@@ -227,24 +299,30 @@ def select_activity(change):
         location = upstream.get("location", "N/A")
         comment = upstream.get("comment", "N/A")
         # link button
-        link = ipywidgets.Button(description="→ visit")
-        link.search = f"code:{code}"
-        link.on_click(linkto)
+        w_link = ipywidgets.Button(description="→ visit")
+        w_link.search = f"code:{code}"
+        w_link.on_click(linkto)
         technosphere_widgets.append(
             ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
                         value=(
-                            f'<details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>{amount} {unit}</b> of <b>{name} {{{location}}}</b></summary>{dict2html(exchange)}</details>'
+                            f'<details style="cursor: pointer; background-color: #EEE;">'
+                            f'  <summary style="font-size: 1.5em">'
+                            f"    <b>{amount} {unit}</b> of <b>{name} {{{location}}}</b>"
+                            f"  </summary>"
+                            f"</summary>"
+                            f"{dict2html(exchange)}"
+                            f"</details>"
                             f"<ul>"
-                            f"<h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
-                            f"<li><b>Name</b>: {upstream.get('name')}</li>"
-                            f"<li><b>Location</b>: {upstream.get('location', 'N/A')}</li>"
-                            f"<li><b>Code</b>: {code}</li>"
+                            f"  <h4>This exchange was linked to this activity of <b>{db}</b>:</h4>"
+                            f"  <li><b>Name</b>: {upstream.get('name')}</li>"
+                            f"  <li><b>Location</b>: {upstream.get('location', 'N/A')}</li>"
+                            f"  <li><b>Code</b>: {code}</li>"
                             f"</ul>"
                         )
                     ),
-                    link,
+                    w_link,
                 ],
             )
         )
@@ -260,7 +338,7 @@ def select_activity(change):
         comment = exchange.get("comment", "N/A")
         allcfs = {
             method: bw2data.Method(method).load()
-            for method in [m for m in bw2data.methods if m[0] == METHOD]
+            for method in [m for m in bw2data.methods if m[0] == method]
         }
         cfs = pandas.io.formats.style.Styler(
             pandas.DataFrame(
@@ -273,8 +351,11 @@ def select_activity(change):
                     for method in [
                         m
                         for m in bw2data.methods
-                        if m[0] == METHOD
-                        and (not w_focus.value or w_focus.value == m[1])
+                        if m[0] == method
+                        and (
+                            not w_impact_category.value
+                            or w_impact_category.value == m[1]
+                        )
                     ]
                 ],
                 columns=["Indicator", "Score", "Unit"],
@@ -305,9 +386,9 @@ def select_activity(change):
     ]
 
     # ANALYSIS
-    if w_focus.value:
+    if w_impact_category.value:
         try:
-            lca.switch_method((METHOD, w_focus.value))
+            lca.switch_method((method, impact_category))
             lca.lcia()
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
@@ -331,7 +412,7 @@ def select_activity(change):
         except:
             analysis = "Nothing to display. Maybe you selected the biosphere?"
     else:
-        analysis = "💡 Please select a FOCUS"
+        analysis = "💡 Please select an impact category"
 
     w_details.clear_output()
     display(Markdown(f"# {activity}"))
@@ -368,13 +449,13 @@ def select_activity(change):
     )
 
 
-w_project.observe(switch_project, names="value")
-w_database.observe(search_activity, names="value")
-w_search.observe(search_activity, names="value")
-w_limit.observe(search_activity, names="value")
-w_activity.observe(select_activity, names="value")
-w_method.observe(select_activity, names="value")
-w_focus.observe(select_activity, names="value")
+w_project.observe(compute, names="value")
+w_database.observe(compute, names="value")
+w_search.observe(compute, names="value")
+w_limit.observe(compute, names="value")
+w_activity.observe(compute, names="value")
+w_method.observe(compute, names="value")
+w_impact_category.observe(compute, names="value")
 
 details = ipywidgets.VBox(
     [w_panel],
@@ -390,9 +471,9 @@ display(
                     w_search,
                     w_limit,
                     w_method,
-                    w_focus,
+                    w_impact_category,
                     w_activity,
-                    back,
+                    w_back_button,
                 ],
                 layout=ipywidgets.Layout(margin="2em"),
             ),

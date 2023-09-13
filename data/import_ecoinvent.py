@@ -4,7 +4,7 @@ from bw2data.project import projects
 import bw2data
 import bw2io
 
-PROJECT = "Textile"
+PROJECT = "textile"
 # Ecoinvent
 DATAPATH = "./ECOINVENT3.9.1/datasets"
 DBNAME = "Ecoinvent 3.9.1"

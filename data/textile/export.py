@@ -15,7 +15,7 @@ import bw2calc
 import json
 
 # Input
-PROJECT = "Textile"
+PROJECT = "textile"
 DBNAME = "Ecoinvent 3.9.1"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
