@@ -6,7 +6,6 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as TextileInputs
-import Data.Unit as Unit
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -180,11 +179,11 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage TextileExamplesPage TextileExamplesMsg
 
                 Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Unit.PerItem ViewMode.Simple Nothing session
+                    TextileSimulator.init Impact.default ViewMode.Simple Nothing session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
-                Just (Route.TextileSimulator trigram funit detailed maybeQuery) ->
-                    TextileSimulator.init trigram funit detailed maybeQuery session
+                Just (Route.TextileSimulator trigram detailed maybeQuery) ->
+                    TextileSimulator.init trigram detailed maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->

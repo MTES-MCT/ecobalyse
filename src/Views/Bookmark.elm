@@ -6,7 +6,6 @@ import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as TextileInputs
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -22,7 +21,6 @@ type alias ManagerConfig msg =
     , activeTab : ActiveTab
     , bookmarkName : String
     , impact : Definition
-    , funit : Unit.Functional
     , viewMode : ViewMode
     , scope : Scope
 
@@ -67,7 +65,7 @@ view ({ activeTab, switchTab } as config) =
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { session, impact, funit, copyToClipBoard, scope, viewMode } =
+shareTabView { session, impact, copyToClipBoard, scope, viewMode } =
     let
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
@@ -85,7 +83,7 @@ shareTabView { session, impact, funit, copyToClipBoard, scope, viewMode } =
 
                 Scope.Textile ->
                     ( Just session.queries.textile
-                        |> Route.TextileSimulator impact.trigram funit viewMode
+                        |> Route.TextileSimulator impact.trigram viewMode
                         |> Route.toString
                         |> (++) session.clientUrl
                     , session.queries.textile
@@ -233,7 +231,7 @@ bookmarksView ({ session, compare, scope } as config) =
 
 
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query } as bookmark) =
+bookmarkView { session, impact, viewMode, delete, scope } ({ name, query } as bookmark) =
     let
         currentQuery =
             queryFromScope session scope
@@ -246,7 +244,7 @@ bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query 
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
-                        |> Route.TextileSimulator impact.trigram funit viewMode
+                        |> Route.TextileSimulator impact.trigram viewMode
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"

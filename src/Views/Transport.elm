@@ -1,4 +1,4 @@
-module Views.Transport exposing (entry, view, viewDetails)
+module Views.Transport exposing (entry, viewDetails)
 
 import Data.Transport exposing (Transport)
 import Html exposing (..)
@@ -16,17 +16,6 @@ type alias Config =
     , seaTransportLabel : Maybe String
     , roadTransportLabel : Maybe String
     }
-
-
-view : Config -> Transport -> Html msg
-view ({ fullWidth } as config) transport =
-    div
-        [ classList
-            [ ( "d-flex flex-wrap justify-content-center fs-7 gap-3", True )
-            , ( "w-100", fullWidth )
-            ]
-        ]
-        (viewDetails config transport)
 
 
 viewDetails : Config -> Transport -> List (Html msg)

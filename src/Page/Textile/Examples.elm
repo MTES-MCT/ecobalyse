@@ -11,7 +11,6 @@ import Data.Impact.Definition as Definition
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
@@ -23,21 +22,18 @@ import Views.Textile.Summary as SummaryView
 
 type alias Model =
     { impact : Definition.Trigram
-    , funit : Unit.Functional
     , activeImpactsTab : ImpactTabs.Tab
     }
 
 
 type Msg
     = SwitchImpact (Result String Definition.Trigram)
-    | SwitchFunctionalUnit Unit.Functional
     | SwitchImpactsTab ImpactTabs.Tab
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { impact = Impact.default
-      , funit = Unit.PerItem
       , activeImpactsTab = ImpactTabs.SubscoresTab
       }
     , session
@@ -57,9 +53,6 @@ update session msg model =
             , Cmd.none
             )
 
-        SwitchFunctionalUnit funit ->
-            ( { model | funit = funit }, session, Cmd.none )
-
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
             , session
@@ -67,14 +60,13 @@ update session msg model =
             )
 
 
-viewExample : Session -> Model -> Unit.Functional -> Definition.Trigram -> Inputs.Query -> Html Msg
-viewExample session model funit impact query =
+viewExample : Session -> Model -> Definition.Trigram -> Inputs.Query -> Html Msg
+viewExample session model impact query =
     query
         |> Simulator.compute session.textileDb
         |> SummaryView.view
             { session = session
             , impact = Definition.get impact session.textileDb.impactDefinitions
-            , funit = funit
             , reusable = True
             , activeImpactsTab = model.activeImpactsTab
             , switchImpactsTab = SwitchImpactsTab
@@ -83,7 +75,7 @@ viewExample session model funit impact query =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session ({ impact, funit } as model) =
+view session ({ impact } as model) =
     ( "Exemples"
     , [ Container.centered [ class "pb-3" ]
             [ div [ class "row" ]
@@ -94,15 +86,13 @@ view session ({ impact, funit } as model) =
                         session.textileDb.impactDefinitions
                         { selectedImpact = impact
                         , switchImpact = SwitchImpact
-                        , selectedFunctionalUnit = funit
-                        , switchFunctionalUnit = SwitchFunctionalUnit
                         }
                     ]
                 ]
             , Definition.get impact session.textileDb.impactDefinitions
                 |> ImpactView.viewDefinition
             , Inputs.presets
-                |> List.map (viewExample session model funit impact)
+                |> List.map (viewExample session model impact)
                 |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
             ]
       ]

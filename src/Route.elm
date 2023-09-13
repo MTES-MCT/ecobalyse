@@ -11,7 +11,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
-import Data.Unit as Unit
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
@@ -29,7 +28,7 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | TextileExamples
     | TextileSimulatorHome
-    | TextileSimulator Definition.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
+    | TextileSimulator Definition.Trigram ViewMode (Maybe TextileQuery.Query)
     | Stats
 
 
@@ -76,7 +75,6 @@ parser =
             (Parser.s "textile"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> TextileQuery.parseBase64Query
             )
@@ -166,20 +164,18 @@ toString route =
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
 
-                TextileSimulator trigram funit viewMode (Just query) ->
+                TextileSimulator trigram viewMode (Just query) ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     , TextileQuery.b64encode query
                     ]
 
-                TextileSimulator trigram funit viewMode Nothing ->
+                TextileSimulator trigram viewMode Nothing ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     ]
 

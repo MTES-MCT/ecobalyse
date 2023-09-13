@@ -435,31 +435,17 @@ absoluteImpactView model results =
         , body =
             [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                 [ div [ class "display-3 lh-1" ]
-                    [ results.perKg
-                        |> Format.formatFoodSelectedImpactPerKg model.impact
+                    [ results.total
+                        |> Format.formatImpact model.impact
                     ]
                 ]
             ]
         , footer =
             [ div [ class "w-100" ]
                 [ div [ class "text-center" ]
-                    [ text "Soit pour "
+                    [ text "Pour "
                     , Format.kg results.preparedMass
-                    , text "\u{00A0}:\u{00A0}"
-                    , results.total
-                        |> Format.formatFoodSelectedImpact model.impact
                     ]
-                , if model.impact.trigram == Definition.Ecs then
-                    div [ class "text-center fs-7" ]
-                        [ text " dont -"
-                        , results.recipe.totalComplementsImpact.total
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat model.impact
-                        , text " de bonus déduit"
-                        ]
-
-                  else
-                    text ""
                 ]
             ]
         }
@@ -635,7 +621,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 ]
         , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
             ]
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if selectedImpact.trigram == Definition.Ecs then
@@ -901,7 +887,7 @@ ingredientListView db selectedImpact recipe results =
                 [ Icon.search ]
             ]
         , results.recipe.ingredientsTotal
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -927,7 +913,7 @@ ingredientListView db selectedImpact recipe results =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
                                     |> .impacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                             }
                     )
          )
@@ -979,7 +965,7 @@ packagingListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
         , results.packaging
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
@@ -998,7 +984,7 @@ packagingListView db selectedImpact recipe results =
                             , impact =
                                 packaging
                                     |> Recipe.computeProcessImpacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.code
                             , deleteEvent = DeletePackaging packaging.process.code
                             }
@@ -1034,7 +1020,7 @@ transportToTransformationView selectedImpact results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatFoodSelectedImpact selectedImpact results.recipe.transports.impacts
+            , Format.formatImpact selectedImpact results.recipe.transports.impacts
             ]
         ]
 
@@ -1098,7 +1084,7 @@ transportToDistributionView selectedImpact recipe results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+            , Format.formatImpact selectedImpact results.distribution.transports.impacts
             ]
         ]
 
@@ -1133,12 +1119,12 @@ distributionView selectedImpact recipe results =
     let
         impact =
             results.distribution.total
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
         , results.distribution.total
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
@@ -1185,7 +1171,7 @@ consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
         , results.preparation
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
@@ -1214,7 +1200,7 @@ consumptionView db selectedImpact recipe results =
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
@@ -1344,10 +1330,6 @@ sidebarView session model results =
             session.textileDb.impactDefinitions
             { selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
-
-            -- FIXME: We don't use the following two textile configs
-            , selectedFunctionalUnit = Unit.PerItem
-            , switchFunctionalUnit = always NoOp
             }
         , absoluteImpactView model results
         , results
@@ -1358,7 +1340,6 @@ sidebarView session model results =
             , activeTab = model.bookmarkTab
             , bookmarkName = model.bookmarkName
             , impact = model.impact
-            , funit = Unit.PerItem
             , scope = Scope.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard
@@ -1397,7 +1378,7 @@ transformView db selectedImpact recipe results =
     let
         impact =
             results.recipe.transform
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
