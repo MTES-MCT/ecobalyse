@@ -62,7 +62,7 @@ start_notebook:
 	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make shell` then `jupyter notebook password` to change the jupyter password, then restart with `make stop_notebook` and `make start_notebook`.'
 
 stop_notebook:
-	docker exec $(NAME) pkill jupyter
+	docker exec $(NAME) bash -c "pkill jupyter; while pgrep jupyter-lab > /dev/null; do echo waiting to stop jupyter; sleep 1;done"
 
 clean_data:
 	docker volume rm $(NAME)
