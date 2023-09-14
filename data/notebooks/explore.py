@@ -204,22 +204,8 @@ def compute(change):
     if not search and not impact_category:
         w_results.clear_output()
 
-    # right panel
-    biosphere_name = bw2data.preferences.get("biosphere_database", "")
-    biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
     if search and len(VISITED) <= 1:
         VISITED = [search]
-    breadcrumb = [
-        f"<li>{bw2data.Database(database).search(a)[0] if a.startswith('code:') else a}</li>"
-        for a in VISITED
-    ]
-    w_panel.value = STATSTYLE + (
-        f"<div><b>database size</b>: {len(bw2data.Database(database))}</div>"
-        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
-        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
-        f"{('<ul>⛏️  Breadcrumb: ' + ''.join(breadcrumb)) if len(breadcrumb)>1 else ''}"
-    )
-    w_back_button.layout.display = "none" if len(VISITED) <= 1 else "block"
 
     if not search and not impact_category:
         w_results.clear_output()
@@ -262,13 +248,33 @@ def compute(change):
     # IMPACTS
     if not activity or not database or not method:
         return
-    display_main_data(method, impact_category, activity)
+    display_main_data(database, method, impact_category, activity)
+
+
+def display_right_panel(database):
+    # right panel
+    biosphere_name = bw2data.preferences.get("biosphere_database", "")
+    biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
+    breadcrumb = [
+        f"<li>{bw2data.Database(database).search(a)[0] if a.startswith('code:') else a}</li>"
+        for a in VISITED
+    ]
+    w_panel.value = STATSTYLE + (
+        f"<div><b>database size</b>: {len(bw2data.Database(database))}</div>"
+        f"<div><b>biosphere name</b>: {biosphere_name}</div>"
+        f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
+        f"{('<ul>⛏️  Breadcrumb: ' + ''.join(breadcrumb)) if len(breadcrumb)>1 else ''}"
+    )
+    w_back_button.layout.display = "none" if len(VISITED) <= 1 else "block"
 
 
 @w_details.capture()
-def display_main_data(method, impact_category, activity):
+def display_main_data(database, method, impact_category, activity):
     w_details.clear_output()
     w_results.clear_output()
+
+    display_right_panel(database)
+
     display(Markdown(f"# (Computing...)"))
     lca = bw2calc.LCA({activity: 1})
     scores = []
