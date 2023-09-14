@@ -217,20 +217,25 @@ def compute(change):
         return
     # METHOD CFs
     if not search and not activity and impact_category:
+        lines = bw2data.Method((method, impact_category)).load() if method else []
+        grouped = {}
+        for l in lines:
+            grouped[l[0]] = grouped.get(l[0], ()) + (str(l[1]),)
         cfs = pandas.io.formats.style.Styler(
             pandas.DataFrame(
                 [
                     (
-                        cf[0][1],
-                        bw2data.Database(cf[0][0]).get(cf[0][1]),
+                        g[0][1],
+                        bw2data.Database(g[0][0]).get(g[0][1]),
+                        " | ".join(g[1]),
                         bw2data.methods[(method, impact_category)]["unit"],
                     )
-                    for cf in bw2data.Method((method, impact_category)).load()
-                    if method
+                    for g in grouped.items()
                 ],
-                columns=["id", "substance found in biosphere", "unit"],
+                columns=["id", "substance found in biosphere", "amount", "unit"],
             )
         )
+
         cfs.set_properties(**{"background-color": "#EEE"})
         display_characterization_factors(cfs)
         return
