@@ -157,15 +157,6 @@ def compute(change):
     database = change.new if change.owner is w_database else w_database.value
     search = change.new if change.owner is w_search else w_search.value
     limit = change.new if change.owner is w_limit else w_limit.value
-    method = change.new if change.owner is w_method else w_method.value
-    impact_category = (
-        change.new if change.owner is w_impact_category else w_impact_category.value
-    )
-    activity = change.new if change.owner is w_activity else w_activity.value
-    if not activity:
-        w_details.clear_output()
-    if not search and not impact_category:
-        w_results.clear_output()
 
     # We changed the project
     projects.activate_project(project)
@@ -176,6 +167,8 @@ def compute(change):
     w_impact_category.options = [""] + sorted(
         [m[1] for m in bw2data.methods if m[0] == METHOD]
     )
+    if change.owner is w_project:
+        activity = w_activity.value = None
     # default database
     if not list(bw2data.databases):
         w_results.clear_output()
@@ -201,6 +194,16 @@ def compute(change):
     elif project == "textile" and METHOD in methods and not w_method.value:
         method = w_method.value = METHOD
 
+    activity = change.new if change.owner is w_activity else w_activity.value
+    method = change.new if change.owner is w_method else w_method.value
+    impact_category = (
+        change.new if change.owner is w_impact_category else w_impact_category.value
+    )
+    if not activity:
+        w_details.clear_output()
+    if not search and not impact_category:
+        w_results.clear_output()
+
     # right panel
     biosphere_name = bw2data.preferences.get("biosphere_database", "")
     biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
@@ -211,7 +214,7 @@ def compute(change):
         for a in VISITED
     ]
     w_panel.value = STATSTYLE + (
-        f"<div><b>database size</b>: {len(bw2data.Database(w_database.value))}</div>"
+        f"<div><b>database size</b>: {len(bw2data.Database(database))}</div>"
         f"<div><b>biosphere name</b>: {biosphere_name}</div>"
         f"<div><b>biosphere size</b>: {len(biosphere)}</div>"
         f"{('<ul>⛏️  Breadcrumb: ' + ''.join(breadcrumb)) if len(breadcrumb)>1 else ''}"
