@@ -79,7 +79,7 @@ def display_characterization_factors(cfs):
     w_details.clear_output()
     display(
         Markdown(
-            f"# Characterization factors for <b>{w_impact_category.value}</b> in {w_method.value}"
+            f"# {len(cfs.data)} Characterization factors for <b>{w_impact_category.value}</b> in {w_method.value}"
         )
     )
     display(ipywidgets.HTML(cfs.to_html()))
