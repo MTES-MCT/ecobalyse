@@ -23,6 +23,7 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 * `make export_textile` : pour exporter les json pour le builder textile
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make shell` : lance un shell à l'intérieur du conteneur
+* `make jupyter_password` : définit le mot de passe jupyter. Doit être lancé avant son démarrage.
 * `make root_shell` : lance un shell root à l'intérieur du conteneur
 * `make start_notebook` : lance le serveur Jupyter dans le conteneur
 * `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur

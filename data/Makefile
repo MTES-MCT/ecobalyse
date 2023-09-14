@@ -56,6 +56,12 @@ shell:
 		$(DOCKEREXEC) $(NAME) bash;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
 
+jupyter_password:
+	echo starting a user shell inside the container...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) $(NAME) jupyter notebook password;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) jupyter notebook password; fi
+
 start_notebook:
 	$(DOCKERRUN) -d --name $(NAME) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
 	docker cp ~/.gitconfig $(NAME):/home/jovyan/
