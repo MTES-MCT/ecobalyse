@@ -3,6 +3,7 @@ module Views.ImpactTabs exposing
     , Tab(..)
     , configForFood
     , configForTextile
+    , createConfig
     , view
     )
 
@@ -24,17 +25,19 @@ type Tab
     | SubscoresTab
 
 
-type alias Config =
-    { trigram : Trigram
-    , total : Impacts
-    , totalComplementsImpact : Impact.ComplementsImpacts
+type alias Config msg =
+    { activeImpactsTab : Tab
     , scoring : Scoring
     , steps : Impact.StepsImpacts
+    , switchImpactsTab : Tab -> msg
+    , total : Impacts
+    , totalComplementsImpact : Impact.ComplementsImpacts
+    , trigram : Trigram
     }
 
 
-view : Definitions -> Tab -> (Tab -> msg) -> Config -> Html msg
-view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComplementsImpact, scoring, steps } =
+view : Definitions -> Config msg -> Html msg
+view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComplementsImpact, scoring, steps } =
     CardTabs.view
         { tabs =
             (if trigram == Definition.Ecs then
@@ -103,18 +106,31 @@ view definitions activeImpactsTab switchImpactsTab { trigram, total, totalComple
         }
 
 
-configForFood : Definition.Trigram -> Recipe.Results -> Config
-configForFood trigram results =
-    { trigram = trigram
-    , total = results.total
-    , totalComplementsImpact = results.recipe.totalComplementsImpact
-    , scoring = results.scoring
-    , steps = Recipe.toStepsImpacts trigram results
+createConfig : Tab -> (Tab -> msg) -> Config msg
+createConfig activeImpactsTab switchImpactsTab =
+    { activeImpactsTab = activeImpactsTab
+    , switchImpactsTab = switchImpactsTab
+    , trigram = Definition.Ecs
+    , total = Impact.empty
+    , totalComplementsImpact = Impact.noComplementsImpacts
+    , scoring = Scoring.empty
+    , steps = Impact.noStepsImpacts
     }
 
 
-configForTextile : Definitions -> Definition.Trigram -> Simulator -> Config
-configForTextile definitions trigram simulator =
+configForFood : Definition.Trigram -> Recipe.Results -> Config msg -> Config msg
+configForFood trigram results config =
+    { config
+        | trigram = trigram
+        , total = results.total
+        , totalComplementsImpact = results.recipe.totalComplementsImpact
+        , scoring = results.scoring
+        , steps = Recipe.toStepsImpacts trigram results
+    }
+
+
+configForTextile : Definitions -> Definition.Trigram -> Simulator -> Config msg -> Config msg
+configForTextile definitions trigram simulator config =
     let
         -- TODO: compute the complements once we have them in the database
         totalComplementsImpact =
@@ -126,11 +142,12 @@ configForTextile definitions trigram simulator =
                 |> Array.toList
                 |> Impact.sumImpacts
     in
-    { trigram = trigram
-    , total = totalImpactsWithoutComplements
-    , totalComplementsImpact = totalComplementsImpact
-    , scoring =
-        totalImpactsWithoutComplements
-            |> Scoring.compute definitions totalComplementsImpact.total
-    , steps = Simulator.toStepsImpacts trigram simulator
+    { config
+        | trigram = trigram
+        , total = totalImpactsWithoutComplements
+        , totalComplementsImpact = totalComplementsImpact
+        , scoring =
+            totalImpactsWithoutComplements
+                |> Scoring.compute definitions totalComplementsImpact.total
+        , steps = Simulator.toStepsImpacts trigram simulator
     }

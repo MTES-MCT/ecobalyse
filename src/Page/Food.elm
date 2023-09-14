@@ -52,11 +52,10 @@ import Views.Component.MassInput as MassInput
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Score as ScoreView
+import Views.Sidebar as SidebarView
 import Views.Transport as TransportView
 
 
@@ -99,7 +98,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
     | SwitchComparisonType ComparatorView.ComparisonType
-    | SwitchLinksTab BookmarkView.ActiveTab
+    | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
@@ -351,7 +350,7 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SwitchLinksTab bookmarkTab ->
+        SwitchBookmarksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
@@ -426,15 +425,6 @@ selectIngredient session autocompleteState ( model, _, _ ) =
 
 
 -- Views
-
-
-absoluteImpactView : Model -> Recipe.Results -> Html Msg
-absoluteImpactView model results =
-    ScoreView.view
-        { impactDefinition = model.impact
-        , score = results.total
-        , mass = results.preparedMass
-        }
 
 
 type alias AddProcessConfig msg =
@@ -1308,34 +1298,32 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
 
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
-    div
-        [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
-        , style "top" "7px"
-        ]
-        [ ImpactView.impactSelector
-            session.textileDb.impactDefinitions
-            { selectedImpact = model.impact.trigram
-            , switchImpact = SwitchImpact
-            }
-        , absoluteImpactView model results
-        , results
-            |> ImpactTabs.configForFood model.impact.trigram
-            |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
-        , BookmarkView.view
-            { session = session
-            , activeTab = model.bookmarkTab
-            , bookmarkName = model.bookmarkName
-            , impact = model.impact
-            , scope = Scope.Food
-            , viewMode = ViewMode.Simple
-            , copyToClipBoard = CopyToClipBoard
-            , compare = OpenComparator
-            , delete = DeleteBookmark
-            , save = SaveBookmark
-            , update = UpdateBookmarkName
-            , switchTab = SwitchLinksTab
-            }
-        ]
+    SidebarView.view
+        { session = session
+        , impactDefinition = model.impact
+        , productMass = results.preparedMass
+        , scope = Scope.Food
+        , totalImpacts = results.total
+        , viewMode = ViewMode.Simple
+
+        -- Impact selector
+        , switchImpact = SwitchImpact
+
+        -- Impacts tabs
+        , impactTabsConfig =
+            ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                |> ImpactTabs.configForFood model.impact.trigram results
+
+        -- Bookmarks
+        , activeBookmarkTab = model.bookmarkTab
+        , bookmarkName = model.bookmarkName
+        , copyToClipBoard = CopyToClipBoard
+        , compareBookmarks = OpenComparator
+        , deleteBookmark = DeleteBookmark
+        , saveBookmark = SaveBookmark
+        , updateBookmarkName = UpdateBookmarkName
+        , switchBookmarkTab = SwitchBookmarksTab
+        }
 
 
 stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
