@@ -226,7 +226,8 @@ def compute(change):
                     (
                         g[0][1],
                         bw2data.Database(g[0][0]).get(g[0][1]),
-                        " | ".join(g[1]),
+                        ("Multiple values: " if len(g[1]) > 1 else "")
+                        + " | ".join(g[1]),
                         bw2data.methods[(method, impact_category)]["unit"],
                     )
                     for g in grouped.items()
