@@ -1300,19 +1300,21 @@ sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
         { session = session
-        , impactDefinition = model.impact
-        , productMass = results.preparedMass
         , scope = Scope.Food
-        , totalImpacts = results.total
         , viewMode = ViewMode.Simple
 
         -- Impact selector
+        , selectedImpact = model.impact
         , switchImpact = SwitchImpact
+
+        -- Score
+        , productMass = results.preparedMass
+        , totalImpacts = results.total
 
         -- Impacts tabs
         , impactTabsConfig =
             ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
-                |> ImpactTabs.configForFood model.impact.trigram results
+                |> ImpactTabs.forFood model.impact.trigram results
 
         -- Bookmarks
         , activeBookmarkTab = model.bookmarkTab

@@ -17,14 +17,16 @@ import Views.Score as ScoreView
 
 type alias Config msg =
     { session : Session
-    , impactDefinition : Definition
-    , productMass : Mass
     , scope : Scope
-    , totalImpacts : Impacts
     , viewMode : ViewMode
 
     -- Impact selector
+    , selectedImpact : Definition
     , switchImpact : Result String Trigram -> msg
+
+    -- Score
+    , productMass : Mass
+    , totalImpacts : Impacts
 
     -- Impacts tabs
     , impactTabsConfig : ImpactTabs.Config msg
@@ -49,11 +51,11 @@ view config =
         ]
         [ ImpactView.selector
             config.session.textileDb.impactDefinitions
-            { selectedImpact = config.impactDefinition.trigram
+            { selectedImpact = config.selectedImpact.trigram
             , switchImpact = config.switchImpact
             }
         , ScoreView.view
-            { impactDefinition = config.impactDefinition
+            { impactDefinition = config.selectedImpact
             , score = config.totalImpacts
             , mass = config.productMass
             }
@@ -63,7 +65,7 @@ view config =
             { session = config.session
             , activeTab = config.activeBookmarkTab
             , bookmarkName = config.bookmarkName
-            , impact = config.impactDefinition
+            , impact = config.selectedImpact
             , scope = config.scope
             , viewMode = config.viewMode
             , copyToClipBoard = config.copyToClipBoard

@@ -591,19 +591,21 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
             [ -- REMOVE ME
               SidebarView.view
                 { session = session
-                , impactDefinition = model.impact
-                , productMass = inputs.mass
                 , scope = Scope.Textile
-                , totalImpacts = impacts
                 , viewMode = model.viewMode
 
                 -- Impact selector
+                , selectedImpact = model.impact
                 , switchImpact = SwitchImpact
+
+                -- Score
+                , productMass = inputs.mass
+                , totalImpacts = impacts
 
                 -- Impacts tabs
                 , impactTabsConfig =
                     ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
-                        |> ImpactTabs.configForTextile session.textileDb.impactDefinitions model.impact.trigram simulator
+                        |> ImpactTabs.forTextile session.textileDb.impactDefinitions model.impact.trigram simulator
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
