@@ -73,7 +73,7 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
-    | IngredientModal (Autocomplete Ingredient)
+    | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
 
 
 type Msg
@@ -250,12 +250,12 @@ update ({ queries } as session) msg model =
 
         OnAutocomplete autocompleteMsg ->
             case model.modal of
-                IngredientModal autocompleteState ->
+                AddIngredientModal maybeOldIngredient autocompleteState ->
                     let
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model | modal = IngredientModal newAutocompleteState }
+                    ( { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
                     , session
                     , Cmd.map OnAutocomplete autoCompleteCmd
                     )
@@ -265,10 +265,32 @@ update ({ queries } as session) msg model =
 
         OnAutocompleteSelect ->
             case model.modal of
-                IngredientModal autocompleteState ->
-                    model
-                        |> update session (SetModal NoModal)
-                        |> selectIngredient autocompleteState
+                AddIngredientModal maybeOldIngredient autocompleteState ->
+                    Maybe.map2
+                        (\oldIngredient newIngredient ->
+                            -- Update an existing ingredient
+                            let
+                                ingredientQuery : Query.IngredientQuery
+                                ingredientQuery =
+                                    { id = newIngredient.id
+                                    , mass = oldIngredient.mass
+                                    , country = Nothing
+                                    , planeTransport = Ingredient.byPlaneByDefault newIngredient
+                                    , complements = Just oldIngredient.complements
+                                    }
+                            in
+                            model
+                                |> update session (SetModal NoModal)
+                                |> updateQuery (Query.updateIngredient oldIngredient.ingredient.id ingredientQuery query)
+                        )
+                        maybeOldIngredient
+                        (Autocomplete.selectedValue autocompleteState)
+                        |> Maybe.withDefault
+                            -- Add a new ingredient
+                            (model
+                                |> update session (SetModal NoModal)
+                                |> selectIngredient autocompleteState
+                            )
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -318,7 +340,7 @@ update ({ queries } as session) msg model =
                 ComparatorModal ->
                     Ports.addBodyClass "prevent-scrolling"
 
-                IngredientModal _ ->
+                AddIngredientModal _ _ ->
                     Cmd.batch
                         [ Ports.addBodyClass "prevent-scrolling"
                         , Dom.focus "ingredient-search"
@@ -543,25 +565,8 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         , db.ingredients
             |> List.sortBy .name
             |> ingredientSelectorView
-                recipeIngredient.ingredient.id
+                recipeIngredient
                 excluded
-                (\newIngredient ->
-                    event
-                        { ingredientQuery
-                            | id = newIngredient.id
-                            , country = Nothing
-                            , planeTransport = Ingredient.byPlaneByDefault newIngredient
-                            , complements =
-                                if newIngredient.id /= recipeIngredient.ingredient.id then
-                                    Just newIngredient.complements
-
-                                else if newIngredient.complements /= recipeIngredient.complements then
-                                    Just recipeIngredient.complements
-
-                                else
-                                    Nothing
-                        }
-                )
         , db.countries
             |> Scope.only Scope.Food
             |> List.sortBy .name
@@ -852,6 +857,14 @@ errorView error =
 
 ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
+    let
+        availableIngredients =
+            db.ingredients
+                |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
+
+        autocompleteState =
+            AutoCompleteSelector.init availableIngredients
+    in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
@@ -893,18 +906,13 @@ ingredientListView db selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ let
-                    availableIngredients =
-                        db.ingredients
-                            |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
-                 in
-                 li [ class "list-group-item p-0" ]
+            ++ [ li [ class "list-group-item p-0" ]
                     [ button
                         [ class "btn btn-outline-primary"
                         , class "d-flex justify-content-center align-items-center"
                         , class " gap-1 w-100"
                         , disabled <| List.isEmpty availableIngredients
-                        , onClick (SetModal (IngredientModal (AutoCompleteSelector.init availableIngredients)))
+                        , onClick (SetModal (AddIngredientModal Nothing autocompleteState))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -1248,35 +1256,28 @@ processSelectorView selectedCode event excluded processes =
         )
 
 
-ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
-ingredientSelectorView selectedIngredient excluded event ingredients =
-    select
-        [ class "form-select form-select IngredientSelector"
-        , onInput
-            (\ingredientId ->
-                ingredients
-                    |> Ingredient.findByID (Ingredient.idFromString ingredientId)
-                    |> Result.map event
-                    |> Result.withDefault NoOp
-            )
+ingredientSelectorView : Recipe.RecipeIngredient -> List Id -> List Ingredient -> Html Msg
+ingredientSelectorView selectedIngredient excluded ingredients =
+    let
+        availableIngredients =
+            ingredients
+                |> Recipe.availableIngredients excluded
+
+        autocompleteState =
+            AutoCompleteSelector.init availableIngredients
+    in
+    div
+        [ class "form-select IngredientSelector"
+        , style "overflow" "hidden"
+        , style "white-space" "nowrap"
+        , onClick (SetModal (AddIngredientModal (Just selectedIngredient) autocompleteState))
         ]
-        (ingredients
-            |> Ingredient.groupCategories
-            |> List.map
-                (\( category, categoryIngredients ) ->
-                    categoryIngredients
-                        |> List.map
-                            (\ingredient ->
-                                option
-                                    [ selected <| selectedIngredient == ingredient.id
-                                    , disabled <| List.member ingredient.id excluded
-                                    , value <| Ingredient.idToString ingredient.id
-                                    ]
-                                    [ text ingredient.name ]
-                            )
-                        |> optgroup [ category |> IngredientCategory.toLabel |> attribute "label" ]
-                )
-        )
+        [ span
+            [ style "display" "block"
+            , style "overflow" "hidden"
+            ]
+            [ text selectedIngredient.ingredient.name ]
+        ]
 
 
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
@@ -1396,79 +1397,84 @@ view session model =
                         , footer = []
                         }
 
-                IngredientModal autocompleteState ->
-                    ModalView.view
-                        { size = ModalView.Large
-                        , close = SetModal NoModal
-                        , noOp = NoOp
-                        , title = "Sélectionnez un ingrédient"
-                        , subTitle = Nothing
-                        , formAction = Nothing
-                        , content =
-                            let
-                                { query, choices, selectedIndex } =
-                                    Autocomplete.viewState autocompleteState
-
-                                { inputEvents, choiceEvents } =
-                                    AutocompleteView.events
-                                        { onSelect = OnAutocompleteSelect
-                                        , mapHtml = OnAutocomplete
-                                        }
-
-                                renderChoice : (Int -> List (Attribute Msg)) -> Maybe Int -> Int -> Ingredient -> Html Msg
-                                renderChoice events selectedIndex_ index ingredient =
-                                    let
-                                        selected =
-                                            Autocomplete.isSelected selectedIndex_ index
-                                    in
-                                    button
-                                        (events index
-                                            ++ [ class "IngredientAutocompleteChoice"
-                                               , class "d-flex justify-content-between align-items-center gap-1 w-100"
-                                               , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
-                                               , classList [ ( "btn-primary selected", selected ) ]
-                                               , attribute "role" "option"
-                                               , attribute "aria-selected"
-                                                    (if selected then
-                                                        "true"
-
-                                                     else
-                                                        "false"
-                                                    )
-                                               ]
-                                        )
-                                        [ span [ class "text-nowrap" ] [ text ingredient.name ]
-                                        , span [ class "text-muted fs-8 text-truncate" ]
-                                            [ ingredient.categories
-                                                |> List.head
-                                                |> Maybe.map (IngredientCategory.toLabel >> text)
-                                                |> Maybe.withDefault (text "")
-                                            ]
-                                        ]
-                            in
-                            [ input
-                                (inputEvents
-                                    ++ [ type_ "search"
-                                       , id "ingredient-search"
-                                       , class "form-control"
-                                       , autocomplete False
-                                       , attribute "role" "combobox"
-                                       , attribute "aria-autocomplete" "list"
-                                       , attribute "aria-owns" "ingredients-autocomplete-choices"
-                                       , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
-                                       , value query
-                                       ]
-                                )
-                                []
-                            , choices
-                                |> List.indexedMap (renderChoice choiceEvents selectedIndex)
-                                |> div [ class "IngredientAutocomplete", id "ingredients-autocomplete-choices" ]
-                            ]
-                        , footer = []
-                        }
+                AddIngredientModal _ autocompleteState ->
+                    ingredientAutocompleteView autocompleteState
             ]
       ]
     )
+
+
+ingredientAutocompleteView : Autocomplete Ingredient -> Html Msg
+ingredientAutocompleteView autocompleteState =
+    ModalView.view
+        { size = ModalView.Large
+        , close = SetModal NoModal
+        , noOp = NoOp
+        , title = "Sélectionnez un ingrédient"
+        , subTitle = Nothing
+        , formAction = Nothing
+        , content =
+            let
+                { query, choices, selectedIndex } =
+                    Autocomplete.viewState autocompleteState
+
+                { inputEvents, choiceEvents } =
+                    AutocompleteView.events
+                        { onSelect = OnAutocompleteSelect
+                        , mapHtml = OnAutocomplete
+                        }
+
+                renderChoice : (Int -> List (Attribute Msg)) -> Maybe Int -> Int -> Ingredient -> Html Msg
+                renderChoice events selectedIndex_ index ingredient =
+                    let
+                        selected =
+                            Autocomplete.isSelected selectedIndex_ index
+                    in
+                    button
+                        (events index
+                            ++ [ class "IngredientAutocompleteChoice"
+                               , class "d-flex justify-content-between align-items-center gap-1 w-100"
+                               , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
+                               , classList [ ( "btn-primary selected", selected ) ]
+                               , attribute "role" "option"
+                               , attribute "aria-selected"
+                                    (if selected then
+                                        "true"
+
+                                     else
+                                        "false"
+                                    )
+                               ]
+                        )
+                        [ span [ class "text-nowrap" ] [ text ingredient.name ]
+                        , span [ class "text-muted fs-8 text-truncate" ]
+                            [ ingredient.categories
+                                |> List.head
+                                |> Maybe.map (IngredientCategory.toLabel >> text)
+                                |> Maybe.withDefault (text "")
+                            ]
+                        ]
+            in
+            [ input
+                (inputEvents
+                    ++ [ type_ "search"
+                       , id "ingredient-search"
+                       , class "form-control"
+                       , autocomplete False
+                       , attribute "role" "combobox"
+                       , attribute "aria-autocomplete" "list"
+                       , attribute "aria-owns" "ingredients-autocomplete-choices"
+                       , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
+                       , value query
+                       ]
+                )
+                []
+            , choices
+                |> List.indexedMap (renderChoice choiceEvents selectedIndex)
+                |> div [ class "IngredientAutocomplete", id "ingredients-autocomplete-choices" ]
+            ]
+        , footer = []
+        }
 
 
 subscriptions : Model -> Sub Msg

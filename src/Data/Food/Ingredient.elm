@@ -14,7 +14,6 @@ module Data.Food.Ingredient exposing
     , encodePlaneTransport
     , findByID
     , getDefaultOriginTransport
-    , groupCategories
     , idFromString
     , idToString
     )
@@ -33,7 +32,6 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length
-import List.Extra as LE
 
 
 type alias Ingredient =
@@ -225,17 +223,6 @@ getDefaultOriginTransport planeTransport origin =
 
             else
                 { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
-
-
-groupCategories : List Ingredient -> List ( IngredientCategory.Category, List Ingredient )
-groupCategories =
-    let
-        getFirst =
-            List.head >> Maybe.withDefault IngredientCategory.Misc
-    in
-    List.sortBy (.categories >> getFirst >> IngredientCategory.toLabel)
-        >> LE.groupWhile (\a b -> getFirst a.categories == getFirst b.categories)
-        >> List.map (\( first, rest ) -> ( getFirst first.categories, first :: rest ))
 
 
 linkProcess : Dict String Process -> Decoder Process
