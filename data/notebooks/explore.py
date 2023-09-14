@@ -22,6 +22,7 @@ TEXTILEDB = "Ecoinvent 3.9.1"
 FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
 VISITED = []  # visited activities since the last search
+LIMIT = 100
 
 # widgets
 w_panel = ipywidgets.HTML(value=STATSTYLE)
@@ -33,7 +34,7 @@ w_project = ipywidgets.Dropdown(
 w_database = ipywidgets.Dropdown(value="", options=[""], description="DATABASE")
 w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 w_method = ipywidgets.Dropdown(options=[], description="METHOD")
-w_limit = ipywidgets.BoundedIntText(value=10, min=0, step=1, description="LIMIT")
+w_limit = ipywidgets.IntText(value=LIMIT, step=1, description="LIMIT")
 w_activity = ipywidgets.Dropdown(options=[], description="ACTIVITY")
 w_results = ipywidgets.Output(value="Résultat")
 w_details = ipywidgets.Output(value="Détails")
@@ -67,7 +68,9 @@ def display_results(results):
     if len(results) == 0:
         display(Markdown("(No results)"))
     else:
-        display(Markdown("## Results"))
+        display(
+            Markdown(f"## {('+' if len(results)==LIMIT else '')}{len(results)} results")
+        )
         html = pandas.io.formats.style.Styler(
             pandas.DataFrame(results, columns=["name", "code", "location"])
         )
@@ -241,7 +244,14 @@ def compute(change):
 
     # Changed search
     logging.info(VISITED)
-    if VISITED and len(VISITED) == 1 and search and database and method:
+    if (
+        VISITED
+        and len(VISITED) == 1
+        and search
+        and database
+        and method
+        and not activity
+    ):
         return display_results(
             list(bw2data.Database(database).search(search, limit=limit))
         )
@@ -249,11 +259,11 @@ def compute(change):
     # IMPACTS
     if not activity or not database or not method:
         return
-    display_main_data(search, method, impact_category, activity)
+    display_main_data(method, impact_category, activity)
 
 
 @w_details.capture()
-def display_main_data(search, method, impact_category, activity):
+def display_main_data(method, impact_category, activity):
     w_details.clear_output()
     w_results.clear_output()
     display(Markdown(f"# (Computing...)"))
