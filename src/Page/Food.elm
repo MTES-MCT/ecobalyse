@@ -97,8 +97,8 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchBookmarksTab BookmarkView.ActiveTab
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
@@ -326,6 +326,12 @@ update ({ queries } as session) msg model =
                         ]
             )
 
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
         SwitchComparisonType displayChoice ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
@@ -346,12 +352,6 @@ update ({ queries } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchBookmarksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )

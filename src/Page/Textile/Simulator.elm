@@ -87,10 +87,10 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
+    | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
-    | SwitchBookmarksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -262,6 +262,12 @@ update ({ textileDb, queries, navKey } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
         SwitchComparisonType displayChoice ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
@@ -282,12 +288,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchBookmarksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
