@@ -25,6 +25,7 @@ module Data.Textile.Inputs exposing
     , toString
     , toggleStep
     , updateMaterial
+    , updateMaterialAt
     , updateMaterialShare
     , updateMaterialSpinning
     , updateProduct
@@ -447,44 +448,19 @@ toggleStep label query =
     }
 
 
-addMaterial : TextileDb.Db -> Query -> Query
-addMaterial db query =
+addMaterial : Material -> Query -> Query
+addMaterial material query =
     let
-        ( length, polyester, elasthanne ) =
-            ( List.length query.materials
-            , Material.Id "pet"
-            , Material.Id "pu"
-            )
-
-        notUsed id =
-            query.materials
-                |> List.map .id
-                |> List.member id
-                |> not
-
-        newMaterialId =
-            if length == 1 && notUsed polyester then
-                Just polyester
-
-            else if length == 2 && notUsed elasthanne then
-                Just elasthanne
-
-            else
-                db.materials
-                    |> List.filter (.id >> notUsed)
-                    |> List.sortBy .priority
-                    |> List.map .id
-                    |> LE.last
-    in
-    case newMaterialId of
-        Just id ->
-            { query
-                | materials =
-                    query.materials ++ [ { id = id, share = Split.zero, spinning = Nothing } ]
+        materialQuery =
+            { id = material.id
+            , share = Split.zero
+            , spinning = Nothing
             }
-
-        Nothing ->
-            query
+    in
+    { query
+        | materials =
+            query.materials ++ [ materialQuery ]
+    }
 
 
 updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query
@@ -492,10 +468,15 @@ updateMaterialAt index update query =
     { query | materials = query.materials |> LE.updateAt index update }
 
 
-updateMaterial : Int -> Material -> Query -> Query
-updateMaterial index { id } =
-    -- Note: The first material country is always extracted and applied in `fromQuery`.
-    updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share, spinning = Nothing })
+updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
+updateMaterial oldMaterialId newMaterial query =
+    { query
+        | materials =
+            query.materials
+                |> LE.updateIf
+                    (.id >> (==) oldMaterialId)
+                    (\({ share } as m) -> { m | id = newMaterial.id, share = share, spinning = Nothing })
+    }
 
 
 updateMaterialShare : Int -> Split -> Query -> Query

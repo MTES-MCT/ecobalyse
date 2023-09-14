@@ -1,6 +1,4 @@
-module Data.AutoCompleteSelector exposing (init)
-
--- import Autocomplete.View as AutocompleteView
+module Data.AutocompleteSelector exposing (init)
 
 import Autocomplete exposing (Autocomplete)
 import String.Normalize as Normalize

@@ -8,6 +8,8 @@ module Page.Textile.Simulator exposing
     )
 
 import Array
+import Autocomplete exposing (Autocomplete)
+import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -25,6 +27,7 @@ import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -41,6 +44,7 @@ import Route
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
@@ -70,13 +74,16 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
+    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
 
 
 type Msg
-    = AddMaterial
+    = AddMaterial Material
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnAutocomplete (Autocomplete.Msg Material)
+    | OnAutocompleteSelect
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -201,9 +208,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
             queries.textile
     in
     case msg of
-        AddMaterial ->
+        AddMaterial material ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.addMaterial textileDb query)
+                |> updateQuery (Inputs.addMaterial material query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -222,6 +229,51 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
+
+        OnAutocomplete autocompleteMsg ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+                    , session
+                    , Cmd.map OnAutocomplete autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteSelect ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    Maybe.map2
+                        (\oldMaterial newMaterial ->
+                            -- Update an existing Material
+                            let
+                                materialQuery : Inputs.MaterialQuery
+                                materialQuery =
+                                    { id = newMaterial.id
+                                    , share = oldMaterial.share
+                                    , spinning = Nothing
+                                    }
+                            in
+                            model
+                                |> update session (SetModal NoModal)
+                                |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+                        )
+                        maybeOldMaterial
+                        (Autocomplete.selectedValue autocompleteState)
+                        |> Maybe.withDefault
+                            -- Add a new Material
+                            (model
+                                |> update session (SetModal NoModal)
+                                |> selectMaterial autocompleteState
+                            )
+
+                _ ->
+                    ( model, session, Cmd.none )
 
         RemoveMaterial index ->
             ( model, session, Cmd.none )
@@ -256,7 +308,22 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Ports.selectInputText index )
 
         SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
+            ( { model | modal = modal }
+            , session
+            , case modal of
+                NoModal ->
+                    Ports.removeBodyClass "prevent-scrolling"
+
+                ComparatorModal ->
+                    Ports.addBodyClass "prevent-scrolling"
+
+                AddMaterialModal _ _ ->
+                    Cmd.batch
+                        [ Ports.addBodyClass "prevent-scrolling"
+                        , Dom.focus "ingredient-search"
+                            |> Task.attempt (always NoOp)
+                        ]
+            )
 
         SwitchBookmarksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
@@ -365,7 +432,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
             case Material.findById materialId textileDb.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateMaterial index material query)
+                        |> updateQuery (Inputs.updateMaterialAt index (\({ share } as m) -> { m | id = material.id, share = share, spinning = Nothing }) query)
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
@@ -410,6 +477,22 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectMaterial autocompleteState ( model, session, _ ) =
+    let
+        material =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+
+        msg =
+            material
+                |> Maybe.map AddMaterial
+                |> Maybe.withDefault NoOp
+    in
+    update session msg model
 
 
 massField : String -> Html Msg
@@ -531,11 +614,11 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
             , MaterialView.formSet
                 { materials = textileDb.materials
                 , inputs = inputs.materials
-                , add = AddMaterial
                 , remove = RemoveMaterial
                 , update = UpdateMaterial
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
+                , selectMaterial = \maybeMaterial autocompleteState -> SetModal (AddMaterialModal maybeMaterial autocompleteState)
                 }
             , div []
                 [ lifeCycleStepsView textileDb model simulator
@@ -614,6 +697,18 @@ view session model =
                                     ]
                                 , footer = []
                                 }
+
+                        AddMaterialModal _ autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocomplete
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
+                                , title = "Sélectionnez une matière première"
+                                , toCategory = .origin >> Origin.toString >> (++) "Matières "
+                                }
                     ]
 
                 Err error ->
@@ -636,4 +731,7 @@ subscriptions { modal } =
             Sub.none
 
         ComparatorModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+
+        AddMaterialModal _ _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

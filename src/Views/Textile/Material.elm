@@ -1,5 +1,7 @@
 module Views.Textile.Material exposing (formSet)
 
+import Autocomplete exposing (Autocomplete)
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Env as Env
 import Data.Split as Split exposing (Split)
 import Data.Textile.Inputs as Inputs
@@ -13,16 +15,16 @@ import Views.Icon as Icon
 type alias FormSetConfig msg =
     { materials : List Material
     , inputs : List Inputs.MaterialInput
-    , add : msg
     , remove : Int -> msg
     , update : Int -> Material.Id -> msg
     , updateShare : Int -> Split -> msg
     , selectInputText : String -> msg
+    , selectMaterial : Maybe Inputs.MaterialInput -> Autocomplete Material -> msg
     }
 
 
 formSet : FormSetConfig msg -> Html msg
-formSet ({ add, inputs } as config) =
+formSet ({ inputs, selectMaterial } as config) =
     let
         ( length, exclude ) =
             ( List.length inputs
@@ -36,6 +38,13 @@ formSet ({ add, inputs } as config) =
 
         valid =
             round (totalShares * 100) == 100
+
+        availableMaterials =
+            config.materials
+                |> List.filter (\{ id } -> not (List.member id exclude))
+
+        autocompleteState =
+            AutocompleteSelector.init availableMaterials
     in
     div [ class "Materials" ]
         [ div [ class "d-flex align-items-end gap-1 mb-2" ]
@@ -46,13 +55,15 @@ formSet ({ add, inputs } as config) =
             ]
         , inputs
             |> List.indexedMap
-                (\index ->
+                (\index input ->
                     field config
                         { index = index
                         , length = length
                         , exclude = exclude
                         , valid = valid
                         }
+                        (selectMaterial (Just input) autocompleteState)
+                        input
                 )
             |> div [ class "d-flex flex-column gap-1" ]
         , div [ class "input-group mt-1" ]
@@ -79,7 +90,7 @@ formSet ({ add, inputs } as config) =
             , button
                 [ class "btn btn-outline-primary flex-fill"
                 , class "d-flex justify-content-center align-items-center gap-1 no-outline"
-                , onClick add
+                , onClick (selectMaterial Nothing autocompleteState)
                 , disabled <| length >= Env.maxMaterials
                 ]
                 [ Icon.plus
@@ -97,9 +108,10 @@ field :
         , exclude : List Material.Id
         , valid : Bool
         }
+    -> msg
     -> Inputs.MaterialInput
     -> Html msg
-field config { index, length, exclude, valid } input =
+field config { index, length, valid } selectMaterial input =
     div [ class "mb-2" ]
         [ [ if length > 1 then
                 [ button
@@ -122,59 +134,27 @@ field config { index, length, exclude, valid } input =
                     , selectInputText = config.selectInputText
                     , update = config.updateShare
                     }
-          , input.material.id
-                |> materialSelector index
-                    { materials = config.materials
-                    , exclude = exclude
-                    , update = config.update
-                    }
+          , materialSelector selectMaterial input
           ]
             |> List.concat
             |> div [ class "input-group" ]
         ]
 
 
-materialSelector :
-    Int
-    ->
-        { materials : List Material
-        , exclude : List Material.Id
-        , update : Int -> Material.Id -> msg
-        }
-    -> Material.Id
-    -> List (Html msg)
-materialSelector index { materials, exclude, update } id =
-    let
-        ( natural, synthetic, artificial ) =
-            Material.groupAll materials
-
-        toOption m =
-            option
-                [ value <| Material.idToString m.id
-                , selected <| id == m.id
-                , disabled <| List.member m.id exclude
-                , title m.name
-                ]
-                [ text m.shortName ]
-
-        toGroup name materials_ =
-            if materials_ == [] then
-                text ""
-
-            else
-                materials_
-                    |> List.map toOption
-                    |> optgroup [ attribute "label" name ]
-    in
-    [ [ toGroup "Matières naturelles" natural
-      , toGroup "Matières synthétiques" synthetic
-      , toGroup "Matières artificielles" artificial
-      ]
-        |> select
-            [ Attr.id "material"
-            , class "form-select flex-fill"
-            , onInput (Material.Id >> update index)
+materialSelector : msg -> Inputs.MaterialInput -> List (Html msg)
+materialSelector event selectedMaterial =
+    [ div
+        [ class "form-select MaterialSelector"
+        , style "overflow" "hidden"
+        , style "white-space" "nowrap"
+        , onClick event
+        ]
+        [ span
+            [ style "display" "block"
+            , style "overflow" "hidden"
             ]
+            [ text selectedMaterial.material.name ]
+        ]
     ]
 
 

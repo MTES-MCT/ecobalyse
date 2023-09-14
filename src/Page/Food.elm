@@ -12,7 +12,7 @@ import Autocomplete.View as AutocompleteView
 import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
-import Data.AutoCompleteSelector as AutoCompleteSelector
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
@@ -863,7 +863,7 @@ ingredientListView db selectedImpact recipe results =
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
 
         autocompleteState =
-            AutoCompleteSelector.init availableIngredients
+            AutocompleteSelector.init availableIngredients
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
@@ -1264,7 +1264,7 @@ ingredientSelectorView selectedIngredient excluded ingredients =
                 |> Recipe.availableIngredients excluded
 
         autocompleteState =
-            AutoCompleteSelector.init availableIngredients
+            AutocompleteSelector.init availableIngredients
     in
     div
         [ class "form-select IngredientSelector"
