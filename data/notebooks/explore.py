@@ -217,10 +217,9 @@ def compute(change):
         return
     # METHOD CFs
     if not search and not activity and impact_category:
-        lines = bw2data.Method((method, impact_category)).load() if method else []
         grouped = {}
-        for l in lines:
-            grouped[l[0]] = grouped.get(l[0], ()) + (str(l[1]),)
+        for line in bw2data.Method((method, impact_category)).load() if method else []:
+            grouped[line[0]] = grouped.get(line[0], ()) + (str(line[1]),)
         cfs = pandas.io.formats.style.Styler(
             pandas.DataFrame(
                 [
