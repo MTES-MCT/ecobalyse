@@ -64,13 +64,15 @@ def display_results(results):
     w_activity.options = [("", "")] + [
         (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
     ]
-    if len(results) == 0 and w_search.value:
+    if len(results) == 0:
         display(Markdown("(No results)"))
-        return
     else:
         display(Markdown("## Results"))
-        with pandas.option_context("display.max_colwidth", None):
-            display(pandas.DataFrame(results, columns=["name", "code", "location"]))
+        html = pandas.io.formats.style.Styler(
+            pandas.DataFrame(results, columns=["name", "code", "location"])
+        )
+        html.set_properties(**{"background-color": "#EEE"})
+        display(ipywidgets.HTML(html.to_html()))
 
 
 @w_results.capture()
@@ -177,24 +179,24 @@ def compute(change):
         w_details.clear_output()
         return
     if project == "food" and FOODDB in databases:
-        w_database.value = (
+        database = w_database.value = (
             w_database.value if w_database.value in bw2data.databases else FOODDB
         )
     elif project == "textile" and TEXTILEDB in databases:
-        w_database.value = (
+        database = w_database.value = (
             w_database.value if w_database.value in bw2data.databases else TEXTILEDB
         )
     else:
-        w_database.value = ""
+        database = w_database.value = ""
     # default method
     if not list(bw2data.methods):
         w_results.clear_output()
         w_details.clear_output()
         return
     if project == "food" and METHOD in methods and not w_method.value:
-        w_method.value = METHOD
+        method = w_method.value = METHOD
     elif project == "textile" and METHOD in methods and not w_method.value:
-        w_method.value = METHOD
+        method = w_method.value = METHOD
 
     # right panel
     biosphere_name = bw2data.preferences.get("biosphere_database", "")
@@ -239,14 +241,11 @@ def compute(change):
 
     # Changed search
     logging.info(VISITED)
-    if VISITED and len(VISITED) == 1 and search and database:
-        results = list(bw2data.Database(database).search(search, limit=limit))
-        display_results(results)
-        if not activity:
-            return
+    if VISITED and len(VISITED) == 1 and search and database and method:
+        return display_results(
+            list(bw2data.Database(database).search(search, limit=limit))
+        )
 
-    w_details.clear_output()
-    w_results.clear_output()
     # IMPACTS
     if not activity or not database or not method:
         return
@@ -255,6 +254,8 @@ def compute(change):
 
 @w_details.capture()
 def display_main_data(search, method, impact_category, activity):
+    w_details.clear_output()
+    w_results.clear_output()
     display(Markdown(f"# (Computing...)"))
     lca = bw2calc.LCA({activity: 1})
     scores = []
