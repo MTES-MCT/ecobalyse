@@ -158,6 +158,10 @@ def compute(change):
     search = change.new if change.owner is w_search else w_search.value
     limit = change.new if change.owner is w_limit else w_limit.value
 
+    if change.owner is w_search:
+        VISITED = [search]
+        w_activity.value = None
+
     # We changed the project
     projects.activate_project(project)
     databases = [""] + list(bw2data.databases)
