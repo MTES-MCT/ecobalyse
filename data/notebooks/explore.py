@@ -270,12 +270,14 @@ def display_right_panel(database):
 
 @w_details.capture()
 def display_main_data(database, method, impact_category, activity):
-    w_details.clear_output()
-    w_results.clear_output()
 
     display_right_panel(database)
 
-    display(Markdown(f"# (Computing...)"))
+    w_details.clear_output()
+    w_results.clear_output()
+    display(Markdown(f"# (Computing impacts...)"))
+
+    # Impacts
     lca = bw2calc.LCA({activity: 1})
     scores = []
     try:
@@ -306,6 +308,9 @@ def display_main_data(database, method, impact_category, activity):
 
     # ACTIVITY DATA
     activity_fields = f"{production}" + dict2html(activity)
+
+    w_details.clear_output()
+    display(Markdown(f"# (Retrieving technosphere...)"))
 
     # TECHNOSPHERE
     technosphere_widgets = []
@@ -346,6 +351,9 @@ def display_main_data(database, method, impact_category, activity):
                 ],
             )
         )
+
+    w_details.clear_output()
+    display(Markdown(f"# (Retrieving biosphere...)"))
 
     # BIOSPHERE
     biosphere = []
