@@ -153,7 +153,7 @@ materialSelector event selectedMaterial =
             [ style "display" "block"
             , style "overflow" "hidden"
             ]
-            [ text selectedMaterial.material.name ]
+            [ text selectedMaterial.material.shortName ]
         ]
     ]
 

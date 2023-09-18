@@ -7,24 +7,21 @@ import Html.Attributes exposing (..)
 import Views.Modal as ModalView
 
 
-type alias Element a =
-    { a | name : String }
-
-
 type alias Config msg a =
-    { autocompleteState : Autocomplete (Element a)
+    { autocompleteState : Autocomplete a
     , closeModal : msg
     , noOp : msg
-    , onAutocomplete : Autocomplete.Msg (Element a) -> msg
+    , onAutocomplete : Autocomplete.Msg a -> msg
     , onAutocompleteSelect : msg
     , placeholderText : String
     , title : String
-    , toCategory : Element a -> String
+    , toLabel : a -> String
+    , toCategory : a -> String
     }
 
 
 view : Config msg a -> Html msg
-view { autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title, toCategory } =
+view { autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title, toLabel, toCategory } =
     ModalView.view
         { size = ModalView.Large
         , close = closeModal
@@ -43,7 +40,7 @@ view { autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect
                         , mapHtml = onAutocomplete
                         }
 
-                renderChoice : (Int -> List (Attribute msg)) -> Maybe Int -> Int -> Element a -> Html msg
+                renderChoice : (Int -> List (Attribute msg)) -> Maybe Int -> Int -> a -> Html msg
                 renderChoice events selectedIndex_ index element =
                     let
                         selected =
@@ -65,7 +62,7 @@ view { autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect
                                     )
                                ]
                         )
-                        [ span [ class "text-nowrap" ] [ text element.name ]
+                        [ span [ class "text-nowrap" ] [ text <| toLabel element ]
                         , span [ class "text-muted fs-8 text-truncate" ]
                             [ text <| toCategory element ]
                         ]
