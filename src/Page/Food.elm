@@ -8,7 +8,6 @@ module Page.Food exposing
     )
 
 import Autocomplete exposing (Autocomplete)
-import Autocomplete.View as AutocompleteView
 import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
@@ -44,6 +43,7 @@ import Route
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
@@ -1398,83 +1398,25 @@ view session model =
                         }
 
                 AddIngredientModal _ autocompleteState ->
-                    ingredientAutocompleteView autocompleteState
+                    -- ingredientAutocompleteView autocompleteState
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocomplete
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
+                        , title = "Sélectionnez un ingrédient"
+                        , toLabel = .name
+                        , toCategory =
+                            .categories
+                                >> List.head
+                                >> Maybe.map IngredientCategory.toLabel
+                                >> Maybe.withDefault ""
+                        }
             ]
       ]
     )
-
-
-ingredientAutocompleteView : Autocomplete Ingredient -> Html Msg
-ingredientAutocompleteView autocompleteState =
-    ModalView.view
-        { size = ModalView.Large
-        , close = SetModal NoModal
-        , noOp = NoOp
-        , title = "Sélectionnez un ingrédient"
-        , subTitle = Nothing
-        , formAction = Nothing
-        , content =
-            let
-                { query, choices, selectedIndex } =
-                    Autocomplete.viewState autocompleteState
-
-                { inputEvents, choiceEvents } =
-                    AutocompleteView.events
-                        { onSelect = OnAutocompleteSelect
-                        , mapHtml = OnAutocomplete
-                        }
-
-                renderChoice : (Int -> List (Attribute Msg)) -> Maybe Int -> Int -> Ingredient -> Html Msg
-                renderChoice events selectedIndex_ index ingredient =
-                    let
-                        selected =
-                            Autocomplete.isSelected selectedIndex_ index
-                    in
-                    button
-                        (events index
-                            ++ [ class "IngredientAutocompleteChoice"
-                               , class "d-flex justify-content-between align-items-center gap-1 w-100"
-                               , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
-                               , classList [ ( "btn-primary selected", selected ) ]
-                               , attribute "role" "option"
-                               , attribute "aria-selected"
-                                    (if selected then
-                                        "true"
-
-                                     else
-                                        "false"
-                                    )
-                               ]
-                        )
-                        [ span [ class "text-nowrap" ] [ text ingredient.name ]
-                        , span [ class "text-muted fs-8 text-truncate" ]
-                            [ ingredient.categories
-                                |> List.head
-                                |> Maybe.map (IngredientCategory.toLabel >> text)
-                                |> Maybe.withDefault (text "")
-                            ]
-                        ]
-            in
-            [ input
-                (inputEvents
-                    ++ [ type_ "search"
-                       , id "ingredient-search"
-                       , class "form-control"
-                       , autocomplete False
-                       , attribute "role" "combobox"
-                       , attribute "aria-autocomplete" "list"
-                       , attribute "aria-owns" "ingredients-autocomplete-choices"
-                       , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
-                       , value query
-                       ]
-                )
-                []
-            , choices
-                |> List.indexedMap (renderChoice choiceEvents selectedIndex)
-                |> div [ class "IngredientAutocomplete", id "ingredients-autocomplete-choices" ]
-            ]
-        , footer = []
-        }
 
 
 subscriptions : Model -> Sub Msg
