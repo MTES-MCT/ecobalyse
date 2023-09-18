@@ -77,6 +77,7 @@
 * [Limites méthodologiques](textile/limites-methodologiques/README.md)
   * [OLD](textile/limites-methodologiques/old/README.md)
     * [🌍 Fin de vie hors Europe](textile/limites-methodologiques/old/fin-de-vie-hors-europe.md)
+    * [🐠 Microfibres](textile/limites-methodologiques/old/microfibres.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
