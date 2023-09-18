@@ -26,7 +26,7 @@ COPY requirements.txt .
 
 USER root
 RUN apt update \
-    && apt install -y gosu \
+    && apt install -y gosu vim \
     && pip install -r /home/$NB_USER/requirements.txt \
     && rm /home/$NB_USER/requirements.txt \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
