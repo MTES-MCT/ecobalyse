@@ -32,7 +32,6 @@ type ActivePage
     | Home
     | Other
     | Stats
-    | TextileExamples
     | TextileSimulator
 
 
@@ -132,7 +131,6 @@ mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
     , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
     ]

@@ -1,6 +1,5 @@
 module Data.Unit exposing
-    ( Functional(..)
-    , Impact
+    ( Impact
     , ImpactUnit(..)
     , PickPerMeter(..)
     , Quality(..)
@@ -26,13 +25,10 @@ module Data.Unit exposing
     , forKg
     , forKgAndDistance
     , forMJ
-    , functionalToSlug
-    , functionalToString
     , gramsPerSquareMeter
     , impact
     , impactAggregateScore
     , impactToFloat
-    , inFunctionalUnit
     , maxQuality
     , maxReparability
     , maxSurfaceMass
@@ -41,7 +37,6 @@ module Data.Unit exposing
     , minReparability
     , minSurfaceMass
     , minYarnSize
-    , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
     , quality
@@ -69,55 +64,12 @@ module Data.Unit exposing
     )
 
 import Area exposing (Area)
-import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
-import Url.Parser as Parser exposing (Parser)
-
-
-
--- Functional unit
-
-
-type Functional
-    = PerDayOfWear
-    | PerItem
-
-
-functionalToString : Functional -> String
-functionalToString funit =
-    case funit of
-        PerDayOfWear ->
-            "par jour d'utilisation"
-
-        PerItem ->
-            "par vêtement"
-
-
-functionalToSlug : Functional -> String
-functionalToSlug funit =
-    case funit of
-        PerDayOfWear ->
-            "per-day"
-
-        PerItem ->
-            "per-item"
-
-
-parseFunctional : Parser (Functional -> a) a
-parseFunctional =
-    Parser.custom "FUNCTIONAL_UNIT" <|
-        \string ->
-            case string of
-                "per-day" ->
-                    Just PerDayOfWear
-
-                _ ->
-                    Just PerItem
 
 
 
@@ -522,16 +474,6 @@ decodeImpact =
 encodeImpact : Impact -> Encode.Value
 encodeImpact =
     impactToFloat >> Encode.float
-
-
-inFunctionalUnit : Functional -> Duration -> Impact -> Impact
-inFunctionalUnit funit daysOfWear =
-    case funit of
-        PerItem ->
-            identity
-
-        PerDayOfWear ->
-            Quantity.divideBy (Duration.inDays daysOfWear)
 
 
 

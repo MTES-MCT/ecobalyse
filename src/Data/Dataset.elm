@@ -12,6 +12,7 @@ module Data.Dataset exposing
 
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
+import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
@@ -29,6 +30,7 @@ type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
     | FoodIngredients (Maybe Ingredient.Id)
+    | FoodProcesses (Maybe FoodProcess.Identifier)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -40,7 +42,9 @@ datasets scope =
         :: Countries Nothing
         :: (case scope of
                 Scope.Food ->
-                    [ FoodIngredients Nothing ]
+                    [ FoodIngredients Nothing
+                    , FoodProcesses Nothing
+                    ]
 
                 Scope.Textile ->
                     [ TextileProducts Nothing
@@ -58,6 +62,9 @@ fromSlug string =
 
         "ingredients" ->
             FoodIngredients Nothing
+
+        "food-processes" ->
+            FoodProcesses Nothing
 
         "products" ->
             TextileProducts Nothing
@@ -82,6 +89,9 @@ isDetailed dataset =
             True
 
         FoodIngredients (Just _) ->
+            True
+
+        FoodProcesses (Just _) ->
             True
 
         TextileProducts (Just _) ->
@@ -119,6 +129,9 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
+        FoodProcesses _ ->
+            FoodProcesses Nothing
+
         TextileProducts _ ->
             TextileProducts Nothing
 
@@ -139,6 +152,9 @@ same a b =
             True
 
         ( FoodIngredients _, FoodIngredients _ ) ->
+            True
+
+        ( FoodProcesses _, FoodProcesses _ ) ->
             True
 
         ( TextileProducts _, TextileProducts _ ) ->
@@ -165,6 +181,9 @@ setIdFromString idString dataset =
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
+
+        FoodProcesses _ ->
+            FoodProcesses (Just (FoodProcess.codeFromString idString))
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -193,6 +212,9 @@ strings dataset =
         FoodIngredients _ ->
             { slug = "ingredients", label = "Ingrédients" }
 
+        FoodProcesses _ ->
+            { slug = "food-processes", label = "Procédés" }
+
         TextileProducts _ ->
             { slug = "products", label = "Produits" }
 
@@ -212,14 +234,20 @@ toRoutePath dataset =
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
 
-        Impacts Nothing ->
-            []
-
         FoodIngredients Nothing ->
             [ slug dataset ]
 
         FoodIngredients (Just id) ->
             [ slug dataset, Ingredient.idToString id ]
+
+        FoodProcesses Nothing ->
+            [ slug dataset ]
+
+        FoodProcesses (Just id) ->
+            [ slug dataset, FoodProcess.codeToString id ]
+
+        Impacts Nothing ->
+            []
 
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]

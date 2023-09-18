@@ -77,7 +77,19 @@ table _ { detailed, scope } =
           }
         , { label = "Procédé"
           , toValue = .default >> .name >> Process.nameToString
-          , toCell = .default >> .name >> Process.nameToString >> text
+          , toCell =
+                \{ default } ->
+                    div []
+                        [ code [] [ text <| Process.codeToString default.code ]
+                        , div [ class "cursor-help", title <| Process.nameToString default.name ]
+                            [ text <| Process.nameToString default.name ]
+                        , case default.comment of
+                            Just comment ->
+                                em [ class "cursor-help", title comment ] [ text comment ]
+
+                            Nothing ->
+                                text ""
+                        ]
           }
         , { label = "Compléments"
           , toValue = always "N/A"

@@ -6,7 +6,6 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as TextileInputs
-import Data.Unit as Unit
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -15,7 +14,6 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Examples as TextileExamples
 import Page.Textile.Simulator as TextileSimulator
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
@@ -43,7 +41,6 @@ type Page
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
-    | TextileExamplesPage TextileExamples.Model
     | TextileSimulatorPage TextileSimulator.Model
 
 
@@ -75,7 +72,6 @@ type Msg
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | TextileExamplesMsg TextileExamples.Msg
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -175,16 +171,12 @@ setRoute url ( { state } as model, cmds ) =
                     Stats.init session
                         |> toPage StatsPage StatsMsg
 
-                Just Route.TextileExamples ->
-                    TextileExamples.init session
-                        |> toPage TextileExamplesPage TextileExamplesMsg
-
                 Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Unit.PerItem ViewMode.Simple Nothing session
+                    TextileSimulator.init Impact.default ViewMode.Simple Nothing session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
-                Just (Route.TextileSimulator trigram funit detailed maybeQuery) ->
-                    TextileSimulator.init trigram funit detailed maybeQuery session
+                Just (Route.TextileSimulator trigram detailed maybeQuery) ->
+                    TextileSimulator.init trigram detailed maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->
@@ -237,10 +229,6 @@ update rawMsg ({ state } as model) =
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
-                    TextileExamples.update session examplesMsg examplesModel
-                        |> toPage TextileExamplesPage TextileExamplesMsg
 
                 ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
                     TextileSimulator.update session counterMsg counterModel
@@ -400,11 +388,6 @@ view { state, mobileNavigationOpened } =
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
-
-                TextileExamplesPage examplesModel ->
-                    TextileExamples.view session examplesModel
-                        |> mapMsg TextileExamplesMsg
-                        |> Page.frame (pageConfig Page.TextileExamples)
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel

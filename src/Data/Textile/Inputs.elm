@@ -16,9 +16,7 @@ module Data.Textile.Inputs exposing
     , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
-    , presets
     , removeMaterial
-    , stepsToStrings
     , tShirtCotonAsie
     , tShirtCotonFrance
     , toQuery
@@ -586,16 +584,6 @@ tShirtCotonFrance =
     }
 
 
-tShirtCotonEurope : Query
-tShirtCotonEurope =
-    -- T-shirt circuit Europe
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "TR"
-        , countryDyeing = Country.Code "TN"
-        , countryMaking = Country.Code "ES"
-    }
-
-
 tShirtCotonIndia : Query
 tShirtCotonIndia =
     -- T-shirt circuit Inde
@@ -640,69 +628,6 @@ jupeCircuitAsie =
     , printing = Nothing
     , ennoblingHeatSource = Nothing
     }
-
-
-manteauCircuitEurope : Query
-manteauCircuitEurope =
-    -- Manteau circuit Europe
-    { mass = Mass.kilograms 0.95
-    , materials = [ { id = Material.Id "cachemire", share = Split.full, spinning = Nothing } ]
-    , product = Product.Id "manteau"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "TR"
-    , countryDyeing = Country.Code "TN"
-    , countryMaking = Country.Code "ES"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
-pantalonCircuitEurope : Query
-pantalonCircuitEurope =
-    -- Pantalon circuit Europe
-    { mass = Mass.kilograms 0.45
-    , materials = [ { id = Material.Id "lin-filasse", share = Split.full, spinning = Nothing } ]
-    , product = Product.Id "pantalon"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "TR"
-    , countryDyeing = Country.Code "TR"
-    , countryMaking = Country.Code "TR"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
-presets : List Query
-presets =
-    [ tShirtCotonFrance
-    , tShirtCotonEurope
-    , tShirtCotonAsie
-    , jupeCircuitAsie
-    , manteauCircuitEurope
-    , pantalonCircuitEurope
-    ]
 
 
 buildApiQuery : String -> Query -> String

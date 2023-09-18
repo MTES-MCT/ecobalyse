@@ -1,7 +1,4 @@
-module Views.Textile.Step exposing
-    ( stepIcon
-    , view
-    )
+module Views.Textile.Step exposing (view)
 
 import Data.Country as Country
 import Data.Env as Env
@@ -44,7 +41,6 @@ type alias Config msg =
     , daysOfWear : Duration
     , viewMode : ViewMode
     , impact : Definition
-    , funit : Unit.Functional
     , index : Int
     , current : Step
     , next : Maybe Step
@@ -241,7 +237,7 @@ knittingProcessField { inputs, updateKnittingProcess } =
         [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
         , [ Knitting.Mix
           , Knitting.FullyFashioned
-          , Knitting.Seamless
+          , Knitting.Integral
           , Knitting.Circular
           , Knitting.Straight
           ]
@@ -425,7 +421,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
         , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-        , if inputs.knittingProcess == Just Knitting.Seamless then
+        , if inputs.knittingProcess == Just Knitting.Integral then
             text "Non applicable"
 
           else
@@ -475,7 +471,7 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
             , disabled =
                 not current.enabled
                     || (inputs.knittingProcess == Just Knitting.FullyFashioned)
-                    || (inputs.knittingProcess == Just Knitting.Seamless)
+                    || (inputs.knittingProcess == Just Knitting.Integral)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }
@@ -603,7 +599,7 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg -> ViewWithTransport msg
-simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
+simpleView ({ inputs, impact, current } as config) =
     { step =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
@@ -657,7 +653,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         [ if current.label /= Label.Distribution then
                             div [ class "fs-3 fw-normal text-secondary" ]
                                 [ current.impacts
-                                    |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                                    |> Format.formatImpact impact
                                 ]
 
                           else
@@ -671,7 +667,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
 
 viewTransport : Config msg -> Html msg
-viewTransport ({ funit, daysOfWear, impact, current } as config) =
+viewTransport ({ impact, current } as config) =
     div []
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
@@ -690,7 +686,7 @@ viewTransport ({ funit, daysOfWear, impact, current } as config) =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                        |> Format.formatImpact impact
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
@@ -779,7 +775,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
 
 
 detailedView : Config msg -> ViewWithTransport msg
-detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
+detailedView ({ inputs, impact, current } as config) =
     let
         infoListElement =
             ul
@@ -874,7 +870,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, current } as config) =
                     [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
-                                |> Format.formatTextileSelectedImpact funit daysOfWear impact
+                                |> Format.formatImpact impact
                             ]
 
                       else

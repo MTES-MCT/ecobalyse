@@ -13,6 +13,7 @@ import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
@@ -26,6 +27,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodIngredients as FoodIngredients
+import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Table as Table
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -68,6 +70,9 @@ init foodDb scope dataset session =
 
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
+
+                Dataset.FoodProcesses _ ->
+                    "Nom"
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"
@@ -276,6 +281,33 @@ foodIngredientsExplorer tableConfig tableState maybeId db =
     ]
 
 
+foodProcessesExplorer :
+    Table.Config FoodProcess.Process Msg
+    -> SortableTable.State
+    -> Maybe FoodProcess.Identifier
+    -> FoodDb.Db
+    -> List (Html Msg)
+foodProcessesExplorer tableConfig tableState maybeId db =
+    [ db.processes
+        |> List.sortBy (.name >> FoodProcess.nameToString)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case FoodProcess.findByIdentifier id db.processes of
+                    Ok process ->
+                        process
+                            |> Table.viewDetails Scope.Food (FoodProcesses.table db)
+
+                    Err error ->
+                        alert error
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 textileProductsExplorer :
     Table.Config Product Msg
     -> SortableTable.State
@@ -380,6 +412,10 @@ explore { textileDb } { foodDb, scope, dataset, tableState } =
         Dataset.FoodIngredients maybeId ->
             foodDb
                 |> foodIngredientsExplorer tableConfig tableState maybeId
+
+        Dataset.FoodProcesses maybeId ->
+            foodDb
+                |> foodProcessesExplorer tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileDb |> textileMaterialsExplorer tableConfig tableState maybeId

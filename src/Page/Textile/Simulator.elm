@@ -51,23 +51,21 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
+import Views.Sidebar as SidebarView
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
-import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
     { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonType : ComparatorView.ComparisonType
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
     , impact : Definition
-    , funit : Unit.Functional
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -82,7 +80,6 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | RemoveMaterial Int
     | Reset
@@ -90,10 +87,10 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
-    | SwitchFunctionalUnit Unit.Functional
+    | SwitchBookmarksTab BookmarkView.ActiveTab
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
-    | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -120,12 +117,11 @@ type Msg
 
 init :
     Definition.Trigram
-    -> Unit.Functional
     -> ViewMode
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
+init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -140,6 +136,7 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -147,9 +144,7 @@ init trigram funit viewMode maybeUrlQuery ({ textileDb } as session) =
       , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = Definition.get trigram textileDb.impactDefinitions
-      , funit = funit
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -226,12 +221,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
-
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -273,20 +262,20 @@ update ({ textileDb, queries, navKey } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
-        SwitchFunctionalUnit funit ->
-            ( model
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
             , session
-            , Just query
-                |> Route.TextileSimulator model.impact.trigram funit model.viewMode
-                |> Route.toString
-                |> Navigation.pushUrl navKey
+            , Cmd.none
             )
+
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         SwitchImpact (Ok trigram) ->
             ( model
             , session
             , Just query
-                |> Route.TextileSimulator trigram model.funit model.viewMode
+                |> Route.TextileSimulator trigram model.viewMode
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -299,12 +288,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchLinksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -478,7 +461,7 @@ productField db product =
 
 
 lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { viewMode, funit, impact } simulator =
+lifeCycleStepsView db { viewMode, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -487,7 +470,6 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , inputs = simulator.inputs
                     , viewMode = viewMode
                     , impact = impact
-                    , funit = funit
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
@@ -537,8 +519,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-displayModeView : Definition.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
-displayModeView trigram funit viewMode query =
+displayModeView : Definition.Trigram -> ViewMode -> Inputs.Query -> Html Msg
+displayModeView trigram viewMode query =
     let
         tab mode icon label =
             a
@@ -547,7 +529,7 @@ displayModeView trigram funit viewMode query =
                     , ( "active", ViewMode.isActive viewMode mode )
                     ]
                 , Just query
-                    |> Route.TextileSimulator trigram funit mode
+                    |> Route.TextileSimulator trigram mode
                     |> Route.href
                 ]
                 [ span [ class "fs-7 me-1" ] [ icon ], text label ]
@@ -563,9 +545,9 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs, impacts } as simulator) =
     div [ class "row" ]
-        [ div [ class "col-lg-7" ]
+        [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
@@ -586,7 +568,7 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                 , selectInputText = SelectInputText
                 }
             , session.queries.textile
-                |> displayModeView impact.trigram funit viewMode
+                |> displayModeView impact.trigram viewMode
             , if viewMode == ViewMode.Dataviz then
                 Dataviz.view textileDb.impactDefinitions simulator
 
@@ -605,42 +587,35 @@ simulatorView ({ textileDb } as session) ({ impact, funit, viewMode } as model) 
                         ]
                     ]
             ]
-        , div [ class "col-lg-5 bg-white" ]
-            [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                (ImpactView.selector
-                    textileDb.impactDefinitions
-                    { selectedImpact = model.impact.trigram
-                    , switchImpact = SwitchImpact
-                    , selectedFunctionalUnit = model.funit
-                    , switchFunctionalUnit = SwitchFunctionalUnit
-                    }
-                    :: (model.simulator
-                            |> SummaryView.view
-                                { session = session
-                                , impact = model.impact
-                                , funit = model.funit
-                                , reusable = False
-                                , activeImpactsTab = model.activeImpactsTab
-                                , switchImpactsTab = SwitchImpactsTab
-                                }
-                       )
-                    ++ [ BookmarkView.view
-                            { session = session
-                            , activeTab = model.bookmarkTab
-                            , bookmarkName = model.bookmarkName
-                            , impact = model.impact
-                            , funit = model.funit
-                            , scope = Scope.Textile
-                            , viewMode = model.viewMode
-                            , copyToClipBoard = CopyToClipBoard
-                            , compare = OpenComparator
-                            , delete = DeleteBookmark
-                            , save = SaveBookmark
-                            , update = UpdateBookmarkName
-                            , switchTab = SwitchLinksTab
-                            }
-                       ]
-                )
+        , div [ class "col-lg-4 bg-white" ]
+            [ SidebarView.view
+                { session = session
+                , scope = Scope.Textile
+                , viewMode = model.viewMode
+
+                -- Impact selector
+                , selectedImpact = model.impact
+                , switchImpact = SwitchImpact
+
+                -- Score
+                , productMass = inputs.mass
+                , totalImpacts = impacts
+
+                -- Impacts tabs
+                , impactTabsConfig =
+                    ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                        |> ImpactTabs.forTextile session.textileDb.impactDefinitions model.impact.trigram simulator
+
+                -- Bookmarks
+                , activeBookmarkTab = model.bookmarkTab
+                , bookmarkName = model.bookmarkName
+                , copyToClipBoard = CopyToClipBoard
+                , compareBookmarks = OpenComparator
+                , deleteBookmark = DeleteBookmark
+                , saveBookmark = SaveBookmark
+                , updateBookmarkName = UpdateBookmarkName
+                , switchBookmarkTab = SwitchBookmarksTab
+                }
             ]
         ]
 
@@ -661,25 +636,16 @@ view session model =
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title =
-                                    "Comparateur de simulations sauvegardées\u{00A0}: "
-                                        ++ model.impact.label
-                                        ++ ", "
-                                        ++ Unit.functionalToString model.funit
-                                , subTitle = Nothing
+                                , title = "Comparateur de simulations sauvegardées"
+                                , subTitle = Just "en score d'impact, par produit"
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparatorView.comparator
+                                    [ ComparatorView.view
                                         { session = session
                                         , impact = model.impact
-                                        , options =
-                                            ComparatorView.textileOptions
-                                                { funit = model.funit
-                                                , daysOfWear = simulator.daysOfWear
-                                                }
+                                        , comparisonType = model.comparisonType
+                                        , switchComparisonType = SwitchComparisonType
                                         , toggle = ToggleComparedSimulation
-                                        , chartHovering = model.chartHovering
-                                        , onChartHover = OnChartHover
                                         }
                                     ]
                                 , footer = []

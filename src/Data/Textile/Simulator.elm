@@ -3,6 +3,7 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , lifeCycleImpacts
+    , toStepsImpacts
     )
 
 import Array
@@ -612,3 +613,32 @@ updateLifeCycleStep label update =
 updateLifeCycleSteps : List Label -> (Step -> Step) -> Simulator -> Simulator
 updateLifeCycleSteps labels update =
     updateLifeCycle (LifeCycle.updateSteps labels update)
+
+
+toStepsImpacts : Definition.Trigram -> Simulator -> Impact.StepsImpacts
+toStepsImpacts trigram simulator =
+    let
+        getImpacts label =
+            LifeCycle.getStep label simulator.lifeCycle
+                |> Maybe.map .impacts
+                |> Maybe.withDefault Impact.empty
+
+        getImpact =
+            Impact.getImpact trigram
+                >> Just
+    in
+    { materials = getImpacts Label.Material |> getImpact
+    , transform =
+        [ getImpacts Label.Spinning
+        , getImpacts Label.Fabric
+        , getImpacts Label.Ennobling
+        , getImpacts Label.Making
+        ]
+            |> Impact.sumImpacts
+            |> getImpact
+    , packaging = Nothing
+    , transports = getImpact simulator.transport.impacts
+    , distribution = Nothing
+    , usage = getImpacts Label.Use |> getImpact
+    , endOfLife = getImpacts Label.EndOfLife |> getImpact
+    }

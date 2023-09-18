@@ -20,7 +20,6 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Data.Unit as Unit
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Page.Textile.Simulator.ViewMode as ViewMode
@@ -99,9 +98,7 @@ toFoodWebUrl trigram foodQuery =
 toTextileWebUrl : Maybe Definition.Trigram -> Inputs.Inputs -> String
 toTextileWebUrl maybeTrigram textileQuery =
     Just (Inputs.toQuery textileQuery)
-        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram)
-            Unit.PerItem
-            ViewMode.Simple
+        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram) ViewMode.Simple
         |> WebRoute.toString
 
 

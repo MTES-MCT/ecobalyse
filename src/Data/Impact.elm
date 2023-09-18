@@ -14,13 +14,12 @@ module Data.Impact exposing
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
-    , grabImpactFloat
     , mapImpacts
     , noComplementsImpacts
+    , noStepsImpacts
     , parseTrigram
     , perKg
     , stepsImpactsAsChartEntries
-    , stepsImpactsPerKg
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
@@ -30,7 +29,6 @@ module Data.Impact exposing
 import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -111,6 +109,18 @@ type alias StepsImpacts =
     }
 
 
+noStepsImpacts : StepsImpacts
+noStepsImpacts =
+    { materials = Nothing
+    , transform = Nothing
+    , packaging = Nothing
+    , transports = Nothing
+    , distribution = Nothing
+    , usage = Nothing
+    , endOfLife = Nothing
+    }
+
+
 stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
 stepsImpactsAsChartEntries stepsImpacts =
     [ ( "Matières premières", stepsImpacts.materials, Color.purple )
@@ -121,30 +131,18 @@ stepsImpactsAsChartEntries stepsImpacts =
     , ( "Utilisation", stepsImpacts.usage, Color.yellow )
     , ( "Fin de vie", stepsImpacts.endOfLife, Color.turquoise )
     ]
-        |> List.filterMap
+        |> List.map
             (\( label, maybeValue, color ) ->
-                maybeValue
-                    |> Maybe.map (\value -> Just { name = label, value = Unit.impactToFloat value, color = color })
-                    |> Maybe.withDefault Nothing
+                { name = label
+                , color = color
+                , value =
+                    -- All categories MUST be filled in order to allow comparing Food and Textile simulations
+                    -- So, when we don't have a value for a given step, we fallback to zero
+                    maybeValue
+                        |> Maybe.map Unit.impactToFloat
+                        |> Maybe.withDefault 0
+                }
             )
-
-
-mapStepsImpacts : (Maybe Unit.Impact -> Maybe Unit.Impact) -> StepsImpacts -> StepsImpacts
-mapStepsImpacts fn ({ materials, transform, packaging, transports, distribution, usage, endOfLife } as stepsImpacts) =
-    { stepsImpacts
-        | materials = fn materials
-        , transform = fn transform
-        , packaging = fn packaging
-        , transports = fn transports
-        , distribution = fn distribution
-        , usage = fn usage
-        , endOfLife = fn endOfLife
-    }
-
-
-stepsImpactsPerKg : Mass -> StepsImpacts -> StepsImpacts
-stepsImpactsPerKg mass =
-    mapStepsImpacts (Maybe.map (Quantity.divideBy (Mass.inKilograms mass)))
 
 
 
@@ -228,14 +226,6 @@ insertWithoutAggregateComputation trigram impact (Impacts impacts) =
 getImpact : Trigram -> Impacts -> Unit.Impact
 getImpact trigram (Impacts impacts) =
     Definition.get trigram impacts
-
-
-grabImpactFloat : Unit.Functional -> Duration -> Trigram -> { a | impacts : Impacts } -> Float
-grabImpactFloat funit daysOfWear trigram { impacts } =
-    impacts
-        |> getImpact trigram
-        |> Unit.inFunctionalUnit funit daysOfWear
-        |> Unit.impactToFloat
 
 
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts

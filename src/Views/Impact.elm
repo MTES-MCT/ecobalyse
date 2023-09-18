@@ -1,13 +1,11 @@
 module Views.Impact exposing
     ( impactQuality
-    , impactSelector
     , selector
     , viewDefinition
     )
 
 import Data.Gitbook as Gitbook
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -107,13 +105,11 @@ viewSource source =
 type alias SelectorConfig msg =
     { selectedImpact : Definition.Trigram
     , switchImpact : Result String Definition.Trigram -> msg
-    , selectedFunctionalUnit : Unit.Functional
-    , switchFunctionalUnit : Unit.Functional -> msg
     }
 
 
-impactSelector : Definitions -> SelectorConfig msg -> Html msg
-impactSelector definitions { selectedImpact, switchImpact } =
+selector : Definitions -> SelectorConfig msg -> Html msg
+selector definitions { selectedImpact, switchImpact } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -122,45 +118,19 @@ impactSelector definitions { selectedImpact, switchImpact } =
                 ]
                 [ text label ]
     in
-    select
-        [ class "form-select"
-        , onInput (Definition.toTrigram >> switchImpact)
+    div [ class "ImpactSelector input-group" ]
+        [ select
+            [ class "form-select"
+            , onInput (Definition.toTrigram >> switchImpact)
+            ]
+            [ Definition.toList definitions
+                |> List.filter (.trigram >> Definition.isAggregate)
+                |> List.map toOption
+                |> optgroup [ attribute "label" "Impacts agrégés" ]
+            , Definition.toList definitions
+                |> List.filter (.trigram >> Definition.isAggregate >> not)
+                |> List.sortBy .label
+                |> List.map toOption
+                |> optgroup [ attribute "label" "Impacts détaillés" ]
+            ]
         ]
-        [ Definition.toList definitions
-            |> List.filter (.trigram >> Definition.isAggregate)
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , Definition.toList definitions
-            |> List.filter (.trigram >> Definition.isAggregate >> not)
-            |> List.sortBy .label
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts détaillés" ]
-        ]
-
-
-funitSelector : SelectorConfig msg -> List (Html msg)
-funitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
-    [ ( Unit.PerItem, Icon.tShirt )
-    , ( Unit.PerDayOfWear, Icon.day )
-    ]
-        |> List.map
-            (\( funit, icon ) ->
-                button
-                    [ type_ "button"
-                    , title <| Unit.functionalToString funit
-                    , class "btn d-flex align-items-center gap-1"
-                    , classList
-                        [ ( "btn-primary", funit == selectedFunctionalUnit )
-                        , ( "btn-outline-primary", funit /= selectedFunctionalUnit )
-                        ]
-                    , onClick (switchFunctionalUnit funit)
-                    ]
-                    [ icon ]
-            )
-
-
-selector : Definitions -> SelectorConfig msg -> Html msg
-selector definitions config =
-    impactSelector definitions config
-        :: funitSelector config
-        |> div [ class "ImpactSelector input-group" ]

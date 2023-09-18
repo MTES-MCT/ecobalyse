@@ -1,11 +1,9 @@
 module Views.Format exposing
     ( days
     , formatFloat
-    , formatFoodSelectedImpact
-    , formatFoodSelectedImpactPerKg
+    , formatImpact
     , formatImpactFloat
     , formatRichFloat
-    , formatTextileSelectedImpact
     , hours
     , kg
     , kgToString
@@ -47,24 +45,9 @@ formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
 
 
-formatFoodSelectedImpact : Definition -> Impacts -> Html msg
-formatFoodSelectedImpact { trigram, unit, decimals } =
+formatImpact : Definition -> Impacts -> Html msg
+formatImpact { trigram, unit, decimals } =
     Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatRichFloat decimals unit
-
-
-formatFoodSelectedImpactPerKg : Definition -> Impacts -> Html msg
-formatFoodSelectedImpactPerKg { trigram, unit, decimals } =
-    Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatRichFloat decimals (unit ++ "/kg")
-
-
-formatTextileSelectedImpact : Unit.Functional -> Duration -> Definition -> Impacts -> Html msg
-formatTextileSelectedImpact funit daysOfWear { trigram, unit, decimals } =
-    Impact.getImpact trigram
-        >> Unit.inFunctionalUnit funit daysOfWear
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
 

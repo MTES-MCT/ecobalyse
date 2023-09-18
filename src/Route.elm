@@ -11,7 +11,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
-import Data.Unit as Unit
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
@@ -27,9 +26,8 @@ type Route
     | Explore Scope Dataset
     | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
-    | TextileExamples
     | TextileSimulatorHome
-    | TextileSimulator Definition.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
+    | TextileSimulator Definition.Trigram ViewMode (Maybe TextileQuery.Query)
     | Stats
 
 
@@ -64,19 +62,13 @@ parser =
                 </> FoodQuery.parseBase64Query
             )
 
-        --
         -- Textile specific routes
-        --
-        , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
-
-        -- Textile Simulator
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
         , Parser.map TextileSimulator
             (Parser.s "textile"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> TextileQuery.parseBase64Query
             )
@@ -160,26 +152,21 @@ toString route =
                 FoodBuilder trigram (Just query) ->
                     [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
 
-                TextileExamples ->
-                    [ "textile", "examples" ]
-
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
 
-                TextileSimulator trigram funit viewMode (Just query) ->
+                TextileSimulator trigram viewMode (Just query) ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     , TextileQuery.b64encode query
                     ]
 
-                TextileSimulator trigram funit viewMode Nothing ->
+                TextileSimulator trigram viewMode Nothing ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     ]
 

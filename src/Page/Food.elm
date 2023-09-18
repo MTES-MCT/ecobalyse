@@ -49,15 +49,13 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
-import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
-import Views.Textile.ComparativeChart as ComparativeChart
+import Views.Sidebar as SidebarView
 import Views.Transport as TransportView
 
 
@@ -66,10 +64,8 @@ type alias Model =
     , impact : Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , comparisonUnit : ComparatorView.FoodComparisonUnit
-    , displayChoice : ComparatorView.DisplayChoice
+    , comparisonType : ComparatorView.ComparisonType
     , modal : Modal
-    , chartHovering : ComparativeChart.Stacks
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -95,16 +91,14 @@ type Msg
     | NoOp
     | OnAutocomplete (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
-    | OnChartHover ComparativeChart.Stacks
     | OpenComparator
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
-    | SwitchDisplayChoice ComparatorView.DisplayChoice
-    | SwitchLinksTab BookmarkView.ActiveTab
+    | SwitchBookmarksTab BookmarkView.ActiveTab
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
@@ -130,10 +124,8 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , impact = impact
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonUnit = ComparatorView.PerKgOfProduct
-      , displayChoice = ComparatorView.Subscores
+      , comparisonType = ComparatorView.Subscores
       , modal = NoModal
-      , chartHovering = []
       , activeImpactsTab =
             if impact.trigram == Definition.Ecs then
                 ImpactTabs.SubscoresTab
@@ -281,12 +273,6 @@ update ({ queries } as session) msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        OnChartHover chartHovering ->
-            ( { model | chartHovering = chartHovering }
-            , session
-            , Cmd.none
-            )
-
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -340,6 +326,15 @@ update ({ queries } as session) msg model =
                         ]
             )
 
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
+        SwitchComparisonType displayChoice ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
+
         SwitchImpact (Ok impact) ->
             ( model
             , session
@@ -357,21 +352,6 @@ update ({ queries } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchComparisonUnit comparisonUnit ->
-            ( { model | comparisonUnit = comparisonUnit }
-            , session
-            , Cmd.none
-            )
-
-        SwitchDisplayChoice displayChoice ->
-            ( { model | displayChoice = displayChoice }, session, Cmd.none )
-
-        SwitchLinksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -445,43 +425,6 @@ selectIngredient session autocompleteState ( model, _, _ ) =
 
 
 -- Views
-
-
-absoluteImpactView : Model -> Recipe.Results -> Html Msg
-absoluteImpactView model results =
-    SummaryComp.view
-        { header = []
-        , body =
-            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                [ div [ class "display-3 lh-1" ]
-                    [ results.perKg
-                        |> Format.formatFoodSelectedImpactPerKg model.impact
-                    ]
-                ]
-            ]
-        , footer =
-            [ div [ class "w-100" ]
-                [ div [ class "text-center" ]
-                    [ text "Soit pour "
-                    , Format.kg results.preparedMass
-                    , text "\u{00A0}:\u{00A0}"
-                    , results.total
-                        |> Format.formatFoodSelectedImpact model.impact
-                    ]
-                , if model.impact.trigram == Definition.Ecs then
-                    div [ class "text-center fs-7" ]
-                        [ text " dont -"
-                        , results.recipe.totalComplementsImpact.total
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat model.impact
-                        , text " de bonus déduit"
-                        ]
-
-                  else
-                    text ""
-                ]
-            ]
-        }
 
 
 type alias AddProcessConfig msg =
@@ -654,7 +597,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                 ]
         , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
             ]
         , deleteItemButton (DeleteIngredient ingredientQuery.id)
         , if selectedImpact.trigram == Definition.Ecs then
@@ -920,7 +863,7 @@ ingredientListView db selectedImpact recipe results =
                 [ Icon.search ]
             ]
         , results.recipe.ingredientsTotal
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -946,7 +889,7 @@ ingredientListView db selectedImpact recipe results =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
                                     |> .impacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                             }
                     )
          )
@@ -998,7 +941,7 @@ packagingListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
         , results.packaging
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
@@ -1017,7 +960,7 @@ packagingListView db selectedImpact recipe results =
                             , impact =
                                 packaging
                                     |> Recipe.computeProcessImpacts
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.code
                             , deleteEvent = DeletePackaging packaging.process.code
                             }
@@ -1053,7 +996,7 @@ transportToTransformationView selectedImpact results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatFoodSelectedImpact selectedImpact results.recipe.transports.impacts
+            , Format.formatImpact selectedImpact results.recipe.transports.impacts
             ]
         ]
 
@@ -1117,7 +1060,7 @@ transportToDistributionView selectedImpact recipe results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+            , Format.formatImpact selectedImpact results.distribution.transports.impacts
             ]
         ]
 
@@ -1152,12 +1095,12 @@ distributionView selectedImpact recipe results =
     let
         impact =
             results.distribution.total
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
         , results.distribution.total
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
@@ -1204,7 +1147,7 @@ consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
         , results.preparation
-            |> Format.formatFoodSelectedImpact selectedImpact
+            |> Format.formatImpact selectedImpact
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
@@ -1233,7 +1176,7 @@ consumptionView db selectedImpact recipe results =
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
                                     |> Preparation.apply db results.recipe.transformedMass
-                                    |> Format.formatFoodSelectedImpact selectedImpact
+                                    |> Format.formatImpact selectedImpact
                                 ]
                             , deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
@@ -1257,15 +1200,7 @@ mainView session model =
                 |> Recipe.compute model.db
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-            [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session model results
-
-                Err error ->
-                    errorView error
-            ]
-        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
@@ -1275,6 +1210,14 @@ mainView session model =
                     errorView error
             , session.queries.food
                 |> debugQueryView model.db
+            ]
+        , div [ class "col-lg-4 d-flex flex-column gap-3" ]
+            [ case computed of
+                Ok ( _, results ) ->
+                    sidebarView session model results
+
+                Err error ->
+                    errorView error
             ]
         ]
 
@@ -1355,39 +1298,34 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
 
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
-    div
-        [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
-        , style "top" "7px"
-        ]
-        [ ImpactView.impactSelector
-            session.textileDb.impactDefinitions
-            { selectedImpact = model.impact.trigram
-            , switchImpact = SwitchImpact
+    SidebarView.view
+        { session = session
+        , scope = Scope.Food
+        , viewMode = ViewMode.Simple
 
-            -- FIXME: We don't use the following two textile configs
-            , selectedFunctionalUnit = Unit.PerItem
-            , switchFunctionalUnit = always NoOp
-            }
-        , absoluteImpactView model results
-        , results
-            |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
-            |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
-        , BookmarkView.view
-            { session = session
-            , activeTab = model.bookmarkTab
-            , bookmarkName = model.bookmarkName
-            , impact = model.impact
-            , funit = Unit.PerItem
-            , scope = Scope.Food
-            , viewMode = ViewMode.Simple
-            , copyToClipBoard = CopyToClipBoard
-            , compare = OpenComparator
-            , delete = DeleteBookmark
-            , save = SaveBookmark
-            , update = UpdateBookmarkName
-            , switchTab = SwitchLinksTab
-            }
-        ]
+        -- Impact selector
+        , selectedImpact = model.impact
+        , switchImpact = SwitchImpact
+
+        -- Score
+        , productMass = results.preparedMass
+        , totalImpacts = results.total
+
+        -- Impacts tabs
+        , impactTabsConfig =
+            ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                |> ImpactTabs.forFood model.impact.trigram results
+
+        -- Bookmarks
+        , activeBookmarkTab = model.bookmarkTab
+        , bookmarkName = model.bookmarkName
+        , copyToClipBoard = CopyToClipBoard
+        , compareBookmarks = OpenComparator
+        , deleteBookmark = DeleteBookmark
+        , saveBookmark = SaveBookmark
+        , updateBookmarkName = UpdateBookmarkName
+        , switchBookmarkTab = SwitchBookmarksTab
+        }
 
 
 stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
@@ -1416,7 +1354,7 @@ transformView db selectedImpact recipe results =
     let
         impact =
             results.recipe.transform
-                |> Format.formatFoodSelectedImpact selectedImpact
+                |> Format.formatImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
@@ -1461,23 +1399,15 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
-                        , subTitle = Just "⚠️\u{00A0}Attention, ces résultats sont provisoires"
+                        , subTitle = Just "en score d'impact, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
-                            [ ComparatorView.comparator
+                            [ ComparatorView.view
                                 { session = session
                                 , impact = model.impact
-                                , options =
-                                    ComparatorView.foodOptions
-                                        { comparisonUnit = model.comparisonUnit
-                                        , switchComparisonUnit = SwitchComparisonUnit
-                                        , displayChoice = model.displayChoice
-                                        , switchDisplayChoice = SwitchDisplayChoice
-                                        , db = model.db
-                                        }
+                                , comparisonType = model.comparisonType
+                                , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
-                                , chartHovering = model.chartHovering
-                                , onChartHover = OnChartHover
                                 }
                             ]
                         , footer = []

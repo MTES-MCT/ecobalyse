@@ -687,9 +687,9 @@ components:
       description: |
         Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
 
-        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
 
-        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: 0).**
+        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: 0).**
       required: false
       style: form
       schema:
@@ -707,9 +707,9 @@ components:
           - `low` : faible
           - `very-low` : très faible
 
-        **⚠️ Sur les produits tricotés en "fully fashioned", ce paramètre n'a aucun impact (valeur fixe: very-low).**
+        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: very-low).**
 
-        **⚠️ Sur les produits tricotés en "seamless", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
+        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
       required: false
       style: form
       schema:
@@ -736,18 +736,30 @@ components:
       in: query
       description: |
         Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
-          - mix : Tricotage moyen (mix de métiers circulaire & rectiligne)
-          - fully-fashioned : Tricotage fully-fashioned
-          - seamless : Tricotage seamless
-          - circular : Tricotage circulaire, inventaire désagrégé
-          - straight : Tricotage rectiligne, inventaire désagrégé
+          - `mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - `fully-fashioned` : Tricotage fully-fashioned / seamless
+          - `integral` : Tricotage intégral / whole garment
+          - `circular` : Tricotage circulaire, inventaire désagrégé
+          - `straight` : Tricotage rectiligne, inventaire désagrégé
 
           **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
       required: false
       style: form
       schema:
         type: string
-        enum: ["mix", "fully-fashioned", "seamless", "circular", "straight"]
+        enum:
+          "$ref": "#/components/schemas/KnittingProcessEnum"
+      examples:
+        mix:
+          value: "mix"
+        fully-fashioned:
+          value: "fully-fashioned"
+        integral:
+          value: "integral"
+        circular:
+          value: "circular"
+        straight:
+          value: "straight"
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -1219,11 +1231,7 @@ components:
           type: string
           required: false
           enum:
-          - mix
-          - fully-fashioned
-          - seamless
-          - circular
-          - straight
+            "$ref": "#/components/schemas/KnittingProcessEnum"
         disabledSteps:
           type: string
           required: false
@@ -1360,6 +1368,12 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    KnittingProcessEnum:
+      - mix
+      - fully-fashioned
+      - integral
+      - circular
+      - straight
     CountryListResponse:
       type: array
       description: Liste des pays.

@@ -122,7 +122,7 @@ getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knitti
         Knitting.FullyFashioned ->
             knittingFullyFashioned
 
-        Knitting.Seamless ->
+        Knitting.Integral ->
             knittingSeamless
 
         Knitting.Circular ->
