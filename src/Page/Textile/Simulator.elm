@@ -51,9 +51,9 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
+import Views.Sidebar as SidebarView
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
-import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
@@ -87,10 +87,10 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
+    | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
-    | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -262,6 +262,12 @@ update ({ textileDb, queries, navKey } as session) msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
         SwitchComparisonType displayChoice ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
@@ -282,12 +288,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchLinksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -545,7 +545,7 @@ displayModeView trigram viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -588,37 +588,34 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                     ]
             ]
         , div [ class "col-lg-4 bg-white" ]
-            [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                (ImpactView.selector
-                    textileDb.impactDefinitions
-                    { selectedImpact = model.impact.trigram
-                    , switchImpact = SwitchImpact
-                    }
-                    :: (model.simulator
-                            |> SummaryView.view
-                                { session = session
-                                , impact = model.impact
-                                , reusable = False
-                                , activeImpactsTab = model.activeImpactsTab
-                                , switchImpactsTab = SwitchImpactsTab
-                                }
-                       )
-                    ++ [ BookmarkView.view
-                            { session = session
-                            , activeTab = model.bookmarkTab
-                            , bookmarkName = model.bookmarkName
-                            , impact = model.impact
-                            , scope = Scope.Textile
-                            , viewMode = model.viewMode
-                            , copyToClipBoard = CopyToClipBoard
-                            , compare = OpenComparator
-                            , delete = DeleteBookmark
-                            , save = SaveBookmark
-                            , update = UpdateBookmarkName
-                            , switchTab = SwitchLinksTab
-                            }
-                       ]
-                )
+            [ SidebarView.view
+                { session = session
+                , scope = Scope.Textile
+                , viewMode = model.viewMode
+
+                -- Impact selector
+                , selectedImpact = model.impact
+                , switchImpact = SwitchImpact
+
+                -- Score
+                , productMass = inputs.mass
+                , totalImpacts = impacts
+
+                -- Impacts tabs
+                , impactTabsConfig =
+                    ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                        |> ImpactTabs.forTextile session.textileDb.impactDefinitions model.impact.trigram simulator
+
+                -- Bookmarks
+                , activeBookmarkTab = model.bookmarkTab
+                , bookmarkName = model.bookmarkName
+                , copyToClipBoard = CopyToClipBoard
+                , compareBookmarks = OpenComparator
+                , deleteBookmark = DeleteBookmark
+                , saveBookmark = SaveBookmark
+                , updateBookmarkName = UpdateBookmarkName
+                , switchBookmarkTab = SwitchBookmarksTab
+                }
             ]
         ]
 

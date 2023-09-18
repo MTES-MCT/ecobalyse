@@ -1,6 +1,5 @@
 module Views.Impact exposing
     ( impactQuality
-    , impactSelector
     , selector
     , viewDefinition
     )
@@ -109,8 +108,8 @@ type alias SelectorConfig msg =
     }
 
 
-impactSelector : Definitions -> SelectorConfig msg -> Html msg
-impactSelector definitions { selectedImpact, switchImpact } =
+selector : Definitions -> SelectorConfig msg -> Html msg
+selector definitions { selectedImpact, switchImpact } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -119,23 +118,19 @@ impactSelector definitions { selectedImpact, switchImpact } =
                 ]
                 [ text label ]
     in
-    select
-        [ class "form-select"
-        , onInput (Definition.toTrigram >> switchImpact)
-        ]
-        [ Definition.toList definitions
-            |> List.filter (.trigram >> Definition.isAggregate)
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , Definition.toList definitions
-            |> List.filter (.trigram >> Definition.isAggregate >> not)
-            |> List.sortBy .label
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts détaillés" ]
-        ]
-
-
-selector : Definitions -> SelectorConfig msg -> Html msg
-selector definitions config =
     div [ class "ImpactSelector input-group" ]
-        [ impactSelector definitions config ]
+        [ select
+            [ class "form-select"
+            , onInput (Definition.toTrigram >> switchImpact)
+            ]
+            [ Definition.toList definitions
+                |> List.filter (.trigram >> Definition.isAggregate)
+                |> List.map toOption
+                |> optgroup [ attribute "label" "Impacts agrégés" ]
+            , Definition.toList definitions
+                |> List.filter (.trigram >> Definition.isAggregate >> not)
+                |> List.sortBy .label
+                |> List.map toOption
+                |> optgroup [ attribute "label" "Impacts détaillés" ]
+            ]
+        ]

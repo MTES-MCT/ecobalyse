@@ -49,14 +49,13 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
-import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
+import Views.Sidebar as SidebarView
 import Views.Transport as TransportView
 
 
@@ -98,8 +97,8 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
+    | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
-    | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
@@ -327,6 +326,12 @@ update ({ queries } as session) msg model =
                         ]
             )
 
+        SwitchBookmarksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
         SwitchComparisonType displayChoice ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
@@ -347,12 +352,6 @@ update ({ queries } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
-
-        SwitchLinksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -426,29 +425,6 @@ selectIngredient session autocompleteState ( model, _, _ ) =
 
 
 -- Views
-
-
-absoluteImpactView : Model -> Recipe.Results -> Html Msg
-absoluteImpactView model results =
-    SummaryComp.view
-        { header = []
-        , body =
-            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                [ div [ class "display-3 lh-1" ]
-                    [ results.total
-                        |> Format.formatImpact model.impact
-                    ]
-                ]
-            ]
-        , footer =
-            [ div [ class "w-100" ]
-                [ div [ class "text-center" ]
-                    [ text "Pour "
-                    , Format.kg results.preparedMass
-                    ]
-                ]
-            ]
-        }
 
 
 type alias AddProcessConfig msg =
@@ -1322,34 +1298,34 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
 
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
-    div
-        [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
-        , style "top" "7px"
-        ]
-        [ ImpactView.impactSelector
-            session.textileDb.impactDefinitions
-            { selectedImpact = model.impact.trigram
-            , switchImpact = SwitchImpact
-            }
-        , absoluteImpactView model results
-        , results
-            |> ImpactTabs.foodResultsToImpactTabsConfig model.impact.trigram
-            |> ImpactTabs.view session.textileDb.impactDefinitions model.activeImpactsTab SwitchImpactsTab
-        , BookmarkView.view
-            { session = session
-            , activeTab = model.bookmarkTab
-            , bookmarkName = model.bookmarkName
-            , impact = model.impact
-            , scope = Scope.Food
-            , viewMode = ViewMode.Simple
-            , copyToClipBoard = CopyToClipBoard
-            , compare = OpenComparator
-            , delete = DeleteBookmark
-            , save = SaveBookmark
-            , update = UpdateBookmarkName
-            , switchTab = SwitchLinksTab
-            }
-        ]
+    SidebarView.view
+        { session = session
+        , scope = Scope.Food
+        , viewMode = ViewMode.Simple
+
+        -- Impact selector
+        , selectedImpact = model.impact
+        , switchImpact = SwitchImpact
+
+        -- Score
+        , productMass = results.preparedMass
+        , totalImpacts = results.total
+
+        -- Impacts tabs
+        , impactTabsConfig =
+            ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                |> ImpactTabs.forFood model.impact.trigram results
+
+        -- Bookmarks
+        , activeBookmarkTab = model.bookmarkTab
+        , bookmarkName = model.bookmarkName
+        , copyToClipBoard = CopyToClipBoard
+        , compareBookmarks = OpenComparator
+        , deleteBookmark = DeleteBookmark
+        , saveBookmark = SaveBookmark
+        , updateBookmarkName = UpdateBookmarkName
+        , switchBookmarkTab = SwitchBookmarksTab
+        }
 
 
 stepListView : Model -> Recipe -> Recipe.Results -> Html Msg

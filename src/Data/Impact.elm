@@ -16,6 +16,7 @@ module Data.Impact exposing
     , getImpact
     , mapImpacts
     , noComplementsImpacts
+    , noStepsImpacts
     , parseTrigram
     , perKg
     , stepsImpactsAsChartEntries
@@ -105,6 +106,18 @@ type alias StepsImpacts =
     , distribution : Maybe Unit.Impact
     , usage : Maybe Unit.Impact
     , endOfLife : Maybe Unit.Impact
+    }
+
+
+noStepsImpacts : StepsImpacts
+noStepsImpacts =
+    { materials = Nothing
+    , transform = Nothing
+    , packaging = Nothing
+    , transports = Nothing
+    , distribution = Nothing
+    , usage = Nothing
+    , endOfLife = Nothing
     }
 
 

@@ -1,4 +1,8 @@
-module Data.Scoring exposing (Scoring, compute)
+module Data.Scoring exposing
+    ( Scoring
+    , compute
+    , empty
+    )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
@@ -35,4 +39,16 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     , biodiversity = subScores.biodiversity
     , health = subScores.health
     , resources = subScores.resources
+    }
+
+
+empty : Scoring
+empty =
+    { all = Unit.impact 0
+    , allWithoutComplements = Unit.impact 0
+    , complements = Unit.impact 0
+    , climate = Unit.impact 0
+    , biodiversity = Unit.impact 0
+    , health = Unit.impact 0
+    , resources = Unit.impact 0
     }
