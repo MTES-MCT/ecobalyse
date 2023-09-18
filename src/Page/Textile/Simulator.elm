@@ -588,8 +588,7 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                     ]
             ]
         , div [ class "col-lg-4 bg-white" ]
-            [ -- REMOVE ME
-              SidebarView.view
+            [ SidebarView.view
                 { session = session
                 , scope = Scope.Textile
                 , viewMode = model.viewMode
