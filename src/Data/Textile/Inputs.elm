@@ -25,7 +25,6 @@ module Data.Textile.Inputs exposing
     , toString
     , toggleStep
     , updateMaterial
-    , updateMaterialAt
     , updateMaterialShare
     , updateMaterialSpinning
     , updateProduct
@@ -463,25 +462,23 @@ addMaterial material query =
     }
 
 
-updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query
-updateMaterialAt index update query =
-    { query | materials = query.materials |> LE.updateAt index update }
+updateMaterialData : Material.Id -> (MaterialQuery -> MaterialQuery) -> Query -> Query
+updateMaterialData materialId update query =
+    { query | materials = query.materials |> LE.updateIf (.id >> (==) materialId) update }
 
 
 updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
-updateMaterial oldMaterialId newMaterial query =
-    { query
-        | materials =
-            query.materials
-                |> LE.updateIf
-                    (.id >> (==) oldMaterialId)
-                    (\({ share } as m) -> { m | id = newMaterial.id, share = share, spinning = Nothing })
-    }
+updateMaterial oldMaterialId newMaterial =
+    updateMaterialData
+        oldMaterialId
+        (\({ share } as m) -> { m | id = newMaterial.id, share = share, spinning = Nothing })
 
 
-updateMaterialShare : Int -> Split -> Query -> Query
-updateMaterialShare index share =
-    updateMaterialAt index (\m -> { m | share = share })
+updateMaterialShare : Material.Id -> Split -> Query -> Query
+updateMaterialShare materialId share =
+    updateMaterialData
+        materialId
+        (\m -> { m | share = share })
 
 
 updateMaterialSpinning : Material -> Spinning -> Query -> Query
@@ -500,13 +497,16 @@ updateMaterialSpinning material spinning query =
     }
 
 
-removeMaterial : Int -> Query -> Query
-removeMaterial index query =
-    { query | materials = query.materials |> LE.removeAt index }
+removeMaterial : Material -> Query -> Query
+removeMaterial material query =
+    { query | materials = query.materials |> List.filter (\m -> m.id /= material.id) }
         |> (\({ materials } as q) ->
                 -- set share to 100% when a single material remains
                 if List.length materials == 1 then
-                    updateMaterialShare 0 Split.full q
+                    q.materials
+                        |> List.head
+                        |> Maybe.map (\m -> updateMaterialShare m.id Split.full q)
+                        |> Maybe.withDefault q
 
                 else
                     q

@@ -26,7 +26,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
@@ -85,7 +85,7 @@ type Msg
     | OnAutocomplete (Autocomplete.Msg Material)
     | OnAutocompleteSelect
     | OpenComparator
-    | RemoveMaterial Int
+    | RemoveMaterial Material
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -107,8 +107,7 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
-    | UpdateMaterial Int Material.Id
-    | UpdateMaterialShare Int Split
+    | UpdateMaterialShare Material Split
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
@@ -275,9 +274,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        RemoveMaterial index ->
+        RemoveMaterial material ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.removeMaterial index query)
+                |> updateQuery (Inputs.removeMaterial material query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -428,18 +427,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
-        UpdateMaterial index materialId ->
-            case Material.findById materialId textileDb.materials of
-                Ok material ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateMaterialAt index (\({ share } as m) -> { m | id = material.id, share = share, spinning = Nothing }) query)
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
-
-        UpdateMaterialShare index share ->
+        UpdateMaterialShare material share ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialShare index share query)
+                |> updateQuery (Inputs.updateMaterialShare material.id share query)
 
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
@@ -615,7 +605,6 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 { materials = textileDb.materials
                 , inputs = inputs.materials
                 , remove = RemoveMaterial
-                , update = UpdateMaterial
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 , selectMaterial = \maybeMaterial autocompleteState -> SetModal (AddMaterialModal maybeMaterial autocompleteState)

@@ -15,9 +15,8 @@ import Views.Icon as Icon
 type alias FormSetConfig msg =
     { materials : List Material
     , inputs : List Inputs.MaterialInput
-    , remove : Int -> msg
-    , update : Int -> Material.Id -> msg
-    , updateShare : Int -> Split -> msg
+    , remove : Material -> msg
+    , updateShare : Material -> Split -> msg
     , selectInputText : String -> msg
     , selectMaterial : Maybe Inputs.MaterialInput -> Autocomplete Material -> msg
     }
@@ -54,11 +53,10 @@ formSet ({ inputs, selectMaterial } as config) =
                 [ text <| "jusqu'à " ++ String.fromInt Env.maxMaterials ++ " maximum" ]
             ]
         , inputs
-            |> List.indexedMap
-                (\index input ->
+            |> List.map
+                (\input ->
                     field config
-                        { index = index
-                        , length = length
+                        { length = length
                         , exclude = exclude
                         , valid = valid
                         }
@@ -103,20 +101,19 @@ formSet ({ inputs, selectMaterial } as config) =
 field :
     FormSetConfig msg
     ->
-        { index : Int
-        , length : Int
+        { length : Int
         , exclude : List Material.Id
         , valid : Bool
         }
     -> msg
     -> Inputs.MaterialInput
     -> Html msg
-field config { index, length, valid } selectMaterial input =
+field config { length, valid } selectMaterial input =
     div [ class "mb-2" ]
         [ [ if length > 1 then
                 [ button
                     [ class "btn btn-primary no-outline"
-                    , onClick (config.remove index)
+                    , onClick (config.remove input.material)
                     , disabled (length < 2)
                     , title "Supprimer cette matière"
                     , attribute "aria-label" "Supprimer cette matière"
@@ -128,7 +125,7 @@ field config { index, length, valid } selectMaterial input =
             else
                 []
           , input.share
-                |> shareField index
+                |> shareField input.material
                     { length = length
                     , valid = valid
                     , selectInputText = config.selectInputText
@@ -159,19 +156,19 @@ materialSelector event selectedMaterial =
 
 
 shareField :
-    Int
+    Material
     ->
         { length : Int
         , valid : Bool
         , selectInputText : String -> msg
-        , update : Int -> Split -> msg
+        , update : Material -> Split -> msg
         }
     -> Split
     -> List (Html msg)
-shareField index { length, valid, selectInputText, update } share =
+shareField material { length, valid, selectInputText, update } share =
     let
         domId =
-            "material-" ++ String.fromInt index
+            "material-" ++ Material.idToString material.id
     in
     [ input
         [ type_ "number"
@@ -196,7 +193,7 @@ shareField index { length, valid, selectInputText, update } share =
                 >> Split.fromPercent
                 >> Result.toMaybe
                 >> Maybe.withDefault Split.zero
-                >> update index
+                >> update material
             )
         , onFocus (selectInputText domId)
         ]
