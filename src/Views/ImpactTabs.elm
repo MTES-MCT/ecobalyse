@@ -27,17 +27,17 @@ type Tab
 
 type alias Config msg =
     { activeImpactsTab : Tab
+    , complementsImpact : Impact.ComplementsImpacts
     , scoring : Scoring
-    , steps : Impact.StepsImpacts
+    , stepsImpacts : Impact.StepsImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
-    , totalComplementsImpact : Impact.ComplementsImpacts
     , trigram : Trigram
     }
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComplementsImpact, scoring, steps } =
+view definitions { activeImpactsTab, switchImpactsTab, trigram, total, complementsImpact, scoring, stepsImpacts } =
     CardTabs.view
         { tabs =
             (if trigram == Definition.Ecs then
@@ -65,18 +65,18 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                         |> (++)
                             [ -- Food complements
                               ( "Bonus de diversité agricole"
-                              , -(Unit.impactToFloat totalComplementsImpact.agroDiversity)
+                              , -(Unit.impactToFloat complementsImpact.agroDiversity)
                               )
                             , ( "Bonus d'infrastructures agro-écologiques"
-                              , -(Unit.impactToFloat totalComplementsImpact.agroEcology)
+                              , -(Unit.impactToFloat complementsImpact.agroEcology)
                               )
                             , ( "Bonus conditions d'élevage"
-                              , -(Unit.impactToFloat totalComplementsImpact.animalWelfare)
+                              , -(Unit.impactToFloat complementsImpact.animalWelfare)
                               )
 
                             -- Textile complements
                             , ( "Complément fin de vie hors-Europe"
-                              , -(Unit.impactToFloat totalComplementsImpact.outOfEuropeEOL)
+                              , -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
                               )
                             ]
                         |> List.sortBy Tuple.second
@@ -84,13 +84,13 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                         |> Table.percentageTable
 
                 StepImpactsTab ->
-                    [ ( "Matières premières", steps.materials )
-                    , ( "Transformation", steps.transform )
-                    , ( "Emballage", steps.packaging )
-                    , ( "Transports", steps.transports )
-                    , ( "Distribution", steps.distribution )
-                    , ( "Utilisation", steps.usage )
-                    , ( "Fin de vie", steps.endOfLife )
+                    [ ( "Matières premières", stepsImpacts.materials )
+                    , ( "Transformation", stepsImpacts.transform )
+                    , ( "Emballage", stepsImpacts.packaging )
+                    , ( "Transports", stepsImpacts.transports )
+                    , ( "Distribution", stepsImpacts.distribution )
+                    , ( "Utilisation", stepsImpacts.usage )
+                    , ( "Fin de vie", stepsImpacts.endOfLife )
                     ]
                         |> List.filterMap
                             (\( label, maybeValue ) ->
@@ -118,9 +118,9 @@ createConfig activeImpactsTab switchImpactsTab =
     , switchImpactsTab = switchImpactsTab
     , trigram = Definition.Ecs
     , total = Impact.empty
-    , totalComplementsImpact = Impact.noComplementsImpacts
+    , complementsImpact = Impact.noComplementsImpacts
     , scoring = Scoring.empty
-    , steps = Impact.noStepsImpacts
+    , stepsImpacts = Impact.noStepsImpacts
     }
 
 
@@ -129,9 +129,9 @@ forFood trigram results config =
     { config
         | trigram = trigram
         , total = results.total
-        , totalComplementsImpact = results.recipe.totalComplementsImpact
+        , complementsImpact = results.recipe.totalComplementsImpact
         , scoring = results.scoring
-        , steps = Recipe.toStepsImpacts trigram results
+        , stepsImpacts = Recipe.toStepsImpacts trigram results
     }
 
 
@@ -147,9 +147,9 @@ forTextile definitions trigram simulator config =
     { config
         | trigram = trigram
         , total = totalImpactsWithoutComplements
-        , totalComplementsImpact = simulator.complementsImpacts
+        , complementsImpact = simulator.complementsImpacts
         , scoring =
             totalImpactsWithoutComplements
                 |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
-        , steps = simulator |> Simulator.toStepsImpacts trigram
+        , stepsImpacts = simulator |> Simulator.toStepsImpacts trigram
     }

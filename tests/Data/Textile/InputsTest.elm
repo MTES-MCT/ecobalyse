@@ -78,8 +78,9 @@ suite =
             , describe "getOutOfEuropeEOLComplement"
                 [ tShirtCotonFrance
                     |> Inputs.fromQuery textileDb
-                    |> Result.map Inputs.getOutOfEuropeEOLComplement
-                    |> Expect.equal (Ok (Unit.impact 5100))
+                    |> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
+                    |> Result.withDefault -99
+                    |> Expect.within (Expect.Absolute 0.001) -51
                     |> asTest "should compute complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
@@ -88,8 +89,9 @@ suite =
                         ]
                   }
                     |> Inputs.fromQuery textileDb
-                    |> Result.map Inputs.getOutOfEuropeEOLComplement
-                    |> Expect.equal (Ok (Unit.impact 9350))
+                    |> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
+                    |> Result.withDefault -99
+                    |> Expect.within (Expect.Absolute 0.001) -93.5
                     |> asTest "should compute complement impact for a half-natural, half-synthetic garment"
                 ]
             ]
