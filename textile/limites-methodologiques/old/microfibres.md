@@ -15,9 +15,7 @@ Le relargage de microfibres dans l'environnement concerne à la fois les compart
 Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, utilisation d'apprêts chimiques, conditions de lavage, etc.) influent sur le niveau d'impact des microfibres.&#x20;
 
 {% hint style="info" %}
-La recherche scientifique liée aux microfibres d'origine Textile n'est quà ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence).
-
-De manière générale, la recherche sur les microfibres n’est qu’à ses débuts; les chiffres avancés sont donc à interpréter avec précaution. Cela explique l'approche qualitative retenue par Ecobalyse pour modéliser l'impact des microfibres.&#x20;
+La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution. Cela explique l'approche semi-qualitative retenue par Ecobalyse pour modéliser l'impact des microfibres.&#x20;
 {% endhint %}
 
 <figure><img src="../../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
@@ -47,14 +45,16 @@ Il n'existe pas encore suffisament de littérature scientifique permettant d'est
 
 Cependant, de premiers éléments font consensus :&#x20;
 
-1\) les microplastiques constituent l'enjeu #1 des microfibres \
+1\) les produits chimiques appliqués sur les fibres lots des phases d'ennoblissement amplifient la toxicité des microfibres tout en pouvant modifier leurs prioriétés (ex : plus faible biodegradabilité)
+
+2\) les microplastiques constituent un ejue majeur des microfibres \
 En effet, les microplastiques sont persistants dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (60% des volumes). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
 
-2\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et de l'éttofe, confection du vêtement, utilisation, fin de vie).
+3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et de l'étoffe, confection du vêtement, utilisation, fin de vie).
 
-3\) la phase d'utilisation constitue la source principale des émissions de microfibres dans l'eau. Le lavage en machine des vêtements constitue la principale de ces émissions aquatiques tandis que ce sont les premiers cycles de lavage qui génèrent la majorité des volumes.&#x20;
+4\) la phase d'utilisation constitue la source principale des émissions de microfibres dans l'eau. Le lavage en machine des vêtements constitue la principale de ces émissions aquatiques tandis que ce sont les premiers cycles de lavage qui génèrent la majorité des volumes.&#x20;
 
-4\) les fibres naturelles, bien que biodégradables par essence, peuvent devenir plus ou moins persistantes dans l'environnement suite aux étapes d'ennoblissement.&#x20;
+5\) les fibres naturelles, bien que biodégradables par essence, peuvent devenir plus ou moins persistantes dans l'environnement suite aux étapes d'ennoblissement.&#x20;
 
 Dès lors, Ecobalyse adopte une approche qualitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.
 
@@ -64,7 +64,7 @@ Dès lors, Ecobalyse adopte une approche qualitative basée sur des critères si
 
 Trois dimensions sont considérées pour estimer l'impact des microfibres du vêtement modélisé :&#x20;
 
-1\) la biodagradabilité des fibres composant le vêtement (50% du total)
+1\) la biodégradabilité des fibres composant le vêtement (50% du total)
 
 2\) le relargage de microfibres par le vêtement lors du lavage en machine (25% du total),
 
@@ -95,14 +95,16 @@ Pour les vêtements muli-fibres, une somme pondérée des scénarios de référe
 {% endhint %}
 
 $$
-ComplémentMicroF. (Pts) = \sum (f) = composition(f)*ref(f)*masse(kg)
+ComplémentMicroF. (microPts) = \sum (f) = composition(f)*ref(f)*masse(kg)
 $$
 
 <details>
 
 <summary>Illustration</summary>
 
-Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de +10% pour la version 100% coton vs +21% pour la version 100% synthétique.&#x20;
+Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de +10% /+94 pour la version 100% coton vs +21%/+149 pour la version 100% synthétique.&#x20;
+
+
 
 ![](<../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g).png>)
 
