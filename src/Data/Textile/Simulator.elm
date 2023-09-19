@@ -183,15 +183,15 @@ computeEndOfLifeImpacts { wellKnown } simulator =
 
                     { complementsImpacts } =
                         step
-
-                    eolComplementsImpacts =
-                        Inputs.getOutOfEuropeEOLComplement simulator.inputs
                 in
                 { step
                     | impacts = impacts
                     , kwh = kwh
                     , heat = heat
-                    , complementsImpacts = { complementsImpacts | outOfEuropeEOL = eolComplementsImpacts }
+                    , complementsImpacts =
+                        { complementsImpacts
+                            | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement simulator.inputs
+                        }
                 }
             )
 
@@ -579,7 +579,10 @@ computeTotalTransportImpacts simulator =
 
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ lifeCycle } as simulator) =
-    { simulator | impacts = LifeCycle.computeFinalImpacts lifeCycle }
+    { simulator
+        | impacts = LifeCycle.computeFinalImpacts lifeCycle
+        , complementsImpacts = LifeCycle.sumComplementsImpacts lifeCycle
+    }
 
 
 lifeCycleImpacts : Definitions -> Simulator -> List ( String, List ( String, Float ) )

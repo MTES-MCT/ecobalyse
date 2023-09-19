@@ -9,6 +9,7 @@ module Data.Textile.LifeCycle exposing
     , getStep
     , getStepProp
     , init
+    , sumComplementsImpacts
     , updateStep
     , updateSteps
     )
@@ -84,6 +85,13 @@ computeFinalImpacts =
                     )
         )
         Impact.empty
+
+
+sumComplementsImpacts : LifeCycle -> Impact.ComplementsImpacts
+sumComplementsImpacts =
+    Array.toList
+        >> List.map .complementsImpacts
+        >> List.foldl Impact.addComplementsImpacts Impact.noComplementsImpacts
 
 
 getNextEnabledStep : Label -> LifeCycle -> Maybe Step
