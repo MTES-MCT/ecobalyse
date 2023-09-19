@@ -36,6 +36,7 @@ type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
     , impacts : Impacts
+    , complementsImpacts : Impact.ComplementsImpacts
     , transport : Transport
     , daysOfWear : Duration
     , useNbCycles : Int
@@ -48,6 +49,8 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encode v.impacts )
+
+        -- TODO: encode complementsImpacts?
         , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
@@ -74,6 +77,7 @@ init db =
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
+                            , complementsImpacts = Impact.noComplementsImpacts
                             , transport = Transport.default defaultImpacts
                             , daysOfWear = daysOfWear
                             , useNbCycles = useNbCycles
@@ -176,8 +180,19 @@ computeEndOfLifeImpacts { wellKnown } simulator =
                                 , countryElecProcess = country.electricityProcess
                                 , heatProcess = country.heatProcess
                                 }
+
+                    { complementsImpacts } =
+                        step
+
+                    eolComplementsImpacts =
+                        Inputs.getOutOfEuropeEOLComplement simulator.inputs
                 in
-                { step | impacts = impacts, kwh = kwh, heat = heat }
+                { step
+                    | impacts = impacts
+                    , kwh = kwh
+                    , heat = heat
+                    , complementsImpacts = { complementsImpacts | outOfEuropeEOL = eolComplementsImpacts }
+                }
             )
 
 

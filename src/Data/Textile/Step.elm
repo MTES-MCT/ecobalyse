@@ -51,6 +51,7 @@ type alias Step =
     , waste : Mass
     , transport : Transport
     , impacts : Impacts
+    , complementsImpacts : Impact.ComplementsImpacts
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -104,6 +105,7 @@ create { label, editable, country, enabled } =
     , waste = Quantity.zero
     , transport = Transport.default defaultImpacts
     , impacts = defaultImpacts
+    , complementsImpacts = Impact.noComplementsImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo

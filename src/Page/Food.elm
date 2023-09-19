@@ -614,7 +614,7 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
                     [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
                         [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
                         , span [ class "text-success text-end", title "Total des bonus" ]
-                            [ complementsImpacts.total
+                            [ Impact.getTotalComplementsImpacts complementsImpacts
                                 |> Quantity.negate
                                 |> Unit.impactToFloat
                                 |> Format.formatImpactFloat selectedImpact

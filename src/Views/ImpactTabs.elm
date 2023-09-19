@@ -63,7 +63,8 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> ( name, value ))
                         |> (++)
-                            [ ( "Bonus de diversité agricole"
+                            [ -- Food complements
+                              ( "Bonus de diversité agricole"
                               , -(Unit.impactToFloat totalComplementsImpact.agroDiversity)
                               )
                             , ( "Bonus d'infrastructures agro-écologiques"
@@ -71,6 +72,11 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                               )
                             , ( "Bonus conditions d'élevage"
                               , -(Unit.impactToFloat totalComplementsImpact.animalWelfare)
+                              )
+
+                            -- Textile complements
+                            , ( "Complément fin de vie hors-Europe"
+                              , -(Unit.impactToFloat totalComplementsImpact.outOfEuropeEOL)
                               )
                             ]
                         |> List.sortBy Tuple.second
@@ -132,10 +138,6 @@ forFood trigram results config =
 forTextile : Definitions -> Definition.Trigram -> Simulator -> Config msg -> Config msg
 forTextile definitions trigram simulator config =
     let
-        -- TODO: compute the complements once we have them in the database
-        totalComplementsImpact =
-            Impact.noComplementsImpacts
-
         totalImpactsWithoutComplements =
             simulator.lifeCycle
                 |> Array.map .impacts
@@ -145,9 +147,9 @@ forTextile definitions trigram simulator config =
     { config
         | trigram = trigram
         , total = totalImpactsWithoutComplements
-        , totalComplementsImpact = totalComplementsImpact
+        , totalComplementsImpact = simulator.complementsImpacts
         , scoring =
             totalImpactsWithoutComplements
-                |> Scoring.compute definitions totalComplementsImpact.total
-        , steps = Simulator.toStepsImpacts trigram simulator
+                |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
+        , steps = simulator |> Simulator.toStepsImpacts trigram
     }
