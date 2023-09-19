@@ -14,6 +14,7 @@ module Data.Textile.Inputs exposing
     , encodeQuery
     , fromQuery
     , getMainMaterial
+    , getOutOfEuropeEOLComplement
     , jupeCircuitAsie
     , parseBase64Query
     , removeMaterial
@@ -38,6 +39,7 @@ import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -551,6 +553,35 @@ updateProduct product query =
 
     else
         query
+
+
+getOutOfEuropeEOLComplement : Inputs -> Unit.Impact
+getOutOfEuropeEOLComplement { mass, materials } =
+    -- We consider that the garment enters the "synthetic materials" category as soon as
+    -- synthetic and artificial materials represent more than 10% of its composition.
+    -- - When so:   11.2% * weight (kg) * 5000
+    -- - Otherwise:  6.4% * weight (kg) * 5000
+    let
+        syntheticShare =
+            materials
+                |> List.filterMap
+                    (\{ material, share } ->
+                        if material.origin == Origin.Synthetic then
+                            Just (Split.toPercent share)
+
+                        else
+                            Nothing
+                    )
+                |> List.sum
+
+        wasteProbability =
+            if syntheticShare >= 10 then
+                11
+
+            else
+                6
+    in
+    Unit.impact (wasteProbability * Mass.inKilograms mass * 5000)
 
 
 defaultQuery : Query

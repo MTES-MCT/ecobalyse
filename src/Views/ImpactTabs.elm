@@ -100,7 +100,7 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                         , ( "Biodiversité", Unit.impactToFloat scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat scoring.health )
                         , ( "Ressource", Unit.impactToFloat scoring.resources )
-                        , ( "Bonus", -(Unit.impactToFloat scoring.complements) )
+                        , ( "Compléments", -(Unit.impactToFloat scoring.complements) )
                         ]
             ]
         }
