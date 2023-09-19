@@ -87,7 +87,8 @@ def display_characterization_factors(cfs):
             f"# {len(cfs.data)} Characterization factors for <b>{w_impact_category.value}</b> in {w_method.value}"
         )
     )
-    display(ipywidgets.HTML(cfs.to_html()))
+    if len(cfs.data):
+        display(ipywidgets.HTML(cfs.to_html()))
 
 
 def linkto(button, append_to_stack=True):
