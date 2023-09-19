@@ -23,7 +23,8 @@ IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition so
 MATERIALS = "../../public/data/textile/materials.json"
 PROCESSES = "../../public/data/textile/processes.json"
 
-projects.activate_project(PROJECT)
+projects.set_current(PROJECT)
+# projects.activate_project(PROJECT)
 
 
 def isUuid(txt):

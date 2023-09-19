@@ -24,7 +24,8 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     Import file at path `datapath` linked to biosphere named `dbname`
     """
     print(f"### Importing {datapath}...")
-    projects.create_project(project, activate=True, exist_ok=True)
+    projects.set_current(PROJECT)
+    # projects.create_project(project, activate=True, exist_ok=True)
     ef = bw2io.importers.SimaProLCIACSVImporter(
         datapath,
         biosphere=biosphere,
@@ -48,7 +49,8 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
 
 def main():
     # Import custom method
-    projects.create_project(PROJECT, activate=True, exist_ok=True)
+    projects.set_current(PROJECT)
+    # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 

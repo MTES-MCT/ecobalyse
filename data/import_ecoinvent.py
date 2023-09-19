@@ -15,7 +15,8 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
     """
     Import file at path `datapath` into database named `dbname` in the project
     """
-    projects.create_project(project, activate=True, exist_ok=True)
+    projects.set_current(PROJECT)
+    # projects.create_project(project, activate=True, exist_ok=True)
 
     print(f"### Importing {dbname} database from {datapath}...")
     ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(datapath, dbname)
@@ -26,7 +27,8 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
 
 
 def main():
-    projects.create_project(PROJECT, activate=True, exist_ok=True)
+    projects.set_current(PROJECT)
+    # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 

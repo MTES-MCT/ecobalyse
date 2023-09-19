@@ -163,7 +163,8 @@ def compute(change):
         w_activity.value = None
 
     # We changed the project
-    projects.activate_project(project)
+    projects.set_current(project)
+    # projects.activate_project(project)
     databases = [""] + list(bw2data.databases)
     w_database.options = databases
     methods = sorted({m[0] for m in bw2data.methods})
