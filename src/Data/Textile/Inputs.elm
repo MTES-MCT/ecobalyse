@@ -576,12 +576,13 @@ getOutOfEuropeEOLComplement { mass, materials } =
 
         wasteProbability =
             if syntheticShare >= 10 then
-                11
+                0.11
 
             else
-                6
+                0.06
     in
-    Unit.impact (wasteProbability * Mass.inKilograms mass * 5000)
+    -- Note: this complement is a malus, hence the minus sign
+    Unit.impact -(wasteProbability * Mass.inKilograms mass * 5000)
 
 
 defaultQuery : Query
