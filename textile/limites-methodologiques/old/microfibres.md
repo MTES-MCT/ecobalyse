@@ -6,16 +6,36 @@ description: >-
 
 # 🐠 Microfibres
 
+## De quoi parle-t-on ?&#x20;
+
+Les microfibres sont des particules d'une taille variant entre 1 µm (micromètre) et 5 mm.
+
+Les enjeux autour des microfibres sont progressivement mis en lumière suite aux travaux liés aux microplastiques (microfibres d'origine plastique).&#x20;
+
+<details>
+
+<summary>En savoir plus sur les microplastiques</summary>
+
+On distingue deux sources de microplastiques :&#x20;
+
+* les microplastiques primaires (c. 1/3 des volumes) => se retrouvent directement dans l’environnement sous forme de microplastiques. \
+  Deux scénarios existent : ceux ajoutés volontairement dans des produits (ex : microbilles utilisées dans la cosmétiques) ou ceux résultant de l’abrasion d’objets plus gros lors de leur fabrication/utilisation/entretien (ex : abrasion des pneus, relargage de fibres lors du lavage des vêtements).
+* les microplastiques secondaires (2/3 des volumes) => sont issus de l’utilisation ou la dégradation d’objets plus grands (ex : décomposition de sacs/bouteilles, etc.).
+
+Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondiale proviennent du secteur Textile (source : [European Environment Agency](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a))
+
+</details>
+
 ## Pourquoi introduire ce complément ?
 
-En l'état, les modélisations ACV telles que le projet de PEFCR Apparel & Footwear (v1.3) n'intègrent pas les impacts environnementaux liés au relargage de microfibres dans l'environnement.
+En l'état, les référentiels d'ACV existants tels que le projet de PEFCR Apparel & Footwear (v1.3) n'intègrent pas les impacts environnementaux liés au relargage de microfibres dans l'environnement.
 
-Le relargage de microfibres dans l'environnement concerne à la fois les compartiments eau, air et sol. De plus, les sources d'émission sont multiples et intervienne tout au long du cycle de vie du vêtement (cf. cartographie ci-dessous).&#x20;
+Les vêtements relarguent des microfibres dans différents compartiments (eau, air et sol) tout au long du cycle de vie du vêtement (cf. cartographie ci-dessous).&#x20;
 
-Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, utilisation d'apprêts chimiques, conditions de lavage, etc.) influent sur le niveau d'impact des microfibres.&#x20;
+Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, apprêts chimiques utilisés, conditions de lavage, etc.) impactent la quantité et la toxicité des microfibres relarguées par un vêtement.&#x20;
 
 {% hint style="info" %}
-La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution. Cela explique l'approche semi-qualitative retenue par Ecobalyse pour modéliser l'impact des microfibres.&#x20;
+La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution. Cela explique l'approche semi-quantitative retenue par Ecobalyse pour modéliser l'impact des microfibres.
 {% endhint %}
 
 <figure><img src="../../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
@@ -45,26 +65,26 @@ Il n'existe pas encore suffisament de littérature scientifique permettant d'est
 
 Cependant, de premiers éléments font consensus :&#x20;
 
-1\) les produits chimiques appliqués sur les fibres lots des phases d'ennoblissement amplifient la toxicité des microfibres tout en pouvant modifier leurs prioriétés (ex : plus faible biodegradabilité)
+1\) les produits chimiques qui sont appliqués sur les fibres textile lors des différentes étapes d'ennoblissement (ex : blanchiment, teinture, etc.) génèrent de la toxicité tandis que ces applications peuvent altérer la biodégradabilité de ce certaines fibres.
 
-2\) les microplastiques constituent un ejue majeur des microfibres \
-En effet, les microplastiques sont persistants dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (60% des volumes). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
+2\) les microplastiques constituent un enjeu majeur \
+En effet, les microplastiques sont persistants (non biodégradables) dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (60% des volumes). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
 
-3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et de l'étoffe, confection du vêtement, utilisation, fin de vie).
+3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et de l'éttofe, confection du vêtement, utilisation, fin de vie) et au sein de différents compartiments (air, eau, sol).
 
-4\) la phase d'utilisation constitue la source principale des émissions de microfibres dans l'eau. Le lavage en machine des vêtements constitue la principale de ces émissions aquatiques tandis que ce sont les premiers cycles de lavage qui génèrent la majorité des volumes.&#x20;
+4\) le lavage en machine des vêtements est une des principales sources d'émission de microfibres dans l'eau. Par ailleurs, les premiers lavages génèrent la majorité de ces microfibres.&#x20;
 
 5\) les fibres naturelles, bien que biodégradables par essence, peuvent devenir plus ou moins persistantes dans l'environnement suite aux étapes d'ennoblissement.&#x20;
 
-Dès lors, Ecobalyse adopte une approche qualitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.
+Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.
 
 </details>
 
-## Scénarios de référence (valeurs par défaut)
+## Scénarios de référence
 
 Trois dimensions sont considérées pour estimer l'impact des microfibres du vêtement modélisé :&#x20;
 
-1\) la biodégradabilité des fibres composant le vêtement (50% du total)
+1\) la biodagradabilité des fibres composant le vêtement (50% du total)
 
 2\) le relargage de microfibres par le vêtement lors du lavage en machine (25% du total),
 
@@ -87,7 +107,7 @@ La dimension "Toxicité" est appréhendée selon les traitements appliqués lors
 3 paramètres sont considérés pour calculer le complément :&#x20;
 
 * la masse du vêtement (produit fini),
-* les fibres composant le vêtement (f)
+* la nature des fibres composant le vêtement (f)
 * la teinte du vêtement (écru vs couleur)
 
 {% hint style="warning" %}
@@ -95,16 +115,21 @@ Pour les vêtements muli-fibres, une somme pondérée des scénarios de référe
 {% endhint %}
 
 $$
-ComplémentMicroF. (microPts) = \sum (f) = composition(f)*ref(f)*masse(kg)
+ComplémentMicroF. (Pts) = \sum (f) = composition(f)*ref(f)*masse(kg)
 $$
 
 <details>
 
 <summary>Illustration</summary>
 
-Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de +10% /+94 pour la version 100% coton vs +21%/+149 pour la version 100% synthétique.&#x20;
+Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de :&#x20;
 
-
+* \+10% pour la version 100% coton\
+  Impact initial = 915 micro-pts\
+  Impact final = 915 + (100% \* 550 \* 0,17) = 1 009 micro-pts
+* &#x20;\+21% pour la version 100% synthétique\
+  Impact initial = 715 micro-pts\
+  Impact final = 715 + (100% \* 875 \* 0,17) = 864 micro-pts
 
 ![](<../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g).png>)
 
