@@ -94,19 +94,18 @@ getTotalComplementsImpacts complementsImpacts =
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
 complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
     -- We want those complements/bonuses to appear as negative values on the chart
-    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
-    , { name = "Bonus infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
-    , { name = "Bonus conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
+    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
     , { name = "Complément fin de vie hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
 
 totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, value : Float, color : String }
 totalComplementsImpactAsChartEntry complementsImpacts =
-    -- We want those bonuses to appear as negative values on the chart
-    -- FIXME: some complements are positive, others are negative, what do we want?
-    { name = "Bonus écologique"
-    , value = Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts)
+    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
+    { name = "Compléments"
+    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
     , color = "#808080"
     }
 

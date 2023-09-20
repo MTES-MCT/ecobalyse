@@ -130,9 +130,7 @@ addToComparison session label query =
                     (\simulator ->
                         { label = label
                         , impacts = simulator.impacts
-
-                        -- FIXME: we don't compute textile complements just yet
-                        , complementsImpact = Impact.noComplementsImpacts
+                        , complementsImpact = simulator.complementsImpacts
                         , stepsImpacts =
                             simulator
                                 |> Simulator.toStepsImpacts Definition.Ecs
