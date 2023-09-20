@@ -86,7 +86,8 @@ Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
 {% endhint %}
 
-Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Les observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés.
+Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés.\
+Ce constat est notamment appuyé par Andrée-Claire Lemieux de la chaire Sustainability IFM-Kering dans le cadre de ses travaux sur une mode plus responsable.
 
 On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
