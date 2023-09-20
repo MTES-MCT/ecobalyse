@@ -75,12 +75,16 @@ suite =
                             Expect.fail error
                     )
                 ]
-            , describe "getOutOfEuropeEOLComplement"
+            , let
+                testComplementEqual x =
+                    Inputs.fromQuery textileDb
+                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
+                        >> Result.withDefault 0
+                        >> Expect.within (Expect.Absolute 0.001) x
+              in
+              describe "getOutOfEuropeEOLComplement"
                 [ tShirtCotonFrance
-                    |> Inputs.fromQuery textileDb
-                    |> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
-                    |> Result.withDefault -99
-                    |> Expect.within (Expect.Absolute 0.001) -51
+                    |> testComplementEqual -51
                     |> asTest "should compute complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
@@ -88,10 +92,7 @@ suite =
                         , { id = Material.Id "pu", share = Split.half, spinning = Nothing }
                         ]
                   }
-                    |> Inputs.fromQuery textileDb
-                    |> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
-                    |> Result.withDefault -99
-                    |> Expect.within (Expect.Absolute 0.001) -93.5
+                    |> testComplementEqual -93.5
                     |> asTest "should compute complement impact for a half-natural, half-synthetic garment"
                 ]
             ]

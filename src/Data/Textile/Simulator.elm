@@ -579,9 +579,25 @@ computeTotalTransportImpacts simulator =
 
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ lifeCycle } as simulator) =
+    let
+        complementsImpacts =
+            LifeCycle.sumComplementsImpacts lifeCycle
+
+        complementsImpact =
+            Impact.getTotalComplementsImpacts complementsImpacts
+
+        lifeCycleImpacts_ =
+            LifeCycle.computeFinalImpacts lifeCycle
+
+        ecsWithComplements =
+            Impact.getImpact Definition.Ecs lifeCycleImpacts_
+                |> Quantity.minus complementsImpact
+    in
     { simulator
-        | impacts = LifeCycle.computeFinalImpacts lifeCycle
-        , complementsImpacts = LifeCycle.sumComplementsImpacts lifeCycle
+        | complementsImpacts = complementsImpacts
+        , impacts =
+            lifeCycleImpacts_
+                |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
     }
 
 

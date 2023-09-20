@@ -15,6 +15,7 @@ module Data.Impact exposing
     , getAggregatedScoreData
     , getImpact
     , getTotalComplementsImpacts
+    , insertWithoutAggregateComputation
     , mapImpacts
     , noComplementsImpacts
     , noStepsImpacts
@@ -103,12 +104,9 @@ complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, out
 totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, value : Float, color : String }
 totalComplementsImpactAsChartEntry complementsImpacts =
     -- We want those bonuses to appear as negative values on the chart
+    -- FIXME: some complements are positive, others are negative, what do we want?
     { name = "Bonus écologique"
-    , value =
-        -(complementsImpacts
-            |> getTotalComplementsImpacts
-            |> Unit.impactToFloat
-         )
+    , value = Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts)
     , color = "#808080"
     }
 
