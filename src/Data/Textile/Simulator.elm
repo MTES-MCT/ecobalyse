@@ -674,5 +674,9 @@ toStepsImpacts trigram simulator =
     , transports = getImpact simulator.transport.impacts
     , distribution = Nothing
     , usage = getImpacts Label.Use |> getImpact
-    , endOfLife = getImpacts Label.EndOfLife |> getImpact
+    , endOfLife =
+        getImpacts Label.EndOfLife
+            |> getImpact
+            -- Note: substracting because this complement, as a malus, is expressed with a negative number
+            |> Maybe.map (Quantity.minus simulator.complementsImpacts.outOfEuropeEOL)
     }
