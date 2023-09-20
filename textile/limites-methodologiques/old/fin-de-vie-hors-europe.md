@@ -68,9 +68,13 @@ $$
 
 <summary>Illustration</summary>
 
-Dans le cas théorique d'un jean (poids 450g, fabrication Inde) terminant sa vie sous forme de déchets hors Europe, la fin de vie pèserait entre 62% et 69% de l'impact total du produit (hors compléments) selon sa composition.&#x20;
+Dans le cas théorique d'un jean (poids 450g, fabrication Inde) terminant sa vie sous forme de déchets hors Europe, la fin de vie pèserait entre 43% et 50% de l'impact total du produit (hors compléments) selon sa composition.&#x20;
 
-![](<../../../.gitbook/assets/Impact d'un jean terminant sa fin de vie sous forme de déchet Hors Europe.png>)
+Cette illustration permet de comprendre la matérialité du complément dans un "worst-case scenario" théorique.
+
+Pour calculer le complément sur un produit réel, il faut estimer sa probabilité de terminer sa fin de vie sous forme de déchet hors Europe (cf. ci-dessous).
+
+![](<../../../.gitbook/assets/Impact d'un jean terminant sa fin de vie sous forme de déchet Hors Europe (1).png>)
 
 </details>
 
@@ -82,19 +86,18 @@ A partir des données moyennes compilées dans le cadre de nos travaux, la proba
 Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 
 * 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^1])
-* 49% des vêtements triés sont exportés hors Europe (source[^2]),&#x20;
+* 49% des vêtements triés sont exportés hors Europe (source[^2] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-3)[^3] de fin de vie post-tri),&#x20;
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
 {% endhint %}
 
-Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés.\
-Ce constat est notamment appuyé par Andrée-Claire Lemieux de la chaire Sustainability IFM-Kering dans le cadre de ses travaux sur une mode plus responsable.
+Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés. Ce constat est notamment appuyé par Andrée-Claire Lemieux de la chaire Sustainability IFM-Kering dans le cadre de ses travaux sur une mode plus responsable.
 
 On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
-<table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19%</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>19%</td><td>60%</td><td>11%</td></tr><tr><td>Autres vêtements</td><td>19%</td><td>34%</td><td>6%</td></tr></tbody></table>
+<table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19% <br>(= 38% * 49%)</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>60%</td><td>11%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>34%</td><td>6%</td></tr></tbody></table>
 
 {% hint style="info" %}
-Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne (50% des vêtements exportés hors Europe ne sont pas portés) en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^3])
+Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne (50% des vêtements exportés hors Europe ne sont pas portés) en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^4])
 {% endhint %}
 
 ## Calcul du complément "Fin de vie hors Europe"
@@ -143,4 +146,7 @@ Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fi
     \
     &#x20; &#x20;
 
-[^3]: Textile Exchange \_ The global fiber market 2021&#x20;
+[^3]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
+    &#x20;&#x20;
+
+[^4]: Textile Exchange \_ The global fiber market 2021&#x20;
