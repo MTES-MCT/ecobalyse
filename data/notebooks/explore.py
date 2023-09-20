@@ -8,7 +8,6 @@ import bw2analyzer
 import bw2calc
 import bw2data
 import ipywidgets
-import logging
 import os
 import pandas
 import pandas.io.formats.style
@@ -17,7 +16,8 @@ Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"
 STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
 PROJECTS = [p.name for p in bw2data.projects]
-METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+FOODMETHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+TEXTILEMETHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
 TEXTILEDB = "Ecoinvent 3.9.1"
 FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
@@ -31,7 +31,7 @@ w_project = ipywidgets.Dropdown(
     options=PROJECTS,
     description="PROJECT",
 )
-w_database = ipywidgets.Dropdown(value="", options=[""], description="DATABASE")
+w_database = ipywidgets.Dropdown(options=[], description="DATABASE")
 w_search = ipywidgets.Text(value="", placeholder="Search string", description="SEARCH")
 w_method = ipywidgets.Dropdown(options=[], description="METHOD")
 w_limit = ipywidgets.IntText(value=LIMIT, step=1, description="LIMIT")
@@ -58,8 +58,9 @@ w_back_button.on_click(go_back)
 
 
 @w_results.capture()
-def display_results(results):
+def display_results(database, search, limit):
     """display the list of search results in the w_results widget"""
+    results = list(bw2data.Database(database).search(search, limit=limit))
     w_results.clear_output()
     w_details.clear_output()
     w_activity.options = [("", "")] + [
@@ -79,12 +80,34 @@ def display_results(results):
 
 
 @w_results.capture()
-def display_characterization_factors(cfs):
-    w_results.clear_output()
+def display_characterization_factors(method, impact_category):
     w_details.clear_output()
+    w_results.clear_output()
+    # METHOD CFs
+    grouped = {}
+    for line in bw2data.Method((method,) + impact_category).load() if method else []:
+        substance = tuple(line[0])
+        grouped[substance] = grouped.get(substance, ()) + (str(line[1]),)
+    cfs = pandas.io.formats.style.Styler(
+        pandas.DataFrame(
+            [
+                (
+                    g[0][1],
+                    bw2data.Database(g[0][0]).get(g[0][1]),
+                    ("Multiple values: " if len(g[1]) > 1 else "") + " | ".join(g[1]),
+                    bw2data.methods[(method,) + impact_category]["unit"],
+                )
+                for g in grouped.items()
+            ],
+            columns=["id", "substance found in biosphere", "amount", "unit"],
+        )
+    )
+
+    cfs.set_properties(**{"background-color": "#EEE"})
+
     display(
         Markdown(
-            f"# {len(cfs.data)} Characterization factors for <b>{w_impact_category.value}</b> in {w_method.value}"
+            f"# {len(cfs.data)} Characterization factors for <b>{', '.join(impact_category)}</b> in {method}"
         )
     )
     if len(cfs.data):
@@ -107,7 +130,8 @@ def linkto(button, append_to_stack=True):
     )
     if len(VISITED) == 0:
         w_search.value = ""
-    w_activity.options = [("", "")] + [
+    w_activity.value = None
+    w_activity.options = [
         (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
     ]
     w_activity.value = results[0] if len(results) > 0 else None
@@ -152,114 +176,140 @@ def list2html(l):
     )
 
 
-def compute(change):
-    global VISITED  # 🤮
-    project = change.new if change.owner is w_project else w_project.value
-    database = change.new if change.owner is w_database else w_database.value
-    search = change.new if change.owner is w_search else w_search.value
-    limit = change.new if change.owner is w_limit else w_limit.value
+def changed_project(_):
+    project = w_project.value
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
 
-    if change.owner is w_search:
-        VISITED = [search]
-        w_activity.value = None
-
-    # We changed the project
     projects.set_current(project)
     # projects.activate_project(project)
-    databases = [""] + list(bw2data.databases)
-    w_database.options = databases
+    databases = list(bw2data.databases)
     methods = sorted({m[0] for m in bw2data.methods})
-    w_method.options = methods
-    w_impact_category.options = [""] + sorted(
-        [m[1] for m in bw2data.methods if m[0] == METHOD]
-    )
-    if change.owner is w_project:
-        activity = w_activity.value = None
+    impact_categories = [
+        (", ".join(m[1:]), m[1:]) for m in bw2data.methods if m[0] == method
+    ]
+
     # default database
-    if not list(bw2data.databases):
-        w_results.clear_output()
-        w_details.clear_output()
-        return
-    if project == "food" and FOODDB in databases:
-        database = w_database.value = (
-            w_database.value if w_database.value in bw2data.databases else FOODDB
-        )
-    elif project == "textile" and TEXTILEDB in databases:
-        database = w_database.value = (
-            w_database.value if w_database.value in bw2data.databases else TEXTILEDB
-        )
+    w_database.value = None
+    w_database.options = databases
+    if project == "food" and FOODDB in databases and FOODMETHOD in methods:
+        database = w_database.value = database if database in databases else FOODDB
+        w_method.value = None
+        w_method.options = methods
+        method = w_method.value = method if method in methods else FOODMETHOD
+    elif project == "textile" and TEXTILEDB in databases and TEXTILEMETHOD in methods:
+        database = w_database.value = database if database in databases else TEXTILEDB
+        w_method.value = None
+        w_method.options = methods
+        method = w_method.value = method if method in methods else TEXTILEMETHOD
     else:
-        database = w_database.value = ""
-    # default method
-    if not list(bw2data.methods):
-        w_results.clear_output()
-        w_details.clear_output()
-        return
-    if project == "food" and METHOD in methods and not w_method.value:
-        method = w_method.value = METHOD
-    elif project == "textile" and METHOD in methods and not w_method.value:
-        method = w_method.value = METHOD
-
-    activity = change.new if change.owner is w_activity else w_activity.value
-    method = change.new if change.owner is w_method else w_method.value
-    impact_category = (
-        change.new if change.owner is w_impact_category else w_impact_category.value
+        w_method.value = None
+        w_impact_category.value = None
+        w_method.options = methods
+        method = w_method.value = method if method in methods else None
+    w_impact_category.options = [("", "")] + sorted(
+        [(", ".join(m[1:]), m[1:]) for m in bw2data.methods if m[0] == method]
     )
-    if not activity:
+    impact_category = w_impact_category.value = (
+        impact_category if impact_category in impact_categories else None
+    )
+    activity = w_activity.value = (
+        activity
+        if activity and bw2data.Database(database).get(activity.get("code"))
+        else None
+    )
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_database(_):
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_search(_):
+    global VISITED  # 🤮
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+
+    if search:
+        if len(VISITED) <= 1:
+            VISITED = [search]
+            activity = w_activity.value = None
+        else:
+            VISITED = []
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_limit(_):
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_method(_):
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+    impact_categories = [m[1:] for m in bw2data.methods if m[0] == method]
+    w_impact_category.value = None
+    w_impact_category.options = [(", ".join(i), i) for i in impact_categories]
+    impact_category = w_impact_category.value = (
+        impact_category if impact_category in impact_categories else None
+    )
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_impact_category(_):
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def changed_activity(_):
+    database = w_database.value
+    search = w_search.value
+    limit = w_limit.value
+    method = w_method.value
+    impact_category = w_impact_category.value
+    activity = w_activity.value
+    display_all(database, search, limit, method, impact_category, activity)
+
+
+def display_all(database, search, limit, method, impact_category, activity):
+    if method and impact_category and not search and not activity:
+        return display_characterization_factors(method, impact_category)
+    elif database and method and activity:
+        display_right_panel(database)
+        return display_main_data(database, method, impact_category, activity)
+    elif database and search and limit:
+        return display_results(database, search, limit)
+    else:
         w_details.clear_output()
-    if not search and not impact_category:
         w_results.clear_output()
-
-    if search and len(VISITED) <= 1:
-        VISITED = [search]
-
-    if not search and not impact_category:
-        w_results.clear_output()
-    if not activity and not search and (not method or not impact_category):
-        return
-    # METHOD CFs
-    if not search and not activity and impact_category:
-        grouped = {}
-        for line in bw2data.Method((method, impact_category)).load() if method else []:
-            grouped[line[0]] = grouped.get(line[0], ()) + (str(line[1]),)
-        cfs = pandas.io.formats.style.Styler(
-            pandas.DataFrame(
-                [
-                    (
-                        g[0][1],
-                        bw2data.Database(g[0][0]).get(g[0][1]),
-                        ("Multiple values: " if len(g[1]) > 1 else "")
-                        + " | ".join(g[1]),
-                        bw2data.methods[(method, impact_category)]["unit"],
-                    )
-                    for g in grouped.items()
-                ],
-                columns=["id", "substance found in biosphere", "amount", "unit"],
-            )
-        )
-
-        cfs.set_properties(**{"background-color": "#EEE"})
-        display_characterization_factors(cfs)
-        return
-
-    # Changed search
-    logging.info(VISITED)
-    if (
-        VISITED
-        and len(VISITED) == 1
-        and search
-        and database
-        and method
-        and not activity
-    ):
-        return display_results(
-            list(bw2data.Database(database).search(search, limit=limit))
-        )
-
-    # IMPACTS
-    if not activity or not database or not method:
-        return
-    display_main_data(database, method, impact_category, activity)
 
 
 def display_right_panel(database):
@@ -267,7 +317,7 @@ def display_right_panel(database):
     biosphere_name = bw2data.preferences.get("biosphere_database", "")
     biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
     breadcrumb = [
-        f"<li>{bw2data.Database(database).search(a)[0] if a.startswith('code:') else a}</li>"
+        f"<li>{bw2data.Database(database).search(a)[0] if bw2data.Database(database).search(a) and str(a).startswith('code:') else a}</li>"
         for a in VISITED
     ]
     w_panel.value = STATSTYLE + (
@@ -282,11 +332,9 @@ def display_right_panel(database):
 @w_details.capture()
 def display_main_data(database, method, impact_category, activity):
 
-    display_right_panel(database)
-
     w_details.clear_output()
     w_results.clear_output()
-    display(Markdown(f"# (Computing impacts...)"))
+    display(Markdown(f"## (Computing impacts...)"))
 
     # Impacts
     lca = bw2calc.LCA({activity: 1})
@@ -321,7 +369,7 @@ def display_main_data(database, method, impact_category, activity):
     activity_fields = f"{production}" + dict2html(activity)
 
     w_details.clear_output()
-    display(Markdown(f"# (Retrieving technosphere...)"))
+    display(Markdown(f"## (Retrieving technosphere...)"))
 
     # TECHNOSPHERE
     technosphere_widgets = []
@@ -364,7 +412,7 @@ def display_main_data(database, method, impact_category, activity):
         )
 
     w_details.clear_output()
-    display(Markdown(f"# (Retrieving biosphere...)"))
+    display(Markdown(f"## (Retrieving biosphere...)"))
 
     # BIOSPHERE
     biosphere = []
@@ -383,17 +431,17 @@ def display_main_data(database, method, impact_category, activity):
             pandas.DataFrame(
                 [
                     (
-                        method[1],
-                        lookup_cf(allcfs[method], element),
-                        bw2data.methods.get(method)["unit"],
+                        meth[1],
+                        lookup_cf(allcfs[meth], element),
+                        bw2data.methods.get(meth, {}).get("unit", "N/A"),
                     )
-                    for method in [
+                    for meth in [
                         m
                         for m in bw2data.methods
                         if m[0] == method
                         and (
                             not w_impact_category.value
-                            or w_impact_category.value == m[1]
+                            or w_impact_category.value == m[1:]
                         )
                     ]
                 ],
@@ -427,7 +475,7 @@ def display_main_data(database, method, impact_category, activity):
     # ANALYSIS
     if w_impact_category.value:
         try:
-            lca.switch_method((method, impact_category))
+            lca.switch_method((method,) + impact_category)
             lca.lcia()
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
@@ -444,7 +492,7 @@ def display_main_data(database, method, impact_category, activity):
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
             analysis = (
-                f"<h2>{lca.method[1]}</h2>"
+                f"<h2>{', '.join(lca.method[1:])}</h2>"
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
                 f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
             )
@@ -488,13 +536,13 @@ def display_main_data(database, method, impact_category, activity):
     )
 
 
-w_project.observe(compute, names="value")
-w_database.observe(compute, names="value")
-w_search.observe(compute, names="value")
-w_limit.observe(compute, names="value")
-w_activity.observe(compute, names="value")
-w_method.observe(compute, names="value")
-w_impact_category.observe(compute, names="value")
+w_project.observe(changed_project, names="value")
+w_database.observe(changed_database, names="value")
+w_search.observe(changed_search, names="value")
+w_limit.observe(changed_limit, names="value")
+w_activity.observe(changed_activity, names="value")
+w_method.observe(changed_method, names="value")
+w_impact_category.observe(changed_impact_category, names="value")
 
 details = ipywidgets.VBox(
     [w_panel],
@@ -507,10 +555,10 @@ display(
                 [
                     w_project,
                     w_database,
-                    w_search,
-                    w_limit,
                     w_method,
                     w_impact_category,
+                    w_search,
+                    w_limit,
                     w_activity,
                     w_back_button,
                 ],
