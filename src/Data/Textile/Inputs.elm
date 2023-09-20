@@ -15,6 +15,7 @@ module Data.Textile.Inputs exposing
     , fromQuery
     , getMainMaterial
     , getOutOfEuropeEOLComplement
+    , getOutOfEuropeEOLProbability
     , jupeCircuitAsie
     , parseBase64Query
     , removeMaterial
@@ -555,15 +556,13 @@ updateProduct product query =
         query
 
 
-getOutOfEuropeEOLComplement : Inputs -> Unit.Impact
-getOutOfEuropeEOLComplement { mass, materials } =
+getOutOfEuropeEOLProbability : List MaterialInput -> Float
+getOutOfEuropeEOLProbability materialInputs =
     -- We consider that the garment enters the "synthetic materials" category as soon as
     -- synthetic and artificial materials represent more than 10% of its composition.
-    -- - When so:   11.2% * weight (kg) * 5000
-    -- - Otherwise:  6.4% * weight (kg) * 5000
     let
         syntheticShare =
-            materials
+            materialInputs
                 |> List.filterMap
                     (\{ material, share } ->
                         if material.origin == Origin.Synthetic then
@@ -573,16 +572,18 @@ getOutOfEuropeEOLComplement { mass, materials } =
                             Nothing
                     )
                 |> List.sum
-
-        wasteProbability =
-            if syntheticShare >= 10 then
-                0.11
-
-            else
-                0.06
     in
-    -- Note: this complement is a malus, hence the minus sign
-    Unit.impact -(wasteProbability * Mass.inKilograms mass * 5000)
+    if syntheticShare >= 10 then
+        0.11
+
+    else
+        0.06
+
+
+getOutOfEuropeEOLComplement : Inputs -> Unit.Impact
+getOutOfEuropeEOLComplement { mass, materials } =
+    -- This complement is a malus, hence the minus sign
+    Unit.impact -(getOutOfEuropeEOLProbability materials * Mass.inKilograms mass * 5000)
 
 
 defaultQuery : Query

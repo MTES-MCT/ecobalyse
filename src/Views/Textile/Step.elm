@@ -901,6 +901,18 @@ detailedView ({ inputs, impact, current } as config) =
                     , surfaceInfoView inputs current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
+                    , if current.label == Label.EndOfLife then
+                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
+                            [ span [ class "me-2" ] [ text "Probablilité de fin de vie hors-Europe" ]
+                            , inputs.materials
+                                |> Inputs.getOutOfEuropeEOLProbability
+                                |> (*) 100
+                                |> Format.percent
+                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                            ]
+
+                      else
+                        text ""
                     ]
                 ]
             ]
