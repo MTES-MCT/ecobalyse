@@ -558,8 +558,8 @@ updateProduct product query =
 
 getOutOfEuropeEOLProbability : List MaterialInput -> Float
 getOutOfEuropeEOLProbability materialInputs =
-    -- We consider that the garment enters the "synthetic materials" category as soon as
-    -- synthetic and artificial materials represent more than 10% of its composition.
+    -- We consider that the garment enters the "synthetic materials" category as
+    -- soon as synthetic materials represent more than 10% of its composition.
     let
         syntheticShare =
             materialInputs
