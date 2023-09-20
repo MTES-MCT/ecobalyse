@@ -8,9 +8,9 @@ description: >-
 
 ## De quoi parle-t-on ?&#x20;
 
-Les microfibres sont des particules d'une taille variant entre 1 µm (micromètre) et 5 mm.
+Les microfibres sont des particules d'une taille variant entre 1 µm (micromètre) et 5 mm (millimètres).
 
-Les enjeux autour des microfibres sont progressivement mis en lumière suite aux travaux liés aux microplastiques (microfibres d'origine plastique).&#x20;
+Les enjeux autour des microfibres d'origine Textile sont progressivement mis en lumière suite aux préoccupations croissantes liées aux microplastiques (relarguées par les fibres synthétiques).&#x20;
 
 <details>
 
@@ -18,9 +18,9 @@ Les enjeux autour des microfibres sont progressivement mis en lumière suite aux
 
 On distingue deux sources de microplastiques :&#x20;
 
-* les microplastiques primaires (c. 1/3 des volumes) => se retrouvent directement dans l’environnement sous forme de microplastiques. \
-  Deux scénarios existent : ceux ajoutés volontairement dans des produits (ex : microbilles utilisées dans la cosmétiques) ou ceux résultant de l’abrasion d’objets plus gros lors de leur fabrication/utilisation/entretien (ex : abrasion des pneus, relargage de fibres lors du lavage des vêtements).
-* les microplastiques secondaires (2/3 des volumes) => sont issus de l’utilisation ou la dégradation d’objets plus grands (ex : décomposition de sacs/bouteilles, etc.).
+* les microplastiques primaires (c. 1/3 des volumes) => particules se retrouvant directement dans l’environnement sous forme de microplastiques. \
+  Deux scénarios existent : ceux ajoutés volontairement dans des produits (ex : microbilles utilisées dans la cosmétiques) ou ceux résultant de l’abrasion d’objets plus grands lors de leur fabrication ou utilisation(ex : abrasion des pneus, relargage de fibres lors du lavage des vêtements).
+* les microplastiques secondaires (2/3 des volumes) => sont issus de la dégradation d’objets plus grands (ex : décomposition de sacs/bouteilles, etc.).
 
 Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondiale proviennent du secteur Textile (source : [European Environment Agency](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a))
 
@@ -65,18 +65,18 @@ Il n'existe pas encore suffisament de littérature scientifique permettant d'est
 
 Cependant, de premiers éléments font consensus :&#x20;
 
-1\) les produits chimiques qui sont appliqués sur les fibres textile lors des différentes étapes d'ennoblissement (ex : blanchiment, teinture, etc.) génèrent de la toxicité tandis que ces applications peuvent altérer la biodégradabilité de ce certaines fibres.
+1\) les produits chimiques qui sont appliqués sur les fibres textile lors des différentes étapes d'ennoblissement (ex : blanchiment, teinture, etc.) génèrent de la toxicité tandis que ces applications peuvent altérer la biodégradabilité de certaines fibres.
 
 2\) les microplastiques constituent un enjeu majeur \
-En effet, les microplastiques sont persistants (non biodégradables) dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (60% des volumes). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
+En effet, les microplastiques sont persistants (non biodégradables) dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (62%[^1] des volumes en 2020). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
 
-3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et de l'éttofe, confection du vêtement, utilisation, fin de vie) et au sein de différents compartiments (air, eau, sol).
+3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et du vêtement, confection, utilisation, fin de vie) et au sein de différents compartiments (air, eau, sol). &#x20;
 
 4\) le lavage en machine des vêtements est une des principales sources d'émission de microfibres dans l'eau. Par ailleurs, les premiers lavages génèrent la majorité de ces microfibres.&#x20;
 
 5\) les fibres naturelles, bien que biodégradables par essence, peuvent devenir plus ou moins persistantes dans l'environnement suite aux étapes d'ennoblissement.&#x20;
 
-Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.
+Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.&#x20;
 
 </details>
 
@@ -94,21 +94,22 @@ De plus, différents paramètres sont définis pour chaque dimension afin de pr�
 
 <table><thead><tr><th width="227">Biodégradabilité</th><th width="161.33333333333331">Relargage </th><th>Toxicité  </th></tr></thead><tbody><tr><td>Non biod. = 100%</td><td>Elevé = 80%</td><td>Ecru = 50%</td></tr><tr><td>Biod. faible = 75%</td><td>Moyen = 50%</td><td>Couleur = 100%</td></tr><tr><td>Biod. moyenne = 50%</td><td>Faible = 20%</td><td></td></tr><tr><td>Biod. élevée = 10%</td><td></td><td></td></tr></tbody></table>
 
-Dès lors, des scénarios et valeurs de référence sont définis (unité = micro-points) :&#x20;
+Dès lors, des scénarios et valeurs de référence (ref) sont définis (unité = micro-points) :&#x20;
 
-<table><thead><tr><th width="278.3333333333333">Fibre (f)</th><th width="215">Biodégradabilité</th><th width="177">Relargage</th><th width="159">Toxicité</th><th>Total (ref)</th></tr></thead><tbody><tr><td>Référence théorique</td><td>Non biodeg. = 500</td><td>Elevé = 250</td><td>Ecru = 125<br>Autre = 250</td><td>1000</td></tr><tr><td>Synthétique</td><td>Non biod. = 500</td><td>Moyen = 125</td><td>Cf. supra</td><td>875</td></tr><tr><td>Naturelle (origine végétale)</td><td>Biod. élevée = 50</td><td>Elevé = 250</td><td>Cf. supra</td><td>550</td></tr><tr><td>Naturelle (origine animale)</td><td>Biod. moyenne = 250</td><td>Elevé = 250</td><td>Cf. supra</td><td>750</td></tr><tr><td>Artificielle (origine organique)</td><td>Biod. élevée = 50</td><td>Moyen = 125</td><td>Cf. supra</td><td>425</td></tr><tr><td>Artificielle (origine inorganique)</td><td>Non biodeg. = 500</td><td>Moyen = 125</td><td>Cf. supra</td><td>875</td></tr></tbody></table>
+<table><thead><tr><th width="278.3333333333333">Type de fibre (f)</th><th width="215">Biodégradabilité</th><th width="177">Relargage</th><th width="159">Toxicité</th><th>Total (ref)</th></tr></thead><tbody><tr><td>Référence théorique</td><td>Non biodeg. = 500</td><td>Elevé = 250</td><td>Autre = 250</td><td>1000</td></tr><tr><td>Synthétique</td><td>Non biod. = 500</td><td>Moyen = 125</td><td>Ecru = 125<br>Autre = 250</td><td>875</td></tr><tr><td>Naturelle (origine végétale)</td><td>Biod. élevée = 50</td><td>Elevé = 250</td><td>Cf. supra</td><td>550</td></tr><tr><td>Naturelle (origine animale)</td><td>Biod. moyenne = 250</td><td>Elevé = 250</td><td>Cf. supra</td><td>750</td></tr><tr><td>Artificielle (origine organique)</td><td>Biod. élevée = 50</td><td>Moyen = 125</td><td>Cf. supra</td><td>425</td></tr><tr><td>Artificielle (origine inorganique)</td><td>Non biodeg. = 500</td><td>Moyen = 125</td><td>Cf. supra</td><td>875</td></tr></tbody></table>
 
 {% hint style="info" %}
-La dimension "Toxicité" est appréhendée selon les traitements appliqués lors de l'ennoblissement. Tout vêtement est considéré subir des pre-traitements et au moins un apprêt chimique.
+La dimension "Toxicité" est appréhendée selon les traitements appliqués lors de l'ennoblissement. L'utilisateur peut préciser si le vêtement est écru (pas de teinture) afin de réduire de 50% le coefficient Toxicité. Les 50% restants sont fixes et reflètent les pre-traitements et apprêt(s) chimique(s) mobilisés.
 {% endhint %}
 
 ## Calcul du complément "Microfibres"
 
 3 paramètres sont considérés pour calculer le complément :&#x20;
 
-* la masse du vêtement (produit fini),
-* la nature des fibres composant le vêtement (f)
-* la teinte du vêtement (écru vs couleur)
+* la masse du vêtement (kg),
+* le(s) scénario(s) de référence spécifique(s) à la composition du vêtement (micro-points),\
+  (1 fibre = 1 type de fibre = 1 valeur de référence = ref)&#x20;
+* la composition du vêtement par type de fibre (%)
 
 {% hint style="warning" %}
 Pour les vêtements muli-fibres, une somme pondérée des scénarios de référence spécifiques à chaque fibre est à effectuer.
@@ -150,3 +151,5 @@ Le coefficient peut aller de :&#x20;
 A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Microfibres" vient s'ajouter directement au score d'impacts exprimé en points.
 
 Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Matières".
+
+[^1]: Source = rapport d'activité 2021 Textile Exchange    &#x20;
