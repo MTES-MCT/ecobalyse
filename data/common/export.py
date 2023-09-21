@@ -1,6 +1,7 @@
 # Only pure functions here
 import functools
 import bw2data
+from peewee import IntegrityError
 
 
 def with_subimpacts(process):
@@ -86,3 +87,67 @@ def display_changes(key, oldprocesses, processes):
         print("==".join(["=" * widths[key] for key in keys]))
         print("Please review the impact changes above")
         print("==".join(["=" * widths[key] for key in keys]))
+
+
+def create_new_activity(dbname, base_process, new_activity_name):
+    try:
+        new_activity = base_process.copy(new_activity_name)
+
+        new_activity["name"] = new_activity_name
+        new_activity.save()
+        print(f"create_new_process: Created process {new_activity}")
+        return new_activity
+    except IntegrityError as e:
+        print(e)
+        print("create_new_process: Process already exist")
+        return search(dbname, new_activity_name)
+
+
+def delete_exchange(activity, activity_to_delete, amount=False):
+    if amount:
+        for exchange in activity.exchanges():
+            if (
+                exchange.input["name"] == activity_to_delete["name"]
+                and exchange["amount"] == amount
+            ):
+                exchange.delete()
+                print(f"delete_exchange : Deleted {exchange}")
+                return True
+
+    else:
+        for exchange in activity.exchanges():
+            if exchange.input["name"] == activity_to_delete["name"]:
+                exchange.delete()
+                print(f"delete_exchange : Deleted {exchange}")
+                return True
+    print(
+        f"delete_exchange : Did not find exchange {activity_to_delete}, no exchange deleted"
+    )
+
+
+def duplicate_exchange(activity, activity_to_duplicate, new_activity, new_amount=None):
+    if any(exch.input["name"] == new_activity["name"] for exch in activity.exchanges()):
+        print(
+            f"duplicate_exchange : Exchange with {new_activity} already added, no exchange added"
+        )
+        return False
+
+    for exchange in activity.exchanges():
+        if exchange.input["name"] == activity_to_duplicate["name"]:
+            if not new_amount:
+                new_amount = exchange["amount"]
+            new_exchange = activity.new_exchange(
+                name=new_activity["name"],
+                input=new_activity,
+                amount=new_amount,
+                type=exchange["type"],
+                unit=exchange["unit"],
+            )
+            new_exchange.save()
+            print(
+                f"duplicate_exchange: Duplicated exchange {activity_to_duplicate} with new name {new_activity} and amount: {new_amount}"
+            )
+            return True
+
+    print("duplicate_exchange: Exchange to duplicate not found. No exchange was added")
+    return False

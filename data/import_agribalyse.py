@@ -7,12 +7,27 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 import re
+import json
+from common.export import (
+    with_subimpacts,
+    search,
+    with_corrected_impacts,
+    display_changes,
+    create_new_activity,
+    delete_exchange,
+    duplicate_exchange,
+)
 
 PROJECT = "food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = "biosphere3"
+
+
+ACTIVITIES = "food/activities.json"
+#
+ACTIVITIES_TO_CREATE = "food/activities_to_create.json"
 
 # excluded strategies and migrations
 EXCLUDED = [
@@ -274,6 +289,47 @@ def import_agribalyse(
     print(f"### Finished importing {DBNAME}")
 
 
+def import_created_processes(dbname=DBNAME):
+    with open(ACTIVITIES_TO_CREATE, "r") as f:
+        activities_data = json.load(f)
+
+    for act_data in activities_data:
+        act = search(dbname, act_data["search"])
+
+        # create a new variant activity
+        act_variant = create_new_activity(
+            dbname, act, f"{act_data['search']} {act_data['suffix']}"
+        )
+        seed_process = search(dbname, act_data["seed_process"])
+        seed_process_variant = search(dbname, act_data["seed_process_variant"])
+
+        if not act_data["subprocesses_list"]:
+            duplicate_exchange(act_variant, seed_process, seed_process_variant)
+            delete_exchange(act_variant, seed_process)
+
+        else:
+            for i, act_sub_data in enumerate(act_data["subprocesses_list"]):
+                act_sub = search(dbname, act_sub_data)
+
+                # create a new variant sub activity
+                act_sub_variant = create_new_activity(
+                    dbname, act_sub, f"{act_sub['name']} {act_data['suffix']}"
+                )
+
+                # link the newly create act_sub_variant to the parent act_sub_var
+                duplicate_exchange(act_variant, act_sub, act_sub_variant)
+
+                # for the last sub ingredient, replace the ingredient
+                if i == len(act_data["subprocesses_list"]) - 1:
+                    duplicate_exchange(
+                        act_sub_variant, seed_process, seed_process_variant
+                    )
+                    delete_exchange(act_sub_variant, seed_process)
+
+                # update the act_variant
+                act_variant = act_sub_variant
+
+
 def main():
     # Import Agribalyse
     projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -282,6 +338,7 @@ def main():
 
     if DBNAME not in bw2data.databases:
         import_agribalyse()
+        import_created_processes()
     else:
         print(f"{DBNAME} already imported")
 
