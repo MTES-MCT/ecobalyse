@@ -654,6 +654,7 @@ simpleView ({ inputs, impact, current } as config) =
                         [ if current.label /= Label.Distribution then
                             div [ class "fs-3 fw-normal text-secondary" ]
                                 [ current.impacts
+                                    |> Impact.impactsWithComplements current.complementsImpacts
                                     |> Format.formatImpact impact
                                 ]
 
