@@ -345,27 +345,23 @@ printingFields { inputs, updatePrinting } =
 
 fadingField : Config msg -> Html msg
 fadingField { inputs, toggleDisabledFading } =
-    if inputs.product.making.fadable then
-        label
-            [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
-            , title "Délavage"
+    label
+        [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
+        , title "Délavage"
+        ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input no-outline"
+            , checked (not (Maybe.withDefault False inputs.disabledFading))
+            , onCheck (\checked -> toggleDisabledFading (not checked))
             ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input no-outline"
-                , checked (not (Maybe.withDefault False inputs.disabledFading))
-                , onCheck (\checked -> toggleDisabledFading (not checked))
-                ]
-                []
-            , if inputs.disabledFading == Just True then
-                text "Délavage désactivé"
+            []
+        , if inputs.disabledFading == Just True then
+            text "Délavage désactivé"
 
-              else
-                text "Délavage activé"
-            ]
-
-    else
-        text ""
+          else
+            text "Délavage activé"
+        ]
 
 
 qualityField : Config msg -> Html msg
@@ -635,7 +631,11 @@ simpleView ({ inputs, impact, current } as config) =
                             div [ class "mt-2" ]
                                 [ makingWasteField config
                                 , airTransportRatioField config
-                                , fadingField config
+                                , if inputs.product.making.fadable then
+                                    fadingField config
+
+                                  else
+                                    text ""
                                 ]
 
                         Label.Use ->
@@ -779,7 +779,7 @@ detailedView ({ inputs, impact, current } as config) =
     let
         infoListElement =
             ul
-                [ class "StepBody list-group list-group-flush fs-7"
+                [ class "StepBody list-group list-group-flush fs-7 border-bottom-0"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
@@ -828,40 +828,48 @@ detailedView ({ inputs, impact, current } as config) =
                       else
                         text ""
                     ]
-                , div
-                    [ class "StepBody card-body py-2"
+                , ul
+                    [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
                     , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                    (case current.label of
-                        Label.Spinning ->
-                            [ yarnSizeField config inputs.product
-                            ]
+                    (List.map
+                        (\line -> li [ class "list-group-item fs-7" ] [ line ])
+                        (case current.label of
+                            Label.Spinning ->
+                                [ yarnSizeField config inputs.product
+                                ]
 
-                        Label.Fabric ->
-                            [ surfaceMassField config inputs.product ]
+                            Label.Fabric ->
+                                [ surfaceMassField config inputs.product ]
 
-                        Label.Ennobling ->
-                            [ div [ class "fs-7 mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: non applicable" ]
-                            , ennoblingGenericFields config
-                            , div [ class "fs-7 mt-2" ]
-                                [ text "Finition\u{00A0}: apprêt chimique" ]
-                            ]
+                            Label.Ennobling ->
+                                [ div [ class "mb-2" ]
+                                    [ text "Pré-traitement\u{00A0}: non applicable" ]
+                                , ennoblingGenericFields config
+                                , div [ class "mt-2" ]
+                                    [ text "Finition\u{00A0}: apprêt chimique" ]
+                                ]
 
-                        Label.Making ->
-                            [ makingWasteField config
-                            , airTransportRatioField config
-                            , fadingField config
-                            ]
+                            Label.Making ->
+                                List.filterMap identity
+                                    [ Just <| makingWasteField config
+                                    , Just <| airTransportRatioField config
+                                    , if inputs.product.making.fadable then
+                                        Just (fadingField config)
 
-                        Label.Use ->
-                            [ qualityField config
-                            , reparabilityField config
-                            , daysOfWearInfo inputs
-                            ]
+                                      else
+                                        Nothing
+                                    ]
 
-                        _ ->
-                            []
+                            Label.Use ->
+                                [ qualityField config
+                                , reparabilityField config
+                                , daysOfWearInfo inputs
+                                ]
+
+                            _ ->
+                                []
+                        )
                     )
                 ]
             , div
