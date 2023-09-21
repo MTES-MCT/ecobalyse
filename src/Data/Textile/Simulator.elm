@@ -179,18 +179,11 @@ computeEndOfLifeImpacts { wellKnown } simulator =
                                 , countryElecProcess = country.electricityProcess
                                 , heatProcess = country.heatProcess
                                 }
-
-                    { complementsImpacts } =
-                        step
                 in
                 { step
                     | impacts = impacts
                     , kwh = kwh
                     , heat = heat
-                    , complementsImpacts =
-                        { complementsImpacts
-                            | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement simulator.inputs
-                        }
                 }
             )
 
@@ -581,22 +574,12 @@ computeFinalImpacts ({ lifeCycle } as simulator) =
     let
         complementsImpacts =
             LifeCycle.sumComplementsImpacts lifeCycle
-
-        complementsImpact =
-            Impact.getTotalComplementsImpacts complementsImpacts
-
-        lifeCycleImpacts_ =
-            LifeCycle.computeFinalImpacts lifeCycle
-
-        ecsWithComplements =
-            Impact.getImpact Definition.Ecs lifeCycleImpacts_
-                |> Quantity.minus complementsImpact
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            lifeCycleImpacts_
-                |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
+            LifeCycle.computeFinalImpacts lifeCycle
+                |> Impact.impactsWithComplements complementsImpacts
     }
 
 

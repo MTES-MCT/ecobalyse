@@ -596,7 +596,8 @@ stepHeader { current, inputs, toggleStep } =
 
 simpleView : Config msg -> ViewWithTransport msg
 simpleView ({ inputs, impact, current } as config) =
-    { step =
+    { transport = viewTransport config
+    , step =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
@@ -662,7 +663,6 @@ simpleView ({ inputs, impact, current } as config) =
                     ]
                 ]
             ]
-    , transport = viewTransport config
     }
 
 
@@ -783,7 +783,8 @@ detailedView ({ inputs, impact, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    { step =
+    { transport = viewTransport config
+    , step =
         div [ class "Step card-group shadow-sm" ]
             [ div [ class "card" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
@@ -878,6 +879,7 @@ detailedView ({ inputs, impact, current } as config) =
                     [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
+                                |> Impact.impactsWithComplements current.complementsImpacts
                                 |> Format.formatImpact impact
                             ]
 
@@ -913,7 +915,8 @@ detailedView ({ inputs, impact, current } as config) =
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
                             [ span [ class "me-2" ] [ text "Probablilité de fin de vie hors-Europe" ]
                             , inputs.materials
-                                |> (Inputs.getOutOfEuropeEOLProbability >> Split.toFloat >> Format.percent)
+                                |> Inputs.getOutOfEuropeEOLProbability
+                                |> Format.splitAsPercentage
                             , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
                             ]
 
@@ -922,7 +925,6 @@ detailedView ({ inputs, impact, current } as config) =
                     ]
                 ]
             ]
-    , transport = viewTransport config
     }
 
 

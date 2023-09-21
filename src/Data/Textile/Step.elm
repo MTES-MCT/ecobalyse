@@ -26,7 +26,7 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
-import Data.Textile.Inputs exposing (Inputs)
+import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
@@ -105,6 +105,8 @@ create { label, editable, country, enabled } =
     , waste = Quantity.zero
     , transport = Transport.default defaultImpacts
     , impacts = defaultImpacts
+
+    -- TODO: store impacts as impacts without complements? with complements? then sum everything in Simulator.compute final step
     , complementsImpacts = Impact.noComplementsImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
@@ -291,7 +293,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 
 
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
-updateFromInputs { wellKnown } inputs ({ label, country } as step) =
+updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
         { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
             inputs
@@ -391,16 +393,19 @@ updateFromInputs { wellKnown } inputs ({ label, country } as step) =
 
         Label.EndOfLife ->
             let
-                newProcessInfo =
-                    { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
-                        , countryHeat = Just country.heatProcess.name
-                    }
+                outOfEuropeEOLImpact =
+                    Inputs.getOutOfEuropeEOLComplement inputs
+
+                newComplementsImpacts =
+                    { complementsImpacts | outOfEuropeEOL = outOfEuropeEOLImpact }
             in
             { step
-                | processInfo =
-                    { newProcessInfo
+                | complementsImpacts = newComplementsImpacts
+                , processInfo =
+                    { defaultProcessInfo
                         | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
+                        , countryElec = Just country.electricityProcess.name
+                        , countryHeat = Just country.heatProcess.name
                         , endOfLife = Just wellKnown.endOfLife.name
                     }
             }

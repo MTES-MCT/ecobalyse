@@ -15,7 +15,7 @@ module Data.Impact exposing
     , getAggregatedScoreData
     , getImpact
     , getTotalComplementsImpacts
-    , insertWithoutAggregateComputation
+    , impactsWithComplements
     , mapImpacts
     , noComplementsImpacts
     , noStepsImpacts
@@ -89,6 +89,21 @@ getTotalComplementsImpacts complementsImpacts =
         , complementsImpacts.animalWelfare
         , complementsImpacts.outOfEuropeEOL
         ]
+
+
+impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
+impactsWithComplements complementsImpacts impacts =
+    let
+        complementsImpact =
+            getTotalComplementsImpacts complementsImpacts
+
+        ecsWithComplements =
+            getImpact Definition.Ecs impacts
+                -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
+                |> Quantity.minus complementsImpact
+    in
+    impacts
+        |> insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
