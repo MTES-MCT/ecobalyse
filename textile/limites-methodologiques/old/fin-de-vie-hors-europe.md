@@ -38,7 +38,10 @@ En l'absence d'inventaires de cycle de vie adaptés, un complément générique 
 
 Le complément, exprimé en points d'impacts (pt) par kg de vêtement, reflète l'impact de la fin de vie d'un vêtement qui terminerait sa vie sous forme de déchet hors Europe. &#x20;
 
-{% hint style="info" %}
+<details>
+
+<summary>Aller plus loi </summary>
+
 Il n'existe pas encore suffisament de littérature scientifique permettant d'estimer, de manière quantitative, l'impact de la fin de vie des vêtements se retrouvant sous forme de déchets hors Europe.&#x20;
 
 Cela s'explique notamment par des problématiques d'inventaires de flux (e.g. comment se décomposent dans le temps et l'espace les vêtements jetés dans la nature sous forme de déchets sauvages) et de caractérisation d'impacts (e.g. comment évaluer l'impact sur la biodiversité et/ou les organismes aquatiques des vêtements abandonnés dans la nature sous forme de déchets sauvages).
@@ -51,12 +54,11 @@ Trois grands scénarios se dessinent pour les  vêtements "déchets hors Europe"
 
 3\) déchet sauvage (vêtement abandonné dans la nature)
 
-
-
 Un nombre croissant d'études sont publiées sur les effets nocifs de ces scénarios sur l'environnement et l'Homme. C'est par exemple le cas de [travaux ](https://www.eionet.europa.eu/etcs/etc-ce/products/etc-ce-report-2023-4-eu-exports-of-used-textiles-in-europe2019s-circular-economy)parus en 2023 par la European Environment Agency qui stipulent : "Of the exports to Africa, a portion of the textiles are reused, but a significant amount ends up in either legal or illegal landfills, causing environmental problems. In other words, the textiles collected in and export from the EU are commodities, not charity.".
 
 Ecobalyse se doit de les intégrer afin de refléter cet "hotspot" de la chaîne de valeur Textile.
-{% endhint %}
+
+</details>
 
 Le coefficient "fin de vie hors Europe" retenu est :
 
@@ -129,8 +131,8 @@ Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la 
 
 La valeur de la probabilité de fin de vie hors Europe peut être modifiée par l'utilisateur qui modéliserait ainsi une probabilité s'écartant de la valeur par défaut définie en fonction du type de vêtement (matières synthétiques vs autre ). La valeur de cette probabilité peut aller de :&#x20;
 
-* 0% --> revient à simuler une annulation du complément "fin de vie hors Europe" ;
-* 200% --> revient à doubler la probabilité considérée pour les matières synthétiques, et donc à doubler la valeur du complément correspondant en points.&#x20;
+* 0% --> revient à annuler le complément "fin de vie hors Europe" ;
+* 25% --> revient à considérée que le vêtement a 25% de chance de se retrouver sous forme de déchets Hors Europe (= 2,3x la probabilité par défaut retenue pour les vêtements synthétiques).
 
 ## Affichage du complément "Fin de vie hors Europe"
 
