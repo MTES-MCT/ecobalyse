@@ -49,8 +49,7 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encode v.impacts )
-
-        -- TODO: encode complementsImpacts?
+        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
