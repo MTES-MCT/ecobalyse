@@ -905,9 +905,7 @@ detailedView ({ inputs, impact, current } as config) =
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
                             [ span [ class "me-2" ] [ text "Probablilité de fin de vie hors-Europe" ]
                             , inputs.materials
-                                |> Inputs.getOutOfEuropeEOLProbability
-                                |> (*) 100
-                                |> Format.percent
+                                |> (Inputs.getOutOfEuropeEOLProbability >> Split.toFloat >> Format.percent)
                             , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
                             ]
 

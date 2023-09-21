@@ -556,7 +556,7 @@ updateProduct product query =
         query
 
 
-getOutOfEuropeEOLProbability : List MaterialInput -> Float
+getOutOfEuropeEOLProbability : List MaterialInput -> Split
 getOutOfEuropeEOLProbability materialInputs =
     -- We consider that the garment enters the "synthetic materials" category as
     -- soon as synthetic materials represent more than 10% of its composition.
@@ -573,17 +573,24 @@ getOutOfEuropeEOLProbability materialInputs =
                     )
                 |> List.sum
     in
-    if syntheticShare >= 10 then
-        0.11
+    Split.fromFloat
+        (if syntheticShare >= 10 then
+            0.11
 
-    else
-        0.06
+         else
+            0.06
+        )
+        |> Result.withDefault Split.zero
 
 
 getOutOfEuropeEOLComplement : Inputs -> Unit.Impact
 getOutOfEuropeEOLComplement { mass, materials } =
-    -- This complement is a malus, hence the minus sign
-    Unit.impact -(getOutOfEuropeEOLProbability materials * Mass.inKilograms mass * 5000)
+    -- Note: this complement is a malus, hence the minus sign
+    Unit.impact
+        -(Split.toFloat (getOutOfEuropeEOLProbability materials)
+            * Mass.inKilograms mass
+            * 5000
+         )
 
 
 defaultQuery : Query
