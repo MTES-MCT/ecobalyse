@@ -13,9 +13,7 @@ from common.export import (
 from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
-import hashlib
 import json
-import uuid
 
 # Input
 PROJECT = "food"

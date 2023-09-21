@@ -293,41 +293,43 @@ def import_created_processes(dbname=DBNAME):
     with open(ACTIVITIES_TO_CREATE, "r") as f:
         activities_data = json.load(f)
 
-    for act_data in activities_data:
-        act = search(dbname, act_data["search"])
+    for activity_data in activities_data:
+        activity = search(dbname, activity_data["search"])
 
         # create a new variant activity
-        act_variant = create_new_activity(
-            dbname, act, f"{act_data['search']} {act_data['suffix']}"
+        activity_variant = create_new_activity(
+            dbname, activity, f"{activity_data['search']} {activity_data['suffix']}"
         )
-        seed_process = search(dbname, act_data["seed_process"])
-        seed_process_variant = search(dbname, act_data["seed_process_variant"])
+        seed_process = search(dbname, activity_data["seed_process"])
+        seed_process_variant = search(dbname, activity_data["seed_process_variant"])
 
-        if not act_data["subprocesses_list"]:
-            duplicate_exchange(act_variant, seed_process, seed_process_variant)
-            delete_exchange(act_variant, seed_process)
+        if not activity_data["subprocesses"]:
+            duplicate_exchange(activity_variant, seed_process, seed_process_variant)
+            delete_exchange(activity_variant, seed_process)
 
         else:
-            for i, act_sub_data in enumerate(act_data["subprocesses_list"]):
-                act_sub = search(dbname, act_sub_data)
+            for i, act_sub_data in enumerate(activity_data["subprocesses"]):
+                activity_sub = search(dbname, act_sub_data)
 
                 # create a new variant sub activity
-                act_sub_variant = create_new_activity(
-                    dbname, act_sub, f"{act_sub['name']} {act_data['suffix']}"
+                activity_sub_variant = create_new_activity(
+                    dbname,
+                    activity_sub,
+                    f"{activity_sub['name']} {activity_data['suffix']}",
                 )
 
                 # link the newly create act_sub_variant to the parent act_sub_var
-                duplicate_exchange(act_variant, act_sub, act_sub_variant)
+                duplicate_exchange(activity_variant, activity_sub, activity_sub_variant)
 
                 # for the last sub ingredient, replace the ingredient
-                if i == len(act_data["subprocesses_list"]) - 1:
+                if i == len(activity_data["subprocesses"]) - 1:
                     duplicate_exchange(
-                        act_sub_variant, seed_process, seed_process_variant
+                        activity_sub_variant, seed_process, seed_process_variant
                     )
-                    delete_exchange(act_sub_variant, seed_process)
+                    delete_exchange(activity_sub_variant, seed_process)
 
                 # update the act_variant
-                act_variant = act_sub_variant
+                activity_variant = activity_sub_variant
 
 
 def main():
