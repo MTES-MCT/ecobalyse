@@ -304,12 +304,12 @@ def import_created_processes(dbname=DBNAME):
         seed_process = search(dbname, act_data["seed_process"])
         seed_process_variant = search(dbname, act_data["seed_process_variant"])
 
-        if not act_data["subprocesses_list"]:
+        if not act_data["subprocesses"]:
             duplicate_exchange(act_variant, seed_process, seed_process_variant)
             delete_exchange(act_variant, seed_process)
 
         else:
-            for i, act_sub_data in enumerate(act_data["subprocesses_list"]):
+            for i, act_sub_data in enumerate(act_data["subprocesses"]):
                 act_sub = search(dbname, act_sub_data)
 
                 # create a new variant sub activity
@@ -321,7 +321,7 @@ def import_created_processes(dbname=DBNAME):
                 duplicate_exchange(act_variant, act_sub, act_sub_variant)
 
                 # for the last sub ingredient, replace the ingredient
-                if i == len(act_data["subprocesses_list"]) - 1:
+                if i == len(act_data["subprocesses"]) - 1:
                     duplicate_exchange(
                         act_sub_variant, seed_process, seed_process_variant
                     )

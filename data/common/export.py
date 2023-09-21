@@ -142,8 +142,7 @@ def duplicate_exchange(activity, activity_to_duplicate, new_activity, new_amount
                 input=new_activity,
                 amount=new_amount,
                 type=exchange["type"],
-                unit=exchange["unit"],
-                system_description
+                unit=exchange["unit"]
             )
             new_exchange.save()
             print(
