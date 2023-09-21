@@ -36,6 +36,7 @@ type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
     , impacts : Impacts
+    , complementsImpacts : Impact.ComplementsImpacts
     , transport : Transport
     , daysOfWear : Duration
     , useNbCycles : Int
@@ -48,6 +49,7 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encode v.impacts )
+        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
@@ -74,6 +76,7 @@ init db =
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
+                            , complementsImpacts = Impact.noComplementsImpacts
                             , transport = Transport.default defaultImpacts
                             , daysOfWear = daysOfWear
                             , useNbCycles = useNbCycles
@@ -177,7 +180,11 @@ computeEndOfLifeImpacts { wellKnown } simulator =
                                 , heatProcess = country.heatProcess
                                 }
                 in
-                { step | impacts = impacts, kwh = kwh, heat = heat }
+                { step
+                    | impacts = impacts
+                    , kwh = kwh
+                    , heat = heat
+                }
             )
 
 
@@ -564,7 +571,16 @@ computeTotalTransportImpacts simulator =
 
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ lifeCycle } as simulator) =
-    { simulator | impacts = LifeCycle.computeFinalImpacts lifeCycle }
+    let
+        complementsImpacts =
+            LifeCycle.sumComplementsImpacts lifeCycle
+    in
+    { simulator
+        | complementsImpacts = complementsImpacts
+        , impacts =
+            LifeCycle.computeFinalImpacts lifeCycle
+                |> Impact.impactsWithComplements complementsImpacts
+    }
 
 
 lifeCycleImpacts : Definitions -> Simulator -> List ( String, List ( String, Float ) )
@@ -640,5 +656,9 @@ toStepsImpacts trigram simulator =
     , transports = getImpact simulator.transport.impacts
     , distribution = Nothing
     , usage = getImpacts Label.Use |> getImpact
-    , endOfLife = getImpacts Label.EndOfLife |> getImpact
+    , endOfLife =
+        getImpacts Label.EndOfLife
+            |> getImpact
+            -- Note: substracting because this complement, as a malus, is expressed with a negative number
+            |> Maybe.map (Quantity.minus simulator.complementsImpacts.outOfEuropeEOL)
     }

@@ -58,7 +58,7 @@ suite =
                      , bonusImpacts.animalWelfare
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero animal-welfare ingredient bonus"
-                     , bonusImpacts.total
+                     , Impact.getTotalComplementsImpacts bonusImpacts
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero total bonus"
                      ]
@@ -81,7 +81,7 @@ suite =
                      , bonusImpacts.animalWelfare
                         |> expectImpactEqual (Unit.impact 5.3630393240740055)
                         |> asTest "should compute a non-zero animal-welfare ingredient bonus"
-                     , bonusImpacts.total
+                     , Impact.getTotalComplementsImpacts bonusImpacts
                         |> expectImpactEqual (Unit.impact 21.80969325123429)
                         |> asTest "should compute a non-zero total bonus"
                      ]
@@ -107,7 +107,7 @@ suite =
                      , bonusImpacts.animalWelfare
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero animal-welfare ingredient bonus"
-                     , bonusImpacts.total
+                     , Impact.getTotalComplementsImpacts bonusImpacts
                         |> expectImpactEqual (Unit.impact 0)
                         |> asTest "should compute a zero total bonus"
                      ]

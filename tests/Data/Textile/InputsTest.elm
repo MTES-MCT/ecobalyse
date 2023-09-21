@@ -1,11 +1,14 @@
 module Data.Textile.InputsTest exposing (..)
 
 import Data.Country as Country
-import Data.Textile.Inputs as Inputs exposing (tShirtCotonAsie)
+import Data.Split as Split
+import Data.Textile.Inputs as Inputs exposing (tShirtCotonAsie, tShirtCotonFrance)
 import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
+import Data.Unit as Unit
 import Expect
 import List.Extra as LE
 import Quantity
@@ -71,6 +74,26 @@ suite =
                         Err error ->
                             Expect.fail error
                     )
+                ]
+            , let
+                testComplementEqual x =
+                    Inputs.fromQuery textileDb
+                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
+                        >> Result.withDefault 0
+                        >> Expect.within (Expect.Absolute 0.001) x
+              in
+              describe "getOutOfEuropeEOLComplement"
+                [ tShirtCotonFrance
+                    |> testComplementEqual -51
+                    |> asTest "should compute complement impact for a fully natural garment"
+                , { tShirtCotonFrance
+                    | materials =
+                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing }
+                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing }
+                        ]
+                  }
+                    |> testComplementEqual -93.5
+                    |> asTest "should compute complement impact for a half-natural, half-synthetic garment"
                 ]
             ]
         )

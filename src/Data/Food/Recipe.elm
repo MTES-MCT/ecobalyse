@@ -211,7 +211,8 @@ compute db =
                         getPreparedMassAtConsumer recipe
 
                     addIngredientsComplements impacts =
-                        Impact.applyComplements totalComplementsImpact.total impacts
+                        impacts
+                            |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpact =
                         ingredients
@@ -222,7 +223,6 @@ compute db =
                             | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroDiversity
                             , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroEcology
                             , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.animalWelfare
-                            , total = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.total
                         }
 
                     totalImpactsWithoutComplements =
@@ -249,7 +249,8 @@ compute db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> Scoring.compute db.impactDefinitions totalComplementsImpactPerKg.total
+                            |> Scoring.compute db.impactDefinitions
+                                (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -312,7 +313,9 @@ computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, an
     { agroDiversity = Unit.impact agroDiversityComplement
     , agroEcology = Unit.impact agroEcologyComplement
     , animalWelfare = Unit.impact animalWelfareComplement
-    , total = Unit.impact (agroDiversityComplement + agroEcologyComplement + animalWelfareComplement)
+
+    -- Note: outOfEuropeEOL complement is for Textile only
+    , outOfEuropeEOL = Unit.impact 0
     }
 
 

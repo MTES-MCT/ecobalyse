@@ -53,7 +53,7 @@ percentageTable data =
                 |> List.map
                     (\{ name, impact, percent, width } ->
                         tr [ title <| name ++ ": " ++ Format.formatFloat 2 percent ++ "\u{202F}% (" ++ Format.formatFloat 2 impact ++ "\u{202F}µPts)" ]
-                            [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
+                            [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px", title name ] [ text name ]
                             , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
                                 [ div
                                     [ class "ext"
