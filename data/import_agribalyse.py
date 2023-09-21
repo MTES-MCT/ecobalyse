@@ -150,7 +150,8 @@ def import_agribalyse(
     """
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
-    projects.create_project(project, activate=True, exist_ok=True)
+    projects.set_current(project)
+    # projects.create_project(project, activate=True, exist_ok=True)
 
     # Core migrations
     print("### Creating core data migrations")
@@ -334,7 +335,8 @@ def import_created_processes(dbname=DBNAME):
 
 def main():
     # Import Agribalyse
-    projects.create_project(PROJECT, activate=True, exist_ok=True)
+    projects.set_current(PROJECT)
+    # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
 

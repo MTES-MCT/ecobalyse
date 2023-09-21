@@ -25,7 +25,8 @@ IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition so
 INGREDIENTS = "../../public/data/food/ingredients.json"
 PROCESSES = "../../public/data/food/processes.json"
 
-projects.activate_project(PROJECT)
+projects.set_current(PROJECT)
+# projects.activate_project(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
