@@ -2,7 +2,7 @@
   {
     "id": "flour-organic",
     "search": "Wheat flour at industrial mill",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": [
       "Global milling process, soft wheat, steel-roller-milled, industrial production, French production mix, at plant, 1 kg bulk flour at the exit gate (PDi) {FR} U"
     ],
@@ -13,7 +13,7 @@
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": [
       "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef (PDi) {FR} U",
       "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
@@ -26,7 +26,7 @@
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché Feedlot (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant",
-    "suffix": "feedlot - created by Ecobalyse",
+    "suffix": "feedlot, constructed by Ecobalyse",
     "subprocesses": [
       "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef (PDi) {FR} U",
       "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
@@ -39,7 +39,7 @@
     "id": "huilecolza-organic",
     "name": "Rapeseed oil mill {GLO}",
     "search": "Rapeseed oil mill {GLO}",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": [],
     "seed_process": "Rapeseed grain, consumption mix {FR} U",
     "seed_process_variant": "Winter rapeseed organic at farm gate"
@@ -48,7 +48,7 @@
     "id": "cooked-ham-organic",
     "name": "Jambon bio (cuit)",
     "search": "Cooked ham case ready at plant",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": [
       "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U",
       "Pork ham, raw, at plant {FR} U",
@@ -63,7 +63,7 @@
     "id": "sunfloweroil-organic",
     "name": "Huile de tournesol bio (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "seed_process": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "seed_process_variant": "Sunflower grain, organic, system number 3, at farm gate {FR} U"
   },
@@ -71,7 +71,7 @@
     "id": "chicken-breast-organic",
     "name": "Poulet bio (cru)",
     "search": "Meat without bone chicken for direct consumption",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": [
       "Meat with bone, chicken, for direct consumption {FR} U",
       "Broiler, live, for direct consumption {FR} U"
@@ -83,7 +83,7 @@
     "id": "butter-organic",
     "name": "Beurre bio",
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
-    "suffix": "organic - created by Ecobalyse",
+    "suffix": "organic, constructed by Ecobalyse",
     "subprocesses": ["Butter, 82% fat, unsalted, unsalted, at dairy {RER} - Adapted from WFLDB U"],
     "seed_process": "Cow milk, national average, at farm gate {FR} U",
     "seed_process_variant": "Cow milk, organic, system number 5, at farm gate {FR} U"

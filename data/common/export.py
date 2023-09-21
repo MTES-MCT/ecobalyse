@@ -94,6 +94,7 @@ def create_new_activity(dbname, base_process, new_activity_name):
         new_activity = base_process.copy(new_activity_name)
 
         new_activity["name"] = new_activity_name
+        new_activity["System description"] =  "Ecobalyse"
         new_activity.save()
         print(f"create_new_process: Created process {new_activity}")
         return new_activity
@@ -142,6 +143,7 @@ def duplicate_exchange(activity, activity_to_duplicate, new_activity, new_amount
                 amount=new_amount,
                 type=exchange["type"],
                 unit=exchange["unit"],
+                system_description
             )
             new_exchange.save()
             print(
