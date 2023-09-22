@@ -64,6 +64,7 @@
     "name": "Huile de tournesol bio (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
     "suffix": "organic, constructed by Ecobalyse",
+    "subprocesses": [],
     "seed_process": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "seed_process_variant": "Sunflower grain, organic, system number 3, at farm gate {FR} U"
   },
