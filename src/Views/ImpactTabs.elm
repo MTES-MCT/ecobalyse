@@ -10,7 +10,7 @@ module Views.ImpactTabs exposing
 import Array
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
@@ -28,6 +28,7 @@ type Tab
 type alias Config msg =
     { activeImpactsTab : Tab
     , complementsImpact : Impact.ComplementsImpacts
+    , impactDefinition : Definition
     , scoring : Scoring
     , stepsImpacts : Impact.StepsImpacts
     , switchImpactsTab : Tab -> msg
@@ -37,7 +38,7 @@ type alias Config msg =
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, switchImpactsTab, trigram, total, complementsImpact, scoring, stepsImpacts } =
+view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, trigram, total, complementsImpact, scoring, stepsImpacts } =
     CardTabs.view
         { tabs =
             (if trigram == Definition.Ecs then
@@ -81,7 +82,7 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, complemen
                             ]
                         |> List.sortBy Tuple.second
                         |> List.reverse
-                        |> Table.percentageTable
+                        |> Table.percentageTable impactDefinition
 
                 StepImpactsTab ->
                     [ ( "Matières premières", stepsImpacts.materials )
@@ -98,10 +99,10 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, complemen
                                     |> Maybe.map (\value -> Just ( label, Unit.impactToFloat value ))
                                     |> Maybe.withDefault Nothing
                             )
-                        |> Table.percentageTable
+                        |> Table.percentageTable impactDefinition
 
                 SubscoresTab ->
-                    Table.percentageTable
+                    Table.percentageTable impactDefinition
                         [ ( "Climat", Unit.impactToFloat scoring.climate )
                         , ( "Biodiversité", Unit.impactToFloat scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat scoring.health )
@@ -112,15 +113,16 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, complemen
         }
 
 
-createConfig : Tab -> (Tab -> msg) -> Config msg
-createConfig activeImpactsTab switchImpactsTab =
+createConfig : Definition -> Tab -> (Tab -> msg) -> Config msg
+createConfig impactDefinition activeImpactsTab switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
-    , switchImpactsTab = switchImpactsTab
-    , trigram = Definition.Ecs
-    , total = Impact.empty
     , complementsImpact = Impact.noComplementsImpacts
+    , impactDefinition = impactDefinition
     , scoring = Scoring.empty
     , stepsImpacts = Impact.noStepsImpacts
+    , switchImpactsTab = switchImpactsTab
+    , total = Impact.empty
+    , trigram = Definition.Ecs
     }
 
 

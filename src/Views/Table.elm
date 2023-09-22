@@ -3,6 +3,7 @@ module Views.Table exposing
     , responsiveDefault
     )
 
+import Data.Impact.Definition exposing (Definition)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
@@ -19,8 +20,8 @@ responsiveDefault attrs content =
         ]
 
 
-percentageTable : List ( String, Float ) -> Html msg
-percentageTable data =
+percentageTable : Definition -> List ( String, Float ) -> Html msg
+percentageTable impactDefinition data =
     let
         values =
             List.map Tuple.second data
@@ -53,7 +54,17 @@ percentageTable data =
                         )
                     |> List.map
                         (\{ name, impact, percent, width } ->
-                            tr [ title <| name ++ ": " ++ Format.formatFloat 2 percent ++ "\u{202F}% (" ++ Format.formatFloat 2 impact ++ "\u{202F}µPts)" ]
+                            tr
+                                [ title <|
+                                    name
+                                        ++ ": "
+                                        ++ Format.formatFloat 2 percent
+                                        ++ "\u{202F}% ("
+                                        ++ Format.formatFloat 2 impact
+                                        ++ "\u{202F}"
+                                        ++ impactDefinition.unit
+                                        ++ ")"
+                                ]
                                 [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px", title name ] [ text name ]
                                 , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
                                     [ div

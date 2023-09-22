@@ -1313,7 +1313,7 @@ sidebarView session model results =
 
         -- Impacts tabs
         , impactTabsConfig =
-            ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+            ImpactTabs.createConfig model.impact model.activeImpactsTab SwitchImpactsTab
                 |> ImpactTabs.forFood model.impact.trigram results
 
         -- Bookmarks

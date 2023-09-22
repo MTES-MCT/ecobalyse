@@ -659,6 +659,12 @@ toStepsImpacts trigram simulator =
     , endOfLife =
         getImpacts Label.EndOfLife
             |> getImpact
-            -- Note: substracting because this complement, as a malus, is expressed with a negative number
-            |> Maybe.map (Quantity.minus simulator.complementsImpacts.outOfEuropeEOL)
+            -- Complements only apply to Ecoscore
+            |> (if trigram == Definition.Ecs then
+                    -- Substracting because outOfEuropeEOL, as a malus, is expressed with a negative number
+                    Maybe.map (Quantity.minus simulator.complementsImpacts.outOfEuropeEOL)
+
+                else
+                    identity
+               )
     }

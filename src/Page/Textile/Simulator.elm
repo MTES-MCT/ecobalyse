@@ -603,7 +603,7 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
 
                 -- Impacts tabs
                 , impactTabsConfig =
-                    ImpactTabs.createConfig model.activeImpactsTab SwitchImpactsTab
+                    ImpactTabs.createConfig model.impact model.activeImpactsTab SwitchImpactsTab
                         |> ImpactTabs.forTextile session.textileDb.impactDefinitions model.impact.trigram simulator
 
                 -- Bookmarks
