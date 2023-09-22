@@ -53,7 +53,8 @@
 
 * [Démarche méthodologique](textile/demarche.md)
 * [Indicateurs environnementaux](textile/impacts-consideres.md)
-* [Compléments hors ACV](textile/complements-hors-acv.md)
+* [Compléments hors ACV](textile/complements-hors-acv/README.md)
+  * [🌍 Fin de vie hors Europe](textile/complements-hors-acv/fin-de-vie-hors-europe.md)
 * [Etapes du cycle de vie](textile/etapes-du-cycle-de-vie/README.md)
   * [🐑 Etape 1 - Matière et filature (old)](textile/etapes-du-cycle-de-vie/filature/README.md)
     * [❤ 1 - Etape Matière et filature dans la Base Impacts (old)](textile/etapes-du-cycle-de-vie/filature/filature.md)
@@ -76,7 +77,6 @@
   * [🤯 Circular Footpring Formula (CFF)](textile/parametres-transverses/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/parametres-transverses/transport.md)
 * [Limites méthodologiques](textile/limites-methodologiques/README.md)
-  * [🌍 Fin de vie hors Europe](textile/limites-methodologiques/fin-de-vie-hors-europe.md)
   * [OLD](textile/limites-methodologiques/old/README.md)
     * [🐠 Microfibres](textile/limites-methodologiques/old/microfibres.md)
 * [Mises à jour](textile/mises-a-jour.md)
