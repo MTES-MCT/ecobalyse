@@ -53,6 +53,7 @@
 
 * [Démarche méthodologique](textile/demarche.md)
 * [Indicateurs environnementaux](textile/impacts-consideres.md)
+* [Compléments hors ACV](textile/complements-hors-acv.md)
 * [Etapes du cycle de vie](textile/etapes-du-cycle-de-vie/README.md)
   * [🐑 Etape 1 - Matière et filature (old)](textile/etapes-du-cycle-de-vie/filature/README.md)
     * [❤ 1 - Etape Matière et filature dans la Base Impacts (old)](textile/etapes-du-cycle-de-vie/filature/filature.md)
