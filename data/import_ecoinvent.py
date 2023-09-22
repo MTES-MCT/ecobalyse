@@ -15,7 +15,7 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
     """
     Import file at path `datapath` into database named `dbname` in the project
     """
-    projects.set_current(PROJECT)
+    projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
     print(f"### Importing {dbname} database from {datapath}...")
