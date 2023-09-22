@@ -217,11 +217,7 @@ def changed_project(_):
     impact_category = w_impact_category.value = (
         impact_category if impact_category in impact_categories else None
     )
-    activity = w_activity.value = (
-        activity
-        if activity and bw2data.Database(database).get(activity.get("code"))
-        else None
-    )
+    activity = w_activity.value = None
     display_all(database, search, limit, method, impact_category, activity)
 
 
