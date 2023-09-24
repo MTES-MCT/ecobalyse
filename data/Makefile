@@ -70,7 +70,7 @@ jupyter_password:
 start_notebook:
 	$(DOCKERRUN) -d --name $(NAME) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
 	docker cp ~/.gitconfig $(NAME):/home/jovyan/
-	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make shell` then `jupyter notebook password` to change the jupyter password, then restart with `make stop_notebook` and `make start_notebook`.'
+	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 
 stop_notebook:
 	$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter"
