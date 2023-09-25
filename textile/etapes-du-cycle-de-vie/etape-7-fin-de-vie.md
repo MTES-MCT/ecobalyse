@@ -1,23 +1,42 @@
 # ♻ Etape 7 - Fin de vie
 
-Pour évaluer l'impact de la fin de vie on se base sur le PEFCR de la commission européenne.
+L'impact de la fin de vie se décompose en deux modules :&#x20;
 
-Il est détaillé sur la figure suivante les différents scénarios considérés pour la fin de vie d'un vêtement.
+* le complément _Fin de vie Hors Europe_ introduit par Ecobalyse en septembre 2023,
+* le scénario proposé dans la v.1.3 du _PEFCR Apparel & Footwear_.
+
+Jusqu'à l'introduction du complément, la fin de vie pesait entre 0% et 1% de l'impact total d'un vêtement. L'introduction du complément permet de répondre à la principale limite des scénarios proposés par le PEFCR A\&F (limite = 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact).&#x20;
+
+
+
+## Complément Fin de vie Hors Europe
+
+Cf. la [page](../complements-hors-acv/fin-de-vie-hors-europe.md) dédiée dans la rubrique "Compléments hors ACV"
+
+
+
+## Scénario PEFCR Apparel & Footwear
+
+Scénarios considérés pour la fin de vie d'un vêtement :&#x20;
 
 ![PEFCR v1.3 p121](<../../.gitbook/assets/image (5) (1) (1).png>)
-
-
 
 &#x20;On prend en compte ces 2 scénarios :&#x20;
 
 * Recyclage
-* Incinération ou mise en décharge (Municipal waste collection)
+* Décharge (incinératon & mise en décharge)
 
-### Recyclage
+<details>
+
+<summary>Recyclage</summary>
 
 Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff-old/circular-footprint-formula-cff-matiere-1.md)
 
-### Incinération et mise en décharge
+</details>
+
+<details>
+
+<summary>Décharge</summary>
 
 Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend en compte les procédés suivants :
 
@@ -26,13 +45,21 @@ Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend e
 * l'incinération
 * la mise en décharge
 
-Les distances parcourues ainsi que les proportions pour chaque scénarios sont définis dans le scénario suivant :
 
-![PEF RP Study Table 33](<../../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
+
+### **Focus Transport**
+
+**Distance transport (Table 41 / p. 122)**
+
+![](<../../.gitbook/assets/image (26).png>)
+
+**Volume produit (Table 40 / p. 121)**
+
+![](<../../.gitbook/assets/image (25).png>)
 
 #### Transport en camion
 
-D'après Table 33 on peut estimer la distance faite en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
+D'après le tableau Distance (Table 41), on peut estimer la distance faite en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
 
 ```
 d_camion = d_municipal_waste_collection + d_recycling_collection
@@ -65,20 +92,14 @@ Impact_camion = 3.09 gCO2e
 
 #### Transport en voiture
 
-D'après Table 33, 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.&#x20;
+D'après le tableau Distance (Table 33), 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.&#x20;
 
 ```
 d_voiture = 1*19.5%
 d_voiture = 0.195 km
 ```
 
-Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte.&#x20;
-
-![PEFCR v1.3](<../../.gitbook/assets/image (2) (2) (1) (1).png>)
-
-
-
-###
+Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte (cf. tableau Volume / Table 40).&#x20;
 
 ```
 Impact_voiture = d_voiture * part_coffre_occupé * P_voiture_cch 
@@ -90,11 +111,13 @@ Impact_voiture = 0.000328 kgCO2e
 Impact_voiture = 0.328 gCO2e
 ```
 
-#### Incinération (CFF)
+###
+
+### Focus Incinération (CFF)&#x20;
 
 On prend les hypothèses issues du document PEF RP study p.72 :
 
-> 45% of municipal waste collected is incinerated and 55% is landfilled.
+45% of municipal waste collected is incinerated and 55% is landfilled.
 
 Soit P\_incinération le procédé d'incinération de déchets textiles en France:
 
@@ -123,7 +146,9 @@ Impact_total_incinération = Impact_incinération - Bénéfice_incinération
 Impact_total_incinération = 0.022 kgCO2e
 ```
 
-#### Mise en décharge
+###
+
+### Focus Mise en décharge
 
 De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :
 
@@ -134,3 +159,9 @@ part_décharge = (80.5% + 2.6%) * 55% = 45.705%
 Impact_décharge = 0.17 * 45.705% * 2.22265
 Impact_décharge = 0.17269 kgCO2e
 ```
+
+</details>
+
+
+
+####
