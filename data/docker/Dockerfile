@@ -31,6 +31,7 @@ RUN apt update \
     && rm /home/$NB_USER/requirements.txt \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
+COPY simapro-biosphere.json /opt/conda/lib/python3.11/site-packages/bw2io/data/
 COPY entrypoint.sh /
 
 RUN pip install jupyter_contrib_nbextensions \
