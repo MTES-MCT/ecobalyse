@@ -1,5 +1,14 @@
 # Indicateurs environnementaux
 
+## Impacts agrégés et impacts détaillés
+
+**2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse Textile :&#x20;
+
+* un **score d'impacts**, traduisant la version beta de méthodologie, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
+* un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
+
+La principale différence entre le Score d'impacts et le Score PEF consiste en l'ajout de [compléments](complements-hors-acv/) afin de répondre aux limites de la v.1.3 du PEFCR Apparel & Footwear.
+
 ## Indicateurs mobilisés
 
 12 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse, conformément au référentiel méthodologique de l’Ademe.&#x20;

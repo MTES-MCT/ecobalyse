@@ -1,10 +1,10 @@
 ---
 description: >-
-  Introduction d'un complément à l'analyse de cycle de vie traduisant la fin de
-  vie hors Europe
+  Introduction d'un complément à l'analyse de cycle de vie estimant l'impact des
+  vêtements exportés hors Europe et non réutilisés.
 ---
 
-# 🌍 Fin de vie hors Europe
+# 🌍 Export hors Europe
 
 ## Pourquoi introduire ce complément ?
 
@@ -16,7 +16,7 @@ Or, une part significative des vêtements exportés hors Europe sont directement
 
 Le schéma ci-dessous présente la fin de vie moyenne des vêtements distribués sur le marché français en 2023.
 
-<figure><img src="../../../.gitbook/assets/Scénarios fin de vie .png" alt=""><figcaption><p>Scénario moyen de la fin de vie des vêtements distribués sur le marché français (source : Ecobalyse)  </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Scénarios fin de vie .png" alt=""><figcaption><p>Scénario moyen de la fin de vie des vêtements distribués sur le marché français (source : Ecobalyse)  </p></figcaption></figure>
 
 Le complément proposé vise à refléter l'impact des vêtements se retrouvant sous forme de déchets hors Europe. Les pays réceptionnant ces flux (e.g. Ghana, Kenya, Afghanistan, Antilles, etc.) ne bénéficient généralement pas d'une filière structurée de gestion des déchets Textile créant de nombreuse problématiques environnementales et sanitaires.
 
@@ -60,7 +60,7 @@ Ecobalyse se doit de les intégrer afin de refléter cet "hotspot" de la chaîne
 
 </details>
 
-Le coefficient "fin de vie hors Europe" retenu est :
+Le coefficient "Export hors Europe" retenu est :
 
 $$
 CoefDechet = 5000microPts / kg = 0,005 Pts/kg
@@ -76,11 +76,11 @@ Cette illustration permet de comprendre la matérialité du complément dans un 
 
 Pour calculer le complément sur un produit réel, il faut estimer sa probabilité de terminer sa fin de vie sous forme de déchet hors Europe (cf. ci-dessous).
 
-![](<../../../.gitbook/assets/Impact d'un jean terminant sa fin de vie sous forme de déchet Hors Europe (1).png>)
+![](<../../.gitbook/assets/Impact d'un jean terminant sa fin de vie sous forme de déchet Hors Europe (1).png>)
 
 </details>
 
-## Probabilité de fin de vie hors Europe, valeurs par défaut
+## Probabilité export hors Europe, valeurs par défaut
 
 A partir des données moyennes compilées dans le cadre de nos travaux, la probabilité qu'un vêtement en fin de vie soit exporté hors Europe puis jeté est de 9%.&#x20;
 
@@ -102,12 +102,12 @@ On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutili
 Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne (50% des vêtements exportés hors Europe ne sont pas portés) en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^4])
 {% endhint %}
 
-## Calcul du complément "Fin de vie hors Europe"
+## Calcul du complément "Export hors Europe"
 
 2 paramètres sont considérés pour calculer le complément :&#x20;
 
 * la masse du vêtement (produit fini),
-* sa probabilité de fin de vie hors Europe, dont la valeur par défaut dépend de la classification du produit (matières synthétiques ou naturelles)&#x20;
+* sa probabilité de terminer sa fin de vie hors Europe sous forme de déchets, dont la valeur par défaut dépend de la classification du produit (matières synthétiques ou naturelles)&#x20;
 
 {% hint style="warning" %}
 On considère que le vêtement rentre dans la catégorie "matières synthétiques" dès lors que les matières synthétiques représentent plus de 10% de sa composition.
@@ -123,20 +123,20 @@ $$
 
 Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la fin de vie passerait de 0% (avant introduction du complément Fin de vie Hors Europe) à 5% ou 11% selon la composition du vêtement.&#x20;
 
-![](<../../../.gitbook/assets/Comparaison avant après jean.png>)
+![](<../../.gitbook/assets/Comparaison avant après jean.png>)
 
 </details>
 
-## Modulation du complément "Fin de vie hors Europe"
+## Modulation du complément "Export hors Europe"
 
-La valeur de la probabilité de fin de vie hors Europe peut être modifiée par l'utilisateur qui modéliserait ainsi une probabilité s'écartant de la valeur par défaut définie en fonction du type de vêtement (matières synthétiques vs autre ). La valeur de cette probabilité peut aller de :&#x20;
+La valeur de la probabilité de fin de vie hors Europe sous forme de déchets peut être modifiée par l'utilisateur qui modéliserait ainsi une probabilité s'écartant de la valeur par défaut définie en fonction du type de vêtement (matières synthétiques vs autre ). La valeur de cette probabilité peut aller de :&#x20;
 
-* 0% --> revient à annuler le complément "fin de vie hors Europe" ;
+* 0% --> revient à annuler le complément "Export hors Europe" ;
 * 25% --> revient à considérée que le vêtement a 25% de chance de se retrouver sous forme de déchets Hors Europe (= 2,3x la probabilité par défaut retenue pour les vêtements synthétiques).
 
-## Affichage du complément "Fin de vie hors Europe"
+## Affichage du complément "Export hors Europe"
 
-A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Fin de vie hors Europe" vient s'ajouter directement au score d'impacts exprimé en points.
+A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Export hors Europe" vient s'ajouter directement au score d'impacts exprimé en points.
 
 Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fin de vie".
 

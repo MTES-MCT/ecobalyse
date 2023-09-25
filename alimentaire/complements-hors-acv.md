@@ -113,7 +113,7 @@ $$Bonus_{infra-agro-écologique} (poulet - bio)=  x_{infra-agro-écologique} (po
 
 $$Bonus_{cond-élevage} (poulet - bio)=  x_{cond-élevage} (poulet - bio)×c_{cond-élevage} × Land-use(poulet - bio)$$
 
-
+***
 
 <details>
 
