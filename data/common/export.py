@@ -89,7 +89,7 @@ def display_changes(key, oldprocesses, processes):
         print("==".join(["=" * widths[key] for key in keys]))
 
 
-def create_new_activity(dbname, base_activity, new_activity_name):
+def create_activity(dbname, base_activity, new_activity_name):
     """Creates a new activity by copying a base activity."""
     try:
         new_activity = base_activity.copy(new_activity_name)
@@ -124,13 +124,13 @@ def delete_exchange(activity, activity_to_delete, amount=False):
     print(f"Did not find exchange {activity_to_delete}, no exchange deleted")
 
 
-def duplicate_exchange(activity, activity_to_duplicate, new_activity, new_amount=None):
-    """Duplicates an exchange from an activity to another activity."""
+def new_exchange(activity, activity_to_copy_from, new_activity, new_amount=None):
+    """Create a new exchange based on a existing exchange. It swapes the activity_to_copy_from with a new_activity and possibly a new amount"""
     if any(exch.input["name"] == new_activity["name"] for exch in activity.exchanges()):
-        print(f"Exchange with {new_activity} already exists, no exchange added")
+        print(f"Exchange with {new_activity} already exists. No exchange added")
         return
     for exchange in activity.exchanges():
-        if exchange.input["name"] == activity_to_duplicate["name"]:
+        if exchange.input["name"] == activity_to_copy_from["name"]:
             if not new_amount:
                 new_amount = exchange["amount"]
             new_exchange = activity.new_exchange(
@@ -142,7 +142,7 @@ def duplicate_exchange(activity, activity_to_duplicate, new_activity, new_amount
             )
             new_exchange.save()
             print(
-                f"Duplicated exchange {activity_to_duplicate} with new name {new_activity} and amount: {new_amount}"
+                f"Duplicated exchange {activity_to_copy_from} with new name {new_activity} and amount: {new_amount}"
             )
             return
-    print("Exchange to duplicate not found. No exchange was added")
+    print("Exchange to duplicate not found. No exchange added")

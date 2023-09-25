@@ -13,9 +13,9 @@ from common.export import (
     search,
     with_corrected_impacts,
     display_changes,
-    create_new_activity,
+    create_activity,
     delete_exchange,
-    duplicate_exchange,
+    new_exchange,
 )
 
 PROJECT = "food"
@@ -290,7 +290,11 @@ def import_agribalyse(
     print(f"### Finished importing {DBNAME}")
 
 
-def import_created_processes(dbname=DBNAME):
+def add_created_activities(dbname=DBNAME):
+    """
+    Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
+    Example: ingredient flour-organic is not in agribalyse so it is created at this step
+    """
     with open(ACTIVITIES_TO_CREATE, "r") as f:
         activities_data = json.load(f)
 
@@ -298,39 +302,44 @@ def import_created_processes(dbname=DBNAME):
         activity = search(dbname, activity_data["search"])
 
         # create a new variant activity
-        activity_variant = create_new_activity(
+        # Example: this is where we create the flour-organic activity
+        activity_variant = create_activity(
             dbname, activity, f"{activity_data['search']} {activity_data['suffix']}"
         )
-        seed_process = search(dbname, activity_data["seed_process"])
-        seed_process_variant = search(dbname, activity_data["seed_process_variant"])
+        seed_activity = search(dbname, activity_data["seed_activity"])
+        seed_activity_variant = search(dbname, activity_data["seed_activity_variant"])
 
-        if not activity_data["subprocesses"]:
-            duplicate_exchange(activity_variant, seed_process, seed_process_variant)
-            delete_exchange(activity_variant, seed_process)
+        # if the activity has no subactivities, we can directly replace the seed activity with the seed activity variant
+        if not activity_data["subactivities"]:
+            new_exchange(activity_variant, seed_activity, seed_activity_variant)
+            delete_exchange(activity_variant, seed_activity)
 
+        # else we have to iterate through subactivities and create a new variant activity for each subactivity
+        # Example: for flour-organic we have to dig through the `global milling process` subactivity before we can replace the wheat activity with the wheat-organic activity
         else:
-            for i, act_sub_data in enumerate(activity_data["subprocesses"]):
-                activity_sub = search(dbname, act_sub_data)
+            for i, act_sub_data in enumerate(activity_data["subactivities"]):
+                sub_activity = search(dbname, act_sub_data)
 
-                # create a new variant sub activity
-                activity_sub_variant = create_new_activity(
+                # create a new sub activity variant
+                sub_activity_variant = create_activity(
                     dbname,
-                    activity_sub,
-                    f"{activity_sub['name']} {activity_data['suffix']}",
+                    sub_activity,
+                    f"{sub_activity['name']} {activity_data['suffix']}",
                 )
 
-                # link the newly create act_sub_variant to the parent act_sub_var
-                duplicate_exchange(activity_variant, activity_sub, activity_sub_variant)
+                # link the newly create sub_activity_variant to the parent activity_variant
+                new_exchange(activity_variant, sub_activity, sub_activity_variant)
 
-                # for the last sub ingredient, replace the ingredient
-                if i == len(activity_data["subprocesses"]) - 1:
-                    duplicate_exchange(
-                        activity_sub_variant, seed_process, seed_process_variant
+                # for the last sub activity, replace the seed activity with the seed activity variant
+                # Example: for flour-organic this is where the replace the wheat activity with the wheat-organic activity
+                if i == len(activity_data["subactivities"]) - 1:
+                    new_exchange(
+                        sub_activity_variant, seed_activity, seed_activity_variant
                     )
-                    delete_exchange(activity_sub_variant, seed_process)
+                    delete_exchange(sub_activity_variant, seed_activity)
 
-                # update the act_variant
-                activity_variant = activity_sub_variant
+                # update the activity_variant (parent activity)
+                activity_variant = sub_activity_variant
 
 
 def main():
@@ -342,7 +351,7 @@ def main():
 
     if DBNAME not in bw2data.databases:
         import_agribalyse()
-        import_created_processes()
+        add_created_activities()
     else:
         print(f"{DBNAME} already imported")
 
