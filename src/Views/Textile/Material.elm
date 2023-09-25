@@ -141,7 +141,7 @@ field config { length, valid } selectMaterial input =
 materialSelector : msg -> Inputs.MaterialInput -> List (Html msg)
 materialSelector event selectedMaterial =
     [ div
-        [ class "form-select MaterialSelector"
+        [ class "form-select ComponentSelector"
         , style "overflow" "hidden"
         , style "white-space" "nowrap"
         , onClick event

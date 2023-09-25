@@ -48,7 +48,7 @@ view { autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect
                     in
                     button
                         (events index
-                            ++ [ class "IngredientAutocompleteChoice"
+                            ++ [ class "AutocompleteChoice"
                                , class "d-flex justify-content-between align-items-center gap-1 w-100"
                                , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
                                , classList [ ( "btn-primary selected", selected ) ]

@@ -13,10 +13,9 @@ import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
-import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
@@ -37,6 +36,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
+import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
@@ -44,6 +44,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
+import Views.BaseComponent as BaseComponent
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
@@ -84,7 +85,7 @@ type Msg
     | AddDistribution
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
-    | DeleteIngredient Ingredient.Id
+    | DeleteIngredient Ingredient
     | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
     | LoadQuery Query
@@ -103,7 +104,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateIngredient Id Query.IngredientQuery
+    | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -229,9 +230,9 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
-        DeleteIngredient id ->
+        DeleteIngredient ingredient ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient id query)
+                |> updateQuery (Query.deleteIngredient ingredient.id query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -391,9 +392,9 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
-        UpdateIngredient oldIngredientId newIngredient ->
+        UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
+                |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -522,7 +523,7 @@ deleteItemButton event =
 
 
 type alias UpdateIngredientConfig =
-    { excluded : List Id
+    { excluded : List Ingredient
     , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
@@ -545,137 +546,106 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             }
 
         event =
-            UpdateIngredient recipeIngredient.ingredient.id
-    in
-    li [ class "IngredientFormWrapper list-group-item" ]
-        [ span [ class "MassInputWrapper" ]
-            [ MassInput.view
-                { mass = recipeIngredient.mass
-                , onChange =
-                    \maybeMass ->
-                        case maybeMass of
-                            Just mass ->
-                                event { ingredientQuery | mass = mass }
+            UpdateIngredient ingredientQuery
 
-                            _ ->
-                                NoOp
-                , disabled = False
+        baseComponent =
+            { component = recipeIngredient.ingredient, quantity = recipeIngredient.mass, country = recipeIngredient.country }
+
+        config : BaseComponent.Config Ingredient Mass Msg
+        config =
+            { excluded = excluded
+            , db =
+                { components = db.ingredients
+                , countries =
+                    db.countries
+                        |> Scope.only Scope.Food
+                        |> List.sortBy .name
+                , definitions = db.impactDefinitions
                 }
-            ]
-        , db.ingredients
-            |> List.sortBy .name
-            |> ingredientSelectorView
-                recipeIngredient
-                excluded
-        , db.countries
-            |> Scope.only Scope.Food
-            |> List.sortBy .name
-            |> List.map
-                (\{ code, name } ->
-                    option
-                        [ selected (ingredientQuery.country == Just code)
-                        , value <| Country.codeToString code
-                        ]
-                        [ text name ]
-                )
-            |> (::)
-                (option
-                    [ value ""
-                    , selected (ingredientQuery.country == Nothing)
-                    ]
-                    [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
-                )
-            |> select
-                [ class "form-select form-select CountrySelector"
-                , onInput
-                    (\val ->
-                        event
-                            { ingredientQuery
-                                | country =
-                                    if val /= "" then
-                                        Just (Country.codeFromString val)
+            , baseComponent = baseComponent
+            , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+            , impact = impact
+            , selectedImpact = selectedImpact
+            , update = \_ newComponent -> UpdateIngredient ingredientQuery { ingredientQuery | id = newComponent.component.id, mass = newComponent.quantity, country = Maybe.map .code newComponent.country }
+            , delete = DeleteIngredient
+            , selectComponent = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+            , quantityView = \{ disabled, quantity, onChange } -> MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+            }
+    in
+    li [ class "ComponentFormWrapper list-group-item" ]
+        (BaseComponent.view config
+            ++ [ if selectedImpact.trigram == Definition.Ecs then
+                    let
+                        { complements, ingredient } =
+                            recipeIngredient
 
-                                    else
-                                        Nothing
-                            }
-                    )
-                ]
-        , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact
-                |> Format.formatImpact selectedImpact
-            ]
-        , deleteItemButton (DeleteIngredient ingredientQuery.id)
-        , if selectedImpact.trigram == Definition.Ecs then
-            let
-                { complements, ingredient } =
-                    recipeIngredient
-
-                complementsImpacts =
-                    impact
-                        |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
-            in
-            details [ class "IngredientBonuses fs-7" ]
-                [ summary []
-                    [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
-                        [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
-                        , span [ class "text-success text-end", title "Total des bonus" ]
-                            [ Impact.getTotalComplementsImpacts complementsImpacts
-                                |> Quantity.negate
-                                |> Unit.impactToFloat
-                                |> Format.formatImpactFloat selectedImpact
+                        complementsImpacts =
+                            impact
+                                |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
+                    in
+                    details [ class "IngredientBonuses fs-7" ]
+                        [ summary []
+                            [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
+                                [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
+                                , span [ class "text-success text-end", title "Total des bonus" ]
+                                    [ Impact.getTotalComplementsImpacts complementsImpacts
+                                        |> Quantity.negate
+                                        |> Unit.impactToFloat
+                                        |> Format.formatImpactFloat selectedImpact
+                                    ]
+                                ]
                             ]
+                        , ingredientComplementsView
+                            { name = "Diversité agricole"
+                            , title = Nothing
+                            , domId = "agroDiversity_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.agroDiversity
+                            , complementSplit = complements.agroDiversity
+                            , disabled = False
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
+                            }
+                        , ingredientComplementsView
+                            { name = "Infra. agro-éco."
+                            , title = Just "Infrastructures agro-écologiques"
+                            , domId = "agroEcology_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.agroEcology
+                            , complementSplit = complements.agroEcology
+                            , disabled = False
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | agroEcology = split } }
+                            }
+                        , ingredientComplementsView
+                            { name = "Cond. d'élevage"
+                            , title = Nothing
+                            , domId = "animalWelfare_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.animalWelfare
+                            , complementSplit = complements.animalWelfare
+                            , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
+                            }
                         ]
-                    ]
-                , ingredientComplementsView
-                    { name = "Diversité agricole"
-                    , title = Nothing
-                    , domId = "agroDiversity_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.agroDiversity
-                    , complementSplit = complements.agroDiversity
-                    , disabled = False
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
-                    }
-                , ingredientComplementsView
-                    { name = "Infra. agro-éco."
-                    , title = Just "Infrastructures agro-écologiques"
-                    , domId = "agroEcology_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.agroEcology
-                    , complementSplit = complements.agroEcology
-                    , disabled = False
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | agroEcology = split } }
-                    }
-                , ingredientComplementsView
-                    { name = "Cond. d'élevage"
-                    , title = Nothing
-                    , domId = "animalWelfare_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.animalWelfare
-                    , complementSplit = complements.animalWelfare
-                    , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                    }
-                ]
 
-          else
-            text ""
-        , displayTransportDistances db recipeIngredient ingredientQuery event
-        , span
-            [ class "text-black-50 text-end IngredientTransportImpact fs-8"
-            , title "Impact du transport pour cet ingrédient"
-            ]
-            [ text "(+ "
-            , transportImpact
-            , text ")"
-            ]
-        ]
+                 else
+                    text ""
+               , displayTransportDistances db recipeIngredient ingredientQuery event
+               , span
+                    [ class "text-black-50 text-end IngredientTransportImpact fs-8"
+                    , title "Impact du transport pour cet ingrédient"
+                    ]
+                    [ text "(+ "
+                    , transportImpact
+                    , text ")"
+                    ]
+               ]
+        )
 
 
 type alias ComplementsViewConfig msg =
@@ -887,7 +857,7 @@ ingredientListView db selectedImpact recipe results =
                 |> List.indexedMap
                     (\index ingredient ->
                         updateIngredientFormView
-                            { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
+                            { excluded = recipe.ingredients |> List.map .ingredient
                             , db = db
                             , recipeIngredient = ingredient
                             , impact =
@@ -1254,30 +1224,6 @@ processSelectorView selectedCode event excluded processes =
                         [ text <| Process.getDisplayName process ]
                 )
         )
-
-
-ingredientSelectorView : Recipe.RecipeIngredient -> List Id -> List Ingredient -> Html Msg
-ingredientSelectorView selectedIngredient excluded ingredients =
-    let
-        availableIngredients =
-            ingredients
-                |> Recipe.availableIngredients excluded
-
-        autocompleteState =
-            AutocompleteSelector.init availableIngredients
-    in
-    div
-        [ class "form-select IngredientSelector"
-        , style "overflow" "hidden"
-        , style "white-space" "nowrap"
-        , onClick (SetModal (AddIngredientModal (Just selectedIngredient) autocompleteState))
-        ]
-        [ span
-            [ style "display" "block"
-            , style "overflow" "hidden"
-            ]
-            [ text selectedIngredient.ingredient.name ]
-        ]
 
 
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
