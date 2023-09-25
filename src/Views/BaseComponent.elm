@@ -129,12 +129,12 @@ deleteItemButton event =
 
 
 selectorView : Component a -> msg -> Html msg
-selectorView selectedComponent selectMaterial =
+selectorView selectedComponent selectComponent =
     div
         [ class "form-select ComponentSelector"
         , style "overflow" "hidden"
         , style "white-space" "nowrap"
-        , onClick selectMaterial
+        , onClick selectComponent
         ]
         [ span
             [ style "display" "block"

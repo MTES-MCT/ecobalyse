@@ -266,25 +266,27 @@ update ({ queries } as session) msg model =
 
         OnAutocompleteSelect ->
             case model.modal of
-                AddIngredientModal maybeOldIngredient autocompleteState ->
+                AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
                     Maybe.map2
-                        (\oldIngredient newIngredient ->
+                        (\oldRecipeIngredient newIngredient ->
                             -- Update an existing ingredient
                             let
                                 ingredientQuery : Query.IngredientQuery
                                 ingredientQuery =
                                     { id = newIngredient.id
-                                    , mass = oldIngredient.mass
+                                    , mass = oldRecipeIngredient.mass
                                     , country = Nothing
                                     , planeTransport = Ingredient.byPlaneByDefault newIngredient
-                                    , complements = Just oldIngredient.complements
+
+                                    -- We always update the complements to be the new ones because we're here on an ingredient change
+                                    , complements = Just newIngredient.complements
                                     }
                             in
                             model
                                 |> update session (SetModal NoModal)
-                                |> updateQuery (Query.updateIngredient oldIngredient.ingredient.id ingredientQuery query)
+                                |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
                         )
-                        maybeOldIngredient
+                        maybeOldRecipeIngredient
                         (Autocomplete.selectedValue autocompleteState)
                         |> Maybe.withDefault
                             -- Add a new ingredient
@@ -566,7 +568,15 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
             , impact = impact
             , selectedImpact = selectedImpact
-            , update = \_ newComponent -> UpdateIngredient ingredientQuery { ingredientQuery | id = newComponent.component.id, mass = newComponent.quantity, country = Maybe.map .code newComponent.country }
+            , update =
+                \_ newComponent ->
+                    UpdateIngredient
+                        ingredientQuery
+                        { ingredientQuery
+                            | id = newComponent.component.id
+                            , mass = newComponent.quantity
+                            , country = Maybe.map .code newComponent.country
+                        }
             , delete = DeleteIngredient
             , selectComponent = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
             , quantityView = \{ disabled, quantity, onChange } -> MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
