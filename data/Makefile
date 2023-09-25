@@ -3,7 +3,7 @@ NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
 DOCKEREXEC := docker exec -u jovyan -it
 
-json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food
+json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food export_textile
 
 image:
 	docker build -t $(NAME) docker
