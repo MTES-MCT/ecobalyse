@@ -145,7 +145,7 @@ materialSelector :
     -> List (Html msg)
 materialSelector index { materials, exclude, update } id =
     let
-        ( natural, synthetic, artificial ) =
+        categorized =
             Material.groupAll materials
 
         toOption m =
@@ -157,19 +157,17 @@ materialSelector index { materials, exclude, update } id =
                 ]
                 [ text m.shortName ]
 
-        toGroup name materials_ =
+        toGroup ( name, materials_ ) =
             if materials_ == [] then
                 text ""
 
             else
                 materials_
                     |> List.map toOption
-                    |> optgroup [ attribute "label" name ]
+                    |> optgroup [ attribute "label" ("Matières " ++ name) ]
     in
-    [ [ toGroup "Matières naturelles" natural
-      , toGroup "Matières synthétiques" synthetic
-      , toGroup "Matières artificielles" artificial
-      ]
+    [ categorized
+        |> List.map toGroup
         |> select
             [ Attr.id "material"
             , class "form-select flex-fill"

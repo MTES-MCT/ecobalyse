@@ -75,9 +75,7 @@ findById id =
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
 
 
-groupAll :
-    List Material
-    -> ( List Material, List Material, List Material )
+groupAll : List Material -> List ( String, List Material )
 groupAll =
     List.sortBy .shortName >> groupByOrigins
 
@@ -87,12 +85,20 @@ fromOrigin origin =
     List.filter (.origin >> (==) origin)
 
 
-groupByOrigins : List Material -> ( List Material, List Material, List Material )
+groupByOrigins : List Material -> List ( String, List Material )
 groupByOrigins materials =
-    ( materials |> fromOrigin Origin.Natural
-    , materials |> fromOrigin Origin.Synthetic
-    , materials |> fromOrigin Origin.Artificial
-    )
+    List.map
+        (\origin ->
+            ( Origin.toString origin
+            , fromOrigin origin materials
+            )
+        )
+        [ Origin.NaturalFromAnimal
+        , Origin.NaturalFromVegetal
+        , Origin.ArtificialFromInorganic
+        , Origin.ArtificialFromOrganic
+        , Origin.Synthetic
+        ]
 
 
 decode : List Process -> Decoder Material

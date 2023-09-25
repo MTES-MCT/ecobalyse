@@ -6,43 +6,59 @@ module Data.Textile.Material.Origin exposing
     )
 
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 
 
 type Origin
-    = Natural
-    | Artificial
+    = NaturalFromAnimal
+    | NaturalFromVegetal
+    | ArtificialFromInorganic
+    | ArtificialFromOrganic
     | Synthetic
 
 
 decode : Decoder Origin
 decode =
-    Decode.map fromString Decode.string
+    Decode.string
+        |> Decode.andThen (fromString >> DE.fromResult)
 
 
-fromString : String -> Origin
+fromString : String -> Result String Origin
 fromString origin =
     case origin of
-        "Naturelles" ->
-            Natural
+        "Naturelles d'origine animale" ->
+            Ok NaturalFromAnimal
 
-        "Artificielles" ->
-            Artificial
+        "Naturelles d'origine végétale" ->
+            Ok NaturalFromVegetal
+
+        "Artificielles d'origine inorganique" ->
+            Ok ArtificialFromInorganic
+
+        "Artificielles d'origine organique" ->
+            Ok ArtificialFromOrganic
 
         "Synthétiques" ->
-            Synthetic
+            Ok Synthetic
 
         _ ->
-            Natural
+            Err <| "Origine inconnue: " ++ origin
 
 
 toString : Origin -> String
 toString origin =
     case origin of
-        Natural ->
-            "Naturelles"
+        NaturalFromAnimal ->
+            "Naturelles d'origine animale"
 
-        Artificial ->
-            "Artificielles"
+        NaturalFromVegetal ->
+            "Naturelles d'origine végétale"
+
+        ArtificialFromInorganic ->
+            "Artificielles d'origine inorganique"
+
+        ArtificialFromOrganic ->
+            "Artificielles d'origine organique"
 
         Synthetic ->
             "Synthétiques"
