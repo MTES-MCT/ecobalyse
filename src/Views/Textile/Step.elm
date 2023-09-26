@@ -677,6 +677,10 @@ simpleView ({ db, inputs, impact, current, setModal, addMaterialModal, deleteMat
                                                         , selectComponent = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
                                                         , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
                                                         , toString = .shortName
+                                                        , disableQuantity = List.length inputs.materials <= 1
+
+                                                        -- No country selection for now
+                                                        , disableCountry = True
                                                         }
                                                 in
                                                 li [ class "ComponentFormWrapper list-group-item" ]

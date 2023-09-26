@@ -42,11 +42,13 @@ type alias Config a b msg =
     , selectComponent : Component a -> Autocomplete (Component a) -> msg
     , quantityView : { disabled : Bool, quantity : b, onChange : Maybe b -> msg } -> Html msg
     , toString : Component a -> String
+    , disableCountry : Bool
+    , disableQuantity : Bool
     }
 
 
 view : Config a b msg -> List (Html msg)
-view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView, toString } =
+view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView, toString, disableCountry, disableQuantity } =
     let
         updateEvent =
             update baseComponent
@@ -62,7 +64,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
-            { disabled = False
+            { disabled = disableQuantity
             , quantity = baseComponent.quantity
             , onChange =
                 \maybeQuantity ->
@@ -82,6 +84,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
                 option
                     [ selected (Maybe.map .code baseComponent.country == Just code)
                     , value <| Country.codeToString code
+                    , disabled disableCountry
                     ]
                     [ text name ]
             )

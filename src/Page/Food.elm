@@ -581,6 +581,8 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             , selectComponent = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
             , quantityView = \{ disabled, quantity, onChange } -> MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
             , toString = .name
+            , disableQuantity = False
+            , disableCountry = False
             }
     in
     li [ class "ComponentFormWrapper list-group-item" ]
