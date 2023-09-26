@@ -522,37 +522,49 @@ inlineDocumentationLink _ path =
 
 stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
+    let
+        detailsAvailable =
+            label /= Label.Material
+    in
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
-            [ class "btn btn-secondary py-1 rounded-end"
-            , classList [ ( "btn-secondary", not current.enabled ) ]
+            [ class "btn btn-secondary py-1"
+            , classList
+                [ ( "btn-secondary", not current.enabled )
+                , ( "rounded", not detailsAvailable )
+                , ( "rounded-end", detailsAvailable )
+                ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
             , target "_blank"
             ]
             [ Icon.question ]
-        , Button.docsPill
-            [ class "btn btn-secondary py-1 rounded-start"
-            , classList [ ( "btn-secondary", not current.enabled ) ]
-            , case viewMode of
-                ViewMode.Simple ->
-                    title "Détailler cette étape"
+        , if detailsAvailable then
+            Button.docsPill
+                [ class "btn btn-secondary py-1 rounded-start"
+                , classList [ ( "btn-secondary", not current.enabled ) ]
+                , case viewMode of
+                    ViewMode.Simple ->
+                        title "Détailler cette étape"
 
-                _ ->
-                    title "Affichage simplifié"
-            , onClick (toggleStepViewMode index)
-            ]
-            [ case viewMode of
-                ViewMode.DetailedStep currentIndex ->
-                    if index == currentIndex then
-                        Icon.zoomout
+                    _ ->
+                        title "Affichage simplifié"
+                , onClick (toggleStepViewMode index)
+                ]
+                [ case viewMode of
+                    ViewMode.DetailedStep currentIndex ->
+                        if index == currentIndex then
+                            Icon.zoomout
 
-                    else
+                        else
+                            Icon.zoomin
+
+                    ViewMode.Simple ->
                         Icon.zoomin
+                ]
 
-                ViewMode.Simple ->
-                    Icon.zoomin
-            ]
+          else
+            text ""
         ]
 
 
@@ -596,15 +608,30 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ db, inputs, impact, current, setModal, addMaterialModal, deleteMaterial, updateMaterial } as config) =
+simpleView ({ inputs, impact, current } as config) =
+    let
+        detailsAvailable =
+            current.label /= Label.Material
+    in
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-6" ] [ stepHeader config ]
-                    , div [ class "col-6 text-end" ]
-                        [ stepActions config current.label
+                    , div [ class "col-6 d-flex" ]
+                        [ div [ class "text-center text-muted w-100" ]
+                            [ if not detailsAvailable && (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                                span [ class "fw-bold flex-fill" ]
+                                    [ current.impacts
+                                        |> Impact.impactsWithComplements current.complementsImpacts
+                                        |> Format.formatImpact impact
+                                    ]
+
+                              else
+                                text ""
+                            ]
+                        , stepActions config current.label
                         ]
                     ]
                 ]
@@ -612,81 +639,11 @@ simpleView ({ db, inputs, impact, current, setModal, addMaterialModal, deleteMat
                 [ class "StepBody card-body row align-items-center"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
-                [ div [ class "col-sm-6 col-lg-7" ]
+                [ div [ classList [ ( "col-sm-6 col-lg-7", detailsAvailable ) ] ]
                     [ countryField config
                     , case current.label of
                         Label.Material ->
-                            ul [ class "CardList list-group list-group-flush" ]
-                                (if List.isEmpty inputs.materials then
-                                    [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
-
-                                 else
-                                    inputs.materials
-                                        |> List.map
-                                            (\materialInput ->
-                                                let
-                                                    materialQuery : Inputs.MaterialQuery
-                                                    materialQuery =
-                                                        { id = materialInput.material.id
-                                                        , share = materialInput.share
-                                                        , spinning = materialInput.spinning
-                                                        }
-
-                                                    baseComponent =
-                                                        { component = materialInput.material
-                                                        , quantity = materialInput.share
-                                                        , country = Nothing
-                                                        }
-
-                                                    defaultCountry =
-                                                        case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                                                            Ok geographicOrigin ->
-                                                                geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                                                            Err _ ->
-                                                                ""
-
-                                                    excluded =
-                                                        inputs.materials
-                                                            |> List.map .material
-
-                                                    baseComponentViewConfig : BaseComponent.Config Material Split msg
-                                                    baseComponentViewConfig =
-                                                        { excluded = excluded
-                                                        , db =
-                                                            { components = db.materials
-                                                            , countries =
-                                                                db.countries
-                                                                    |> Scope.only Scope.Textile
-                                                                    |> List.sortBy .name
-                                                            , definitions = db.impactDefinitions
-                                                            }
-                                                        , baseComponent = baseComponent
-                                                        , defaultCountry = defaultCountry
-                                                        , impact = Impact.empty
-                                                        , selectedImpact = impact
-                                                        , update =
-                                                            \_ newComponent ->
-                                                                updateMaterial
-                                                                    materialQuery
-                                                                    { materialQuery
-                                                                        | id = newComponent.component.id
-                                                                        , share = newComponent.quantity
-                                                                    }
-                                                        , delete = deleteMaterial
-                                                        , selectComponent = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
-                                                        , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
-                                                        , toString = .shortName
-                                                        , disableQuantity = List.length inputs.materials <= 1
-
-                                                        -- No country selection for now
-                                                        , disableCountry = True
-                                                        }
-                                                in
-                                                li [ class "ComponentFormWrapper list-group-item" ]
-                                                    (BaseComponent.view baseComponentViewConfig)
-                                            )
-                                )
+                            viewMaterials config
 
                         Label.Spinning ->
                             div [ class "mt-2 fs-7 text-muted" ]
@@ -723,22 +680,101 @@ simpleView ({ db, inputs, impact, current, setModal, addMaterialModal, deleteMat
                         _ ->
                             text ""
                     ]
-                , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                    [ div []
-                        [ if current.label /= Label.Distribution then
-                            div [ class "fs-3 fw-normal text-secondary" ]
-                                [ current.impacts
-                                    |> Impact.impactsWithComplements current.complementsImpacts
-                                    |> Format.formatImpact impact
-                                ]
+                , if detailsAvailable then
+                    div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
+                        [ div []
+                            [ if current.label /= Label.Distribution then
+                                div [ class "fs-3 fw-normal text-secondary" ]
+                                    [ current.impacts
+                                        |> Impact.impactsWithComplements current.complementsImpacts
+                                        |> Format.formatImpact impact
+                                    ]
 
-                          else
-                            text ""
+                              else
+                                text ""
+                            ]
                         ]
-                    ]
+
+                  else
+                    text ""
                 ]
             ]
     }
+
+
+viewMaterials : Config msg modal -> Html msg
+viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, setModal, addMaterialModal } =
+    ul [ class "CardList list-group list-group-flush" ]
+        (if List.isEmpty inputs.materials then
+            [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
+
+         else
+            inputs.materials
+                |> List.map
+                    (\materialInput ->
+                        let
+                            materialQuery : Inputs.MaterialQuery
+                            materialQuery =
+                                { id = materialInput.material.id
+                                , share = materialInput.share
+                                , spinning = materialInput.spinning
+                                }
+
+                            baseComponent =
+                                { component = materialInput.material
+                                , quantity = materialInput.share
+                                , country = Nothing
+                                }
+
+                            defaultCountry =
+                                case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
+                                    Ok geographicOrigin ->
+                                        geographicOrigin ++ " (" ++ current.country.name ++ ")"
+
+                                    Err _ ->
+                                        ""
+
+                            excluded =
+                                inputs.materials
+                                    |> List.map .material
+
+                            baseComponentViewConfig : BaseComponent.Config Material Split msg
+                            baseComponentViewConfig =
+                                { excluded = excluded
+                                , db =
+                                    { components = db.materials
+                                    , countries =
+                                        db.countries
+                                            |> Scope.only Scope.Textile
+                                            |> List.sortBy .name
+                                    , definitions = db.impactDefinitions
+                                    }
+                                , baseComponent = baseComponent
+                                , defaultCountry = defaultCountry
+                                , impact = Impact.empty
+                                , selectedImpact = impact
+                                , update =
+                                    \_ newComponent ->
+                                        updateMaterial
+                                            materialQuery
+                                            { materialQuery
+                                                | id = newComponent.component.id
+                                                , share = newComponent.quantity
+                                            }
+                                , delete = deleteMaterial
+                                , selectComponent = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+                                , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
+                                , toString = .shortName
+                                , disableQuantity = List.length inputs.materials <= 1
+
+                                -- No country selection for now
+                                , disableCountry = True
+                                }
+                        in
+                        li [ class "ComponentFormWrapper list-group-item" ]
+                            (BaseComponent.view baseComponentViewConfig)
+                    )
+        )
 
 
 viewTransport : Config msg modal -> Html msg
