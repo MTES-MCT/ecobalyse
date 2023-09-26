@@ -64,7 +64,6 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
             functools.partial(migrate_exchanges, migration="simapro-water"),
             normalize_simapro_biosphere_names,  # removing avoid multiple CFs
             normalize_simapro_biosphere_categories,
-            set_biosphere_type,
             drop_unspecified_subcategories,
             functools.partial(
                 link_iterable_by_fields,
@@ -73,6 +72,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
                     for obj in bw2data.Database(ef.biosphere_name)
                     if obj.get("type") == "emission"
                 ),
+                # fields=("name", "unit", "categories"),
                 kind="biosphere",
             ),
             functools.partial(match_subcategories, biosphere_db_name=ef.biosphere_name),
