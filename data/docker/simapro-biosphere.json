@@ -2,6 +2,7 @@
   ["air", "Particulates, < 2.5 um", "Particulate Matter, < 2.5 um"],
   ["air", "Particulates, > 2.5 um and < 10um", "Particulate Matter, > 2.5 um and < 10um"],
   ["air", "Particulates, > 10 um", "Particulate Matter, > 10 um"],
+  ["air", "Barium (II)", "Barium II"],
   ["air", "1-Butanol", "Butanol"],
   ["air", "1-Propanol", "Propanol"],
   ["air", "2-Butene, 2-methyl-", "2-Methyl-2-butene"],
