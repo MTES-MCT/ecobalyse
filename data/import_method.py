@@ -59,12 +59,12 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
             normalize_units,
             set_biosphere_type,
             # fix_localized_water_flows,  # adding it leads to 60m3
+            drop_unspecified_subcategories,
             functools.partial(normalize_biosphere_categories, lcia=True),
             functools.partial(normalize_biosphere_names, lcia=True),
             functools.partial(migrate_exchanges, migration="simapro-water"),
             normalize_simapro_biosphere_names,  # removing avoid multiple CFs
             normalize_simapro_biosphere_categories,
-            drop_unspecified_subcategories,
             functools.partial(
                 link_iterable_by_fields,
                 other=(
