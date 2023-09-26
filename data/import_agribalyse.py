@@ -329,6 +329,7 @@ def add_created_activities(dbname=DBNAME):
 
                 # link the newly create sub_activity_variant to the parent activity_variant
                 new_exchange(activity_variant, sub_activity, sub_activity_variant)
+                delete_exchange(activity_variant, sub_activity)
 
                 # for the last sub activity, replace the seed activity with the seed activity variant
                 # Example: for flour-organic this is where the replace the wheat activity with the wheat-organic activity
