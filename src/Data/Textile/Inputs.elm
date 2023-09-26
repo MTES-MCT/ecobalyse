@@ -471,7 +471,7 @@ updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
 updateMaterial oldMaterialId newMaterial =
     updateMaterialData
         oldMaterialId
-        (\({ share } as m) -> { m | id = newMaterial.id, share = share, spinning = Nothing })
+        (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing })
 
 
 updateMaterialShare : Material.Id -> Split -> Query -> Query

@@ -41,11 +41,12 @@ type alias Config a b msg =
     , delete : Component a -> msg
     , selectComponent : Component a -> Autocomplete (Component a) -> msg
     , quantityView : { disabled : Bool, quantity : b, onChange : Maybe b -> msg } -> Html msg
+    , toString : Component a -> String
     }
 
 
 view : Config a b msg -> List (Html msg)
-view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView } =
+view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView, toString } =
     let
         updateEvent =
             update baseComponent
@@ -53,12 +54,11 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
         deleteEvent =
             delete baseComponent.component
 
-        availableComponents =
-            db.components
-                |> List.filter (\component -> not (List.member component excluded))
-
         autocompleteState =
-            AutocompleteSelector.init availableComponents
+            AutocompleteSelector.init
+                (db.components
+                    |> List.filter (\component -> not (List.member component excluded))
+                )
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
@@ -74,7 +74,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
                             updateEvent baseComponent
             }
         ]
-    , selectorView baseComponent.component (selectComponent baseComponent.component autocompleteState)
+    , selectorView baseComponent.component toString (selectComponent baseComponent.component autocompleteState)
     , db.countries
         |> List.sortBy .name
         |> List.map
@@ -128,8 +128,8 @@ deleteItemButton event =
         [ Icon.trash ]
 
 
-selectorView : Component a -> msg -> Html msg
-selectorView selectedComponent selectComponent =
+selectorView : Component a -> (Component a -> String) -> msg -> Html msg
+selectorView selectedComponent toString selectComponent =
     div
         [ class "form-select ComponentSelector"
         , style "overflow" "hidden"
@@ -140,5 +140,5 @@ selectorView selectedComponent selectComponent =
             [ style "display" "block"
             , style "overflow" "hidden"
             ]
-            [ text selectedComponent.name ]
+            [ text <| toString selectedComponent ]
         ]

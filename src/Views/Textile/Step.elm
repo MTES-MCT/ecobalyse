@@ -1,5 +1,6 @@
 module Views.Textile.Step exposing (view)
 
+import Autocomplete exposing (Autocomplete)
 import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
@@ -27,7 +28,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Views.BaseComponent as BaseComponent
 import Views.Button as Button
+import Views.Component.SplitInput as SplitInput
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
@@ -35,7 +38,7 @@ import Views.RangeSlider as RangeSlider
 import Views.Transport as TransportView
 
 
-type alias Config msg =
+type alias Config msg modal =
     { db : TextileDb.Db
     , inputs : Inputs
     , daysOfWear : Duration
@@ -44,6 +47,9 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
+    , setModal : modal -> msg
+    , addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    , deleteMaterial : Material -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
@@ -53,6 +59,7 @@ type alias Config msg =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
+    , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
     , updatePrinting : Maybe Printing -> msg
@@ -95,7 +102,7 @@ stepIcon label =
             Icon.recycle
 
 
-countryField : Config msg -> Html msg
+countryField : Config msg modal -> Html msg
 countryField { db, current, inputs, updateCountry } =
     let
         nonEditableCountry content =
@@ -141,7 +148,7 @@ countryField { db, current, inputs, updateCountry } =
         ]
 
 
-airTransportRatioField : Config msg -> Html msg
+airTransportRatioField : Config msg modal -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
     span
         [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
@@ -158,7 +165,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
         ]
 
 
-dyeingMediumField : Config msg -> Html msg
+dyeingMediumField : Config msg modal -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
@@ -184,7 +191,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
         ]
 
 
-spinningProcessField : Config msg -> Html msg
+spinningProcessField : Config msg modal -> Html msg
 spinningProcessField { inputs, updateMaterialSpinning } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ div [ class "d-flex flex-column gap-1 w-100" ]
@@ -230,7 +237,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
         ]
 
 
-knittingProcessField : Config msg -> Html msg
+knittingProcessField : Config msg modal -> Html msg
 knittingProcessField { inputs, updateKnittingProcess } =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
@@ -261,7 +268,7 @@ knittingProcessField { inputs, updateKnittingProcess } =
         ]
 
 
-printingFields : Config msg -> Html msg
+printingFields : Config msg modal -> Html msg
 printingFields { inputs, updatePrinting } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
@@ -343,7 +350,7 @@ printingFields { inputs, updatePrinting } =
         ]
 
 
-fadingField : Config msg -> Html msg
+fadingField : Config msg odal -> Html msg
 fadingField { inputs, toggleDisabledFading } =
     label
         [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
@@ -364,7 +371,7 @@ fadingField { inputs, toggleDisabledFading } =
         ]
 
 
-qualityField : Config msg -> Html msg
+qualityField : Config msg modal -> Html msg
 qualityField { current, updateQuality } =
     span
         [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
@@ -385,7 +392,7 @@ qualityField { current, updateQuality } =
         ]
 
 
-reparabilityField : Config msg -> Html msg
+reparabilityField : Config msg modal -> Html msg
 reparabilityField { current, updateReparability } =
     span
         [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
@@ -406,7 +413,7 @@ reparabilityField { current, updateReparability } =
         ]
 
 
-makingComplexityField : Config msg -> Html msg
+makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     -- Note: This field is only rendered in the detailed step view
     let
@@ -448,7 +455,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
         ]
 
 
-makingWasteField : Config msg -> Html msg
+makingWasteField : Config msg modal -> Html msg
 makingWasteField { current, db, inputs, updateMakingWaste } =
     let
         processName =
@@ -474,7 +481,7 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
         ]
 
 
-surfaceMassField : Config msg -> Product -> Html msg
+surfaceMassField : Config msg modal -> Product -> Html msg
 surfaceMassField { current, updateSurfaceMass } product =
     span
         [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
@@ -490,7 +497,7 @@ surfaceMassField { current, updateSurfaceMass } product =
         ]
 
 
-yarnSizeField : Config msg -> Product -> Html msg
+yarnSizeField : Config msg modal -> Product -> Html msg
 yarnSizeField { current, updateYarnSize } product =
     span
         [ title "Le titrage indique la grosseur d’un fil textile" ]
@@ -504,7 +511,7 @@ yarnSizeField { current, updateYarnSize } product =
         ]
 
 
-inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
+inlineDocumentationLink : Config msg modal -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
         [ href (Gitbook.publicUrlFromPath path)
@@ -513,7 +520,7 @@ inlineDocumentationLink _ path =
         [ Icon.question ]
 
 
-stepActions : Config msg -> Label -> Html msg
+stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
@@ -549,7 +556,7 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
         ]
 
 
-stepHeader : Config msg -> Html msg
+stepHeader : Config msg modal -> Html msg
 stepHeader { current, inputs, toggleStep } =
     label
         [ class "d-flex align-items-center gap-2"
@@ -588,8 +595,8 @@ stepHeader { current, inputs, toggleStep } =
         ]
 
 
-simpleView : Config msg -> ViewWithTransport msg
-simpleView ({ inputs, impact, current } as config) =
+simpleView : Config msg modal -> ViewWithTransport msg
+simpleView ({ db, inputs, impact, current, setModal, addMaterialModal, deleteMaterial, updateMaterial } as config) =
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
@@ -608,6 +615,75 @@ simpleView ({ inputs, impact, current } as config) =
                 [ div [ class "col-sm-6 col-lg-7" ]
                     [ countryField config
                     , case current.label of
+                        Label.Material ->
+                            ul [ class "CardList list-group list-group-flush" ]
+                                (if List.isEmpty inputs.materials then
+                                    [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
+
+                                 else
+                                    inputs.materials
+                                        |> List.map
+                                            (\materialInput ->
+                                                let
+                                                    materialQuery : Inputs.MaterialQuery
+                                                    materialQuery =
+                                                        { id = materialInput.material.id
+                                                        , share = materialInput.share
+                                                        , spinning = materialInput.spinning
+                                                        }
+
+                                                    baseComponent =
+                                                        { component = materialInput.material
+                                                        , quantity = materialInput.share
+                                                        , country = Nothing
+                                                        }
+
+                                                    defaultCountry =
+                                                        case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
+                                                            Ok geographicOrigin ->
+                                                                geographicOrigin ++ " (" ++ current.country.name ++ ")"
+
+                                                            Err _ ->
+                                                                ""
+
+                                                    excluded =
+                                                        inputs.materials
+                                                            |> List.map .material
+
+                                                    baseComponentViewConfig : BaseComponent.Config Material Split msg
+                                                    baseComponentViewConfig =
+                                                        { excluded = excluded
+                                                        , db =
+                                                            { components = db.materials
+                                                            , countries =
+                                                                db.countries
+                                                                    |> Scope.only Scope.Textile
+                                                                    |> List.sortBy .name
+                                                            , definitions = db.impactDefinitions
+                                                            }
+                                                        , baseComponent = baseComponent
+                                                        , defaultCountry = defaultCountry
+                                                        , impact = Impact.empty
+                                                        , selectedImpact = impact
+                                                        , update =
+                                                            \_ newComponent ->
+                                                                updateMaterial
+                                                                    materialQuery
+                                                                    { materialQuery
+                                                                        | id = newComponent.component.id
+                                                                        , share = newComponent.quantity
+                                                                    }
+                                                        , delete = deleteMaterial
+                                                        , selectComponent = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+                                                        , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
+                                                        , toString = .shortName
+                                                        }
+                                                in
+                                                li [ class "ComponentFormWrapper list-group-item" ]
+                                                    (BaseComponent.view baseComponentViewConfig)
+                                            )
+                                )
+
                         Label.Spinning ->
                             div [ class "mt-2 fs-7 text-muted" ]
                                 [ yarnSizeField config inputs.product
@@ -661,7 +737,7 @@ simpleView ({ inputs, impact, current } as config) =
     }
 
 
-viewTransport : Config msg -> Html msg
+viewTransport : Config msg modal -> Html msg
 viewTransport ({ impact, current } as config) =
     div []
         [ span []
@@ -730,7 +806,7 @@ daysOfWearInfo inputs =
         ]
 
 
-ennoblingGenericFields : Config msg -> Html msg
+ennoblingGenericFields : Config msg modal -> Html msg
 ennoblingGenericFields config =
     -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
@@ -739,7 +815,7 @@ ennoblingGenericFields config =
         ]
 
 
-ennoblingHeatSourceField : Config msg -> Html msg
+ennoblingHeatSourceField : Config msg modal -> Html msg
 ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
@@ -769,7 +845,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
         ]
 
 
-detailedView : Config msg -> ViewWithTransport msg
+detailedView : Config msg modal -> ViewWithTransport msg
 detailedView ({ inputs, impact, current } as config) =
     let
         infoListElement =
@@ -990,7 +1066,7 @@ threadDensityView threadDensity =
             text ""
 
 
-view : Config msg -> ViewWithTransport msg
+view : Config msg modal -> ViewWithTransport msg
 view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly

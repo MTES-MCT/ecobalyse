@@ -107,6 +107,7 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
+    | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialShare Material Split
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
@@ -427,6 +428,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
+        UpdateMaterial oldMaterial newMaterial ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterial oldMaterial.id newMaterial query)
+
         UpdateMaterialShare material share ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare material.id share query)
@@ -543,6 +548,9 @@ lifeCycleStepsView db { viewMode, impact } simulator =
                     , index = index
                     , current = current
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
+                    , setModal = SetModal
+                    , addMaterialModal = AddMaterialModal
+                    , deleteMaterial = RemoveMaterial
                     , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
                     , toggleStepViewMode = ToggleStepViewMode
@@ -550,6 +558,7 @@ lifeCycleStepsView db { viewMode, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
