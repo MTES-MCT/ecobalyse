@@ -39,6 +39,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Platform.Cmd as Cmd
 import Ports
 import Route
 import Task
@@ -191,13 +192,13 @@ findExistingBookmarkName { textileDb, store } query =
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, msg ) =
+updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.textileDb
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
-    , msg
+    , commands
     )
 
 
@@ -475,7 +476,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
 
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectMaterial autocompleteState ( model, session, _ ) =
+selectMaterial autocompleteState ( model, session, commands ) =
     let
         material =
             Autocomplete.selectedValue autocompleteState
@@ -486,8 +487,17 @@ selectMaterial autocompleteState ( model, session, _ ) =
             material
                 |> Maybe.map AddMaterial
                 |> Maybe.withDefault NoOp
+
+        ( newModel, newSession, newCommands ) =
+            update session msg model
     in
-    update session msg model
+    ( newModel
+    , newSession
+    , Cmd.batch
+        [ commands
+        , newCommands
+        ]
+    )
 
 
 massField : String -> Html Msg

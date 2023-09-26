@@ -1,6 +1,7 @@
 module Views.Textile.Step exposing (view)
 
 import Autocomplete exposing (Autocomplete)
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
@@ -635,69 +636,53 @@ simpleView ({ inputs, impact, current } as config) =
                         ]
                     ]
                 ]
-            , div
-                [ class "StepBody card-body row align-items-center"
-                , classList [ ( "disabled", not current.enabled ) ]
-                ]
-                [ div [ classList [ ( "col-sm-6 col-lg-7", detailsAvailable ) ] ]
-                    [ countryField config
-                    , case current.label of
-                        Label.Material ->
-                            viewMaterials config
-
-                        Label.Spinning ->
-                            div [ class "mt-2 fs-7 text-muted" ]
-                                [ yarnSizeField config inputs.product
-                                ]
-
-                        Label.Fabric ->
-                            div [ class "mt-2 fs-7" ]
-                                [ surfaceMassField config inputs.product ]
-
-                        Label.Ennobling ->
-                            div [ class "mt-2" ]
-                                [ ennoblingGenericFields config
-                                ]
-
-                        Label.Making ->
-                            div [ class "mt-2" ]
-                                [ makingWasteField config
-                                , airTransportRatioField config
-                                , if inputs.product.making.fadable then
-                                    fadingField config
-
-                                  else
-                                    text ""
-                                ]
-
-                        Label.Use ->
-                            div [ class "mt-2" ]
-                                [ qualityField config
-                                , reparabilityField config
-                                , daysOfWearInfo inputs
-                                ]
-
-                        _ ->
-                            text ""
+            , if detailsAvailable then
+                div
+                    [ class "StepBody card-body row align-items-center"
+                    , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                , if detailsAvailable then
-                    div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                        [ div []
-                            [ if current.label /= Label.Distribution then
-                                div [ class "fs-3 fw-normal text-secondary" ]
-                                    [ current.impacts
-                                        |> Impact.impactsWithComplements current.complementsImpacts
-                                        |> Format.formatImpact impact
+                    [ div [ class "col-sm-6 col-lg-7" ]
+                        [ countryField config
+                        , case current.label of
+                            Label.Spinning ->
+                                div [ class "mt-2 fs-7 text-muted" ]
+                                    [ yarnSizeField config inputs.product
                                     ]
 
-                              else
-                                text ""
-                            ]
-                        ]
+                            Label.Fabric ->
+                                div [ class "mt-2 fs-7" ]
+                                    [ surfaceMassField config inputs.product ]
 
-                  else
-                    text ""
-                ]
+                            Label.Ennobling ->
+                                div [ class "mt-2" ]
+                                    [ ennoblingGenericFields config
+                                    ]
+
+                            Label.Making ->
+                                div [ class "mt-2" ]
+                                    [ makingWasteField config
+                                    , airTransportRatioField config
+                                    , if inputs.product.making.fadable then
+                                        fadingField config
+
+                                      else
+                                        text ""
+                                    ]
+
+                            Label.Use ->
+                                div [ class "mt-2" ]
+                                    [ qualityField config
+                                    , reparabilityField config
+                                    , daysOfWearInfo inputs
+                                    ]
+
+                            _ ->
+                                text ""
+                        ]
+                    ]
+
+              else
+                viewMaterials config
             ]
     }
 
@@ -709,7 +694,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
 
          else
-            inputs.materials
+            (inputs.materials
                 |> List.map
                     (\materialInput ->
                         let
@@ -774,6 +759,72 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                         li [ class "ComponentFormWrapper list-group-item" ]
                             (BaseComponent.view baseComponentViewConfig)
                     )
+            )
+                ++ [ let
+                        length =
+                            List.length inputs.materials
+
+                        excluded =
+                            inputs.materials
+                                |> List.map .material
+
+                        availableMaterials =
+                            db.materials
+                                |> List.filter
+                                    (\component ->
+                                        not
+                                            (List.member component excluded)
+                                    )
+
+                        totalShares =
+                            inputs.materials
+                                |> List.map (.share >> Split.toFloat >> clamp 0 1)
+                                |> List.sum
+
+                        valid =
+                            round (totalShares * 100) == 100
+                     in
+                     li
+                        [ class "input-group "
+                        , classList [ ( "AddComponentFormWrapper ps-3", length > 1 ) ]
+                        ]
+                        [ if length > 1 then
+                            span
+                                [ class "SharesTotal ext-end"
+                                , class "d-flex justify-content-between align-items-center gap-1"
+                                , classList
+                                    [ ( "text-success feedback-valid", valid )
+                                    , ( "text-danger feedback-invalid", not valid )
+                                    ]
+                                ]
+                                [ if valid then
+                                    Icon.check
+
+                                  else
+                                    Icon.warning
+                                , round (totalShares * 100) |> String.fromInt |> text
+                                , text "%"
+                                ]
+
+                          else
+                            text ""
+                        , button
+                            [ class "AddComponentButton btn btn-outline-primary flex-fill"
+                            , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                            , onClick
+                                (setModal
+                                    (addMaterialModal Nothing
+                                        (AutocompleteSelector.init availableMaterials)
+                                    )
+                                )
+                            , disabled <| length >= Env.maxMaterials
+                            ]
+                            [ Icon.plus
+                            , text "Ajouter une matière"
+                            , span [ class "text-muted" ] [ text "jusqu'à 5 maximum" ]
+                            ]
+                        ]
+                   ]
         )
 
 
