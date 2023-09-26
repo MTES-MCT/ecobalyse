@@ -82,8 +82,8 @@ Les valeurs numériques des coefficients de normalisation et de pondération son
 
 Le score PEF ainsi calculé est sans unité. Il s'exprime en "Points".&#x20;
 
-Comme la normalisation s'effectue à partir de l'impact annuel moyen d'un européen pour chaque indicateur, le total des points pour un vêtement est très faible. Une conversion en millipoints (mPt) est donc systématiquement appliquée dans l'outil Ecobalyse.
+Comme la normalisation s'effectue à partir de l'impact annuel moyen d'un européen pour chaque indicateur, le total des points pour un vêtement est très faible. Une conversion en micro-points (1 mPt = 10^-6 Pt) est donc systématiquement appliquée dans l'outil Ecobalyse.
 
 $$
-1 mpt = 1 pt / 1 000
+1 mpt = 1 pt / 1 000 000
 $$
