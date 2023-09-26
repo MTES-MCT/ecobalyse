@@ -1,6 +1,21 @@
 [
   [
     "air",
+    "Particulates, < 2.5 um",
+    "Particulate Matter, < 2.5 um"
+  ],
+  [
+    "air",
+    "Particulates, > 2.5 um and < 10um",
+    "Particulate Matter, > 2.5 um and < 10um"
+  ],
+  [
+    "air",
+    "Particulates, > 10 um",
+    "Particulate Matter, > 10 um"
+  ],
+  [
+    "air",
     "1-Butanol",
     "Butanol"
   ],

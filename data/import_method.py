@@ -63,8 +63,8 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
             functools.partial(normalize_biosphere_categories, lcia=True),
             functools.partial(normalize_biosphere_names, lcia=True),
             functools.partial(migrate_exchanges, migration="simapro-water"),
-            normalize_simapro_biosphere_names,  # removing avoid multiple CFs
             normalize_simapro_biosphere_categories,
+            normalize_simapro_biosphere_names,  # removing avoid multiple CFs
             functools.partial(
                 link_iterable_by_fields,
                 other=(
