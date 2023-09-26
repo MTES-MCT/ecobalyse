@@ -54,7 +54,6 @@ import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
-import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 
 
@@ -90,7 +89,6 @@ type Msg
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SelectInputText String
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -109,7 +107,6 @@ type Msg
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
-    | UpdateMaterialShare Material Split
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
@@ -305,9 +302,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SelectInputText index ->
-            ( model, session, Ports.selectInputText index )
-
         SetModal modal ->
             ( { model | modal = modal }
             , session
@@ -432,10 +426,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterial oldMaterial.id newMaterial query)
-
-        UpdateMaterialShare material share ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialShare material.id share query)
 
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
@@ -620,14 +610,6 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                     [ massField model.massInput
                     ]
                 ]
-            , MaterialView.formSet
-                { materials = textileDb.materials
-                , inputs = inputs.materials
-                , remove = RemoveMaterial
-                , updateShare = UpdateMaterialShare
-                , selectInputText = SelectInputText
-                , selectMaterial = \maybeMaterial autocompleteState -> SetModal (AddMaterialModal maybeMaterial autocompleteState)
-                }
             , div []
                 [ lifeCycleStepsView textileDb model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]

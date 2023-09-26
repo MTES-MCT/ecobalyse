@@ -25,7 +25,6 @@ module Data.Textile.Inputs exposing
     , toString
     , toggleStep
     , updateMaterial
-    , updateMaterialShare
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
