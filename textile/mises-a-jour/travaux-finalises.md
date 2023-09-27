@@ -4,6 +4,24 @@ description: L'objectif est de finaliser la méthode d'ici fin 2023.
 
 # Travaux finalisés
 
+## Complément _Export Hors Europe_
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Introduction d'un complément "hors-ACV" destiné à estimer l'impact des vêtements exportés hors Europe et non réutilisés.
+
+Pourquoi un tel complément ?\
+En l'état, les modélisations ACV telles que le projet de PEFCR Apparel & Footwear (v1.3) prévoient que les vêtements sont éliminés localement (France / Europe), réutilisés (en France ou à l'international) ou recyclés.\
+Or, une part significative des vêtements exportés hors Europe sont directement jetés sans être réutilisés et ont un impact significatif sur les écosystèmes locaux.&#x20;
+
+Ce complément proposé par Ecobalyse a vocation à être débattu/enrichi avec la communauté.
+
+Aller plus loin => [https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe)
+
+</details>
+
 ## Filature (mai 2023)
 
 <details>
