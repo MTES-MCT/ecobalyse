@@ -487,8 +487,8 @@ type alias UpdateProcessConfig =
 
 updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
-    li [ class "IngredientFormWrapper list-group-item" ]
-        [ span [ class "MassInputWrapper" ]
+    li [ class "ComponentFormWrapper list-group-item" ]
+        [ span [ class "QuantityInputWrapper" ]
             [ MassInput.view
                 { mass = processQuery.mass
                 , onChange =
@@ -1079,7 +1079,7 @@ distributionView selectedImpact recipe results =
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
             Just distribution ->
-                [ li [ class "IngredientFormWrapper list-group-item" ]
+                [ li [ class "ComponentFormWrapper list-group-item" ]
                     [ select
                         [ class "form-select form-select"
                         , onInput UpdateDistribution
@@ -1357,7 +1357,6 @@ view session model =
                         }
 
                 AddIngredientModal _ autocompleteState ->
-                    -- ingredientAutocompleteView autocompleteState
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
