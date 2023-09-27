@@ -113,17 +113,18 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton deleteEvent
+    , deleteItemButton (List.length excluded == 1) deleteEvent
     ]
 
 
-deleteItemButton : msg -> Html msg
-deleteItemButton event =
+deleteItemButton : Bool -> msg -> Html msg
+deleteItemButton disable event =
     button
         [ type_ "button"
         , class "BaseComponentDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
+        , disabled disable
         ]
         [ Icon.trash ]
 
