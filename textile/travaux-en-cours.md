@@ -16,18 +16,23 @@ Objectif = mieux intégrer les enjeux liés à durée de vie des vêtements.
 
 L'industrie décline généralement la durabilité d'un vêtement entre sa dimension intrinsèque (durabilité physique) et extrinsèque (incitations à l'achat). Différents travaux sont actuellement en cours dans l'industrie sur ces sujets (ex : projet Durhabi porté par l'IFTH et le référentiel européen PEFCR A\&F).
 
-## Mieux intégrer les enjeux Tox/Ecotox
+## Enjeux Tox/Ecotox
 
-Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.&#x20;
+Objectif = mieux évaluer l'impact des substances chimiques utilisées sur le cycle de vie des vêtements.&#x20;
 
-Plusieurs limites existent dans la modélisation de ces enjeux (les deux principales étant  des problématiques d'inventaire de flux et de caractérisation des substances).&#x20;
+Plusieurs limites existent dans la modélisation de ces enjeux (les deux principales étant  des problématiques d'inventaire de flux et de caractérisation des substances). La majorité des ACV et référentiels existants n'intègrent pas d'inventaires précis sur les étapes d'ennoblissement.
 
-## Mieux intégrer les enjeux Microfibres
+## Enjeux Microfibres
 
 Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.
 
-Le cadre ACV n'intègre pas encore ces nouveaux enjeux. \
-L'impact négatif des microfibres (dont microplastiques) sur les écosystèmes et la santé sont connus et progressivement documentés.&#x20;
+Le cadre ACV n'intègre pas encore ces nouveaux enjeux. L'impact négatif des microfibres (dont microplastiques) sur les écosystèmes et la santé sont connus et progressivement documentés.&#x20;
+
+## Mieux intégrer les enjeux liés aux vêtements exportés hors Europe&#x20;
+
+Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.
+
+Une part significative des vêtements exportés hors Europe sont directement jetés sans être réutilisés et ont un impact significatif sur les écosystèmes locaux. Le référentiel européen (v. 1.3 PEFCR A\&F) considère que les vêtements exportés sont réutilisés et n'ont donc pas d'impact sur l'environnement.
 
 ## Matière (à venir)
 
