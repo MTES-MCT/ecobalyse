@@ -3,6 +3,7 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , toStepsImpacts
+    , stepMaterialImpacts
     )
 
 import Data.Country exposing (Country)

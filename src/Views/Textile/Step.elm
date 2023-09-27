@@ -19,6 +19,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
@@ -29,6 +30,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Quantity
 import Views.BaseComponent as BaseComponent
 import Views.Button as Button
 import Views.Component.SplitInput as SplitInput
@@ -723,6 +725,11 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                 inputs.materials
                                     |> List.map .material
 
+                            impacts =
+                                current
+                                    |> stepMaterialImpacts db materialInput.material
+                                    |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
+
                             baseComponentViewConfig : BaseComponent.Config Material Split msg
                             baseComponentViewConfig =
                                 { excluded = excluded
@@ -736,7 +743,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                     }
                                 , baseComponent = baseComponent
                                 , defaultCountry = defaultCountry
-                                , impact = Impact.empty
+                                , impact = impacts
                                 , selectedImpact = impact
                                 , update =
                                     \_ newComponent ->
