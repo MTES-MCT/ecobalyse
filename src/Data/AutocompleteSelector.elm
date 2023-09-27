@@ -5,15 +5,11 @@ import String.Normalize as Normalize
 import Task
 
 
-type alias Element a =
-    { a | name : String }
-
-
-init : List (Element a) -> Autocomplete (Element a)
-init availableElements =
+init : (element -> String) -> List element -> Autocomplete element
+init toString availableElements =
     Autocomplete.init
         { query = ""
-        , choices = List.sortBy .name availableElements
+        , choices = List.sortBy toString availableElements
         , ignoreList = []
         }
         (\lastChoices ->
@@ -21,13 +17,13 @@ init availableElements =
                 { lastChoices
                     | choices =
                         availableElements
-                            |> getChoices lastChoices.query
+                            |> getChoices toString lastChoices.query
                 }
         )
 
 
-getChoices : String -> List (Element a) -> List (Element a)
-getChoices query =
+getChoices : (element -> String) -> String -> List element -> List element
+getChoices toString query =
     let
         toWords =
             String.toLower
@@ -46,10 +42,10 @@ getChoices query =
         searchWords =
             toWords (String.trim query)
     in
-    List.map (\element -> ( toWords element.name, element ))
+    List.map (\element -> ( toWords (toString element), element ))
         >> List.filter
             (\( words, _ ) ->
                 query == "" || List.all (\w -> List.any (String.contains w) words) searchWords
             )
-        >> List.sortBy (Tuple.second >> .name)
+        >> List.sortBy (Tuple.second >> toString)
         >> List.map Tuple.second

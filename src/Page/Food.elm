@@ -846,7 +846,7 @@ ingredientListView db selectedImpact recipe results =
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
 
         autocompleteState =
-            AutocompleteSelector.init availableIngredients
+            AutocompleteSelector.init .name availableIngredients
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]

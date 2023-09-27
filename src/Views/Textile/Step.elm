@@ -821,7 +821,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                             , onClick
                                 (setModal
                                     (addMaterialModal Nothing
-                                        (AutocompleteSelector.init availableMaterials)
+                                        (AutocompleteSelector.init .shortName availableMaterials)
                                     )
                                 )
                             , disabled <| length >= Env.maxMaterials

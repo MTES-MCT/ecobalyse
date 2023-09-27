@@ -12,42 +12,38 @@ import Views.Format as Format
 import Views.Icon as Icon
 
 
-type alias Component a =
-    { a | name : String }
-
-
-type alias BaseComponent a b =
-    { component : Component a
-    , quantity : b
+type alias BaseComponent component quantity =
+    { component : component
+    , quantity : quantity
     , country : Maybe Country
     }
 
 
-type alias Db a =
-    { components : List (Component a)
+type alias Db component =
+    { components : List component
     , countries : List Country
     , definitions : Definitions
     }
 
 
-type alias Config a b msg =
-    { excluded : List (Component a)
-    , db : Db a
-    , baseComponent : BaseComponent a b
+type alias Config component quantity msg =
+    { excluded : List component
+    , db : Db component
+    , baseComponent : BaseComponent component quantity
     , defaultCountry : String
     , impact : Impacts
     , selectedImpact : Definition
-    , update : BaseComponent a b -> BaseComponent a b -> msg
-    , delete : Component a -> msg
-    , selectComponent : Component a -> Autocomplete (Component a) -> msg
-    , quantityView : { disabled : Bool, quantity : b, onChange : Maybe b -> msg } -> Html msg
-    , toString : Component a -> String
+    , update : BaseComponent component quantity -> BaseComponent component quantity -> msg
+    , delete : component -> msg
+    , selectComponent : component -> Autocomplete component -> msg
+    , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
+    , toString : component -> String
     , disableCountry : Bool
     , disableQuantity : Bool
     }
 
 
-view : Config a b msg -> List (Html msg)
+view : Config component quantity msg -> List (Html msg)
 view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView, toString, disableCountry, disableQuantity } =
     let
         updateEvent =
@@ -58,6 +54,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
 
         autocompleteState =
             AutocompleteSelector.init
+                toString
                 (db.components
                     |> List.filter (\component -> not (List.member component excluded))
                 )
@@ -131,7 +128,7 @@ deleteItemButton event =
         [ Icon.trash ]
 
 
-selectorView : Component a -> (Component a -> String) -> msg -> Html msg
+selectorView : component -> (component -> String) -> msg -> Html msg
 selectorView selectedComponent toString selectComponent =
     div
         [ class "form-select ComponentSelector"
