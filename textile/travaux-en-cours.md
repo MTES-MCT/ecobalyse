@@ -28,12 +28,6 @@ Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.
 
 Le cadre ACV n'intègre pas encore ces nouveaux enjeux. L'impact négatif des microfibres (dont microplastiques) sur les écosystèmes et la santé sont connus et progressivement documentés.&#x20;
 
-## Mieux intégrer les enjeux liés aux vêtements exportés hors Europe&#x20;
-
-Objectif = s'assurer que ces enjeux sont pris en compte dans le dispositif.
-
-Une part significative des vêtements exportés hors Europe sont directement jetés sans être réutilisés et ont un impact significatif sur les écosystèmes locaux. Le référentiel européen (v. 1.3 PEFCR A\&F) considère que les vêtements exportés sont réutilisés et n'ont donc pas d'impact sur l'environnement.
-
 ## Matière (à venir)
 
 Objectif = enrichir et préciser les matières disponibles dans le calculateur.

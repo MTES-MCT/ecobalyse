@@ -4,7 +4,7 @@ description: L'objectif est de finaliser la méthode d'ici fin 2023.
 
 # Travaux finalisés
 
-## Complément _Export Hors Europe_
+## Complément _Export Hors Europe (septembre 2023)_
 
 <details>
 
