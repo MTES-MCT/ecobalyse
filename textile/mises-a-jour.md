@@ -12,11 +12,11 @@ description: >-
 
 * Intégration du complément "Export Hors Europe" \
   Ajout d'un complément "hors-ACV" afin d'intégrer l'impact des vêtements exportés hors Europe et non-réutilisés. Plus d'information sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe).
-* Harmonisation UI\
-  L'interface utilisateur évolue afin de viser une harmonisation avec celle des produits alimentaires.
 * Comparaison inter-catégorie \
   Ecobalyser permet désormais de comparer des produits de différentes catégories \
-  (ex: un poulet vs un t-shirt).
+  (ex: un poulet vs un t-shirt) dans le module "Comparer" à droite de l'interface.
+* Harmonisation de l'interface avec l'Alimentaire\
+  La présentation des étapes du cycle de vie évolue.
 
 </details>
 
