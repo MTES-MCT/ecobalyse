@@ -8,6 +8,20 @@ description: >-
 
 <details>
 
+<summary>Septembre 2023</summary>
+
+* Intégration du complément "Export Hors Europe" \
+  Ajout d'un complément "hors-ACV" afin d'intégrer l'impact des vêtements exportés hors Europe et non-réutilisés. Plus d'information sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe).
+* Harmonisation UI\
+  L'interface utilisateur évolue afin de viser une harmonisation avec celle des produits alimentaires.
+* Comparaison inter-catégorie \
+  Ecobalyser permet désormais de comparer des produits de différentes catégories \
+  (ex: un poulet vs un t-shirt).
+
+</details>
+
+<details>
+
 <summary>Eté 2023 (juin à août)</summary>
 
 * Filage vs Filature\
