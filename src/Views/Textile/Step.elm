@@ -681,6 +681,19 @@ simpleView ({ inputs, impact, current } as config) =
                             _ ->
                                 text ""
                         ]
+                    , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
+                        [ div []
+                            [ if current.label /= Label.Distribution then
+                                div [ class "fs-3 fw-normal text-secondary" ]
+                                    [ current.impacts
+                                        |> Impact.impactsWithComplements current.complementsImpacts
+                                        |> Format.formatImpact impact
+                                    ]
+
+                              else
+                                text ""
+                            ]
+                        ]
                     ]
 
               else
