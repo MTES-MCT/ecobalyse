@@ -529,45 +529,47 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
         materialStep =
             label == Label.Material
     in
-    div [ class "StepActions btn-group" ]
-        [ Button.docsPillLink
-            [ class "btn btn-secondary py-1"
-            , classList
-                [ ( "btn-secondary", not current.enabled )
-                , ( "rounded", materialStep )
-                , ( "rounded-end", not materialStep )
+    div [ class "StepActions col-12 col-sm-2" ]
+        [ div [ class "btn-group" ]
+            [ Button.docsPillLink
+                [ class "btn btn-secondary py-1"
+                , classList
+                    [ ( "btn-secondary", not current.enabled )
+                    , ( "rounded", materialStep )
+                    , ( "rounded-end", not materialStep )
+                    ]
+                , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
+                , title "Documentation"
+                , target "_blank"
                 ]
-            , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
-            , title "Documentation"
-            , target "_blank"
-            ]
-            [ Icon.question ]
-        , if not materialStep then
-            Button.docsPill
-                [ class "btn btn-secondary py-1 rounded-start"
-                , classList [ ( "btn-secondary", not current.enabled ) ]
-                , case viewMode of
-                    ViewMode.Simple ->
-                        title "Détailler cette étape"
+                [ Icon.question ]
+            , if not materialStep then
+                Button.docsPill
+                    [ class "btn btn-secondary py-1 rounded-start"
+                    , classList [ ( "btn-secondary", not current.enabled ) ]
+                    , case viewMode of
+                        ViewMode.Simple ->
+                            title "Détailler cette étape"
 
-                    _ ->
-                        title "Affichage simplifié"
-                , onClick (toggleStepViewMode index)
-                ]
-                [ case viewMode of
-                    ViewMode.DetailedStep currentIndex ->
-                        if index == currentIndex then
-                            Icon.zoomout
+                        _ ->
+                            title "Affichage simplifié"
+                    , onClick (toggleStepViewMode index)
+                    ]
+                    [ case viewMode of
+                        ViewMode.DetailedStep currentIndex ->
+                            if index == currentIndex then
+                                Icon.zoomout
 
-                        else
+                            else
+                                Icon.zoomin
+
+                        ViewMode.Simple ->
                             Icon.zoomin
+                    ]
 
-                    ViewMode.Simple ->
-                        Icon.zoomin
-                ]
-
-          else
-            text ""
+              else
+                text ""
+            ]
         ]
 
 
@@ -622,9 +624,9 @@ simpleView ({ inputs, impact, current } as config) =
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-6" ] [ stepHeader config ]
-                    , div [ class "col-6 d-flex" ]
-                        [ div [ class "text-center text-muted w-100" ]
-                            [ if materialStep && (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                    , div [ class "col-6 d-flex text-end" ]
+                        [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
+                            [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                                 span [ class "fw-bold flex-fill" ]
                                     [ current.impacts
                                         |> Impact.impactsWithComplements current.complementsImpacts
@@ -680,19 +682,6 @@ simpleView ({ inputs, impact, current } as config) =
 
                             _ ->
                                 text ""
-                        ]
-                    , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                        [ div []
-                            [ if current.label /= Label.Distribution then
-                                div [ class "fs-3 fw-normal text-secondary" ]
-                                    [ current.impacts
-                                        |> Impact.impactsWithComplements current.complementsImpacts
-                                        |> Format.formatImpact impact
-                                    ]
-
-                              else
-                                text ""
-                            ]
                         ]
                     ]
 
