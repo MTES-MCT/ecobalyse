@@ -314,7 +314,8 @@ computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, an
     , agroEcology = Unit.impact agroEcologyComplement
     , animalWelfare = Unit.impact animalWelfareComplement
 
-    -- Note: outOfEuropeEOL complement is for Textile only
+    -- Note: these complements are Textile specific
+    , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
 

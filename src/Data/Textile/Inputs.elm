@@ -14,6 +14,7 @@ module Data.Textile.Inputs exposing
     , encodeQuery
     , fromQuery
     , getMainMaterial
+    , getMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , jupeCircuitAsie
@@ -51,6 +52,7 @@ import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
@@ -554,6 +556,25 @@ updateProduct product query =
 
     else
         query
+
+
+getMicrofibersComplement : Inputs -> Unit.Impact
+getMicrofibersComplement { mass, materials } =
+    -- Note: computed against final product mass, because microfibers are
+    --       always released in the environment from finished products.
+    materials
+        |> List.map
+            (\{ material, share } ->
+                let
+                    materialMassInKg =
+                        mass
+                            |> Quantity.multiplyBy (Split.toFloat share)
+                            |> Mass.inKilograms
+                in
+                Origin.toMicrofibersComplement material.origin
+                    |> Quantity.multiplyBy materialMassInKg
+            )
+        |> Quantity.sum
 
 
 getOutOfEuropeEOLProbability : List MaterialInput -> Split

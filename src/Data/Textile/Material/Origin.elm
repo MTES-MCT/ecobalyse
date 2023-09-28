@@ -49,22 +49,22 @@ fromString origin =
 
 toMicrofibersComplement : Origin -> Unit.Impact
 toMicrofibersComplement origin =
-    -- Note: expressed in µPts/kg
+    -- Note: a malus expressed as a negative µPts/kg impact
     case origin of
         ArtificialFromInorganic ->
-            Unit.impact 875
+            Unit.impact -875
 
         ArtificialFromOrganic ->
-            Unit.impact 425
+            Unit.impact -425
 
         NaturalFromAnimal ->
-            Unit.impact 750
+            Unit.impact -750
 
         NaturalFromVegetal ->
-            Unit.impact 550
+            Unit.impact -550
 
         Synthetic ->
-            Unit.impact 875
+            Unit.impact -875
 
 
 toString : Origin -> String

@@ -48,6 +48,7 @@ type alias ComplementsImpacts =
     { agroDiversity : Unit.Impact
     , agroEcology : Unit.Impact
     , animalWelfare : Unit.Impact
+    , microfibers : Unit.Impact
     , outOfEuropeEOL : Unit.Impact
     }
 
@@ -57,6 +58,7 @@ addComplementsImpacts a b =
     { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
     , agroEcology = Quantity.plus a.agroEcology b.agroEcology
     , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    , microfibers = Quantity.plus a.microfibers b.microfibers
     , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
     }
 
@@ -77,6 +79,7 @@ noComplementsImpacts =
     { agroDiversity = Unit.impact 0
     , agroEcology = Unit.impact 0
     , animalWelfare = Unit.impact 0
+    , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
 
@@ -87,6 +90,7 @@ getTotalComplementsImpacts complementsImpacts =
         [ complementsImpacts.agroDiversity
         , complementsImpacts.agroEcology
         , complementsImpacts.animalWelfare
+        , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
 
