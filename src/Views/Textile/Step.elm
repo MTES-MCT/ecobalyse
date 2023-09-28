@@ -526,23 +526,23 @@ inlineDocumentationLink _ path =
 stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, viewMode, index, toggleStepViewMode } label =
     let
-        detailsAvailable =
-            label /= Label.Material
+        materialStep =
+            label == Label.Material
     in
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-secondary py-1"
             , classList
                 [ ( "btn-secondary", not current.enabled )
-                , ( "rounded", not detailsAvailable )
-                , ( "rounded-end", detailsAvailable )
+                , ( "rounded", materialStep )
+                , ( "rounded-end", not materialStep )
                 ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
             , target "_blank"
             ]
             [ Icon.question ]
-        , if detailsAvailable then
+        , if not materialStep then
             Button.docsPill
                 [ class "btn btn-secondary py-1 rounded-start"
                 , classList [ ( "btn-secondary", not current.enabled ) ]
@@ -613,8 +613,8 @@ stepHeader { current, inputs, toggleStep } =
 simpleView : Config msg modal -> ViewWithTransport msg
 simpleView ({ inputs, impact, current } as config) =
     let
-        detailsAvailable =
-            current.label /= Label.Material
+        materialStep =
+            current.label == Label.Material
     in
     { transport = viewTransport config
     , step =
@@ -624,7 +624,7 @@ simpleView ({ inputs, impact, current } as config) =
                     [ div [ class "col-6" ] [ stepHeader config ]
                     , div [ class "col-6 d-flex" ]
                         [ div [ class "text-center text-muted w-100" ]
-                            [ if not detailsAvailable && (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                            [ if materialStep && (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                                 span [ class "fw-bold flex-fill" ]
                                     [ current.impacts
                                         |> Impact.impactsWithComplements current.complementsImpacts
@@ -638,7 +638,7 @@ simpleView ({ inputs, impact, current } as config) =
                         ]
                     ]
                 ]
-            , if detailsAvailable then
+            , if not materialStep then
                 div
                     [ class "StepBody card-body row align-items-center"
                     , classList [ ( "disabled", not current.enabled ) ]
