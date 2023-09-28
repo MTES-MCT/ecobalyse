@@ -2,18 +2,20 @@ module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
     , threadProcess
+    , toMicrofibersComplement
     , toString
     )
 
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
 
 type Origin
-    = NaturalFromAnimal
-    | NaturalFromVegetal
-    | ArtificialFromInorganic
+    = ArtificialFromInorganic
     | ArtificialFromOrganic
+    | NaturalFromAnimal
+    | NaturalFromVegetal
     | Synthetic
 
 
@@ -26,17 +28,17 @@ decode =
 fromString : String -> Result String Origin
 fromString origin =
     case origin of
-        "Naturelles d'origine animale" ->
-            Ok NaturalFromAnimal
-
-        "Naturelles d'origine végétale" ->
-            Ok NaturalFromVegetal
-
         "Artificielles d'origine inorganique" ->
             Ok ArtificialFromInorganic
 
         "Artificielles d'origine organique" ->
             Ok ArtificialFromOrganic
+
+        "Naturelles d'origine animale" ->
+            Ok NaturalFromAnimal
+
+        "Naturelles d'origine végétale" ->
+            Ok NaturalFromVegetal
 
         "Synthétiques" ->
             Ok Synthetic
@@ -45,20 +47,40 @@ fromString origin =
             Err <| "Origine inconnue: " ++ origin
 
 
+toMicrofibersComplement : Origin -> Unit.Impact
+toMicrofibersComplement origin =
+    -- Note: expressed in µPts/kg
+    case origin of
+        ArtificialFromInorganic ->
+            Unit.impact 875
+
+        ArtificialFromOrganic ->
+            Unit.impact 425
+
+        NaturalFromAnimal ->
+            Unit.impact 750
+
+        NaturalFromVegetal ->
+            Unit.impact 550
+
+        Synthetic ->
+            Unit.impact 875
+
+
 toString : Origin -> String
 toString origin =
     case origin of
-        NaturalFromAnimal ->
-            "Naturelles d'origine animale"
-
-        NaturalFromVegetal ->
-            "Naturelles d'origine végétale"
-
         ArtificialFromInorganic ->
             "Artificielles d'origine inorganique"
 
         ArtificialFromOrganic ->
             "Artificielles d'origine organique"
+
+        NaturalFromAnimal ->
+            "Naturelles d'origine animale"
+
+        NaturalFromVegetal ->
+            "Naturelles d'origine végétale"
 
         Synthetic ->
             "Synthétiques"

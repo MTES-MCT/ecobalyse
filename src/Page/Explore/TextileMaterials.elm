@@ -7,7 +7,9 @@ import Data.Split as Split
 import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
+import Data.Unit as Unit
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
 import Views.Alert as Alert
@@ -49,6 +51,16 @@ table { countries } { detailed, scope } =
           , toValue = .recycledFrom >> recycledToString
           , toCell = .recycledFrom >> recycledToString >> text
           }
+        , { label = "Complément Microfibres"
+          , toValue = .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat >> String.fromFloat
+          , toCell =
+                \{ origin } ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Origin.toMicrofibersComplement origin
+                            |> Unit.impactToFloat
+                            |> Format.formatImpactFloat { unit = "\u{202F}µPts/kg", decimals = 2 }
+                        ]
+          }
         , { label = "Procédé"
           , toValue = .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
@@ -66,7 +78,12 @@ table { countries } { detailed, scope } =
           , toCell = .geographicOrigin >> text
           }
         , { label = "Pays de production et de filature par défaut"
-          , toValue = .defaultCountry >> (\maybeCountry -> Country.findByCode maybeCountry countries) >> Result.map .name >> Result.toMaybe >> Maybe.withDefault "error"
+          , toValue =
+                .defaultCountry
+                    >> (\maybeCountry -> Country.findByCode maybeCountry countries)
+                    >> Result.map .name
+                    >> Result.toMaybe
+                    >> Maybe.withDefault "error"
           , toCell =
                 \material ->
                     case Country.findByCode material.defaultCountry countries of

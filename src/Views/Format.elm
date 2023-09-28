@@ -40,7 +40,7 @@ import Mass exposing (Mass)
 import Volume exposing (Volume)
 
 
-formatImpactFloat : Definition -> Float -> Html msg
+formatImpactFloat : { a | unit : String, decimals : Int } -> Float -> Html msg
 formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
 
