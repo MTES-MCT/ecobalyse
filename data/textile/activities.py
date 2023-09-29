@@ -4,11 +4,11 @@ from bw2data.project import projects
 import bw2data
 import json
 
-projects.create_project("Ecobalyse", activate=True, exist_ok=True)
+projects.create_project("textile", activate=True, exist_ok=True)
 
-with open("processes.json") as f:
+with open("../../public/data/textile/processes.json") as f:
     processes = json.loads(f.read())
-with open("materials.json") as f:
+with open("../../public/data/textile/materials.json") as f:
     materials = {m["name"]: m for m in json.loads(f.read())}
 with open("codes.json") as f:
     codes = {c["code"]: c["name"] for c in json.loads(f.read())}
@@ -23,7 +23,7 @@ for process in processes:
     name = process["name"]
     if name in materials:
         process.update(materials[name])
-    if process["step_usage"] == "Energie":
+    if False:  # process["step_usage"] == "Energie":
         process["source"] = "Ecoinvent 3.9.1"
         del process["impacts"]
         # ELEC
