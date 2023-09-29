@@ -14,12 +14,13 @@ import subprocess
 
 
 os.chdir("/home/jovyan/ecobalyse/data")
-PROJECT = "Food"
+PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.json"
 os.getcwd()
 
-projects.create_project(PROJECT, activate=True, exist_ok=True)
+projects.set_current(PROJECT)
+# projects.create_project(PROJECT, activate=True, exist_ok=True)
 DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 list_output = ipywidgets.Output()
