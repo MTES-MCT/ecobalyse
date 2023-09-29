@@ -25,6 +25,7 @@ type Path
     | TextileDistribution -- Distribution textile
     | TextileElectricity -- Électricité textile
     | TextileEndOfLife -- Fin de vie textile
+    | TextileEndOfLifeOutOfEuropeComplement -- Complément Fin de vie textile hors-Europe
     | TextileEnnobling -- Ennoblissement textile
     | TextileFabric -- Tissage/Tricotage textile
     | TextileHeat -- Chaleur textile
@@ -61,6 +62,9 @@ pathToString path =
 
         TextileEndOfLife ->
             "textile/etapes-du-cycle-de-vie/etape-7-fin-de-vie"
+
+        TextileEndOfLifeOutOfEuropeComplement ->
+            "textile/limites-methodologiques/fin-de-vie-hors-europe"
 
         TextileEnnobling ->
             "textile/etapes-du-cycle-de-vie/ennoblissement"
