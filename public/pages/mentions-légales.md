@@ -8,9 +8,9 @@ Arche de la Défense, 92055 La Défense CEDEX), avec l'appui de
 [l’incubateur de services numériques beta.gouv.fr](https://beta.gouv.fr/) de la direction
 interministérielle du numérique (DINUM).
 
-## Direction de la publication
+## Directeur de la publication
 
-Mme Lisa Chênerie et Mr Pascal Dagras.
+Mr Pascal Dagras.
 
 ## Hébergement de la Plateforme
 

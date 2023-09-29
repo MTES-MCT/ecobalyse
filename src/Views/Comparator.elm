@@ -130,9 +130,7 @@ addToComparison session label query =
                     (\simulator ->
                         { label = label
                         , impacts = simulator.impacts
-
-                        -- FIXME: we don't compute textile complements just yet
-                        , complementsImpact = Impact.noComplementsImpacts
+                        , complementsImpact = simulator.complementsImpacts
                         , stepsImpacts =
                             simulator
                                 |> Simulator.toStepsImpacts Definition.Ecs
@@ -352,30 +350,20 @@ dataForTotalImpacts : List ChartsData -> String
 dataForTotalImpacts chartsData =
     chartsData
         |> List.map
-            (\{ label, impacts, complementsImpact } ->
-                let
-                    totalImpact =
-                        impacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
-
-                    complementImpacts =
-                        Impact.totalComplementsImpactAsChartEntry complementsImpact
-                            |> (\entry ->
-                                    -- In this particular case we want the bonus as a positive value, displayed "on top" of the bar
-                                    -- in white
-                                    { entry | value = -entry.value, color = "#ffffff" }
-                               )
-
-                    entries =
-                        List.reverse
-                            [ { name = "Impact total", color = "#333333", value = totalImpact }
-                            , complementImpacts
-                            ]
-                in
+            (\{ label, impacts } ->
                 Encode.object
                     [ ( "label", Encode.string label )
-                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                    , ( "data"
+                      , Encode.list Impact.encodeAggregatedScoreChartEntry
+                            [ { name = "Impact total"
+                              , color = "#333333"
+                              , value =
+                                    impacts
+                                        |> Impact.getImpact Definition.Ecs
+                                        |> Unit.impactToFloat
+                              }
+                            ]
+                      )
                     ]
             )
         |> Encode.list identity

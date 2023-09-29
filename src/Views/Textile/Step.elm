@@ -345,27 +345,23 @@ printingFields { inputs, updatePrinting } =
 
 fadingField : Config msg -> Html msg
 fadingField { inputs, toggleDisabledFading } =
-    if inputs.product.making.fadable then
-        label
-            [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
-            , title "Délavage"
+    label
+        [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
+        , title "Délavage"
+        ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input no-outline"
+            , checked (not (Maybe.withDefault False inputs.disabledFading))
+            , onCheck (\checked -> toggleDisabledFading (not checked))
             ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input no-outline"
-                , checked (not (Maybe.withDefault False inputs.disabledFading))
-                , onCheck (\checked -> toggleDisabledFading (not checked))
-                ]
-                []
-            , if inputs.disabledFading == Just True then
-                text "Délavage désactivé"
+            []
+        , if inputs.disabledFading == Just True then
+            text "Délavage désactivé"
 
-              else
-                text "Délavage activé"
-            ]
-
-    else
-        text ""
+          else
+            text "Délavage activé"
+        ]
 
 
 qualityField : Config msg -> Html msg
@@ -600,7 +596,8 @@ stepHeader { current, inputs, toggleStep } =
 
 simpleView : Config msg -> ViewWithTransport msg
 simpleView ({ inputs, impact, current } as config) =
-    { step =
+    { transport = viewTransport config
+    , step =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
@@ -635,7 +632,11 @@ simpleView ({ inputs, impact, current } as config) =
                             div [ class "mt-2" ]
                                 [ makingWasteField config
                                 , airTransportRatioField config
-                                , fadingField config
+                                , if inputs.product.making.fadable then
+                                    fadingField config
+
+                                  else
+                                    text ""
                                 ]
 
                         Label.Use ->
@@ -653,6 +654,7 @@ simpleView ({ inputs, impact, current } as config) =
                         [ if current.label /= Label.Distribution then
                             div [ class "fs-3 fw-normal text-secondary" ]
                                 [ current.impacts
+                                    |> Impact.impactsWithComplements current.complementsImpacts
                                     |> Format.formatImpact impact
                                 ]
 
@@ -662,7 +664,6 @@ simpleView ({ inputs, impact, current } as config) =
                     ]
                 ]
             ]
-    , transport = viewTransport config
     }
 
 
@@ -749,7 +750,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
-        , [ HeatSource.Other, HeatSource.NaturalGas ]
+        , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
             |> List.map
                 (\heatSource ->
                     option
@@ -779,11 +780,12 @@ detailedView ({ inputs, impact, current } as config) =
     let
         infoListElement =
             ul
-                [ class "StepBody list-group list-group-flush fs-7"
+                [ class "StepBody list-group list-group-flush fs-7 border-bottom-0"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    { step =
+    { transport = viewTransport config
+    , step =
         div [ class "Step card-group shadow-sm" ]
             [ div [ class "card" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
@@ -828,40 +830,48 @@ detailedView ({ inputs, impact, current } as config) =
                       else
                         text ""
                     ]
-                , div
-                    [ class "StepBody card-body py-2"
+                , ul
+                    [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
                     , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                    (case current.label of
-                        Label.Spinning ->
-                            [ yarnSizeField config inputs.product
-                            ]
+                    (List.map
+                        (\line -> li [ class "list-group-item fs-7" ] [ line ])
+                        (case current.label of
+                            Label.Spinning ->
+                                [ yarnSizeField config inputs.product
+                                ]
 
-                        Label.Fabric ->
-                            [ surfaceMassField config inputs.product ]
+                            Label.Fabric ->
+                                [ surfaceMassField config inputs.product ]
 
-                        Label.Ennobling ->
-                            [ div [ class "fs-7 mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: non applicable" ]
-                            , ennoblingGenericFields config
-                            , div [ class "fs-7 mt-2" ]
-                                [ text "Finition\u{00A0}: apprêt chimique" ]
-                            ]
+                            Label.Ennobling ->
+                                [ div [ class "mb-2" ]
+                                    [ text "Pré-traitement\u{00A0}: non applicable" ]
+                                , ennoblingGenericFields config
+                                , div [ class "mt-2" ]
+                                    [ text "Finition\u{00A0}: apprêt chimique" ]
+                                ]
 
-                        Label.Making ->
-                            [ makingWasteField config
-                            , airTransportRatioField config
-                            , fadingField config
-                            ]
+                            Label.Making ->
+                                List.filterMap identity
+                                    [ Just <| makingWasteField config
+                                    , Just <| airTransportRatioField config
+                                    , if inputs.product.making.fadable then
+                                        Just (fadingField config)
 
-                        Label.Use ->
-                            [ qualityField config
-                            , reparabilityField config
-                            , daysOfWearInfo inputs
-                            ]
+                                      else
+                                        Nothing
+                                    ]
 
-                        _ ->
-                            []
+                            Label.Use ->
+                                [ qualityField config
+                                , reparabilityField config
+                                , daysOfWearInfo inputs
+                                ]
+
+                            _ ->
+                                []
+                        )
                     )
                 ]
             , div
@@ -870,6 +880,7 @@ detailedView ({ inputs, impact, current } as config) =
                     [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
+                                |> Impact.impactsWithComplements current.complementsImpacts
                                 |> Format.formatImpact impact
                             ]
 
@@ -901,10 +912,20 @@ detailedView ({ inputs, impact, current } as config) =
                     , surfaceInfoView inputs current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
+                    , if current.label == Label.EndOfLife then
+                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
+                            [ span [ class "me-2" ] [ text "Probablilité de fin de vie hors-Europe" ]
+                            , inputs.materials
+                                |> Inputs.getOutOfEuropeEOLProbability
+                                |> Format.splitAsPercentage
+                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                            ]
+
+                      else
+                        text ""
                     ]
                 ]
             ]
-    , transport = viewTransport config
     }
 
 

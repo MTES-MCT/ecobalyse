@@ -10,7 +10,7 @@ module Views.ImpactTabs exposing
 import Array
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
@@ -27,20 +27,20 @@ type Tab
 
 type alias Config msg =
     { activeImpactsTab : Tab
+    , complementsImpact : Impact.ComplementsImpacts
+    , impactDefinition : Definition
     , scoring : Scoring
-    , steps : Impact.StepsImpacts
+    , stepsImpacts : Impact.StepsImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
-    , totalComplementsImpact : Impact.ComplementsImpacts
-    , trigram : Trigram
     }
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComplementsImpact, scoring, steps } =
+view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, scoring, stepsImpacts } =
     CardTabs.view
         { tabs =
-            (if trigram == Definition.Ecs then
+            (if impactDefinition.trigram == Definition.Ecs then
                 [ ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
                 , ( StepImpactsTab, "Étapes" )
@@ -63,28 +63,34 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> ( name, value ))
                         |> (++)
-                            [ ( "Bonus de diversité agricole"
-                              , -(Unit.impactToFloat totalComplementsImpact.agroDiversity)
+                            [ -- Food complements
+                              ( "Bonus de diversité agricole"
+                              , -(Unit.impactToFloat complementsImpact.agroDiversity)
                               )
                             , ( "Bonus d'infrastructures agro-écologiques"
-                              , -(Unit.impactToFloat totalComplementsImpact.agroEcology)
+                              , -(Unit.impactToFloat complementsImpact.agroEcology)
                               )
                             , ( "Bonus conditions d'élevage"
-                              , -(Unit.impactToFloat totalComplementsImpact.animalWelfare)
+                              , -(Unit.impactToFloat complementsImpact.animalWelfare)
+                              )
+
+                            -- Textile complements
+                            , ( "Complément fin de vie hors-Europe"
+                              , -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
                               )
                             ]
                         |> List.sortBy Tuple.second
                         |> List.reverse
-                        |> Table.percentageTable
+                        |> Table.percentageTable impactDefinition
 
                 StepImpactsTab ->
-                    [ ( "Matières premières", steps.materials )
-                    , ( "Transformation", steps.transform )
-                    , ( "Emballage", steps.packaging )
-                    , ( "Transports", steps.transports )
-                    , ( "Distribution", steps.distribution )
-                    , ( "Utilisation", steps.usage )
-                    , ( "Fin de vie", steps.endOfLife )
+                    [ ( "Matières premières", stepsImpacts.materials )
+                    , ( "Transformation", stepsImpacts.transform )
+                    , ( "Emballage", stepsImpacts.packaging )
+                    , ( "Transports", stepsImpacts.transports )
+                    , ( "Distribution", stepsImpacts.distribution )
+                    , ( "Utilisation", stepsImpacts.usage )
+                    , ( "Fin de vie", stepsImpacts.endOfLife )
                     ]
                         |> List.filterMap
                             (\( label, maybeValue ) ->
@@ -92,50 +98,45 @@ view definitions { activeImpactsTab, switchImpactsTab, trigram, total, totalComp
                                     |> Maybe.map (\value -> Just ( label, Unit.impactToFloat value ))
                                     |> Maybe.withDefault Nothing
                             )
-                        |> Table.percentageTable
+                        |> Table.percentageTable impactDefinition
 
                 SubscoresTab ->
-                    Table.percentageTable
+                    Table.percentageTable impactDefinition
                         [ ( "Climat", Unit.impactToFloat scoring.climate )
                         , ( "Biodiversité", Unit.impactToFloat scoring.biodiversity )
                         , ( "Santé environnementale", Unit.impactToFloat scoring.health )
                         , ( "Ressource", Unit.impactToFloat scoring.resources )
-                        , ( "Bonus", -(Unit.impactToFloat scoring.complements) )
+                        , ( "Compléments", -(Unit.impactToFloat scoring.complements) )
                         ]
             ]
         }
 
 
-createConfig : Tab -> (Tab -> msg) -> Config msg
-createConfig activeImpactsTab switchImpactsTab =
+createConfig : Definition -> Tab -> (Tab -> msg) -> Config msg
+createConfig impactDefinition activeImpactsTab switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
-    , switchImpactsTab = switchImpactsTab
-    , trigram = Definition.Ecs
-    , total = Impact.empty
-    , totalComplementsImpact = Impact.noComplementsImpacts
+    , complementsImpact = Impact.noComplementsImpacts
+    , impactDefinition = impactDefinition
     , scoring = Scoring.empty
-    , steps = Impact.noStepsImpacts
+    , stepsImpacts = Impact.noStepsImpacts
+    , switchImpactsTab = switchImpactsTab
+    , total = Impact.empty
     }
 
 
-forFood : Definition.Trigram -> Recipe.Results -> Config msg -> Config msg
-forFood trigram results config =
+forFood : Recipe.Results -> Config msg -> Config msg
+forFood results config =
     { config
-        | trigram = trigram
-        , total = results.total
-        , totalComplementsImpact = results.recipe.totalComplementsImpact
+        | total = results.total
+        , complementsImpact = results.recipe.totalComplementsImpact
         , scoring = results.scoring
-        , steps = Recipe.toStepsImpacts trigram results
+        , stepsImpacts = Recipe.toStepsImpacts config.impactDefinition.trigram results
     }
 
 
-forTextile : Definitions -> Definition.Trigram -> Simulator -> Config msg -> Config msg
-forTextile definitions trigram simulator config =
+forTextile : Definitions -> Simulator -> Config msg -> Config msg
+forTextile definitions simulator config =
     let
-        -- TODO: compute the complements once we have them in the database
-        totalComplementsImpact =
-            Impact.noComplementsImpacts
-
         totalImpactsWithoutComplements =
             simulator.lifeCycle
                 |> Array.map .impacts
@@ -143,11 +144,12 @@ forTextile definitions trigram simulator config =
                 |> Impact.sumImpacts
     in
     { config
-        | trigram = trigram
-        , total = totalImpactsWithoutComplements
-        , totalComplementsImpact = totalComplementsImpact
+        | total = totalImpactsWithoutComplements
+        , complementsImpact = simulator.complementsImpacts
         , scoring =
             totalImpactsWithoutComplements
-                |> Scoring.compute definitions totalComplementsImpact.total
-        , steps = Simulator.toStepsImpacts trigram simulator
+                |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
+        , stepsImpacts =
+            simulator
+                |> Simulator.toStepsImpacts config.impactDefinition.trigram
     }

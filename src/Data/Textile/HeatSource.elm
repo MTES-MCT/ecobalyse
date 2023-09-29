@@ -14,8 +14,10 @@ import Json.Encode as Encode
 
 
 type HeatSource
-    = NaturalGas
-    | Other
+    = Coal
+    | HeavyFuel
+    | LightFuel
+    | NaturalGas
 
 
 decode : Decoder HeatSource
@@ -32,17 +34,14 @@ encode =
 fromString : String -> Result String HeatSource
 fromString string =
     case string of
-        "other" ->
-            Ok Other
-
         "coal" ->
-            Ok Other
+            Ok Coal
 
         "heavyfuel" ->
-            Ok Other
+            Ok HeavyFuel
 
         "lightfuel" ->
-            Ok Other
+            Ok LightFuel
 
         "naturalgas" ->
             Ok NaturalGas
@@ -54,8 +53,14 @@ fromString string =
 toLabel : HeatSource -> String
 toLabel source =
     case source of
-        Other ->
-            "Autre"
+        Coal ->
+            "Charbon"
+
+        HeavyFuel ->
+            "Fioul lourd"
+
+        LightFuel ->
+            "Fioul léger"
 
         NaturalGas ->
             "Gaz naturel"
@@ -78,8 +83,14 @@ toLabelWithZone zone heatSource =
 toString : HeatSource -> String
 toString source =
     case source of
-        Other ->
-            "other"
+        Coal ->
+            "coal"
+
+        HeavyFuel ->
+            "heavyfuel"
+
+        LightFuel ->
+            "lightfuel"
 
         NaturalGas ->
             "naturalgas"
