@@ -84,7 +84,7 @@ Les principales armures sont le jersey, l'interlock ou la côte 1x1 (tricot à m
 **Tricotage à mailles cueillies (ou tricots « trame »)**\
 Il n'emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
 
-![](<../../.gitbook/assets/image (9).png>)
+![](<../../.gitbook/assets/image (9) (1).png>)
 
 
 
@@ -143,7 +143,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (2).png>)
 
 </details>
 
@@ -322,7 +322,7 @@ Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini.
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
 En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4) (3).png>)
+![](<../../.gitbook/assets/image (4) (3) (3).png>)
 
 </details>
 

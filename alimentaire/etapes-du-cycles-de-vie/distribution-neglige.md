@@ -18,7 +18,7 @@ Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses 
 
 De plus&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (2).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 À partir de ces données et de l'impact unitaire de chaque procédé, on peut en déduire l'impact de l'étape de distribution en µPt PEF par kg de produit.
 

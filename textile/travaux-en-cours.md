@@ -20,7 +20,7 @@ L'industrie décline généralement la durabilité d'un vêtement entre sa dimen
 
 Objectif = mieux évaluer l'impact des substances chimiques utilisées sur le cycle de vie des vêtements.&#x20;
 
-Plusieurs limites existent dans la modélisation de ces enjeux (les deux principales étant  des problématiques d'inventaire de flux et de caractérisation des substances). La majorité des ACV et référentiels existants n'intègrent pas d'inventaires précis sur les étapes d'ennoblissement.
+La majorité des ACV et référentiels existants n'intègrent pas d'inventaires représentatifs des pratiques de l'industrie concernant les substances chimiques utilisées lors des étapes d'ennoblissement. Cela est problématique car les impacts sous-jacents (Ecotoxicité aquatique et Toxicité Humaine) sont sous-estimés. &#x20;
 
 ## Enjeux Microfibres
 

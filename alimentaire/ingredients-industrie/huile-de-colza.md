@@ -28,7 +28,7 @@ $$
 
 
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 On construit différents procédés d'huile de colza **(N)**, sur la base du procédé de référence (Rapeseed oil, at oil mill), en appliquant les opérations industrielles à différents procédés de tournesol **(N),** avec le ratio qui correspond à la quantité de colza nécessaire pour faire 1 kg d'huile de colza. Ratio = 1.66 kg d'après le schéma ci dessus.
 

@@ -52,7 +52,7 @@ Dans cette hypothèse, la réduction homothétique de la pondération des 12 aut
 
 La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores d'impacts** différentes simulations préalablement sauvegardées.&#x20;
 
-![](<../.gitbook/assets/image (18).png>)
+![](<../.gitbook/assets/image (18) (1).png>)
 
 Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les [3 bonus hors ACV](complements-hors-acv.md)) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
 
@@ -105,7 +105,7 @@ Sans correctif, cette toxicité inorganique correspond très majoritairement à 
 
 Pour ces raisons nous avons pour le moment fait le choix le choix d'exclure la partie inorganique des impacts toxicité humaine - cancer et toxicité humaine - non-cancer.
 
-<figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
@@ -136,4 +136,4 @@ Ainsi les impacts de consommation d'eaux sont maintenant plus proche de la réal
 
 Limites : pour les produits importés utilisant de l'eau mondiale ({GLO}), les résultats sont faussés. Ce patch doit rester temporaire en attendant un correctif lors de la prochaine mise à jour des données par Agribalyse.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
