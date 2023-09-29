@@ -492,7 +492,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "name": "Fil de jute",
+    "name": "Fil de jute / kenaf",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Base Impacts 2.01",
@@ -525,7 +525,19 @@
     "waste": 0.270519,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "id": "jute-kenaf",
+    "materialAndSpinningProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
+    "materialProcessUuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "shortName": "Jute / kenaf",
+    "origin": "Naturelles",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 0,
+    "cff": null
   },
   {
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
@@ -672,7 +684,7 @@
     "cff": null
   },
   {
-    "name": "Fil d'angora",
+    "name": "Fil d'angora / mohair",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Base Impacts 2.01",
@@ -705,7 +717,19 @@
     "waste": 0.672241,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "id": "angora-mohair",
+    "materialAndSpinningProcessUuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
+    "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "shortName": "Angora / mohair",
+    "origin": "Naturelles",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 0,
+    "cff": null
   },
   {
     "name": "Fibres de kapok, inventaire agrégé",
@@ -2262,7 +2286,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "name": "Polyuréthane/Élasthanne",
+    "name": "Filament de polyuréthane / Élasthanne",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "unit": "kg",
     "source": "Base Impacts 2.01",
@@ -2295,7 +2319,19 @@
     "waste": 0,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "id": "pu",
+    "materialAndSpinningProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
+    "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "shortName": "Polyuréthane/Élasthanne",
+    "origin": "Synthétiques",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 60,
+    "cff": null
   },
   {
     "name": "Polytriméthylène téréphtalate (PTT)",
