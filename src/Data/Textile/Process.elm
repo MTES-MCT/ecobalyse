@@ -81,8 +81,12 @@ type alias WellKnown =
     , fading : Process
     , steamGasRER : Process
     , steamGasRSA : Process
-    , steamOtherRER : Process
-    , steamOtherRSA : Process
+    , steamLightFuelRER : Process
+    , steamLightFuelRSA : Process
+    , steamHeavyFuelRER : Process
+    , steamHeavyFuelRSA : Process
+    , steamCoalRER : Process
+    , steamCoalRSA : Process
     }
 
 
@@ -137,17 +141,29 @@ getEnnoblingHeatProcess wk zone heatSource =
     -- Note: As per methodology documentation, retrieve a RER heat source process
     --       for european countries, RSA otherwise.
     case ( zone, heatSource ) of
-        ( Zone.Europe, HeatSource.Other ) ->
-            wk.steamOtherRER
+        ( Zone.Europe, HeatSource.Coal ) ->
+            wk.steamCoalRER
 
         ( Zone.Europe, HeatSource.NaturalGas ) ->
             wk.steamGasRER
 
-        ( _, HeatSource.Other ) ->
-            wk.steamOtherRSA
+        ( Zone.Europe, HeatSource.HeavyFuel ) ->
+            wk.steamHeavyFuelRER
+
+        ( Zone.Europe, HeatSource.LightFuel ) ->
+            wk.steamLightFuelRER
+
+        ( _, HeatSource.Coal ) ->
+            wk.steamCoalRSA
 
         ( _, HeatSource.NaturalGas ) ->
             wk.steamGasRSA
+
+        ( _, HeatSource.HeavyFuel ) ->
+            wk.steamHeavyFuelRSA
+
+        ( _, HeatSource.LightFuel ) ->
+            wk.steamLightFuelRSA
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> Process
@@ -185,8 +201,12 @@ loadWellKnown processes =
             , fading = "fading"
             , steamGasRER = "steam-gas-rer"
             , steamGasRSA = "steam-gas-rsa"
-            , steamOtherRER = "steam-other-rer"
-            , steamOtherRSA = "steam-other-rsa"
+            , steamLightFuelRER = "steam-light-fuel-rer"
+            , steamLightFuelRSA = "steam-light-fuel-rsa"
+            , steamHeavyFuelRER = "steam-heavy-fuel-rer"
+            , steamHeavyFuelRSA = "steam-heavy-fuel-rsa"
+            , steamCoalRER = "steam-coal-rer"
+            , steamCoalRSA = "steam-coal-rsa"
             , knittingMix = "knitting-mix"
             , knittingFullyFashioned = "knitting-fully-fashioned"
             , knittingSeamless = "knitting-seamless"
@@ -219,8 +239,12 @@ loadWellKnown processes =
         |> load .fading
         |> load .steamGasRER
         |> load .steamGasRSA
-        |> load .steamOtherRER
-        |> load .steamOtherRSA
+        |> load .steamLightFuelRER
+        |> load .steamLightFuelRSA
+        |> load .steamHeavyFuelRER
+        |> load .steamHeavyFuelRSA
+        |> load .steamCoalRER
+        |> load .steamCoalRSA
 
 
 aliasToString : Alias -> String
