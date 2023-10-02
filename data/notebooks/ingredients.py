@@ -643,7 +643,9 @@ commitbutton.on_click(commit_activities)
 
 display(
     Markdown("# 1) Avant de commencer"),
-    Markdown("Rechargez la liste d'ingrédients depuis la branche `ingredients`:"),
+    Markdown(
+        "Cliquez sur ce bouton pour rechargez les ingrédients depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients):"
+    ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
     Markdown("# Procédé à ajouter/modifier/supprimer :"),
