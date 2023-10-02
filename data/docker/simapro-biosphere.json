@@ -1,0 +1,820 @@
+[
+  ["water", "Vanadium (V)", "Vanadium V"],
+  ["air", "Vanadium (V)", "Vanadium V"],
+  ["soil", "Vanadium (V)", "Vanadium V"],
+  ["water", "Molybdenum (VI)", "Molybdenum VI"],
+  ["air", "Molybdenum (VI)", "Molybdenum VI"],
+  ["soil", "Molybdenum (VI)", "Molybdenum VI"],
+  ["water", "Zinc (II)", "Zinc II"],
+  ["air", "Zinc (II)", "Zinc II"],
+  ["soil", "Zinc (II)", "Zinc II"],
+  ["water", "Tin (II)", "Tin ion"],
+  ["air", "Tin (II)", "Tin ion"],
+  ["soil", "Tin (II)", "Tin ion"],
+  ["water", "Thallium (I)", "Thallium I"],
+  ["air", "Thallium (I)", "Thallium I"],
+  ["soil", "Thallium (I)", "Thallium I"],
+  ["water", "Silver (I)", "Silver I"],
+  ["air", "Silver (I)", "Silver I"],
+  ["soil", "Silver (I)", "Silver I"],
+  ["water", "Selenium (IV)", "Selenium IV"],
+  ["air", "Selenium (IV)", "Selenium IV"],
+  ["soil", "Selenium (IV)", "Selenium IV"],
+  ["water", "Manganese (II)", "Manganese II"],
+  ["air", "Manganese (II)", "Manganese II"],
+  ["soil", "Manganese (II)", "Manganese II"],
+  ["water", "Iron (III) chloride", "iron (III) chloride"],
+  ["air", "Iron (III) chloride", "iron (III) chloride"],
+  ["soil", "Iron (III) chloride", "iron (III) chloride"],
+  ["water", "Iron (II) chloride", "iron (II) chloride"],
+  ["air", "Iron (II) chloride", "iron (II) chloride"],
+  ["soil", "Iron (II) chloride", "iron (II) chloride"],
+  ["water", "Iron (II)", "Iron II"],
+  ["air", "Iron (II)", "Iron II"],
+  ["soil", "Iron (II)", "Iron II"],
+  ["water", "Copper (I) chloride", "Copper oxychloride"],
+  ["air", "Copper (I) chloride", "Copper oxychloride"],
+  ["soil", "Copper (I) chloride", "Copper oxychloride"],
+  ["water", "Copper (I) oxide", "Copper oxide"],
+  ["air", "Copper (I) oxide", "Copper oxide"],
+  ["soil", "Copper (I) oxide", "Copper oxide"],
+  ["water", "Cobalt (II)", "Cobalt II"],
+  ["air", "Cobalt (II)", "Cobalt II"],
+  ["soil", "Cobalt (II)", "Cobalt II"],
+  ["water", "Cesium (I)", "Cesium I"],
+  ["air", "Cesium (I)", "Cesium I"],
+  ["soil", "Cesium (I)", "Cesium I"],
+  ["water", "Beryllium (III)", "Beryllium III"],
+  ["air", "Beryllium (III)", "Beryllium III"],
+  ["soil", "Beryllium (III)", "Beryllium III"],
+  ["water", "Arsenic (III)", "Arsenic ion"],
+  ["air", "Arsenic (III)", "Arsenic ion"],
+  ["soil", "Arsenic (III)", "Arsenic ion"],
+  ["water", "Antimony (III)", "Antimony ion"],
+  ["air", "Antimony (III)", "Antimony ion"],
+  ["soil", "Antimony (III)", "Antimony ion"],
+  ["water", "Aluminium (III)", "Aluminium III"],
+  ["air", "Aluminium (III)", "Aluminium III"],
+  ["soil", "Aluminium (III)", "Aluminium III"],
+  ["water", "Cadmium (II)", "Cadmium II"],
+  ["air", "Cadmium (II)", "Cadmium II"],
+  ["soil", "Cadmium (II)", "Cadmium II"],
+  ["water", "Lead (II)", "Lead II"],
+  ["air", "Lead (II)", "Lead II"],
+  ["soil", "Lead (II)", "Lead II"],
+  ["water", "Mercury (II)", "Mercury II"],
+  ["air", "Mercury (II)", "Mercury II"],
+  ["soil", "Mercury (II)", "Mercury II"],
+  ["water", "Nickel (II)", "Nickel II"],
+  ["air", "Nickel (II)", "Nickel II"],
+  ["soil", "Nickel (II)", "Nickel II"],
+  ["water", "Chromium (IV)", "Chromium IV"],
+  ["air", "Chromium (IV)", "Chromium IV"],
+  ["soil", "Chromium (IV)", "Chromium IV"],
+  ["water", "Chromium (III)", "Chromium III"],
+  ["air", "Chromium (III)", "Chromium III"],
+  ["soil", "Chromium (III)", "Chromium III"],
+  ["water", "Chromium (VI)", "Chromium VI"],
+  ["air", "Chromium (VI)", "Chromium VI"],
+  ["soil", "Chromium (VI)", "Chromium VI"],
+  ["air", "Particulates, < 2.5 um", "Particulate Matter, < 2.5 um"],
+  ["air", "Particulates, > 2.5 um and < 10um", "Particulate Matter, > 2.5 um and < 10um"],
+  ["air", "Particulates, > 10 um", "Particulate Matter, > 10 um"],
+  ["air", "Barium (II)", "Barium II"],
+  ["air", "1-Butanol", "Butanol"],
+  ["air", "1-Propanol", "Propanol"],
+  ["air", "2-Butene, 2-methyl-", "2-Methyl-2-butene"],
+  ["air", "Benzene, 1,2-dichloro-", "Benzene, dichloro"],
+  ["air", "Benzene, 1-methyl-2-nitro-", "o-Nitrotoluene"],
+  ["air", "Benzene, dichloro-", "Benzene, dichloro"],
+  ["air", "Benzo(g,h,i)perylene", "Benzo(ghi)perylene"],
+  ["air", "Carbamic acid, butyl-, 3-iodo-2-propynyl ester", "Butylcarbamate, iodopropynyl"],
+  ["air", "Carbon", "Elemental carbon"],
+  ["air", "Carbon dioxide, biogenic", "Carbon dioxide, non-fossil"],
+  ["air", "Carbon dioxide, land transformation", "Carbon dioxide, from soil or biomass stock"],
+  ["air", "Carbon monoxide, biogenic", "Carbon monoxide, non-fossil"],
+  ["air", "Carbon monoxide, land transformation", "Carbon monoxide, from soil or biomass stock"],
+  [
+    "air",
+    "Dioxin, 2,3,7,8 Tetrachlorodibenzo-p-",
+    "Dioxins, measured as 2,3,7,8-tetrachlorodibenzo-p-dioxin"
+  ],
+  ["air", "Ethane, chloro-", "Monochloroethane"],
+  ["air", "Ethanol, 2-ethoxy-", "Ethylene glycol monoethyl ether"],
+  ["air", "Methane, biogenic", "Methane, non-fossil"],
+  ["air", "Methane, land transformation", "Methane, from soil or biomass stock"],
+  ["air", "Methane, tetrachloro-, CFC-10", "Methane, tetrachloro-, R-10"],
+  ["air", "Methane, tetrafluoro-, CFC-14", "Methane, tetrafluoro-, R-14"],
+  ["air", "Methylamine", "Methyl amine"],
+  ["air", "Nitric oxide", "Nitrogen monoxide"],
+  ["air", "Parathion, methyl", "Methyl parathion"],
+  ["air", "Pentane, 2,2,4-trimethyl-", "2,2,4-Trimethyl pentane"],
+  ["air", "Pentane, 2-methyl-", "2-Methyl pentane"],
+  ["air", "Phenol, 2,4-dichloro-", "Phenol, 2,4-dichloro"],
+  ["air", "Pyraclostrobin (prop)", "Pyraclostrobin"],
+  ["air", "Quizalofop ethyl ester", "Quizalofop-ethyl"],
+  ["air", "Sodium tetrahydroborate", "Sodium tetrahydridoborate"],
+  ["air", "Toluene, 2-chloro-", "Toluene, 2-chloro"],
+  [
+    "air",
+    "Water, cooling, unspecified natural origin/m3",
+    "Water, cooling, unspecified natural origin"
+  ],
+  ["air", "x \"Wat", "Benz(a)anthracene"],
+  ["natural resource", "Aluminium", "Aluminium, in ground"],
+  ["natural resource", "Anhydrite", "Anhydrite, in ground"],
+  ["natural resource", "Argon", "Argon-40"],
+  ["natural resource", "Barite", "Barite, 15% in crude ore, in ground"],
+  ["natural resource", "Basalt", "Basalt, in ground"],
+  ["natural resource", "Borax", "Borax, in ground"],
+  ["natural resource", "Bromine", "Bromine, 0.23% in water"],
+  ["natural resource", "Cadmium", "Cadmium, 0.30% in sulfide, Cd 0.18%, Pb, Zn, Ag, In, in ground"],
+  ["natural resource", "Calcite", "Calcite, in ground"],
+  ["natural resource", "Cerium", "Cerium, 24% in bastnasite, 2.4% in crude ore, in ground"],
+  ["natural resource", "Chromium", "Chromium, 25.5% in chromite, 11.6% in crude ore, in ground"],
+  ["natural resource", "Chrysotile", "Chrysotile, in ground"],
+  ["natural resource", "Cinnabar", "Cinnabar, in ground"],
+  ["natural resource", "Clay, bentonite", "Clay, bentonite, in ground"],
+  ["natural resource", "Clay, unspecified", "Clay, unspecified, in ground"],
+  ["natural resource", "Coal, brown", "Coal, brown, in ground"],
+  ["natural resource", "Coal, hard", "Coal, hard, unspecified, in ground"],
+  ["natural resource", "Cobalt", "Cobalt, in ground"],
+  ["natural resource", "Colemanite", "Colemanite, in ground"],
+  [
+    "natural resource",
+    "Copper, 0.52% in sulfide, Cu 0.27% and Mo 8.2E-3% in crude ore",
+    "Copper, 0.52% in sulfide, Cu 0.27% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 0.59% in sulfide, Cu 0.22% and Mo 8.2E-3% in crude ore",
+    "Copper, 0.59% in sulfide, Cu 0.22% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 0.97% in sulfide, Cu 0.36% and Mo 4.1E-2% in crude ore",
+    "Copper, 0.97% in sulfide, Cu 0.36% and Mo 4.1E-2% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 0.99% in sulfide, Cu 0.36% and Mo 8.2E-3% in crude ore",
+    "Copper, 0.99% in sulfide, Cu 0.36% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 1.13% in sulfide, Cu 0.76% and Ni 0.76% in crude ore",
+    "Copper, 1.13% in sulfide, Cu 0.76% and Ni 0.76% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 1.18% in sulfide, Cu 0.39% and Mo 8.2E-3% in crude ore",
+    "Copper, 1.18% in sulfide, Cu 0.39% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 1.42% in sulfide, Cu 0.81% and Mo 8.2E-3% in crude ore",
+    "Copper, 1.42% in sulfide, Cu 0.81% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, 2.19% in sulfide, Cu 1.83% and Mo 8.2E-3% in crude ore",
+    "Copper, 2.19% in sulfide, Cu 1.83% and Mo 8.2E-3% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, Cu 0.38%, Au 9.7E-4%, Ag 9.7E-4%, Zn 0.63%, Pb 0.014%, in ore",
+    "Copper, Cu 0.2%, in mixed ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, Cu 3.2E+0%, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Ni 2.3E+0% in ore",
+    "Cu, Cu 3.2E+0%, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Ni 2.3E+0% in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Copper, Cu 5.2E-2%, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Ni 3.7E-2% in ore",
+    "Cu, Cu 5.2E-2%, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Ni 3.7E-2% in ore, in ground"
+  ],
+  ["natural resource", "Diatomite", "Diatomite, in ground"],
+  ["natural resource", "Dolomite", "Dolomite, in ground"],
+  ["natural resource", "Europium", "Europium, 0.06% in bastnasite, 0.006% in crude ore, in ground"],
+  ["natural resource", "Feldspar", "Feldspar, in ground"],
+  ["natural resource", "Fluorine", "Fluorine, 4.5% in apatite, 1% in crude ore, in ground"],
+  [
+    "natural resource",
+    "Fluorine, 4.5% in apatite, 3% in crude ore",
+    "Fluorine, 4.5% in apatite, 3% in crude ore, in ground"
+  ],
+  ["natural resource", "Fluorspar", "Fluorspar, 92%, in ground"],
+  [
+    "natural resource",
+    "Gadolinium",
+    "Gadolinium, 0.15% in bastnasite, 0.015% in crude ore, in ground"
+  ],
+  ["natural resource", "Gallium", "Gallium, in ground"],
+  [
+    "natural resource",
+    "Gas, mine, off-gas, process, coal mining/m3",
+    "Gas, mine, off-gas, process, coal mining"
+  ],
+  ["natural resource", "Gas, natural/m3", "Gas, natural, in ground"],
+  ["natural resource", "Gold", "Gold, Au 1.4E-4%, in ore, in ground"],
+  [
+    "natural resource",
+    "Gold, Au 1.1E-4%, Ag 4.2E-3%, in ore",
+    "Gold, Au 1.1E-4%, Ag 4.2E-3%, in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Gold, Au 1.3E-4%, Ag 4.6E-5%, in ore",
+    "Gold, Au 1.3E-4%, Ag 4.6E-5%, in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Gold, Au 2.1E-4%, Ag 2.1E-4%, in ore",
+    "Gold, Au 2.1E-4%, Ag 2.1E-4%, in ore, in ground"
+  ],
+  ["natural resource", "Gold, Au 4.3E-4%, in ore", "Gold, Au 4.3E-4%, in ore, in ground"],
+  ["natural resource", "Gold, Au 4.9E-5%, in ore", "Gold, Au 4.9E-5%, in ore, in ground"],
+  ["natural resource", "Gold, Au 6.7E-4%, in ore", "Gold, Au 6.7E-4%, in ore, in ground"],
+  ["natural resource", "Gold, Au 7.1E-4%, in ore", "Gold, Au 7.1E-4%, in ore, in ground"],
+  [
+    "natural resource",
+    "Gold, Au 9.7E-4%, Ag 9.7E-4%, Zn 0.63%, Cu 0.38%, Pb 0.014%, in ore",
+    "Gold, Au 9.7E-4%, in mixed ore, in ground"
+  ],
+  ["natural resource", "Granite", "Granite, in ground"],
+  ["natural resource", "Gravel", "Gravel, in ground"],
+  ["natural resource", "Gypsum", "Gypsum, in ground"],
+  ["natural resource", "Indium", "Indium, 0.005% in sulfide, In 0.003%, Pb, Zn, Ag, Cd, in ground"],
+  ["natural resource", "Iodine", "Iodine, 0.03% in water"],
+  ["natural resource", "Iron", "Iron, 46% in ore, 25% in crude ore, in ground"],
+  ["natural resource", "Kaolinite", "Kaolinite, 24% in crude ore, in ground"],
+  ["natural resource", "Kieserite", "Kieserite, 25% in crude ore, in ground"],
+  ["natural resource", "Krypton", "Krypton, in air"],
+  ["natural resource", "Lanthanum", "Lanthanum, 7.2% in bastnasite, 0.72% in crude ore, in ground"],
+  ["natural resource", "Lead", "Lead, 5.0% in sulfide, Pb 3.0%, Zn, Ag, Cd, In, in ground"],
+  [
+    "natural resource",
+    "Lead, Pb 0.014%, Au 9.7E-4%, Ag 9.7E-4%, Zn 0.63%, Cu 0.38%, in ore",
+    "Lead, Pb 0.014%, in mixed ore, in ground"
+  ],
+  ["natural resource", "Lithium", "Lithium, 0.15% in brine, in ground"],
+  ["natural resource", "Magnesite", "Magnesite, 60% in crude ore, in ground"],
+  ["natural resource", "Magnesium", "Magnesium, 0.13% in water"],
+  [
+    "natural resource",
+    "Manganese",
+    "Manganese, 35.7% in sedimentary deposit, 14.2% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Metamorphous rock, graphite containing",
+    "Metamorphous rock, graphite containing, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum",
+    "Molybdenum, 0.11% in sulfide, Mo 4.1E-2% and Cu 0.36% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.010% in sulfide, Mo 8.2E-3% and Cu 1.83% in crude ore",
+    "Molybdenum, 0.010% in sulfide, Mo 8.2E-3% and Cu 1.83% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.014% in sulfide, Mo 8.2E-3% and Cu 0.81% in crude ore",
+    "Molybdenum, 0.014% in sulfide, Mo 8.2E-3% and Cu 0.81% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.016% in sulfide, Mo 8.2E-3% and Cu 0.27% in crude ore",
+    "Molybdenum, 0.016% in sulfide, Mo 8.2E-3% and Cu 0.27% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.022% in sulfide, Mo 8.2E-3% and Cu 0.22% in crude ore",
+    "Molybdenum, 0.022% in sulfide, Mo 8.2E-3% and Cu 0.22% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.022% in sulfide, Mo 8.2E-3% and Cu 0.36% in crude ore",
+    "Molybdenum, 0.022% in sulfide, Mo 8.2E-3% and Cu 0.36% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Molybdenum, 0.025% in sulfide, Mo 8.2E-3% and Cu 0.39% in crude ore",
+    "Molybdenum, 0.025% in sulfide, Mo 8.2E-3% and Cu 0.39% in crude ore, in ground"
+  ],
+  ["natural resource", "Neodymium", "Neodymium, 4% in bastnasite, 0.4% in crude ore, in ground"],
+  [
+    "natural resource",
+    "Nickel, 1.13% in sulfide, Ni 0.76% and Cu 0.76% in crude ore",
+    "Nickel, 1.13% in sulfide, Ni 0.76% and Cu 0.76% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Nickel, 1.98% in silicates, 1.04% in crude ore",
+    "Nickel, 1.98% in silicates, 1.04% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Nickel, Ni 2.3E+0%, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Cu 3.2E+0% in ore",
+    "Ni, Ni 2.3E+0%, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Cu 3.2E+0% in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Nickel, Ni 3.7E-2%, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Cu 5.2E-2% in ore",
+    "Ni, Ni 3.7E-2%, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Cu 5.2E-2% in ore, in ground"
+  ],
+  ["natural resource", "Occupation, arable", "Occupation, annual crop"],
+  ["natural resource", "Occupation, arable, greenhouse", "Occupation, annual crop, greenhouse"],
+  ["natural resource", "Occupation, arable, irrigated", "Occupation, annual crop, irrigated"],
+  [
+    "natural resource",
+    "Occupation, arable, irrigated, intensive",
+    "Occupation, annual crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, arable, irrigated, intensive",
+    "Occupation, permanent crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, arable, non-irrigated",
+    "Occupation, annual crop, non-irrigated"
+  ],
+  [
+    "natural resource",
+    "Occupation, arable, non-irrigated, extensive",
+    "Occupation, annual crop, non-irrigated, extensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, arable, non-irrigated, intensive",
+    "Occupation, annual crop, non-irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, arable, non-irrigated, intensive",
+    "Occupation, permanent crop, non-irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, forest, intensive, clear-cutting",
+    "Occupation, forest, intensive"
+  ],
+  ["natural resource", "Occupation, forest, intensive, normal", "Occupation, forest, intensive"],
+  [
+    "natural resource",
+    "Occupation, forest, intensive, short-cycle",
+    "Occupation, forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, grassland, not used",
+    "Occupation, grassland, natural (non-use)"
+  ],
+  ["natural resource", "Occupation, industrial area, benthos", "Occupation, industrial area"],
+  ["natural resource", "Occupation, industrial area, built up", "Occupation, industrial area"],
+  ["natural resource", "Occupation, industrial area, vegetation", "Occupation, industrial area"],
+  ["natural resource", "Occupation, pasture and meadow", "Occupation, pasture, man made"],
+  [
+    "natural resource",
+    "Occupation, pasture and meadow, extensive",
+    "Occupation, pasture, man made, extensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, pasture and meadow, intensive",
+    "Occupation, pasture, man made, intensive"
+  ],
+  [
+    "natural resource",
+    "Occupation, traffic area, rail embankment",
+    "Occupation, traffic area, rail/road embankment"
+  ],
+  [
+    "natural resource",
+    "Occupation, urban/industrial fallow",
+    "Occupation, urban/industrial fallow (non-use)"
+  ],
+  ["natural resource", "Occupation, water bodies, artificial", "Occupation, lake, artificial"],
+  ["natural resource", "Occupation, water bodies, artificial", "Occupation, river, artificial"],
+  ["natural resource", "Oil, crude", "Oil, crude, in ground"],
+  ["natural resource", "Olivine", "Olivine, in ground"],
+  [
+    "natural resource",
+    "Palladium, Pd 2.0E-4%, Pt 4.8E-4%, Rh 2.4E-5%, Ni 3.7E-2%, Cu 5.2E-2% in ore",
+    "Pd, Pd 2.0E-4%, Pt 4.8E-4%, Rh 2.4E-5%, Ni 3.7E-2%, Cu 5.2E-2% in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Palladium, Pd 7.3E-4%, Pt 2.5E-4%, Rh 2.0E-5%, Ni 2.3E+0%, Cu 3.2E+0% in ore",
+    "Pd, Pd 7.3E-4%, Pt 2.5E-4%, Rh 2.0E-5%, Ni 2.3E+0%, Cu 3.2E+0% in ore, in ground"
+  ],
+  ["natural resource", "Peat", "Peat, in ground"],
+  ["natural resource", "Perlite", "Perlite, in ground"],
+  ["natural resource", "Phosphorus", "Phosphorus, 18% in apatite, 12% in crude ore, in ground"],
+  [
+    "natural resource",
+    "Phosphorus, 18% in apatite, 4% in crude ore",
+    "Phosphorus, 18% in apatite, 4% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Platinum, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Ni 2.3E+0%, Cu 3.2E+0% in ore",
+    "Pt, Pt 2.5E-4%, Pd 7.3E-4%, Rh 2.0E-5%, Ni 2.3E+0%, Cu 3.2E+0% in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Platinum, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Ni 3.7E-2%, Cu 5.2E-2% in ore",
+    "Pt, Pt 4.8E-4%, Pd 2.0E-4%, Rh 2.4E-5%, Ni 3.7E-2%, Cu 5.2E-2% in ore, in ground"
+  ],
+  ["natural resource", "Potassium chloride", "Sylvite, 25 % in sylvinite, in ground"],
+  [
+    "natural resource",
+    "Praseodymium",
+    "Praseodymium, 0.42% in bastnasite, 0.042% in crude ore, in ground"
+  ],
+  ["natural resource", "Pumice", "Pumice, in ground"],
+  ["natural resource", "Pyrite", "Pyrite, in ground"],
+  ["natural resource", "Rhenium", "Rhenium, in crude ore, in ground"],
+  [
+    "natural resource",
+    "Rhodium, Rh 2.0E-5%, Pt 2.5E-4%, Pd 7.3E-4%, Ni 2.3E+0%, Cu 3.2E+0% in ore",
+    "Rh, Rh 2.0E-5%, Pt 2.5E-4%, Pd 7.3E-4%, Ni 2.3E+0%, Cu 3.2E+0% in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Rhodium, Rh 2.4E-5%, Pt 4.8E-4%, Pd 2.0E-4%, Ni 3.7E-2%, Cu 5.2E-2% in ore",
+    "Rh, Rh 2.4E-5%, Pt 4.8E-4%, Pd 2.0E-4%, Ni 3.7E-2%, Cu 5.2E-2% in ore, in ground"
+  ],
+  ["natural resource", "Samarium", "Samarium, 0.3% in bastnasite, 0.03% in crude ore, in ground"],
+  ["natural resource", "Sand", "Sand, unspecified, in ground"],
+  ["natural resource", "Shale", "Shale, in ground"],
+  [
+    "natural resource",
+    "Silver, 0.007% in sulfide, Ag 0.004%, Pb, Zn, Cd, In",
+    "Silver, 0.007% in sulfide, Ag 0.004%, Pb, Zn, Cd, In, in ground"
+  ],
+  [
+    "natural resource",
+    "Silver, 3.2ppm in sulfide, Ag 1.2ppm, Cu and Te, in crude ore",
+    "Silver, 3.2ppm in sulfide, Ag 1.2ppm, Cu and Te, in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Silver, Ag 2.1E-4%, Au 2.1E-4%, in ore",
+    "Silver, Ag 2.1E-4%, Au 2.1E-4%, in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Silver, Ag 4.2E-3%, Au 1.1E-4%, in ore",
+    "Silver, Ag 4.2E-3%, Au 1.1E-4%, in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Silver, Ag 4.6E-5%, Au 1.3E-4%, in ore",
+    "Silver, Ag 4.6E-5%, Au 1.3E-4%, in ore, in ground"
+  ],
+  [
+    "natural resource",
+    "Silver, Ag 9.7E-4%, Au 9.7E-4%, Zn 0.63%, Cu 0.38%, Pb 0.014%, in ore",
+    "Silver, Ag 9.7E-4%, in mixed ore, in ground"
+  ],
+  ["natural resource", "Sodium chloride", "Sodium chloride, in ground"],
+  ["natural resource", "Sodium nitrate", "Sodium nitrate, in ground"],
+  ["natural resource", "Sodium sulfate", "Sodium sulphate, various forms, in ground"],
+  ["natural resource", "Spodumene", "Spodumene, in ground"],
+  ["natural resource", "Stibnite", "Stibnite, in ground"],
+  ["natural resource", "Sulfur", "Sulfur, in ground"],
+  ["natural resource", "Talc", "Talc, in ground"],
+  ["natural resource", "Tantalum", "Tantalum, 81.9% in tantalite, 1.6E-4% in crude ore, in ground"],
+  [
+    "natural resource",
+    "Tellurium",
+    "Tellurium, 0.5ppm in sulfide, Te 0.2ppm, Cu and Ag, in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "TiO2, 54% in ilmenite, 18% in crude ore",
+    "TiO2, 54% in ilmenite, 18% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "TiO2, 54% in ilmenite, 2.6% in crude ore",
+    "TiO2, 54% in ilmenite, 2.6% in crude ore, in ground"
+  ],
+  [
+    "natural resource",
+    "TiO2, 95% in rutile, 0.40% in crude ore",
+    "TiO2, 95% in rutile, 0.40% in crude ore, in ground"
+  ],
+  ["natural resource", "Tin", "Tin, 79% in cassiterite, 0.1% in crude ore, in ground"],
+  ["natural resource", "Transformation, from arable", "Transformation, from annual crop"],
+  [
+    "natural resource",
+    "Transformation, from arable",
+    "Transformation, from arable land, unspecified use"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, greenhouse",
+    "Transformation, from annual crop, greenhouse"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, irrigated, intensive",
+    "Transformation, from annual crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, non-irrigated",
+    "Transformation, from annual crop, non-irrigated"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, non-irrigated, extensive",
+    "Transformation, from annual crop, non-irrigated, extensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, non-irrigated, intensive",
+    "Transformation, from annual crop, non-irrigated, intensive"
+  ],
+  ["natural resource", "Transformation, from forest", "Transformation, from forest, unspecified"],
+  [
+    "natural resource",
+    "Transformation, from forest, intensive, clear-cutting",
+    "Transformation, from forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from forest, intensive, normal",
+    "Transformation, from forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from forest, intensive, short-cycle",
+    "Transformation, from forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from forest, primary",
+    "Transformation, from forest, primary (non-use)"
+  ],
+  [
+    "natural resource",
+    "Transformation, from grassland, not used",
+    "Transformation, from grassland, natural (non-use)"
+  ],
+  [
+    "natural resource",
+    "Transformation, from industrial area, benthos",
+    "Transformation, from industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, from industrial area, built up",
+    "Transformation, from industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, from industrial area, vegetation",
+    "Transformation, from industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, from pasture and meadow",
+    "Transformation, from pasture, man made"
+  ],
+  [
+    "natural resource",
+    "Transformation, from pasture and meadow, extensive",
+    "Transformation, from pasture, man made, extensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from pasture and meadow, intensive",
+    "Transformation, from pasture, man made, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from permanent crops, irrigated, intensive",
+    "Transformation, from permanent crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from permanent crops, non-irrigated, intensive",
+    "Transformation, from permanent crop, non-irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, from sea and ocean",
+    "Transformation, from seabed, unspecified"
+  ],
+  [
+    "natural resource",
+    "Transformation, from traffic area, rail embankment",
+    "Transformation, from traffic area, rail/road embankment"
+  ],
+  ["natural resource", "Transformation, from unknown", "Transformation, from unspecified"],
+  ["natural resource", "Transformation, to arable", "Transformation, to annual crop"],
+  [
+    "natural resource",
+    "Transformation, to arable",
+    "Transformation, to arable land, unspecified use"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, fallow",
+    "Transformation, to cropland fallow (non-use)"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, greenhouse",
+    "Transformation, to annual crop, greenhouse"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, irrigated, extensive",
+    "Transformation, to annual crop, irrigated, extensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, irrigated, intensive",
+    "Transformation, to annual crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, non-irrigated",
+    "Transformation, to annual crop, non-irrigated"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, non-irrigated, extensive",
+    "Transformation, to annual crop, non-irrigated, extensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, non-irrigated, intensive",
+    "Transformation, to annual crop, non-irrigated, intensive"
+  ],
+  ["natural resource", "Transformation, to forest", "Transformation, to forest, unspecified"],
+  [
+    "natural resource",
+    "Transformation, to forest, intensive, clear-cutting",
+    "Transformation, to forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to forest, intensive, normal",
+    "Transformation, to forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to forest, intensive, short-cycle",
+    "Transformation, to forest, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to industrial area, benthos",
+    "Transformation, to industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, to industrial area, built up",
+    "Transformation, to industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, to industrial area, vegetation",
+    "Transformation, to industrial area"
+  ],
+  [
+    "natural resource",
+    "Transformation, to pasture and meadow",
+    "Transformation, to pasture, man made"
+  ],
+  [
+    "natural resource",
+    "Transformation, to pasture and meadow, extensive",
+    "Transformation, to grassland, natural (non-use)"
+  ],
+  [
+    "natural resource",
+    "Transformation, to pasture and meadow, extensive",
+    "Transformation, to pasture, man made, extensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to pasture and meadow, intensive",
+    "Transformation, to pasture, man made, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to permanent crops, irrigated, intensive",
+    "Transformation, to permanent crop, irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to permanent crops, non-irrigated",
+    "Transformation, to permanent crop, non-irrigated"
+  ],
+  [
+    "natural resource",
+    "Transformation, to permanent crops, non-irrigated, intensive",
+    "Transformation, to permanent crop, non-irrigated, intensive"
+  ],
+  [
+    "natural resource",
+    "Transformation, to traffic area, rail embankment",
+    "Transformation, to traffic area, rail/road embankment"
+  ],
+  ["natural resource", "Transformation, to unknown", "Transformation, to unspecified"],
+  [
+    "natural resource",
+    "Transformation, to urban/industrial fallow",
+    "Transformation, to urban/industrial fallow (non-use)"
+  ],
+  [
+    "natural resource",
+    "Transformation, to water bodies, artificial",
+    "Transformation, to lake, artificial"
+  ],
+  [
+    "natural resource",
+    "Transformation, to water bodies, artificial",
+    "Transformation, to river, artificial"
+  ],
+  ["natural resource", "Ulexite", "Ulexite, in ground"],
+  ["natural resource", "Uranium", "Uranium, in ground"],
+  ["natural resource", "Vermiculite", "Vermiculite, in ground"],
+  [
+    "natural resource",
+    "Water, cooling, unspecified natural origin/m3",
+    "Water, cooling, unspecified natural origin"
+  ],
+  ["natural resource", "Water_3.1_m3", "Water, unspecified natural origin"],
+  ["natural resource", "Wood, unspecified, standing/m3", "Wood, unspecified, standing"],
+  ["natural resource", "Xenon", "Xenon, in air"],
+  ["natural resource", "Zinc", "Zinc, 9.0% in sulfide, Zn 5.3%, Pb, Ag, Cd, In, in ground"],
+  [
+    "natural resource",
+    "Zinc, Zn 0.63%, Au 9.7E-4%, Ag 9.7E-4%, Cu 0.38%, Pb 0.014%, in ore",
+    "Zinc, Zn 0.63%, in mixed ore, in ground"
+  ],
+  ["natural resource", "Zirconium", "Zirconium, 50% in zircon, 0.39% in crude ore, in ground"],
+  ["soil", "2-Methyl-4-chlorophenoxyacetic acid", "MCPA"],
+  ["soil", "Benzene, pentachloronitro-", "Quintozene"],
+  ["soil", "Chlortoluron", "Chlorotoluron"],
+  ["soil", "Dipropylthiocarbamic acid S-ethyl ester", "EPTC"],
+  ["soil", "Dithianone", "Dithianon"],
+  ["soil", "Iprodione", "Iprodion"],
+  ["soil", "Metam-sodium dihydrate", "Metam-sodium"],
+  ["soil", "Monosodium acid methanearsonate", "MSMA"],
+  ["soil", "Oils, biogenic", "Oils, non-fossil"],
+  ["soil", "Oxydemeton methyl", "Oxydemeton-methyl"],
+  ["soil", "Parathion, methyl", "Methyl parathion"],
+  ["soil", "Thiazole, 2-(thiocyanatemethylthio)benzo-", "TCMTB"],
+  ["soil", "Triallate", "Tri-allate"],
+  ["water", "1-Butanol", "Butanol"],
+  ["water", "1-Propanol", "Propanol"],
+  ["water", "2-Butene, 2-methyl-", "2-Methyl-2-butene"],
+  ["water", "Acrylate", "Acrylate, ion"],
+  ["water", "Ammonium", "Ammonium, ion"],
+  ["water", "Arsenic", "Arsenic, ion"],
+  ["water", "Benzene, 1,2-dichloro-", "o-Dichlorobenzene"],
+  ["water", "Benzo(a)anthracene", "Benz(a)anthracene"],
+  ["water", "Benzo(g,h,i)perylene", "Benzo(ghi)perylene"],
+  ["water", "Cadmium", "Cadmium, ion"],
+  ["water", "Calcium", "Calcium, ion"],
+  ["water", "Carbamic acid, butyl-, 3-iodo-2-propynyl ester", "Butylcarbamate, iodopropynyl"],
+  ["water", "Carbon", "Elemental carbon"],
+  ["water", "Chromium", "Chromium, ion"],
+  ["water", "Copper", "Copper, ion"],
+  ["water", "Ethane, chloro-", "Monochloroethane"],
+  ["water", "Ethanol, 2-ethoxy-", "Ethylene glycol monoethyl ether"],
+  ["water", "Formic acid, thallium(1+) salt", "Formate"],
+  ["water", "Hydrogen chloride", "Hydrochloric acid"],
+  ["water", "Iron", "Iron, ion"],
+  ["water", "Lithium", "Lithium, ion"],
+  ["water", "Methylamine", "Methyl amine"],
+  ["water", "Naphthalene", "Naphtalene"],
+  ["water", "Nickel", "Nickel, ion"],
+  ["water", "Oils, biogenic", "Oils, non-fossil"],
+  ["water", "Perchlorate", "Perchlorate, ion"],
+  ["water", "Potassium", "Potassium, ion"],
+  ["water", "Silver", "Silver, ion"],
+  ["water", "Sodium", "Sodium, ion"],
+  ["water", "Sulphur", "Sulfur"],
+  ["water", "Thiocyanate", "Thiocyanate, ion"],
+  ["water", "Tin", "Tin, ion"],
+  ["water", "Titanium", "Titanium, ion"],
+  ["water", "Toluene, 2-chloro-", "Toluene, 2-chloro"],
+  ["water", "Vanadium", "Vanadium, ion"],
+  ["water", "Zinc", "Zinc, ion"]
+]
