@@ -829,8 +829,11 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                             , disabled <| length >= Env.maxMaterials
                             ]
                             [ Icon.plus
-                            , text "Ajouter une matière"
-                            , span [ class "text-muted" ] [ text "jusqu'à 5 maximum" ]
+                            , if length >= Env.maxMaterials then
+                                text "Nombre maximal de matières atteint"
+
+                              else
+                                text "Ajouter une matière"
                             ]
                         ]
                    ]
