@@ -14,6 +14,8 @@ module Data.Impact exposing
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
+    , getTotalComplementsImpacts
+    , impactsWithComplements
     , mapImpacts
     , noComplementsImpacts
     , noStepsImpacts
@@ -46,7 +48,7 @@ type alias ComplementsImpacts =
     { agroDiversity : Unit.Impact
     , agroEcology : Unit.Impact
     , animalWelfare : Unit.Impact
-    , total : Unit.Impact
+    , outOfEuropeEOL : Unit.Impact
     }
 
 
@@ -55,7 +57,7 @@ addComplementsImpacts a b =
     { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
     , agroEcology = Quantity.plus a.agroEcology b.agroEcology
     , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
-    , total = Quantity.plus a.total b.total
+    , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
     }
 
 
@@ -75,23 +77,52 @@ noComplementsImpacts =
     { agroDiversity = Unit.impact 0
     , agroEcology = Unit.impact 0
     , animalWelfare = Unit.impact 0
-    , total = Unit.impact 0
+    , outOfEuropeEOL = Unit.impact 0
     }
 
 
+getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
+getTotalComplementsImpacts complementsImpacts =
+    Quantity.sum
+        [ complementsImpacts.agroDiversity
+        , complementsImpacts.agroEcology
+        , complementsImpacts.animalWelfare
+        , complementsImpacts.outOfEuropeEOL
+        ]
+
+
+impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
+impactsWithComplements complementsImpacts impacts =
+    let
+        complementsImpact =
+            getTotalComplementsImpacts complementsImpacts
+
+        ecsWithComplements =
+            getImpact Definition.Ecs impacts
+                -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
+                |> Quantity.minus complementsImpact
+    in
+    impacts
+        |> insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
+
+
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
-complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare } =
+complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
     -- We want those complements/bonuses to appear as negative values on the chart
-    [ { name = "Bonus diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
-    , { name = "Bonus infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
-    , { name = "Bonus conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
+    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
+    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    , { name = "Complément fin de vie hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
 
 totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, value : Float, color : String }
-totalComplementsImpactAsChartEntry { total } =
-    -- We want those bonuses to appear as negative values on the chart
-    { name = "Bonus écologique", value = -(Unit.impactToFloat total), color = "#808080" }
+totalComplementsImpactAsChartEntry complementsImpacts =
+    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
+    { name = "Compléments"
+    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
+    , color = "#808080"
+    }
 
 
 
@@ -268,12 +299,12 @@ decodeImpacts definitions =
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, total } =
+encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
     Encode.object
         [ ( "agroDiversity", Unit.impactToFloat agroDiversity |> Encode.float )
         , ( "agroEcology", Unit.impactToFloat agroEcology |> Encode.float )
         , ( "animalWelfare", Unit.impactToFloat animalWelfare |> Encode.float )
-        , ( "total", Unit.impactToFloat total |> Encode.float )
+        , ( "outOfEuropeEOL", Unit.impactToFloat outOfEuropeEOL |> Encode.float )
         ]
 
 

@@ -31,7 +31,17 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
 def find_id(dbname, activity):
-    return search(dbname, activity["search"])["Process identifier"]
+    # if this is a complex ingredient, the id is the one constructed by ecobalyse
+    if "ratio" in activity.keys():
+        return str(
+            uuid.UUID(
+                hashlib.md5(
+                    f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")
+                ).hexdigest()
+            )
+        )
+    else:
+        return search(dbname, activity["search"])["Process identifier"]
 
 
 if __name__ == "__main__":

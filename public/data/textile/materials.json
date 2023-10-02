@@ -165,21 +165,6 @@
     "cff": null
   },
   {
-    "id": "pu",
-    "materialAndSpinningProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
-    "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Filament de polyuréthane / Élasthanne",
-    "shortName": "Polyuréthane/Élasthanne",
-    "origin": "Synthétiques",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 60,
-    "cff": null
-  },
-  {
     "id": "ptt",
     "materialAndSpinningProcessUuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "materialProcessUuid": "87751d4c-a850-1e2c-44dc-da6a797d76de",
@@ -523,6 +508,21 @@
       "manufacturerAllocation": 0.8,
       "recycledQualityRatio": 1
     }
+  },
+  {
+    "id": "pu",
+    "materialAndSpinningProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
+    "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "name": "Filament de polyuréthane / Élasthanne",
+    "shortName": "Polyuréthane/Élasthanne",
+    "origin": "Synthétiques",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 60,
+    "cff": null
   },
   {
     "id": "neoprene",

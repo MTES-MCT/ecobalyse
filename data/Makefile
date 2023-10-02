@@ -3,7 +3,7 @@ NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
 DOCKEREXEC := docker exec -u jovyan -it
 
-json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food
+json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food export_textile
 
 image:
 	docker build -t $(NAME) docker
@@ -27,6 +27,11 @@ import_textile_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile; fi
+
+delete_textile_method:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_methods.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_textile_method.py; fi
 
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
@@ -65,7 +70,7 @@ jupyter_password:
 start_notebook:
 	$(DOCKERRUN) -d --name $(NAME) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
 	docker cp ~/.gitconfig $(NAME):/home/jovyan/
-	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make shell` then `jupyter notebook password` to change the jupyter password, then restart with `make stop_notebook` and `make start_notebook`.'
+	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 
 stop_notebook:
 	$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter"

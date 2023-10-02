@@ -168,4 +168,3 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
-

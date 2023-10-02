@@ -217,11 +217,7 @@ def changed_project(_):
     impact_category = w_impact_category.value = (
         impact_category if impact_category in impact_categories else None
     )
-    activity = w_activity.value = (
-        activity
-        if activity and bw2data.Database(database).get(activity.get("code"))
-        else None
-    )
+    activity = w_activity.value = None
     display_all(database, search, limit, method, impact_category, activity)
 
 
@@ -331,7 +327,6 @@ def display_right_panel(database):
 
 @w_details.capture()
 def display_main_data(database, method, impact_category, activity):
-
     w_details.clear_output()
     w_results.clear_output()
     display(Markdown(f"## (Computing impacts...)"))
@@ -475,19 +470,39 @@ def display_main_data(database, method, impact_category, activity):
     # ANALYSIS
     if w_impact_category.value:
         try:
+            # TOP EMISSIONS
             lca.switch_method((method,) + impact_category)
             lca.lcia()
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
-                    bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca),
-                    columns=["Score", "Supply amount", "Activity"],
+                    [
+                        (str(score), str(amount) + " " + activity["unit"], activity)
+                        for (
+                            score,
+                            amount,
+                            activity,
+                        ) in bw2analyzer.ContributionAnalysis().annotated_top_emissions(
+                            lca
+                        )
+                    ],
+                    columns=["Score", "Amount", "Elementary flow"],
                 )
             )
             top_emissions.set_properties(**{"background-color": "#EEE"})
+            # TOP PROCESSES
             top_processes = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
-                    bw2analyzer.ContributionAnalysis().annotated_top_processes(lca),
-                    columns=["Score", "inventory amount", "Activity"],
+                    [
+                        (str(score), str(amount) + " " + activity["unit"], activity)
+                        for (
+                            score,
+                            amount,
+                            activity,
+                        ) in bw2analyzer.ContributionAnalysis().annotated_top_processes(
+                            lca
+                        )
+                    ],
+                    columns=["Score", "Amount", "Activity"],
                 )
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
