@@ -98,27 +98,27 @@ def reverse(d):
 FIELDS = {
     # process attributes
     "id": "id",
-    "name": "Nom d'affichage",
-    "search": "Terme de recherche",
+    "name": "Display Name",
+    "search": "Search terms",
     "default_origin": "Default Origin",
-    "category": "Categorie de procédé",
-    "bvi": "Bio-diversité",
+    "category": "Process category",
+    "bvi": "Bio-diversity",
     # ingredients attributes
-    "categories": "Categories d'ingrédient",
-    "raw_to_cooked_ratio": "Ratio cuit/cru",
-    "density": "Densité",
-    "inedible_part": "Part non comestible",
+    "categories": "Ingredient Categories",
+    "raw_to_cooked_ratio": "Cooked/Raw ratio",
+    "density": "Density",
+    "inedible_part": "Inedible part",
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
-    "explain": "Détails",
+    "explain": "Details",
     # complex ingredients attributes
-    "subingredient_default": "Sous-ingrédient conv.",
-    "subingredient_organic": "Sous-ingrédient bio",
+    "subingredient_default": "Conv sub-ingredient",
+    "subingredient_organic": "Organic sub-ingredient",
     "ratio": "Ratio",
     # complements
-    "complements.agro-diversity": "AgroDiv",
-    "complements.agro-ecology": "AgroEco",
-    "complements.animal-welfare": "Animal welf",
+    "complements.agro-diversity": "Agro Diversity",
+    "complements.agro-ecology": "Agro Ecologyy",
+    "complements.animal-welfare": "Animal welfare",
 }
 
 
@@ -152,7 +152,7 @@ def read_activities():
 
 # WIDGETS
 ## technical identifier of the activity (for API/URL/FK)
-style = {"description_width": "initial"}
+style = {"description_width": "initial", "width": "1100px", "overflow": "scroll"}
 w_id = ipywidgets.Combobox(
     placeholder="Identifier",
     style=style,
@@ -171,7 +171,7 @@ w_results = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
-    layout=ipywidgets.Layout(width="auto"),
+    layout=ipywidgets.Layout(width="1100px", overflow="scroll"),
     disabled=True,
 )
 ## default origin
@@ -648,19 +648,21 @@ commitbutton.on_click(commit_activities)
 
 
 display(
-    Markdown("# 1) Avant de commencer"),
+    Markdown("# Before you start"),
+    Markdown("1) Click on ▶▶ in the toolbar above ↑\n"),
     Markdown(
-        "Cliquez sur ce bouton pour recharger les ingrédients depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients):"
+        "2) Then on the button below to reload the ingredients "
+        "from the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch :"
     ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
     ipywidgets.Tab(
-        titles=["Formulaire", "Procédés", "Output file"],
+        titles=["Formulaire", "Processes", "Output file"],
         children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        "Identifiant technique unique de l'ingrédient à ajouter, modifier ou supprimer"
+                        "Technical identifier of the ingredient to add, delete or modify : "
                     ),
                     ipywidgets.HBox(
                         (
@@ -679,21 +681,20 @@ display(
                             w_name,
                         ),
                     ),
+                    ipywidgets.HTML(
+                        value="The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
+                        "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
+                    ),
                     ipywidgets.HBox(
                         (
-                            ipywidgets.Label(
-                                "Search (" + DATABASE.name + ")",
-                            ),
+                            ipywidgets.Label("Search terms"),
                             w_search,
-                            ipywidgets.HTML(
-                                value="Le terme de recherche doit être minimal et permettre d'arriver au bon procédé. Le procédé sélectionné est le premier de la liste. Si vous ne pouvez pas différencier deux procédés vous pouvez indiquer son code avec : <i>code:1234567890....</i>"
-                            ),
                         ),
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                "Résultat de recherche",
+                                "Search result",
                             ),
                             w_results,
                         ),
@@ -715,7 +716,7 @@ display(
                         ),
                     ),
                     ipywidgets.Accordion(
-                        titles=["Si le procédé est un ingrédient"],
+                        titles=["If the process is an ingredient"],
                         children=[
                             ipywidgets.VBox(
                                 (
@@ -788,12 +789,14 @@ display(
                         ],
                     ),
                     ipywidgets.Accordion(
-                        titles=["Si l'ingrédient est bio mais n'a pas de procédé bio"],
+                        titles=[
+                            "If this is an organic ingredient but you cannot find and organic activity"
+                        ],
                         children=[
                             ipywidgets.VBox(
                                 (
                                     ipywidgets.HTML(
-                                        value="Sélectionnez les sous-ingrédients conventionnel et bio permettant de créer le nouvel ingrédient bio. Ces sous-ingrédients doivent prélablement avoir été ajoutés à la liste"
+                                        value="Select the conventional and organic sub-ingredients allowing to create the new organic ingredient. These subingredients should have previously been added to the list"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -812,7 +815,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        value="Le ratio est la quantité de sous-ingrédient simple nécessaire pour produire 1 unité d'ingrédient bio. Vous avez besoin de 1.16 kg de blé (sous-ingrédient) pour produire 1 kg de farine (ingrédient final) -> ratio = 1.16. Formule: Impact farine bio = impact farine conventionnelle + ratio * ( impact blé bio -  impact blé c  onventionnel)"
+                                        value="The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -827,7 +830,7 @@ display(
                         ],
                     ),
                     ipywidgets.Accordion(
-                        titles=["Compléments hors ACV (ingrédient uniquement)"],
+                        titles=["Non-LCA complements (only for ingredient)"],
                         children=[
                             ipywidgets.VBox(
                                 (
@@ -848,7 +851,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        value="Le bien-être animal n'est exporté que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>"
+                                        value="Animal welfare is only exported if the ingredient is in the <i>animal_product</i> ou <i>dairy_product</i> category."
                                     ),
                                     ipywidgets.HBox(
                                         (
