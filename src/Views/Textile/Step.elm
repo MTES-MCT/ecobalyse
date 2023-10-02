@@ -41,32 +41,32 @@ import Views.Transport as TransportView
 
 
 type alias Config msg modal =
-    { db : TextileDb.Db
-    , inputs : Inputs
+    { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    , current : Step
     , daysOfWear : Duration
+    , db : TextileDb.Db
+    , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
     , impact : Definition
     , index : Int
-    , current : Step
+    , inputs : Inputs
     , next : Maybe Step
     , setModal : modal -> msg
-    , addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
-    , deleteMaterial : Material -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepDetails : Int -> msg
-    , updateCountry : Label -> Country.Code -> msg
-    , updateQuality : Maybe Unit.Quality -> msg
-    , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Split -> msg
+    , updateCountry : Label -> Country.Code -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
-    , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
-    , updateMaterialSpinning : Material -> Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
-    , updatePrinting : Maybe Printing -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
+    , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
+    , updateMaterialSpinning : Material -> Spinning -> msg
+    , updatePrinting : Maybe Printing -> msg
+    , updateQuality : Maybe Unit.Quality -> msg
+    , updateReparability : Maybe Unit.Reparability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
@@ -352,7 +352,7 @@ printingFields { inputs, updatePrinting } =
         ]
 
 
-fadingField : Config msg odal -> Html msg
+fadingField : Config msg modal -> Html msg
 fadingField { inputs, toggleDisabledFading } =
     label
         [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
@@ -688,7 +688,7 @@ simpleView ({ inputs, impact, current } as config) =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, setModal, addMaterialModal } =
+viewMaterials { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -730,7 +730,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
 
                             baseElementViewConfig : BaseElement.Config Material Split msg
                             baseElementViewConfig =
-                                { excluded = excluded
+                                { baseElement = baseElement
                                 , db =
                                     { elements = db.materials
                                     , countries =
@@ -739,10 +739,24 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                             |> List.sortBy .name
                                     , definitions = db.impactDefinitions
                                     }
-                                , baseElement = baseElement
                                 , defaultCountry = defaultCountry
+                                , delete = deleteMaterial
+
+                                -- No country selection for now
+                                , disableCountry = True
+                                , disableQuantity = List.length inputs.materials <= 1
+                                , excluded = excluded
                                 , impact = impacts
                                 , selectedImpact = impact
+                                , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+                                , quantityView =
+                                    \{ disabled, quantity, onChange } ->
+                                        SplitInput.view
+                                            { disabled = disabled
+                                            , share = quantity
+                                            , onChange = onChange
+                                            }
+                                , toString = .shortName
                                 , update =
                                     \_ newElement ->
                                         updateMaterial
@@ -751,14 +765,6 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                                 | id = newElement.element.id
                                                 , share = newElement.quantity
                                             }
-                                , delete = deleteMaterial
-                                , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
-                                , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
-                                , toString = .shortName
-                                , disableQuantity = List.length inputs.materials <= 1
-
-                                -- No country selection for now
-                                , disableCountry = True
                                 }
                         in
                         li [ class "ElementFormWrapper list-group-item" ]

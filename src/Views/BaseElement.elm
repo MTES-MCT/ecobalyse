@@ -53,11 +53,9 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
             delete baseElement.element
 
         autocompleteState =
-            AutocompleteSelector.init
-                toString
-                (db.elements
-                    |> List.filter (\element -> not (List.member element excluded))
-                )
+            db.elements
+                |> List.filter (\component -> not (List.member component excluded))
+                |> AutocompleteSelector.init toString
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
