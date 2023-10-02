@@ -267,33 +267,7 @@ update ({ queries } as session) msg model =
         OnAutocompleteSelect ->
             case model.modal of
                 AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
-                    Maybe.map2
-                        (\oldRecipeIngredient newIngredient ->
-                            -- Update an existing ingredient
-                            let
-                                ingredientQuery : Query.IngredientQuery
-                                ingredientQuery =
-                                    { id = newIngredient.id
-                                    , mass = oldRecipeIngredient.mass
-                                    , country = Nothing
-                                    , planeTransport = Ingredient.byPlaneByDefault newIngredient
-
-                                    -- We always update the complements to be the new ones because we're here on an ingredient change
-                                    , complements = Just newIngredient.complements
-                                    }
-                            in
-                            model
-                                |> update session (SetModal NoModal)
-                                |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
-                        )
-                        maybeOldRecipeIngredient
-                        (Autocomplete.selectedValue autocompleteState)
-                        |> Maybe.withDefault
-                            -- Add a new ingredient
-                            (model
-                                |> update session (SetModal NoModal)
-                                |> selectIngredient autocompleteState
-                            )
+                    updateIngredient query model session maybeOldRecipeIngredient autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -417,6 +391,40 @@ updateQuery query ( model, session, msg ) =
     , session |> Session.updateFoodQuery query
     , msg
     )
+
+
+updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient query model session oldRecipeIngredient newIngredient =
+    -- Update an existing ingredient
+    let
+        ingredientQuery : Query.IngredientQuery
+        ingredientQuery =
+            { id = newIngredient.id
+            , mass = oldRecipeIngredient.mass
+            , country = Nothing
+            , planeTransport = Ingredient.byPlaneByDefault newIngredient
+
+            -- We always update the complements to be the new ones because we're here on an ingredient change
+            , complements = Just newIngredient.complements
+            }
+    in
+    model
+        |> update session (SetModal NoModal)
+        |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
+
+
+updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
+updateIngredient query model session maybeOldRecipeIngredient autocompleteState =
+    Maybe.map2
+        (updateExistingIngredient query model session)
+        maybeOldRecipeIngredient
+        (Autocomplete.selectedValue autocompleteState)
+        |> Maybe.withDefault
+            -- Add a new ingredient
+            (model
+                |> update session (SetModal NoModal)
+                |> selectIngredient autocompleteState
+            )
 
 
 findExistingBookmarkName : Session -> Query -> String
