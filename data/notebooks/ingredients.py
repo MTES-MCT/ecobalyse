@@ -25,6 +25,7 @@ DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
+reset_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -383,6 +384,12 @@ resetbutton = ipywidgets.Button(
     tooltip="Reset the activities to the branch state",
     icon="sparkles",
 )
+clear_reset_button = ipywidgets.Button(
+    description="X",
+    button_style="",  # 'success', 'info', 'warning', 'danger' or ''
+    tooltip="Clear the output",
+    layout=ipywidgets.Layout(width="50px"),
+)
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
@@ -577,7 +584,7 @@ def reset_branch():
 
 
 def reset_activities(_):
-    with git_output:
+    with reset_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
                 print("FAILED: git pull origin ingredients")
@@ -593,6 +600,10 @@ def reset_activities(_):
     with list_output:
         clear_output()
         list_activities()
+
+
+def clear_reset_output(_):
+    reset_output.clear_output()
 
 
 def commit_activities(_):
@@ -626,13 +637,15 @@ w_search.observe(change_search_of(w_results), names="value")
 savebutton.on_click(add_activity)
 delbutton.on_click(delete_activity)
 resetbutton.on_click(reset_activities)
+clear_reset_button.on_click(clear_reset_output)
 commitbutton.on_click(commit_activities)
 
 
 display(
-    ipywidgets.HTML(
-        value="<h1>Avant de commencer</h1>Appuyez sur le bouton ▸▸ dans la barre d'outil, puis sur le bouton vert « Reset from branch »"
-    ),
+    Markdown("# 1) Avant de commencer"),
+    Markdown("Rechargez la liste d'ingrédients depuis la branche `ingredients`:"),
+    ipywidgets.HBox((resetbutton, clear_reset_button)),
+    reset_output,
     Markdown("# Procédé à ajouter/modifier/supprimer :"),
     ipywidgets.HBox(
         (
@@ -834,11 +847,11 @@ display(
         ],
     ),
     ipywidgets.HBox((savebutton, delbutton)),
+    commitbutton,
     Markdown("# Reset or Publish activities :"),
     Markdown(
         "Reset the activities to the branch state, or Publish to the `ingredients` branch"
     ),
-    ipywidgets.HBox((resetbutton, commitbutton)),
     git_output,
     list_output,
 )
