@@ -44,7 +44,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
-import Views.BaseComponent as BaseComponent
+import Views.BaseElement as BaseElement
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
@@ -487,7 +487,7 @@ type alias UpdateProcessConfig =
 
 updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
-    li [ class "ComponentFormWrapper list-group-item" ]
+    li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
             [ MassInput.view
                 { mass = processQuery.mass
@@ -550,43 +550,43 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         event =
             UpdateIngredient ingredientQuery
 
-        baseComponent =
-            { component = recipeIngredient.ingredient, quantity = recipeIngredient.mass, country = recipeIngredient.country }
+        baseElement =
+            { element = recipeIngredient.ingredient, quantity = recipeIngredient.mass, country = recipeIngredient.country }
 
-        config : BaseComponent.Config Ingredient Mass Msg
+        config : BaseElement.Config Ingredient Mass Msg
         config =
             { excluded = excluded
             , db =
-                { components = db.ingredients
+                { elements = db.ingredients
                 , countries =
                     db.countries
                         |> Scope.only Scope.Food
                         |> List.sortBy .name
                 , definitions = db.impactDefinitions
                 }
-            , baseComponent = baseComponent
+            , baseElement = baseElement
             , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
             , impact = impact
             , selectedImpact = selectedImpact
             , update =
-                \_ newComponent ->
+                \_ newElement ->
                     UpdateIngredient
                         ingredientQuery
                         { ingredientQuery
-                            | id = newComponent.component.id
-                            , mass = newComponent.quantity
-                            , country = Maybe.map .code newComponent.country
+                            | id = newElement.element.id
+                            , mass = newElement.quantity
+                            , country = Maybe.map .code newElement.country
                         }
             , delete = DeleteIngredient
-            , selectComponent = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+            , selectElement = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
             , quantityView = \{ disabled, quantity, onChange } -> MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
             , toString = .name
             , disableQuantity = False
             , disableCountry = False
             }
     in
-    li [ class "ComponentFormWrapper list-group-item" ]
-        (BaseComponent.view config
+    li [ class "ElementFormWrapper list-group-item" ]
+        (BaseElement.view config
             ++ [ if selectedImpact.trigram == Definition.Ecs then
                     let
                         { complements, ingredient } =
@@ -1079,7 +1079,7 @@ distributionView selectedImpact recipe results =
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
             Just distribution ->
-                [ li [ class "ComponentFormWrapper list-group-item" ]
+                [ li [ class "ElementFormWrapper list-group-item" ]
                     [ select
                         [ class "form-select form-select"
                         , onInput UpdateDistribution

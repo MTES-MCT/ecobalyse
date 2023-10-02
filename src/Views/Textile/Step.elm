@@ -31,7 +31,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Quantity
-import Views.BaseComponent as BaseComponent
+import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.Component.SplitInput as SplitInput
 import Views.CountrySelect
@@ -601,7 +601,7 @@ stepHeader { current, inputs, toggleStep } =
             , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
-        , span [ class "StepLabel" ]
+        , span [ class "fs-6 fw-bold" ]
             [ current.label
                 |> Step.displayLabel
                     { knitted = Product.isKnitted inputs.product
@@ -623,8 +623,8 @@ simpleView ({ inputs, impact, current } as config) =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
-                    [ div [ class "col-6" ] [ stepHeader config ]
-                    , div [ class "col-6 d-flex text-end" ]
+                    [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
+                    , div [ class "col-3 col-sm-6 d-flex text-end" ]
                         [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
                             [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                                 span [ class "fw-bold flex-fill" ]
@@ -709,8 +709,8 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                 , spinning = materialInput.spinning
                                 }
 
-                            baseComponent =
-                                { component = materialInput.material
+                            baseElement =
+                                { element = materialInput.material
                                 , quantity = materialInput.share
                                 , country = Nothing
                                 }
@@ -732,31 +732,31 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                     |> stepMaterialImpacts db materialInput.material
                                     |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
 
-                            baseComponentViewConfig : BaseComponent.Config Material Split msg
-                            baseComponentViewConfig =
+                            baseElementViewConfig : BaseElement.Config Material Split msg
+                            baseElementViewConfig =
                                 { excluded = excluded
                                 , db =
-                                    { components = db.materials
+                                    { elements = db.materials
                                     , countries =
                                         db.countries
                                             |> Scope.only Scope.Textile
                                             |> List.sortBy .name
                                     , definitions = db.impactDefinitions
                                     }
-                                , baseComponent = baseComponent
+                                , baseElement = baseElement
                                 , defaultCountry = defaultCountry
                                 , impact = impacts
                                 , selectedImpact = impact
                                 , update =
-                                    \_ newComponent ->
+                                    \_ newElement ->
                                         updateMaterial
                                             materialQuery
                                             { materialQuery
-                                                | id = newComponent.component.id
-                                                , share = newComponent.quantity
+                                                | id = newElement.element.id
+                                                , share = newElement.quantity
                                             }
                                 , delete = deleteMaterial
-                                , selectComponent = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+                                , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
                                 , quantityView = \{ disabled, quantity, onChange } -> SplitInput.view { disabled = disabled, share = quantity, onChange = onChange }
                                 , toString = .shortName
                                 , disableQuantity = List.length inputs.materials <= 1
@@ -765,8 +765,8 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                                 , disableCountry = True
                                 }
                         in
-                        li [ class "ComponentFormWrapper list-group-item" ]
-                            (BaseComponent.view baseComponentViewConfig)
+                        li [ class "ElementFormWrapper list-group-item" ]
+                            (BaseElement.view baseElementViewConfig)
                     )
             )
                 ++ [ let
@@ -780,9 +780,9 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                         availableMaterials =
                             db.materials
                                 |> List.filter
-                                    (\component ->
+                                    (\element ->
                                         not
-                                            (List.member component excluded)
+                                            (List.member element excluded)
                                     )
 
                         totalShares =
@@ -795,7 +795,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                      in
                      li
                         [ class "input-group "
-                        , classList [ ( "AddComponentFormWrapper ps-3", length > 1 ) ]
+                        , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
                         ]
                         [ if length > 1 then
                             span
@@ -818,7 +818,7 @@ viewMaterials { db, current, inputs, impact, updateMaterial, deleteMaterial, set
                           else
                             text ""
                         , button
-                            [ class "AddComponentButton btn btn-outline-primary flex-fill"
+                            [ class "AddElementButton btn btn-outline-primary flex-fill"
                             , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                             , onClick
                                 (setModal

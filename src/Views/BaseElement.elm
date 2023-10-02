@@ -1,4 +1,4 @@
-module Views.BaseComponent exposing (Config, view)
+module Views.BaseElement exposing (Config, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -12,74 +12,74 @@ import Views.Format as Format
 import Views.Icon as Icon
 
 
-type alias BaseComponent component quantity =
-    { component : component
+type alias BaseElement element quantity =
+    { element : element
     , quantity : quantity
     , country : Maybe Country
     }
 
 
-type alias Db component =
-    { components : List component
+type alias Db element =
+    { elements : List element
     , countries : List Country
     , definitions : Definitions
     }
 
 
-type alias Config component quantity msg =
-    { excluded : List component
-    , db : Db component
-    , baseComponent : BaseComponent component quantity
+type alias Config element quantity msg =
+    { excluded : List element
+    , db : Db element
+    , baseElement : BaseElement element quantity
     , defaultCountry : String
     , impact : Impacts
     , selectedImpact : Definition
-    , update : BaseComponent component quantity -> BaseComponent component quantity -> msg
-    , delete : component -> msg
-    , selectComponent : component -> Autocomplete component -> msg
+    , update : BaseElement element quantity -> BaseElement element quantity -> msg
+    , delete : element -> msg
+    , selectElement : element -> Autocomplete element -> msg
     , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
-    , toString : component -> String
+    , toString : element -> String
     , disableCountry : Bool
     , disableQuantity : Bool
     }
 
 
-view : Config component quantity msg -> List (Html msg)
-view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, update, delete, selectComponent, quantityView, toString, disableCountry, disableQuantity } =
+view : Config element quantity msg -> List (Html msg)
+view { excluded, db, baseElement, defaultCountry, impact, selectedImpact, update, delete, selectElement, quantityView, toString, disableCountry, disableQuantity } =
     let
         updateEvent =
-            update baseComponent
+            update baseElement
 
         deleteEvent =
-            delete baseComponent.component
+            delete baseElement.element
 
         autocompleteState =
             AutocompleteSelector.init
                 toString
-                (db.components
-                    |> List.filter (\component -> not (List.member component excluded))
+                (db.elements
+                    |> List.filter (\element -> not (List.member element excluded))
                 )
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
             { disabled = disableQuantity
-            , quantity = baseComponent.quantity
+            , quantity = baseElement.quantity
             , onChange =
                 \maybeQuantity ->
                     case maybeQuantity of
                         Just quantity ->
-                            updateEvent { baseComponent | quantity = quantity }
+                            updateEvent { baseElement | quantity = quantity }
 
                         _ ->
-                            updateEvent baseComponent
+                            updateEvent baseElement
             }
         ]
-    , selectorView baseComponent.component toString (selectComponent baseComponent.component autocompleteState)
+    , selectorView baseElement.element toString (selectElement baseElement.element autocompleteState)
     , db.countries
         |> List.sortBy .name
         |> List.map
             (\{ code, name } ->
                 option
-                    [ selected (Maybe.map .code baseComponent.country == Just code)
+                    [ selected (Maybe.map .code baseElement.country == Just code)
                     , value <| Country.codeToString code
                     , disabled disableCountry
                     ]
@@ -88,7 +88,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
         |> (::)
             (option
                 [ value ""
-                , selected (baseComponent.country == Nothing)
+                , selected (baseElement.country == Nothing)
                 ]
                 [ text <| "Par défaut (" ++ defaultCountry ++ ")" ]
             )
@@ -97,7 +97,7 @@ view { excluded, db, baseComponent, defaultCountry, impact, selectedImpact, upda
             , onInput
                 (\val ->
                     updateEvent
-                        { baseComponent
+                        { baseElement
                             | country =
                                 if val /= "" then
                                     Country.codeFromString val
@@ -121,7 +121,7 @@ deleteItemButton : Bool -> msg -> Html msg
 deleteItemButton disable event =
     button
         [ type_ "button"
-        , class "BaseComponentDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
+        , class "baseElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
         , disabled disable
@@ -129,17 +129,17 @@ deleteItemButton disable event =
         [ Icon.trash ]
 
 
-selectorView : component -> (component -> String) -> msg -> Html msg
-selectorView selectedComponent toString selectComponent =
+selectorView : element -> (element -> String) -> msg -> Html msg
+selectorView selectedElement toString selectElement =
     div
-        [ class "form-select ComponentSelector"
+        [ class "form-select ElementSelector"
         , style "overflow" "hidden"
         , style "white-space" "nowrap"
-        , onClick selectComponent
+        , onClick selectElement
         ]
         [ span
             [ style "display" "block"
             , style "overflow" "hidden"
             ]
-            [ text <| toString selectedComponent ]
+            [ text <| toString selectedElement ]
         ]

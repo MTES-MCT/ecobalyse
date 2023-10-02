@@ -151,16 +151,16 @@ displayLabel : { knitted : Bool, fadable : Bool } -> Label -> String
 displayLabel { knitted, fadable } label =
     case ( label, knitted, fadable ) of
         ( Label.Making, _, True ) ->
-            "Confection & Délavage"
+            "Transformation\u{00A0}- Confection & Délavage"
 
         ( Label.Making, _, False ) ->
-            "Confection"
+            "Transformation\u{00A0}- Confection"
 
         ( Label.Fabric, True, _ ) ->
-            "Tricotage"
+            "Transformation\u{00A0}- Tricotage"
 
         ( Label.Fabric, False, _ ) ->
-            "Tissage"
+            "Transformation\u{00A0}- Tissage"
 
         _ ->
             Label.toString label
