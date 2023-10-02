@@ -29,7 +29,6 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
@@ -45,7 +44,7 @@ type alias Config msg modal =
     { db : TextileDb.Db
     , inputs : Inputs
     , daysOfWear : Duration
-    , viewMode : ViewMode
+    , detailedStep : Maybe Int
     , impact : Definition
     , index : Int
     , current : Step
@@ -55,7 +54,7 @@ type alias Config msg modal =
     , deleteMaterial : Material -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
-    , toggleStepViewMode : Int -> msg
+    , toggleStepDetails : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
@@ -524,7 +523,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, viewMode, index, toggleStepViewMode } label =
+stepActions { current, detailedStep, index, toggleStepDetails } label =
     let
         materialStep =
             label == Label.Material
@@ -547,24 +546,21 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
                 Button.docsPill
                     [ class "btn btn-secondary py-1 rounded-start"
                     , classList [ ( "btn-secondary", not current.enabled ) ]
-                    , case viewMode of
-                        ViewMode.Simple ->
-                            title "Détailler cette étape"
-
-                        _ ->
-                            title "Affichage simplifié"
-                    , onClick (toggleStepViewMode index)
+                    , detailedStep
+                        |> Maybe.map (always <| title "Affichage simplifie")
+                        |> Maybe.withDefault (title "Détailler cette étape")
+                    , onClick (toggleStepDetails index)
                     ]
-                    [ case viewMode of
-                        ViewMode.DetailedStep currentIndex ->
-                            if index == currentIndex then
-                                Icon.zoomout
+                    [ detailedStep
+                        |> Maybe.map
+                            (\currentIndex ->
+                                if index == currentIndex then
+                                    Icon.zoomout
 
-                            else
-                                Icon.zoomin
-
-                        ViewMode.Simple ->
-                            Icon.zoomin
+                                else
+                                    Icon.zoomin
+                            )
+                        |> Maybe.withDefault Icon.zoomin
                     ]
 
               else
@@ -1173,13 +1169,14 @@ view : Config msg modal -> ViewWithTransport msg
 view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
-    case config.viewMode of
-        ViewMode.DetailedStep index ->
-            if config.index == index then
-                detailedView config
+    config.detailedStep
+        |> Maybe.map
+            (\index ->
+                if config.index == index then
+                    detailedView config
 
-            else
-                simpleView config
-
-        ViewMode.Simple ->
-            simpleView config
+                else
+                    simpleView config
+            )
+        |> Maybe.withDefault
+            (simpleView config)

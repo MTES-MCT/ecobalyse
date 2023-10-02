@@ -38,7 +38,6 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Platform.Cmd as Cmd
 import Ports
 import Route
@@ -64,7 +63,7 @@ type alias Model =
     , comparisonType : ComparatorView.ComparisonType
     , massInput : String
     , initialQuery : Inputs.Query
-    , viewMode : ViewMode
+    , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
@@ -97,7 +96,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
-    | ToggleStepViewMode Int
+    | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
@@ -143,7 +142,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
                 |> Mass.inKilograms
                 |> String.fromFloat
       , initialQuery = initialQuery
-      , viewMode = ViewMode.Simple
+      , detailedStep = Nothing
       , impact = Definition.get trigram textileDb.impactDefinitions
       , modal = NoModal
       , activeImpactsTab =
@@ -349,8 +348,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.toggleStep label query)
 
-        ToggleStepViewMode index ->
-            ( { model | viewMode = ViewMode.toggle index model.viewMode }
+        ToggleStepDetails index ->
+            ( { model
+                | detailedStep = toggleStepDetails index model.detailedStep
+              }
             , session
             , Cmd.none
             )
@@ -448,6 +449,20 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+toggleStepDetails : Int -> Maybe Int -> Maybe Int
+toggleStepDetails index detailedStep =
+    detailedStep
+        |> Maybe.map
+            (\current ->
+                if index == current then
+                    Nothing
+
+                else
+                    Just index
+            )
+        |> Maybe.withDefault (Just index)
 
 
 updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
@@ -549,14 +564,14 @@ productField db product =
 
 
 lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { viewMode, impact } simulator =
+lifeCycleStepsView db { detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { db = db
                     , inputs = simulator.inputs
-                    , viewMode = viewMode
+                    , detailedStep = detailedStep
                     , impact = impact
                     , daysOfWear = simulator.daysOfWear
                     , index = index
@@ -567,7 +582,7 @@ lifeCycleStepsView db { viewMode, impact } simulator =
                     , deleteMaterial = RemoveMaterial
                     , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
-                    , toggleStepViewMode = ToggleStepViewMode
+                    , toggleStepDetails = ToggleStepDetails
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
