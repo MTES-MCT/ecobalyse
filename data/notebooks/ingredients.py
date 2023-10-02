@@ -26,6 +26,7 @@ DATABASE = bw2data.Database("Agribalyse 3.1.1")
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
+file_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -97,7 +98,7 @@ def reverse(d):
 FIELDS = {
     # process attributes
     "id": "id",
-    "name": "Nom",
+    "name": "Nom d'affichage",
     "search": "Terme de recherche",
     "default_origin": "Default Origin",
     "category": "Categorie de procédé",
@@ -400,20 +401,25 @@ commitbutton = ipywidgets.Button(
 
 def list_activities():
     activities = read_activities()
+    df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
+    df.style
+    display(
+        Markdown(f"# List of {len(activities)} activities/ingredients:"),
+        df,
+        Markdown(f"# Resulting JSON file:"),
+    )
+
+
+@file_output.capture()
+def display_output_file():
     with open(ACTIVITIES_TEMP) as fp:
-        df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
-        df.style
-        display(
-            Markdown(f"# List of {len(activities)} activities/ingredients:"),
-            df,
-            Markdown(f"# Resulting JSON file:"),
-        )
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
 with list_output:
     clear_output()
     list_activities()
+    display_output_file()
 
 
 def clear_form():
@@ -644,216 +650,223 @@ commitbutton.on_click(commit_activities)
 display(
     Markdown("# 1) Avant de commencer"),
     Markdown(
-        "Cliquez sur ce bouton pour rechargez les ingrédients depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients):"
+        "Cliquez sur ce bouton pour recharger les ingrédients depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients):"
     ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
-    Markdown("# Procédé à ajouter/modifier/supprimer :"),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["id"],
-            ),
-            w_id,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["name"],
-            ),
-            w_name,
-        ),
-    ),
-    ipywidgets.HTML(
-        value="Le terme de recherche doit être minimal et permettre d'arriver au bon procédé. Le procédé sélectionné est le premier de la liste. Si vous ne pouvez pas différencier deux procédés vous pouvez indiquer son code avec : <i>code:1234567890....</i>"
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                "Search (" + DATABASE.name + ")",
-            ),
-            w_search,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                "Résultat de recherche",
-            ),
-            w_results,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["category"],
-            ),
-            w_category,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["bvi"],
-            ),
-            w_bvi,
-        ),
-    ),
-    ipywidgets.Accordion(
-        titles=["Si le procédé est un ingrédient"],
-        children=[
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["visible"],
-                            ),
-                            w_visible,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["categories"],
-                            ),
-                            w_categories,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["default_origin"],
-                            ),
-                            w_default_origin,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["raw_to_cooked_ratio"],
-                            ),
-                            w_raw_to_cooked_ratio,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["density"],
-                            ),
-                            w_density,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["inedible_part"],
-                            ),
-                            w_inedible,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["transport_cooling"],
-                            ),
-                            w_cooling,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["explain"],
-                            ),
-                            w_explain,
-                        ),
-                    ),
-                ),
-            ),
-        ],
-    ),
-    ipywidgets.Accordion(
-        titles=["Si l'ingrédient est bio mais n'a pas de procédé bio"],
+    ipywidgets.Tab(
+        titles=["Formulaire", "Procédés", "Output file"],
         children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        value="Sélectionnez les sous-ingrédients conventionnel et bio permettant de créer le nouvel ingrédient bio. Ces sous-ingrédients doivent prélablement avoir été ajoutés à la liste"
+                        "Identifiant technique unique de l'ingrédient à ajouter, modifier ou supprimer"
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["subingredient_default"],
+                                FIELDS["id"],
                             ),
-                            w_subingredient_default,
+                            w_id,
+                        ),
+                    ),
+                    ipywidgets.HBox((savebutton, delbutton)),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["name"],
+                            ),
+                            w_name,
                         ),
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["subingredient_organic"],
+                                "Search (" + DATABASE.name + ")",
                             ),
-                            w_subingredient_organic,
+                            w_search,
+                            ipywidgets.HTML(
+                                value="Le terme de recherche doit être minimal et permettre d'arriver au bon procédé. Le procédé sélectionné est le premier de la liste. Si vous ne pouvez pas différencier deux procédés vous pouvez indiquer son code avec : <i>code:1234567890....</i>"
+                            ),
                         ),
-                    ),
-                    ipywidgets.HTML(
-                        value="Le ratio est la quantité de sous-ingrédient simple nécessaire pour produire 1 unité d'ingrédient bio. Vous avez besoin de 1.16 kg de blé (sous-ingrédient) pour produire 1 kg de farine (ingrédient final) -> ratio = 1.16. Formule: Impact farine bio = impact farine conventionnelle + ratio * ( impact blé bio -  impact blé c  onventionnel)"
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["ratio"],
+                                "Résultat de recherche",
                             ),
-                            w_ratio,
+                            w_results,
                         ),
                     ),
-                ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["category"],
+                            ),
+                            w_category,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["bvi"],
+                            ),
+                            w_bvi,
+                        ),
+                    ),
+                    ipywidgets.Accordion(
+                        titles=["Si le procédé est un ingrédient"],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["visible"],
+                                            ),
+                                            w_visible,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["categories"],
+                                            ),
+                                            w_categories,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["default_origin"],
+                                            ),
+                                            w_default_origin,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["raw_to_cooked_ratio"],
+                                            ),
+                                            w_raw_to_cooked_ratio,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["density"],
+                                            ),
+                                            w_density,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["inedible_part"],
+                                            ),
+                                            w_inedible,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["transport_cooling"],
+                                            ),
+                                            w_cooling,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["explain"],
+                                            ),
+                                            w_explain,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                    ipywidgets.Accordion(
+                        titles=["Si l'ingrédient est bio mais n'a pas de procédé bio"],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HTML(
+                                        value="Sélectionnez les sous-ingrédients conventionnel et bio permettant de créer le nouvel ingrédient bio. Ces sous-ingrédients doivent prélablement avoir été ajoutés à la liste"
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["subingredient_default"],
+                                            ),
+                                            w_subingredient_default,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["subingredient_organic"],
+                                            ),
+                                            w_subingredient_organic,
+                                        ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        value="Le ratio est la quantité de sous-ingrédient simple nécessaire pour produire 1 unité d'ingrédient bio. Vous avez besoin de 1.16 kg de blé (sous-ingrédient) pour produire 1 kg de farine (ingrédient final) -> ratio = 1.16. Formule: Impact farine bio = impact farine conventionnelle + ratio * ( impact blé bio -  impact blé c  onventionnel)"
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["ratio"],
+                                            ),
+                                            w_ratio,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                    ipywidgets.Accordion(
+                        titles=["Compléments hors ACV (ingrédient uniquement)"],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.agro-diversity"],
+                                            ),
+                                            w_complement_agrodiv,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.agro-ecology"],
+                                            ),
+                                            w_complement_agroeco,
+                                        ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        value="Le bien-être animal n'est exporté que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>"
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.animal-welfare"],
+                                            ),
+                                            w_complement_animal_welfare,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                )
             ),
+            list_output,
+            ipywidgets.VBox([commitbutton, file_output]),
         ],
-    ),
-    ipywidgets.Accordion(
-        titles=["Compléments hors ACV (ingrédient uniquement)"],
-        children=[
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.agro-diversity"],
-                            ),
-                            w_complement_agrodiv,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.agro-ecology"],
-                            ),
-                            w_complement_agroeco,
-                        ),
-                    ),
-                    ipywidgets.HTML(
-                        value="Le bien-être animal n'est exporté que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>"
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.animal-welfare"],
-                            ),
-                            w_complement_animal_welfare,
-                        ),
-                    ),
-                ),
-            ),
-        ],
-    ),
-    ipywidgets.HBox((savebutton, delbutton)),
-    commitbutton,
-    Markdown("# Reset or Publish activities :"),
-    Markdown(
-        "Reset the activities to the branch state, or Publish to the `ingredients` branch"
     ),
     git_output,
-    list_output,
 )
