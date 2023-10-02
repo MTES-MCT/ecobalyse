@@ -391,6 +391,12 @@ clear_reset_button = ipywidgets.Button(
     tooltip="Clear the output",
     layout=ipywidgets.Layout(width="50px"),
 )
+clear_git_button = ipywidgets.Button(
+    description="X",
+    button_style="",  # 'success', 'info', 'warning', 'danger' or ''
+    tooltip="Clear the output",
+    layout=ipywidgets.Layout(width="50px"),
+)
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
@@ -608,6 +614,10 @@ def reset_activities(_):
         list_activities()
 
 
+def clear_git_output(_):
+    git_output.clear_output()
+
+
 def clear_reset_output(_):
     reset_output.clear_output()
 
@@ -645,6 +655,7 @@ delbutton.on_click(delete_activity)
 resetbutton.on_click(reset_activities)
 clear_reset_button.on_click(clear_reset_output)
 commitbutton.on_click(commit_activities)
+clear_git_button.on_click(clear_git_output)
 
 
 display(
@@ -868,8 +879,13 @@ display(
                 )
             ),
             list_output,
-            ipywidgets.VBox([commitbutton, file_output]),
+            ipywidgets.VBox(
+                [
+                    ipywidgets.HBox((commitbutton, clear_git_button)),
+                    git_output,
+                    file_output,
+                ]
+            ),
         ],
     ),
-    git_output,
 )
