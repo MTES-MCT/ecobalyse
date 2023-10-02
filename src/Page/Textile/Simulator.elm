@@ -246,36 +246,21 @@ update ({ textileDb, queries, navKey } as session) msg model =
         OnAutocompleteSelect ->
             case model.modal of
                 AddMaterialModal maybeOldMaterial autocompleteState ->
-                    Maybe.map2
-                        (\oldMaterial newMaterial ->
-                            -- Update an existing Material
-                            let
-                                materialQuery : Inputs.MaterialQuery
-                                materialQuery =
-                                    { id = newMaterial.id
-                                    , share = oldMaterial.share
-                                    , spinning = Nothing
-                                    }
-                            in
-                            model
-                                |> update session (SetModal NoModal)
-                                |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
-                        )
-                        maybeOldMaterial
-                        (Autocomplete.selectedValue autocompleteState)
-                        |> Maybe.withDefault
-                            -- Add a new Material
-                            (model
-                                |> update session (SetModal NoModal)
-                                |> selectMaterial autocompleteState
-                            )
+                    updateMaterial query model session maybeOldMaterial autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
 
         RemoveMaterial material ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.removeMaterial material query)
+            if List.length query.materials == 1 then
+                ( model
+                , session |> Session.notifyError "Impossible de supprimer la matière première : " "il faut au moins une matière première"
+                , Cmd.none
+                )
+
+            else
+                ( model, session, Cmd.none )
+                    |> updateQuery (Inputs.removeMaterial material query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -463,6 +448,35 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
+updateExistingMaterial query model session oldMaterial newMaterial =
+    let
+        materialQuery : Inputs.MaterialQuery
+        materialQuery =
+            { id = newMaterial.id
+            , share = oldMaterial.share
+            , spinning = Nothing
+            }
+    in
+    model
+        |> update session (SetModal NoModal)
+        |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+
+
+updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
+updateMaterial query model session maybeOldMaterial autocompleteState =
+    Maybe.map2
+        (updateExistingMaterial query model session)
+        maybeOldMaterial
+        (Autocomplete.selectedValue autocompleteState)
+        |> Maybe.withDefault
+            -- Add a new Material
+            (model
+                |> update session (SetModal NoModal)
+                |> selectMaterial autocompleteState
+            )
 
 
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
