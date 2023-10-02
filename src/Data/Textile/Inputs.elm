@@ -461,21 +461,21 @@ addMaterial material query =
     }
 
 
-updateMaterialData : Material.Id -> (MaterialQuery -> MaterialQuery) -> Query -> Query
-updateMaterialData materialId update query =
+updateMaterialQuery : Material.Id -> (MaterialQuery -> MaterialQuery) -> Query -> Query
+updateMaterialQuery materialId update query =
     { query | materials = query.materials |> LE.updateIf (.id >> (==) materialId) update }
 
 
 updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
 updateMaterial oldMaterialId newMaterial =
-    updateMaterialData
+    updateMaterialQuery
         oldMaterialId
         (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing })
 
 
 updateMaterialShare : Material.Id -> Split -> Query -> Query
 updateMaterialShare materialId share =
-    updateMaterialData
+    updateMaterialQuery
         materialId
         (\m -> { m | share = share })
 
