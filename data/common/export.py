@@ -2,6 +2,10 @@
 import functools
 import bw2data
 from peewee import IntegrityError
+import logging
+import hashlib
+
+logging.basicConfig(level=logging.INFO)
 
 
 def with_subimpacts(process):
@@ -89,17 +93,29 @@ def display_changes(key, oldprocesses, processes):
         print("==".join(["=" * widths[key] for key in keys]))
 
 
-def create_activity(dbname, base_activity, new_activity_name):
-    """Creates a new activity by copying a base activity."""
+def create_activity(dbname, new_activity_name, base_activity=None):
+    """Creates a new activity by copying a base activity. Returns the created activity"""
     try:
-        new_activity = base_activity.copy(new_activity_name)
+        if base_activity:
+            new_activity = base_activity.copy(new_activity_name)
+        else:
+            new_activity = bw2data.Database(dbname).new_activity(
+                {
+                    "code": new_activity_name,
+                    "production amount": 1,
+                    "unit": "kilogram",
+                    "type": "process",
+                    "location": "GLO",
+                    "comment": "added by Ecobalyse",
+                }
+            )
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
         new_activity.save()
-        print(f"Created process {new_activity}")
+        logging.info(f"Created activity {new_activity}")
         return new_activity
-    except IntegrityError as e:
-        print("Process already exist")
+    except (IntegrityError, bw2data.errors.DuplicateNode):
+        logging.warning(f"Activity {new_activity_name} already exists")
         return search(dbname, new_activity_name)
 
 
@@ -112,37 +128,44 @@ def delete_exchange(activity, activity_to_delete, amount=False):
                 and exchange["amount"] == amount
             ):
                 exchange.delete()
-                print(f"Deleted {exchange}")
-                return True
+                logging.info(f"Deleted {exchange}")
+                return
 
     else:
         for exchange in activity.exchanges():
             if exchange.input["name"] == activity_to_delete["name"]:
                 exchange.delete()
-                print(f"Deleted {exchange}")
-                return True
-    print(f"Did not find exchange {activity_to_delete}, no exchange deleted")
+                logging.info(f"Deleted {exchange}")
+                return
+    logging.warning(f"Did not find exchange {activity_to_delete}. No exchange deleted")
 
 
-def new_exchange(activity, activity_to_copy_from, new_activity, new_amount=None):
-    """Create a new exchange based on a existing exchange. It swapes the activity_to_copy_from with a new_activity and possibly a new amount"""
-    if any(exch.input["name"] == new_activity["name"] for exch in activity.exchanges()):
-        print(f"Exchange with {new_activity} already exists. No exchange added")
+def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=None):
+    """Create a new exchange. If an activity_to_copy_from is provided, the amount is copied from this activity. Otherwise, the amount is new_amount."""
+    if not new_amount and not activity_to_copy_from:
+        logging.warning(
+            "No amount or activity to copy from provided. No exchange added"
+        )
         return
-    for exchange in activity.exchanges():
-        if exchange.input["name"] == activity_to_copy_from["name"]:
-            if not new_amount:
+    if not new_amount and activity_to_copy_from:
+        for exchange in activity.exchanges():
+            if exchange.input["name"] == activity_to_copy_from["name"]:
                 new_amount = exchange["amount"]
-            new_exchange = activity.new_exchange(
-                name=new_activity["name"],
-                input=new_activity,
-                amount=new_amount,
-                type=exchange["type"],
-                unit=exchange["unit"],
-            )
-            new_exchange.save()
-            print(
-                f"Duplicated exchange {activity_to_copy_from} with new name {new_activity} and amount: {new_amount}"
+                break
+        else:
+            logging.warning(
+                f"Exchange to duplicate from :{activity_to_copy_from} not found. No exchange added"
             )
             return
-    print("Exchange to duplicate not found. No exchange added")
+
+    new_exchange = activity.new_exchange(
+        name=new_activity["name"],
+        input=new_activity,
+        amount=new_amount,
+        type="technosphere",
+        unit=new_activity["unit"],
+        comment="added by Ecobalyse",
+    )
+    new_exchange.save()
+    logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+
