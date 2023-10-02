@@ -499,16 +499,16 @@ updateMaterialSpinning material spinning query =
 removeMaterial : Material -> Query -> Query
 removeMaterial material query =
     { query | materials = query.materials |> List.filter (\m -> m.id /= material.id) }
-        |> (\({ materials } as q) ->
+        |> (\newQuery ->
                 -- set share to 100% when a single material remains
-                if List.length materials == 1 then
-                    q.materials
+                if List.length newQuery.materials == 1 then
+                    newQuery.materials
                         |> List.head
-                        |> Maybe.map (\m -> updateMaterialShare m.id Split.full q)
-                        |> Maybe.withDefault q
+                        |> Maybe.map (\m -> updateMaterialShare m.id Split.full newQuery)
+                        |> Maybe.withDefault newQuery
 
                 else
-                    q
+                    newQuery
            )
 
 
