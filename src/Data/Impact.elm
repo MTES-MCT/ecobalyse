@@ -111,11 +111,12 @@ impactsWithComplements complementsImpacts impacts =
 
 
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
-complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
+complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, microfibers, outOfEuropeEOL } =
     -- We want those complements/bonuses to appear as negative values on the chart
-    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#808080" }
-    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#a0a0a0" }
-    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#c0c0c0" }
+    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#606060" }
+    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#808080" }
+    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#a0a0a0" }
+    , { name = "Complément microfibres", value = -(Unit.impactToFloat microfibers), color = "#c0c0c0" }
     , { name = "Complément fin de vie hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
