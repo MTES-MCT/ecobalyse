@@ -543,8 +543,52 @@ type alias UpdateIngredientConfig =
     }
 
 
+createConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
+    let
+        baseElement =
+            { element = recipeIngredient.ingredient
+            , quantity = recipeIngredient.mass
+            , country = recipeIngredient.country
+            }
+    in
+    { excluded = excluded
+    , db =
+        { elements = db.ingredients
+        , countries =
+            db.countries
+                |> Scope.only Scope.Food
+                |> List.sortBy .name
+        , definitions = db.impactDefinitions
+        }
+    , baseElement = baseElement
+    , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+    , impact = impact
+    , selectedImpact = selectedImpact
+    , update =
+        \_ newElement ->
+            UpdateIngredient
+                ingredientQuery
+                { ingredientQuery
+                    | id = newElement.element.id
+                    , mass = newElement.quantity
+                    , country = Maybe.map .code newElement.country
+                }
+    , delete = DeleteIngredient
+    , selectElement =
+        \_ autocompleteState ->
+            SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+    , quantityView =
+        \{ disabled, quantity, onChange } ->
+            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+    , toString = .name
+    , disableQuantity = False
+    , disableCountry = False
+    }
+
+
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, recipeIngredient, impact, index, selectedImpact, transportImpact } =
+updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -558,40 +602,9 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
         event =
             UpdateIngredient ingredientQuery
 
-        baseElement =
-            { element = recipeIngredient.ingredient, quantity = recipeIngredient.mass, country = recipeIngredient.country }
-
         config : BaseElement.Config Ingredient Mass Msg
         config =
-            { excluded = excluded
-            , db =
-                { elements = db.ingredients
-                , countries =
-                    db.countries
-                        |> Scope.only Scope.Food
-                        |> List.sortBy .name
-                , definitions = db.impactDefinitions
-                }
-            , baseElement = baseElement
-            , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
-            , impact = impact
-            , selectedImpact = selectedImpact
-            , update =
-                \_ newElement ->
-                    UpdateIngredient
-                        ingredientQuery
-                        { ingredientQuery
-                            | id = newElement.element.id
-                            , mass = newElement.quantity
-                            , country = Maybe.map .code newElement.country
-                        }
-            , delete = DeleteIngredient
-            , selectElement = \_ autocompleteState -> SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
-            , quantityView = \{ disabled, quantity, onChange } -> MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
-            , toString = .name
-            , disableQuantity = False
-            , disableCountry = False
-            }
+            createConfig ingredientQuery updateIngredientConfig
     in
     li [ class "ElementFormWrapper list-group-item" ]
         (BaseElement.view config
