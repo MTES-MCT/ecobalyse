@@ -27,24 +27,24 @@ type alias Db element =
 
 
 type alias Config element quantity msg =
-    { excluded : List element
+    { baseElement : BaseElement element quantity
     , db : Db element
-    , baseElement : BaseElement element quantity
     , defaultCountry : String
-    , impact : Impacts
-    , selectedImpact : Definition
-    , update : BaseElement element quantity -> BaseElement element quantity -> msg
     , delete : element -> msg
-    , selectElement : element -> Autocomplete element -> msg
-    , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
-    , toString : element -> String
     , disableCountry : Bool
     , disableQuantity : Bool
+    , excluded : List element
+    , impact : Impacts
+    , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
+    , selectedImpact : Definition
+    , selectElement : element -> Autocomplete element -> msg
+    , toString : element -> String
+    , update : BaseElement element quantity -> BaseElement element quantity -> msg
     }
 
 
 view : Config element quantity msg -> List (Html msg)
-view { excluded, db, baseElement, defaultCountry, impact, selectedImpact, update, delete, selectElement, quantityView, toString, disableCountry, disableQuantity } =
+view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity, excluded, impact, quantityView, selectedImpact, selectElement, toString, update } =
     let
         updateEvent =
             update baseElement
