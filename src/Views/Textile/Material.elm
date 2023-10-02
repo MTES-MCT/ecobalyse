@@ -4,6 +4,7 @@ import Data.Env as Env
 import Data.Split as Split exposing (Split)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -157,14 +158,14 @@ materialSelector index { materials, exclude, update } id =
                 ]
                 [ text m.shortName ]
 
-        toGroup ( name, materials_ ) =
+        toGroup ( origin, materials_ ) =
             if materials_ == [] then
                 text ""
 
             else
                 materials_
                     |> List.map toOption
-                    |> optgroup [ attribute "label" ("Matières " ++ name) ]
+                    |> optgroup [ attribute "label" (Origin.toLabel origin) ]
     in
     [ categorized
         |> List.map toGroup

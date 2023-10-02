@@ -2,6 +2,7 @@ module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
     , threadProcess
+    , toLabel
     , toMicrofibersComplement
     , toString
     )
@@ -28,19 +29,19 @@ decode =
 fromString : String -> Result String Origin
 fromString origin =
     case origin of
-        "Artificielles d'origine inorganique" ->
+        "ArtificialFromInorganic" ->
             Ok ArtificialFromInorganic
 
-        "Artificielles d'origine organique" ->
+        "ArtificialFromOrganic" ->
             Ok ArtificialFromOrganic
 
-        "Naturelles d'origine animale" ->
+        "NaturalFromAnimal" ->
             Ok NaturalFromAnimal
 
-        "Naturelles d'origine végétale" ->
+        "NaturalFromVegetal" ->
             Ok NaturalFromVegetal
 
-        "Synthétiques" ->
+        "Synthetic" ->
             Ok Synthetic
 
         _ ->
@@ -67,23 +68,42 @@ toMicrofibersComplement origin =
             Unit.impact -875
 
 
+toLabel : Origin -> String
+toLabel origin =
+    case origin of
+        ArtificialFromInorganic ->
+            "Matières artificielles d'origine inorganique"
+
+        ArtificialFromOrganic ->
+            "Matières artificielles d'origine organique"
+
+        NaturalFromAnimal ->
+            "Matières naturelles d'origine animale"
+
+        NaturalFromVegetal ->
+            "Matières naturelles d'origine végétale"
+
+        Synthetic ->
+            "Matières synthétiques"
+
+
 toString : Origin -> String
 toString origin =
     case origin of
         ArtificialFromInorganic ->
-            "Artificielles d'origine inorganique"
+            "ArtificialFromInorganic"
 
         ArtificialFromOrganic ->
-            "Artificielles d'origine organique"
+            "ArtificialFromOrganic"
 
         NaturalFromAnimal ->
-            "Naturelles d'origine animale"
+            "NaturalFromAnimal"
 
         NaturalFromVegetal ->
-            "Naturelles d'origine végétale"
+            "NaturalFromVegetal"
 
         Synthetic ->
-            "Synthétiques"
+            "Synthetic"
 
 
 threadProcess : Origin -> String
