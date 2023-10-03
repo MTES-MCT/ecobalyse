@@ -688,7 +688,7 @@ simpleView ({ inputs, impact, current } as config) =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } =
+viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -698,74 +698,9 @@ viewMaterials { addMaterialModal, db, deleteMaterial, current, impact, inputs, s
                 |> List.map
                     (\materialInput ->
                         let
-                            materialQuery : Inputs.MaterialQuery
-                            materialQuery =
-                                { id = materialInput.material.id
-                                , share = materialInput.share
-                                , spinning = materialInput.spinning
-                                }
-
-                            baseElement =
-                                { element = materialInput.material
-                                , quantity = materialInput.share
-                                , country = Nothing
-                                }
-
-                            defaultCountry =
-                                case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                                    Ok geographicOrigin ->
-                                        geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                                    Err _ ->
-                                        ""
-
-                            excluded =
-                                inputs.materials
-                                    |> List.map .material
-
-                            impacts =
-                                current
-                                    |> stepMaterialImpacts db materialInput.material
-                                    |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
-
                             baseElementViewConfig : BaseElement.Config Material Split msg
                             baseElementViewConfig =
-                                { baseElement = baseElement
-                                , db =
-                                    { elements = db.materials
-                                    , countries =
-                                        db.countries
-                                            |> Scope.only Scope.Textile
-                                            |> List.sortBy .name
-                                    , definitions = db.impactDefinitions
-                                    }
-                                , defaultCountry = defaultCountry
-                                , delete = deleteMaterial
-
-                                -- No country selection for now
-                                , disableCountry = True
-                                , disableQuantity = List.length inputs.materials <= 1
-                                , excluded = excluded
-                                , impact = impacts
-                                , selectedImpact = impact
-                                , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
-                                , quantityView =
-                                    \{ disabled, quantity, onChange } ->
-                                        SplitInput.view
-                                            { disabled = disabled
-                                            , share = quantity
-                                            , onChange = onChange
-                                            }
-                                , toString = .shortName
-                                , update =
-                                    \_ newElement ->
-                                        updateMaterial
-                                            materialQuery
-                                            { materialQuery
-                                                | id = newElement.element.id
-                                                , share = newElement.quantity
-                                            }
-                                }
+                                createConfig config materialInput
                         in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (BaseElement.view baseElementViewConfig)
@@ -840,6 +775,77 @@ viewMaterials { addMaterialModal, db, deleteMaterial, current, impact, inputs, s
                         ]
                    ]
         )
+
+
+createConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
+createConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
+    let
+        materialQuery : Inputs.MaterialQuery
+        materialQuery =
+            { id = materialInput.material.id
+            , share = materialInput.share
+            , spinning = materialInput.spinning
+            }
+
+        baseElement =
+            { element = materialInput.material
+            , quantity = materialInput.share
+            , country = Nothing
+            }
+
+        defaultCountry =
+            case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
+                Ok geographicOrigin ->
+                    geographicOrigin ++ " (" ++ current.country.name ++ ")"
+
+                Err _ ->
+                    ""
+
+        excluded =
+            inputs.materials
+                |> List.map .material
+
+        impacts =
+            current
+                |> stepMaterialImpacts db materialInput.material
+                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
+    in
+    { baseElement = baseElement
+    , db =
+        { elements = db.materials
+        , countries =
+            db.countries
+                |> Scope.only Scope.Textile
+                |> List.sortBy .name
+        , definitions = db.impactDefinitions
+        }
+    , defaultCountry = defaultCountry
+    , delete = deleteMaterial
+
+    -- No country selection for now
+    , disableCountry = True
+    , disableQuantity = List.length inputs.materials <= 1
+    , excluded = excluded
+    , impact = impacts
+    , selectedImpact = impact
+    , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+    , quantityView =
+        \{ disabled, quantity, onChange } ->
+            SplitInput.view
+                { disabled = disabled
+                , share = quantity
+                , onChange = onChange
+                }
+    , toString = .shortName
+    , update =
+        \_ newElement ->
+            updateMaterial
+                materialQuery
+                { materialQuery
+                    | id = newElement.element.id
+                    , share = newElement.quantity
+                }
+    }
 
 
 viewTransport : Config msg modal -> Html msg
