@@ -496,9 +496,9 @@ updateMaterialSpinning material spinning query =
     }
 
 
-removeMaterial : Material -> Query -> Query
-removeMaterial material query =
-    { query | materials = query.materials |> List.filter (\m -> m.id /= material.id) }
+removeMaterial : Material.Id -> Query -> Query
+removeMaterial materialId query =
+    { query | materials = query.materials |> List.filter (\m -> m.id /= materialId) }
         |> (\newQuery ->
                 -- set share to 100% when a single material remains
                 if List.length newQuery.materials == 1 then

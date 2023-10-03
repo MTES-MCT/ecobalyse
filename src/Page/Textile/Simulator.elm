@@ -26,7 +26,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material exposing (Material)
+import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
@@ -84,7 +84,7 @@ type Msg
     | OnAutocomplete (Autocomplete.Msg Material)
     | OnAutocompleteSelect
     | OpenComparator
-    | RemoveMaterial Material
+    | RemoveMaterial Material.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -250,7 +250,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        RemoveMaterial material ->
+        RemoveMaterial materialId ->
             if List.length query.materials == 1 then
                 ( model
                 , session |> Session.notifyError "Impossible de supprimer la matière première : " "il faut au moins une matière première"
@@ -259,7 +259,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
             else
                 ( model, session, Cmd.none )
-                    |> updateQuery (Inputs.removeMaterial material query)
+                    |> updateQuery (Inputs.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -579,7 +579,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
                     , setModal = SetModal
                     , addMaterialModal = AddMaterialModal
-                    , deleteMaterial = RemoveMaterial
+                    , deleteMaterial = \material -> RemoveMaterial material.id
                     , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
                     , toggleStepDetails = ToggleStepDetails

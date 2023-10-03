@@ -85,7 +85,7 @@ type Msg
     | AddDistribution
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
-    | DeleteIngredient Ingredient
+    | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
     | LoadQuery Query
@@ -230,9 +230,9 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
-        DeleteIngredient ingredient ->
+        DeleteIngredient ingredientId ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient ingredient.id query)
+                |> updateQuery (Query.deleteIngredient ingredientId query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -533,7 +533,7 @@ deleteItemButton event =
 
 
 type alias UpdateIngredientConfig =
-    { excluded : List Ingredient
+    { excluded : List Ingredient.Id
     , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
@@ -552,7 +552,7 @@ createConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedI
             , country = recipeIngredient.country
             }
     in
-    { excluded = excluded
+    { baseElement = baseElement
     , db =
         { elements = db.ingredients
         , countries =
@@ -561,10 +561,22 @@ createConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedI
                 |> List.sortBy .name
         , definitions = db.impactDefinitions
         }
-    , baseElement = baseElement
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+    , delete = \element -> DeleteIngredient element.id
+    , disableQuantity = False
+    , disableCountry = False
+    , excluded =
+        db.ingredients
+            |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
+    , quantityView =
+        \{ disabled, quantity, onChange } ->
+            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
     , selectedImpact = selectedImpact
+    , selectElement =
+        \_ autocompleteState ->
+            SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+    , toString = .name
     , update =
         \_ newElement ->
             UpdateIngredient
@@ -574,16 +586,6 @@ createConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedI
                     , mass = newElement.quantity
                     , country = Maybe.map .code newElement.country
                 }
-    , delete = DeleteIngredient
-    , selectElement =
-        \_ autocompleteState ->
-            SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
-    , quantityView =
-        \{ disabled, quantity, onChange } ->
-            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
-    , toString = .name
-    , disableQuantity = False
-    , disableCountry = False
     }
 
 
@@ -891,7 +893,7 @@ ingredientListView db selectedImpact recipe results =
                 |> List.indexedMap
                     (\index ingredient ->
                         updateIngredientFormView
-                            { excluded = recipe.ingredients |> List.map .ingredient
+                            { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
                             , recipeIngredient = ingredient
                             , impact =
