@@ -320,7 +320,7 @@ update ({ queries } as session) msg model =
                 AddIngredientModal _ _ ->
                     Cmd.batch
                         [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "ingredient-search"
+                        , Dom.focus "element-search"
                             |> Task.attempt (always NoOp)
                         ]
             )

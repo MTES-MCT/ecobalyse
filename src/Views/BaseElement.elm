@@ -129,8 +129,8 @@ deleteItemButton disable event =
 
 selectorView : element -> (element -> String) -> msg -> Html msg
 selectorView selectedElement toString selectElement =
-    div
-        [ class "form-select ElementSelector"
+    button
+        [ class "form-select ElementSelector text-start"
         , style "overflow" "hidden"
         , style "white-space" "nowrap"
         , onClick selectElement

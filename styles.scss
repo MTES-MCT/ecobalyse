@@ -736,6 +736,18 @@ q {
   }
 }
 
+.Autocomplete {
+  height: 368px;
+  &Choice {
+    &.selected,
+    &:hover {
+      color: #fff !important;
+      span {
+        color: #fff !important;
+      }
+    }
+  }
+}
 .ElementFormWrapper {
   border-bottom: $list-group-border-width solid $list-group-border-color;
   display: grid;

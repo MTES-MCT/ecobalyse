@@ -299,7 +299,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 AddMaterialModal _ _ ->
                     Cmd.batch
                         [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "ingredient-search"
+                        , Dom.focus "element-search"
                             |> Task.attempt (always NoOp)
                         ]
             )
