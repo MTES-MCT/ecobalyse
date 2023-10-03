@@ -6,7 +6,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
@@ -71,7 +71,9 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
                             updateEvent baseElement
             }
         ]
-    , selectorView baseElement.element toString (selectElement baseElement.element autocompleteState)
+    , autocompleteState
+        |> selectElement baseElement.element
+        |> selectorView baseElement.element toString
     , db.countries
         |> List.sortBy .name
         |> List.map
@@ -111,18 +113,18 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton (List.length excluded == 1) deleteEvent
+    , deleteItemButton { disabled = List.length excluded == 1 } deleteEvent
     ]
 
 
-deleteItemButton : Bool -> msg -> Html msg
-deleteItemButton disable event =
+deleteItemButton : { disabled : Bool } -> msg -> Html msg
+deleteItemButton { disabled } event =
     button
         [ type_ "button"
         , class "baseElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
-        , disabled disable
+        , Attr.disabled disabled
         ]
         [ Icon.trash ]
 

@@ -71,19 +71,7 @@ parser =
 parseTextileSimulator : Parser (Route -> a) a
 parseTextileSimulator =
     Parser.oneOf
-        [ -- We keep this parser for backwards compatible reasons: we used to have the choice
-          -- for a view mode between `simple` and `detailed`, but now it's only `simple`,
-          -- and we used to have a functional unit parameter
-          (Parser.s "textile"
-            </> Parser.s "simulator"
-            </> Impact.parseTrigram
-            -- This is the unused "functional unit" parameter
-            </> Parser.string
-            -- This is the unused "viewmode" parameter
-            </> Parser.string
-            </> TextileQuery.parseBase64Query
-          )
-            |> Parser.map (\trigram _ _ query -> TextileSimulator trigram query)
+        [ deprecatedTextileRouteParser
         , (Parser.s "textile"
             </> Parser.s "simulator"
             </> Impact.parseTrigram
@@ -91,6 +79,23 @@ parseTextileSimulator =
           )
             |> Parser.map TextileSimulator
         ]
+
+
+deprecatedTextileRouteParser : Parser (Route -> a) a
+deprecatedTextileRouteParser =
+    -- We keep this parser for backwards compatible reasons: we used to have the choice
+    -- for a view mode between `simple` and `detailed`, but now it's only `simple`,
+    -- and we used to have a functional unit parameter
+    (Parser.s "textile"
+        </> Parser.s "simulator"
+        </> Impact.parseTrigram
+        -- This is the unused "functional unit" parameter
+        </> Parser.string
+        -- This is the unused "viewmode" parameter
+        </> Parser.string
+        </> TextileQuery.parseBase64Query
+    )
+        |> Parser.map (\trigram _ _ query -> TextileSimulator trigram query)
 
 
 toExploreWithId : Scope -> Dataset -> String -> Route

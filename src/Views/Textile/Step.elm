@@ -700,7 +700,7 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
                         let
                             baseElementViewConfig : BaseElement.Config Material Split msg
                             baseElementViewConfig =
-                                createConfig config materialInput
+                                createElementSelectorConfig config materialInput
                         in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (BaseElement.view baseElementViewConfig)
@@ -777,8 +777,8 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
         )
 
 
-createConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
+createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =

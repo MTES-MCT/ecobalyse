@@ -543,8 +543,8 @@ type alias UpdateIngredientConfig =
     }
 
 
-createConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
-createConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
+createElementSelectorConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
     let
         baseElement =
             { element = recipeIngredient.ingredient
@@ -606,7 +606,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
 
         config : BaseElement.Config Ingredient Mass Msg
         config =
-            createConfig ingredientQuery updateIngredientConfig
+            createElementSelectorConfig ingredientQuery updateIngredientConfig
     in
     li [ class "ElementFormWrapper list-group-item" ]
         (BaseElement.view config
