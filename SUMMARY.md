@@ -62,7 +62,7 @@
     * [🤓 3 - Calcul de l'impact matière : Circular Footprint Formula (CFF) (old)](textile/etapes-du-cycle-de-vie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff-old/README.md)
       * [📚 Utilisation de matière recyclée - M1 et M2](textile/etapes-du-cycle-de-vie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff-old/circular-footprint-formula-cff-matiere.md)
       * [\[Négligé\] Recyclage des vêtements en fin de vie - M3](textile/etapes-du-cycle-de-vie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff-old/circular-footprint-formula-cff-matiere-1.md)
-  * [🧶 Etape 2 - Fabrication du fil (new - draft)](textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft.md)
+  * [🧶 Etape 2 - Fabrication du fil (new)](textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new.md)
   * [〰 Etape 2 - Fabrication de l'étoffe](textile/etapes-du-cycle-de-vie/tricotage-tissage.md)
   * [🌈 Etape 3 - Ennoblissement](textile/etapes-du-cycle-de-vie/teinture.md)
   * [👗 Etape 4 - Confection](textile/etapes-du-cycle-de-vie/confection.md)

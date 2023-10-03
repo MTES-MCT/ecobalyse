@@ -1,10 +1,4 @@
----
-description: >-
-  Une mise à jour est en cours => la méthode/documentation ci-dessous est en
-  cours d'enrichissement.
----
-
-# 🧶 Etape 2 - Fabrication du fil (new - draft)
+# 🧶 Etape 2 - Fabrication du fil (new)
 
 ## Description
 
