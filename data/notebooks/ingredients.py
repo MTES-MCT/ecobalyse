@@ -1,7 +1,7 @@
 """
 This file is the ingredient/activity editor Jupyter Notebook
 """
-from IPython.core.display import display, Markdown, clear_output
+from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from flatdict import FlatDict
 import bw2data
@@ -9,6 +9,7 @@ import ipywidgets
 import json
 import os
 import pandas
+import pandas.io.formats.style
 import shutil
 import subprocess
 
@@ -407,11 +408,14 @@ commitbutton = ipywidgets.Button(
 @list_output.capture()
 def list_activities():
     activities = read_activities()
-    df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
-    df.style
+    df = pandas.io.formats.style.Styler(
+        pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
+    )
+    df.set_properties(**{"background-color": "#EEE"})
     display(
-        Markdown(f"# List of {len(activities)} processes/ingredients:"),
-        df,
+        ipywidgets.HTML(
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}"
+        ),
     )
 
 
