@@ -72,19 +72,19 @@ toLabel : Origin -> String
 toLabel origin =
     case origin of
         ArtificialFromInorganic ->
-            "Matières artificielles d'origine inorganique"
+            "Matière artificielle d'origine inorganique"
 
         ArtificialFromOrganic ->
-            "Matières artificielles d'origine organique"
+            "Matière artificielle d'origine organique"
 
         NaturalFromAnimal ->
-            "Matières naturelles d'origine animale"
+            "Matière naturelle d'origine animale"
 
         NaturalFromVegetal ->
-            "Matières naturelles d'origine végétale"
+            "Matière naturelle d'origine végétale"
 
         Synthetic ->
-            "Matières synthétiques"
+            "Matière synthétique"
 
 
 toString : Origin -> String

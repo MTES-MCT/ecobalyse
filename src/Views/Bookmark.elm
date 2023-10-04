@@ -10,7 +10,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import Page.Textile.Simulator.ViewMode exposing (ViewMode)
 import Route
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
@@ -21,7 +20,6 @@ type alias ManagerConfig msg =
     , activeTab : ActiveTab
     , bookmarkName : String
     , impact : Definition
-    , viewMode : ViewMode
     , scope : Scope
 
     -- Messages
@@ -65,7 +63,7 @@ view ({ activeTab, switchTab } as config) =
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { session, impact, copyToClipBoard, scope, viewMode } =
+shareTabView { session, impact, copyToClipBoard, scope } =
     let
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
@@ -83,7 +81,7 @@ shareTabView { session, impact, copyToClipBoard, scope, viewMode } =
 
                 Scope.Textile ->
                     ( Just session.queries.textile
-                        |> Route.TextileSimulator impact.trigram viewMode
+                        |> Route.TextileSimulator impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
                     , session.queries.textile
@@ -231,7 +229,7 @@ bookmarksView ({ session, compare, scope } as config) =
 
 
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView { session, impact, viewMode, delete, scope } ({ name, query } as bookmark) =
+bookmarkView { session, impact, delete, scope } ({ name, query } as bookmark) =
     let
         currentQuery =
             queryFromScope session scope
@@ -244,7 +242,7 @@ bookmarkView { session, impact, viewMode, delete, scope } ({ name, query } as bo
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
-                        |> Route.TextileSimulator impact.trigram viewMode
+                        |> Route.TextileSimulator impact.trigram
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"

@@ -91,12 +91,6 @@ app.ports.scrollIntoView.subscribe((id) => {
   node.scrollIntoView({ behavior: "smooth" });
 });
 
-app.ports.selectInputText.subscribe((id) => {
-  try {
-    document.getElementById(id).select();
-  } catch (_) {}
-});
-
 // Ensure session is refreshed when it changes in another tab/window
 window.addEventListener(
   "storage",

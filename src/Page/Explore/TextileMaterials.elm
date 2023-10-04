@@ -44,8 +44,8 @@ table { countries } { detailed, scope } =
           , toCell = .name >> text
           }
         , { label = "Origine"
-          , toValue = .origin >> Origin.toString
-          , toCell = .origin >> Origin.toString >> text
+          , toValue = .origin >> Origin.toLabel
+          , toCell = .origin >> Origin.toLabel >> text
           }
         , { label = "Recyclée ?"
           , toValue = .recycledFrom >> recycledToString

@@ -26,7 +26,6 @@ module Data.Textile.Inputs exposing
     , toString
     , toggleStep
     , updateMaterial
-    , updateMaterialShare
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
@@ -449,60 +448,38 @@ toggleStep label query =
     }
 
 
-addMaterial : TextileDb.Db -> Query -> Query
-addMaterial db query =
+addMaterial : Material -> Query -> Query
+addMaterial material query =
     let
-        ( length, polyester, elasthanne ) =
-            ( List.length query.materials
-            , Material.Id "pet"
-            , Material.Id "pu"
-            )
-
-        notUsed id =
-            query.materials
-                |> List.map .id
-                |> List.member id
-                |> not
-
-        newMaterialId =
-            if length == 1 && notUsed polyester then
-                Just polyester
-
-            else if length == 2 && notUsed elasthanne then
-                Just elasthanne
-
-            else
-                db.materials
-                    |> List.filter (.id >> notUsed)
-                    |> List.sortBy .priority
-                    |> List.map .id
-                    |> LE.last
-    in
-    case newMaterialId of
-        Just id ->
-            { query
-                | materials =
-                    query.materials ++ [ { id = id, share = Split.zero, spinning = Nothing } ]
+        materialQuery =
+            { id = material.id
+            , share = Split.zero
+            , spinning = Nothing
             }
-
-        Nothing ->
-            query
-
-
-updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query
-updateMaterialAt index update query =
-    { query | materials = query.materials |> LE.updateAt index update }
+    in
+    { query
+        | materials =
+            query.materials ++ [ materialQuery ]
+    }
 
 
-updateMaterial : Int -> Material -> Query -> Query
-updateMaterial index { id } =
-    -- Note: The first material country is always extracted and applied in `fromQuery`.
-    updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share, spinning = Nothing })
+updateMaterialQuery : Material.Id -> (MaterialQuery -> MaterialQuery) -> Query -> Query
+updateMaterialQuery materialId update query =
+    { query | materials = query.materials |> LE.updateIf (.id >> (==) materialId) update }
 
 
-updateMaterialShare : Int -> Split -> Query -> Query
-updateMaterialShare index share =
-    updateMaterialAt index (\m -> { m | share = share })
+updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
+updateMaterial oldMaterialId newMaterial =
+    updateMaterialQuery
+        oldMaterialId
+        (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing })
+
+
+updateMaterialShare : Material.Id -> Split -> Query -> Query
+updateMaterialShare materialId share =
+    updateMaterialQuery
+        materialId
+        (\m -> { m | share = share })
 
 
 updateMaterialSpinning : Material -> Spinning -> Query -> Query
@@ -521,16 +498,19 @@ updateMaterialSpinning material spinning query =
     }
 
 
-removeMaterial : Int -> Query -> Query
-removeMaterial index query =
-    { query | materials = query.materials |> LE.removeAt index }
-        |> (\({ materials } as q) ->
+removeMaterial : Material.Id -> Query -> Query
+removeMaterial materialId query =
+    { query | materials = query.materials |> List.filter (\m -> m.id /= materialId) }
+        |> (\newQuery ->
                 -- set share to 100% when a single material remains
-                if List.length materials == 1 then
-                    updateMaterialShare 0 Split.full q
+                if List.length newQuery.materials == 1 then
+                    newQuery.materials
+                        |> List.head
+                        |> Maybe.map (\m -> updateMaterialShare m.id Split.full newQuery)
+                        |> Maybe.withDefault newQuery
 
                 else
-                    q
+                    newQuery
            )
 
 
