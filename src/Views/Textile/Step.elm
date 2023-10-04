@@ -757,6 +757,7 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
                         , button
                             [ class "AddElementButton btn btn-outline-primary flex-fill"
                             , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                            , id "add-new-element"
                             , onClick
                                 (setModal
                                     (addMaterialModal Nothing

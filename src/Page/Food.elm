@@ -312,7 +312,7 @@ update ({ queries } as session) msg model =
             , session
             , case modal of
                 NoModal ->
-                    Ports.removeBodyClass "prevent-scrolling"
+                    commandsForNoModal model.modal
 
                 ComparatorModal ->
                     Ports.addBodyClass "prevent-scrolling"
@@ -393,6 +393,28 @@ updateQuery query ( model, session, msg ) =
     )
 
 
+commandsForNoModal : Modal -> Cmd Msg
+commandsForNoModal modal =
+    case modal of
+        AddIngredientModal maybeOldIngredient _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus
+                    -- This whole "node to focus" management is happening as a fallback
+                    -- if the modal was closed without choosing anything.
+                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                    -- and overload any focus being done here.
+                    (maybeOldIngredient
+                        |> Maybe.map (.ingredient >> .name >> (++) "selector-")
+                        |> Maybe.withDefault "add-new-element"
+                    )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        _ ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
 updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
@@ -411,20 +433,42 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     model
         |> update session (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
+        |> focusNode ("selector-" ++ newIngredient.name)
 
 
 updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
 updateIngredient query model session maybeOldRecipeIngredient autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
     Maybe.map2
         (updateExistingIngredient query model session)
         maybeOldRecipeIngredient
-        (Autocomplete.selectedValue autocompleteState)
+        maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new ingredient
             (model
                 |> update session (SetModal NoModal)
                 |> selectIngredient autocompleteState
+                |> focusNode
+                    (maybeSelectedValue
+                        |> Maybe.map (\selectedValue -> "selector-" ++ selectedValue.name)
+                        |> Maybe.withDefault "add-new-element"
+                    )
             )
+
+
+focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+focusNode node ( model, session, commands ) =
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Dom.focus node
+            |> Task.attempt (always NoOp)
+        ]
+    )
 
 
 findExistingBookmarkName : Session -> Query -> String
@@ -917,6 +961,7 @@ ingredientListView db selectedImpact recipe results =
                         [ class "btn btn-outline-primary"
                         , class "d-flex justify-content-center align-items-center"
                         , class " gap-1 w-100"
+                        , id "add-new-element"
                         , disabled <| List.isEmpty availableIngredients
                         , onClick (SetModal (AddIngredientModal Nothing autocompleteState))
                         ]

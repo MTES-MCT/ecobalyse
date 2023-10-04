@@ -206,7 +206,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
     in
     case msg of
         AddMaterial material ->
-            ( model, session, Cmd.none )
+            update session (SetModal NoModal) model
                 |> updateQuery (Inputs.addMaterial material query)
 
         CopyToClipBoard shareableLink ->
@@ -291,7 +291,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , session
             , case modal of
                 NoModal ->
-                    Ports.removeBodyClass "prevent-scrolling"
+                    commandsForNoModal model.modal
 
                 ComparatorModal ->
                     Ports.addBodyClass "prevent-scrolling"
@@ -465,6 +465,28 @@ toggleStepDetails index detailedStep =
         |> Maybe.withDefault (Just index)
 
 
+commandsForNoModal : Modal -> Cmd Msg
+commandsForNoModal modal =
+    case modal of
+        AddMaterialModal maybeOldMaterial _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus
+                    -- This whole "node to focus" management is happening as a fallback
+                    -- if the modal was closed without choosing anything.
+                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                    -- and overload any focus being done here.
+                    (maybeOldMaterial
+                        |> Maybe.map (.material >> .shortName >> (++) "selector-")
+                        |> Maybe.withDefault "add-new-element"
+                    )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        _ ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+
 updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
 updateExistingMaterial query model session oldMaterial newMaterial =
     let
@@ -478,24 +500,46 @@ updateExistingMaterial query model session oldMaterial newMaterial =
     model
         |> update session (SetModal NoModal)
         |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+        |> focusNode ("selector-" ++ newMaterial.shortName)
 
 
 updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
 updateMaterial query model session maybeOldMaterial autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
     Maybe.map2
         (updateExistingMaterial query model session)
         maybeOldMaterial
-        (Autocomplete.selectedValue autocompleteState)
+        maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
             (model
                 |> update session (SetModal NoModal)
                 |> selectMaterial autocompleteState
+                |> focusNode
+                    (maybeSelectedValue
+                        |> Maybe.map (\selectedValue -> "selector-" ++ selectedValue.shortName)
+                        |> Maybe.withDefault "add-new-element"
+                    )
             )
 
 
+focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+focusNode node ( model, session, commands ) =
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Dom.focus node
+            |> Task.attempt (always NoOp)
+        ]
+    )
+
+
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectMaterial autocompleteState ( model, session, commands ) =
+selectMaterial autocompleteState ( model, session, _ ) =
     let
         material =
             Autocomplete.selectedValue autocompleteState
@@ -506,17 +550,8 @@ selectMaterial autocompleteState ( model, session, commands ) =
             material
                 |> Maybe.map AddMaterial
                 |> Maybe.withDefault NoOp
-
-        ( newModel, newSession, newCommands ) =
-            update session msg model
     in
-    ( newModel
-    , newSession
-    , Cmd.batch
-        [ commands
-        , newCommands
-        ]
-    )
+    update session msg model
 
 
 massField : String -> Html Msg
