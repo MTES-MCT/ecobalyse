@@ -837,6 +837,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, imp
                 , share = quantity
                 , onChange = onChange
                 }
+    , toId = .id >> Material.idToString
     , toString = .shortName
     , update =
         \_ newElement ->

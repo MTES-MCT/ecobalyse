@@ -405,7 +405,7 @@ commandsForNoModal modal =
                     -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
                     -- and overload any focus being done here.
                     (maybeOldIngredient
-                        |> Maybe.map (.ingredient >> .name >> (++) "selector-")
+                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
                         |> Maybe.withDefault "add-new-element"
                     )
                     |> Task.attempt (always NoOp)
@@ -433,7 +433,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     model
         |> update session (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
-        |> focusNode ("selector-" ++ newIngredient.name)
+        |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
 updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
@@ -453,7 +453,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
                 |> selectIngredient autocompleteState
                 |> focusNode
                     (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ selectedValue.name)
+                        |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
                         |> Maybe.withDefault "add-new-element"
                     )
             )
@@ -620,6 +620,7 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
     , selectElement =
         \_ autocompleteState ->
             SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+    , toId = .id >> Ingredient.idToString
     , toString = .name
     , update =
         \_ newElement ->

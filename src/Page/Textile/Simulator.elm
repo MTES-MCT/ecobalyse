@@ -477,7 +477,7 @@ commandsForNoModal modal =
                     -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
                     -- and overload any focus being done here.
                     (maybeOldMaterial
-                        |> Maybe.map (.material >> .shortName >> (++) "selector-")
+                        |> Maybe.map (.material >> .id >> Material.idToString >> (++) "selector-")
                         |> Maybe.withDefault "add-new-element"
                     )
                     |> Task.attempt (always NoOp)
@@ -500,7 +500,7 @@ updateExistingMaterial query model session oldMaterial newMaterial =
     model
         |> update session (SetModal NoModal)
         |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
-        |> focusNode ("selector-" ++ newMaterial.shortName)
+        |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
 updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
@@ -520,7 +520,7 @@ updateMaterial query model session maybeOldMaterial autocompleteState =
                 |> selectMaterial autocompleteState
                 |> focusNode
                     (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ selectedValue.shortName)
+                        |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
                         |> Maybe.withDefault "add-new-element"
                     )
             )

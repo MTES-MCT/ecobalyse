@@ -38,13 +38,14 @@ type alias Config element quantity msg =
     , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
+    , toId : element -> String
     , toString : element -> String
     , update : BaseElement element quantity -> BaseElement element quantity -> msg
     }
 
 
 view : Config element quantity msg -> List (Html msg)
-view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity, excluded, impact, quantityView, selectedImpact, selectElement, toString, update } =
+view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
     let
         updateEvent =
             update baseElement
@@ -73,7 +74,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
         ]
     , autocompleteState
         |> selectElement baseElement.element
-        |> selectorView baseElement.element toString
+        |> selectorView baseElement.element toId toString
     , db.countries
         |> List.sortBy .name
         |> List.map
@@ -129,11 +130,11 @@ deleteItemButton { disabled } event =
         [ Icon.trash ]
 
 
-selectorView : element -> (element -> String) -> msg -> Html msg
-selectorView selectedElement toString selectElement =
+selectorView : element -> (element -> String) -> (element -> String) -> msg -> Html msg
+selectorView selectedElement toId toString selectElement =
     button
         [ class "form-select ElementSelector text-start"
-        , id <| "selector-" ++ toString selectedElement
+        , id <| "selector-" ++ toId selectedElement
         , style "overflow" "hidden"
         , style "white-space" "nowrap"
         , onClick selectElement
