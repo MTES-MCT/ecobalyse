@@ -39,6 +39,7 @@ def dbsearch(term, **kw):
 
 
 def cleanup_json(activities):
+    """consistency of the json file"""
     for i, a in enumerate(activities):
         # remove uneeded complex ingredient attributes on simple ingredients
         if not a.get("subingredient_default") or not a.get("subingredient_organic"):
@@ -77,9 +78,7 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
-    with list_output:
-        clear_output()
-        list_activities()
+    display_all()
 
 
 def to_flat(d):
@@ -273,7 +272,7 @@ w_density = ipywidgets.Dropdown(
 w_inedible = ipywidgets.Dropdown(
     options=[
         ("", 1),
-        ("◼◼◼◼◼ FRUITS ◼◼◼◼◼", ""),
+        ("◼ FRUITS ◼", ""),
         (" 3% (tomate, mures, myrtilles, framboises, fraises)", 0.03),
         ("10% (pommes, poire, raisin)", 0.1),
         (
@@ -283,7 +282,7 @@ w_inedible = ipywidgets.Dropdown(
         ("30% (banane, pamplemousse, citron)", 0.3),
         ("40% (melon)", 0.4),
         ("50% (amandes, ananas, noix)", 0.5),
-        ("◼◼◼◼◼ LEGUMES ◼◼◼◼◼", ""),
+        ("◼ LEGUMES ◼", ""),
         (" 0% (pois verts)", 0),
         (" 3% (céleri, céleri vert, poivron, radis, épinard)", 0.03),
         (
@@ -302,7 +301,7 @@ w_inedible = ipywidgets.Dropdown(
         ("40% (asperge, scarole, laitue, salade)", 0.4),
         ("50% (chataîgne, olive)", 0.5),
         ("60% (artichaut)", 0.6),
-        ("◼◼◼◼◼ AUTRES ◼◼◼◼◼", ""),
+        ("◼ AUTRES ◼", ""),
         (" 0% (viande désossée)", 0),
         ("20% (oeuf, viande avec os)", 0.2),
     ]
@@ -405,6 +404,7 @@ commitbutton = ipywidgets.Button(
 )
 
 
+@list_output.capture()
 def list_activities():
     activities = read_activities()
     df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
@@ -421,8 +421,9 @@ def display_output_file():
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
-with list_output:
-    clear_output()
+def display_all():
+    list_output.clear_output()
+    file_output.clear_output()
     list_activities()
     display_output_file()
 
@@ -608,9 +609,7 @@ def reset_activities(_):
 
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     w_id.options = tuple(read_activities().keys())
-    with list_output:
-        clear_output()
-        list_activities()
+    display_all()
 
 
 def clear_git_output(_):
