@@ -152,7 +152,7 @@ def read_activities():
 
 # WIDGETS
 ## technical identifier of the activity (for API/URL/FK)
-style = {"description_width": "initial", "width": "1100px", "overflow": "scroll"}
+style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
     placeholder="Identifier",
     style=style,
@@ -171,7 +171,6 @@ w_results = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
-    layout=ipywidgets.Layout(width="1100px", overflow="scroll"),
     disabled=True,
 )
 ## default origin
@@ -364,13 +363,13 @@ w_complement_animal_welfare = ipywidgets.IntSlider(
 savebutton = ipywidgets.Button(
     description="Save",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Add or update the activity",
+    tooltip="Add or update the process",
     icon="check",
 )
 delbutton = ipywidgets.Button(
     description="Delete",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the activity with the 'id' field above",
+    tooltip="Delete the process with the 'id' field above",
     icon="trash",
 )
 getbutton = ipywidgets.Button(
@@ -382,7 +381,7 @@ getbutton = ipywidgets.Button(
 resetbutton = ipywidgets.Button(
     description="Reset from branch",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Reset the activities to the branch state",
+    tooltip="Reset the process to the branch state",
     icon="sparkles",
 )
 clear_reset_button = ipywidgets.Button(
@@ -400,7 +399,7 @@ clear_git_button = ipywidgets.Button(
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Commit the activities into the branch",
+    tooltip="Commit the process into the branch",
     icon="code-commit",
 )
 
@@ -693,7 +692,7 @@ display(
                         ),
                     ),
                     ipywidgets.HTML(
-                        value="The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
+                        "The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
                         "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
                     ),
                     ipywidgets.HBox(
@@ -801,13 +800,13 @@ display(
                     ),
                     ipywidgets.Accordion(
                         titles=[
-                            "If this is an organic ingredient but you cannot find and organic activity"
+                            "If this is an organic ingredient but you cannot find an organic process"
                         ],
                         children=[
                             ipywidgets.VBox(
                                 (
                                     ipywidgets.HTML(
-                                        value="Select the conventional and organic sub-ingredients allowing to create the new organic ingredient. These subingredients should have previously been added to the list"
+                                        "Select the conventional and organic sub-ingredients allowing to create the new organic ingredient. These subingredients should have previously been added to the list"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -826,7 +825,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        value="The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
+                                        "The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -862,7 +861,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        value="Animal welfare is only exported if the ingredient is in the <i>animal_product</i> ou <i>dairy_product</i> category."
+                                        "Animal welfare is only exported if the ingredient is in the <i>animal_product</i> ou <i>dairy_product</i> category."
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -881,6 +880,10 @@ display(
             list_output,
             ipywidgets.VBox(
                 [
+                    ipywidgets.HTML(
+                        "When your done with editing the ingredients, you should publish your modifications "
+                        "to the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch"
+                    ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
                     git_output,
                     file_output,
