@@ -8,6 +8,8 @@ module Page.Textile.Simulator exposing
     )
 
 import Array
+import Autocomplete exposing (Autocomplete)
+import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -25,6 +27,7 @@ import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -35,24 +38,21 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Platform.Cmd as Cmd
 import Ports
 import Route
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
-import Views.Dataviz as Dataviz
 import Views.Format as Format
-import Views.Icon as Icon
-import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
-import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 
 
@@ -63,7 +63,7 @@ type alias Model =
     , comparisonType : ComparatorView.ComparisonType
     , massInput : String
     , initialQuery : Inputs.Query
-    , viewMode : ViewMode
+    , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
@@ -73,19 +73,21 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
+    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
 
 
 type Msg
-    = AddMaterial
+    = AddMaterial Material
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnAutocomplete (Autocomplete.Msg Material)
+    | OnAutocompleteSelect
     | OpenComparator
-    | RemoveMaterial Int
+    | RemoveMaterial Material.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SelectInputText String
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -94,7 +96,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
-    | ToggleStepViewMode Int
+    | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
@@ -103,8 +105,7 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
-    | UpdateMaterial Int Material.Id
-    | UpdateMaterialShare Int Split
+    | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
@@ -117,11 +118,10 @@ type Msg
 
 init :
     Definition.Trigram
-    -> ViewMode
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
+init trigram maybeUrlQuery ({ textileDb } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -142,7 +142,7 @@ init trigram viewMode maybeUrlQuery ({ textileDb } as session) =
                 |> Mass.inKilograms
                 |> String.fromFloat
       , initialQuery = initialQuery
-      , viewMode = viewMode
+      , detailedStep = Nothing
       , impact = Definition.get trigram textileDb.impactDefinitions
       , modal = NoModal
       , activeImpactsTab =
@@ -188,13 +188,13 @@ findExistingBookmarkName { textileDb, store } query =
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, msg ) =
+updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.textileDb
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
-    , msg
+    , commands
     )
 
 
@@ -205,9 +205,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
             queries.textile
     in
     case msg of
-        AddMaterial ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.addMaterial textileDb query)
+        AddMaterial material ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Inputs.addMaterial material query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -227,9 +227,39 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        RemoveMaterial index ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.removeMaterial index query)
+        OnAutocomplete autocompleteMsg ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+                    , session
+                    , Cmd.map OnAutocomplete autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteSelect ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    updateMaterial query model session maybeOldMaterial autocompleteState
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        RemoveMaterial materialId ->
+            if List.length query.materials == 1 then
+                ( model
+                , session |> Session.notifyError "Impossible de supprimer la matière première : " "il faut au moins une matière première"
+                , Cmd.none
+                )
+
+            else
+                ( model, session, Cmd.none )
+                    |> updateQuery (Inputs.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -256,11 +286,23 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SelectInputText index ->
-            ( model, session, Ports.selectInputText index )
-
         SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
+            ( { model | modal = modal }
+            , session
+            , case modal of
+                NoModal ->
+                    commandsForNoModal model.modal
+
+                ComparatorModal ->
+                    Ports.addBodyClass "prevent-scrolling"
+
+                AddMaterialModal _ _ ->
+                    Cmd.batch
+                        [ Ports.addBodyClass "prevent-scrolling"
+                        , Dom.focus "element-search"
+                            |> Task.attempt (always NoOp)
+                        ]
+            )
 
         SwitchBookmarksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
@@ -275,7 +317,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model
             , session
             , Just query
-                |> Route.TextileSimulator trigram model.viewMode
+                |> Route.TextileSimulator trigram
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -306,8 +348,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.toggleStep label query)
 
-        ToggleStepViewMode index ->
-            ( { model | viewMode = ViewMode.toggle index model.viewMode }
+        ToggleStepDetails index ->
+            ( { model
+                | detailedStep = toggleStepDetails index model.detailedStep
+              }
             , session
             , Cmd.none
             )
@@ -365,18 +409,9 @@ update ({ textileDb, queries, navKey } as session) msg model =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
-        UpdateMaterial index materialId ->
-            case Material.findById materialId textileDb.materials of
-                Ok material ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateMaterial index material query)
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
-
-        UpdateMaterialShare index share ->
+        UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialShare index share query)
+                |> updateQuery (Inputs.updateMaterial oldMaterial.id newMaterial query)
 
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
@@ -414,6 +449,109 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+toggleStepDetails : Int -> Maybe Int -> Maybe Int
+toggleStepDetails index detailedStep =
+    detailedStep
+        |> Maybe.map
+            (\current ->
+                if index == current then
+                    Nothing
+
+                else
+                    Just index
+            )
+        |> Maybe.withDefault (Just index)
+
+
+commandsForNoModal : Modal -> Cmd Msg
+commandsForNoModal modal =
+    case modal of
+        AddMaterialModal maybeOldMaterial _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus
+                    -- This whole "node to focus" management is happening as a fallback
+                    -- if the modal was closed without choosing anything.
+                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                    -- and overload any focus being done here.
+                    (maybeOldMaterial
+                        |> Maybe.map (.material >> .id >> Material.idToString >> (++) "selector-")
+                        |> Maybe.withDefault "add-new-element"
+                    )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        _ ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+
+updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
+updateExistingMaterial query model session oldMaterial newMaterial =
+    let
+        materialQuery : Inputs.MaterialQuery
+        materialQuery =
+            { id = newMaterial.id
+            , share = oldMaterial.share
+            , spinning = Nothing
+            }
+    in
+    model
+        |> update session (SetModal NoModal)
+        |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+        |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
+
+
+updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
+updateMaterial query model session maybeOldMaterial autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
+    Maybe.map2
+        (updateExistingMaterial query model session)
+        maybeOldMaterial
+        maybeSelectedValue
+        |> Maybe.withDefault
+            -- Add a new Material
+            (model
+                |> update session (SetModal NoModal)
+                |> selectMaterial autocompleteState
+                |> focusNode
+                    (maybeSelectedValue
+                        |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
+                        |> Maybe.withDefault "add-new-element"
+                    )
+            )
+
+
+focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+focusNode node ( model, session, commands ) =
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Dom.focus node
+            |> Task.attempt (always NoOp)
+        ]
+    )
+
+
+selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectMaterial autocompleteState ( model, session, _ ) =
+    let
+        material =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+
+        msg =
+            material
+                |> Maybe.map AddMaterial
+                |> Maybe.withDefault NoOp
+    in
+    update session msg model
 
 
 massField : String -> Html Msg
@@ -461,26 +599,30 @@ productField db product =
 
 
 lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { viewMode, impact } simulator =
+lifeCycleStepsView db { detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { db = db
                     , inputs = simulator.inputs
-                    , viewMode = viewMode
+                    , detailedStep = detailedStep
                     , impact = impact
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
+                    , setModal = SetModal
+                    , addMaterialModal = AddMaterialModal
+                    , deleteMaterial = \material -> RemoveMaterial material.id
                     , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
-                    , toggleStepViewMode = ToggleStepViewMode
+                    , toggleStepDetails = ToggleStepDetails
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
+                    , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
@@ -519,37 +661,11 @@ lifeCycleStepsView db { viewMode, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-displayModeView : Definition.Trigram -> ViewMode -> Inputs.Query -> Html Msg
-displayModeView trigram viewMode query =
-    let
-        tab mode icon label =
-            a
-                [ classList
-                    [ ( "TabsTab nav-link", True )
-                    , ( "active", ViewMode.isActive viewMode mode )
-                    ]
-                , Just query
-                    |> Route.TextileSimulator trigram mode
-                    |> Route.href
-                ]
-                [ span [ class "fs-7 me-1" ] [ icon ], text label ]
-    in
-    nav
-        [ class "Tabs nav nav-tabs nav-fill pt-3 bg-white sticky-md-top justify-content-between"
-        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2 mt-2 mb-2 px-3"
-        ]
-        [ tab ViewMode.Simple Icon.zoomout "Simplifier"
-        , tab ViewMode.DetailedAll Icon.zoomin "Détailler"
-        , tab ViewMode.Dataviz Icon.stats "Visualiser"
-        ]
-
-
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inputs, impacts } as simulator) =
+simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-sm-6 mb-3" ]
                     [ productField textileDb inputs.product
@@ -558,40 +674,24 @@ simulatorView ({ textileDb } as session) ({ impact, viewMode } as model) ({ inpu
                     [ massField model.massInput
                     ]
                 ]
-            , MaterialView.formSet
-                { materials = textileDb.materials
-                , inputs = inputs.materials
-                , add = AddMaterial
-                , remove = RemoveMaterial
-                , update = UpdateMaterial
-                , updateShare = UpdateMaterialShare
-                , selectInputText = SelectInputText
-                }
-            , session.queries.textile
-                |> displayModeView impact.trigram viewMode
-            , if viewMode == ViewMode.Dataviz then
-                Dataviz.view textileDb.impactDefinitions simulator
-
-              else
-                div []
-                    [ lifeCycleStepsView textileDb model simulator
-                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                        [ a [ Route.href Route.Home ]
-                            [ text "« Retour à l'accueil" ]
-                        , button
-                            [ class "btn btn-secondary"
-                            , onClick Reset
-                            , disabled (session.queries.textile == model.initialQuery)
-                            ]
-                            [ text "Réinitialiser le simulateur" ]
+            , div []
+                [ lifeCycleStepsView textileDb model simulator
+                , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+                    [ a [ Route.href Route.Home ]
+                        [ text "« Retour à l'accueil" ]
+                    , button
+                        [ class "btn btn-secondary"
+                        , onClick Reset
+                        , disabled (session.queries.textile == model.initialQuery)
                         ]
+                        [ text "Réinitialiser le simulateur" ]
                     ]
+                ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
                 { session = session
                 , scope = Scope.Textile
-                , viewMode = model.viewMode
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -651,6 +751,19 @@ view session model =
                                     ]
                                 , footer = []
                                 }
+
+                        AddMaterialModal _ autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocomplete
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
+                                , title = "Sélectionnez une matière première"
+                                , toLabel = .shortName
+                                , toCategory = .origin >> Origin.toString >> (++) "Matières "
+                                }
                     ]
 
                 Err error ->
@@ -673,4 +786,7 @@ subscriptions { modal } =
             Sub.none
 
         ComparatorModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+
+        AddMaterialModal _ _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
