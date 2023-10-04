@@ -527,7 +527,7 @@ w_id.observe(change_id, names="value")
 
 def change_search_of(field):
     def change_search(change):
-        results = list(dbsearch(change.new, limit=20))
+        results = list(dbsearch(change.new, limit=10))
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
