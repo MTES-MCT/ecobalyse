@@ -42,19 +42,19 @@ toString : Label -> String
 toString label =
     case label of
         Material ->
-            "Matière"
+            "Matières premières"
 
         Spinning ->
-            "Filature"
+            "Transformation\u{00A0}- Filature"
 
         Fabric ->
-            "Tissage & Tricotage"
+            "Transformation\u{00A0}- Tissage & Tricotage"
 
         Making ->
-            "Confection"
+            "Transformation\u{00A0}- Confection"
 
         Ennobling ->
-            "Ennoblissement"
+            "Transformation\u{00A0}- Ennoblissement"
 
         Distribution ->
             "Distribution"

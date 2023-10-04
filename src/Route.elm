@@ -13,7 +13,6 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
 import Html exposing (Attribute)
 import Html.Attributes as Attr
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser)
 
@@ -27,7 +26,7 @@ type Route
     | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | TextileSimulatorHome
-    | TextileSimulator Definition.Trigram ViewMode (Maybe TextileQuery.Query)
+    | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | Stats
 
 
@@ -65,14 +64,38 @@ parser =
         -- Textile specific routes
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
-        , Parser.map TextileSimulator
-            (Parser.s "textile"
-                </> Parser.s "simulator"
-                </> Impact.parseTrigram
-                </> ViewMode.parse
-                </> TextileQuery.parseBase64Query
-            )
+        , parseTextileSimulator
         ]
+
+
+parseTextileSimulator : Parser (Route -> a) a
+parseTextileSimulator =
+    Parser.oneOf
+        [ deprecatedTextileRouteParser
+        , (Parser.s "textile"
+            </> Parser.s "simulator"
+            </> Impact.parseTrigram
+            </> TextileQuery.parseBase64Query
+          )
+            |> Parser.map TextileSimulator
+        ]
+
+
+deprecatedTextileRouteParser : Parser (Route -> a) a
+deprecatedTextileRouteParser =
+    -- We keep this parser for backwards compatible reasons: we used to have the choice
+    -- for a view mode between `simple` and `detailed`, but now it's only `simple`,
+    -- and we used to have a functional unit parameter
+    (Parser.s "textile"
+        </> Parser.s "simulator"
+        </> Impact.parseTrigram
+        -- This is the unused "functional unit" parameter
+        </> Parser.string
+        -- This is the unused "viewmode" parameter
+        </> Parser.string
+        </> TextileQuery.parseBase64Query
+    )
+        |> Parser.map (\trigram _ _ query -> TextileSimulator trigram query)
 
 
 toExploreWithId : Scope -> Dataset -> String -> Route
@@ -155,19 +178,17 @@ toString route =
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
 
-                TextileSimulator trigram viewMode (Just query) ->
+                TextileSimulator trigram (Just query) ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , ViewMode.toUrlSegment viewMode
                     , TextileQuery.b64encode query
                     ]
 
-                TextileSimulator trigram viewMode Nothing ->
+                TextileSimulator trigram Nothing ->
                     [ "textile"
                     , "simulator"
                     , Definition.toString trigram
-                    , ViewMode.toUrlSegment viewMode
                     ]
 
                 Stats ->
