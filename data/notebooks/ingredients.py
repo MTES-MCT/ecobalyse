@@ -171,6 +171,7 @@ w_results = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
+    layout=ipywidgets.Layout(width="auto", overflow="scroll"),
     disabled=True,
 )
 ## default origin
@@ -409,9 +410,8 @@ def list_activities():
     df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     df.style
     display(
-        Markdown(f"# List of {len(activities)} activities/ingredients:"),
+        Markdown(f"# List of {len(activities)} processes/ingredients:"),
         df,
-        Markdown(f"# Resulting JSON file:"),
     )
 
 
@@ -661,13 +661,15 @@ display(
     Markdown("# Before you start"),
     Markdown("1) Click on ▶▶ in the toolbar above ↑\n"),
     Markdown(
-        "2) Then on the button below to reload the ingredients "
-        "from the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch :"
+        "2) Then on the Reset button below to reload the ingredients "
+        "from the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch "
+        "(you will loose your <b>un</b>published modifications):"
     ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
     ipywidgets.Tab(
-        titles=["Formulaire", "Processes", "Output file"],
+        titles=["Formulaire", "Processes", "Output file", "Publish"],
+        layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         children=[
             ipywidgets.VBox(
                 (
@@ -704,7 +706,7 @@ display(
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                "Search result",
+                                "Results",
                             ),
                             w_results,
                         ),
@@ -879,14 +881,18 @@ display(
             ),
             list_output,
             ipywidgets.VBox(
+                (ipywidgets.HTML(f"<h2>Resulting JSON file:</h2>"), file_output)
+            ),
+            ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
-                        "When your done with editing the ingredients, you should publish your modifications "
-                        "to the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch"
+                        "When your done with editing the ingredients, you should <b>publish</b> your modifications "
+                        "to the <a href='https://github.com/MTES-MCT/ecobalyse/tree/ingredients'>ingredients</a> branch.<br/>"
+                        "Then the Ecobalyse team needs to check and recompute the impacts, "
+                        "and merge the modifications to the main branch for your proposals to be visible online."
                     ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
                     git_output,
-                    file_output,
                 ]
             ),
         ],
