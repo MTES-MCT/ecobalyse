@@ -82,7 +82,6 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
                 option
                     [ selected (Maybe.map .code baseElement.country == Just code)
                     , value <| Country.codeToString code
-                    , disabled disableCountry
                     ]
                     [ text name ]
             )
@@ -95,6 +94,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
             )
         |> select
             [ class "form-select form-select CountrySelector"
+            , disabled disableCountry
             , onInput
                 (\val ->
                     updateEvent

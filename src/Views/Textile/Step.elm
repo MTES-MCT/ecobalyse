@@ -696,14 +696,9 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
          else
             (inputs.materials
                 |> List.map
-                    (\materialInput ->
-                        let
-                            baseElementViewConfig : BaseElement.Config Material Split msg
-                            baseElementViewConfig =
-                                createElementSelectorConfig config materialInput
-                        in
-                        li [ class "ElementFormWrapper list-group-item" ]
-                            (BaseElement.view baseElementViewConfig)
+                    (createElementSelectorConfig config
+                        >> BaseElement.view
+                        >> li [ class "ElementFormWrapper list-group-item" ]
                     )
             )
                 ++ [ let

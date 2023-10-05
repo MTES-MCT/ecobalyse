@@ -182,6 +182,9 @@ input[type="number"].no-arrows {
   &-sm {
     min-height: 31px;
   }
+  &:disabled {
+    opacity: 0.65;
+  }
 }
 
 .form-select, .form-control, .input-group-text {
