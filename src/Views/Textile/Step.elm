@@ -76,34 +76,6 @@ type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
 
 
-stepIcon : Label -> Html msg
-stepIcon label =
-    case label of
-        Label.Material ->
-            Icon.material
-
-        Label.Spinning ->
-            Icon.thread
-
-        Label.Fabric ->
-            Icon.fabric
-
-        Label.Ennobling ->
-            Icon.dyeing
-
-        Label.Making ->
-            Icon.making
-
-        Label.Distribution ->
-            Icon.bus
-
-        Label.Use ->
-            Icon.use
-
-        Label.EndOfLife ->
-            Icon.recycle
-
-
 countryField : Config msg modal -> Html msg
 countryField { db, current, inputs, updateCountry } =
     let
@@ -591,12 +563,6 @@ stepHeader { current, inputs, toggleStep } =
             , onCheck (always (toggleStep current.label))
             ]
             []
-        , span
-            [ class "StepIcon rounded-pill"
-            , classList [ ( "bg-secondary text-white", current.enabled ) ]
-            , classList [ ( "bg-light text-dark", not current.enabled ) ]
-            ]
-            [ stepIcon current.label ]
         , span [ class "fs-6 fw-bold" ]
             [ current.label
                 |> Step.displayLabel
