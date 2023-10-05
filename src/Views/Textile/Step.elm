@@ -1,5 +1,7 @@
 module Views.Textile.Step exposing (view)
 
+import Autocomplete exposing (Autocomplete)
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
@@ -17,6 +19,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
@@ -26,8 +29,10 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Quantity
+import Views.BaseElement as BaseElement
 import Views.Button as Button
+import Views.Component.SplitInput as SplitInput
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
@@ -35,29 +40,33 @@ import Views.RangeSlider as RangeSlider
 import Views.Transport as TransportView
 
 
-type alias Config msg =
-    { db : TextileDb.Db
-    , inputs : Inputs
+type alias Config msg modal =
+    { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    , current : Step
     , daysOfWear : Duration
-    , viewMode : ViewMode
+    , db : TextileDb.Db
+    , deleteMaterial : Material -> msg
+    , detailedStep : Maybe Int
     , impact : Definition
     , index : Int
-    , current : Step
+    , inputs : Inputs
     , next : Maybe Step
+    , setModal : modal -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
-    , toggleStepViewMode : Int -> msg
-    , updateCountry : Label -> Country.Code -> msg
-    , updateQuality : Maybe Unit.Quality -> msg
-    , updateReparability : Maybe Unit.Reparability -> msg
+    , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
+    , updateCountry : Label -> Country.Code -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
-    , updateMaterialSpinning : Material -> Spinning -> msg
     , updateKnittingProcess : Knitting -> msg
-    , updatePrinting : Maybe Printing -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
+    , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
+    , updateMaterialSpinning : Material -> Spinning -> msg
+    , updatePrinting : Maybe Printing -> msg
+    , updateQuality : Maybe Unit.Quality -> msg
+    , updateReparability : Maybe Unit.Reparability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
@@ -95,7 +104,7 @@ stepIcon label =
             Icon.recycle
 
 
-countryField : Config msg -> Html msg
+countryField : Config msg modal -> Html msg
 countryField { db, current, inputs, updateCountry } =
     let
         nonEditableCountry content =
@@ -141,7 +150,7 @@ countryField { db, current, inputs, updateCountry } =
         ]
 
 
-airTransportRatioField : Config msg -> Html msg
+airTransportRatioField : Config msg modal -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
     span
         [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
@@ -158,7 +167,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
         ]
 
 
-dyeingMediumField : Config msg -> Html msg
+dyeingMediumField : Config msg modal -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
@@ -184,7 +193,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
         ]
 
 
-spinningProcessField : Config msg -> Html msg
+spinningProcessField : Config msg modal -> Html msg
 spinningProcessField { inputs, updateMaterialSpinning } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ div [ class "d-flex flex-column gap-1 w-100" ]
@@ -230,7 +239,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
         ]
 
 
-knittingProcessField : Config msg -> Html msg
+knittingProcessField : Config msg modal -> Html msg
 knittingProcessField { inputs, updateKnittingProcess } =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
@@ -261,7 +270,7 @@ knittingProcessField { inputs, updateKnittingProcess } =
         ]
 
 
-printingFields : Config msg -> Html msg
+printingFields : Config msg modal -> Html msg
 printingFields { inputs, updatePrinting } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
@@ -343,7 +352,7 @@ printingFields { inputs, updatePrinting } =
         ]
 
 
-fadingField : Config msg -> Html msg
+fadingField : Config msg modal -> Html msg
 fadingField { inputs, toggleDisabledFading } =
     label
         [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
@@ -364,7 +373,7 @@ fadingField { inputs, toggleDisabledFading } =
         ]
 
 
-qualityField : Config msg -> Html msg
+qualityField : Config msg modal -> Html msg
 qualityField { current, updateQuality } =
     span
         [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
@@ -385,7 +394,7 @@ qualityField { current, updateQuality } =
         ]
 
 
-reparabilityField : Config msg -> Html msg
+reparabilityField : Config msg modal -> Html msg
 reparabilityField { current, updateReparability } =
     span
         [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
@@ -406,7 +415,7 @@ reparabilityField { current, updateReparability } =
         ]
 
 
-makingComplexityField : Config msg -> Html msg
+makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     -- Note: This field is only rendered in the detailed step view
     let
@@ -448,7 +457,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
         ]
 
 
-makingWasteField : Config msg -> Html msg
+makingWasteField : Config msg modal -> Html msg
 makingWasteField { current, db, inputs, updateMakingWaste } =
     let
         processName =
@@ -474,7 +483,7 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
         ]
 
 
-surfaceMassField : Config msg -> Product -> Html msg
+surfaceMassField : Config msg modal -> Product -> Html msg
 surfaceMassField { current, updateSurfaceMass } product =
     span
         [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
@@ -490,7 +499,7 @@ surfaceMassField { current, updateSurfaceMass } product =
         ]
 
 
-yarnSizeField : Config msg -> Product -> Html msg
+yarnSizeField : Config msg modal -> Product -> Html msg
 yarnSizeField { current, updateYarnSize } product =
     span
         [ title "Le titrage indique la grosseur d’un fil textile" ]
@@ -504,7 +513,7 @@ yarnSizeField { current, updateYarnSize } product =
         ]
 
 
-inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
+inlineDocumentationLink : Config msg modal -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
         [ href (Gitbook.publicUrlFromPath path)
@@ -513,49 +522,54 @@ inlineDocumentationLink _ path =
         [ Icon.question ]
 
 
-stepActions : Config msg -> Label -> Html msg
-stepActions { current, viewMode, index, toggleStepViewMode } label =
-    div [ class "StepActions btn-group" ]
-        [ Button.docsPillLink
-            [ class "btn btn-secondary py-1 rounded-end"
-            , classList [ ( "btn-secondary", not current.enabled ) ]
-            , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
-            , title "Documentation"
-            , target "_blank"
-            ]
-            [ Icon.question ]
-        , Button.docsPill
-            [ class "btn btn-secondary py-1 rounded-start"
-            , classList [ ( "btn-secondary", not current.enabled ) ]
-            , case viewMode of
-                ViewMode.Simple ->
-                    title "Détailler cette étape"
+stepActions : Config msg modal -> Label -> Html msg
+stepActions { current, detailedStep, index, toggleStepDetails } label =
+    let
+        materialStep =
+            label == Label.Material
+    in
+    div [ class "StepActions col-12 col-sm-2" ]
+        [ div [ class "btn-group" ]
+            [ Button.docsPillLink
+                [ class "btn btn-secondary py-1"
+                , classList
+                    [ ( "btn-secondary", not current.enabled )
+                    , ( "rounded", materialStep )
+                    , ( "rounded-end", not materialStep )
+                    ]
+                , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            , if not materialStep then
+                Button.docsPill
+                    [ class "btn btn-secondary py-1 rounded-start"
+                    , classList [ ( "btn-secondary", not current.enabled ) ]
+                    , detailedStep
+                        |> Maybe.map (always <| title "Affichage simplifie")
+                        |> Maybe.withDefault (title "Détailler cette étape")
+                    , onClick (toggleStepDetails index)
+                    ]
+                    [ detailedStep
+                        |> Maybe.map
+                            (\currentIndex ->
+                                if index == currentIndex then
+                                    Icon.zoomout
 
-                _ ->
-                    title "Affichage simplifié"
-            , onClick (toggleStepViewMode index)
-            ]
-            [ case viewMode of
-                ViewMode.Dataviz ->
-                    Icon.stats
+                                else
+                                    Icon.zoomin
+                            )
+                        |> Maybe.withDefault Icon.zoomin
+                    ]
 
-                ViewMode.DetailedAll ->
-                    Icon.zoomout
-
-                ViewMode.DetailedStep currentIndex ->
-                    if index == currentIndex then
-                        Icon.zoomout
-
-                    else
-                        Icon.zoomin
-
-                ViewMode.Simple ->
-                    Icon.zoomin
+              else
+                text ""
             ]
         ]
 
 
-stepHeader : Config msg -> Html msg
+stepHeader : Config msg modal -> Html msg
 stepHeader { current, inputs, toggleStep } =
     label
         [ class "d-flex align-items-center gap-2"
@@ -583,7 +597,7 @@ stepHeader { current, inputs, toggleStep } =
             , classList [ ( "bg-light text-dark", not current.enabled ) ]
             ]
             [ stepIcon current.label ]
-        , span [ class "StepLabel" ]
+        , span [ class "fs-6 fw-bold" ]
             [ current.label
                 |> Step.displayLabel
                     { knitted = Product.isKnitted inputs.product
@@ -594,80 +608,249 @@ stepHeader { current, inputs, toggleStep } =
         ]
 
 
-simpleView : Config msg -> ViewWithTransport msg
+simpleView : Config msg modal -> ViewWithTransport msg
 simpleView ({ inputs, impact, current } as config) =
+    let
+        materialStep =
+            current.label == Label.Material
+    in
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
             [ div [ class "StepHeader card-header" ]
                 [ div [ class "row d-flex align-items-center" ]
-                    [ div [ class "col-6" ] [ stepHeader config ]
-                    , div [ class "col-6 text-end" ]
-                        [ stepActions config current.label
+                    [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
+                    , div [ class "col-3 col-sm-6 d-flex text-end" ]
+                        [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
+                            [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                                span [ class "fw-bold flex-fill" ]
+                                    [ current.impacts
+                                        |> Impact.impactsWithComplements current.complementsImpacts
+                                        |> Format.formatImpact impact
+                                    ]
+
+                              else
+                                text ""
+                            ]
+                        , stepActions config current.label
                         ]
                     ]
                 ]
-            , div
-                [ class "StepBody card-body row align-items-center"
-                , classList [ ( "disabled", not current.enabled ) ]
-                ]
-                [ div [ class "col-sm-6 col-lg-7" ]
-                    [ countryField config
-                    , case current.label of
-                        Label.Spinning ->
-                            div [ class "mt-2 fs-7 text-muted" ]
-                                [ yarnSizeField config inputs.product
-                                ]
-
-                        Label.Fabric ->
-                            div [ class "mt-2 fs-7" ]
-                                [ surfaceMassField config inputs.product ]
-
-                        Label.Ennobling ->
-                            div [ class "mt-2" ]
-                                [ ennoblingGenericFields config
-                                ]
-
-                        Label.Making ->
-                            div [ class "mt-2" ]
-                                [ makingWasteField config
-                                , airTransportRatioField config
-                                , if inputs.product.making.fadable then
-                                    fadingField config
-
-                                  else
-                                    text ""
-                                ]
-
-                        Label.Use ->
-                            div [ class "mt-2" ]
-                                [ qualityField config
-                                , reparabilityField config
-                                , daysOfWearInfo inputs
-                                ]
-
-                        _ ->
-                            text ""
+            , if not materialStep then
+                div
+                    [ class "StepBody card-body row align-items-center"
+                    , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                    [ div []
-                        [ if current.label /= Label.Distribution then
-                            div [ class "fs-3 fw-normal text-secondary" ]
-                                [ current.impacts
-                                    |> Impact.impactsWithComplements current.complementsImpacts
-                                    |> Format.formatImpact impact
-                                ]
+                    [ div [ class "col-sm-6 col-lg-7" ]
+                        [ countryField config
+                        , case current.label of
+                            Label.Spinning ->
+                                div [ class "mt-2 fs-7 text-muted" ]
+                                    [ yarnSizeField config inputs.product
+                                    ]
 
-                          else
-                            text ""
+                            Label.Fabric ->
+                                div [ class "mt-2 fs-7" ]
+                                    [ surfaceMassField config inputs.product ]
+
+                            Label.Ennobling ->
+                                div [ class "mt-2" ]
+                                    [ ennoblingGenericFields config
+                                    ]
+
+                            Label.Making ->
+                                div [ class "mt-2" ]
+                                    [ makingWasteField config
+                                    , airTransportRatioField config
+                                    , if inputs.product.making.fadable then
+                                        fadingField config
+
+                                      else
+                                        text ""
+                                    ]
+
+                            Label.Use ->
+                                div [ class "mt-2" ]
+                                    [ qualityField config
+                                    , reparabilityField config
+                                    , daysOfWearInfo inputs
+                                    ]
+
+                            _ ->
+                                text ""
                         ]
                     ]
-                ]
+
+              else
+                viewMaterials config
             ]
     }
 
 
-viewTransport : Config msg -> Html msg
+viewMaterials : Config msg modal -> Html msg
+viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
+    ul [ class "CardList list-group list-group-flush" ]
+        (if List.isEmpty inputs.materials then
+            [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
+
+         else
+            (inputs.materials
+                |> List.map
+                    (\materialInput ->
+                        let
+                            baseElementViewConfig : BaseElement.Config Material Split msg
+                            baseElementViewConfig =
+                                createElementSelectorConfig config materialInput
+                        in
+                        li [ class "ElementFormWrapper list-group-item" ]
+                            (BaseElement.view baseElementViewConfig)
+                    )
+            )
+                ++ [ let
+                        length =
+                            List.length inputs.materials
+
+                        excluded =
+                            inputs.materials
+                                |> List.map .material
+
+                        availableMaterials =
+                            db.materials
+                                |> List.filter
+                                    (\element ->
+                                        not
+                                            (List.member element excluded)
+                                    )
+
+                        totalShares =
+                            inputs.materials
+                                |> List.map (.share >> Split.toFloat >> clamp 0 1)
+                                |> List.sum
+
+                        valid =
+                            round (totalShares * 100) == 100
+                     in
+                     li
+                        [ class "input-group "
+                        , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
+                        ]
+                        [ if length > 1 then
+                            span
+                                [ class "SharesTotal ext-end"
+                                , class "d-flex justify-content-between align-items-center gap-1"
+                                , classList
+                                    [ ( "text-success feedback-valid", valid )
+                                    , ( "text-danger feedback-invalid", not valid )
+                                    ]
+                                ]
+                                [ if valid then
+                                    Icon.check
+
+                                  else
+                                    Icon.warning
+                                , round (totalShares * 100) |> String.fromInt |> text
+                                , text "%"
+                                ]
+
+                          else
+                            text ""
+                        , button
+                            [ class "AddElementButton btn btn-outline-primary flex-fill"
+                            , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                            , id "add-new-element"
+                            , onClick
+                                (setModal
+                                    (addMaterialModal Nothing
+                                        (AutocompleteSelector.init .shortName availableMaterials)
+                                    )
+                                )
+                            , disabled <| length >= Env.maxMaterials
+                            ]
+                            [ Icon.plus
+                            , if length >= Env.maxMaterials then
+                                text "Nombre maximal de matières atteint"
+
+                              else
+                                text "Ajouter une matière"
+                            ]
+                        ]
+                   ]
+        )
+
+
+createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
+createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
+    let
+        materialQuery : Inputs.MaterialQuery
+        materialQuery =
+            { id = materialInput.material.id
+            , share = materialInput.share
+            , spinning = materialInput.spinning
+            }
+
+        baseElement =
+            { element = materialInput.material
+            , quantity = materialInput.share
+            , country = Nothing
+            }
+
+        defaultCountry =
+            case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
+                Ok geographicOrigin ->
+                    geographicOrigin ++ " (" ++ current.country.name ++ ")"
+
+                Err _ ->
+                    ""
+
+        excluded =
+            inputs.materials
+                |> List.map .material
+
+        impacts =
+            current
+                |> stepMaterialImpacts db materialInput.material
+                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
+    in
+    { baseElement = baseElement
+    , db =
+        { elements = db.materials
+        , countries =
+            db.countries
+                |> Scope.only Scope.Textile
+                |> List.sortBy .name
+        , definitions = db.impactDefinitions
+        }
+    , defaultCountry = defaultCountry
+    , delete = deleteMaterial
+
+    -- No country selection for now
+    , disableCountry = True
+    , disableQuantity = List.length inputs.materials <= 1
+    , excluded = excluded
+    , impact = impacts
+    , selectedImpact = impact
+    , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+    , quantityView =
+        \{ disabled, quantity, onChange } ->
+            SplitInput.view
+                { disabled = disabled
+                , share = quantity
+                , onChange = onChange
+                }
+    , toId = .id >> Material.idToString
+    , toString = .shortName
+    , update =
+        \_ newElement ->
+            updateMaterial
+                materialQuery
+                { materialQuery
+                    | id = newElement.element.id
+                    , share = newElement.quantity
+                }
+    }
+
+
+viewTransport : Config msg modal -> Html msg
 viewTransport ({ impact, current } as config) =
     div []
         [ span []
@@ -736,7 +919,7 @@ daysOfWearInfo inputs =
         ]
 
 
-ennoblingGenericFields : Config msg -> Html msg
+ennoblingGenericFields : Config msg modal -> Html msg
 ennoblingGenericFields config =
     -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
@@ -745,7 +928,7 @@ ennoblingGenericFields config =
         ]
 
 
-ennoblingHeatSourceField : Config msg -> Html msg
+ennoblingHeatSourceField : Config msg modal -> Html msg
 ennoblingHeatSourceField ({ inputs } as config) =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
@@ -775,7 +958,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
         ]
 
 
-detailedView : Config msg -> ViewWithTransport msg
+detailedView : Config msg modal -> ViewWithTransport msg
 detailedView ({ inputs, impact, current } as config) =
     let
         infoListElement =
@@ -996,23 +1179,18 @@ threadDensityView threadDensity =
             text ""
 
 
-view : Config msg -> ViewWithTransport msg
+view : Config msg modal -> ViewWithTransport msg
 view config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
-    case config.viewMode of
-        ViewMode.Dataviz ->
-            { step = text "", transport = text "" }
+    config.detailedStep
+        |> Maybe.map
+            (\index ->
+                if config.index == index then
+                    detailedView config
 
-        ViewMode.DetailedAll ->
-            detailedView config
-
-        ViewMode.DetailedStep index ->
-            if config.index == index then
-                detailedView config
-
-            else
-                simpleView config
-
-        ViewMode.Simple ->
-            simpleView config
+                else
+                    simpleView config
+            )
+        |> Maybe.withDefault
+            (simpleView config)

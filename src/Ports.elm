@@ -7,7 +7,6 @@ port module Ports exposing
     , saveStore
     , scrollIntoView
     , scrollTo
-    , selectInputText
     , storeChanged
     )
 
@@ -36,9 +35,6 @@ port scrollIntoView : String -> Cmd msg
 
 
 port scrollTo : { x : Float, y : Float } -> Cmd msg
-
-
-port selectInputText : String -> Cmd msg
 
 
 

@@ -1,38 +1,20 @@
 module Views.Impact exposing
     ( impactQuality
     , selector
-    , viewDefinition
     )
 
 import Data.Gitbook as Gitbook
-import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Button as Button
 import Views.Icon as Icon
-import Views.Link as Link
-import Views.Markdown as Markdown
 
 
 qualityDocumentationUrl : String
 qualityDocumentationUrl =
     Gitbook.publicUrlFromPath Gitbook.ImpactQuality
-
-
-viewDefinition : Definition -> Html msg
-viewDefinition { source, label, description, quality } =
-    div [ class "ImpactDefinition d-none d-sm-block mb-3" ]
-        [ h2 [ class "d-flex justify-content-between fs-6 lh-base text-muted fw-bold my-1" ]
-            [ text "Impact étudié\u{00A0}: "
-            , text label
-            , impactQuality quality
-                ++ [ viewSource source ]
-                |> span []
-            ]
-        , div [ class "text-muted fs-7" ]
-            [ Markdown.simple [ class "mb-1" ] description ]
-        ]
 
 
 impactQuality : Definition.Quality -> List (Html msg)
@@ -91,15 +73,6 @@ impactQuality quality =
 
         Nothing ->
             []
-
-
-viewSource : Definition.Source -> Html msg
-viewSource source =
-    Link.smallPillExternal
-        [ href source.url
-        , title <| "Source des données pour cet impact : " ++ source.label
-        ]
-        [ Icon.question ]
 
 
 type alias SelectorConfig msg =

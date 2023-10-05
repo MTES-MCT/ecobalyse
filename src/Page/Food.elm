@@ -8,15 +8,14 @@ module Page.Food exposing
     )
 
 import Autocomplete exposing (Autocomplete)
-import Autocomplete.View as AutocompleteView
 import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
-import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
@@ -37,13 +36,15 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
-import Page.Textile.Simulator.ViewMode as ViewMode
+import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.AutocompleteSelector as AutocompleteSelectorView
+import Views.BaseElement as BaseElement
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
@@ -73,7 +74,7 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
-    | IngredientModal (Autocomplete Ingredient)
+    | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
 
 
 type Msg
@@ -103,7 +104,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateIngredient Id Query.IngredientQuery
+    | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -229,9 +230,9 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
-        DeleteIngredient id ->
+        DeleteIngredient ingredientId ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient id query)
+                |> updateQuery (Query.deleteIngredient ingredientId query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -250,12 +251,12 @@ update ({ queries } as session) msg model =
 
         OnAutocomplete autocompleteMsg ->
             case model.modal of
-                IngredientModal autocompleteState ->
+                AddIngredientModal maybeOldIngredient autocompleteState ->
                     let
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model | modal = IngredientModal newAutocompleteState }
+                    ( { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
                     , session
                     , Cmd.map OnAutocomplete autoCompleteCmd
                     )
@@ -265,10 +266,8 @@ update ({ queries } as session) msg model =
 
         OnAutocompleteSelect ->
             case model.modal of
-                IngredientModal autocompleteState ->
-                    model
-                        |> update session (SetModal NoModal)
-                        |> selectIngredient session autocompleteState
+                AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
+                    updateIngredient query model session maybeOldRecipeIngredient autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -313,15 +312,15 @@ update ({ queries } as session) msg model =
             , session
             , case modal of
                 NoModal ->
-                    Ports.removeBodyClass "prevent-scrolling"
+                    commandsForNoModal model.modal
 
                 ComparatorModal ->
                     Ports.addBodyClass "prevent-scrolling"
 
-                IngredientModal _ ->
+                AddIngredientModal _ _ ->
                     Cmd.batch
                         [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "ingredient-search"
+                        , Dom.focus "element-search"
                             |> Task.attempt (always NoOp)
                         ]
             )
@@ -369,9 +368,9 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
-        UpdateIngredient oldIngredientId newIngredient ->
+        UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
+                |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -394,6 +393,84 @@ updateQuery query ( model, session, msg ) =
     )
 
 
+commandsForNoModal : Modal -> Cmd Msg
+commandsForNoModal modal =
+    case modal of
+        AddIngredientModal maybeOldIngredient _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus
+                    -- This whole "node to focus" management is happening as a fallback
+                    -- if the modal was closed without choosing anything.
+                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                    -- and overload any focus being done here.
+                    (maybeOldIngredient
+                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
+                        |> Maybe.withDefault "add-new-element"
+                    )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        _ ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+
+updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient query model session oldRecipeIngredient newIngredient =
+    -- Update an existing ingredient
+    let
+        ingredientQuery : Query.IngredientQuery
+        ingredientQuery =
+            { id = newIngredient.id
+            , mass = oldRecipeIngredient.mass
+            , country = Nothing
+            , planeTransport = Ingredient.byPlaneByDefault newIngredient
+
+            -- We always update the complements to be the new ones because we're here on an ingredient change
+            , complements = Just newIngredient.complements
+            }
+    in
+    model
+        |> update session (SetModal NoModal)
+        |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
+        |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
+
+
+updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
+updateIngredient query model session maybeOldRecipeIngredient autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
+    Maybe.map2
+        (updateExistingIngredient query model session)
+        maybeOldRecipeIngredient
+        maybeSelectedValue
+        |> Maybe.withDefault
+            -- Add a new ingredient
+            (model
+                |> update session (SetModal NoModal)
+                |> selectIngredient autocompleteState
+                |> focusNode
+                    (maybeSelectedValue
+                        |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
+                        |> Maybe.withDefault "add-new-element"
+                    )
+            )
+
+
+focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+focusNode node ( model, session, commands ) =
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Dom.focus node
+            |> Task.attempt (always NoOp)
+        ]
+    )
+
+
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { foodDb, store } query =
     store.bookmarks
@@ -407,8 +484,8 @@ findExistingBookmarkName { foodDb, store } query =
             )
 
 
-selectIngredient : Session -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectIngredient session autocompleteState ( model, _, _ ) =
+selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectIngredient autocompleteState ( model, session, _ ) =
     let
         ingredient =
             Autocomplete.selectedValue autocompleteState
@@ -462,8 +539,8 @@ type alias UpdateProcessConfig =
 
 updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
-    li [ class "IngredientFormWrapper list-group-item" ]
-        [ span [ class "MassInputWrapper" ]
+    li [ class "ElementFormWrapper list-group-item" ]
+        [ span [ class "QuantityInputWrapper" ]
             [ MassInput.view
                 { mass = processQuery.mass
                 , onChange =
@@ -500,7 +577,7 @@ deleteItemButton event =
 
 
 type alias UpdateIngredientConfig =
-    { excluded : List Id
+    { excluded : List Ingredient.Id
     , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
@@ -510,8 +587,55 @@ type alias UpdateIngredientConfig =
     }
 
 
+createElementSelectorConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
+    let
+        baseElement =
+            { element = recipeIngredient.ingredient
+            , quantity = recipeIngredient.mass
+            , country = recipeIngredient.country
+            }
+    in
+    { baseElement = baseElement
+    , db =
+        { elements = db.ingredients
+        , countries =
+            db.countries
+                |> Scope.only Scope.Food
+                |> List.sortBy .name
+        , definitions = db.impactDefinitions
+        }
+    , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+    , delete = \element -> DeleteIngredient element.id
+    , disableQuantity = False
+    , disableCountry = False
+    , excluded =
+        db.ingredients
+            |> List.filter (\ingredient -> List.member ingredient.id excluded)
+    , impact = impact
+    , quantityView =
+        \{ disabled, quantity, onChange } ->
+            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+    , selectedImpact = selectedImpact
+    , selectElement =
+        \_ autocompleteState ->
+            SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
+    , toId = .id >> Ingredient.idToString
+    , toString = .name
+    , update =
+        \_ newElement ->
+            UpdateIngredient
+                ingredientQuery
+                { ingredientQuery
+                    | id = newElement.element.id
+                    , mass = newElement.quantity
+                    , country = Maybe.map .code newElement.country
+                }
+    }
+
+
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, recipeIngredient, impact, index, selectedImpact, transportImpact } =
+updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -523,154 +647,86 @@ updateIngredientFormView { excluded, db, recipeIngredient, impact, index, select
             }
 
         event =
-            UpdateIngredient recipeIngredient.ingredient.id
+            UpdateIngredient ingredientQuery
+
+        config : BaseElement.Config Ingredient Mass Msg
+        config =
+            createElementSelectorConfig ingredientQuery updateIngredientConfig
     in
-    li [ class "IngredientFormWrapper list-group-item" ]
-        [ span [ class "MassInputWrapper" ]
-            [ MassInput.view
-                { mass = recipeIngredient.mass
-                , onChange =
-                    \maybeMass ->
-                        case maybeMass of
-                            Just mass ->
-                                event { ingredientQuery | mass = mass }
+    li [ class "ElementFormWrapper list-group-item" ]
+        (BaseElement.view config
+            ++ [ if selectedImpact.trigram == Definition.Ecs then
+                    let
+                        { complements, ingredient } =
+                            recipeIngredient
 
-                            _ ->
-                                NoOp
-                , disabled = False
-                }
-            ]
-        , db.ingredients
-            |> List.sortBy .name
-            |> ingredientSelectorView
-                recipeIngredient.ingredient.id
-                excluded
-                (\newIngredient ->
-                    event
-                        { ingredientQuery
-                            | id = newIngredient.id
-                            , country = Nothing
-                            , planeTransport = Ingredient.byPlaneByDefault newIngredient
-                            , complements =
-                                if newIngredient.id /= recipeIngredient.ingredient.id then
-                                    Just newIngredient.complements
-
-                                else if newIngredient.complements /= recipeIngredient.complements then
-                                    Just recipeIngredient.complements
-
-                                else
-                                    Nothing
-                        }
-                )
-        , db.countries
-            |> Scope.only Scope.Food
-            |> List.sortBy .name
-            |> List.map
-                (\{ code, name } ->
-                    option
-                        [ selected (ingredientQuery.country == Just code)
-                        , value <| Country.codeToString code
-                        ]
-                        [ text name ]
-                )
-            |> (::)
-                (option
-                    [ value ""
-                    , selected (ingredientQuery.country == Nothing)
-                    ]
-                    [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
-                )
-            |> select
-                [ class "form-select form-select CountrySelector"
-                , onInput
-                    (\val ->
-                        event
-                            { ingredientQuery
-                                | country =
-                                    if val /= "" then
-                                        Just (Country.codeFromString val)
-
-                                    else
-                                        Nothing
-                            }
-                    )
-                ]
-        , span [ class "text-end ImpactDisplay fs-7" ]
-            [ impact
-                |> Format.formatImpact selectedImpact
-            ]
-        , deleteItemButton (DeleteIngredient ingredientQuery.id)
-        , if selectedImpact.trigram == Definition.Ecs then
-            let
-                { complements, ingredient } =
-                    recipeIngredient
-
-                complementsImpacts =
-                    impact
-                        |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
-            in
-            details [ class "IngredientBonuses fs-7" ]
-                [ summary []
-                    [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
-                        [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
-                        , span [ class "text-success text-end", title "Total des bonus" ]
-                            [ Impact.getTotalComplementsImpacts complementsImpacts
-                                |> Quantity.negate
-                                |> Unit.impactToFloat
-                                |> Format.formatImpactFloat selectedImpact
+                        complementsImpacts =
+                            impact
+                                |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
+                    in
+                    details [ class "IngredientBonuses fs-7" ]
+                        [ summary []
+                            [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
+                                [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
+                                , span [ class "text-success text-end", title "Total des bonus" ]
+                                    [ Impact.getTotalComplementsImpacts complementsImpacts
+                                        |> Quantity.negate
+                                        |> Unit.impactToFloat
+                                        |> Format.formatImpactFloat selectedImpact
+                                    ]
+                                ]
                             ]
+                        , ingredientComplementsView
+                            { name = "Diversité agricole"
+                            , title = Nothing
+                            , domId = "agroDiversity_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.agroDiversity
+                            , complementSplit = complements.agroDiversity
+                            , disabled = False
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
+                            }
+                        , ingredientComplementsView
+                            { name = "Infra. agro-éco."
+                            , title = Just "Infrastructures agro-écologiques"
+                            , domId = "agroEcology_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.agroEcology
+                            , complementSplit = complements.agroEcology
+                            , disabled = False
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | agroEcology = split } }
+                            }
+                        , ingredientComplementsView
+                            { name = "Cond. d'élevage"
+                            , title = Nothing
+                            , domId = "animalWelfare_" ++ String.fromInt index
+                            , complementImpact = complementsImpacts.animalWelfare
+                            , complementSplit = complements.animalWelfare
+                            , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
+                            , selectedImpact = selectedImpact
+                            , updateEvent =
+                                \split ->
+                                    event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
+                            }
                         ]
-                    ]
-                , ingredientComplementsView
-                    { name = "Diversité agricole"
-                    , title = Nothing
-                    , domId = "agroDiversity_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.agroDiversity
-                    , complementSplit = complements.agroDiversity
-                    , disabled = False
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
-                    }
-                , ingredientComplementsView
-                    { name = "Infra. agro-éco."
-                    , title = Just "Infrastructures agro-écologiques"
-                    , domId = "agroEcology_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.agroEcology
-                    , complementSplit = complements.agroEcology
-                    , disabled = False
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | agroEcology = split } }
-                    }
-                , ingredientComplementsView
-                    { name = "Cond. d'élevage"
-                    , title = Nothing
-                    , domId = "animalWelfare_" ++ String.fromInt index
-                    , complementImpact = complementsImpacts.animalWelfare
-                    , complementSplit = complements.animalWelfare
-                    , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
-                    , selectedImpact = selectedImpact
-                    , updateEvent =
-                        \split ->
-                            event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                    }
-                ]
 
-          else
-            text ""
-        , displayTransportDistances db recipeIngredient ingredientQuery event
-        , span
-            [ class "text-black-50 text-end IngredientTransportImpact fs-8"
-            , title "Impact du transport pour cet ingrédient"
-            ]
-            [ text "(+ "
-            , transportImpact
-            , text ")"
-            ]
-        ]
+                 else
+                    text ""
+               , displayTransportDistances db recipeIngredient ingredientQuery event
+               , span
+                    [ class "text-black-50 text-end IngredientTransportImpact fs-8"
+                    , title "Impact du transport pour cet ingrédient"
+                    ]
+                    [ text "(+ "
+                    , transportImpact
+                    , text ")"
+                    ]
+               ]
+        )
 
 
 type alias ComplementsViewConfig msg =
@@ -852,6 +908,14 @@ errorView error =
 
 ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
+    let
+        availableIngredients =
+            db.ingredients
+                |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
+
+        autocompleteState =
+            AutocompleteSelector.init .name availableIngredients
+    in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
@@ -893,18 +957,14 @@ ingredientListView db selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ let
-                    availableIngredients =
-                        db.ingredients
-                            |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
-                 in
-                 li [ class "list-group-item p-0" ]
+            ++ [ li [ class "list-group-item p-0" ]
                     [ button
                         [ class "btn btn-outline-primary"
                         , class "d-flex justify-content-center align-items-center"
                         , class " gap-1 w-100"
+                        , id "add-new-element"
                         , disabled <| List.isEmpty availableIngredients
-                        , onClick (SetModal (IngredientModal (initAutocomplete availableIngredients)))
+                        , onClick (SetModal (AddIngredientModal Nothing autocompleteState))
                         ]
                         [ i [ class "icon icon-plus" ] []
                         , text "Ajouter un ingrédient"
@@ -913,23 +973,6 @@ ingredientListView db selectedImpact recipe results =
                ]
         )
     ]
-
-
-initAutocomplete : List Ingredient -> Autocomplete Ingredient
-initAutocomplete availableIngredients =
-    Autocomplete.init
-        { query = ""
-        , choices = List.sortBy .name availableIngredients
-        , ignoreList = []
-        }
-        (\lastChoices ->
-            Task.succeed
-                { lastChoices
-                    | choices =
-                        availableIngredients
-                            |> Ingredient.autocomplete lastChoices.query
-                }
-        )
 
 
 packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
@@ -1105,7 +1148,7 @@ distributionView selectedImpact recipe results =
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
             Just distribution ->
-                [ li [ class "IngredientFormWrapper list-group-item" ]
+                [ li [ class "ElementFormWrapper list-group-item" ]
                     [ select
                         [ class "form-select form-select"
                         , onInput UpdateDistribution
@@ -1265,43 +1308,11 @@ processSelectorView selectedCode event excluded processes =
         )
 
 
-ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
-ingredientSelectorView selectedIngredient excluded event ingredients =
-    select
-        [ class "form-select form-select IngredientSelector"
-        , onInput
-            (\ingredientId ->
-                ingredients
-                    |> Ingredient.findByID (Ingredient.idFromString ingredientId)
-                    |> Result.map event
-                    |> Result.withDefault NoOp
-            )
-        ]
-        (ingredients
-            |> Ingredient.groupCategories
-            |> List.map
-                (\( category, categoryIngredients ) ->
-                    categoryIngredients
-                        |> List.map
-                            (\ingredient ->
-                                option
-                                    [ selected <| selectedIngredient == ingredient.id
-                                    , disabled <| List.member ingredient.id excluded
-                                    , value <| Ingredient.idToString ingredient.id
-                                    ]
-                                    [ text ingredient.name ]
-                            )
-                        |> optgroup [ category |> IngredientCategory.toLabel |> attribute "label" ]
-                )
-        )
-
-
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
         { session = session
         , scope = Scope.Food
-        , viewMode = ViewMode.Simple
 
         -- Impact selector
         , selectedImpact = model.impact
@@ -1414,75 +1425,21 @@ view session model =
                         , footer = []
                         }
 
-                IngredientModal autocompleteState ->
-                    ModalView.view
-                        { size = ModalView.Large
-                        , close = SetModal NoModal
+                AddIngredientModal _ autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
                         , noOp = NoOp
+                        , onAutocomplete = OnAutocomplete
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                         , title = "Sélectionnez un ingrédient"
-                        , subTitle = Nothing
-                        , formAction = Nothing
-                        , content =
-                            let
-                                { query, choices, selectedIndex } =
-                                    Autocomplete.viewState autocompleteState
-
-                                { inputEvents, choiceEvents } =
-                                    AutocompleteView.events
-                                        { onSelect = OnAutocompleteSelect
-                                        , mapHtml = OnAutocomplete
-                                        }
-
-                                renderChoice : (Int -> List (Attribute Msg)) -> Maybe Int -> Int -> Ingredient -> Html Msg
-                                renderChoice events selectedIndex_ index ingredient =
-                                    let
-                                        selected =
-                                            Autocomplete.isSelected selectedIndex_ index
-                                    in
-                                    button
-                                        (events index
-                                            ++ [ class "IngredientAutocompleteChoice"
-                                               , class "d-flex justify-content-between align-items-center gap-1 w-100"
-                                               , class "btn btn-outline-primary border-0 border-bottom text-start no-outline"
-                                               , classList [ ( "btn-primary selected", selected ) ]
-                                               , attribute "role" "option"
-                                               , attribute "aria-selected"
-                                                    (if selected then
-                                                        "true"
-
-                                                     else
-                                                        "false"
-                                                    )
-                                               ]
-                                        )
-                                        [ span [ class "text-nowrap" ] [ text ingredient.name ]
-                                        , span [ class "text-muted fs-8 text-truncate" ]
-                                            [ ingredient.categories
-                                                |> List.head
-                                                |> Maybe.map (IngredientCategory.toLabel >> text)
-                                                |> Maybe.withDefault (text "")
-                                            ]
-                                        ]
-                            in
-                            [ input
-                                (inputEvents
-                                    ++ [ type_ "search"
-                                       , id "ingredient-search"
-                                       , class "form-control"
-                                       , autocomplete False
-                                       , attribute "role" "combobox"
-                                       , attribute "aria-autocomplete" "list"
-                                       , attribute "aria-owns" "ingredients-autocomplete-choices"
-                                       , placeholder "tapez ici le nom de l'ingrédient pour le rechercher"
-                                       , value query
-                                       ]
-                                )
-                                []
-                            , choices
-                                |> List.indexedMap (renderChoice choiceEvents selectedIndex)
-                                |> div [ class "IngredientAutocomplete", id "ingredients-autocomplete-choices" ]
-                            ]
-                        , footer = []
+                        , toLabel = .name
+                        , toCategory =
+                            .categories
+                                >> List.head
+                                >> Maybe.map IngredientCategory.toLabel
+                                >> Maybe.withDefault ""
                         }
             ]
       ]

@@ -7,7 +7,6 @@ module Data.Textile.Material exposing
     , encodeId
     , findById
     , getRecyclingData
-    , groupAll
     , idToString
     )
 
@@ -73,26 +72,6 @@ findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
-
-
-groupAll :
-    List Material
-    -> ( List Material, List Material, List Material )
-groupAll =
-    List.sortBy .shortName >> groupByOrigins
-
-
-fromOrigin : Origin -> List Material -> List Material
-fromOrigin origin =
-    List.filter (.origin >> (==) origin)
-
-
-groupByOrigins : List Material -> ( List Material, List Material, List Material )
-groupByOrigins materials =
-    ( materials |> fromOrigin Origin.Natural
-    , materials |> fromOrigin Origin.Synthetic
-    , materials |> fromOrigin Origin.Artificial
-    )
 
 
 decode : List Process -> Decoder Material
