@@ -2,8 +2,8 @@ module Data.Textile.Simulator exposing
     ( Simulator
     , compute
     , encode
-    , toStepsImpacts
     , stepMaterialImpacts
+    , toStepsImpacts
     )
 
 import Data.Country exposing (Country)
@@ -19,11 +19,10 @@ import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Process as Process exposing (Process)
-import Data.Textile.Product as Product
+import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
@@ -358,14 +357,12 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Material -> Maybe Spinning -> Step -> { impacts : Impacts, kwh : Energy }
-stepSpinningImpacts material maybeSpinning step =
+stepSpinningImpacts : Material -> Maybe Spinning -> Product -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts material maybeSpinning product step =
     let
         yarnSize =
             step.yarnSize
-                -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#fabrication-du-fil-filature-vs-filage-1
-                -- that defines the default yarnSize for a thread
-                |> Maybe.withDefault (Unit.yarnSizeKilometersPerKg 50)
+                |> Maybe.withDefault product.yarnSize
 
         spinning =
             maybeSpinning
@@ -393,7 +390,7 @@ computeSpinningImpacts ({ inputs } as simulator) =
                             |> List.map
                                 (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts material spinning
+                                        |> stepSpinningImpacts material spinning inputs.product
                                         |> .kwh
                                         |> Quantity.multiplyBy (Split.toFloat share)
                                 )
@@ -403,7 +400,7 @@ computeSpinningImpacts ({ inputs } as simulator) =
                             |> List.map
                                 (\{ material, share, spinning } ->
                                     step
-                                        |> stepSpinningImpacts material spinning
+                                        |> stepSpinningImpacts material spinning inputs.product
                                         |> .impacts
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
