@@ -4,6 +4,7 @@ import bw2data
 from peewee import IntegrityError
 import logging
 import hashlib
+import uuid
 
 logging.basicConfig(level=logging.INFO)
 
@@ -94,29 +95,37 @@ def display_changes(key, oldprocesses, processes):
 
 
 def create_activity(dbname, new_activity_name, base_activity=None):
-    """Creates a new activity by copying a base activity. Returns the created activity"""
+    """Creates a new activity by copying a base activity or from nothing. Returns the created activity"""
     try:
         if base_activity:
             new_activity = base_activity.copy(new_activity_name)
         else:
             new_activity = bw2data.Database(dbname).new_activity(
-                {
-                    "code": new_activity_name,
+                {                    
                     "production amount": 1,
                     "unit": "kilogram",
-                    "type": "process",
-                    "location": "GLO",
+                    "type": "process",                    
                     "comment": "added by Ecobalyse",
                 }
             )
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
+        code =  str(
+            uuid.UUID(
+                hashlib.md5(
+                    new_activity_name.encode("utf-8")
+                ).hexdigest()
+            )
+        )
+        new_activity["code"] = code
+        new_activity["Process identifier"] = code
         new_activity.save()
         logging.info(f"Created activity {new_activity}")
         return new_activity
     except (IntegrityError, bw2data.errors.DuplicateNode):
         logging.warning(f"Activity {new_activity_name} already exists")
         return search(dbname, new_activity_name)
+
 
 
 def delete_exchange(activity, activity_to_delete, amount=False):
@@ -168,3 +177,4 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+

@@ -13,7 +13,10 @@ from common.export import (
 from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
+import hashlib
 import json
+import uuid
+
 
 # Input
 PROJECT = "food"
@@ -126,7 +129,7 @@ if __name__ == "__main__":
         process = with_subimpacts(process)
 
         # remove unneeded attributes
-        for attribute in "search":
+        for attribute in ["search"]:
             if attribute in process:
                 del process[attribute]
 
@@ -150,3 +153,4 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
+
