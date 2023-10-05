@@ -1,6 +1,7 @@
 """
 This file is `explore` Jupyter Notebook
 """
+print("Please wait")
 from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from bw2data.utils import get_activity

@@ -1,6 +1,7 @@
 """
 This file is the ingredient/activity editor Jupyter Notebook
 """
+print("Please wait")
 from IPython.core.display import display, Markdown
 from bw2data.project import projects
 from flatdict import FlatDict
