@@ -2,6 +2,7 @@ SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):/home/jovyan
 DOCKEREXEC := docker exec -u jovyan -it
+JUPYTER_PORT ?= 8888
 
 json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food export_textile
 
@@ -68,7 +69,7 @@ jupyter_password:
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) jupyter notebook password; fi
 
 start_notebook:
-	$(DOCKERRUN) -d --name $(NAME) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
+	$(DOCKERRUN) -d --name $(NAME) -p ${JUPYTER_PORT}:${JUPYTER_PORT} -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
 	docker cp ~/.gitconfig $(NAME):/home/jovyan/
 	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 

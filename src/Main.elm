@@ -15,7 +15,6 @@ import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Simulator as TextileSimulator
-import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Version
@@ -172,11 +171,11 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage StatsPage StatsMsg
 
                 Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default ViewMode.Simple Nothing session
+                    TextileSimulator.init Impact.default Nothing session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
-                Just (Route.TextileSimulator trigram detailed maybeQuery) ->
-                    TextileSimulator.init trigram detailed maybeQuery session
+                Just (Route.TextileSimulator trigram maybeQuery) ->
+                    TextileSimulator.init trigram maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->
