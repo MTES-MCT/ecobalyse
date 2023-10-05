@@ -697,15 +697,15 @@ display(
                             w_name,
                         ),
                     ),
-                    ipywidgets.HTML(
-                        "The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
-                        "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
-                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label("Search terms"),
                             w_search,
                         ),
+                    ),
+                    ipywidgets.HTML(
+                        "The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
+                        "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
                     ),
                     ipywidgets.HBox(
                         (
