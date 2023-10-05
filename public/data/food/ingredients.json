@@ -196,7 +196,7 @@
       "grain_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003116999",
+    "default": "850ecaa9-7cfe-da68-5ae5-ecf99d08fed3",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -363,7 +363,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003107081",
+    "default": "bb367e5e-a74c-e122-7894-c433c170effb",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -382,7 +382,7 @@
     "categories": [
       "animal_product"
     ],
-    "default": "AGRIBALU000000003107081",
+    "default": "eb13ead9-1d44-7f2e-ee75-5bd7c1859188",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -421,7 +421,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003103910",
+    "default": "75353ad0-11f0-71cd-922a-010797410279",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -460,7 +460,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003109221",
+    "default": "e98cbb6c-cabd-b2aa-4d3b-1f2b01e4e839",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -553,7 +553,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003112448",
+    "default": "1d9dfc18-115e-ccdf-c3ff-71124995d352",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -590,7 +590,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "AGRIBALU000000003115182",
+    "default": "0648b056-ad7a-c6b9-6270-7a0e43a183a9",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -776,7 +776,7 @@
       "dairy_product",
       "organic"
     ],
-    "default": "AGRIBALU000000003102321",
+    "default": "c248c906-95ad-4ab2-7091-a5d1682f9907",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
