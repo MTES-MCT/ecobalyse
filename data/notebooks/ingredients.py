@@ -123,7 +123,7 @@ FIELDS = {
     "ratio": "Ratio",
     # complements
     "complements.agro-diversity": "Agro Diversity",
-    "complements.agro-ecology": "Agro Ecologyy",
+    "complements.agro-ecology": "Agro Ecology",
     "complements.animal-welfare": "Animal welfare",
 }
 
