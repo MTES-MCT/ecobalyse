@@ -323,7 +323,7 @@ w_bvi = ipywidgets.BoundedFloatText(
     style=style,
 )
 w_explain = ipywidgets.Textarea(
-    placeholder="Détails sur les valeurs de l'ingredient",
+    placeholder="Comments about ingredients parameters",
     layout=ipywidgets.Layout(width="450px", height="200px"),
 )
 
