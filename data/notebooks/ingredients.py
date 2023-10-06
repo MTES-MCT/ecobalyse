@@ -3,12 +3,17 @@ This file is the ingredient/activity editor Jupyter Notebook
 """
 print("Please wait")
 from IPython.core.display import display, Markdown
+import sys
+import os
+
+sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
+
+sys.stdout = sys.__stdout__
 from flatdict import FlatDict
 import bw2data
 import ipywidgets
 import json
-import os
 import pandas
 import pandas.io.formats.style
 import shutil

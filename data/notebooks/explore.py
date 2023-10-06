@@ -3,7 +3,13 @@ This file is `explore` Jupyter Notebook
 """
 print("Please wait")
 from IPython.core.display import display, Markdown
+import sys
+import os
+
+sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
+
+sys.stdout = sys.__stdout__
 from bw2data.utils import get_activity
 import bw2analyzer
 import bw2calc
