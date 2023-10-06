@@ -16,4 +16,4 @@ Ils sont introduits dans la [section relative à la CFF de la page "Matière et 
 
 ## Fin de vie
 
-Le troisième terme de la ligne "Material", construit autour du taux de recyclage R2, ainsi que les termes relevant de l'incinération et de la mise en décharge ("Energy" et "Disposal") sont introduits [dans une section relative à la CFF de la page "Fin de vie"](broken-reference).
+Le troisième terme de la ligne "Material", construit autour du taux de recyclage R2, ainsi que les termes relevant de l'incinération et de la mise en décharge ("Energy" et "Disposal") sont introduits [dans une section relative à la CFF de la page "Fin de vie"](../etapes-du-cycle-de-vie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff-old/circular-footprint-formula-cff-matiere-1.md).

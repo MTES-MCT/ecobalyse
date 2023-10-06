@@ -6,7 +6,7 @@ L'échelle permet de comparer des simulations dont les paramètres suivants sont
 
 * Type de produit / vêtement
 * Masse de produit fini
-* Matière première (en associant une matière première recyclée lorsque celle-ci est définie dans la page [Matière et filature](broken-reference))
+* Matière première (en associant une matière première recyclée lorsque celle-ci est définie dans la page [Matière et filature](etapes-du-cycle-de-vie/filature/))
 
 Dès lors, c'est bien le paramétrage des autres aspects (Tricotage / Tissage, Teinture, Confection, Transport aérien...) qui est à l'origine de la distribution illustrée par l'échelle comparative.
 
