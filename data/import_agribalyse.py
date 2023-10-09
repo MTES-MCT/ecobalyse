@@ -342,7 +342,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
     # Example: for flour-organic we have to dig through the `global milling process` subactivity before we can replace the wheat activity with the wheat-organic activity
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
-            sub_activity = search(dbname, act_sub_data)
+            sub_activity = search(dbname, act_sub_data,"declassified")
 
             # create a new sub activity variant
             sub_activity_variant = create_activity(
@@ -409,3 +409,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

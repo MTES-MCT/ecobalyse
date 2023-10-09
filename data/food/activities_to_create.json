@@ -54,7 +54,7 @@
   {
     "id": "wheat-organic",
     "search": "Wheat, organic, national average, at farm gate/FR U",
-    "suffix": "",
+    "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
       "Winter wheat, organic, system 1, at farm gate/FR U": 0.094707216,
@@ -80,7 +80,7 @@
   {
     "id": "grape-organic",
     "search": "Grape, organic, for wine production, national average, at vineyard gate/FR U",
-    "suffix": "",
+    "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
       "Grape, organic, AOC, Maconnais, at vineyard/FR U": 0.161403948,
@@ -95,7 +95,7 @@
   {
     "id": "soybean-organic",
     "search": "Soybean grain, organic, national average, at farm gate/FR U",
-    "suffix": "",
+    "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
       "Soybean grain, organic, system 1, at farm gate/FR U": 0.25,
@@ -146,17 +146,16 @@
     "search": "Rapeseed oil mill {GLO}",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
-    "replace": { "Rapeseed grain, consumption mix {FR} U": "Winter rapeseed organic at farm gate" }
+    "replace": { "Rapeseed at farm GLO adapted from WFLDB": "Winter rapeseed organic at farm gate" }
   },
   {
     "id": "cooked-ham-organic",
     "search": "Cooked ham case ready at plant",
     "suffix": "[organic], constructed by Ecobalyse",
-    "subactivities": [
+    "subactivities": [      
       "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U",
       "Pork ham, raw, at plant {FR} U",
-      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",
-      "Slaughtering of pigs, Pigs, Carcasses, industrial production, French production mix, at plant, 1 kg of carcasses (POUi) {FR} U",
+      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",      
       "Live pork storage, at plant {FR} U"
     ],
     "replace": {

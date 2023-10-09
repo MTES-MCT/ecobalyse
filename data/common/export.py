@@ -25,8 +25,10 @@ def with_subimpacts(process):
 
 
 @functools.cache
-def search(dbname, name):
+def search(dbname, name, excluded_term = None):
     results = bw2data.Database(dbname).search(name)
+    if excluded_term:    
+        results = [res for res in results if excluded_term not in res["name"]]
     assert len(results) >= 1, f"'{name}' was not found in Brightway"
     return results[0]
 
@@ -177,4 +179,5 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+
 
