@@ -82,7 +82,7 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/confection#electricite-consommee-mj-kwh"
 
         TextileMaterialAndSpinning ->
-            "textile/etapes-du-cycle-de-vie/filature/"
+            "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"
 
         TextileTransport ->
             "textile/parametres-transverses/transport"
