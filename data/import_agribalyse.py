@@ -304,12 +304,7 @@ def add_average_activity(activity_data, dbname=DBNAME):
 
 
 def replace_activities(activity_variant, activity_data, dbname=DBNAME):
-    """_summary_
-
-    Args:
-        activity_variant (_type_): _description_
-        activity_data (_type_): _description_
-        dbname (_type_, optional): _description_. Defaults to DBNAME.
+    """Replace all activities in activity_data["replace"] with variants of these activities
     """
     for k, v in activity_data["replace"].items():
         activity_old = search(dbname, k)
