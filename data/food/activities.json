@@ -2759,5 +2759,47 @@
       "agro-diversity": 10,
       "agro-ecology": 10
     }
+  },
+  {
+    "id": "pineapple",
+    "name": "Ananas",
+    "search": "pineapple glo",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.5,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB.",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "banana",
+    "name": "Banane (sortie de ferme)",
+    "search": "banana at farm glo",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.3,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%.",
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
   }
 ]
