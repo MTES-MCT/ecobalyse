@@ -7,7 +7,7 @@ if [ $ECOBALYSE_ID -ne $JOVYAN_ID ]; then
     usermod -u $ECOBALYSE_ID jovyan
 fi
 
-pushd /home/jovyan/ecobalyse/data
+pushd /home/jovyan/${ECOBALYSE:=ecobalyse}/data
 pip install -e .
 popd
 

@@ -1,14 +1,21 @@
 """
 This file is the ingredient/activity editor Jupyter Notebook
 """
-from IPython.core.display import display, Markdown, clear_output
+print("Please wait")
+from IPython.core.display import display, Markdown
+import sys
+import os
+
+sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
+
+sys.stdout = sys.__stdout__
 from flatdict import FlatDict
 import bw2data
 import ipywidgets
 import json
-import os
 import pandas
+import pandas.io.formats.style
 import shutil
 import subprocess
 
@@ -26,6 +33,7 @@ DATABASE = bw2data.Database("Agribalyse 3.1.1")
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
+file_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -38,6 +46,7 @@ def dbsearch(term, **kw):
 
 
 def cleanup_json(activities):
+    """consistency of the json file"""
     for i, a in enumerate(activities):
         # remove uneeded complex ingredient attributes on simple ingredients
         if not a.get("subingredient_default") or not a.get("subingredient_organic"):
@@ -76,9 +85,7 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
-    with list_output:
-        clear_output()
-        list_activities()
+    display_all()
 
 
 def to_flat(d):
@@ -97,27 +104,27 @@ def reverse(d):
 FIELDS = {
     # process attributes
     "id": "id",
-    "name": "Nom",
-    "search": "Terme de recherche",
+    "name": "Display Name",
+    "search": "Search terms",
     "default_origin": "Default Origin",
-    "category": "Categorie de procédé",
-    "bvi": "Bio-diversité",
+    "category": "Process category",
+    "bvi": "Bio-diversity",
     # ingredients attributes
-    "categories": "Categories d'ingrédient",
-    "raw_to_cooked_ratio": "Ratio cuit/cru",
-    "density": "Densité",
-    "inedible_part": "Part non comestible",
+    "categories": "Ingredient Categories",
+    "raw_to_cooked_ratio": "Cooked/Raw ratio",
+    "density": "Density",
+    "inedible_part": "Inedible part",
     "transport_cooling": "Transport Cooling",
     "visible": "Visible",
-    "explain": "Détails",
+    "explain": "Details",
     # complex ingredients attributes
-    "subingredient_default": "Sous-ingrédient conv.",
-    "subingredient_organic": "Sous-ingrédient bio",
+    "subingredient_default": "Conv sub-ingredient",
+    "subingredient_organic": "Organic sub-ingredient",
     "ratio": "Ratio",
     # complements
-    "complements.agro-diversity": "AgroDiv",
-    "complements.agro-ecology": "AgroEco",
-    "complements.animal-welfare": "Animal welf",
+    "complements.agro-diversity": "Agro Diversity",
+    "complements.agro-ecology": "Agro Ecology",
+    "complements.animal-welfare": "Animal welfare",
 }
 
 
@@ -170,7 +177,7 @@ w_results = ipywidgets.RadioButtons(
     rows=1,
     options=[""],
     style=style,
-    layout=ipywidgets.Layout(width="auto"),
+    layout=ipywidgets.Layout(width="auto", overflow="scroll"),
     disabled=True,
 )
 ## default origin
@@ -272,7 +279,7 @@ w_density = ipywidgets.Dropdown(
 w_inedible = ipywidgets.Dropdown(
     options=[
         ("", 1),
-        ("◼◼◼◼◼ FRUITS ◼◼◼◼◼", ""),
+        ("◼ FRUITS ◼", ""),
         (" 3% (tomate, mures, myrtilles, framboises, fraises)", 0.03),
         ("10% (pommes, poire, raisin)", 0.1),
         (
@@ -282,7 +289,7 @@ w_inedible = ipywidgets.Dropdown(
         ("30% (banane, pamplemousse, citron)", 0.3),
         ("40% (melon)", 0.4),
         ("50% (amandes, ananas, noix)", 0.5),
-        ("◼◼◼◼◼ LEGUMES ◼◼◼◼◼", ""),
+        ("◼ LEGUMES ◼", ""),
         (" 0% (pois verts)", 0),
         (" 3% (céleri, céleri vert, poivron, radis, épinard)", 0.03),
         (
@@ -301,7 +308,7 @@ w_inedible = ipywidgets.Dropdown(
         ("40% (asperge, scarole, laitue, salade)", 0.4),
         ("50% (chataîgne, olive)", 0.5),
         ("60% (artichaut)", 0.6),
-        ("◼◼◼◼◼ AUTRES ◼◼◼◼◼", ""),
+        ("◼ AUTRES ◼", ""),
         (" 0% (viande désossée)", 0),
         ("20% (oeuf, viande avec os)", 0.2),
     ]
@@ -316,7 +323,7 @@ w_bvi = ipywidgets.BoundedFloatText(
     style=style,
 )
 w_explain = ipywidgets.Textarea(
-    placeholder="Détails sur les valeurs de l'ingredient",
+    placeholder="Comments about ingredients parameters",
     layout=ipywidgets.Layout(width="450px", height="200px"),
 )
 
@@ -363,13 +370,13 @@ w_complement_animal_welfare = ipywidgets.IntSlider(
 savebutton = ipywidgets.Button(
     description="Save",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Add or update the activity",
+    tooltip="Add or update the process",
     icon="check",
 )
 delbutton = ipywidgets.Button(
     description="Delete",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the activity with the 'id' field above",
+    tooltip="Delete the process with the 'id' field above",
     icon="trash",
 )
 getbutton = ipywidgets.Button(
@@ -381,7 +388,7 @@ getbutton = ipywidgets.Button(
 resetbutton = ipywidgets.Button(
     description="Reset from branch",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Reset the activities to the branch state",
+    tooltip="Reset the process to the branch state",
     icon="sparkles",
 )
 clear_reset_button = ipywidgets.Button(
@@ -390,30 +397,45 @@ clear_reset_button = ipywidgets.Button(
     tooltip="Clear the output",
     layout=ipywidgets.Layout(width="50px"),
 )
+clear_git_button = ipywidgets.Button(
+    description="X",
+    button_style="",  # 'success', 'info', 'warning', 'danger' or ''
+    tooltip="Clear the output",
+    layout=ipywidgets.Layout(width="50px"),
+)
 commitbutton = ipywidgets.Button(
     description="Publish",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Commit the activities into the branch",
+    tooltip="Commit the process into the branch",
     icon="code-commit",
 )
 
 
+@list_output.capture()
 def list_activities():
     activities = read_activities()
+    df = pandas.io.formats.style.Styler(
+        pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
+    )
+    df.set_properties(**{"background-color": "#EEE"})
+    display(
+        ipywidgets.HTML(
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}"
+        ),
+    )
+
+
+@file_output.capture()
+def display_output_file():
     with open(ACTIVITIES_TEMP) as fp:
-        df = pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
-        df.style
-        display(
-            Markdown(f"# List of {len(activities)} activities/ingredients:"),
-            df,
-            Markdown(f"# Resulting JSON file:"),
-        )
         display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
-with list_output:
-    clear_output()
+def display_all():
+    list_output.clear_output()
+    file_output.clear_output()
     list_activities()
+    display_output_file()
 
 
 def clear_form():
@@ -515,7 +537,7 @@ w_id.observe(change_id, names="value")
 
 def change_search_of(field):
     def change_search(change):
-        results = list(dbsearch(change.new, limit=20))
+        results = list(dbsearch(change.new, limit=10))
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
@@ -597,9 +619,12 @@ def reset_activities(_):
 
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     w_id.options = tuple(read_activities().keys())
-    with list_output:
-        clear_output()
-        list_activities()
+    clear_form()
+    display_all()
+
+
+def clear_git_output(_):
+    git_output.clear_output()
 
 
 def clear_reset_output(_):
@@ -639,219 +664,247 @@ delbutton.on_click(delete_activity)
 resetbutton.on_click(reset_activities)
 clear_reset_button.on_click(clear_reset_output)
 commitbutton.on_click(commit_activities)
+clear_git_button.on_click(clear_git_output)
 
 
 display(
-    Markdown("# 1) Avant de commencer"),
-    Markdown("Rechargez la liste d'ingrédients depuis la branche `ingredients`:"),
+    Markdown("# Before you start"),
+    Markdown("1) Click on ▶▶ in the toolbar above ↑\n"),
+    Markdown(
+        "2) Then on the Reset button below to reload the ingredients "
+        "from the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch "
+        "(you will loose your <b>un</b>published modifications):"
+    ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
-    Markdown("# Procédé à ajouter/modifier/supprimer :"),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["id"],
-            ),
-            w_id,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["name"],
-            ),
-            w_name,
-        ),
-    ),
-    ipywidgets.HTML(
-        value="Le terme de recherche doit être minimal et permettre d'arriver au bon procédé. Le procédé sélectionné est le premier de la liste. Si vous ne pouvez pas différencier deux procédés vous pouvez indiquer son code avec : <i>code:1234567890....</i>"
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                "Search (" + DATABASE.name + ")",
-            ),
-            w_search,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                "Résultat de recherche",
-            ),
-            w_results,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["category"],
-            ),
-            w_category,
-        ),
-    ),
-    ipywidgets.HBox(
-        (
-            ipywidgets.Label(
-                FIELDS["bvi"],
-            ),
-            w_bvi,
-        ),
-    ),
-    ipywidgets.Accordion(
-        titles=["Si le procédé est un ingrédient"],
-        children=[
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["visible"],
-                            ),
-                            w_visible,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["categories"],
-                            ),
-                            w_categories,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["default_origin"],
-                            ),
-                            w_default_origin,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["raw_to_cooked_ratio"],
-                            ),
-                            w_raw_to_cooked_ratio,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["density"],
-                            ),
-                            w_density,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["inedible_part"],
-                            ),
-                            w_inedible,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["transport_cooling"],
-                            ),
-                            w_cooling,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["explain"],
-                            ),
-                            w_explain,
-                        ),
-                    ),
-                ),
-            ),
-        ],
-    ),
-    ipywidgets.Accordion(
-        titles=["Si l'ingrédient est bio mais n'a pas de procédé bio"],
+    ipywidgets.Tab(
+        titles=["Formulaire", "Processes", "Output file", "Publish"],
+        layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        value="Sélectionnez les sous-ingrédients conventionnel et bio permettant de créer le nouvel ingrédient bio. Ces sous-ingrédients doivent prélablement avoir été ajoutés à la liste"
+                        "Technical identifier of the ingredient to add, delete or modify : "
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["subingredient_default"],
+                                FIELDS["id"],
                             ),
-                            w_subingredient_default,
+                            w_id,
+                        ),
+                    ),
+                    ipywidgets.HBox((savebutton, delbutton)),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["name"],
+                            ),
+                            w_name,
                         ),
                     ),
                     ipywidgets.HBox(
                         (
-                            ipywidgets.Label(
-                                FIELDS["subingredient_organic"],
-                            ),
-                            w_subingredient_organic,
+                            ipywidgets.Label("Search terms"),
+                            w_search,
                         ),
                     ),
                     ipywidgets.HTML(
-                        value="Le ratio est la quantité de sous-ingrédient simple nécessaire pour produire 1 unité d'ingrédient bio. Vous avez besoin de 1.16 kg de blé (sous-ingrédient) pour produire 1 kg de farine (ingrédient final) -> ratio = 1.16. Formule: Impact farine bio = impact farine conventionnelle + ratio * ( impact blé bio -  impact blé c  onventionnel)"
+                        "The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
+                        "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                FIELDS["ratio"],
+                                "Results",
                             ),
-                            w_ratio,
+                            w_results,
                         ),
                     ),
-                ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["category"],
+                            ),
+                            w_category,
+                        ),
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label(
+                                FIELDS["bvi"],
+                            ),
+                            w_bvi,
+                        ),
+                    ),
+                    ipywidgets.Accordion(
+                        titles=["If the process is an ingredient"],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["visible"],
+                                            ),
+                                            w_visible,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["categories"],
+                                            ),
+                                            w_categories,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["default_origin"],
+                                            ),
+                                            w_default_origin,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["raw_to_cooked_ratio"],
+                                            ),
+                                            w_raw_to_cooked_ratio,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["density"],
+                                            ),
+                                            w_density,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["inedible_part"],
+                                            ),
+                                            w_inedible,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["transport_cooling"],
+                                            ),
+                                            w_cooling,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["explain"],
+                                            ),
+                                            w_explain,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                    ipywidgets.Accordion(
+                        titles=[
+                            "If this is an organic ingredient but you cannot find an organic process"
+                        ],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HTML(
+                                        "Select the conventional and organic sub-ingredients allowing to create the new organic ingredient. These subingredients should have previously been added to the list"
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["subingredient_default"],
+                                            ),
+                                            w_subingredient_default,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["subingredient_organic"],
+                                            ),
+                                            w_subingredient_organic,
+                                        ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["ratio"],
+                                            ),
+                                            w_ratio,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                    ipywidgets.Accordion(
+                        titles=["Non-LCA complements (only for ingredient)"],
+                        children=[
+                            ipywidgets.VBox(
+                                (
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.agro-diversity"],
+                                            ),
+                                            w_complement_agrodiv,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.agro-ecology"],
+                                            ),
+                                            w_complement_agroeco,
+                                        ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "Animal welfare is only exported if the ingredient is in the <i>animal_product</i> ou <i>dairy_product</i> category."
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["complements.animal-welfare"],
+                                            ),
+                                            w_complement_animal_welfare,
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                )
             ),
-        ],
-    ),
-    ipywidgets.Accordion(
-        titles=["Compléments hors ACV (ingrédient uniquement)"],
-        children=[
+            list_output,
             ipywidgets.VBox(
-                (
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.agro-diversity"],
-                            ),
-                            w_complement_agrodiv,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.agro-ecology"],
-                            ),
-                            w_complement_agroeco,
-                        ),
-                    ),
+                (ipywidgets.HTML(f"<h2>Resulting JSON file:</h2>"), file_output)
+            ),
+            ipywidgets.VBox(
+                [
                     ipywidgets.HTML(
-                        value="Le bien-être animal n'est exporté que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>"
+                        "When your done with editing the ingredients, you should <b>publish</b> your modifications "
+                        "to the <a href='https://github.com/MTES-MCT/ecobalyse/tree/ingredients'>ingredients</a> branch.<br/>"
+                        "Then the Ecobalyse team needs to check and recompute the impacts, "
+                        "and merge the modifications to the main branch for your proposals to be visible online."
                     ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["complements.animal-welfare"],
-                            ),
-                            w_complement_animal_welfare,
-                        ),
-                    ),
-                ),
+                    ipywidgets.HBox((commitbutton, clear_git_button)),
+                    git_output,
+                ]
             ),
         ],
     ),
-    ipywidgets.HBox((savebutton, delbutton)),
-    commitbutton,
-    Markdown("# Reset or Publish activities :"),
-    Markdown(
-        "Reset the activities to the branch state, or Publish to the `ingredients` branch"
-    ),
-    git_output,
-    list_output,
 )
