@@ -429,7 +429,7 @@ def list_activities():
 @file_output.capture()
 def display_output_file():
     with open(ACTIVITIES_TEMP) as fp:
-        display(json.dumps(json.load(fp), indent=2, ensure_ascii=False))
+        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
 
 
 def display_all():
