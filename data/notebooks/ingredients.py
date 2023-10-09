@@ -85,6 +85,7 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
+    clear_form()
     display_all()
 
 
@@ -428,7 +429,7 @@ def list_activities():
 @file_output.capture()
 def display_output_file():
     with open(ACTIVITIES_TEMP) as fp:
-        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
+        display(json.dumps(json.load(fp), indent=2, ensure_ascii=False))
 
 
 def display_all():
@@ -580,7 +581,6 @@ def delete_activity(_):
     if w_id.value in activities:
         del activities[w_id.value]
         save_activities(activities)
-        clear_form()
 
 
 def reset_branch():
