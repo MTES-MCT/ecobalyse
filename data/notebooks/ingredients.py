@@ -619,6 +619,7 @@ def reset_activities(_):
 
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
     w_id.options = tuple(read_activities().keys())
+    clear_form()
     display_all()
 
 
