@@ -82,42 +82,38 @@ Des compléments ont été apportés suite aux différents travaux menés dans l
 
 ### Scénarios transverses
 
+#### Pays <=> Taux de pollution aquatique (%)
+
+Un taux de "polution aquatique" est utilisé afin d'estimer quelle part des substances relarguées dans les eaux usées lors d'un procédé d'ennoblissement ne sont pas éliminées et se retrouvent donc dans les écosystèmes aquatiques (Paramètre 4 des inventaires).&#x20;
+
+Deux paramètres, exprimés en %,  permettent de définir le taux de pollution aquatique :&#x20;
+
+1\) le taux de raccordement (R) du site industriel à un centre de traitement des eaux usées,\
+2\) l'efficacité (E) du centre de traitement des eaux usées. &#x20;
+
+Le taux de taux pollution aquatique (P) d'un site industriel se calcul ainsi :&#x20;
+
+$$P = 1-(R*E)$$
+
+Ecobalyse a catégorisé les pays selon 3 groupes afin de préciser le calcul &#x20;
+
+<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Rang 1 (Europe + Amérique du Nord + Inde + Japon)</td><td>100%</td><td>90%</td><td>10%</td></tr><tr><td>Rang 2 (Maghreb + Asie Occidentale + Asie Sud Est)</td><td>95%</td><td>90%</td><td>15%</td></tr><tr><td>Autres pays</td><td>50%</td><td>80%</td><td>60%</td></tr></tbody></table>
+
 <details>
 
-<summary>Pays &#x3C;=> Taux de pollution aquatique (%)</summary>
-
-Un taux de "polution aquatique" est défini pour pour les sites industriels réalisant les étapes d'ennoblissement. Ce paramètre estime quelle part des substances relarguées dans les eaux usées ne sont pas éliminées en aval. Cette valeur participe à la définition des inventaires de flux de chaque procédé et est équivalente au Paramètre 4 (cf. section _Calcul de nouveaux inventaires_).&#x20;
-
-Deux paramètres sont utilisées pour définir le taux de pollution aquatique :&#x20;
-
-1\) le taux de raccordement du site industriel à un centre de traitement des eaux usées,\
-2\) l'efficacité du centre de traitement des eaux usées. &#x20;
-
-Ces deux paramètres sont estimés selon le pays où ont lieu les étapes d'ennoblissement ainsi que la présence d'un label/certification.&#x20;
+<summary>Aller plus loin</summary>
 
 **Paramètre 1 = Taux de raccordement des sites industriels**
 
-Sur la base des travaux menés au sein de l'ONU dans le cadre de la cible 6.3 (Progrès relatifs au traitement des eaux usées), des taux moyens de raccordement des eaux usées sont retenus par région ([source](https://sdg6data.org/fr/indicator/6.3.1)). En l'absence de suffisamment de données sur le raccordement des eaux usées d'origine industrielle, les données d'origine ménagère sont utilisées par Ecobalyse pour fixer les valeurs par défaut utilisées dans l'outil.&#x20;
+Des travaux menés au sein de l'ONU dans le cadre de la cible 6.3 (Progrès relatifs au traitement des eaux usées) servent de base aux taux de raccordement moyens utilisés ([source](https://sdg6data.org/fr/indicator/6.3.1)). Des données précises existent pour le raccordement des eaux usées d'origine ménagère, tandis que peu existent pour celles d'origine industrielles.&#x20;
 
 _Taux de raccordement des eaux usées d'origine ménagères par région_
 
 &#x20;![](<../../../.gitbook/assets/Évolution de l’indicateur 6.3.1 Pourcentage des eaux usées traitées (sans danger) \_ Ménagères.png>)
 
-&#x20;Trois scénarios par défaut sont retenus :&#x20;
-
-* 100% = pays UE + Amérique du Nord
-* 75% = Asie (Est + Sud-Est + Occidentale) + Maghreb
-* 50% = autres pays&#x20;
-
 **Paramètre 2 = Efficacité du traitement des eaux usées**&#x20;
 
-Sur la base des référentiels existants (ex : Base Impacts, Ecoinvent, PEFCR A\&F) ainsi que du dernier rapport BAT[^2] (version 2023) publié par le JRC[^3], un taux de traitement moyen des eaux usées de 90% est retenu.&#x20;
-
-Si le site industriel possède une <mark style="color:red;">certification ...</mark>, ce taux passe à 95%.
-
-**Illustration**&#x20;
-
-![](../../../.gitbook/assets/image.png)
+Les principaux référentiels existants (ex : Base Impacts, Ecoinvent, PEFCR A\&F) ainsi que le dernier rapport BAT[^2] (version 2023) publié par le JRC[^3] proposent un taux de traitement moyen des eaux usées de 90%.&#x20;
 
 
 
@@ -133,25 +129,19 @@ Des paramètres additionnels permettent de préciser ce taux de pollution aquati
 
 <summary>Blanchiment </summary>
 
-**Hypothèses** : Blanchiment effectué au chlorite de sodium en discontinu sous forme de bains chauffés. Une concentration de 0,67% est définie (= 0,32kg de solution chimique pour 0,048m3 de solution aqueuse). Une corrélation linéaire est utilisée pour estimer la quantité de substances selon la quantité de bain (m3).  &#x20;
+**Hypothèses** : Blanchiment effectué au chlorite de sodium en discontinu sous forme de bains chauffés. Une concentration de 0,7% est définie (= 0,34kg de solution chimique pour 0,048m3 de solution aqueuse). Une corrélation linéaire est utilisée pour estimer la quantité de substances selon la quantité de bain (m3).  &#x20;
 
-**Paramètres** :&#x20;
+**Paramètres mobilisés** :&#x20;
 
 * **Quantité de bain (m3)**\
-  Est directement fonction du nombre de bains et du [rapport de bain](#user-content-fn-4)[^4] de la machine.![](<../../../.gitbook/assets/image (1).png>) \
-  Lors de la modélisation d'un vêtement, l'un des 3 scénarios est appliqué selon les règles décrites ci-dessous : \
-  _BAT_ = site industriel labellisé <mark style="color:red;">xxx</mark>\
-  _Average_ = Site industriel localisé en : Europe, Amérique du Nord, Maghreb, Asie (Est, Sud-Est, Occidencale) \
-  _Worst_ = Autre&#x20;
+  La quantité de bain, exprimée en m3, correspond au volume de bain (eau + substances chimiques) nécessaire pour réaliser l'opération sur 1 kg de textile. Cette valeur correspond au produit du nombre de bains nécessaires et du [rapport de bain](#user-content-fn-4)[^4] de la machine. \
+  3 scénarios sont possibles sur Ecobalyse.\
+  ![](../../../.gitbook/assets/image.png)
 
 <!---->
 
 * **Taux de pollution aquatique (%)** \
-  Cf. la section "Scénarios Transverses"&#x20;
-
-**Illustration des scénarios possibles pour le blanchiment d'un vêtement**
-
-![](<../../../.gitbook/assets/image (2).png>)
+  Cf. section "Scénarios Transverses"&#x20;
 
 </details>
 
@@ -160,13 +150,15 @@ Des paramètres additionnels permettent de préciser ce taux de pollution aquati
 Pour chaque inventaire, une cartographie des flux par défaut a été construite selon le schéma suivant.&#x20;
 
 {% tabs %}
-{% tab title="Scéma" %}
+{% tab title="Cartographie" %}
 ![](https://lh5.googleusercontent.com/iA3fScBwhe88BOKXJxoEMnvoHMkkM9dwaB\_EuCuSOp4vG54kbDbtHoRMD8b444kXV5mhurN1HkdKUOyqKqvhCG21PZkAz0R5ay8PKvnk\_Yl1sSIYe0kXv-vOOqhtyMF-9tGla1eVyH3J\_jGvnF0mqegX\_g=s2048)
 {% endtab %}
 
 {% tab title="Détails" %}
 **Paramètre 1**\
-Définition de l'inventaire des émissions avec une approche "time-integrated" (the model is time-integrated, which means that all emissions as well as transformation into degradation products inthe environment is assumed to occur instantly -at time zero-).&#x20;
+Inventaire des substances/émissions du procédé.\
+Approche "time-integrated" = inventaire différent de la composition utilisée en début du procédé car une partie des substances sont détruites et/ou transformées\
+Définition de l'approche "time-integrated" donnée par S. Roos : _the model is time-integrated, which means that all emissions as well as transformation into degradation products inthe environment is assumed to occur instantly -at time zero-_
 
 **Paramètre 2**\
 % des substances fixées sur le vêtement
@@ -179,19 +171,19 @@ Définition de l'inventaire des émissions avec une approche "time-integrated" (
 {% endtab %}
 {% endtabs %}
 
+La manière dont ont été construits ces inventaires permet de faire varier les paramètres des inventaires selon les données renseignées par l'utilisateur (ex : présence d'un label, pays où a lieu l'étape d'ennoblissement, etc.).
+
 Ensuite, les modèles de caractérisation préconisés par le PEF (EF 3.1) sont utilisés afin de calculer l'impact de ces inventaires sur les indicateurs : Ecotoxicité Aquatique, Toxicité Humaine Cancérigène, Toxicité Humaine Non Cancérigène.
+
+**Inventaires par défaut retenus**&#x20;
 
 {% tabs %}
 {% tab title="Blanchiment" %}
-1 kg de textile blanchi = 77 micro-pts
-
-**Données par défaut**&#x20;
-
 ![](<../../../.gitbook/assets/image (27).png>)
 
-**Illustration des résultats pour un t-shirt de 170g en 100% coton**
+**Illustration de résultats/scénarios**
 
-![](<../../../.gitbook/assets/image (4).png>)
+![](<../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (2) (3).png>)
 {% endtab %}
 
 {% tab title="Teinture 1" %}
@@ -202,6 +194,8 @@ Ensuite, les modèles de caractérisation préconisés par le PEF (EF 3.1) sont 
 
 {% endtab %}
 {% endtabs %}
+
+
 
 &#x20;&#x20;
 
