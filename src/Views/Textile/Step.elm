@@ -822,8 +822,8 @@ viewTransport ({ impact, current } as config) =
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
         , if Transport.totalKm current.transport > 0 then
-            div [ class "d-flex justify-content-between gap-3" ]
-                [ div [ class "d-flex justify-content-between gap-3" ]
+            div [ class "d-flex justify-content-between gap-3 align-items-center" ]
+                [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
                     (current.transport
                         |> TransportView.viewDetails
                             { fullWidth = False
