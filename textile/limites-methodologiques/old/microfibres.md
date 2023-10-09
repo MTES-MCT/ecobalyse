@@ -105,14 +105,10 @@ Ecobalyse propose des scénarios par défaut selon la nature des fibres (ex : fi
 {% endtab %}
 
 {% tab title="Relargage" %}
-Le relargage correspond à la capacité d'une fibre à relarguer des microfibres dans l'environnement.
+Le relargage correspond à la capacité d'une fibre/vêtement à relarguer des microfibres dans l'environnement. Cet enjeu est présent sur l'ensemble des étapes du cycle de vie d'un vêtement et compartiments (eau, air, sol).&#x20;
 
-Chaque fibre relargue plus ou moins selon ses propriétés intrinsèques et les étapes du cycle de vie (ex : relargage dans l'air lors des étapes de transformation/fabrication, relargage dans l'eau lors du lavage en machine à laver, relargage dans l'eau/air/sol lors de la fin de vie de vêtements se retrouvant sous forme de déchets sauvages, etc.).&#x20;
-
-**Ordres de grandeur**&#x20;
-
-* Lavage en machine => 120 mg / kg de microfibres (source : [rapport ](https://www.senat.fr/rap/r20-217/r20-2176.html#toc149)Sénat)
-*
+Extrait d'une [publication ](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a)sur les microplastiques d'origine Textile : \
+_"Most research has focused on microfibre release through the washing of synthetic textiles, considering waste water to be the predominant pathway for leakage into the aquatic environment (Boucher and Friot, 2017). However, microfibres are also emitted during textile manufacturing, garment wearing and end-of-life disposal, and are dispersed in water, air and soil."_
 
 Ecobalyse propose des scénarios par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale) afin de préciser le calcul du complément microfibres.
 {% endtab %}
