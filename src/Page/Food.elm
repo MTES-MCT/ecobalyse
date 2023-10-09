@@ -681,7 +681,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                             , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroDiversity
                             , complementSplit = complements.agroDiversity
-                            , disabled = False
                             , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
@@ -693,24 +692,26 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                             , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroEcology
                             , complementSplit = complements.agroEcology
-                            , disabled = False
                             , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
                                     event { ingredientQuery | complements = Just { complements | agroEcology = split } }
                             }
-                        , ingredientComplementsView
-                            { name = "Cond. d'élevage"
-                            , title = Nothing
-                            , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
-                            , complementImpact = complementsImpacts.animalWelfare
-                            , complementSplit = complements.animalWelfare
-                            , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
-                            , selectedImpact = selectedImpact
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                            }
+                        , if IngredientCategory.fromAnimalOrigin ingredient.categories then
+                            ingredientComplementsView
+                                { name = "Cond. d'élevage"
+                                , title = Nothing
+                                , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
+                                , complementImpact = complementsImpacts.animalWelfare
+                                , complementSplit = complements.animalWelfare
+                                , selectedImpact = selectedImpact
+                                , updateEvent =
+                                    \split ->
+                                        event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
+                                }
+
+                          else
+                            text ""
                         ]
 
                  else
@@ -731,7 +732,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
 type alias ComplementsViewConfig msg =
     { complementImpact : Unit.Impact
     , complementSplit : Split
-    , disabled : Bool
     , domId : String
     , name : String
     , selectedImpact : Definition
@@ -741,7 +741,7 @@ type alias ComplementsViewConfig msg =
 
 
 ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
-ingredientComplementsView { name, complementImpact, complementSplit, disabled, domId, selectedImpact, title, updateEvent } =
+ingredientComplementsView { name, complementImpact, complementSplit, domId, selectedImpact, title, updateEvent } =
     div
         [ class "IngredientBonus"
         , title |> Maybe.withDefault name |> Attr.title
@@ -755,7 +755,6 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
             [ type_ "range"
             , id domId
             , class "BonusRange form-range"
-            , Attr.disabled disabled
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
@@ -779,8 +778,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
         , div
             [ class "BonusImpact text-end"
             , classList
-                [ ( "text-black-50", disabled )
-                , ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
+                [ ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
                 , ( "text-success", Unit.impactToFloat complementImpact > 0 )
                 ]
             ]
