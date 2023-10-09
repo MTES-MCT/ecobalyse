@@ -4862,5 +4862,37 @@
       "htc-c": 1.298230917e-08,
       "htn-c": 2.483510794e-08
     }
+  },
+  {
+    "id": "pineapple",
+    "name": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "displayName": "Ananas",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003111283",
+    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "category": "ingredient",
+    "comment": "Production Volume Amount: 23176521728",
+    "impacts": {
+      "bvi": 0.0,
+      "acd": 0.0007450989084,
+      "ozd": 6.21869615e-09,
+      "cch": 0.09696636191,
+      "fwe": 2.936279807e-05,
+      "swe": 0.0009445740876,
+      "tre": 0.002181487605,
+      "pco": 0.0003054794019,
+      "pma": 6.102481574e-09,
+      "ior": 0.004574932647,
+      "fru": 0.9340986518,
+      "mru": 1.958149749e-06,
+      "ldu": 12.07745371,
+      "wtu": 0.5915446853,
+      "htc": 7.099572173e-11,
+      "htn": 6.095756922e-09,
+      "etf": 5.537710729,
+      "etf-c": 7.7070833059999995,
+      "htc-c": 4.489875104e-11,
+      "htn-c": 4.521475912e-10
+    }
   }
 ]
