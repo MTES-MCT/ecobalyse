@@ -50,6 +50,7 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
+import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
@@ -916,7 +917,10 @@ ingredientListView db selectedImpact recipe results =
         autocompleteState =
             AutocompleteSelector.init .name availableIngredients
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.materials
+        ]
         [ h2 [ class "h5 d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
@@ -981,7 +985,10 @@ packagingListView db selectedImpact recipe results =
         availablePackagings =
             Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.packaging
+        ]
         [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
         , results.packaging
             |> Format.formatImpact selectedImpact
@@ -1140,7 +1147,10 @@ distributionView selectedImpact recipe results =
             results.distribution.total
                 |> Format.formatImpact selectedImpact
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.distribution
+        ]
         [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatImpact selectedImpact
@@ -1187,7 +1197,10 @@ distributionView selectedImpact recipe results =
 
 consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.usage
+        ]
         [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
         , results.preparation
             |> Format.formatImpact selectedImpact
@@ -1368,7 +1381,10 @@ transformView db selectedImpact recipe results =
             results.recipe.transform
                 |> Format.formatImpact selectedImpact
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.transform
+        ]
         [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
         , impact
         ]

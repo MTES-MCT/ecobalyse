@@ -4,11 +4,13 @@ module Data.Textile.Step.Label exposing
     , decodeFromCode
     , encode
     , fromCodeString
+    , toColor
     , toGitbookPath
     , toString
     )
 
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -64,6 +66,34 @@ toString label =
 
         EndOfLife ->
             "Fin de vie"
+
+
+toColor : Label -> String
+toColor label =
+    case label of
+        Material ->
+            Impact.stepsColors.materials
+
+        Spinning ->
+            Impact.stepsColors.transform
+
+        Fabric ->
+            Impact.stepsColors.transform
+
+        Making ->
+            Impact.stepsColors.transform
+
+        Ennobling ->
+            Impact.stepsColors.transform
+
+        Distribution ->
+            Impact.stepsColors.distribution
+
+        Use ->
+            Impact.stepsColors.usage
+
+        EndOfLife ->
+            Impact.stepsColors.endOfLife
 
 
 fromCodeString : String -> Result String Label

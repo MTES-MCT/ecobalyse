@@ -33,6 +33,7 @@ import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.Component.SplitInput as SplitInput
+import Views.Component.StepsBorder as StepsBorder
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
@@ -583,7 +584,10 @@ simpleView ({ inputs, impact, current } as config) =
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
-            [ div [ class "StepHeader card-header" ]
+            [ div
+                [ class "StepHeader card-header"
+                , StepsBorder.style <| Label.toColor current.label
+                ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
