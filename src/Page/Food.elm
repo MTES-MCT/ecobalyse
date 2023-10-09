@@ -581,7 +581,6 @@ type alias UpdateIngredientConfig =
     , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
-    , index : Int
     , selectedImpact : Definition
     , transportImpact : Html Msg
     }
@@ -635,7 +634,7 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact, transportImpact } as updateIngredientConfig) =
+updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -679,7 +678,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
                         , ingredientComplementsView
                             { name = "Diversité agricole"
                             , title = Nothing
-                            , domId = "agroDiversity_" ++ String.fromInt index
+                            , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroDiversity
                             , complementSplit = complements.agroDiversity
                             , disabled = False
@@ -691,7 +690,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
                         , ingredientComplementsView
                             { name = "Infra. agro-éco."
                             , title = Just "Infrastructures agro-écologiques"
-                            , domId = "agroEcology_" ++ String.fromInt index
+                            , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroEcology
                             , complementSplit = complements.agroEcology
                             , disabled = False
@@ -703,7 +702,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
                         , ingredientComplementsView
                             { name = "Cond. d'élevage"
                             , title = Nothing
-                            , domId = "animalWelfare_" ++ String.fromInt index
+                            , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.animalWelfare
                             , complementSplit = complements.animalWelfare
                             , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
@@ -935,8 +934,8 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.indexedMap
-                    (\index ingredient ->
+                |> List.map
+                    (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
@@ -947,7 +946,6 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.empty
-                            , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
