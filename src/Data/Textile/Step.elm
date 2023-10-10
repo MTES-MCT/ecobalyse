@@ -250,6 +250,14 @@ computeTransportSummary step transport =
             -- Air transport only applies between the Making and the Distribution steps
             transport
                 |> Formula.transportRatio step.airTransportRatio
+                -- Added intermediary inland transport distances to materialize
+                -- transport to the "distribution" step
+                -- Also ensure we don't add unnecessary air transport
+                |> Transport.add { defaultInland | air = Quantity.zero }
+
+        Label.Distribution ->
+            -- Product Distribution leverages no transports
+            noTransports
 
         Label.Use ->
             -- Product Use leverages no transports
@@ -270,9 +278,6 @@ getRoadTransportProcess wellKnown { label } =
     case label of
         Label.Making ->
             wellKnown.roadTransportPostMaking
-
-        Label.Distribution ->
-            wellKnown.distribution
 
         _ ->
             wellKnown.roadTransportPreMaking
