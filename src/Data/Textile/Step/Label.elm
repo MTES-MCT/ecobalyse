@@ -7,6 +7,7 @@ module Data.Textile.Step.Label exposing
     , toColor
     , toGitbookPath
     , toId
+    , toName
     , toString
     )
 
@@ -76,7 +77,8 @@ toId label =
             "materials-step"
 
         Spinning ->
-            -- We only want a single "transform-step" id
+            -- We only want a single "transform-step" id, as it's used for the Html `id` attribute
+            -- and they are meant to be unique throughout the page.
             "transform-step"
 
         Fabric ->
@@ -98,12 +100,9 @@ toId label =
             "end-of-life-step"
 
 
-toString : Label -> String
-toString label =
+toName : Label -> String
+toName label =
     case label of
-        Material ->
-            "Matières premières"
-
         Spinning ->
             "Transformation\u{00A0}- Filature"
 
@@ -115,6 +114,28 @@ toString label =
 
         Ennobling ->
             "Transformation\u{00A0}- Ennoblissement"
+
+        _ ->
+            toString label
+
+
+toString : Label -> String
+toString label =
+    case label of
+        Material ->
+            "Matières premières"
+
+        Spinning ->
+            "Filature"
+
+        Fabric ->
+            "Tissage & Tricotage"
+
+        Making ->
+            "Confection"
+
+        Ennobling ->
+            "Ennoblissement"
 
         Distribution ->
             "Distribution"
