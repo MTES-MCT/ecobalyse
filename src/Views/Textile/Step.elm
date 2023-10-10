@@ -661,20 +661,27 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
 
          else
-            List.concat
-                [ inputs.materials
-                    |> List.map
-                        (createElementSelectorConfig config
-                            >> BaseElement.view
-                            >> li [ class "ElementFormWrapper list-group-item" ]
-                        )
-                , [ ComplementsDetails.view
-                        { complementsImpacts = current.complementsImpacts
-                        , selectedImpact = selectedImpact
-                        }
-                        [-- TODO: render each complement details
-                        ]
-                  , let
+            (inputs.materials
+                |> List.map
+                    (\material ->
+                        li [ class "ElementFormWrapper list-group-item" ]
+                            (List.concat
+                                [ material
+                                    |> createElementSelectorConfig config
+                                    |> BaseElement.view
+                                , [ ComplementsDetails.view
+                                        -- FIXME: compute total complementsImpacts for that given material
+                                        { complementsImpacts = current.complementsImpacts
+                                        , selectedImpact = selectedImpact
+                                        }
+                                        [-- TODO: render each material complement
+                                        ]
+                                  ]
+                                ]
+                            )
+                    )
+            )
+                ++ [ let
                         length =
                             List.length inputs.materials
 
@@ -697,8 +704,8 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
 
                         valid =
                             round (totalShares * 100) == 100
-                    in
-                    li
+                     in
+                     li
                         [ class "input-group "
                         , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
                         ]
@@ -742,8 +749,7 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
                                 text "Ajouter une matière"
                             ]
                         ]
-                  ]
-                ]
+                   ]
         )
 
 
