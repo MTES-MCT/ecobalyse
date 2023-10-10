@@ -2261,26 +2261,8 @@
     }
   },
   {
-    "id": "chicken-breast-only-soybean-max",
-    "name": "Blanc de poulet (majorant, exclusivement nourri au soja brésilien)",
-    "categories": [
-      "animal_product"
-    ],
-    "default": "e20c8c68-2bbe-2218-f9b4-a749adf88619",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
-  },
-  {
     "id": "chicken-breast-br-max",
-    "name": "Blanc de poulet (majorant, élevé au Brésil)",
+    "name": "Blanc de poulet (importé nourri avec des aliments BR)",
     "categories": [
       "animal_product"
     ],

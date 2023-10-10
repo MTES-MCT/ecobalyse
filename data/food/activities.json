@@ -2488,27 +2488,9 @@
       "agro-ecology": 0
     }
   },
-  {
-    "id": "chicken-breast-only-soybean-max",
-    "name": "Blanc de poulet (majorant, exclusivement nourri au soja brésilien)",
-    "search": "Meat without bone chicken for direct consumption only-soybean-max constructed by Ecobalyse",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "explain": "Poulet élevé en France dont toute l'alimentation ais, blé) a été remplacé par du soja brésilien importé",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
-  },
-  {
+{
     "id": "chicken-breast-br-max",
-    "name": "Blanc de poulet (majorant, élevé au Brésil)",
+    "name": "Blanc de poulet (importé nourri avec des aliments BR)",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -2536,7 +2518,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé en France dont l'alimentati vient de France. Seul l'origine du soja change par rapport au poulet classique",
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
