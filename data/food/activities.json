@@ -469,7 +469,7 @@
   },
   {
     "id": "chicken-breast",
-    "name": "Poulet (cru)",
+    "name": "Blanc de poulet (cru)",
     "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -488,7 +488,7 @@
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Poulet bio (cru)",
+    "name": "Blanc de poulet bio (cru)",
     "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
@@ -2303,26 +2303,6 @@
     }
   },
   {
-    "id": "chicken-ham",
-    "name": "Blanc de poulet ",
-    "search": "Meat without bone, chicken, for direct consumption",
-    "category": "ingredient",
-    "categories": [
-      "animal_product"
-    ],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "bvi": 0,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
     "id": "tomato-paste",
     "name": "Purée de tomates",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
@@ -2511,6 +2491,26 @@
     "visible": true,
     "bvi": 0.0,
     "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%.",
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "chicken-breast-soybean-max",
+    "name": "Poulet (majorant théorique: nourri au soja Brésilien)",
+    "search": "Meat without bone chicken for direct consumption soybean constructed by Ecobalyse",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,    
+    "explain": "",
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
