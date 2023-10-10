@@ -292,7 +292,10 @@ def import_agribalyse(
 
 def add_average_activity(activity_data, dbname=DBNAME):
     """Add to the database a new activity : the weighted average of multiple activities
-    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from system 1 to 5
+
+    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the 
+    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from 
+    system 1 to 5
     """
 
     average_activity = create_activity(
@@ -319,7 +322,9 @@ def replace_activities(activity_variant, activity_data, dbname=DBNAME):
 
 def add_variant_activity(activity_data, dbname=DBNAME):
     """Add to the database a new activity : the variant of an activity
-    Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a variant of activity flour
+
+    Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a
+    variant of activity flour
     """
     activity = search(dbname, activity_data["search"])
 
@@ -329,12 +334,15 @@ def add_variant_activity(activity_data, dbname=DBNAME):
         dbname, f"{activity_data['search']} {activity_data['suffix']}", activity
     )
 
-    # if the activity has no subactivities, we can directly replace the seed activity with the seed activity variant
+    # if the activity has no subactivities, we can directly replace the seed activity with the seed
+    #  activity variant
     if not activity_data["subactivities"]:
         replace_activities(activity_variant, activity_data)
 
     # else we have to iterate through subactivities and create a new variant activity for each subactivity
-    # Example: for flour-organic we have to dig through the `global milling process` subactivity before we can replace the wheat activity with the wheat-organic activity
+
+    # Example: for flour-organic we have to dig through the `global milling process` subactivity before
+    #  we can replace the wheat activity with the wheat-organic activity
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
             sub_activity = search(dbname, act_sub_data,"declassified")
@@ -355,7 +363,8 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             delete_exchange(activity_variant, sub_activity)
 
             # for the last sub activity, replace the seed activity with the seed activity variant
-            # Example: for flour-organic this is where the replace the wheat activity with the wheat-organic activity
+            # Example: for flour-organic this is where the replace the wheat activity with the 
+            # wheat-organic activity
             if i == len(activity_data["subactivities"]) - 1:
                 replace_activities(sub_activity_variant, activity_data)
 
