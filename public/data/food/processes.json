@@ -930,7 +930,7 @@
   {
     "id": "chicken-breast",
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
-    "displayName": "Poulet (cru)",
+    "displayName": "Blanc de poulet (cru)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109221",
     "system_description": "AGRIBALYSE",
@@ -962,7 +962,7 @@
   {
     "id": "chicken-breast-organic",
     "name": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
-    "displayName": "Poulet bio (cru)",
+    "displayName": "Blanc de poulet bio (cru)",
     "unit": "kilogram",
     "identifier": "e98cbb6c-cabd-b2aa-4d3b-1f2b01e4e839",
     "system_description": "Ecobalyse",
@@ -4576,38 +4576,6 @@
     }
   },
   {
-    "id": "chicken-ham",
-    "name": "Meat without bone, chicken, for direct consumption {FR} U",
-    "displayName": "Blanc de poulet ",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109221",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "impacts": {
-      "bvi": 0,
-      "acd": 0.09954364004,
-      "ozd": 3.398627945e-07,
-      "cch": 6.028060193,
-      "fwe": 0.00136261547,
-      "swe": 0.02676729518,
-      "tre": 0.4180567252,
-      "pco": 0.01568285701,
-      "pma": 7.21184592e-07,
-      "ior": 0.4279721614,
-      "fru": 43.03483036,
-      "mru": 2.427264775e-05,
-      "ldu": 290.5181233,
-      "wtu": 2.142444098,
-      "htc": 5.430794836e-09,
-      "htn": 8.397677664e-08,
-      "etf": 134.99714963,
-      "etf-c": 245.09533325,
-      "htc-c": 5.321029692e-09,
-      "htn-c": 3.579852382e-08
-    }
-  },
-  {
     "id": "tomato-paste",
     "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "displayName": "Purée de tomates",
@@ -4925,6 +4893,38 @@
       "etf-c": 23.578623226,
       "htc-c": 1.603903033e-10,
       "htn-c": 2.019278142e-09
+    }
+  },
+  {
+    "id": "chicken-breast-soybean-max",
+    "name": "Meat without bone chicken for direct consumption [soybean], constructed by Ecobalyse",
+    "displayName": "Poulet (majorant théorique: nourri au soja Brésilien)",
+    "unit": "kilogram",
+    "identifier": "520dcbb0-6d6e-5dbd-d08e-523d56de36dc",
+    "system_description": "Ecobalyse",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0,
+      "acd": 0.09381112288,
+      "ozd": 3.772363623e-07,
+      "cch": 10.08242932,
+      "fwe": 0.002834913905,
+      "swe": 0.03873383304,
+      "tre": 0.3739959829,
+      "pco": 0.0271655993,
+      "pma": 6.876693995e-07,
+      "ior": 0.3872350029,
+      "fru": 44.36417911,
+      "mru": 3.179331247e-05,
+      "ldu": 387.2715954,
+      "wtu": 1.285209201,
+      "htc": 9.716937465e-09,
+      "htn": 1.77721711e-07,
+      "etf": 264.84665208,
+      "etf-c": 485.60492715,
+      "htc-c": 1.4367238418e-08,
+      "htn-c": 8.452239266e-08
     }
   }
 ]
