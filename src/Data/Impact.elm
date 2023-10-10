@@ -153,7 +153,18 @@ noStepsImpacts =
     }
 
 
-stepsColors : { materials : String, transform : String, packaging : String, transports : String, distribution : String, usage : String, endOfLife : String }
+type alias StepsColors =
+    { materials : String
+    , transform : String
+    , packaging : String
+    , transports : String
+    , distribution : String
+    , usage : String
+    , endOfLife : String
+    }
+
+
+stepsColors : StepsColors
 stepsColors =
     { materials = Color.purple
     , transform = Color.pink

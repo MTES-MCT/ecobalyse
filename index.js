@@ -88,9 +88,7 @@ app.ports.scrollTo.subscribe((pos) => {
 
 app.ports.scrollIntoView.subscribe((id) => {
   let node = document.getElementById(id);
-  try {
-    node.scrollIntoView({ behavior: "smooth" });
-  } catch(error) {}
+  node?.scrollIntoView({ behavior: "smooth" });
 });
 
 // Ensure session is refreshed when it changes in another tab/window
