@@ -32,6 +32,7 @@ import Html.Events exposing (..)
 import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
+import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.CountrySelect
 import Views.Format as Format
@@ -47,7 +48,7 @@ type alias Config msg modal =
     , db : TextileDb.Db
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
-    , impact : Definition
+    , selectedImpact : Definition
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
@@ -575,7 +576,7 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ inputs, impact, current } as config) =
+simpleView ({ inputs, selectedImpact, current } as config) =
     let
         materialStep =
             current.label == Label.Material
@@ -588,11 +589,11 @@ simpleView ({ inputs, impact, current } as config) =
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
                         [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
-                            [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                            [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
                                 span [ class "fw-bold flex-fill" ]
                                     [ current.impacts
                                         |> Impact.impactsWithComplements current.complementsImpacts
-                                        |> Format.formatImpact impact
+                                        |> Format.formatImpact selectedImpact
                                     ]
 
                               else
@@ -654,20 +655,26 @@ simpleView ({ inputs, impact, current } as config) =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
+viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
 
          else
-            (inputs.materials
-                |> List.map
-                    (createElementSelectorConfig config
-                        >> BaseElement.view
-                        >> li [ class "ElementFormWrapper list-group-item" ]
-                    )
-            )
-                ++ [ let
+            List.concat
+                [ inputs.materials
+                    |> List.map
+                        (createElementSelectorConfig config
+                            >> BaseElement.view
+                            >> li [ class "ElementFormWrapper list-group-item" ]
+                        )
+                , [ ComplementsDetails.view
+                        { complementsImpacts = current.complementsImpacts
+                        , selectedImpact = selectedImpact
+                        }
+                        [-- TODO: render each complement details
+                        ]
+                  , let
                         length =
                             List.length inputs.materials
 
@@ -690,8 +697,8 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
 
                         valid =
                             round (totalShares * 100) == 100
-                     in
-                     li
+                    in
+                    li
                         [ class "input-group "
                         , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
                         ]
@@ -735,12 +742,13 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
                                 text "Ajouter une matière"
                             ]
                         ]
-                   ]
+                  ]
+                ]
         )
 
 
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -789,7 +797,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, imp
     , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
-    , selectedImpact = impact
+    , selectedImpact = selectedImpact
     , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
     , quantityView =
         \{ disabled, quantity, onChange } ->
@@ -812,7 +820,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, imp
 
 
 viewTransport : Config msg modal -> Html msg
-viewTransport ({ impact, current } as config) =
+viewTransport ({ selectedImpact, current } as config) =
     div []
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
@@ -831,7 +839,7 @@ viewTransport ({ impact, current } as config) =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatImpact impact
+                        |> Format.formatImpact selectedImpact
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
@@ -920,7 +928,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
 
 
 detailedView : Config msg modal -> ViewWithTransport msg
-detailedView ({ inputs, impact, current } as config) =
+detailedView ({ inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1021,11 +1029,11 @@ detailedView ({ inputs, impact, current } as config) =
             , div
                 [ class "card text-center mb-0" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
-                    [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                    [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
                                 |> Impact.impactsWithComplements current.complementsImpacts
-                                |> Format.formatImpact impact
+                                |> Format.formatImpact selectedImpact
                             ]
 
                       else

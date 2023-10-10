@@ -48,6 +48,7 @@ import Views.BaseElement as BaseElement
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
+import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Container as Container
@@ -663,19 +664,11 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                             impact
                                 |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
                     in
-                    details [ class "IngredientBonuses fs-7" ]
-                        [ summary []
-                            [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
-                                [ span [ title "Cliquez pour plier/déplier" ] [ text "Compléments" ]
-                                , span [ class "text-success text-end", title "Total des compléments" ]
-                                    [ Impact.getTotalComplementsImpacts complementsImpacts
-                                        |> Quantity.negate
-                                        |> Unit.impactToFloat
-                                        |> Format.formatImpactFloat selectedImpact
-                                    ]
-                                ]
-                            ]
-                        , ingredientComplementsView
+                    ComplementsDetails.view
+                        { complementsImpacts = complementsImpacts
+                        , selectedImpact = selectedImpact
+                        }
+                        [ ingredientComplementsView
                             { name = "Diversité agricole"
                             , title = Nothing
                             , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
@@ -743,18 +736,18 @@ type alias ComplementsViewConfig msg =
 ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
 ingredientComplementsView { name, complementImpact, complementSplit, domId, selectedImpact, title, updateEvent } =
     div
-        [ class "IngredientBonus"
+        [ class "ElementComplement"
         , title |> Maybe.withDefault name |> Attr.title
         ]
         [ label
             [ for domId
-            , class "BonusName text-nowrap text-muted"
+            , class "ComplementName text-nowrap text-muted"
             ]
             [ text name ]
         , input
             [ type_ "range"
             , id domId
-            , class "BonusRange form-range"
+            , class "ComplementRange form-range"
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
@@ -767,7 +760,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, sele
                 )
             ]
             []
-        , div [ class "BonusValue d-flex justify-content-end align-items-center text-muted" ]
+        , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
             [ Format.splitAsPercentage complementSplit
             , Button.smallPillLink
                 [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
@@ -776,7 +769,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, sele
                 [ Icon.question ]
             ]
         , div
-            [ class "BonusImpact text-end"
+            [ class "ComplementImpact text-end"
             , classList
                 [ ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
                 , ( "text-success", Unit.impactToFloat complementImpact > 0 )

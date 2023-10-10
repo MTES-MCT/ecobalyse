@@ -448,7 +448,7 @@ q {
   min-height: 70px;
 }
 
-.BonusesTable {
+.ComplementsTable {
   margin-top: -1.5em;
   text-indent: 11px;
 }
@@ -811,38 +811,38 @@ q {
       padding-left: 4px;
     }
   }
-  .IngredientBonuses {
+  .ComplementsDetails {
     grid-area: ingredientBonuses;
 
-    .IngredientBonus {
+    .ElementComplement {
       display: grid;
       margin-top: 4px;
       grid-gap: 0 14px;
       grid-template-columns: 1fr 7fr 1fr 1fr;
       grid-template-areas:
-        "BonusName BonusRange BonusValue BonusImpact";
+        "ComplementName ComplementRange ComplementValue ComplementImpact";
 
       @media screen and (max-width: $viewport-md) {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-areas:
-          "BonusName  BonusName  BonusImpact BonusImpact"
-          "BonusRange BonusRange BonusRange  BonusValue";
+          "ComplementName  ComplementName  ComplementImpact ComplementImpact"
+          "ComplementRange ComplementRange ComplementRange  ComplementValue";
       }
 
-      .BonusName {
-        grid-area: BonusName;
+      .ComplementName {
+        grid-area: ComplementName;
         min-width: 120px;
         padding-left: 12px;
       }
-      .BonusRange {
-        grid-area: BonusRange;
+      .ComplementRange {
+        grid-area: ComplementRange;
       }
-      .BonusValue {
-        grid-area: BonusValue;
+      .ComplementValue {
+        grid-area: ComplementValue;
         min-width: 50px;
       }
-      .BonusImpact {
-        grid-area: BonusImpact;
+      .ComplementImpact {
+        grid-area: ComplementImpact;
         min-width: 120px;
       }
     }
