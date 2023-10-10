@@ -196,7 +196,7 @@
       "grain_processed",
       "organic"
     ],
-    "default": "190daa18-c636-9b3a-1bee-aaba811fdaf6",
+    "default": "850ecaa9-7cfe-da68-5ae5-ecf99d08fed3",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -363,7 +363,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "2c35501a-0556-ff94-03e9-f4140aa9990b",
+    "default": "bb367e5e-a74c-e122-7894-c433c170effb",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -382,7 +382,7 @@
     "categories": [
       "animal_product"
     ],
-    "default": "4b2010be-ff2d-5fe3-416b-187ec8428963",
+    "default": "eb13ead9-1d44-7f2e-ee75-5bd7c1859188",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -421,7 +421,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "3ec54ea9-9c8e-87fb-986d-85784048c354",
+    "default": "75353ad0-11f0-71cd-922a-010797410279",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -460,7 +460,7 @@
       "animal_product",
       "organic"
     ],
-    "default": "e1f7ae6e-ee45-b4a4-1c71-323e5f3a7f02",
+    "default": "e98cbb6c-cabd-b2aa-4d3b-1f2b01e4e839",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -553,7 +553,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "4f77fd40-99df-e5e1-1082-1f0944d94cd4",
+    "default": "1d9dfc18-115e-ccdf-c3ff-71124995d352",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -590,7 +590,7 @@
       "nut_oilseed_processed",
       "organic"
     ],
-    "default": "aad2f55d-4b47-8126-0a70-47d8e317e238",
+    "default": "0648b056-ad7a-c6b9-6270-7a0e43a183a9",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -776,7 +776,7 @@
       "dairy_product",
       "organic"
     ],
-    "default": "636d2fa2-8c3f-206a-7a92-02fbc6a487ec",
+    "default": "c248c906-95ad-4ab2-7091-a5d1682f9907",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,

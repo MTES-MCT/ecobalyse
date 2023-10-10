@@ -7,12 +7,27 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 import re
+import json
+from common.export import (
+    search,
+    with_corrected_impacts,
+    display_changes,
+    create_activity,
+    delete_exchange,
+    new_exchange,
+)
+import logging
 
 PROJECT = "food"
 # Agribalyse
 DATAPATH = "AGB3.1.1.20230306.CSV.zip"
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = "biosphere3"
+
+
+ACTIVITIES = "food/activities.json"
+#
+ACTIVITIES_TO_CREATE = "food/activities_to_create.json"
 
 # excluded strategies and migrations
 EXCLUDED = [
@@ -275,6 +290,112 @@ def import_agribalyse(
     print(f"### Finished importing {DBNAME}")
 
 
+def add_average_activity(activity_data, dbname=DBNAME):
+    """Add to the database a new activity : the weighted average of multiple activities
+
+    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the 
+    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from 
+    system 1 to 5
+    """
+
+    average_activity = create_activity(
+        dbname, f"{activity_data['search']} {activity_data['suffix']}"
+    )
+    for activity_add_name, amount in activity_data["add"].items():
+        activity_add = search(dbname, f"{activity_add_name}")
+        new_exchange(average_activity, activity_add, amount)
+
+
+def replace_activities(activity_variant, activity_data, dbname=DBNAME):
+    """Replace all activities in activity_data["replace"] with variants of these activities
+    """
+    for k, v in activity_data["replace"].items():
+        activity_old = search(dbname, k)
+        activity_new = search(dbname, v)
+        new_exchange(
+            activity_variant,
+            activity_new,
+            activity_to_copy_from=activity_old,
+        )
+        delete_exchange(activity_variant, activity_old)
+
+
+def add_variant_activity(activity_data, dbname=DBNAME):
+    """Add to the database a new activity : the variant of an activity
+
+    Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a
+    variant of activity flour
+    """
+    activity = search(dbname, activity_data["search"])
+
+    # create a new variant activity
+    # Example: this is where we create the flour-organic activity
+    activity_variant = create_activity(
+        dbname, f"{activity_data['search']} {activity_data['suffix']}", activity
+    )
+
+    # if the activity has no subactivities, we can directly replace the seed activity with the seed
+    #  activity variant
+    if not activity_data["subactivities"]:
+        replace_activities(activity_variant, activity_data)
+
+    # else we have to iterate through subactivities and create a new variant activity for each subactivity
+
+    # Example: for flour-organic we have to dig through the `global milling process` subactivity before
+    #  we can replace the wheat activity with the wheat-organic activity
+    else:
+        for i, act_sub_data in enumerate(activity_data["subactivities"]):
+            sub_activity = search(dbname, act_sub_data,"declassified")
+
+            # create a new sub activity variant
+            sub_activity_variant = create_activity(
+                dbname,
+                f"{sub_activity['name']} {activity_data['suffix']}",
+                sub_activity,
+            )
+
+            # link the newly create sub_activity_variant to the parent activity_variant
+            new_exchange(
+                activity_variant,
+                sub_activity_variant,
+                activity_to_copy_from=sub_activity,
+            )
+            delete_exchange(activity_variant, sub_activity)
+
+            # for the last sub activity, replace the seed activity with the seed activity variant
+            # Example: for flour-organic this is where the replace the wheat activity with the 
+            # wheat-organic activity
+            if i == len(activity_data["subactivities"]) - 1:
+                replace_activities(sub_activity_variant, activity_data)
+
+            # update the activity_variant (parent activity)
+            activity_variant = sub_activity_variant
+
+
+def add_created_activities(dbname=DBNAME):
+    """
+    Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
+    """
+    with open(ACTIVITIES_TO_CREATE, "r") as f:
+        activities_data = json.load(f)
+
+    for activity_data in activities_data:
+        if "add" in activity_data:
+            add_average_activity(activity_data)
+        if "replace" in activity_data:
+            add_variant_activity(activity_data)
+
+
+def delete_created_activities(dbname=DBNAME):
+    search_results = bw2data.Database(dbname).search(
+        "constructed by Ecobalyse", limit=100
+    )
+
+    for activity in search_results:
+        activity.delete()
+        logging.info(f"Deleted {activity}")
+
+
 def main():
     # Import Agribalyse
     projects.set_current(PROJECT)
@@ -286,7 +407,10 @@ def main():
         import_agribalyse()
     else:
         print(f"{DBNAME} already imported")
+    delete_created_activities()
+    add_created_activities()
 
 
 if __name__ == "__main__":
     main()
+
