@@ -5,12 +5,12 @@ module Views.Table exposing
 
 import Data.Impact.Definition exposing (Definition)
 import Html exposing (..)
-import Html.Attributes as Attrs exposing (..)
+import Html.Attributes exposing (..)
 import Views.Format as Format
 
 
 type alias DataPoint msg =
-    { name : String, value : Float, entryStyle : Maybe (Attribute msg) }
+    { name : String, value : Float, entryAttributes : List (Attribute msg) }
 
 
 responsiveDefault : List (Attribute msg) -> List (Html msg) -> Html msg
@@ -44,7 +44,7 @@ percentageTable impactDefinition data =
             [ table [ class "table table-hover w-100 m-0" ]
                 [ data
                     |> List.map
-                        (\{ name, value, entryStyle } ->
+                        (\{ name, value, entryAttributes } ->
                             { name = name
                             , impact = value
                             , percent = value / total * 100
@@ -54,15 +54,13 @@ percentageTable impactDefinition data =
 
                                 else
                                     value / maximum * 100
-                            , entryStyle =
-                                entryStyle
-                                    |> Maybe.withDefault (Attrs.style "" "")
+                            , entryAttributes = entryAttributes
                             }
                         )
                     |> List.map
-                        (\{ name, impact, percent, width, entryStyle } ->
-                            tr
-                                [ title <|
+                        (\{ name, impact, percent, width, entryAttributes } ->
+                            let
+                                entryTitle =
                                     name
                                         ++ ": "
                                         ++ Format.formatFloat 2 percent
@@ -71,8 +69,11 @@ percentageTable impactDefinition data =
                                         ++ "\u{202F}"
                                         ++ impactDefinition.unit
                                         ++ ")"
-                                , entryStyle
-                                ]
+                            in
+                            tr
+                                (title entryTitle
+                                    :: entryAttributes
+                                )
                                 [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px", title name ] [ text name ]
                                 , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
                                     [ div

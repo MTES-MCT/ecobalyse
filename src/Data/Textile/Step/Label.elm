@@ -6,6 +6,7 @@ module Data.Textile.Step.Label exposing
     , fromCodeString
     , toColor
     , toGitbookPath
+    , toId
     , toString
     )
 
@@ -40,34 +41,6 @@ all =
     ]
 
 
-toString : Label -> String
-toString label =
-    case label of
-        Material ->
-            "Matières premières"
-
-        Spinning ->
-            "Transformation\u{00A0}- Filature"
-
-        Fabric ->
-            "Transformation\u{00A0}- Tissage & Tricotage"
-
-        Making ->
-            "Transformation\u{00A0}- Confection"
-
-        Ennobling ->
-            "Transformation\u{00A0}- Ennoblissement"
-
-        Distribution ->
-            "Distribution"
-
-        Use ->
-            "Utilisation"
-
-        EndOfLife ->
-            "Fin de vie"
-
-
 toColor : Label -> String
 toColor label =
     case label of
@@ -94,6 +67,63 @@ toColor label =
 
         EndOfLife ->
             Impact.stepsColors.endOfLife
+
+
+toId : Label -> String
+toId label =
+    case label of
+        Material ->
+            "materials-step"
+
+        Spinning ->
+            -- We only want a single "transform-step" id
+            "transform-step"
+
+        Fabric ->
+            "transform-step-fabric"
+
+        Making ->
+            "transform-step-making"
+
+        Ennobling ->
+            "transform-step-ennobling"
+
+        Distribution ->
+            "distribution-step"
+
+        Use ->
+            "usage-step"
+
+        EndOfLife ->
+            "end-of-life-step"
+
+
+toString : Label -> String
+toString label =
+    case label of
+        Material ->
+            "Matières premières"
+
+        Spinning ->
+            "Transformation\u{00A0}- Filature"
+
+        Fabric ->
+            "Transformation\u{00A0}- Tissage & Tricotage"
+
+        Making ->
+            "Transformation\u{00A0}- Confection"
+
+        Ennobling ->
+            "Transformation\u{00A0}- Ennoblissement"
+
+        Distribution ->
+            "Distribution"
+
+        Use ->
+            "Utilisation"
+
+        EndOfLife ->
+            "Fin de vie"
 
 
 fromCodeString : String -> Result String Label

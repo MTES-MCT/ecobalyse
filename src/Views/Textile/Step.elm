@@ -587,6 +587,7 @@ simpleView ({ inputs, impact, current } as config) =
             [ div
                 [ class "StepHeader card-header"
                 , StepsBorder.style <| Label.toColor current.label
+                , id <| Label.toId current.label
                 ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]

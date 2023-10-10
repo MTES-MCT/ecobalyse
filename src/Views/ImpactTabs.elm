@@ -15,6 +15,8 @@ import Data.Scoring as Scoring exposing (Scoring)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Views.CardTabs as CardTabs
 import Views.Component.StepsBorder as StepsBorder
 import Views.Table as Table
@@ -30,6 +32,7 @@ type alias Config msg =
     { activeImpactsTab : Tab
     , complementsImpact : Impact.ComplementsImpacts
     , impactDefinition : Definition
+    , onStepClick : String -> msg
     , scoring : Scoring
     , stepsImpacts : Impact.StepsImpacts
     , switchImpactsTab : Tab -> msg
@@ -38,7 +41,7 @@ type alias Config msg =
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, scoring, stepsImpacts } =
+view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, onStepClick, scoring, stepsImpacts } =
     CardTabs.view
         { tabs =
             (if impactDefinition.trigram == Definition.Ecs then
@@ -62,26 +65,26 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                 DetailedImpactsTab ->
                     total
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
-                        |> List.map (\{ name, value } -> { name = name, value = value, entryStyle = Nothing })
+                        |> List.map (\{ name, value } -> { name = name, value = value, entryAttributes = [] })
                         |> (++)
                             [ -- Food complements
                               { name = "Bonus de diversité agricole"
                               , value = -(Unit.impactToFloat complementsImpact.agroDiversity)
-                              , entryStyle = Nothing
+                              , entryAttributes = []
                               }
                             , { name = "Bonus d'infrastructures agro-écologiques"
                               , value = -(Unit.impactToFloat complementsImpact.agroEcology)
-                              , entryStyle = Nothing
+                              , entryAttributes = []
                               }
                             , { name = "Bonus conditions d'élevage"
                               , value = -(Unit.impactToFloat complementsImpact.animalWelfare)
-                              , entryStyle = Nothing
+                              , entryAttributes = []
                               }
 
                             -- Textile complements
                             , { name = "Complément fin de vie hors-Europe"
                               , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
-                              , entryStyle = Nothing
+                              , entryAttributes = []
                               }
                             ]
                         |> List.sortBy .value
@@ -89,43 +92,86 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                         |> Table.percentageTable impactDefinition
 
                 StepImpactsTab ->
-                    [ { name = "Matières premières", value = stepsImpacts.materials, entryStyle = Just (StepsBorder.style Impact.stepsColors.materials) }
-                    , { name = "Transformation", value = stepsImpacts.transform, entryStyle = Just (StepsBorder.style Impact.stepsColors.transform) }
-                    , { name = "Emballage", value = stepsImpacts.packaging, entryStyle = Just (StepsBorder.style Impact.stepsColors.packaging) }
-                    , { name = "Transports", value = stepsImpacts.transports, entryStyle = Just (StepsBorder.style Impact.stepsColors.transports) }
-                    , { name = "Distribution", value = stepsImpacts.distribution, entryStyle = Just (StepsBorder.style Impact.stepsColors.distribution) }
-                    , { name = "Utilisation", value = stepsImpacts.usage, entryStyle = Just (StepsBorder.style Impact.stepsColors.usage) }
-                    , { name = "Fin de vie", value = stepsImpacts.endOfLife, entryStyle = Just (StepsBorder.style Impact.stepsColors.endOfLife) }
+                    [ { name = "Matières premières"
+                      , value = stepsImpacts.materials
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.materials
+                            , onClick <| onStepClick "materials-step"
+                            ]
+                      }
+                    , { name = "Transformation"
+                      , value = stepsImpacts.transform
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.transform
+                            , onClick <| onStepClick "transform-step"
+                            ]
+                      }
+                    , { name = "Emballage"
+                      , value = stepsImpacts.packaging
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.packaging
+                            , onClick <| onStepClick "packaging-step"
+                            ]
+                      }
+                    , { name = "Transports"
+                      , value = stepsImpacts.transports
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.transports
+                            , onClick <| onStepClick "transport-step"
+                            ]
+                      }
+                    , { name = "Distribution"
+                      , value = stepsImpacts.distribution
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.distribution
+                            , onClick <| onStepClick "distribution-step"
+                            ]
+                      }
+                    , { name = "Utilisation"
+                      , value = stepsImpacts.usage
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.usage
+                            , onClick <| onStepClick "usage-step"
+                            ]
+                      }
+                    , { name = "Fin de vie"
+                      , value = stepsImpacts.endOfLife
+                      , entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.endOfLife
+                            , onClick <| onStepClick "end-of-life-step"
+                            ]
+                      }
                     ]
                         |> List.map
-                            (\{ name, value, entryStyle } ->
+                            (\{ name, value, entryAttributes } ->
                                 { name = name
                                 , value =
                                     value
                                         |> Maybe.map Unit.impactToFloat
                                         |> Maybe.withDefault 0
-                                , entryStyle = entryStyle
+                                , entryAttributes = style "cursor" "pointer" :: entryAttributes
                                 }
                             )
                         |> Table.percentageTable impactDefinition
 
                 SubscoresTab ->
                     Table.percentageTable impactDefinition
-                        [ { name = "Climat", value = Unit.impactToFloat scoring.climate, entryStyle = Nothing }
-                        , { name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity, entryStyle = Nothing }
-                        , { name = "Santé environnementale", value = Unit.impactToFloat scoring.health, entryStyle = Nothing }
-                        , { name = "Ressource", value = Unit.impactToFloat scoring.resources, entryStyle = Nothing }
-                        , { name = "Compléments", value = -(Unit.impactToFloat scoring.complements), entryStyle = Nothing }
+                        [ { name = "Climat", value = Unit.impactToFloat scoring.climate, entryAttributes = [] }
+                        , { name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity, entryAttributes = [] }
+                        , { name = "Santé environnementale", value = Unit.impactToFloat scoring.health, entryAttributes = [] }
+                        , { name = "Ressource", value = Unit.impactToFloat scoring.resources, entryAttributes = [] }
+                        , { name = "Compléments", value = -(Unit.impactToFloat scoring.complements), entryAttributes = [] }
                         ]
             ]
         }
 
 
-createConfig : Definition -> Tab -> (Tab -> msg) -> Config msg
-createConfig impactDefinition activeImpactsTab switchImpactsTab =
+createConfig : Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
+createConfig impactDefinition activeImpactsTab onStepClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Impact.noComplementsImpacts
     , impactDefinition = impactDefinition
+    , onStepClick = onStepClick
     , scoring = Scoring.empty
     , stepsImpacts = Impact.noStepsImpacts
     , switchImpactsTab = switchImpactsTab
