@@ -76,34 +76,6 @@ type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
 
 
-stepIcon : Label -> Html msg
-stepIcon label =
-    case label of
-        Label.Material ->
-            Icon.material
-
-        Label.Spinning ->
-            Icon.thread
-
-        Label.Fabric ->
-            Icon.fabric
-
-        Label.Ennobling ->
-            Icon.dyeing
-
-        Label.Making ->
-            Icon.making
-
-        Label.Distribution ->
-            Icon.bus
-
-        Label.Use ->
-            Icon.use
-
-        Label.EndOfLife ->
-            Icon.recycle
-
-
 countryField : Config msg modal -> Html msg
 countryField { db, current, inputs, updateCountry } =
     let
@@ -591,12 +563,6 @@ stepHeader { current, inputs, toggleStep } =
             , onCheck (always (toggleStep current.label))
             ]
             []
-        , span
-            [ class "StepIcon rounded-pill"
-            , classList [ ( "bg-secondary text-white", current.enabled ) ]
-            , classList [ ( "bg-light text-dark", not current.enabled ) ]
-            ]
-            [ stepIcon current.label ]
         , span [ class "fs-6 fw-bold" ]
             [ current.label
                 |> Step.displayLabel
@@ -851,8 +817,8 @@ viewTransport ({ impact, current } as config) =
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
         , if Transport.totalKm current.transport > 0 then
-            div [ class "d-flex justify-content-between gap-3" ]
-                [ div [ class "d-flex justify-content-between gap-3" ]
+            div [ class "d-flex justify-content-between gap-3 align-items-center" ]
+                [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
                     (current.transport
                         |> TransportView.viewDetails
                             { fullWidth = False

@@ -92,11 +92,11 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                     , ( "Utilisation", stepsImpacts.usage )
                     , ( "Fin de vie", stepsImpacts.endOfLife )
                     ]
-                        |> List.filterMap
+                        |> List.map
                             (\( label, maybeValue ) ->
                                 maybeValue
-                                    |> Maybe.map (\value -> Just ( label, Unit.impactToFloat value ))
-                                    |> Maybe.withDefault Nothing
+                                    |> Maybe.map (\value -> ( label, Unit.impactToFloat value ))
+                                    |> Maybe.withDefault ( label, 0 )
                             )
                         |> Table.percentageTable impactDefinition
 
