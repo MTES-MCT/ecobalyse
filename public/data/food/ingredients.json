@@ -2261,12 +2261,12 @@
     }
   },
   {
-    "id": "chicken-breast-soybean-max",
-    "name": "Poulet (majorant théorique: nourri au soja Brésilien)",
+    "id": "chicken-breast-only-soybean-max",
+    "name": "Blanc de poulet (majorant, exclusivement nourri au soja brésilien)",
     "categories": [
-      "vegetable_fresh"
+      "animal_product"
     ],
-    "default": "520dcbb0-6d6e-5dbd-d08e-523d56de36dc",
+    "default": "e20c8c68-2bbe-2218-f9b4-a749adf88619",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.755,
     "density": 1,
@@ -2276,6 +2276,42 @@
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
+    }
+  },
+  {
+    "id": "chicken-breast-br-max",
+    "name": "Blanc de poulet (majorant, élevé au Brésil)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "1d2bfcd3-89e7-0f39-16fd-a1069bfa9c15",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "chicken-breast-fr",
+    "name": "Blanc de poulet (nourri avec des aliments FR)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "ad830dc1-c60d-913b-2d52-620b615494d5",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]
