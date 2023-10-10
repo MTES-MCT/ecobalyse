@@ -85,6 +85,7 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
+    clear_form()
     display_all()
 
 
@@ -580,7 +581,6 @@ def delete_activity(_):
     if w_id.value in activities:
         del activities[w_id.value]
         save_activities(activities)
-        clear_form()
 
 
 def reset_branch():
