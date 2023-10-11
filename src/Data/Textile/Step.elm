@@ -306,7 +306,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | complementsImpacts =
                     { complementsImpacts
-                        | microfibers = Inputs.getMicrofibersComplement inputs
+                        | microfibers = Inputs.getTotalMicrofibersComplement inputs
                     }
             }
 

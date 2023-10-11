@@ -5,7 +5,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (noComplementsImpacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
@@ -668,18 +668,41 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
          else
             (inputs.materials
                 |> List.map
-                    (\material ->
+                    (\materialInput ->
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
-                                [ material
+                                [ materialInput
                                     |> createElementSelectorConfig config
                                     |> BaseElement.view
-                                , [ ComplementsDetails.view
-                                        -- FIXME: compute total complementsImpacts for that given material
-                                        { complementsImpacts = current.complementsImpacts
+                                , [ let
+                                        materialComplement =
+                                            Inputs.getMaterialMicrofibersComplement current.outputMass materialInput
+
+                                        materialComplementsImpacts =
+                                            { noComplementsImpacts | microfibers = materialComplement }
+                                    in
+                                    ComplementsDetails.view
+                                        { complementsImpacts = materialComplementsImpacts
                                         , selectedImpact = selectedImpact
                                         }
-                                        [-- TODO: render each material complement
+                                        [ div [ class "ElementComplement", title "Microfibres" ]
+                                            [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
+                                                [ text "Microfibres"
+                                                , Button.smallPillLink
+                                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers)
+                                                    , target "_blank"
+                                                    ]
+                                                    [ Icon.question ]
+                                                ]
+                                            , span [ class "ComplementRange" ] []
+                                            , div [ class "ComplementValue d-flex" ] []
+                                            , div [ class "ComplementImpact text-end text-danger" ]
+                                                [ materialComplement
+                                                    |> Quantity.negate
+                                                    |> Unit.impactToFloat
+                                                    |> Format.formatImpactFloat selectedImpact
+                                                ]
+                                            ]
                                         ]
                                   ]
                                 ]

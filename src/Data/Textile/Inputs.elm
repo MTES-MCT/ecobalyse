@@ -14,9 +14,10 @@ module Data.Textile.Inputs exposing
     , encodeQuery
     , fromQuery
     , getMainMaterial
-    , getMicrofibersComplement
+    , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
+    , getTotalMicrofibersComplement
     , jupeCircuitAsie
     , parseBase64Query
     , removeMaterial
@@ -538,22 +539,24 @@ updateProduct product query =
         query
 
 
-getMicrofibersComplement : Inputs -> Unit.Impact
-getMicrofibersComplement { mass, materials } =
+getMaterialMicrofibersComplement : Mass -> MaterialInput -> Unit.Impact
+getMaterialMicrofibersComplement mass { material, share } =
+    let
+        materialMassInKg =
+            mass
+                |> Quantity.multiplyBy (Split.toFloat share)
+                |> Mass.inKilograms
+    in
+    Origin.toMicrofibersComplement material.origin
+        |> Quantity.multiplyBy materialMassInKg
+
+
+getTotalMicrofibersComplement : Inputs -> Unit.Impact
+getTotalMicrofibersComplement { mass, materials } =
     -- Note: computed against final product mass, because microfibers are
     --       always released in the environment from finished products.
     materials
-        |> List.map
-            (\{ material, share } ->
-                let
-                    materialMassInKg =
-                        mass
-                            |> Quantity.multiplyBy (Split.toFloat share)
-                            |> Mass.inKilograms
-                in
-                Origin.toMicrofibersComplement material.origin
-                    |> Quantity.multiplyBy materialMassInKg
-            )
+        |> List.map (getMaterialMicrofibersComplement mass)
         |> Quantity.sum
 
 

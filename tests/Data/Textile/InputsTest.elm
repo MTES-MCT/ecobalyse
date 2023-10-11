@@ -98,7 +98,7 @@ suite =
             , let
                 testComplementEqual x =
                     Inputs.fromQuery textileDb
-                        >> Result.map (Inputs.getMicrofibersComplement >> Unit.impactToFloat)
+                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Unit.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
               in
