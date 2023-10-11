@@ -130,15 +130,19 @@ totalComplementsImpactAsChartEntry complementsImpacts =
 -- Steps impacts
 
 
-type alias StepsImpacts =
-    { materials : Maybe Unit.Impact
-    , transform : Maybe Unit.Impact
-    , packaging : Maybe Unit.Impact
-    , transports : Maybe Unit.Impact
-    , distribution : Maybe Unit.Impact
-    , usage : Maybe Unit.Impact
-    , endOfLife : Maybe Unit.Impact
+type alias Steps a =
+    { materials : a
+    , transform : a
+    , packaging : a
+    , transports : a
+    , distribution : a
+    , usage : a
+    , endOfLife : a
     }
+
+
+type alias StepsImpacts =
+    Steps (Maybe Unit.Impact)
 
 
 noStepsImpacts : StepsImpacts
@@ -154,14 +158,7 @@ noStepsImpacts =
 
 
 type alias StepsColors =
-    { materials : String
-    , transform : String
-    , packaging : String
-    , transports : String
-    , distribution : String
-    , usage : String
-    , endOfLife : String
-    }
+    Steps String
 
 
 stepsColors : StepsColors
