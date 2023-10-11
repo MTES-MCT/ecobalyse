@@ -193,9 +193,9 @@
     }
   },
   {
-    "id": "chicken-soybean",
+    "id": "chicken-breast-only-soybean-max",
     "search": "Meat without bone chicken for direct consumption",
-    "suffix": "[soybean], constructed by Ecobalyse",
+    "suffix": "[only-soybean-max], constructed by Ecobalyse",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U",
       "Broiler, live, for direct consumption {FR} U",
@@ -205,6 +205,36 @@
     "replace": {
       "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U",
       "Maize grain dried, conventional, stored and transported, processing {FR} U": "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U"
+    }
+  },
+  {
+    "id": "chicken-breast-br-max",
+    "search": "Meat without bone chicken for direct consumption",
+    "suffix": "[br-max], constructed by Ecobalyse",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U",
+      "Broiler, live, for direct consumption {FR} U",
+      "Broiler, conventional, at farm gate FR U",
+      "Broiler,broiler feed,conv prod, at farm gate FR"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
+      "Maize grain dried, conventional, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U":"Soybean meal {BR}| soybean meal and crude oil production | Cut-off, U - Copied from Ecoinvent U"
+    }
+  },
+  {
+    "id": "chicken-breast-fr",
+    "search": "Meat without bone chicken for direct consumption",
+    "suffix": "[fr], constructed by Ecobalyse",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U",
+      "Broiler, live, for direct consumption {FR} U",
+      "Broiler, conventional, at farm gate FR U",
+      "Broiler,broiler feed,conv prod, at farm gate FR"
+    ],
+    "replace": {
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean grain dried, stored and transported, processing {FR}"    
     }
   }
 ]
