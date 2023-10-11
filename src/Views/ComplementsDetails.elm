@@ -1,32 +1,27 @@
 module Views.ComplementsDetails exposing (view)
 
 import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definition)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Quantity
 import Views.Format as Format
 
 
 type alias Config =
     { complementsImpacts : Impact.ComplementsImpacts
-    , selectedImpact : Definition
     }
 
 
 view : Config -> List (Html msg) -> Html msg
-view { complementsImpacts, selectedImpact } detailedImpacts =
+view { complementsImpacts } detailedImpacts =
     -- TODO: Move this to Views.BaseElement as a generic element complements view
     details [ class "ComplementsDetails fs-7" ]
         (summary []
             [ div [ class "ComplementsTable d-flex justify-content-between w-100" ]
                 [ span [ title "Cliquez pour plier/déplier" ] [ text "Compléments" ]
                 , span [ class "text-muted text-end", title "Total des compléments" ]
-                    [ Impact.getTotalComplementsImpacts complementsImpacts
-                        |> Quantity.negate
-                        |> Unit.impactToFloat
-                        |> Format.formatImpactFloat selectedImpact
+                    [ complementsImpacts
+                        |> Impact.getTotalComplementsImpacts
+                        |> Format.complement
                     ]
                 ]
             ]

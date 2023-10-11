@@ -6,7 +6,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
-import Data.Impact.Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
@@ -661,7 +661,7 @@ simpleView ({ inputs, selectedImpact, current } as config) =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, db, selectedImpact, inputs, setModal } as config) =
+viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -675,9 +675,13 @@ viewMaterials ({ addMaterialModal, db, selectedImpact, inputs, setModal } as con
                                 [ materialInput
                                     |> createElementSelectorConfig config
                                     |> BaseElement.view
-                                , [ materialInput
-                                        |> viewMaterialComplements selectedImpact inputs.mass
-                                  ]
+                                , if selectedImpact.trigram == Definition.Ecs then
+                                    [ materialInput
+                                        |> viewMaterialComplements inputs.mass
+                                    ]
+
+                                  else
+                                    []
                                 ]
                             )
                     )
@@ -754,8 +758,8 @@ viewMaterials ({ addMaterialModal, db, selectedImpact, inputs, setModal } as con
         )
 
 
-viewMaterialComplements : Definition -> Mass -> Inputs.MaterialInput -> Html msg
-viewMaterialComplements selectedImpact finalProductMass materialInput =
+viewMaterialComplements : Mass -> Inputs.MaterialInput -> Html msg
+viewMaterialComplements finalProductMass materialInput =
     let
         materialComplement =
             Inputs.getMaterialMicrofibersComplement finalProductMass materialInput
@@ -763,10 +767,7 @@ viewMaterialComplements selectedImpact finalProductMass materialInput =
         materialComplementsImpacts =
             { noComplementsImpacts | microfibers = materialComplement }
     in
-    ComplementsDetails.view
-        { complementsImpacts = materialComplementsImpacts
-        , selectedImpact = selectedImpact
-        }
+    ComplementsDetails.view { complementsImpacts = materialComplementsImpacts }
         [ div [ class "ElementComplement", title "Microfibres" ]
             [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
                 [ text "Microfibres"
@@ -779,10 +780,7 @@ viewMaterialComplements selectedImpact finalProductMass materialInput =
             , span [ class "ComplementRange" ] []
             , div [ class "ComplementValue d-flex" ] []
             , div [ class "ComplementImpact text-muted text-end" ]
-                [ materialComplement
-                    |> Quantity.negate
-                    |> Unit.impactToFloat
-                    |> Format.formatImpactFloat selectedImpact
+                [ Format.complement materialComplement
                 ]
             ]
         ]

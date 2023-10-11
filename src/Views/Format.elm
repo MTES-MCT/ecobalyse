@@ -1,5 +1,6 @@
 module Views.Format exposing
-    ( days
+    ( complement
+    , days
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -37,6 +38,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Quantity
 import Volume exposing (Volume)
 
 
@@ -102,6 +104,14 @@ formatRichFloat decimals unit value =
             |> text
         , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
         ]
+
+
+complement : Unit.Impact -> Html msg
+complement =
+    -- Note: complements are *always* expressed in ecoscore points
+    Quantity.negate
+        >> Unit.impactToFloat
+        >> formatImpactFloat { unit = "µPts", decimals = 2 }
 
 
 kg : Mass -> Html msg

@@ -672,17 +672,13 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                             impact
                                 |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
                     in
-                    ComplementsDetails.view
-                        { complementsImpacts = complementsImpacts
-                        , selectedImpact = selectedImpact
-                        }
+                    ComplementsDetails.view { complementsImpacts = complementsImpacts }
                         [ ingredientComplementsView
                             { name = "Diversité agricole"
                             , title = Nothing
                             , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroDiversity
                             , complementSplit = complements.agroDiversity
-                            , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
                                     event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
@@ -693,7 +689,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                             , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroEcology
                             , complementSplit = complements.agroEcology
-                            , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
                                     event { ingredientQuery | complements = Just { complements | agroEcology = split } }
@@ -705,7 +700,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                                 , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
                                 , complementImpact = complementsImpacts.animalWelfare
                                 , complementSplit = complements.animalWelfare
-                                , selectedImpact = selectedImpact
                                 , updateEvent =
                                     \split ->
                                         event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
@@ -735,14 +729,13 @@ type alias ComplementsViewConfig msg =
     , complementSplit : Split
     , domId : String
     , name : String
-    , selectedImpact : Definition
     , title : Maybe String
     , updateEvent : Split -> msg
     }
 
 
 ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
-ingredientComplementsView { name, complementImpact, complementSplit, domId, selectedImpact, title, updateEvent } =
+ingredientComplementsView { name, complementImpact, complementSplit, domId, title, updateEvent } =
     div
         [ class "ElementComplement"
         , title |> Maybe.withDefault name |> Attr.title
@@ -777,10 +770,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, sele
                 [ Icon.question ]
             ]
         , div [ class "ComplementImpact text-muted text-end" ]
-            [ complementImpact
-                |> Quantity.negate
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat selectedImpact
+            [ Format.complement complementImpact
             ]
         ]
 
