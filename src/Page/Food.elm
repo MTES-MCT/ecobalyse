@@ -776,13 +776,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, sele
                 ]
                 [ Icon.question ]
             ]
-        , div
-            [ class "ComplementImpact text-end"
-            , classList
-                [ ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
-                , ( "text-success", Unit.impactToFloat complementImpact > 0 )
-                ]
-            ]
+        , div [ class "ComplementImpact text-muted text-end" ]
             [ complementImpact
                 |> Quantity.negate
                 |> Unit.impactToFloat

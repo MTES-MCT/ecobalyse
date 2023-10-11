@@ -17,11 +17,12 @@ type alias Config =
 
 view : Config -> List (Html msg) -> Html msg
 view { complementsImpacts, selectedImpact } detailedImpacts =
+    -- TODO: Move this to Views.BaseElement as a generic element complements view
     details [ class "ComplementsDetails fs-7" ]
         (summary []
             [ div [ class "ComplementsTable d-flex justify-content-between w-100" ]
                 [ span [ title "Cliquez pour plier/déplier" ] [ text "Compléments" ]
-                , span [ class "text-success text-end", title "Total des compléments" ]
+                , span [ class "text-muted text-end", title "Total des compléments" ]
                     [ Impact.getTotalComplementsImpacts complementsImpacts
                         |> Quantity.negate
                         |> Unit.impactToFloat

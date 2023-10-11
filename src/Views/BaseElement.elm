@@ -35,6 +35,8 @@ type alias Config element quantity msg =
     , disableQuantity : Bool
     , excluded : List element
     , impact : Impacts
+
+    -- TODO: introduce complementsView
     , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg

@@ -778,7 +778,7 @@ viewMaterialComplements selectedImpact finalProductMass materialInput =
                 ]
             , span [ class "ComplementRange" ] []
             , div [ class "ComplementValue d-flex" ] []
-            , div [ class "ComplementImpact text-end text-danger" ]
+            , div [ class "ComplementImpact text-muted text-end" ]
                 [ materialComplement
                     |> Quantity.negate
                     |> Unit.impactToFloat
