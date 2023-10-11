@@ -50,10 +50,10 @@ type alias Config msg modal =
     , db : TextileDb.Db
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
-    , selectedImpact : Definition
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
+    , selectedImpact : Definition
     , setModal : modal -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
