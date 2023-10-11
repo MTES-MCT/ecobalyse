@@ -16,7 +16,7 @@ type alias Config =
 
 
 view : Config -> List (Html msg) -> Html msg
-view { complementsImpacts, selectedImpact } html =
+view { complementsImpacts, selectedImpact } detailedImpacts =
     details [ class "ComplementsDetails fs-7" ]
         (summary []
             [ div [ class "ComplementsTable d-flex justify-content-between w-100" ]
@@ -29,5 +29,5 @@ view { complementsImpacts, selectedImpact } html =
                     ]
                 ]
             ]
-            :: html
+            :: detailedImpacts
         )

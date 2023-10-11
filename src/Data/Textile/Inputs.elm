@@ -540,10 +540,12 @@ updateProduct product query =
 
 
 getMaterialMicrofibersComplement : Mass -> MaterialInput -> Unit.Impact
-getMaterialMicrofibersComplement mass { material, share } =
+getMaterialMicrofibersComplement finalProductMass { material, share } =
+    -- Note: Impact is computed against the final product mass, because microfibers
+    --       are always released in the environment from finished products.
     let
         materialMassInKg =
-            mass
+            finalProductMass
                 |> Quantity.multiplyBy (Split.toFloat share)
                 |> Mass.inKilograms
     in
@@ -553,8 +555,7 @@ getMaterialMicrofibersComplement mass { material, share } =
 
 getTotalMicrofibersComplement : Inputs -> Unit.Impact
 getTotalMicrofibersComplement { mass, materials } =
-    -- Note: computed against final product mass, because microfibers are
-    --       always released in the environment from finished products.
+    -- Note: no other steps than the materials one generate microfibers pollution
     materials
         |> List.map (getMaterialMicrofibersComplement mass)
         |> Quantity.sum

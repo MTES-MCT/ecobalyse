@@ -29,6 +29,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Mass exposing (Mass)
 import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
@@ -660,7 +661,7 @@ simpleView ({ inputs, selectedImpact, current } as config) =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal } as config) =
+viewMaterials ({ addMaterialModal, db, selectedImpact, inputs, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -674,36 +675,8 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
                                 [ materialInput
                                     |> createElementSelectorConfig config
                                     |> BaseElement.view
-                                , [ let
-                                        materialComplement =
-                                            Inputs.getMaterialMicrofibersComplement current.outputMass materialInput
-
-                                        materialComplementsImpacts =
-                                            { noComplementsImpacts | microfibers = materialComplement }
-                                    in
-                                    ComplementsDetails.view
-                                        { complementsImpacts = materialComplementsImpacts
-                                        , selectedImpact = selectedImpact
-                                        }
-                                        [ div [ class "ElementComplement", title "Microfibres" ]
-                                            [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
-                                                [ text "Microfibres"
-                                                , Button.smallPillLink
-                                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers)
-                                                    , target "_blank"
-                                                    ]
-                                                    [ Icon.question ]
-                                                ]
-                                            , span [ class "ComplementRange" ] []
-                                            , div [ class "ComplementValue d-flex" ] []
-                                            , div [ class "ComplementImpact text-end text-danger" ]
-                                                [ materialComplement
-                                                    |> Quantity.negate
-                                                    |> Unit.impactToFloat
-                                                    |> Format.formatImpactFloat selectedImpact
-                                                ]
-                                            ]
-                                        ]
+                                , [ materialInput
+                                        |> viewMaterialComplements selectedImpact inputs.mass
                                   ]
                                 ]
                             )
@@ -779,6 +752,40 @@ viewMaterials ({ addMaterialModal, current, db, selectedImpact, inputs, setModal
                         ]
                    ]
         )
+
+
+viewMaterialComplements : Definition -> Mass -> Inputs.MaterialInput -> Html msg
+viewMaterialComplements selectedImpact finalProductMass materialInput =
+    let
+        materialComplement =
+            Inputs.getMaterialMicrofibersComplement finalProductMass materialInput
+
+        materialComplementsImpacts =
+            { noComplementsImpacts | microfibers = materialComplement }
+    in
+    ComplementsDetails.view
+        { complementsImpacts = materialComplementsImpacts
+        , selectedImpact = selectedImpact
+        }
+        [ div [ class "ElementComplement", title "Microfibres" ]
+            [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
+                [ text "Microfibres"
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            , span [ class "ComplementRange" ] []
+            , div [ class "ComplementValue d-flex" ] []
+            , div [ class "ComplementImpact text-end text-danger" ]
+                [ materialComplement
+                    |> Quantity.negate
+                    |> Unit.impactToFloat
+                    |> Format.formatImpactFloat selectedImpact
+                ]
+            ]
+        ]
 
 
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
