@@ -2,59 +2,58 @@ Comment générer les données json utilisées par le frontal elm :
 
 # Avec docker
 
-* Installez `docker` et `make`
-* Si vous êtes sur Mac avec architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop :
+- Installez `docker` et `make`
+- Si vous êtes sur Mac avec architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop :
   Settings → Ressources → Advanced → Memory = 6G
-* Préparez les bases de données à importer, elle ne font pas partie du dépôt :
-    * Agribalyse : compressé dans un fichier `AGB3.1.1.20230306.CSV.zip` dans ce dossier data/
-    * Ecoinvent : décompressé dans un dossier `ECOINVENT3.9.1` dans ce même dossier
-* Lancez **`make`** ce qui va successivement :
-    * construire l'image docker
-    * importer agribalyse et EF 3.1 adapted dans un projet `food` de Brightway
-    * importer ecoinvent et EF 3.1 adapted dans un projet `textile` de Brightway
-    * exporter les données json utilisées côté front-end
+- Préparez les bases de données à importer, elle ne font pas partie du dépôt :
+  - Agribalyse : compressé dans un fichier `AGB3.1.1.20230306.CSV.zip` dans ce dossier data/
+  - Ecoinvent : décompressé dans un dossier `ECOINVENT3.9.1` dans ce même dossier
+- Lancez **`make`** ce qui va successivement :
+  - construire l'image docker
+  - importer agribalyse et EF 3.1 adapted dans un projet `food` de Brightway
+  - importer ecoinvent et EF 3.1 adapted dans un projet `textile` de Brightway
+  - exporter les données json utilisées côté front-end
 
 Le processus entier prend environ 1h. En cas de problème vous pouvez redémarrer de zéro en faisant
 d'abord un `make clean_data` (qui supprime le volume docker).
 
 ## Autres commandes :
 
-* `make image` : pour construire l'image docker choisie
-* `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway (projet food).
+- `make image` : pour construire l'image docker choisie
+- `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway (projet food).
   Assurez-vous d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans le dossier `data/`
-* `make import_food_method` : pour importer EF 3.1 adapted dans Brightway (projet food).
+- `make import_food_method` : pour importer EF 3.1 adapted dans Brightway (projet food).
   Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier
   `data/`
-* `make import_textile_method` : pour importer EF 3.1 adapted dans Brightway (projet textile).
+- `make import_textile_method` : pour importer EF 3.1 adapted dans Brightway (projet textile).
   Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier
   `data/`
-* `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet textile). Assurez-vous
+- `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet textile). Assurez-vous
   d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
-* `make export_food` : pour exporter les json pour le builder alimentaire
-* `make export_textile` : pour exporter les json pour le builder textile
-* `make delete_textile_method` : pour supprimer la méthode utilisée dans le projet textile
-* `make json` : lance toutes les commandes précédentes dans l'ordre
-* `make shell` : lance un shell bash à l'intérieur du conteneur
-* `make python` : lance un interpréteur Python à l'intérieur du conteneur
-* `make jupyter_password` : définit le mot de passe jupyter. Doit être lancé avant son démarrage.
-* `make root_shell` : lance un shell root à l'intérieur du conteneur
-* `make jupyter_password` : pour définir le mot de passe de Jupyter avant de le lancer
-* `make start_notebook` : lance le serveur Jupyter dans le conteneur
-* `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur
-* `make clean_data` : supprime toutes les données (celles de brightway et jupyter mais pas les json
+- `make export_food` : pour exporter les json pour le builder alimentaire
+- `make export_textile` : pour exporter les json pour le builder textile
+- `make delete_textile_method` : pour supprimer la méthode utilisée dans le projet textile
+- `make json` : lance toutes les commandes précédentes dans l'ordre
+- `make shell` : lance un shell bash à l'intérieur du conteneur
+- `make python` : lance un interpréteur Python à l'intérieur du conteneur
+- `make jupyter_password` : définit le mot de passe jupyter. Doit être lancé avant son démarrage.
+- `make root_shell` : lance un shell root à l'intérieur du conteneur
+- `make jupyter_password` : pour définir le mot de passe de Jupyter avant de le lancer
+- `make start_notebook` : lance le serveur Jupyter dans le conteneur
+- `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur
+- `make clean_data` : supprime toutes les données (celles de brightway et jupyter mais pas les json
   générés)
-* `make clean_image` : supprime l'image docker
-* `make clean` : lance `clean_data` et `clean_image`
-
+- `make clean_image` : supprime l'image docker
+- `make clean` : lance `clean_data` et `clean_image`
 
 ## Travailler dans le conteneur :
 
 Vous pouvez entrer dans le conteneur avec `make shell`.
 
 Toutes les données du conteneur, notamment celles de Brightway et de Jupyter, sont dans
-`/home/jovyan` qui est situé dans un volume docker (`/var/lib/docker/volume/jovyan` sur le *host*).
+`/home/jovyan` qui est situé dans un volume docker (`/var/lib/docker/volume/jovyan` sur le _host_).
 Le dépôt git ecobalyse se retrouve (via un bind mount) aussi à l'intérieur du conteneur dans
-`/home/jovyan/ecobalyse`.  Les fichiers json générés arrivent directement sur place au bon endroit
+`/home/jovyan/ecobalyse`. Les fichiers json générés arrivent directement sur place au bon endroit
 pour être comparées puis commités.
 
 ## Lancer le serveur Jupyter

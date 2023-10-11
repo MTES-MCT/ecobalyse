@@ -334,7 +334,6 @@ def display_right_panel(database):
 
 @w_details.capture()
 def display_main_data(database, method, impact_category, activity):
-
     w_details.clear_output()
     w_results.clear_output()
     display(Markdown(f"## (Computing impacts...)"))

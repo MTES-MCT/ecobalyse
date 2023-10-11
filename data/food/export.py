@@ -17,6 +17,7 @@ import hashlib
 import json
 import uuid
 
+
 # Input
 PROJECT = "food"
 DBNAME = "Agribalyse 3.1.1"
@@ -98,9 +99,6 @@ if __name__ == "__main__":
             ],
             # those are removed at the end:
             "search": activity["search"],
-            "ratio": activity.get("ratio"),
-            "subingredient_default": activity.get("subingredient_default"),
-            "subingredient_organic": activity.get("subingredient_organic"),
             "impacts": {"bvi": activity.get("bvi", 0)},
         }
         for activity in activities
@@ -109,38 +107,10 @@ if __name__ == "__main__":
     for p in processes:
         if not processes[p]["category"]:
             del processes[p]["category"]
-    # remove complex ingredient attributes on simple ingredients
-    for processid in processes.keys():
-        if not processes[processid]["ratio"]:
-            del processes[processid]["ratio"]
-            del processes[processid]["subingredient_default"]
-            del processes[processid]["subingredient_organic"]
-
-    # check that all three attributes are present on complex ingredients
-    for activity in activities:
-        if any(
-            [
-                key in activity
-                for key in ("ratio", "subingredient_default", "subingredient_organic")
-            ]
-        ):
-            assert all(
-                [
-                    key in activity
-                    for key in (
-                        "ratio",
-                        "subingredient_default",
-                        "subingredient_organic",
-                    )
-                ]
-            ), f"{activity} seems is missing either ratio or subingredient_default or subingredient_organic"
 
     # compute the impacts of base processes
     print("Computing impacts:")
-    for index, (processid, process) in enumerate(
-        # keep complex ingredients at the end since they depend on subingredient processes
-        sorted(processes.items(), key=lambda x: "ratio" in x[1])
-    ):
+    for index, (processid, process) in enumerate(processes.items()):
         print(
             "("
             + (index) * "•"
@@ -158,40 +128,8 @@ if __name__ == "__main__":
         # compute subimpacts
         process = with_subimpacts(process)
 
-        # Now compute an identifier for complex ingredients
-        # Compute impacts of complex ingredients
-        # and tweak some attributes
-        if "ratio" in process:
-            for impact in process["impacts"]:
-                # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient.
-                # You need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
-                # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
-                if impact == "bvi" and (
-                    process["impacts"][impact] == 0
-                    or processes[process["subingredient_organic"]]["impacts"][impact]
-                    == 0
-                    or processes[process["subingredient_default"]]["impacts"][impact]
-                    == 0
-                ):
-                    # if the base ingredient has no bvi, neither the organic
-                    continue
-                process["impacts"][impact] = process["impacts"][impact] + process[
-                    "ratio"
-                ] * (
-                    processes[process["subingredient_organic"]]["impacts"][impact]
-                    - processes[process["subingredient_default"]]["impacts"][impact]
-                )
-
-            process["name"] = f"{processid}, constructed by Ecobalyse"
-            process["system_description"] = "Ecobalyse"
-
         # remove unneeded attributes
-        for attribute in (
-            "search",
-            "ratio",
-            "subingredient_default",
-            "subingredient_organic",
-        ):
+        for attribute in ["search"]:
             if attribute in process:
                 del process[attribute]
 
@@ -215,3 +153,4 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
+

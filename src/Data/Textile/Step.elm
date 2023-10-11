@@ -161,7 +161,7 @@ displayLabel { knitted, fadable } label =
             "Transformation\u{00A0}- Tissage"
 
         _ ->
-            Label.toString label
+            Label.toName label
 
 
 {-| Computes step transport distances and impact regarding next step.
