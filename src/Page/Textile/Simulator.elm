@@ -83,6 +83,7 @@ type Msg
     | NoOp
     | OnAutocomplete (Autocomplete.Msg Material)
     | OnAutocompleteSelect
+    | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
     | Reset
@@ -249,6 +250,12 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
                 _ ->
                     ( model, session, Cmd.none )
+
+        OnStepClick stepId ->
+            ( model
+            , session
+            , Ports.scrollIntoView stepId
+            )
 
         RemoveMaterial materialId ->
             if List.length query.materials == 1 then
@@ -704,7 +711,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig model.impact model.activeImpactsTab
+                        |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
                         |> ImpactTabs.forTextile session.textileDb.impactDefinitions simulator
 
                 -- Bookmarks
