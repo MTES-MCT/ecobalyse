@@ -502,6 +502,7 @@ updateExistingMaterial query model session oldMaterial newMaterial =
             { id = newMaterial.id
             , share = oldMaterial.share
             , spinning = Nothing
+            , country = Nothing
             }
     in
     model

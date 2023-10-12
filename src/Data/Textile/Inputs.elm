@@ -62,6 +62,7 @@ type alias MaterialInput =
     { material : Material
     , share : Split
     , spinning : Maybe Spinning
+    , country : Maybe Country
     }
 
 
@@ -97,6 +98,7 @@ type alias MaterialQuery =
     { id : Material.Id
     , share : Split
     , spinning : Maybe Spinning
+    , country : Maybe Country.Code
     }
 
 
@@ -124,25 +126,37 @@ type alias Query =
     }
 
 
-toMaterialInputs : List Material -> List MaterialQuery -> Result String (List MaterialInput)
-toMaterialInputs materials =
+toMaterialInputs : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
+toMaterialInputs materials countries =
     List.map
-        (\{ id, share, spinning } ->
-            Material.findById id materials
-                |> Result.map
-                    (\material_ ->
-                        { material = material_
-                        , share = share
-                        , spinning = spinning
-                        }
-                    )
+        (\{ id, share, spinning, country } ->
+            let
+                countryResult =
+                    case country of
+                        Just countryCode ->
+                            Country.findByCode countryCode countries
+                                |> Result.map Just
+
+                        Nothing ->
+                            Ok Nothing
+            in
+            Result.map2
+                (\material_ country_ ->
+                    { material = material_
+                    , share = share
+                    , spinning = spinning
+                    , country = country_
+                    }
+                )
+                (Material.findById id materials)
+                countryResult
         )
         >> RE.combine
 
 
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
-    List.map (\{ material, share, spinning } -> { id = material.id, share = share, spinning = spinning })
+    List.map (\{ material, share, spinning, country } -> { id = material.id, share = share, spinning = spinning, country = country |> Maybe.map .code })
 
 
 getMainMaterial : List MaterialInput -> Result String Material
@@ -168,7 +182,7 @@ fromQuery db query =
     let
         materials =
             query.materials
-                |> toMaterialInputs db.materials
+                |> toMaterialInputs db.materials db.countries
 
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
@@ -337,10 +351,18 @@ materialsToString materials =
     materials
         |> List.filter (\{ share } -> Split.toFloat share > 0)
         |> List.map
-            (\{ material, share } ->
+            (\{ material, share, country } ->
+                let
+                    countryName =
+                        country
+                            |> Maybe.map .name
+                            |> Maybe.withDefault " par défaut"
+                in
                 Split.toPercentString share
                     ++ "% "
                     ++ material.shortName
+                    ++ " provenance "
+                    ++ countryName
             )
         |> String.join ", "
 
@@ -456,6 +478,7 @@ addMaterial material query =
             { id = material.id
             , share = Split.zero
             , spinning = Nothing
+            , country = Nothing
             }
     in
     { query
@@ -473,7 +496,7 @@ updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
 updateMaterial oldMaterialId newMaterial =
     updateMaterialQuery
         oldMaterialId
-        (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing })
+        (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing, country = newMaterial.country })
 
 
 updateMaterialShare : Material.Id -> Split -> Query -> Query
@@ -606,7 +629,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing } ]
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Just (Country.Code "FR") } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -652,7 +675,7 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing } ]
+    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
     , product = Product.Id "jupe"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
@@ -715,6 +738,7 @@ encodeMaterialInput v =
     [ ( "material", Material.encode v.material |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
+    , ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object
@@ -751,6 +775,7 @@ decodeMaterialQuery =
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
         |> Pipe.optional "spinning" (Decode.maybe Spinning.decode) Nothing
+        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
 
 
 encodeQuery : Query -> Encode.Value
@@ -793,6 +818,7 @@ encodeMaterialQuery v =
     [ ( "id", Material.encodeId v.id |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
+    , ( "country", v.country |> Maybe.map Country.encodeCode )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object

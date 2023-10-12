@@ -816,12 +816,13 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
             { id = materialInput.material.id
             , share = materialInput.share
             , spinning = materialInput.spinning
+            , country = materialInput.country |> Maybe.map .code
             }
 
         baseElement =
             { element = materialInput.material
             , quantity = materialInput.share
-            , country = Nothing
+            , country = materialInput.country
             }
 
         defaultCountry =
@@ -854,7 +855,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
     , delete = deleteMaterial
 
     -- No country selection for now
-    , disableCountry = True
+    , disableCountry = False
     , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
@@ -876,6 +877,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 { materialQuery
                     | id = newElement.element.id
                     , share = newElement.quantity
+                    , country = newElement.country |> Maybe.map .code
                 }
     }
 
