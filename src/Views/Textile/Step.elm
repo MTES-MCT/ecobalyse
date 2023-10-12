@@ -596,10 +596,27 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
                         [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
                             [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                                span [ class "fw-bold flex-fill" ]
-                                    [ current.impacts
-                                        |> Impact.impactsWithComplements current.complementsImpacts
-                                        |> Format.formatImpact selectedImpact
+                                div []
+                                    [ span [ class "fw-bold flex-fill" ]
+                                        [ current.impacts
+                                            |> Format.formatImpact selectedImpact
+                                        ]
+                                    , let
+                                        stepComplementsImpact =
+                                            current.complementsImpacts
+                                                |> Impact.getTotalComplementsImpacts
+                                      in
+                                      if Unit.impactToFloat stepComplementsImpact < 0 then
+                                        small [ class "fs-8 text-muted ps-1" ]
+                                            [ text "("
+                                            , current.complementsImpacts
+                                                |> Impact.getTotalComplementsImpacts
+                                                |> Format.complement
+                                            , text ")"
+                                            ]
+
+                                      else
+                                        text ""
                                     ]
 
                               else
