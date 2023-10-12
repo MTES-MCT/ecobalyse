@@ -108,10 +108,11 @@ formatRichFloat decimals unit value =
 
 complement : Unit.Impact -> Html msg
 complement =
-    -- Note: complements are *always* expressed in ecoscore points
-    Quantity.negate
-        >> Unit.impactToFloat
-        >> formatImpactFloat { unit = "µPts", decimals = 2 }
+    -- Notes:
+    -- - maluses are expressed with a negative number, bonuses with a
+    --   positive one; here we render the *effect* it has on the score
+    -- - complements are *always* expressed in ecoscore points
+    Quantity.negate >> Unit.impactToFloat >> formatRichFloat 2 "µPts"
 
 
 kg : Mass -> Html msg
