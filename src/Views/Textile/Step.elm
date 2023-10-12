@@ -595,32 +595,7 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
                         [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
-                            [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                                div []
-                                    [ span [ class "fw-bold flex-fill" ]
-                                        [ current.impacts
-                                            |> Format.formatImpact selectedImpact
-                                        ]
-                                    , let
-                                        stepComplementsImpact =
-                                            current.complementsImpacts
-                                                |> Impact.getTotalComplementsImpacts
-                                      in
-                                      if Unit.impactToFloat stepComplementsImpact < 0 then
-                                        small [ class "fs-8 text-muted ps-1" ]
-                                            [ text "("
-                                            , current.complementsImpacts
-                                                |> Impact.getTotalComplementsImpacts
-                                                |> Format.complement
-                                            , text ")"
-                                            ]
-
-                                      else
-                                        text ""
-                                    ]
-
-                              else
-                                text ""
+                            [ viewStepImpacts selectedImpact current
                             ]
                         , stepActions config current.label
                         ]
@@ -675,6 +650,36 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                 viewMaterials config
             ]
     }
+
+
+viewStepImpacts : Definition -> Step -> Html msg
+viewStepImpacts selectedImpact { impacts, complementsImpacts } =
+    if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
+        div []
+            [ span [ class "fw-bold flex-fill" ]
+                [ impacts
+                    |> Format.formatImpact selectedImpact
+                ]
+            , let
+                stepComplementsImpact =
+                    complementsImpacts
+                        |> Impact.getTotalComplementsImpacts
+              in
+              if Unit.impactToFloat stepComplementsImpact < 0 then
+                small [ class "fs-8 text-muted ps-1" ]
+                    [ text "("
+                    , complementsImpacts
+                        |> Impact.getTotalComplementsImpacts
+                        |> Format.complement
+                    , text ")"
+                    ]
+
+              else
+                text ""
+            ]
+
+    else
+        text ""
 
 
 viewMaterials : Config msg modal -> Html msg
