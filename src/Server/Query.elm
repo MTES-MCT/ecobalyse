@@ -115,7 +115,7 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (foodCountryParser countries countryCode)
+                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
                 |> RE.andMap (Ok Nothing)
 
@@ -128,7 +128,7 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (foodCountryParser countries countryCode)
+                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
                 |> RE.andMap (Ok Nothing)
 
@@ -141,7 +141,7 @@ ingredientParser { countries, ingredients } string =
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (foodCountryParser countries countryCode)
+                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
                 |> RE.andMap (ingredient |> Result.andThen (complementsParser complements))
 
@@ -191,14 +191,14 @@ complementsParser string { name, categories } =
             Err <| "Format de bonus d'ingrédient invalide: " ++ string ++ "."
 
 
-foodCountryParser : List Country -> String -> Result String (Maybe Country.Code)
-foodCountryParser countries countryStr =
+countryParser : List Country -> Scope -> String -> Result String (Maybe Country.Code)
+countryParser countries scope countryStr =
     if countryStr == "" then
         Ok Nothing
 
     else
         countries
-            |> validateCountry countryStr Scope.Food
+            |> validateCountry countryStr scope
             |> Result.map Just
 
 
@@ -369,7 +369,7 @@ parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
 parseTextileQuery textileDb =
     succeed (Ok Inputs.Query)
         |> apply (massParserInKilograms "mass")
-        |> apply (materialListParser "materials" textileDb.materials)
+        |> apply (materialListParser "materials" textileDb.materials textileDb.countries)
         |> apply (productParser "product" textileDb.products)
         |> apply (maybeTextileCountryParser "countrySpinning" textileDb.countries)
         |> apply (textileCountryParser "countryFabric" textileDb.countries)
@@ -469,45 +469,56 @@ productParser key products =
             )
 
 
-materialListParser : String -> List Material -> Parser (ParseResult (List Inputs.MaterialQuery))
-materialListParser key materials =
+materialListParser : String -> List Material -> List Country -> Parser (ParseResult (List Inputs.MaterialQuery))
+materialListParser key materials countries =
     Query.custom (key ++ "[]")
-        (List.map (parseMaterial_ materials)
+        (List.map (parseMaterial_ materials countries)
             >> RE.combine
             >> Result.andThen validateMaterialList
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-parseMaterial_ : List Material -> String -> Result String Inputs.MaterialQuery
-parseMaterial_ materials string =
+parseMaterial_ : List Material -> List Country -> String -> Result String Inputs.MaterialQuery
+parseMaterial_ materials countries string =
     case String.split ";" string of
-        [ id, share, spinningString ] ->
-            Ok Inputs.MaterialQuery
-                |> RE.andMap (parseMaterialId_ materials id)
-                |> RE.andMap (parseSplit share)
+        [ id, share, spinningString, countryCode ] ->
+            let
+                materialResult =
+                    materials
+                        |> Material.findById (Material.Id id)
+            in
+            materialResult
                 |> Result.andThen
-                    (\partiallyApplied ->
-                        let
-                            materialQuery =
-                                partiallyApplied Nothing
+                    (\material ->
+                        Ok Inputs.MaterialQuery
+                            |> RE.andMap (Ok material.id)
+                            |> RE.andMap (parseSplit share)
+                            |> RE.andMap (parseSpinning material spinningString)
+                            |> RE.andMap (countryParser countries Scope.Textile countryCode)
+                    )
 
-                            materialResult =
-                                Material.findById materialQuery.id materials
-                        in
-                        materialResult
-                            |> Result.andThen
-                                (\material ->
-                                    parseSpinning material spinningString
-                                        |> Result.map (\spinning -> { materialQuery | spinning = Just spinning })
-                                )
+        [ id, share, spinningString ] ->
+            let
+                materialResult =
+                    materials
+                        |> Material.findById (Material.Id id)
+            in
+            materialResult
+                |> Result.andThen
+                    (\material ->
+                        Ok Inputs.MaterialQuery
+                            |> RE.andMap (Ok material.id)
+                            |> RE.andMap (parseSplit share)
+                            |> RE.andMap (parseSpinning material spinningString)
+                            |> RE.andMap (Ok Nothing)
                     )
 
         [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
-                |> Result.map (\partiallyApplied -> partiallyApplied Nothing)
+                |> Result.map (\partiallyApplied -> partiallyApplied Nothing Nothing)
 
         [ "" ] ->
             Err <| "Format de matière vide."
@@ -531,33 +542,37 @@ parseSplit string =
         |> Result.andThen Split.fromFloat
 
 
-parseSpinning : Material -> String -> Result String Spinning
+parseSpinning : Material -> String -> Result String (Maybe Spinning)
 parseSpinning material spinningString =
-    let
-        spinningResult =
-            spinningString
-                |> Spinning.fromString
+    if spinningString == "" then
+        Ok Nothing
 
-        availableSpinningProcesses =
-            Spinning.getAvailableProcesses material.origin
-    in
-    spinningResult
-        |> Result.andThen
-            (\spinning ->
-                if List.member spinning availableSpinningProcesses then
-                    Ok spinning
+    else
+        let
+            spinningResult =
+                spinningString
+                    |> Spinning.fromString
 
-                else
-                    Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
-            )
-        |> Result.mapError
-            (always <|
-                "Un procédé de filature/filage doit être choisi parmi ("
-                    ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|")
-                    ++ ") (ici: "
-                    ++ spinningString
-                    ++ ")"
-            )
+            availableSpinningProcesses =
+                Spinning.getAvailableProcesses material.origin
+        in
+        spinningResult
+            |> Result.andThen
+                (\spinning ->
+                    if List.member spinning availableSpinningProcesses then
+                        Ok (Just spinning)
+
+                    else
+                        Err <| "Un procédé de filature/filage doit être choisi parmi (" ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|") ++ ") (ici: " ++ spinningString ++ ")"
+                )
+            |> Result.mapError
+                (always <|
+                    "Un procédé de filature/filage doit être choisi parmi ("
+                        ++ (availableSpinningProcesses |> List.map Spinning.toString |> String.join "|")
+                        ++ ") (ici: "
+                        ++ spinningString
+                        ++ ")"
+                )
 
 
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)

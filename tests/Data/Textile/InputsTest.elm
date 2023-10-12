@@ -88,8 +88,8 @@ suite =
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing }
-                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing }
+                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
+                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing, country = Nothing }
                         ]
                   }
                     |> testComplementEqual -93.5

@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "4 septembre 2023"
+    [ { date = "12 octobre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramétrage optionnel `country` du code de pays d'origine pour la
+            matière a été rajouté.
+"""
+      }
+    , { date = "4 septembre 2023"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

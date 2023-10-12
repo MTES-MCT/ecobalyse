@@ -1,5 +1,6 @@
 module Server.RouteTest exposing (..)
 
+import Data.Country as Country
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
@@ -161,7 +162,7 @@ textileEndpoints db =
         [ String.join "&"
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
-            , "materials[]=coton;1"
+            , "materials[]=coton;1;;FR"
             , "countryFabric=FR"
             , "countryDyeing=FR"
             , "countryMaking=FR"
@@ -171,7 +172,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "materials[]=coton;1"
+          , "materials[]=coton;1;;FR"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -187,7 +188,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "materials[]=coton;1"
+          , "materials[]=coton;1;;FR"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -203,7 +204,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
         , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
-          , "materials[]=coton;1"
+          , "materials[]=coton;1;;FR"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -218,7 +219,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator/{impact} endpoint"
         , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
-          , "materials[]=coton;1"
+          , "materials[]=coton;1;;FR"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -250,14 +251,17 @@ textileEndpoints db =
                         [ { id = Material.Id "coton"
                           , share = thirty
                           , spinning = Nothing
+                          , country = Just (Country.Code "FR")
                           }
                         , { id = Material.Id "coton-rdp"
                           , share = thirty
                           , spinning = Just Spinning.Unconventional
+                          , country = Nothing
                           }
                         , { id = Material.Id "acrylique"
                           , share = fourty
                           , spinning = Nothing
+                          , country = Nothing
                           }
                         ]
                     )
@@ -267,7 +271,7 @@ textileEndpoints db =
           in
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "materials[]=coton;0.3"
+          , "materials[]=coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
           , "materials[]=acrylique;0.4"
           , "countryFabric=FR"
@@ -325,6 +329,11 @@ textileEndpoints db =
                         ++ ") (ici: UnconventionalSpinning)"
                 )
             |> asTest "should validate invalid material spinning for synthetic threads"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=neoprene;0.3;UnconventionalSpinning;NotACountryCode"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "materials")
+            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
+            |> asTest "should validate invalid material country code"
         , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "ennoblingHeatSource")

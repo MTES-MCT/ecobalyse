@@ -459,6 +459,7 @@ components:
         materials:
         - id: "coton"
           share: 1
+          country: "FR"
         product: "tshirt"
         countrySpinning: "FR"
         countryFabric: "FR"
@@ -534,11 +535,12 @@ components:
       description: |
         Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
-        qu'elle représente, et optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#hypotheses-par-defaut) :
+        qu'elle représente, optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#hypotheses-par-defaut), et optionnellement du code du pays d'origine de la matière :
 
         - `coton;0.3` signifie *30% coton*;
         - `coton-rdp;0.7` signifie *70% coton recyclé (déchets de production)*;
         - `coton;0.3;UnconventionalSpinning` signifie *30% coton avec un procédé de filature non conventionel*
+        - `coton;0.3;UnconventionalSpinning;FR` signifie *30% coton avec un procédé de filature non conventionel en provenance de la France*
 
         > Par exemple, les paramètres à passer pour un t-shirt 30% coton, 30% coton recyclé et 40% acrylique sont :
         >
@@ -1263,6 +1265,8 @@ components:
           - ConventionalSpinning
           - UnconventionalSpinning
           - SyntheticSpinning
+        country:
+          type: string
     FoodQuery:
       type: object
       additionalProperties: false
