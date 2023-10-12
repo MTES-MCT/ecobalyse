@@ -605,8 +605,18 @@ toStepsImpacts trigram simulator =
         getImpact =
             Impact.getImpact trigram
                 >> Just
+
+        applyComplement complementImpact =
+            if trigram == Definition.Ecs then
+                Maybe.map (Quantity.minus complementImpact)
+
+            else
+                identity
     in
-    { materials = getImpacts Label.Material |> getImpact
+    { materials =
+        getImpacts Label.Material
+            |> getImpact
+            |> applyComplement simulator.complementsImpacts.microfibers
     , transform =
         [ getImpacts Label.Spinning
         , getImpacts Label.Fabric
@@ -622,12 +632,5 @@ toStepsImpacts trigram simulator =
     , endOfLife =
         getImpacts Label.EndOfLife
             |> getImpact
-            -- Complements only apply to Ecoscore
-            |> (if trigram == Definition.Ecs then
-                    -- Substracting because outOfEuropeEOL, as a malus, is expressed with a negative number
-                    Maybe.map (Quantity.minus simulator.complementsImpacts.outOfEuropeEOL)
-
-                else
-                    identity
-               )
+            |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
     }
