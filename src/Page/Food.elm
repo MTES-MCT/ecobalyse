@@ -1168,7 +1168,7 @@ distributionView selectedImpact recipe results =
                     , deleteItemButton ResetDistribution
                     ]
                 , li
-                    [ class "list-group-item fs-7" ]
+                    [ class "list-group-item fs-7 pt-2" ]
                     [ distribution
                         |> Retail.displayNeeds
                         |> text
