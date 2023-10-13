@@ -4,7 +4,9 @@
     "name": "Oeuf (sortie de ferme)",
     "search": "Egg national average at farm gate",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -23,7 +25,10 @@
     "name": "Oeuf bio (sortie de ferme)",
     "search": "Egg organic at farm gate",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -42,7 +47,10 @@
     "name": "Oeuf Bleu-Blanc-Cœur (sortie de ferme)",
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "category": "ingredient",
-    "categories": ["animal_product", "bleublanccoeur"],
+    "categories": [
+      "animal_product",
+      "bleublanccoeur"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1,
@@ -61,7 +69,9 @@
     "name": "Lait (sortie de ferme)",
     "search": "Cow milk national average at farm gate",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -80,7 +90,10 @@
     "name": "Lait bio (sortie de ferme)",
     "search": "cow milk organic system number 5",
     "category": "ingredient",
-    "categories": ["dairy_product", "organic"],
+    "categories": [
+      "dairy_product",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -99,7 +112,9 @@
     "name": "Carotte (sortie de ferme)",
     "search": "Carrot conventional national average at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -117,7 +132,10 @@
     "name": "Carotte bio (sortie de ferme)",
     "search": "Carrot organic Lower Normandy at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -135,7 +153,9 @@
     "name": "Blé tendre (sortie de ferme)",
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -153,7 +173,10 @@
     "name": "Blé tendre bio (sortie de moulin)",
     "search": "soft wheat grain organic central region",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -171,7 +194,9 @@
     "name": "Farine (sortie de moulin)",
     "search": "Wheat flour at industrial mill",
     "category": "ingredient",
-    "categories": ["grain_processed"],
+    "categories": [
+      "grain_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -189,7 +214,10 @@
     "name": "Farine bio (sortie de moulin)",
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["grain_processed", "organic"],
+    "categories": [
+      "grain_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -207,7 +235,9 @@
     "name": "Tournesol (sortie de ferme)",
     "search": "Sunflower at farm FR",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -225,7 +255,10 @@
     "name": "Tournesol bio (sortie de ferme)",
     "search": "Sunflower grain organic system 3 at farm gate",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -243,7 +276,9 @@
     "name": "Colza (sortie de ferme)",
     "search": "Rape seed FR production Cut-off",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -262,7 +297,10 @@
     "name": "Colza bio (sortie de ferme)",
     "search": "Winter rapeseed organic at farm gate",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -281,7 +319,9 @@
     "name": "Tomate - sous serre non chauffée (sortie de ferme)",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -299,7 +339,10 @@
     "name": "Tomate bio (sous serre non chauffée)",
     "search": "Tomato organic greenhouse production national average at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -317,7 +360,9 @@
     "name": "Pomme de terre (sortie de ferme)",
     "search": "Ware potato conventional variety mix national average at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -335,7 +380,9 @@
     "name": "Boeuf haché (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -354,7 +401,10 @@
     "name": "Boeuf haché bio (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -394,7 +444,9 @@
     "name": "Boeuf haché Feedlot (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -413,7 +465,9 @@
     "name": "Jambon (cuit)",
     "search": "Cooked ham case ready at plant",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -432,7 +486,10 @@
     "name": "Jambon bio (cuit)",
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -472,7 +529,9 @@
     "name": "Blanc de poulet (cru)",
     "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -491,7 +550,10 @@
     "name": "Blanc de poulet bio (cru)",
     "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
@@ -524,7 +586,9 @@
     "name": "Raisin de cuve (sortie de vignoble)",
     "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -542,7 +606,10 @@
     "name": "Raisin de cuve bio (sortie de vignoble)",
     "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -560,7 +627,9 @@
     "name": "Mangue BR (sortie de ferme)",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -578,7 +647,9 @@
     "name": "Huile de colza (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -596,7 +667,10 @@
     "name": "Huile de colza bio (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed", "organic"],
+    "categories": [
+      "nut_oilseed_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -614,7 +688,9 @@
     "name": "Huile de tournesol (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -632,7 +708,10 @@
     "name": "Huile de tournesol bio (sortie de moulin)",
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed", "organic"],
+    "categories": [
+      "nut_oilseed_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -650,7 +729,9 @@
     "name": "Courgette (sortie de ferme)",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -668,7 +749,10 @@
     "name": "Courgette bio (sortie de ferme)",
     "search": "zucchini springtime under tunnel organic",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -686,7 +770,9 @@
     "name": "Poire (sortie de ferme)",
     "search": "pear, conventional, at orchard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -704,7 +790,10 @@
     "name": "Poire bio (sortie de ferme)",
     "search": "pear organic",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -722,7 +811,9 @@
     "name": "Pêche (sortie de ferme)",
     "search": "Peach production mix national average at orchard FR",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -740,7 +831,10 @@
     "name": "Pêche bio (sortie de ferme)",
     "search": "peach organic",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -758,7 +852,9 @@
     "name": "Melon (sortie de ferme)",
     "search": "Melon, conventional, national average, at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -776,7 +872,10 @@
     "name": "Melon bio (sortie de ferme)",
     "search": "melon organic",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -795,7 +894,9 @@
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
     "default_origin": "France",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
@@ -813,7 +914,10 @@
     "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "default_origin": "France",
     "category": "ingredient",
-    "categories": ["dairy_product", "organic"],
+    "categories": [
+      "dairy_product",
+      "organic"
+    ],
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
@@ -830,7 +934,9 @@
     "name": "Oignon (sortie de ferme)",
     "search": "Onion, national average, at farm",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -848,7 +954,9 @@
     "name": "Aubergine (sortie de ferme)",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
@@ -866,7 +974,9 @@
     "name": "Laitue (sortie de ferme)",
     "search": "Lettuce, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -884,7 +994,9 @@
     "name": "Haricot vert (sortie de ferme)",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
@@ -902,7 +1014,9 @@
     "name": "Blé dur (sortie de ferme)",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -1053,9 +1167,21 @@
   },
   {
     "id": "tapwater",
-    "category": "material",
     "name": "Eau du robinet",
-    "search": "Tap water Europe market"
+    "search": "Tap water Europe market",
+    "category": "ingredient",
+    "categories": [],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
   },
   {
     "id": "domestic-gas-heat",
@@ -1068,7 +1194,9 @@
     "name": "Lentilles (sortie de ferme)",
     "search": "Winter pea, conventional, 15% moisture, at farm gate",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1086,7 +1214,9 @@
     "name": "Petit pois (sortie de ferme)",
     "search": "annual vining",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1104,7 +1234,10 @@
     "name": "Tomate bio (sous serre non chauffée)",
     "search": "Tomato organic greenhouse production national average at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1122,7 +1255,9 @@
     "name": "Tomate (sous serre non chauffée)",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1140,7 +1275,9 @@
     "name": "Comté AOP",
     "search": "code:b9b650a42442d76be26feb783620f123",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1160,7 +1297,9 @@
     "name": "Emmental",
     "search": "code:3d72c918ca829647072bab92542bb70e",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1180,7 +1319,9 @@
     "name": "Mozzarella",
     "search": "code:5f9448ee99cd739447359929e9c869d3",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1200,7 +1341,9 @@
     "name": "Tomate - sous serre chauffée (sortie de ferme)",
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1218,7 +1361,9 @@
     "name": "Concombre (sous serre chauffée)",
     "search": "cucumber",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1236,7 +1381,9 @@
     "name": "Concombre (sous serre non chauffée)",
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1254,7 +1401,9 @@
     "name": "Abricot (sortie de ferme)",
     "search": "code:f6f01b92fe478ddbf62a9f0b07512158",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1272,7 +1421,9 @@
     "name": "Artichaut (sortie de ferme)",
     "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1291,7 +1442,9 @@
     "name": "Chou-fleur (sortie de ferme)",
     "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -1310,7 +1463,9 @@
     "name": "Betterave rouge (sortie de ferme)",
     "search": "Carrot, conventional, national average, at farm gate ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1329,7 +1484,10 @@
     "name": "Betterave rouge bio (sortie de ferme)",
     "search": "code:6408f1ffebe26276c8aa852b45d96aa5",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1348,7 +1506,9 @@
     "name": "Blette (sortie de ferme)",
     "search": "Spinach {GLO}| production | ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1367,7 +1527,9 @@
     "name": "Epinard (sortie de ferme)",
     "search": "Spinach {GLO}| production |",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1385,7 +1547,9 @@
     "name": "Brocoli (sortie de ferme)",
     "search": "Broccoli {GLO}| production ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -1404,7 +1568,9 @@
     "name": "Céleri branche (sortie de ferme)",
     "search": "Celery {GLO}| 675 production | Cut-off",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1423,7 +1589,9 @@
     "name": "Céleri-rave (sortie de ferme)",
     "search": "Carrot, conventional, national average, at farm gate ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1442,7 +1610,10 @@
     "name": "Céleri-rave bio (sortie de ferme)",
     "search": "carrot organic lower",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1461,7 +1632,9 @@
     "name": "Cerise (sortie de ferme)",
     "search": "Cherry, conventional, national average, at orchard {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1480,7 +1653,9 @@
     "name": "Champignon frais",
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1499,7 +1674,9 @@
     "name": "Châtaigne avec coque (sortie de ferme)",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.24,
@@ -1517,7 +1694,9 @@
     "name": "Noix avec coque (sortie de ferme)",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.24,
@@ -1535,7 +1714,9 @@
     "name": "Chou chinois (sortie de ferme)",
     "search": "Cauliflower, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1554,7 +1735,9 @@
     "name": "Chou blanc (sortie de ferme)",
     "search": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1573,7 +1756,9 @@
     "name": "Chou vert (sortie de ferme)",
     "search": "Cauliflower, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1592,7 +1777,9 @@
     "name": "Chou rouge (sortie de ferme)",
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1611,7 +1798,9 @@
     "name": "Chou de Bruxelles (sortie de ferme)",
     "search": "Cauliflower, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1630,7 +1819,9 @@
     "name": "Chou frisé (sortie de ferme)",
     "search": "Cauliflower, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1649,7 +1840,9 @@
     "name": "Citron (sortie de ferme)",
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1668,7 +1861,9 @@
     "name": "Citrouille (sortie de ferme)",
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1687,7 +1882,9 @@
     "name": "Courge (sortie de ferme)",
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1706,7 +1903,9 @@
     "name": "Clémentine (sortie de ferme)",
     "search": "Clementine, export quality, Souss, at orchard {MA} ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1725,7 +1924,9 @@
     "name": "Mandarine (sortie de ferme)",
     "search": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1744,7 +1945,9 @@
     "name": "Orange (sortie de ferme)",
     "search": "Orange, fresh grade, at farm {ES} ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1763,7 +1966,9 @@
     "name": "Echalotte (sortie de ferme)",
     "search": "Onion, national average, at farm {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -1782,7 +1987,9 @@
     "name": "Endive (sortie de ferme)",
     "search": "Lettuce, conventional, national average, at farm gate ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.118,
@@ -1801,7 +2008,9 @@
     "name": "Fenouil (sortie de ferme)",
     "search": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1820,7 +2029,9 @@
     "name": "Fève (sortie de ferme)",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1839,7 +2050,9 @@
     "name": "Fraise - plein champ (sortie de ferme)",
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1858,7 +2071,9 @@
     "name": "Framboise (sortie de ferme)",
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1877,7 +2092,9 @@
     "name": "Haricot flageolet (sortie de ferme)",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm ",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1896,7 +2113,9 @@
     "name": "Kiwi (sortie de ferme)",
     "search": "Kiwi FR, conventional, national average, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1915,7 +2134,9 @@
     "name": "Mâche (sortie de ferme)",
     "search": "Lettuce, conventional, national average, at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1934,7 +2155,9 @@
     "name": "Maïs doux (sortie de ferme)",
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -1953,7 +2176,9 @@
     "name": "Mûre (sortie de ferme)",
     "search": "Blackberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1972,7 +2197,9 @@
     "name": "Myrtille (sortie de ferme)",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1991,7 +2218,9 @@
     "name": "Navet (sortie de ferme)",
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2010,7 +2239,10 @@
     "name": "Navet bio (sortie de ferme)",
     "search": "carrot organic lower",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2029,7 +2261,9 @@
     "name": "Noisette avec coque (sortie de ferme)",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.24,
@@ -2047,7 +2281,9 @@
     "name": "Pistache avec coque (sortie de ferme)",
     "search": "Peanut {AR}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.24,
@@ -2066,7 +2302,9 @@
     "name": "Poireau (sortie de ferme)",
     "search": "Leek, national average, at plant",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -2085,7 +2323,9 @@
     "name": "Pois chiche (sortie de ferme)",
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2104,7 +2344,10 @@
     "name": "Pois chiche bio (sortie de ferme)",
     "search": "Chickpea, organic, system number 1, at farm gate {FR} U \t",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2123,7 +2366,9 @@
     "name": "Poivron sous serre non chauffée (sortie de ferme)",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.295,
@@ -2141,7 +2386,9 @@
     "name": "Prune (sortie de ferme)",
     "search": "Cherry, conventional, national average, at orchard ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2160,7 +2407,9 @@
     "name": "Soja FR (sortie de ferme)",
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2178,7 +2427,10 @@
     "name": "Soja FR bio (sortie de ferme)",
     "search": "soybean organic animal {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2196,7 +2448,9 @@
     "name": "Soja BR non déforestant (sortie de ferme)",
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent \t",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2214,7 +2468,9 @@
     "name": "Soja BR déforestant (sortie de ferme)",
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2232,7 +2488,9 @@
     "name": "Chair à saucisse (crue)",
     "search": "Sausage meat, raw, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -2251,7 +2509,9 @@
     "name": "Saucisse de Toulouse (crue)",
     "search": "Toulouse sausage, raw, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -2270,7 +2530,9 @@
     "name": "Saucisse de Toulouse (cuite)",
     "search": "Toulouse sausage, cooked, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -2307,7 +2569,9 @@
     "name": "Purée de tomates",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -2325,7 +2589,9 @@
     "name": "Concentré de tomates",
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -2343,7 +2609,9 @@
     "name": "Entrecôte (crue)",
     "search": "Meat with bone, beef, for direct consumption",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -2362,7 +2630,9 @@
     "name": "Bavette (crue)",
     "search": "Meat without bone, beef, for direct consumption ",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -2381,7 +2651,9 @@
     "name": "Rumsteak (cru)",
     "search": "Meat without bone, beef, for direct consumption {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -2400,7 +2672,9 @@
     "name": "Semoule de blé dur",
     "search": "Durum wheat, semolina, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["grain_processed"],
+    "categories": [
+      "grain_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -2418,7 +2692,9 @@
     "name": "Sucre de betterave",
     "search": "sugar",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2436,7 +2712,9 @@
     "name": "Chocolat noir",
     "search": "chocolate dark",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2455,7 +2733,9 @@
     "name": "Ananas",
     "search": "pineapple glo",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -2474,7 +2754,9 @@
     "name": "Banane (sortie de ferme)",
     "search": "banana at farm glo",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2493,7 +2775,9 @@
     "name": "Blanc de poulet (importé nourri avec des aliments BR)",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.755,
     "density": 1,
@@ -2511,7 +2795,9 @@
     "name": "Blanc de poulet (nourri avec des aliments FR)",
     "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.755,
     "density": 1,
@@ -2522,6 +2808,26 @@
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cane-sugar",
+    "name": "Sucre de canne",
+    "search": "brown sugar",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_processed"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
     }
   }
 ]
