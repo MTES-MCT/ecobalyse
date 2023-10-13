@@ -5,7 +5,6 @@ print("Please wait")
 from IPython.core.display import display, Markdown
 import sys
 import os
-from os.path import basename
 
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
@@ -25,7 +24,6 @@ os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.json"
-os.getcwd()
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
