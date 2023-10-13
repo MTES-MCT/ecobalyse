@@ -562,24 +562,37 @@ def delete_activity(_):
 
 
 def reset_branch():
-    if subprocess.run(["git", "-q", "reset", "--hard"]).returncode != 0:
+    if subprocess.run(["git", "reset", "--hard"], capture_output=True).returncode != 0:
         display("ÉCHEC de la commande: git reset --hard")
-    elif subprocess.run(["git", "-q", "fetch", "--all"]).returncode != 0:
+    elif subprocess.run(["git", "fetch", "--all"], capture_output=True).returncode != 0:
         display("ÉCHEC de la commande: git fetch --all")
     elif (
-        subprocess.run(["git", "-q", "checkout", "origin/ingredients"]).returncode != 0
+        subprocess.run(
+            ["git", "checkout", "origin/ingredients"], capture_output=True
+        ).returncode
+        != 0
     ):
         display("ÉCHEC de la commande: git checkout origin/ingredients")
-    elif subprocess.run(["git", "-q", "branch", "-D", "ingredients"]).returncode != 0:
+    elif (
+        subprocess.run(
+            ["git", "branch", "-D", "ingredients"], capture_output=True
+        ).returncode
+        != 0
+    ):
         display("ÉCHEC de la commande: git branch -D ingredients")
     elif (
         subprocess.run(
-            ["git", "-q", "branch", "ingredients", "origin/ingredients"]
+            ["git", "branch", "ingredients", "origin/ingredients"], capture_output=True
         ).returncode
         != 0
     ):
         display("ÉCHEC de la commande: git branch ingredients origin/ingredients")
-    elif subprocess.run(["git", "-q", "checkout", "ingredients"]).returncode != 0:
+    elif (
+        subprocess.run(
+            ["git", "checkout", "ingredients"], capture_output=True
+        ).returncode
+        != 0
+    ):
         display("ÉCHEC de la commande: git checkout ingredients")
     else:
         display("ÉCHEC. Prévenez l'équipe Écobalyse")
@@ -587,7 +600,12 @@ def reset_branch():
 
 @reset_output.capture()
 def reset_activities(_):
-    if subprocess.run(["git", "-q", "pull", "origin", "ingredients"]).returncode != 0:
+    if (
+        subprocess.run(
+            ["git", "pull", "origin", "ingredients"], capture_output=True
+        ).returncode
+        != 0
+    ):
         display(
             "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
         )
@@ -614,7 +632,7 @@ def clear_reset_output(_):
 @git_output.capture()
 def commit_activities(_):
     shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
-    if subprocess.run(["git", "-q", "add", ACTIVITIES]).returncode != 0:
+    if subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
         display("ÉCHEC de la commande: git add")
         reset_branch()
     elif (
@@ -625,16 +643,27 @@ def commit_activities(_):
                 "commit",
                 "-m",
                 f"Changed ingredients (contributed by {w_institut.value}",
-            ]
+            ],
+            capture_output=True,
         ).returncode
         != 0
     ):
         display("ÉCHEC de la commande: git commit")
         reset_branch()
-    elif subprocess.run(["git", "-q", "pull", "origin", "ingredients"]).returncode != 0:
+    elif (
+        subprocess.run(
+            ["git", "pull", "origin", "ingredients"], capture_output=True
+        ).returncode
+        != 0
+    ):
         display("ÉCHEC de la commande: git pull")
         reset_branch()
-    elif subprocess.run(["git", "-q", "push", "origin", "ingredients"]).returncode != 0:
+    elif (
+        subprocess.run(
+            ["git", "push", "origin", "ingredients"], capture_output=True
+        ).returncode
+        != 0
+    ):
         display("ÉCHEC de la commande: git push")
         reset_branch()
     else:
