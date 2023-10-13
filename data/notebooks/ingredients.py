@@ -48,10 +48,6 @@ def dbsearch(term, **kw):
 def cleanup_json(activities):
     """consistency of the json file"""
     for i, a in enumerate(activities):
-        # remove uneeded complex ingredient attributes on simple ingredients
-        if not a.get("subingredient_default") or not a.get("subingredient_organic"):
-            for x in ("subingredient_default", "subingredient_organic", "ratio"):
-                _ = activities[i].pop(x, None)
         # remove animal-welfare for non animal products
         if (
             "animal_product" not in a.get("categories", {})
@@ -118,10 +114,6 @@ FIELDS = {
     "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
     "explain": "Commentaires",
-    # complex ingredients attributes
-    "subingredient_default": "Sous-ingrédient conventionnel",
-    "subingredient_organic": "Sous-ingrédient bio",
-    "ratio": "Ratio",
     # complements
     "complements.agro-diversity": "Biodiversité territoriale",
     "complements.agro-ecology": "Résilience territoriale",
@@ -331,23 +323,6 @@ w_explain = ipywidgets.Textarea(
     layout=ipywidgets.Layout(width="450px", height="200px"),
 )
 
-# Missing Organic activity, we need to build one using subingredients
-w_subingredient_default = ipywidgets.Combobox(
-    placeholder="wheat grain conventional",
-    style=style,
-    ensure_option=False,
-    options=tuple([""] + list(read_activities().keys())),
-)
-w_subingredient_organic = ipywidgets.Combobox(
-    placeholder="wheat grain organic",
-    style=style,
-    ensure_option=False,
-    options=tuple([""] + list(read_activities().keys())),
-)
-## Quantity of component necessary to produce 1 unit of constructed process.
-##For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16",
-w_ratio = ipywidgets.BoundedFloatText(placeholder="Coef", min=0, step=0.05, style=style)
-
 ## COMPLEMENTS
 
 # default coef for the complement indicators
@@ -456,9 +431,6 @@ def clear_form():
     w_cooling.value = "none"
     w_visible.value = True
     w_bvi.value = 0
-    w_subingredient_default.value = ""
-    w_subingredient_organic.value = ""
-    w_ratio.value = 0
     w_complement_agrodiv.value = 0
     w_complement_agroeco.value = 0
     w_complement_animal_welfare.disabled = False
@@ -521,9 +493,6 @@ def change_id(change):
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
     set_field(w_bvi, i.get("bvi"), 0)
-    set_field(w_subingredient_default, i.get("subingredient_default"), "")
-    set_field(w_subingredient_organic, i.get("subingredient_organic"), "")
-    set_field(w_ratio, i.get("ratio"), 0)
     set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
     set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
     set_field(
@@ -562,9 +531,6 @@ def add_activity(_):
         "visible": w_visible.value,
         "bvi": w_bvi.value,
         "explain": w_explain.value,
-        "subingredient_default": w_subingredient_default.value,
-        "subingredient_organic": w_subingredient_organic.value,
-        "ratio": w_ratio.value,
         "complements.agro-diversity": w_complement_agrodiv.value,
         "complements.agro-ecology": w_complement_agroeco.value,
         "complements.animal-welfare": w_complement_animal_welfare.value,
@@ -867,48 +833,7 @@ display(
                         ],
                     ),
                     ipywidgets.Accordion(
-                        titles=[
-                            "Si l'ingrédient est bio mais vous ne pouvez pas trouver de procédé bio"
-                        ],
-                        children=[
-                            ipywidgets.VBox(
-                                (
-                                    ipywidgets.HTML(
-                                        "Select the conventional and organic sub-ingredients allowing to create the new organic ingredient. These subingredients should have previously been added to the list"
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["subingredient_default"],
-                                            ),
-                                            w_subingredient_default,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["subingredient_organic"],
-                                            ),
-                                            w_subingredient_organic,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        "<hr/>The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["ratio"],
-                                            ),
-                                            w_ratio,
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
-                    ipywidgets.Accordion(
-                        titles=["Compléments hors ACV (pour les ingredients)"],
+                        titles=["Compléments hors ACV pour les ingredients"],
                         children=[
                             ipywidgets.VBox(
                                 (
