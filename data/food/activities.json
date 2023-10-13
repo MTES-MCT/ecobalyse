@@ -1,7 +1,7 @@
 [
   {
     "id": "egg",
-    "name": "Oeuf (sortie de ferme)",
+    "name": "Oeuf (sortie de ferme) (test)",
     "search": "Egg national average at farm gate",
     "category": "ingredient",
     "categories": [
@@ -9,7 +9,7 @@
     ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
