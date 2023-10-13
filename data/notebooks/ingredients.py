@@ -600,7 +600,10 @@ def reset_branch():
 
 @reset_output.capture()
 def reset_activities(_):
-    if (
+    if not w_institut:
+        display("Sélectionnez d'abord le bon contributeur")
+        return
+    elif (
         subprocess.run(
             ["git", "pull", "origin", "ingredients"], capture_output=True
         ).returncode
@@ -631,6 +634,9 @@ def clear_reset_output(_):
 
 @git_output.capture()
 def commit_activities(_):
+    if not w_institut:
+        display("Sélectionnez d'abord le bon contributeur")
+        return
     shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
     if subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
         display("ÉCHEC de la commande: git add")
