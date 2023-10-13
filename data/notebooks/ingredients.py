@@ -105,7 +105,7 @@ def reverse(d):
 FIELDS = {
     # process attributes
     "id": "id",
-    "name": "Nom affiché",
+    "name": "Nom",
     "search": "Termes de recherche",
     "default_origin": "Origine par défaut",
     "category": "Catégorie de procédé",
@@ -184,10 +184,13 @@ w_results = ipywidgets.RadioButtons(
 ## default origin
 w_default_origin = ipywidgets.Dropdown(
     options=[
-        ("Europe et Maghreb", "EuropeAndMaghreb"),
-        ("Hors Europe et Maghreb", "OutOfEuropeAndMaghreb"),
-        ("France", "France"),
-        ("Par avion, hors Europe et Maghreb", "OutOfEuropeAndMaghrebByPlane"),
+        ("France (à plus de 95%)", "France"),
+        ("Europe ou Maghreb (à plus de 95%)", "EuropeAndMaghreb"),
+        ("Hors Europe ou Maghreb (à plus de 5%)", "OutOfEuropeAndMaghreb"),
+        (
+            "Par avion, hors Europe ou Maghreb (mangue, horicots, ...)",
+            "OutOfEuropeAndMaghrebByPlane",
+        ),
     ],
     style=style,
 )
@@ -324,7 +327,7 @@ w_bvi = ipywidgets.BoundedFloatText(
     style=style,
 )
 w_explain = ipywidgets.Textarea(
-    placeholder="Indiquer tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info",
+    placeholder="Indiquez tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info",
     layout=ipywidgets.Layout(width="450px", height="200px"),
 )
 
@@ -373,12 +376,14 @@ savebutton = ipywidgets.Button(
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
     tooltip="Enregistre l'ingrédient créé ou modifié",
     icon="check",
+    layout=ipywidgets.Layout(width="auto"),
 )
 delbutton = ipywidgets.Button(
     description="Supprimer localement",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
     tooltip="Supprime l'ingrédient correspondant à l'identifiant 'id'",
     icon="trash",
+    layout=ipywidgets.Layout(width="auto"),
 )
 resetbutton = ipywidgets.Button(
     description="Réinitialiser",
@@ -403,6 +408,7 @@ commitbutton = ipywidgets.Button(
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
     tooltip="Publier et soumettre à validation",
     icon="code-commit",
+    layout=ipywidgets.Layout(width="auto"),
 )
 
 
@@ -579,34 +585,34 @@ def delete_activity(_):
 
 def reset_branch():
     if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
-        print("ECHEC de la commande: git reset --hard")
+        print("ÉCHEC de la commande: git reset --hard")
     elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
-        print("ECHEC de la commande: git fetch --all")
+        print("ÉCHEC de la commande: git fetch --all")
     elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
-        print("ECHEC de la commande: git checkout origin/ingredients")
+        print("ÉCHEC de la commande: git checkout origin/ingredients")
     elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
-        print("ECHEC de la commande: git branch -D ingredients")
+        print("ÉCHEC de la commande: git branch -D ingredients")
     elif (
         subprocess.run(
             ["git", "branch", "ingredients", "origin/ingredients"]
         ).returncode
         != 0
     ):
-        print("ECHEC de la commande: git branch ingredients origin/ingredients")
+        print("ÉCHEC de la commande: git branch ingredients origin/ingredients")
     elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
-        print("ECHEC de la commande: git checkout ingredients")
+        print("ÉCHEC de la commande: git checkout ingredients")
     else:
-        print("ECHEC. Prévenez l'équipe Ecobalyse")
+        print("ÉCHEC. Prévenez l'équipe Ecobalyse")
 
 
 def reset_activities(_):
     with reset_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("ECHEC de la commande: git pull origin ingredients")
+                print("ÉCHEC de la commande: git pull origin ingredients")
             else:
                 print(
-                    "SUCCES. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
+                    "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
                 )
         except:
             reset_branch()
@@ -630,25 +636,25 @@ def commit_activities(_):
     with git_output:
         try:
             if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
-                print("ECHEC de la commande: git add")
+                print("ÉCHEC de la commande: git add")
             elif (
                 subprocess.run(
                     ["git", "commit", "-m", "Changed ingredients"]
                 ).returncode
                 != 0
             ):
-                print("ECHEC de la commande: git commit")
+                print("ÉCHEC de la commande: git commit")
             elif (
                 subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
             ):
-                print("ECHEC de la commande: git pull")
+                print("ÉCHEC de la commande: git pull")
             elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
-                print("ECHEC de la commande: git push")
+                print("ÉCHEC de la commande: git push")
             else:
                 print(
-                    "SUCCES. Merci !! Vous pouvez prévenir l'équipe Ecobalyse qu'il y a des nouveautés en attente de validation"
+                    "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Ecobalyse qu'il y a des nouveautés en attente de validation"
                 )
         except:
             reset_branch()
@@ -691,6 +697,9 @@ display(
                         ),
                     ),
                     ipywidgets.HBox((savebutton, delbutton)),
+                    ipywidgets.HTML(
+                        "<hr/>Nom de l'ingrédient tel qu'il va apparaître dans l'outil (en français) :"
+                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
@@ -699,24 +708,29 @@ display(
                             w_name,
                         ),
                     ),
+                    ipywidgets.HTML(
+                        "<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse "
+                        "en <b>premier</b> dans la liste des résultats. "
+                        "Doit être le plus succint possible. "
+                        "Si vous ne pouvez pas différencier deux procédés vous "
+                        "pouvez préciser son code avec: <i>code:1234567890...</i>"
+                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label("Termes de recherche"),
                             w_search,
                         ),
                     ),
-                    ipywidgets.HTML(
-                        "Mots clés permettant de faire remonter le bon ICV Agribalyse en <b>premier</b> résultat. "
-                        "Doit être le plus succint possible. "
-                        "Si vous ne pouvez pas différencier deux procédés vous pouvez préciser son code avec: <i>code:1234567890...</i>"
-                    ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                "Resultats",
+                                "Résultats",
                             ),
                             w_results,
                         ),
+                    ),
+                    ipywidgets.HTML(
+                        "<hr/>Pour un ingrédient, renseignez « ingrédient » :"
                     ),
                     ipywidgets.HBox(
                         (
@@ -725,6 +739,9 @@ display(
                             ),
                             w_category,
                         ),
+                    ),
+                    ipywidgets.HTML(
+                        "<hr/>Gardez la valeur par défaut 0 pour la valeur de bio-diversité :"
                     ),
                     ipywidgets.HBox(
                         (
@@ -739,6 +756,10 @@ display(
                         children=[
                             ipywidgets.VBox(
                                 (
+                                    ipywidgets.HTML(
+                                        "Indiquez « visible » pour que l'ingrédient soit visible dans Ecobalyse. "
+                                        "(Un ingrédient en attente peut être publié mais invisible) :"
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
@@ -746,6 +767,14 @@ display(
                                             ),
                                             w_visible,
                                         ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "<hr/>Sélectionnez la catégorie principale de l'ingrédient. "
+                                        "(par exemple un sucre de canne peut être "
+                                        "catégorisé comme légume transformé, "
+                                        "par analogie avec le sucre de betterave). "
+                                        "Si l'ingrédient dispose d'un label (bio, bleublanccoeur) "
+                                        "ajoutez cette catégorie à la suite de la catégorie principale"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -755,6 +784,10 @@ display(
                                             w_categories,
                                         ),
                                     ),
+                                    ipywidgets.HTML(
+                                        "<hr/>Indiquez l'origine par défaut. Se référer à la "
+                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation Ecobalyse</a>'
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
@@ -762,6 +795,12 @@ display(
                                             ),
                                             w_default_origin,
                                         ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "<hr/>Le rapport cuit/cru est nécessaire pour le "
+                                        "calcul d'impact. Si besoin se référer à la "
+                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation Ecobalyse</a>, onglet « rapport cuit/cru » '
+                                        "qui reprend les règles Agribalyse :"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -771,6 +810,12 @@ display(
                                             w_raw_to_cooked_ratio,
                                         ),
                                     ),
+                                    ipywidgets.HTML(
+                                        "<hr/>La densité est nécessaire pour le calcul "
+                                        "d'impact. Si besoin se référer à la "
+                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation Ecobalyse</a>, onglet « densité »'
+                                        ", qui reprend les règles Agribalyse"
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
@@ -778,6 +823,14 @@ display(
                                             ),
                                             w_density,
                                         ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "<hr/>La part non comestible est nécessaire pour "
+                                        "le calcul d'impact. Si besoin se référer "
+                                        'à la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation Ecobalyse</a>, onglet '
+                                        "« part non-comestible, qui reprend les règles "
+                                        "Agribalyse. En l'absence d'info, prendre un "
+                                        "ingrédient équivalent en terme de part non comestible"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -787,6 +840,9 @@ display(
                                             w_inedible,
                                         ),
                                     ),
+                                    ipywidgets.HTML(
+                                        "<hr/>Sélectionnez le mode de transport : régrigéré ou non"
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
@@ -794,6 +850,9 @@ display(
                                             ),
                                             w_cooling,
                                         ),
+                                    ),
+                                    ipywidgets.HTML(
+                                        "<hr/>Indiquez tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -834,7 +893,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
+                                        "<hr/>The ratio is the quantity of conventional ingredient necessary to produce one unit of organic ingredient: You need 1.16 kg wheat (sub-ingredient) to produce 1 kg of flour (final ingredient) -> ratio = 1.16. Formula: Organic flour impact = conventional flour impact + ratio * (organic wheat impact - conventional wheat impact)"
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -853,6 +912,9 @@ display(
                         children=[
                             ipywidgets.VBox(
                                 (
+                                    ipywidgets.HTML(
+                                        'Voir la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a> sur les compléments hors ACV'
+                                    ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
@@ -894,7 +956,7 @@ display(
                 [
                     ipywidgets.HTML(
                         "Si vous êtes satisfait(e) de vos modifications locales, vous devez <b>publier</b> vos modifications, "
-                        "qui vont alors arriver dans la branche <a href='https://github.com/MTES-MCT/ecobalyse/tree/ingredients'>ingredients</a> du dépôt Ecobalyse.<br/>"
+                        'qui vont alors arriver dans la branche <a style="color:blue" href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a> du dépôt Ecobalyse.<br/>'
                         "L'équipe Ecobalyse pourra ensuite recalculer les impacts et intégrer vos contributions."
                     ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
