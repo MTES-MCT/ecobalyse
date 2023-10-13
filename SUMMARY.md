@@ -77,7 +77,7 @@
 * [Limites méthodologiques](textile/limites-methodologiques/README.md)
   * [OLD](textile/limites-methodologiques/old/README.md)
     * [🐠 Microfibres](textile/limites-methodologiques/old/microfibres.md)
-    * [💦 Substances chimiques](textile/limites-methodologiques/old/substances-chimiques.md)
+    * [💦 Substances chimiques (draft)](textile/limites-methodologiques/old/substances-chimiques-draft.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)

@@ -22,7 +22,7 @@ On distingue deux sources de microplastiques :&#x20;
   Deux scénarios existent : ceux ajoutés volontairement dans des produits (ex : microbilles utilisées dans la cosmétiques) ou ceux résultant de l’abrasion d’objets plus grands lors de leur fabrication ou utilisation(ex : abrasion des pneus, relargage de fibres lors du lavage des vêtements).
 * les microplastiques secondaires (2/3 des volumes) => sont issus de la dégradation d’objets plus grands (ex : décomposition de sacs/bouteilles, etc.).
 
-Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondiale proviennent du secteur Textile (source : [European Environment Agency](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a))
+Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondiale proviendraient du lavage en machine de vêtements synthétiques (source : [European Environment Agency](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a)).
 
 </details>
 
@@ -32,10 +32,12 @@ En l'état, les référentiels d'ACV existants tels que le projet de PEFCR Appar
 
 Les vêtements relarguent des microfibres dans différents compartiments (eau, air et sol) tout au long du cycle de vie du vêtement (cf. cartographie ci-dessous).&#x20;
 
-Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, apprêts chimiques utilisés, conditions de lavage, etc.) impactent la quantité et la toxicité des microfibres relarguées par un vêtement.&#x20;
+Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, traitements appliqués, conditions de lavage, etc.) impactent la quantité et la toxicité des microfibres relarguées sur le cycle de vie d'un vêtement.&#x20;
 
 {% hint style="info" %}
-La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution. Cela explique l'approche semi-quantitative retenue par Ecobalyse pour modéliser l'impact des microfibres.
+La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution.
+
+Ecobalyse adopte ainsi une approche semi-quantitative afin d'estimer l'impact des microfibres.
 {% endhint %}
 
 <figure><img src="../../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
@@ -51,7 +53,7 @@ Un coefficient (`Coef`), exprimé en micropoints d'impacts par kg de vêtement (
 La valeur de ce coefficient est fixée à :&#x20;
 
 $$
-Coef = 1000microPts / kg = 0,001 Pts/kg de vêtement
+Coef = 1000 microPts / kg = 0,001 Pts/kg de vêtement
 $$
 
 <details>
@@ -88,20 +90,19 @@ Les fibres utilisées dans l'industrie textile proposent des propriétés intrin
 Cependant, du fait de traitements appliqués sur les fibres lors des étapes de fabrication du vêtement, les propriétés intrinsèques des fibres peuvent évoluer (ex : l'application d'apprêts chimiques sur des fibres intrinsèquement biodégradables peut rendre ces dernières plus ou moins persistantes). &#x20;
 
 **Illustration de résultats de tests ci-dessous**\
-(Source = tests listés dans le rapport "Biodegradability within the context of Fibre Fragmentation" de _TheMicrofibreConsortium_)&#x20;
+(Source = tests listés dans le rapport "Biodegradability within the context of Fibre Fragmentation" de [_TheMicrofibreConsortium_](https://www.microfibreconsortium.com/))&#x20;
 
 * Cotton (avec teinture) : 74% après 112 jours à 10°C (compartiment = eau)
 * Chanvre (sans teinture) : 79% après 112 jours à 10°C (compartiment = eau)
-* Cotton (avec blanchiment + adoucissant ) : 29% après 90 jours (compartiment = sol)
 * Lyocell (sans teinture) : 81% après 112 jours à 10°C (compartiment = eau)
 * Laine Merino : 23% après 90 jours à 30°C (compartiment = eau)
-* Laine (avec teinture) : 9% après 161 jours à 30°C (compartiment = eau)
 * Polyester : 1% après 90 jours à 30°C (compartiment = eau)
 * Polyester (avec teinture) : 0% après 161 jours à 30°C (compartiment = eau)
-* Polyester : 13% après 90 jours (compartiment = sol)
 * Nylon : 1% après 90 jours à 30°C (compartiment = eau)
 
-Ecobalyse propose des scénarios par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale) afin de préciser le calcul du complément microfibres.
+**Prise en compte dans Ecobalyse**&#x20;
+
+Ecobalyse propose des scénarios de persistance/biodégradabilité par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale).
 {% endtab %}
 
 {% tab title="Relargage" %}
@@ -110,7 +111,9 @@ Le relargage correspond à la capacité d'une fibre/vêtement à relarguer des m
 Extrait d'une [publication ](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a)sur les microplastiques d'origine Textile : \
 _"Most research has focused on microfibre release through the washing of synthetic textiles, considering waste water to be the predominant pathway for leakage into the aquatic environment (Boucher and Friot, 2017). However, microfibres are also emitted during textile manufacturing, garment wearing and end-of-life disposal, and are dispersed in water, air and soil."_
 
-Ecobalyse propose des scénarios par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale) afin de préciser le calcul du complément microfibres.
+**Prise en compte dans Ecobalyse**&#x20;
+
+Ecobalyse propose des scénarios de relargage par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale).
 {% endtab %}
 {% endtabs %}
 
@@ -148,22 +151,22 @@ Dès lors, la pondération suivante est proposée :&#x20;
 
 **Etape 3 = Calcul des valeurs de référence (%)**
 
-Dès lors, chaque scénario (f) se voit attribuer une valeur de référence (Ref) selon la formule suivante :&#x20;
+Dès lors, chaque scénario (1 scénario = 1 nature de fibre `(f)`) se voit attribuer une valeur de référence (`Ref`) selon la formule suivante :&#x20;
 
 $$
-Ref (f) = (0,7*P + 0,3*R) * 10
+Ref (f) = (0,7*P + 0,3*R) * 10 / 100
 $$
 
-Cette valeur de référence (`Ref(f)`) est exprimée en pourcentage (%) et reflète la part du coefficient microfibres (`CoefMicroF.`) correspondant à chaque scénario.&#x20;
+Cette valeur de référence (`Ref(f)`) est exprimée en pourcentage (%) et reflète la part du coefficient microfibres (`CoefMicroF.`) applicable à chaque scénario.&#x20;
 
 <table><thead><tr><th width="314.3333333333333">Type de fibre (f)</th><th width="202">0,7 * P</th><th width="160">0,3 * R</th><th>Ref (f)</th></tr></thead><tbody><tr><td>Synthétique</td><td> 7</td><td>0,9</td><td>79%</td></tr><tr><td>Naturelle (origine végétale)</td><td>2,1</td><td>2,1</td><td>42%</td></tr><tr><td>Naturelle (origine animale)</td><td>4,2</td><td>1,5 </td><td>57%</td></tr><tr><td>Artificielle (origine organique)</td><td>2,1</td><td>1,5 </td><td>36%</td></tr><tr><td>Artificielle (origine inorganique)</td><td>7</td><td>1,5</td><td>85%</td></tr></tbody></table>
 
 ## Calcul du complément "Microfibres"
 
-Sur la base des types de fibres (`f`) composant un vêtement, il est possible de calculer la valeur du complément microfibres (`Comp`), exprimé en micro-points d'impacts par vêtement  :&#x20;
+Sur la base de la composition du vêtement, il est possible de calculer la valeur du complément microfibres (`Comp`), exprimé en micro-points d'impacts par vêtement  :&#x20;
 
 $$
-Comp =  \sum Ref(f) * Compo(f) * masse*Coeff
+Comp =  \sum Ref(f) * Compo(f) * masse*Coef
 $$
 
 Avec : \
@@ -184,10 +187,10 @@ Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfi
 
 * \+8% pour la version 100% coton\
   Impact initial = 915 micro-pts\
-  Impact final = 915 + (42% \* 100% \* 0,17 \* 1000 ) = 986 micro-pts
+  Impact final = 915 + (42% \* 100% \* 0,17 \* 1000 ) = 915 + 71= 986 micro-pts
 * &#x20;\+19% pour la version 100% synthétique\
   Impact initial = 715 micro-pts\
-  Impact final = 715 + (79% \* 100% \* 0,17 \* 1000) = 849 micro-pts
+  Impact final = 715 + (79% \* 100% \* 0,17 \* 1000) = 715 + 134 = 849 micro-pts
 
 <img src="../../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (1).png" alt="" data-size="original"><img src="../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (1).png" alt="" data-size="original">
 
