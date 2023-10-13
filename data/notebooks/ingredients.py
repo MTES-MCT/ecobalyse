@@ -618,7 +618,15 @@ def commit_activities(_):
         display("ÉCHEC de la commande: git add")
         reset_branch()
     elif (
-        subprocess.run(["git", "-q", "commit", "-m", "Changed ingredients"]).returncode
+        subprocess.run(
+            [
+                "git",
+                "-q",
+                "commit",
+                "-m",
+                f"Changed ingredients (contributed by {w_institut.value}",
+            ]
+        ).returncode
         != 0
     ):
         display("ÉCHEC de la commande: git commit")
