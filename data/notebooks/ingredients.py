@@ -637,7 +637,7 @@ clear_git_button.on_click(clear_git_output)
 
 display(
     Markdown("# Avant de commencer"),
-    Markdown("1) Cliquez sur le bouton [▶▶ ] dans la barre d'outils supérieure ↑\n"),
+    Markdown("1) Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure ↑\n"),
     Markdown(
         "2) Cliquez ensuite sur le bouton [Réinitialiser] pour avoir une liste à jour "
         "depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) "
@@ -646,9 +646,42 @@ display(
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
     ipywidgets.Tab(
-        titles=["Formulaire", "Ingrédients/procédés", "Aperçu du fichier", "Publier"],
+        titles=[
+            "Documentation",
+            "Formulaire",
+            "Liste",
+            "Aperçu du fichier",
+            "Publier",
+        ],
         layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         children=[
+            ipywidgets.HTML(
+                """<h2>Documentation de cet outil</h2> <ul><li>Étape 1) Cliquez sur le bouton « ▶▶ »
+                dans la barre d'outils supérieure pour récupérer la dernière version de cet éditeur
+                d'ingrédients. Si l'éditeur ne se recharge pas, patientez une ou deux minutes puis
+                recommencez</li> <li>Étape 2) Rechargez la liste des ingrédients déjà publiés en
+                cliquant sur le bouton vert « Réinitialiser ».</li> <li>Étape 3) Consultez la liste
+                des ingrédients déjà publiés avant d'ajouter un nouvel ingrédients</li> Allez dans
+                le sous-onglet « Liste ». Un tableau avec la liste des ingrédients déjà ajoutés et
+                leurs caractéristiques est visible (attention il n'est visible que si la page a été
+                chargée (boutons « ▶▶ » et « Réinitialiser ») <li>Étape 4) Ajouter un ingrédient
+                :</li> Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+                de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
+                l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV correspondant
+                à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par exemple l’ICV
+                « Brown sugar, production, at plant {FR} U » semble être le plus adapté à
+                l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour vérifier qu’il est
+                bien fabriqué à partir de canne à sucre, le sous-onglet Technosphere de
+                l'explorateur permet de vérifier les procédés qui entrent dans la composition de
+                « Brown sugar, production, at plant {FR} U ». Il s’agit bien du procédé « Sugar,
+                from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S -
+                Copied from Ecoinvent U {RoW} ».</div> Après chaque ingrédient ajouté, cliquez sur
+                « Enregistrer localement ». Réitérez cette étape pour chaque ingrédient.<li>Etape
+                5) : Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
+                Ecobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
+                l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
+            """
+            ),
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
@@ -675,11 +708,13 @@ display(
                         ),
                     ),
                     ipywidgets.HTML(
-                        "<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse "
-                        "en <b>premier</b> dans la liste des résultats. "
-                        "Doit être le plus succint possible. "
-                        "Si vous ne pouvez pas différencier deux procédés vous "
-                        "pouvez préciser son code avec: <i>code:1234567890...</i>"
+                        """<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse en
+                        <b>premier</b> dans la liste des résultats. Il faut rester le plus succint
+                        possible pour que les termes de recherche restent valable dans une future
+                        version d'Agribalyse. Si vous ne pouvez pas différencier deux procédés vous
+                        pouvez préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
+                        aider de l'explorateur dans un autre onglet pour naviguer dans
+                        Agribalyse."""
                     ),
                     ipywidgets.HBox(
                         (
@@ -723,8 +758,9 @@ display(
                             ipywidgets.VBox(
                                 (
                                     ipywidgets.HTML(
-                                        "Indiquez « visible » pour que l'ingrédient soit visible dans Ecobalyse. "
-                                        "(Un ingrédient en attente peut être publié mais invisible) :"
+                                        """Indiquez « visible » pour que l'ingrédient soit visible
+                                        dans Ecobalyse. (Un ingrédient en attente peut être publié
+                                        mais invisible) :"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -735,12 +771,12 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>Sélectionnez la catégorie principale de l'ingrédient. "
-                                        "(par exemple un sucre de canne peut être "
-                                        "catégorisé comme légume transformé, "
-                                        "par analogie avec le sucre de betterave). "
-                                        "Si l'ingrédient dispose d'un label (bio, bleublanccoeur) "
-                                        "ajoutez cette catégorie à la suite de la catégorie principale"
+                                        """<hr/>Sélectionnez la catégorie principale de
+                                        l'ingrédient. (par exemple un sucre de canne peut être
+                                        catégorisé comme légume transformé, par analogie avec le
+                                        sucre de betterave). Si l'ingrédient dispose d'un label
+                                        (bio, bleublanccoeur) ajoutez cette catégorie à la suite de
+                                        la catégorie principale """
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -751,8 +787,10 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>Indiquez l'origine par défaut. Se référer à la "
-                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation Ecobalyse</a>'
+                                        """<hr/>Indiquez l'origine par défaut. Se référer à la <a
+                                        style="color:blue"
+                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation
+                                        Ecobalyse</a>"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -763,10 +801,11 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>Le rapport cuit/cru est nécessaire pour le "
-                                        "calcul d'impact. Si besoin se référer à la "
-                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation Ecobalyse</a>, page « rapport cuit/cru » '
-                                        "qui reprend les règles Agribalyse :"
+                                        """<hr/>Le rapport cuit/cru est nécessaire pour le calcul
+                                        d'impact. Si besoin se référer à la <a style="color:blue"
+                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation
+                                        Ecobalyse</a>, page « rapport cuit/cru » qui reprend les
+                                        règles Agribalyse :"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -777,10 +816,11 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>La densité est nécessaire pour le calcul "
-                                        "d'impact. Si besoin se référer à la "
-                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation Ecobalyse</a>, page « densité »'
-                                        ", qui reprend les règles Agribalyse"
+                                        """ <hr/>La densité est nécessaire pour le calcul d'impact.
+                                        Si besoin se référer à la <a style="color:blue"
+                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation
+                                        Ecobalyse</a>, page « densité » , qui reprend les règles
+                                        Agribalyse"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -791,12 +831,12 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>La part non comestible est nécessaire pour "
-                                        "le calcul d'impact. Si besoin se référer "
-                                        'à la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation Ecobalyse</a>, page '
-                                        "« part non-comestible, qui reprend les règles "
-                                        "Agribalyse. En l'absence d'info, prendre un "
-                                        "ingrédient équivalent en terme de part non comestible"
+                                        """<hr/>La part non comestible est nécessaire pour le calcul
+                                        d'impact. Si besoin se référer à la <a style="color:blue"
+                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation
+                                        Ecobalyse</a>, page « part non-comestible, qui reprend les
+                                        règles Agribalyse. En l'absence d'info, prendre un
+                                        ingrédient équivalent en terme de part non comestible"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -818,7 +858,9 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "<hr/>Indiquez tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info"
+                                        """<hr/>Indiquez tous les commentaires nécessaires à la bonne
+                                        compréhension des choix qui ont été faits, afin d'assurer la
+                                        traçabilité de l'info"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -838,7 +880,9 @@ display(
                             ipywidgets.VBox(
                                 (
                                     ipywidgets.HTML(
-                                        'Voir la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a> sur les compléments hors ACV'
+                                        """Voir la <a style="color:blue"
+                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                        sur les compléments hors ACV"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -857,7 +901,9 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "Les conditions d'élevage ne sont exportées que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>."
+                                        """Les conditions d'élevage ne sont exportées que si
+                                        l'ingrédient est dans la catégorie <i>animal_product</i> ou
+                                        <i>dairy_product</i>."""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -880,9 +926,12 @@ display(
             ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
-                        "Si vous êtes satisfait(e) de vos modifications locales, vous devez <b>publier</b> vos modifications, "
-                        'qui vont alors arriver dans la branche <a style="color:blue" href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a> du dépôt Ecobalyse.<br/>'
-                        "L'équipe Ecobalyse pourra ensuite recalculer les impacts et intégrer vos contributions."
+                        """Si vous êtes satisfait(e) de vos modifications locales, vous devez
+                        <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
+                        style="color:blue"
+                        href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a>
+                        du dépôt Ecobalyse.<br/> L'équipe Ecobalyse pourra ensuite recalculer les
+                        impacts et intégrer vos contributions."""
                     ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
                     git_output,
