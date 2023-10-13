@@ -5,6 +5,7 @@ print("Please wait")
 from IPython.core.display import display, Markdown
 import sys
 import os
+from os.path import basename
 
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
@@ -152,6 +153,7 @@ def read_activities():
 # WIDGETS
 ## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
+w_institut = ipywidgets.Text(style=style)
 w_id = ipywidgets.Combobox(
     placeholder="wheat-organic",
     style=style,
@@ -568,14 +570,16 @@ def reset_branch():
     elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
         print("ÉCHEC de la commande: git checkout ingredients")
     else:
-        print("ÉCHEC. Prévenez l'équipe Ecobalyse")
+        print("ÉCHEC. Prévenez l'équipe Écobalyse")
 
 
 def reset_activities(_):
     with reset_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("ÉCHEC de la commande: git pull origin ingredients")
+                print(
+                    "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
+                )
             else:
                 print(
                     "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
@@ -620,7 +624,7 @@ def commit_activities(_):
                 print("ÉCHEC de la commande: git push")
             else:
                 print(
-                    "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Ecobalyse qu'il y a des nouveautés en attente de validation"
+                    "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
                 )
         except:
             reset_branch()
@@ -675,10 +679,10 @@ display(
                 l'explorateur permet de vérifier les procédés qui entrent dans la composition de
                 « Brown sugar, production, at plant {FR} U ». Il s’agit bien du procédé « Sugar,
                 from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S -
-                Copied from Ecoinvent U {RoW} ».</div> Après chaque ingrédient ajouté, cliquez sur
+                Copied from Écoinvent U {RoW} ».</div> Après chaque ingrédient ajouté, cliquez sur
                 « Enregistrer localement ». Réitérez cette étape pour chaque ingrédient.<li>Etape
                 5) : Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
-                Ecobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
+                Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
                 l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
             """
             ),
@@ -759,7 +763,7 @@ display(
                                 (
                                     ipywidgets.HTML(
                                         """Indiquez « visible » pour que l'ingrédient soit visible
-                                        dans Ecobalyse. (Un ingrédient en attente peut être publié
+                                        dans Écobalyse. (Un ingrédient en attente peut être publié
                                         mais invisible) :"""
                                     ),
                                     ipywidgets.HBox(
@@ -790,7 +794,7 @@ display(
                                         """<hr/>Indiquez l'origine par défaut. Se référer à la <a
                                         style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation
-                                        Ecobalyse</a>"""
+                                        Écobalyse</a>"""
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -804,7 +808,7 @@ display(
                                         """<hr/>Le rapport cuit/cru est nécessaire pour le calcul
                                         d'impact. Si besoin se référer à la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation
-                                        Ecobalyse</a>, page « rapport cuit/cru » qui reprend les
+                                        Écobalyse</a>, page « rapport cuit/cru » qui reprend les
                                         règles Agribalyse :"""
                                     ),
                                     ipywidgets.HBox(
@@ -819,7 +823,7 @@ display(
                                         """ <hr/>La densité est nécessaire pour le calcul d'impact.
                                         Si besoin se référer à la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation
-                                        Ecobalyse</a>, page « densité » , qui reprend les règles
+                                        Écobalyse</a>, page « densité » , qui reprend les règles
                                         Agribalyse"""
                                     ),
                                     ipywidgets.HBox(
@@ -834,7 +838,7 @@ display(
                                         """<hr/>La part non comestible est nécessaire pour le calcul
                                         d'impact. Si besoin se référer à la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation
-                                        Ecobalyse</a>, page « part non-comestible, qui reprend les
+                                        Écobalyse</a>, page « part non-comestible, qui reprend les
                                         règles Agribalyse. En l'absence d'info, prendre un
                                         ingrédient équivalent en terme de part non comestible"""
                                     ),
@@ -930,7 +934,7 @@ display(
                         <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
                         style="color:blue"
                         href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a>
-                        du dépôt Ecobalyse.<br/> L'équipe Ecobalyse pourra ensuite recalculer les
+                        du dépôt Écobalyse.<br/> L'équipe Écobalyse pourra ensuite recalculer les
                         impacts et intégrer vos contributions."""
                     ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
