@@ -639,7 +639,6 @@ def commit_activities(_):
         subprocess.run(
             [
                 "git",
-                "-q",
                 "commit",
                 "-m",
                 f"Changed ingredients (contributed by {w_institut.value}",
