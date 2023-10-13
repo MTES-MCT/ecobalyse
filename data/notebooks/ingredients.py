@@ -105,27 +105,27 @@ def reverse(d):
 FIELDS = {
     # process attributes
     "id": "id",
-    "name": "Display Name",
-    "search": "Search terms",
-    "default_origin": "Default Origin",
-    "category": "Process category",
-    "bvi": "Bio-diversity",
+    "name": "Nom affiché",
+    "search": "Termes de recherche",
+    "default_origin": "Origine par défaut",
+    "category": "Catégorie de procédé",
+    "bvi": "Bio-diversité",
     # ingredients attributes
-    "categories": "Ingredient Categories",
+    "categories": "Catégories d'ingrédient",
     "raw_to_cooked_ratio": "Cooked/Raw ratio",
-    "density": "Density",
-    "inedible_part": "Inedible part",
-    "transport_cooling": "Transport Cooling",
+    "density": "Densité",
+    "inedible_part": "Part non comestible",
+    "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
-    "explain": "Details",
+    "explain": "Commentaires",
     # complex ingredients attributes
-    "subingredient_default": "Conv sub-ingredient",
-    "subingredient_organic": "Organic sub-ingredient",
+    "subingredient_default": "Sous-ingrédient conventionnel",
+    "subingredient_organic": "Sous-ingrédient bio",
     "ratio": "Ratio",
     # complements
-    "complements.agro-diversity": "Agro Diversity",
-    "complements.agro-ecology": "Agro Ecology",
-    "complements.animal-welfare": "Animal welfare",
+    "complements.agro-diversity": "Biodiversité territoriale",
+    "complements.agro-ecology": "Résilience territoriale",
+    "complements.animal-welfare": "Conditions d'élevage",
 }
 
 
@@ -161,13 +161,13 @@ def read_activities():
 ## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
 w_id = ipywidgets.Combobox(
-    placeholder="Identifier",
+    placeholder="wheat-organic",
     style=style,
     options=tuple([""] + list(read_activities().keys())),
 )
 ## Name of the activity (for users)
 w_name = ipywidgets.Text(
-    placeholder="Name",
+    placeholder="Farine bio",
     style=style,
 )
 ## Is the activity an ingredient?
@@ -194,13 +194,13 @@ w_default_origin = ipywidgets.Dropdown(
 w_category = ipywidgets.Dropdown(
     options=[
         ("Ingrédient", "ingredient"),
-        ("Autre ou sous-ingrédient", "material"),
+        ("Matériau ou sous-ingrédient", "material"),
         ("Énergie", "energy"),
-        ("Packaging", "packaging"),
-        ("Processing", "processing"),
+        ("Emballage", "packaging"),
+        ("Traitement", "processing"),
         ("Transformation", "transformation"),
         ("Transport", "transport"),
-        ("Waste Treatment", "waste treatment"),
+        ("Traitement des déchets", "waste treatment"),
     ],
 )
 w_categories = ipywidgets.TagsInput(
@@ -318,13 +318,13 @@ w_inedible = ipywidgets.Dropdown(
 w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
 ## Biodiv
 w_bvi = ipywidgets.BoundedFloatText(
-    placeholder="Bio diversité",
+    placeholder="0",
     # value=0,
     min=0,
     style=style,
 )
 w_explain = ipywidgets.Textarea(
-    placeholder="Comments about ingredients parameters",
+    placeholder="Indiquer tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info",
     layout=ipywidgets.Layout(width="450px", height="200px"),
 )
 
@@ -369,45 +369,39 @@ w_complement_animal_welfare = ipywidgets.IntSlider(
 
 # buttons
 savebutton = ipywidgets.Button(
-    description="Save",
+    description="Enregistrer localement",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Add or update the process",
+    tooltip="Enregistre l'ingrédient créé ou modifié",
     icon="check",
 )
 delbutton = ipywidgets.Button(
-    description="Delete",
+    description="Supprimer localement",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Delete the process with the 'id' field above",
+    tooltip="Supprime l'ingrédient correspondant à l'identifiant 'id'",
     icon="trash",
 )
-getbutton = ipywidgets.Button(
-    description="Get",
-    button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Fill the form with ingedient from the 'id' field",
-    icon="down-to-bracket",
-)
 resetbutton = ipywidgets.Button(
-    description="Reset from branch",
+    description="Réinitialiser",
     button_style="success",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Reset the process to the branch state",
+    tooltip="Annuler tous les changements et revenir à l'état déjà publié",
     icon="sparkles",
 )
 clear_reset_button = ipywidgets.Button(
     description="X",
     button_style="",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Clear the output",
+    tooltip="Nettoyer sous le bouton",
     layout=ipywidgets.Layout(width="50px"),
 )
 clear_git_button = ipywidgets.Button(
     description="X",
     button_style="",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Clear the output",
+    tooltip="Nettoyer sous le bouton",
     layout=ipywidgets.Layout(width="50px"),
 )
 commitbutton = ipywidgets.Button(
-    description="Publish",
+    description="Publier pour validation",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Commit the process into the branch",
+    tooltip="Publier et soumettre à validation",
     icon="code-commit",
 )
 
@@ -585,34 +579,34 @@ def delete_activity(_):
 
 def reset_branch():
     if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
-        print("FAILED: git reset --hard")
+        print("ECHEC de la commande: git reset --hard")
     elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
-        print("FAILED: git fetch --all")
+        print("ECHEC de la commande: git fetch --all")
     elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
-        print("FAILED: git checkout origin/ingredients")
+        print("ECHEC de la commande: git checkout origin/ingredients")
     elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
-        print("FAILED: git branch -D ingredients")
+        print("ECHEC de la commande: git branch -D ingredients")
     elif (
         subprocess.run(
             ["git", "branch", "ingredients", "origin/ingredients"]
         ).returncode
         != 0
     ):
-        print("FAILED: git branch ingredients origin/ingredients")
+        print("ECHEC de la commande: git branch ingredients origin/ingredients")
     elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
-        print("FAILED: git checkout ingredients")
+        print("ECHEC de la commande: git checkout ingredients")
     else:
-        print("FAILED. Please tell the devs")
+        print("ECHEC. Prévenez l'équipe Ecobalyse")
 
 
 def reset_activities(_):
     with reset_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print("FAILED: git pull origin ingredients")
+                print("ECHEC de la commande: git pull origin ingredients")
             else:
                 print(
-                    "SUCCEEDED. The activities are now up to date with the ingredients branch"
+                    "SUCCES. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
                 )
         except:
             reset_branch()
@@ -636,24 +630,26 @@ def commit_activities(_):
     with git_output:
         try:
             if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
-                print("FAILED: git add")
+                print("ECHEC de la commande: git add")
             elif (
                 subprocess.run(
                     ["git", "commit", "-m", "Changed ingredients"]
                 ).returncode
                 != 0
             ):
-                print("FAILED: git commit")
+                print("ECHEC de la commande: git commit")
             elif (
                 subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
             ):
-                print("FAILED: git pull")
+                print("ECHEC de la commande: git pull")
             elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
-                print("FAILED: git push")
+                print("ECHEC de la commande: git push")
             else:
-                print("SUCCEEDED. Please tell the devs to merge the ingredients branch")
+                print(
+                    "SUCCES. Merci !! Vous pouvez prévenir l'équipe Ecobalyse qu'il y a des nouveautés en attente de validation"
+                )
         except:
             reset_branch()
 
@@ -668,23 +664,23 @@ clear_git_button.on_click(clear_git_output)
 
 
 display(
-    Markdown("# Before you start"),
-    Markdown("1) Click on ▶▶ in the toolbar above ↑\n"),
+    Markdown("# Avant de commencer"),
+    Markdown("1) Cliquez sur le bouton [▶▶ ] dans la barre d'outils supérieure ↑\n"),
     Markdown(
-        "2) Then on the Reset button below to reload the ingredients "
-        "from the [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) branch "
-        "(you will loose your <b>un</b>published modifications):"
+        "2) Cliquez ensuite sur le bouton [Réinitialiser] pour avoir une liste à jour "
+        "depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) "
+        "(toutes vos modifications non publiées seront perdues):"
     ),
     ipywidgets.HBox((resetbutton, clear_reset_button)),
     reset_output,
     ipywidgets.Tab(
-        titles=["Formulaire", "Processes", "Output file", "Publish"],
+        titles=["Formulaire", "Ingrédients/procédés", "Aperçu du fichier", "Publier"],
         layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         children=[
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        "Technical identifier of the ingredient to add, delete or modify : "
+                        "Identifiant technique de l'ingrédient à ajouter, modifier ou supprimer (en anglais, sans espace) : "
                     ),
                     ipywidgets.HBox(
                         (
@@ -705,18 +701,19 @@ display(
                     ),
                     ipywidgets.HBox(
                         (
-                            ipywidgets.Label("Search terms"),
+                            ipywidgets.Label("Termes de recherche"),
                             w_search,
                         ),
                     ),
                     ipywidgets.HTML(
-                        "The search terms should be minimal and allow to get the right activity as the first result.&nbsp;"
-                        "If you cannot differentiate two processes you can specify its code with : <i>code:1234567890....</i>"
+                        "Mots clés permettant de faire remonter le bon ICV Agribalyse en <b>premier</b> résultat. "
+                        "Doit être le plus succint possible. "
+                        "Si vous ne pouvez pas différencier deux procédés vous pouvez préciser son code avec: <i>code:1234567890...</i>"
                     ),
                     ipywidgets.HBox(
                         (
                             ipywidgets.Label(
-                                "Results",
+                                "Resultats",
                             ),
                             w_results,
                         ),
@@ -738,7 +735,7 @@ display(
                         ),
                     ),
                     ipywidgets.Accordion(
-                        titles=["If the process is an ingredient"],
+                        titles=["Si le procédé est un ingrédient"],
                         children=[
                             ipywidgets.VBox(
                                 (
@@ -812,7 +809,7 @@ display(
                     ),
                     ipywidgets.Accordion(
                         titles=[
-                            "If this is an organic ingredient but you cannot find an organic process"
+                            "Si l'ingrédient est bio mais vous ne pouvez pas trouver de procédé bio"
                         ],
                         children=[
                             ipywidgets.VBox(
@@ -852,7 +849,7 @@ display(
                         ],
                     ),
                     ipywidgets.Accordion(
-                        titles=["Non-LCA complements (only for ingredient)"],
+                        titles=["Compléments hors ACV (pour les ingredients)"],
                         children=[
                             ipywidgets.VBox(
                                 (
@@ -873,7 +870,7 @@ display(
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        "Animal welfare is only exported if the ingredient is in the <i>animal_product</i> ou <i>dairy_product</i> category."
+                                        "Les conditions d'élevage ne sont exportées que si l'ingrédient est dans la catégorie <i>animal_product</i> ou <i>dairy_product</i>."
                                     ),
                                     ipywidgets.HBox(
                                         (
@@ -891,15 +888,14 @@ display(
             ),
             list_output,
             ipywidgets.VBox(
-                (ipywidgets.HTML(f"<h2>Resulting JSON file:</h2>"), file_output)
+                (ipywidgets.HTML(f"<h2>Fichier JSON résultant:</h2>"), file_output)
             ),
             ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
-                        "When your done with editing the ingredients, you should <b>publish</b> your modifications "
-                        "to the <a href='https://github.com/MTES-MCT/ecobalyse/tree/ingredients'>ingredients</a> branch.<br/>"
-                        "Then the Ecobalyse team needs to check and recompute the impacts, "
-                        "and merge the modifications to the main branch for your proposals to be visible online."
+                        "Si vous êtes satisfait(e) de vos modifications locales, vous devez <b>publier</b> vos modifications, "
+                        "qui vont alors arriver dans la branche <a href='https://github.com/MTES-MCT/ecobalyse/tree/ingredients'>ingredients</a> du dépôt Ecobalyse.<br/>"
+                        "L'équipe Ecobalyse pourra ensuite recalculer les impacts et intégrer vos contributions."
                     ),
                     ipywidgets.HBox((commitbutton, clear_git_button)),
                     git_output,
