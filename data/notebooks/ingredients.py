@@ -2,7 +2,6 @@
 This file is the ingredient/activity editor Jupyter Notebook
 """
 print("Please wait")
-from IPython.core.display import display, Markdown
 import sys
 import os
 
@@ -401,10 +400,18 @@ def list_activities():
     )
 
 
+class printer(str):
+    def __repr__(self):
+        return self
+
+
 @file_output.capture()
 def display_output_file():
     with open(ACTIVITIES_TEMP) as fp:
-        display(print(json.dumps(json.load(fp), indent=2, ensure_ascii=False)))
+        display(
+            printer(json.dumps(json.load(fp), indent=2, ensure_ascii=False)),
+            display_id=True,
+        )
 
 
 def display_all():
@@ -551,35 +558,35 @@ def delete_activity(_):
 
 def reset_branch():
     if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
-        print("ÉCHEC de la commande: git reset --hard")
+        display("ÉCHEC de la commande: git reset --hard")
     elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
-        print("ÉCHEC de la commande: git fetch --all")
+        display("ÉCHEC de la commande: git fetch --all")
     elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
-        print("ÉCHEC de la commande: git checkout origin/ingredients")
+        display("ÉCHEC de la commande: git checkout origin/ingredients")
     elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
-        print("ÉCHEC de la commande: git branch -D ingredients")
+        display("ÉCHEC de la commande: git branch -D ingredients")
     elif (
         subprocess.run(
             ["git", "branch", "ingredients", "origin/ingredients"]
         ).returncode
         != 0
     ):
-        print("ÉCHEC de la commande: git branch ingredients origin/ingredients")
+        display("ÉCHEC de la commande: git branch ingredients origin/ingredients")
     elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
-        print("ÉCHEC de la commande: git checkout ingredients")
+        display("ÉCHEC de la commande: git checkout ingredients")
     else:
-        print("ÉCHEC. Prévenez l'équipe Écobalyse")
+        display("ÉCHEC. Prévenez l'équipe Écobalyse")
 
 
 def reset_activities(_):
     with reset_output:
         try:
             if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                print(
+                display(
                     "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
                 )
             else:
-                print(
+                display(
                     "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
                 )
         except:
@@ -604,24 +611,24 @@ def commit_activities(_):
     with git_output:
         try:
             if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
-                print("ÉCHEC de la commande: git add")
+                display("ÉCHEC de la commande: git add")
             elif (
                 subprocess.run(
                     ["git", "commit", "-m", "Changed ingredients"]
                 ).returncode
                 != 0
             ):
-                print("ÉCHEC de la commande: git commit")
+                display("ÉCHEC de la commande: git commit")
             elif (
                 subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
             ):
-                print("ÉCHEC de la commande: git pull")
+                display("ÉCHEC de la commande: git pull")
             elif (
                 subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
             ):
-                print("ÉCHEC de la commande: git push")
+                display("ÉCHEC de la commande: git push")
             else:
-                print(
+                display(
                     "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
                 )
         except:
