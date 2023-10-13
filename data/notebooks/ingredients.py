@@ -227,7 +227,7 @@ w_categories = ipywidgets.TagsInput(
 ## Transport cooling
 w_cooling = ipywidgets.Dropdown(
     options=[
-        ("Aucun", "none"),
+        ("Non", "none"),
         ("Toujours", "always"),
         ("Une fois transformé", "once_transformed"),
     ],
