@@ -649,7 +649,7 @@ def commit_activities(_):
                 "git",
                 "commit",
                 "-m",
-                f"Changed ingredients (contributed by {w_institut.value}",
+                f"Changed ingredients (contributed by {w_institut.value})",
             ],
             capture_output=True,
         ).returncode
