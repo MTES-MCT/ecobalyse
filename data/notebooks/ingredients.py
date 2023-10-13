@@ -799,7 +799,7 @@ display(
                                     ipywidgets.HTML(
                                         "<hr/>Le rapport cuit/cru est nécessaire pour le "
                                         "calcul d'impact. Si besoin se référer à la "
-                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation Ecobalyse</a>, onglet « rapport cuit/cru » '
+                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation Ecobalyse</a>, page « rapport cuit/cru » '
                                         "qui reprend les règles Agribalyse :"
                                     ),
                                     ipywidgets.HBox(
@@ -813,7 +813,7 @@ display(
                                     ipywidgets.HTML(
                                         "<hr/>La densité est nécessaire pour le calcul "
                                         "d'impact. Si besoin se référer à la "
-                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation Ecobalyse</a>, onglet « densité »'
+                                        '<a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation Ecobalyse</a>, page « densité »'
                                         ", qui reprend les règles Agribalyse"
                                     ),
                                     ipywidgets.HBox(
@@ -827,7 +827,7 @@ display(
                                     ipywidgets.HTML(
                                         "<hr/>La part non comestible est nécessaire pour "
                                         "le calcul d'impact. Si besoin se référer "
-                                        'à la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation Ecobalyse</a>, onglet '
+                                        'à la <a style="color:blue" href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation Ecobalyse</a>, page '
                                         "« part non-comestible, qui reprend les règles "
                                         "Agribalyse. En l'absence d'info, prendre un "
                                         "ingrédient équivalent en terme de part non comestible"
