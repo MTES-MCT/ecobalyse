@@ -22,7 +22,7 @@ import subprocess
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
-ACTIVITIES_TEMP = "/home/jovyan/activities.json"
+ACTIVITIES_TEMP = "/home/jovyan/activities.%s.json"
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -71,7 +71,7 @@ def cleanup_json(activities):
 
 
 def save_activities(activities):
-    with open(ACTIVITIES_TEMP, "w") as fp:
+    with open(ACTIVITIES_TEMP % w_institut.value, "w") as fp:
         fp.write(
             json.dumps(
                 cleanup_json([from_flat(from_pretty(i)) for i in activities.values()]),
@@ -134,14 +134,14 @@ def from_pretty(d):
 
 def read_activities():
     """Return the activities as a dict indexed with id"""
-    if not os.path.exists(ACTIVITIES_TEMP):
-        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
+    if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
     try:
-        with open(ACTIVITIES_TEMP) as fp:
+        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
     except json.JSONDecodeError:
-        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
-        with open(ACTIVITIES_TEMP) as fp:
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
+        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
             igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
 
     return igs
@@ -150,7 +150,12 @@ def read_activities():
 # WIDGETS
 ## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
-w_institut = ipywidgets.Text(style=style)
+w_institut = ipywidgets.Dropdown(
+    options=["Écobalyse", "ITERG", "ACTALIA", "IFV"],
+    value=None,
+    style=style,
+    description="Contributeur : ",
+)
 w_id = ipywidgets.Combobox(
     placeholder="wheat-organic",
     style=style,
@@ -407,7 +412,7 @@ class printer(str):
 
 @file_output.capture()
 def display_output_file():
-    with open(ACTIVITIES_TEMP) as fp:
+    with open(ACTIVITIES_TEMP % w_institut.value) as fp:
         display(
             printer(json.dumps(json.load(fp), indent=2, ensure_ascii=False)),
             display_id=True,
@@ -557,42 +562,42 @@ def delete_activity(_):
 
 
 def reset_branch():
-    if subprocess.run(["git", "reset", "--hard"]).returncode != 0:
+    if subprocess.run(["git", "-q", "reset", "--hard"]).returncode != 0:
         display("ÉCHEC de la commande: git reset --hard")
-    elif subprocess.run(["git", "fetch", "--all"]).returncode != 0:
+    elif subprocess.run(["git", "-q", "fetch", "--all"]).returncode != 0:
         display("ÉCHEC de la commande: git fetch --all")
-    elif subprocess.run(["git", "checkout", "origin/ingredients"]).returncode != 0:
+    elif (
+        subprocess.run(["git", "-q", "checkout", "origin/ingredients"]).returncode != 0
+    ):
         display("ÉCHEC de la commande: git checkout origin/ingredients")
-    elif subprocess.run(["git", "branch", "-D", "ingredients"]).returncode != 0:
+    elif subprocess.run(["git", "-q", "branch", "-D", "ingredients"]).returncode != 0:
         display("ÉCHEC de la commande: git branch -D ingredients")
     elif (
         subprocess.run(
-            ["git", "branch", "ingredients", "origin/ingredients"]
+            ["git", "-q", "branch", "ingredients", "origin/ingredients"]
         ).returncode
         != 0
     ):
         display("ÉCHEC de la commande: git branch ingredients origin/ingredients")
-    elif subprocess.run(["git", "checkout", "ingredients"]).returncode != 0:
+    elif subprocess.run(["git", "-q", "checkout", "ingredients"]).returncode != 0:
         display("ÉCHEC de la commande: git checkout ingredients")
     else:
         display("ÉCHEC. Prévenez l'équipe Écobalyse")
 
 
+@reset_output.capture()
 def reset_activities(_):
-    with reset_output:
-        try:
-            if subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0:
-                display(
-                    "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
-                )
-            else:
-                display(
-                    "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
-                )
-        except:
-            reset_branch()
+    if subprocess.run(["git", "-q", "pull", "origin", "ingredients"]).returncode != 0:
+        display(
+            "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
+        )
+        reset_branch()
+    else:
+        display(
+            "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
+        )
 
-    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP)
+    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
     w_id.options = tuple(read_activities().keys())
     clear_form()
     display_all()
@@ -606,33 +611,28 @@ def clear_reset_output(_):
     reset_output.clear_output()
 
 
+@git_output.capture()
 def commit_activities(_):
-    shutil.copy(ACTIVITIES_TEMP, ACTIVITIES)
-    with git_output:
-        try:
-            if subprocess.run(["git", "add", ACTIVITIES]).returncode != 0:
-                display("ÉCHEC de la commande: git add")
-            elif (
-                subprocess.run(
-                    ["git", "commit", "-m", "Changed ingredients"]
-                ).returncode
-                != 0
-            ):
-                display("ÉCHEC de la commande: git commit")
-            elif (
-                subprocess.run(["git", "pull", "origin", "ingredients"]).returncode != 0
-            ):
-                display("ÉCHEC de la commande: git pull")
-            elif (
-                subprocess.run(["git", "push", "origin", "ingredients"]).returncode != 0
-            ):
-                display("ÉCHEC de la commande: git push")
-            else:
-                display(
-                    "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
-                )
-        except:
-            reset_branch()
+    shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
+    if subprocess.run(["git", "-q", "add", ACTIVITIES]).returncode != 0:
+        display("ÉCHEC de la commande: git add")
+        reset_branch()
+    elif (
+        subprocess.run(["git", "-q", "commit", "-m", "Changed ingredients"]).returncode
+        != 0
+    ):
+        display("ÉCHEC de la commande: git commit")
+        reset_branch()
+    elif subprocess.run(["git", "-q", "pull", "origin", "ingredients"]).returncode != 0:
+        display("ÉCHEC de la commande: git pull")
+        reset_branch()
+    elif subprocess.run(["git", "-q", "push", "origin", "ingredients"]).returncode != 0:
+        display("ÉCHEC de la commande: git push")
+        reset_branch()
+    else:
+        display(
+            "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
+        )
 
 
 w_search.observe(change_search_of(w_results), names="value")
@@ -646,6 +646,7 @@ clear_git_button.on_click(clear_git_output)
 
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
+    w_institut,
     ipywidgets.Tab(
         titles=[
             "Documentation",
