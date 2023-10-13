@@ -71,6 +71,8 @@ def cleanup_json(activities):
 
 
 def save_activities(activities):
+    if not w_institut.value:
+        return
     with open(ACTIVITIES_TEMP % w_institut.value, "w") as fp:
         fp.write(
             json.dumps(
