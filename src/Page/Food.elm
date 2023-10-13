@@ -50,6 +50,7 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
+import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
@@ -92,6 +93,7 @@ type Msg
     | NoOp
     | OnAutocomplete (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
+    | OnStepClick String
     | OpenComparator
     | ResetTransform
     | ResetDistribution
@@ -271,6 +273,12 @@ update ({ queries } as session) msg model =
 
                 _ ->
                     ( model, session, Cmd.none )
+
+        OnStepClick stepId ->
+            ( model
+            , session
+            , Ports.scrollIntoView stepId
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -916,8 +924,14 @@ ingredientListView db selectedImpact recipe results =
         autocompleteState =
             AutocompleteSelector.init .name availableIngredients
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 d-flex align-items-center mb-0" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.materials
+        ]
+        [ h2
+            [ class "h5 d-flex align-items-center mb-0"
+            , id "materials-step"
+            ]
             [ text "Ingrédients"
             , Link.smallPillExternal
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing))
@@ -981,8 +995,15 @@ packagingListView db selectedImpact recipe results =
         availablePackagings =
             Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Emballage" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.packaging
+        ]
+        [ h2
+            [ class "h5 mb-0"
+            , id "packaging-step"
+            ]
+            [ text "Emballage" ]
         , results.packaging
             |> Format.formatImpact selectedImpact
         ]
@@ -1140,8 +1161,15 @@ distributionView selectedImpact recipe results =
             results.distribution.total
                 |> Format.formatImpact selectedImpact
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Distribution" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.distribution
+        ]
+        [ h2
+            [ class "h5 mb-0"
+            , id "distribution-step"
+            ]
+            [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatImpact selectedImpact
         ]
@@ -1187,8 +1215,15 @@ distributionView selectedImpact recipe results =
 
 consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Consommation" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.usage
+        ]
+        [ h2
+            [ class "h5 mb-0"
+            , id "usage-step"
+            ]
+            [ text "Consommation" ]
         , results.preparation
             |> Format.formatImpact selectedImpact
         ]
@@ -1325,7 +1360,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig model.impact model.activeImpactsTab
+                |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
 
         -- Bookmarks
@@ -1368,8 +1403,15 @@ transformView db selectedImpact recipe results =
             results.recipe.transform
                 |> Format.formatImpact selectedImpact
     in
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Transformation" ]
+    [ div
+        [ class "card-header d-flex align-items-center justify-content-between"
+        , StepsBorder.style Impact.stepsColors.transform
+        ]
+        [ h2
+            [ class "h5 mb-0"
+            , id "transform-step"
+            ]
+            [ text "Transformation" ]
         , impact
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]

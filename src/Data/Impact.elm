@@ -21,6 +21,7 @@ module Data.Impact exposing
     , noStepsImpacts
     , parseTrigram
     , perKg
+    , stepsColors
     , stepsImpactsAsChartEntries
     , sumImpacts
     , toProtectionAreas
@@ -129,15 +130,19 @@ totalComplementsImpactAsChartEntry complementsImpacts =
 -- Steps impacts
 
 
-type alias StepsImpacts =
-    { materials : Maybe Unit.Impact
-    , transform : Maybe Unit.Impact
-    , packaging : Maybe Unit.Impact
-    , transports : Maybe Unit.Impact
-    , distribution : Maybe Unit.Impact
-    , usage : Maybe Unit.Impact
-    , endOfLife : Maybe Unit.Impact
+type alias Steps a =
+    { materials : a
+    , transform : a
+    , packaging : a
+    , transports : a
+    , distribution : a
+    , usage : a
+    , endOfLife : a
     }
+
+
+type alias StepsImpacts =
+    Steps (Maybe Unit.Impact)
 
 
 noStepsImpacts : StepsImpacts
@@ -152,15 +157,31 @@ noStepsImpacts =
     }
 
 
+type alias StepsColors =
+    Steps String
+
+
+stepsColors : StepsColors
+stepsColors =
+    { materials = Color.purple
+    , transform = Color.pink
+    , packaging = Color.blue
+    , transports = Color.green
+    , distribution = Color.red
+    , usage = Color.yellow
+    , endOfLife = Color.turquoise
+    }
+
+
 stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
 stepsImpactsAsChartEntries stepsImpacts =
-    [ ( "Matières premières", stepsImpacts.materials, Color.purple )
-    , ( "Transformation", stepsImpacts.transform, Color.pink )
-    , ( "Emballage", stepsImpacts.packaging, Color.blue )
-    , ( "Transports", stepsImpacts.transports, Color.green )
-    , ( "Distribution", stepsImpacts.distribution, Color.red )
-    , ( "Utilisation", stepsImpacts.usage, Color.yellow )
-    , ( "Fin de vie", stepsImpacts.endOfLife, Color.turquoise )
+    [ ( "Matières premières", stepsImpacts.materials, stepsColors.materials )
+    , ( "Transformation", stepsImpacts.transform, stepsColors.transform )
+    , ( "Emballage", stepsImpacts.packaging, stepsColors.packaging )
+    , ( "Transports", stepsImpacts.transports, stepsColors.transports )
+    , ( "Distribution", stepsImpacts.distribution, stepsColors.distribution )
+    , ( "Utilisation", stepsImpacts.usage, stepsColors.usage )
+    , ( "Fin de vie", stepsImpacts.endOfLife, stepsColors.endOfLife )
     ]
         |> List.map
             (\( label, maybeValue, color ) ->

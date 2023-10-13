@@ -4,11 +4,15 @@ module Data.Textile.Step.Label exposing
     , decodeFromCode
     , encode
     , fromCodeString
+    , toColor
     , toGitbookPath
+    , toId
+    , toName
     , toString
     )
 
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -38,12 +42,67 @@ all =
     ]
 
 
-toString : Label -> String
-toString label =
+toColor : Label -> String
+toColor label =
     case label of
         Material ->
-            "Matières premières"
+            Impact.stepsColors.materials
 
+        Spinning ->
+            Impact.stepsColors.transform
+
+        Fabric ->
+            Impact.stepsColors.transform
+
+        Making ->
+            Impact.stepsColors.transform
+
+        Ennobling ->
+            Impact.stepsColors.transform
+
+        Distribution ->
+            Impact.stepsColors.distribution
+
+        Use ->
+            Impact.stepsColors.usage
+
+        EndOfLife ->
+            Impact.stepsColors.endOfLife
+
+
+toId : Label -> String
+toId label =
+    case label of
+        Material ->
+            "materials-step"
+
+        Spinning ->
+            -- We only want a single "transform-step" id, as it's used for the Html `id` attribute
+            -- and they are meant to be unique throughout the page.
+            "transform-step"
+
+        Fabric ->
+            "transform-step-fabric"
+
+        Making ->
+            "transform-step-making"
+
+        Ennobling ->
+            "transform-step-ennobling"
+
+        Distribution ->
+            "distribution-step"
+
+        Use ->
+            "usage-step"
+
+        EndOfLife ->
+            "end-of-life-step"
+
+
+toName : Label -> String
+toName label =
+    case label of
         Spinning ->
             "Transformation\u{00A0}- Filature"
 
@@ -55,6 +114,28 @@ toString label =
 
         Ennobling ->
             "Transformation\u{00A0}- Ennoblissement"
+
+        _ ->
+            toString label
+
+
+toString : Label -> String
+toString label =
+    case label of
+        Material ->
+            "Matières premières"
+
+        Spinning ->
+            "Filature"
+
+        Fabric ->
+            "Tissage & Tricotage"
+
+        Making ->
+            "Confection"
+
+        Ennobling ->
+            "Ennoblissement"
 
         Distribution ->
             "Distribution"

@@ -187,7 +187,7 @@
   {
     "id": "flour-organic",
     "name": "Farine bio (sortie de moulin)",
-    "search": "Wheat flour at industrial mill",
+    "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["grain_processed", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -197,9 +197,6 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 1.411313691,
-    "subingredient_default": "wheat",
-    "subingredient_organic": "wheat-organic",
-    "ratio": 1.16,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -355,7 +352,7 @@
   {
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio (cru)",
-    "search": "Ground beef fresh case ready for direct consumption at plant",
+    "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -365,9 +362,6 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
-    "subingredient_default": "beef-cattle",
-    "subingredient_organic": "cull-cow-organic",
-    "ratio": 2.3,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -398,7 +392,7 @@
   {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché Feedlot (cru)",
-    "search": "Ground beef fresh case ready for direct consumption at plant",
+    "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -408,9 +402,6 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 15.04866738,
-    "subingredient_default": "beef-cattle",
-    "subingredient_organic": "beef-cattle-feedlot",
-    "ratio": 2.3,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -439,7 +430,7 @@
   {
     "id": "cooked-ham-organic",
     "name": "Jambon bio (cuit)",
-    "search": "Cooked ham case ready at plant",
+    "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -449,9 +440,6 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 6.087620104,
-    "subingredient_default": "pig",
-    "subingredient_organic": "pig-organic",
-    "ratio": 2.02,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -481,7 +469,7 @@
   },
   {
     "id": "chicken-breast",
-    "name": "Poulet (cru)",
+    "name": "Blanc de poulet (cru)",
     "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -500,8 +488,8 @@
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Poulet bio (cru)",
-    "search": "Meat without bone chicken for direct consumption",
+    "name": "Blanc de poulet bio (cru)",
+    "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -511,9 +499,6 @@
     "transport_cooling": "always",
     "visible": true,
     "bvi": 5.408719682,
-    "subingredient_default": "broiler",
-    "subingredient_organic": "broiler-organic",
-    "ratio": 1,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -609,7 +594,7 @@
   {
     "id": "huilecolza-organic",
     "name": "Huile de colza bio (sortie de moulin)",
-    "search": "Rapeseed oil mill {GLO}",
+    "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["nut_oilseed_processed", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -619,9 +604,6 @@
     "transport_cooling": "none",
     "visible": true,
     "bvi": 0,
-    "subingredient_default": "rapeseed",
-    "subingredient_organic": "rapeseed-organic",
-    "ratio": 1.66,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -648,7 +630,7 @@
   {
     "id": "sunfloweroil-organic",
     "name": "Huile de tournesol bio (sortie de moulin)",
-    "search": "sunflower oil at mill {glo}",
+    "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["nut_oilseed_processed", "organic"],
     "default_origin": "EuropeAndMaghreb",
@@ -658,9 +640,6 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "bvi": 0,
-    "subingredient_default": "sunflower",
-    "subingredient_organic": "sunflower-organic",
-    "ratio": 2.45,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -831,7 +810,7 @@
   {
     "id": "butter-organic",
     "name": "Beurre bio",
-    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "default_origin": "France",
     "category": "ingredient",
     "categories": ["dairy_product", "organic"],
@@ -840,9 +819,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ratio": 6.58,
-    "subingredient_default": "milk",
-    "subingredient_organic": "milk-organic",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -2327,24 +2303,6 @@
     }
   },
   {
-    "id": "chicken-ham",
-    "name": "Blanc de poulet ",
-    "search": "Meat without bone, chicken, for direct consumption",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "bvi": 0,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
     "id": "tomato-paste",
     "name": "Purée de tomates",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
@@ -2529,6 +2487,41 @@
       "agro-diversity": 0,
       "agro-ecology": 0
     }
+  },
+  {
+    "id": "chicken-breast-br-max",
+    "name": "Blanc de poulet (importé nourri avec des aliments BR)",
+    "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "chicken-breast-fr",
+    "name": "Blanc de poulet (nourri avec des aliments FR)",
+    "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
   }
 ]
-

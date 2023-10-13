@@ -33,6 +33,7 @@ import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.Component.SplitInput as SplitInput
+import Views.Component.StepsBorder as StepsBorder
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
@@ -74,34 +75,6 @@ type alias Config msg modal =
 
 type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
-
-
-stepIcon : Label -> Html msg
-stepIcon label =
-    case label of
-        Label.Material ->
-            Icon.material
-
-        Label.Spinning ->
-            Icon.thread
-
-        Label.Fabric ->
-            Icon.fabric
-
-        Label.Ennobling ->
-            Icon.dyeing
-
-        Label.Making ->
-            Icon.making
-
-        Label.Distribution ->
-            Icon.bus
-
-        Label.Use ->
-            Icon.use
-
-        Label.EndOfLife ->
-            Icon.recycle
 
 
 countryField : Config msg modal -> Html msg
@@ -591,12 +564,6 @@ stepHeader { current, inputs, toggleStep } =
             , onCheck (always (toggleStep current.label))
             ]
             []
-        , span
-            [ class "StepIcon rounded-pill"
-            , classList [ ( "bg-secondary text-white", current.enabled ) ]
-            , classList [ ( "bg-light text-dark", not current.enabled ) ]
-            ]
-            [ stepIcon current.label ]
         , span [ class "fs-6 fw-bold" ]
             [ current.label
                 |> Step.displayLabel
@@ -617,7 +584,11 @@ simpleView ({ inputs, impact, current } as config) =
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
-            [ div [ class "StepHeader card-header" ]
+            [ div
+                [ class "StepHeader card-header"
+                , StepsBorder.style <| Label.toColor current.label
+                , id <| Label.toId current.label
+                ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
@@ -856,8 +827,8 @@ viewTransport ({ impact, current } as config) =
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
         , if Transport.totalKm current.transport > 0 then
-            div [ class "d-flex justify-content-between gap-3" ]
-                [ div [ class "d-flex justify-content-between gap-3" ]
+            div [ class "d-flex justify-content-between gap-3 align-items-center" ]
+                [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
                     (current.transport
                         |> TransportView.viewDetails
                             { fullWidth = False
