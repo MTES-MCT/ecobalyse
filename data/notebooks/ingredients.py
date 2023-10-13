@@ -638,51 +638,54 @@ clear_git_button.on_click(clear_git_output)
 
 
 display(
-    Markdown("# Avant de commencer"),
-    Markdown("1) Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure ↑\n"),
-    Markdown(
-        "2) Cliquez ensuite sur le bouton [Réinitialiser] pour avoir une liste à jour "
-        "depuis la branche [ingredients](https://github.com/MTES-MCT/ecobalyse/tree/ingredients) "
-        "(toutes vos modifications non publiées seront perdues):"
-    ),
-    ipywidgets.HBox((resetbutton, clear_reset_button)),
-    reset_output,
+    ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
     ipywidgets.Tab(
         titles=[
             "Documentation",
-            "Formulaire",
             "Liste",
+            "Formulaire",
             "Aperçu du fichier",
             "Publier",
         ],
         layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         children=[
-            ipywidgets.HTML(
-                """<h2>Documentation de cet outil</h2> <ul><li>Étape 1) Cliquez sur le bouton « ▶▶ »
-                dans la barre d'outils supérieure pour récupérer la dernière version de cet éditeur
-                d'ingrédients. Si l'éditeur ne se recharge pas, patientez une ou deux minutes puis
-                recommencez</li> <li>Étape 2) Rechargez la liste des ingrédients déjà publiés en
-                cliquant sur le bouton vert « Réinitialiser ».</li> <li>Étape 3) Consultez la liste
-                des ingrédients déjà publiés avant d'ajouter un nouvel ingrédients</li> Allez dans
-                le sous-onglet « Liste ». Un tableau avec la liste des ingrédients déjà ajoutés et
-                leurs caractéristiques est visible (attention il n'est visible que si la page a été
-                chargée (boutons « ▶▶ » et « Réinitialiser ») <li>Étape 4) Ajouter un ingrédient
-                :</li> Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
-                de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
-                l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV correspondant
-                à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par exemple l’ICV
-                « Brown sugar, production, at plant {FR} U » semble être le plus adapté à
-                l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour vérifier qu’il est
-                bien fabriqué à partir de canne à sucre, le sous-onglet Technosphere de
-                l'explorateur permet de vérifier les procédés qui entrent dans la composition de
-                « Brown sugar, production, at plant {FR} U ». Il s’agit bien du procédé « Sugar,
-                from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S -
-                Copied from Écoinvent U {RoW} ».</div> Après chaque ingrédient ajouté, cliquez sur
-                « Enregistrer localement ». Réitérez cette étape pour chaque ingrédient.<li>Etape
-                5) : Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
-                Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
-                l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
-            """
+            ipywidgets.VBox(
+                (
+                    ipywidgets.HTML(
+                        """<h2>Documentation de cet outil</h2> <ul><li>Étape 1) Cliquez sur le
+                        bouton « ▶▶ » dans la barre d'outils supérieure pour récupérer la dernière
+                        version de cet éditeur d'ingrédients. Si l'éditeur ne se recharge pas,
+                        patientez une ou deux minutes puis recommencez</li> <li>Étape 2) Dans le
+                        sous-onglet « Liste », rechargez la liste des ingrédients déjà publiés en
+                        cliquant sur le bouton vert « Réinitialiser ». Puis consultez la liste des
+                        ingrédients déjà ajoutés avant d'ajouter un nouvel ingrédients</li>
+                        <li>Étape 3) Ajouter un ingrédient :</li> Aller dans le sous-onglet
+                        « Formulaire » pour renseigner les caractéristiques de l’ingrédient à
+                        ajouter. <div style="padding-left: 50px">En utilisant l'explorateur depuis
+                        un autre onglet, il faut d'abord identifier l'ICV correspondant à
+                        l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par exemple
+                        l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+                        adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
+                        vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
+                        Technosphere de l'explorateur permet de vérifier les procédés qui entrent
+                        dans la composition de « Brown sugar, production, at plant {FR} U ». Il
+                        s’agit bien du procédé « Sugar, from sugarcane {RoW}| sugarcane processing,
+                        traditional annexed plant | Cut-off, S - Copied from Écoinvent U {RoW}
+                        ».</div> Après chaque ingrédient ajouté, cliquez sur « Enregistrer
+                        localement ». Réitérez cette étape pour chaque ingrédient.<li>Etape 5) :
+                        Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
+                        Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
+                        l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
+                        """
+                    ),
+                )
+            ),
+            ipywidgets.VBox(
+                (
+                    ipywidgets.HBox((resetbutton, clear_reset_button)),
+                    reset_output,
+                    list_output,
+                )
             ),
             ipywidgets.VBox(
                 (
@@ -921,7 +924,6 @@ display(
                     ),
                 )
             ),
-            list_output,
             ipywidgets.VBox(
                 (ipywidgets.HTML(f"<h2>Fichier JSON résultant:</h2>"), file_output)
             ),
