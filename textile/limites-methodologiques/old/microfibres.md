@@ -89,10 +89,10 @@ Les fibres utilisées dans l'industrie textile proposent des propriétés intrin
 
 Cependant, du fait de traitements appliqués sur les fibres lors des étapes de fabrication du vêtement, les propriétés intrinsèques des fibres peuvent évoluer (ex : l'application d'apprêts chimiques sur des fibres intrinsèquement biodégradables peut rendre ces dernières plus ou moins persistantes). &#x20;
 
-**Illustration de résultats de tests ci-dessous**\
+**Illustration de résultats de tests de biodégradabilité**\
 (Source = tests listés dans le rapport "Biodegradability within the context of Fibre Fragmentation" de [_TheMicrofibreConsortium_](https://www.microfibreconsortium.com/))&#x20;
 
-* Cotton (avec teinture) : 74% après 112 jours à 10°C (compartiment = eau)
+* Coton (avec teinture) : 74% après 112 jours à 10°C (compartiment = eau)
 * Chanvre (sans teinture) : 79% après 112 jours à 10°C (compartiment = eau)
 * Lyocell (sans teinture) : 81% après 112 jours à 10°C (compartiment = eau)
 * Laine Merino : 23% après 90 jours à 30°C (compartiment = eau)
