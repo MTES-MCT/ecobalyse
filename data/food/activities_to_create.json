@@ -163,6 +163,20 @@
     }
   },
   {
+    "id": "cooked-ham-fr",
+    "search": "Cooked ham case ready at plant",
+    "suffix": "[fr], constructed by Ecobalyse",
+    "subactivities": [      
+      "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U",
+      "Pork ham, raw, at plant {FR} U",
+      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",      
+      "Live pork storage, at plant {FR} U"
+    ],
+    "replace": {
+      "Pig, conventional, national average, at farm gate {FR} U": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U"
+    }
+  },
+  {
     "id": "sunfloweroil-organic",
     "search": "sunflower oil at mill {glo}",
     "suffix": "[organic], constructed by Ecobalyse",
