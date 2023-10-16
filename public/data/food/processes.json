@@ -832,6 +832,38 @@
     }
   },
   {
+    "id": "cooked-ham-fr",
+    "name": "Cooked ham case ready at plant [fr], constructed by Ecobalyse",
+    "displayName": "Jambon, nourri avec des aliments FR (cuit)",
+    "unit": "kilogram",
+    "identifier": "87537ad3-5c80-1ec8-e03c-170b7f548735",
+    "system_description": "Ecobalyse",
+    "category": "ingredient",
+    "comment": "Product already packed.",
+    "impacts": {
+      "bvi": 6.087620104,
+      "acd": 0.1227124629,
+      "ozd": 1.634952083e-06,
+      "cch": 5.976956565,
+      "fwe": 0.0009204586044,
+      "swe": 0.0309236405,
+      "tre": 0.5313236796,
+      "pco": 0.01217125584,
+      "pma": 8.674307893e-07,
+      "ior": 2.239938197,
+      "fru": 74.97311156,
+      "mru": 2.071268675e-05,
+      "ldu": 376.8799401,
+      "wtu": 3.708951573,
+      "htc": 4.540029129e-09,
+      "htn": 4.885777032e-08,
+      "etf": 70.27685864,
+      "etf-c": 124.57550901,
+      "htc-c": 1.156358691e-09,
+      "htn-c": 2.151504062e-08
+    }
+  },
+  {
     "id": "pig",
     "name": "Pig, conventional, national average, at farm gate {FR} U",
     "displayName": "Porc",
