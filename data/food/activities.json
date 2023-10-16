@@ -11,7 +11,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 2.8229,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -30,7 +30,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 2.7312,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -49,7 +49,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 3.7279,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -68,7 +68,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.8161,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -87,7 +87,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.513278847,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -106,7 +106,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.1321,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -124,7 +124,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.2271,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -142,7 +142,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 1.2164,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -160,7 +160,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.9939,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -178,7 +178,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -196,7 +196,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -214,7 +214,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 3.423726823,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -232,7 +232,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 2.351161646,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -250,7 +250,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.073211803,
     "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\"",
     "complements": {
       "agro-diversity": 10,
@@ -269,7 +269,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 1.464805983,
     "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
     "complements": {
       "agro-diversity": 50,
@@ -288,7 +288,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -306,7 +306,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -324,7 +324,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.338079058,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -342,7 +342,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -361,7 +361,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -401,7 +401,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -420,7 +420,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -439,7 +439,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -458,7 +458,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -498,7 +498,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -517,7 +517,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -536,7 +536,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -569,7 +569,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.728840715,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -587,7 +587,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.539152617,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -947,7 +947,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.940864665,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -957,84 +957,84 @@
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.1133,
     "search": "Steel unalloyed {RER} steel production converter unalloyed"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.3318,
     "search": "Packaging film low density polyethylene {RER} production"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.0011,
     "search": "Polystyrene expandable {RER} production"
   },
   {
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.3211,
     "search": "Packaging glass white {RER} w/o CH+DE production"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.0003,
     "search": "Polypropylene granulate {RER}| production"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 1.1059,
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
   {
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 7.4795,
     "search": "Kraft paper production"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.0004,
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation"
   },
   {
     "id": "pet",
     "name": "PET",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.245,
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.0004,
     "search": "Polyethylene high density granulate {RER} production"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
-    "bvi": 0,
+    "bvi": 0.94,
     "search": "Aluminium primary ingot {RoW} production"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
-    "bvi": 0,
+    "bvi": 0.0089,
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR"
   },
   {
@@ -1047,28 +1047,28 @@
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
-    "bvi": 0,
+    "bvi": 0.012,
     "search": "Cooking industrial 1kg of cooked product FR"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
-    "bvi": 0,
+    "bvi": 0.055765784,
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
-    "bvi": 0,
+    "bvi": 0.000292724,
     "search": "Transport freight sea ship"
   },
   {
     "id": "plane",
     "name": "Avion",
     "category": "transport",
-    "bvi": 0,
+    "bvi": 0.012214369,
     "search": "Transport freight aircraft"
   },
   {
@@ -1149,7 +1149,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "bvi": 0,
+    "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -1167,7 +1167,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2463,7 +2463,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2481,7 +2481,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.0,
     "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV",
     "complements": {
       "agro-diversity": 10,
@@ -2500,7 +2500,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.0,
     "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB.",
     "complements": {
       "agro-diversity": 10,
@@ -2519,7 +2519,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
+    "bvi": 0.0,
     "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%.",
     "complements": {
       "agro-diversity": 0,
