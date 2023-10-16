@@ -183,6 +183,21 @@
       "Broiler, conventional, at farm gate {FR} U": "Broiler, organic, at farm gate {FR} U"
     }
   },
+ {
+    "id": "chicken-breast-organic-fr",
+    "search": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
+    "suffix": "[organic-fr]",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
+      "Broiler, live, for direct consumption {FR} U [organic], constructed by Ecobalyse",
+      "Broiler, organic, at farm gate {FR} U",
+      "Broiler, broiler feed organic prod, at farm gate {FR} U"      
+    ],
+    "replace": {
+      "Soybean meal, organic, crushing in France common process meal": "Soybean, organic, animal feed, at farm gate {FR} U",
+      "Soybean organic GLO market for cut-off S copied from ecoinvent U": "Soybean, organic, animal feed, at farm gate {FR} U"
+    }
+  },
   {
     "id": "butter-organic",
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",

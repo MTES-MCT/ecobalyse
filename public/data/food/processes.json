@@ -992,6 +992,38 @@
     }
   },
   {
+    "id": "chicken-breast-organic-fr",
+    "name": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse [organic-fr]",
+    "displayName": "Blanc de poulet bio (nourri avec des aliments FR)",
+    "unit": "kilogram",
+    "identifier": "6185af29-384b-3683-c6e7-d40392644ff1",
+    "system_description": "Ecobalyse",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 5.408719682,
+      "acd": 0.170538769,
+      "ozd": 4.574052016e-07,
+      "cch": 6.458888974,
+      "fwe": 0.002150865455,
+      "swe": 0.06261870408,
+      "tre": 0.743310552,
+      "pco": 0.01801321011,
+      "pma": 1.192843505e-06,
+      "ior": 0.9157708567,
+      "fru": 63.63233093,
+      "mru": 2.176041292e-05,
+      "ldu": 952.7521144,
+      "wtu": 7.722079123,
+      "htc": 1.156334397e-08,
+      "htn": 2.257937794e-07,
+      "etf": 36.84611839,
+      "etf-c": 49.653871426,
+      "htc-c": 2.081247494e-09,
+      "htn-c": 6.900238004e-09
+    }
+  },
+  {
     "id": "broiler",
     "name": "Broiler, conventional, at farm gate {FR} U",
     "displayName": "Poulet",
