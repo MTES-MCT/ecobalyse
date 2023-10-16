@@ -110,6 +110,8 @@ def create_activity(dbname, new_activity_name, base_activity=None):
                     "comment": "added by Ecobalyse",
                 }
             )
+        if "constructed by Ecobalyse" not in new_activity_name:
+            new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
         code =  str(

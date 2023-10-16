@@ -435,6 +435,25 @@
     }
   },
   {
+    "id": "cooked-ham-fr",
+    "name": "Jambon, nourri avec des aliments FR (cuit)",
+    "categories": [
+      "animal_product"
+    ],
+    "default": "87537ad3-5c80-1ec8-e03c-170b7f548735",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
     "id": "chicken-breast",
     "name": "Blanc de poulet (cru)",
     "categories": [
@@ -461,6 +480,26 @@
       "organic"
     ],
     "default": "e98cbb6c-cabd-b2aa-4d3b-1f2b01e4e839",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.73,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
+  },
+  {
+    "id": "chicken-breast-organic-fr",
+    "name": "Blanc de poulet bio (nourri avec des aliments FR)",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "default": "6185af29-384b-3683-c6e7-d40392644ff1",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,
