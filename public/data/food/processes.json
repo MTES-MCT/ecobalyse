@@ -9,7 +9,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 2.8229,
       "acd": 0.06520001431,
       "ozd": 9.735447154e-08,
       "cch": 2.195936333,
@@ -41,7 +41,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 2.7312,
       "acd": 0.06806014425,
       "ozd": 9.933028102e-08,
       "cch": 1.719382803,
@@ -73,7 +73,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 3.7279,
       "acd": 0.07324585954,
       "ozd": 9.905572511e-08,
       "cch": 2.157545658,
@@ -105,7 +105,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.8161,
       "acd": 0.01256051938,
       "ozd": 2.303248606e-08,
       "cch": 1.099974288,
@@ -137,7 +137,7 @@
     "category": "ingredient",
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.513278847,
       "acd": 0.01090399923,
       "ozd": 1.771648049e-08,
       "cch": 0.9395660923,
@@ -169,7 +169,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.1321,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-09,
       "cch": 0.06519435654,
@@ -201,7 +201,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.2271,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-08,
       "cch": 0.09007249944,
@@ -233,7 +233,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 1.2164,
       "acd": 0.007562448088,
       "ozd": 2.650748734e-08,
       "cch": 0.4622859755,
@@ -265,7 +265,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.9939,
       "acd": 0.005673486496,
       "ozd": 2.698659905e-08,
       "cch": 0.4460504894,
@@ -297,7 +297,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 1.411313691,
       "acd": 0.008912121484,
       "ozd": 3.645996124e-08,
       "cch": 0.5685757069,
@@ -329,7 +329,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 1.411313691,
       "acd": 0.006728177098,
       "ozd": 3.697968901e-08,
       "cch": 0.5494127971,
@@ -361,7 +361,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 3.423726823,
       "acd": 0.02402272359,
       "ozd": 5.66828903e-08,
       "cch": 0.5961307406,
@@ -393,7 +393,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 2.351161646,
       "acd": 0.005696927061,
       "ozd": 5.036285229e-08,
       "cch": 0.3924679294,
@@ -425,7 +425,7 @@
     "category": "ingredient",
     "comment": "EcoSpold01Location=FRProduction Volume Amount: 4532871168",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.073211803,
       "acd": 0.02025175961,
       "ozd": 9.035537276e-08,
       "cch": 0.9178881431,
@@ -457,7 +457,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 1.464805983,
       "acd": 0.01882870837,
       "ozd": 3.836996099e-08,
       "cch": 0.6507625745,
@@ -489,7 +489,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.074402694,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-08,
       "cch": 0.1519781873,
@@ -521,7 +521,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.131792529,
       "acd": 0.001360300191,
       "ozd": 2.021899175e-08,
       "cch": 0.1969220817,
@@ -553,7 +553,7 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.338079058,
       "acd": 0.001301710863,
       "ozd": 7.945264914e-09,
       "cch": 0.09123144969,
@@ -585,7 +585,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 15.04866738,
       "acd": 0.444689647,
       "ozd": 6.158378555e-07,
       "cch": 31.3745594,
@@ -617,7 +617,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 15.04866738,
       "acd": 0.5533828188,
       "ozd": 6.144707669e-07,
       "cch": 30.33621596,
@@ -745,7 +745,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 15.04866738,
       "acd": 0.7847590643,
       "ozd": 1.593726481e-06,
       "cch": 47.23152458,
@@ -777,7 +777,7 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 6.087620104,
       "acd": 0.1239042674,
       "ozd": 1.633282089e-06,
       "cch": 6.365564945,
@@ -809,7 +809,7 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 6.087620104,
       "acd": 0.1889406744,
       "ozd": 1.675624202e-06,
       "cch": 9.449797504,
@@ -841,7 +841,7 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 6.087620104,
       "acd": 0.1227124629,
       "ozd": 1.634952083e-06,
       "cch": 5.976956565,
@@ -969,7 +969,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 5.408719682,
       "acd": 0.09954364004,
       "ozd": 3.398627945e-07,
       "cch": 6.028060193,
@@ -1001,7 +1001,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 5.408719682,
       "acd": 0.1698713162,
       "ozd": 4.450698365e-07,
       "cch": 6.204966602,
@@ -1033,7 +1033,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 5.408719682,
       "acd": 0.170538769,
       "ozd": 4.574052016e-07,
       "cch": 6.458888974,
@@ -1129,7 +1129,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.728840715,
       "acd": 0.001860702963,
       "ozd": 2.449075574e-08,
       "cch": 0.1608913914,
@@ -1161,7 +1161,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.539152617,
       "acd": 0.001043853042,
       "ozd": 1.470912566e-08,
       "cch": 0.09173512688,
@@ -1801,7 +1801,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.940864665,
       "acd": 0.008923922824,
       "ozd": 3.866495553e-08,
       "cch": 0.7143680097,
@@ -1833,7 +1833,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.1133,
       "acd": 0.006144392303,
       "ozd": 7.353807826e-08,
       "cch": 1.638704479,
@@ -1865,7 +1865,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.3318,
       "acd": 0.01287421765,
       "ozd": 7.898914533e-08,
       "cch": 2.909334096,
@@ -1897,7 +1897,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0011,
       "acd": 0.01282078396,
       "ozd": 4.195783179e-08,
       "cch": 3.52400611,
@@ -1929,7 +1929,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.3211,
       "acd": 0.008712767906,
       "ozd": 1.196457781e-07,
       "cch": 0.8831991427,
@@ -1961,7 +1961,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0003,
       "acd": 0.006785006284,
       "ozd": 2.640770067e-08,
       "cch": 1.887252225,
@@ -1993,7 +1993,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 1.1059,
       "acd": 0.004426110331,
       "ozd": 1.062404095e-07,
       "cch": 0.9163960642,
@@ -2025,7 +2025,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 7.4795,
       "acd": 0.004421731759,
       "ozd": 5.862095436e-08,
       "cch": 0.5268108257,
@@ -2057,7 +2057,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0004,
       "acd": 0.0084017501,
       "ozd": 1.145316566e-06,
       "cch": 1.891856775,
@@ -2089,7 +2089,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.245,
       "acd": 0.01157769005,
       "ozd": 1.495384613e-05,
       "cch": 2.723814919,
@@ -2121,7 +2121,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0004,
       "acd": 0.007054877738,
       "ozd": 4.256903162e-08,
       "cch": 1.91037823,
@@ -2153,7 +2153,7 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.94,
       "acd": 0.2010656652,
       "ozd": 6.042817606e-07,
       "cch": 20.60970542,
@@ -2185,7 +2185,7 @@
     "category": "transformation",
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0089,
       "acd": 0.00034921619,
       "ozd": 7.277461067e-09,
       "cch": 0.06989824394,
@@ -2249,7 +2249,7 @@
     "category": "transformation",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.012,
       "acd": 0.001071959698,
       "ozd": 1.544271675e-08,
       "cch": 0.1375809811,
@@ -2281,7 +2281,7 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.055765784,
       "acd": 0.0006744458817,
       "ozd": 3.841090909e-08,
       "cch": 0.1649178564,
@@ -2313,7 +2313,7 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.000292724,
       "acd": 0.00030586699,
       "ozd": 1.867315112e-09,
       "cch": 0.009358552005,
@@ -2345,7 +2345,7 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.012214369,
       "acd": 0.003938886108,
       "ozd": 1.73920225e-07,
       "cch": 0.7588530119,
@@ -2601,7 +2601,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.131792529,
       "acd": 0.001360300191,
       "ozd": 2.021899175e-08,
       "cch": 0.1969220817,
@@ -2633,7 +2633,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.074402694,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-08,
       "cch": 0.1519781873,
@@ -4841,7 +4841,7 @@
     "category": "ingredient",
     "comment": "Economic allocation",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.02468827024,
       "ozd": 4.361355067e-08,
       "cch": 0.515806336,
@@ -4873,7 +4873,7 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.02593047382,
       "ozd": 1.225442756e-07,
       "cch": 15.69331705,
@@ -4905,7 +4905,7 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 23176521728",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.0007450989084,
       "ozd": 6.21869615e-09,
       "cch": 0.09696636191,
@@ -4937,7 +4937,7 @@
     "category": "ingredient",
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)India is considered since it is a major banana producer, with 29% of global production.",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 0.004365952505,
       "ozd": 2.233634243e-08,
       "cch": 0.2052620653,
