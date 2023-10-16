@@ -53,19 +53,19 @@ toMicrofibersComplement origin =
     -- Note: a malus expressed as a negative µPts/kg impact
     case origin of
         ArtificialFromInorganic ->
-            Unit.impact -875
+            Unit.impact -850
 
         ArtificialFromOrganic ->
-            Unit.impact -425
+            Unit.impact -360
 
         NaturalFromAnimal ->
-            Unit.impact -750
+            Unit.impact -570
 
         NaturalFromVegetal ->
-            Unit.impact -550
+            Unit.impact -420
 
         Synthetic ->
-            Unit.impact -875
+            Unit.impact -790
 
 
 toLabel : Origin -> String

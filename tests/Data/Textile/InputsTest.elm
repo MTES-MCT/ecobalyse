@@ -104,7 +104,7 @@ suite =
               in
               describe "getMicrofibersComplement"
                 [ tShirtCotonFrance
-                    |> testComplementEqual -93.5
+                    |> testComplementEqual -71.4
                     |> asTest "should compute Microfibers complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
@@ -112,7 +112,7 @@ suite =
                         , { id = Material.Id "pu", share = Split.half, spinning = Nothing }
                         ]
                   }
-                    |> testComplementEqual -121.125
+                    |> testComplementEqual -102.85
                     |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
                 ]
             ]
