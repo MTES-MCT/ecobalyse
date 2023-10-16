@@ -153,7 +153,7 @@ def read_activities():
 ## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
 w_institut = ipywidgets.Dropdown(
-    options=["Écobalyse", "ITERG", "ACTALIA", "IFV"],
+    options=["Écobalyse", "ITERG", "ACTALIA", "IFV", "ADEME"],
     value=None,
     style=style,
     description="Contributeur : ",
