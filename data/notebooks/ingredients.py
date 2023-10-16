@@ -724,7 +724,7 @@ display(
                         s’agit bien du procédé « Sugar, from sugarcane {RoW}| sugarcane processing,
                         traditional annexed plant | Cut-off, S - Copied from Écoinvent U {RoW}
                         ».</div> Après chaque ingrédient ajouté, cliquez sur « Enregistrer
-                        localement ». Réitérez cette étape pour chaque ingrédient.<li>Etape 5) :
+                        localement ». Réitérez cette étape pour chaque ingrédient.<li>Étape 4) :
                         Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
                         Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
                         l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
