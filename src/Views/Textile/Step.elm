@@ -665,7 +665,7 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
                     complementsImpacts
                         |> Impact.getTotalComplementsImpacts
               in
-              if Unit.impactToFloat stepComplementsImpact < 0 then
+              if Unit.impactToFloat stepComplementsImpact /= 0 then
                 small [ class "fs-8 text-muted ps-1" ]
                     [ text "("
                     , complementsImpacts
