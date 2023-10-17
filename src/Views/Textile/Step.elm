@@ -1091,10 +1091,8 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                 [ class "card text-center mb-0" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
                     [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                        span [ class "fw-bold flex-fill" ]
-                            [ current.impacts
-                                |> Impact.impactsWithComplements current.complementsImpacts
-                                |> Format.formatImpact selectedImpact
+                        div [ class "d-none d-sm-block text-center text-muted w-100" ]
+                            [ viewStepImpacts selectedImpact current
                             ]
 
                       else
