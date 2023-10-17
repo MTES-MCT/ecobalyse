@@ -1091,9 +1091,21 @@
   },
   {
     "id": "tapwater",
-    "category": "material",
     "name": "Eau du robinet",
-    "search": "Tap water Europe market"
+    "search": "Tap water Europe market",
+    "category": "ingredient",
+    "categories": [],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
   },
   {
     "id": "domestic-gas-heat",
@@ -2526,7 +2538,7 @@
       "agro-ecology": 0
     }
   },
-{
+  {
     "id": "chicken-breast-br-max",
     "name": "Blanc de poulet (importé nourri avec des aliments BR)",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -2560,6 +2572,24 @@
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cane-sugar",
+    "name": "Sucre de canne",
+    "search": "brown sugar",
+    "category": "ingredient",
+    "categories": ["vegetable_processed"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
     }
   }
 ]
