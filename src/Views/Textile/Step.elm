@@ -684,6 +684,11 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
 
 viewMaterials : Config msg modal -> Html msg
 viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
+    let
+        next =
+            config.next
+                |> Maybe.withDefault config.current
+    in
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -704,6 +709,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                                   else
                                     []
+                                , [ displayTransportDistances db next materialInput ]
                                 ]
                             )
                     )
@@ -777,6 +783,22 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                             ]
                         ]
                    ]
+        )
+
+
+displayTransportDistances : TextileDb.Db -> Step -> Inputs.MaterialInput -> Html msg
+displayTransportDistances db next material =
+    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        (material
+            |> Inputs.computeMaterialTransport db next.country.code
+            |> TransportView.viewDetails
+                { fullWidth = False
+                , hideNoLength = True
+                , onlyIcons = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
         )
 
 

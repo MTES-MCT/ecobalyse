@@ -7,6 +7,7 @@ module Data.Textile.Inputs exposing
     , b64decode
     , b64encode
     , buildApiQuery
+    , computeMaterialTransport
     , countryList
     , decodeQuery
     , defaultQuery
@@ -34,6 +35,8 @@ module Data.Textile.Inputs exposing
 
 import Base64
 import Data.Country as Country exposing (Country)
+import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -46,6 +49,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -618,6 +622,25 @@ getOutOfEuropeEOLComplement { mass, materials } =
             * Mass.inKilograms mass
             * 5000
          )
+
+
+computeMaterialTransport : TextileDb.Db -> Country.Code -> MaterialInput -> Transport
+computeMaterialTransport db nextCountryCode { material, country } =
+    let
+        emptyImpacts =
+            Impact.empty
+
+        countryCode =
+            country
+                |> Maybe.map .code
+                |> Maybe.withDefault material.defaultCountry
+    in
+    db.transports
+        |> Transport.getTransportBetween
+            Scope.Textile
+            emptyImpacts
+            countryCode
+            nextCountryCode
 
 
 defaultQuery : Query
