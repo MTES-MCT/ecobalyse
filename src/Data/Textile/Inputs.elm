@@ -555,7 +555,6 @@ getMaterialMicrofibersComplement finalProductMass { material, share } =
 
 getTotalMicrofibersComplement : Inputs -> Unit.Impact
 getTotalMicrofibersComplement { mass, materials } =
-    -- Note: no other steps than the materials one generate microfibers pollution
     materials
         |> List.map (getMaterialMicrofibersComplement mass)
         |> Quantity.sum

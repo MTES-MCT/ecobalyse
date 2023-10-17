@@ -306,6 +306,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | complementsImpacts =
                     { complementsImpacts
+                      -- Note: no other steps than the Material one generate microfibers pollution
                         | microfibers = Inputs.getTotalMicrofibersComplement inputs
                     }
             }
