@@ -71,7 +71,6 @@ $ npm run server:start
 
 L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).
 
-
 # Ecobalyse data
 
 Ce dépôt contient aussi les scripts (principalement python) utilisés pour

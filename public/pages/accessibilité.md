@@ -18,7 +18,7 @@ Le site n’a encore pas été audité.
 Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du service
 pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.
 
-* E-mail : [ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr?Subject=Accessibilité)
+- E-mail : [ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr?Subject=Accessibilité)
 
 ## Voie de recours
 
@@ -28,9 +28,9 @@ n’avez pas obtenu de réponse satisfaisante.
 
 Vous pouvez :
 
-* Écrire un message au [Défenseur des droits](https://formulaire.defenseurdesdroits.fr/)
-* Contacter [le délégué du Défenseur des droits dans votre région](https://www.defenseurdesdroits.fr/saisir/delegues)
-* Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) :
+- Écrire un message au [Défenseur des droits](https://formulaire.defenseurdesdroits.fr/)
+- Contacter [le délégué du Défenseur des droits dans votre région](https://www.defenseurdesdroits.fr/saisir/delegues)
+- Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) :
   >     Défenseur des droits
   >     Libre réponse 71120
   >     75342 Paris CEDEX 07
