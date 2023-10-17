@@ -4,6 +4,8 @@ import Data.Split as Split
 import Expect
 import Json.Decode as Decode
 import Json.Encode as Encode
+import Mass
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest)
 
@@ -128,6 +130,20 @@ suite =
                 |> Result.map (Split.apply 123.45)
                 |> Expect.equal (Ok 61.725)
                 |> asTest "should return half of the float when applying a 0.5 split"
+            ]
+        , describe "applyToQuantity"
+            [ Split.zero
+                |> Split.applyToQuantity Mass.kilogram
+                |> Expect.equal Quantity.zero
+                |> asTest "should return an empty quantity when applying a 'zero' split"
+            , Split.full
+                |> Split.applyToQuantity Mass.kilogram
+                |> Expect.equal Mass.kilogram
+                |> asTest "should return the initial quantity when applying a 'full' split"
+            , Split.half
+                |> Split.applyToQuantity Mass.kilogram
+                |> Expect.equal (Mass.kilograms 0.5)
+                |> asTest "should return half of the quantity when applying a half split"
             ]
         , describe "divideBy"
             [ Split.zero

@@ -105,8 +105,6 @@ create { label, editable, country, enabled } =
     , waste = Quantity.zero
     , transport = Transport.default defaultImpacts
     , impacts = defaultImpacts
-
-    -- TODO: store impacts as impacts without complements? with complements? then sum everything in Simulator.compute final step
     , complementsImpacts = Impact.noComplementsImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
@@ -304,6 +302,15 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             inputs
     in
     case label of
+        Label.Material ->
+            { step
+                | complementsImpacts =
+                    { complementsImpacts
+                      -- Note: no other steps than the Material one generate microfibers pollution
+                        | microfibers = Inputs.getTotalMicrofibersComplement inputs
+                    }
+            }
+
         Label.Spinning ->
             { step
                 | yarnSize = yarnSize
@@ -397,15 +404,11 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
         Label.EndOfLife ->
-            let
-                outOfEuropeEOLImpact =
-                    Inputs.getOutOfEuropeEOLComplement inputs
-
-                newComplementsImpacts =
-                    { complementsImpacts | outOfEuropeEOL = outOfEuropeEOLImpact }
-            in
             { step
-                | complementsImpacts = newComplementsImpacts
+                | complementsImpacts =
+                    { complementsImpacts
+                        | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement inputs
+                    }
                 , processInfo =
                     { defaultProcessInfo
                         | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
@@ -414,9 +417,6 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                         , endOfLife = Just wellKnown.endOfLife.name
                     }
             }
-
-        _ ->
-            step
 
 
 initMass : Mass -> Step -> Step

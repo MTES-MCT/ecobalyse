@@ -85,7 +85,7 @@ suite =
               describe "getOutOfEuropeEOLComplement"
                 [ tShirtCotonFrance
                     |> testComplementEqual -51
-                    |> asTest "should compute complement impact for a fully natural garment"
+                    |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
                         [ { id = Material.Id "coton", share = Split.half, spinning = Nothing }
@@ -93,7 +93,27 @@ suite =
                         ]
                   }
                     |> testComplementEqual -93.5
-                    |> asTest "should compute complement impact for a half-natural, half-synthetic garment"
+                    |> asTest "should compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
+                ]
+            , let
+                testComplementEqual x =
+                    Inputs.fromQuery textileDb
+                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Unit.impactToFloat)
+                        >> Result.withDefault 0
+                        >> Expect.within (Expect.Absolute 0.001) x
+              in
+              describe "getMicrofibersComplement"
+                [ tShirtCotonFrance
+                    |> testComplementEqual -71.4
+                    |> asTest "should compute Microfibers complement impact for a fully natural garment"
+                , { tShirtCotonFrance
+                    | materials =
+                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing }
+                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing }
+                        ]
+                  }
+                    |> testComplementEqual -102.85
+                    |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
                 ]
             ]
         )

@@ -1,6 +1,7 @@
 module Data.Split exposing
     ( Split
     , apply
+    , applyToQuantity
     , complement
     , decodeFloat
     , decodePercent
@@ -31,6 +32,7 @@ module Data.Split exposing
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Quantity exposing (Quantity)
 
 
 type Split
@@ -122,6 +124,11 @@ complement (Split int) =
 apply : Float -> Split -> Float
 apply input split =
     toFloat split * input
+
+
+applyToQuantity : Quantity Float units -> Split -> Quantity Float units
+applyToQuantity quantity split =
+    Quantity.multiplyBy (toFloat split) quantity
 
 
 divideBy : Float -> Split -> Float

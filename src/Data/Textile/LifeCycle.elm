@@ -73,16 +73,20 @@ computeTotalTransportImpacts =
 computeFinalImpacts : LifeCycle -> Impacts
 computeFinalImpacts =
     Array.foldl
-        (\{ impacts, transport } finalImpacts ->
-            finalImpacts
-                |> Impact.mapImpacts
-                    (\trigram impact ->
-                        Quantity.sum
-                            [ Impact.getImpact trigram impacts
-                            , impact
-                            , Impact.getImpact trigram transport.impacts
-                            ]
-                    )
+        (\{ enabled, impacts, transport } finalImpacts ->
+            if enabled then
+                finalImpacts
+                    |> Impact.mapImpacts
+                        (\trigram impact ->
+                            Quantity.sum
+                                [ Impact.getImpact trigram impacts
+                                , impact
+                                , Impact.getImpact trigram transport.impacts
+                                ]
+                        )
+
+            else
+                finalImpacts
         )
         Impact.empty
 
@@ -90,6 +94,7 @@ computeFinalImpacts =
 sumComplementsImpacts : LifeCycle -> Impact.ComplementsImpacts
 sumComplementsImpacts =
     Array.toList
+        >> List.filter .enabled
         >> List.map .complementsImpacts
         >> List.foldl Impact.addComplementsImpacts Impact.noComplementsImpacts
 

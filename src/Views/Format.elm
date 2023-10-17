@@ -1,5 +1,6 @@
 module Views.Format exposing
-    ( days
+    ( complement
+    , days
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -37,10 +38,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Quantity
 import Volume exposing (Volume)
 
 
-formatImpactFloat : Definition -> Float -> Html msg
+formatImpactFloat : { a | unit : String, decimals : Int } -> Float -> Html msg
 formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
 
@@ -101,6 +103,30 @@ formatRichFloat decimals unit value =
             |> formatFloat decimals
             |> text
         , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
+        ]
+
+
+complement : Unit.Impact -> Html msg
+complement impact =
+    -- Notes:
+    -- - maluses are expressed with a negative number, bonuses with a
+    --   positive one; here we render the *effect* it has on the score
+    -- - complements are *always* expressed in ecoscore points
+    let
+        formatted =
+            impact
+                |> Quantity.negate
+                |> Unit.impactToFloat
+                |> formatFloat 2
+    in
+    span []
+        [ text <|
+            if not (String.startsWith "-" formatted) then
+                "+" ++ formatted
+
+            else
+                formatted
+        , span [ class "fs-unit" ] [ text "\u{202F}µPts" ]
         ]
 
 

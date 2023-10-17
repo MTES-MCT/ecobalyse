@@ -22,6 +22,7 @@ type Path
     | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
     | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
+    | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
     | TextileElectricity -- Électricité textile
     | TextileEndOfLife -- Fin de vie textile
@@ -53,6 +54,9 @@ pathToString path =
 
         TextileAerialTransport ->
             "textile/parametres-transverses/transport#part-du-transport-aerien"
+
+        TextileComplementMicrofibers ->
+            "textile/limites-methodologiques/old/microfibres"
 
         TextileDistribution ->
             "textile/etapes-du-cycle-de-vie/distribution"

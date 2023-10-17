@@ -48,6 +48,7 @@ import Views.BaseElement as BaseElement
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
+import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.StepsBorder as StepsBorder
@@ -589,7 +590,6 @@ type alias UpdateIngredientConfig =
     , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
-    , index : Int
     , selectedImpact : Definition
     , transportImpact : Html Msg
     }
@@ -643,7 +643,7 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact, transportImpact } as updateIngredientConfig) =
+updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -672,26 +672,13 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
                             impact
                                 |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
                     in
-                    details [ class "IngredientBonuses fs-7" ]
-                        [ summary []
-                            [ div [ class "BonusesTable d-flex justify-content-between w-100" ]
-                                [ span [ title "Cliquez pour plier/déplier" ] [ text "Bonus écologiques" ]
-                                , span [ class "text-success text-end", title "Total des bonus" ]
-                                    [ Impact.getTotalComplementsImpacts complementsImpacts
-                                        |> Quantity.negate
-                                        |> Unit.impactToFloat
-                                        |> Format.formatImpactFloat selectedImpact
-                                    ]
-                                ]
-                            ]
-                        , ingredientComplementsView
+                    ComplementsDetails.view { complementsImpacts = complementsImpacts }
+                        [ ingredientComplementsView
                             { name = "Diversité agricole"
                             , title = Nothing
-                            , domId = "agroDiversity_" ++ String.fromInt index
+                            , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroDiversity
                             , complementSplit = complements.agroDiversity
-                            , disabled = False
-                            , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
                                     event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
@@ -699,27 +686,27 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
                         , ingredientComplementsView
                             { name = "Infra. agro-éco."
                             , title = Just "Infrastructures agro-écologiques"
-                            , domId = "agroEcology_" ++ String.fromInt index
+                            , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
                             , complementImpact = complementsImpacts.agroEcology
                             , complementSplit = complements.agroEcology
-                            , disabled = False
-                            , selectedImpact = selectedImpact
                             , updateEvent =
                                 \split ->
                                     event { ingredientQuery | complements = Just { complements | agroEcology = split } }
                             }
-                        , ingredientComplementsView
-                            { name = "Cond. d'élevage"
-                            , title = Nothing
-                            , domId = "animalWelfare_" ++ String.fromInt index
-                            , complementImpact = complementsImpacts.animalWelfare
-                            , complementSplit = complements.animalWelfare
-                            , disabled = not (IngredientCategory.fromAnimalOrigin ingredient.categories)
-                            , selectedImpact = selectedImpact
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                            }
+                        , if IngredientCategory.fromAnimalOrigin ingredient.categories then
+                            ingredientComplementsView
+                                { name = "Cond. d'élevage"
+                                , title = Nothing
+                                , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
+                                , complementImpact = complementsImpacts.animalWelfare
+                                , complementSplit = complements.animalWelfare
+                                , updateEvent =
+                                    \split ->
+                                        event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
+                                }
+
+                          else
+                            text ""
                         ]
 
                  else
@@ -740,31 +727,28 @@ updateIngredientFormView ({ db, recipeIngredient, impact, index, selectedImpact,
 type alias ComplementsViewConfig msg =
     { complementImpact : Unit.Impact
     , complementSplit : Split
-    , disabled : Bool
     , domId : String
     , name : String
-    , selectedImpact : Definition
     , title : Maybe String
     , updateEvent : Split -> msg
     }
 
 
 ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
-ingredientComplementsView { name, complementImpact, complementSplit, disabled, domId, selectedImpact, title, updateEvent } =
+ingredientComplementsView { name, complementImpact, complementSplit, domId, title, updateEvent } =
     div
-        [ class "IngredientBonus"
+        [ class "ElementComplement"
         , title |> Maybe.withDefault name |> Attr.title
         ]
         [ label
             [ for domId
-            , class "BonusName text-nowrap text-muted"
+            , class "ComplementName text-nowrap text-muted"
             ]
             [ text name ]
         , input
             [ type_ "range"
             , id domId
-            , class "BonusRange form-range"
-            , Attr.disabled disabled
+            , class "ComplementRange form-range"
             , Attr.min "0"
             , Attr.max "100"
             , step "1"
@@ -777,7 +761,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
                 )
             ]
             []
-        , div [ class "BonusValue d-flex justify-content-end align-items-center text-muted" ]
+        , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
             [ Format.splitAsPercentage complementSplit
             , Button.smallPillLink
                 [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
@@ -785,18 +769,8 @@ ingredientComplementsView { name, complementImpact, complementSplit, disabled, d
                 ]
                 [ Icon.question ]
             ]
-        , div
-            [ class "BonusImpact text-end"
-            , classList
-                [ ( "text-black-50", disabled )
-                , ( "text-muted", Unit.impactToFloat complementImpact <= 0 )
-                , ( "text-success", Unit.impactToFloat complementImpact > 0 )
-                ]
-            ]
-            [ complementImpact
-                |> Quantity.negate
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat selectedImpact
+        , div [ class "ComplementImpact text-muted text-end" ]
+            [ Format.complement complementImpact
             ]
         ]
 
@@ -949,8 +923,8 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.indexedMap
-                    (\index ingredient ->
+                |> List.map
+                    (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
@@ -961,7 +935,6 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.empty
-                            , index = index
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
@@ -1195,7 +1168,7 @@ distributionView selectedImpact recipe results =
                     , deleteItemButton ResetDistribution
                     ]
                 , li
-                    [ class "list-group-item fs-7" ]
+                    [ class "list-group-item fs-7 pt-2" ]
                     [ distribution
                         |> Retail.displayNeeds
                         |> text

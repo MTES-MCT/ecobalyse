@@ -5,8 +5,8 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definition)
+import Data.Impact as Impact exposing (noComplementsImpacts)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
@@ -29,9 +29,11 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Mass exposing (Mass)
 import Quantity
 import Views.BaseElement as BaseElement
 import Views.Button as Button
+import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.CountrySelect
@@ -48,10 +50,10 @@ type alias Config msg modal =
     , db : TextileDb.Db
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
-    , impact : Definition
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
+    , selectedImpact : Definition
     , setModal : modal -> msg
     , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
@@ -576,7 +578,7 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ inputs, impact, current } as config) =
+simpleView ({ inputs, selectedImpact, current } as config) =
     let
         materialStep =
             current.label == Label.Material
@@ -593,15 +595,7 @@ simpleView ({ inputs, impact, current } as config) =
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end" ]
                         [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
-                            [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
-                                span [ class "fw-bold flex-fill" ]
-                                    [ current.impacts
-                                        |> Impact.impactsWithComplements current.complementsImpacts
-                                        |> Format.formatImpact impact
-                                    ]
-
-                              else
-                                text ""
+                            [ viewStepImpacts selectedImpact current
                             ]
                         , stepActions config current.label
                         ]
@@ -658,8 +652,38 @@ simpleView ({ inputs, impact, current } as config) =
     }
 
 
+viewStepImpacts : Definition -> Step -> Html msg
+viewStepImpacts selectedImpact { impacts, complementsImpacts } =
+    if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
+        div []
+            [ span [ class "fw-bold flex-fill" ]
+                [ impacts
+                    |> Format.formatImpact selectedImpact
+                ]
+            , let
+                stepComplementsImpact =
+                    complementsImpacts
+                        |> Impact.getTotalComplementsImpacts
+              in
+              if Unit.impactToFloat stepComplementsImpact /= 0 then
+                small [ class "fs-8 text-muted ps-1" ]
+                    [ text "("
+                    , complementsImpacts
+                        |> Impact.getTotalComplementsImpacts
+                        |> Format.complement
+                    , text ")"
+                    ]
+
+              else
+                text ""
+            ]
+
+    else
+        text ""
+
+
 viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
+viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -668,13 +692,20 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
             (inputs.materials
                 |> List.map
                     (\materialInput ->
-                        let
-                            baseElementViewConfig : BaseElement.Config Material Split msg
-                            baseElementViewConfig =
-                                createElementSelectorConfig config materialInput
-                        in
                         li [ class "ElementFormWrapper list-group-item" ]
-                            (BaseElement.view baseElementViewConfig)
+                            (List.concat
+                                [ materialInput
+                                    |> createElementSelectorConfig config
+                                    |> BaseElement.view
+                                , if selectedImpact.trigram == Definition.Ecs then
+                                    [ materialInput
+                                        |> viewMaterialComplements inputs.mass
+                                    ]
+
+                                  else
+                                    []
+                                ]
+                            )
                     )
             )
                 ++ [ let
@@ -749,8 +780,36 @@ viewMaterials ({ addMaterialModal, db, inputs, setModal } as config) =
         )
 
 
+viewMaterialComplements : Mass -> Inputs.MaterialInput -> Html msg
+viewMaterialComplements finalProductMass materialInput =
+    let
+        materialComplement =
+            Inputs.getMaterialMicrofibersComplement finalProductMass materialInput
+
+        materialComplementsImpacts =
+            { noComplementsImpacts | microfibers = materialComplement }
+    in
+    ComplementsDetails.view { complementsImpacts = materialComplementsImpacts }
+        [ div [ class "ElementComplement", title "Microfibres" ]
+            [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
+                [ text "Microfibres"
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            , span [ class "ComplementRange" ] []
+            , div [ class "ComplementValue d-flex" ] []
+            , div [ class "ComplementImpact text-muted text-end" ]
+                [ Format.complement materialComplement
+                ]
+            ]
+        ]
+
+
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, impact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -799,7 +858,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, imp
     , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
-    , selectedImpact = impact
+    , selectedImpact = selectedImpact
     , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
     , quantityView =
         \{ disabled, quantity, onChange } ->
@@ -822,7 +881,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, imp
 
 
 viewTransport : Config msg modal -> Html msg
-viewTransport ({ impact, current } as config) =
+viewTransport ({ selectedImpact, current } as config) =
     div []
         [ span []
             [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
@@ -841,7 +900,7 @@ viewTransport ({ impact, current } as config) =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatImpact impact
+                        |> Format.formatImpact selectedImpact
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
@@ -930,7 +989,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
 
 
 detailedView : Config msg modal -> ViewWithTransport msg
-detailedView ({ inputs, impact, current } as config) =
+detailedView ({ inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1031,11 +1090,11 @@ detailedView ({ inputs, impact, current } as config) =
             , div
                 [ class "card text-center mb-0" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
-                    [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
+                    [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
                         span [ class "fw-bold flex-fill" ]
                             [ current.impacts
                                 |> Impact.impactsWithComplements current.complementsImpacts
-                                |> Format.formatImpact impact
+                                |> Format.formatImpact selectedImpact
                             ]
 
                       else

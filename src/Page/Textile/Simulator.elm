@@ -611,17 +611,19 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> Array.indexedMap
             (\index current ->
                 StepView.view
-                    { db = db
-                    , inputs = simulator.inputs
+                    { current = current
+                    , db = db
                     , detailedStep = detailedStep
-                    , impact = impact
                     , daysOfWear = simulator.daysOfWear
                     , index = index
-                    , current = current
+                    , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
-                    , setModal = SetModal
+                    , selectedImpact = impact
+
+                    -- Events
                     , addMaterialModal = AddMaterialModal
-                    , deleteMaterial = \material -> RemoveMaterial material.id
+                    , deleteMaterial = .id >> RemoveMaterial
+                    , setModal = SetModal
                     , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
                     , toggleStepDetails = ToggleStepDetails
@@ -769,7 +771,7 @@ view session model =
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
                                 , toLabel = .shortName
-                                , toCategory = .origin >> Origin.toString >> (++) "Matières "
+                                , toCategory = .origin >> Origin.toLabel
                                 }
                     ]
 

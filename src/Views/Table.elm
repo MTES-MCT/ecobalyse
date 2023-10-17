@@ -10,7 +10,10 @@ import Views.Format as Format
 
 
 type alias DataPoint msg =
-    { name : String, value : Float, entryAttributes : List (Attribute msg) }
+    { name : String
+    , value : Float
+    , entryAttributes : List (Attribute msg)
+    }
 
 
 responsiveDefault : List (Attribute msg) -> List (Html msg) -> Html msg
@@ -74,7 +77,7 @@ percentageTable impactDefinition data =
                                 (title entryTitle
                                     :: entryAttributes
                                 )
-                                [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px", title name ] [ text name ]
+                                [ th [ class "text-truncate fw-normal fs-8", style "max-width" "200px" ] [ text name ]
                                 , td [ class "HorizontalBarChart", style "width" "200px", style "vertical-align" "middle" ]
                                     [ div
                                         [ class "ext"

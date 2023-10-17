@@ -86,6 +86,10 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                               , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
                               , entryAttributes = []
                               }
+                            , { name = "Complément microfibres"
+                              , value = -(Unit.impactToFloat complementsImpact.microfibers)
+                              , entryAttributes = []
+                              }
                             ]
                         |> List.sortBy .value
                         |> List.reverse

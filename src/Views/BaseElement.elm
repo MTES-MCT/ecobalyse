@@ -35,6 +35,8 @@ type alias Config element quantity msg =
     , disableQuantity : Bool
     , excluded : List element
     , impact : Impacts
+
+    -- TODO: introduce complementsView
     , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
@@ -82,7 +84,6 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
                 option
                     [ selected (Maybe.map .code baseElement.country == Just code)
                     , value <| Country.codeToString code
-                    , disabled disableCountry
                     ]
                     [ text name ]
             )
@@ -95,6 +96,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
             )
         |> select
             [ class "form-select form-select CountrySelector"
+            , disabled disableCountry
             , onInput
                 (\val ->
                     updateEvent
