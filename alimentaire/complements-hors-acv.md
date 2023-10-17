@@ -76,7 +76,7 @@ Avec :&#x20;
 * $$LandUse(p)$$: valeur du score d'impact "land use" pour le produit (p) (en µPts d'impact)
 
 {% hint style="warning" %}
-Dans cette formule nous prenons la valeur normalisée et pondérée de l'impact Land Use dans le score d'impacts, et non la valeur brute.
+Dans cette formule nous prenons la valeur normalisée et pondérée de l'impact Land Use dans le coût environnemental, et non la valeur brute.
 {% endhint %}
 
 * $$c_i$$ : le coefficient permettant de moduler l'ampleur du bonus, il ne dépend pas du produit p. On a&#x20;
@@ -94,7 +94,7 @@ Sans les bonus on a :
 
 $$Score-d'impacts = 97.04$$ µPts
 
-$$Land-use = 4.14$$ µPts (valeur normalisée et pondérée dans le score d'impacts)
+$$Land-use = 4.14$$ µPts (valeur normalisée et pondérée dans le coût environnemental)
 
 \
 On fait les hypothèses (arbitraires) que pour le poulet bio :
