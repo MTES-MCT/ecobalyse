@@ -545,8 +545,8 @@ getMaterialMicrofibersComplement finalProductMass { material, share } =
     --       are always released in the environment from finished products.
     let
         materialMassInKg =
-            finalProductMass
-                |> Quantity.multiplyBy (Split.toFloat share)
+            share
+                |> Split.applyToQuantity finalProductMass
                 |> Mass.inKilograms
     in
     Origin.toMicrofibersComplement material.origin
