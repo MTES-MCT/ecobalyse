@@ -1,4 +1,4 @@
-[
+ [
   {
     "id": "egg",
     "name": "Oeuf (sortie de ferme)",
@@ -2526,7 +2526,7 @@
       "agro-ecology": 0
     }
   },
-{
+  {
     "id": "chicken-breast-br-max",
     "name": "Blanc de poulet (importé nourri avec des aliments BR)",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -2563,4 +2563,3 @@
     }
   }
 ]
-
