@@ -1,1 +1,3 @@
-/data/textile/activities.json
+*.yml
+*.yaml
+*.html
