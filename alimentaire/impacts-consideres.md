@@ -4,7 +4,7 @@
 
 **2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse alimentaire :&#x20;
 
-* un **score d'impacts**, traduisant la version beta de méthodologie présentée aux partenaires le 27 mars 2023, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
+* un **coût environnemental**, traduisant la version beta de méthodologie présentée aux partenaires le 27 mars 2023, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
 * un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
 
 **20 catégories d'impacts**, utilisées pour composer les impacts agrégés, sont également proposés :&#x20;
@@ -19,7 +19,7 @@ Une 21ème catégorie d'impact, relative à la biodiversité marine, est suscept
 
 ## Nomalisations et pondérations
 
-Le calcul des du score d'impacts et du score PEF s'effectue à partir d'une somme pondérée des catéogories d'impacts, chacune étant préalablement normalisée.
+Le calcul des du coût environnemental et du score PEF s'effectue à partir d'une somme pondérée des catéogories d'impacts, chacune étant préalablement normalisée.
 
 $$
 ImpactAgrégé =\sum (Pondération_i * \frac{Impact_i}{Normalisation_i})
@@ -27,9 +27,9 @@ $$
 
 Les niveaux de normalisation et de pondération sont détaillés dans l'[explorateur des impacts pour l'alimentaire d'Ecobalyse](https://ecobalyse.beta.gouv.fr/#/explore/food).
 
-Pour la construction du score d'impacts, **il est considéré les même niveaux de normalisation que pour le score PEF**. Un niveau de normalisation est introduit pour la [biodiversité locale](impacts-consideres.md#indicateur-de-biodiversite-locale).
+Pour la construction du coût environnemental, **il est considéré les même niveaux de normalisation que pour le score PEF**. Un niveau de normalisation est introduit pour la [biodiversité locale](impacts-consideres.md#indicateur-de-biodiversite-locale).
 
-Pour la **pondération**, les coefficients appliqués au score d'impacts sont établis comme suit : &#x20;
+Pour la **pondération**, les coefficients appliqués au coût environnemental sont établis comme suit : &#x20;
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
 * l'indicateur d'atteinte à la biodiversité locale est introduit avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
@@ -46,7 +46,7 @@ Dans l'hypothèse où un nouvel indicateur, relatif à la biodiversité marine, 
 Dans cette hypothèse, la réduction homothétique de la pondération des 12 autres impacts devrait être plus importante, afin que la somme des pondérations reste à 100%. Elle serait alors de 43% (vs 26% dans la version beta de la méthodologie).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/chart (6).png" alt=""><figcaption><p>Bilan des évolutions de pondération entre le score d'impacts et le score PEF</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/chart (6).png" alt=""><figcaption><p>Bilan des évolutions de pondération entre le coût environnemental et le score PEF</p></figcaption></figure>
 
 ## Visualisation dans l'outil de comparaison
 
@@ -54,7 +54,7 @@ La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores 
 
 ![](<../.gitbook/assets/image (18) (1).png>)
 
-Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les [3 bonus hors ACV](complements-hors-acv.md)) mobilisés pour construire le score d'impacts. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
+Dans un souci de simplification de la présentation des résultats, cette fonction propose une option "impacts groupés" qui permet de regrouper les 17 catégories d'impacts (+ les [3 bonus hors ACV](complements-hors-acv.md)) mobilisés pour construire le coût environnemental. Les regroupements sont présentés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
 
 {% hint style="info" %}
 Cette règle est une des deux options introduites dans le rapport du Conseil scientifique.
