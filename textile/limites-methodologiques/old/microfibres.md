@@ -198,7 +198,7 @@ Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfi
 
 ## Affichage du complément "Microfibres"
 
-A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Microfibres" vient s'ajouter directement au score d'impacts exprimé en points.
+A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Microfibres" vient s'ajouter directement au coût environnemental exprimé en points.
 
 Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Matières".
 
