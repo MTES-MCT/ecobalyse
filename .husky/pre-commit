@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx prettier@3.0.3 --write .
+# Check if code is formatted
+if ! npx prettier@3.0.3 --check . ; then
+  echo "Code is not formatted. Run 'npx prettier@3.0.3 --write .' to format before committing."
+  exit 1
+fi

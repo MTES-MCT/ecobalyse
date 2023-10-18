@@ -50,7 +50,9 @@
     "process": "^0.11.10",
     "rimraf": "^5.0.1",
     "superagent": "^8.1.2",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "husky": "^9.8.1",
+    "prettier": "^3.0.3"
   },
   "cacheDirectories": [
     "node_modules",
