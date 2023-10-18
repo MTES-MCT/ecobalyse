@@ -697,6 +697,12 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
             (inputs.materials
                 |> List.map
                     (\materialInput ->
+                        let
+                            transport =
+                                materialInput
+                                    |> Inputs.computeMaterialTransport db next.country.code
+                                    |> Step.computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking config.current.inputMass
+                        in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
                                 [ materialInput
@@ -709,7 +715,26 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                                   else
                                     []
-                                , [ displayTransportDistances db next materialInput ]
+                                , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
+                                        (transport
+                                            |> TransportView.viewDetails
+                                                { fullWidth = False
+                                                , hideNoLength = True
+                                                , onlyIcons = False
+                                                , airTransportLabel = Nothing
+                                                , seaTransportLabel = Nothing
+                                                , roadTransportLabel = Nothing
+                                                }
+                                        )
+                                  , span
+                                        [ class "text-black-50 text-end ElementTransportImpact fs-8"
+                                        , title "Impact du transport pour cette matière"
+                                        ]
+                                        [ text "(+ "
+                                        , Format.formatImpact selectedImpact transport.impacts
+                                        , text ")"
+                                        ]
+                                  ]
                                 ]
                             )
                     )
@@ -783,22 +808,6 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                             ]
                         ]
                    ]
-        )
-
-
-displayTransportDistances : TextileDb.Db -> Step -> Inputs.MaterialInput -> Html msg
-displayTransportDistances db next material =
-    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
-        (material
-            |> Inputs.computeMaterialTransport db next.country.code
-            |> TransportView.viewDetails
-                { fullWidth = False
-                , hideNoLength = True
-                , onlyIcons = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
         )
 
 

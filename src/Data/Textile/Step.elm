@@ -2,6 +2,7 @@ module Data.Textile.Step exposing
     ( Step
     , airTransportDisabled
     , airTransportRatioToString
+    , computeTransportImpacts
     , computeTransports
     , create
     , displayLabel
