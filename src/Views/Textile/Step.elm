@@ -666,11 +666,6 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
 
 viewMaterials : Config msg modal -> Html msg
 viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
-    let
-        next =
-            config.next
-                |> Maybe.withDefault config.current
-    in
     ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty inputs.materials then
             [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
@@ -679,21 +674,6 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
             (inputs.materials
                 |> List.map
                     (\materialInput ->
-                        let
-                            _ =
-                                Debug.log "material name" materialInput.material.shortName
-
-                            _ =
-                                Debug.log "material country" materialInput.country
-
-                            _ =
-                                Debug.log "material default country" materialInput.material.defaultCountry
-
-                            transport =
-                                materialInput
-                                    |> Inputs.computeMaterialTransport db next.country.code
-                                    |> Step.computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking config.current.inputMass
-                        in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
                                 [ materialInput
@@ -707,7 +687,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                                   else
                                     []
                                 , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
-                                        (transport
+                                        (config.current.transport
                                             |> TransportView.viewDetails
                                                 { fullWidth = False
                                                 , hideNoLength = True
@@ -722,7 +702,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                                         , title "Impact du transport pour cette matière"
                                         ]
                                         [ text "(+ "
-                                        , Format.formatImpact selectedImpact transport.impacts
+                                        , Format.formatImpact selectedImpact config.current.transport.impacts
                                         , text ")"
                                         ]
                                   ]

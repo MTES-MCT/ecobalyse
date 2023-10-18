@@ -2,7 +2,6 @@ module Data.Textile.Step exposing
     ( Step
     , airTransportDisabled
     , airTransportRatioToString
-    , computeTransportImpacts
     , computeTransports
     , create
     , displayLabel
@@ -170,16 +169,32 @@ displayLabel { knitted, fadable } label =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> Step -> Step -> Step
-computeTransports db next ({ processInfo } as current) =
+computeTransports : TextileDb.Db -> List Inputs.MaterialInput -> Step -> Step -> Step
+computeTransports db materialInputs next ({ processInfo } as current) =
     let
         transport =
-            db.transports
-                |> Transport.getTransportBetween
-                    Scope.Textile
-                    current.transport.impacts
-                    current.country.code
-                    next.country.code
+            if current.label == Label.Material then
+                materialInputs
+                    |> List.map
+                        (\materialInput ->
+                            let
+                                materialMass =
+                                    materialInput.share
+                                        |> Split.applyToQuantity current.inputMass
+                            in
+                            materialInput
+                                |> Inputs.computeMaterialTransport db next.country.code
+                                |> computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking materialMass
+                        )
+                    |> Transport.sum
+
+            else
+                db.transports
+                    |> Transport.getTransportBetween
+                        Scope.Textile
+                        current.transport.impacts
+                        current.country.code
+                        next.country.code
 
         stepSummary =
             computeTransportSummary current transport

@@ -14,7 +14,6 @@ module Data.Textile.Inputs exposing
     , encode
     , encodeQuery
     , fromQuery
-    , getMainMaterial
     , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
