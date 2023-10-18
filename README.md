@@ -37,6 +37,27 @@ Pour lancer le serveur de développement en mode de débogage:
 
 Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
 
+### Hooks Git avec Husky et Formatage de Code avec Prettier
+
+Ce projet utilise Husky pour gérer les hooks Git, et Prettier pour le formatage automatique du code.
+
+#### Pré-requis
+
+- Husky
+- Prettier
+
+Si vous clonez le dépôt pour la première fois, les dépendances devraient être installées automatiquement après avoir exécuté npm install. Si ce n'est pas le cas, vous pouvez les installer manuellement.
+
+    $ npm install --save-dev husky prettier
+
+#### Vérification Automatique avant chaque Commit
+
+Un hook de pre-commit a été configuré pour vérifier que le code est bien formaté avant de permettre le commit. Si le code n'est pas correctement formaté, le commit sera bloqué.
+
+Pour résoudre ce problème, vous pouvez exécuter la commande suivante :
+
+    $ npx prettier@3.0.3 --write .
+
 ## Compilation
 
 Pour compiler la partie client de l'application :
