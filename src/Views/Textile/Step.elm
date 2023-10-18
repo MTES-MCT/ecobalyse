@@ -788,7 +788,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
 displayTransportDistances : TextileDb.Db -> Step -> Inputs.MaterialInput -> Html msg
 displayTransportDistances db next material =
-    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
         (material
             |> Inputs.computeMaterialTransport db next.country.code
             |> TransportView.viewDetails
