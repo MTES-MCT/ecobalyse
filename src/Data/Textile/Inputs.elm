@@ -73,6 +73,9 @@ type alias Inputs =
     { mass : Mass
     , materials : List MaterialInput
     , product : Product
+
+    -- TODO: countryMaterial isn't used anymore, but we still need it because `countryList` uses it,
+    -- which in turn is used to build the lifecycle, which needs a country for each step.
     , countryMaterial : Country
     , countrySpinning : Country
     , countryFabric : Country
@@ -278,12 +281,9 @@ stepsToStrings inputs =
                 []
     in
     [ [ inputs.product.name, Format.kgToString inputs.mass ]
-    , [ "matière"
-      , materialsToString inputs.materials
-      ]
     , ifStepEnabled Label.Material
-        [ "provenance de la matière"
-        , inputs.countryMaterial.name
+        [ "matière"
+        , materialsToString inputs.materials
         ]
     , ifStepEnabled Label.Spinning
         [ "filature"
@@ -359,7 +359,7 @@ materialsToString materials =
                     countryName =
                         country
                             |> Maybe.map .name
-                            |> Maybe.withDefault " par défaut"
+                            |> Maybe.withDefault (" par défaut (" ++ material.geographicOrigin ++ ")")
                 in
                 Split.toPercentString share
                     ++ "% "
