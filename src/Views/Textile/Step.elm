@@ -80,48 +80,30 @@ type alias ViewWithTransport msg =
 
 
 countryField : Config msg modal -> Html msg
-countryField { db, current, inputs, updateCountry } =
-    let
-        nonEditableCountry content =
+countryField { db, current, updateCountry } =
+    div []
+        [ if current.editable then
+            Views.CountrySelect.view
+                { attributes =
+                    [ class "form-select"
+                    , disabled (not current.enabled)
+                    , onInput (Country.codeFromString >> updateCountry current.label)
+                    ]
+                , countries = db.countries
+                , onSelect = updateCountry current.label
+                , scope = Scope.Textile
+                , selectedCountry = current.country.code
+                }
+
+          else
             div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
                 [ span
                     [ class "cursor-help"
                     , title "Le pays n'est pas modifiable à cet étape"
                     ]
                     [ Icon.lock ]
-                , content
+                , text current.country.name
                 ]
-    in
-    div []
-        [ case ( current.label, current.editable ) of
-            ( Label.Material, _ ) ->
-                nonEditableCountry
-                    (case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                        Ok geographicOrigin ->
-                            text <| geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                        Err _ ->
-                            -- Would mean materials list is basically empty, which should
-                            -- (can) never happen at this stage in the views;
-                            -- FIXME: move to use non-empty list at some point
-                            text current.country.name
-                    )
-
-            ( _, False ) ->
-                nonEditableCountry (text current.country.name)
-
-            ( _, True ) ->
-                Views.CountrySelect.view
-                    { attributes =
-                        [ class "form-select"
-                        , disabled (not current.editable || not current.enabled)
-                        , onInput (Country.codeFromString >> updateCountry current.label)
-                        ]
-                    , countries = db.countries
-                    , onSelect = updateCountry current.label
-                    , scope = Scope.Textile
-                    , selectedCountry = current.country.code
-                    }
         ]
 
 
@@ -698,6 +680,15 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                 |> List.map
                     (\materialInput ->
                         let
+                            _ =
+                                Debug.log "material name" materialInput.material.shortName
+
+                            _ =
+                                Debug.log "material country" materialInput.country
+
+                            _ =
+                                Debug.log "material default country" materialInput.material.defaultCountry
+
                             transport =
                                 materialInput
                                     |> Inputs.computeMaterialTransport db next.country.code
@@ -857,12 +848,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
             }
 
         defaultCountry =
-            case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                Ok geographicOrigin ->
-                    geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                Err _ ->
-                    ""
+            materialInput.material.geographicOrigin
 
         excluded =
             inputs.materials
