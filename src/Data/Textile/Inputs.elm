@@ -651,7 +651,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Just (Country.Code "FR") } ]
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -677,8 +677,7 @@ tShirtCotonIndia : Query
 tShirtCotonIndia =
     -- T-shirt circuit Inde
     { tShirtCotonFrance
-        | materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
-        , countryFabric = Country.Code "IN"
+        | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "IN"
         , countryMaking = Country.Code "IN"
     }
@@ -688,8 +687,7 @@ tShirtCotonAsie : Query
 tShirtCotonAsie =
     -- T-shirt circuit Asie
     { tShirtCotonFrance
-        | materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
-        , countryFabric = Country.Code "CN"
+        | countryFabric = Country.Code "CN"
         , countryDyeing = Country.Code "CN"
         , countryMaking = Country.Code "CN"
     }
