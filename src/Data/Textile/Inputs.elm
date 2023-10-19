@@ -624,22 +624,26 @@ getOutOfEuropeEOLComplement { mass, materials } =
 
 
 computeMaterialTransport : TextileDb.Db -> Country.Code -> MaterialInput -> Transport
-computeMaterialTransport db nextCountryCode { material, country } =
-    let
-        emptyImpacts =
-            Impact.empty
+computeMaterialTransport db nextCountryCode { material, country, share } =
+    if share /= Split.zero then
+        let
+            emptyImpacts =
+                Impact.empty
 
-        countryCode =
-            country
-                |> Maybe.map .code
-                |> Maybe.withDefault material.defaultCountry
-    in
-    db.transports
-        |> Transport.getTransportBetween
-            Scope.Textile
-            emptyImpacts
-            countryCode
-            nextCountryCode
+            countryCode =
+                country
+                    |> Maybe.map .code
+                    |> Maybe.withDefault material.defaultCountry
+        in
+        db.transports
+            |> Transport.getTransportBetween
+                Scope.Textile
+                emptyImpacts
+                countryCode
+                nextCountryCode
+
+    else
+        Transport.default Impact.empty
 
 
 defaultQuery : Query

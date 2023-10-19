@@ -674,6 +674,16 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
             (inputs.materials
                 |> List.map
                     (\materialInput ->
+                        let
+                            nextCountry =
+                                config.next
+                                    |> Maybe.withDefault config.current
+                                    |> .country
+
+                            transport =
+                                materialInput
+                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.inputMass
+                        in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
                                 [ materialInput
@@ -687,7 +697,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                                   else
                                     []
                                 , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
-                                        (config.current.transport
+                                        (transport
                                             |> TransportView.viewDetails
                                                 { fullWidth = False
                                                 , hideNoLength = True
@@ -702,7 +712,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                                         , title "Impact du transport pour cette matière"
                                         ]
                                         [ text "(+ "
-                                        , Format.formatImpact selectedImpact config.current.transport.impacts
+                                        , Format.formatImpact selectedImpact transport.impacts
                                         , text ")"
                                         ]
                                   ]
