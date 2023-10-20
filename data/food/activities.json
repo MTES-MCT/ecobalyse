@@ -612,7 +612,7 @@
     }
   },
   {
-    "id": "huilecolza",
+    "id": "rapeseed-oil",
     "name": "Huile de colza (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO}",
     "category": "ingredient",
@@ -630,7 +630,7 @@
     }
   },
   {
-    "id": "huilecolza-organic",
+    "id": "rapeseed-oil-organic",
     "name": "Huile de colza bio (sortie de moulin)",
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "category": "ingredient",
@@ -648,7 +648,7 @@
     }
   },
   {
-    "id": "sunfloweroil",
+    "id": "sunflower-oil",
     "name": "Huile de tournesol (sortie de moulin)",
     "search": "sunflower oil at mill {glo}",
     "category": "ingredient",
@@ -666,7 +666,7 @@
     }
   },
   {
-    "id": "sunfloweroil-organic",
+    "id": "sunflower-oil-organic",
     "name": "Huile de tournesol bio (sortie de moulin)",
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "category": "ingredient",
@@ -918,7 +918,7 @@
     }
   },
   {
-    "id": "frenchbean",
+    "id": "french-bean",
     "name": "Haricot vert (sortie de ferme)",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -936,7 +936,7 @@
     }
   },
   {
-    "id": "durumwheat",
+    "id": "durum-wheat",
     "name": "Blé dur (sortie de ferme)",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -1090,7 +1090,7 @@
     "search": "Electricity low voltage {FR} market"
   },
   {
-    "id": "tapwater",
+    "id": "tap-water",
     "name": "Eau du robinet",
     "search": "Tap water Europe market",
     "category": "ingredient",
@@ -2242,7 +2242,7 @@
     }
   },
   {
-    "id": "soybeanBRno-deforestation",
+    "id": "soybean-br-no-deforestation",
     "name": "Soja BR non déforestant (sortie de ferme)",
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent \t",
     "category": "ingredient",
@@ -2260,7 +2260,7 @@
     }
   },
   {
-    "id": "soybeanBRdeforestation",
+    "id": "soybean-br-deforestation",
     "name": "Soja BR déforestant (sortie de ferme)",
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "category": "ingredient",
@@ -2408,7 +2408,7 @@
     }
   },
   {
-    "id": "Flank-steak",
+    "id": "flank-steak",
     "name": "Bavette (crue)",
     "search": "Meat without bone, beef, for direct consumption ",
     "category": "ingredient",
@@ -2446,7 +2446,7 @@
     }
   },
   {
-    "id": "durumwheat-semolina",
+    "id": "durum-wheat-semolina",
     "name": "Semoule de blé dur",
     "search": "Durum wheat, semolina, at plant {FR} U",
     "category": "ingredient",
