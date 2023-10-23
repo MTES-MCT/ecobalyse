@@ -152,10 +152,10 @@
     "id": "cooked-ham-organic",
     "search": "Cooked ham case ready at plant",
     "suffix": "[organic], constructed by Ecobalyse",
-    "subactivities": [      
+    "subactivities": [
       "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U",
       "Pork ham, raw, at plant {FR} U",
-      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",      
+      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",
       "Live pork storage, at plant {FR} U"
     ],
     "replace": {
@@ -166,10 +166,10 @@
     "id": "cooked-ham-fr",
     "search": "Cooked ham case ready at plant",
     "suffix": "[fr], constructed by Ecobalyse",
-    "subactivities": [      
+    "subactivities": [
       "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U",
       "Pork ham, raw, at plant {FR} U",
-      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",      
+      "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) {FR} U",
       "Live pork storage, at plant {FR} U"
     ],
     "replace": {
@@ -197,7 +197,7 @@
       "Broiler, conventional, at farm gate {FR} U": "Broiler, organic, at farm gate {FR} U"
     }
   },
- {
+  {
     "id": "chicken-breast-organic-fr",
     "search": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
     "suffix": "[organic-fr]",
@@ -205,7 +205,7 @@
       "Meat with bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [organic], constructed by Ecobalyse",
       "Broiler, organic, at farm gate {FR} U",
-      "Broiler, broiler feed organic prod, at farm gate {FR} U"      
+      "Broiler, broiler feed organic prod, at farm gate {FR} U"
     ],
     "replace": {
       "Soybean meal, organic, crushing in France common process meal": "Soybean, organic, animal feed, at farm gate {FR} U",
@@ -249,7 +249,7 @@
     "replace": {
       "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
       "Maize grain dried, conventional, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U":"Soybean meal {BR}| soybean meal and crude oil production | Cut-off, U - Copied from Ecoinvent U"
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean meal {BR}| soybean meal and crude oil production | Cut-off, U - Copied from Ecoinvent U"
     }
   },
   {
@@ -263,8 +263,7 @@
       "Broiler,broiler feed,conv prod, at farm gate FR"
     ],
     "replace": {
-      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean grain dried, stored and transported, processing {FR}"    
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean grain dried, stored and transported, processing {FR}"
     }
   }
 ]
-

@@ -17,8 +17,8 @@ Mr Pascal Dagras.
 Le site Ecobalyse (ecobalyse.beta.gouv.fr) est hébergé par la société [Scalingo SAS](https://scalingo.com/fr),
 inscrite au RCS (Strasbourg B 808 665 483) et dont les serveurs se situent en France.
 
-* SIREN : 808665483
-* Siège social : 15 avenue du Rhin, 67100 Strasbourg, France.
+- SIREN : 808665483
+- Siège social : 15 avenue du Rhin, 67100 Strasbourg, France.
 
 ## Accessibilité
 

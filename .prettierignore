@@ -1,1 +1,6 @@
-/data/textile/activities.json
+*.yml
+*.yaml
+*.html
+public/icomoon/*
+public/vendor/*
+styles.scss
