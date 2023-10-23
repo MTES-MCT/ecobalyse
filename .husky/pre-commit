@@ -3,6 +3,6 @@
 
 # Check if code is formatted
 if ! npx prettier@3.0.3 --check . ; then
-  echo "Code is not formatted. Run 'npx prettier@3.0.3 --write .' to format before committing."
+  echo "Code is not formatted. Run 'npm run format:json' to format before committing."
   exit 1
 fi
