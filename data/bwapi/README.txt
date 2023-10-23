@@ -5,7 +5,11 @@ direct export of the Brightway data.
 # Sample list of API endpoints:
 
 
-## Databases
+## Projects and databases
+
+* The list of Brightway projects
+
+https://bwapi.ecobalyse.fr/projects
 
 * The list of Databases in the project `food`
 
