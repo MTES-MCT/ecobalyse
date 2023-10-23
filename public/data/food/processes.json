@@ -1216,7 +1216,7 @@
     }
   },
   {
-    "id": "huilecolza",
+    "id": "rapeseed-oil",
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "displayName": "Huile de colza (sortie de moulin)",
     "unit": "kilogram",
@@ -1248,7 +1248,7 @@
     }
   },
   {
-    "id": "huilecolza-organic",
+    "id": "rapeseed-oil-organic",
     "name": "Rapeseed oil mill {GLO} [organic], constructed by Ecobalyse",
     "displayName": "Huile de colza bio (sortie de moulin)",
     "unit": "kilogram",
@@ -1280,7 +1280,7 @@
     }
   },
   {
-    "id": "sunfloweroil",
+    "id": "sunflower-oil",
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "displayName": "Huile de tournesol (sortie de moulin)",
     "unit": "kilogram",
@@ -1312,7 +1312,7 @@
     }
   },
   {
-    "id": "sunfloweroil-organic",
+    "id": "sunflower-oil-organic",
     "name": "sunflower oil at mill {glo} [organic], constructed by Ecobalyse",
     "displayName": "Huile de tournesol bio (sortie de moulin)",
     "unit": "kilogram",
@@ -1760,7 +1760,7 @@
     }
   },
   {
-    "id": "frenchbean",
+    "id": "french-bean",
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "displayName": "Haricot vert (sortie de ferme)",
     "unit": "kilogram",
@@ -1792,7 +1792,7 @@
     }
   },
   {
-    "id": "durumwheat",
+    "id": "durum-wheat",
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "displayName": "Blé dur (sortie de ferme)",
     "unit": "kilogram",
@@ -2464,16 +2464,16 @@
     }
   },
   {
-    "id": "tapwater",
+    "id": "tap-water",
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "displayName": "Eau du robinet",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115449",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "material",
+    "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
+      "bvi": 0.0,
       "acd": 1.837222173e-6,
       "ozd": 2.207175443e-11,
       "cch": 0.0003241962812,
@@ -4448,7 +4448,7 @@
     }
   },
   {
-    "id": "soybeanBRno-deforestation",
+    "id": "soybean-br-no-deforestation",
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "displayName": "Soja BR non déforestant (sortie de ferme)",
     "unit": "kilogram",
@@ -4480,7 +4480,7 @@
     }
   },
   {
-    "id": "soybeanBRdeforestation",
+    "id": "soybean-br-deforestation",
     "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
     "displayName": "Soja BR déforestant (sortie de ferme)",
     "unit": "kilogram",
@@ -4736,7 +4736,7 @@
     }
   },
   {
-    "id": "Flank-steak",
+    "id": "flank-steak",
     "name": "Meat without bone, beef, for direct consumption {FR} U",
     "displayName": "Bavette (crue)",
     "unit": "kilogram",
@@ -4800,7 +4800,7 @@
     }
   },
   {
-    "id": "durumwheat-semolina",
+    "id": "durum-wheat-semolina",
     "name": "Durum wheat, semolina, at plant {FR} U",
     "displayName": "Semoule de blé dur",
     "unit": "kilogram",
@@ -5021,6 +5021,38 @@
       "etf-c": 151.95147285,
       "htc-c": 2.353801456e-9,
       "htn-c": 1.7906094878e-8
+    }
+  },
+  {
+    "id": "cane-sugar",
+    "name": "Brown sugar, production, at plant {FR} U",
+    "displayName": "Sucre de canne",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003102182",
+    "system_description": "AGRIBALYSE",
+    "category": "ingredient",
+    "comment": "",
+    "impacts": {
+      "bvi": 0.0,
+      "acd": 0.01297225184,
+      "ozd": 1.203533872e-7,
+      "cch": 0.9325923362,
+      "fwe": 0.0002842655828,
+      "swe": 0.005523744575,
+      "tre": 0.05531048829,
+      "pco": 0.004346960258,
+      "pma": 9.157684909e-8,
+      "ior": 0.02060402315,
+      "fru": 4.571570706,
+      "mru": 4.983574748e-6,
+      "ldu": 85.96146419,
+      "wtu": 7.99977976,
+      "htc": 1.735399954e-8,
+      "htn": 1.713247618e-7,
+      "etf": 416.16499316,
+      "etf-c": 824.790434471,
+      "htc-c": 3.317820586e-8,
+      "htn-c": 2.611157168e-7
     }
   }
 ]
