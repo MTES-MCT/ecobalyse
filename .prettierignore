@@ -1,6 +1,6 @@
 *.yml
 *.yaml
 *.html
-public/icomoon/style.css
-public/vendor/rapidoc-9.3.4.min.js
+public/icomoon/*
+public/vendor/*
 styles.scss
