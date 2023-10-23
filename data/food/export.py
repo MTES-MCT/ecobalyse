@@ -140,11 +140,7 @@ if __name__ == "__main__":
 
     # export ingredients
     with open(INGREDIENTS, "w") as outfile:
-        outfile.write(
-            pprint.pformat(
-                json.dumps(ingredients, indent=2, ensure_ascii=False), width=100
-            )
-        )
+        outfile.write(json.dumps(ingredients, indent=2, ensure_ascii=False))
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
@@ -155,10 +151,7 @@ if __name__ == "__main__":
     # export processes
     with open(PROCESSES, "w") as outfile:
         outfile.write(
-            pprint.pformat(
-                json.dumps(list(processes.values()), indent=2, ensure_ascii=False),
-                width=100,
-            )
+            json.dumps(list(processes.values()), indent=2, ensure_ascii=False)
         )
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
