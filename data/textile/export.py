@@ -140,11 +140,7 @@ if __name__ == "__main__":
 
     # export materials
     with open(MATERIALS, "w") as outfile:
-        outfile.write(
-            pprint.pformat(
-                json.dumps(materials, indent=2, ensure_ascii=False), width=100
-            )
-        )
+        outfile.write(json.dumps(materials, indent=2, ensure_ascii=False))
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(materials)} materials to {MATERIALS}")
@@ -155,10 +151,7 @@ if __name__ == "__main__":
     # export processes
     with open(PROCESSES, "w") as outfile:
         outfile.write(
-            pprint.pformat(
-                json.dumps(list(processes.values()), indent=2, ensure_ascii=False),
-                width=100,
-            )
+            json.dumps(list(processes.values()), indent=2, ensure_ascii=False)
         )
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
