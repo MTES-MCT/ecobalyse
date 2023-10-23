@@ -8,7 +8,11 @@ import bw2data
 
 api = FastAPI()
 
-# databases
+# projects and databases
+
+@api.get("/projects", response_class=JSONResponse)
+async def projects(_: Request, project: str = "default"):
+    return list(bw2data.projects)
 
 
 @api.get("/{project}/databases", response_class=JSONResponse)
