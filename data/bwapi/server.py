@@ -3,7 +3,6 @@ from bw2data.utils import get_activity
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from typing import Union
-import bw2analyzer
 import bw2calc
 import bw2data
 
@@ -37,7 +36,7 @@ async def search(
 
 
 @api.get("/{project}/{dbname}/{code}/data", response_class=JSONResponse)
-async def search(_: Request, project: str, dbname: str, code: str):
+async def data(_: Request, project: str, dbname: str, code: str):
     projects.set_current(project)
     return get_activity((dbname, code)).as_dict()
 

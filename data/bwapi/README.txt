@@ -34,11 +34,11 @@ https://bwapi.ecobalyse.fr/food/Agribalyse%203.1.1/109d03783d26742b87f1a94889d97
 
 * The substitution exchanges of the same activity
 
-https://bwapi.ecobalyse.fr/food/Agribalyse%203.1.1/109d03783d26742b87f1a94889d972f3/substitutions
+https://bwapi.ecobalyse.fr/food/Agribalyse%203.1.1/109d03783d26742b87f1a94889d972f3/substitution
 
 * The impacts of the same activity
 
-http://localhost:8000/food/Agribalyse%203.1.1/109d03783d26742b87f1a94889d972f3/impacts/EF%20v3.1
+https://bwapi.ecobalyse.fr/food/Agribalyse%203.1.1/109d03783d26742b87f1a94889d972f3/impacts/EF%20v3.1
 
 
 ## Methods
@@ -57,6 +57,6 @@ https://bwapi.ecobalyse.fr/food/methods/EF%20v3.1/acidification/accumulated%20ex
 
 * The characterization factors of a method
 
-http://localhost:8000/food/characterization_factors/EF%20v3.1/acidification/accumulated%20exceedance%20(AE)
+https://bwapi.ecobalyse.fr/food/characterization_factors/EF%20v3.1/acidification/accumulated%20exceedance%20(AE)
 
 
