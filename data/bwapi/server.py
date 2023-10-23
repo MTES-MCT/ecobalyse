@@ -87,6 +87,22 @@ async def impact_category(_: Request, project: str, method: str, impact_category
     projects.set_current(project)
     try:
         return bw2data.methods[(method,) + tuple(impact_category.split("/"))]
+    except KeyError:
+        return JSONResponse(
+            status_code=404, content={"message": "Impact category not found"}
+        )
+
+
+@api.get(
+    "/{project}/characterization_factors/{method}/{impact_category:path}",
+    response_class=JSONResponse,
+)
+async def characterization_factors(
+    _: Request, project: str, method: str, impact_category: str
+):
+    projects.set_current(project)
+    try:
+        return bw2data.Method((method,) + tuple(impact_category.split("/"))).load()
     except:
         return JSONResponse(
             status_code=404, content={"message": "Impact category not found"}
@@ -113,3 +129,5 @@ async def impacts(_: Request, project: str, dbname: str, code: str, method: str)
             }
         )
     return impacts
+
+
