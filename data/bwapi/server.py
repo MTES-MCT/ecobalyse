@@ -10,13 +10,14 @@ api = FastAPI()
 
 # projects and databases
 
+
 @api.get("/projects", response_class=JSONResponse)
-async def projects(_: Request, project: str = "default"):
+async def projectlist(_: Request):
     return list(bw2data.projects)
 
 
 @api.get("/{project}/databases", response_class=JSONResponse)
-async def databases(_: Request, project: str = "default"):
+async def databases(_: Request, project: str):
     projects.set_current(project)
     return list(bw2data.databases)
 
@@ -27,9 +28,9 @@ async def databases(_: Request, project: str = "default"):
 @api.get("/{project}/{dbname}/search/", response_class=JSONResponse)
 async def search(
     _: Request,
-    project: str = "default",
-    dbname: str = "",
-    q: Union[str, None] = "",
+    project: str,
+    dbname: str,
+    q: Union[str, None],
     limit: Union[int, None] = 20,
 ):
     projects.set_current(project)
@@ -132,5 +133,3 @@ async def impacts(_: Request, project: str, dbname: str, code: str, method: str)
             }
         )
     return impacts
-
-
