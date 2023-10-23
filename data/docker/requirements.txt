@@ -16,5 +16,3 @@ olca-ipc==0.0.12
 pandas>=2.0, <2.1
 scipy>=1.11, <1.12
 xlrd>=2.0, <2.1
-fastapi
-uvicorn
