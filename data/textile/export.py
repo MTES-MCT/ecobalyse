@@ -13,6 +13,7 @@ from common.export import (
 from common.impacts import impacts as impacts_definition
 import bw2calc
 import json
+import pprint
 
 # Input
 PROJECT = "textile"
@@ -139,7 +140,11 @@ if __name__ == "__main__":
 
     # export materials
     with open(MATERIALS, "w") as outfile:
-        json.dump(materials, outfile, indent=2, ensure_ascii=False)
+        outfile.write(
+            pprint.pformat(
+                json.dumps(materials, indent=2, ensure_ascii=False), width=100
+            )
+        )
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(materials)} materials to {MATERIALS}")
@@ -149,7 +154,12 @@ if __name__ == "__main__":
 
     # export processes
     with open(PROCESSES, "w") as outfile:
-        json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
+        outfile.write(
+            pprint.pformat(
+                json.dumps(list(processes.values()), indent=2, ensure_ascii=False),
+                width=100,
+            )
+        )
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
