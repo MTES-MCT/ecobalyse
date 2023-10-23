@@ -56,7 +56,7 @@ Un hook de pre-commit a été configuré pour vérifier que le code est bien for
 
 Pour résoudre ce problème, vous pouvez exécuter la commande suivante :
 
-    $ npx prettier@3.0.3 --write .
+    $ npm run format:json
 
 ## Compilation
 
