@@ -800,6 +800,22 @@
     }
   },
   {
+    "id": "tapwater",
+    "name": "Eau du robinet",
+    "categories": [],
+    "default": "AGRIBALU000000003115449",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
     "id": "lentils-uncooked",
     "name": "Lentilles (sortie de ferme)",
     "categories": ["nut_oilseed_raw"],
@@ -1686,7 +1702,7 @@
     "id": "chickpea-organic",
     "name": "Pois chiche bio (sortie de ferme)",
     "categories": ["nut_oilseed_raw", "organic"],
-    "default": "AGRIBALU000024985200054",
+    "default": "AGRIBALU000024985200193",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2054,6 +2070,22 @@
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cane-sugar",
+    "name": "Sucre de canne",
+    "categories": ["vegetable_processed"],
+    "default": "AGRIBALU000000003102182",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
     }
   }
 ]

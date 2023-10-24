@@ -56,10 +56,15 @@ Le dépôt git ecobalyse se retrouve (via un bind mount) aussi à l'intérieur d
 `/home/jovyan/ecobalyse`. Les fichiers json générés arrivent directement sur place au bon endroit
 pour être comparées puis commités.
 
-## Lancer le serveur Jupyter
+## Lancer le serveur Jupyter de dev
 
 Avant de lancer Jupyter vous pouvez définir son mot de passe avec `make jupyter_password`. Ensuite
 vous le démarrez avec `make start_notebook`.
+
+## Lancer le serveur Jupyter pour l'éditeur d'ingrédients
+
+Avant de lancer Jupyter vous pouvez définir son mot de passe avec `make jupyter_password`. Ensuite
+vous le démarrez avec `JUPYTER_PORT=8889 make start_notebook`.
 
 ## Lancer l'explorateur Brightway
 
