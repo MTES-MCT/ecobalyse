@@ -54,7 +54,35 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "4 septembre 2023"
+    [ { date = "24 octobre 2023"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """L'ids de certains procédés a été modifié `ancien`:`nouveau` :           
+`huilecolza`:`rapeseed-oil`
+
+`huilecolza-organic`:`rapeseed-oil-organic`
+
+`sunfloweroil`:`sunflower-oil`
+
+`sunfloweroil-organic`:`sunflower-oil-organic`
+
+`frenchbean`:`french-bean`
+
+`durumwheat`:`durum-wheat`
+
+`tapwater`:`tap-water`
+
+`soybeanBRno-deforestation`:`soybean-br-no-deforestation`
+
+`soybeanBRdeforestation`:`soybean-br-deforestation`
+
+`Flank-steak`:`flank-steak`
+
+`durumwheat-semolina`:`durum-wheat-semolina`
+"""
+      }
+    , { date = "4 septembre 2023"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
