@@ -230,8 +230,7 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
             ]
     , biodiversity =
         pick
-            [ Definition.Bvi -- Biodiversity impact
-            , Definition.Acd -- Acidification
+            [ Definition.Acd -- Acidification
             , Definition.Tre -- Terrestrial eutrophication
             , Definition.Fwe -- Freshwater Eutrophication
             , Definition.Swe -- Marine eutrophication
