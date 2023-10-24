@@ -265,6 +265,6 @@ loadWellKnown processes =
         |> resolve "plane"
         |> resolve "lorry-cooling"
         |> resolve "boat-cooling"
-        |> resolve "tapwater"
+        |> resolve "tap-water"
         |> resolve "low-voltage-electricity"
         |> resolve "domestic-gas-heat"
