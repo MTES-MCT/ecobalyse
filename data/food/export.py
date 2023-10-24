@@ -153,4 +153,3 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
-

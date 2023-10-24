@@ -56,7 +56,7 @@ pathToString path =
             "textile/parametres-transverses/transport#part-du-transport-aerien"
 
         TextileComplementMicrofibers ->
-            "textile/limites-methodologiques/old/microfibres"
+            "textile/complements-hors-acv/microfibres"
 
         TextileDistribution ->
             "textile/etapes-du-cycle-de-vie/distribution"
