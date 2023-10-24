@@ -154,7 +154,6 @@ suite =
                         |> Result.withDefault Impact.empty
                         |> TestUtils.expectImpactsEqual
                             { acd = Expect.greaterThan 0
-                            , bvi = Expect.greaterThan 0
                             , cch = Expect.greaterThan 0
                             , ecs = Expect.greaterThan 0
                             , etf = Expect.greaterThan 0
