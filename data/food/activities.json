@@ -2152,7 +2152,7 @@
   {
     "id": "chickpea-organic",
     "name": "Pois chiche bio (sortie de ferme)",
-    "search": "Chickpea, organic, system number 1, at farm gate {FR} U \t",
+    "search": " \tWinter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw", "organic"],
     "default_origin": "France",
@@ -2161,8 +2161,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
-    "explain": "Part non comestible : hypothèse petit pois",
+    "bvi": 0.0,
+    "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
