@@ -58,28 +58,28 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
-            """L'ids de certains procédés a été modifié `ancien`:`nouveau` :           
-`huilecolza`:`rapeseed-oil`
+            """L'ids de certains procédés a été modifié `ancien` : `nouveau` :           
+`huilecolza` : `rapeseed-oil`
 
-`huilecolza-organic`:`rapeseed-oil-organic`
+`huilecolza-organic` : `rapeseed-oil-organic`
 
-`sunfloweroil`:`sunflower-oil`
+`sunfloweroil` : `sunflower-oil`
 
-`sunfloweroil-organic`:`sunflower-oil-organic`
+`sunfloweroil-organic` : `sunflower-oil-organic`
 
-`frenchbean`:`french-bean`
+`frenchbean` : `french-bean`
 
-`durumwheat`:`durum-wheat`
+`durumwheat` : `durum-wheat`
 
-`tapwater`:`tap-water`
+`tapwater` : `tap-water`
 
-`soybeanBRno-deforestation`:`soybean-br-no-deforestation`
+`soybeanBRno-deforestation` : `soybean-br-no-deforestation`
 
-`soybeanBRdeforestation`:`soybean-br-deforestation`
+`soybeanBRdeforestation` : `soybean-br-deforestation`
 
-`Flank-steak`:`flank-steak`
+`Flank-steak` : `flank-steak`
 
-`durumwheat-semolina`:`durum-wheat-semolina`
+`durumwheat-semolina` : `durum-wheat-semolina`
 """
       }
     , { date = "4 septembre 2023"
