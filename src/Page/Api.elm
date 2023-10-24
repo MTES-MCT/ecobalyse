@@ -58,28 +58,20 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
-            """L'ids de certains procédés a été modifié `ancien` : `nouveau` :           
-`huilecolza` : `rapeseed-oil`
+            """
+Les identifiants de certains procédés ont été modifiés:
 
-`huilecolza-organic` : `rapeseed-oil-organic`
-
-`sunfloweroil` : `sunflower-oil`
-
-`sunfloweroil-organic` : `sunflower-oil-organic`
-
-`frenchbean` : `french-bean`
-
-`durumwheat` : `durum-wheat`
-
-`tapwater` : `tap-water`
-
-`soybeanBRno-deforestation` : `soybean-br-no-deforestation`
-
-`soybeanBRdeforestation` : `soybean-br-deforestation`
-
-`Flank-steak` : `flank-steak`
-
-`durumwheat-semolina` : `durum-wheat-semolina`
+- `durumwheat-semolina` devient `durum-wheat-semolina`;
+- `durumwheat` devient `durum-wheat`;
+- `Flank-steak` devient `flank-steak`;
+- `frenchbean` devient `french-bean`;
+- `huilecolza` devient `rapeseed-oil`;
+- `huilecolza-organic` devient `rapeseed-oil-organic`;
+- `soybeanBRdeforestation` devient `soybean-br-deforestation`;
+- `soybeanBRno-deforestation` devient `soybean-br-no-deforestation`;
+- `sunfloweroil` devient `sunflower-oil`;
+- `sunfloweroil-organic` devient `sunflower-oil-organic`;
+- `tapwater` devient `tap-water`.
 """
       }
     , { date = "4 septembre 2023"
