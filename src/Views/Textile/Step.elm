@@ -36,7 +36,7 @@ import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
-import Views.CountrySelect
+import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.RangeSlider as RangeSlider
@@ -83,7 +83,7 @@ countryField : Config msg modal -> Html msg
 countryField { db, current, updateCountry } =
     div []
         [ if current.editable then
-            Views.CountrySelect.view
+            CountrySelect.view
                 { attributes =
                     [ class "form-select"
                     , disabled (not current.enabled)
@@ -837,9 +837,6 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
             , country = materialInput.country
             }
 
-        defaultCountry =
-            materialInput.material.geographicOrigin
-
         excluded =
             inputs.materials
                 |> List.map .material
@@ -858,7 +855,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 |> List.sortBy .name
         , definitions = db.impactDefinitions
         }
-    , defaultCountry = defaultCountry
+    , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
 
     -- No country selection for now

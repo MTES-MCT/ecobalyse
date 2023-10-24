@@ -15,18 +15,14 @@ km =
     Length.kilometers
 
 
-lifeCycleToTransports : TextileDb.Db -> Inputs.Query -> Result String LifeCycle -> Result String LifeCycle
-lifeCycleToTransports textileDb query lifeCycleResult =
-    lifeCycleResult
-        |> Result.andThen
-            (\lifecycle ->
-                query
-                    |> Inputs.fromQuery textileDb
-                    |> Result.map .materials
-                    |> Result.map
-                        (\materials ->
-                            LifeCycle.computeStepsTransport textileDb materials lifecycle
-                        )
+lifeCycleToTransports : TextileDb.Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
+lifeCycleToTransports textileDb query lifeCycle =
+    query
+        |> Inputs.fromQuery textileDb
+        |> Result.map .materials
+        |> Result.map
+            (\materials ->
+                LifeCycle.computeStepsTransport textileDb materials lifeCycle
             )
 
 
@@ -37,7 +33,7 @@ suite =
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
                     |> LifeCycle.fromQuery textileDb
-                    |> lifeCycleToTransports textileDb tShirtCotonFrance
+                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonFrance)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 3000, 21549 ))
@@ -52,7 +48,7 @@ suite =
                   in
                   tShirtCotonEnnoblementIndia
                     |> LifeCycle.fromQuery textileDb
-                    |> lifeCycleToTransports textileDb tShirtCotonEnnoblementIndia
+                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonEnnoblementIndia)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2000, 45471 ))

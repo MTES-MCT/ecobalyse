@@ -162,7 +162,14 @@ toMaterialInputs materials countries =
 
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
-    List.map (\{ material, share, spinning, country } -> { id = material.id, share = share, spinning = spinning, country = country |> Maybe.map .code })
+    List.map
+        (\{ material, share, spinning, country } ->
+            { id = material.id
+            , share = share
+            , spinning = spinning
+            , country = country |> Maybe.map .code
+            }
+        )
 
 
 getMainMaterial : List MaterialInput -> Result String Material
@@ -497,16 +504,21 @@ updateMaterialQuery materialId update query =
 
 updateMaterial : Material.Id -> MaterialQuery -> Query -> Query
 updateMaterial oldMaterialId newMaterial =
-    updateMaterialQuery
-        oldMaterialId
-        (\m -> { m | id = newMaterial.id, share = newMaterial.share, spinning = Nothing, country = newMaterial.country })
+    updateMaterialQuery oldMaterialId
+        (\materialQuery ->
+            { materialQuery
+                | id = newMaterial.id
+                , share = newMaterial.share
+                , spinning = Nothing
+                , country = newMaterial.country
+            }
+        )
 
 
 updateMaterialShare : Material.Id -> Split -> Query -> Query
 updateMaterialShare materialId share =
-    updateMaterialQuery
-        materialId
-        (\m -> { m | share = share })
+    updateMaterialQuery materialId
+        (\materialQuery -> { materialQuery | share = share })
 
 
 updateMaterialSpinning : Material -> Spinning -> Query -> Query

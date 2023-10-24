@@ -483,12 +483,8 @@ parseMaterial_ : List Material -> List Country -> String -> Result String Inputs
 parseMaterial_ materials countries string =
     case String.split ";" string of
         [ id, share, spinningString, countryCode ] ->
-            let
-                materialResult =
-                    materials
-                        |> Material.findById (Material.Id id)
-            in
-            materialResult
+            materials
+                |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
                         Ok Inputs.MaterialQuery
@@ -499,12 +495,8 @@ parseMaterial_ materials countries string =
                     )
 
         [ id, share, spinningString ] ->
-            let
-                materialResult =
-                    materials
-                        |> Material.findById (Material.Id id)
-            in
-            materialResult
+            materials
+                |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
                         Ok Inputs.MaterialQuery
@@ -549,14 +541,10 @@ parseSpinning material spinningString =
 
     else
         let
-            spinningResult =
-                spinningString
-                    |> Spinning.fromString
-
             availableSpinningProcesses =
                 Spinning.getAvailableProcesses material.origin
         in
-        spinningResult
+        Spinning.fromString spinningString
             |> Result.andThen
                 (\spinning ->
                     if List.member spinning availableSpinningProcesses then

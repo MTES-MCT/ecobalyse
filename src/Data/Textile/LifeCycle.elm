@@ -17,7 +17,7 @@ module Data.Textile.LifeCycle exposing
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db as TextileDb
-import Data.Textile.Inputs as Inputs exposing (Inputs, countryList)
+import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
@@ -125,8 +125,7 @@ fromQuery db =
 
 init : TextileDb.Db -> Inputs -> LifeCycle
 init db inputs =
-    inputs
-        |> countryList
+    Inputs.countryList inputs
         |> List.map2
             (\( label, editable ) country ->
                 Step.create
