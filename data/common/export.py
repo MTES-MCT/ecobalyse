@@ -6,7 +6,7 @@ import logging
 import hashlib
 import uuid
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARN)
 
 
 def with_subimpacts(process):
