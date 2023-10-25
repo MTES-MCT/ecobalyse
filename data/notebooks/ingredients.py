@@ -404,7 +404,8 @@ def list_activities():
     df.set_properties(**{"background-color": "#EEE"})
     display(
         ipywidgets.HTML(
-            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}"
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}",
+            layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         ),
     )
 
