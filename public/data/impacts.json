@@ -49,13 +49,13 @@
     "quality": 2,
     "pef": {
       "color": "#ff1493",
-      "normalization": 55.5695,
+      "normalization": 5.55695e1,
       "weighting": 0.062
     },
     "ecoscore": {
       "color": "#91cf4f",
-      "normalization": 55.5695,
-      "weighting": 0.0523
+      "normalization": 5.55695e1,
+      "weighting": 0.0564
     }
   },
   "ozd": {
@@ -74,13 +74,13 @@
     "quality": 1,
     "pef": {
       "color": "#800080",
-      "normalization": 0.053648,
+      "normalization": 5.3648e-2,
       "weighting": 0.0631
     },
     "ecoscore": {
       "color": "#ffc000",
-      "normalization": 0.053648,
-      "weighting": 0.0533
+      "normalization": 5.3648e-2,
+      "weighting": 0.0574
     }
   },
   "cch": {
@@ -99,13 +99,13 @@
     "quality": 1,
     "pef": {
       "color": "#800000",
-      "normalization": 7553.08,
+      "normalization": 7.55308e3,
       "weighting": 0.2106
     },
     "ecoscore": {
       "color": "#9025be",
-      "normalization": 7553.08,
-      "weighting": 0.2407
+      "normalization": 7.55308e3,
+      "weighting": 0.2106
     }
   },
   "fwe": {
@@ -130,7 +130,7 @@
     "ecoscore": {
       "color": "#548235",
       "normalization": 1.60685,
-      "weighting": 0.0237
+      "weighting": 0.0255
     }
   },
   "swe": {
@@ -149,13 +149,13 @@
     "quality": 2,
     "pef": {
       "color": "#000080",
-      "normalization": 19.5452,
+      "normalization": 1.95452e1,
       "weighting": 0.0296
     },
     "ecoscore": {
       "color": "#70ad47",
-      "normalization": 19.5452,
-      "weighting": 0.025
+      "normalization": 1.95452e1,
+      "weighting": 0.0269
     }
   },
   "tre": {
@@ -174,13 +174,13 @@
     "quality": 2,
     "pef": {
       "color": "#20b2aa",
-      "normalization": 176.755,
+      "normalization": 1.76755e2,
       "weighting": 0.0371
     },
     "ecoscore": {
       "color": "#c5e0b4",
-      "normalization": 176.755,
-      "weighting": 0.0313
+      "normalization": 1.76755e2,
+      "weighting": 0.0337
     }
   },
   "pco": {
@@ -199,13 +199,13 @@
     "quality": 1,
     "pef": {
       "color": "#da70d6",
-      "normalization": 40.8592,
+      "normalization": 4.08592e1,
       "weighting": 0.0478
     },
     "ecoscore": {
       "color": "#ff6161",
-      "normalization": 40.8592,
-      "weighting": 0.0403
+      "normalization": 4.08592e1,
+      "weighting": 0.0435
     }
   },
   "pma": {
@@ -224,13 +224,13 @@
     "quality": 2,
     "pef": {
       "color": "#696969",
-      "normalization": 0.000595367,
+      "normalization": 5.95367e-4,
       "weighting": 0.0896
     },
     "ecoscore": {
       "color": "#ffc000",
-      "normalization": 0.000595367,
-      "weighting": 0.0757
+      "normalization": 5.95367e-4,
+      "weighting": 0.0815
     }
   },
   "ior": {
@@ -249,13 +249,13 @@
     "quality": 2,
     "pef": {
       "color": "#ffd700",
-      "normalization": 4220.16,
+      "normalization": 4.22016e3,
       "weighting": 0.0501
     },
     "ecoscore": {
       "color": "#be8f00",
-      "normalization": 4220.16,
-      "weighting": 0.0423
+      "normalization": 4.22016e3,
+      "weighting": 0.0456
     }
   },
   "fru": {
@@ -274,13 +274,13 @@
     "quality": 3,
     "pef": {
       "color": "#000000",
-      "normalization": 65004.3,
+      "normalization": 6.50043e4,
       "weighting": 0.0832
     },
     "ecoscore": {
       "color": "#9dc3e6",
-      "normalization": 65004.3,
-      "weighting": 0.0702
+      "normalization": 6.50043e4,
+      "weighting": 0.0757
     }
   },
   "mru": {
@@ -299,13 +299,13 @@
     "quality": 3,
     "pef": {
       "color": "#a9a9a9",
-      "normalization": 0.0636226,
+      "normalization": 6.36226e-2,
       "weighting": 0.0755
     },
     "ecoscore": {
       "color": "#698ed0",
-      "normalization": 0.0636226,
-      "weighting": 0.0637
+      "normalization": 6.36226e-2,
+      "weighting": 0.0687
     }
   },
   "ldu": {
@@ -324,13 +324,13 @@
     "quality": 3,
     "pef": {
       "color": "#006400",
-      "normalization": 819498.0,
+      "normalization": 8.19498e5,
       "weighting": 0.0794
     },
     "ecoscore": {
       "color": "#a9d18e",
-      "normalization": 819498.0,
-      "weighting": 0.067
+      "normalization": 8.19498e5,
+      "weighting": 0.0722
     }
   },
   "wtu": {
@@ -349,13 +349,13 @@
     "quality": 0,
     "pef": {
       "color": "#00ffff",
-      "normalization": 11468.7,
+      "normalization": 1.14687e4,
       "weighting": 0.0851
     },
     "ecoscore": {
       "color": "#0070c0",
-      "normalization": 11468.7,
-      "weighting": 0.0718
+      "normalization": 1.14687e4,
+      "weighting": 0.0774
     }
   },
   "etf": {
@@ -374,7 +374,7 @@
     "quality": 0,
     "pef": {
       "color": "#03A764",
-      "normalization": 56716.6,
+      "normalization": 5.67166e4,
       "weighting": 0.0192
     },
     "ecoscore": null
@@ -396,18 +396,12 @@
     "pef": null,
     "ecoscore": {
       "color": "#375622",
-      "normalization": 56716.6,
-      "weighting": 0.0465
+      "normalization": 5.67166e4,
+      "weighting": 0.0407
     },
     "correction": [
-      {
-        "sub-impact": "etf-o",
-        "weighting": 2
-      },
-      {
-        "sub-impact": "etf-i",
-        "weighting": 1
-      }
+      { "sub-impact": "etf-o", "weighting": 2 },
+      { "sub-impact": "etf-i", "weighting": 1 }
     ]
   },
   "htc": {
@@ -449,17 +443,11 @@
     "ecoscore": {
       "color": "#f4b183",
       "normalization": 1.72529e-5,
-      "weighting": 0.0517
+      "weighting": 0.0452
     },
     "correction": [
-      {
-        "sub-impact": "htc-o",
-        "weighting": 2
-      },
-      {
-        "sub-impact": "htc-i",
-        "weighting": 0
-      }
+      { "sub-impact": "htc-o", "weighting": 2 },
+      { "sub-impact": "htc-i", "weighting": 0 }
     ]
   },
   "htn": {
@@ -478,7 +466,7 @@
     "quality": 0,
     "pef": {
       "color": "#FFA907",
-      "normalization": 0.000128736,
+      "normalization": 1.28736e-4,
       "weighting": 0.0184
     },
     "ecoscore": null
@@ -500,18 +488,12 @@
     "pef": null,
     "ecoscore": {
       "color": "#43682b",
-      "normalization": 0.000128736,
-      "weighting": 0.0446
+      "normalization": 1.28736e-4,
+      "weighting": 0.039
     },
     "correction": [
-      {
-        "sub-impact": "htn-o",
-        "weighting": 2
-      },
-      {
-        "sub-impact": "htn-i",
-        "weighting": 0
-      }
+      { "sub-impact": "htn-o", "weighting": 2 },
+      { "sub-impact": "htn-i", "weighting": 0 }
     ]
   }
 }
