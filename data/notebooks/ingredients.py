@@ -915,19 +915,11 @@ display(
                                             w_explain,
                                         ),
                                     ),
-                                ),
-                            ),
-                        ],
-                    ),
-                    ipywidgets.Accordion(
-                        titles=["Compléments hors ACV pour les ingredients"],
-                        children=[
-                            ipywidgets.VBox(
-                                (
                                     ipywidgets.HTML(
-                                        """Voir la <a style="color:blue"
+                                        """<hr/>Pour les compléments hors ACV, voir
+                                        la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
-                                        sur les compléments hors ACV"""
+                                        """
                                     ),
                                     ipywidgets.HBox(
                                         (
