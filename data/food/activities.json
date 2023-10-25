@@ -2591,5 +2591,148 @@
       "agro-diversity": 0,
       "agro-ecology": 0
     }
+  },
+  {
+    "id": "strawberry-off-season",
+    "name": "Fraise - hors saison (sortie de ferme)",
+    "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate/",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "avocado",
+    "name": "Avocat (sortie de ferme)",
+    "search": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent ",
+    "category": "ingredient",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.3,
+    "transport_cooling": "always",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "Toujours importé => bonus nuls",
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "olive",
+    "name": "Olive (sortie de ferme)",
+    "search": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent",
+    "category": "ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.447,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "olive-oil",
+    "name": "Huile d'olive ",
+    "search": "Extra Virgin Olive Oil, at plant {ES",
+    "category": "ingredient",
+    "categories": [
+      "nut_oilseed_processed"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tea-dried",
+    "name": "Thé (feuilles)",
+    "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
+    "category": "ingredient",
+    "categories": [
+      "misc"
+    ],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "coffee-ground",
+    "name": "Café (moulu)",
+    "search": "Coffee, roast and ground, at plant",
+    "category": "ingredient",
+    "categories": [
+      "misc"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
+  },
+  {
+    "id": "black-pepper",
+    "name": "Poivre noir ",
+    "search": "Black pepper, dried, consumption mix",
+    "category": "ingredient",
+    "categories": [
+      "spice_condiment_additive"
+    ],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "bvi": 0.0,
+    "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
+    "complements": {
+      "agro-diversity": 0,
+      "agro-ecology": 0
+    }
   }
 ]
