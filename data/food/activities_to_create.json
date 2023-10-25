@@ -142,7 +142,7 @@
     }
   },
   {
-    "id": "huilecolza-organic",
+    "id": "rapeseed-oil-organic",
     "search": "Rapeseed oil mill {GLO}",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
@@ -177,7 +177,7 @@
     }
   },
   {
-    "id": "sunfloweroil-organic",
+    "id": "sunflower-oil-organic",
     "search": "sunflower oil at mill {glo}",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],

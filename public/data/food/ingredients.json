@@ -494,7 +494,7 @@
     }
   },
   {
-    "id": "huilecolza",
+    "id": "rapeseed-oil",
     "name": "Huile de colza (sortie de moulin)",
     "categories": ["nut_oilseed_processed"],
     "default": "AGRIBALU000000003112448",
@@ -510,7 +510,7 @@
     }
   },
   {
-    "id": "huilecolza-organic",
+    "id": "rapeseed-oil-organic",
     "name": "Huile de colza bio (sortie de moulin)",
     "categories": ["nut_oilseed_processed", "organic"],
     "default": "1d9dfc18-115e-ccdf-c3ff-71124995d352",
@@ -526,7 +526,7 @@
     }
   },
   {
-    "id": "sunfloweroil",
+    "id": "sunflower-oil",
     "name": "Huile de tournesol (sortie de moulin)",
     "categories": ["nut_oilseed_processed"],
     "default": "AGRIBALU000000003115182",
@@ -542,7 +542,7 @@
     }
   },
   {
-    "id": "sunfloweroil-organic",
+    "id": "sunflower-oil-organic",
     "name": "Huile de tournesol bio (sortie de moulin)",
     "categories": ["nut_oilseed_processed", "organic"],
     "default": "0648b056-ad7a-c6b9-6270-7a0e43a183a9",
@@ -768,7 +768,7 @@
     }
   },
   {
-    "id": "frenchbean",
+    "id": "french-bean",
     "name": "Haricot vert (sortie de ferme)",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000024985200072",
@@ -784,7 +784,7 @@
     }
   },
   {
-    "id": "durumwheat",
+    "id": "durum-wheat",
     "name": "Blé dur (sortie de ferme)",
     "categories": ["grain_raw"],
     "default": "AGRIBALU000024985200066",
@@ -800,7 +800,7 @@
     }
   },
   {
-    "id": "tapwater",
+    "id": "tap-water",
     "name": "Eau du robinet",
     "categories": [],
     "default": "AGRIBALU000000003115449",
@@ -1779,7 +1779,7 @@
     }
   },
   {
-    "id": "soybeanBRno-deforestation",
+    "id": "soybean-br-no-deforestation",
     "name": "Soja BR non déforestant (sortie de ferme)",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200001",
@@ -1795,7 +1795,7 @@
     }
   },
   {
-    "id": "soybeanBRdeforestation",
+    "id": "soybean-br-deforestation",
     "name": "Soja BR déforestant (sortie de ferme)",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200302",
@@ -1927,7 +1927,7 @@
     }
   },
   {
-    "id": "Flank-steak",
+    "id": "flank-steak",
     "name": "Bavette (crue)",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109219",
@@ -1961,7 +1961,7 @@
     }
   },
   {
-    "id": "durumwheat-semolina",
+    "id": "durum-wheat-semolina",
     "name": "Semoule de blé dur",
     "categories": ["grain_processed"],
     "default": "AGRIBALU000000003105079",
