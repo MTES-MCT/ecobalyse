@@ -166,11 +166,11 @@ displayLabel { knitted, fadable } label =
 
 
 computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact db country inputMass materialInput =
+computeMaterialTransportAndImpact db country outputMass materialInput =
     let
         materialMass =
             materialInput.share
-                |> Split.applyToQuantity inputMass
+                |> Split.applyToQuantity outputMass
     in
     materialInput
         |> Inputs.computeMaterialTransport db country.code
@@ -192,22 +192,20 @@ computeTransports db materialInputs next ({ processInfo } as current) =
         transport =
             if current.label == Label.Material then
                 materialInputs
-                    |> List.map (computeMaterialTransportAndImpact db next.country current.inputMass)
+                    |> List.map (computeMaterialTransportAndImpact db next.country current.outputMass)
                     |> Transport.sum
 
             else
                 db.transports
-                    |> Transport.getTransportBetween
-                        Scope.Textile
+                    |> Transport.getTransportBetween Scope.Textile
                         current.transport.impacts
                         current.country.code
                         next.country.code
                     |> computeTransportSummary current
-                    |> computeTransportImpacts
-                        current.transport.impacts
+                    |> computeTransportImpacts current.transport.impacts
                         db.wellKnown
                         roadTransportProcess
-                        next.inputMass
+                        current.outputMass
     in
     { current
         | processInfo =

@@ -682,7 +682,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                             transport =
                                 materialInput
-                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.inputMass
+                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
                         in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
