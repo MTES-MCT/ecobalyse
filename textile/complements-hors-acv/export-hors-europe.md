@@ -24,9 +24,10 @@ Le complément proposé vise à refléter l'impact des vêtements se retrouvant 
 
 <summary>Aller plus loin</summary>
 
-Plusieurs scénarios peuvent être distingués pour modéliser les flux de vêtements exportés hors Europe : \
-\=> la zone géographique considérée : Afrique (46%), Asie (41%), Autre (13%) (données 2019 de [European Environment Agency](https://www.eea.europa.eu/publications/eu-exports-of-used-textiles/eu-exports-of-used-textiles))\
-\=> le devenir des déchets (incinération, enfouissement, déchet sauvage, etc.)
+Les scénarios d'export de vêtements hors Europe pourraient être détaillés : \
+\=> par zone géographique : Afrique (46%), Asie (41%), Autre (13%) (données 2019 de [European Environment Agency](https://www.eea.europa.eu/publications/eu-exports-of-used-textiles/eu-exports-of-used-textiles)),\
+\=> par scénarios de fin de vie (incinération, enfouissement, déchet sauvage, etc.),\
+\=> par vêtement (jean, t-shirt, sous-vêtements, etc.).
 
 Cependant, nous faisons face à un manque de données précises sur ces différentes géographies/scénarios ainsi que sur la disponibilité d'inventaires de cycle de vie (ICV).&#x20;
 
@@ -40,7 +41,7 @@ Le complément, exprimé en points d'impacts (pt) par kg de vêtement, reflète 
 
 <details>
 
-<summary>Aller plus loi </summary>
+<summary>Aller plus loin </summary>
 
 Il n'existe pas encore suffisament de littérature scientifique permettant d'estimer, de manière quantitative, l'impact de la fin de vie des vêtements se retrouvant sous forme de déchets hors Europe.&#x20;
 
@@ -92,7 +93,18 @@ Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
 {% endhint %}
 
-Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographique à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés. Ce constat est notamment appuyé par Andrée-Claire Lemieux de la chaire Sustainability IFM-Kering dans le cadre de ses travaux sur une mode plus responsable.
+<details>
+
+<summary>Pourquoi les vêtements synthétiques seraient moins réutilisés ?  </summary>
+
+Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographie à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés. \
+\
+Ce constat est notamment appuyé par les [travaux ](https://www.ifmparis.fr/en/faculty/andree-anne-lemieux)et différents échanges avec Andrée-Claire Lemieux (chaire Sustainability IFM-Kering).&#x20;
+
+Par ailleurs, l'initiative [Fashion For Good](https://fashionforgood.com/) dans son rapport [Sorting For Circularity Europe](https://fashionforgood.com/our\_news/sorting-for-circularity-europe-project-findings/) partage aussi l'hypothèse que la perception des vêtements synthétiques par le consommateur pourrait être moindre (cf. extrait du rapport ci-dessous) : \
+"_The difference in fibre composition found could also reflect a preference from consumers in the focus countries for cotton products over polyester, or could be an effect of consumer disposal behaviour as they might regard polyester products as lower value and therefore, choose to dispose of them in household waste rather than giving it to charity for reuse_."
+
+</details>
 
 On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
