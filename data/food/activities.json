@@ -11,7 +11,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 2.8229,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -30,7 +29,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 2.7312,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -49,7 +47,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 3.7279,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -68,7 +65,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.8161,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -87,7 +83,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.513278847,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -106,7 +101,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.1321,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -124,7 +118,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.2271,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -142,7 +135,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 1.2164,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -160,7 +152,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.9939,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -178,7 +169,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -196,7 +186,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 1.411313691,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -214,7 +203,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 3.423726823,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -232,7 +220,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 2.351161646,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -250,7 +237,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.073211803,
     "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\"",
     "complements": {
       "agro-diversity": 10,
@@ -269,7 +255,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 1.464805983,
     "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
     "complements": {
       "agro-diversity": 50,
@@ -288,7 +273,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -306,7 +290,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -324,7 +307,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.338079058,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -342,7 +324,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -361,7 +342,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -372,22 +352,19 @@
     "id": "beef-cattle",
     "name": "Bovins de boucherie",
     "category": "material",
-    "search": "Beef cattle national average at farm gate",
-    "bvi": 6.54173087
+    "search": "Beef cattle national average at farm gate"
   },
   {
     "id": "beef-cattle-feedlot",
     "name": "Bovins de boucherie (Feedlot)",
     "category": "material",
-    "search": "Beef cattle feedlot or intensive system live weight farm GB",
-    "bvi": 0
+    "search": "Beef cattle feedlot or intensive system live weight farm GB"
   },
   {
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
-    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "bvi": 6.20585509
+    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
   },
   {
     "id": "ground-beef-feedlot",
@@ -401,7 +378,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 15.04866738,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -420,7 +396,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -439,7 +414,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -458,7 +432,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 6.087620104,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -469,22 +442,19 @@
     "id": "pig",
     "name": "Porc",
     "category": "material",
-    "search": "Pig conventional national average at farm gate",
-    "bvi": 2.988408615
+    "search": "Pig conventional national average at farm gate"
   },
   {
     "id": "pig-organic",
     "name": "Porc bio",
     "category": "material",
-    "search": "Pig organic system 2 at farm gate",
-    "bvi": 3.180020982
+    "search": "Pig organic system 2 at farm gate"
   },
   {
     "id": "lamb",
     "name": "Agneau",
     "search": "Meat with bone lamb",
-    "category": "material",
-    "bvi": 10.82526301
+    "category": "material"
   },
   {
     "id": "chicken-breast",
@@ -498,7 +468,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -517,7 +486,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -536,7 +504,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 5.408719682,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50,
@@ -549,7 +516,6 @@
     "search": "Broiler national at farm gate",
     "category": "material",
     "default_origin": "EuropeAndMaghreb",
-    "bvi": 2.767972021,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -559,8 +525,7 @@
     "id": "broiler-organic",
     "name": "Poulet bio",
     "category": "material",
-    "search": "Broiler organic at farm gate",
-    "bvi": 3.531479814
+    "search": "Broiler organic at farm gate"
   },
   {
     "id": "grape",
@@ -574,7 +539,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.728840715,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -592,7 +556,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.539152617,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -610,7 +573,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -628,7 +590,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -646,7 +607,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -664,7 +624,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -682,7 +641,6 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -700,7 +658,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -718,7 +675,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -736,7 +692,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -754,7 +709,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": false,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -772,7 +726,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -790,7 +743,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": false,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -808,7 +760,6 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -826,7 +777,6 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -880,7 +830,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -898,7 +847,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -916,7 +864,6 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -934,7 +881,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -952,7 +898,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.940864665,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -962,84 +907,72 @@
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
-    "bvi": 0.1133,
     "search": "Steel unalloyed {RER} steel production converter unalloyed"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
-    "bvi": 0.3318,
     "search": "Packaging film low density polyethylene {RER} production"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
-    "bvi": 0.0011,
     "search": "Polystyrene expandable {RER} production"
   },
   {
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
-    "bvi": 0.3211,
     "search": "Packaging glass white {RER} w/o CH+DE production"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
-    "bvi": 0.0003,
     "search": "Polypropylene granulate {RER}| production"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
-    "bvi": 1.1059,
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
   {
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
-    "bvi": 7.4795,
     "search": "Kraft paper production"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
-    "bvi": 0.0004,
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation"
   },
   {
     "id": "pet",
     "name": "PET",
     "category": "packaging",
-    "bvi": 0.245,
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
-    "bvi": 0.0004,
     "search": "Polyethylene high density granulate {RER} production"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
-    "bvi": 0.94,
     "search": "Aluminium primary ingot {RoW} production"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
-    "bvi": 0.0089,
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR"
   },
   {
@@ -1052,28 +985,24 @@
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
-    "bvi": 0.012,
     "search": "Cooking industrial 1kg of cooked product FR"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
-    "bvi": 0.055765784,
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
-    "bvi": 0.000292724,
     "search": "Transport freight sea ship"
   },
   {
     "id": "plane",
     "name": "Avion",
     "category": "transport",
-    "bvi": 0.012214369,
     "search": "Transport freight aircraft"
   },
   {
@@ -1106,7 +1035,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -1130,7 +1058,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1148,7 +1075,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1166,7 +1092,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "bvi": 0.131792529,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -1184,14 +1109,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0.074402694,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
     }
   },
   {
-    "id": "comte-AOP",
+    "id": "comte-aop",
     "name": "Comté AOP",
     "search": "code:b9b650a42442d76be26feb783620f123",
     "category": "ingredient",
@@ -1202,7 +1126,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1222,7 +1145,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1242,7 +1164,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "complements": {
       "agro-diversity": 10,
@@ -1262,7 +1183,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1280,7 +1200,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1298,7 +1217,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1316,7 +1234,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1334,7 +1251,6 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
     "complements": {
       "agro-diversity": 10,
@@ -1353,7 +1269,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible.",
     "complements": {
       "agro-diversity": 10,
@@ -1372,7 +1287,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1391,7 +1305,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
@@ -1410,7 +1323,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1429,7 +1341,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1447,7 +1358,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé issu de WDFDB (GLO)",
     "complements": {
       "agro-diversity": 10,
@@ -1466,7 +1376,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé issu de WDFDB (GLO)",
     "complements": {
       "agro-diversity": 10,
@@ -1485,7 +1394,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n",
     "complements": {
       "agro-diversity": 10,
@@ -1504,7 +1412,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 50,
@@ -1523,7 +1430,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Part non comestible => hypothèse de la prune\n",
     "complements": {
       "agro-diversity": 10,
@@ -1542,7 +1448,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
     "complements": {
       "agro-diversity": 10,
@@ -1561,7 +1466,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1579,7 +1483,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -1597,7 +1500,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1616,7 +1518,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)",
     "complements": {
       "agro-diversity": 10,
@@ -1635,7 +1536,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1654,7 +1554,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
     "complements": {
       "agro-diversity": 10,
@@ -1673,7 +1572,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)",
     "complements": {
       "agro-diversity": 10,
@@ -1692,7 +1590,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
     "complements": {
       "agro-diversity": 10,
@@ -1711,7 +1608,6 @@
     "inedible_part": 0.3,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé du citron ES issu d'Ecoinvent",
     "complements": {
       "agro-diversity": 10,
@@ -1730,7 +1626,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques",
     "complements": {
       "agro-diversity": 10,
@@ -1749,7 +1644,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille",
     "complements": {
       "agro-diversity": 10,
@@ -1768,7 +1662,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1787,7 +1680,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1806,7 +1698,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)",
     "complements": {
       "agro-diversity": 10,
@@ -1825,7 +1716,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
     "complements": {
       "agro-diversity": 10,
@@ -1844,7 +1734,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de l'endive approximé par la laitue.",
     "complements": {
       "agro-diversity": 10,
@@ -1863,7 +1752,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives",
     "complements": {
       "agro-diversity": 10,
@@ -1882,7 +1770,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois",
     "complements": {
       "agro-diversity": 10,
@@ -1901,7 +1788,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Par défaut : fraise espagnole",
     "complements": {
       "agro-diversity": 10,
@@ -1920,7 +1806,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1939,7 +1824,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Densité : même hyp que petit pois",
     "complements": {
       "agro-diversity": 10,
@@ -1958,7 +1842,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Part non comestible : même hyp que pomme",
     "complements": {
       "agro-diversity": 10,
@@ -1977,7 +1860,6 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -1996,7 +1878,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Part non comestible : chataigne, olive",
     "complements": {
       "agro-diversity": 10,
@@ -2015,7 +1896,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2034,7 +1914,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
     "complements": {
       "agro-diversity": 10,
@@ -2053,7 +1932,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la carotte (hypothèse mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2072,7 +1950,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "complements": {
       "agro-diversity": 10,
@@ -2091,7 +1968,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2109,7 +1985,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2128,7 +2003,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire.",
     "complements": {
       "agro-diversity": 10,
@@ -2147,7 +2021,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Part non comestible : hypothèse petit pois",
     "complements": {
       "agro-diversity": 10,
@@ -2166,7 +2039,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
     "complements": {
       "agro-diversity": 50,
@@ -2185,7 +2057,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2203,7 +2074,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "explain": "Procédé de la cerise (hypothèse mix de conso AGB)",
     "complements": {
       "agro-diversity": 10,
@@ -2222,7 +2092,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2240,7 +2109,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -2258,7 +2126,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2276,7 +2143,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2294,7 +2160,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2313,7 +2178,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2332,7 +2196,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2351,7 +2214,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2369,7 +2231,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2387,7 +2248,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2405,7 +2265,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2424,7 +2283,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2443,7 +2301,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2462,7 +2319,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2480,7 +2336,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2498,7 +2353,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV",
     "complements": {
       "agro-diversity": 10,
@@ -2517,7 +2371,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
     "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB.",
     "complements": {
       "agro-diversity": 10,
@@ -2536,7 +2389,6 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
     "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%.",
     "complements": {
       "agro-diversity": 0,
@@ -2591,7 +2443,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2602,16 +2453,13 @@
     "name": "Fraise - hors saison (sortie de ferme)",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate/",
     "category": "ingredient",
-    "categories": [
-      "vegetable_fresh"
-    ],
+    "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2622,16 +2470,13 @@
     "name": "Avocat (sortie de ferme)",
     "search": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent ",
     "category": "ingredient",
-    "categories": [
-      "vegetable_fresh"
-    ],
+    "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
     "explain": "Toujours importé => bonus nuls",
     "complements": {
       "agro-diversity": 0,
@@ -2643,16 +2488,13 @@
     "name": "Olive (sortie de ferme)",
     "search": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": [
-      "animal_product"
-    ],
+    "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2664,16 +2506,13 @@
     "name": "Huile d'olive ",
     "search": "Extra Virgin Olive Oil, at plant {ES",
     "category": "ingredient",
-    "categories": [
-      "nut_oilseed_processed"
-    ],
+    "categories": ["nut_oilseed_processed"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2684,16 +2523,13 @@
     "name": "Thé (feuilles)",
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": [
-      "misc"
-    ],
+    "categories": ["misc"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2704,16 +2540,13 @@
     "name": "Café (moulu)",
     "search": "Coffee, roast and ground, at plant",
     "category": "ingredient",
-    "categories": [
-      "misc"
-    ],
+    "categories": ["misc"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2724,16 +2557,13 @@
     "name": "Poivre noir ",
     "search": "Black pepper, dried, consumption mix",
     "category": "ingredient",
-    "categories": [
-      "spice_condiment_additive"
-    ],
+    "categories": ["spice_condiment_additive"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
     "complements": {
       "agro-diversity": 0,
