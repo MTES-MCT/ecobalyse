@@ -1032,7 +1032,6 @@
     "category": "material",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 2.767972021,
       "acd": 0.05267003484,
       "ozd": 1.205939974e-7,
       "cch": 2.688083275,
@@ -2149,26 +2148,25 @@
     "category": "transformation",
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "impacts": {
-      "bvi": 0,
-      "acd": 3.732661802e-21,
-      "ozd": 8.095288489e-26,
-      "cch": 3.059959849e-19,
-      "fwe": 4.402440369e-23,
-      "swe": 1.070977481e-21,
-      "tre": 1.549404754e-20,
-      "pco": 2.043268226e-21,
-      "pma": 1.600747102e-26,
-      "ior": 1.390415009e-19,
-      "fru": 7.73727912e-18,
-      "mru": 2.390512524e-24,
-      "ldu": 2.169093697e-17,
-      "wtu": -2.252883382e-18,
-      "htc": 3.742264149e-28,
-      "htn": 6.961120101e-27,
-      "etf": 1.6155598747e-17,
-      "etf-c": 2.7662740804e-17,
-      "htc-c": 4.671538354e-28,
-      "htn-c": 4.119220688e-27
+      "acd": 0.0,
+      "ozd": 0.0,
+      "cch": 0.0,
+      "fwe": 0.0,
+      "swe": 0.0,
+      "tre": 0.0,
+      "pco": 0.0,
+      "pma": 0.0,
+      "ior": 0.0,
+      "fru": 0.0,
+      "mru": 0.0,
+      "ldu": 0.0,
+      "wtu": 0.0,
+      "htc": 0.0,
+      "htn": 0.0,
+      "etf": 0.0,
+      "etf-c": 0.0,
+      "htc-c": 0.0,
+      "htn-c": 0.0
     }
   },
   {
@@ -4909,7 +4907,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.0113446484,
       "ozd": 4.195896177e-7,
       "cch": 2.915717493,
@@ -4941,7 +4938,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 3840904960",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.003545534697,
       "ozd": 3.435012532e-8,
       "cch": 0.5436551126,
@@ -4973,7 +4969,6 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit qualityProduction Volume Amount: 6459754496",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.005713999604,
       "ozd": 2.566187267e-8,
       "cch": 0.01430893805,
@@ -5005,7 +5000,6 @@
     "category": "ingredient",
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. Included processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. Remark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). Economic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kgGeography: Extra Virgin Olive Oil production in SpainTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. Time period: Data from PEFCR Olive Oil, 2016,",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.03309023826,
       "ozd": 1.498600866e-7,
       "cch": 0.1561478727,
@@ -5037,7 +5031,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 1436769536",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.03355698969,
       "ozd": 1.30490553e-7,
       "cch": 2.196130035,
@@ -5069,7 +5062,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.2334663109,
       "ozd": 4.513912927e-7,
       "cch": 9.569521231,
@@ -5101,7 +5093,6 @@
     "category": "ingredient",
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.08280956771,
       "ozd": 5.677656964e-7,
       "cch": 7.402326917,
