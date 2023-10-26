@@ -32,6 +32,7 @@ list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
 file_output = ipywidgets.Output()
+save_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -162,6 +163,8 @@ w_institut = ipywidgets.Dropdown(
         "CTCPA",
         "ITAVI",
         "IDELE",
+        "Terres Inovia",
+        "CTIFL",
     ],
     value=None,
     style=style,
@@ -386,6 +389,12 @@ clear_git_button = ipywidgets.Button(
     tooltip="Nettoyer sous le bouton",
     layout=ipywidgets.Layout(width="50px"),
 )
+clear_save_button = ipywidgets.Button(
+    description="X",
+    button_style="",  # 'success', 'info', 'warning', 'danger' or ''
+    tooltip="Nettoyer sous les boutons",
+    layout=ipywidgets.Layout(width="50px"),
+)
 commitbutton = ipywidgets.Button(
     description="Publier pour validation",
     button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
@@ -531,6 +540,7 @@ def change_search_of(field):
     return change_search
 
 
+@save_output.capture()
 def add_activity(_):
     activity = {
         "id": w_id.value,
@@ -551,7 +561,23 @@ def add_activity(_):
     }
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
-    if "id" in activity:
+    if "id" not in activity:
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>Vous devez rentrer un identifiant d'ingrédient (en anglais, en minuscule, sans espace</pre>"
+            )
+        )
+    elif (
+        activity["id"].lower() != activity["id"]
+        or activity["id"].replace(" ", "") != activity["id"]
+    ):
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>L'identifiant doit être en minuscule et sans espace</pre>"
+            )
+        )
+    else:
+        save_output.clear_output()
         activities.update({activity["id"]: to_pretty(activity)})
         save_activities(activities)
 
@@ -565,39 +591,67 @@ def delete_activity(_):
 
 def reset_branch():
     if subprocess.run(["git", "reset", "--hard"], capture_output=True).returncode != 0:
-        display("ÉCHEC de la commande: git reset --hard")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git reset --hard"
+            )
+        )
     elif subprocess.run(["git", "fetch", "--all"], capture_output=True).returncode != 0:
-        display("ÉCHEC de la commande: git fetch --all")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git fetch --all"
+            )
+        )
     elif (
         subprocess.run(
             ["git", "checkout", "origin/ingredients"], capture_output=True
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git checkout origin/ingredients")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git checkout origin/ingredients"
+            )
+        )
     elif (
         subprocess.run(
             ["git", "branch", "-D", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git branch -D ingredients")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git branch -D ingredients"
+            )
+        )
     elif (
         subprocess.run(
             ["git", "branch", "ingredients", "origin/ingredients"], capture_output=True
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git branch ingredients origin/ingredients")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git branch ingredients origin/ingredients"
+            )
+        )
     elif (
         subprocess.run(
             ["git", "checkout", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git checkout ingredients")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git checkout ingredients"
+            )
+        )
     else:
-        display("ÉCHEC. Prévenez l'équipe Écobalyse")
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC. Prévenez l'équipe Écobalyse"
+            )
+        )
 
 
 @reset_output.capture()
@@ -612,12 +666,16 @@ def reset_activities(_):
         != 0
     ):
         display(
-            "ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
+            )
         )
         reset_branch()
     else:
         display(
-            "SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
+            ipywidgets.HTML(
+                "<pre style='color: green'>SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
+            )
         )
 
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
@@ -628,6 +686,10 @@ def reset_activities(_):
 
 def clear_git_output(_):
     git_output.clear_output()
+
+
+def clear_save_output(_):
+    save_output.clear_output()
 
 
 def clear_reset_output(_):
@@ -641,7 +703,9 @@ def commit_activities(_):
         return
     shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
     if subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
-        display("ÉCHEC de la commande: git add")
+        display(
+            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git add")
+        )
         reset_branch()
     elif (
         subprocess.run(
@@ -655,7 +719,9 @@ def commit_activities(_):
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git commit")
+        display(
+            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git commit")
+        )
         reset_branch()
     elif (
         subprocess.run(
@@ -663,7 +729,9 @@ def commit_activities(_):
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git pull")
+        display(
+            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git pull")
+        )
         reset_branch()
     elif (
         subprocess.run(
@@ -671,11 +739,15 @@ def commit_activities(_):
         ).returncode
         != 0
     ):
-        display("ÉCHEC de la commande: git push")
+        display(
+            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git push")
+        )
         reset_branch()
     else:
         display(
-            "SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
+            ipywidgets.HTML(
+                "<pre style='color: green'>SUCCÈS. Merci !! Vous pouvez prévenir l'équipe Écobalyse qu'il y a des nouveautés en attente de validation"
+            )
         )
 
 
@@ -686,6 +758,7 @@ resetbutton.on_click(reset_activities)
 clear_reset_button.on_click(clear_reset_output)
 commitbutton.on_click(commit_activities)
 clear_git_button.on_click(clear_git_output)
+clear_save_button.on_click(clear_save_output)
 
 
 display(
@@ -752,7 +825,8 @@ display(
                             w_id,
                         ),
                     ),
-                    ipywidgets.HBox((savebutton, delbutton)),
+                    ipywidgets.HBox((savebutton, delbutton, clear_save_button)),
+                    ipywidgets.VBox((save_output,)),
                     ipywidgets.HTML(
                         "<hr/>Nom de l'ingrédient tel qu'il va apparaître dans l'outil (en français) :"
                     ),

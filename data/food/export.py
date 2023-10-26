@@ -82,6 +82,16 @@ if __name__ == "__main__":
         ):
             del ingredient["complements"]["animal-welfare"]
 
+    # Check the id is lowercase and does not contain spaces
+    for ingredient in ingredients:
+        if (
+            ingredient["id"].lower() != ingredient["id"]
+            or ingredient["id"].replace(" ", "") != ingredient["id"]
+        ):
+            raise ValueError(
+                f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
+            )
+
     print("Creating process list...")
     processes = {
         activity["id"]: {
