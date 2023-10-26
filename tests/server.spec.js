@@ -156,11 +156,11 @@ describe("API", () => {
           );
         });
 
-        it("should perform a simulation featuring 22 impacts for textile", async () => {
+        it("should perform a simulation featuring 21 impacts for textile", async () => {
           const response = await makeRequest("/api/textile/simulator/", successQuery);
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(22);
+          expect(Object.keys(response.body.impacts)).toHaveLength(21);
         });
 
         it("should validate the airTransportRatio param", async () => {
@@ -273,7 +273,7 @@ describe("API", () => {
       });
 
       describe("POST", () => {
-        it("should compute 22 impacts", async () => {
+        it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/textile/simulator", {
             mass: 0.17,
             materials: [{ id: "coton", share: 1 }],
@@ -293,7 +293,7 @@ describe("API", () => {
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(22);
+          expect(Object.keys(response.body.impacts)).toHaveLength(21);
         });
       });
     });
@@ -362,7 +362,7 @@ describe("API", () => {
 
     describe("/food/recipe", () => {
       describe("GET", () => {
-        it("should compute 19 impacts for food", async () => {
+        it("should compute 21 impacts for food", async () => {
           const response = await makeRequest("/api/food/recipe", [
             "ingredients[]=carrot;268",
             "transform=AGRIBALU000000003103966;1050",
@@ -370,7 +370,7 @@ describe("API", () => {
           ]);
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.results.total)).toHaveLength(22);
+          expect(Object.keys(response.body.results.total)).toHaveLength(21);
         });
 
         it("should validate the ingredient list length", async () => {
@@ -495,7 +495,7 @@ describe("API", () => {
       });
 
       describe("POST", () => {
-        it("should compute 19 impacts", async () => {
+        it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/food/recipe", {
             ingredients: [
               { id: "egg", mass: 0.12 },
@@ -518,7 +518,7 @@ describe("API", () => {
           });
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.results.total)).toHaveLength(22);
+          expect(Object.keys(response.body.results.total)).toHaveLength(21);
         });
       });
     });

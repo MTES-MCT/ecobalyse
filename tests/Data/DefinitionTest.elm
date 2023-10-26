@@ -18,15 +18,15 @@ suite =
         (\{ textileDb } ->
             [ Definition.trigrams
                 |> List.length
-                |> Expect.equal 22
-                |> asTest "There are 22 impact trigrams"
+                |> Expect.equal 21
+                |> asTest "There are 21 impact trigrams"
             , Definition.trigrams
                 |> List.map ((\trigram -> Definition.get trigram textileDb.impactDefinitions) >> .trigram >> Definition.toString)
                 |> Set.fromList
                 |> Set.toList
                 |> List.length
                 |> Expect.equal (List.length Definition.trigrams)
-                |> asTest "There are 22 unique impact definitions and trigrams"
+                |> asTest "There are 21 unique impact definitions and trigrams"
             , Definition.trigrams
                 |> List.map Definition.toString
                 |> List.filterMap (Definition.toTrigram >> Result.toMaybe)
@@ -58,8 +58,8 @@ suite =
                 |> asTest "filter will zero all the values for fields filtered out"
             , Definition.toList textileDb.impactDefinitions
                 |> List.length
-                |> Expect.equal 22
-                |> asTest "there are 22 impacts in total"
+                |> Expect.equal 21
+                |> asTest "there are 21 impacts in total"
             , Definition.init 1
                 |> Definition.filter Definition.isAggregate (always 0)
                 |> sumDefinitions

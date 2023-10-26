@@ -9,7 +9,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 2.8229,
       "acd": 0.06520001431,
       "ozd": 9.735447154e-8,
       "cch": 2.195936333,
@@ -41,7 +40,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 2.7312,
       "acd": 0.06806014425,
       "ozd": 9.933028102e-8,
       "cch": 1.719382803,
@@ -73,7 +71,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 3.7279,
       "acd": 0.07324585954,
       "ozd": 9.905572511e-8,
       "cch": 2.157545658,
@@ -105,7 +102,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0.8161,
       "acd": 0.01256051938,
       "ozd": 2.303248606e-8,
       "cch": 1.099974288,
@@ -137,7 +133,6 @@
     "category": "ingredient",
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "impacts": {
-      "bvi": 0.513278847,
       "acd": 0.01090399923,
       "ozd": 1.771648049e-8,
       "cch": 0.9395660923,
@@ -169,7 +164,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.1321,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-9,
       "cch": 0.06519435654,
@@ -201,7 +195,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.2271,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-8,
       "cch": 0.09007249944,
@@ -233,7 +226,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 1.2164,
       "acd": 0.007562448088,
       "ozd": 2.650748734e-8,
       "cch": 0.4622859755,
@@ -265,7 +257,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.9939,
       "acd": 0.005673486496,
       "ozd": 2.698659905e-8,
       "cch": 0.4460504894,
@@ -297,7 +288,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 1.411313691,
       "acd": 0.008912121484,
       "ozd": 3.645996124e-8,
       "cch": 0.5685757069,
@@ -329,7 +319,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 1.411313691,
       "acd": 0.006728177098,
       "ozd": 3.697968901e-8,
       "cch": 0.5494127971,
@@ -361,7 +350,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 3.423726823,
       "acd": 0.02402272359,
       "ozd": 5.66828903e-8,
       "cch": 0.5961307406,
@@ -393,7 +381,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 2.351161646,
       "acd": 0.005696927061,
       "ozd": 5.036285229e-8,
       "cch": 0.3924679294,
@@ -425,7 +412,6 @@
     "category": "ingredient",
     "comment": "EcoSpold01Location=FRProduction Volume Amount: 4532871168",
     "impacts": {
-      "bvi": 0.073211803,
       "acd": 0.02025175961,
       "ozd": 9.035537276e-8,
       "cch": 0.9178881431,
@@ -457,7 +443,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 1.464805983,
       "acd": 0.01882870837,
       "ozd": 3.836996099e-8,
       "cch": 0.6507625745,
@@ -489,7 +474,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.074402694,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-8,
       "cch": 0.1519781873,
@@ -521,7 +505,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.131792529,
       "acd": 0.001360300191,
       "ozd": 2.021899175e-8,
       "cch": 0.1969220817,
@@ -553,7 +536,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0.338079058,
       "acd": 0.001301710863,
       "ozd": 7.945264914e-9,
       "cch": 0.09123144969,
@@ -585,7 +567,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 15.04866738,
       "acd": 0.444689647,
       "ozd": 6.158378555e-7,
       "cch": 31.3745594,
@@ -617,7 +598,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 15.04866738,
       "acd": 0.5533828188,
       "ozd": 6.144707669e-7,
       "cch": 30.33621596,
@@ -649,7 +629,6 @@
     "category": "material",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 6.54173087,
       "acd": 0.1929274776,
       "ozd": 2.557710685e-7,
       "cch": 13.5280446,
@@ -681,7 +660,6 @@
     "category": "material",
     "comment": "Average holding of 2000 heads (including fattening and background animals, such as reproduction cows and replacement animals), of which 761 are slaughtered over one year. Average live weight at slaughter is 527 kg. Considering the fattening animals only, 629 are slaughtered every year, with an average live weight of 524 kg and an FCR (DMI over weight gain) of 6.47.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.3407809913,
       "ozd": 6.809321151e-7,
       "cch": 20.42224884,
@@ -713,7 +691,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 6.20585509,
       "acd": 0.2401844979,
       "ozd": 2.551766933e-7,
       "cch": 13.07659934,
@@ -745,7 +722,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 15.04866738,
       "acd": 0.7847590643,
       "ozd": 1.593726481e-6,
       "cch": 47.23152458,
@@ -777,7 +753,6 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 6.087620104,
       "acd": 0.1239042674,
       "ozd": 1.633282089e-6,
       "cch": 6.365564945,
@@ -809,7 +784,6 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 6.087620104,
       "acd": 0.1889406744,
       "ozd": 1.675624202e-6,
       "cch": 9.449797504,
@@ -841,7 +815,6 @@
     "category": "ingredient",
     "comment": "Product already packed.",
     "impacts": {
-      "bvi": 6.087620104,
       "acd": 0.1227124629,
       "ozd": 1.634952083e-6,
       "cch": 5.976956565,
@@ -873,7 +846,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 2.988408615,
       "acd": 0.05963402551,
       "ozd": 9.796827224e-8,
       "cch": 2.707805111,
@@ -905,7 +877,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 3.180020982,
       "acd": 0.09189192758,
       "ozd": 1.189698586e-7,
       "cch": 4.23757707,
@@ -937,7 +908,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 10.82526301,
       "acd": 0.5525694,
       "ozd": 6.459290256e-7,
       "cch": 30.27003951,
@@ -969,7 +939,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 5.408719682,
       "acd": 0.09954364004,
       "ozd": 3.398627945e-7,
       "cch": 6.028060193,
@@ -1001,7 +970,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 5.408719682,
       "acd": 0.1698713162,
       "ozd": 4.450698365e-7,
       "cch": 6.204966602,
@@ -1033,7 +1001,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 5.408719682,
       "acd": 0.170538769,
       "ozd": 4.574052016e-7,
       "cch": 6.458888974,
@@ -1065,7 +1032,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 2.767972021,
       "acd": 0.04878622902,
       "ozd": 1.128934718e-7,
       "cch": 2.554735281,
@@ -1097,7 +1063,6 @@
     "category": "material",
     "comment": "",
     "impacts": {
-      "bvi": 3.531479814,
       "acd": 0.08515249935,
       "ozd": 1.672957775e-7,
       "cch": 2.646213154,
@@ -1129,7 +1094,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.728840715,
       "acd": 0.001860702963,
       "ozd": 2.449075574e-8,
       "cch": 0.1608913914,
@@ -1161,7 +1125,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.539152617,
       "acd": 0.001043853042,
       "ozd": 1.470912566e-8,
       "cch": 0.09173512688,
@@ -1193,7 +1156,6 @@
     "category": "ingredient",
     "comment": "BRAZIL",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002357373342,
       "ozd": 1.452813549e-8,
       "cch": 0.1158190906,
@@ -1225,7 +1187,6 @@
     "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
-      "bvi": 0,
       "acd": 0.07014550942,
       "ozd": 1.302589423e-7,
       "cch": 1.862426905,
@@ -1257,7 +1218,6 @@
     "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "impacts": {
-      "bvi": 0,
       "acd": 0.03172138465,
       "ozd": 8.751401178e-8,
       "cch": 1.251789035,
@@ -1289,7 +1249,6 @@
     "category": "ingredient",
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
-      "bvi": 0,
       "acd": 0.03793268774,
       "ozd": 3.576238512e-7,
       "cch": 2.926141215,
@@ -1321,7 +1280,6 @@
     "category": "ingredient",
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "impacts": {
-      "bvi": 0,
       "acd": 0.02036263992,
       "ozd": 3.22485669e-7,
       "cch": 2.098855869,
@@ -1353,7 +1311,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002251478428,
       "ozd": 1.39644206e-8,
       "cch": 0.1686609915,
@@ -1385,7 +1342,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001430362878,
       "ozd": 1.242213465e-8,
       "cch": 0.1506652557,
@@ -1417,7 +1373,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001063020569,
       "ozd": 1.51545277e-8,
       "cch": 0.08498353051,
@@ -1449,7 +1404,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001055930136,
       "ozd": 1.54726007e-8,
       "cch": 0.1092394833,
@@ -1481,7 +1435,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002966754072,
       "ozd": 2.144693708e-8,
       "cch": 0.1937259794,
@@ -1513,7 +1466,6 @@
     "category": "ingredient",
     "comment": "FRANCE",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002346851875,
       "ozd": 2.547973728e-8,
       "cch": 0.2177953028,
@@ -1545,7 +1497,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001605987544,
       "ozd": 2.026981958e-8,
       "cch": 0.1714125947,
@@ -1577,7 +1528,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0009546475062,
       "ozd": 1.72211414e-8,
       "cch": 0.133539105,
@@ -1609,7 +1559,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.08331013834,
       "ozd": 1.674373109e-7,
       "cch": 7.336583023,
@@ -1641,7 +1590,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.07240762151,
       "ozd": 1.324496049e-7,
       "cch": 6.280843946,
@@ -1673,7 +1621,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-9,
       "cch": 0.06625188562,
@@ -1705,7 +1652,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-8,
       "cch": 0.1587384206,
@@ -1737,7 +1683,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-8,
       "cch": 0.1616214521,
@@ -1769,7 +1714,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004458319487,
       "ozd": 1.906621473e-8,
       "cch": 0.1200867845,
@@ -1801,7 +1745,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.940864665,
       "acd": 0.008923922824,
       "ozd": 3.866495553e-8,
       "cch": 0.7143680097,
@@ -1833,7 +1776,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.1133,
       "acd": 0.006144392303,
       "ozd": 7.353807826e-8,
       "cch": 1.638704479,
@@ -1865,7 +1807,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.3318,
       "acd": 0.01287421765,
       "ozd": 7.898914533e-8,
       "cch": 2.909334096,
@@ -1897,7 +1838,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.0011,
       "acd": 0.01282078396,
       "ozd": 4.195783179e-8,
       "cch": 3.52400611,
@@ -1929,7 +1869,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.3211,
       "acd": 0.008712767906,
       "ozd": 1.196457781e-7,
       "cch": 0.8831991427,
@@ -1961,7 +1900,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.0003,
       "acd": 0.006785006284,
       "ozd": 2.640770067e-8,
       "cch": 1.887252225,
@@ -1993,7 +1931,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 1.1059,
       "acd": 0.004426110331,
       "ozd": 1.062404095e-7,
       "cch": 0.9163960642,
@@ -2025,7 +1962,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 7.4795,
       "acd": 0.004421731759,
       "ozd": 5.862095436e-8,
       "cch": 0.5268108257,
@@ -2057,7 +1993,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.0004,
       "acd": 0.0084017501,
       "ozd": 1.145316566e-6,
       "cch": 1.891856775,
@@ -2089,7 +2024,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.245,
       "acd": 0.01157769005,
       "ozd": 1.495384613e-5,
       "cch": 2.723814919,
@@ -2121,7 +2055,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.0004,
       "acd": 0.007054877738,
       "ozd": 4.256903162e-8,
       "cch": 1.91037823,
@@ -2153,7 +2086,6 @@
     "category": "packaging",
     "comment": "",
     "impacts": {
-      "bvi": 0.94,
       "acd": 0.2010656652,
       "ozd": 6.042817606e-7,
       "cch": 20.60970542,
@@ -2185,7 +2117,6 @@
     "category": "transformation",
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "impacts": {
-      "bvi": 0.0089,
       "acd": 0.00034921619,
       "ozd": 7.277461067e-9,
       "cch": 0.06989824394,
@@ -2217,7 +2148,6 @@
     "category": "transformation",
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0,
       "ozd": 0.0,
       "cch": 0.0,
@@ -2249,7 +2179,6 @@
     "category": "transformation",
     "comment": "",
     "impacts": {
-      "bvi": 0.012,
       "acd": 0.001071959698,
       "ozd": 1.544271675e-8,
       "cch": 0.1375809811,
@@ -2281,7 +2210,6 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0.055765784,
       "acd": 0.0006744458817,
       "ozd": 3.841090909e-8,
       "cch": 0.1649178564,
@@ -2313,7 +2241,6 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0.000292724,
       "acd": 0.00030586699,
       "ozd": 1.867315112e-9,
       "cch": 0.009358552005,
@@ -2345,7 +2272,6 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0.012214369,
       "acd": 0.003938886108,
       "ozd": 1.73920225e-7,
       "cch": 0.7588530119,
@@ -2377,7 +2303,6 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0004537352686,
       "ozd": 4.213638586e-9,
       "cch": 0.02076433973,
@@ -2409,7 +2334,6 @@
     "category": "transport",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.00105646401,
       "ozd": 7.080355415e-8,
       "cch": 0.2903140091,
@@ -2441,7 +2365,6 @@
     "category": "energy",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0005211115145,
       "ozd": 9.152534817e-9,
       "cch": 0.0858905795,
@@ -2473,7 +2396,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 1.837222173e-6,
       "ozd": 2.207175443e-11,
       "cch": 0.0003241962812,
@@ -2505,7 +2427,6 @@
     "category": "energy",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 8.941536142e-5,
       "ozd": 8.097868353e-9,
       "cch": 0.07490435835,
@@ -2537,7 +2458,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002474623816,
       "ozd": 4.275096111e-8,
       "cch": 0.3825325813,
@@ -2569,7 +2489,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.006443464489,
       "ozd": 3.94192098e-8,
       "cch": 0.3951920591,
@@ -2601,7 +2520,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.131792529,
       "acd": 0.001360300191,
       "ozd": 2.021899175e-8,
       "cch": 0.1969220817,
@@ -2633,7 +2551,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.074402694,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-8,
       "cch": 0.1519781873,
@@ -2665,7 +2582,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0579921312,
       "ozd": 1.785746965e-7,
       "cch": 5.357304046,
@@ -2697,7 +2613,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.06097697679,
       "ozd": 1.797979299e-7,
       "cch": 5.602059731,
@@ -2729,7 +2644,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.04454688761,
       "ozd": 1.401626808e-7,
       "cch": 4.096169136,
@@ -2761,7 +2675,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004059475034,
       "ozd": 2.713816785e-7,
       "cch": 1.672148436,
@@ -2793,7 +2706,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 57559834624",
     "impacts": {
-      "bvi": 0,
       "acd": 0.01574045498,
       "ozd": 7.27190679e-8,
       "cch": 2.858319577,
@@ -2825,7 +2737,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001234928752,
       "ozd": 1.714410002e-8,
       "cch": 0.1519781873,
@@ -2857,7 +2768,6 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003618111182,
       "ozd": 1.216415426e-8,
       "cch": 0.1063274777,
@@ -2889,7 +2799,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003947979106,
       "ozd": 2.521871141e-8,
       "cch": 0.2546589625,
@@ -2921,7 +2830,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003947979106,
       "ozd": 2.521871141e-8,
       "cch": 0.2546589625,
@@ -2953,7 +2861,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-9,
       "cch": 0.06519435654,
@@ -2985,7 +2892,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-8,
       "cch": 0.09007249944,
@@ -3017,7 +2923,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0008604068401,
       "ozd": 6.638499864e-9,
       "cch": 0.1025850566,
@@ -3049,7 +2954,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0008604068401,
       "ozd": 6.638499864e-9,
       "cch": 0.1025850566,
@@ -3081,7 +2985,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 18174699520",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002746065099,
       "ozd": 2.795967777e-8,
       "cch": 0.3766522964,
@@ -3113,7 +3016,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 8969982976",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002567304112,
       "ozd": 2.202318634e-8,
       "cch": 0.3766005634,
@@ -3145,7 +3047,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-9,
       "cch": 0.06519435654,
@@ -3177,7 +3078,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-8,
       "cch": 0.09007249944,
@@ -3209,7 +3109,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.005172325716,
       "ozd": 7.859095882e-8,
       "cch": 0.430361257,
@@ -3241,7 +3140,6 @@
     "category": "ingredient",
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. This dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. The infrastructure are excluded as well as the mushroom packaging.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.01267641142,
       "ozd": 1.092132364e-7,
       "cch": 4.140418399,
@@ -3273,7 +3171,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.02139517193,
       "ozd": 1.991094153e-7,
       "cch": 1.459217034,
@@ -3305,7 +3202,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.02059834014,
       "ozd": 1.997213192e-7,
       "cch": 1.456426436,
@@ -3337,7 +3233,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-8,
       "cch": 0.2555257988,
@@ -3369,7 +3264,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 28512262144",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001360464686,
       "ozd": 1.51578403e-8,
       "cch": 0.2078829362,
@@ -3401,7 +3295,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-8,
       "cch": 0.2555257988,
@@ -3433,7 +3326,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 28983492608",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001689315419,
       "ozd": 1.460983768e-8,
       "cch": 0.2632261756,
@@ -3465,7 +3357,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-8,
       "cch": 0.2555257988,
@@ -3497,7 +3388,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004016547267,
       "ozd": 2.525976641e-8,
       "cch": 0.2555257988,
@@ -3529,7 +3419,6 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 37000 kg/haProduction Volume Amount: 674371008",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002552098718,
       "ozd": 1.26876026e-8,
       "cch": 0.1184020749,
@@ -3561,7 +3450,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-8,
       "cch": 0.1587384206,
@@ -3593,7 +3481,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001975978247,
       "ozd": 1.611596758e-8,
       "cch": 0.1587384206,
@@ -3625,7 +3512,6 @@
     "category": "ingredient",
     "comment": "MOROCCO",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003326450011,
       "ozd": 3.940592053e-8,
       "cch": 0.2793400762,
@@ -3657,7 +3543,6 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit qualityProduction Volume Amount: 2046639488",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002950977977,
       "ozd": 1.349945578e-8,
       "cch": 0.003349365636,
@@ -3689,7 +3574,6 @@
     "category": "ingredient",
     "comment": "SPAIN",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003038615453,
       "ozd": 1.307364277e-8,
       "cch": 0.150200231,
@@ -3721,7 +3605,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001018087108,
       "ozd": 9.386677386e-9,
       "cch": 0.06625188562,
@@ -3753,7 +3636,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-8,
       "cch": 0.1616214521,
@@ -3785,7 +3667,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 240114696192",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002566396981,
       "ozd": 2.88194829e-8,
       "cch": 0.3510746972,
@@ -3817,7 +3698,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002151058724,
       "ozd": 3.565603861e-8,
       "cch": 0.4785456236,
@@ -3849,7 +3729,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.005628138672,
       "ozd": 3.36844567e-8,
       "cch": 0.2300959147,
@@ -3881,7 +3760,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.03454653631,
       "ozd": 7.425109575e-8,
       "cch": 0.8864299594,
@@ -3913,7 +3791,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002151058724,
       "ozd": 3.565603861e-8,
       "cch": 0.4785456236,
@@ -3945,7 +3822,6 @@
     "category": "ingredient",
     "comment": "This process describes the average process of kiwifruits transformed in France. Transformations include fruit sorting, washing and energy necessary for packaging.  Consumptions are based several french kiwifruit producers and 1 greek producer (EPD Zeus). Transport from the farm gates to the conditionning site have been counted. 50% is assumed to come by tractor and the other 50% by truck lorryTransport is included from farm gates to the conditionning plant. We assume that 50% of the quinoa is delivered by tractor and 50% by lorry.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.003677914248,
       "ozd": 2.727632458e-8,
       "cch": 0.3552698235,
@@ -3977,7 +3853,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.001822775007,
       "ozd": 1.198603017e-8,
       "cch": 0.1616214521,
@@ -4009,7 +3884,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.008045804476,
       "ozd": 2.460906952e-8,
       "cch": 0.3829091812,
@@ -4041,7 +3915,6 @@
     "category": "ingredient",
     "comment": "According to Strik 2008: typical Yield_s in Europe are from 5 to 8 t/haand to http://www.usz.gov.rs/files/publikacije/FruitIndustryInSerbia.pdf: 4.8 t/ha. The average is considered",
     "impacts": {
-      "bvi": 0,
       "acd": 0.02592290188,
       "ozd": 4.340160811e-8,
       "cch": 0.5928820896,
@@ -4073,7 +3946,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.01445483472,
       "ozd": 2.070756097e-7,
       "cch": 0.5504869224,
@@ -4105,7 +3977,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0009895753187,
       "ozd": 7.951235927e-9,
       "cch": 0.06519435654,
@@ -4137,7 +4008,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0008866612747,
       "ozd": 2.276379582e-8,
       "cch": 0.09007249944,
@@ -4169,7 +4039,6 @@
     "category": "ingredient",
     "comment": "FAOstats average 2013-2017",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0341275994,
       "ozd": 1.248736204e-7,
       "cch": 2.194991251,
@@ -4201,7 +4070,6 @@
     "category": "ingredient",
     "comment": "Reference flow: Yield = 2570 kg/haProduction Volume Amount: 650947008",
     "impacts": {
-      "bvi": 0,
       "acd": 0.006969044406,
       "ozd": 8.797253962e-8,
       "cch": 3.044161476,
@@ -4233,7 +4101,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.00364908551,
       "ozd": 2.86454837e-8,
       "cch": 0.2886906925,
@@ -4265,7 +4132,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002474623816,
       "ozd": 4.275096111e-8,
       "cch": 0.3825325813,
@@ -4297,7 +4163,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.003748176586,
       "ozd": 1.208721492e-8,
       "cch": 0.3030167581,
@@ -4329,7 +4194,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 34497462272",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002781039964,
       "ozd": 2.165017857e-8,
       "cch": 0.5443616356,
@@ -4361,7 +4225,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.005172325716,
       "ozd": 7.859095882e-8,
       "cch": 0.430361257,
@@ -4393,7 +4256,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.002651525846,
       "ozd": 2.852118269e-8,
       "cch": 0.4605271062,
@@ -4425,7 +4287,6 @@
     "category": "ingredient",
     "comment": "Rdt mean = 2,25 t/ha",
     "impacts": {
-      "bvi": 0,
       "acd": 0.006887214886,
       "ozd": 4.985304801e-8,
       "cch": 0.8150970721,
@@ -4457,7 +4318,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "impacts": {
-      "bvi": 0,
       "acd": 0.00176247041,
       "ozd": 2.736398573e-8,
       "cch": 0.9630220579,
@@ -4489,7 +4349,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004034871574,
       "ozd": 3.388084879e-8,
       "cch": 2.622717626,
@@ -4521,7 +4380,6 @@
     "category": "ingredient",
     "comment": "None",
     "impacts": {
-      "bvi": 0,
       "acd": 0.1553444745,
       "ozd": 1.02515047e-6,
       "cch": 7.893791511,
@@ -4553,7 +4411,6 @@
     "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.2588552628,
       "ozd": 1.46335519e-6,
       "cch": 14.38334443,
@@ -4585,7 +4442,6 @@
     "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "impacts": {
-      "bvi": 0,
       "acd": 0.2599272225,
       "ozd": 1.478797907e-6,
       "cch": 14.52092541,
@@ -4617,7 +4473,6 @@
     "category": "ingredient",
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "impacts": {
-      "bvi": 0,
       "acd": 0.004407947465,
       "ozd": 5.597643664e-8,
       "cch": 0.5626626343,
@@ -4649,7 +4504,6 @@
     "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "impacts": {
-      "bvi": 0,
       "acd": 0.01443885901,
       "ozd": 3.516727712e-7,
       "cch": 2.425432328,
@@ -4681,7 +4535,6 @@
     "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "impacts": {
-      "bvi": 0,
       "acd": 0.02468088422,
       "ozd": 5.322442583e-7,
       "cch": 3.720333552,
@@ -4713,7 +4566,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.2895769696,
       "ozd": 3.934447147e-7,
       "cch": 20.35132619,
@@ -4745,7 +4597,6 @@
     "category": "ingredient",
     "comment": "This dataset includes packaging",
     "impacts": {
-      "bvi": 0,
       "acd": 0.3621961849,
       "ozd": 4.930407211e-7,
       "cch": 25.48660615,
@@ -4777,7 +4628,6 @@
     "category": "ingredient",
     "comment": "This dataset includes packaging",
     "impacts": {
-      "bvi": 0,
       "acd": 0.3621961849,
       "ozd": 4.930407211e-7,
       "cch": 25.48660615,
@@ -4809,7 +4659,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.0170529158,
       "ozd": 8.380743606e-8,
       "cch": 1.247353241,
@@ -4841,7 +4690,6 @@
     "category": "ingredient",
     "comment": "Economic allocation",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.02468827024,
       "ozd": 4.361355067e-8,
       "cch": 0.515806336,
@@ -4873,7 +4721,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.02593047382,
       "ozd": 1.225442756e-7,
       "cch": 15.69331705,
@@ -4905,7 +4752,6 @@
     "category": "ingredient",
     "comment": "Production Volume Amount: 23176521728",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.0007450989084,
       "ozd": 6.21869615e-9,
       "cch": 0.09696636191,
@@ -4937,7 +4783,6 @@
     "category": "ingredient",
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)India is considered since it is a major banana producer, with 29% of global production.",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.004365952505,
       "ozd": 2.233634243e-8,
       "cch": 0.2052620653,
@@ -4969,7 +4814,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.09201575765,
       "ozd": 4.068694807e-7,
       "cch": 8.372549916,
@@ -5001,7 +4845,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0,
       "acd": 0.09681152853,
       "ozd": 3.256937872e-7,
       "cch": 4.685580655,
@@ -5033,7 +4876,6 @@
     "category": "ingredient",
     "comment": "",
     "impacts": {
-      "bvi": 0.0,
       "acd": 0.01297225184,
       "ozd": 1.203533872e-7,
       "cch": 0.9325923362,
