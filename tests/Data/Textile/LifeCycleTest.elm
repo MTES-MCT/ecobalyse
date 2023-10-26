@@ -1,8 +1,9 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
 import Data.Country as Country
-import Data.Textile.Inputs exposing (tShirtCotonFrance)
-import Data.Textile.LifeCycle as LifeCycle
+import Data.Textile.Db as TextileDb
+import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
+import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Expect
 import Length
 import Test exposing (..)
@@ -14,6 +15,17 @@ km =
     Length.kilometers
 
 
+lifeCycleToTransports : TextileDb.Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
+lifeCycleToTransports textileDb query lifeCycle =
+    query
+        |> Inputs.fromQuery textileDb
+        |> Result.map .materials
+        |> Result.map
+            (\materials ->
+                LifeCycle.computeStepsTransport textileDb materials lifeCycle
+            )
+
+
 suite : Test
 suite =
     suiteWithDb "Data.LifeCycle"
@@ -21,18 +33,22 @@ suite =
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
                     |> LifeCycle.fromQuery textileDb
-                    |> Result.map (LifeCycle.computeStepsTransport textileDb)
+                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonFrance)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 3000, 21549 ))
                     |> asTest "should compute default distances"
-                , LifeCycle.fromQuery textileDb
-                    { tShirtCotonFrance
-                        | countryFabric = Country.Code "FR"
-                        , countryDyeing = Country.Code "IN" -- Ennoblement in India
-                        , countryMaking = Country.Code "FR"
-                    }
-                    |> Result.map (LifeCycle.computeStepsTransport textileDb)
+                , let
+                    tShirtCotonEnnoblementIndia =
+                        { tShirtCotonFrance
+                            | countryFabric = Country.Code "FR"
+                            , countryDyeing = Country.Code "IN" -- Ennoblement in India
+                            , countryMaking = Country.Code "FR"
+                        }
+                  in
+                  tShirtCotonEnnoblementIndia
+                    |> LifeCycle.fromQuery textileDb
+                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonEnnoblementIndia)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2000, 45471 ))

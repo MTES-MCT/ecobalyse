@@ -556,7 +556,7 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
 computeStepsTransport : TextileDb.Db -> Simulator -> Simulator
 computeStepsTransport db simulator =
     simulator.lifeCycle
-        |> LifeCycle.computeStepsTransport db
+        |> LifeCycle.computeStepsTransport db simulator.inputs.materials
         |> (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
 
 
