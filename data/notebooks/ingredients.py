@@ -163,6 +163,8 @@ w_institut = ipywidgets.Dropdown(
         "CTCPA",
         "ITAVI",
         "IDELE",
+        "Terres Inovia",
+        "CTIFL",
     ],
     value=None,
     style=style,
