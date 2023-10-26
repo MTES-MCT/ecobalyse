@@ -124,7 +124,7 @@ deleteItemButton : { disabled : Bool } -> msg -> Html msg
 deleteItemButton { disabled } event =
     button
         [ type_ "button"
-        , class "baseElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
+        , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
         , Attr.disabled disabled

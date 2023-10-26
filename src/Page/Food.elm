@@ -578,7 +578,7 @@ deleteItemButton : Msg -> Html Msg
 deleteItemButton event =
     button
         [ type_ "button"
-        , class "IngredientDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
+        , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer cet ingrédient"
         , onClick event
         ]
@@ -713,7 +713,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                     text ""
                , displayTransportDistances db recipeIngredient ingredientQuery event
                , span
-                    [ class "text-black-50 text-end IngredientTransportImpact fs-8"
+                    [ class "text-black-50 text-end ElementTransportImpact fs-8"
                     , title "Impact du transport pour cet ingrédient"
                     ]
                     [ text "(+ "
@@ -777,7 +777,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, titl
 
 displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances db ingredient ingredientQuery event =
-    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
             let
                 isByPlane =

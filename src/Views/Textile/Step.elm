@@ -36,7 +36,7 @@ import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
-import Views.CountrySelect
+import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.RangeSlider as RangeSlider
@@ -80,48 +80,30 @@ type alias ViewWithTransport msg =
 
 
 countryField : Config msg modal -> Html msg
-countryField { db, current, inputs, updateCountry } =
-    let
-        nonEditableCountry content =
+countryField { db, current, updateCountry } =
+    div []
+        [ if current.editable then
+            CountrySelect.view
+                { attributes =
+                    [ class "form-select"
+                    , disabled (not current.enabled)
+                    , onInput (Country.codeFromString >> updateCountry current.label)
+                    ]
+                , countries = db.countries
+                , onSelect = updateCountry current.label
+                , scope = Scope.Textile
+                , selectedCountry = current.country.code
+                }
+
+          else
             div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
                 [ span
                     [ class "cursor-help"
                     , title "Le pays n'est pas modifiable à cet étape"
                     ]
                     [ Icon.lock ]
-                , content
+                , text current.country.name
                 ]
-    in
-    div []
-        [ case ( current.label, current.editable ) of
-            ( Label.Material, _ ) ->
-                nonEditableCountry
-                    (case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                        Ok geographicOrigin ->
-                            text <| geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                        Err _ ->
-                            -- Would mean materials list is basically empty, which should
-                            -- (can) never happen at this stage in the views;
-                            -- FIXME: move to use non-empty list at some point
-                            text current.country.name
-                    )
-
-            ( _, False ) ->
-                nonEditableCountry (text current.country.name)
-
-            ( _, True ) ->
-                Views.CountrySelect.view
-                    { attributes =
-                        [ class "form-select"
-                        , disabled (not current.editable || not current.enabled)
-                        , onInput (Country.codeFromString >> updateCountry current.label)
-                        ]
-                    , countries = db.countries
-                    , onSelect = updateCountry current.label
-                    , scope = Scope.Textile
-                    , selectedCountry = current.country.code
-                    }
         ]
 
 
@@ -692,6 +674,16 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
             (inputs.materials
                 |> List.map
                     (\materialInput ->
+                        let
+                            nextCountry =
+                                config.next
+                                    |> Maybe.withDefault config.current
+                                    |> .country
+
+                            transport =
+                                materialInput
+                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
+                        in
                         li [ class "ElementFormWrapper list-group-item" ]
                             (List.concat
                                 [ materialInput
@@ -704,6 +696,26 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                                   else
                                     []
+                                , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
+                                        (transport
+                                            |> TransportView.viewDetails
+                                                { fullWidth = False
+                                                , hideNoLength = True
+                                                , onlyIcons = False
+                                                , airTransportLabel = Nothing
+                                                , seaTransportLabel = Nothing
+                                                , roadTransportLabel = Nothing
+                                                }
+                                        )
+                                  , span
+                                        [ class "text-black-50 text-end ElementTransportImpact fs-8"
+                                        , title "Impact du transport pour cette matière"
+                                        ]
+                                        [ text "(+ "
+                                        , Format.formatImpact selectedImpact transport.impacts
+                                        , text ")"
+                                        ]
+                                  ]
                                 ]
                             )
                     )
@@ -816,21 +828,14 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
             { id = materialInput.material.id
             , share = materialInput.share
             , spinning = materialInput.spinning
+            , country = materialInput.country |> Maybe.map .code
             }
 
         baseElement =
             { element = materialInput.material
             , quantity = materialInput.share
-            , country = Nothing
+            , country = materialInput.country
             }
-
-        defaultCountry =
-            case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
-                Ok geographicOrigin ->
-                    geographicOrigin ++ " (" ++ current.country.name ++ ")"
-
-                Err _ ->
-                    ""
 
         excluded =
             inputs.materials
@@ -850,11 +855,11 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 |> List.sortBy .name
         , definitions = db.impactDefinitions
         }
-    , defaultCountry = defaultCountry
+    , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
 
     -- No country selection for now
-    , disableCountry = True
+    , disableCountry = False
     , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
@@ -876,6 +881,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 { materialQuery
                     | id = newElement.element.id
                     , share = newElement.quantity
+                    , country = newElement.country |> Maybe.map .code
                 }
     }
 
