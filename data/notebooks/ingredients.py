@@ -106,7 +106,6 @@ FIELDS = {
     "search": "Termes de recherche",
     "default_origin": "Origine par défaut",
     "category": "Catégorie de procédé",
-    "bvi": "Bio-diversité",
     # ingredients attributes
     "categories": "Catégories d'ingrédient",
     "raw_to_cooked_ratio": "Cooked/Raw ratio",
@@ -328,13 +327,6 @@ w_inedible = ipywidgets.Dropdown(
 )
 ## Enable/disable the ingredient
 w_visible = ipywidgets.Checkbox(indent=False, style=style, value=True)
-## Biodiv
-w_bvi = ipywidgets.BoundedFloatText(
-    placeholder="0",
-    # value=0,
-    min=0,
-    style=style,
-)
 w_explain = ipywidgets.Textarea(
     placeholder="Indiquez tous les commentaires nécessaires à la bonne compréhension des choix qui ont été faits, afin d'assurer la traçabilité de l'info",
     layout=ipywidgets.Layout(width="450px", height="200px"),
@@ -419,7 +411,8 @@ def list_activities():
     df.set_properties(**{"background-color": "#EEE"})
     display(
         ipywidgets.HTML(
-            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}"
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}",
+            layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         ),
     )
 
@@ -461,7 +454,6 @@ def clear_form():
     w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
-    w_bvi.value = 0
     w_complement_agrodiv.value = 0
     w_complement_agroeco.value = 0
     w_complement_animal_welfare.disabled = False
@@ -483,7 +475,7 @@ def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
-def change_categories(change):
+def change_categories(_):
     w_complement_animal_welfare.disabled = (
         False
         if "animal_product" in w_categories.value
@@ -523,7 +515,6 @@ def change_id(change):
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_bvi, i.get("bvi"), 0)
     set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
     set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
     set_field(
@@ -561,7 +552,6 @@ def add_activity(_):
         "inedible_part": w_inedible.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "bvi": w_bvi.value,
         "explain": w_explain.value,
         "complements.agro-diversity": w_complement_agrodiv.value,
         "complements.agro-ecology": w_complement_agroeco.value,
@@ -880,17 +870,6 @@ display(
                             w_category,
                         ),
                     ),
-                    ipywidgets.HTML(
-                        "<hr/>Gardez la valeur par défaut 0 pour la valeur de bio-diversité :"
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["bvi"],
-                            ),
-                            w_bvi,
-                        ),
-                    ),
                     ipywidgets.Accordion(
                         titles=["Si le procédé est un ingrédient"],
                         children=[
@@ -1009,19 +988,11 @@ display(
                                             w_explain,
                                         ),
                                     ),
-                                ),
-                            ),
-                        ],
-                    ),
-                    ipywidgets.Accordion(
-                        titles=["Compléments hors ACV pour les ingredients"],
-                        children=[
-                            ipywidgets.VBox(
-                                (
                                     ipywidgets.HTML(
-                                        """Voir la <a style="color:blue"
+                                        """<hr/>Pour les compléments hors ACV, voir
+                                        la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
-                                        sur les compléments hors ACV"""
+                                        """
                                     ),
                                     ipywidgets.HBox(
                                         (

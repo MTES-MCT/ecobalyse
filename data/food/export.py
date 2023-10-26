@@ -108,8 +108,7 @@ if __name__ == "__main__":
                 "comment"
             ],
             # those are removed at the end:
-            "search": activity["search"],
-            "impacts": {"bvi": activity.get("bvi", 0)},
+            "search": activity["search"]
         }
         for activity in activities
     }
