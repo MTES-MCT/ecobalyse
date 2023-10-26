@@ -7,14 +7,13 @@
 * un **coût environnemental**, traduisant la version beta de méthodologie présentée aux partenaires le 27 mars 2023, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
 * un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
 
-**20 catégories d'impacts**, utilisées pour composer les impacts agrégés, sont également proposés :&#x20;
+**19 catégories d'impacts**, utilisées pour composer les impacts agrégés, sont également proposés :&#x20;
 
 * les 16 catégories d'impacts de la méthode PEF ([lien](impacts-consideres.md#16-categories-dimpacts-pef))
-* 1 catégorie d'impact "biodiversité locale" ([lien](impacts-consideres.md#indicateur-de-biodiversite-locale))
 * 3 catégories d'impacts corrigées, relatives à la toxicité et à l'écotoxicité (l[ien](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges))
 
 {% hint style="info" %}
-Une 21ème catégorie d'impact, relative à la biodiversité marine, est susceptible d'être introduite dans les prochains mois, en fonction des conclusions d'un groupe de travail dédié.
+Une autre catégorie d'impact, relative à la biodiversité marine, est susceptible d'être introduite dans les prochains mois, en fonction des conclusions d'un groupe de travail dédié.
 {% endhint %}
 
 ## Nomalisations et pondérations
@@ -32,21 +31,18 @@ Pour la construction du coût environnemental, **il est considéré les même ni
 Pour la **pondération**, les coefficients appliqués au coût environnemental sont établis comme suit : &#x20;
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
-* l'indicateur d'atteinte à la biodiversité locale est introduit avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
 *   les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer), [considérés dans leurs versions corrigées](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges), sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;
 
     _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
 *   les autres pondérations sont proportionnelles aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100% après l'introduction des trois modifications précédentes.
 
-    _Cette modification revient environ à réduire de 26% la pondération des 12 indicateurs concernés_.
+    _Cette modification revient environ à réduire d'environ 6% la pondération des 12 indicateurs concernés_.
 
 {% hint style="info" %}
-Dans l'hypothèse où un nouvel indicateur, relatif à la biodiversité marine, serait introduit, celui-ci pourrait se voir appliqué un coefficient de pondération de 12,5%, identique à celui appliqué à la biodiversité locale (terrestre).
+Dans l'hypothèse où un nouvel indicateur, relatif à la biodiversité marine, serait introduit, celui-ci pourrait se voir appliqué un coefficient de pondération de 12,5%.
 
 Dans cette hypothèse, la réduction homothétique de la pondération des 12 autres impacts devrait être plus importante, afin que la somme des pondérations reste à 100%. Elle serait alors de 43% (vs 26% dans la version beta de la méthodologie).
 {% endhint %}
-
-<figure><img src="../.gitbook/assets/chart (6).png" alt=""><figcaption><p>Bilan des évolutions de pondération entre le coût environnemental et le score PEF</p></figcaption></figure>
 
 ## Visualisation dans l'outil de comparaison
 
