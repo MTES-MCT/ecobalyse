@@ -1186,7 +1186,7 @@
     }
   },
   {
-    "id": "comte-AOP",
+    "id": "comte-aop",
     "name": "Comté AOP",
     "search": "code:b9b650a42442d76be26feb783620f123",
     "category": "ingredient",
@@ -2597,9 +2597,7 @@
     "name": "Fraise - hors saison (sortie de ferme)",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate/",
     "category": "ingredient",
-    "categories": [
-      "vegetable_fresh"
-    ],
+    "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2617,9 +2615,7 @@
     "name": "Avocat (sortie de ferme)",
     "search": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent ",
     "category": "ingredient",
-    "categories": [
-      "vegetable_fresh"
-    ],
+    "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2638,9 +2634,7 @@
     "name": "Olive (sortie de ferme)",
     "search": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": [
-      "animal_product"
-    ],
+    "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -2659,9 +2653,7 @@
     "name": "Huile d'olive ",
     "search": "Extra Virgin Olive Oil, at plant {ES",
     "category": "ingredient",
-    "categories": [
-      "nut_oilseed_processed"
-    ],
+    "categories": ["nut_oilseed_processed"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2679,9 +2671,7 @@
     "name": "Thé (feuilles)",
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": [
-      "misc"
-    ],
+    "categories": ["misc"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2699,9 +2689,7 @@
     "name": "Café (moulu)",
     "search": "Coffee, roast and ground, at plant",
     "category": "ingredient",
-    "categories": [
-      "misc"
-    ],
+    "categories": ["misc"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2719,9 +2707,7 @@
     "name": "Poivre noir ",
     "search": "Black pepper, dried, consumption mix",
     "category": "ingredient",
-    "categories": [
-      "spice_condiment_additive"
-    ],
+    "categories": ["spice_condiment_additive"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
