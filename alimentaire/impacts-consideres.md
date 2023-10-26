@@ -68,19 +68,6 @@ Pour chacun des inventaires de cycle de vie mobilisés, les impacts relatifs aux
 
 Les inventaires sélectionnés, notamment pour décrire chaque ingrédient, sont introduits dans les pages de la méthodologie relatives à chaque ingrédient.&#x20;
 
-## Indicateur d'atteinte à la biodiversité locale
-
-Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment).
-
-Le calcul du BVI (biodiversity value increment), a été appliqué à chacun des inventaires de cycle de vie Agribalyse mobilisé dans Ecobalyse. Il mobilise des paramètres tels que :&#x20;
-
-* la richesse initiale de la biodiversité à travers un facteur d'écorégion (forêts tropicales, forêts tempérées...) ;
-* le niveau de dégradation de cette biodiversité, en intégrant des paramètres comme le travail du sol, la fertilisation ou encore l'écotoxicité.
-
-Pour les produits d'origine animale, ce calcul prend bien en compte les hypothèses relatives à l'alimentation des animaux, telles que présentes dans les inventaires de cycle de vie Agribalyse.
-
-Un facteur de normalisation est introduit (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/food)). Il correspond au niveau de BVI calculé sur l'ensemble de la planète.
-
 ## Correction des indicateurs de toxicité et d'écotoxicité
 
 ### Amplification des impacts de toxicité humaine et écotoxicité organique

@@ -13,9 +13,9 @@ La principale différence entre le Coût Environnemental et le Score PEF consist
 
 12 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse, conformément au référentiel méthodologique de l’Ademe.&#x20;
 
-Plus de 16 indicateurs seront disponibles d'ici fin 2023 suite à la finalisation de deux chantiers : \
-\- enrichissement de la base de données (cf. travaux ADEME sur la Base Empreinte),\
-\- travaux méthodologiques Alimentaire (ex : introduction de l'indicateur "Biodiversité locale"). \
+Plus de 16 indicateurs seront disponibles d'ici fin 2023 suite à la finalisation de chantiers : \
+\- enrichissement de la base de données (cf. travaux ADEME sur la Base Empreinte)
+
 \
 A date, les 12 indicateurs utilisés dans l'outil sont :&#x20;
 

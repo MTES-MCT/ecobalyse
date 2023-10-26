@@ -19,7 +19,7 @@ Certaines pratiques agricoles peuvent avoir des externalités positives, telles 
 
 ### La biodiversité territoriale&#x20;
 
-L’ACV, à travers notamment le nouvel indicateur de biodiversité locale, intègre une dimension biodiversité à l’échelle de la parcelle. Il ne permet cependant pas d’évaluer la contribution de certaines pratiques au maintien et à la préservation de la biodiversité à l'échelle territoriale, dimensions pourtant essentielles pour évaluer de manière complète la durabilité des systèmes de productions agricoles : **continuités écologiques**, **limitation de la fragmentation des habitats**, **maintien et entretien des trames vertes** et des **zones refuges**, **régulation naturelle des ravageurs de cultures**, etc.
+L’ACV intègre une dimension biodiversité à l’échelle de la parcelle. Il ne permet cependant pas d’évaluer la contribution de certaines pratiques au maintien et à la préservation de la biodiversité à l'échelle territoriale, dimensions pourtant essentielles pour évaluer de manière complète la durabilité des systèmes de productions agricoles : **continuités écologiques**, **limitation de la fragmentation des habitats**, **maintien et entretien des trames vertes** et des **zones refuges**, **régulation naturelle des ravageurs de cultures**, etc.
 
 ### La résilience territoriale&#x20;
 
