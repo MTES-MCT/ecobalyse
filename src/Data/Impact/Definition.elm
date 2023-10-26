@@ -54,7 +54,6 @@ type alias AggregatedScoreData =
 
 type Trigram
     = Acd
-    | Bvi
     | Cch
     | Etf
     | EtfC
@@ -97,7 +96,6 @@ type alias Base a =
        * processes impacts (Data.Impacts)
     -}
     { acd : a
-    , bvi : a
     , cch : a
     , etf : a
     , etfc : a
@@ -134,7 +132,6 @@ type alias Definitions =
 init : a -> Base a
 init a =
     { acd = a
-    , bvi = a
     , cch = a
     , etf = a
     , etfc = a
@@ -165,9 +162,6 @@ update trigram updateFunc definitions =
     case trigram of
         Acd ->
             { definitions | acd = updateFunc definitions.acd }
-
-        Bvi ->
-            { definitions | bvi = updateFunc definitions.bvi }
 
         Cch ->
             { definitions | cch = updateFunc definitions.cch }
@@ -234,7 +228,6 @@ update trigram updateFunc definitions =
 trigrams : List Trigram
 trigrams =
     [ Acd
-    , Bvi
     , Cch
     , Etf
     , EtfC
@@ -271,9 +264,6 @@ get trigram definitions =
     case trigram of
         Acd ->
             definitions.acd
-
-        Bvi ->
-            definitions.bvi
 
         Cch ->
             definitions.cch
@@ -340,7 +330,6 @@ get trigram definitions =
 map : (Trigram -> a -> b) -> Base a -> Base b
 map func definitions =
     { acd = func Acd definitions.acd
-    , bvi = func Bvi definitions.bvi
     , cch = func Cch definitions.cch
     , etf = func Etf definitions.etf
     , etfc = func EtfC definitions.etfc
@@ -396,9 +385,6 @@ toString trigram =
     case trigram of
         Acd ->
             "acd"
-
-        Bvi ->
-            "bvi"
 
         Cch ->
             "cch"
@@ -467,9 +453,6 @@ toTrigram str =
     case str of
         "acd" ->
             Ok Acd
-
-        "bvi" ->
-            Ok Bvi
 
         "cch" ->
             Ok Cch
@@ -549,7 +532,6 @@ decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Base a)
 decodeWithoutAggregated decoder =
     Decode.succeed Base
         |> Pipe.required "acd" (decoder "acd")
-        |> Pipe.required "bvi" (decoder "bvi")
         |> Pipe.required "cch" (decoder "cch")
         |> Pipe.required "etf" (decoder "etf")
         |> Pipe.required "etf-c" (decoder "etf-c")

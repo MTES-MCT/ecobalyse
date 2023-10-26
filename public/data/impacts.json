@@ -55,7 +55,7 @@
     "ecoscore": {
       "color": "#91cf4f",
       "normalization": 5.55695e1,
-      "weighting": 0.0458
+      "weighting": 0.0564
     }
   },
   "ozd": {
@@ -80,7 +80,7 @@
     "ecoscore": {
       "color": "#ffc000",
       "normalization": 5.3648e-2,
-      "weighting": 0.0466
+      "weighting": 0.0574
     }
   },
   "cch": {
@@ -130,7 +130,7 @@
     "ecoscore": {
       "color": "#548235",
       "normalization": 1.60685,
-      "weighting": 0.0207
+      "weighting": 0.0255
     }
   },
   "swe": {
@@ -155,7 +155,7 @@
     "ecoscore": {
       "color": "#70ad47",
       "normalization": 1.95452e1,
-      "weighting": 0.0219
+      "weighting": 0.0269
     }
   },
   "tre": {
@@ -180,7 +180,7 @@
     "ecoscore": {
       "color": "#c5e0b4",
       "normalization": 1.76755e2,
-      "weighting": 0.0274
+      "weighting": 0.0337
     }
   },
   "pco": {
@@ -205,7 +205,7 @@
     "ecoscore": {
       "color": "#ff6161",
       "normalization": 4.08592e1,
-      "weighting": 0.0353
+      "weighting": 0.0435
     }
   },
   "pma": {
@@ -230,7 +230,7 @@
     "ecoscore": {
       "color": "#ffc000",
       "normalization": 5.95367e-4,
-      "weighting": 0.0662
+      "weighting": 0.0815
     }
   },
   "ior": {
@@ -255,7 +255,7 @@
     "ecoscore": {
       "color": "#be8f00",
       "normalization": 4.22016e3,
-      "weighting": 0.037
+      "weighting": 0.0456
     }
   },
   "fru": {
@@ -280,7 +280,7 @@
     "ecoscore": {
       "color": "#9dc3e6",
       "normalization": 6.50043e4,
-      "weighting": 0.0614
+      "weighting": 0.0757
     }
   },
   "mru": {
@@ -305,7 +305,7 @@
     "ecoscore": {
       "color": "#698ed0",
       "normalization": 6.36226e-2,
-      "weighting": 0.0557
+      "weighting": 0.0687
     }
   },
   "ldu": {
@@ -330,7 +330,7 @@
     "ecoscore": {
       "color": "#a9d18e",
       "normalization": 8.19498e5,
-      "weighting": 0.0586
+      "weighting": 0.0722
     }
   },
   "wtu": {
@@ -355,7 +355,7 @@
     "ecoscore": {
       "color": "#0070c0",
       "normalization": 1.14687e4,
-      "weighting": 0.0628
+      "weighting": 0.0774
     }
   },
   "etf": {
@@ -495,26 +495,5 @@
       { "sub-impact": "htn-o", "weighting": 2 },
       { "sub-impact": "htn-i", "weighting": 0 }
     ]
-  },
-  "bvi": {
-    "source": {
-      "label": "Valuing Biodiversity in Life Cycle Impact Assessment, Lindner et al 2019",
-      "url": "https://www.researchgate.net/publication/336523544_Valuing_Biodiversity_in_Life_Cycle_Impact_Assessment"
-    },
-    "label_en": "Biodiversity impact",
-    "label_fr": "Atteinte à la biodiversité locale",
-    "unit_fr": "BVI",
-    "unit_en": "BVI",
-    "short_unit": "BVI",
-    "decimals": 2,
-    "description_en": "Biodiversity impact indicator calculated from the Biodiversity Value Increment (BVI) method, Lindner et al 2019.",
-    "description_fr": "Indicateur de l'impact sur la biodiversité calculé à partir de la méthode BVI (Biodiversity Value Increment), Lindner et al 2019",
-    "quality": 3,
-    "pef": null,
-    "ecoscore": {
-      "color": "#00b050",
-      "normalization": 1.6773e4,
-      "weighting": 0.125
-    }
   }
 }
