@@ -62,52 +62,9 @@ _Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p.
 
 </details>
 
-## Liste des inventaires enrichis&#x20;
+## Paramètres mobilisés
 
-Deux bases de travail ont été utilisées pour batir ces inventaires enrichis :&#x20;
-
-* les travaux de Sandra Roos effectués dans le cadre du projet Mistra Future Fashion (Suède, [source 1](https://link.springer.com/article/10.1007/s11367-018-1537-6), [source 2](https://research.chalmers.se/publication/246361)). Ces travaux ont par ailleurs été repris aux Etats-Unis par la Sustainable Apparel Coalition (SAC) au sein de leur outil Higg Index.
-* les inventaires désagrégés de la base de données EIME (créés en partenariat avec l'[ENSAIT](https://www.ensait.fr/en/home/)).
-
-{% tabs %}
-{% tab title="Blanchiment" %}
-**Base de travail** \
-Travaux de Sandra Roos 2018\
-Procédé : _Bleaching cotton tricot with optical brightener in jet machine_
-
-**Contexte**\
-Blanchiment effectué au chlorite de sodium en discontinu.
-
-**Paramètre(s) mobilisé(s)**
-
-* 48 litres d'eau / 0,24kg de solution chimique (concentration = 5 g/L)
-* taux de pollution aquatique  selon la zone géographique (pays) où a lieu le procédé
-* 16 émissions/substances modélisées &#x20;
-
-**Matérialité = élevée**&#x20;
-
-<figure><img src="../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
-{% endtab %}
-
-{% tab title="Teinture (fibres cellulosiques)" %}
-**Base de travail** \
-Travaux de Sandra Roos 2018\
-Procédé : _Pad-steam denim dyeing (mix)_
-
-**Contexte**\
-Teinture en discontinue avec l'utilisation de colorants de cuve (VAT dyes).
-
-**Paramètre(s) mobilisé(s)**
-
-* taux de pollution aquatique  selon la zone géographique (pays) où a lieu le procédé&#x20;
-
-**Matérialité = élevée**&#x20;
-{% endtab %}
-{% endtabs %}
-
-## Scénarios &#x20;
-
-### Scénarios transverses
+### &#x20;Paramètres transverses
 
 #### Pays <=> Taux de pollution aquatique (%)
 
@@ -150,95 +107,82 @@ Des paramètres additionnels permettent de préciser ce taux de pollution aquati
 
 </details>
 
-### Paramètres spécifiques&#x20;
+## Liste des inventaires enrichis&#x20;
 
-<details>
+Deux bases de travail ont été utilisées pour batir ces inventaires enrichis :&#x20;
 
-<summary>Blanchiment </summary>
+* les travaux de Sandra Roos effectués dans le cadre du projet Mistra Future Fashion (Suède, [source 1](https://link.springer.com/article/10.1007/s11367-018-1537-6), [source 2](https://research.chalmers.se/publication/246361)). Ces travaux ont par ailleurs été repris aux Etats-Unis par la Sustainable Apparel Coalition (SAC) au sein de leur outil Higg Index.
+* les inventaires désagrégés de la base de données EIME (créés en partenariat avec l'[ENSAIT](https://www.ensait.fr/en/home/)).
 
-**Hypothèses** : Blanchiment effectué au chlorite de sodium en discontinu sous forme de bains chauffés. Une concentration de 7,1 grammes de substances chimiques par kilogramme de textile blanchi est retenue (= 0,34kg de solution chimique pour 0,048m3 de solution aqueuse).   &#x20;
-
-**Paramètres mobilisés** :&#x20;
-
-* **Quantité de bain (m3)**\
-  La quantité de bain, exprimée en m3, correspond au volume de bain (eau + substances chimiques) nécessaire pour réaliser l'opération sur 1 kg de textile. \
-  Par défaut, Ecobalyse utilise une quantité de bain de 0,048m3 pour blanchir 1kg de textile (= passage du textile dans 6 bains proposant chacun un [rapport de bain](#user-content-fn-5)[^5] de 8).
-
-<!---->
-
-* **Taux de pollution aquatique (%)** \
-  Cf. section "Scénarios Transverses"&#x20;
-* **Inventaire**\
-  Cf. section "Inventaires enrichis"&#x20;
-
-</details>
-
-<details>
-
-<summary>Teinture de fibres cellulosiques</summary>
-
-**Hypothèses** : Teinture en continue utilisant des colorants de cuve (_VAT dyes_). 0,4 kg de solution chimique est utilisée au sein d'un bain de 50 litres (concentration = 8g/L). Un taux d'emport moyen de 85% est retenu. Le colorant utilisé est le Blue, Indigo _(CAS 000482-89-3)_.
-
-**Paramètres mobilisés :**&#x20;
-
-* **Quantité de bain (m3)**\
-  xxxxx
-* **Taux de pollution aquatique (%)**\
-  yyy
-* **Inventaire**\
-  Cf. section "Inventaires enrichis"&#x20;
-
-
-
-</details>
-
-## Inventaires enrichis
-
-Pour chaque inventaire, une cartographie des flux par défaut a été construite selon le schéma suivant.&#x20;
+### Inventaire #1 = Blanchiment / Bleaching
 
 {% tabs %}
-{% tab title="Cartographie" %}
-![](https://lh5.googleusercontent.com/iA3fScBwhe88BOKXJxoEMnvoHMkkM9dwaB\_EuCuSOp4vG54kbDbtHoRMD8b444kXV5mhurN1HkdKUOyqKqvhCG21PZkAz0R5ay8PKvnk\_Yl1sSIYe0kXv-vOOqhtyMF-9tGla1eVyH3J\_jGvnF0mqegX\_g=s2048)
+{% tab title="Scénario" %}
+**Base de travail** \
+Travaux de Sandra Roos 2018\
+Procédé : _Bleaching cotton tricot with optical brightener in jet machine_
+
+**Contexte**\
+Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains chauffés.&#x20;
+
+**Paramètre(s) mobilisé(s)**
+
+* 60 litres d'eau / 0,34kg de produits chimiques
+* Concentration des sustances : 4,3 g / litre de bain de blanchiment&#x20;
+* taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
+  (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
+* modèle d'émission spécifique au procédé
+
+<div align="left">
+
+<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+
+</div>
 {% endtab %}
 
-{% tab title="Détails" %}
-**Paramètre 1**\
-Inventaire des substances/émissions du procédé.\
-Approche "time-integrated" = inventaire différent de la composition utilisée en début du procédé car une partie des substances sont détruites et/ou transformées\
-Définition de l'approche "time-integrated" donnée par S. Roos : _the model is time-integrated, which means that all emissions as well as transformation into degradation products inthe environment is assumed to occur instantly -at time zero-_
+{% tab title="Modèle d'émissions" %}
+<div align="left">
 
-**Paramètre 2**\
-% des substances fixées sur le vêtement
+<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
 
-**Paramètre 3**\
-% des substances émises dans l'air &#x20;
+</div>
 
-**Paramètre 4** \
-% des substances rejetées dans les eaux usées
+<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption><p>Modèle d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<div align="left">
+
+<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption><p>Emissions par compartiments</p></figcaption></figure>
+
+</div>
+{% endtab %}
+
+{% tab title="Impacts" %}
+<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption><p>Illustration sur les 3 scénarios</p></figcaption></figure>
+
+<div align="left">
+
+<figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption><p>Scénario "Best" détaillé</p></figcaption></figure>
+
+</div>
+
+xxxx
+
+xxx
+
+
 {% endtab %}
 {% endtabs %}
 
-La manière dont ont été construits ces inventaires permet de faire varier les paramètres des inventaires selon les données renseignées par l'utilisateur (ex : présence d'un label, pays où a lieu l'étape d'ennoblissement, etc.).
-
-Ensuite, les modèles de caractérisation préconisés par le PEF (EF 3.1) sont utilisés afin de calculer l'impact de ces inventaires sur les indicateurs : Ecotoxicité Aquatique, Toxicité Humaine Cancérigène, Toxicité Humaine Non Cancérigène.
-
-**Inventaires par défaut retenus**&#x20;
+### Inventaire #2 = Teinture (fibres cellulosiques)&#x20;
 
 {% tabs %}
-{% tab title="Blanchiment" %}
-![](<../../../.gitbook/assets/image (27).png>)
+{% tab title="Scénario" %}
+**Base de travail** \
+Travaux de Sandra Roos 2018\
+Procédé : _Pad-steam denim dyeing (mix)_
 
-**Illustration de résultats/scénarios**
-
-![](<../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (3).png>)
-{% endtab %}
-
-{% tab title="Teinture 1" %}
-
-{% endtab %}
-
-{% tab title="Teinture 2 " %}
-
+**Contexte**\
+Teinture en continue utilisant des colorants de cuve (_VAT dyes_). 0,4 kg de solution chimique est utilisée au sein d'un bain de 50 litres (concentration = 8g/L). Un taux d'emport moyen de 85% est retenu. Le colorant utilisé est le Blue, Indigo _(CAS 000482-89-3)_.
 {% endtab %}
 {% endtabs %}
 
@@ -251,8 +195,3 @@ Ensuite, les modèles de caractérisation préconisés par le PEF (EF 3.1) sont 
 [^3]: Best Available Technology &#x20;
 
 [^4]: Joint Research Center
-
-[^5]: MLR = Mass to Liquor Ratio = Rapport de bain.\
-
-
-    Il s'agit du rapport de poids entre la matière sèche totale et la solution totale. Ainsi, par exemple, un rapport de bain de 1:10 signifie 10 litres de solution pour 1 kg de matière textile.&#x20;
