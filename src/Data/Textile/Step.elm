@@ -2,6 +2,7 @@ module Data.Textile.Step exposing
     ( Step
     , airTransportDisabled
     , airTransportRatioToString
+    , computeMaterialTransportAndImpact
     , computeTransports
     , create
     , displayLabel
@@ -164,27 +165,47 @@ displayLabel { knitted, fadable } label =
             Label.toName label
 
 
+computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact db country outputMass materialInput =
+    let
+        materialMass =
+            materialInput.share
+                |> Split.applyToQuantity outputMass
+    in
+    materialInput
+        |> Inputs.computeMaterialTransport db country.code
+        |> Formula.transportRatio Split.zero
+        |> computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking materialMass
+
+
 {-| Computes step transport distances and impact regarding next step.
 
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> Step -> Step -> Step
-computeTransports db next ({ processInfo } as current) =
+computeTransports : TextileDb.Db -> List Inputs.MaterialInput -> Step -> Step -> Step
+computeTransports db materialInputs next ({ processInfo } as current) =
     let
-        transport =
-            db.transports
-                |> Transport.getTransportBetween
-                    Scope.Textile
-                    current.transport.impacts
-                    current.country.code
-                    next.country.code
-
-        stepSummary =
-            computeTransportSummary current transport
-
         roadTransportProcess =
             getRoadTransportProcess db.wellKnown current
+
+        transport =
+            if current.label == Label.Material then
+                materialInputs
+                    |> List.map (computeMaterialTransportAndImpact db next.country current.outputMass)
+                    |> Transport.sum
+
+            else
+                db.transports
+                    |> Transport.getTransportBetween Scope.Textile
+                        current.transport.impacts
+                        current.country.code
+                        next.country.code
+                    |> computeTransportSummary current
+                    |> computeTransportImpacts current.transport.impacts
+                        db.wellKnown
+                        roadTransportProcess
+                        current.outputMass
     in
     { current
         | processInfo =
@@ -193,13 +214,7 @@ computeTransports db next ({ processInfo } as current) =
                 , seaTransport = Just db.wellKnown.seaTransport.name
                 , airTransport = Just db.wellKnown.airTransport.name
             }
-        , transport =
-            stepSummary
-                |> computeTransportImpacts
-                    current.transport.impacts
-                    db.wellKnown
-                    roadTransportProcess
-                    next.inputMass
+        , transport = transport
     }
 
 

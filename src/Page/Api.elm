@@ -58,8 +58,7 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
-            """
-Les identifiants de certains procédés ont été modifiés:
+            """Les identifiants de certains procédés ont été modifiés:
 
 - `durumwheat-semolina` devient `durum-wheat-semolina`;
 - `durumwheat` devient `durum-wheat`;
@@ -74,6 +73,13 @@ Les identifiants de certains procédés ont été modifiés:
 - `tapwater` devient `tap-water`.
 """
       }
+    , { date = "12 octobre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramétrage optionnel `country` du code de pays d'origine pour la
+            matière a été rajouté."""
+      }
     , { date = "4 septembre 2023"
       , level = "major"
       , domains = [ "Textile" ]
@@ -86,7 +92,6 @@ Les identifiants de certains procédés ont été modifiés:
 - `integral` : Tricotage intégral / whole garment
 - `circular` : Tricotage circulaire, inventaire désagrégé
 - `straight` : Tricotage rectiligne, inventaire désagrégé
-
 """
       }
     , { date = "29 août 2023"
