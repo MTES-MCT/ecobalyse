@@ -7,9 +7,7 @@ description: >-
 
 # 💦 Inventaires ennoblissement (draft)
 
-{% hint style="danger" %}
 Cette page est en cours de construction
-{% endhint %}
 
 ## De quoi parle-t-on ?&#x20;
 
@@ -50,17 +48,23 @@ Ces problématique s'expliquent pour différentes raisons dont :&#x20;
 
 <summary>Focus PEFCR Apparel &#x26; Footwear (v. 1.3)</summary>
 
-Au niveau européen, les problématiques susmentionnées sont partagées.
+Au niveau européen, les problématiques liées à la caractérisation des substances chimiques sont partagées.
 
 La réponse apportée à cette limite consiste à **diviser par 3** l'impact des trois indicateurs (Ecotoxicité Aquatique, Toxicité Humaine Cancérigène, Toxicité Humaine Non Cancérgiène) en appliquant un coefficient de robustesse (_robustness factor_).&#x20;
 
-Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas correctement reflétés dans la version actuelle du projet de référentiel car leur modélisation est non satisfaisante (cf. Robustness factor) tandis que leur pondération est adaptée en conséquence (les 3 indicateurs susmentionnés contribuent finalement seulement à hauteur de 5,9% de l'impact total du produit).&#x20;
+Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas pleinement reflétés dans la version actuelle du projet de référentiel (cf. Robustness factor) tandis que leur pondération est adaptée en conséquence (les 3 indicateurs susmentionnés contribuent finalement seulement à hauteur de 5,9% de l'impact total du produit).&#x20;
 
 _Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p. 9/146)_ &#x20;
 
-![](<../../../.gitbook/assets/image (6).png>)
+![](<../../../.gitbook/assets/image (6) (1).png>)
 
 </details>
+
+L'enrichissement des inventaires passe par la modélisation des paramètres suivants :&#x20;
+
+![](https://lh7-us.googleusercontent.com/eq4OKzjEN0qAMb8VGotNHNzpBw5achG4WExM05OEl1siG1vEN5NRrVYoHTGoWsHubh\_J1KFHPD4R5AbXFdIVUSYMr3t7-TepZdoqn835hvKgB9SDgYw5oxh6fnUmx5pqumdlUp7JTAlakou5tRouM-OIGw=s2048)
+
+
 
 ## Paramètres mobilisés
 
@@ -79,9 +83,9 @@ Le taux de taux pollution aquatique (P) d'un site industriel se calcul ainsi :&#
 
 $$P = 1-(R*E)$$
 
-Ecobalyse a catégorisé les pays selon 3 groupes (reprise de travaux ONU \_ [source](https://sdg6data.org/fr/indicator/6.3.1)) afin de préciser le calcul  :
+Ecobalyse a catégorisé les pays selon 3 groupes sur la base des travaux de l'ONU ([source](https://sdg6data.org/fr/indicator/6.3.1)). Des taux de raccrodement (R) et d'efficacité de traitement des eaux usées (E) sont proposés. Des retours de l'industrie sont attendus afin de préciser ces valeurs.&#x20;
 
-<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Rang 1 (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td>90%</td></tr><tr><td>Rang 2 (Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>90%</td><td>90%</td><td>81%</td></tr><tr><td>Autres pays</td><td>50%</td><td>80%</td><td>40%</td></tr></tbody></table>
+<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Best case<br> (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td>10%</td></tr><tr><td>Average case<br>(Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>80%</td><td>80%</td><td>36%</td></tr><tr><td>Worst case<br>(Autres pays)</td><td>50%</td><td>70%</td><td>65%</td></tr></tbody></table>
 
 <details>
 
@@ -140,40 +144,26 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains
 </div>
 {% endtab %}
 
-{% tab title="Modèle d'émissions" %}
-<div align="left">
+{% tab title="Substances / Emissions (Average scenario)" %}
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
-
-</div>
-
-<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption><p>Modèle d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
 <div align="left">
 
-<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption><p>Emissions par compartiments</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Compartiments dans lesquels sont émises les substances.png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
 
 </div>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption><p>Illustration sur les 3 scénarios</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<div align="left">
-
-<figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption><p>Scénario "Best" détaillé</p></figcaption></figure>
-
-</div>
-
-xxxx
-
-xxx
-
-
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
-### Inventaire #2 = Teinture (fibres cellulosiques)&#x20;
+### Inventaire #2 = Teinture de fibres cellulosiques en continue&#x20;
 
 {% tabs %}
 {% tab title="Scénario" %}
@@ -182,9 +172,70 @@ Travaux de Sandra Roos 2018\
 Procédé : _Pad-steam denim dyeing (mix)_
 
 **Contexte**\
-Teinture en continue utilisant des colorants de cuve (_VAT dyes_). 0,4 kg de solution chimique est utilisée au sein d'un bain de 50 litres (concentration = 8g/L). Un taux d'emport moyen de 85% est retenu. Le colorant utilisé est le Blue, Indigo _(CAS 000482-89-3)_.
+Teinture en continue utilisant des colorants de cuve (_VAT dyes_). Le colorant utilisé pour le scénario _Average_ est le Blue, Indigo _(CAS 000482-89-3)_&#x20;
+
+**Paramètres mobilisés**
+
+* 60 litres d'eau / 1,49kg de produits chimiques
+* Concentration des sustances : 23,4 g / litre de bain de teinture
+* Un taux d'emport moyen de 85% est retenu
+{% endtab %}
+
+{% tab title="Substances / Emissions (Average scenario)" %}
+
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Impacts" %}
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
+
+
+
+### Inventaire #3 = Teinture de fibres synthétiques en discontinue
+
+{% tabs %}
+{% tab title="Scénario" %}
+**Base de travail** \
+Travaux de Sandra Roos 2018\
+Procédé : Dyeing PES weave orange in beam dyeing machine (mix), S. Roos 2018
+
+**Contexte**\
+Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). Deux colorants sont utilisés (_Terasil Yellow & Red_).&#x20;
+
+**Paramètres mobilisés**
+
+* 60 litres / 0,06m3 d'eau utilisés\
+  _Rapport de bain / Mass to Liquor Ratio = 1:10_\
+  _6 bains de teinture_
+* &#x20;0,59kg de produits chimiques
+* Concentration des sustances : 4,9 g / litre de bain de teinture
+{% endtab %}
+
+{% tab title="Substances / Emissions (Average scenario)" %}
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Impacts" %}
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+{% endtab %}
+{% endtabs %}
+
+
 
 [^1]: _USEtox characterisation factors for textile chemicals based on a transparent data source selection strategy_\
     \
