@@ -131,17 +131,14 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains
 
 **Paramètre(s) mobilisé(s)**
 
-* 60 litres d'eau / 0,34kg de produits chimiques
-* Concentration des sustances : 4,3 g / litre de bain de blanchiment&#x20;
+* 60 litres d'eau
+* 0,34kg de produits chimiques
+* Concentration des substances : 4,3 g / litre de bain de blanchiment&#x20;
 * taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<div align="left">
-
-<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
-
-</div>
+<figure><img src="../../../.gitbook/assets/image (52).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -176,9 +173,15 @@ Teinture en continue utilisant des colorants de cuve (_VAT dyes_). Le colorant u
 
 **Paramètres mobilisés**
 
-* 60 litres d'eau / 1,49kg de produits chimiques
+* 60 litres d'eau
+* 1,49kg de produits chimiques
 * Concentration des sustances : 23,4 g / litre de bain de teinture
 * Un taux d'emport moyen de 85% est retenu
+* taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
+  (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
+* modèle d'émission spécifique au procédé
+
+<figure><img src="../../../.gitbook/assets/image (51).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -198,8 +201,6 @@ Teinture en continue utilisant des colorants de cuve (_VAT dyes_). Le colorant u
 {% endtab %}
 {% endtabs %}
 
-
-
 ### Inventaire #3 = Teinture de fibres synthétiques en discontinue
 
 {% tabs %}
@@ -218,6 +219,11 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
   _6 bains de teinture_
 * &#x20;0,59kg de produits chimiques
 * Concentration des sustances : 4,9 g / litre de bain de teinture
+* taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
+  (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
+* modèle d'émission spécifique au procédé
+
+<figure><img src="../../../.gitbook/assets/image (50).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
