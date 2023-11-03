@@ -56,7 +56,7 @@ Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas pleinement reflétés da
 
 _Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p. 9/146)_ &#x20;
 
-![](<../../../.gitbook/assets/image (6) (1).png>)
+![](<../../../.gitbook/assets/image (6) (1) (1).png>)
 
 </details>
 
@@ -111,6 +111,16 @@ Des paramètres additionnels permettent de préciser ce taux de pollution aquati
 
 </details>
 
+#### Approche time-integrated
+
+Ces inventaires sont batis selon une approche "time-integrated" (c'est à dire que l'ensemble des émissions et sous-produits de dégradation générés par le temps qui passe sont considérés comme intervenant instantanément).&#x20;
+
+Pour estimer le devenir des substances dans le temps, différentes hypothèses sont proposées par Sandra Roos dont les principales sont :&#x20;
+
+* 90% des substances réactives (_reactive substances_) sont dégradées durant les opérations de traitement humide (_wet processing_) => ainsi, la majorité des substances étant réactives, le flux sortant se base généralement sur 10% des sustances utilisées en début de procédé,
+* 95% des substances fonctionnelles (_property-lending substances_) restent sur le vêtement => ainsi, seulement 5% des substances de type Teinture/Colorant sont évalués,
+* 0,1% des substances volatiles se retrouvent dans l'Air après la réalisation du procédé &#x20;
+
 ## Liste des inventaires enrichis&#x20;
 
 Deux bases de travail ont été utilisées pour batir ces inventaires enrichis :&#x20;
@@ -131,9 +141,7 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains
 
 **Paramètre(s) mobilisé(s)**
 
-* 60 litres d'eau
-* 0,34kg de produits chimiques
-* Concentration des substances : 4,3 g / litre de bain de blanchiment&#x20;
+* 0,34kg de produits chimiques utilisés dans 60 litres d'eau => concentration : 4,3 g / L&#x20;
 * taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
@@ -142,9 +150,9 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
 <div align="left">
 
@@ -154,9 +162,9 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu sous forme de bains
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -169,35 +177,43 @@ Travaux de Sandra Roos 2018\
 Procédé : _Pad-steam denim dyeing (mix)_
 
 **Contexte**\
-Teinture en continue utilisant des colorants de cuve (_VAT dyes_). Le colorant utilisé pour le scénario _Average_ est le Blue, Indigo _(CAS 000482-89-3)_&#x20;
+Teinture en continue utilisant des colorants de cuve (_VAT dyes_). Le colorant utilisé pour le scénario _Average_ est le Blue, Indigo _(CAS 000482-89-3)._&#x20;
+
+Les fibres cellulosiques peuvent être teintes avec différents types de colorants (réactifs, directs, de cuve).&#x20;
 
 **Paramètres mobilisés**
 
-* 60 litres d'eau
-* 1,49kg de produits chimiques
-* Concentration des sustances : 23,4 g / litre de bain de teinture
-* Un taux d'emport moyen de 85% est retenu
+* 0,38kg de produits chimiques utilisés dans 50 litres d'eau => concentration : 75 g / L&#x20;
+* Un [taux d'emport](#user-content-fn-5)[^5] moyen de 85% est retenu&#x20;
 * taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (51).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
+**Flux entrants et sortants d'émissions** &#x20;
 
+<figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption><p>Filx entrant d'émissions</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (60).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+**Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
+
+<figure><img src="../../../.gitbook/assets/image (61).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -214,11 +230,8 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 
 **Paramètres mobilisés**
 
-* 60 litres / 0,06m3 d'eau utilisés\
-  _Rapport de bain / Mass to Liquor Ratio = 1:10_\
-  _6 bains de teinture_
-* &#x20;0,59kg de produits chimiques
-* Concentration des sustances : 4,9 g / litre de bain de teinture
+* 0,59kg de produits chimiques utilisés dans 60 litres d'eau => concentration : 4,9 g / L&#x20;
+* 60 litres / 0,06m3 d'eau utilisés = 6 bains de teinture avec un r_apport de bain (Mass to Liquor Ratio) de 1:10_
 * taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
@@ -227,19 +240,97 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
+
+### Inventaire #4 = Impression pigmentaire&#x20;
+
+{% tabs %}
+{% tab title="Scénario" %}
+**Base de travail** \
+Travaux de Sandra Roos 2018\
+Procédé : Pretreatment of PES before printing (average) + Dispersion print of PES weave on rotation printer, S. Roos 2018
+
+**Contexte**\
+Impression pigmentaire.
+
+**Paramètres mobilisés**
+
+* 500g de produits chimiques utilisés par kg de textile imprimé
+* 25% de surface imprimée par t-shirt = 0,17m2 imprimé \
+  (grammage 250g/m2)&#x20;
+* taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
+  (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
+* modèle d'émission spécifique au procédé
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Substances / Emissions (Average scenario)" %}
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Impacts" %}
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+{% endtab %}
+{% endtabs %}
+
+### Inventaire #5 = Impression avec colorants
+
+{% tabs %}
+{% tab title="Scénario" %}
+**Base de travail** \
+Base de données EIME\
+Procédé : disperse-rotary-printing-CN\_V2
+
+**Contexte**\
+Impression avec des colorants dispersés.
+
+**Paramètres mobilisés**
+
+* 750g de produits chimiques utilisés par kg de textile imprimé
+* 25% de surface imprimée par t-shirt = 0,17m2 imprimé \
+  (grammage 250g/m2)&#x20;
+* taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
+  (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
+* modèle d'émission spécifique au procédé
+
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Substances / Emissions (Average scenario)" %}
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Produits et substances chimiques utilisés en début de procédé</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Emissions par compartiment</p></figcaption></figure>
+{% endtab %}
+
+{% tab title="Impacts" %}
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+{% endtab %}
+{% endtabs %}
+
+### Inventaire #3 = Teinture de fibres synthétiques en discontinue
 
 
 
@@ -252,3 +343,5 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 [^3]: Best Available Technology &#x20;
 
 [^4]: Joint Research Center
+
+[^5]: Proportion de bain emporté au foulardage
