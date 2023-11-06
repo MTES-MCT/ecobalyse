@@ -146,12 +146,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
       , detailedStep = Nothing
       , impact = Definition.get trigram textileDb.impactDefinitions
       , modal = NoModal
-      , activeImpactsTab =
-            if trigram == Definition.Ecs then
-                ImpactTabs.SubscoresTab
-
-            else
-                ImpactTabs.StepImpactsTab
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
         |> Session.updateTextileQuery initialQuery

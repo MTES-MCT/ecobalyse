@@ -130,12 +130,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , modal = NoModal
-      , activeImpactsTab =
-            if impact.trigram == Definition.Ecs then
-                ImpactTabs.SubscoresTab
-
-            else
-                ImpactTabs.StepImpactsTab
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session |> Session.updateFoodQuery query
     , case maybeQuery of
