@@ -898,7 +898,7 @@ ingredientListView db selectedImpact recipe results =
         , StepsBorder.style Impact.stepsColors.materials
         ]
         [ h2
-            [ class "h5 d-flex align-items-center mb-0"
+            [ class "h5 mb-0"
             , id "materials-step"
             ]
             [ text "Ingrédients"
