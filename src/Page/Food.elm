@@ -911,6 +911,13 @@ ingredientListView db selectedImpact recipe results =
             ]
         , results.recipe.ingredientsTotal
             |> Format.formatImpact selectedImpact
+        , Button.docsPillLink
+            [ class "btn btn-secondary py-1"
+            , href (Gitbook.publicUrlFromPath Gitbook.FoodIngredients)
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -974,6 +981,13 @@ packagingListView db selectedImpact recipe results =
             [ text "Emballage" ]
         , results.packaging
             |> Format.formatImpact selectedImpact
+        , Button.docsPillLink
+            [ class "btn btn-secondary py-1"
+            , href (Gitbook.publicUrlFromPath Gitbook.FoodPackaging)
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
@@ -1140,6 +1154,13 @@ distributionView selectedImpact recipe results =
             [ text "Distribution" ]
         , results.distribution.total
             |> Format.formatImpact selectedImpact
+        , Button.docsPillLink
+            [ class "btn btn-secondary py-1"
+            , href (Gitbook.publicUrlFromPath Gitbook.FoodDistribution)
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
@@ -1194,6 +1215,13 @@ consumptionView db selectedImpact recipe results =
             [ text "Consommation" ]
         , results.preparation
             |> Format.formatImpact selectedImpact
+        , Button.docsPillLink
+            [ class "btn btn-secondary py-1"
+            , href (Gitbook.publicUrlFromPath Gitbook.FoodUse)
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
@@ -1381,6 +1409,13 @@ transformView db selectedImpact recipe results =
             ]
             [ text "Transformation" ]
         , impact
+        , Button.docsPillLink
+            [ class "btn btn-secondary py-1"
+            , href (Gitbook.publicUrlFromPath Gitbook.FoodTransformation)
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of

@@ -18,8 +18,13 @@ type alias Page =
 
 type Path
     = FoodComplements -- Bonus et compléments hors-ACV
+    | FoodDistribution -- Distribution
     | FoodInediblePart -- Part non-comestible
+    | FoodIngredients -- Ingrédients alimentaires
+    | FoodPackaging -- Emballages
     | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
+    | FoodTransformation -- Transformation des ingrédients
+    | FoodUse -- Consommation
     | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
     | TextileComplementMicrofibers -- Complément textile microfibres
@@ -43,11 +48,26 @@ pathToString path =
         FoodComplements ->
             "alimentaire/impacts-consideres/complements-hors-acv-en-construction"
 
+        FoodDistribution ->
+            "alimentaire/etapes-du-cycles-de-vie/vente-au-detail"
+
         FoodInediblePart ->
             "alimentaire/part-non-comestible"
 
+        FoodIngredients ->
+            "alimentaire/donnees"
+
+        FoodPackaging ->
+            "alimentaire/etapes-du-cycles-de-vie/emballage"
+
         FoodRawToCookedRatio ->
             "alimentaire/rapport-cru-cuit"
+
+        FoodTransformation ->
+            "alimentaire/etapes-du-cycles-de-vie/transformation"
+
+        FoodUse ->
+            "alimentaire/etapes-du-cycles-de-vie/consommation"
 
         ImpactQuality ->
             "textile/impacts-consideres#niveaux-de-recommandation"
