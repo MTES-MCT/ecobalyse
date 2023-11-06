@@ -150,7 +150,9 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
-**Flux entrants et sortants d'émissions** &#x20;
+**Flux entrants et sortants d'émissions**&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (71).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
@@ -203,6 +205,8 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions** &#x20;
 
+<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+
 <figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (60).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
@@ -250,6 +254,8 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions** &#x20;
 
+<figure><img src="../../../.gitbook/assets/image (68).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+
 <figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
@@ -292,11 +298,13 @@ Impression pigmentaire.
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (63).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions**&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (64).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption><p>Flux entrant d'émissions </p></figcaption></figure>
 
@@ -340,11 +348,13 @@ Impression avec des colorants dispersés.
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (65).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions**&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Flux entrant d'émissions </p></figcaption></figure>
 
