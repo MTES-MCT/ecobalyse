@@ -1042,7 +1042,14 @@ transportToTransformationView selectedImpact results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.recipe.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.recipe.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 
@@ -1106,7 +1113,14 @@ transportToDistributionView selectedImpact recipe results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.distribution.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.distribution.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 

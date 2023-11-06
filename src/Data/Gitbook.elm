@@ -24,6 +24,7 @@ type Path
     | FoodPackaging -- Emballages
     | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
     | FoodTransformation -- Transformation des ingrédients
+    | FoodTransport -- Transport entre étapes
     | FoodUse -- Consommation
     | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
@@ -65,6 +66,9 @@ pathToString path =
 
         FoodTransformation ->
             "alimentaire/etapes-du-cycles-de-vie/transformation"
+
+        FoodTransport ->
+            "alimentaire/transport"
 
         FoodUse ->
             "alimentaire/etapes-du-cycles-de-vie/consommation"
