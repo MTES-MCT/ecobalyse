@@ -3,6 +3,7 @@ module Views.Textile.Step exposing (view)
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country
+import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
@@ -31,6 +32,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Mass exposing (Mass)
 import Quantity
+import Route
 import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
@@ -39,6 +41,7 @@ import Views.Component.StepsBorder as StepsBorder
 import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.Link as Link
 import Views.RangeSlider as RangeSlider
 import Views.Transport as TransportView
 
@@ -555,6 +558,16 @@ stepHeader { current, inputs, toggleStep } =
                     , fadable = inputs.product.making.fadable
                     }
                 |> text
+            , if current.label == Label.Material then
+                Link.smallPillExternal
+                    [ Route.href (Route.Explore Scope.Textile (Dataset.TextileMaterials Nothing))
+                    , title "Explorer"
+                    , attribute "aria-label" "Explorer"
+                    ]
+                    [ Icon.search ]
+
+              else
+                text ""
             ]
         ]
 

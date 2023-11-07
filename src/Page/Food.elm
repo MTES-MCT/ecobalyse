@@ -898,7 +898,7 @@ ingredientListView db selectedImpact recipe results =
         , StepsBorder.style Impact.stepsColors.materials
         ]
         [ h2
-            [ class "h5 d-flex align-items-center mb-0"
+            [ class "h5 mb-0"
             , id "materials-step"
             ]
             [ text "Ingrédients"
@@ -909,8 +909,17 @@ ingredientListView db selectedImpact recipe results =
                 ]
                 [ Icon.search ]
             ]
-        , results.recipe.ingredientsTotal
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.recipe.ingredientsTotal
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodIngredients)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -972,8 +981,17 @@ packagingListView db selectedImpact recipe results =
             , id "packaging-step"
             ]
             [ text "Emballage" ]
-        , results.packaging
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.packaging
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodPackaging)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
@@ -1028,7 +1046,14 @@ transportToTransformationView selectedImpact results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.recipe.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.recipe.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 
@@ -1092,7 +1117,14 @@ transportToDistributionView selectedImpact recipe results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.distribution.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.distribution.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 
@@ -1138,8 +1170,17 @@ distributionView selectedImpact recipe results =
             , id "distribution-step"
             ]
             [ text "Distribution" ]
-        , results.distribution.total
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.distribution.total
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodDistribution)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
@@ -1192,8 +1233,17 @@ consumptionView db selectedImpact recipe results =
             , id "usage-step"
             ]
             [ text "Consommation" ]
-        , results.preparation
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.preparation
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodUse)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
@@ -1380,7 +1430,16 @@ transformView db selectedImpact recipe results =
             , id "transform-step"
             ]
             [ text "Transformation" ]
-        , impact
+        , span []
+            [ impact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodTransformation)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of
