@@ -300,15 +300,13 @@ Impression pigmentaire.
 
 <figure><img src="../../../.gitbook/assets/image (64).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption><p>Flux entrant d'émissions </p></figcaption></figure>
-
-<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (73).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (72).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
@@ -350,15 +348,13 @@ Impression avec des colorants dispersés.
 
 <figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>Flux entrant d'émissions </p></figcaption></figure>
-
-<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (75).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (74).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
