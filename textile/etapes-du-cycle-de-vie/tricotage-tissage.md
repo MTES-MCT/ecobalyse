@@ -84,7 +84,7 @@ Les principales armures sont le jersey, l'interlock ou la côte 1x1 (tricot à m
 **Tricotage à mailles cueillies (ou tricots « trame »)**\
 Il n'emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
 
-![](<../../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png>)
+![](<../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1).png>)
 
 
 
