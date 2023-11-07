@@ -551,7 +551,7 @@ stepHeader { current, inputs, toggleStep } =
             , onCheck (always (toggleStep current.label))
             ]
             []
-        , span [ class "fs-6 fw-bold" ]
+        , h2 [ class "h5 mb-0" ]
             [ current.label
                 |> Step.displayLabel
                     { knitted = Product.isKnitted inputs.product
@@ -589,7 +589,7 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
                     , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
-                        [ div [ class "d-none d-sm-block text-center text-muted" ]
+                        [ div [ class "d-none d-sm-block text-center" ]
                             [ viewStepImpacts selectedImpact current
                             ]
                         , stepActions config current.label
@@ -651,7 +651,7 @@ viewStepImpacts : Definition -> Step -> Html msg
 viewStepImpacts selectedImpact { impacts, complementsImpacts } =
     if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
         div []
-            [ span [ class "fw-bold flex-fill" ]
+            [ span [ class "flex-fill" ]
                 [ impacts
                     |> Format.formatImpact selectedImpact
                 ]
@@ -1108,9 +1108,9 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                 ]
             , div
                 [ class "card text-center mb-0" ]
-                [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
+                [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center" ]
                     [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                        div [ class "d-none d-sm-block text-center text-muted" ]
+                        div [ class "d-none d-sm-block text-center" ]
                             [ viewStepImpacts selectedImpact current
                             ]
 
