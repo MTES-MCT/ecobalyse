@@ -177,6 +177,19 @@
     }
   },
   {
+    "id": "pig-br",
+    "search": "pig conventional national",
+    "suffix": "[br], constructed by Ecobalyse",
+    "subactivities": [
+      "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
+      "Pig, French average, finishing feed, purchased part, conv prod, at farm gate {FR} U"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "wheat grain feed GLO",
+      "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U": "Maize grain non-irrigated at farm BR"
+    }
+  },
+  {
     "id": "sunflower-oil-organic",
     "search": "sunflower oil at mill {glo}",
     "suffix": "[organic], constructed by Ecobalyse",
