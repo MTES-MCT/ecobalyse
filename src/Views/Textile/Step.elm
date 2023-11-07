@@ -488,7 +488,7 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
         materialStep =
             label == Label.Material
     in
-    div [ class "StepActions col-12 col-sm-2" ]
+    div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
                 [ class "btn btn-secondary py-1"
@@ -588,8 +588,8 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                 ]
                 [ div [ class "row d-flex align-items-center" ]
                     [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
-                    , div [ class "col-3 col-sm-6 d-flex text-end" ]
-                        [ div [ class "d-none d-sm-block text-center text-muted w-100" ]
+                    , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
+                        [ div [ class "d-none d-sm-block text-center text-muted" ]
                             [ viewStepImpacts selectedImpact current
                             ]
                         , stepActions config current.label
@@ -1110,7 +1110,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                 [ class "card text-center mb-0" ]
                 [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center text-muted" ]
                     [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                        div [ class "d-none d-sm-block text-center text-muted w-100" ]
+                        div [ class "d-none d-sm-block text-center text-muted" ]
                             [ viewStepImpacts selectedImpact current
                             ]
 
