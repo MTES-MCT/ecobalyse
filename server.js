@@ -44,6 +44,7 @@ app.use(
         "img-src": [
           "'self'",
           "data:",
+          "blob:",
           "https://avatars.githubusercontent.com/",
           "https://raw.githubusercontent.com",
         ],
