@@ -178,7 +178,7 @@
   },
   {
     "id": "pig-br",
-    "search": "pig conventional national",
+    "search": "Pig, conventional, national average, at farm gate",
     "suffix": "[br], constructed by Ecobalyse",
     "subactivities": [
       "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
@@ -281,7 +281,7 @@
   },
   {
     "id": "chicken-breast-fr-ext",
-    "search": "Meat without bone chicken for direct consumption",
+    "search": "Meat without bone, chicken, for direct consumption",
     "suffix": "[fr-ext], constructed by Ecobalyse",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U",
@@ -292,10 +292,14 @@
     }
   },
   {
-    "id": "chicken-breast-organic-ext-fr",
-    "search": "Meat without bone chicken for direct consumption fr-ext",
+    "id": "chicken-breast-organic-fr-ext",
+    "search": "Meat without bone, chicken, for direct consumption [fr-ext]",
     "suffix": "[organic-ext-fr]",
-    "subactivities": ["Broiler, Bleu Blanc Coeur, at farm gate {FR}"],
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
+      "Broiler, live, for direct consumption {FR} U [fr-ext]",
+      "Broiler, Bleu Blanc Coeur, at farm gate"
+    ],
     "replace": {
       "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR}": "Soft wheat grain organic animal feed at farm gate FR",
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "Soybean organic animal feed at farm FR",
