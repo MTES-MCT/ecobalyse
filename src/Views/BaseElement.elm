@@ -1,4 +1,4 @@
-module Views.BaseElement exposing (Config, view)
+module Views.BaseElement exposing (Config, deleteItemButton, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector

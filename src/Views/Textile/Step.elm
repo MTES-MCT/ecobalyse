@@ -483,7 +483,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, detailedStep, index, toggleStepDetails } label =
+stepActions { detailedStep, index, toggleStepDetails } label =
     let
         materialStep =
             label == Label.Material
@@ -493,8 +493,7 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
             [ Button.docsPillLink
                 [ class "btn btn-secondary py-1"
                 , classList
-                    [ ( "btn-secondary", not current.enabled )
-                    , ( "rounded", materialStep )
+                    [ ( "rounded", materialStep )
                     , ( "rounded-end", not materialStep )
                     ]
                 , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
@@ -505,7 +504,6 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
             , if not materialStep then
                 Button.docsPill
                     [ class "btn btn-secondary py-1 rounded-start"
-                    , classList [ ( "btn-secondary", not current.enabled ) ]
                     , detailedStep
                         |> Maybe.map (always <| title "Affichage simplifie")
                         |> Maybe.withDefault (title "Détailler cette étape")
@@ -573,7 +571,7 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ inputs, selectedImpact, current } as config) =
+simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
     let
         materialStep =
             current.label == Label.Material
@@ -601,7 +599,7 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                     [ class "StepBody card-body row align-items-center"
                     , classList [ ( "disabled", not current.enabled ) ]
                     ]
-                    [ div [ class "col-sm-6 col-lg-7" ]
+                    [ div [ class "col-11 col-lg-7" ]
                         [ countryField config
                         , case current.label of
                             Label.Spinning ->
@@ -638,6 +636,9 @@ simpleView ({ inputs, selectedImpact, current } as config) =
 
                             _ ->
                                 text ""
+                        ]
+                    , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                        [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
                         ]
                     ]
 
