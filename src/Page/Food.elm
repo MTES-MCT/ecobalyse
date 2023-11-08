@@ -565,19 +565,8 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-        , deleteItemButton deleteEvent
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
-
-
-deleteItemButton : Msg -> Html Msg
-deleteItemButton event =
-    button
-        [ type_ "button"
-        , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
-        , title "Supprimer cet ingrédient"
-        , onClick event
-        ]
-        [ Icon.trash ]
 
 
 type alias UpdateIngredientConfig =
@@ -1201,7 +1190,7 @@ distributionView selectedImpact recipe results =
                                 )
                         )
                     , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-                    , deleteItemButton ResetDistribution
+                    , BaseElement.deleteItemButton { disabled = False } ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7 pt-2" ]
@@ -1274,7 +1263,7 @@ consumptionView db selectedImpact recipe results =
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
-                            , deleteItemButton (DeletePreparation usedPreparation.id)
+                            , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
