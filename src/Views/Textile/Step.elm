@@ -1020,7 +1020,11 @@ detailedView ({ inputs, selectedImpact, current } as config) =
     , step =
         div [ class "Step card-group shadow-sm" ]
             [ div [ class "card" ]
-                [ div [ class "StepHeader card-header d-flex justify-content-between align-items-center" ]
+                [ div
+                    [ class "StepHeader card-header d-flex justify-content-between align-items-center"
+                    , StepsBorder.style <| Label.toColor current.label
+                    , id <| Label.toId current.label
+                    ]
                     [ stepHeader config
                     , -- Note: hide on desktop, show on mobile
                       div [ class "d-block d-sm-none" ]
