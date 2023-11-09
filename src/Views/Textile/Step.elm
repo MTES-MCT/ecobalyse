@@ -740,11 +740,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                     availableMaterials =
                         db.materials
-                            |> List.filter
-                                (\element ->
-                                    not
-                                        (List.member element excluded)
-                                )
+                            |> List.filter (\element -> not (List.member element excluded))
 
                     totalShares =
                         inputs.materials
@@ -782,12 +778,11 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                         [ class "AddElementButton btn btn-outline-primary flex-fill"
                         , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                         , id "add-new-element"
-                        , onClick
-                            (setModal
-                                (addMaterialModal Nothing
-                                    (AutocompleteSelector.init .shortName availableMaterials)
-                                )
-                            )
+                        , availableMaterials
+                            |> AutocompleteSelector.init .shortName
+                            |> addMaterialModal Nothing
+                            |> setModal
+                            |> onClick
                         , disabled <| length >= Env.maxMaterials
                         ]
                         [ Icon.plus
