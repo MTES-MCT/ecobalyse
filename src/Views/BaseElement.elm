@@ -116,7 +116,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton { disabled = List.length excluded == 1 } deleteEvent
+    , deleteItemButton { disabled = False } deleteEvent
     ]
 
 

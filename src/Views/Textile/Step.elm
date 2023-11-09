@@ -692,128 +692,124 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
 viewMaterials : Config msg modal -> Html msg
 viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
-        (if List.isEmpty inputs.materials then
-            [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
+        ((inputs.materials
+            |> List.map
+                (\materialInput ->
+                    let
+                        nextCountry =
+                            config.next
+                                |> Maybe.withDefault config.current
+                                |> .country
 
-         else
-            (inputs.materials
-                |> List.map
-                    (\materialInput ->
-                        let
-                            nextCountry =
-                                config.next
-                                    |> Maybe.withDefault config.current
-                                    |> .country
-
-                            transport =
-                                materialInput
-                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
-                        in
-                        li [ class "ElementFormWrapper list-group-item" ]
-                            (List.concat
+                        transport =
+                            materialInput
+                                |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
+                    in
+                    li [ class "ElementFormWrapper list-group-item" ]
+                        (List.concat
+                            [ materialInput
+                                |> createElementSelectorConfig config
+                                |> BaseElement.view
+                            , if selectedImpact.trigram == Definition.Ecs then
                                 [ materialInput
-                                    |> createElementSelectorConfig config
-                                    |> BaseElement.view
-                                , if selectedImpact.trigram == Definition.Ecs then
-                                    [ materialInput
-                                        |> viewMaterialComplements inputs.mass
-                                    ]
-
-                                  else
-                                    []
-                                , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
-                                        (transport
-                                            |> TransportView.viewDetails
-                                                { fullWidth = False
-                                                , hideNoLength = True
-                                                , onlyIcons = False
-                                                , airTransportLabel = Nothing
-                                                , seaTransportLabel = Nothing
-                                                , roadTransportLabel = Nothing
-                                                }
-                                        )
-                                  , span
-                                        [ class "text-black-50 text-end ElementTransportImpact fs-8"
-                                        , title "Impact du transport pour cette matière"
-                                        ]
-                                        [ text "(+ "
-                                        , Format.formatImpact selectedImpact transport.impacts
-                                        , text ")"
-                                        ]
-                                  ]
+                                    |> viewMaterialComplements inputs.mass
                                 ]
-                            )
-                    )
-            )
-                ++ [ let
-                        length =
-                            List.length inputs.materials
-
-                        excluded =
-                            inputs.materials
-                                |> List.map .material
-
-                        availableMaterials =
-                            db.materials
-                                |> List.filter
-                                    (\element ->
-                                        not
-                                            (List.member element excluded)
-                                    )
-
-                        totalShares =
-                            inputs.materials
-                                |> List.map (.share >> Split.toFloat >> clamp 0 1)
-                                |> List.sum
-
-                        valid =
-                            round (totalShares * 100) == 100
-                     in
-                     li
-                        [ class "input-group "
-                        , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
-                        ]
-                        [ if length > 1 then
-                            span
-                                [ class "SharesTotal ext-end"
-                                , class "d-flex justify-content-between align-items-center gap-1"
-                                , classList
-                                    [ ( "text-success feedback-valid", valid )
-                                    , ( "text-danger feedback-invalid", not valid )
-                                    ]
-                                ]
-                                [ if valid then
-                                    Icon.check
-
-                                  else
-                                    Icon.warning
-                                , round (totalShares * 100) |> String.fromInt |> text
-                                , text "%"
-                                ]
-
-                          else
-                            text ""
-                        , button
-                            [ class "AddElementButton btn btn-outline-primary flex-fill"
-                            , class "d-flex justify-content-center align-items-center gap-1 no-outline"
-                            , id "add-new-element"
-                            , onClick
-                                (setModal
-                                    (addMaterialModal Nothing
-                                        (AutocompleteSelector.init .shortName availableMaterials)
-                                    )
-                                )
-                            , disabled <| length >= Env.maxMaterials
-                            ]
-                            [ Icon.plus
-                            , if length >= Env.maxMaterials then
-                                text "Nombre maximal de matières atteint"
 
                               else
-                                text "Ajouter une matière"
+                                []
+                            , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
+                                    (transport
+                                        |> TransportView.viewDetails
+                                            { fullWidth = False
+                                            , hideNoLength = True
+                                            , onlyIcons = False
+                                            , airTransportLabel = Nothing
+                                            , seaTransportLabel = Nothing
+                                            , roadTransportLabel = Nothing
+                                            }
+                                    )
+                              , span
+                                    [ class "text-black-50 text-end ElementTransportImpact fs-8"
+                                    , title "Impact du transport pour cette matière"
+                                    ]
+                                    [ text "(+ "
+                                    , Format.formatImpact selectedImpact transport.impacts
+                                    , text ")"
+                                    ]
+                              ]
                             ]
+                        )
+                )
+         )
+            ++ [ let
+                    length =
+                        List.length inputs.materials
+
+                    excluded =
+                        inputs.materials
+                            |> List.map .material
+
+                    availableMaterials =
+                        db.materials
+                            |> List.filter
+                                (\element ->
+                                    not
+                                        (List.member element excluded)
+                                )
+
+                    totalShares =
+                        inputs.materials
+                            |> List.map (.share >> Split.toFloat >> clamp 0 1)
+                            |> List.sum
+
+                    valid =
+                        round (totalShares * 100) == 100
+                 in
+                 li
+                    [ class "input-group "
+                    , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
+                    ]
+                    [ if length > 1 then
+                        span
+                            [ class "SharesTotal ext-end"
+                            , class "d-flex justify-content-between align-items-center gap-1"
+                            , classList
+                                [ ( "text-success feedback-valid", valid )
+                                , ( "text-danger feedback-invalid", not valid )
+                                ]
+                            ]
+                            [ if valid then
+                                Icon.check
+
+                              else
+                                Icon.warning
+                            , round (totalShares * 100) |> String.fromInt |> text
+                            , text "%"
+                            ]
+
+                      else
+                        text ""
+                    , button
+                        [ class "AddElementButton btn btn-outline-primary flex-fill"
+                        , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                        , id "add-new-element"
+                        , onClick
+                            (setModal
+                                (addMaterialModal Nothing
+                                    (AutocompleteSelector.init .shortName availableMaterials)
+                                )
+                            )
+                        , disabled <| length >= Env.maxMaterials
                         ]
-                   ]
+                        [ Icon.plus
+                        , if length >= Env.maxMaterials then
+                            text "Nombre maximal de matières atteint"
+
+                          else
+                            text "Ajouter une matière"
+                        ]
+                    ]
+               ]
         )
 
 
