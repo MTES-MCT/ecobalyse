@@ -621,9 +621,13 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                 _ ->
                                     text ""
                             ]
-                        , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
-                            ]
+                        , if not (List.member current.label [ Label.Making, Label.Distribution, Label.Use, Label.EndOfLife ]) then
+                            div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                                [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                                ]
+
+                          else
+                            text ""
                         ]
 
                 else
