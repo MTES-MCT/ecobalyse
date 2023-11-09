@@ -594,56 +594,69 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                         ]
                     ]
                 ]
-            , if not materialStep then
-                div
-                    [ class "StepBody card-body row align-items-center"
-                    , classList [ ( "disabled", not current.enabled ) ]
-                    ]
-                    [ div [ class "col-11 col-lg-7" ]
-                        [ countryField config
-                        , case current.label of
-                            Label.Spinning ->
-                                div [ class "mt-2 fs-7 text-muted" ]
-                                    [ yarnSizeField config inputs.product
-                                    ]
-
-                            Label.Fabric ->
-                                div [ class "mt-2 fs-7" ]
-                                    [ surfaceMassField config inputs.product ]
-
-                            Label.Ennobling ->
-                                div [ class "mt-2" ]
-                                    [ ennoblingGenericFields config
-                                    ]
-
-                            Label.Making ->
-                                div [ class "mt-2" ]
-                                    [ makingWasteField config
-                                    , airTransportRatioField config
-                                    , if inputs.product.making.fadable then
-                                        fadingField config
-
-                                      else
-                                        text ""
-                                    ]
-
-                            Label.Use ->
-                                div [ class "mt-2" ]
-                                    [ qualityField config
-                                    , reparabilityField config
-                                    , daysOfWearInfo inputs
-                                    ]
-
-                            _ ->
-                                text ""
+            , if current.enabled then
+                if not materialStep then
+                    div
+                        [ class "StepBody card-body row align-items-center"
+                        , classList [ ( "disabled", not current.enabled ) ]
                         ]
-                    , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                        [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                        [ div [ class "col-11 col-lg-7" ]
+                            [ countryField config
+                            , case current.label of
+                                Label.Spinning ->
+                                    div [ class "mt-2 fs-7 text-muted" ]
+                                        [ yarnSizeField config inputs.product
+                                        ]
+
+                                Label.Fabric ->
+                                    div [ class "mt-2 fs-7" ]
+                                        [ surfaceMassField config inputs.product ]
+
+                                Label.Ennobling ->
+                                    div [ class "mt-2" ]
+                                        [ ennoblingGenericFields config
+                                        ]
+
+                                Label.Making ->
+                                    div [ class "mt-2" ]
+                                        [ makingWasteField config
+                                        , airTransportRatioField config
+                                        , if inputs.product.making.fadable then
+                                            fadingField config
+
+                                          else
+                                            text ""
+                                        ]
+
+                                Label.Use ->
+                                    div [ class "mt-2" ]
+                                        [ qualityField config
+                                        , reparabilityField config
+                                        , daysOfWearInfo inputs
+                                        ]
+
+                                _ ->
+                                    text ""
+                            ]
+                        , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                            [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                            ]
                         ]
-                    ]
+
+                else
+                    viewMaterials config
 
               else
-                viewMaterials config
+                button
+                    [ class "btn btn-outline-primary"
+                    , class "d-flex justify-content-center align-items-center"
+                    , class " gap-1 w-100"
+                    , id "add-new-element"
+                    , onClick (toggleStep current.label)
+                    ]
+                    [ i [ class "icon icon-plus" ] []
+                    , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
+                    ]
             ]
     }
 
