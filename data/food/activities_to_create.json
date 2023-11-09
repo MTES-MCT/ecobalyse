@@ -292,9 +292,9 @@
     }
   },
   {
-    "id": "chicken-breast-organic-fr-ext",
+    "id": "chicken-breast-fr-ext-organic",
     "search": "Meat without bone, chicken, for direct consumption [fr-ext]",
-    "suffix": "[organic-ext-fr]",
+    "suffix": "[fr-ext-organic]",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
       "Broiler, live, for direct consumption {FR} U [fr-ext]",
