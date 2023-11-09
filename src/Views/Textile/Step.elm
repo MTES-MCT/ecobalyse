@@ -483,7 +483,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { detailedStep, index, toggleStepDetails } label =
+stepActions { current, detailedStep, index, toggleStepDetails } label =
     let
         materialStep =
             label == Label.Material
@@ -493,15 +493,15 @@ stepActions { detailedStep, index, toggleStepDetails } label =
             [ Button.docsPillLink
                 [ class "btn btn-secondary py-1"
                 , classList
-                    [ ( "rounded", materialStep )
-                    , ( "rounded-end", not materialStep )
+                    [ ( "rounded", materialStep || not current.enabled )
+                    , ( "rounded-end", not materialStep && current.enabled )
                     ]
                 , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
                 , title "Documentation"
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if not materialStep then
+            , if not materialStep && current.enabled then
                 Button.docsPill
                     [ class "btn btn-secondary py-1 rounded-start"
                     , detailedStep
@@ -597,9 +597,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
             , if current.enabled then
                 if not materialStep then
                     div
-                        [ class "StepBody card-body row align-items-center"
-                        , classList [ ( "disabled", not current.enabled ) ]
-                        ]
+                        [ class "StepBody card-body row align-items-center" ]
                         [ div [ class "col-11 col-lg-7" ]
                             [ countryField config
                             , case current.label of
