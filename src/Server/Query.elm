@@ -79,7 +79,6 @@ ingredientListParser key foodDb =
     Query.custom (key ++ "[]")
         (List.map (ingredientParser foodDb)
             >> RE.combine
-            >> Result.andThen validateIngredientList
             >> Result.mapError (\err -> ( key, err ))
         )
 
@@ -312,15 +311,6 @@ validateMassInGrams string =
                     Ok mass
             )
         |> Result.map Mass.grams
-
-
-validateIngredientList : List BuilderQuery.IngredientQuery -> Result String (List BuilderQuery.IngredientQuery)
-validateIngredientList list =
-    if list == [] then
-        Err "La liste des ingrédients est vide."
-
-    else
-        Ok list
 
 
 maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
@@ -566,7 +556,7 @@ parseSpinning material spinningString =
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
 validateMaterialList list =
     if list == [] then
-        Err "La liste des matières est vide."
+        Ok []
 
     else
         let
