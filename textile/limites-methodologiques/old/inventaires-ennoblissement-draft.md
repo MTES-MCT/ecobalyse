@@ -146,7 +146,7 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -156,13 +156,13 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
 
 <figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
 <figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
@@ -173,6 +173,8 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
 <figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -197,7 +199,7 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -205,7 +207,7 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
 
 <figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
@@ -222,6 +224,8 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
 <figure><img src="../../../.gitbook/assets/image (17) (1) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -244,7 +248,7 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -254,13 +258,13 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 
 <figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
 <figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
@@ -269,6 +273,8 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 <figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -317,6 +323,8 @@ Impression pigmentaire.
 <figure><img src="../../../.gitbook/assets/image (20) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -365,6 +373,8 @@ Impression avec des colorants dispersés.
 <figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (76).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 

@@ -19,7 +19,7 @@ Cf. la [page](../complements-hors-acv/export-hors-europe.md) dédiée dans la ru
 
 Scénarios considérés pour la fin de vie d'un vêtement :&#x20;
 
-![PEFCR v1.3 p121](<../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png>)
+![PEFCR v1.3 p121](<../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 &#x20;On prend en compte ces 2 scénarios :&#x20;
 
