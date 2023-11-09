@@ -623,7 +623,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                             ]
                         , if not (List.member current.label [ Label.Making, Label.Distribution, Label.Use, Label.EndOfLife ]) then
                             div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                                [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                                [ BaseElement.deleteItemButton (toggleStep current.label)
                                 ]
 
                           else
@@ -751,29 +751,23 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                         round (totalShares * 100) == 100
                  in
                  li
-                    [ class "input-group "
-                    , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
-                    ]
-                    [ if length > 1 then
-                        span
-                            [ class "SharesTotal ext-end"
-                            , class "d-flex justify-content-between align-items-center gap-1"
-                            , classList
-                                [ ( "text-success feedback-valid", valid )
-                                , ( "text-danger feedback-invalid", not valid )
-                                ]
+                    [ class "input-group AddElementFormWrapper ps-3" ]
+                    [ span
+                        [ class "SharesTotal ext-end"
+                        , class "d-flex justify-content-between align-items-center gap-1"
+                        , classList
+                            [ ( "text-success feedback-valid", valid )
+                            , ( "text-danger feedback-invalid", not valid )
                             ]
-                            [ if valid then
-                                Icon.check
+                        ]
+                        [ if valid then
+                            Icon.check
 
-                              else
-                                Icon.warning
-                            , round (totalShares * 100) |> String.fromInt |> text
-                            , text "%"
-                            ]
-
-                      else
-                        text ""
+                          else
+                            Icon.warning
+                        , round (totalShares * 100) |> String.fromInt |> text
+                        , text "%"
+                        ]
                     , button
                         [ class "AddElementButton btn btn-outline-primary flex-fill"
                         , class "d-flex justify-content-center align-items-center gap-1 no-outline"
@@ -862,18 +856,14 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
         }
     , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
-
-    -- No country selection for now
-    , disableCountry = False
-    , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
     , selectedImpact = selectedImpact
     , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
     , quantityView =
-        \{ disabled, quantity, onChange } ->
+        \{ quantity, onChange } ->
             SplitInput.view
-                { disabled = disabled
+                { disabled = False
                 , share = quantity
                 , onChange = onChange
                 }

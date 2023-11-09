@@ -6,7 +6,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
@@ -31,13 +31,11 @@ type alias Config element quantity msg =
     , db : Db element
     , defaultCountry : String
     , delete : element -> msg
-    , disableCountry : Bool
-    , disableQuantity : Bool
     , excluded : List element
     , impact : Impacts
 
     -- TODO: introduce complementsView
-    , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
+    , quantityView : { quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
     , toId : element -> String
@@ -47,7 +45,7 @@ type alias Config element quantity msg =
 
 
 view : Config element quantity msg -> List (Html msg)
-view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
+view { baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
     let
         updateEvent =
             update baseElement
@@ -62,8 +60,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
-            { disabled = disableQuantity
-            , quantity = baseElement.quantity
+            { quantity = baseElement.quantity
             , onChange =
                 \maybeQuantity ->
                     case maybeQuantity of
@@ -96,7 +93,6 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
             )
         |> select
             [ class "form-select form-select CountrySelector"
-            , disabled disableCountry
             , onInput
                 (\val ->
                     updateEvent
@@ -116,18 +112,17 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton { disabled = False } deleteEvent
+    , deleteItemButton deleteEvent
     ]
 
 
-deleteItemButton : { disabled : Bool } -> msg -> Html msg
-deleteItemButton { disabled } event =
+deleteItemButton : msg -> Html msg
+deleteItemButton event =
     button
         [ type_ "button"
         , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
-        , Attr.disabled disabled
         ]
         [ Icon.trash ]
 

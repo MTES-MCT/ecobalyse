@@ -565,7 +565,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-        , BaseElement.deleteItemButton { disabled = False } deleteEvent
+        , BaseElement.deleteItemButton deleteEvent
         ]
 
 
@@ -599,15 +599,13 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
-    , disableQuantity = False
-    , disableCountry = False
     , excluded =
         db.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
     , quantityView =
-        \{ disabled, quantity, onChange } ->
-            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+        \{ quantity, onChange } ->
+            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
@@ -1190,7 +1188,7 @@ distributionView selectedImpact recipe results =
                                 )
                         )
                     , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-                    , BaseElement.deleteItemButton { disabled = False } ResetDistribution
+                    , BaseElement.deleteItemButton ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7 pt-2" ]
@@ -1263,7 +1261,7 @@ consumptionView db selectedImpact recipe results =
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
-                            , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
+                            , BaseElement.deleteItemButton (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
