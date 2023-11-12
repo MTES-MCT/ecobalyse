@@ -177,6 +177,19 @@
     }
   },
   {
+    "id": "pig-fr-organic",
+    "search": "Pig, conventional, national average, at farm gate",
+    "suffix": "[fr-organic], constructed by Ecobalyse",
+    "subactivities": [
+      "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
+      "Pig, French average, finishing feed, purchased part, conv prod, at farm gate {FR} U"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Soft wheat grain, organic, animal feed, at farm gate {FR} U",
+      "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U": "Grain maize, organic, animal feed, at farm gate {FR} U"
+    }
+  },
+  {
     "id": "pig-br",
     "search": "Pig, conventional, national average, at farm gate",
     "suffix": "[br], constructed by Ecobalyse",
