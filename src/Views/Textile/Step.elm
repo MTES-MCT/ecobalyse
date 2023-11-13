@@ -483,7 +483,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, detailedStep, index, toggleStepDetails } label =
+stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } label =
     let
         materialStep =
             label == Label.Material
@@ -523,6 +523,25 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
 
               else
                 text ""
+            , if materialStep then
+                input
+                    [ type_ "checkbox"
+                    , class "form-check-input ms-1 no-outline"
+                    , attribute "role" "switch"
+                    , checked current.enabled
+                    , onCheck (always (toggleStep current.label))
+                    , title
+                        (if current.enabled then
+                            "Étape activée, cliquez pour la désactiver"
+
+                         else
+                            "Étape desactivée, cliquez pour la réactiver"
+                        )
+                    ]
+                    []
+
+              else
+                text ""
             ]
         ]
 
@@ -533,6 +552,13 @@ stepHeader { current, inputs } =
         [ class "d-flex align-items-center gap-2"
         , class "text-dark cursor-pointer"
         , classList [ ( "text-secondary", not current.enabled ) ]
+        , title
+            (if current.enabled then
+                "Étape activée, cliquez pour la désactiver"
+
+             else
+                "Étape desactivée, cliquez pour la réactiver"
+            )
         ]
         [ h2 [ class "h5 mb-0" ]
             [ current.label
@@ -579,8 +605,8 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                         ]
                     ]
                 ]
-            , if current.enabled then
-                if not materialStep then
+            , if not materialStep then
+                if current.enabled then
                     div
                         [ class "StepBody card-body row align-items-center" ]
                         [ div [ class "col-11 col-lg-7" ]
@@ -621,29 +647,25 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                 _ ->
                                     text ""
                             ]
-                        , if not (List.member current.label [ Label.Making, Label.Distribution, Label.Use, Label.EndOfLife ]) then
-                            div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                                [ BaseElement.deleteItemButton (toggleStep current.label)
-                                ]
-
-                          else
-                            text ""
+                        , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                            [ BaseElement.deleteItemButton (toggleStep current.label)
+                            ]
                         ]
 
                 else
-                    viewMaterials config
+                    button
+                        [ class "btn btn-outline-primary"
+                        , class "d-flex justify-content-center align-items-center"
+                        , class " gap-1 w-100"
+                        , id "add-new-element"
+                        , onClick (toggleStep current.label)
+                        ]
+                        [ i [ class "icon icon-plus" ] []
+                        , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
+                        ]
 
               else
-                button
-                    [ class "btn btn-outline-primary"
-                    , class "d-flex justify-content-center align-items-center"
-                    , class " gap-1 w-100"
-                    , id "add-new-element"
-                    , onClick (toggleStep current.label)
-                    ]
-                    [ i [ class "icon icon-plus" ] []
-                    , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
-                    ]
+                viewMaterials config
             ]
     }
 
