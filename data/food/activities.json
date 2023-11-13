@@ -516,7 +516,6 @@
     "search": "Broiler national at farm gate",
     "category": "material",
     "default_origin": "EuropeAndMaghreb",
-    "bvi": 2.767972021,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2461,7 +2460,6 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2479,7 +2477,6 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "bvi": 0.0,
     "explain": "Toujours importé => bonus nuls",
     "complements": {
       "agro-diversity": 0,
@@ -2498,7 +2495,6 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -2517,7 +2513,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2535,7 +2530,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2553,7 +2547,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
@@ -2571,7 +2564,6 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "bvi": 0.0,
     "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
     "complements": {
       "agro-diversity": 0,
