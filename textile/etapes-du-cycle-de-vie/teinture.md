@@ -129,7 +129,9 @@ Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 
 #### Finition
 
-Un procédé d'apprêt chimique (_apprêt chimique anti-tâche, procédé représentatif_) est appliqué par défaut à chaque produit modélisé.&#x20;
+Un procédé d'apprêt chimique ([_apprêt chimique anti-tâche, procédé représentatif_](#user-content-fn-1)[^1]) est appliqué par défaut à chaque produit modélisé : \
+Chaleur = 10,74 MJ / kg de vêtement\
+Electricité = 0,45 kWh / kg de vêtement
 
 L'utilisateur n'a, à ce stade, pas la possibilité de préciser cette sous-étape pour plusieurs raisons mentionnées ci-dessous.&#x20;
 
@@ -227,3 +229,5 @@ Cette sous-étape regroupe les traitements qui servent à donner aux textiles le
 Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, les apprêts chimiques sont appliquées sous la forme de solutions aqueuses au moyen de la technique de foulardage.&#x20;
 
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
+
+[^1]: UUID = 63baddae-e05d-404b-a73f-371044a24fe9
