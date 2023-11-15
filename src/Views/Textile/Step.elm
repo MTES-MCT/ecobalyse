@@ -648,7 +648,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                     text ""
                             ]
                         , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton (toggleStep current.label)
+                            [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
                             ]
                         ]
 
@@ -867,7 +867,8 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 |> stepMaterialImpacts db materialInput.material
                 |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
     in
-    { baseElement = baseElement
+    { allowEmptyList = False
+    , baseElement = baseElement
     , db =
         { elements = db.materials
         , countries =

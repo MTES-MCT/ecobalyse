@@ -6,7 +6,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
@@ -27,7 +27,8 @@ type alias Db element =
 
 
 type alias Config element quantity msg =
-    { baseElement : BaseElement element quantity
+    { allowEmptyList : Bool
+    , baseElement : BaseElement element quantity
     , db : Db element
     , defaultCountry : String
     , delete : element -> msg
@@ -45,7 +46,7 @@ type alias Config element quantity msg =
 
 
 view : Config element quantity msg -> List (Html msg)
-view { baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
+view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
     let
         updateEvent =
             update baseElement
@@ -112,17 +113,18 @@ view { baseElement, db, defaultCountry, delete, excluded, impact, quantityView, 
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton deleteEvent
+    , deleteItemButton { disabled = List.length excluded == 1 && not allowEmptyList } deleteEvent
     ]
 
 
-deleteItemButton : msg -> Html msg
-deleteItemButton event =
+deleteItemButton : { disabled : Bool } -> msg -> Html msg
+deleteItemButton { disabled } event =
     button
         [ type_ "button"
         , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
         , title "Supprimer ce composant"
         , onClick event
+        , Attr.disabled disabled
         ]
         [ Icon.trash ]
 

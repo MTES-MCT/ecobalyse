@@ -565,7 +565,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-        , BaseElement.deleteItemButton deleteEvent
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
 
 
@@ -588,7 +588,8 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
             , country = recipeIngredient.country
             }
     in
-    { baseElement = baseElement
+    { allowEmptyList = True
+    , baseElement = baseElement
     , db =
         { elements = db.ingredients
         , countries =
@@ -1188,7 +1189,7 @@ distributionView selectedImpact recipe results =
                                 )
                         )
                     , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-                    , BaseElement.deleteItemButton ResetDistribution
+                    , BaseElement.deleteItemButton { disabled = False } ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7 pt-2" ]
@@ -1261,7 +1262,7 @@ consumptionView db selectedImpact recipe results =
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
-                            , BaseElement.deleteItemButton (DeletePreparation usedPreparation.id)
+                            , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
