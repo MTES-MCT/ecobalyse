@@ -589,18 +589,7 @@ def delete_activity(_):
         save_activities(activities)
 
 
-def current_branch():
-    return (
-        subprocess.run(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True
-        )
-        .stdout.decode()
-        .strip()
-    )
-
-
 def reset_branch():
-    branch = current_branch()
     if subprocess.run(["git", "reset", "--hard"], capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
@@ -615,44 +604,46 @@ def reset_branch():
         )
     elif (
         subprocess.run(
-            ["git", "checkout", f"origin/{branch}"], capture_output=True
+            ["git", "checkout", "origin/ingredients"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                f"<pre style='color: red'>ÉCHEC de la commande: git checkout origin/{branch}"
+                "<pre style='color: red'>ÉCHEC de la commande: git checkout origin/ingredients"
             )
         )
     elif (
         subprocess.run(
-            ["git", "branch", "-D", f"{branch}"], capture_output=True
+            ["git", "branch", "-D", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                f"<pre style='color: red'>ÉCHEC de la commande: git branch -D {branch}"
+                "<pre style='color: red'>ÉCHEC de la commande: git branch -D ingredients"
             )
         )
     elif (
         subprocess.run(
-            ["git", "branch", f"{branch}", f"origin/{branch}"], capture_output=True
+            ["git", "branch", "ingredients", "origin/ingredients"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                f"<pre style='color: red'>ÉCHEC de la commande: git branch {branch} origin/{branch}"
+                "<pre style='color: red'>ÉCHEC de la commande: git branch ingredients origin/ingredients"
             )
         )
     elif (
-        subprocess.run(["git", "checkout", f"{branch}"], capture_output=True).returncode
+        subprocess.run(
+            ["git", "checkout", "ingredients"], capture_output=True
+        ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                f"<pre style='color: red'>ÉCHEC de la commande: git checkout {branch}"
+                "<pre style='color: red'>ÉCHEC de la commande: git checkout ingredients"
             )
         )
     else:
@@ -665,26 +656,25 @@ def reset_branch():
 
 @reset_output.capture()
 def reset_activities(_):
-    branch = current_branch()
     if not w_institut.value:
         display("Sélectionnez d'abord le bon contributeur")
         return
     elif (
         subprocess.run(
-            ["git", "pull", "origin", f"{branch}"], capture_output=True
+            ["git", "pull", "origin", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                f"<pre style='color: red'>ÉCHEC de la commande: git pull origin {branch}. Prénenez l'équipe Écobalyse'"
+                "<pre style='color: red'>ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
             )
         )
         reset_branch()
     else:
         display(
             ipywidgets.HTML(
-                f"<pre style='color: green'>SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche {branch}"
+                "<pre style='color: green'>SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
             )
         )
 
@@ -708,7 +698,6 @@ def clear_reset_output(_):
 
 @git_output.capture()
 def commit_activities(_):
-    branch = current_branch()
     if not w_institut.value:
         display("Sélectionnez d'abord le bon contributeur")
         return
@@ -736,7 +725,7 @@ def commit_activities(_):
         reset_branch()
     elif (
         subprocess.run(
-            ["git", "pull", "origin", f"{branch}"], capture_output=True
+            ["git", "pull", "origin", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
@@ -746,7 +735,7 @@ def commit_activities(_):
         reset_branch()
     elif (
         subprocess.run(
-            ["git", "push", "origin", f"{branch}"], capture_output=True
+            ["git", "push", "origin", "ingredients"], capture_output=True
         ).returncode
         != 0
     ):
@@ -772,7 +761,6 @@ clear_git_button.on_click(clear_git_output)
 clear_save_button.on_click(clear_save_output)
 
 
-branch = current_branch()
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
     w_institut,
@@ -1049,10 +1037,10 @@ display(
             ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
-                        f"""Si vous êtes satisfait(e) de vos modifications locales, vous devez
+                        """Si vous êtes satisfait(e) de vos modifications locales, vous devez
                         <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
                         style="color:blue"
-                        href="https://github.com/MTES-MCT/ecobalyse/tree/{branch}">{branch}</a>
+                        href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a>
                         du dépôt Écobalyse.<br/> L'équipe Écobalyse pourra ensuite recalculer les
                         impacts et intégrer vos contributions."""
                     ),
