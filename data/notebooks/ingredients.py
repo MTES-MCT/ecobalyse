@@ -207,7 +207,7 @@ w_default_origin = ipywidgets.Dropdown(
 w_category = ipywidgets.Dropdown(
     options=[
         ("Ingrédient", "ingredient"),
-        ("Matériau ou sous-ingrédient", "material"),
+        ("Matériau", "material"),
         ("Énergie", "energy"),
         ("Emballage", "packaging"),
         ("Traitement", "processing"),
