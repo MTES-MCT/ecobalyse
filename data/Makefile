@@ -79,6 +79,12 @@ stop_notebook:
 		echo "stopping jupyter"; sleep 1; \
 	done
 
+start_bwapi:
+	echo starting the Brightway API on port 8000...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api";\
+	else $(DOCKERRUN) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api"; fi
+
 clean_data:
 	docker volume rm $(NAME)
 
