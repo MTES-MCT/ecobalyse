@@ -49,7 +49,6 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
-import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
