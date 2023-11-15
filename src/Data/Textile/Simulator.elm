@@ -95,7 +95,9 @@ compute db query =
             next (fn db)
 
         nextIf label fn =
-            if not (List.member label query.disabledSteps) then
+            if not (List.member label query.disabledSteps) || label == Label.Material then
+                -- We always need to compute the Material's step waste otherwise the input mass
+                -- for the next step (spinning) would never be computed.
                 next fn
 
             else
