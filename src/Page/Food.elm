@@ -753,7 +753,9 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, titl
                 [ Icon.question ]
             ]
         , div [ class "ComplementImpact text-muted text-end" ]
-            [ Format.complement complementImpact
+            [ text "("
+            , Format.complement complementImpact
+            , text ")"
             ]
         ]
 

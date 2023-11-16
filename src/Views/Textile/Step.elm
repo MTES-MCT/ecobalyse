@@ -673,27 +673,20 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
 viewStepImpacts : Definition -> Step -> Html msg
 viewStepImpacts selectedImpact { impacts, complementsImpacts } =
     if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
+        let
+            stepComplementsImpact =
+                complementsImpacts
+                    |> Impact.getTotalComplementsImpacts
+
+            totalImpacts =
+                impacts
+                    |> Impact.applyComplements stepComplementsImpact
+        in
         div []
             [ span [ class "flex-fill" ]
-                [ impacts
+                [ totalImpacts
                     |> Format.formatImpact selectedImpact
                 ]
-            , let
-                stepComplementsImpact =
-                    complementsImpacts
-                        |> Impact.getTotalComplementsImpacts
-              in
-              if Unit.impactToFloat stepComplementsImpact /= 0 then
-                small [ class "fs-8 text-muted ps-1" ]
-                    [ text "("
-                    , complementsImpacts
-                        |> Impact.getTotalComplementsImpacts
-                        |> Format.complement
-                    , text ")"
-                    ]
-
-              else
-                text ""
             ]
 
     else
@@ -835,7 +828,9 @@ viewMaterialComplements finalProductMass materialInput =
             , span [ class "ComplementRange" ] []
             , div [ class "ComplementValue d-flex" ] []
             , div [ class "ComplementImpact text-muted text-end" ]
-                [ Format.complement materialComplement
+                [ text "("
+                , Format.complement materialComplement
+                , text ")"
                 ]
             ]
         ]
