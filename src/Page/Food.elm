@@ -752,7 +752,7 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, titl
                 ]
                 [ Icon.question ]
             ]
-        , div [ class "ComplementImpact text-muted text-end" ]
+        , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
             [ text "("
             , Format.complement complementImpact
             , text ")"
