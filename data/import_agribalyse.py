@@ -6,8 +6,8 @@ from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
-import re
 import json
+import re
 from common.export import (
     search,
     with_corrected_impacts,
@@ -17,6 +17,7 @@ from common.export import (
     new_exchange,
 )
 import logging
+from common.import_ import add_missing_substances
 
 PROJECT = "food"
 # Agribalyse
@@ -293,8 +294,8 @@ def import_agribalyse(
 def add_average_activity(activity_data, dbname=DBNAME):
     """Add to the database a new activity : the weighted average of multiple activities
 
-    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the 
-    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from 
+    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the
+    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from
     system 1 to 5
     """
 
@@ -307,8 +308,7 @@ def add_average_activity(activity_data, dbname=DBNAME):
 
 
 def replace_activities(activity_variant, activity_data, dbname=DBNAME):
-    """Replace all activities in activity_data["replace"] with variants of these activities
-    """
+    """Replace all activities in activity_data["replace"] with variants of these activities"""
     for k, v in activity_data["replace"].items():
         activity_old = search(dbname, k)
         activity_new = search(dbname, v)
@@ -345,7 +345,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
     #  we can replace the wheat activity with the wheat-organic activity
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
-            sub_activity = search(dbname, act_sub_data,"declassified")
+            sub_activity = search(dbname, act_sub_data, "declassified")
 
             # create a new sub activity variant
             sub_activity_variant = create_activity(
@@ -363,7 +363,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             delete_exchange(activity_variant, sub_activity)
 
             # for the last sub activity, replace the seed activity with the seed activity variant
-            # Example: for flour-organic this is where the replace the wheat activity with the 
+            # Example: for flour-organic this is where the replace the wheat activity with the
             # wheat-organic activity
             if i == len(activity_data["subactivities"]) - 1:
                 replace_activities(sub_activity_variant, activity_data)
@@ -402,7 +402,7 @@ def main():
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
-
+    add_missing_substances(PROJECT, BIOSPHERE)
     if DBNAME not in bw2data.databases:
         import_agribalyse()
     else:
@@ -413,4 +413,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
