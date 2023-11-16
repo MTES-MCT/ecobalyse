@@ -373,14 +373,6 @@ describe("API", () => {
           expect(Object.keys(response.body.results.total)).toHaveLength(21);
         });
 
-        it("should validate the ingredient list length", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", []),
-            "ingredients",
-            /liste des ingrédients est vide/,
-          );
-        });
-
         it("should validate an ingredient id", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food/recipe", ["ingredients[]=invalid;268"]),

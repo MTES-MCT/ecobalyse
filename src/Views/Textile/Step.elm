@@ -483,7 +483,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, detailedStep, index, toggleStepDetails } label =
+stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } label =
     let
         materialStep =
             label == Label.Material
@@ -493,19 +493,17 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
             [ Button.docsPillLink
                 [ class "btn btn-secondary py-1"
                 , classList
-                    [ ( "btn-secondary", not current.enabled )
-                    , ( "rounded", materialStep )
-                    , ( "rounded-end", not materialStep )
+                    [ ( "rounded", materialStep || not current.enabled )
+                    , ( "rounded-end", not materialStep && current.enabled )
                     ]
                 , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
                 , title "Documentation"
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if not materialStep then
+            , if not materialStep && current.enabled then
                 Button.docsPill
                     [ class "btn btn-secondary py-1 rounded-start"
-                    , classList [ ( "btn-secondary", not current.enabled ) ]
                     , detailedStep
                         |> Maybe.map (always <| title "Affichage simplifie")
                         |> Maybe.withDefault (title "Détailler cette étape")
@@ -525,12 +523,31 @@ stepActions { current, detailedStep, index, toggleStepDetails } label =
 
               else
                 text ""
+            , if materialStep then
+                input
+                    [ type_ "checkbox"
+                    , class "form-check-input ms-1 no-outline"
+                    , attribute "role" "switch"
+                    , checked current.enabled
+                    , onCheck (always (toggleStep current.label))
+                    , title
+                        (if current.enabled then
+                            "Étape activée, cliquez pour la désactiver"
+
+                         else
+                            "Étape desactivée, cliquez pour la réactiver"
+                        )
+                    ]
+                    []
+
+              else
+                text ""
             ]
         ]
 
 
 stepHeader : Config msg modal -> Html msg
-stepHeader { current, inputs, toggleStep } =
+stepHeader { current, inputs } =
     label
         [ class "d-flex align-items-center gap-2"
         , class "text-dark cursor-pointer"
@@ -543,15 +560,7 @@ stepHeader { current, inputs, toggleStep } =
                 "Étape desactivée, cliquez pour la réactiver"
             )
         ]
-        [ input
-            [ type_ "checkbox"
-            , class "form-check-input mt-0 no-outline"
-            , attribute "role" "switch"
-            , checked current.enabled
-            , onCheck (always (toggleStep current.label))
-            ]
-            []
-        , h2 [ class "h5 mb-0" ]
+        [ h2 [ class "h5 mb-0" ]
             [ current.label
                 |> Step.displayLabel
                     { knitted = Product.isKnitted inputs.product
@@ -573,7 +582,7 @@ stepHeader { current, inputs, toggleStep } =
 
 
 simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ inputs, selectedImpact, current } as config) =
+simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
     let
         materialStep =
             current.label == Label.Material
@@ -597,49 +606,63 @@ simpleView ({ inputs, selectedImpact, current } as config) =
                     ]
                 ]
             , if not materialStep then
-                div
-                    [ class "StepBody card-body row align-items-center"
-                    , classList [ ( "disabled", not current.enabled ) ]
-                    ]
-                    [ div [ class "col-sm-6 col-lg-7" ]
-                        [ countryField config
-                        , case current.label of
-                            Label.Spinning ->
-                                div [ class "mt-2 fs-7 text-muted" ]
-                                    [ yarnSizeField config inputs.product
-                                    ]
+                if current.enabled then
+                    div
+                        [ class "StepBody card-body row align-items-center" ]
+                        [ div [ class "col-11 col-lg-7" ]
+                            [ countryField config
+                            , case current.label of
+                                Label.Spinning ->
+                                    div [ class "mt-2 fs-7 text-muted" ]
+                                        [ yarnSizeField config inputs.product
+                                        ]
 
-                            Label.Fabric ->
-                                div [ class "mt-2 fs-7" ]
-                                    [ surfaceMassField config inputs.product ]
+                                Label.Fabric ->
+                                    div [ class "mt-2 fs-7" ]
+                                        [ surfaceMassField config inputs.product ]
 
-                            Label.Ennobling ->
-                                div [ class "mt-2" ]
-                                    [ ennoblingGenericFields config
-                                    ]
+                                Label.Ennobling ->
+                                    div [ class "mt-2" ]
+                                        [ ennoblingGenericFields config
+                                        ]
 
-                            Label.Making ->
-                                div [ class "mt-2" ]
-                                    [ makingWasteField config
-                                    , airTransportRatioField config
-                                    , if inputs.product.making.fadable then
-                                        fadingField config
+                                Label.Making ->
+                                    div [ class "mt-2" ]
+                                        [ makingWasteField config
+                                        , airTransportRatioField config
+                                        , if inputs.product.making.fadable then
+                                            fadingField config
 
-                                      else
-                                        text ""
-                                    ]
+                                          else
+                                            text ""
+                                        ]
 
-                            Label.Use ->
-                                div [ class "mt-2" ]
-                                    [ qualityField config
-                                    , reparabilityField config
-                                    , daysOfWearInfo inputs
-                                    ]
+                                Label.Use ->
+                                    div [ class "mt-2" ]
+                                        [ qualityField config
+                                        , reparabilityField config
+                                        , daysOfWearInfo inputs
+                                        ]
 
-                            _ ->
-                                text ""
+                                _ ->
+                                    text ""
+                            ]
+                        , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                            [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                            ]
                         ]
-                    ]
+
+                else
+                    button
+                        [ class "btn btn-outline-primary"
+                        , class "d-flex justify-content-center align-items-center"
+                        , class " gap-1 w-100"
+                        , id "add-new-element"
+                        , onClick (toggleStep current.label)
+                        ]
+                        [ i [ class "icon icon-plus" ] []
+                        , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
+                        ]
 
               else
                 viewMaterials config
@@ -680,128 +703,113 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
 viewMaterials : Config msg modal -> Html msg
 viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
-        (if List.isEmpty inputs.materials then
-            [ li [ class "list-group-item" ] [ text "Aucune matière première" ] ]
+        ((inputs.materials
+            |> List.map
+                (\materialInput ->
+                    let
+                        nextCountry =
+                            config.next
+                                |> Maybe.withDefault config.current
+                                |> .country
 
-         else
-            (inputs.materials
-                |> List.map
-                    (\materialInput ->
-                        let
-                            nextCountry =
-                                config.next
-                                    |> Maybe.withDefault config.current
-                                    |> .country
-
-                            transport =
-                                materialInput
-                                    |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
-                        in
-                        li [ class "ElementFormWrapper list-group-item" ]
-                            (List.concat
+                        transport =
+                            materialInput
+                                |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
+                    in
+                    li [ class "ElementFormWrapper list-group-item" ]
+                        (List.concat
+                            [ materialInput
+                                |> createElementSelectorConfig config
+                                |> BaseElement.view
+                            , if selectedImpact.trigram == Definition.Ecs then
                                 [ materialInput
-                                    |> createElementSelectorConfig config
-                                    |> BaseElement.view
-                                , if selectedImpact.trigram == Definition.Ecs then
-                                    [ materialInput
-                                        |> viewMaterialComplements inputs.mass
-                                    ]
-
-                                  else
-                                    []
-                                , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
-                                        (transport
-                                            |> TransportView.viewDetails
-                                                { fullWidth = False
-                                                , hideNoLength = True
-                                                , onlyIcons = False
-                                                , airTransportLabel = Nothing
-                                                , seaTransportLabel = Nothing
-                                                , roadTransportLabel = Nothing
-                                                }
-                                        )
-                                  , span
-                                        [ class "text-black-50 text-end ElementTransportImpact fs-8"
-                                        , title "Impact du transport pour cette matière"
-                                        ]
-                                        [ text "(+ "
-                                        , Format.formatImpact selectedImpact transport.impacts
-                                        , text ")"
-                                        ]
-                                  ]
+                                    |> viewMaterialComplements inputs.mass
                                 ]
-                            )
-                    )
-            )
-                ++ [ let
-                        length =
-                            List.length inputs.materials
-
-                        excluded =
-                            inputs.materials
-                                |> List.map .material
-
-                        availableMaterials =
-                            db.materials
-                                |> List.filter
-                                    (\element ->
-                                        not
-                                            (List.member element excluded)
-                                    )
-
-                        totalShares =
-                            inputs.materials
-                                |> List.map (.share >> Split.toFloat >> clamp 0 1)
-                                |> List.sum
-
-                        valid =
-                            round (totalShares * 100) == 100
-                     in
-                     li
-                        [ class "input-group "
-                        , classList [ ( "AddElementFormWrapper ps-3", length > 1 ) ]
-                        ]
-                        [ if length > 1 then
-                            span
-                                [ class "SharesTotal ext-end"
-                                , class "d-flex justify-content-between align-items-center gap-1"
-                                , classList
-                                    [ ( "text-success feedback-valid", valid )
-                                    , ( "text-danger feedback-invalid", not valid )
-                                    ]
-                                ]
-                                [ if valid then
-                                    Icon.check
-
-                                  else
-                                    Icon.warning
-                                , round (totalShares * 100) |> String.fromInt |> text
-                                , text "%"
-                                ]
-
-                          else
-                            text ""
-                        , button
-                            [ class "AddElementButton btn btn-outline-primary flex-fill"
-                            , class "d-flex justify-content-center align-items-center gap-1 no-outline"
-                            , id "add-new-element"
-                            , onClick
-                                (setModal
-                                    (addMaterialModal Nothing
-                                        (AutocompleteSelector.init .shortName availableMaterials)
-                                    )
-                                )
-                            , disabled <| length >= Env.maxMaterials
-                            ]
-                            [ Icon.plus
-                            , if length >= Env.maxMaterials then
-                                text "Nombre maximal de matières atteint"
 
                               else
-                                text "Ajouter une matière"
+                                []
+                            , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
+                                    (transport
+                                        |> TransportView.viewDetails
+                                            { fullWidth = False
+                                            , hideNoLength = True
+                                            , onlyIcons = False
+                                            , airTransportLabel = Nothing
+                                            , seaTransportLabel = Nothing
+                                            , roadTransportLabel = Nothing
+                                            }
+                                    )
+                              , span
+                                    [ class "text-black-50 text-end ElementTransportImpact fs-8"
+                                    , title "Impact du transport pour cette matière"
+                                    ]
+                                    [ text "(+ "
+                                    , Format.formatImpact selectedImpact transport.impacts
+                                    , text ")"
+                                    ]
+                              ]
+                            ]
+                        )
+                )
+         )
+            ++ [ let
+                    length =
+                        List.length inputs.materials
+
+                    excluded =
+                        inputs.materials
+                            |> List.map .material
+
+                    availableMaterials =
+                        db.materials
+                            |> List.filter (\element -> not (List.member element excluded))
+
+                    totalShares =
+                        inputs.materials
+                            |> List.map (.share >> Split.toFloat >> clamp 0 1)
+                            |> List.sum
+
+                    valid =
+                        round (totalShares * 100) == 100
+                 in
+                 li
+                    [ class "input-group AddElementFormWrapper ps-3" ]
+                    [ span
+                        [ class "SharesTotal ext-end"
+                        , class "d-flex justify-content-between align-items-center gap-1"
+                        , classList
+                            [ ( "text-success feedback-valid", valid )
+                            , ( "text-danger feedback-invalid", not valid )
                             ]
                         ]
-                   ]
+                        [ if valid then
+                            Icon.check
+
+                          else
+                            Icon.warning
+                        , round (totalShares * 100) |> String.fromInt |> text
+                        , text "%"
+                        ]
+                    , button
+                        [ class "AddElementButton btn btn-outline-primary flex-fill"
+                        , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                        , id "add-new-element"
+                        , availableMaterials
+                            |> AutocompleteSelector.init .shortName
+                            |> addMaterialModal Nothing
+                            |> setModal
+                            |> onClick
+                        , disabled <| length >= Env.maxMaterials
+                        ]
+                        [ Icon.plus
+                        , if length >= Env.maxMaterials then
+                            text "Nombre maximal de matières atteint"
+
+                          else
+                            text "Ajouter une matière"
+                        ]
+                    ]
+               ]
         )
 
 
@@ -859,7 +867,8 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
                 |> stepMaterialImpacts db materialInput.material
                 |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
     in
-    { baseElement = baseElement
+    { allowEmptyList = False
+    , baseElement = baseElement
     , db =
         { elements = db.materials
         , countries =
@@ -870,18 +879,14 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
         }
     , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
-
-    -- No country selection for now
-    , disableCountry = False
-    , disableQuantity = List.length inputs.materials <= 1
     , excluded = excluded
     , impact = impacts
     , selectedImpact = selectedImpact
     , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
     , quantityView =
-        \{ disabled, quantity, onChange } ->
+        \{ quantity, onChange } ->
             SplitInput.view
-                { disabled = disabled
+                { disabled = False
                 , share = quantity
                 , onChange = onChange
                 }

@@ -253,15 +253,8 @@ update ({ textileDb, queries, navKey } as session) msg model =
             )
 
         RemoveMaterial materialId ->
-            if List.length query.materials == 1 then
-                ( model
-                , session |> Session.notifyError "Impossible de supprimer la matière première : " "il faut au moins une matière première"
-                , Cmd.none
-                )
-
-            else
-                ( model, session, Cmd.none )
-                    |> updateQuery (Inputs.removeMaterial materialId query)
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )

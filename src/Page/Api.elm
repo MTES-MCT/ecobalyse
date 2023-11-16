@@ -54,7 +54,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "24 octobre 2023"
+    [ { date = "9 novembre 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire", "Textile" ]
+      , md =
+            """La liste des matières premières textiles et des ingrédients 
+            alimentaires peuvent maintenant être vides."""
+      }
+    , { date = "24 octobre 2023"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =

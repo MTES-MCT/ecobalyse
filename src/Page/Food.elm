@@ -565,19 +565,8 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-        , deleteItemButton deleteEvent
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
-
-
-deleteItemButton : Msg -> Html Msg
-deleteItemButton event =
-    button
-        [ type_ "button"
-        , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
-        , title "Supprimer cet ingrédient"
-        , onClick event
-        ]
-        [ Icon.trash ]
 
 
 type alias UpdateIngredientConfig =
@@ -599,7 +588,8 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
             , country = recipeIngredient.country
             }
     in
-    { baseElement = baseElement
+    { allowEmptyList = True
+    , baseElement = baseElement
     , db =
         { elements = db.ingredients
         , countries =
@@ -610,15 +600,13 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
-    , disableQuantity = False
-    , disableCountry = False
     , excluded =
         db.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
     , quantityView =
-        \{ disabled, quantity, onChange } ->
-            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+        \{ quantity, onChange } ->
+            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
@@ -1201,7 +1189,7 @@ distributionView selectedImpact recipe results =
                                 )
                         )
                     , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-                    , deleteItemButton ResetDistribution
+                    , BaseElement.deleteItemButton { disabled = False } ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7 pt-2" ]
@@ -1274,7 +1262,7 @@ consumptionView db selectedImpact recipe results =
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
-                            , deleteItemButton (DeletePreparation usedPreparation.id)
+                            , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
