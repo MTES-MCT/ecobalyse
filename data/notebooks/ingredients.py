@@ -135,29 +135,25 @@ def from_pretty(d):
 
 
 def read_activities(filter=""):
-    """Return the activities as a dict indexed with id
-    TODO remove duplicate code"""
+    """Return the activities as a dict indexed with id"""
+
+    def read_temp():
+        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
+            return {
+                i["id"]: i
+                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
+                if not filter
+                or filter.lower() in i["Nom"].lower()
+                or filter.lower() in i["id"].lower()
+            }
+
     if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
     try:
-        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {
-                i["id"]: i
-                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
-                if not filter
-                or filter.lower() in i["Nom"].lower()
-                or filter.lower() in i["id"].lower()
-            }
+        igs = read_temp()
     except json.JSONDecodeError:
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
-        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {
-                i["id"]: i
-                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
-                if not filter
-                or filter.lower() in i["Nom"].lower()
-                or filter.lower() in i["id"].lower()
-            }
+        igs = read_temp()
 
     return igs
 
@@ -554,7 +550,7 @@ def change_search_of(field):
     return change_search
 
 
-def change_filter(change):
+def change_filter(_):
     list_output.clear_output()
     list_activities()
 
