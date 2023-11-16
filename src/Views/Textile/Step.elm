@@ -1153,7 +1153,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                     , threadDensityView current.threadDensity
                     , if current.label == Label.EndOfLife then
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
-                            [ span [ class "me-2" ] [ text "Probablilité de fin de vie hors-Europe" ]
+                            [ span [ class "me-2" ] [ text "Probabilité de fin de vie hors-Europe" ]
                             , inputs.materials
                                 |> Inputs.getOutOfEuropeEOLProbability
                                 |> Format.splitAsPercentage
