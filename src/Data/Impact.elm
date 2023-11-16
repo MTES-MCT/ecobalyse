@@ -118,7 +118,7 @@ complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, mic
     , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#808080" }
     , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#a0a0a0" }
     , { name = "Complément microfibres", value = -(Unit.impactToFloat microfibers), color = "#c0c0c0" }
-    , { name = "Complément fin de vie hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
+    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
 
