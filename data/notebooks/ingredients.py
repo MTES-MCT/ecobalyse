@@ -555,9 +555,8 @@ def change_search_of(field):
 
 
 def change_filter(change):
-    if change.new:
-        list_output.clear_output()
-        list_activities()
+    list_output.clear_output()
+    list_activities()
 
 
 w_filter.observe(change_filter, names="value")
