@@ -49,7 +49,6 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
-import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -639,20 +638,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                 , DownArrow.view [] [ transport ]
                 ]
             )
-        |> (\nodes ->
-                -- Display the first input mass before the first step
-                DownArrow.view []
-                    [ span []
-                        [ text "Masse\u{00A0}: "
-                        , simulator.lifeCycle
-                            |> Array.get 0
-                            |> Maybe.map .inputMass
-                            |> Maybe.map Format.kg
-                            |> Maybe.withDefault (text "")
-                        ]
-                    ]
-                    :: nodes
-           )
         -- Drop the very last item, which is the last arrow showing the mass out of the end of life step
         -- which doesn't really make sense
         |> (List.reverse >> List.drop 1 >> List.reverse)
