@@ -795,6 +795,7 @@ clear_save_button.on_click(clear_save_output)
 
 
 branch = current_branch()
+list_activities()
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
     w_institut,
