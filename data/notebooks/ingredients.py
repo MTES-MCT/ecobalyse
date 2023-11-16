@@ -134,17 +134,30 @@ def from_pretty(d):
     return activity
 
 
-def read_activities():
-    """Return the activities as a dict indexed with id"""
+def read_activities(filter=""):
+    """Return the activities as a dict indexed with id
+    TODO remove duplicate code"""
     if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
     try:
         with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            igs = {
+                i["id"]: i
+                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
+                if not filter
+                or filter.lower() in i["Nom"].lower()
+                or filter.lower() in i["id"].lower()
+            }
     except json.JSONDecodeError:
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
         with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            igs = {
+                i["id"]: i
+                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
+                if not filter
+                or filter.lower() in i["Nom"].lower()
+                or filter.lower() in i["id"].lower()
+            }
 
     return igs
 
@@ -170,6 +183,7 @@ w_institut = ipywidgets.Dropdown(
     style=style,
     description="Contributeur : ",
 )
+w_filter = ipywidgets.Text(placeholder="Search", style=style)
 w_id = ipywidgets.Combobox(
     placeholder="wheat-organic",
     style=style,
@@ -406,7 +420,7 @@ commitbutton = ipywidgets.Button(
 
 @list_output.capture()
 def list_activities():
-    activities = read_activities()
+    activities = read_activities(w_filter.value)
     df = pandas.io.formats.style.Styler(
         pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     )
@@ -538,6 +552,15 @@ def change_search_of(field):
             field.value = display_of(results[0])
 
     return change_search
+
+
+def change_filter(change):
+    if change.new:
+        list_output.clear_output()
+        list_activities()
+
+
+w_filter.observe(change_filter, names="value")
 
 
 @save_output.capture()
@@ -820,6 +843,7 @@ display(
             ipywidgets.VBox(
                 (
                     ipywidgets.HBox((resetbutton, clear_reset_button)),
+                    w_filter,
                     reset_output,
                     list_output,
                 )
