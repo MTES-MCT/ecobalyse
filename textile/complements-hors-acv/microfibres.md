@@ -56,6 +56,16 @@ $$
 Coef = 1000 microPts / kg = 0,001 Pts/kg de vêtement
 $$
 
+{% hint style="info" %}
+Ce coefficient ne peut être défini que de manière "arbitraire" et rejoint la question de la pondération des indicateurs environnementaux entre eux (changement climatique, consommation d'eau, etc.) dans le score final.
+
+De telles décisions relèvent de mécanismes plus politiques que scientifiques (cf. notamment les riches échanges autour de la pondération des indicateurs PEF) et cherchent à répondre à des questions telles que :  combien devrait peser l'indicateur _Changement Climatique_ dans le score final par rapport aux autres indicateurs environnementaux ?&#x20;
+
+En l'absence d'une telle proposition dans la communauté scientifique à date, le dispositif français d'affichage environnemental est pionner sur ce sujet.&#x20;
+
+Toutes contributions sur le niveau de matérialité de ce complément sont attendues afin de le préciser.&#x20;
+{% endhint %}
+
 <details>
 
 <summary>En savoir plus</summary>
@@ -71,7 +81,7 @@ En effet, les microplastiques sont persistants (non biodégradables) dans l'envi
 
 3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et du vêtement, confection, utilisation, fin de vie) et au sein de différents compartiments (air, eau, sol).&#x20;
 
-Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.&#x20;
+Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples maîtrisés par les marques afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.&#x20;
 
 </details>
 
