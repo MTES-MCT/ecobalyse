@@ -1,7 +1,7 @@
 ---
 description: >-
   Introduction d'un complément à l'analyse de cycle de vie traduisant l'impact
-  des microfibres
+  des microfibres => ce complément est à enrichir avec vos contributions.
 ---
 
 # 🐠 Microfibres
@@ -40,7 +40,7 @@ La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à se
 Ecobalyse adopte ainsi une approche semi-quantitative afin d'estimer l'impact des microfibres.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
 
 Le complément proposé couvre l'ensemble des émissions de microfibres intervenant sur le cycle de vie d'un vêtement. &#x20;
 
@@ -87,10 +87,15 @@ La persistance définit le caractère biodégradable d'une fibre. Plus une subst
 
 Les fibres utilisées dans l'industrie textile proposent des propriétés intrinsèques différentes selon leur nature (ex : le polyester est persistant tandis que le lyocell est biodégradable).&#x20;
 
-Cependant, du fait de traitements appliqués sur les fibres lors des étapes de fabrication du vêtement, les propriétés intrinsèques des fibres peuvent évoluer (ex : l'application d'apprêts chimiques sur des fibres intrinsèquement biodégradables peut rendre ces dernières plus ou moins persistantes). &#x20;
+Cependant, du fait de traitements appliqués sur les fibres lors des étapes de fabrication du vêtement, les propriétés intrinsèques des fibres peuvent évoluer (ex : l'application d'apprêts chimiques sur des fibres intrinsèquement biodégradables peut rendre ces dernières plus ou moins persistantes).&#x20;
 
-**Illustration de résultats de tests de biodégradabilité**\
-(Source = tests listés dans le rapport "Biodegradability within the context of Fibre Fragmentation" de [_TheMicrofibreConsortium_](https://www.microfibreconsortium.com/))&#x20;
+Il n'existe pas encore suffisament de littérature scientifique permettant de quantifier de manière précise la biodégradabilité des différentes configurations de fibres textiles (ex : fibres écrues vs teintes).&#x20;
+
+Ecobalyse propose ainsi en première approche une évaluation semi-quantitative de la biodégradabilité des fibres sur la base de leur propriétés intrinsèques (cf. partie _Scénarios de référence_) et de premières études à ce sujet. En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser la biodégradabilité estimée des microfibres relarguées dans l'environnement par le vêtement sur son cycle de vie. De plus, la composition/nature des fibres est le principal paramètre permettant d'estimer la biodégradabilité des fibres.
+
+**Illustration d'études disponibles concernant la biodégradabilité de fibres**&#x20;
+
+[_**TheMicrofibreConsortium**_](https://www.microfibreconsortium.com/) _(_[_source_](#user-content-fn-2)[^2]_)_
 
 * Coton (avec teinture) : 74% après 112 jours à 10°C (compartiment = eau)
 * Chanvre (sans teinture) : 79% après 112 jours à 10°C (compartiment = eau)
@@ -100,20 +105,21 @@ Cependant, du fait de traitements appliqués sur les fibres lors des étapes de 
 * Polyester (avec teinture) : 0% après 161 jours à 30°C (compartiment = eau)
 * Nylon : 1% après 90 jours à 30°C (compartiment = eau)
 
-**Prise en compte dans Ecobalyse**&#x20;
+**MariLCA** (source[^3])&#x20;
 
-Ecobalyse propose des scénarios de persistance/biodégradabilité par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale).
+"Degradation rate" utilisé dans les travaux MariLCA pour différents types de microfibres de taille 1000µm (principalement des microplastiques à ce stade).
+
+<figure><img src="../../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Relargage" %}
 Le relargage correspond à la capacité d'une fibre/vêtement à relarguer des microfibres dans l'environnement. Cet enjeu est présent sur l'ensemble des étapes du cycle de vie d'un vêtement et compartiments (eau, air, sol).&#x20;
 
-Extrait d'une [publication ](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a)sur les microplastiques d'origine Textile : \
-_"Most research has focused on microfibre release through the washing of synthetic textiles, considering waste water to be the predominant pathway for leakage into the aquatic environment (Boucher and Friot, 2017). However, microfibres are also emitted during textile manufacturing, garment wearing and end-of-life disposal, and are dispersed in water, air and soil."_
+Peu de littérature scientifique existe concernant la quantification des flux sous-jacents à ces différentes sources d'émission. Différents travaux sont actuellement menés afin de remédier à cette limite tel que le [PlasticFootprintNetwork](https://www.plasticfootprint.earth/).
 
-**Prise en compte dans Ecobalyse**&#x20;
+De plus, plusieurs paramètres influencent le relargage de microfibres (ex : caractéristiques techniques de l'étoffe, mode de lavage du vêtement, nature de la fibre, type de machine utilisée lors des étapes de fabrication, etc.).
 
-Ecobalyse propose des scénarios de relargage par défaut selon la nature des fibres (ex : fibres naturelles d'origine végétale).
+Ainsi, Ecobalyse propose une approche semi-quantitative basée sur la nature des fibres composant le vêtement (cf. partie _Scénarios de référence_). En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser le niveau de relargage estimé d'un vêtement sur son cycle de vie.  &#x20;
 {% endtab %}
 {% endtabs %}
 
@@ -192,7 +198,7 @@ Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfi
   Impact initial = 715 micro-pts\
   Impact final = 715 + (79% \* 100% \* 0,17 \* 1000) = 715 + 134 = 849 micro-pts
 
-<img src="../../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (1).png" alt="" data-size="original"><img src="../../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (1).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (1).png" alt="" data-size="original">
 
 </details>
 
@@ -203,3 +209,7 @@ A l'instar des autres compléments à l'analyse de cycle de vie, le complément 
 Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Matières".
 
 [^1]: Source = rapport d'activité 2021 Textile Exchange    &#x20;
+
+[^2]: _"Biodegradability within the context of Fibre Fragmentation" (Décembre 2021)_
+
+[^3]: "MarILCA characterization factors for microplastic impacts in life cycle assessment: Physical effects on biota from emissions to aquatic environments" (Juillet 2023)

@@ -1,7 +1,8 @@
 ---
 description: >-
   Introduction d'un complément à l'analyse de cycle de vie estimant l'impact des
-  vêtements exportés hors Europe et non réutilisés.
+  vêtements exportés hors Europe et non réutilisés => ce complément est à
+  enrichir avec vos contributions.
 ---
 
 # 🌍 Export hors Europe
