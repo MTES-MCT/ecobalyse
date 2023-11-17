@@ -57,13 +57,9 @@ Coef = 1000 microPts / kg = 0,001 Pts/kg de vêtement
 $$
 
 {% hint style="info" %}
-Ce coefficient ne peut être défini que de manière "arbitraire" et rejoint la question de la pondération des indicateurs environnementaux entre eux (changement climatique, consommation d'eau, etc.) dans le score final.
+L'importance donnée à ce complément rejoint la question de la pondération des indicateurs environnementaux dans le score final (changement climatique, consommation d'eau, etc.). A date, les travaux de la communauté scientifique ne sont pas encore suffisament avancés pour intégrer ce nouvel enjeu dans un cadre ACV; bien que ce soit prochainement le cas.&#x20;
 
-De telles décisions relèvent de mécanismes plus politiques que scientifiques (cf. notamment les riches échanges autour de la pondération des indicateurs PEF) et cherchent à répondre à des questions telles que :  combien devrait peser l'indicateur _Changement Climatique_ dans le score final par rapport aux autres indicateurs environnementaux ?&#x20;
-
-En l'absence d'une telle proposition dans la communauté scientifique à date, le dispositif français d'affichage environnemental est pionner sur ce sujet.&#x20;
-
-Toutes contributions sur le niveau de matérialité de ce complément sont attendues afin de le préciser.&#x20;
+Toutes contributions sur ce niveau de matérialité sont attendues afin de préciser/ajuster la matérialité du complément Microfibres dans le score final. &#x20;
 {% endhint %}
 
 <details>
