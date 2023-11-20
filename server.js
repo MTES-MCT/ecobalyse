@@ -44,6 +44,7 @@ app.use(
         "img-src": [
           "'self'",
           "data:",
+          "blob:",
           "https://avatars.githubusercontent.com/",
           "https://raw.githubusercontent.com",
         ],
@@ -51,6 +52,7 @@ app.use(
         // server sends the appropriate `Access-Control-Allow-Origin` header
         // @see https://matomo.org/faq/how-to/faq_18694/
         "script-src": ["'self'", "'unsafe-inline'", "https://stats.data.gouv.fr"],
+        "object-src": ["blob:"],
       },
     },
   }),

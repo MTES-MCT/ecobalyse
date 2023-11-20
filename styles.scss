@@ -215,15 +215,74 @@ input {
   }
 }
 
+// Highcharts overriden styles
+.highcharts-data-table {
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #fff;
+    min-width: 100%;
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 0.8em;
+
+    caption {
+      display: none;
+    }
+
+    td,
+    th {
+      border: 1px solid silver;
+      padding: 0.5em;
+      max-width: 140px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    thead {
+      tr {
+        cursor: pointer;
+      }
+    }
+
+    tbody {
+      td {
+        max-width: 100px;
+        text-align: right;
+      }
+    }
+
+    tr:nth-child(even), thead tr {
+      background: #f8f8f8;
+    }
+
+    tr {
+      &:hover {
+        background: #ececfc;
+      }
+    }
+  }
+
+  .highcharts-sort-ascending::after {
+    content: " ↓";
+  }
+
+  .highcharts-sort-descending::after {
+    content: " ↑";
+  }
+}
+
+// Specifics for the comparator modal, when displaying the "total" impacts, we want
+// the stroke to be black instead of white by default.
+.total-impacts rect.highcharts-point {
+  stroke: #333;
+}
+
 // Rapidoc overriden styles
 // @see https://rapidocweb.com/css-parts.html
 rapi-doc::part(section-endpoint-head-path) {
   font-size: 14px;
-}
-
-// Specifics for the comparator modal, when displaying the "total" impacts, we want the stroke to be black instead of white by default.
-.total-impacts rect.highcharts-point {
-  stroke: #333;
 }
 
 // Utility classes
@@ -711,6 +770,10 @@ q {
       padding-left: 4px;
     }
   }
+}
+.ElementDelete {
+  margin-left: auto;
+  width: 31px;
 }
 
 .Footer {

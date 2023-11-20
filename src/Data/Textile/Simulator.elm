@@ -121,7 +121,9 @@ compute db query =
         -- Compute Spinning waste - Filature
         |> nextIf Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
-        |> nextIf Label.Material computeMaterialStepWaste
+        -- We always need to compute the Material's step waste otherwise the input mass
+        -- for the next step (spinning) would never be computed.
+        |> next computeMaterialStepWaste
         --
         -- CO2 SCORES
         --

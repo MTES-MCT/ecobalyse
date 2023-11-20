@@ -130,12 +130,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , modal = NoModal
-      , activeImpactsTab =
-            if impact.trigram == Definition.Ecs then
-                ImpactTabs.SubscoresTab
-
-            else
-                ImpactTabs.StepImpactsTab
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session |> Session.updateFoodQuery query
     , case maybeQuery of
@@ -570,19 +565,8 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-        , deleteItemButton deleteEvent
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
-
-
-deleteItemButton : Msg -> Html Msg
-deleteItemButton event =
-    button
-        [ type_ "button"
-        , class "ElementDelete d-flex justify-content-center align-items-center btn btn-outline-primary"
-        , title "Supprimer cet ingrédient"
-        , onClick event
-        ]
-        [ Icon.trash ]
 
 
 type alias UpdateIngredientConfig =
@@ -604,7 +588,8 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
             , country = recipeIngredient.country
             }
     in
-    { baseElement = baseElement
+    { allowEmptyList = True
+    , baseElement = baseElement
     , db =
         { elements = db.ingredients
         , countries =
@@ -615,15 +600,13 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
-    , disableQuantity = False
-    , disableCountry = False
     , excluded =
         db.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
     , quantityView =
-        \{ disabled, quantity, onChange } ->
-            MassInput.view { disabled = disabled, mass = quantity, onChange = onChange }
+        \{ quantity, onChange } ->
+            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
@@ -769,8 +752,10 @@ ingredientComplementsView { name, complementImpact, complementSplit, domId, titl
                 ]
                 [ Icon.question ]
             ]
-        , div [ class "ComplementImpact text-muted text-end" ]
-            [ Format.complement complementImpact
+        , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
+            [ text "("
+            , Format.complement complementImpact
+            , text ")"
             ]
         ]
 
@@ -903,7 +888,7 @@ ingredientListView db selectedImpact recipe results =
         , StepsBorder.style Impact.stepsColors.materials
         ]
         [ h2
-            [ class "h5 d-flex align-items-center mb-0"
+            [ class "h5 mb-0"
             , id "materials-step"
             ]
             [ text "Ingrédients"
@@ -914,8 +899,17 @@ ingredientListView db selectedImpact recipe results =
                 ]
                 [ Icon.search ]
             ]
-        , results.recipe.ingredientsTotal
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.recipe.ingredientsTotal
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodIngredients)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -977,8 +971,17 @@ packagingListView db selectedImpact recipe results =
             , id "packaging-step"
             ]
             [ text "Emballage" ]
-        , results.packaging
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.packaging
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodPackaging)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
@@ -1033,7 +1036,14 @@ transportToTransformationView selectedImpact results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.recipe.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.recipe.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 
@@ -1097,7 +1107,14 @@ transportToDistributionView selectedImpact recipe results =
                         , roadTransportLabel = Nothing
                         }
                 )
-            , Format.formatImpact selectedImpact results.distribution.transports.impacts
+            , span []
+                [ Format.formatImpact selectedImpact results.distribution.transports.impacts
+                , Button.smallPillLink
+                    [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
             ]
         ]
 
@@ -1143,8 +1160,17 @@ distributionView selectedImpact recipe results =
             , id "distribution-step"
             ]
             [ text "Distribution" ]
-        , results.distribution.total
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.distribution.total
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodDistribution)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         (case recipe.distribution of
@@ -1165,7 +1191,7 @@ distributionView selectedImpact recipe results =
                                 )
                         )
                     , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
-                    , deleteItemButton ResetDistribution
+                    , BaseElement.deleteItemButton { disabled = False } ResetDistribution
                     ]
                 , li
                     [ class "list-group-item fs-7 pt-2" ]
@@ -1197,8 +1223,17 @@ consumptionView db selectedImpact recipe results =
             , id "usage-step"
             ]
             [ text "Consommation" ]
-        , results.preparation
-            |> Format.formatImpact selectedImpact
+        , span []
+            [ results.preparation
+                |> Format.formatImpact selectedImpact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodUse)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
@@ -1229,7 +1264,7 @@ consumptionView db selectedImpact recipe results =
                                     |> Preparation.apply db results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
-                            , deleteItemButton (DeletePreparation usedPreparation.id)
+                            , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
                             ]
                     )
          )
@@ -1385,7 +1420,16 @@ transformView db selectedImpact recipe results =
             , id "transform-step"
             ]
             [ text "Transformation" ]
-        , impact
+        , span []
+            [ impact
+            , Button.docsPillLink
+                [ class "btn btn-secondary ms-2 py-1"
+                , href (Gitbook.publicUrlFromPath Gitbook.FoodTransformation)
+                , title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         ]
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of

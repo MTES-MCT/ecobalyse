@@ -200,8 +200,13 @@ fromQuery db query =
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
 
+        -- TODO: we don't use the main material country anymore as each material can specify
+        -- its own country. We still need a country per step though, so we'll just default
+        -- to using France.
         mainMaterialCountry =
-            materials |> Result.andThen (getMainMaterialCountry db.countries)
+            materials
+                |> Result.andThen (getMainMaterialCountry db.countries)
+                |> RE.orElse franceResult
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)

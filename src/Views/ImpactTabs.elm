@@ -45,9 +45,9 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
     CardTabs.view
         { tabs =
             (if impactDefinition.trigram == Definition.Ecs then
-                [ ( SubscoresTab, "Sous-scores" )
+                [ ( StepImpactsTab, "Étapes" )
+                , ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
-                , ( StepImpactsTab, "Étapes" )
                 ]
 
              else
@@ -82,7 +82,7 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                               }
 
                             -- Textile complements
-                            , { name = "Complément fin de vie hors-Europe"
+                            , { name = "Complément export hors-Europe"
                               , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
                               , entryAttributes = []
                               }

@@ -94,14 +94,19 @@ commitView time commit =
                 text title
             ]
         , td [ class "text-nowrap" ]
-            [ img
-                [ src commit.authorAvatar
-                , alt commit.authorName
-                , attribute "crossorigin" "anonymous"
-                , width 24
-                , class "rounded-circle shadow-sm align-top me-2"
-                ]
-                []
+            [ case commit.authorAvatar of
+                Just authorAvatar ->
+                    img
+                        [ src authorAvatar
+                        , alt commit.authorName
+                        , attribute "crossorigin" "anonymous"
+                        , class "rounded-circle shadow-sm align-top me-2"
+                        , style "width" "24px"
+                        ]
+                        []
+
+                Nothing ->
+                    text ""
             , text commit.authorName
             ]
         , td []

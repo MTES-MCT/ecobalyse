@@ -49,7 +49,6 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
-import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -146,12 +145,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
       , detailedStep = Nothing
       , impact = Definition.get trigram textileDb.impactDefinitions
       , modal = NoModal
-      , activeImpactsTab =
-            if trigram == Definition.Ecs then
-                ImpactTabs.SubscoresTab
-
-            else
-                ImpactTabs.StepImpactsTab
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
         |> Session.updateTextileQuery initialQuery
@@ -258,15 +252,8 @@ update ({ textileDb, queries, navKey } as session) msg model =
             )
 
         RemoveMaterial materialId ->
-            if List.length query.materials == 1 then
-                ( model
-                , session |> Session.notifyError "Impossible de supprimer la matière première : " "il faut au moins une matière première"
-                , Cmd.none
-                )
-
-            else
-                ( model, session, Cmd.none )
-                    |> updateQuery (Inputs.removeMaterial materialId query)
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -651,20 +638,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                 , DownArrow.view [] [ transport ]
                 ]
             )
-        |> (\nodes ->
-                -- Display the first input mass before the first step
-                DownArrow.view []
-                    [ span []
-                        [ text "Masse\u{00A0}: "
-                        , simulator.lifeCycle
-                            |> Array.get 0
-                            |> Maybe.map .inputMass
-                            |> Maybe.map Format.kg
-                            |> Maybe.withDefault (text "")
-                        ]
-                    ]
-                    :: nodes
-           )
         -- Drop the very last item, which is the last arrow showing the mass out of the end of life step
         -- which doesn't really make sense
         |> (List.reverse >> List.drop 1 >> List.reverse)
