@@ -78,6 +78,8 @@ type alias WellKnown =
     , knittingStraight : Process
     , printingPigment : Process
     , printingSubstantive : Process
+    , printingPaste : Process
+    , printingDyes : Process
     , finishing : Process
     , passengerCar : Process
     , endOfLife : Process
@@ -169,14 +171,14 @@ getEnnoblingHeatProcess wk zone heatSource =
             wk.steamLightFuelRSA
 
 
-getPrintingProcess : Printing.Kind -> WellKnown -> Process
-getPrintingProcess medium { printingPigment, printingSubstantive } =
+getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
+getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, printingPaste } =
     case medium of
         Printing.Pigment ->
-            printingPigment
+            { printingProcess = printingPigment, printingToxicityProcess = printingDyes }
 
         Printing.Substantive ->
-            printingSubstantive
+            { printingProcess = printingSubstantive, printingToxicityProcess = printingPaste }
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
@@ -201,6 +203,8 @@ loadWellKnown processes =
             , dyeingCellulosic = "dyeing-cellulosic-fiber"
             , printingPigment = "printing-pigment"
             , printingSubstantive = "printing-substantive"
+            , printingPaste = "printing-paste"
+            , printingDyes = "printing-dyes"
             , finishing = "finishing"
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
@@ -242,6 +246,8 @@ loadWellKnown processes =
         |> load .knittingStraight
         |> load .printingPigment
         |> load .printingSubstantive
+        |> load .printingPaste
+        |> load .printingDyes
         |> load .finishing
         |> load .passengerCar
         |> load .endOfLife
