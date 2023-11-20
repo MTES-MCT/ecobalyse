@@ -9,6 +9,7 @@ module Data.Textile.Formula exposing
     , knittingImpacts
     , makingImpacts
     , makingWaste
+    , materialDyeingToxicityImpacts
     , printingImpacts
     , pureMaterialImpacts
     , recycledMaterialImpacts
@@ -23,6 +24,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material exposing (CFFData)
+import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -239,6 +241,34 @@ bleachingImpacts impacts { bleachingProcess } baseMass =
         |> Impact.mapImpacts
             (\trigram _ ->
                 baseMass |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+            )
+
+
+materialDyeingToxicityImpacts :
+    Impacts
+    ->
+        { dyeingSyntheticProcess : Process -- Inbound: Synthetic dyeing process
+        , dyeingCellulosicProcess : Process -- Inbound: Cellulosic dyeing process
+        }
+    -> Mass
+    -> Origin
+    -> Split
+    -> Impacts
+materialDyeingToxicityImpacts impacts { dyeingSyntheticProcess, dyeingCellulosicProcess } baseMass origin split =
+    let
+        dyeingProcess =
+            if Origin.isSynthetic origin then
+                dyeingSyntheticProcess
+
+            else
+                dyeingCellulosicProcess
+    in
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass
+                    |> Unit.forKg (Process.getImpact trigram dyeingProcess)
+                    |> (\impact -> Split.applyToQuantity impact split)
             )
 
 

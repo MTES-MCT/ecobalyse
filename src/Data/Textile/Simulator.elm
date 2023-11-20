@@ -258,6 +258,20 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                         db.wellKnown
                             |> Process.getDyeingProcess productDefaultMedium
 
+                    dyeingToxicity =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share } ->
+                                    Formula.materialDyeingToxicityImpacts step.impacts
+                                        { dyeingSyntheticProcess = db.wellKnown.dyeingSynthetic
+                                        , dyeingCellulosicProcess = db.wellKnown.dyeingCellulosic
+                                        }
+                                        step.outputMass
+                                        material.origin
+                                        share
+                                )
+                            |> Impact.sumImpacts
+
                     { heat, kwh, impacts } =
                         step.outputMass
                             |> Formula.dyeingImpacts step.impacts
@@ -268,7 +282,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                 { step
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity ]
                 }
             )
 

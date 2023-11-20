@@ -69,6 +69,8 @@ type alias WellKnown =
     , dyeingYarn : Process
     , dyeingFabric : Process
     , dyeingArticle : Process
+    , dyeingSynthetic : Process
+    , dyeingCellulosic : Process
     , knittingMix : Process
     , knittingFullyFashioned : Process
     , knittingSeamless : Process
@@ -195,6 +197,8 @@ loadWellKnown processes =
             , dyeingYarn = "dyeing-yarn"
             , dyeingFabric = "dyeing-fabric"
             , dyeingArticle = "dyeing-article"
+            , dyeingSynthetic = "dyeing-synthetic-fiber"
+            , dyeingCellulosic = "dyeing-cellulosic-fiber"
             , printingPigment = "printing-pigment"
             , printingSubstantive = "printing-substantive"
             , finishing = "finishing"
@@ -229,6 +233,8 @@ loadWellKnown processes =
         |> load .dyeingYarn
         |> load .dyeingFabric
         |> load .dyeingArticle
+        |> load .dyeingSynthetic
+        |> load .dyeingCellulosic
         |> load .knittingMix
         |> load .knittingFullyFashioned
         |> load .knittingSeamless

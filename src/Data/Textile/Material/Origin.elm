@@ -1,6 +1,7 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
+    , isSynthetic
     , threadProcess
     , toLabel
     , toMicrofibersComplement
@@ -46,6 +47,11 @@ fromString origin =
 
         _ ->
             Err <| "Origine inconnue: " ++ origin
+
+
+isSynthetic : Origin -> Bool
+isSynthetic origin =
+    origin == Synthetic
 
 
 toMicrofibersComplement : Origin -> Unit.Impact
