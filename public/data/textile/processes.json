@@ -9689,7 +9689,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
-    "alias": "finishing",
+    "alias": "dyeing-synthetic-fiber",
     "step_usage": "Ennoblissement",
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
@@ -9726,7 +9726,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
-    "alias": "finishing",
+    "alias": "dyeing-cellulosic-fiber",
     "step_usage": "Ennoblissement",
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
@@ -9763,7 +9763,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
-    "alias": "finishing",
+    "alias": "bleaching",
     "step_usage": "Ennoblissement",
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
@@ -9800,7 +9800,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
-    "alias": "finishing",
+    "alias": "printing-paste",
     "step_usage": "Ennoblissement",
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
@@ -9837,7 +9837,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
-    "alias": "finishing",
+    "alias": "printing-dyes",
     "step_usage": "Ennoblissement",
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
