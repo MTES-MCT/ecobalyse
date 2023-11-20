@@ -10,7 +10,7 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | ---------------- | -------------- | --------------------------------------------------------------------- |
 | Matière première | Fil            | [Matière et filature](broken-reference)                               |
 | Fil              | Etoffe         | [Tricotage / Tissage](../etapes-du-cycle-de-vie/tricotage-tissage.md) |
-| Etoffe           | Tissu          | [Teinture](../etapes-du-cycle-de-vie/teinture.md)                     |
+| Etoffe           | Tissu          | [Teinture](../etapes-du-cycle-de-vie/ennoblissement/)                 |
 | Tissu            | Habit          | [Confection](../etapes-du-cycle-de-vie/confection.md)                 |
 | Habit            | Habit          | [Distribution](../etapes-du-cycle-de-vie/distribution.md)             |
 

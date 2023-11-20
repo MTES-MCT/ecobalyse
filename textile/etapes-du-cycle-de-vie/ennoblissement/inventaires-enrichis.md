@@ -1,13 +1,10 @@
 ---
 description: >-
-  Enrichissement de différents inventaires d'ennoblissement (ex : blanchiment,
-  teinture, etc.) afin de mieux prendre en compte les émissions de subtsances
-  chimiques.
+  Cette section présente l'enrichissement de certains procédés/hotspots afin de
+  mieux prendre en compte les émissions de subtsances chimiques.
 ---
 
-# 💦 Inventaires ennoblissement (draft)
-
-Cette page est en cours de construction
+# 💦 Inventaires enrichis
 
 ## De quoi parle-t-on ?&#x20;
 

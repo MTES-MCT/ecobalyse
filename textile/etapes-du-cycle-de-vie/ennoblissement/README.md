@@ -57,7 +57,7 @@ _=> Source de chaleur paramétrable (gaz naturel, fuel, etc.)_
 
 ### Méthodologie de calcul
 
-L'étape Ennoblissement est modélisée comme suit :&#x20;
+#### Etape 1 =  Modélisation des inventaires selon l'approche Base Impacts :&#x20;
 
 |                                                                                                                                             Teinture / Impression                                                                                                                                             |                                                                                                                                                            Finition                                                                                                                                                            |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -69,17 +69,21 @@ L'impact global de l'Ennoblissement se comprend donc comme résultant de la somm
 * procédés retenus \
   (cf. intérieur du _system boundaries_)
 * flux externes devant être ajoutés à chaque procédé \
-  ([chaleur](../parametres-transverses/chaleur.md) et/ou [électricité](../parametres-transverses/electricite.md))
+  ([chaleur](../../parametres-transverses/chaleur.md) et/ou [électricité](../../parametres-transverses/electricite.md))
 
-L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
+L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../impacts-consideres.md)).
 
 $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](../parametres-transverses/pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../../parametres-transverses/pertes-et-rebus.md).
 
-### Procédés disponibles
+#### Etape 2 =  Ajout des impacts Ecotox/Tox via la construction d'inventaires enrichis&#x20;
+
+Du fait de limites inhérentes à la Base Impacts (non prise en compte des indicateurs _Ecotoxicité Aquatique_, _Toxicité Humaine Cancérigène_, _Toxicité Humaine Non Cancérigène_) et à l'industrie Textile (absence de transparence/modélisation des substances chimiques utilisées lors des étapes d'ennoblissement), Ecobalyse propose des inventaires enrichis (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)). &#x20;
+
+### Procédés disponibles dans la Base Impacts
 
 <details>
 
@@ -175,9 +179,9 @@ Aucune perte n'est appliquée lors de l'étape Ennoblissement.
 
 ## Limites
 
-* Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés,
-* Les principaux procédés de Pré-Traitement du tissu ne sont pas encore disponibles,
-* Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles,
+* Absence d'inventaires enrichis pour les principaux apprêts chimiques (procédés de finition) = sous-estimation des enjeux tox/ecotox
+* Indicateur "consommation d'eau" non modélisé&#x20;
+* Utilisation de scénarios moyen/average pour les inventaires enrichis => construction en cours de scénarios Best/Worst pour mieux différencier les pratiques
 
 ## En savoir plus sur l'ennoblissement
 
