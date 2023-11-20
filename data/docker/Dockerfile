@@ -21,6 +21,7 @@ ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/ta
 ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/tags/4.0.dev29 bw2-data.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/tags/2.0.DEV14 bw2-calc.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-analyzer/git/refs/tags/0.11.7 bw2-analyzer.json
+ADD https://api.github.com/repos/brightway-lca/bw_projects/git/refs/tags/v2.1.0 bw_projects.json
 
 COPY requirements.txt .
 
