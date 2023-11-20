@@ -134,18 +134,12 @@ def from_pretty(d):
     return activity
 
 
-def read_activities(filter=""):
+def read_activities():
     """Return the activities as a dict indexed with id"""
 
     def read_temp():
         with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            return {
-                i["id"]: i
-                for i in [to_pretty(to_flat(i)) for i in json.load(fp)]
-                if not filter
-                or filter.lower() in i["Nom"].lower()
-                or filter.lower() in i["id"].lower()
-            }
+            return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
 
     if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
@@ -415,8 +409,14 @@ commitbutton = ipywidgets.Button(
 
 
 @list_output.capture()
-def list_activities():
-    activities = read_activities(w_filter.value)
+def list_activities(filter=""):
+    activities = {
+        i: a
+        for i, a in read_activities().items()
+        if not filter
+        or filter.lower() in a["Nom"].lower()
+        or filter.lower() in a["id"].lower()
+    }
     df = pandas.io.formats.style.Styler(
         pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     )
@@ -446,7 +446,7 @@ def display_output_file():
 def display_all():
     list_output.clear_output()
     file_output.clear_output()
-    list_activities()
+    list_activities(w_filter.value)
     display_output_file()
 
 
@@ -550,9 +550,9 @@ def change_search_of(field):
     return change_search
 
 
-def change_filter(_):
+def change_filter(change):
     list_output.clear_output()
-    list_activities()
+    list_activities(change.new)
 
 
 w_filter.observe(change_filter, names="value")
@@ -791,7 +791,7 @@ clear_save_button.on_click(clear_save_output)
 
 
 branch = current_branch()
-list_activities()
+list_activities(w_filter.value)
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
     w_institut,
