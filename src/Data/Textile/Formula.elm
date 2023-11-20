@@ -1,5 +1,6 @@
 module Data.Textile.Formula exposing
-    ( computePicking
+    ( bleachingImpacts
+    , computePicking
     , computeThreadDensity
     , dyeingImpacts
     , endOfLifeImpacts
@@ -224,6 +225,21 @@ finishingImpacts impacts { finishingProcess, heatProcess, elecProcess } baseMass
                         ]
                 )
     }
+
+
+bleachingImpacts :
+    Impacts
+    ->
+        { bleachingProcess : Process -- Inbound: Bleaching process
+        }
+    -> Mass
+    -> Impacts
+bleachingImpacts impacts { bleachingProcess } baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+            )
 
 
 makingImpacts :

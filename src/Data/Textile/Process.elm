@@ -61,6 +61,7 @@ type Uuid
 
 type alias WellKnown =
     { airTransport : Process
+    , bleaching : Process
     , seaTransport : Process
     , roadTransportPreMaking : Process
     , roadTransportPostMaking : Process
@@ -186,6 +187,7 @@ loadWellKnown processes =
     let
         map =
             { airTransport = "air-transport"
+            , bleaching = "bleaching"
             , seaTransport = "sea-transport"
             , roadTransportPreMaking = "road-transport-pre-making"
             , roadTransportPostMaking = "road-transport-post-making"
@@ -219,6 +221,7 @@ loadWellKnown processes =
     in
     Ok WellKnown
         |> load .airTransport
+        |> load .bleaching
         |> load .seaTransport
         |> load .roadTransportPreMaking
         |> load .roadTransportPostMaking
