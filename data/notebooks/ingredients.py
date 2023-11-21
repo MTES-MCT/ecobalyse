@@ -488,6 +488,11 @@ def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
+def change_contributor(change):
+    list_activities(w_filter.value)
+
+w_contributor.observe(change_contributor, names="value")
+
 def change_categories(_):
     w_complement_animal_welfare.disabled = (
         False
