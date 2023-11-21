@@ -99,7 +99,7 @@ Il n'existe pas encore suffisament de littérature scientifique permettant de qu
 
 Ecobalyse propose ainsi en première approche une évaluation semi-quantitative de la biodégradabilité des fibres sur la base de leur propriétés intrinsèques (cf. partie _Scénarios de référence_) et de premières études à ce sujet. En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser la biodégradabilité estimée des microfibres relarguées dans l'environnement par le vêtement sur son cycle de vie. De plus, la composition/nature des fibres est le principal paramètre permettant d'estimer la biodégradabilité des fibres.
 
-**Illustration d'études disponibles concernant la biodégradabilité de fibres**&#x20;
+**Illustration d'études concernant la biodégradabilité de fibres (non exhaustif)**&#x20;
 
 [_**TheMicrofibreConsortium**_](https://www.microfibreconsortium.com/) _(_[_source_](#user-content-fn-2)[^2]_)_
 
@@ -113,9 +113,10 @@ Ecobalyse propose ainsi en première approche une évaluation semi-quantitative 
 
 **MariLCA** (source[^3])&#x20;
 
-"Degradation rate" utilisé dans les travaux MariLCA pour différents types de microfibres de taille 1000µm (principalement des microplastiques à ce stade).
+Données moyenne de biodégradabilité ("Degradation rate") utilisées dans les travaux MariLCA pour différents types de microfibres de taille 10µm. \
+Ces données sont issues de tests sur le compartiment Marin/Marine et peuvent varier de manière significative selon différents paramètres (ex : température de l'eau, exposition à la lumière/UV, etc.).
 
-<figure><img src="../../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Relargage" %}

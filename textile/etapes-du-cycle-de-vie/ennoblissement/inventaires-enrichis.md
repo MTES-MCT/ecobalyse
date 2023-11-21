@@ -143,7 +143,7 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
@@ -216,13 +216,13 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
