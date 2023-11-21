@@ -1011,7 +1011,7 @@ ennoblingHeatSourceField ({ inputs } as config) =
 
 
 detailedView : Config msg modal -> ViewWithTransport msg
-detailedView ({ db, inputs, selectedImpact, current } as config) =
+detailedView ({ inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1147,7 +1147,7 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                       else
                         text ""
                     , surfaceInfoView inputs current
-                    , ennoblingToxicityView db selectedImpact inputs current
+                    , ennoblingToxicityView config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
                     , if current.label == Label.EndOfLife then
@@ -1191,8 +1191,8 @@ surfaceInfoView inputs current =
             text ""
 
 
-ennoblingToxicityView : TextileDb.Db -> Definition.Definition -> Inputs -> Step -> Html msg
-ennoblingToxicityView db selectedImpact inputs current =
+ennoblingToxicityView : Config msg modal -> Step -> Html msg
+ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
     if current.label == Label.Ennobling then
         let
             bleachingToxicity =
@@ -1244,6 +1244,7 @@ ennoblingToxicityView db selectedImpact inputs current =
                 , toxicity
                     |> Format.formatImpact selectedImpact
                 , text ")"
+                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
                 ]
             ]
 
