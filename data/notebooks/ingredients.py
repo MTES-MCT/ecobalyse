@@ -5,11 +5,13 @@ print("Please wait")
 import sys
 import os
 
+# don"t display bw2data startup output
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
 sys.stdout = sys.__stdout__
 from flatdict import FlatDict
+import bw2calc
 import bw2data
 import ipywidgets
 import json
@@ -33,6 +35,7 @@ git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
 file_output = ipywidgets.Output()
 save_output = ipywidgets.Output()
+surface_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -546,6 +549,9 @@ def change_search_of(field):
         field.options = [display_of(r) for r in results]
         if results:
             field.value = display_of(results[0])
+            display_surface(results[0])
+        else:
+            surface_output.clear_output()
 
     return change_search
 
@@ -680,6 +686,21 @@ def reset_branch():
             )
         )
 
+@surface_output.capture()
+def display_surface(activity):
+    surface_output.clear_output()
+    display(ipywidgets.HTML("Computing surface..."))
+    lca = bw2calc.LCA({activity: 1})
+    method = ('selected LCI results', 'resource', 'land occupation')
+    try:
+        lca.lci()
+        lca.switch_method(method)
+        lca.lcia()
+        surface_output.clear_output()
+        display(ipywidgets.HTML(f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"))
+    except Exception as e:
+        display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
+        display(e)
 
 @reset_output.capture()
 def reset_activities(_):
@@ -893,6 +914,10 @@ display(
                             w_results,
                         ),
                     ),
+                    ipywidgets.HTML(
+                      "<hr/>Surface mobilisée :"
+                    ),
+                    surface_output,
                     ipywidgets.HTML(
                         "<hr/>Pour un ingrédient, renseignez « ingrédient » :"
                     ),
