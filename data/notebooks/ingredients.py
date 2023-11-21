@@ -731,7 +731,12 @@ def commit_activities(_):
         display("Sélectionnez d'abord le bon contributeur")
         return
     shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
-    if subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
+    if subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode != 0:
+        display(
+            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: npm run format:json")
+        )
+        reset_branch()
+    elif subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git add")
         )
