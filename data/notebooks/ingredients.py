@@ -421,6 +421,7 @@ def list_activities(filter=""):
         pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     )
     df.set_properties(**{"background-color": "#EEE"})
+    list_output.clear_output()
     display(
         ipywidgets.HTML(
             f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}",
