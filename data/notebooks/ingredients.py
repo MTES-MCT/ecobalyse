@@ -491,7 +491,9 @@ def display_of(activity):
 def change_contributor(change):
     list_activities(w_filter.value)
 
+
 w_contributor.observe(change_contributor, names="value")
+
 
 def change_categories(_):
     w_complement_animal_welfare.disabled = (
@@ -732,17 +734,26 @@ def clear_reset_output(_):
 
 @git_output.capture()
 def commit_activities(_):
+    git_output.clear_output()
     branch = current_branch()
     if not w_contributor.value:
-        display("Sélectionnez d'abord le bon contributeur")
+        display(ipywidgets.HTML("Sélectionnez d'abord le bon contributeur"))
         return
     shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
-    if subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode != 0:
+    display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
+    if (
+        subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode
+        != 0
+    ):
         display(
-            ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: npm run format:json")
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: npm run format:json"
+            )
         )
         reset_branch()
-    elif subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
+    elif (
+        subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0
+    ):
         display(
             ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git add")
         )
