@@ -175,10 +175,10 @@ getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, 
 getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, printingPaste } =
     case medium of
         Printing.Pigment ->
-            { printingProcess = printingPigment, printingToxicityProcess = printingDyes }
+            { printingProcess = printingPigment, printingToxicityProcess = printingPaste }
 
         Printing.Substantive ->
-            { printingProcess = printingSubstantive, printingToxicityProcess = printingPaste }
+            { printingProcess = printingSubstantive, printingToxicityProcess = printingDyes }
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
