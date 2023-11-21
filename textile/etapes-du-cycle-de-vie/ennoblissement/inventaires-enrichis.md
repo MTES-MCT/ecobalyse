@@ -315,7 +315,7 @@ Impression pigmentaire.
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (19) (1).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (78).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (20) (1).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
@@ -365,7 +365,7 @@ Impression avec des colorants dispersés.
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (79).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
