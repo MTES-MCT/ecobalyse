@@ -1220,7 +1220,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
 
             printingToxicity =
                 case current.printing of
-                    Just { kind } ->
+                    Just { kind, ratio } ->
                         let
                             { printingToxicityProcess } =
                                 Process.getPrintingProcess kind db.wellKnown
@@ -1230,6 +1230,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
                                 current.impacts
                                 { printingToxicityProcess = printingToxicityProcess
                                 }
+                                ratio
 
                     Nothing ->
                         Impact.empty

@@ -267,14 +267,16 @@ materialPrintingToxicityImpacts :
     ->
         { printingToxicityProcess : Process -- Inbound: printing process
         }
+    -> Split
     -> Mass
     -> Impacts
-materialPrintingToxicityImpacts impacts { printingToxicityProcess } baseMass =
+materialPrintingToxicityImpacts impacts { printingToxicityProcess } split baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram printingToxicityProcess)
+                    |> (\impact -> Split.applyToQuantity impact split)
             )
 
 

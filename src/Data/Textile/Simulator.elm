@@ -318,6 +318,7 @@ computePrintingImpacts db ({ inputs } as simulator) =
                                         step.impacts
                                         { printingToxicityProcess = printingToxicityProcess
                                         }
+                                        ratio
                         in
                         { step
                             | heat = step.heat |> Quantity.plus heat
