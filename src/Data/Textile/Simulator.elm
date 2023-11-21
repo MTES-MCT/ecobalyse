@@ -17,6 +17,7 @@ import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
@@ -139,6 +140,8 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
         -- Compute Ennobling step Finishing impacts
         |> nextWithDbIf Label.Ennobling computeFinishingImpacts
+        -- Compute Ennobling step bleaching impacts
+        |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -256,6 +259,23 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                         db.wellKnown
                             |> Process.getDyeingProcess productDefaultMedium
 
+                    dyeingToxicity =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share } ->
+                                    Formula.materialDyeingToxicityImpacts step.impacts
+                                        { dyeingToxicityProcess =
+                                            if Origin.isSynthetic material.origin then
+                                                db.wellKnown.dyeingSynthetic
+
+                                            else
+                                                db.wellKnown.dyeingCellulosic
+                                        }
+                                        step.outputMass
+                                        share
+                                )
+                            |> Impact.sumImpacts
+
                     { heat, kwh, impacts } =
                         step.outputMass
                             |> Formula.dyeingImpacts step.impacts
@@ -266,7 +286,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                 { step
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity ]
                 }
             )
 
@@ -279,20 +299,31 @@ computePrintingImpacts db ({ inputs } as simulator) =
                 case step.printing of
                     Just { kind, ratio } ->
                         let
+                            { printingProcess, printingToxicityProcess } =
+                                Process.getPrintingProcess kind db.wellKnown
+
                             { heat, kwh, impacts } =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
-                                        { printingProcess = Process.getPrintingProcess kind db.wellKnown
+                                        { printingProcess = printingProcess
                                         , heatProcess = getEnnoblingHeatProcess country db.wellKnown inputs.ennoblingHeatSource
                                         , elecProcess = country.electricityProcess
                                         , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                         , ratio = ratio
                                         }
+
+                            printingToxicity =
+                                step.outputMass
+                                    |> Formula.materialPrintingToxicityImpacts
+                                        step.impacts
+                                        { printingToxicityProcess = printingToxicityProcess
+                                        }
+                                        ratio
                         in
                         { step
                             | heat = step.heat |> Quantity.plus heat
                             , kwh = step.kwh |> Quantity.plus kwh
-                            , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                            , impacts = Impact.sumImpacts [ step.impacts, impacts, printingToxicity ]
                         }
 
                     Nothing ->
@@ -318,6 +349,24 @@ computeFinishingImpacts db ({ inputs } as simulator) =
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
                     , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                }
+            )
+
+
+computeBleachingImpacts : TextileDb.Db -> Simulator -> Simulator
+computeBleachingImpacts db simulator =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                let
+                    impacts =
+                        step.outputMass
+                            |> Formula.bleachingImpacts step.impacts
+                                { bleachingProcess = db.wellKnown.bleaching
+                                }
+                in
+                { step
+                    | impacts = Impact.sumImpacts [ step.impacts, impacts ]
                 }
             )
 

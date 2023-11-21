@@ -1,5 +1,6 @@
 module Data.Textile.Formula exposing
-    ( computePicking
+    ( bleachingImpacts
+    , computePicking
     , computeThreadDensity
     , dyeingImpacts
     , endOfLifeImpacts
@@ -8,6 +9,8 @@ module Data.Textile.Formula exposing
     , knittingImpacts
     , makingImpacts
     , makingWaste
+    , materialDyeingToxicityImpacts
+    , materialPrintingToxicityImpacts
     , printingImpacts
     , pureMaterialImpacts
     , recycledMaterialImpacts
@@ -224,6 +227,57 @@ finishingImpacts impacts { finishingProcess, heatProcess, elecProcess } baseMass
                         ]
                 )
     }
+
+
+bleachingImpacts :
+    Impacts
+    ->
+        { bleachingProcess : Process -- Inbound: Bleaching process
+        }
+    -> Mass
+    -> Impacts
+bleachingImpacts impacts { bleachingProcess } baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+            )
+
+
+materialDyeingToxicityImpacts :
+    Impacts
+    ->
+        { dyeingToxicityProcess : Process -- Inbound: dyeing process
+        }
+    -> Mass
+    -> Split
+    -> Impacts
+materialDyeingToxicityImpacts impacts { dyeingToxicityProcess } baseMass split =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass
+                    |> Unit.forKg (Process.getImpact trigram dyeingToxicityProcess)
+                    |> (\impact -> Split.applyToQuantity impact split)
+            )
+
+
+materialPrintingToxicityImpacts :
+    Impacts
+    ->
+        { printingToxicityProcess : Process -- Inbound: printing process
+        }
+    -> Split
+    -> Mass
+    -> Impacts
+materialPrintingToxicityImpacts impacts { printingToxicityProcess } split baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass
+                    |> Unit.forKg (Process.getImpact trigram printingToxicityProcess)
+                    |> (\impact -> Split.applyToQuantity impact split)
+            )
 
 
 makingImpacts :
