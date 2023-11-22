@@ -194,7 +194,7 @@
   {
     "id": "sunflower",
     "name": "Tournesol (sortie de ferme)",
-    "search": "Sunflower at farm FR",
+    "search": "Sunflower at farm FR Adapted",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
     "default_origin": "OutOfEuropeAndMaghreb",
