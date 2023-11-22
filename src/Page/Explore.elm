@@ -22,6 +22,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Transport as Transport
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -212,19 +213,20 @@ countriesExplorer :
     -> SortableTable.State
     -> Scope
     -> Maybe Country.Code
+    -> Transport.Distances
     -> List Country
     -> List (Html Msg)
-countriesExplorer tableConfig tableState scope maybeCode countries =
+countriesExplorer tableConfig tableState scope maybeCode distances countries =
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList OpenDetail tableConfig tableState scope ExploreCountries.table
+        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreCountries.table distances)
     , case maybeCode of
         Just code ->
             detailsModal
                 (case Country.findByCode code countries of
                     Ok country ->
                         country
-                            |> Table.viewDetails scope ExploreCountries.table
+                            |> Table.viewDetails scope (ExploreCountries.table distances)
 
                     Err error ->
                         alert error
@@ -404,7 +406,7 @@ explore { textileDb } { foodDb, scope, dataset, tableState } =
     in
     case dataset of
         Dataset.Countries maybeCode ->
-            textileDb.countries |> countriesExplorer tableConfig tableState scope maybeCode
+            textileDb.countries |> countriesExplorer tableConfig tableState scope maybeCode textileDb.transports
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer textileDb.impactDefinitions tableConfig tableState scope maybeTrigram
