@@ -6,14 +6,15 @@ from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
-import re
 import json
+import re
 from common.export import (
     search,
     create_activity,
     delete_exchange,
     new_exchange,
 )
+from common.import_ import add_missing_substances
 
 PROJECT = "food"
 # Agribalyse
@@ -398,7 +399,7 @@ def main():
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
-
+    add_missing_substances(PROJECT, BIOSPHERE)
     if DBNAME not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE)
         import_simapro_csv(ORGANIC_PROCESSES)

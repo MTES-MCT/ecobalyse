@@ -349,24 +349,6 @@
     }
   },
   {
-    "id": "beef-cattle",
-    "name": "Bovins de boucherie",
-    "category": "material",
-    "search": "Beef cattle national average at farm gate"
-  },
-  {
-    "id": "beef-cattle-feedlot",
-    "name": "Bovins de boucherie (Feedlot)",
-    "category": "material",
-    "search": "Beef cattle feedlot or intensive system live weight farm GB"
-  },
-  {
-    "id": "cull-cow-organic",
-    "name": "Vache de réforme bio",
-    "category": "material",
-    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
-  },
-  {
     "id": "ground-beef-feedlot",
     "name": "Boeuf haché Feedlot (cru)",
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
@@ -439,24 +421,6 @@
     }
   },
   {
-    "id": "pig",
-    "name": "Porc",
-    "category": "material",
-    "search": "Pig conventional national average at farm gate"
-  },
-  {
-    "id": "pig-organic",
-    "name": "Porc bio",
-    "category": "material",
-    "search": "Pig organic system 2 at farm gate"
-  },
-  {
-    "id": "lamb",
-    "name": "Agneau",
-    "search": "Meat with bone lamb",
-    "category": "material"
-  },
-  {
     "id": "chicken-breast",
     "name": "Blanc de poulet (cru)",
     "search": "Meat without bone chicken for direct consumption",
@@ -509,24 +473,6 @@
       "agro-ecology": 50,
       "animal-welfare": 50
     }
-  },
-  {
-    "id": "broiler",
-    "name": "Poulet (sortie de ferme)",
-    "search": "Broiler national at farm gate",
-    "category": "material",
-    "default_origin": "EuropeAndMaghreb",
-    "bvi": 2.767972021,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
-  },
-  {
-    "id": "broiler-organic",
-    "name": "Poulet bio",
-    "category": "material",
-    "search": "Broiler organic at farm gate"
   },
   {
     "id": "grape",

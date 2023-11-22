@@ -82,7 +82,7 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                               }
 
                             -- Textile complements
-                            , { name = "Complément fin de vie hors-Europe"
+                            , { name = "Complément export hors-Europe"
                               , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
                               , entryAttributes = []
                               }

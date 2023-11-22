@@ -185,14 +185,14 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.days product.use.daysOfWear ]
           }
-        , { label = "Cycles d'entretien (par défaut)"
+        , { label = "Utilisations avant lavage"
           , toValue = .use >> .wearsPerCycle >> String.fromInt
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ text <| String.fromInt product.use.wearsPerCycle ]
           }
-        , { label = "Utilisations avant lavage"
+        , { label = "Cycles d'entretien (par défaut)"
           , toValue = .use >> .defaultNbCycles >> String.fromInt
           , toCell =
                 \product ->

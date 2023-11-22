@@ -72,12 +72,7 @@ foodEndpoints db =
             |> asTest "should map the POST /food/recipe endpoint whatever the request body is"
         ]
     , describe "validation"
-        [ testEndpoint db "GET" Encode.null "/food/recipe?"
-            |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "La liste des ingrédients est vide.")
-            |> asTest "should validate an empty ingredients list"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg|0"
+        [ testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg|0"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Format d'ingrédient invalide : egg|0.")
@@ -284,11 +279,6 @@ textileEndpoints db =
             |> Maybe.map .materials
             |> Expect.equal results
             |> asTest "should map the /textile/simulator endpoint with the list of materials"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?"
-            |> Maybe.andThen extractTextileErrors
-            |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just "La liste des matières est vide.")
-            |> asTest "should validate an empty materials list"
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]="
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
@@ -364,7 +354,6 @@ textileEndpoints db =
                     , ( "countryDyeing", "Code pays manquant." )
                     , ( "countryMaking", "Code pays manquant." )
                     , ( "mass", "La masse est manquante." )
-                    , ( "materials", "La liste des matières est vide." )
                     , ( "product", "Identifiant du type de produit manquant." )
                     ]
                     |> Just

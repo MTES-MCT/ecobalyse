@@ -5,11 +5,13 @@ print("Please wait")
 import sys
 import os
 
+# don"t display bw2data startup output
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
 sys.stdout = sys.__stdout__
 from flatdict import FlatDict
+import bw2calc
 import bw2data
 import ipywidgets
 import json
@@ -33,6 +35,7 @@ git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
 file_output = ipywidgets.Output()
 save_output = ipywidgets.Output()
+surface_output = ipywidgets.Output()
 
 pandas.set_option("display.max_columns", 500)
 pandas.set_option("display.max_rows", 500)
@@ -136,15 +139,18 @@ def from_pretty(d):
 
 def read_activities():
     """Return the activities as a dict indexed with id"""
+
+    def read_temp():
+        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
+            return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+
     if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
     try:
-        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+        igs = read_temp()
     except json.JSONDecodeError:
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
-        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
-            igs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+        igs = read_temp()
 
     return igs
 
@@ -170,6 +176,7 @@ w_institut = ipywidgets.Dropdown(
     style=style,
     description="Contributeur : ",
 )
+w_filter = ipywidgets.Text(placeholder="Search", style=style)
 w_id = ipywidgets.Combobox(
     placeholder="wheat-organic",
     style=style,
@@ -207,7 +214,7 @@ w_default_origin = ipywidgets.Dropdown(
 w_category = ipywidgets.Dropdown(
     options=[
         ("Ingrédient", "ingredient"),
-        ("Matériau ou sous-ingrédient", "material"),
+        ("Matériau", "material"),
         ("Énergie", "energy"),
         ("Emballage", "packaging"),
         ("Traitement", "processing"),
@@ -405,8 +412,14 @@ commitbutton = ipywidgets.Button(
 
 
 @list_output.capture()
-def list_activities():
-    activities = read_activities()
+def list_activities(filter=""):
+    activities = {
+        i: a
+        for i, a in read_activities().items()
+        if not filter
+        or filter.lower() in a["Nom"].lower()
+        or filter.lower() in a["id"].lower()
+    }
     df = pandas.io.formats.style.Styler(
         pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     )
@@ -436,7 +449,7 @@ def display_output_file():
 def display_all():
     list_output.clear_output()
     file_output.clear_output()
-    list_activities()
+    list_activities(w_filter.value)
     display_output_file()
 
 
@@ -536,8 +549,19 @@ def change_search_of(field):
         field.options = [display_of(r) for r in results]
         if results:
             field.value = display_of(results[0])
+            display_surface(results[0])
+        else:
+            surface_output.clear_output()
 
     return change_search
+
+
+def change_filter(change):
+    list_output.clear_output()
+    list_activities(change.new)
+
+
+w_filter.observe(change_filter, names="value")
 
 
 @save_output.capture()
@@ -589,7 +613,18 @@ def delete_activity(_):
         save_activities(activities)
 
 
+def current_branch():
+    return (
+        subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True
+        )
+        .stdout.decode()
+        .strip()
+    )
+
+
 def reset_branch():
+    branch = current_branch()
     if subprocess.run(["git", "reset", "--hard"], capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
@@ -604,46 +639,44 @@ def reset_branch():
         )
     elif (
         subprocess.run(
-            ["git", "checkout", "origin/ingredients"], capture_output=True
+            ["git", "checkout", f"origin/{branch}"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: git checkout origin/ingredients"
+                f"<pre style='color: red'>ÉCHEC de la commande: git checkout origin/{branch}"
             )
         )
     elif (
         subprocess.run(
-            ["git", "branch", "-D", "ingredients"], capture_output=True
+            ["git", "branch", "-D", f"{branch}"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: git branch -D ingredients"
+                f"<pre style='color: red'>ÉCHEC de la commande: git branch -D {branch}"
             )
         )
     elif (
         subprocess.run(
-            ["git", "branch", "ingredients", "origin/ingredients"], capture_output=True
+            ["git", "branch", f"{branch}", f"origin/{branch}"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: git branch ingredients origin/ingredients"
+                f"<pre style='color: red'>ÉCHEC de la commande: git branch {branch} origin/{branch}"
             )
         )
     elif (
-        subprocess.run(
-            ["git", "checkout", "ingredients"], capture_output=True
-        ).returncode
+        subprocess.run(["git", "checkout", f"{branch}"], capture_output=True).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: git checkout ingredients"
+                f"<pre style='color: red'>ÉCHEC de la commande: git checkout {branch}"
             )
         )
     else:
@@ -653,28 +686,44 @@ def reset_branch():
             )
         )
 
+@surface_output.capture()
+def display_surface(activity):
+    surface_output.clear_output()
+    display(ipywidgets.HTML("Computing surface..."))
+    lca = bw2calc.LCA({activity: 1})
+    method = ('selected LCI results', 'resource', 'land occupation')
+    try:
+        lca.lci()
+        lca.switch_method(method)
+        lca.lcia()
+        surface_output.clear_output()
+        display(ipywidgets.HTML(f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"))
+    except Exception as e:
+        display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
+        display(e)
 
 @reset_output.capture()
 def reset_activities(_):
+    branch = current_branch()
     if not w_institut.value:
         display("Sélectionnez d'abord le bon contributeur")
         return
     elif (
         subprocess.run(
-            ["git", "pull", "origin", "ingredients"], capture_output=True
+            ["git", "pull", "origin", f"{branch}"], capture_output=True
         ).returncode
         != 0
     ):
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: git pull origin ingredients. Prénenez l'équipe Écobalyse'"
+                f"<pre style='color: red'>ÉCHEC de la commande: git pull origin {branch}. Prénenez l'équipe Écobalyse'"
             )
         )
         reset_branch()
     else:
         display(
             ipywidgets.HTML(
-                "<pre style='color: green'>SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche ingredients"
+                f"<pre style='color: green'>SUCCÈS. La liste d'ingrédients et procédés est à jour avec la branche {branch}"
             )
         )
 
@@ -698,6 +747,7 @@ def clear_reset_output(_):
 
 @git_output.capture()
 def commit_activities(_):
+    branch = current_branch()
     if not w_institut.value:
         display("Sélectionnez d'abord le bon contributeur")
         return
@@ -725,7 +775,7 @@ def commit_activities(_):
         reset_branch()
     elif (
         subprocess.run(
-            ["git", "pull", "origin", "ingredients"], capture_output=True
+            ["git", "pull", "origin", f"{branch}"], capture_output=True
         ).returncode
         != 0
     ):
@@ -735,7 +785,7 @@ def commit_activities(_):
         reset_branch()
     elif (
         subprocess.run(
-            ["git", "push", "origin", "ingredients"], capture_output=True
+            ["git", "push", "origin", f"{branch}"], capture_output=True
         ).returncode
         != 0
     ):
@@ -761,6 +811,8 @@ clear_git_button.on_click(clear_git_output)
 clear_save_button.on_click(clear_save_output)
 
 
+branch = current_branch()
+list_activities(w_filter.value)
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
     w_institut,
@@ -808,6 +860,7 @@ display(
             ipywidgets.VBox(
                 (
                     ipywidgets.HBox((resetbutton, clear_reset_button)),
+                    w_filter,
                     reset_output,
                     list_output,
                 )
@@ -861,6 +914,10 @@ display(
                             w_results,
                         ),
                     ),
+                    ipywidgets.HTML(
+                      "<hr/>Surface mobilisée :"
+                    ),
+                    surface_output,
                     ipywidgets.HTML(
                         "<hr/>Pour un ingrédient, renseignez « ingrédient » :"
                     ),
@@ -1037,10 +1094,10 @@ display(
             ipywidgets.VBox(
                 [
                     ipywidgets.HTML(
-                        """Si vous êtes satisfait(e) de vos modifications locales, vous devez
+                        f"""Si vous êtes satisfait(e) de vos modifications locales, vous devez
                         <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
                         style="color:blue"
-                        href="https://github.com/MTES-MCT/ecobalyse/tree/ingredients">ingredients</a>
+                        href="https://github.com/MTES-MCT/ecobalyse/tree/{branch}">{branch}</a>
                         du dépôt Écobalyse.<br/> L'équipe Écobalyse pourra ensuite recalculer les
                         impacts et intégrer vos contributions."""
                     ),

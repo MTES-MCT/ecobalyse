@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from common.import_ import add_missing_substances
 import bw2data
 import bw2io
 
@@ -31,6 +32,7 @@ def main():
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
+    add_missing_substances(PROJECT, BIOSPHERE)
 
     # Import Ecoinvent
     if DBNAME not in bw2data.databases:

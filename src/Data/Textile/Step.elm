@@ -371,7 +371,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                             printing
                                 |> Maybe.map
                                     (\{ kind } ->
-                                        Process.getPrintingProcess kind wellKnown |> .name
+                                        Process.getPrintingProcess kind wellKnown |> .printingProcess |> .name
                                     )
                     }
             }
