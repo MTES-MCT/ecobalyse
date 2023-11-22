@@ -1,14 +1,14 @@
 ---
 description: >-
   Cette section présente l'enrichissement de certains procédés/hotspots afin de
-  mieux prendre en compte les émissions de subtsances chimiques.
+  mieux prendre en compte les émissions de substances chimiques.
 ---
 
 # 💦 Inventaires enrichis
 
 ## De quoi parle-t-on ?&#x20;
 
-Les modèles d'émission utilisés dans les inventaires des procédés d'ennoblissement (ex: blanchiment, teinture, etc.) sont aujourd'hui non satisfaisants. Les modèles d'émission utilisés dans les principaux inventaires disponibles dans l'industrie (données EF, Base Impacts, Ecoinvent, etc.) sont soit inacessibles, incomplets ou les deux à la fois. De plus, des limites existent en termes de caractérisation des substances émises dans les différents compartiments (eau, air, sol).
+Les modèles d'émission utilisés dans les inventaires/procédés des étapes d'ennoblissement (ex: blanchiment, teinture, etc.) sont aujourd'hui non satisfaisants. En effet, dans la majorité des cas, ces inventaires sont soit inacessibles, incomplets ou les deux à la fois. De plus, la caractérisation des substances chimiques est aussi limitée.
 
 {% hint style="info" %}
 Différentes publications scientifiques mettent en avant l'absence de prise en compte des émissions de substances chimiques dans les référentiels/ACV existants.
