@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:notebook-6.5.4
+FROM jupyter/minimal-notebook:notebook-7.0.6
 
 ENV BRIGHTWAY2_DIR /home/$NB_USER/data
 ENV BRIGHTWAY2_DOCKER 1
@@ -18,8 +18,8 @@ RUN mkdir -p /home/$NB_USER/data \
 # allow to update the image if the source repo is updated
 ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/heads/main bw2-io.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/tags/1.1.0 bw2-parameters.json
-ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/tags/4.0.dev29 bw2-data.json
-ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/tags/2.0.DEV14 bw2-calc.json
+ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/tags/4.0.DEV33 bw2-data.json
+ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/tags/2.0.DEV16 bw2-calc.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-analyzer/git/refs/tags/0.11.7 bw2-analyzer.json
 ADD https://api.github.com/repos/brightway-lca/bw_projects/git/refs/tags/v2.1.0 bw_projects.json
 
