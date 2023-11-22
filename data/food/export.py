@@ -44,7 +44,8 @@ def find_id(dbname, activity):
             )
         )
     else:
-        return search(dbname, activity["search"])["Process identifier"]
+        act = search(dbname, activity["search"])
+        return act.get("Process identifier", act["code"])
 
 
 if __name__ == "__main__":
@@ -108,7 +109,7 @@ if __name__ == "__main__":
                 "comment"
             ],
             # those are removed at the end:
-            "search": activity["search"]
+            "search": activity["search"],
         }
         for activity in activities
     }
