@@ -35,11 +35,6 @@ RUN apt update \
 COPY simapro-biosphere.json /opt/conda/lib/python3.11/site-packages/bw2io/data/
 COPY entrypoint.sh /
 
-RUN pip install jupyter_contrib_nbextensions \
-    && jupyter contrib nbextension install --system \
-    && jupyter nbextension enable --py widgetsnbextension
-
-
 VOLUME /home/$NB_USER
 WORKDIR /home/$NB_USER/notebooks
 ENTRYPOINT ["/entrypoint.sh"]

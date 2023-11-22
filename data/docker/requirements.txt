@@ -12,6 +12,7 @@ git+https://github.com/brightway-lca/brightway2-parameters@1.1.0
 git+https://github.com/brightway-lca/bw_projects@v2.1.0
 git+https://github.com/ccomb/brightway2-io@main
 ipywidgets>=8.1, <8.2
+jupyter-collaboration
 matplotlib>=3.7, <3.8
 numpy>=1.25, <1.26
 olca-ipc==0.0.12
