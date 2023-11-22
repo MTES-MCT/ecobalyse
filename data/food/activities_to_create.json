@@ -224,9 +224,9 @@
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "search": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
-    "suffix": "[organic-fr]",
+    "suffix": "[fr-organic]",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [organic], constructed by Ecobalyse",
@@ -293,7 +293,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr-ext",
+    "id": "chicken-breast-bbc",
     "search": "Meat without bone, chicken, for direct consumption",
     "suffix": "[fr-ext], constructed by Ecobalyse",
     "subactivities": [
