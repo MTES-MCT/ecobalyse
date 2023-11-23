@@ -1,5 +1,6 @@
 module Data.Transport exposing
-    ( Distances
+    ( Distance
+    , Distances
     , Transport
     , add
     , addRoadWithCooling
