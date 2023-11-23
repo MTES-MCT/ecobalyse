@@ -31,6 +31,7 @@ type alias Country =
     , heatProcess : Process
     , airTransportRatio : Split
     , scopes : List Scope
+    , aquaticPollutionRatio : Split
     }
 
 
@@ -61,6 +62,7 @@ decode processes =
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "airTransportRatio" Split.decodeFloat
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
+        |> Pipe.required "aquaticPollutionRatio" Split.decodeFloat
 
 
 decodeCode : Decoder Code
@@ -82,6 +84,7 @@ encode v =
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "aquaticPollutionRatio", Split.encodeFloat v.aquaticPollutionRatio )
         ]
 
 

@@ -22,54 +22,77 @@ table distances countries { detailed, scope } =
     { toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , rows =
-        { label = "Code"
-        , toValue = .code >> Country.codeToString
-        , toCell =
-            \country ->
-                if detailed then
-                    code [] [ text (Country.codeToString country.code) ]
+        [ Just
+            { label = "Code"
+            , toValue = .code >> Country.codeToString
+            , toCell =
+                \country ->
+                    if detailed then
+                        code [] [ text (Country.codeToString country.code) ]
 
-                else
-                    a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
-                        [ code [] [ text (Country.codeToString country.code) ] ]
-        }
-            :: { label = "Nom"
-               , toValue = .name
-               , toCell = .name >> text
-               }
-            :: { label = "Mix éléctrique"
-               , toValue = .electricityProcess >> .name
-               , toCell = .electricityProcess >> .name >> text
-               }
-            :: { label = "Chaleur"
-               , toValue = .heatProcess >> .name
-               , toCell = .heatProcess >> .name >> text
-               }
-            :: { label = "Part du transport aérien"
-               , toValue = .airTransportRatio >> Split.toPercentString
-               , toCell =
+                    else
+                        a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
+                            [ code [] [ text (Country.codeToString country.code) ] ]
+            }
+        , Just
+            { label = "Nom"
+            , toValue = .name
+            , toCell = .name >> text
+            }
+        , Just
+            { label = "Mix éléctrique"
+            , toValue = .electricityProcess >> .name
+            , toCell = .electricityProcess >> .name >> text
+            }
+        , Just
+            { label = "Chaleur"
+            , toValue = .heatProcess >> .name
+            , toCell = .heatProcess >> .name >> text
+            }
+        , if scope == Scope.Textile then
+            Just
+                { label = "Taux de pollution aquatique"
+                , toValue = .aquaticPollutionRatio >> Split.toPercentString
+                , toCell =
                     \country ->
                         div [ classList [ ( "text-end", not detailed ) ] ]
-                            [ Format.splitAsPercentage country.airTransportRatio
+                            [ Format.splitAsPercentage country.aquaticPollutionRatio
                             , Link.smallPillExternal
-                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
+                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingToxicity) ]
                                 [ Icon.info ]
                             ]
-               }
-            :: { label = "Domaines"
-               , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
-               , toCell = Common.scopesView
-               }
-            :: (if detailed then
-                    [ { label = "Distances"
-                      , toValue = always ""
-                      , toCell = displayDistances countries distances
-                      }
-                    ]
+                }
 
-                else
-                    []
-               )
+          else
+            Nothing
+        , Just
+            { label = "Part du transport aérien"
+            , toValue = .airTransportRatio >> Split.toPercentString
+            , toCell =
+                \country ->
+                    div [ classList [ ( "text-end", not detailed ) ] ]
+                        [ Format.splitAsPercentage country.airTransportRatio
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
+                            [ Icon.info ]
+                        ]
+            }
+        , Just
+            { label = "Domaines"
+            , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
+            , toCell = Common.scopesView
+            }
+        , if detailed then
+            Just
+                { label = "Distances"
+                , toValue = always ""
+                , toCell = displayDistances countries distances
+                }
+
+          else
+            Nothing
+        ]
+            |> List.filterMap identity
     }
 
 
