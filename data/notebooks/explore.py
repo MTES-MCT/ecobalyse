@@ -15,6 +15,7 @@ import bw2analyzer
 import bw2calc
 import bw2data
 import ipywidgets
+import json
 import os
 import pandas
 import pandas.io.formats.style
@@ -23,13 +24,16 @@ Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"
 STATSTYLE = "<style>.details {background-color: #EEE; padding: 2em;}</style>"
 PROJECTS = [p.name for p in bw2data.projects]
-FOODMETHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
-TEXTILEMETHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+EF31 = "Environmental Footprint 3.1 (adapted) patch wtu"
+FOODMETHOD = TEXTILEMETHOD = EF31
 TEXTILEDB = "Ecoinvent 3.9.1"
 FOODDB = "Agribalyse 3.1.1"
 os.chdir("/home/jovyan/ecobalyse/data")
 VISITED = []  # visited activities since the last search
 LIMIT = 100
+IMPACTS = {}
+with open("/home/jovyan/ecobalyse/public/data/impacts.json") as f:
+    IMPACTS = json.load(f)
 
 # widgets
 w_panel = ipywidgets.HTML(value=STATSTYLE)
@@ -60,7 +64,7 @@ def go_back(button):
 
 w_back_button = ipywidgets.Button(description="←back")
 w_back_button.layout.display = "none"
-w_back_button.search = ""
+setattr(w_back_button, "search", "")
 w_back_button.on_click(go_back)
 
 
@@ -131,7 +135,7 @@ def linkto(button, append_to_stack=True):
             VISITED.pop()
         elif len(VISITED) == 1:
             w_search.value = VISITED.pop()
-    w_back_button.search = VISITED[-1] if len(VISITED) > 0 else ""
+    setattr(w_back_button, "search", VISITED[-1] if len(VISITED) > 0 else "")
     results = list(
         bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
     )
@@ -307,7 +311,7 @@ def display_all(database, search, limit, method, impact_category, activity):
         return display_characterization_factors(method, impact_category)
     elif database and method and activity:
         display_right_panel(database)
-        return display_main_data(database, method, impact_category, activity)
+        return display_main_data(method, impact_category, activity)
     elif database and search and limit:
         return display_results(database, search, limit)
     else:
@@ -333,7 +337,7 @@ def display_right_panel(database):
 
 
 @w_details.capture()
-def display_main_data(database, method, impact_category, activity):
+def display_main_data(method, impact_category, activity):
     w_details.clear_output()
     w_results.clear_output()
     display(Markdown(f"## (Computing impacts...)"))
@@ -358,6 +362,65 @@ def display_main_data(database, method, impact_category, activity):
         print(e)
     impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
     impacts.set_properties(**{"background-color": "#EEE"})
+
+    # PEF
+    if method == EF31:
+        scores = {s["Indicateur"]: s["Score"] for s in scores}
+        pef = (
+            float(scores["Acidification"])
+            / IMPACTS["acd"]["pef"]["normalization"]
+            * IMPACTS["acd"]["pef"]["weighting"]
+            + float(scores["Climate change"])
+            / IMPACTS["cch"]["pef"]["normalization"]
+            * IMPACTS["cch"]["pef"]["weighting"]
+            + (
+                float(scores["Ecotoxicity, freshwater - part 1"])
+                + float(scores["Ecotoxicity, freshwater - part 2"])
+            )
+            / IMPACTS["etf"]["pef"]["normalization"]
+            * IMPACTS["etf"]["pef"]["weighting"]
+            + float(scores["Particulate matter"])
+            / IMPACTS["pma"]["pef"]["normalization"]
+            * IMPACTS["pma"]["pef"]["weighting"]
+            + float(scores["Eutrophication, marine"])
+            / IMPACTS["swe"]["pef"]["normalization"]
+            * IMPACTS["swe"]["pef"]["weighting"]
+            + float(scores["Eutrophication, freshwater"])
+            / IMPACTS["fwe"]["pef"]["normalization"]
+            * IMPACTS["fwe"]["pef"]["weighting"]
+            + float(scores["Eutrophication, terrestrial"])
+            / IMPACTS["tre"]["pef"]["normalization"]
+            * IMPACTS["tre"]["pef"]["weighting"]
+            + float(scores["Human toxicity, cancer"])
+            / IMPACTS["htc"]["pef"]["normalization"]
+            * IMPACTS["htc"]["pef"]["weighting"]
+            + float(scores["Human toxicity, non-cancer"])
+            / IMPACTS["htn"]["pef"]["normalization"]
+            * IMPACTS["htn"]["pef"]["weighting"]
+            + float(scores["Ionising radiation"])
+            / IMPACTS["ior"]["pef"]["normalization"]
+            * IMPACTS["ior"]["pef"]["weighting"]
+            + float(scores["Land use"])
+            / IMPACTS["ldu"]["pef"]["normalization"]
+            * IMPACTS["ldu"]["pef"]["weighting"]
+            + float(scores["Ozone depletion"])
+            / IMPACTS["ozd"]["pef"]["normalization"]
+            * IMPACTS["ozd"]["pef"]["weighting"]
+            + float(scores["Photochemical ozone formation"])
+            / IMPACTS["pco"]["pef"]["normalization"]
+            * IMPACTS["pco"]["pef"]["weighting"]
+            + float(scores["Resource use, fossils"])
+            / IMPACTS["fru"]["pef"]["normalization"]
+            * IMPACTS["fru"]["pef"]["weighting"]
+            + float(scores["Resource use, minerals and metals"])
+            / IMPACTS["mru"]["pef"]["normalization"]
+            * IMPACTS["mru"]["pef"]["weighting"]
+            + float(scores["Water use"])
+            / IMPACTS["wtu"]["pef"]["normalization"]
+            * IMPACTS["wtu"]["pef"]["weighting"]
+        )
+    else:
+        pef = None
 
     # PRODUCTION
     production = "".join(
@@ -386,7 +449,7 @@ def display_main_data(database, method, impact_category, activity):
         comment = upstream.get("comment", "N/A")
         # link button
         w_link = ipywidgets.Button(description="→ visit")
-        w_link.search = f"code:{code}"
+        setattr(w_link, "search", f"code:{code}")
         w_link.on_click(linkto)
         technosphere_widgets.append(
             ipywidgets.VBox(
@@ -549,9 +612,16 @@ def display_main_data(database, method, impact_category, activity):
                     + Illustration
                 ),
                 ipywidgets.VBox(technosphere_widgets),
-                ipywidgets.HTML(value="".join(biosphere)),
-                ipywidgets.HTML(value="".join(substitution)),
-                ipywidgets.HTML(impacts.to_html()),
+                ipywidgets.HTML("".join(biosphere)),
+                ipywidgets.HTML("".join(substitution)),
+                ipywidgets.VBox(
+                    [
+                        ipywidgets.HTML(
+                            "<h2>PEF: " + str(pef) + "</h2>" if pef else ""
+                        ),
+                        ipywidgets.HTML(impacts.to_html()),
+                    ]
+                ),
                 ipywidgets.HTML(analysis),
             ],
         )
