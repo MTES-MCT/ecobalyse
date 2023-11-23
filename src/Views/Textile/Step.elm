@@ -1199,6 +1199,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
                 current.outputMass
                     |> Formula.bleachingImpacts current.impacts
                         { bleachingProcess = db.wellKnown.bleaching
+                        , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                         }
 
             dyeingToxicity =
@@ -1212,6 +1213,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
 
                                     else
                                         db.wellKnown.dyeingCellulosic
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                                 }
                                 current.outputMass
                                 share
@@ -1229,6 +1231,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
                             |> Formula.materialPrintingToxicityImpacts
                                 current.impacts
                                 { printingToxicityProcess = printingToxicityProcess
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                                 }
                                 ratio
 

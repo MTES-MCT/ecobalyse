@@ -52,11 +52,11 @@ table distances countries { detailed, scope } =
         , if scope == Scope.Textile then
             Just
                 { label = "Taux de pollution aquatique"
-                , toValue = .aquaticPollutionRatio >> Split.toPercentString
+                , toValue = .aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercentString
                 , toCell =
                     \country ->
                         div [ classList [ ( "text-end", not detailed ) ] ]
-                            [ Format.splitAsPercentage country.aquaticPollutionRatio
+                            [ Format.splitAsPercentage (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
                             , Link.smallPillExternal
                                 [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingToxicity) ]
                                 [ Icon.info ]

@@ -270,6 +270,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
 
                                             else
                                                 db.wellKnown.dyeingCellulosic
+                                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         }
                                         step.outputMass
                                         share
@@ -317,6 +318,7 @@ computePrintingImpacts db ({ inputs } as simulator) =
                                     |> Formula.materialPrintingToxicityImpacts
                                         step.impacts
                                         { printingToxicityProcess = printingToxicityProcess
+                                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         }
                                         ratio
                         in
@@ -363,6 +365,7 @@ computeBleachingImpacts db simulator =
                         step.outputMass
                             |> Formula.bleachingImpacts step.impacts
                                 { bleachingProcess = db.wellKnown.bleaching
+                                , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                 }
                 in
                 { step

@@ -1,5 +1,6 @@
 module Data.Country exposing
-    ( Code(..)
+    ( AquaticPollutionScenario(..)
+    , Code(..)
     , Country
     , codeFromString
     , codeToString
@@ -8,6 +9,7 @@ module Data.Country exposing
     , encode
     , encodeCode
     , findByCode
+    , getAquaticPollutionRatio
     )
 
 import Data.Scope as Scope exposing (Scope)
@@ -15,12 +17,19 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 
 
 type Code
     = Code String
+
+
+type AquaticPollutionScenario
+    = Best
+    | Average
+    | Worst
 
 
 type alias Country =
@@ -31,7 +40,7 @@ type alias Country =
     , heatProcess : Process
     , airTransportRatio : Split
     , scopes : List Scope
-    , aquaticPollutionRatio : Split
+    , aquaticPollutionScenario : AquaticPollutionScenario
     }
 
 
@@ -62,7 +71,7 @@ decode processes =
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "airTransportRatio" Split.decodeFloat
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
-        |> Pipe.required "aquaticPollutionRatio" Split.decodeFloat
+        |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
 
 
 decodeCode : Decoder Code
@@ -84,10 +93,59 @@ encode v =
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
-        , ( "aquaticPollutionRatio", Split.encodeFloat v.aquaticPollutionRatio )
+        , ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
         ]
 
 
 encodeCode : Code -> Encode.Value
 encodeCode =
     codeToString >> Encode.string
+
+
+decodeAquaticPollutionScenario : Decoder AquaticPollutionScenario
+decodeAquaticPollutionScenario =
+    Decode.string
+        |> Decode.map aquaticPollutionScenarioFromString
+        |> Decode.andThen DE.fromResult
+
+
+aquaticPollutionScenarioFromString : String -> Result String AquaticPollutionScenario
+aquaticPollutionScenarioFromString string =
+    case string of
+        "Best" ->
+            Ok Best
+
+        "Average" ->
+            Ok Average
+
+        "Worst" ->
+            Ok Worst
+
+        _ ->
+            Err <| "Le scenario '" ++ string ++ "' n'est pas un scénario de pollution aquatique valide (choix entre ['Best', 'Average', 'Worst']"
+
+
+aquaticPollutionScenarioToString : AquaticPollutionScenario -> String
+aquaticPollutionScenarioToString scenario =
+    case scenario of
+        Best ->
+            "Best"
+
+        Average ->
+            "Average"
+
+        Worst ->
+            "Worst"
+
+
+getAquaticPollutionRatio : AquaticPollutionScenario -> Split
+getAquaticPollutionRatio scenario =
+    case scenario of
+        Best ->
+            Split.tenth
+
+        Average ->
+            Split.fromPercent 36 |> Result.withDefault Split.full
+
+        Worst ->
+            Split.fromPercent 65 |> Result.withDefault Split.full

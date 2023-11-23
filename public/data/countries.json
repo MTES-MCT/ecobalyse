@@ -7,7 +7,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "BD",
@@ -17,7 +17,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "BE",
@@ -27,7 +27,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "BR",
@@ -37,7 +37,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "CH",
@@ -47,7 +47,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "CN",
@@ -57,7 +57,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food", "textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "CZ",
@@ -67,7 +67,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "DE",
@@ -77,7 +77,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "EG",
@@ -87,7 +87,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "ES",
@@ -97,7 +97,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "ET",
@@ -107,7 +107,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "FR",
@@ -117,7 +117,7 @@
     "heatProcessUuid": "12fc43f2-a007-423b-a619-619d725793ea",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "GB",
@@ -127,7 +127,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "GR",
@@ -137,7 +137,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "HU",
@@ -147,7 +147,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "IN",
@@ -157,7 +157,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "IT",
@@ -167,7 +167,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "KE",
@@ -177,7 +177,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "KH",
@@ -187,7 +187,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "MA",
@@ -197,7 +197,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "MM",
@@ -207,7 +207,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "NL",
@@ -217,7 +217,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "NZ",
@@ -227,7 +227,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "PE",
@@ -237,7 +237,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "PK",
@@ -247,7 +247,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "PL",
@@ -257,7 +257,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "PT",
@@ -267,7 +267,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "RO",
@@ -277,7 +277,7 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "LK",
@@ -287,7 +287,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.65
+    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "TN",
@@ -297,7 +297,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "TR",
@@ -307,7 +307,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "TW",
@@ -317,7 +317,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   },
   {
     "code": "US",
@@ -327,7 +327,7 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food"],
-    "aquaticPollutionRatio": 0.10
+    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "VN",
@@ -337,6 +337,6 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionRatio": 0.36
+    "aquaticPollutionScenario": "Average"
   }
 ]
