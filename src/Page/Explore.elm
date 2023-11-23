@@ -219,14 +219,14 @@ countriesExplorer :
 countriesExplorer tableConfig tableState scope maybeCode distances countries =
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreCountries.table distances)
+        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
             detailsModal
                 (case Country.findByCode code countries of
                     Ok country ->
                         country
-                            |> Table.viewDetails scope (ExploreCountries.table distances)
+                            |> Table.viewDetails scope (ExploreCountries.table distances countries)
 
                     Err error ->
                         alert error

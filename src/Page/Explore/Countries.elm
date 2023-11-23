@@ -17,8 +17,8 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : Transport.Distances -> { detailed : Bool, scope : Scope } -> Table Country String msg
-table distances { detailed, scope } =
+table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
+table distances countries { detailed, scope } =
     { toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , rows =
@@ -63,7 +63,7 @@ table distances { detailed, scope } =
             :: (if detailed then
                     [ { label = "Distances"
                       , toValue = always ""
-                      , toCell = displayDistances distances
+                      , toCell = displayDistances countries distances
                       }
                     ]
 
@@ -73,12 +73,12 @@ table distances { detailed, scope } =
     }
 
 
-displayDistances : Transport.Distances -> Country -> Html msg
-displayDistances distances country =
+displayDistances : List Country.Country -> Transport.Distances -> Country -> Html msg
+displayDistances countries distances country =
     case Dict.get country.code distances of
         Just countryDistances ->
             countryDistances
-                |> Dict.foldl distancesToRows []
+                |> Dict.foldl (distancesToRows countries) []
                 |> (\rows ->
                         Html.table [ class "table table-striped table-hover text-center w-100" ]
                             [ thead []
@@ -98,16 +98,22 @@ displayDistances distances country =
             text ""
 
 
-distancesToRows : Country.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
-distancesToRows countryCode transport rows =
+distancesToRows : List Country.Country -> Country.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
+distancesToRows countries countryCode transport rows =
     rows
-        |> (::) (transportToRow countryCode transport)
+        |> (::) (transportToRow countryCode countries transport)
 
 
-transportToRow : Country.Code -> Transport.Transport -> Html msg
-transportToRow countryCode transport =
+transportToRow : Country.Code -> List Country.Country -> Transport.Transport -> Html msg
+transportToRow countryCode countries transport =
     tr []
-        [ td [] [ text <| Country.codeToString countryCode ]
+        [ td
+            [ Country.findByCode countryCode countries
+                |> Result.map .name
+                |> Result.withDefault ""
+                |> title
+            ]
+            [ text <| Country.codeToString countryCode ]
         , td [] [ Format.km transport.air ]
         , td [] [ Format.km transport.road ]
         , td [] [ Format.km transport.sea ]
