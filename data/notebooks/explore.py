@@ -154,7 +154,7 @@ def lookup_cf(loaded_method, element):
     if len(cfs) == 0:
         return ""
     elif len(cfs) == 1:
-        return str(cfs[0][1])
+        return "{:g}".format(cfs[0][1])
     else:
         return "Multiple CFs : " + " | ".join([str(cf[1]) for cf in cfs])
 
@@ -343,9 +343,10 @@ def display_main_data(method, impact_category, activity):
     display(Markdown(f"## (Computing impacts...)"))
 
     # Impacts
-    lca = bw2calc.LCA({activity: 1})
     scores = []
     try:
+        lca = bw2calc.LCA({activity: 1})
+        impacts_error = ""
         lca.lci()
         for m in [m for m in bw2data.methods if m[0] == method]:
             lca.switch_method(m)
@@ -353,69 +354,71 @@ def display_main_data(method, impact_category, activity):
             scores.append(
                 {
                     "Indicateur": m[1],
-                    "Score": str(lca.score),
+                    "Score": lca.score,
                     "Unité": bw2data.methods[m].get("unit", "(no unit)"),
                 }
             )
     except Exception as e:
-        print("Could not compute impact. Maybe you selected the biosphere?")
-        print(e)
+        impacts_error = (
+            "Could not compute impact. Maybe you selected the biosphere?<br/>" + str(e)
+        )
     impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
     impacts.set_properties(**{"background-color": "#EEE"})
+    impacts.format(formatter={"Score": "{:g}".format})
 
     # PEF
-    if method == EF31:
+    if scores and method == EF31:
         scores = {s["Indicateur"]: s["Score"] for s in scores}
         pef = (
-            float(scores["Acidification"])
+            scores["Acidification"]
             / IMPACTS["acd"]["pef"]["normalization"]
             * IMPACTS["acd"]["pef"]["weighting"]
-            + float(scores["Climate change"])
+            + scores["Climate change"]
             / IMPACTS["cch"]["pef"]["normalization"]
             * IMPACTS["cch"]["pef"]["weighting"]
             + (
-                float(scores["Ecotoxicity, freshwater - part 1"])
-                + float(scores["Ecotoxicity, freshwater - part 2"])
+                scores["Ecotoxicity, freshwater - part 1"]
+                + scores["Ecotoxicity, freshwater - part 2"]
             )
             / IMPACTS["etf"]["pef"]["normalization"]
             * IMPACTS["etf"]["pef"]["weighting"]
-            + float(scores["Particulate matter"])
+            + scores["Particulate matter"]
             / IMPACTS["pma"]["pef"]["normalization"]
             * IMPACTS["pma"]["pef"]["weighting"]
-            + float(scores["Eutrophication, marine"])
+            + scores["Eutrophication, marine"]
             / IMPACTS["swe"]["pef"]["normalization"]
             * IMPACTS["swe"]["pef"]["weighting"]
-            + float(scores["Eutrophication, freshwater"])
+            + scores["Eutrophication, freshwater"]
             / IMPACTS["fwe"]["pef"]["normalization"]
             * IMPACTS["fwe"]["pef"]["weighting"]
-            + float(scores["Eutrophication, terrestrial"])
+            + scores["Eutrophication, terrestrial"]
             / IMPACTS["tre"]["pef"]["normalization"]
             * IMPACTS["tre"]["pef"]["weighting"]
-            + float(scores["Human toxicity, cancer"])
+            + scores["Human toxicity, cancer"]
             / IMPACTS["htc"]["pef"]["normalization"]
             * IMPACTS["htc"]["pef"]["weighting"]
-            + float(scores["Human toxicity, non-cancer"])
+            + scores["Human toxicity, non-cancer"]
             / IMPACTS["htn"]["pef"]["normalization"]
             * IMPACTS["htn"]["pef"]["weighting"]
-            + float(scores["Ionising radiation"])
+            + scores["Ionising radiation"]
             / IMPACTS["ior"]["pef"]["normalization"]
             * IMPACTS["ior"]["pef"]["weighting"]
-            + float(scores["Land use"])
+            + scores["Land use"]
             / IMPACTS["ldu"]["pef"]["normalization"]
             * IMPACTS["ldu"]["pef"]["weighting"]
-            + float(scores["Ozone depletion"])
+            + scores["Ozone depletion"]
             / IMPACTS["ozd"]["pef"]["normalization"]
             * IMPACTS["ozd"]["pef"]["weighting"]
-            + float(scores["Photochemical ozone formation"])
+            + scores["Photochemical ozone formation"]
             / IMPACTS["pco"]["pef"]["normalization"]
             * IMPACTS["pco"]["pef"]["weighting"]
-            + float(scores["Resource use, fossils"])
+            + scores["Resource use, fossils"]
             / IMPACTS["fru"]["pef"]["normalization"]
             * IMPACTS["fru"]["pef"]["weighting"]
-            + float(scores["Resource use, minerals and metals"])
+            + scores["Resource use, minerals and metals"]
             / IMPACTS["mru"]["pef"]["normalization"]
             * IMPACTS["mru"]["pef"]["weighting"]
-            + float(scores["Water use"])
+            + scores["Water use"]
             / IMPACTS["wtu"]["pef"]["normalization"]
             * IMPACTS["wtu"]["pef"]["weighting"]
         )
@@ -546,7 +549,7 @@ def display_main_data(method, impact_category, activity):
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
                     [
-                        (str(score), str(amount) + " " + activity["unit"], activity)
+                        (score, amount, activity["unit"], activity)
                         for (
                             score,
                             amount,
@@ -555,15 +558,16 @@ def display_main_data(method, impact_category, activity):
                             lca
                         )
                     ],
-                    columns=["Score", "Amount", "Elementary flow"],
+                    columns=["Score", "Amount", "Unit", "Elementary flow"],
                 )
             )
+            top_emissions.format(formatter={"Score": "{:g}".format})
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
             top_processes = pandas.io.formats.style.Styler(
                 pandas.DataFrame(
                     [
-                        (str(score), str(amount) + " " + activity["unit"], activity)
+                        (score, amount, activity["unit"], activity)
                         for (
                             score,
                             amount,
@@ -572,16 +576,17 @@ def display_main_data(method, impact_category, activity):
                             lca
                         )
                     ],
-                    columns=["Score", "Amount", "Activity"],
+                    columns=["Score", "Amount", "Unit", "Activity"],
                 )
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
+            top_processes.format(formatter={"Score": "{:g}".format})
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
                 f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
             )
-        except:
+        except Exception as e:
             analysis = "Nothing to display. Maybe you selected the biosphere?"
     else:
         analysis = "💡 Please select an impact category"
@@ -617,8 +622,9 @@ def display_main_data(method, impact_category, activity):
                 ipywidgets.VBox(
                     [
                         ipywidgets.HTML(
-                            "<h2>PEF: " + str(pef) + "</h2>" if pef else ""
+                            f"<h2>µPt PEF: {10e6 * pef:10.2f}</h2>" if pef else ""
                         ),
+                        ipywidgets.HTML(impacts_error),
                         ipywidgets.HTML(impacts.to_html()),
                     ]
                 ),
