@@ -178,7 +178,7 @@ def import_simapro_csv(
 
     print("### Importing Agribalyse into {dbname}...")
     # Do the import and apply "strategies"
-    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
+    database = bw2io.importers.simapro_csv.SimaProCSVImporter(
         unzipped, dbname, normalize_biosphere=True
     )
     os.unlink(unzipped)
