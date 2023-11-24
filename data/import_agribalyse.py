@@ -174,7 +174,7 @@ def import_agribalyse(
     call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
     call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
 
-    print("### Importing Agribalyse into {dbname}...")
+    print(f"### Importing Agribalyse into {dbname}...")
     # Do the import and apply "strategies"
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
         unzipped, dbname, normalize_biosphere=True
