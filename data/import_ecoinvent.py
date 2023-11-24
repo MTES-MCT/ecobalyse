@@ -10,7 +10,7 @@ import shutil
 
 PROJECT = "textile"
 # Ecoinvent
-DATAPATH = "./ECOINVENT3.9.1/datasets"
+DATAPATH = "./ECOINVENT3.9.1.zip"
 DBNAME = "Ecoinvent 3.9.1"
 BIOSPHERE = "biosphere3"
 
