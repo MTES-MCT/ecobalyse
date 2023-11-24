@@ -155,13 +155,6 @@ def import_simapro_csv(
     projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
-    # Core migrations
-    print("### Creating core data migrations")
-    if len(bw2io.migrations) < 13:
-        bw2io.create_core_migrations()
-    else:
-        print("### Core migrations are already installed")
-
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
