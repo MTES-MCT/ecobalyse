@@ -112,7 +112,13 @@ On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutili
 <table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19% <br>(= 38% * 49%)</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>60%</td><td>11%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>34%</td><td>6%</td></tr></tbody></table>
 
 {% hint style="info" %}
-Les probabilités ainsi proposées, pour les matières synthétiques et les matières naturelles, permettent de retrouver la probabilité moyenne (50% des vêtements exportés hors Europe ne sont pas portés) en considérant que 61% des vêtements vendus sont en matières synthétiques et 39% avec d'autres types de fibres (naturelles, artificielles ou mix de fibres). (Source[^4])
+Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypothèses :&#x20;
+
+1\) En moyenne, 50% des vêtements exportés hors Europe ne sont pas réutilisés,
+
+2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^4] = marché mondial des fibres textile),
+
+3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (dont la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
 {% endhint %}
 
 ## Calcul du complément "Export hors Europe"
