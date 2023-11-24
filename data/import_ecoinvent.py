@@ -2,8 +2,11 @@
 
 from bw2data.project import projects
 from common.import_ import add_missing_substances
+from zipfile import ZipFile
 import bw2data
 import bw2io
+import os
+import shutil
 
 PROJECT = "textile"
 # Ecoinvent
@@ -19,8 +22,17 @@ def import_ecoinvent(datapath=DATAPATH, project=PROJECT, dbname=DBNAME):
     projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
-    print(f"### Importing {dbname} database from {datapath}...")
-    ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(datapath, dbname)
+    # unzip
+    with ZipFile(datapath) as zf:
+        print("### Extracting the zip file...")
+        zf.extractall()
+        unzipped = datapath[0:-4]
+
+    print(f"### Importing {dbname} database from {unzipped}...")
+    ecoinvent = bw2io.importers.SingleOutputEcospold2Importer(
+        os.path.join(unzipped, "datasets"), dbname
+    )
+    shutil.rmtree(unzipped)
     ecoinvent.apply_strategies()
     ecoinvent.add_unlinked_flows_to_biosphere_database()
     ecoinvent.write_database()
