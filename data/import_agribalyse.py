@@ -7,6 +7,7 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 import json
+import os
 import re
 from common.export import (
     search,
@@ -154,25 +155,33 @@ def import_simapro_csv(
     projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
-    print(f"### Importing {dbname} database from {datapath}...")
+    # Core migrations
+    print("### Creating core data migrations")
+    if len(bw2io.migrations) < 13:
+        bw2io.create_core_migrations()
+    else:
+        print("### Core migrations are already installed")
+
+    # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
         zf.extractall()
-        datapath = datapath[0:-4]
+        unzipped = datapath[0:-4]
 
     print(f"### Patching {datapath}...")
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-    call("sed -i 's/yield/Yield_/g' " + datapath, shell=True)
+    call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
     # Fix some errors in Agribalyse:
-    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + datapath, shell=True)
-    call("sed -i 's/0;001172/0,001172/' " + datapath, shell=True)
+    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
+    call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
 
-    print(f"### Importing {datapath}...")
+    print("### Importing Agribalyse into {dbname}...")
     # Do the import and apply "strategies"
-    database = bw2io.importers.simapro_csv.SimaProCSVImporter(
-        datapath, dbname, normalize_biosphere=True
+    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
+        unzipped, dbname, normalize_biosphere=True
     )
+    os.unlink(unzipped)
 
     print("### Applying strategies...")
     # exclude strategies/migrations in EXCLUDED
@@ -369,7 +378,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             activity_variant = sub_activity_variant
 
 
-def add_created_activities(dbname=DBNAME):
+def add_created_activities():
     """
     Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
     """
