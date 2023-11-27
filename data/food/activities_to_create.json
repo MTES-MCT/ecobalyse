@@ -295,7 +295,7 @@
   {
     "id": "chicken-breast-bbc",
     "search": "Meat without bone, chicken, for direct consumption",
-    "suffix": "[fr-ext], constructed by Ecobalyse",
+    "suffix": "[bbc], constructed by Ecobalyse",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U",
       "Broiler, live, for direct consumption {FR} U"
@@ -306,7 +306,7 @@
   },
   {
     "id": "chicken-breast-fr-ext-organic",
-    "search": "Meat without bone, chicken, for direct consumption [fr-ext]",
+    "search": "Meat without bone, chicken, for direct consumption [bbc]",
     "suffix": "[fr-ext-organic]",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
@@ -317,6 +317,19 @@
       "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR}": "wheat grain organic central region",
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean organic animal feed FR farm gate",
       "Maize grain dried, conventional, stored and transported, processing {FR} U": "maize grain animal feed organic FR"
+    }
+  },
+  {
+    "id": "chicken-breast-fr-ext",
+    "search": "Meat without bone, chicken, for direct consumption",
+    "suffix": "[fr-ext]",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
+      "Broiler, live, for direct consumption {FR} U [fr-ext]",
+      "Broiler, Bleu Blanc Coeur, at farm gate"
+    ],
+    "replace": {
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
   }
 ]

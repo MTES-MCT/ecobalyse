@@ -391,7 +391,7 @@ def add_created_activities():
 
 def delete_created_activities(dbname=DBNAME):
     search_results = bw2data.Database(dbname).search(
-        "constructed by Ecobalyse", limit=100
+        "constructed by Ecobalyse", limit=1000
     )
 
     for activity in search_results:
