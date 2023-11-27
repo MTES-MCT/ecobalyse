@@ -401,7 +401,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                         |> updateQuery { query | mass = mass }
 
                 Nothing ->
-                    ( { model | massInput = massInput }, session, Cmd.none )
+                    ( model, session, Cmd.none )
 
         UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
