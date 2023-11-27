@@ -309,8 +309,8 @@
     "search": "Meat without bone, chicken, for direct consumption [bbc]",
     "suffix": "[fr-ext-organic]",
     "subactivities": [
-      "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
-      "Broiler, live, for direct consumption {FR} U [fr-ext]",
+      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
+      "Broiler, live, for direct consumption {FR} U [bbc]",
       "Broiler, Bleu Blanc Coeur, at farm gate"
     ],
     "replace": {
@@ -324,8 +324,8 @@
     "search": "Meat without bone, chicken, for direct consumption",
     "suffix": "[fr-ext]",
     "subactivities": [
-      "Meat with bone, chicken, for direct consumption {FR} U [fr-ext]",
-      "Broiler, live, for direct consumption {FR} U [fr-ext]",
+      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
+      "Broiler, live, for direct consumption {FR} U [bbc]",
       "Broiler, Bleu Blanc Coeur, at farm gate"
     ],
     "replace": {
