@@ -58,7 +58,7 @@ table distances countries { detailed, scope } =
                         div [ classList [ ( "text-end", not detailed ) ] ]
                             [ Format.splitAsPercentage (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
                             , Link.smallPillExternal
-                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingToxicity) ]
+                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
                                 [ Icon.info ]
                             ]
                 }

@@ -34,6 +34,7 @@ type Path
     | TextileEndOfLife -- Fin de vie textile
     | TextileEndOfLifeOutOfEuropeComplement -- Complément Fin de vie textile hors-Europe
     | TextileEnnobling -- Ennoblissement textile
+    | TextileEnnoblingCountriesAquaticPollution -- Pollution aquatique lors de l'ennoblissement par pays
     | TextileEnnoblingToxicity -- Inventaires enrichis pour le blanchiment, la teinture et l'impression
     | TextileFabric -- Tissage/Tricotage textile
     | TextileHeat -- Chaleur textile
@@ -100,6 +101,9 @@ pathToString path =
 
         TextileEnnoblingToxicity ->
             "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis"
+
+        TextileEnnoblingCountriesAquaticPollution ->
+            "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis#pays-less-than-greater-than-taux-de-pollution-aquatique"
 
         TextileFabric ->
             "textile/etapes-du-cycle-de-vie/tricotage-tissage"
