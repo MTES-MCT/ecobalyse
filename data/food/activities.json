@@ -699,16 +699,16 @@
   },
   {
     "id": "pear-organic",
-    "name": "Poire bio (sortie de ferme)",
-    "search": "pear organic",
+    "name": "Poire bio ",
+    "search": "Pear, organic, consumption mix/KARBON : 100 (IS)",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": false,
+    "visible": true,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -2843,6 +2843,159 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
+    }
+  },
+  {
+    "id": "tomato-espagne",
+    "name": "Tomate Bio Espagne",
+    "search": "Tomato, organic, greenhouse production,",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-off-season",
+    "name": "Tomate Espagne Hors saison",
+    "search": "Tomato, average basket, conventional, heated greenhouse, national average, at greenhouse/FR U :",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-spain-season",
+    "name": "Tomate de saison Espagne",
+    "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-france-season",
+    "name": "Tomate de saison France",
+    "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse/FR U ",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "tomato-france-off-season",
+    "name": "Tomates France Hors Saison",
+    "search": "Tomato, average basket, conventional, heated greenhouse, national average, at greenhouse/FR U :",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "cucumber-greenhouse-heated",
+    "name": "Concombre (sous serre chauffée)",
+    "search": "cucumber",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "melon-open-field",
+    "name": "Melon plein champ",
+    "search": "Melon, open field, conventional, at farm gate/FR U ",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.4,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "peach-conventional",
+    "name": "Pêche conventionnel",
+    "search": "Peach, conventional, national average, at orchard/FR U :",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "peach-spain",
+    "name": "Pêche Espagne",
+    "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent :",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]
