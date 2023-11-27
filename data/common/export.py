@@ -25,9 +25,9 @@ def with_subimpacts(process):
 
 
 @functools.cache
-def search(dbname, name, excluded_term = None):
+def search(dbname, name, excluded_term=None):
     results = bw2data.Database(dbname).search(name)
-    if excluded_term:    
+    if excluded_term:
         results = [res for res in results if excluded_term not in res["name"]]
     assert len(results) >= 1, f"'{name}' was not found in Brightway"
     return results[0]
@@ -103,10 +103,10 @@ def create_activity(dbname, new_activity_name, base_activity=None):
             new_activity = base_activity.copy(new_activity_name)
         else:
             new_activity = bw2data.Database(dbname).new_activity(
-                {                    
+                {
                     "production amount": 1,
                     "unit": "kilogram",
-                    "type": "process",                    
+                    "type": "process",
                     "comment": "added by Ecobalyse",
                 }
             )
@@ -114,12 +114,8 @@ def create_activity(dbname, new_activity_name, base_activity=None):
             new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
-        code =  str(
-            uuid.UUID(
-                hashlib.md5(
-                    new_activity_name.encode("utf-8")
-                ).hexdigest()
-            )
+        code = str(
+            uuid.UUID(hashlib.md5(new_activity_name.encode("utf-8")).hexdigest())
         )
         new_activity["code"] = code
         new_activity["Process identifier"] = code
@@ -129,7 +125,6 @@ def create_activity(dbname, new_activity_name, base_activity=None):
     except (IntegrityError, bw2data.errors.DuplicateNode):
         logging.warning(f"Activity {new_activity_name} already exists")
         return search(dbname, new_activity_name)
-
 
 
 def delete_exchange(activity, activity_to_delete, amount=False):
@@ -181,5 +176,3 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
-
-

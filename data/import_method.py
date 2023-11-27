@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 from bw2data.project import projects
+from zipfile import ZipFile
 import bw2data
 import bw2io
-import sys
 import functools
+import os
+import sys
 from bw2io.strategies import (
     drop_unspecified_subcategories,
-    fix_localized_water_flows,
+    #    fix_localized_water_flows,
     link_iterable_by_fields,
     match_subcategories,
     migrate_exchanges,
@@ -22,8 +24,8 @@ from bw2io.strategies import (
 PROJECT = sys.argv[1]
 # Agribalyse
 BIOSPHERE = "biosphere3"
-METHODPATH = "Environmental Footprint 3.1 (adapted) patch wtu.CSV"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
+METHODPATH = METHODNAME + ".CSV.zip"
 
 # excluded strategies and migrations
 EXCLUDED_FOOD = [
@@ -40,13 +42,21 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     """
     print(f"### Importing {datapath}...")
     projects.set_current(PROJECT)
+
+    # unzip
+    with ZipFile(datapath) as zf:
+        print("### Extracting the zip file...")
+        zf.extractall()
+        unzipped = datapath[0:-4]
+
     # projects.create_project(project, activate=True, exist_ok=True)
     ef = bw2io.importers.SimaProLCIACSVImporter(
-        datapath,
+        unzipped,
         biosphere=biosphere,
         normalize_biosphere=False if project == "textile" else True
         # normalize_biosphere to align the categories between LCI and LCIA
     )
+    os.unlink(unzipped)
     ef.statistics()
     # exclude strategies/migrations in EXCLUDED
     if project == "food":

@@ -1,4 +1,4 @@
-module Views.BaseElement exposing (Config, view)
+module Views.BaseElement exposing (Config, deleteItemButton, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -27,17 +27,16 @@ type alias Db element =
 
 
 type alias Config element quantity msg =
-    { baseElement : BaseElement element quantity
+    { allowEmptyList : Bool
+    , baseElement : BaseElement element quantity
     , db : Db element
     , defaultCountry : String
     , delete : element -> msg
-    , disableCountry : Bool
-    , disableQuantity : Bool
     , excluded : List element
     , impact : Impacts
 
     -- TODO: introduce complementsView
-    , quantityView : { disabled : Bool, quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
+    , quantityView : { quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
     , toId : element -> String
@@ -47,7 +46,7 @@ type alias Config element quantity msg =
 
 
 view : Config element quantity msg -> List (Html msg)
-view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
+view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
     let
         updateEvent =
             update baseElement
@@ -62,8 +61,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
     in
     [ span [ class "QuantityInputWrapper" ]
         [ quantityView
-            { disabled = disableQuantity
-            , quantity = baseElement.quantity
+            { quantity = baseElement.quantity
             , onChange =
                 \maybeQuantity ->
                     case maybeQuantity of
@@ -96,7 +94,6 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
             )
         |> select
             [ class "form-select form-select CountrySelector"
-            , disabled disableCountry
             , onInput
                 (\val ->
                     updateEvent
@@ -116,7 +113,7 @@ view { baseElement, db, defaultCountry, delete, disableCountry, disableQuantity,
         [ impact
             |> Format.formatImpact selectedImpact
         ]
-    , deleteItemButton { disabled = List.length excluded == 1 } deleteEvent
+    , deleteItemButton { disabled = List.length excluded == 1 && not allowEmptyList } deleteEvent
     ]
 
 

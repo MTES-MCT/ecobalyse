@@ -69,7 +69,7 @@ jupyter_password:
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) jupyter notebook password; fi
 
 start_notebook:
-	$(DOCKERRUN) -d --name $(NAME) -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e JUPYTER_PORT=$(JUPYTER_PORT) -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh
+	$(DOCKERRUN) -d --name $(NAME) -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e JUPYTER_PORT=$(JUPYTER_PORT) -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative
 	docker cp ~/.gitconfig $(NAME):/home/jovyan/
 	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 
@@ -78,6 +78,12 @@ stop_notebook:
 	@while [ `docker container inspect -f '{{.State.Running}}' $(NAME) ` = "true" ]; do \
 		echo "stopping jupyter"; sleep 1; \
 	done
+
+start_bwapi:
+	echo starting the Brightway API on port 8000...
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api";\
+	else $(DOCKERRUN) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api"; fi
 
 clean_data:
 	docker volume rm $(NAME)

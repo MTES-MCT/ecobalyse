@@ -61,6 +61,7 @@ type Uuid
 
 type alias WellKnown =
     { airTransport : Process
+    , bleaching : Process
     , seaTransport : Process
     , roadTransportPreMaking : Process
     , roadTransportPostMaking : Process
@@ -68,6 +69,8 @@ type alias WellKnown =
     , dyeingYarn : Process
     , dyeingFabric : Process
     , dyeingArticle : Process
+    , dyeingSynthetic : Process
+    , dyeingCellulosic : Process
     , knittingMix : Process
     , knittingFullyFashioned : Process
     , knittingSeamless : Process
@@ -75,6 +78,8 @@ type alias WellKnown =
     , knittingStraight : Process
     , printingPigment : Process
     , printingSubstantive : Process
+    , printingPaste : Process
+    , printingDyes : Process
     , finishing : Process
     , passengerCar : Process
     , endOfLife : Process
@@ -166,14 +171,14 @@ getEnnoblingHeatProcess wk zone heatSource =
             wk.steamLightFuelRSA
 
 
-getPrintingProcess : Printing.Kind -> WellKnown -> Process
-getPrintingProcess medium { printingPigment, printingSubstantive } =
+getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
+getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, printingPaste } =
     case medium of
         Printing.Pigment ->
-            printingPigment
+            { printingProcess = printingPigment, printingToxicityProcess = printingPaste }
 
         Printing.Substantive ->
-            printingSubstantive
+            { printingProcess = printingSubstantive, printingToxicityProcess = printingDyes }
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
@@ -186,6 +191,7 @@ loadWellKnown processes =
     let
         map =
             { airTransport = "air-transport"
+            , bleaching = "bleaching"
             , seaTransport = "sea-transport"
             , roadTransportPreMaking = "road-transport-pre-making"
             , roadTransportPostMaking = "road-transport-post-making"
@@ -193,8 +199,12 @@ loadWellKnown processes =
             , dyeingYarn = "dyeing-yarn"
             , dyeingFabric = "dyeing-fabric"
             , dyeingArticle = "dyeing-article"
+            , dyeingSynthetic = "dyeing-synthetic-fiber"
+            , dyeingCellulosic = "dyeing-cellulosic-fiber"
             , printingPigment = "printing-pigment"
             , printingSubstantive = "printing-substantive"
+            , printingPaste = "printing-paste"
+            , printingDyes = "printing-dyes"
             , finishing = "finishing"
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
@@ -219,6 +229,7 @@ loadWellKnown processes =
     in
     Ok WellKnown
         |> load .airTransport
+        |> load .bleaching
         |> load .seaTransport
         |> load .roadTransportPreMaking
         |> load .roadTransportPostMaking
@@ -226,6 +237,8 @@ loadWellKnown processes =
         |> load .dyeingYarn
         |> load .dyeingFabric
         |> load .dyeingArticle
+        |> load .dyeingSynthetic
+        |> load .dyeingCellulosic
         |> load .knittingMix
         |> load .knittingFullyFashioned
         |> load .knittingSeamless
@@ -233,6 +246,8 @@ loadWellKnown processes =
         |> load .knittingStraight
         |> load .printingPigment
         |> load .printingSubstantive
+        |> load .printingPaste
+        |> load .printingDyes
         |> load .finishing
         |> load .passengerCar
         |> load .endOfLife
