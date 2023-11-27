@@ -33,7 +33,8 @@ projects.set_current(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
-def find_id(dbname, activity):    
+def find_id(dbname, activity):
+    print(activity["search"])
     return search(dbname, activity["search"])["Process identifier"]
 
 

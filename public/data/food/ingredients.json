@@ -429,7 +429,7 @@
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
     "categories": ["animal_product", "organic"],
     "default": "59476a4a-0440-adcb-fd48-74efdebfe67f",
