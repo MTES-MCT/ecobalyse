@@ -2658,5 +2658,17 @@
       "agro-diversity": 0,
       "agro-ecology": 0
     }
+  },
+  {
+    "id": "large-trout-fr",
+    "name": "Truite Fumée",
+    "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
+    "category": "transformation",
+    "default_origin": "France",
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
   }
 ]
