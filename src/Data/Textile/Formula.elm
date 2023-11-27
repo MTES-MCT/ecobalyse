@@ -21,6 +21,7 @@ module Data.Textile.Formula exposing
     )
 
 import Area exposing (Area)
+import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -229,18 +230,38 @@ finishingImpacts impacts { finishingProcess, heatProcess, elecProcess } baseMass
     }
 
 
+getAquaticPollutionRealRatio : Country.AquaticPollutionScenario -> Float
+getAquaticPollutionRealRatio scenario =
+    -- The toxicity impacts in the "enriched" ennobling processes
+    -- "bleaching", "printing-dyes" and "printing-paste",  are based
+    -- on the "average" value.
+    -- To have the real ratio, we need to do:
+    -- ratio / average
+    let
+        countryRatio =
+            Country.getAquaticPollutionRatio scenario |> Split.toFloat
+
+        averageRatio =
+            Country.getAquaticPollutionRatio Country.Average |> Split.toFloat
+    in
+    countryRatio / averageRatio
+
+
 bleachingImpacts :
     Impacts
     ->
         { bleachingProcess : Process -- Inbound: Bleaching process
+        , aquaticPollutionScenario : Country.AquaticPollutionScenario
         }
     -> Mass
     -> Impacts
-bleachingImpacts impacts { bleachingProcess } baseMass =
+bleachingImpacts impacts { bleachingProcess, aquaticPollutionScenario } baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
-                baseMass |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                baseMass
+                    |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
             )
 
 
@@ -248,16 +269,18 @@ materialDyeingToxicityImpacts :
     Impacts
     ->
         { dyeingToxicityProcess : Process -- Inbound: dyeing process
+        , aquaticPollutionScenario : Country.AquaticPollutionScenario
         }
     -> Mass
     -> Split
     -> Impacts
-materialDyeingToxicityImpacts impacts { dyeingToxicityProcess } baseMass split =
+materialDyeingToxicityImpacts impacts { dyeingToxicityProcess, aquaticPollutionScenario } baseMass split =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram dyeingToxicityProcess)
+                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
                     |> (\impact -> Split.applyToQuantity impact split)
             )
 
@@ -266,16 +289,18 @@ materialPrintingToxicityImpacts :
     Impacts
     ->
         { printingToxicityProcess : Process -- Inbound: printing process
+        , aquaticPollutionScenario : Country.AquaticPollutionScenario
         }
     -> Split
     -> Mass
     -> Impacts
-materialPrintingToxicityImpacts impacts { printingToxicityProcess } split baseMass =
+materialPrintingToxicityImpacts impacts { printingToxicityProcess, aquaticPollutionScenario } split baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram printingToxicityProcess)
+                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
                     |> (\impact -> Split.applyToQuantity impact split)
             )
 
