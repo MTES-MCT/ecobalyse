@@ -252,7 +252,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery Inputs.defaultQuery
+                |> updateQuery model.initialQuery
 
         SaveBookmark ->
             ( model
