@@ -413,8 +413,12 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateProduct productId ->
             case Product.findById productId textileDb.products of
                 Ok product ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateProduct product query)
+                    let
+                        updatedQuery =
+                            Inputs.updateProduct product query
+                    in
+                    ( { model | initialQuery = updatedQuery }, session, Cmd.none )
+                        |> updateQuery updatedQuery
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
