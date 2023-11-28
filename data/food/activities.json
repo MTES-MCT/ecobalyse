@@ -2416,7 +2416,7 @@
   {
     "id": "chicken-breast-fr-ext-organic",
     "name": "Blanc de poulet (élevé en extérieur, aliments bio)",
-    "search": "Meat without bone chicken for direct consumption fr-ext constructed by Ecobalyse",
+    "search": "Meat without bone chicken for direct consumption fr-ext-organic constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
