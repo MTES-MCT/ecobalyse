@@ -321,7 +321,7 @@
   },
   {
     "id": "chicken-breast-fr-ext",
-    "search": "Meat without bone, chicken, for direct consumption",
+    "search": "Meat without bone, chicken, for direct consumption [bbc]",
     "suffix": "[fr-ext]",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
