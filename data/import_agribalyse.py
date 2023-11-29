@@ -23,6 +23,14 @@ AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
 ORGANIC_PROCESSES = (
     "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 )
+PASTOECO = [
+    "PastoEco/CONVEN~1.CSV.zip",
+    "PastoEco/Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "PastoEco/Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
+    "PastoEco/Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "PastoEco/Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
+    "PastoEco/Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+]
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = "biosphere3"
 
@@ -161,15 +169,16 @@ def import_simapro_csv(
         zf.extractall()
         unzipped = datapath[0:-4]
 
-    print(f"### Patching {datapath}...")
-    # sed is faster than Python
-    # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-    call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
-    # Fix some errors in Agribalyse:
-    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
-    call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
+    if "AGB" in datapath:
+        print(f"### Patching {datapath}...")
+        # sed is faster than Python
+        # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
+        call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
+        # Fix some errors in Agribalyse:
+        call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
+        call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
 
-    print(f"### Importing Agribalyse into {dbname}...")
+    print(f"### Importing into {dbname}...")
     # Do the import and apply "strategies"
     database = bw2io.importers.simapro_csv.SimaProCSVImporter(
         unzipped, dbname, normalize_biosphere=True
@@ -405,6 +414,8 @@ def main():
     if DBNAME not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE)
         import_simapro_csv(ORGANIC_PROCESSES)
+        for p in PASTOECO:
+            import_simapro_csv(p)
     else:
         print(f"{DBNAME} already imported")
     delete_created_activities()
