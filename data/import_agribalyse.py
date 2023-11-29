@@ -163,6 +163,7 @@ def import_simapro_csv(
     projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
+    print(f"### Importing {datapath}...")
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
@@ -170,7 +171,7 @@ def import_simapro_csv(
         unzipped = datapath[0:-4]
 
     if "AGB" in datapath:
-        print(f"### Patching {datapath}...")
+        print(f"### Patching Agribalyse...")
         # sed is faster than Python
         # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
         call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
