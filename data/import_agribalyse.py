@@ -24,12 +24,12 @@ ORGANIC_PROCESSES = (
     "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 )
 PASTOECO = [
-    "PastoEco/CONVEN~1.CSV.zip",
-    "PastoEco/Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "PastoEco/Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
-    "PastoEco/Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "PastoEco/Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
-    "PastoEco/Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "CONVEN~1.CSV.zip",
+    "Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
+    "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
+    "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
 ]
 DBNAME = "Agribalyse 3.1.1"
 BIOSPHERE = "biosphere3"
