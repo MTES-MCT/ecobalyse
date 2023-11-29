@@ -170,7 +170,7 @@ def import_simapro_csv(
         zf.extractall()
         unzipped = datapath[0:-4]
 
-    if "AGB" in datapath:
+    if "AGB3.1.1" in datapath:
         print(f"### Patching Agribalyse...")
         # sed is faster than Python
         # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
@@ -413,10 +413,10 @@ def main():
     bw2io.bw2setup()
     add_missing_substances(PROJECT, BIOSPHERE)
     if DBNAME not in bw2data.databases:
-        import_simapro_csv(AGRIBALYSE)
-        import_simapro_csv(ORGANIC_PROCESSES)
         for p in PASTOECO:
             import_simapro_csv(p)
+        import_simapro_csv(ORGANIC_PROCESSES)
+        import_simapro_csv(AGRIBALYSE)
     else:
         print(f"{DBNAME} already imported")
     delete_created_activities()
