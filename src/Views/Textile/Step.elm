@@ -12,13 +12,16 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
+import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
@@ -1144,6 +1147,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                       else
                         text ""
                     , surfaceInfoView inputs current
+                    , ennoblingToxicityView config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
                     , if current.label == Label.EndOfLife then
@@ -1185,6 +1189,71 @@ surfaceInfoView inputs current =
 
         Nothing ->
             text ""
+
+
+ennoblingToxicityView : Config msg modal -> Step -> Html msg
+ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
+    if current.label == Label.Ennobling then
+        let
+            bleachingToxicity =
+                current.outputMass
+                    |> Formula.bleachingImpacts current.impacts
+                        { bleachingProcess = db.wellKnown.bleaching
+                        , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        }
+
+            dyeingToxicity =
+                inputs.materials
+                    |> List.map
+                        (\{ material, share } ->
+                            Formula.materialDyeingToxicityImpacts current.impacts
+                                { dyeingToxicityProcess =
+                                    if Origin.isSynthetic material.origin then
+                                        db.wellKnown.dyeingSynthetic
+
+                                    else
+                                        db.wellKnown.dyeingCellulosic
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                }
+                                current.outputMass
+                                share
+                        )
+                    |> Impact.sumImpacts
+
+            printingToxicity =
+                case current.printing of
+                    Just { kind, ratio } ->
+                        let
+                            { printingToxicityProcess } =
+                                Process.getPrintingProcess kind db.wellKnown
+                        in
+                        current.outputMass
+                            |> Formula.materialPrintingToxicityImpacts
+                                current.impacts
+                                { printingToxicityProcess = printingToxicityProcess
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                }
+                                ratio
+
+                    Nothing ->
+                        Impact.empty
+
+            toxicity =
+                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+        in
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
+            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
+                [ text "(+\u{00A0}"
+                , toxicity
+                    |> Format.formatImpact selectedImpact
+                , text ")"
+                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+                ]
+            ]
+
+    else
+        text ""
 
 
 pickingView : Maybe Unit.PickPerMeter -> Html msg

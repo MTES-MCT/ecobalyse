@@ -6,17 +6,17 @@ from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
-import re
 import json
+import os
+import re
 from common.export import (
     search,
-    with_corrected_impacts,
-    display_changes,
     create_activity,
     delete_exchange,
     new_exchange,
 )
 import logging
+from common.import_ import add_missing_substances
 
 PROJECT = "food"
 # Agribalyse
@@ -160,25 +160,26 @@ def import_agribalyse(
     else:
         print("### Core migrations are already installed")
 
-    print(f"### Importing {dbname} database from {datapath}...")
+    # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
         zf.extractall()
-        datapath = datapath[0:-4]
+        unzipped = datapath[0:-4]
 
     print("### Patching Agribalyse...")
     # sed is faster than Python
     # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-    call("sed -i 's/yield/Yield_/g' " + datapath, shell=True)
+    call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
     # Fix some errors in Agribalyse:
-    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + datapath, shell=True)
-    call("sed -i 's/0;001172/0,001172/' " + datapath, shell=True)
+    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
+    call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
 
-    print("### Importing Agribalyse...")
+    print(f"### Importing Agribalyse into {dbname}...")
     # Do the import and apply "strategies"
     agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
-        datapath, dbname, normalize_biosphere=True
+        unzipped, dbname, normalize_biosphere=True
     )
+    os.unlink(unzipped)
 
     print("### Applying strategies...")
     # exclude strategies/migrations in EXCLUDED
@@ -293,8 +294,8 @@ def import_agribalyse(
 def add_average_activity(activity_data, dbname=DBNAME):
     """Add to the database a new activity : the weighted average of multiple activities
 
-    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the 
-    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from 
+    Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the
+    weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from
     system 1 to 5
     """
 
@@ -307,8 +308,7 @@ def add_average_activity(activity_data, dbname=DBNAME):
 
 
 def replace_activities(activity_variant, activity_data, dbname=DBNAME):
-    """Replace all activities in activity_data["replace"] with variants of these activities
-    """
+    """Replace all activities in activity_data["replace"] with variants of these activities"""
     for k, v in activity_data["replace"].items():
         activity_old = search(dbname, k)
         activity_new = search(dbname, v)
@@ -345,7 +345,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
     #  we can replace the wheat activity with the wheat-organic activity
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
-            sub_activity = search(dbname, act_sub_data,"declassified")
+            sub_activity = search(dbname, act_sub_data, "declassified")
 
             # create a new sub activity variant
             sub_activity_variant = create_activity(
@@ -363,7 +363,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             delete_exchange(activity_variant, sub_activity)
 
             # for the last sub activity, replace the seed activity with the seed activity variant
-            # Example: for flour-organic this is where the replace the wheat activity with the 
+            # Example: for flour-organic this is where the replace the wheat activity with the
             # wheat-organic activity
             if i == len(activity_data["subactivities"]) - 1:
                 replace_activities(sub_activity_variant, activity_data)
@@ -372,7 +372,7 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             activity_variant = sub_activity_variant
 
 
-def add_created_activities(dbname=DBNAME):
+def add_created_activities():
     """
     Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
     """
@@ -402,7 +402,7 @@ def main():
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
-
+    add_missing_substances(PROJECT, BIOSPHERE)
     if DBNAME not in bw2data.databases:
         import_agribalyse()
     else:
@@ -413,4 +413,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
