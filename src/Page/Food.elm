@@ -78,6 +78,7 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
@@ -93,7 +94,8 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
-    | OnAutocomplete (Autocomplete.Msg Ingredient)
+    | OnAutocompleteExample (Autocomplete.Msg Query)
+    | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
@@ -244,13 +246,28 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            ( { model | initialQuery = queryToLoad }, session, Cmd.none )
+            update session (SetModal NoModal) { model | initialQuery = queryToLoad }
                 |> updateQuery queryToLoad
 
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnAutocomplete autocompleteMsg ->
+        OnAutocompleteExample autocompleteMsg ->
+            case model.modal of
+                SelectExampleModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model | modal = SelectExampleModal newAutocompleteState }
+                    , session
+                    , Cmd.map OnAutocompleteExample autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteIngredient autocompleteMsg ->
             case model.modal of
                 AddIngredientModal maybeOldIngredient autocompleteState ->
                     let
@@ -259,7 +276,7 @@ update ({ queries } as session) msg model =
                     in
                     ( { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
                     , session
-                    , Cmd.map OnAutocomplete autoCompleteCmd
+                    , Cmd.map OnAutocompleteIngredient autoCompleteCmd
                     )
 
                 _ ->
@@ -269,6 +286,10 @@ update ({ queries } as session) msg model =
             case model.modal of
                 AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
                     updateIngredient query model session maybeOldRecipeIngredient autocompleteState
+
+                SelectExampleModal autocompleteState ->
+                    ( model, session, Cmd.none )
+                        |> selectExample autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -329,6 +350,13 @@ update ({ queries } as session) msg model =
                     Ports.addBodyClass "prevent-scrolling"
 
                 AddIngredientModal _ _ ->
+                    Cmd.batch
+                        [ Ports.addBodyClass "prevent-scrolling"
+                        , Dom.focus "element-search"
+                            |> Task.attempt (always NoOp)
+                        ]
+
+                SelectExampleModal _ ->
                     Cmd.batch
                         [ Ports.addBodyClass "prevent-scrolling"
                         , Dom.focus "element-search"
@@ -422,6 +450,13 @@ commandsForNoModal modal =
                     |> Task.attempt (always NoOp)
                 ]
 
+        SelectExampleModal _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
+                    |> Task.attempt (always NoOp)
+                ]
+
         _ ->
             Ports.removeBodyClass "prevent-scrolling"
 
@@ -493,6 +528,22 @@ findExistingBookmarkName { foodDb, store } query =
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
+
+
+selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample autocompleteState ( model, session, _ ) =
+    let
+        example =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (Just Query.emptyQuery)
+
+        msg =
+            example
+                |> Maybe.map LoadQuery
+                |> Maybe.withDefault NoOp
+    in
+    update session msg model
 
 
 selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -1317,19 +1368,29 @@ mainView session model =
 
 menuView : Query -> Html Msg
 menuView query =
-    div [ class "d-flex gap-2" ]
-        [ button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Query.carrotCake ) ]
-            , onClick (LoadQuery Query.carrotCake)
+    let
+        autocompleteState =
+            AutocompleteSelector.init Query.toString [ Query.emptyQuery, Query.carrotCake ]
+    in
+    div []
+        [ label
+            [ for "selector-example"
+            , class "form-label fw-bold"
             ]
-            [ text "Carrot Cake" ]
+            [ text "Recette" ]
         , button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Query.emptyQuery ) ]
-            , onClick (LoadQuery Query.emptyQuery)
+            [ class "form-select ElementSelector text-start"
+            , id <| "selector-example"
+            , style "overflow" "hidden"
+            , style "white-space" "nowrap"
+            , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ text "Créer une nouvelle recette" ]
+            [ span
+                [ style "display" "block"
+                , style "overflow" "hidden"
+                ]
+                [ text <| Query.toString query ]
+            ]
         ]
 
 
@@ -1506,7 +1567,7 @@ view session model =
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocomplete
+                        , onAutocomplete = OnAutocompleteIngredient
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                         , title = "Sélectionnez un ingrédient"
@@ -1516,6 +1577,19 @@ view session model =
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
                                 >> Maybe.withDefault ""
+                        }
+
+                SelectExampleModal autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteExample
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de la recette pour la rechercher"
+                        , title = "Sélectionnez une recette"
+                        , toLabel = Query.toString
+                        , toCategory = always ""
                         }
             ]
       ]

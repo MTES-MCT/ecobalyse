@@ -17,6 +17,7 @@ module Data.Food.Query exposing
     , serialize
     , setDistribution
     , setTransform
+    , toString
     , updateDistribution
     , updateIngredient
     , updatePackaging
@@ -303,6 +304,18 @@ setTransform transform query =
 setDistribution : Retail.Distribution -> Query -> Query
 setDistribution distribution query =
     { query | distribution = Just distribution }
+
+
+toString : Query -> String
+toString query =
+    if query == emptyQuery then
+        "Recette vide"
+
+    else if query == carrotCake then
+        "Carrot cake"
+
+    else
+        "Recette personnalisée"
 
 
 updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query
