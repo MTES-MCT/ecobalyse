@@ -154,7 +154,7 @@ def lookup_cf(loaded_method, element):
     if len(cfs) == 0:
         return ""
     elif len(cfs) == 1:
-        return "{:g}".format(cfs[0][1])
+        return "{:.4g}".format(cfs[0][1])
     else:
         return "Multiple CFs : " + " | ".join([str(cf[1]) for cf in cfs])
 
@@ -353,7 +353,7 @@ def display_main_data(method, impact_category, activity):
             lca.lcia()
             scores.append(
                 {
-                    "Indicateur": m[1],
+                    "Indicateur": ", ".join(m[1:]),
                     "Score": lca.score,
                     "Unité": bw2data.methods[m].get("unit", "(no unit)"),
                 }
@@ -364,7 +364,7 @@ def display_main_data(method, impact_category, activity):
         )
     impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
     impacts.set_properties(**{"background-color": "#EEE"})
-    impacts.format(formatter={"Score": "{:g}".format})
+    impacts.format(formatter={"Score": "{:.4g}".format})
 
     # PEF
     if scores and method == EF31:
@@ -499,7 +499,7 @@ def display_main_data(method, impact_category, activity):
             pandas.DataFrame(
                 [
                     (
-                        meth[1],
+                        ", ".join(meth[1:]),
                         lookup_cf(allcfs[meth], element),
                         bw2data.methods.get(meth, {}).get("unit", "N/A"),
                     )
@@ -561,7 +561,7 @@ def display_main_data(method, impact_category, activity):
                     columns=["Score", "Amount", "Unit", "Elementary flow"],
                 )
             )
-            top_emissions.format(formatter={"Score": "{:g}".format})
+            top_emissions.format(formatter={"Score": "{:.4g}".format})
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
             top_processes = pandas.io.formats.style.Styler(
@@ -580,7 +580,7 @@ def display_main_data(method, impact_category, activity):
                 )
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
-            top_processes.format(formatter={"Score": "{:g}".format})
+            top_processes.format(formatter={"Score": "{:.4g}".format})
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
