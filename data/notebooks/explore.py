@@ -353,7 +353,7 @@ def display_main_data(method, impact_category, activity):
             lca.lcia()
             scores.append(
                 {
-                    "Indicateur": m[1],
+                    "Indicateur": ", ".join(m[1:]),
                     "Score": lca.score,
                     "Unité": bw2data.methods[m].get("unit", "(no unit)"),
                 }
