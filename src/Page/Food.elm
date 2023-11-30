@@ -1416,7 +1416,7 @@ stepListView session { db, impact, initialQuery } recipe results =
                 , onClick Reset
                 , disabled (session.queries.food == initialQuery)
                 ]
-                [ text "Réinitialiser le simulateur" ]
+                [ text "Réinitialiser la recette" ]
             ]
         ]
 
