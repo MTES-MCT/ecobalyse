@@ -499,7 +499,7 @@ def display_main_data(method, impact_category, activity):
             pandas.DataFrame(
                 [
                     (
-                        meth[1],
+                        ", ".join(meth[1:]),
                         lookup_cf(allcfs[meth], element),
                         bw2data.methods.get(meth, {}).get("unit", "N/A"),
                     )
