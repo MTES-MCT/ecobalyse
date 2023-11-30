@@ -65,6 +65,7 @@ import Views.Transport as TransportView
 type alias Model =
     { db : FoodDb.Db
     , impact : Definition
+    , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -96,6 +97,7 @@ type Msg
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | Reset
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
@@ -126,6 +128,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
     in
     ( { db = foodDb
       , impact = impact
+      , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -241,7 +244,7 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            ( model, session, Cmd.none )
+            ( { model | initialQuery = queryToLoad }, session, Cmd.none )
                 |> updateQuery queryToLoad
 
         NoOp ->
@@ -281,6 +284,10 @@ update ({ queries } as session) msg model =
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
+
+        Reset ->
+            ( model, session, Cmd.none )
+                |> updateQuery model.initialQuery
 
         ResetDistribution ->
             ( model, session, Cmd.none )
@@ -1290,7 +1297,7 @@ mainView session model =
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView model recipe results
+                    stepListView session model recipe results
 
                 Err error ->
                     errorView error
@@ -1383,8 +1390,8 @@ sidebarView session model results =
         }
 
 
-stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView { db, impact } recipe results =
+stepListView : Session -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView session { db, impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1401,6 +1408,16 @@ stepListView { db, impact } recipe results =
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
+        , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+            [ a [ Route.href Route.Home ]
+                [ text "« Retour à l'accueil" ]
+            , button
+                [ class "btn btn-secondary"
+                , onClick Reset
+                , disabled (session.queries.food == initialQuery)
+                ]
+                [ text "Réinitialiser le simulateur" ]
+            ]
         ]
 
 
