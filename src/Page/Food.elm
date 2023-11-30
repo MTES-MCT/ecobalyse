@@ -152,6 +152,12 @@ update ({ queries } as session) msg model =
     let
         query =
             queries.food
+
+        maybeUpdateQuery : (a -> Query) -> Maybe a -> ( Model, Session, Cmd Msg )
+        maybeUpdateQuery toQuery maybeThing =
+            maybeThing
+                |> Maybe.map (\thing -> updateQuery (toQuery thing) ( model, session, Cmd.none ))
+                |> Maybe.withDefault ( model, session, Cmd.none )
     in
     case msg of
         AddIngredient ingredient ->
@@ -170,14 +176,8 @@ update ({ queries } as session) msg model =
                         |> List.head
                         |> Maybe.map Recipe.processQueryFromProcess
             in
-            ( model, session, Cmd.none )
-                |> (case firstPackaging of
-                        Just packaging ->
-                            updateQuery (Query.addPackaging packaging query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstPackaging
+                |> maybeUpdateQuery (\packaging -> Query.addPackaging packaging query)
 
         AddPreparation ->
             let
@@ -186,14 +186,8 @@ update ({ queries } as session) msg model =
                         |> Preparation.unused query.preparation
                         |> List.head
             in
-            ( model, session, Cmd.none )
-                |> (case firstPreparation of
-                        Just { id } ->
-                            updateQuery (Query.addPreparation id query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstPreparation
+                |> maybeUpdateQuery (\{ id } -> Query.addPreparation id query)
 
         AddTransform ->
             let
@@ -210,14 +204,8 @@ update ({ queries } as session) msg model =
                                 >> (\processQuery -> { processQuery | mass = defaultMass })
                             )
             in
-            ( model, session, Cmd.none )
-                |> (case firstTransform of
-                        Just transform ->
-                            updateQuery (Query.setTransform transform query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstTransform
+                |> maybeUpdateQuery (\transform -> Query.setTransform transform query)
 
         AddDistribution ->
             ( model, session, Cmd.none )
@@ -339,29 +327,36 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetModal modal ->
-            ( { model | modal = modal }
+        SetModal NoModal ->
+            ( { model | modal = NoModal }
             , session
-            , case modal of
-                NoModal ->
-                    commandsForNoModal model.modal
+            , commandsForNoModal model.modal
+            )
 
-                ComparatorModal ->
-                    Ports.addBodyClass "prevent-scrolling"
+        SetModal ComparatorModal ->
+            ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
-                AddIngredientModal _ _ ->
-                    Cmd.batch
-                        [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "element-search"
-                            |> Task.attempt (always NoOp)
-                        ]
+        SetModal (AddIngredientModal maybeOldIngredient autocomplete) ->
+            ( { model | modal = AddIngredientModal maybeOldIngredient autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
+            )
 
-                SelectExampleModal _ ->
-                    Cmd.batch
-                        [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "element-search"
-                            |> Task.attempt (always NoOp)
-                        ]
+        SetModal (SelectExampleModal autocomplete) ->
+            ( { model | modal = SelectExampleModal autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -535,13 +530,10 @@ selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.map Just
-                |> Maybe.withDefault (Just Query.emptyQuery)
+                |> Maybe.withDefault Query.emptyQuery
 
         msg =
-            example
-                |> Maybe.map LoadQuery
-                |> Maybe.withDefault NoOp
+            LoadQuery example
     in
     update session msg model
 
