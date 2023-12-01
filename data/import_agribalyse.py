@@ -8,7 +8,9 @@ import bw2data
 import bw2io
 import json
 import os
+import pprint
 import re
+import sys
 from common.export import (
     search,
     create_activity,
@@ -187,8 +189,6 @@ def import_agribalyse(
         s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
     ]
 
-    agribalyse.apply_strategies()
-
     # Apply provided migrations
     for migration in migrations:
         print(f"### Applying custom migration: {migration['description']}")
@@ -198,11 +198,20 @@ def import_agribalyse(
         )
         agribalyse.migrate(migration["name"])
 
+    agribalyse.apply_strategies()
+
     agribalyse.statistics()
     print("### Adding unlinked flows and activities...")
     bw2data.Database(biosphere).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
-    agribalyse.add_unlinked_activities()
+
+    # stop if there are unlinked activities
+    if agribalyse.unlinked:
+        pprint.pprint(list(agribalyse.unlinked))
+        print(
+            "Look above, there are still unlinked activities. Consider improving the migrations"
+        )
+        sys.exit(1)
     agribalyse.statistics()
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
     agribalyse.data = list(dsdict.values())
