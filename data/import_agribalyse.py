@@ -39,6 +39,7 @@ EXCLUDED = [
     "simapro-water",
 ]
 
+# migrations necessary to link some remaining unlinked technosphere activities
 AGRIBALYSE_MIGRATIONS = [
     {
         "name": "agb-technosphere-fixes",
@@ -48,49 +49,49 @@ AGRIBALYSE_MIGRATIONS = [
             "data": [
                 (
                     (
-                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent",
+                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent U",
                         "litre",
                     ),
                     {"unit": "cubic meter", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent",
+                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent U",
                         "litre",
                     ),
                     {"unit": "cubic meter", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent",
+                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent U",
                         "square meter",
                     ),
                     {"unit": "hectare", "multiplier": 1e-4},
