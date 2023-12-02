@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from bw2io.strategies.generic import link_technosphere_by_activity_hash
+from common.export import search, create_activity, delete_exchange, new_exchange
+from common.import_ import add_missing_substances
 from subprocess import call
 from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
+import functools
 import json
+import logging
 import os
 import pprint
 import re
 import sys
-from common.export import (
-    search,
-    create_activity,
-    delete_exchange,
-    new_exchange,
-)
-import logging
-from common.import_ import add_missing_substances
 
 PROJECT = "food"
 # Agribalyse
@@ -206,8 +203,15 @@ def import_agribalyse(
     bw2data.Database(biosphere).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
 
+    agribalyse.apply_strategy(
+        functools.partial(
+            link_technosphere_by_activity_hash, fields=("name", "location")
+        )
+    )
+
+    agribalyse.add_unlinked_activities()  # remove to reenable stopping on unlinked activities
     # stop if there are unlinked activities
-    if agribalyse.unlinked:
+    if len(list(agribalyse.unlinked)):
         pprint.pprint(list(agribalyse.unlinked))
         print(
             "Look above, there are still unlinked activities. Consider improving the migrations"
