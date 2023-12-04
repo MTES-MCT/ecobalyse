@@ -371,7 +371,7 @@ recipesAndNames =
     , ( "Carrot cake", carrotCake )
     , ( "Ratatouille en conserve", cannedRatatouille )
     , ( "Raviolis en conserve", cannedRaviolis )
-    , ( "Épinards congelés", frozenSpinnach )
+    , ( "Épinards congelés", frozenSpinach )
     ]
 
 
@@ -565,10 +565,10 @@ cannedRaviolis =
     }
 
 
-frozenSpinnach : Query
-frozenSpinnach =
+frozenSpinach : Query
+frozenSpinach =
     { ingredients =
-        [ { id = Process.codeFromString "spinach"
+        [ { id = Ingredient.idFromString "spinach"
           , mass = Mass.grams 840
           , complements = Nothing
           , country = Nothing
