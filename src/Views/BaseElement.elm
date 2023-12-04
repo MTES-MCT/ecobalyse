@@ -57,6 +57,7 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
         autocompleteState =
             db.elements
                 |> List.filter (\component -> not (List.member component excluded))
+                |> List.sortBy toString
                 |> AutocompleteSelector.init toString
     in
     [ span [ class "QuantityInputWrapper" ]

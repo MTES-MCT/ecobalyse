@@ -367,13 +367,13 @@ parseBase64Query =
 
 recipesAndNames : List ( String, Query )
 recipesAndNames =
-    [ ( "Recette vide", emptyQuery )
+    [ ( "Produit vide", emptyQuery )
     , ( "Carrot cake", carrotCake )
+    , ( "Épinards congelés", frozenSpinach )
+    , ( "Pizza jambon fromage congelée", frozenPizzaHamCheese )
+    , ( "Pizza margharita congelée", frozenPizzaMargarita )
     , ( "Ratatouille en conserve", cannedRatatouille )
     , ( "Raviolis en conserve", cannedRaviolis )
-    , ( "Épinards congelés", frozenSpinach )
-    , ( "Pizza margharita congelée", frozenPizzaMargarita )
-    , ( "Pizza jambon fromage congelée", frozenPizzaHamCheese )
     ]
 
 
@@ -395,7 +395,7 @@ toString query =
                     Nothing
             )
         |> List.head
-        |> Maybe.withDefault "Recette personnalisée"
+        |> Maybe.withDefault "Produit personnalisé"
 
 
 emptyQuery : Query

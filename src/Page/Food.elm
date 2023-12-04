@@ -929,6 +929,7 @@ ingredientListView db selectedImpact recipe results =
         availableIngredients =
             db.ingredients
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
+                |> List.sortBy .name
 
         autocompleteState =
             AutocompleteSelector.init .name availableIngredients
@@ -1369,7 +1370,7 @@ menuView query =
             [ for "selector-example"
             , class "form-label fw-bold"
             ]
-            [ text "Recette" ]
+            [ text "Produit" ]
         , button
             [ class "form-select ElementSelector text-start"
             , id <| "selector-example"
@@ -1469,7 +1470,7 @@ stepListView session { db, impact, initialQuery } recipe results =
                 , onClick Reset
                 , disabled (session.queries.food == initialQuery)
                 ]
-                [ text "Réinitialiser la recette" ]
+                [ text "Réinitialiser le produit" ]
             ]
         ]
 
@@ -1578,8 +1579,8 @@ view session model =
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteExample
                         , onAutocompleteSelect = OnAutocompleteSelect
-                        , placeholderText = "tapez ici le nom de la recette pour la rechercher"
-                        , title = "Sélectionnez une recette"
+                        , placeholderText = "tapez ici le nom du produit pour le rechercher"
+                        , title = "Sélectionnez un produit"
                         , toLabel = Query.toString
                         , toCategory = always ""
                         }
