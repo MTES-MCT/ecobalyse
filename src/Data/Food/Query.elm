@@ -372,6 +372,7 @@ recipesAndNames =
     , ( "Ratatouille en conserve", cannedRatatouille )
     , ( "Raviolis en conserve", cannedRaviolis )
     , ( "Épinards congelés", frozenSpinach )
+    , ( "Pizza margharita congelée", frozenPizzaMargarita )
     ]
 
 
@@ -588,5 +589,74 @@ frozenSpinach =
     , distribution = Just Retail.frozen
     , preparation =
         [ Preparation.Id "pan-warming"
+        ]
+    }
+
+
+frozenPizzaMargarita : Query
+frozenPizzaMargarita =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 100
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "olive-oil"
+          , mass = Mass.grams 30
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato"
+          , mass = Mass.grams 235.00000000000003
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 100
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 125
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-concentrated"
+          , mass = Mass.grams 30
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "emmental"
+          , mass = Mass.grams 100
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "black-pepper"
+          , mass = Mass.grams 5
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 725
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 105
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "oven"
         ]
     }
