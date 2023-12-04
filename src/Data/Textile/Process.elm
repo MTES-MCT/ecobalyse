@@ -28,7 +28,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Mass exposing (Mass)
 import Result.Extra as RE
 
 
@@ -44,9 +43,7 @@ type alias Process =
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
-
-    -- FIXME: waste should probably be Unit.Ratio
-    , waste : Mass -- kg of textile wasted per kg of material to process
+    , waste : Unit.Ratio -- share of raw material wasted when initially processed
     , alias : Maybe Alias
     }
 
@@ -297,7 +294,7 @@ decode definitions =
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "waste" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 
