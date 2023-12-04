@@ -18,6 +18,7 @@ module Data.Food.Query exposing
     , serialize
     , setDistribution
     , setTransform
+    , toCategory
     , toString
     , updateDistribution
     , updateIngredient
@@ -365,30 +366,37 @@ parseBase64Query =
 ---- Example recipes
 
 
-recipesAndNames : List ( String, Query )
+type alias Product =
+    { name : String
+    , query : Query
+    , category : String
+    }
+
+
+recipesAndNames : List Product
 recipesAndNames =
-    [ ( "Produit vide", emptyQuery )
-    , ( "Carrot cake (643g)", carrotCake )
-    , ( "Épinards congelés (815g)", frozenSpinach )
-    , ( "Pizza jambon fromage congelée (474g)", frozenPizzaHamCheese )
-    , ( "Pizza margharita congelée (662g)", frozenPizzaMargarita )
-    , ( "Ratatouille en conserve (804g)", cannedRatatouille )
-    , ( "Raviolis en conserve (733g)", cannedRaviolis )
+    [ { name = "Produit vide", query = emptyQuery, category = "" }
+    , { name = "Carrot cake (643g)", query = carrotCake, category = "Pâtisserie" }
+    , { name = "Épinards congelés (815g)", query = frozenSpinach, category = "Produit surgelé" }
+    , { name = "Pizza jambon fromage congelée (474g)", query = frozenPizzaHamCheese, category = "Produit surgelé" }
+    , { name = "Pizza margharita congelée (662g)", query = frozenPizzaMargarita, category = "Produit surgelé" }
+    , { name = "Ratatouille en conserve (804g)", query = cannedRatatouille, category = "Conserve" }
+    , { name = "Raviolis en conserve (733g)", query = cannedRaviolis, category = "Conserve" }
     ]
 
 
 recipes : List Query
 recipes =
     recipesAndNames
-        |> List.map Tuple.second
+        |> List.map .query
 
 
 toString : Query -> String
-toString query =
+toString q =
     recipesAndNames
         |> List.filterMap
-            (\( name, q ) ->
-                if query == q then
+            (\{ name, query } ->
+                if q == query then
                     Just name
 
                 else
@@ -396,6 +404,21 @@ toString query =
             )
         |> List.head
         |> Maybe.withDefault "Produit personnalisé"
+
+
+toCategory : Query -> String
+toCategory q =
+    recipesAndNames
+        |> List.filterMap
+            (\{ query, category } ->
+                if q == query then
+                    Just category
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault ""
 
 
 emptyQuery : Query

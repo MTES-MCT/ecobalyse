@@ -1582,7 +1582,7 @@ view session model =
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
                         , toLabel = Query.toString
-                        , toCategory = always ""
+                        , toCategory = Query.toCategory
                         }
             ]
       ]
