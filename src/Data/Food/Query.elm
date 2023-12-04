@@ -369,8 +369,8 @@ recipesAndNames : List ( String, Query )
 recipesAndNames =
     [ ( "Recette vide", emptyQuery )
     , ( "Carrot cake", carrotCake )
-    , ( "Ratatouille en conserve", ratatouille )
-    , ( "Raviolis en conserve", raviolis )
+    , ( "Ratatouille en conserve", cannedRatatouille )
+    , ( "Raviolis en conserve", cannedRaviolis )
     , ( "Épinards congelés", frozenSpinnach )
     ]
 
@@ -451,8 +451,8 @@ carrotCake =
     }
 
 
-ratatouille : Query
-ratatouille =
+cannedRatatouille : Query
+cannedRatatouille =
     { ingredients =
         [ { id = Ingredient.idFromString "eggplant"
           , mass = Mass.grams 175
@@ -514,8 +514,8 @@ ratatouille =
     }
 
 
-raviolis : Query
-raviolis =
+cannedRaviolis : Query
+cannedRaviolis =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
           , mass = Mass.grams 210
