@@ -181,12 +181,7 @@ def import_agribalyse(
     )
     os.unlink(unzipped)
 
-    print("### Applying strategies...")
-    # exclude strategies/migrations in EXCLUDED
-    agribalyse.strategies = [
-        s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
-    ]
-
+    print("### Applying migrations...")
     # Apply provided migrations
     for migration in migrations:
         print(f"### Applying custom migration: {migration['description']}")
@@ -196,11 +191,15 @@ def import_agribalyse(
         )
         agribalyse.migrate(migration["name"])
 
+    print("### Applying strategies...")
+    # exclude strategies/migrations in EXCLUDED
+    agribalyse.strategies = [
+        s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
+    ]
     agribalyse.apply_strategies()
 
     agribalyse.statistics()
     print("### Adding unlinked flows and activities...")
-    bw2data.Database(biosphere).register()
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
 
     agribalyse.apply_strategy(
@@ -301,6 +300,8 @@ def import_agribalyse(
 
         if "filename" in activity:
             del activity["filename"]
+
+    bw2data.Database(biosphere).register()
     agribalyse.write_database()
     print(f"### Finished importing {DBNAME}")
 
