@@ -368,12 +368,12 @@ parseBase64Query =
 recipesAndNames : List ( String, Query )
 recipesAndNames =
     [ ( "Produit vide", emptyQuery )
-    , ( "Carrot cake", carrotCake )
-    , ( "Épinards congelés", frozenSpinach )
-    , ( "Pizza jambon fromage congelée", frozenPizzaHamCheese )
-    , ( "Pizza margharita congelée", frozenPizzaMargarita )
-    , ( "Ratatouille en conserve", cannedRatatouille )
-    , ( "Raviolis en conserve", cannedRaviolis )
+    , ( "Carrot cake (643g)", carrotCake )
+    , ( "Épinards congelés (815g)", frozenSpinach )
+    , ( "Pizza jambon fromage congelée (474g)", frozenPizzaHamCheese )
+    , ( "Pizza margharita congelée (662g)", frozenPizzaMargarita )
+    , ( "Ratatouille en conserve (804g)", cannedRatatouille )
+    , ( "Raviolis en conserve (733g)", cannedRaviolis )
     ]
 
 
