@@ -14,7 +14,7 @@ module Data.Food.Query exposing
     , emptyQuery
     , encode
     , parseBase64Query
-    , ratatouille
+    , recipes
     , serialize
     , setDistribution
     , setTransform
@@ -252,21 +252,6 @@ setDistribution distribution query =
     { query | distribution = Just distribution }
 
 
-toString : Query -> String
-toString query =
-    if query == emptyQuery then
-        "Recette vide"
-
-    else if query == carrotCake then
-        "Carrot cake"
-
-    else if query == ratatouille then
-        "Ratatouille en conserve"
-
-    else
-        "Recette personnalisée"
-
-
 updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query
 updatePreparation oldId newId query =
     { query
@@ -380,6 +365,36 @@ parseBase64Query =
 ---- Example recipes
 
 
+recipesAndNames : List ( String, Query )
+recipesAndNames =
+    [ ( "Recette vide", emptyQuery )
+    , ( "Carrot cake", carrotCake )
+    , ( "Ratatouille en conserve", ratatouille )
+    , ( "Raviolis en conserve", raviolis )
+    ]
+
+
+recipes : List Query
+recipes =
+    recipesAndNames
+        |> List.map Tuple.second
+
+
+toString : Query -> String
+toString query =
+    recipesAndNames
+        |> List.filterMap
+            (\( name, q ) ->
+                if query == q then
+                    Just name
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Recette personnalisée"
+
+
 emptyQuery : Query
 emptyQuery =
     { ingredients = []
@@ -485,6 +500,57 @@ ratatouille =
         Just
             { code = Process.codeFromString "AGRIBALU000000003103966"
             , mass = Mass.grams 997
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003114927"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.ambient
+    , preparation =
+        [ Preparation.Id "pan-warming"
+        ]
+    }
+
+
+raviolis : Query
+raviolis =
+    { ingredients =
+        [ { id = Ingredient.idFromString "egg"
+          , mass = Mass.grams 210
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 310
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "ground-beef"
+          , mass = Mass.grams 310
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 15
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "black-pepper"
+          , mass = Mass.grams 2
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 847
             }
     , packaging =
         [ { code = Process.codeFromString "AGRIBALU000000003114927"
