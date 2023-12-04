@@ -371,6 +371,7 @@ recipesAndNames =
     , ( "Carrot cake", carrotCake )
     , ( "Ratatouille en conserve", ratatouille )
     , ( "Raviolis en conserve", raviolis )
+    , ( "Épinards congelés", frozenSpinnach )
     ]
 
 
@@ -558,6 +559,33 @@ raviolis =
           }
         ]
     , distribution = Just Retail.ambient
+    , preparation =
+        [ Preparation.Id "pan-warming"
+        ]
+    }
+
+
+frozenSpinnach : Query
+frozenSpinnach =
+    { ingredients =
+        [ { id = Process.codeFromString "spinach"
+          , mass = Mass.grams 840
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003102449"
+            , mass = Mass.grams 840
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003114927"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.frozen
     , preparation =
         [ Preparation.Id "pan-warming"
         ]
