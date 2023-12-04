@@ -373,6 +373,7 @@ recipesAndNames =
     , ( "Raviolis en conserve", cannedRaviolis )
     , ( "Épinards congelés", frozenSpinach )
     , ( "Pizza margharita congelée", frozenPizzaMargarita )
+    , ( "Pizza jambon fromage congelée", frozenPizzaHamCheese )
     ]
 
 
@@ -640,6 +641,51 @@ frozenPizzaMargarita =
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 5
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 725
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 105
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "oven"
+        ]
+    }
+
+
+frozenPizzaHamCheese : Query
+frozenPizzaHamCheese =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 100
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato"
+          , mass = Mass.grams 235.00000000000003
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "emmental"
+          , mass = Mass.grams 100
+          , complements = Nothing
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "cooked-ham"
+          , mass = Mass.grams 100
           , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
