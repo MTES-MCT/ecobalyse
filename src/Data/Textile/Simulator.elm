@@ -546,8 +546,9 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                         inputs.materials
                             |> List.map
                                 (\{ material, share } ->
-                                    Formula.genericWaste material.materialProcess.waste
-                                        (inputMass |> Quantity.multiplyBy (Split.toFloat share))
+                                    inputMass
+                                        |> Quantity.multiplyBy (Split.toFloat share)
+                                        |> Formula.genericWaste material.materialProcess.waste
                                 )
                             |> List.foldl
                                 (\curr acc ->
