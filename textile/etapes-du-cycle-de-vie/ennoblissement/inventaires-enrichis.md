@@ -125,6 +125,10 @@ Deux bases de travail ont été utilisées pour batir ces inventaires enrichis :
 * les travaux de Sandra Roos effectués dans le cadre du projet Mistra Future Fashion (Suède, [source 1](https://link.springer.com/article/10.1007/s11367-018-1537-6), [source 2](https://research.chalmers.se/publication/246361)). Ces travaux ont par ailleurs été repris aux Etats-Unis par la Sustainable Apparel Coalition (SAC) au sein de leur outil Higg Index.
 * les inventaires désagrégés de la base de données EIME (créés en partenariat avec l'[ENSAIT](https://www.ensait.fr/en/home/)).
 
+{% hint style="warning" %}
+Plusieurs substances chimiques (CAS) ne sont pas caractérisables/évaluables du fait de l'absence de facteurs de caractérisation à date. Une collaboration avec l'INRAE est en cours afin d'obtenir rapidement les facteurs d'émission manquants. Des échanges ont aussi eu lieu avec les équipes du JRC (Commission Européenne) et de USETox pour obtenir de telles données mais cela n'est pas possible dans les délais impartis.
+{% endhint %}
+
 ### Inventaire #1 = Blanchiment / Bleaching
 
 {% tabs %}
