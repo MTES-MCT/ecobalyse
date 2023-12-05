@@ -13,7 +13,6 @@ import functools
 import json
 import logging
 import os
-import pprint
 import re
 import sys
 
@@ -190,6 +189,7 @@ def import_agribalyse(
             description=migration["description"],
         )
         agribalyse.migrate(migration["name"])
+    agribalyse.statistics()
 
     print("### Applying strategies...")
     # exclude strategies/migrations in EXCLUDED
@@ -197,7 +197,6 @@ def import_agribalyse(
         s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
     ]
     agribalyse.apply_strategies()
-
     agribalyse.statistics()
     print("### Adding unlinked flows and activities...")
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
@@ -211,12 +210,13 @@ def import_agribalyse(
     agribalyse.add_unlinked_activities()  # remove to reenable stopping on unlinked activities
     # stop if there are unlinked activities
     if len(list(agribalyse.unlinked)):
-        pprint.pprint(list(agribalyse.unlinked))
+        agribalyse.write_excel(only_unlinked=True)
         print(
-            "Look above, there are still unlinked activities. Consider improving the migrations"
+            "Look at the above excel file, there are still unlinked activities. Consider improving the migrations"
         )
         sys.exit(1)
     agribalyse.statistics()
+
     dsdict = {ds["code"]: ds for ds in agribalyse.data}
     agribalyse.data = list(dsdict.values())
 
