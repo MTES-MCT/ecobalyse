@@ -198,16 +198,20 @@ def import_agribalyse(
     ]
     agribalyse.apply_strategies()
     agribalyse.statistics()
-    print("### Adding unlinked flows and activities...")
-    agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
 
+    # try to link remaining unlinked technosphere activities
     agribalyse.apply_strategy(
         functools.partial(
             link_technosphere_by_activity_hash, fields=("name", "location")
         )
     )
+    agribalyse.statistics()
 
-    agribalyse.add_unlinked_activities()  # remove to reenable stopping on unlinked activities
+    print("### Adding unlinked flows and activities...")
+    # comment to reenable stopping on unlinked activities
+    agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
+    agribalyse.add_unlinked_activities()
+
     # stop if there are unlinked activities
     if len(list(agribalyse.unlinked)):
         agribalyse.write_excel(only_unlinked=True)
