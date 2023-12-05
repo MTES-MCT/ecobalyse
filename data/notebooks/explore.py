@@ -561,7 +561,9 @@ def display_main_data(method, impact_category, activity):
                     columns=["Score", "Amount", "Unit", "Elementary flow"],
                 )
             )
-            top_emissions.format(formatter={"Score": "{:.4g}".format})
+            top_emissions.format(
+                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+            )
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
             top_processes = pandas.io.formats.style.Styler(
@@ -580,7 +582,9 @@ def display_main_data(method, impact_category, activity):
                 )
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
-            top_processes.format(formatter={"Score": "{:.4g}".format})
+            top_processes.format(
+                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+            )
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
