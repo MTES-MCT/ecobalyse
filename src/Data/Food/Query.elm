@@ -679,6 +679,9 @@ frozenPizzaMargarita =
         [ { code = Process.codeFromString "AGRIBALU000000003104019"
           , mass = Mass.grams 105
           }
+        , { code = Process.codeFromString "AGRIBALU000000003110698"
+          , mass = Mass.grams 5
+          }
         ]
     , distribution = Just Retail.frozen
     , preparation =
@@ -724,6 +727,9 @@ frozenPizzaHamCheese =
     , packaging =
         [ { code = Process.codeFromString "AGRIBALU000000003104019"
           , mass = Mass.grams 105
+          }
+        , { code = Process.codeFromString "AGRIBALU000000003110698"
+          , mass = Mass.grams 5
           }
         ]
     , distribution = Just Retail.frozen
