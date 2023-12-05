@@ -432,7 +432,7 @@
     "id": "chicken-breast-fr-organic",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
     "categories": ["animal_product", "organic"],
-    "default": "59476a4a-0440-adcb-fd48-74efdebfe67f",
+    "default": "225ddbff-6219-062f-fbc5-b589eeb0babd",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "density": 1,

@@ -459,7 +459,7 @@
   {
     "id": "chicken-breast-fr-organic",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
-    "search": "Meat without bone chicken for direct consumption fr-organic constructed by Ecobalyse:225ddbff-6219-062f-fbc5-b589eeb0babd",
+    "search": "Meat without bone chicken for direct consumption fr-organic constructed by Ecobalyse code:225ddbff-6219-062f-fbc5-b589eeb0babd",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
