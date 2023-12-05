@@ -135,13 +135,9 @@ selectorView selectedElement toId toString selectElement =
     button
         [ class "form-select ElementSelector text-start"
         , id <| "selector-" ++ toId selectedElement
-        , style "overflow" "hidden"
-        , style "white-space" "nowrap"
         , onClick selectElement
         ]
         [ span
-            [ style "display" "block"
-            , style "overflow" "hidden"
-            ]
+            []
             [ text <| toString selectedElement ]
         ]

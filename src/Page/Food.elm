@@ -1373,15 +1373,11 @@ menuView query =
             [ text "Produit" ]
         , button
             [ class "form-select ElementSelector text-start"
-            , id <| "selector-example"
-            , style "overflow" "hidden"
-            , style "white-space" "nowrap"
+            , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
             [ span
-                [ style "display" "block"
-                , style "overflow" "hidden"
-                ]
+                []
                 [ text <| Query.toString query ]
             ]
         ]
