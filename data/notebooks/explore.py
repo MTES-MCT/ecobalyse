@@ -152,7 +152,7 @@ def lookup_cf(loaded_method, element):
     """Find a Characterization Factor by name in the list of already loaded CFs"""
     cfs = [cf for cf in loaded_method if cf[0] == element]
     if len(cfs) == 0:
-        return ""
+        return "Ø"
     elif len(cfs) == 1:
         return "{:.4g}".format(cfs[0][1])
     else:
@@ -530,7 +530,7 @@ def display_main_data(method, impact_category, activity):
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
             f"<li><b>Comment</b>: {comment}</li>"
-            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{cfs.to_html()}</details></li>'
+            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{cfs.to_html(index=False)}</details></li>'
             "</ul>"
         )
 
