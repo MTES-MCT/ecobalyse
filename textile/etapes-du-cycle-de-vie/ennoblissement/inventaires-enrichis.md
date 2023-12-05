@@ -379,9 +379,7 @@ Impression avec des colorants dispersés.
 
 <summary>Illustration</summary>
 
-L'introduction d'inventaires enrichis (scénario moyen) impacte peu l'impact environnemental global de différents t-shirts : entre +3% et +5% selon les configurations (cf. ci-dessous).&#x20;
-
-Des travaux en
+L'introduction d'inventaires enrichis (scénario **moyen/average**) impacte peu l'impact environnemental global de différents t-shirts : entre +3% et +5% selon les configurations (cf. ci-dessous).&#x20;
 
 ![](<../../../.gitbook/assets/image (1).png>)
 
@@ -389,7 +387,7 @@ Des travaux en
 
 
 
-Des travaux sont en cours pour construire des scénarios "Best" et "Worst" selon le(s) pays d'ennoblissement.
+Des travaux sont en cours afin de construire des scénarios "Best" et "Worst" selon le(s) pays d'ennoblissement et l'adaptation de paramètres clés (ex : rapport de bain, concentration, choix des substances, etc.).
 
 </details>
 
