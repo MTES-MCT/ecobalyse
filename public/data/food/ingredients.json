@@ -2100,8 +2100,8 @@
     "transport_cooling": "always",
     "visible": true,
     "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   },
   {

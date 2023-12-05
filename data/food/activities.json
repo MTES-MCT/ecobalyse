@@ -2427,8 +2427,8 @@
     "visible": true,
     "explain": "Poulet bleu blanc coeur élevé en France en extérieur où tous les aliments ont été remplacés pas des aliments bio",
     "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   },
   {
