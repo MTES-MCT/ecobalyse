@@ -4,7 +4,6 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
-import Data.Food.Query exposing (carrotCake)
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
@@ -12,6 +11,7 @@ import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Unit as Unit
 import Expect
+import FoodFixtures exposing (carrotCake)
 import Length
 import Mass
 import Test exposing (..)

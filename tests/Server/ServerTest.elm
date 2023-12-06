@@ -2,6 +2,7 @@ module Server.ServerTest exposing (..)
 
 import Data.Food.Query as FoodQuery
 import Expect
+import FoodFixtures exposing (carrotCake)
 import Json.Encode as Encode
 import Server
 import Server.Request exposing (Request)
@@ -52,7 +53,7 @@ suite =
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
                 , "/food/recipe"
-                    |> request "POST" (FoodQuery.encode FoodQuery.carrotCake)
+                    |> request "POST" (FoodQuery.encode carrotCake)
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200

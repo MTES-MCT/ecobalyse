@@ -12,6 +12,7 @@ import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
+import FoodFixtures exposing (carrotCake)
 import Json.Encode as Encode
 import Server.Route as Route
 import Static.Db as StaticDb
@@ -58,12 +59,12 @@ foodEndpoints db =
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.carrotCake))
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok carrotCake))
             |> asTest "should map the /food/recipe endpoint"
         ]
     , describe "POST endpoints"
         [ "/food/recipe"
-            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.carrotCake)
+            |> testEndpoint db "POST" (FoodQuery.encode carrotCake)
             |> Expect.equal (Just Route.PostFoodRecipe)
             |> asTest "should map the POST /food/recipe endpoint"
         , "/food/recipe"
