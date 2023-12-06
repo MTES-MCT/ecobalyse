@@ -1389,7 +1389,7 @@ menuView : WebData (List Query.Product) -> Query -> Html Msg
 menuView productsData query =
     let
         autocompleteState =
-            AutocompleteSelector.init Query.toString (Query.recipes productsData)
+            AutocompleteSelector.init (Query.productToString productsData) (Query.recipes productsData)
     in
     div []
         [ label
@@ -1404,7 +1404,7 @@ menuView productsData query =
             ]
             [ span
                 []
-                [ text <| Query.toString query ]
+                [ text <| Query.productToString productsData query ]
             ]
         ]
 
@@ -1603,8 +1603,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Query.toString
-                        , toCategory = Query.toCategory
+                        , toLabel = Query.productToString model.products
+                        , toCategory = Query.productToCategory model.products
                         }
             ]
       ]

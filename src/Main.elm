@@ -93,7 +93,7 @@ init flags url navKey =
                             , textileDb = db.textileDb
                             , notifications = []
                             , queries =
-                                { food = FoodQuery.carrotCake
+                                { food = FoodQuery.emptyQuery
                                 , textile = TextileInputs.defaultQuery
                                 }
                             }

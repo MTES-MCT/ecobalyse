@@ -1,1 +1,248 @@
-[]
+[ { "name": "Carrot cake (643g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "egg",
+          "mass": 120
+        },
+        {
+          "id": "wheat",
+          "mass": 140
+        },
+        {
+          "id": "milk",
+          "mass": 60
+        },
+        {
+          "id": "carrot",
+          "mass": 225
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 545
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 105
+        }
+      ],
+      "distribution": "ambient",
+      "preparation": [
+        "refrigeration"
+      ]
+    },
+    "category": "Pâtisserie" }
+, { "name": "Épinards congelés (815g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "spinach",
+          "mass": 840
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003102449",
+        "mass": 840
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003114927",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": [
+        "refrigeration",
+        "pan-warming"
+      ]
+    },
+    "category": "Produit surgelé" }
+, { "name": "Pizza jambon fromage congelée (474g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 100
+        },
+        {
+          "id": "tomato",
+          "mass": 235.00000000000003
+        },
+        {
+          "id": "emmental",
+          "mass": 100
+        },
+        {
+          "id": "cooked-ham",
+          "mass": 100
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 725
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 105
+        },
+        {
+          "code": "AGRIBALU000000003110698",
+          "mass": 5
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": [
+        "refrigeration",
+        "oven"
+      ]
+    },
+    "category": "Produit surgelé" }
+, { "name": "Pizza margharita congelée (662g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 100
+        },
+        {
+          "id": "olive-oil",
+          "mass": 30
+        },
+        {
+          "id": "tomato",
+          "mass": 235.00000000000003
+        },
+        {
+          "id": "onion",
+          "mass": 100
+        },
+        {
+          "id": "mozzarella",
+          "mass": 125
+        },
+        {
+          "id": "tomato-concentrated",
+          "mass": 30
+        },
+        {
+          "id": "emmental",
+          "mass": 100
+        },
+        {
+          "id": "black-pepper",
+          "mass": 5
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 725
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 105
+        },
+        {
+          "code": "AGRIBALU000000003110698",
+          "mass": 5
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": [
+        "refrigeration",
+        "oven"
+      ]
+    },
+    "category": "Produit surgelé" }
+, { "name": "Ratatouille en conserve (804g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "eggplant",
+          "mass": 175.00000000000003
+        },
+        {
+          "id": "zucchini",
+          "mass": 175.00000000000003
+        },
+        {
+          "id": "bellpepper-unheated-greenhouse",
+          "mass": 175.00000000000003
+        },
+        {
+          "id": "tomato",
+          "mass": 250
+        },
+        {
+          "id": "onion",
+          "mass": 175.00000000000003
+        },
+        {
+          "id": "olive-oil",
+          "mass": 45
+        },
+        {
+          "id": "black-pepper",
+          "mass": 2
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 997
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003114927",
+          "mass": 100
+        }
+      ],
+      "distribution": "ambient",
+      "preparation": [
+        "pan-warming"
+      ]
+    },
+    "category": "Conserve" }
+, { "name": "Raviolis en conserve (733g)",
+    "query": {
+      "ingredients": [
+        {
+          "id": "egg",
+          "mass": 210
+        },
+        {
+          "id": "flour",
+          "mass": 310
+        },
+        {
+          "id": "ground-beef",
+          "mass": 310
+        },
+        {
+          "id": "onion",
+          "mass": 15
+        },
+        {
+          "id": "black-pepper",
+          "mass": 2
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 847
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003114927",
+          "mass": 100
+        }
+      ],
+      "distribution": "ambient",
+      "preparation": [
+        "pan-warming"
+      ]
+    },
+    "category": "Conserve" }
+]
