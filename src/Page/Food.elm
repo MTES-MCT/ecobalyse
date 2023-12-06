@@ -65,6 +65,7 @@ import Views.Transport as TransportView
 type alias Model =
     { db : FoodDb.Db
     , impact : Definition
+    , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -77,6 +78,7 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
@@ -92,10 +94,12 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
-    | OnAutocomplete (Autocomplete.Msg Ingredient)
+    | OnAutocompleteExample (Autocomplete.Msg Query)
+    | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | Reset
     | ResetTransform
     | ResetDistribution
     | SaveBookmark
@@ -126,6 +130,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
     in
     ( { db = foodDb
       , impact = impact
+      , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -147,6 +152,12 @@ update ({ queries } as session) msg model =
     let
         query =
             queries.food
+
+        maybeUpdateQuery : (a -> Query) -> Maybe a -> ( Model, Session, Cmd Msg )
+        maybeUpdateQuery toQuery maybeThing =
+            maybeThing
+                |> Maybe.map (\thing -> updateQuery (toQuery thing) ( model, session, Cmd.none ))
+                |> Maybe.withDefault ( model, session, Cmd.none )
     in
     case msg of
         AddIngredient ingredient ->
@@ -165,14 +176,8 @@ update ({ queries } as session) msg model =
                         |> List.head
                         |> Maybe.map Recipe.processQueryFromProcess
             in
-            ( model, session, Cmd.none )
-                |> (case firstPackaging of
-                        Just packaging ->
-                            updateQuery (Query.addPackaging packaging query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstPackaging
+                |> maybeUpdateQuery (\packaging -> Query.addPackaging packaging query)
 
         AddPreparation ->
             let
@@ -181,14 +186,8 @@ update ({ queries } as session) msg model =
                         |> Preparation.unused query.preparation
                         |> List.head
             in
-            ( model, session, Cmd.none )
-                |> (case firstPreparation of
-                        Just { id } ->
-                            updateQuery (Query.addPreparation id query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstPreparation
+                |> maybeUpdateQuery (\{ id } -> Query.addPreparation id query)
 
         AddTransform ->
             let
@@ -205,14 +204,8 @@ update ({ queries } as session) msg model =
                                 >> (\processQuery -> { processQuery | mass = defaultMass })
                             )
             in
-            ( model, session, Cmd.none )
-                |> (case firstTransform of
-                        Just transform ->
-                            updateQuery (Query.setTransform transform query)
-
-                        Nothing ->
-                            identity
-                   )
+            firstTransform
+                |> maybeUpdateQuery (\transform -> Query.setTransform transform query)
 
         AddDistribution ->
             ( model, session, Cmd.none )
@@ -241,13 +234,28 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            ( model, session, Cmd.none )
+            update session (SetModal NoModal) { model | initialQuery = queryToLoad }
                 |> updateQuery queryToLoad
 
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnAutocomplete autocompleteMsg ->
+        OnAutocompleteExample autocompleteMsg ->
+            case model.modal of
+                SelectExampleModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model | modal = SelectExampleModal newAutocompleteState }
+                    , session
+                    , Cmd.map OnAutocompleteExample autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteIngredient autocompleteMsg ->
             case model.modal of
                 AddIngredientModal maybeOldIngredient autocompleteState ->
                     let
@@ -256,7 +264,7 @@ update ({ queries } as session) msg model =
                     in
                     ( { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
                     , session
-                    , Cmd.map OnAutocomplete autoCompleteCmd
+                    , Cmd.map OnAutocompleteIngredient autoCompleteCmd
                     )
 
                 _ ->
@@ -266,6 +274,10 @@ update ({ queries } as session) msg model =
             case model.modal of
                 AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
                     updateIngredient query model session maybeOldRecipeIngredient autocompleteState
+
+                SelectExampleModal autocompleteState ->
+                    ( model, session, Cmd.none )
+                        |> selectExample autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -281,6 +293,10 @@ update ({ queries } as session) msg model =
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
+
+        Reset ->
+            ( model, session, Cmd.none )
+                |> updateQuery model.initialQuery
 
         ResetDistribution ->
             ( model, session, Cmd.none )
@@ -311,22 +327,36 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetModal modal ->
-            ( { model | modal = modal }
+        SetModal NoModal ->
+            ( { model | modal = NoModal }
             , session
-            , case modal of
-                NoModal ->
-                    commandsForNoModal model.modal
+            , commandsForNoModal model.modal
+            )
 
-                ComparatorModal ->
-                    Ports.addBodyClass "prevent-scrolling"
+        SetModal ComparatorModal ->
+            ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
-                AddIngredientModal _ _ ->
-                    Cmd.batch
-                        [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "element-search"
-                            |> Task.attempt (always NoOp)
-                        ]
+        SetModal (AddIngredientModal maybeOldIngredient autocomplete) ->
+            ( { model | modal = AddIngredientModal maybeOldIngredient autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
+            )
+
+        SetModal (SelectExampleModal autocomplete) ->
+            ( { model | modal = SelectExampleModal autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -415,6 +445,13 @@ commandsForNoModal modal =
                     |> Task.attempt (always NoOp)
                 ]
 
+        SelectExampleModal _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
+                    |> Task.attempt (always NoOp)
+                ]
+
         _ ->
             Ports.removeBodyClass "prevent-scrolling"
 
@@ -486,6 +523,19 @@ findExistingBookmarkName { foodDb, store } query =
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
+
+
+selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample autocompleteState ( model, session, _ ) =
+    let
+        example =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.withDefault Query.emptyQuery
+
+        msg =
+            LoadQuery example
+    in
+    update session msg model
 
 
 selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -879,6 +929,7 @@ ingredientListView db selectedImpact recipe results =
         availableIngredients =
             db.ingredients
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
+                |> List.sortBy .name
 
         autocompleteState =
             AutocompleteSelector.init .name availableIngredients
@@ -1290,7 +1341,7 @@ mainView session model =
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView model recipe results
+                    stepListView session model recipe results
 
                 Err error ->
                     errorView error
@@ -1310,19 +1361,25 @@ mainView session model =
 
 menuView : Query -> Html Msg
 menuView query =
-    div [ class "d-flex gap-2" ]
-        [ button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Query.carrotCake ) ]
-            , onClick (LoadQuery Query.carrotCake)
+    let
+        autocompleteState =
+            AutocompleteSelector.init Query.toString Query.recipes
+    in
+    div []
+        [ label
+            [ for "selector-example"
+            , class "form-label fw-bold"
             ]
-            [ text "Carrot Cake" ]
+            [ text "Produit" ]
         , button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Query.emptyQuery ) ]
-            , onClick (LoadQuery Query.emptyQuery)
+            [ class "form-select ElementSelector text-start"
+            , id "selector-example"
+            , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ text "Créer une nouvelle recette" ]
+            [ span
+                []
+                [ text <| Query.toString query ]
+            ]
         ]
 
 
@@ -1383,8 +1440,8 @@ sidebarView session model results =
         }
 
 
-stepListView : Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView { db, impact } recipe results =
+stepListView : Session -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView session { db, impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1401,6 +1458,16 @@ stepListView { db, impact } recipe results =
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
+        , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+            [ a [ Route.href Route.Home ]
+                [ text "« Retour à l'accueil" ]
+            , button
+                [ class "btn btn-secondary"
+                , onClick Reset
+                , disabled (session.queries.food == initialQuery)
+                ]
+                [ text "Réinitialiser le produit" ]
+            ]
         ]
 
 
@@ -1489,7 +1556,7 @@ view session model =
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocomplete
+                        , onAutocomplete = OnAutocompleteIngredient
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                         , title = "Sélectionnez un ingrédient"
@@ -1499,6 +1566,19 @@ view session model =
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
                                 >> Maybe.withDefault ""
+                        }
+
+                SelectExampleModal autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteExample
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom du produit pour le rechercher"
+                        , title = "Sélectionnez un produit"
+                        , toLabel = Query.toString
+                        , toCategory = Query.toCategory
                         }
             ]
       ]

@@ -60,7 +60,6 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , massInput : String
     , initialQuery : Inputs.Query
     , detailedStep : Maybe Int
     , impact : Definition
@@ -137,10 +136,6 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
-      , massInput =
-            initialQuery.mass
-                |> Mass.inKilograms
-                |> String.fromFloat
       , initialQuery = initialQuery
       , detailedStep = Nothing
       , impact = Definition.get trigram textileDb.impactDefinitions
@@ -257,7 +252,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery Inputs.defaultQuery
+                |> updateQuery model.initialQuery
 
         SaveBookmark ->
             ( model
@@ -397,11 +392,11 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
-                    ( { model | massInput = massInput }, session, Cmd.none )
+                    ( model, session, Cmd.none )
                         |> updateQuery { query | mass = mass }
 
                 Nothing ->
-                    ( { model | massInput = massInput }, session, Cmd.none )
+                    ( model, session, Cmd.none )
 
         UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
@@ -418,8 +413,12 @@ update ({ textileDb, queries, navKey } as session) msg model =
         UpdateProduct productId ->
             case Product.findById productId textileDb.products of
                 Ok product ->
-                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                        |> updateQuery (Inputs.updateProduct product query)
+                    let
+                        updatedQuery =
+                            Inputs.updateProduct product query
+                    in
+                    ( { model | initialQuery = updatedQuery }, session, Cmd.none )
+                        |> updateQuery updatedQuery
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
@@ -654,7 +653,10 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                     [ productField textileDb inputs.product
                     ]
                 , div [ class "col-sm-6 mb-3" ]
-                    [ massField model.massInput
+                    [ inputs.mass
+                        |> Mass.inKilograms
+                        |> String.fromFloat
+                        |> massField
                     ]
                 ]
             , div []
@@ -667,7 +669,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         , onClick Reset
                         , disabled (session.queries.textile == model.initialQuery)
                         ]
-                        [ text "Réinitialiser le simulateur" ]
+                        [ text "Réinitialiser le produit" ]
                     ]
                 ]
             ]

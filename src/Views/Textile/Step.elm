@@ -791,6 +791,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                         , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                         , id "add-new-element"
                         , availableMaterials
+                            |> List.sortBy .shortName
                             |> AutocompleteSelector.init .shortName
                             |> addMaterialModal Nothing
                             |> setModal
