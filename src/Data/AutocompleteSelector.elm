@@ -9,7 +9,7 @@ init : (element -> String) -> List element -> Autocomplete element
 init toString availableElements =
     Autocomplete.init
         { query = ""
-        , choices = List.sortBy toString availableElements
+        , choices = availableElements
         , ignoreList = []
         }
         (\lastChoices ->

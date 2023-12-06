@@ -747,7 +747,6 @@ q {
     grid-area: baseElementDelete;
   }
   .ElementSelector {
-    cursor: default;
     grid-area: elementSelector;
   }
   .ElementTransportDistances {
@@ -774,6 +773,15 @@ q {
 .ElementDelete {
   margin-left: auto;
   width: 31px;
+}
+.ElementSelector {
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  span {
+    display: block;
+    overflow: hidden;
+  }
 }
 
 .Footer {
@@ -1084,10 +1092,6 @@ q {
       min-width: 102px;
       max-width: 102px;
     }
-  }
-
-  .ElementSelector {
-    cursor: default;
   }
 }
 
