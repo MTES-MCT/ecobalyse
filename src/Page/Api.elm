@@ -77,7 +77,8 @@ changelog =
 - `soybeanBRno-deforestation` devient `soybean-br-no-deforestation`;
 - `sunfloweroil` devient `sunflower-oil`;
 - `sunfloweroil-organic` devient `sunflower-oil-organic`;
-- `tapwater` devient `tap-water`.
+- `tapwater` devient `tap-water`;
+- `comte-AOP` devient `comte-aop`.
 """
       }
     , { date = "12 octobre 2023"

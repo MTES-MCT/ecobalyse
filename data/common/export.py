@@ -123,7 +123,7 @@ def create_activity(dbname, new_activity_name, base_activity=None):
         logging.info(f"Created activity {new_activity}")
         return new_activity
     except (IntegrityError, bw2data.errors.DuplicateNode):
-        logging.warning(f"Activity {new_activity_name} already exists")
+        logging.error(f"Activity {new_activity_name} already exists")
         return search(dbname, new_activity_name)
 
 
@@ -145,15 +145,13 @@ def delete_exchange(activity, activity_to_delete, amount=False):
                 exchange.delete()
                 logging.info(f"Deleted {exchange}")
                 return
-    logging.warning(f"Did not find exchange {activity_to_delete}. No exchange deleted")
+    logging.error(f"Did not find exchange {activity_to_delete}. No exchange deleted")
 
 
 def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=None):
     """Create a new exchange. If an activity_to_copy_from is provided, the amount is copied from this activity. Otherwise, the amount is new_amount."""
     if not new_amount and not activity_to_copy_from:
-        logging.warning(
-            "No amount or activity to copy from provided. No exchange added"
-        )
+        logging.error("No amount or activity to copy from provided. No exchange added")
         return
     if not new_amount and activity_to_copy_from:
         for exchange in activity.exchanges():
@@ -161,7 +159,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
                 new_amount = exchange["amount"]
                 break
         else:
-            logging.warning(
+            logging.error(
                 f"Exchange to duplicate from :{activity_to_copy_from} not found. No exchange added"
             )
             return

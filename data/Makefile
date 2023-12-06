@@ -4,7 +4,7 @@ DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):
 DOCKEREXEC := docker exec -u jovyan -it
 JUPYTER_PORT ?= 8888
 
-json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food export_textile
+json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food #export_textile
 
 image:
 	docker build -t $(NAME) docker
@@ -39,10 +39,10 @@ export_food:
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py; fi
 
-export_textile:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py; fi
+#export_textile:
+#	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+#		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
+#	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py; fi
 
 python:
 	echo Running Python inside the container...
