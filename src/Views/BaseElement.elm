@@ -57,6 +57,7 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
         autocompleteState =
             db.elements
                 |> List.filter (\component -> not (List.member component excluded))
+                |> List.sortBy toString
                 |> AutocompleteSelector.init toString
     in
     [ span [ class "QuantityInputWrapper" ]
@@ -134,13 +135,9 @@ selectorView selectedElement toId toString selectElement =
     button
         [ class "form-select ElementSelector text-start"
         , id <| "selector-" ++ toId selectedElement
-        , style "overflow" "hidden"
-        , style "white-space" "nowrap"
         , onClick selectElement
         ]
         [ span
-            [ style "display" "block"
-            , style "overflow" "hidden"
-            ]
+            []
             [ text <| toString selectedElement ]
         ]
