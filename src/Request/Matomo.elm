@@ -9,7 +9,7 @@ import RemoteData exposing (WebData)
 getStats : Session -> String -> String -> (WebData (List Matomo.Stat) -> msg) -> Cmd msg
 getStats _ jsonKey qs event =
     Http.get
-        { url = "https://stats.data.gouv.fr/" ++ qs
+        { url = "https://stats.beta.gouv.fr/" ++ qs
         , expect =
             Matomo.decodeStats jsonKey
                 |> Http.expectJson (RemoteData.fromResult >> event)
