@@ -56,10 +56,10 @@ app.ports.appStarted.subscribe(() => {
   var _paq = (window._paq = window._paq || []);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
-  var u = "https://stats.data.gouv.fr/";
+  var u = "https://stats.beta.gouv.fr/";
   _paq.push(["setTrackerUrl", u + "matomo.php"]);
   _paq.push(["disableCookies"]);
-  _paq.push(["setSiteId", "196"]);
+  _paq.push(["setSiteId", "57"]);
   loadScript(u + "matomo.js");
 });
 
