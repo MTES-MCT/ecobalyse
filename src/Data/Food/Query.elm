@@ -40,6 +40,7 @@ import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import RemoteData exposing (WebData)
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -400,10 +401,11 @@ recipesAndNames =
     ]
 
 
-recipes : List Query
-recipes =
-    recipesAndNames
-        |> List.map .query
+recipes : WebData (List Product) -> List Query
+recipes productsData =
+    productsData
+        |> RemoteData.map (List.map .query >> (::) emptyQuery)
+        |> RemoteData.withDefault [ emptyQuery ]
 
 
 toString : Query -> String

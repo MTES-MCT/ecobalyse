@@ -1364,7 +1364,7 @@ mainView session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView session.queries.food
+            [ menuView model.products session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView session model recipe results
@@ -1385,13 +1385,11 @@ mainView session model =
         ]
 
 
-menuView : Query -> Html Msg
-menuView query =
+menuView : WebData (List Query.Product) -> Query -> Html Msg
+menuView productsData query =
     let
         autocompleteState =
-            -- TODO: initialise the list of recipes from the model.products
-            -- AutocompleteSelector.init Query.toString Query.recipes
-            AutocompleteSelector.init Query.toString [ Query.emptyQuery ]
+            AutocompleteSelector.init Query.toString (Query.recipes productsData)
     in
     div []
         [ label
