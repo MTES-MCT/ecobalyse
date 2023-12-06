@@ -39,6 +39,9 @@ import Length
 import Mass exposing (Mass)
 import Ports
 import Quantity
+import RemoteData exposing (WebData)
+import RemoteData.Http as Http
+import Request.Common as HttpCommon
 import Route
 import Task
 import Time exposing (Posix)
@@ -71,6 +74,7 @@ type alias Model =
     , comparisonType : ComparatorView.ComparisonType
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
+    , products : WebData (List Query.Product)
     }
 
 
@@ -99,6 +103,7 @@ type Msg
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | ProductsLoaded (WebData (List Query.Product))
     | Reset
     | ResetTransform
     | ResetDistribution
@@ -136,15 +141,24 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
       , comparisonType = ComparatorView.Subscores
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
+      , products = RemoteData.Loading
       }
     , session |> Session.updateFoodQuery query
-    , case maybeQuery of
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ case maybeQuery of
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
 
-        Just _ ->
-            Cmd.none
+            Just _ ->
+                Cmd.none
+        , loadProducts ProductsLoaded
+        ]
     )
+
+
+loadProducts : (WebData (List Query.Product) -> msg) -> Cmd msg
+loadProducts event =
+    Http.get "/data/food/products.json" event Query.decodeProducts
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -291,6 +305,18 @@ update ({ queries } as session) msg model =
         OpenComparator ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
+
+        ProductsLoaded webData ->
+            ( { model | products = webData }
+            , case webData of
+                RemoteData.Failure error ->
+                    session
+                        |> Session.notifyError "Erreur de chargement des exemples de produits : " (HttpCommon.errorToString error)
+
+                _ ->
+                    session
             , Cmd.none
             )
 
@@ -1363,7 +1389,9 @@ menuView : Query -> Html Msg
 menuView query =
     let
         autocompleteState =
-            AutocompleteSelector.init Query.toString Query.recipes
+            -- TODO: initialise the list of recipes from the model.products
+            -- AutocompleteSelector.init Query.toString Query.recipes
+            AutocompleteSelector.init Query.toString [ Query.emptyQuery ]
     in
     div []
         [ label

@@ -1,6 +1,7 @@
 module Data.Food.Query exposing
     ( IngredientQuery
     , ProcessQuery
+    , Product
     , Query
     , addIngredient
     , addPackaging
@@ -9,6 +10,7 @@ module Data.Food.Query exposing
     , buildApiQuery
     , carrotCake
     , decode
+    , decodeProducts
     , deleteIngredient
     , deletePreparation
     , emptyQuery
@@ -371,6 +373,19 @@ type alias Product =
     , query : Query
     , category : String
     }
+
+
+decodeProducts : Decoder (List Product)
+decodeProducts =
+    Decode.list decodeProduct
+
+
+decodeProduct : Decoder Product
+decodeProduct =
+    Decode.succeed Product
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "query" decode
+        |> Pipe.required "category" Decode.string
 
 
 recipesAndNames : List Product
