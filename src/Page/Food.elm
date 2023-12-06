@@ -308,15 +308,40 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        ProductsLoaded webData ->
-            ( { model | products = webData }
-            , case webData of
-                RemoteData.Failure error ->
-                    session
-                        |> Session.notifyError "Erreur de chargement des exemples de produits : " (HttpCommon.errorToString error)
+        ProductsLoaded (RemoteData.Success products) ->
+            let
+                initialQuery =
+                    if model.initialQuery /= Query.emptyQuery then
+                        model.initialQuery
 
-                _ ->
-                    session
+                    else
+                        -- If we didn't load a specific query, then default to the carrot cake... if we've loaded it!
+                        products
+                            |> List.filter (\product -> product.name == "Carrot cake (643g)")
+                            |> List.head
+                            |> Maybe.map .query
+                            |> Maybe.withDefault model.initialQuery
+            in
+            ( { model
+                | products = RemoteData.Success products
+                , initialQuery = initialQuery
+              }
+            , session
+            , Cmd.none
+            )
+                |> updateQuery initialQuery
+
+        ProductsLoaded (RemoteData.Failure error) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur de chargement des exemples de produits : " (HttpCommon.errorToString error)
+            , Cmd.none
+            )
+
+        ProductsLoaded _ ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur inconnue de chargement des exemples de produits" ""
             , Cmd.none
             )
 
