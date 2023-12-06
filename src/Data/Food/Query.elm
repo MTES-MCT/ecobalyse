@@ -30,7 +30,7 @@ module Data.Food.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Ingredient as Ingredient exposing (PlaneTransport(..))
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail

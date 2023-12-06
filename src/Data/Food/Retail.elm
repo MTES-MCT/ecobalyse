@@ -8,7 +8,6 @@ module Data.Food.Retail exposing
     , distributionTransport
     , encode
     , fromString
-    , frozen
     , toDisplay
     , toString
     )
