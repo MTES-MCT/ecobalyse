@@ -18,9 +18,9 @@ getStats _ jsonKey qs event =
 
 getApiStats : Session -> (WebData (List Matomo.Stat) -> msg) -> Cmd msg
 getApiStats session =
-    getStats session "nb_conversions" "?module=API&method=Goals.get&format=json&idSite=196&idGoal=1&period=day&date=last30"
+    getStats session "nb_conversions" "?module=API&method=Goals.get&format=json&idSite=57&idGoal=1&period=day&date=last30"
 
 
 getWebStats : Session -> (WebData (List Matomo.Stat) -> msg) -> Cmd msg
 getWebStats session =
-    getStats session "nb_visits" "?module=API&method=VisitsSummary.get&format=json&idSite=196&period=day&date=last30"
+    getStats session "nb_visits" "?module=API&method=VisitsSummary.get&format=json&idSite=57&period=day&date=last30"
