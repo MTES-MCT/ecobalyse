@@ -13,9 +13,7 @@ from common.export import (
 from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
-import hashlib
 import json
-import uuid
 
 
 # Input
@@ -34,18 +32,8 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
 def find_id(dbname, activity):
-    # if this is a complex ingredient, the id is the one constructed by ecobalyse
-    if "ratio" in activity.keys():
-        return str(
-            uuid.UUID(
-                hashlib.md5(
-                    f"{activity['id']}, constructed by Ecobalyse".encode("utf-8")
-                ).hexdigest()
-            )
-        )
-    else:
-        act = search(dbname, activity["search"])
-        return act.get("Process identifier", act["code"])
+    print(activity["search"])
+    return search(dbname, activity["search"])["Process identifier"]
 
 
 if __name__ == "__main__":

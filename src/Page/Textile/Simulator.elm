@@ -669,7 +669,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         , onClick Reset
                         , disabled (session.queries.textile == model.initialQuery)
                         ]
-                        [ text "Réinitialiser le simulateur" ]
+                        [ text "Réinitialiser le produit" ]
                     ]
                 ]
             ]

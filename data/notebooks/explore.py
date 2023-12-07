@@ -622,7 +622,7 @@ def display_main_data(method, impact_category, activity):
                 ipywidgets.VBox(
                     [
                         ipywidgets.HTML(
-                            f"<h2>µPt PEF: {10e6 * pef:10.2f}</h2>" if pef else ""
+                            f"<h2>µPt PEF: {1e6 * pef:10.2f}</h2>" if pef else ""
                         ),
                         ipywidgets.HTML(impacts_error),
                         ipywidgets.HTML(impacts.to_html()),

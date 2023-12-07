@@ -39,7 +39,7 @@ noOpProcess =
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
-    , waste = Mass.kilograms 0
+    , waste = Unit.ratio 0
     , alias = Nothing
     }
 
@@ -56,7 +56,7 @@ suite =
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
-                    |> Formula.genericWaste (kg 0.5)
+                    |> Formula.genericWaste (Unit.ratio 0.5)
                     |> Expect.equal { mass = kg 1.5, waste = kg 0.5 }
                     |> asTest "should compute material waste"
                 ]

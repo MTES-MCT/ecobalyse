@@ -40,7 +40,7 @@ app.use(
           "https://sentry.incubateur.net",
           "*.gouv.fr",
         ],
-        "frame-src": ["'self'", "https://stats.data.gouv.fr"],
+        "frame-src": ["'self'", "https://stats.beta.gouv.fr"],
         "img-src": [
           "'self'",
           "data:",
@@ -51,7 +51,7 @@ app.use(
         // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
         // server sends the appropriate `Access-Control-Allow-Origin` header
         // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", "https://stats.data.gouv.fr"],
+        "script-src": ["'self'", "'unsafe-inline'", "https://stats.beta.gouv.fr"],
         "object-src": ["blob:"],
       },
     },
@@ -79,7 +79,7 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
 // Matomo
 const apiTracker = lib.setupTracker(
-  "https://stats.data.gouv.fr/",
+  "https://stats.beta.gouv.fr/",
   process.env.MATOMO_TOKEN,
   openApiContents,
 );

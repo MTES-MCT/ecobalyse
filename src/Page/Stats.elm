@@ -139,7 +139,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "196" )
+                                      , ( "idSite", "57" )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )
@@ -147,7 +147,7 @@ view _ { mode, apiStats, webStats } =
                                       ]
                                         |> List.map (\( key, val ) -> key ++ "=" ++ val)
                                         |> String.join "&"
-                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> (++) "https://stats.beta.gouv.fr/index.php?"
                                         |> src
                                     , attribute "width" "100%"
                                     ]
@@ -171,7 +171,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "196" )
+                                      , ( "idSite", "57" )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )
@@ -179,7 +179,7 @@ view _ { mode, apiStats, webStats } =
                                       ]
                                         |> List.map (\( key, val ) -> key ++ "=" ++ val)
                                         |> String.join "&"
-                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> (++) "https://stats.beta.gouv.fr/index.php?"
                                         |> src
                                     , attribute "width" "100%"
                                     ]
