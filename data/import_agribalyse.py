@@ -208,7 +208,7 @@ def import_agribalyse(
     agribalyse.statistics()
 
     print("### Adding unlinked flows and activities...")
-    # comment to reenable stopping on unlinked activities
+    # comment to enable stopping on unlinked activities
     agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
     agribalyse.add_unlinked_activities()
 
