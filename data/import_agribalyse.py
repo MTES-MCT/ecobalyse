@@ -316,7 +316,7 @@ def import_simapro_csv(
 
     database.statistics()
     bw2data.Database(biosphere).register()
-    agribalyse.write_database()
+    database.write_database()
     print(f"### Finished importing {datapath}")
 
 
