@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from bw2io.strategies.generic import link_technosphere_by_activity_hash
+from common.export import search, create_activity, delete_exchange, new_exchange
+from common.import_ import add_missing_substances
 from subprocess import call
 from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
+import functools
 import json
+import logging
 import os
 import re
-from common.export import (
-    search,
-    create_activity,
-    delete_exchange,
-    new_exchange,
-)
-from common.import_ import add_missing_substances
+import sys
 
 PROJECT = "food"
 # Agribalyse
@@ -47,6 +46,7 @@ EXCLUDED = [
     "simapro-water",
 ]
 
+# migrations necessary to link some remaining unlinked technosphere activities
 AGRIBALYSE_MIGRATIONS = [
     {
         "name": "agb-technosphere-fixes",
@@ -56,49 +56,49 @@ AGRIBALYSE_MIGRATIONS = [
             "data": [
                 (
                     (
-                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent",
+                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent U",
                         "litre",
                     ),
                     {"unit": "cubic meter", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent",
+                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent U",
                         "litre",
                     ),
                     {"unit": "cubic meter", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent",
+                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent U",
                         "kilowatt hour",
                     ),
                     {"unit": "megajoule", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent",
+                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent U",
                         "square meter",
                     ),
                     {"unit": "hectare", "multiplier": 1e-4},
@@ -186,14 +186,7 @@ def import_simapro_csv(
     )
     os.unlink(unzipped)
 
-    print("### Applying strategies...")
-    # exclude strategies/migrations in EXCLUDED
-    database.strategies = [
-        s for s in database.strategies if not any([e in repr(s) for e in EXCLUDED])
-    ]
-
-    database.apply_strategies()
-
+    print("### Applying migrations...")
     # Apply provided migrations
     for migration in migrations:
         print(f"### Applying custom migration: {migration['description']}")
@@ -202,13 +195,38 @@ def import_simapro_csv(
             description=migration["description"],
         )
         database.migrate(migration["name"])
-
     database.statistics()
+
+    print("### Applying strategies...")
+    # exclude strategies/migrations in EXCLUDED
+    database.strategies = [
+        s for s in database.strategies if not any([e in repr(s) for e in EXCLUDED])
+    ]
+    database.apply_strategies()
+    database.statistics()
+
+    # try to link remaining unlinked technosphere activities
+    database.apply_strategy(
+        functools.partial(
+            link_technosphere_by_activity_hash, fields=("name", "location")
+        )
+    )
+    database.statistics()
+
     print("### Adding unlinked flows and activities...")
-    bw2data.Database(biosphere).register()
+    # comment to enable stopping on unlinked activities
     database.add_unlinked_flows_to_biosphere_database(biosphere)
     database.add_unlinked_activities()
+
+    # stop if there are unlinked activities
+    if len(list(database.unlinked)):
+        database.write_excel(only_unlinked=True)
+        print(
+            "Look at the above excel file, there are still unlinked activities. Consider improving the migrations"
+        )
+        sys.exit(1)
     database.statistics()
+
     dsdict = {ds["code"]: ds for ds in database.data}
     database.data = list(dsdict.values())
 
@@ -295,8 +313,10 @@ def import_simapro_csv(
 
         if "filename" in activity:
             del activity["filename"]
+
     database.statistics()
-    database.write_database()
+    bw2data.Database(biosphere).register()
+    agribalyse.write_database()
     print(f"### Finished importing {datapath}")
 
 
