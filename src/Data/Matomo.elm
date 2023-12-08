@@ -17,7 +17,14 @@ type alias Stat =
 
 decodeStats : String -> Decoder (List Stat)
 decodeStats key =
-    Decode.dict (Decode.at [ key ] Decode.int)
+    Decode.dict
+        (Decode.oneOf
+            [ Decode.at [ key ] Decode.int
+
+            -- When no data is available at a given date, assume no traffic
+            , Decode.succeed 0
+            ]
+        )
         |> Decode.andThen
             (Dict.toList
                 >> List.map
