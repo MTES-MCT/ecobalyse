@@ -56,7 +56,7 @@ changelog : List News
 changelog =
     [ { date = "11 décembre 2023"
       , level = "major"
-      , domains = [ "Alimentaire", "Textile" ]
+      , domains = [ "Alimentaire" ]
       , md =
             """Le paramètre permettant de spécifier des compléments (ou bonus)
             personnalisés par ingrédient a été retiré, il est remplacé par la
