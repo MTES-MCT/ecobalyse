@@ -79,8 +79,9 @@ Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement d
 Certaines variables d'environnement doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) :
 
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance [Matomo](https://stats.beta.gouv.fr/) permettant le suivi d'audience du produit.
-- `MATOMO_TOKEN`: le token [Matomo](https://stats.beta.gouv.fr/) permettant le suivi d'audience du produit.
+- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
+- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
+- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
 
 ## Lancement du serveur
 
