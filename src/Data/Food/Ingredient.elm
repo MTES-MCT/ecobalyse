@@ -1,15 +1,13 @@
 module Data.Food.Ingredient exposing
-    ( Complements
+    ( EcosystemicServices
     , Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
-    , decodeComplements
     , decodeId
     , decodeIngredients
-    , encodeComplements
     , encodeId
     , encodePlaneTransport
     , findByID
@@ -45,14 +43,17 @@ type alias Ingredient =
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
-    , complements : Complements
+    , ecosystemicServices : EcosystemicServices
     }
 
 
-type alias Complements =
-    { agroDiversity : Split
-    , agroEcology : Split
-    , animalWelfare : Split
+type alias EcosystemicServices =
+    { hedges : Unit.Impact
+    , plotSize : Unit.Impact
+    , culturalDiversity : Unit.Impact
+    , permanentMeadows : Unit.Impact
+    , territorialLoading : Unit.Impact
+    , territorialAutonomy : Unit.Impact
     }
 
 
@@ -101,15 +102,6 @@ decodeId =
         |> Decode.map idFromString
 
 
-encodeComplements : Complements -> Encode.Value
-encodeComplements v =
-    Encode.object
-        [ ( "agro-diversity", Split.encodePercent v.agroDiversity )
-        , ( "agro-ecology", Split.encodePercent v.agroEcology )
-        , ( "animal-welfare", Split.encodePercent v.animalWelfare )
-        ]
-
-
 encodeId : Id -> Encode.Value
 encodeId (Id str) =
     Encode.string str
@@ -138,12 +130,15 @@ idToString (Id str) =
     str
 
 
-decodeComplements : Decoder Complements
+decodeComplements : Decoder EcosystemicServices
 decodeComplements =
-    Decode.succeed Complements
-        |> Pipe.required "agro-diversity" Split.decodePercent
-        |> Pipe.required "agro-ecology" Split.decodePercent
-        |> Pipe.optional "animal-welfare" Split.decodePercent Split.zero
+    Decode.succeed EcosystemicServices
+        |> Pipe.required "hedges" Unit.decodeImpact
+        |> Pipe.required "plotSize" Unit.decodeImpact
+        |> Pipe.required "culturalDiversity" Unit.decodeImpact
+        |> Pipe.required "permanentMeadows" Unit.decodeImpact
+        |> Pipe.required "territorialLoading" Unit.decodeImpact
+        |> Pipe.required "territorialAutonomy" Unit.decodeImpact
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)

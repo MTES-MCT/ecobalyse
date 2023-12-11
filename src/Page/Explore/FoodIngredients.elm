@@ -91,25 +91,26 @@ table _ { detailed, scope } =
                                 text ""
                         ]
           }
-        , { label = "Compléments"
+        , { label = "Services ecosystémiques"
           , toValue = always "N/A"
           , toCell =
                 \ingredient ->
                     div [ class "overflow-scroll" ]
-                        [ [ ( "Bonus agro-diversité", .agroDiversity )
-                          , ( "Bonus agro-ecologie", .agroEcology )
-                          , ( "Bonus conditions d'élevage", .animalWelfare )
+                        [ [ ( "Haies", .hedges )
+                          , ( "Taille des parcelles", .plotSize )
+                          , ( "Diversité culturale", .culturalDiversity )
+                          , ( "Prairies permanentes", .permanentMeadows )
+                          , ( "Chargement territorial", .territorialLoading )
+                          , ( "Autonomie territoriale", .territorialAutonomy )
                           ]
                             |> List.map
                                 (\( label, getter ) ->
-                                    ingredient.complements
-                                        |> getter
-                                        |> (\split ->
-                                                span []
-                                                    [ text <| label ++ ": "
-                                                    , Format.splitAsPercentage split
-                                                    ]
-                                           )
+                                    span []
+                                        [ text <| label ++ ": "
+                                        , getter ingredient.ecosystemicServices
+                                            |> Unit.impactToFloat
+                                            |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
+                                        ]
                                 )
                             |> div [ class "d-flex gap-2" ]
                         ]

@@ -23,6 +23,7 @@ module Data.Impact exposing
     , perKg
     , stepsColors
     , stepsImpactsAsChartEntries
+    , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
@@ -46,9 +47,15 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias ComplementsImpacts =
     -- Note: these are always expressed in ecoscore (ecs) µPt
-    { agroDiversity : Unit.Impact
-    , agroEcology : Unit.Impact
-    , animalWelfare : Unit.Impact
+    { -- Ecosystemic services impacts
+      hedges : Unit.Impact
+    , plotSize : Unit.Impact
+    , culturalDiversity : Unit.Impact
+    , permanentMeadows : Unit.Impact
+    , territorialLoading : Unit.Impact
+    , territorialAutonomy : Unit.Impact
+
+    -- Other impacts
     , microfibers : Unit.Impact
     , outOfEuropeEOL : Unit.Impact
     }
@@ -56,9 +63,15 @@ type alias ComplementsImpacts =
 
 addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
 addComplementsImpacts a b =
-    { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
-    , agroEcology = Quantity.plus a.agroEcology b.agroEcology
-    , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    { -- Ecosystemic services impacts
+      hedges = Quantity.plus a.hedges b.hedges
+    , plotSize = Quantity.plus a.plotSize b.plotSize
+    , culturalDiversity = Quantity.plus a.culturalDiversity b.culturalDiversity
+    , permanentMeadows = Quantity.plus a.permanentMeadows b.permanentMeadows
+    , territorialLoading = Quantity.plus a.territorialLoading b.territorialLoading
+    , territorialAutonomy = Quantity.plus a.territorialAutonomy b.territorialAutonomy
+
+    -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
     , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
     }
@@ -77,9 +90,12 @@ applyComplements complement impacts =
 
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
-    { agroDiversity = Unit.impact 0
-    , agroEcology = Unit.impact 0
-    , animalWelfare = Unit.impact 0
+    { hedges = Unit.impact 0
+    , plotSize = Unit.impact 0
+    , culturalDiversity = Unit.impact 0
+    , permanentMeadows = Unit.impact 0
+    , territorialLoading = Unit.impact 0
+    , territorialAutonomy = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -88,9 +104,12 @@ noComplementsImpacts =
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
-        [ complementsImpacts.agroDiversity
-        , complementsImpacts.agroEcology
-        , complementsImpacts.animalWelfare
+        [ complementsImpacts.hedges
+        , complementsImpacts.plotSize
+        , complementsImpacts.culturalDiversity
+        , complementsImpacts.permanentMeadows
+        , complementsImpacts.territorialLoading
+        , complementsImpacts.territorialAutonomy
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
@@ -111,14 +130,26 @@ impactsWithComplements complementsImpacts impacts =
         |> insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
+sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
+sumEcosystemicImpacts c =
+    Quantity.sum
+        [ c.hedges
+        , c.plotSize
+        , c.culturalDiversity
+        , c.permanentMeadows
+        , c.territorialLoading
+        , c.territorialAutonomy
+        ]
+
+
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
-complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, microfibers, outOfEuropeEOL } =
-    -- We want those complements/bonuses to appear as negative values on the chart
-    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#606060" }
-    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#808080" }
-    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#a0a0a0" }
-    , { name = "Complément microfibres", value = -(Unit.impactToFloat microfibers), color = "#c0c0c0" }
-    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
+complementsImpactAsChartEntries c =
+    -- Notes:
+    -- - We want those complements/bonuses to appear as negative values on the chart
+    -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
+    [ { name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)), color = "#606060" }
+    , { name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers), color = "#c0c0c0" }
+    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
 
@@ -324,12 +355,16 @@ decodeImpacts definitions =
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
+encodeComplementsImpacts c =
     Encode.object
-        [ ( "agroDiversity", Unit.impactToFloat agroDiversity |> Encode.float )
-        , ( "agroEcology", Unit.impactToFloat agroEcology |> Encode.float )
-        , ( "animalWelfare", Unit.impactToFloat animalWelfare |> Encode.float )
-        , ( "outOfEuropeEOL", Unit.impactToFloat outOfEuropeEOL |> Encode.float )
+        [ ( "hedges", Unit.encodeImpact c.hedges )
+        , ( "plotSize", Unit.encodeImpact c.plotSize )
+        , ( "culturalDiversity", Unit.encodeImpact c.culturalDiversity )
+        , ( "permanentMeadows", Unit.encodeImpact c.permanentMeadows )
+        , ( "territorialLoading", Unit.encodeImpact c.territorialLoading )
+        , ( "territorialAutonomy", Unit.encodeImpact c.territorialAutonomy )
+        , ( "microfibers", Unit.encodeImpact c.microfibers )
+        , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]
 
 

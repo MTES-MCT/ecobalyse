@@ -46,7 +46,6 @@ type alias IngredientQuery =
     , mass : Mass
     , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
-    , complements : Maybe Ingredient.Complements
     }
 
 
@@ -162,7 +161,6 @@ decodeIngredient =
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
-        |> Pipe.optional "complements" (Decode.maybe Ingredient.decodeComplements) Nothing
 
 
 deletePreparation : Preparation.Id -> Query -> Query
@@ -216,7 +214,6 @@ encodeIngredient v =
     , ( "mass", encodeMassAsGrams v.mass |> Just )
     , ( "country", v.country |> Maybe.map Country.encodeCode )
     , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
-    , ( "complements", v.complements |> Maybe.map Ingredient.encodeComplements )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -438,25 +435,21 @@ carrotCake =
           , mass = Mass.grams 120
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , complements = Nothing
           }
         , { id = Ingredient.idFromString "wheat"
           , mass = Mass.grams 140
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , complements = Nothing
           }
         , { id = Ingredient.idFromString "milk"
           , mass = Mass.grams 60
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , complements = Nothing
           }
         , { id = Ingredient.idFromString "carrot"
           , mass = Mass.grams 225
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          , complements = Nothing
           }
         ]
     , transform =
@@ -481,43 +474,36 @@ cannedRatatouille =
     { ingredients =
         [ { id = Ingredient.idFromString "eggplant"
           , mass = Mass.grams 175
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "zucchini"
           , mass = Mass.grams 175
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "bellpepper-unheated-greenhouse"
           , mass = Mass.grams 175
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato"
           , mass = Mass.grams 250
-          , complements = Nothing
           , country = Nothing
           , planeTransport = PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "onion"
           , mass = Mass.grams 175
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "olive-oil"
           , mass = Mass.grams 45
-          , complements = Nothing
           , country = Nothing
           , planeTransport = PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 2
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -544,31 +530,26 @@ cannedRaviolis =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
           , mass = Mass.grams 210
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "flour"
           , mass = Mass.grams 310
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "ground-beef"
           , mass = Mass.grams 310
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "onion"
           , mass = Mass.grams 15
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 2
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -595,7 +576,6 @@ frozenSpinach =
     { ingredients =
         [ { id = Ingredient.idFromString "spinach"
           , mass = Mass.grams 840
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -623,49 +603,41 @@ frozenPizzaMargarita =
     { ingredients =
         [ { id = Ingredient.idFromString "flour"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "olive-oil"
           , mass = Mass.grams 30
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato"
           , mass = Mass.grams 235.00000000000003
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "onion"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "mozzarella"
           , mass = Mass.grams 125
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato-concentrated"
           , mass = Mass.grams 30
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "emmental"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 5
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -696,25 +668,21 @@ frozenPizzaHamCheese =
     { ingredients =
         [ { id = Ingredient.idFromString "flour"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato"
           , mass = Mass.grams 235.00000000000003
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "emmental"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "cooked-ham"
           , mass = Mass.grams 100
-          , complements = Nothing
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }

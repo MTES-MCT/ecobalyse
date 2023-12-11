@@ -67,17 +67,9 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> { name = name, value = value, entryAttributes = [] })
                         |> (++)
-                            [ -- Food complements
-                              { name = "Bonus de diversité agricole"
-                              , value = -(Unit.impactToFloat complementsImpact.agroDiversity)
-                              , entryAttributes = []
-                              }
-                            , { name = "Bonus d'infrastructures agro-écologiques"
-                              , value = -(Unit.impactToFloat complementsImpact.agroEcology)
-                              , entryAttributes = []
-                              }
-                            , { name = "Bonus conditions d'élevage"
-                              , value = -(Unit.impactToFloat complementsImpact.animalWelfare)
+                            [ -- Food ecosystemic services
+                              { name = "Services écosystémiques"
+                              , value = -(Unit.impactToFloat (Impact.sumEcosystemicImpacts complementsImpact))
                               , entryAttributes = []
                               }
 

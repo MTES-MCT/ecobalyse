@@ -29,10 +29,8 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Split as Split exposing (Split)
-import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
@@ -466,9 +464,6 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             , mass = oldRecipeIngredient.mass
             , country = Nothing
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
-
-            -- We always update the complements to be the new ones because we're here on an ingredient change
-            , complements = Just newIngredient.complements
             }
     in
     model
@@ -676,7 +671,7 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transportImpact } as updateIngredientConfig) =
+updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -684,7 +679,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
             , mass = recipeIngredient.mass
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
-            , complements = Just recipeIngredient.complements
             }
 
         event =
@@ -698,49 +692,42 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
         (BaseElement.view config
             ++ [ if selectedImpact.trigram == Definition.Ecs then
                     let
-                        { complements, ingredient } =
+                        { ingredient } =
                             recipeIngredient
 
                         complementsImpacts =
-                            impact
-                                |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
+                            recipeIngredient.mass
+                                |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    ComplementsDetails.view { complementsImpacts = complementsImpacts }
-                        [ ingredientComplementsView
-                            { name = "Diversité agricole"
-                            , title = Nothing
-                            , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
-                            , complementImpact = complementsImpacts.agroDiversity
-                            , complementSplit = complements.agroDiversity
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
-                            }
-                        , ingredientComplementsView
-                            { name = "Infra. agro-éco."
-                            , title = Just "Infrastructures agro-écologiques"
-                            , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
-                            , complementImpact = complementsImpacts.agroEcology
-                            , complementSplit = complements.agroEcology
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | agroEcology = split } }
-                            }
-                        , if IngredientCategory.fromAnimalOrigin ingredient.categories then
-                            ingredientComplementsView
-                                { name = "Cond. d'élevage"
-                                , title = Nothing
-                                , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
-                                , complementImpact = complementsImpacts.animalWelfare
-                                , complementSplit = complements.animalWelfare
-                                , updateEvent =
-                                    \split ->
-                                        event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                                }
-
-                          else
-                            text ""
-                        ]
+                    [ ( "Haies", .hedges )
+                    , ( "Taille des parcelles", .plotSize )
+                    , ( "Diversité culturale", .culturalDiversity )
+                    , ( "Prairies permanentes", .permanentMeadows )
+                    , ( "Chargement territorial", .territorialLoading )
+                    , ( "Autonomie territoriale", .territorialAutonomy )
+                    ]
+                        |> List.map
+                            (\( name, getter ) ->
+                                div
+                                    [ class "ElementComplement"
+                                    , title name
+                                    ]
+                                    [ span [ class "ComplementName text-nowrap text-muted" ] [ text name ]
+                                    , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
+                                        [ Button.smallPillLink
+                                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
+                                            , target "_blank"
+                                            ]
+                                            [ Icon.question ]
+                                        ]
+                                    , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
+                                        [ text "("
+                                        , Format.complement (getter complementsImpacts)
+                                        , text ")"
+                                        ]
+                                    ]
+                            )
+                        |> ComplementsDetails.view { complementsImpacts = complementsImpacts }
 
                  else
                     text ""
@@ -755,59 +742,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
                     ]
                ]
         )
-
-
-type alias ComplementsViewConfig msg =
-    { complementImpact : Unit.Impact
-    , complementSplit : Split
-    , domId : String
-    , name : String
-    , title : Maybe String
-    , updateEvent : Split -> msg
-    }
-
-
-ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
-ingredientComplementsView { name, complementImpact, complementSplit, domId, title, updateEvent } =
-    div
-        [ class "ElementComplement"
-        , title |> Maybe.withDefault name |> Attr.title
-        ]
-        [ label
-            [ for domId
-            , class "ComplementName text-nowrap text-muted"
-            ]
-            [ text name ]
-        , input
-            [ type_ "range"
-            , id domId
-            , class "ComplementRange form-range"
-            , Attr.min "0"
-            , Attr.max "100"
-            , step "1"
-            , Attr.value <| Split.toPercentString complementSplit
-            , onInput
-                (String.toInt
-                    >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
-                    >> Maybe.withDefault Split.zero
-                    >> updateEvent
-                )
-            ]
-            []
-        , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-            [ Format.splitAsPercentage complementSplit
-            , Button.smallPillLink
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
-                , target "_blank"
-                ]
-                [ Icon.question ]
-            ]
-        , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
-            [ text "("
-            , Format.complement complementImpact
-            , text ")"
-            ]
-        ]
 
 
 displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
