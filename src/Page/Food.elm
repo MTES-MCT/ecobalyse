@@ -29,6 +29,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -714,7 +715,10 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                     ]
                                     [ span [ class "ComplementName text-nowrap text-muted" ] [ text name ]
                                     , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-                                        [ Button.smallPillLink
+                                        [ getter complementsImpacts
+                                            |> Unit.impactToFloat
+                                            |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
+                                        , Button.smallPillLink
                                             [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
                                             , target "_blank"
                                             ]
@@ -722,7 +726,10 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                         ]
                                     , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
                                         [ text "("
-                                        , Format.complement (getter complementsImpacts)
+                                        , complementsImpacts
+                                            |> getter
+                                            |> Quantity.multiplyBy (Mass.inKilograms recipeIngredient.mass)
+                                            |> Format.complement
                                         , text ")"
                                         ]
                                     ]
