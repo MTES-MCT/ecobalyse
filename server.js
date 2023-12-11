@@ -81,6 +81,7 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 const apiTracker = lib.setupTracker(
   "https://stats.beta.gouv.fr/",
   process.env.MATOMO_TOKEN,
+  process.env.MATOMO_SITE_ID,
   openApiContents,
 );
 

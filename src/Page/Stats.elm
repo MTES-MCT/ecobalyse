@@ -88,7 +88,7 @@ viewStats { heading, unit } webData =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { mode, apiStats, webStats } =
+view { matomoSiteId } { mode, apiStats, webStats } =
     ( "Statistiques"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
@@ -139,7 +139,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "57" )
+                                      , ( "idSite", matomoSiteId )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )
@@ -171,7 +171,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "57" )
+                                      , ( "idSite", matomoSiteId )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )

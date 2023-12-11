@@ -32,6 +32,7 @@ type alias Session =
     , clientUrl : String
     , store : Store
     , currentVersion : Version
+    , matomoSiteId : String
     , textileDb : TextileDb.Db
     , foodDb : FoodDb.Db
     , notifications : List Notification
