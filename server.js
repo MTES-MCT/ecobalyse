@@ -78,12 +78,7 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
 // Matomo
-const apiTracker = lib.setupTracker(
-  process.env.MATOMO_HOST,
-  process.env.MATOMO_TOKEN,
-  process.env.MATOMO_SITE_ID,
-  openApiContents,
-);
+const apiTracker = lib.setupTracker(openApiContents);
 
 const elmApp = Elm.Server.init();
 
