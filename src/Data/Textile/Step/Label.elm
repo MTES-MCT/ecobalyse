@@ -210,10 +210,10 @@ toGitbookPath : Label -> Gitbook.Path
 toGitbookPath label =
     case label of
         Material ->
-            Gitbook.TextileMaterialAndSpinning
+            Gitbook.TextileMaterial
 
         Spinning ->
-            Gitbook.TextileMaterialAndSpinning
+            Gitbook.TextileSpinning
 
         Fabric ->
             Gitbook.TextileFabric
