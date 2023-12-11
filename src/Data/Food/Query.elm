@@ -612,7 +612,7 @@ frozenSpinach =
         ]
     , distribution = Just Retail.frozen
     , preparation =
-        [ Preparation.Id "refrigeration"
+        [ Preparation.Id "freezing"
         , Preparation.Id "pan-warming"
         ]
     }
@@ -685,7 +685,7 @@ frozenPizzaMargarita =
         ]
     , distribution = Just Retail.frozen
     , preparation =
-        [ Preparation.Id "refrigeration"
+        [ Preparation.Id "freezing"
         , Preparation.Id "oven"
         ]
     }
@@ -734,7 +734,7 @@ frozenPizzaHamCheese =
         ]
     , distribution = Just Retail.frozen
     , preparation =
-        [ Preparation.Id "refrigeration"
+        [ Preparation.Id "freezing"
         , Preparation.Id "oven"
         ]
     }
