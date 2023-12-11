@@ -54,11 +54,19 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "9 novembre 2023"
+    [ { date = "11 décembre 2023"
+      , level = "major"
+      , domains = [ "Alimentaire", "Textile" ]
+      , md =
+            """Le paramètre permettant de spécifier des compléments (ou bonus)
+            personnalisés par ingrédient a été retiré, il est remplacé par la
+            gestion automatisée des services ecosystémiques."""
+      }
+    , { date = "9 novembre 2023"
       , level = "minor"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
-            """La liste des matières premières textiles et des ingrédients 
+            """La liste des matières premières textiles et des ingrédients
             alimentaires peuvent maintenant être vides."""
       }
     , { date = "24 octobre 2023"
