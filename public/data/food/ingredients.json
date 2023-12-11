@@ -10,10 +10,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -27,10 +30,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -44,10 +50,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -61,10 +70,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -78,10 +90,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -95,9 +110,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -111,9 +130,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -127,9 +150,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -143,9 +170,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -159,9 +190,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -175,9 +210,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -191,9 +230,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -207,9 +250,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -223,9 +270,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -239,9 +290,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -255,9 +310,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -271,9 +330,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -287,9 +350,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -303,10 +370,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -320,10 +390,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -337,10 +410,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -354,10 +430,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -371,10 +450,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -388,10 +470,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -405,10 +490,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -422,10 +510,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -439,10 +530,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -456,9 +550,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -472,9 +570,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -488,9 +590,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -504,9 +610,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -520,9 +630,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -536,9 +650,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -552,9 +670,13 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -568,9 +690,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -584,9 +710,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -600,9 +730,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -616,9 +750,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -632,9 +770,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -648,9 +790,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -664,9 +810,13 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -680,9 +830,13 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -696,10 +850,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -713,10 +870,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -730,9 +890,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -746,9 +910,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -762,9 +930,13 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -778,9 +950,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -794,9 +970,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -810,9 +990,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -826,9 +1010,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -842,9 +1030,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -858,9 +1050,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -874,9 +1070,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -890,10 +1090,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -907,10 +1110,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -924,10 +1130,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -941,9 +1150,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -957,9 +1170,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -973,9 +1190,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -989,9 +1210,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1005,9 +1230,13 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1021,9 +1250,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1037,9 +1270,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1053,9 +1290,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1069,9 +1310,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1085,9 +1330,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1101,9 +1350,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1117,9 +1370,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1133,9 +1390,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1149,9 +1410,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1165,9 +1430,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1181,9 +1450,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1197,9 +1470,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1213,9 +1490,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1229,9 +1510,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1245,9 +1530,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1261,9 +1550,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1277,9 +1570,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1293,9 +1590,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1309,9 +1610,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1325,9 +1630,13 @@
     "inedible_part": 0.3,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1341,9 +1650,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1357,9 +1670,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1373,9 +1690,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1389,9 +1710,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1405,9 +1730,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1421,9 +1750,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1437,9 +1770,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1453,9 +1790,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1469,9 +1810,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1485,9 +1830,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1501,9 +1850,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1517,9 +1870,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1533,9 +1890,13 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1549,9 +1910,13 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1565,9 +1930,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1581,9 +1950,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1597,9 +1970,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1613,9 +1990,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1629,9 +2010,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1645,9 +2030,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1661,9 +2050,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1677,9 +2070,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1693,9 +2090,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1709,9 +2110,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1725,9 +2130,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1741,9 +2150,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1757,9 +2170,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1773,9 +2190,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1789,9 +2210,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1805,9 +2230,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1821,10 +2250,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1838,10 +2270,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1855,10 +2290,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1872,9 +2310,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1888,9 +2330,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1904,9 +2350,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1920,10 +2370,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1937,10 +2390,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1954,10 +2410,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1971,9 +2430,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -1987,9 +2450,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2003,9 +2470,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2019,9 +2490,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2035,9 +2510,13 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2051,9 +2530,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2067,9 +2550,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2083,9 +2570,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2099,9 +2590,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2115,9 +2610,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2131,9 +2630,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2147,9 +2650,13 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2163,9 +2670,13 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2179,10 +2690,13 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2196,9 +2710,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2212,9 +2730,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2228,9 +2750,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   },
   {
@@ -2244,9 +2770,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0,
+      "plotSize": 0,
+      "culturalDiversity": 0,
+      "permanentMeadows": 0,
+      "territorialLoading": 0,
+      "territorialAutonomy": 0
     }
   }
 ]

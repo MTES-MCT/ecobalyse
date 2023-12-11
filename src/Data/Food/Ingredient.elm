@@ -15,7 +15,7 @@ module Data.Food.Ingredient exposing
     , idToString
     )
 
-import Data.Food.EcosystemicServices exposing (EcosystemicServices)
+import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
@@ -120,17 +120,6 @@ idToString (Id str) =
     str
 
 
-decodeComplements : Decoder EcosystemicServices
-decodeComplements =
-    Decode.succeed EcosystemicServices
-        |> Pipe.required "hedges" Unit.decodeImpact
-        |> Pipe.required "plotSize" Unit.decodeImpact
-        |> Pipe.required "culturalDiversity" Unit.decodeImpact
-        |> Pipe.required "permanentMeadows" Unit.decodeImpact
-        |> Pipe.required "territorialLoading" Unit.decodeImpact
-        |> Pipe.required "territorialAutonomy" Unit.decodeImpact
-
-
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
     processes
@@ -155,7 +144,7 @@ decodeIngredient processes =
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
-        |> Pipe.required "complements" decodeComplements
+        |> Pipe.required "ecosystemicServices" EcosystemicServices.decode
 
 
 decodeTransportCooling : Decoder TransportCooling
