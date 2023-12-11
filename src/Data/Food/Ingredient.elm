@@ -1,6 +1,5 @@
 module Data.Food.Ingredient exposing
-    ( EcosystemicServices
-    , Id(..)
+    ( Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
@@ -16,6 +15,7 @@ module Data.Food.Ingredient exposing
     , idToString
     )
 
+import Data.Food.EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
@@ -44,16 +44,6 @@ type alias Ingredient =
     , transportCooling : TransportCooling
     , visible : Bool
     , ecosystemicServices : EcosystemicServices
-    }
-
-
-type alias EcosystemicServices =
-    { hedges : Unit.Impact
-    , plotSize : Unit.Impact
-    , culturalDiversity : Unit.Impact
-    , permanentMeadows : Unit.Impact
-    , territorialLoading : Unit.Impact
-    , territorialAutonomy : Unit.Impact
     }
 
 

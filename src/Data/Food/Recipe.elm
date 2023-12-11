@@ -25,6 +25,7 @@ module Data.Food.Recipe exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -287,7 +288,7 @@ compute db =
             )
 
 
-computeIngredientComplementsImpacts : Ingredient.EcosystemicServices -> Mass -> Impact.ComplementsImpacts
+computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
 computeIngredientComplementsImpacts ecosystemicServices ingredientMass =
     -- Notes:
     -- - ecosystemic services impacts are each expressed in µPt/kg
