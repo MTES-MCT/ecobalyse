@@ -819,7 +819,10 @@ viewMaterialComplements finalProductMass materialInput =
         materialComplementsImpacts =
             { noComplementsImpacts | microfibers = materialComplement }
     in
-    ComplementsDetails.view { complementsImpacts = materialComplementsImpacts }
+    ComplementsDetails.view
+        { complementsImpacts = materialComplementsImpacts
+        , label = "Compléments"
+        }
         [ div [ class "ElementComplement", title "Microfibres" ]
             [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
                 [ text "Microfibres"

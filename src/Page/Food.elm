@@ -727,7 +727,10 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                         ]
                                     ]
                             )
-                        |> ComplementsDetails.view { complementsImpacts = complementsImpacts }
+                        |> ComplementsDetails.view
+                            { complementsImpacts = complementsImpacts
+                            , label = "Services ecosystémiques"
+                            }
 
                  else
                     text ""
