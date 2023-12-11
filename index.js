@@ -1,6 +1,6 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
-import { BrowserTracing } from "@sentry/tracing";
+import { BrowserTracing } from "@sentry/browser";
 import Charts from "./lib/charts";
 
 // Sentry
@@ -36,6 +36,7 @@ const storeKey = "store";
 const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
+    matomo: { host: process.env.MATOMO_HOST, siteId: process.env.MATOMO_SITE_ID },
     rawStore: localStorage[storeKey] || "",
   },
 });
@@ -56,10 +57,10 @@ app.ports.appStarted.subscribe(() => {
   var _paq = (window._paq = window._paq || []);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
-  var u = "https://stats.beta.gouv.fr/";
+  var u = `https://${process.env.MATOMO_HOST}/`;
   _paq.push(["setTrackerUrl", u + "matomo.php"]);
   _paq.push(["disableCookies"]);
-  _paq.push(["setSiteId", "57"]);
+  _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
   loadScript(u + "matomo.js");
 });
 
