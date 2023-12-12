@@ -2,6 +2,7 @@ module Data.Food.EcosystemicServices exposing
     ( EcosystemicServices
     , coefficients
     , decode
+    , empty
     , labels
     )
 
@@ -43,6 +44,28 @@ coefficients =
     }
 
 
+decode : Decoder EcosystemicServices
+decode =
+    Decode.succeed AbstractEcosystemicServices
+        |> Pipe.optional "hedges" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "plotSize" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "cropDiversity" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "permanentPasture" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "livestockDensity" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "selfSufficiency" Unit.decodeImpact (Unit.impact 0)
+
+
+empty : EcosystemicServices
+empty =
+    { hedges = Unit.impact 0
+    , plotSize = Unit.impact 0
+    , cropDiversity = Unit.impact 0
+    , permanentPasture = Unit.impact 0
+    , livestockDensity = Unit.impact 0
+    , selfSufficiency = Unit.impact 0
+    }
+
+
 labels : Labels
 labels =
     { hedges = "Haies"
@@ -52,14 +75,3 @@ labels =
     , livestockDensity = "Chargement territorial"
     , selfSufficiency = "Autonomie territoriale"
     }
-
-
-decode : Decoder EcosystemicServices
-decode =
-    Decode.succeed AbstractEcosystemicServices
-        |> Pipe.required "hedges" Unit.decodeImpact
-        |> Pipe.required "plotSize" Unit.decodeImpact
-        |> Pipe.required "cropDiversity" Unit.decodeImpact
-        |> Pipe.required "permanentPasture" Unit.decodeImpact
-        |> Pipe.required "livestockDensity" Unit.decodeImpact
-        |> Pipe.required "selfSufficiency" Unit.decodeImpact

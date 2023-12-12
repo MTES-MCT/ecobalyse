@@ -9,15 +9,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "egg-organic",
@@ -29,15 +21,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "egg-bleublanccoeur",
@@ -49,15 +33,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "milk",
@@ -69,15 +45,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "milk-organic",
@@ -89,15 +57,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "carrot",
@@ -109,15 +69,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "carrot-organic",
@@ -129,15 +81,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "wheat",
@@ -152,11 +96,7 @@
     "visible": true,
     "ecosystemicServices": {
       "hedges": 0.33,
-      "plotSize": 0.45,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
+      "plotSize": 0.45
     }
   },
   {
@@ -173,10 +113,7 @@
     "ecosystemicServices": {
       "hedges": 0.99,
       "plotSize": 1.48,
-      "cropDiversity": 7.08,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
+      "cropDiversity": 7.08
     }
   },
   {
@@ -189,15 +126,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "flour-organic",
@@ -209,15 +138,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sunflower",
@@ -229,15 +150,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sunflower-organic",
@@ -249,15 +162,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rapeseed",
@@ -269,15 +174,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rapeseed-organic",
@@ -289,15 +186,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato",
@@ -309,15 +198,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato-organic",
@@ -329,15 +210,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "potato",
@@ -349,15 +222,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "ground-beef",
@@ -373,7 +238,6 @@
     "ecosystemicServices": {
       "hedges": 14.37,
       "plotSize": 12.03,
-      "cropDiversity": 0,
       "permanentPasture": 18.42,
       "livestockDensity": 45,
       "selfSufficiency": 40
@@ -393,7 +257,6 @@
     "ecosystemicServices": {
       "hedges": 16.84,
       "plotSize": 13.77,
-      "cropDiversity": 0,
       "permanentPasture": 22.03,
       "livestockDensity": 55,
       "selfSufficiency": 50
@@ -409,15 +272,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham",
@@ -429,15 +284,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-organic",
@@ -449,15 +296,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-fr",
@@ -469,15 +308,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast",
@@ -493,10 +324,7 @@
     "ecosystemicServices": {
       "hedges": 0.84,
       "plotSize": 1.01,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 2,
-      "selfSufficiency": 0
+      "livestockDensity": 2
     }
   },
   {
@@ -514,9 +342,7 @@
       "hedges": 1.55,
       "plotSize": 1.59,
       "cropDiversity": 4.63,
-      "permanentPasture": 0,
-      "livestockDensity": 2,
-      "selfSufficiency": 0
+      "livestockDensity": 2
     }
   },
   {
@@ -534,7 +360,6 @@
       "hedges": 2.6,
       "plotSize": 2.71,
       "cropDiversity": 14.32,
-      "permanentPasture": 0,
       "livestockDensity": 2,
       "selfSufficiency": 5
     }
@@ -549,15 +374,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "grape-organic",
@@ -569,15 +386,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "mango",
@@ -589,15 +398,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rapeseed-oil",
@@ -609,15 +410,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rapeseed-oil-organic",
@@ -629,15 +422,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sunflower-oil",
@@ -649,15 +434,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sunflower-oil-organic",
@@ -669,15 +446,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "zucchini",
@@ -689,15 +458,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "zucchini-organic",
@@ -709,15 +470,7 @@
     "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "pear",
@@ -729,15 +482,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "pear-organic",
@@ -749,15 +494,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": false,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": false
   },
   {
     "id": "peach",
@@ -769,15 +506,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "peach-organic",
@@ -789,15 +518,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": false,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": false
   },
   {
     "id": "melon",
@@ -809,15 +530,7 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "melon-organic",
@@ -829,15 +542,7 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "butter",
@@ -849,15 +554,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "butter-organic",
@@ -869,15 +566,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "onion",
@@ -889,15 +578,7 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "eggplant",
@@ -909,15 +590,7 @@
     "density": 0.398,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "lettuce",
@@ -929,15 +602,7 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "french-bean",
@@ -949,15 +614,7 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "durum-wheat",
@@ -969,15 +626,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tap-water",
@@ -989,15 +638,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "lentils-uncooked",
@@ -1009,15 +650,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "garden-peas",
@@ -1029,15 +662,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato-organic-greenhouse",
@@ -1049,15 +674,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": false
   },
   {
     "id": "tomato-greenhouse",
@@ -1069,15 +686,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "comte-aop",
@@ -1089,15 +698,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "emmental",
@@ -1109,15 +710,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "mozzarella",
@@ -1129,15 +722,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato-heated-greenhouse",
@@ -1149,15 +734,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cucumber",
@@ -1169,15 +746,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cucumber-greenhouse-non-heated",
@@ -1189,15 +758,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "apricot",
@@ -1209,15 +770,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "artichoke",
@@ -1229,15 +782,7 @@
     "density": 0.362,
     "inedible_part": 0.6,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cauliflower",
@@ -1249,15 +794,7 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "beetroot",
@@ -1269,15 +806,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "beetroot-organic",
@@ -1289,15 +818,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "swiss-chard",
@@ -1309,15 +830,7 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "spinach",
@@ -1329,15 +842,7 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "broccoli",
@@ -1349,15 +854,7 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "celery",
@@ -1369,15 +866,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "celeriac",
@@ -1389,15 +878,7 @@
     "density": 0.6375,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "celeriac-organic",
@@ -1409,15 +890,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cherry",
@@ -1429,15 +902,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "mushroom",
@@ -1449,15 +914,7 @@
     "density": 0.118,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chestnut",
@@ -1469,15 +926,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "walnut",
@@ -1489,15 +938,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chinese-cabbage",
@@ -1509,15 +950,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "white-cabbage",
@@ -1529,15 +962,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "green-cabbage",
@@ -1549,15 +974,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "red-cabbage",
@@ -1569,15 +986,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "brussels-sprout",
@@ -1589,15 +998,7 @@
     "density": 0.362,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "curly-kale",
@@ -1609,15 +1010,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "lemon",
@@ -1629,15 +1022,7 @@
     "density": 0.575,
     "inedible_part": 0.3,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "pumpkin",
@@ -1649,15 +1034,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "squash",
@@ -1669,15 +1046,7 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "clementine",
@@ -1689,15 +1058,7 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "mandarin",
@@ -1709,15 +1070,7 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "orange",
@@ -1729,15 +1082,7 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "shallot",
@@ -1749,15 +1094,7 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "endive",
@@ -1769,15 +1106,7 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "fennel",
@@ -1789,15 +1118,7 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "broad-beans",
@@ -1809,15 +1130,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "strawberry",
@@ -1829,15 +1142,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "raspberry",
@@ -1849,15 +1154,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "flageolet-bean",
@@ -1869,15 +1166,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "kiwi",
@@ -1889,15 +1178,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "lambs-lettuce",
@@ -1909,15 +1190,7 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sweet-corn",
@@ -1932,11 +1205,7 @@
     "visible": true,
     "ecosystemicServices": {
       "hedges": 0.46,
-      "plotSize": 0.48,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
+      "plotSize": 0.48
     }
   },
   {
@@ -1949,15 +1218,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "blueberry",
@@ -1969,15 +1230,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "turnip",
@@ -1989,15 +1242,7 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "turnip-organic",
@@ -2009,15 +1254,7 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "hazelnut",
@@ -2029,15 +1266,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "pistachio",
@@ -2049,15 +1278,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "leek",
@@ -2069,15 +1290,7 @@
     "density": 0.6195,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chickpea",
@@ -2089,15 +1302,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chickpea-organic",
@@ -2109,15 +1314,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "bellpepper-unheated-greenhouse",
@@ -2129,15 +1326,7 @@
     "density": 0.295,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "plum",
@@ -2149,15 +1338,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "soybean-humanconsumption",
@@ -2169,15 +1350,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "soybean-organic",
@@ -2189,15 +1362,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -2209,15 +1374,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "soybean-br-deforestation",
@@ -2229,15 +1386,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-meat",
@@ -2249,15 +1398,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse",
@@ -2269,15 +1410,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -2289,15 +1422,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-tofu",
@@ -2309,15 +1434,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato-paste",
@@ -2329,15 +1446,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tomato-concentrated",
@@ -2349,15 +1458,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rib-steak",
@@ -2369,15 +1470,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "flank-steak",
@@ -2389,15 +1482,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "rumsteak",
@@ -2409,15 +1494,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "durum-wheat-semolina",
@@ -2429,15 +1506,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "sugar",
@@ -2449,15 +1518,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "dark-chocolate",
@@ -2469,15 +1530,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "pineapple",
@@ -2489,15 +1542,7 @@
     "density": 0.575,
     "inedible_part": 0.5,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "banana",
@@ -2509,15 +1554,7 @@
     "density": 0.447,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-br-max",
@@ -2529,15 +1566,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-bbc",
@@ -2549,15 +1578,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-fr-ext",
@@ -2569,15 +1590,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-fr-ext-organic",
@@ -2589,15 +1602,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-fr",
@@ -2609,15 +1614,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "cane-sugar",
@@ -2629,15 +1626,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "strawberry-off-season",
@@ -2649,15 +1638,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "avocado",
@@ -2669,15 +1650,7 @@
     "density": 0.6375,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "olive",
@@ -2689,15 +1662,7 @@
     "density": 0.447,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "olive-oil",
@@ -2709,15 +1674,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "tea-dried",
@@ -2729,15 +1686,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "coffee-ground",
@@ -2749,15 +1698,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   },
   {
     "id": "black-pepper",
@@ -2769,14 +1710,6 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0,
-      "plotSize": 0,
-      "cropDiversity": 0,
-      "permanentPasture": 0,
-      "livestockDensity": 0,
-      "selfSufficiency": 0
-    }
+    "visible": true
   }
 ]
