@@ -153,7 +153,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 108.05216345686135) result
+                                expectImpactEqual (Unit.impact 110.75276345686135) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -162,7 +162,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 69.8081993155718) result
+                                expectImpactEqual (Unit.impact 72.50879931557179) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -174,14 +174,14 @@ suite =
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 203.8548884719646
+                                    |> Expect.within (Expect.Absolute 0.01) 208.054209266113
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 208.94893235911195
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 5.094043887147336
+                                    |> Expect.within (Expect.Absolute 0.01) 0.8947230929989551
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
