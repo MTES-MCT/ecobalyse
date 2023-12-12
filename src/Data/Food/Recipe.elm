@@ -210,12 +210,12 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
+                    totalComplementsImpact =
+                        computeIngredientsTotalComplements ingredients
+
                     addIngredientsComplements impacts =
                         impacts
                             |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
-
-                    totalComplementsImpact =
-                        computeIngredientsTotalComplements ingredients
 
                     totalComplementsImpactPerKg =
                         { totalComplementsImpact

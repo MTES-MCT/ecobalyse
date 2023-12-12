@@ -701,18 +701,28 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                             recipeIngredient.mass
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    EcosystemicServices.labels complementsImpacts
+                    [ ( "Haies", complementsImpacts.hedges, EcosystemicServices.coefficients.hedges )
+                    , ( "Taille des parcelles", complementsImpacts.plotSize, EcosystemicServices.coefficients.plotSize )
+                    , ( "Diversité culturale", complementsImpacts.cropDiversity, EcosystemicServices.coefficients.cropDiversity )
+                    , ( "Prairies permanentes", complementsImpacts.permanentPasture, EcosystemicServices.coefficients.permanentPasture )
+                    , ( "Chargement territorial", complementsImpacts.livestockDensity, EcosystemicServices.coefficients.livestockDensity )
+                    , ( "Autonomie territoriale", complementsImpacts.selfSufficiency, EcosystemicServices.coefficients.selfSufficiency )
+                    ]
                         |> List.map
-                            (\( name, complementImpact ) ->
+                            (\( name, impact, coefficient ) ->
                                 div
                                     [ class "ElementComplement"
                                     , title name
                                     ]
                                     [ span [ class "ComplementName text-nowrap text-muted" ] [ text name ]
                                     , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-                                        [ complementImpact
+                                        [ impact
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
+                                        , small [] [ text "\u{00A0}×\u{00A0}" ]
+                                        , coefficient
+                                            |> String.fromFloat
+                                            |> text
                                         , Button.smallPillLink
                                             [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
                                             , target "_blank"
@@ -721,7 +731,8 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                         ]
                                     , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
                                         [ text "("
-                                        , complementImpact
+                                        , impact
+                                            |> Quantity.multiplyBy coefficient
                                             |> Quantity.multiplyBy (Mass.inKilograms recipeIngredient.mass)
                                             |> Format.complement
                                         , text ")"

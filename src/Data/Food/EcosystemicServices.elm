@@ -51,20 +51,23 @@ decode =
 
 
 labels :
-    { a
-        | hedges : b
-        , plotSize : b
-        , cropDiversity : b
-        , permanentPasture : b
-        , livestockDensity : b
-        , selfSufficiency : b
-    }
-    -> List ( String, b )
-labels c =
-    [ ( "Haies", c.hedges )
-    , ( "Taille des parcelles", c.plotSize )
-    , ( "Diversité culturale", c.cropDiversity )
-    , ( "Prairies permanentes", c.permanentPasture )
-    , ( "Chargement territorial", c.livestockDensity )
-    , ( "Autonomie territoriale", c.selfSufficiency )
+    List
+        ( String
+        , { a
+            | hedges : b
+            , plotSize : b
+            , cropDiversity : b
+            , permanentPasture : b
+            , livestockDensity : b
+            , selfSufficiency : b
+          }
+          -> b
+        )
+labels =
+    [ ( "Haies", .hedges )
+    , ( "Taille des parcelles", .plotSize )
+    , ( "Diversité culturale", .cropDiversity )
+    , ( "Prairies permanentes", .permanentPasture )
+    , ( "Chargement territorial", .livestockDensity )
+    , ( "Autonomie territoriale", .selfSufficiency )
     ]

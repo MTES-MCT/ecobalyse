@@ -97,12 +97,12 @@ table _ { detailed, scope } =
           , toCell =
                 \ingredient ->
                     div [ class "overflow-scroll" ]
-                        [ EcosystemicServices.labels ingredient.ecosystemicServices
+                        [ EcosystemicServices.labels
                             |> List.map
-                                (\( label, impact ) ->
+                                (\( label, getter ) ->
                                     span []
                                         [ text <| label ++ ": "
-                                        , impact
+                                        , getter ingredient.ecosystemicServices
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
                                         ]
