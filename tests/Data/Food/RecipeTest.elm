@@ -36,9 +36,9 @@ suite =
                     Recipe.computeIngredientComplementsImpacts complements (Mass.kilograms 2)
               in
               describe "computeIngredientComplementsImpacts"
-                [ describe "with zero bonuses applied"
+                [ describe "with zero complements applied"
                     (let
-                        bonusImpacts =
+                        complementsImpacts =
                             testComputedComplements
                                 { hedges = Unit.impact 0
                                 , plotSize = Unit.impact 0
@@ -48,17 +48,17 @@ suite =
                                 , selfSufficiency = Unit.impact 0
                                 }
                      in
-                     [ bonusImpacts.hedges
+                     [ complementsImpacts.hedges
                         |> expectImpactEqual (Unit.impact 0)
-                        |> asTest "should compute a zero hedges ingredient bonus"
-                     , Impact.getTotalComplementsImpacts bonusImpacts
+                        |> asTest "should compute a zero hedges ingredient complement"
+                     , Impact.getTotalComplementsImpacts complementsImpacts
                         |> expectImpactEqual (Unit.impact 0)
-                        |> asTest "should compute a zero total bonus"
+                        |> asTest "should compute a zero total complement"
                      ]
                     )
-                , describe "with non-zero bonuses applied"
+                , describe "with non-zero complements applied"
                     (let
-                        bonusImpacts =
+                        complementsImpacts =
                             testComputedComplements
                                 { hedges = Unit.impact 1
                                 , plotSize = Unit.impact 1
@@ -68,13 +68,13 @@ suite =
                                 , selfSufficiency = Unit.impact 1
                                 }
                      in
-                     [ bonusImpacts.hedges
+                     [ complementsImpacts.hedges
                         |> expectImpactEqual (Unit.impact 14)
                         |> asTest "should compute a non-zero hedges ingredient complement"
-                     , Impact.getTotalComplementsImpacts bonusImpacts
+                     , Impact.getTotalComplementsImpacts complementsImpacts
                         -- FIXME: check this result once we have SE data
                         |> expectImpactEqual (Unit.impact 51)
-                        |> asTest "should compute a non-zero total bonus"
+                        |> asTest "should compute a non-zero total complement"
                      ]
                     )
                 ]
@@ -146,23 +146,23 @@ suite =
                         |> Result.withDefault -99
                         |> Expect.within (Expect.Absolute 0.01) 0.498
                         |> asTest "should compute ingredients total edible mass"
-                     , asTest "should have the total ecs impact with the bonus taken into account"
+                     , asTest "should have the total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
                             Err err ->
                                 Expect.fail err
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 111.32816345686135) result
+                                expectImpactEqual (Unit.impact 108.05216345686135) result
                         )
-                     , asTest "should have the ingredients' total ecs impact with the bonus taken into account"
+                     , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
                             Err err ->
                                 Expect.fail err
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 73.0841993155718) result
+                                expectImpactEqual (Unit.impact 69.8081993155718) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -174,15 +174,15 @@ suite =
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 208.94893235911195
+                                    |> Expect.within (Expect.Absolute 0.01) 203.8548884719646
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 208.94893235911195
-                                    |> asTest "should properly score total impact without bonuses"
+                                    |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 0
-                                    |> asTest "should properly score bonuses impact"
+                                    |> Expect.within (Expect.Absolute 0.01) 5.094043887147336
+                                    |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
