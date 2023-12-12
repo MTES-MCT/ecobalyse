@@ -36,8 +36,11 @@ const storeKey = "store";
 const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
-    matomo: { host: process.env.MATOMO_HOST, siteId: process.env.MATOMO_SITE_ID },
     rawStore: localStorage[storeKey] || "",
+    matomo: {
+      host: process.env.MATOMO_HOST || "",
+      siteId: process.env.MATOMO_SITE_ID || "",
+    },
   },
 });
 
