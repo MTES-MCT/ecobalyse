@@ -342,7 +342,8 @@
       "hedges": 1.55,
       "plotSize": 1.59,
       "cropDiversity": 4.63,
-      "livestockDensity": 2
+      "livestockDensity": 2,
+      "selfSufficiency": 5
     }
   },
   {
