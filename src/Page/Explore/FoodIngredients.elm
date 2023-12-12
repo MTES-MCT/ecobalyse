@@ -98,10 +98,10 @@ table _ { detailed, scope } =
                     div [ class "overflow-scroll" ]
                         [ [ ( "Haies", .hedges )
                           , ( "Taille des parcelles", .plotSize )
-                          , ( "Diversité culturale", .culturalDiversity )
-                          , ( "Prairies permanentes", .permanentMeadows )
-                          , ( "Chargement territorial", .territorialLoading )
-                          , ( "Autonomie territoriale", .territorialAutonomy )
+                          , ( "Diversité culturale", .cropDiversity )
+                          , ( "Prairies permanentes", .permanentPasture )
+                          , ( "Chargement territorial", .livestockDensity )
+                          , ( "Autonomie territoriale", .selfSufficiency )
                           ]
                             |> List.map
                                 (\( label, getter ) ->

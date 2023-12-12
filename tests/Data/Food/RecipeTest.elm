@@ -42,10 +42,10 @@ suite =
                             testComputedComplements
                                 { hedges = Unit.impact 0
                                 , plotSize = Unit.impact 0
-                                , culturalDiversity = Unit.impact 0
-                                , permanentMeadows = Unit.impact 0
-                                , territorialLoading = Unit.impact 0
-                                , territorialAutonomy = Unit.impact 0
+                                , cropDiversity = Unit.impact 0
+                                , permanentPasture = Unit.impact 0
+                                , livestockDensity = Unit.impact 0
+                                , selfSufficiency = Unit.impact 0
                                 }
                      in
                      [ bonusImpacts.hedges
@@ -62,10 +62,10 @@ suite =
                             testComputedComplements
                                 { hedges = Unit.impact 1
                                 , plotSize = Unit.impact 1
-                                , culturalDiversity = Unit.impact 1
-                                , permanentMeadows = Unit.impact 1
-                                , territorialLoading = Unit.impact 1
-                                , territorialAutonomy = Unit.impact 1
+                                , cropDiversity = Unit.impact 1
+                                , permanentPasture = Unit.impact 1
+                                , livestockDensity = Unit.impact 1
+                                , selfSufficiency = Unit.impact 1
                                 }
                      in
                      [ bonusImpacts.hedges

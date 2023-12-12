@@ -302,19 +302,19 @@ computeIngredientComplementsImpacts ecosystemicServices ingredientMass =
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
             |> Quantity.multiplyBy 1
     , culturalDiversity =
-        ecosystemicServices.culturalDiversity
+        ecosystemicServices.cropDiversity
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
             |> Quantity.multiplyBy 1
     , permanentMeadows =
-        ecosystemicServices.permanentMeadows
+        ecosystemicServices.permanentPasture
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
             |> Quantity.multiplyBy 1
     , territorialLoading =
-        ecosystemicServices.territorialLoading
+        ecosystemicServices.livestockDensity
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
             |> Quantity.multiplyBy 1
     , territorialAutonomy =
-        ecosystemicServices.territorialAutonomy
+        ecosystemicServices.selfSufficiency
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
             |> Quantity.multiplyBy 1
 
