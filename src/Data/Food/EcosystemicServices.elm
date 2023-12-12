@@ -15,7 +15,7 @@ type alias EcosystemicServices =
 
 
 type alias Coefficients =
-    AbstractEcosystemicServices Float
+    AbstractEcosystemicServices Unit.Ratio
 
 
 type alias Labels =
@@ -34,12 +34,12 @@ type alias AbstractEcosystemicServices a =
 
 coefficients : Coefficients
 coefficients =
-    { hedges = 7
-    , plotSize = 4
-    , cropDiversity = 2
-    , permanentPasture = 10.5
-    , livestockDensity = 1
-    , selfSufficiency = 1
+    { hedges = Unit.ratio 7
+    , plotSize = Unit.ratio 4
+    , cropDiversity = Unit.ratio 2
+    , permanentPasture = Unit.ratio 10.5
+    , livestockDensity = Unit.ratio 1
+    , selfSufficiency = Unit.ratio 1
     }
 
 

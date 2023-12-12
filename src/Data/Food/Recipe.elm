@@ -295,7 +295,7 @@ computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanent
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-                >> Quantity.multiplyBy coeff
+                >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
     { hedges = apply EcosystemicServices.coefficients.hedges hedges
     , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize

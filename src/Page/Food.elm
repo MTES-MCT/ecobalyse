@@ -744,7 +744,7 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
                                         , small [] [ text "\u{00A0}×\u{00A0}" ]
-                                        , coefficient
+                                        , Unit.ratioToFloat coefficient
                                             |> String.fromFloat
                                             |> text
                                         , Button.smallPillLink
