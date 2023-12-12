@@ -225,6 +225,8 @@ compute db =
                             , permanentPasture = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.permanentPasture
                             , livestockDensity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.livestockDensity
                             , selfSufficiency = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.selfSufficiency
+                            , microfibers = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.microfibers
+                            , outOfEuropeEOL = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.outOfEuropeEOL
                         }
 
                     totalImpactsWithoutComplements =

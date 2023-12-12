@@ -701,22 +701,46 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                             recipeIngredient.mass
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    [ ( "Haies", complementsImpacts.hedges, EcosystemicServices.coefficients.hedges )
-                    , ( "Taille des parcelles", complementsImpacts.plotSize, EcosystemicServices.coefficients.plotSize )
-                    , ( "Diversité culturale", complementsImpacts.cropDiversity, EcosystemicServices.coefficients.cropDiversity )
-                    , ( "Prairies permanentes", complementsImpacts.permanentPasture, EcosystemicServices.coefficients.permanentPasture )
-                    , ( "Chargement territorial", complementsImpacts.livestockDensity, EcosystemicServices.coefficients.livestockDensity )
-                    , ( "Autonomie territoriale", complementsImpacts.selfSufficiency, EcosystemicServices.coefficients.selfSufficiency )
+                    [ { name = "Haies"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.hedges
+                      , computedImpact = complementsImpacts.hedges
+                      , coefficient = EcosystemicServices.coefficients.hedges
+                      }
+                    , { name = "Taille de parcelles"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.plotSize
+                      , computedImpact = complementsImpacts.plotSize
+                      , coefficient = EcosystemicServices.coefficients.plotSize
+                      }
+                    , { name = "Diversité culturale"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.cropDiversity
+                      , computedImpact = complementsImpacts.cropDiversity
+                      , coefficient = EcosystemicServices.coefficients.cropDiversity
+                      }
+                    , { name = "Prairies permanentes"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.permanentPasture
+                      , computedImpact = complementsImpacts.permanentPasture
+                      , coefficient = EcosystemicServices.coefficients.permanentPasture
+                      }
+                    , { name = "Chargement territorial"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.livestockDensity
+                      , computedImpact = complementsImpacts.livestockDensity
+                      , coefficient = EcosystemicServices.coefficients.livestockDensity
+                      }
+                    , { name = "Autonomie territoriale"
+                      , componentImpactPerKg = ingredient.ecosystemicServices.selfSufficiency
+                      , computedImpact = complementsImpacts.selfSufficiency
+                      , coefficient = EcosystemicServices.coefficients.selfSufficiency
+                      }
                     ]
                         |> List.map
-                            (\( name, impact, coefficient ) ->
+                            (\{ name, componentImpactPerKg, computedImpact, coefficient } ->
                                 div
                                     [ class "ElementComplement"
                                     , title name
                                     ]
                                     [ span [ class "ComplementName text-nowrap text-muted" ] [ text name ]
                                     , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-                                        [ impact
+                                        [ componentImpactPerKg
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
                                         , small [] [ text "\u{00A0}×\u{00A0}" ]
@@ -731,10 +755,7 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                         ]
                                     , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
                                         [ text "("
-                                        , impact
-                                            |> Quantity.multiplyBy coefficient
-                                            |> Quantity.multiplyBy (Mass.inKilograms recipeIngredient.mass)
-                                            |> Format.complement
+                                        , Format.complement computedImpact
                                         , text ")"
                                         ]
                                     ]
