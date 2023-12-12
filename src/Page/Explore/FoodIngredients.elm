@@ -2,6 +2,7 @@ module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -96,18 +97,12 @@ table _ { detailed, scope } =
           , toCell =
                 \ingredient ->
                     div [ class "overflow-scroll" ]
-                        [ [ ( "Haies", .hedges )
-                          , ( "Taille des parcelles", .plotSize )
-                          , ( "Diversité culturale", .cropDiversity )
-                          , ( "Prairies permanentes", .permanentPasture )
-                          , ( "Chargement territorial", .livestockDensity )
-                          , ( "Autonomie territoriale", .selfSufficiency )
-                          ]
+                        [ EcosystemicServices.labels ingredient.ecosystemicServices
                             |> List.map
-                                (\( label, getter ) ->
+                                (\( label, impact ) ->
                                     span []
                                         [ text <| label ++ ": "
-                                        , getter ingredient.ecosystemicServices
+                                        , impact
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
                                         ]

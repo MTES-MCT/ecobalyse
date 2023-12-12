@@ -25,7 +25,7 @@ module Data.Food.Recipe exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.EcosystemicServices exposing (EcosystemicServices)
+import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -221,10 +221,10 @@ compute db =
                         { totalComplementsImpact
                             | hedges = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.hedges
                             , plotSize = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.plotSize
-                            , culturalDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.culturalDiversity
-                            , permanentMeadows = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.permanentMeadows
-                            , territorialLoading = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.territorialLoading
-                            , territorialAutonomy = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.territorialAutonomy
+                            , cropDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.cropDiversity
+                            , permanentPasture = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.permanentPasture
+                            , livestockDensity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.livestockDensity
+                            , selfSufficiency = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.selfSufficiency
                         }
 
                     totalImpactsWithoutComplements =
@@ -296,27 +296,27 @@ computeIngredientComplementsImpacts ecosystemicServices ingredientMass =
     { hedges =
         ecosystemicServices.hedges
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.hedges
     , plotSize =
         ecosystemicServices.plotSize
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
-    , culturalDiversity =
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.plotSize
+    , cropDiversity =
         ecosystemicServices.cropDiversity
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
-    , permanentMeadows =
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.cropDiversity
+    , permanentPasture =
         ecosystemicServices.permanentPasture
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
-    , territorialLoading =
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.permanentPasture
+    , livestockDensity =
         ecosystemicServices.livestockDensity
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
-    , territorialAutonomy =
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.livestockDensity
+    , selfSufficiency =
         ecosystemicServices.selfSufficiency
             |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy 1
+            |> Quantity.multiplyBy EcosystemicServices.coefficients.selfSufficiency
 
     -- Note: these complements are not impacted by ecosystemic services
     , microfibers = Unit.impact 0

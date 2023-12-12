@@ -69,11 +69,11 @@ suite =
                                 }
                      in
                      [ bonusImpacts.hedges
-                        |> expectImpactEqual (Unit.impact 2)
-                        |> asTest "should compute a non-zero agro-diversity ingredient bonus"
+                        |> expectImpactEqual (Unit.impact 14)
+                        |> asTest "should compute a non-zero hedges ingredient complement"
                      , Impact.getTotalComplementsImpacts bonusImpacts
                         -- FIXME: check this result once we have SE data
-                        |> expectImpactEqual (Unit.impact 12)
+                        |> expectImpactEqual (Unit.impact 51)
                         |> asTest "should compute a non-zero total bonus"
                      ]
                     )

@@ -50,10 +50,10 @@ type alias ComplementsImpacts =
     { -- Ecosystemic services impacts
       hedges : Unit.Impact
     , plotSize : Unit.Impact
-    , culturalDiversity : Unit.Impact
-    , permanentMeadows : Unit.Impact
-    , territorialLoading : Unit.Impact
-    , territorialAutonomy : Unit.Impact
+    , cropDiversity : Unit.Impact
+    , permanentPasture : Unit.Impact
+    , livestockDensity : Unit.Impact
+    , selfSufficiency : Unit.Impact
 
     -- Other impacts
     , microfibers : Unit.Impact
@@ -66,10 +66,10 @@ addComplementsImpacts a b =
     { -- Ecosystemic services impacts
       hedges = Quantity.plus a.hedges b.hedges
     , plotSize = Quantity.plus a.plotSize b.plotSize
-    , culturalDiversity = Quantity.plus a.culturalDiversity b.culturalDiversity
-    , permanentMeadows = Quantity.plus a.permanentMeadows b.permanentMeadows
-    , territorialLoading = Quantity.plus a.territorialLoading b.territorialLoading
-    , territorialAutonomy = Quantity.plus a.territorialAutonomy b.territorialAutonomy
+    , cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
+    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
+    , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
+    , selfSufficiency = Quantity.plus a.selfSufficiency b.selfSufficiency
 
     -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
@@ -92,10 +92,10 @@ noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
     { hedges = Unit.impact 0
     , plotSize = Unit.impact 0
-    , culturalDiversity = Unit.impact 0
-    , permanentMeadows = Unit.impact 0
-    , territorialLoading = Unit.impact 0
-    , territorialAutonomy = Unit.impact 0
+    , cropDiversity = Unit.impact 0
+    , permanentPasture = Unit.impact 0
+    , livestockDensity = Unit.impact 0
+    , selfSufficiency = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -106,10 +106,10 @@ getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
         [ complementsImpacts.hedges
         , complementsImpacts.plotSize
-        , complementsImpacts.culturalDiversity
-        , complementsImpacts.permanentMeadows
-        , complementsImpacts.territorialLoading
-        , complementsImpacts.territorialAutonomy
+        , complementsImpacts.cropDiversity
+        , complementsImpacts.permanentPasture
+        , complementsImpacts.livestockDensity
+        , complementsImpacts.selfSufficiency
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
@@ -135,10 +135,10 @@ sumEcosystemicImpacts c =
     Quantity.sum
         [ c.hedges
         , c.plotSize
-        , c.culturalDiversity
-        , c.permanentMeadows
-        , c.territorialLoading
-        , c.territorialAutonomy
+        , c.cropDiversity
+        , c.permanentPasture
+        , c.livestockDensity
+        , c.selfSufficiency
         ]
 
 
@@ -359,10 +359,10 @@ encodeComplementsImpacts c =
     Encode.object
         [ ( "hedges", Unit.encodeImpact c.hedges )
         , ( "plotSize", Unit.encodeImpact c.plotSize )
-        , ( "culturalDiversity", Unit.encodeImpact c.culturalDiversity )
-        , ( "permanentMeadows", Unit.encodeImpact c.permanentMeadows )
-        , ( "territorialLoading", Unit.encodeImpact c.territorialLoading )
-        , ( "territorialAutonomy", Unit.encodeImpact c.territorialAutonomy )
+        , ( "cropDiversity", Unit.encodeImpact c.cropDiversity )
+        , ( "permanentPasture", Unit.encodeImpact c.permanentPasture )
+        , ( "livestockDensity", Unit.encodeImpact c.livestockDensity )
+        , ( "selfSufficiency", Unit.encodeImpact c.selfSufficiency )
         , ( "microfibers", Unit.encodeImpact c.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]

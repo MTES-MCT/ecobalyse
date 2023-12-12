@@ -15,6 +15,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -700,22 +701,16 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                             recipeIngredient.mass
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    [ ( "Haies", .hedges )
-                    , ( "Taille des parcelles", .plotSize )
-                    , ( "Diversité culturale", .culturalDiversity )
-                    , ( "Prairies permanentes", .permanentMeadows )
-                    , ( "Chargement territorial", .territorialLoading )
-                    , ( "Autonomie territoriale", .territorialAutonomy )
-                    ]
+                    EcosystemicServices.labels complementsImpacts
                         |> List.map
-                            (\( name, getter ) ->
+                            (\( name, complementImpact ) ->
                                 div
                                     [ class "ElementComplement"
                                     , title name
                                     ]
                                     [ span [ class "ComplementName text-nowrap text-muted" ] [ text name ]
                                     , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-                                        [ getter complementsImpacts
+                                        [ complementImpact
                                             |> Unit.impactToFloat
                                             |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
                                         , Button.smallPillLink
@@ -726,8 +721,7 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                                         ]
                                     , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
                                         [ text "("
-                                        , complementsImpacts
-                                            |> getter
+                                        , complementImpact
                                             |> Quantity.multiplyBy (Mass.inKilograms recipeIngredient.mass)
                                             |> Format.complement
                                         , text ")"
