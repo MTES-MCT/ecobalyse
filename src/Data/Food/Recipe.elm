@@ -291,36 +291,20 @@ compute db =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
-computeIngredientComplementsImpacts ecosystemicServices ingredientMass =
-    -- Notes:
-    -- - ecosystemic services impacts are each expressed in µPt/kg
-    -- - at some point we'll have weighting factors to apply here; for now, we set them each to 1
-    { hedges =
-        ecosystemicServices.hedges
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.hedges
-    , plotSize =
-        ecosystemicServices.plotSize
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.plotSize
-    , cropDiversity =
-        ecosystemicServices.cropDiversity
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.cropDiversity
-    , permanentPasture =
-        ecosystemicServices.permanentPasture
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.permanentPasture
-    , livestockDensity =
-        ecosystemicServices.livestockDensity
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.livestockDensity
-    , selfSufficiency =
-        ecosystemicServices.selfSufficiency
-            |> Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-            |> Quantity.multiplyBy EcosystemicServices.coefficients.selfSufficiency
+computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanentPasture, livestockDensity, selfSufficiency } ingredientMass =
+    let
+        apply coeff =
+            Quantity.multiplyBy (Mass.inKilograms ingredientMass)
+                >> Quantity.multiplyBy coeff
+    in
+    { hedges = apply EcosystemicServices.coefficients.hedges hedges
+    , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
+    , cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
+    , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
+    , selfSufficiency = apply EcosystemicServices.coefficients.selfSufficiency selfSufficiency
 
-    -- Note: these complements are not impacted by ecosystemic services
+    -- Note: these complements don't apply to ingredients
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
