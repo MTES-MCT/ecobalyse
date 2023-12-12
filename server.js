@@ -17,7 +17,7 @@ const port = process.env.PORT || 3000;
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
 
 // Matomo
-if (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN) {
+if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
   process.exit(1);
 }
