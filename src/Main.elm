@@ -7,6 +7,7 @@ import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as TextileInputs
 import Html
+import Json.Decode as Decode
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
@@ -26,9 +27,13 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
-    , matomo : { host : String, siteId : String }
+    , matomo : Matomo
     , rawStore : String
     }
+
+
+type alias Matomo =
+    { host : String, siteId : String }
 
 
 type Page
@@ -46,7 +51,8 @@ type Page
 
 type State
     = Loaded Session Page
-    | Errored String
+    | DatabaseParsingErrored String
+    | FlagsParsingErrored String
 
 
 type alias Model =
@@ -79,38 +85,72 @@ type Msg
     | VersionReceived (WebData String)
 
 
-init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url navKey =
-    setRoute url
-        ( { state =
-                case StaticDb.db of
-                    Ok db ->
-                        Loaded
-                            { clientUrl = flags.clientUrl
-                            , navKey = navKey
-                            , store = Session.deserializeStore flags.rawStore
-                            , currentVersion = Request.Version.Unknown
-                            , matomo = flags.matomo
-                            , foodDb = db.foodDb
-                            , textileDb = db.textileDb
-                            , notifications = []
-                            , queries =
-                                { food = FoodQuery.carrotCake
-                                , textile = TextileInputs.defaultQuery
-                                }
-                            }
-                            BlankPage
+init : Decode.Value -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init flagsValue url navKey =
+    case decodeFlags flagsValue of
+        Ok flags ->
+            setRoute url
+                ( { state =
+                        case StaticDb.db of
+                            Ok db ->
+                                Loaded
+                                    { clientUrl = flags.clientUrl
+                                    , navKey = navKey
+                                    , store = Session.deserializeStore flags.rawStore
+                                    , currentVersion = Request.Version.Unknown
+                                    , matomo = flags.matomo
+                                    , foodDb = db.foodDb
+                                    , textileDb = db.textileDb
+                                    , notifications = []
+                                    , queries =
+                                        { food = FoodQuery.carrotCake
+                                        , textile = TextileInputs.defaultQuery
+                                        }
+                                    }
+                                    BlankPage
 
-                    Err err ->
-                        Errored err
-          , mobileNavigationOpened = False
-          , navKey = navKey
-          }
-        , Cmd.batch
-            [ Ports.appStarted ()
-            , Request.Version.loadVersion VersionReceived
-            ]
-        )
+                            Err err ->
+                                DatabaseParsingErrored err
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  }
+                , Cmd.batch
+                    [ Ports.appStarted ()
+                    , Request.Version.loadVersion VersionReceived
+                    ]
+                )
+
+        Err error ->
+            setRoute url
+                ( { state = FlagsParsingErrored (Decode.errorToString error)
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  }
+                , Cmd.batch
+                    [ Ports.appStarted ()
+                    , Request.Version.loadVersion VersionReceived
+                    ]
+                )
+
+
+decodeFlags : Decode.Value -> Result Decode.Error Flags
+decodeFlags flagsValue =
+    Decode.decodeValue flagsDecoder flagsValue
+
+
+flagsDecoder : Decode.Decoder Flags
+flagsDecoder =
+    Decode.map3 Flags
+        (Decode.field "clientUrl" Decode.string)
+        (Decode.field "matomo" matomoDecoder)
+        (Decode.field "rawStore" Decode.string)
+
+
+matomoDecoder : Decode.Decoder Matomo
+matomoDecoder =
+    Decode.map2 Matomo
+        (Decode.field "host" Decode.string)
+        (Decode.field "siteId" Decode.string)
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
@@ -180,8 +220,12 @@ setRoute url ( { state } as model, cmds ) =
                     TextileSimulator.init trigram maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
-        Errored _ ->
+        DatabaseParsingErrored _ ->
             -- FIXME: Static database decoding error, highly unlikely to ever happen
+            ( model, cmds )
+
+        FlagsParsingErrored _ ->
+            -- FIXME: Flags decoding error, maybe be because environment variables are missing
             ( model, cmds )
 
 
@@ -303,7 +347,10 @@ update rawMsg ({ state } as model) =
                 _ ->
                     ( model, Cmd.none )
 
-        ( Errored _, _ ) ->
+        ( DatabaseParsingErrored _, _ ) ->
+            ( model, Cmd.none )
+
+        ( FlagsParsingErrored _, _ ) ->
             ( model, Cmd.none )
 
 
@@ -337,10 +384,18 @@ subscriptions { state } =
 view : Model -> Document Msg
 view { state, mobileNavigationOpened } =
     case state of
-        Errored error ->
+        DatabaseParsingErrored error ->
             { title = "Erreur lors du chargement…"
             , body =
                 [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
+                , Html.pre [] [ Html.text error ]
+                ]
+            }
+
+        FlagsParsingErrored error ->
+            { title = "Erreur lors du chargement…"
+            , body =
+                [ Html.p [] [ Html.text <| "Flags couldn't be parsed, environment variables missing? Check the README: " ]
                 , Html.pre [] [ Html.text error ]
                 ]
             }
@@ -409,7 +464,7 @@ view { state, mobileNavigationOpened } =
                         |> Page.frame (pageConfig Page.Other)
 
 
-main : Program Flags Model Msg
+main : Program Decode.Value Model Msg
 main =
     Browser.application
         { init = init

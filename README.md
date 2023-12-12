@@ -83,6 +83,10 @@ Certaines variables d'environnement doivent être configurées via l'interface d
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
 
+Si vous lancez l'application en local, vous pouvez renseigner ces variables d'environnement dans un fichier `.env`. Vous pouvez utiliser le template fourni :
+
+    $ cp .env.sample .env
+
 ## Lancement du serveur
 
 Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :
