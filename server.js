@@ -13,8 +13,16 @@ const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
+// Env vars
+const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
+
+// Matomo
+if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+  console.error("Matomo environment variables are missing. Please check the README.");
+  process.exit(1);
+}
+
 // Sentry
-const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
   // Note: Sentry middleware *must* be the very first applied to be effective
