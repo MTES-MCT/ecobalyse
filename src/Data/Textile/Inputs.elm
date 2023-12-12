@@ -13,6 +13,9 @@ module Data.Textile.Inputs exposing
     , defaultQuery
     , encode
     , encodeQuery
+    , exampleProductToCategory
+    , exampleProductToString
+    , exampleProducts
     , fromQuery
     , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
@@ -891,3 +894,59 @@ parseBase64Query =
         b64decode
             >> Result.toMaybe
             >> Just
+
+
+
+---- Example products
+
+
+type alias ExampleProduct =
+    { name : String
+    , query : Query
+    , category : String
+    }
+
+
+productsAndNames : List ExampleProduct
+productsAndNames =
+    [ { name = "Tshirt coton Inde (170g)", query = tShirtCotonIndia, category = "Tshirt / Polo" }
+    , { name = "Tshirt coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
+    , { name = "Tshirt coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
+    , { name = "Jupe circuit Asie (300g)", query = jupeCircuitAsie, category = "Jupe / Robe" }
+    ]
+
+
+exampleProductToString : Query -> String
+exampleProductToString q =
+    productsAndNames
+        |> List.filterMap
+            (\{ name, query } ->
+                if q == query then
+                    Just name
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProductToCategory : Query -> String
+exampleProductToCategory q =
+    productsAndNames
+        |> List.filterMap
+            (\{ category, query } ->
+                if q == query then
+                    Just category
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProducts : List Query
+exampleProducts =
+    productsAndNames
+        |> List.map .query
