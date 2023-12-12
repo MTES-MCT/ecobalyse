@@ -2,7 +2,6 @@ module Data.Food.EcosystemicServices exposing
     ( EcosystemicServices
     , coefficients
     , decode
-    , labels
     )
 
 import Data.Unit as Unit
@@ -48,26 +47,3 @@ decode =
         |> Pipe.required "permanentPasture" Unit.decodeImpact
         |> Pipe.required "livestockDensity" Unit.decodeImpact
         |> Pipe.required "selfSufficiency" Unit.decodeImpact
-
-
-labels :
-    List
-        ( String
-        , { a
-            | hedges : b
-            , plotSize : b
-            , cropDiversity : b
-            , permanentPasture : b
-            , livestockDensity : b
-            , selfSufficiency : b
-          }
-          -> b
-        )
-labels =
-    [ ( "Haies", .hedges )
-    , ( "Taille des parcelles", .plotSize )
-    , ( "Diversité culturale", .cropDiversity )
-    , ( "Prairies permanentes", .permanentPasture )
-    , ( "Chargement territorial", .livestockDensity )
-    , ( "Autonomie territoriale", .selfSufficiency )
-    ]
