@@ -2,6 +2,7 @@ module Data.Food.EcosystemicServices exposing
     ( EcosystemicServices
     , coefficients
     , decode
+    , labels
     )
 
 import Data.Unit as Unit
@@ -15,6 +16,10 @@ type alias EcosystemicServices =
 
 type alias Coefficients =
     AbstractEcosystemicServices Float
+
+
+type alias Labels =
+    AbstractEcosystemicServices String
 
 
 type alias AbstractEcosystemicServices a =
@@ -35,6 +40,17 @@ coefficients =
     , permanentPasture = 10.5
     , livestockDensity = 1
     , selfSufficiency = 1
+    }
+
+
+labels : Labels
+labels =
+    { hedges = "Haies"
+    , plotSize = "Taille de parcelles"
+    , cropDiversity = "Diversité culturale"
+    , permanentPasture = "Prairies permanentes"
+    , livestockDensity = "Chargement territorial"
+    , selfSufficiency = "Autonomie territoriale"
     }
 
 

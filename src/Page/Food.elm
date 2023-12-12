@@ -701,32 +701,32 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                             recipeIngredient.mass
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    [ { name = "Haies"
+                    [ { name = EcosystemicServices.labels.hedges
                       , componentImpactPerKg = ingredient.ecosystemicServices.hedges
                       , computedImpact = complementsImpacts.hedges
                       , coefficient = EcosystemicServices.coefficients.hedges
                       }
-                    , { name = "Taille de parcelles"
+                    , { name = EcosystemicServices.labels.plotSize
                       , componentImpactPerKg = ingredient.ecosystemicServices.plotSize
                       , computedImpact = complementsImpacts.plotSize
                       , coefficient = EcosystemicServices.coefficients.plotSize
                       }
-                    , { name = "Diversité culturale"
+                    , { name = EcosystemicServices.labels.cropDiversity
                       , componentImpactPerKg = ingredient.ecosystemicServices.cropDiversity
                       , computedImpact = complementsImpacts.cropDiversity
                       , coefficient = EcosystemicServices.coefficients.cropDiversity
                       }
-                    , { name = "Prairies permanentes"
+                    , { name = EcosystemicServices.labels.permanentPasture
                       , componentImpactPerKg = ingredient.ecosystemicServices.permanentPasture
                       , computedImpact = complementsImpacts.permanentPasture
                       , coefficient = EcosystemicServices.coefficients.permanentPasture
                       }
-                    , { name = "Chargement territorial"
+                    , { name = EcosystemicServices.labels.livestockDensity
                       , componentImpactPerKg = ingredient.ecosystemicServices.livestockDensity
                       , computedImpact = complementsImpacts.livestockDensity
                       , coefficient = EcosystemicServices.coefficients.livestockDensity
                       }
-                    , { name = "Autonomie territoriale"
+                    , { name = EcosystemicServices.labels.selfSufficiency
                       , componentImpactPerKg = ingredient.ecosystemicServices.selfSufficiency
                       , computedImpact = complementsImpacts.selfSufficiency
                       , coefficient = EcosystemicServices.coefficients.selfSufficiency
