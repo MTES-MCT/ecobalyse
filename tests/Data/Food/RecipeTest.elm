@@ -153,7 +153,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 110.75276345686135) result
+                                expectImpactEqual (Unit.impact 110.92626099836164) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -162,7 +162,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 72.50879931557179) result
+                                expectImpactEqual (Unit.impact 72.72208734677197) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -174,10 +174,10 @@ suite =
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 208.054209266113
+                                    |> Expect.within (Expect.Absolute 0.01) 208.32399073458512
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 208.94893235911195
+                                    |> Expect.within (Expect.Absolute 0.01) 209.21871382758408
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
                                     -- FIXME: check this result once we have SE data
@@ -187,16 +187,16 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 83.99512632924191
+                                    |> Expect.within (Expect.Absolute 0.01) 84.1349198658696
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 44.68689760990337
+                                    |> Expect.within (Expect.Absolute 0.01) 44.77936573253617
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 39.48150424389621
+                                    |> Expect.within (Expect.Absolute 0.01) 39.5360312071319
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 40.78540417607046
+                                    |> Expect.within (Expect.Absolute 0.01) 40.76839702204644
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
