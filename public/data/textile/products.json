@@ -55,7 +55,7 @@
       "timeIroning": 0.072,
       "wearsPerCycle": 3
     },
-      "endOfLife": {
+    "endOfLife": {
       "volume": 0.004
     }
   },
