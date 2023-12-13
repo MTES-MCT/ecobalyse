@@ -58,13 +58,13 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     )
     os.unlink(unzipped)
     ef.statistics()
+
     # exclude strategies/migrations in EXCLUDED
     if project == "food":
         ef.strategies = [
             s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED_FOOD])
         ]
     if project == "textile":
-        # ef.write_excel("before")
         ef.strategies = [
             normalize_units,
             set_biosphere_type,
@@ -88,10 +88,9 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
             functools.partial(match_subcategories, biosphere_db_name=ef.biosphere_name),
         ]
     ef.apply_strategies()
-    # ef.write_excel("after")
-    # add unlinked CFs to the biosphere database
-    # ef.add_missing_cfs()  # uncomment and get zero impacts on Food!
-    # drop CFs which are not linked to a biosphere substance since they are not used by any activity
+
+    # ef.write_excel(METHODNAME)
+    # drop CFs which are not linked to a biosphere substance
     ef.drop_unlinked()
     ef.write_methods()
     print(f"### Finished importing {METHODNAME}")
