@@ -690,10 +690,10 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row" ]
-                [ div [ class "col-sm-6 mb-3" ]
+                [ div [ class "col-sm-9 mb-3" ]
                     [ productField (Inputs.toQuery inputs)
                     ]
-                , div [ class "col-sm-6 mb-3" ]
+                , div [ class "col-sm-3 mb-3" ]
                     [ inputs.mass
                         |> Mass.inKilograms
                         |> String.fromFloat
