@@ -666,83 +666,6 @@ computeMaterialTransport db nextCountryCode { material, country, share } =
         Transport.default Impact.empty
 
 
-defaultQuery : Query
-defaultQuery =
-    tShirtCotonIndia
-
-
-tShirtCotonFrance : Query
-tShirtCotonFrance =
-    -- T-shirt circuit France
-    { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
-    , product = Product.Id "tshirt"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "FR"
-    , countryDyeing = Country.Code "FR"
-    , countryMaking = Country.Code "FR"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
-tShirtCotonIndia : Query
-tShirtCotonIndia =
-    -- T-shirt circuit Inde
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "IN"
-        , countryMaking = Country.Code "IN"
-    }
-
-
-tShirtCotonAsie : Query
-tShirtCotonAsie =
-    -- T-shirt circuit Asie
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "CN"
-        , countryDyeing = Country.Code "CN"
-        , countryMaking = Country.Code "CN"
-    }
-
-
-jupeCircuitAsie : Query
-jupeCircuitAsie =
-    -- Jupe circuit Asie
-    { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
-    , product = Product.Id "jupe"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "CN"
-    , countryDyeing = Country.Code "CN"
-    , countryMaking = Country.Code "CN"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
     """curl -X POST %apiUrl% \\
@@ -909,10 +832,16 @@ type alias ExampleProduct =
 
 productsAndNames : List ExampleProduct
 productsAndNames =
-    [ { name = "Tshirt coton Inde (170g)", query = tShirtCotonIndia, category = "Tshirt / Polo" }
+    [ { name = "Tshirt coton Inde (170g)", query = tShirtCotonInde, category = "Tshirt / Polo" }
     , { name = "Tshirt coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
     , { name = "Tshirt coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
     , { name = "Jupe circuit Asie (300g)", query = jupeCircuitAsie, category = "Jupe / Robe" }
+    , { name = "Chemise coton Inde (250g)", query = chemiseCotonInde, category = "Chemise" }
+    , { name = "Jean coton Inde (450g)", query = jeanCotonInde, category = "Jean" }
+    , { name = "Jean coton Inde sans délavage (450g)", query = jeanCotonIndeSansDelavage, category = "Jean" }
+    , { name = "Manteau coton Inde (950g)", query = manteauCotonInde, category = "Manteau / Veste" }
+    , { name = "Pantalon coton Inde (450g)", query = pantalonCotonInde, category = "Pantalon / Short" }
+    , { name = "Pull coton Inde (500g)", query = pullCotonInde, category = "Pull / Couche intermédiaire" }
     ]
 
 
@@ -950,3 +879,230 @@ exampleProducts : List Query
 exampleProducts =
     productsAndNames
         |> List.map .query
+
+
+defaultQuery : Query
+defaultQuery =
+    tShirtCotonInde
+
+
+tShirtCotonFrance : Query
+tShirtCotonFrance =
+    -- T-shirt circuit France
+    { mass = Mass.kilograms 0.17
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "tshirt"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "FR"
+    , countryDyeing = Country.Code "FR"
+    , countryMaking = Country.Code "FR"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+tShirtCotonInde : Query
+tShirtCotonInde =
+    -- T-shirt circuit Inde
+    { tShirtCotonFrance
+        | countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "IN"
+        , countryMaking = Country.Code "IN"
+    }
+
+
+tShirtCotonAsie : Query
+tShirtCotonAsie =
+    -- T-shirt circuit Asie
+    { tShirtCotonFrance
+        | countryFabric = Country.Code "CN"
+        , countryDyeing = Country.Code "CN"
+        , countryMaking = Country.Code "CN"
+    }
+
+
+jupeCircuitAsie : Query
+jupeCircuitAsie =
+    -- Jupe circuit Asie
+    { mass = Mass.kilograms 0.3
+    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
+    , product = Product.Id "jupe"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "CN"
+    , countryDyeing = Country.Code "CN"
+    , countryMaking = Country.Code "CN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+chemiseCotonInde : Query
+chemiseCotonInde =
+    { mass = Mass.kilograms 0.25
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "chemise"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+jeanCotonInde : Query
+jeanCotonInde =
+    { mass = Mass.kilograms 0.45
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "jean"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+jeanCotonIndeSansDelavage : Query
+jeanCotonIndeSansDelavage =
+    { mass = Mass.kilograms 0.45
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "jean"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Just True
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+manteauCotonInde : Query
+manteauCotonInde =
+    { mass = Mass.kilograms 0.95
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "manteau"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+pantalonCotonInde : Query
+pantalonCotonInde =
+    { mass = Mass.kilograms 0.45
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "manteau"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+pullCotonInde : Query
+pullCotonInde =
+    { mass = Mass.kilograms 0.5
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "pull"
+    , countrySpinning = Nothing
+    , countryFabric = Country.Code "IN"
+    , countryDyeing = Country.Code "IN"
+    , countryMaking = Country.Code "IN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
