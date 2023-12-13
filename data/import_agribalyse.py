@@ -57,51 +57,51 @@ AGRIBALYSE_MIGRATIONS = [
                 (
                     (
                         "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent U",
-                        "litre",
+                        "l",
                     ),
-                    {"unit": "cubic meter", "multiplier": 1e-3},
+                    {"unit": "m3", "multiplier": 1e-3},
                 ),
                 (
                     (
                         "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent U",
-                        "litre",
+                        "l",
                     ),
-                    {"unit": "cubic meter", "multiplier": 1e-3},
+                    {"unit": "m3", "multiplier": 1e-3},
                 ),
                 (
                     (
                         "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
-                        "kilowatt hour",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
                         "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent U",
-                        "kilowatt hour",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
                         "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent U",
-                        "kilowatt hour",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
                         "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent U",
-                        "kilowatt hour",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
                         "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent U",
-                        "square meter",
+                        "m2",
                     ),
-                    {"unit": "hectare", "multiplier": 1e-4},
+                    {"unit": "ha", "multiplier": 1e-4},
                 ),
             ],
         },
