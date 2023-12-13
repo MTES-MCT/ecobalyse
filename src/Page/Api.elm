@@ -60,7 +60,7 @@ changelog =
       , md =
             """Le paramètre permettant de spécifier des compléments (ou bonus)
             personnalisés par ingrédient a été retiré, il est remplacé par la
-            gestion automatisée des services ecosystémiques."""
+            gestion automatisée des services écosystémiques."""
       }
     , { date = "9 novembre 2023"
       , level = "minor"

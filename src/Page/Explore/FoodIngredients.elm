@@ -92,7 +92,7 @@ table _ { detailed, scope } =
                                 text ""
                         ]
           }
-        , { label = "Services ecosystémiques"
+        , { label = "Services écosystémiques"
           , toValue = always "N/A"
           , toCell =
                 \{ ecosystemicServices } ->
