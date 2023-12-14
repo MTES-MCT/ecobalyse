@@ -222,7 +222,7 @@ computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
                                 { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
-                                    if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                                    if inputs.disabledFading == Just False || (inputs.disabledFading == Nothing && Product.getFadingByDefault inputs.product) then
                                         Just wellKnown.fading
 
                                     else

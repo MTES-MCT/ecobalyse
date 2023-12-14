@@ -386,7 +386,7 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { product, makingWaste, makingComplexity, airTransportRatio, disabledFading } =
+makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, disabledFading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , makingComplexity
@@ -400,7 +400,7 @@ makingOptionsToString { product, makingWaste, makingComplexity, airTransportRati
                 else
                     Just (Split.toPercentString ratio ++ " de transport aérien")
             )
-    , if product.making.fadable && disabledFading == Just True then
+    , if disabledFading == Just True then
         Just "non-délavé"
 
       else
