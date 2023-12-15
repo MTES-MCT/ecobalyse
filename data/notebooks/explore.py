@@ -11,9 +11,12 @@ from bw2data.project import projects
 
 sys.stdout = sys.__stdout__
 from bw2data.utils import get_activity
+import base64
 import bw2analyzer
 import bw2calc
 import bw2data
+import csv
+import io
 import ipywidgets
 import json
 import os
@@ -68,6 +71,25 @@ setattr(w_back_button, "search", "")
 w_back_button.on_click(go_back)
 
 
+def w_csv_button(database, search, limit):
+    csvfile = io.StringIO()
+    writer = csv.DictWriter(csvfile, fieldnames=["name"])
+    writer.writeheader()
+    for name in list(bw2data.Database(database).search(search, limit=limit)):
+        writer.writerow({"name": name["name"]})
+    csvfile.seek(0)
+    contents = csvfile.read()
+    return ipywidgets.HTML(
+        """
+        <a download="{filename}" href="data:text/csv;base64,{payload}" download>
+        <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download as CSV</button>
+        </a>
+    """.format(
+            payload=base64.b64encode(contents.encode()).decode(), filename="export.csv"
+        )
+    )
+
+
 @w_results.capture()
 def display_results(database, search, limit):
     """display the list of search results in the w_results widget"""
@@ -87,6 +109,7 @@ def display_results(database, search, limit):
             pandas.DataFrame(results, columns=["name", "code", "location"])
         )
         html.set_properties(**{"background-color": "#EEE"})
+        display(w_csv_button(database, search, limit))
         display(ipywidgets.HTML(html.to_html()))
 
 
