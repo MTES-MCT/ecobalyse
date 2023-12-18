@@ -559,17 +559,9 @@ stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } labe
 
 stepHeader : Config msg modal -> Html msg
 stepHeader { current, inputs } =
-    label
-        [ class "d-flex align-items-center gap-2"
-        , class "text-dark cursor-pointer"
+    div
+        [ class "d-flex align-items-center gap-2 text-dark"
         , classList [ ( "text-secondary", not current.enabled ) ]
-        , title
-            (if current.enabled then
-                "Étape activée, cliquez pour la désactiver"
-
-             else
-                "Étape desactivée, cliquez pour la réactiver"
-            )
         ]
         [ h2 [ class "h5 mb-0" ]
             [ current.label
