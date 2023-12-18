@@ -2624,7 +2624,7 @@
   },
   {
     "id": "beef",
-    "name": "Boeuf",
+    "name": "Boeuf Brésil",
     "search": "Beef,fresh meat",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -2634,7 +2634,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Pour l'origine par d'faut j'ai hésité entre \"Hors Europe par avion\" et \"Hors Europe\"",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -3015,6 +3014,112 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
+    }
+  },
+  {
+    "id": "mussel",
+    "name": "Moules",
+    "search": "Mussels, with shell, at farm gate/FR U ",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "honey",
+    "name": "Miel",
+    "search": "Honey, raw, large-scale production, unpackaged, at farm (adapted from WFLDB)/US U :",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "soybean",
+    "name": "Soja FR",
+    "search": "Soybean grain dried, stored and transported, processing/FR U :",
+    "category": "ingredient",
+    "categories": ["grain_raw"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.271,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "pork-shop-case",
+    "name": "Porc UE",
+    "search": "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork chop case ready (PDi) :",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "superior-cooked-ham",
+    "name": "Jambon UE",
+    "search": "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) ",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "cucumber-es",
+    "name": "Concombre Espagne",
+    "search": "cucumber",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]
