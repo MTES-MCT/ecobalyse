@@ -432,21 +432,24 @@ def main():
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
     add_missing_substances(PROJECT, BIOSPHERE)
-    if (pastoeco := "PastoEco") not in bw2data.databases:
+    # PASTO ECO
+    if (db := "PastoEco") not in bw2data.databases:
         for p in PASTOECO:
-            import_simapro_csv(p, pastoeco)
+            import_simapro_csv(p, db)
     else:
-        print(f"{pastoeco} already imported")
-    if (ginko := "Ginko") not in bw2data.databases:
-        import_simapro_csv(GINKO, ginko)
+        print(f"{db} already imported")
+    # GINKO
+    if (db := "Ginko") not in bw2data.databases:
+        import_simapro_csv(GINKO, db)
     else:
-        print(f"{ginko} already imported")
-    if (agribalyse := "Agribalyse 3.1.1") not in bw2data.databases:
-        import_simapro_csv(AGRIBALYSE, agribalyse)
-        delete_created_activities(agribalyse)
-        add_created_activities(agribalyse)
+        print(f"{db} already imported")
+    # AGRIBALYSE
+    if (db := "Agribalyse 3.1.1") not in bw2data.databases:
+        import_simapro_csv(AGRIBALYSE, db)
+        delete_created_activities(db)
+        add_created_activities(db)
     else:
-        print(f"{agribalyse} already imported")
+        print(f"{db} already imported")
 
 
 if __name__ == "__main__":
