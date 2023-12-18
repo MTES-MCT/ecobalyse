@@ -1,4 +1,4 @@
-# Stocks dormants
+# Stocks dormants / Deadstock
 
 ## Définition & Contexte
 
@@ -40,11 +40,11 @@ Ce chiffre comprend les stocks dormants de vêtements (produits finis) et ceux d
 La modélisation des stocks dormants s'effectue via un multiplicateur. Concrètement, la quantité de matières à transformer tout au long des étapes de transformation est multipliée par 1,15.&#x20;
 
 {% hint style="info" %}
-L'affichage des deadstock s'effectue au sein de l'étape Confection.
+L'affichage des deadstock s'effectue au sein de l'étape Confection. A date, l'utilisateur a la possibilité de modifier le taux de stocks dormants.
 {% endhint %}
 
 {% hint style="danger" %}
-Les stocks dormants sont différents des taux de pertes en confection.
+Les stocks dormants sont différents des taux de pertes en confection.&#x20;
 {% endhint %}
 
 ### **Illustration**
