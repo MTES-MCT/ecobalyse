@@ -780,7 +780,7 @@ components:
       name: disabledFading
       in: query
       description: |
-        Désactive l'application du **procédé de délavage** pour l'étape de confection d'un jean (par conséquent inopérant sur d'autres produits).
+        Désactive l'application du **procédé de délavage** pour l'étape de confection d'un produit.
       required: false
       style: form
       schema:
