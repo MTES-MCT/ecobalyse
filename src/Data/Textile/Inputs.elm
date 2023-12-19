@@ -13,12 +13,16 @@ module Data.Textile.Inputs exposing
     , defaultQuery
     , encode
     , encodeQuery
+    , exampleProductToCategory
+    , exampleProductToString
+    , exampleProducts
     , fromQuery
     , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
-    , jupeCircuitAsie
+    , isFaded
+    , jupeCotonAsie
     , parseBase64Query
     , removeMaterial
     , tShirtCotonAsie
@@ -130,6 +134,11 @@ type alias Query =
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
     }
+
+
+isFaded : Inputs -> Bool
+isFaded inputs =
+    inputs.disabledFading == Just False || (inputs.disabledFading == Nothing && Product.isFadedByDefault inputs.product)
 
 
 toMaterialInputs : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
@@ -383,7 +392,7 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { product, makingWaste, makingComplexity, airTransportRatio, disabledFading } =
+makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, disabledFading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , makingComplexity
@@ -397,7 +406,7 @@ makingOptionsToString { product, makingWaste, makingComplexity, airTransportRati
                 else
                     Just (Split.toPercentString ratio ++ " de transport aérien")
             )
-    , if product.making.fadable && disabledFading == Just True then
+    , if disabledFading == Just True then
         Just "non-délavé"
 
       else
@@ -663,83 +672,6 @@ computeMaterialTransport db nextCountryCode { material, country, share } =
         Transport.default Impact.empty
 
 
-defaultQuery : Query
-defaultQuery =
-    tShirtCotonIndia
-
-
-tShirtCotonFrance : Query
-tShirtCotonFrance =
-    -- T-shirt circuit France
-    { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
-    , product = Product.Id "tshirt"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "FR"
-    , countryDyeing = Country.Code "FR"
-    , countryMaking = Country.Code "FR"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
-tShirtCotonIndia : Query
-tShirtCotonIndia =
-    -- T-shirt circuit Inde
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "IN"
-        , countryMaking = Country.Code "IN"
-    }
-
-
-tShirtCotonAsie : Query
-tShirtCotonAsie =
-    -- T-shirt circuit Asie
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "CN"
-        , countryDyeing = Country.Code "CN"
-        , countryMaking = Country.Code "CN"
-    }
-
-
-jupeCircuitAsie : Query
-jupeCircuitAsie =
-    -- Jupe circuit Asie
-    { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
-    , product = Product.Id "jupe"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "CN"
-    , countryDyeing = Country.Code "CN"
-    , countryMaking = Country.Code "CN"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
     """curl -X POST %apiUrl% \\
@@ -891,3 +823,257 @@ parseBase64Query =
         b64decode
             >> Result.toMaybe
             >> Just
+
+
+
+---- Example products
+
+
+type alias ExampleProduct =
+    { name : String
+    , query : Query
+    , category : String
+    }
+
+
+productsAndNames : List ExampleProduct
+productsAndNames =
+    -- 7 base products, from China
+    [ { name = "Tshirt 100% coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
+    , { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
+    , { name = "Chemise 100% coton Asie (250g)", query = chemiseCotonAsie, category = "Chemise" }
+    , { name = "Jean 100% coton Asie (450g)", query = jeanCotonAsie, category = "Jean" }
+    , { name = "Manteau 100% coton Asie (950g)", query = manteauCotonAsie, category = "Manteau / Veste" }
+    , { name = "Pantalon 100% coton Asie (450g)", query = pantalonCotonAsie, category = "Pantalon / Short" }
+    , { name = "Pull 100% coton Asie (500g)", query = pullCotonAsie, category = "Pull / Couche intermédiaire" }
+
+    -- 7 base products, from France
+    , { name = "Tshirt 100% coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
+    , { name = "Jupe 100% coton France (300g)", query = jupeCotonFrance, category = "Jupe / Robe" }
+    , { name = "Chemise 100% coton France (250g)", query = chemiseCotonFrance, category = "Chemise" }
+    , { name = "Jean 100% coton France (450g)", query = jeanCotonFrance, category = "Jean" }
+    , { name = "Manteau 100% coton France (950g)", query = manteauCotonFrance, category = "Manteau / Veste" }
+    , { name = "Pantalon 100% coton France (450g)", query = pantalonCotonFrance, category = "Pantalon / Short" }
+    , { name = "Pull 100% coton France (500g)", query = pullCotonFrance, category = "Pull / Couche intermédiaire" }
+
+    -- Various examples
+    , { name = "Pull 100% laine Asie (500g)", query = pullLaineAsie, category = "Pull / Couche intermédiaire" }
+    , { name = "Jupe 100% polyester Asie (300g)", query = jupePolyesterAsie, category = "Jupe / Robe" }
+    , { name = "Manteau 50% polyamide 50% coton Asie (950g)", query = manteauMixAsie, category = "Manteau / Veste" }
+    , { name = "Tshirt 100% polyester Asie (170g)", query = tShirtPolyesterAsie, category = "Tshirt / Polo" }
+    ]
+
+
+exampleProductToString : Query -> String
+exampleProductToString q =
+    productsAndNames
+        |> List.filterMap
+            (\{ name, query } ->
+                if q == query then
+                    Just name
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProductToCategory : Query -> String
+exampleProductToCategory q =
+    productsAndNames
+        |> List.filterMap
+            (\{ category, query } ->
+                if q == query then
+                    Just category
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProducts : List Query
+exampleProducts =
+    productsAndNames
+        |> List.map .query
+
+
+defaultQuery : Query
+defaultQuery =
+    tShirtCotonAsie
+
+
+
+-- 7 base products, from China
+
+
+tShirtCotonAsie : Query
+tShirtCotonAsie =
+    { mass = Mass.kilograms 0.17
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "tshirt"
+    , countrySpinning = Just (Country.Code "CN")
+    , countryFabric = Country.Code "CN"
+    , countryDyeing = Country.Code "CN"
+    , countryMaking = Country.Code "CN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , knittingProcess = Nothing
+    , disabledSteps = []
+    , disabledFading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+jupeCotonAsie : Query
+jupeCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.3
+        , product = Product.Id "jupe"
+    }
+
+
+chemiseCotonAsie : Query
+chemiseCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.25
+        , product = Product.Id "chemise"
+    }
+
+
+jeanCotonAsie : Query
+jeanCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "jean"
+    }
+
+
+manteauCotonAsie : Query
+manteauCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.95
+        , product = Product.Id "manteau"
+    }
+
+
+pantalonCotonAsie : Query
+pantalonCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "manteau"
+    }
+
+
+pullCotonAsie : Query
+pullCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.5
+        , product = Product.Id "pull"
+    }
+
+
+
+-- 7 base products from France
+
+
+tShirtCotonFrance : Query
+tShirtCotonFrance =
+    { tShirtCotonAsie
+        | countrySpinning = Just (Country.Code "FR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+    }
+
+
+jupeCotonFrance : Query
+jupeCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.3
+        , product = Product.Id "jupe"
+    }
+
+
+chemiseCotonFrance : Query
+chemiseCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.25
+        , product = Product.Id "chemise"
+    }
+
+
+jeanCotonFrance : Query
+jeanCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "jean"
+    }
+
+
+manteauCotonFrance : Query
+manteauCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.95
+        , product = Product.Id "manteau"
+    }
+
+
+pantalonCotonFrance : Query
+pantalonCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "manteau"
+    }
+
+
+pullCotonFrance : Query
+pullCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.5
+        , product = Product.Id "pull"
+    }
+
+
+
+-- Various examples
+
+
+pullLaineAsie : Query
+pullLaineAsie =
+    { pullCotonAsie
+        | materials = [ { id = Material.Id "laine-mouton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }
+
+
+jupePolyesterAsie : Query
+jupePolyesterAsie =
+    { jupeCotonAsie
+        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }
+
+
+manteauMixAsie : Query
+manteauMixAsie =
+    { manteauCotonAsie
+        | materials =
+            [ { id = Material.Id "pa", share = Split.half, spinning = Nothing, country = Nothing }
+            , { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
+            ]
+    }
+
+
+tShirtPolyesterAsie : Query
+tShirtPolyesterAsie =
+    { tShirtCotonAsie
+        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }

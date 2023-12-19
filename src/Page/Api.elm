@@ -54,7 +54,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "9 novembre 2023"
+    [ { date = "19 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `disabledFading` peut maintenant être configuré pour
+            tous les produits."""
+      }
+    , { date = "9 novembre 2023"
       , level = "minor"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
