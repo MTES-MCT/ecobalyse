@@ -857,10 +857,6 @@ productsAndNames =
 
 exampleProductToString : Query -> String
 exampleProductToString q =
-    let
-        _ =
-            Debug.log "the query is" q
-    in
     productsAndNames
         |> List.filterMap
             (\{ name, query } ->

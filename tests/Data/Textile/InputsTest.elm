@@ -20,7 +20,6 @@ sampleQuery : Inputs.Query
 sampleQuery =
     { jupeCotonAsie
         | materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
-        , countrySpinning = Nothing
     }
 
 
