@@ -2,7 +2,7 @@ module Data.Textile.InputsTest exposing (..)
 
 import Data.Country as Country
 import Data.Split as Split
-import Data.Textile.Inputs as Inputs exposing (tShirtCotonAsie, tShirtCotonFrance)
+import Data.Textile.Inputs as Inputs exposing (jupeCotonAsie, tShirtCotonAsie, tShirtCotonFrance)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -18,7 +18,10 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 sampleQuery : Inputs.Query
 sampleQuery =
-    Inputs.jupeCircuitAsie
+    { jupeCotonAsie
+        | materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
+        , countrySpinning = Nothing
+    }
 
 
 suite : Test
