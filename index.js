@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/browser";
