@@ -327,20 +327,16 @@ fadingField { inputs, toggleDisabledFading } =
             , checked
                 (inputs.disabledFading
                     |> Maybe.map not
-                    |> Maybe.withDefault (Product.getFadingByDefault inputs.product)
+                    |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
                 )
             , onCheck (\checked -> toggleDisabledFading (not checked))
             ]
             []
-        , case ( inputs.disabledFading, Product.getFadingByDefault inputs.product ) of
-            ( Nothing, True ) ->
-                text "Délavage activé"
+        , if Inputs.isFaded inputs then
+            text "Délavage activé"
 
-            ( Just False, _ ) ->
-                text "Délavage activé"
-
-            _ ->
-                text "Délavage désactivé"
+          else
+            text "Délavage désactivé"
         ]
 
 

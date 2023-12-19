@@ -145,7 +145,7 @@ table db { detailed, scope } =
           }
         , let
             fadabaleToString product =
-                if Product.getFadingByDefault product then
+                if Product.isFadedByDefault product then
                     "oui"
 
                 else

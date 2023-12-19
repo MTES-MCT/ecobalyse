@@ -21,6 +21,7 @@ module Data.Textile.Inputs exposing
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
+    , isFaded
     , jupeCircuitAsie
     , parseBase64Query
     , removeMaterial
@@ -133,6 +134,11 @@ type alias Query =
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
     }
+
+
+isFaded : Inputs -> Bool
+isFaded inputs =
+    inputs.disabledFading == Just False || (inputs.disabledFading == Nothing && Product.isFadedByDefault inputs.product)
 
 
 toMaterialInputs : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)

@@ -8,9 +8,9 @@ module Data.Textile.Product exposing
     , encodeId
     , findById
     , getFabricProcess
-    , getFadingByDefault
     , getMakingDurationInMinutes
     , idToString
+    , isFadedByDefault
     , isKnitted
     )
 
@@ -97,8 +97,8 @@ getFabricProcess maybeKnittingProcess { fabric } wellknown =
             process
 
 
-getFadingByDefault : Product -> Bool
-getFadingByDefault product =
+isFadedByDefault : Product -> Bool
+isFadedByDefault product =
     product.id == Id "jean"
 
 

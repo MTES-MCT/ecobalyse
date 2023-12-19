@@ -626,10 +626,7 @@ productField query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ span
-                []
-                [ text <| Inputs.exampleProductToString query ]
-            ]
+            [ text <| Inputs.exampleProductToString query ]
         ]
 
 
