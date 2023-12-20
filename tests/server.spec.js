@@ -44,6 +44,7 @@ describe("API", () => {
       [
         "mass=0.17",
         "product=tshirt",
+        "fabricProcess=knitting-mix",
         "materials[]=coton;0.5",
         "materials[]=acrylique;0.5",
         "countryFabric=CN",
@@ -102,7 +103,10 @@ describe("API", () => {
 
         it("should validate the product param", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["product=xxx"]),
+            await makeRequest("/api/textile/simulator", [
+              "product=xxx",
+              "fabricProcess=knitting-mix",
+            ]),
             "product",
             /Produit non trouvé id=xxx/,
           );
@@ -231,11 +235,11 @@ describe("API", () => {
           const response = await makeRequest("/api/textile/simulator", ["yarnSize=9Dtex"]);
         });
 
-        it("should validate the knittingProcess param", async () => {
+        it("should validate the fabricProcess param", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["knittingProcess=notAKnittingProcess"]),
-            "knittingProcess",
-            /Procédé de tricotage inconnu: notAKnittingProcess/,
+            await makeRequest("/api/textile/simulator", ["fabricProcess=notAFabricProcess"]),
+            "fabricProcess",
+            /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
           );
         });
 
@@ -278,6 +282,7 @@ describe("API", () => {
             mass: 0.17,
             materials: [{ id: "coton", share: 1 }],
             product: "tshirt",
+            fabricProcess: "knitting-mix",
             countrySpinning: "BD",
             countryFabric: "PT",
             countryDyeing: "PT",

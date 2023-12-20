@@ -44,8 +44,8 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
@@ -96,7 +96,7 @@ type alias Inputs =
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
+    , fabricProcess : Fabric
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -128,7 +128,7 @@ type alias Query =
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
+    , fabricProcess : Fabric
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -250,7 +250,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.makingComplexity)
         |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.knittingProcess)
+        |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
         |> RE.andMap (Ok query.dyeingMedium)
@@ -274,7 +274,7 @@ toQuery inputs =
     , makingComplexity = inputs.makingComplexity
     , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
-    , knittingProcess = inputs.knittingProcess
+    , fabricProcess = inputs.fabricProcess
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
     , dyeingMedium = inputs.dyeingMedium
@@ -309,13 +309,9 @@ stepsToStrings inputs =
         Nothing ->
             []
     , ifStepEnabled Label.Fabric
-        (case inputs.product.fabric of
-            Product.Knitted _ ->
-                [ "tricotage", inputs.knittingProcess |> Maybe.withDefault Knitting.Mix |> Knitting.toString, inputs.countryFabric.name ]
-
-            Product.Weaved _ ->
-                [ "tissage", inputs.countryFabric.name ]
-        )
+        [ Fabric.toLabel inputs.fabricProcess
+        , inputs.countryFabric.name
+        ]
     , ifStepEnabled Label.Ennobling
         [ case inputs.dyeingMedium of
             Just dyeingMedium ->
@@ -572,7 +568,7 @@ updateProduct product query =
             , makingComplexity = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
-            , knittingProcess = Nothing
+            , fabricProcess = product.fabric
             , disabledFading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
@@ -691,7 +687,7 @@ encode inputs =
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "knittingProcess", inputs.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
+        , ( "fabricProcess", inputs.fabricProcess |> Fabric.encode )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
@@ -728,7 +724,7 @@ decodeQuery =
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "knittingProcess" (Decode.maybe Knitting.decode) Nothing
+        |> Pipe.required "fabricProcess" Fabric.decode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
@@ -761,7 +757,7 @@ encodeQuery query =
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-    , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode )
+    , ( "fabricProcess", query.fabricProcess |> Fabric.encode |> Just )
     , ( "disabledSteps"
       , case query.disabledSteps of
             [] ->
@@ -918,7 +914,7 @@ tShirtCotonAsie =
     , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , knittingProcess = Nothing
+    , fabricProcess = Fabric.KnittingMix
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
@@ -932,6 +928,7 @@ jupeCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -940,6 +937,7 @@ chemiseCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.25
         , product = Product.Id "chemise"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -948,6 +946,7 @@ jeanCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.45
         , product = Product.Id "jean"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -956,6 +955,7 @@ manteauCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.95
         , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -964,6 +964,7 @@ pantalonCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.45
         , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -994,6 +995,7 @@ jupeCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1002,6 +1004,7 @@ chemiseCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.25
         , product = Product.Id "chemise"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1010,6 +1013,7 @@ jeanCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.45
         , product = Product.Id "jean"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1018,6 +1022,7 @@ manteauCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.95
         , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1026,6 +1031,7 @@ pantalonCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.45
         , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
     }
 
 
