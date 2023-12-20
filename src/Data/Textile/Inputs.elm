@@ -1059,7 +1059,7 @@ pullLaineAsie =
 jupePolyesterAsie : Query
 jupePolyesterAsie =
     { jupeCotonAsie
-        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
 
 
@@ -1076,5 +1076,5 @@ manteauMixAsie =
 tShirtPolyesterAsie : Query
 tShirtPolyesterAsie =
     { tShirtCotonAsie
-        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
