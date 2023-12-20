@@ -897,6 +897,7 @@ exampleProductToCategory q =
 exampleProducts : List Query
 exampleProducts =
     productsAndNames
+        |> List.sortBy .name
         |> List.map .query
 
 
