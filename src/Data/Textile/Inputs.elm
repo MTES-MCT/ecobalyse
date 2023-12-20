@@ -24,6 +24,7 @@ module Data.Textile.Inputs exposing
     , isFaded
     , jupeCotonAsie
     , parseBase64Query
+    , productsAndNames
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
