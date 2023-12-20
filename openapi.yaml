@@ -87,7 +87,7 @@ paths:
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -156,7 +156,7 @@ paths:
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -227,7 +227,7 @@ paths:
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -478,7 +478,7 @@ components:
         countryDyeing: "CN"
         countryMaking: "CN"
         airTransportRatio: 0.33
-        quality: 0.9
+        durability: 0.9
         reparability: 0.9
         makingWaste: null
         makingComplexity: null
@@ -658,14 +658,12 @@ components:
         type: number
         minimum: 0
         maximum: 1
-    qualityParam:
-      name: quality
+    durabilityParam:
+      name: durability
       in: query
       description: |
-        Qualité intrinsèque du produit. Le coefficient de qualité intrinsèque représente à quel point
-        le produit va durer dans le temps. Il varie entre 0.67 (peu durable) et 1.45 (très durable).
-        Il est calculé à partir du résultat d’une série de tests de durabilité. Il est utilisé en
-        coefficient multiplicateur du nombre de jours d’utilisation du produit.
+        Qualité intrinsèque du produit. Le coefficient de durabilité représente à quel point
+        le produit va durer dans le temps.
       required: false
       style: form
       schema:
@@ -1191,9 +1189,9 @@ components:
           minimum: 0
           maximum: 1
           required: false
-        quality:
+        durability:
           type: number
-          description: Qualité intrinsèque
+          description: Durabilité
           minimum: 0.67
           maximum: 1.45
           required: false
