@@ -262,16 +262,7 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
-    , countrySpinning =
-        if
-            -- Discard custom spinning country if same as material default country
-            (getMainMaterial inputs.materials |> Result.map .defaultCountry)
-                == Ok inputs.countrySpinning.code
-        then
-            Nothing
-
-        else
-            Just inputs.countrySpinning.code
+    , countrySpinning = Just inputs.countrySpinning.code
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
@@ -1058,7 +1049,7 @@ pullLaineAsie =
 jupePolyesterAsie : Query
 jupePolyesterAsie =
     { jupeCotonAsie
-        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pa", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
 
 
@@ -1075,5 +1066,5 @@ manteauMixAsie =
 tShirtPolyesterAsie : Query
 tShirtPolyesterAsie =
     { tShirtCotonAsie
-        | materials = [ { id = Material.Id "polyester", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pa", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
