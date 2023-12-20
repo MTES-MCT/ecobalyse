@@ -251,10 +251,10 @@ describe("API", () => {
           );
         });
 
-        it("should validate the disabledFading param", async () => {
+        it("should validate the fading param", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["disabledFading=untrue"]),
-            "disabledFading",
+            await makeRequest("/api/textile/simulator", ["fading=untrue"]),
+            "fading",
             /ne peut être que true ou false/,
           );
         });

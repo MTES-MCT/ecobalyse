@@ -374,7 +374,7 @@ parseTextileQuery textileDb =
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (fabricParser "fabricProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
-        |> apply (maybeBoolParser "disabledFading")
+        |> apply (maybeBoolParser "fading")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
         |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")

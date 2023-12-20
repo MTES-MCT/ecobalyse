@@ -94,7 +94,7 @@ paths:
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -163,7 +163,7 @@ paths:
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -234,7 +234,7 @@ paths:
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -777,11 +777,11 @@ components:
         type: number
         minimum: 80
         maximum: 500
-    disabledFadingParam:
-      name: disabledFading
+    fadingParam:
+      name: fading
       in: query
       description: |
-        Désactive l'application du **procédé de délavage** pour l'étape de confection d'un produit.
+        Active l'application du **procédé de délavage** pour l'étape de confection d'un produit.
       required: false
       style: form
       schema:

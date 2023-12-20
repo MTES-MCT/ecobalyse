@@ -95,7 +95,7 @@ type Msg
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
-    | ToggleDisabledFading Bool
+    | ToggleFading Bool
     | ToggleStep Label
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
@@ -363,9 +363,9 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ToggleDisabledFading disabledFading ->
+        ToggleFading fading ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | disabledFading = Just disabledFading }
+                |> updateQuery { query | fading = Just fading }
 
         ToggleStep label ->
             ( model, session, Cmd.none )
@@ -649,7 +649,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , addMaterialModal = AddMaterialModal
                     , deleteMaterial = .id >> RemoveMaterial
                     , setModal = SetModal
-                    , toggleDisabledFading = ToggleDisabledFading
+                    , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
                     , toggleStepDetails = ToggleStepDetails
                     , updateCountry = UpdateStepCountry
