@@ -549,16 +549,14 @@ stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } labe
 
 
 stepHeader : Config msg modal -> Html msg
-stepHeader { current, inputs } =
+stepHeader { current } =
     div
         [ class "d-flex align-items-center gap-2 text-dark"
         , classList [ ( "text-secondary", not current.enabled ) ]
         ]
         [ h2 [ class "h5 mb-0" ]
             [ current.label
-                |> Step.displayLabel
-                    { knitted = Fabric.isKnitted inputs.product.fabric
-                    }
+                |> Label.toName
                 |> text
             , if current.label == Label.Material then
                 Link.smallPillExternal

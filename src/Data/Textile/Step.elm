@@ -5,7 +5,6 @@ module Data.Textile.Step exposing
     , computeMaterialTransportAndImpact
     , computeTransports
     , create
-    , displayLabel
     , encode
     , getInputSurface
     , getOutputSurface
@@ -141,22 +140,6 @@ defaultProcessInfo =
     , fading = Nothing
     , printing = Nothing
     }
-
-
-displayLabel : { knitted : Bool } -> Label -> String
-displayLabel { knitted } label =
-    case ( label, knitted ) of
-        ( Label.Making, _ ) ->
-            "Transformation\u{00A0}- Confection & Délavage"
-
-        ( Label.Fabric, True ) ->
-            "Transformation\u{00A0}- Tricotage"
-
-        ( Label.Fabric, False ) ->
-            "Transformation\u{00A0}- Tissage"
-
-        _ ->
-            Label.toName label
 
 
 computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
