@@ -86,13 +86,13 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -155,13 +155,13 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -226,13 +226,13 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
         - $ref: "#/components/parameters/disabledFadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
@@ -745,7 +745,7 @@ components:
           - `knitting-circular` : Tricotage circulaire, inventaire désagrégé
           - `knitting-straight` : Tricotage rectiligne, inventaire désagrégé
           - `weaving`  : Tissage
-      required: false
+      required: true
       style: form
       schema:
         type: string
