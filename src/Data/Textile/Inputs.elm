@@ -926,7 +926,7 @@ jupeCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -935,7 +935,7 @@ chemiseCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.25
         , product = Product.Id "chemise"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -944,7 +944,7 @@ jeanCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.45
         , product = Product.Id "jean"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -953,7 +953,7 @@ manteauCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.95
         , product = Product.Id "manteau"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -962,7 +962,7 @@ pantalonCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.45
         , product = Product.Id "manteau"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -993,7 +993,7 @@ jupeCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1002,7 +1002,7 @@ chemiseCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.25
         , product = Product.Id "chemise"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1011,7 +1011,7 @@ jeanCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.45
         , product = Product.Id "jean"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1020,7 +1020,7 @@ manteauCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.95
         , product = Product.Id "manteau"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
@@ -1029,7 +1029,7 @@ pantalonCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.45
         , product = Product.Id "manteau"
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.Weaving
     }
 
 
