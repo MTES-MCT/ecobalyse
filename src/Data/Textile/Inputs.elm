@@ -98,7 +98,7 @@ type alias Inputs =
     , surfaceMass : Maybe Unit.SurfaceMass
     , fabricProcess : Fabric
     , disabledSteps : List Label
-    , disabledFading : Maybe Bool
+    , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
@@ -130,7 +130,7 @@ type alias Query =
     , surfaceMass : Maybe Unit.SurfaceMass
     , fabricProcess : Fabric
     , disabledSteps : List Label
-    , disabledFading : Maybe Bool
+    , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
@@ -139,7 +139,7 @@ type alias Query =
 
 isFaded : Inputs -> Bool
 isFaded inputs =
-    inputs.disabledFading == Just False || (inputs.disabledFading == Nothing && Product.isFadedByDefault inputs.product)
+    inputs.fading == Just True || (inputs.fading == Nothing && Product.isFadedByDefault inputs.product)
 
 
 toMaterialInputs : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
@@ -252,7 +252,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.disabledSteps)
-        |> RE.andMap (Ok query.disabledFading)
+        |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.ennoblingHeatSource)
@@ -276,7 +276,7 @@ toQuery inputs =
     , surfaceMass = inputs.surfaceMass
     , fabricProcess = inputs.fabricProcess
     , disabledSteps = inputs.disabledSteps
-    , disabledFading = inputs.disabledFading
+    , fading = inputs.fading
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
     , ennoblingHeatSource = inputs.ennoblingHeatSource
@@ -380,7 +380,7 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, disabledFading } =
+makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, fading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , makingComplexity
@@ -394,8 +394,8 @@ makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, disabl
                 else
                     Just (Split.toPercentString ratio ++ " de transport aérien")
             )
-    , if disabledFading == Just True then
-        Just "non-délavé"
+    , if fading == Just True then
+        Just "délavé"
 
       else
         Nothing
@@ -569,7 +569,7 @@ updateProduct product query =
             , yarnSize = Nothing
             , surfaceMass = Nothing
             , fabricProcess = product.fabric
-            , disabledFading = Nothing
+            , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
             , ennoblingHeatSource = Nothing
@@ -689,7 +689,7 @@ encode inputs =
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "fabricProcess", inputs.fabricProcess |> Fabric.encode )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
-        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
@@ -726,7 +726,7 @@ decodeQuery =
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.required "fabricProcess" Fabric.decode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
+        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
@@ -766,7 +766,7 @@ encodeQuery query =
             list ->
                 Encode.list Label.encode list |> Just
       )
-    , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool )
+    , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
     , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
@@ -916,7 +916,7 @@ tShirtCotonAsie =
     , surfaceMass = Nothing
     , fabricProcess = Fabric.KnittingMix
     , disabledSteps = []
-    , disabledFading = Nothing
+    , fading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
     , ennoblingHeatSource = Nothing

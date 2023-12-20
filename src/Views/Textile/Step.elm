@@ -61,7 +61,7 @@ type alias Config msg modal =
     , next : Maybe Step
     , selectedImpact : Definition
     , setModal : modal -> msg
-    , toggleDisabledFading : Bool -> msg
+    , toggleFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
@@ -311,7 +311,7 @@ printingFields { inputs, updatePrinting } =
 
 
 fadingField : Config msg modal -> Html msg
-fadingField { inputs, toggleDisabledFading } =
+fadingField { inputs, toggleFading } =
     label
         [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
         , title "Délavage"
@@ -320,11 +320,10 @@ fadingField { inputs, toggleDisabledFading } =
             [ type_ "checkbox"
             , class "form-check-input no-outline"
             , checked
-                (inputs.disabledFading
-                    |> Maybe.map not
+                (inputs.fading
                     |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
                 )
-            , onCheck (\checked -> toggleDisabledFading (not checked))
+            , onCheck (\checked -> toggleFading (not checked))
             ]
             []
         , if Inputs.isFaded inputs then
@@ -1048,7 +1047,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
 
                       else
                         text ""
-                    , if inputs.disabledFading /= Just True then
+                    , if inputs.fading == Just True then
                         viewProcessInfo current.processInfo.fading
 
                       else

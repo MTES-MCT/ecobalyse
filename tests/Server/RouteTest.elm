@@ -381,7 +381,7 @@ textileEndpoints db =
           , "countryDyeing=notACountryCode"
           , "countryMaking=US"
           , "disabledSteps=invalid"
-          , "disabledFading=untrue"
+          , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "ennoblingHeatSource=yolo"
@@ -401,7 +401,7 @@ textileEndpoints db =
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 80 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
-                    , ( "disabledFading", "La valeur ne peut être que true ou false." )
+                    , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
