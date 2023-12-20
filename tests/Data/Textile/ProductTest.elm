@@ -22,19 +22,19 @@ suite =
             [ describe "Data.Product"
                 [ describe "customDaysOfWear"
                     [ { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
-                        |> Product.customDaysOfWear (Just (Unit.quality 1)) Nothing
+                        |> Product.customDaysOfWear (Just (Unit.durability 1)) Nothing
                         |> Expect.equal
                             { daysOfWear = Duration.days 100
                             , useNbCycles = 5
                             }
                         |> asTest "should compute custom number of days of wear"
                     , { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
-                        |> Product.customDaysOfWear (Just (Unit.quality 0.8)) Nothing
+                        |> Product.customDaysOfWear (Just (Unit.durability 0.8)) Nothing
                         |> Expect.equal
                             { daysOfWear = Duration.days 80
                             , useNbCycles = 4
                             }
-                        |> asTest "should compute custom number of days of wear with custom quality"
+                        |> asTest "should compute custom number of days of wear with custom durability"
                     , { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
                         |> Product.customDaysOfWear Nothing (Just (Unit.reparability 1.2))
                         |> Expect.equal
@@ -43,12 +43,12 @@ suite =
                             }
                         |> asTest "should compute custom number of days of wear with custom reparability"
                     , { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
-                        |> Product.customDaysOfWear (Just (Unit.quality 1.2)) (Just (Unit.reparability 1.2))
+                        |> Product.customDaysOfWear (Just (Unit.durability 1.2)) (Just (Unit.reparability 1.2))
                         |> Expect.equal
                             { daysOfWear = Duration.days 144
                             , useNbCycles = 7
                             }
-                        |> asTest "should compute custom number of days of wear with custom quality & reparability"
+                        |> asTest "should compute custom number of days of wear with custom durability & reparability"
                     ]
                 , let
                     tshirtResult =

@@ -63,14 +63,14 @@ init db =
     in
     Inputs.fromQuery db
         >> Result.map
-            (\({ product, quality, reparability } as inputs) ->
+            (\({ product, durability, reparability } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             let
                                 { daysOfWear, useNbCycles } =
                                     product.use
-                                        |> Product.customDaysOfWear quality reparability
+                                        |> Product.customDaysOfWear durability reparability
                             in
                             { inputs = inputs
                             , lifeCycle = lifeCycle

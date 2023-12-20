@@ -366,7 +366,7 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeSplitParser "airTransportRatio")
-        |> apply (maybeQualityParser "quality")
+        |> apply (maybeDurabilityParser "durability")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -667,16 +667,16 @@ maybeSplitParser key =
             )
 
 
-maybeQualityParser : String -> Parser (ParseResult (Maybe Unit.Quality))
-maybeQualityParser key =
+maybeDurabilityParser : String -> Parser (ParseResult (Maybe Unit.Durability))
+maybeDurabilityParser key =
     floatParser key
         |> Query.map
             (Maybe.map
                 (\float ->
                     let
                         ( min, max ) =
-                            ( Unit.qualityToFloat Unit.minQuality
-                            , Unit.qualityToFloat Unit.maxQuality
+                            ( Unit.durabilityToFloat Unit.minDurability
+                            , Unit.durabilityToFloat Unit.maxDurability
                             )
                     in
                     if float < min || float > max then
@@ -690,7 +690,7 @@ maybeQualityParser key =
                             )
 
                     else
-                        Ok (Just (Unit.quality float))
+                        Ok (Just (Unit.durability float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

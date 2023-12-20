@@ -1,6 +1,6 @@
 module Views.RangeSlider exposing
-    ( percent
-    , quality
+    ( durability
+    , percent
     , reparability
     , surfaceMass
     , yarnSize
@@ -13,28 +13,28 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 
 
-type alias QualityConfig msg =
+type alias DurabilityConfig msg =
     { id : String
-    , update : Maybe Unit.Quality -> msg
-    , value : Unit.Quality
-    , toString : Unit.Quality -> String
+    , update : Maybe Unit.Durability -> msg
+    , value : Unit.Durability
+    , toString : Unit.Durability -> String
     , disabled : Bool
     }
 
 
-quality : QualityConfig msg -> Html msg
-quality config =
+durability : DurabilityConfig msg -> Html msg
+durability config =
     let
         fromFloat =
-            Unit.qualityToFloat >> String.fromFloat
+            Unit.durabilityToFloat >> String.fromFloat
     in
     layout
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toFloat >> Maybe.map Unit.quality >> config.update)
-            , Attr.min (fromFloat Unit.minQuality)
-            , Attr.max (fromFloat Unit.maxQuality)
+            [ onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
+            , Attr.min (fromFloat Unit.minDurability)
+            , Attr.max (fromFloat Unit.maxDurability)
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.

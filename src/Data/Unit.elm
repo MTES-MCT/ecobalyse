@@ -1,22 +1,24 @@
 module Data.Unit exposing
-    ( Impact
+    ( Durability(..)
+    , Impact
     , ImpactUnit(..)
     , PickPerMeter(..)
-    , Quality(..)
     , Ratio(..)
     , Reparability(..)
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
+    , decodeDurability
     , decodeImpact
-    , decodeQuality
     , decodeRatio
     , decodeReparability
     , decodeSurfaceMass
     , decodeYarnSize
+    , durability
+    , durabilityToFloat
+    , encodeDurability
     , encodeImpact
     , encodePickPerMeter
-    , encodeQuality
     , encodeReparability
     , encodeSurfaceMass
     , encodeThreadDensity
@@ -29,18 +31,16 @@ module Data.Unit exposing
     , impact
     , impactAggregateScore
     , impactToFloat
-    , maxQuality
+    , maxDurability
     , maxReparability
     , maxSurfaceMass
     , maxYarnSize
-    , minQuality
+    , minDurability
     , minReparability
     , minSurfaceMass
     , minYarnSize
     , pickPerMeter
     , pickPerMeterToFloat
-    , quality
-    , qualityToFloat
     , ratio
     , ratioToFloat
     , ratioedForKWh
@@ -48,7 +48,7 @@ module Data.Unit exposing
     , ratioedForMJ
     , reparability
     , reparabilityToFloat
-    , standardQuality
+    , standardDurability
     , standardReparability
     , surfaceMassInGramsPerSquareMeters
     , surfaceMassToSurface
@@ -109,62 +109,62 @@ decodeRatio { percentage } =
 
 
 
--- Quality
+-- Durability
 
 
-type Quality
-    = Quality Float
+type Durability
+    = Durability Float
 
 
-minQuality : Quality
-minQuality =
-    Quality 0.67
+minDurability : Durability
+minDurability =
+    Durability 0.67
 
 
-standardQuality : Quality
-standardQuality =
-    Quality 1
+standardDurability : Durability
+standardDurability =
+    Durability 1
 
 
-maxQuality : Quality
-maxQuality =
-    Quality 1.45
+maxDurability : Durability
+maxDurability =
+    Durability 1.45
 
 
-quality : Float -> Quality
-quality =
-    Quality
+durability : Float -> Durability
+durability =
+    Durability
 
 
-qualityToFloat : Quality -> Float
-qualityToFloat (Quality float) =
+durabilityToFloat : Durability -> Float
+durabilityToFloat (Durability float) =
     float
 
 
-decodeQuality : Decoder Quality
-decodeQuality =
+decodeDurability : Decoder Durability
+decodeDurability =
     Decode.float
         |> Decode.andThen
             (\float ->
-                if float < qualityToFloat minQuality || float > qualityToFloat maxQuality then
+                if float < durabilityToFloat minDurability || float > durabilityToFloat maxDurability then
                     Decode.fail
                         ("La qualité spécifiée ("
                             ++ String.fromFloat float
                             ++ ") doit être comprise entre "
-                            ++ String.fromFloat (qualityToFloat minQuality)
+                            ++ String.fromFloat (durabilityToFloat minDurability)
                             ++ " et "
-                            ++ String.fromFloat (qualityToFloat maxQuality)
+                            ++ String.fromFloat (durabilityToFloat maxDurability)
                             ++ "."
                         )
 
                 else
                     Decode.succeed float
             )
-        |> Decode.map quality
+        |> Decode.map durability
 
 
-encodeQuality : Quality -> Encode.Value
-encodeQuality (Quality float) =
+encodeDurability : Durability -> Encode.Value
+encodeDurability (Durability float) =
     Encode.float float
 
 

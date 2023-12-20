@@ -20,10 +20,10 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "-7"
-                |> Decode.decodeString Unit.decodeQuality
+                |> Decode.decodeString Unit.decodeDurability
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
-                |> asTest "should discard erroneous Quality value"
+                |> asTest "should discard erroneous Durability value"
             , "1.1"
                 |> Decode.decodeString (Unit.decodeRatio { percentage = True })
                 |> Result.mapError Decode.errorToString

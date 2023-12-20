@@ -271,23 +271,23 @@ encodeId =
 
 
 {-| Computes the number of wears and the number of maintainance cycles against
-quality and reparability coefficients.
+durability and reparability coefficients.
 -}
 customDaysOfWear :
-    Maybe Unit.Quality
+    Maybe Unit.Durability
     -> Maybe Unit.Reparability
     -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
     -> { daysOfWear : Duration, useNbCycles : Int }
 customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
     let
-        ( quality, reparability ) =
-            ( maybeQuality |> Maybe.withDefault Unit.standardQuality
+        ( durability, reparability ) =
+            ( maybeQuality |> Maybe.withDefault Unit.standardDurability
             , maybeReparability |> Maybe.withDefault Unit.standardReparability
             )
 
         newDaysOfWear =
             daysOfWear
-                |> Quantity.multiplyBy (Unit.qualityToFloat quality)
+                |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
                 |> Quantity.multiplyBy (Unit.reparabilityToFloat reparability)
     in
     { daysOfWear = newDaysOfWear

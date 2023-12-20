@@ -109,7 +109,7 @@ type Msg
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
-    | UpdateQuality (Maybe Unit.Quality)
+    | UpdateDurability (Maybe Unit.Durability)
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
@@ -444,9 +444,9 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
 
-        UpdateQuality quality ->
+        UpdateDurability durability ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | quality = quality }
+                |> updateQuery { query | durability = durability }
 
         UpdateReparability reparability ->
             ( model, session, Cmd.none )
@@ -660,7 +660,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateKnittingProcess = UpdateKnittingProcess
                     , updatePrinting = UpdatePrinting
-                    , updateQuality = UpdateQuality
+                    , updateDurability = UpdateDurability
                     , updateReparability = UpdateReparability
                     , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste

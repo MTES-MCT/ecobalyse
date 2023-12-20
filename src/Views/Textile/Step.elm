@@ -74,7 +74,7 @@ type alias Config msg modal =
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateQuality : Maybe Unit.Quality -> msg
+    , updateDurability : Maybe Unit.Durability -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
@@ -340,22 +340,14 @@ fadingField { inputs, toggleDisabledFading } =
         ]
 
 
-qualityField : Config msg modal -> Html msg
-qualityField { current, updateQuality } =
-    span
-        [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
-          , "Il varie entre 0.67 (peu durable) et 1.45 (très durable)."
-          , "Il est calculé à partir du résultat d’une série de tests de durabilité."
-          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.quality
-            { id = "quality"
-            , update = updateQuality
-            , value = current.quality
-            , toString = Step.qualityToString
+durabilityField : Config msg modal -> Html msg
+durabilityField { current, updateDurability } =
+    span [ title "Le coefficient de durabilité représente à quel point le produit va durer dans le temps." ]
+        [ RangeSlider.durability
+            { id = "durability"
+            , update = updateDurability
+            , value = current.durability
+            , toString = Step.durabilityToString
             , disabled = not current.enabled
             }
         ]
@@ -633,7 +625,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
 
                                 Label.Use ->
                                     div [ class "mt-2" ]
-                                        [ qualityField config
+                                        [ durabilityField config
                                         , reparabilityField config
                                         , daysOfWearInfo inputs
                                         ]
@@ -944,7 +936,7 @@ daysOfWearInfo inputs =
     let
         info =
             inputs.product.use
-                |> Product.customDaysOfWear inputs.quality inputs.reparability
+                |> Product.customDaysOfWear inputs.durability inputs.reparability
     in
     small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
@@ -1091,7 +1083,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                                     ]
 
                             Label.Use ->
-                                [ qualityField config
+                                [ durabilityField config
                                 , reparabilityField config
                                 , daysOfWearInfo inputs
                                 ]

@@ -176,16 +176,16 @@ textileEndpoints db =
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
-          , "quality=1.2"
+          , "durability=1.2"
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { sampleQuery | quality = Just (Unit.quality 1.2) }
+                        Ok { sampleQuery | durability = Just (Unit.durability 1.2) }
                 )
-            |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
+            |> asTest "should map the /textile/simulator endpoint with the durability parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"

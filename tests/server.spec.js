@@ -283,7 +283,7 @@ describe("API", () => {
             countryDyeing: "PT",
             countryMaking: "ES",
             airTransportRatio: 0.5,
-            quality: 1.2,
+            durability: 1.2,
             reparability: 1.2,
             makingWaste: null,
             makingComplexity: null,
