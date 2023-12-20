@@ -6,6 +6,7 @@ import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
+import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -100,12 +101,11 @@ table db { detailed, scope } =
           }
         , let
             fabricToString product =
-                case product.fabric of
-                    Product.Knitted _ ->
-                        "Tricotée"
+                if Fabric.isKnitted product.fabric then
+                    "Tricotée"
 
-                    Product.Weaved _ ->
-                        "Tissée"
+                else
+                    "Tissée"
           in
           { label = "Etoffe"
           , toValue = fabricToString

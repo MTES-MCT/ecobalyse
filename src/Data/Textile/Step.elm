@@ -26,13 +26,12 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
-import Data.Textile.Product as Product
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -65,7 +64,6 @@ type alias Step =
     , threadDensity : Maybe Unit.ThreadDensity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     }
@@ -119,7 +117,6 @@ create { label, editable, country, enabled } =
     , threadDensity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , knittingProcess = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
     }
@@ -310,7 +307,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -334,15 +331,14 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Fabric ->
             { step
-                | knittingProcess = knittingProcess
-                , yarnSize = yarnSize
+                | yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , fabric =
-                            wellKnown
-                                |> Product.getFabricProcess inputs.knittingProcess inputs.product
+                            inputs.product.fabric
+                                |> Fabric.getProcess wellKnown
                                 |> .name
                                 |> Just
                     }

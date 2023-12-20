@@ -9,7 +9,6 @@ module Data.Textile.Process exposing
     , getDyeingProcess
     , getEnnoblingHeatProcess
     , getImpact
-    , getKnittingProcess
     , getPrintingProcess
     , loadWellKnown
     , uuidToString
@@ -19,7 +18,6 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
@@ -89,6 +87,7 @@ type alias WellKnown =
     , steamHeavyFuelRSA : Process
     , steamCoalRER : Process
     , steamCoalRSA : Process
+    , weaving : Process
     }
 
 
@@ -117,25 +116,6 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
-
-
-getKnittingProcess : Knitting -> WellKnown -> Process
-getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knittingSeamless, knittingCircular, knittingStraight } =
-    case knittingProcess of
-        Knitting.Mix ->
-            knittingMix
-
-        Knitting.FullyFashioned ->
-            knittingFullyFashioned
-
-        Knitting.Integral ->
-            knittingSeamless
-
-        Knitting.Circular ->
-            knittingCircular
-
-        Knitting.Straight ->
-            knittingStraight
 
 
 getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
@@ -219,6 +199,7 @@ loadWellKnown processes =
             , knittingSeamless = "knitting-seamless"
             , knittingCircular = "knitting-circular"
             , knittingStraight = "knitting-straight"
+            , weaving = "weaving"
             }
 
         load get =
@@ -257,6 +238,7 @@ loadWellKnown processes =
         |> load .steamHeavyFuelRSA
         |> load .steamCoalRER
         |> load .steamCoalRSA
+        |> load .weaving
 
 
 aliasToString : Alias -> String

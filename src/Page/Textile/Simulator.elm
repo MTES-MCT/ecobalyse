@@ -22,9 +22,9 @@ import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
@@ -102,7 +102,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
-    | UpdateKnittingProcess Knitting
+    | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
@@ -394,23 +394,23 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
-        UpdateKnittingProcess knittingProcess ->
+        UpdateFabricProcess fabricProcess ->
             ( model, session, Cmd.none )
                 |> updateQuery
                     { query
-                        | knittingProcess = Just knittingProcess
+                        | fabricProcess = fabricProcess
                         , makingWaste =
                             model.simulator
                                 |> Result.map
                                     (\simulator ->
-                                        Knitting.getMakingWaste simulator.inputs.product.making.pcrWaste knittingProcess
+                                        Fabric.getMakingWaste simulator.inputs.product.making.pcrWaste fabricProcess
                                     )
                                 |> Result.toMaybe
                         , makingComplexity =
                             model.simulator
                                 |> Result.map
                                     (\simulator ->
-                                        Knitting.getMakingComplexity simulator.inputs.product.making.complexity knittingProcess
+                                        Fabric.getMakingComplexity simulator.inputs.product.making.complexity fabricProcess
                                     )
                                 |> Result.toMaybe
                     }
@@ -658,7 +658,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
-                    , updateKnittingProcess = UpdateKnittingProcess
+                    , updateFabricProcess = UpdateFabricProcess
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
