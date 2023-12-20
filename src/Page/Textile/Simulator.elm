@@ -12,6 +12,7 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -30,7 +31,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
-import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
@@ -72,6 +72,7 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | SelectExampleModal (Autocomplete Inputs.Query)
 
 
 type Msg
@@ -79,7 +80,8 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnAutocomplete (Autocomplete.Msg Material)
+    | OnAutocompleteExample (Autocomplete.Msg Inputs.Query)
+    | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
@@ -107,7 +109,6 @@ type Msg
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
-    | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateStepCountry Label Country.Code
@@ -189,7 +190,7 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ textileDb, queries, navKey } as session) msg model =
+update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -217,7 +218,22 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        OnAutocomplete autocompleteMsg ->
+        OnAutocompleteExample autocompleteMsg ->
+            case model.modal of
+                SelectExampleModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model | modal = SelectExampleModal newAutocompleteState }
+                    , session
+                    , Cmd.map OnAutocompleteExample autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteMaterial autocompleteMsg ->
             case model.modal of
                 AddMaterialModal maybeOldMaterial autocompleteState ->
                     let
@@ -226,7 +242,7 @@ update ({ textileDb, queries, navKey } as session) msg model =
                     in
                     ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
                     , session
-                    , Cmd.map OnAutocomplete autoCompleteCmd
+                    , Cmd.map OnAutocompleteMaterial autoCompleteCmd
                     )
 
                 _ ->
@@ -236,6 +252,10 @@ update ({ textileDb, queries, navKey } as session) msg model =
             case model.modal of
                 AddMaterialModal maybeOldMaterial autocompleteState ->
                     updateMaterial query model session maybeOldMaterial autocompleteState
+
+                SelectExampleModal autocompleteState ->
+                    ( model, session, Cmd.none )
+                        |> selectExample autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -275,22 +295,36 @@ update ({ textileDb, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SetModal modal ->
-            ( { model | modal = modal }
+        SetModal NoModal ->
+            ( { model | modal = NoModal }
             , session
-            , case modal of
-                NoModal ->
-                    commandsForNoModal model.modal
+            , commandsForNoModal model.modal
+            )
 
-                ComparatorModal ->
-                    Ports.addBodyClass "prevent-scrolling"
+        SetModal ComparatorModal ->
+            ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
-                AddMaterialModal _ _ ->
-                    Cmd.batch
-                        [ Ports.addBodyClass "prevent-scrolling"
-                        , Dom.focus "element-search"
-                            |> Task.attempt (always NoOp)
-                        ]
+        SetModal (AddMaterialModal maybeOldMaterial autocomplete) ->
+            ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
+            )
+
+        SetModal (SelectExampleModal autocomplete) ->
+            ( { model | modal = SelectExampleModal autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -410,19 +444,6 @@ update ({ textileDb, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
 
-        UpdateProduct productId ->
-            case Product.findById productId textileDb.products of
-                Ok product ->
-                    let
-                        updatedQuery =
-                            Inputs.updateProduct product query
-                    in
-                    ( { model | initialQuery = updatedQuery }, session, Cmd.none )
-                        |> updateQuery updatedQuery
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
-
         UpdateQuality quality ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
@@ -473,6 +494,13 @@ commandsForNoModal modal =
                         |> Maybe.map (.material >> .id >> Material.idToString >> (++) "selector-")
                         |> Maybe.withDefault "add-new-element"
                     )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        SelectExampleModal _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
 
@@ -532,6 +560,17 @@ focusNode node ( model, session, commands ) =
     )
 
 
+selectExample : Autocomplete Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample autocompleteState ( model, session, _ ) =
+    let
+        example =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.withDefault Inputs.defaultQuery
+    in
+    update session (SetModal NoModal) { model | initialQuery = example }
+        |> updateQuery example
+
+
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectMaterial autocompleteState ( model, session, _ ) =
     let
@@ -570,25 +609,24 @@ massField massInput =
         ]
 
 
-productField : TextileDb.Db -> Product -> Html Msg
-productField db product =
+productField : Inputs.Query -> Html Msg
+productField query =
+    let
+        autocompleteState =
+            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
+    in
     div []
-        [ label [ for "product", class "form-label fw-bold" ]
-            [ text "Type de produit" ]
-        , db.products
-            |> List.map
-                (\p ->
-                    option
-                        [ value (Product.idToString p.id)
-                        , selected (product.id == p.id)
-                        ]
-                        [ text p.name ]
-                )
-            |> select
-                [ id "product"
-                , class "form-select"
-                , onInput (Product.Id >> UpdateProduct)
-                ]
+        [ label
+            [ for "selector-example"
+            , class "form-label fw-bold"
+            ]
+            [ text "Produit" ]
+        , button
+            [ class "form-select ElementSelector text-start"
+            , id "selector-example"
+            , onClick (SetModal (SelectExampleModal autocompleteState))
+            ]
+            [ text <| Inputs.exampleProductToString query ]
         ]
 
 
@@ -649,10 +687,10 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row" ]
-                [ div [ class "col-sm-6 mb-3" ]
-                    [ productField textileDb inputs.product
+                [ div [ class "col-sm-9 mb-3" ]
+                    [ productField (Inputs.toQuery inputs)
                     ]
-                , div [ class "col-sm-6 mb-3" ]
+                , div [ class "col-sm-3 mb-3" ]
                     [ inputs.mass
                         |> Mass.inKilograms
                         |> String.fromFloat
@@ -742,12 +780,25 @@ view session model =
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
                                 , noOp = NoOp
-                                , onAutocomplete = OnAutocomplete
+                                , onAutocomplete = OnAutocompleteMaterial
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
                                 , toLabel = .shortName
                                 , toCategory = .origin >> Origin.toLabel
+                                }
+
+                        SelectExampleModal autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocompleteExample
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici le nom du produit pour le rechercher"
+                                , title = "Sélectionnez un produit"
+                                , toLabel = Inputs.exampleProductToString
+                                , toCategory = Inputs.exampleProductToCategory
                                 }
                     ]
 
@@ -774,4 +825,7 @@ subscriptions { modal } =
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
 
         AddMaterialModal _ _ ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+
+        SelectExampleModal _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

@@ -54,13 +54,20 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "11 décembre 2023"
+    [ { date = "31 décembre 2023"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
             """Le paramètre permettant de spécifier des compléments (ou bonus)
             personnalisés par ingrédient a été retiré, il est remplacé par la
             gestion automatisée des services écosystémiques."""
+      }
+    , { date = "19 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `disabledFading` peut maintenant être configuré pour
+            tous les produits."""
       }
     , { date = "9 novembre 2023"
       , level = "minor"

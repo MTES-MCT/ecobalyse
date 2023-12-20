@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
-import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
+import Data.Textile.Inputs as Inputs exposing (Query, tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
@@ -17,6 +17,11 @@ import Server.Route as Route
 import Static.Db as StaticDb
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
+
+
+sampleQuery : Query
+sampleQuery =
+    { tShirtCotonFrance | countrySpinning = Nothing }
 
 
 suite : Test
@@ -153,7 +158,7 @@ textileEndpoints db =
             , "countryMaking=FR"
             ]
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetTextileSimulator (Ok tShirtCotonFrance))
+            |> Expect.equal (Just <| Route.GetTextileSimulator (Ok sampleQuery))
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
@@ -168,7 +173,7 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
+                        Ok { sampleQuery | quality = Just (Unit.quality 1.2) }
                 )
             |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
         , [ "/textile/simulator?mass=0.17"
@@ -184,7 +189,7 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Ennobling ] }
+                        Ok { sampleQuery | disabledSteps = [ Label.Making, Label.Ennobling ] }
                 )
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
         , [ "/textile/simulator/fwe?mass=0.17"
@@ -199,7 +204,7 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulatorSingle Definition.Fwe <|
-                        Ok tShirtCotonFrance
+                        Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/{impact} endpoint"
         , [ "/textile/simulator/detailed?mass=0.17"
@@ -214,13 +219,13 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulatorDetailed <|
-                        Ok tShirtCotonFrance
+                        Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/detailed endpoint"
         ]
     , describe "POST endpoints"
         [ "/textile/simulator"
-            |> testEndpoint db "POST" (Inputs.encodeQuery Inputs.tShirtCotonFrance)
+            |> testEndpoint db "POST" (Inputs.encodeQuery tShirtCotonFrance)
             |> Expect.equal (Just Route.PostTextileSimulator)
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"

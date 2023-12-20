@@ -10,6 +10,7 @@ module Data.Textile.Product exposing
     , getFabricProcess
     , getMakingDurationInMinutes
     , idToString
+    , isFadedByDefault
     , isKnitted
     )
 
@@ -40,8 +41,7 @@ type FabricOptions
 
 
 type alias MakingOptions =
-    { fadable : Bool -- Can this product be faded?
-    , pcrWaste : Split -- PCR product waste ratio
+    { pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
     , durationInMinutes : Duration -- How long does it take
     }
@@ -95,6 +95,11 @@ getFabricProcess maybeKnittingProcess { fabric } wellknown =
 
         Weaved process ->
             process
+
+
+isFadedByDefault : Product -> Bool
+isFadedByDefault product =
+    product.id == Id "jean"
 
 
 getMakingDurationInMinutes : Product -> Duration
@@ -158,7 +163,6 @@ decodeDyeingOptions =
 decodeMakingOptions : Decoder MakingOptions
 decodeMakingOptions =
     Decode.succeed MakingOptions
-        |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" MakingComplexity.decode
         |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
@@ -222,8 +226,7 @@ encodeFabricOptions v =
 encodeMakingOptions : MakingOptions -> Encode.Value
 encodeMakingOptions v =
     Encode.object
-        [ ( "fadable", Encode.bool v.fadable )
-        , ( "pcrWaste", Split.encodeFloat v.pcrWaste )
+        [ ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
         , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]

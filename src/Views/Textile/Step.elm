@@ -324,15 +324,19 @@ fadingField { inputs, toggleDisabledFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , checked (not (Maybe.withDefault False inputs.disabledFading))
+            , checked
+                (inputs.disabledFading
+                    |> Maybe.map not
+                    |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
+                )
             , onCheck (\checked -> toggleDisabledFading (not checked))
             ]
             []
-        , if inputs.disabledFading == Just True then
-            text "Délavage désactivé"
+        , if Inputs.isFaded inputs then
+            text "Délavage activé"
 
           else
-            text "Délavage activé"
+            text "Délavage désactivé"
         ]
 
 
@@ -551,23 +555,14 @@ stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } labe
 
 stepHeader : Config msg modal -> Html msg
 stepHeader { current, inputs } =
-    label
-        [ class "d-flex align-items-center gap-2"
-        , class "text-dark cursor-pointer"
+    div
+        [ class "d-flex align-items-center gap-2 text-dark"
         , classList [ ( "text-secondary", not current.enabled ) ]
-        , title
-            (if current.enabled then
-                "Étape activée, cliquez pour la désactiver"
-
-             else
-                "Étape desactivée, cliquez pour la réactiver"
-            )
         ]
         [ h2 [ class "h5 mb-0" ]
             [ current.label
                 |> Step.displayLabel
                     { knitted = Product.isKnitted inputs.product
-                    , fadable = inputs.product.making.fadable
                     }
                 |> text
             , if current.label == Label.Material then
@@ -633,11 +628,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                     div [ class "mt-2" ]
                                         [ makingWasteField config
                                         , airTransportRatioField config
-                                        , if inputs.product.making.fadable then
-                                            fadingField config
-
-                                          else
-                                            text ""
+                                        , fadingField config
                                         ]
 
                                 Label.Use ->
@@ -1067,7 +1058,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
 
                       else
                         text ""
-                    , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                    , if inputs.disabledFading /= Just True then
                         viewProcessInfo current.processInfo.fading
 
                       else
@@ -1099,11 +1090,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                                 List.filterMap identity
                                     [ Just <| makingWasteField config
                                     , Just <| airTransportRatioField config
-                                    , if inputs.product.making.fadable then
-                                        Just (fadingField config)
-
-                                      else
-                                        Nothing
+                                    , Just (fadingField config)
                                     ]
 
                             Label.Use ->

@@ -145,13 +145,13 @@ table db { detailed, scope } =
           }
         , let
             fadabaleToString product =
-                if product.making.fadable then
+                if Product.isFadedByDefault product then
                     "oui"
 
                 else
                     "non"
           in
-          { label = "Délavage"
+          { label = "Délavage par défaut"
           , toValue = fadabaleToString
           , toCell =
                 fadabaleToString >> text

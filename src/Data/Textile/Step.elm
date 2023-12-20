@@ -146,19 +146,16 @@ defaultProcessInfo =
     }
 
 
-displayLabel : { knitted : Bool, fadable : Bool } -> Label -> String
-displayLabel { knitted, fadable } label =
-    case ( label, knitted, fadable ) of
-        ( Label.Making, _, True ) ->
+displayLabel : { knitted : Bool } -> Label -> String
+displayLabel { knitted } label =
+    case ( label, knitted ) of
+        ( Label.Making, _ ) ->
             "Transformation\u{00A0}- Confection & Délavage"
 
-        ( Label.Making, _, False ) ->
-            "Transformation\u{00A0}- Confection"
-
-        ( Label.Fabric, True, _ ) ->
+        ( Label.Fabric, True ) ->
             "Transformation\u{00A0}- Tricotage"
 
-        ( Label.Fabric, False, _ ) ->
+        ( Label.Fabric, False ) ->
             "Transformation\u{00A0}- Tissage"
 
         _ ->
@@ -385,12 +382,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , fading =
-                            if inputs.product.making.fadable then
-                                Just wellKnown.fading.name
-
-                            else
-                                Nothing
+                        , fading = Just wellKnown.fading.name
                         , airTransportRatio =
                             country.airTransportRatio
                                 |> airTransportRatioToString
