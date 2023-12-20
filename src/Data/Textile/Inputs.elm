@@ -263,16 +263,7 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
-    , countrySpinning =
-        if
-            -- Discard custom spinning country if same as material default country
-            (getMainMaterial inputs.materials |> Result.map .defaultCountry)
-                == Ok inputs.countrySpinning.code
-        then
-            Nothing
-
-        else
-            Just inputs.countrySpinning.code
+    , countrySpinning = Just inputs.countrySpinning.code
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code

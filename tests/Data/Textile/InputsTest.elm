@@ -20,7 +20,6 @@ sampleQuery : Inputs.Query
 sampleQuery =
     { jupeCotonAsie
         | materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
-        , countrySpinning = Nothing
     }
 
 
@@ -118,13 +117,12 @@ suite =
                     |> testComplementEqual -102.85
                     |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
                 ]
-            , describe "productsAndNames"
-                (Inputs.productsAndNames
-                    |> List.map
-                        (\{ name, query } ->
-                            Expect.ok (Inputs.fromQuery textileDb query)
-                                |> asTest (name ++ " example is ok")
-                        )
-                )
+            , Inputs.productsAndNames
+                |> List.map
+                    (\{ name, query } ->
+                        Expect.ok (Inputs.fromQuery textileDb query)
+                            |> asTest (name ++ " example is ok")
+                    )
+                |> describe "productsAndNames"
             ]
         )
