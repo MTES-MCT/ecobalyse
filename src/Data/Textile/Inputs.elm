@@ -24,6 +24,7 @@ module Data.Textile.Inputs exposing
     , isFaded
     , jupeCotonAsie
     , parseBase64Query
+    , productsAndNames
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -888,6 +889,7 @@ exampleProductToCategory q =
 exampleProducts : List Query
 exampleProducts =
     productsAndNames
+        |> List.sortBy .name
         |> List.map .query
 
 
@@ -1049,7 +1051,7 @@ pullLaineAsie =
 jupePolyesterAsie : Query
 jupePolyesterAsie =
     { jupeCotonAsie
-        | materials = [ { id = Material.Id "pa", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
 
 
@@ -1066,5 +1068,5 @@ manteauMixAsie =
 tShirtPolyesterAsie : Query
 tShirtPolyesterAsie =
     { tShirtCotonAsie
-        | materials = [ { id = Material.Id "pa", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
