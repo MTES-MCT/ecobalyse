@@ -51,6 +51,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
 
@@ -587,10 +588,31 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
+productField : Inputs.Query -> Html Msg
+productField query =
+    let
+        autocompleteState =
+            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
+    in
+    div []
+        [ label
+            [ for "selector-example"
+            , class "form-label fw-bold text-truncate"
+            ]
+            [ text "Produit" ]
+        , button
+            [ class "form-select ElementSelector text-start"
+            , id "selector-example"
+            , onClick (SetModal (SelectExampleModal autocompleteState))
+            ]
+            [ text <| Inputs.exampleProductToString query ]
+        ]
+
+
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold" ]
+        [ label [ for "mass", class "form-label fw-bold text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -606,27 +628,6 @@ massField massInput =
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
             ]
-        ]
-
-
-productField : Inputs.Query -> Html Msg
-productField query =
-    let
-        autocompleteState =
-            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
-    in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
-            ]
-            [ text "Produit" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ text <| Inputs.exampleProductToString query ]
         ]
 
 
@@ -686,16 +687,10 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row" ]
-                [ div [ class "col-sm-9 mb-3" ]
-                    [ productField (Inputs.toQuery inputs)
-                    ]
-                , div [ class "col-sm-3 mb-3" ]
-                    [ inputs.mass
-                        |> Mass.inKilograms
-                        |> String.fromFloat
-                        |> massField
-                    ]
+            , div [ class "row align-items-start mb-3" ]
+                [ div [ class "col-md-6" ] [ productField (Inputs.toQuery inputs) ]
+                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
+                , div [ class "col-md-3" ] [ RangeSlider.durability2 ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
