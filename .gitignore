@@ -1,7 +1,6 @@
 /.env
 /dist
 elm-stuff
-elm-stuff
 /node_modules
 /public/app.js
 /public/icomoon/*.txt
