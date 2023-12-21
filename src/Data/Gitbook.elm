@@ -41,6 +41,7 @@ type Path
     | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
+    | TextileMakingDeadStock -- Deadstock lors de la confection textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -120,6 +121,9 @@ pathToString path =
 
         TextileMakingComplexity ->
             "textile/etapes-du-cycle-de-vie/confection#electricite-consommee-mj-kwh"
+
+        TextileMakingDeadStock ->
+            "textile/cas-particuliers/stocks-dormants-deadstock"
 
         TextileSpinning ->
             "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"

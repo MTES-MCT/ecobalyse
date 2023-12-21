@@ -1156,6 +1156,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                     , ennoblingToxicityView config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
+                    , deadstockView config current.deadstock
                     , if current.label == Label.EndOfLife then
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
                             [ span [ class "me-2" ] [ text "Probabilité de fin de vie hors-Europe" ]
@@ -1303,6 +1304,19 @@ threadDensityView threadDensity =
 
         Nothing ->
             text ""
+
+
+deadstockView : Config msg modal -> Mass -> Html msg
+deadstockView config deadstock =
+    if deadstock /= Quantity.zero then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            [ text "Dont deadstock\u{00A0}:\u{00A0}"
+            , Format.kgToString deadstock |> text
+            , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+            ]
+
+    else
+        text ""
 
 
 view : Config msg modal -> ViewWithTransport msg
