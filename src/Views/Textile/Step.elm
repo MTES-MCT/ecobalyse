@@ -609,7 +609,9 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
 
                                 Label.Fabric ->
                                     div [ class "mt-2 fs-7" ]
-                                        [ surfaceMassField config inputs.product ]
+                                        [ fabricProcessField config
+                                        , surfaceMassField config inputs.product
+                                        ]
 
                                 Label.Ennobling ->
                                     div [ class "mt-2" ]
