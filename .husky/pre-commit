@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Check if code is formatted
-if ! npx prettier@3.0.3 --check . ; then
+if ! npm run format:check ; then
   echo "Code is not formatted. Run 'npm run format:json' to format before committing."
   exit 1
 fi

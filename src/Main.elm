@@ -26,6 +26,7 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
+    , matomo : { host : String, siteId : String }
     , rawStore : String
     }
 
@@ -89,6 +90,7 @@ init flags url navKey =
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
+                            , matomo = flags.matomo
                             , foodDb = db.foodDb
                             , textileDb = db.textileDb
                             , notifications = []

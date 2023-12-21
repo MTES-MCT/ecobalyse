@@ -9,7 +9,6 @@ module Data.Textile.Process exposing
     , getDyeingProcess
     , getEnnoblingHeatProcess
     , getImpact
-    , getKnittingProcess
     , getPrintingProcess
     , loadWellKnown
     , uuidToString
@@ -19,7 +18,6 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
@@ -28,7 +26,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Mass exposing (Mass)
 import Result.Extra as RE
 
 
@@ -44,9 +41,7 @@ type alias Process =
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
-
-    -- FIXME: waste should probably be Unit.Ratio
-    , waste : Mass -- kg of textile wasted per kg of material to process
+    , waste : Unit.Ratio -- share of raw material wasted when initially processed
     , alias : Maybe Alias
     }
 
@@ -92,6 +87,7 @@ type alias WellKnown =
     , steamHeavyFuelRSA : Process
     , steamCoalRER : Process
     , steamCoalRSA : Process
+    , weaving : Process
     }
 
 
@@ -120,25 +116,6 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
-
-
-getKnittingProcess : Knitting -> WellKnown -> Process
-getKnittingProcess knittingProcess { knittingMix, knittingFullyFashioned, knittingSeamless, knittingCircular, knittingStraight } =
-    case knittingProcess of
-        Knitting.Mix ->
-            knittingMix
-
-        Knitting.FullyFashioned ->
-            knittingFullyFashioned
-
-        Knitting.Integral ->
-            knittingSeamless
-
-        Knitting.Circular ->
-            knittingCircular
-
-        Knitting.Straight ->
-            knittingStraight
 
 
 getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
@@ -222,6 +199,7 @@ loadWellKnown processes =
             , knittingSeamless = "knitting-seamless"
             , knittingCircular = "knitting-circular"
             , knittingStraight = "knitting-straight"
+            , weaving = "weaving"
             }
 
         load get =
@@ -260,6 +238,7 @@ loadWellKnown processes =
         |> load .steamHeavyFuelRSA
         |> load .steamCoalRER
         |> load .steamCoalRSA
+        |> load .weaving
 
 
 aliasToString : Alias -> String
@@ -297,7 +276,7 @@ decode definitions =
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "waste" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 

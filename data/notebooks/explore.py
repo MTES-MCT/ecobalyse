@@ -152,7 +152,7 @@ def lookup_cf(loaded_method, element):
     """Find a Characterization Factor by name in the list of already loaded CFs"""
     cfs = [cf for cf in loaded_method if cf[0] == element]
     if len(cfs) == 0:
-        return ""
+        return "Ø"
     elif len(cfs) == 1:
         return "{:.4g}".format(cfs[0][1])
     else:
@@ -530,7 +530,7 @@ def display_main_data(method, impact_category, activity):
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
             f"<li><b>Comment</b>: {comment}</li>"
-            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{cfs.to_html()}</details></li>'
+            f'<li><details style="cursor: pointer; background-color: #EEE;"><summary style="font-size: 1.5em"><b>Characterization factors</b></summary>{cfs.to_html(index=False)}</details></li>'
             "</ul>"
         )
 
@@ -561,7 +561,9 @@ def display_main_data(method, impact_category, activity):
                     columns=["Score", "Amount", "Unit", "Elementary flow"],
                 )
             )
-            top_emissions.format(formatter={"Score": "{:.4g}".format})
+            top_emissions.format(
+                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+            )
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
             top_processes = pandas.io.formats.style.Styler(
@@ -580,7 +582,9 @@ def display_main_data(method, impact_category, activity):
                 )
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
-            top_processes.format(formatter={"Score": "{:.4g}".format})
+            top_processes.format(
+                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+            )
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
@@ -622,7 +626,7 @@ def display_main_data(method, impact_category, activity):
                 ipywidgets.VBox(
                     [
                         ipywidgets.HTML(
-                            f"<h2>µPt PEF: {10e6 * pef:10.2f}</h2>" if pef else ""
+                            f"<h2>µPt PEF: {1e6 * pef:10.2f}</h2>" if pef else ""
                         ),
                         ipywidgets.HTML(impacts_error),
                         ipywidgets.HTML(impacts.to_html()),
