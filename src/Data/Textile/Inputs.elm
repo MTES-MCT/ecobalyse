@@ -93,6 +93,7 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
@@ -125,6 +126,7 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
@@ -247,6 +249,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
+        |> RE.andMap (Ok query.makingDeadStock)
         |> RE.andMap (Ok query.makingComplexity)
         |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
@@ -271,6 +274,7 @@ toQuery inputs =
     , quality = inputs.quality
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
+    , makingDeadStock = inputs.makingDeadStock
     , makingComplexity = inputs.makingComplexity
     , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
@@ -380,9 +384,11 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { makingWaste, makingComplexity, airTransportRatio, fading } =
+makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTransportRatio, fading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
+    , makingDeadStock
+        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de deadstocks"))
     , makingComplexity
         |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
@@ -565,6 +571,7 @@ updateProduct product query =
             , quality = Nothing
             , reparability = Nothing
             , makingWaste = Nothing
+            , makingDeadStock = Nothing
             , makingComplexity = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
@@ -684,6 +691,7 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
@@ -721,6 +729,7 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
@@ -754,6 +763,7 @@ encodeQuery query =
     , ( "quality", query.quality |> Maybe.map Unit.encodeQuality )
     , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
+    , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
@@ -911,6 +921,7 @@ tShirtCotonAsie =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , makingDeadStock = Nothing
     , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing

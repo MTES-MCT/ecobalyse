@@ -2,6 +2,7 @@ module Page.Explore.TextileProducts exposing (table)
 
 import Area
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
@@ -155,6 +156,13 @@ table db { detailed, scope } =
           , toValue = fadabaleToString
           , toCell =
                 fadabaleToString >> text
+          }
+        , { label = "Deadstock"
+          , toValue = Split.toPercentString Env.defaultDeadStock |> always
+          , toCell =
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Format.splitAsPercentage Env.defaultDeadStock ]
+                    |> always
           }
         , { label = "Type de teinture"
           , toValue = .dyeing >> .defaultMedium >> DyeingMedium.toLabel

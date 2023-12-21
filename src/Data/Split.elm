@@ -8,6 +8,7 @@ module Data.Split exposing
     , divideBy
     , encodeFloat
     , encodePercent
+    , fifteen
     , fourty
     , fromFloat
     , fromPercent
@@ -15,6 +16,7 @@ module Data.Split exposing
     , half
     , quarter
     , tenth
+    , thirty
     , toFloat
     , toFloatString
     , toPercent
@@ -54,9 +56,19 @@ tenth =
     Split 10
 
 
+fifteen : Split
+fifteen =
+    Split 15
+
+
 twenty : Split
 twenty =
     Split 20
+
+
+thirty : Split
+thirty =
+    Split 30
 
 
 fourty : Split
