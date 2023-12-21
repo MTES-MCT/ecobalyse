@@ -62,6 +62,21 @@ changelog =
             personnalisés par ingrédient a été retiré, il est remplacé par la
             gestion automatisée des services écosystémiques."""
       }
+    , { date = "20 décembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `disabledFading` a été renommé en `fading` et représente
+            l'opposé. Sélectionner `true` pour **activer** le délavage."""
+      }
+    , { date = "20 décembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre optionnel `knittingProcess` a été remplacé par le
+            paramètre requis `fabricProcess`, qui prend en compte les différents
+            procédés de tricotage ainsi que le procédé de tissage."""
+      }
     , { date = "19 décembre 2023"
       , level = "minor"
       , domains = [ "Textile" ]

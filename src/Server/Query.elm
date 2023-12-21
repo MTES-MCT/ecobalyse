@@ -17,9 +17,9 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
@@ -316,9 +316,9 @@ parseTextileQuery textileDb =
         |> apply (maybeMakingComplexityParser "makingComplexity")
         |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
-        |> apply (maybeKnittingProcess "knittingProcess")
+        |> apply (fabricParser "fabricProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
-        |> apply (maybeBoolParser "disabledFading")
+        |> apply (maybeBoolParser "fading")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
         |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
@@ -807,20 +807,20 @@ maybeSurfaceMassParser key =
             )
 
 
-maybeKnittingProcess : String -> Parser (ParseResult (Maybe Knitting))
-maybeKnittingProcess key =
+fabricParser : String -> Parser (ParseResult Fabric)
+fabricParser key =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant du type de tissu manquant." ))
         |> Query.map
-            (Maybe.map
+            (Result.andThen
                 (\str ->
-                    case Knitting.fromString str of
-                        Ok knittingProcess ->
-                            Ok (Just knittingProcess)
+                    case Fabric.fromString str of
+                        Ok fabricProcess ->
+                            Ok fabricProcess
 
                         Err err ->
                             Err ( key, err )
                 )
-                >> Maybe.withDefault (Ok Nothing)
             )
 
 

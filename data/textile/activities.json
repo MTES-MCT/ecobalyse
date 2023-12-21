@@ -3277,7 +3277,7 @@
     "elec_pppm": 0.0003145,
     "elec_MJ": 0.0,
     "waste": 0.0667,
-    "alias": null,
+    "alias": "weaving",
     "step_usage": "Tissage / Tricotage",
     "correctif": "non applicable"
   },

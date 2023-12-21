@@ -86,15 +86,15 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -155,15 +155,15 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -226,15 +226,15 @@ paths:
         - $ref: "#/components/parameters/countryFabricParam"
         - $ref: "#/components/parameters/countryDyeingParam"
         - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/qualityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/knittingProcessParam"
         - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/fadingParam"
         - $ref: "#/components/parameters/disabledStepsParam"
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
@@ -469,7 +469,7 @@ components:
         makingComplexity: null
         yarnSize: null
         surfaceMass: null
-        knittingProcess: null
+        fabricProcess: "knitting-mix"
         disabledSteps:
         - use
   parameters:
@@ -719,35 +719,36 @@ components:
         type: string
         minimum: 9
         maximum: 200
-    knittingProcessParam:
-      name: knittingProcess
+    fabricProcessParam:
+      name: fabricProcess
       in: query
       description: |
-        Le processus utilisé pour tricoter le tissu, parmi la liste de choix suivants :
-          - `mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
-          - `fully-fashioned` : Tricotage fully-fashioned / seamless
-          - `integral` : Tricotage intégral / whole garment
-          - `circular` : Tricotage circulaire, inventaire désagrégé
-          - `straight` : Tricotage rectiligne, inventaire désagrégé
-
-          **⚠️ Sur les produits tissés, ce paramètre n'a aucun impact.**
-      required: false
+        Le processus utilisé pour tisser ou tricoter le tissu, parmi la liste de choix suivants :
+          - `knitting-mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+          - `knitting-fully-fashioned` : Tricotage fully-fashioned / seamless
+          - `knitting-integral` : Tricotage intégral / whole garment
+          - `knitting-circular` : Tricotage circulaire, inventaire désagrégé
+          - `knitting-straight` : Tricotage rectiligne, inventaire désagrégé
+          - `weaving`  : Tissage
+      required: true
       style: form
       schema:
         type: string
         enum:
-          "$ref": "#/components/schemas/KnittingProcessEnum"
+          "$ref": "#/components/schemas/FabricProcessEnum"
       examples:
-        mix:
-          value: "mix"
-        fully-fashioned:
-          value: "fully-fashioned"
-        integral:
-          value: "integral"
-        circular:
-          value: "circular"
-        straight:
-          value: "straight"
+        knitting-mix:
+          value: "knitting-mix"
+        knitting-fully-fashioned:
+          value: "knitting-fully-fashioned"
+        knitting-integral:
+          value: "knitting-integral"
+        knitting-circular:
+          value: "knitting-circular"
+        knitting-straight:
+          value: "knitting-straight"
+        weaving:
+          value: "weaving"
     surfaceMassParam:
       name: surfaceMass
       in: query
@@ -761,11 +762,11 @@ components:
         type: number
         minimum: 80
         maximum: 500
-    disabledFadingParam:
-      name: disabledFading
+    fadingParam:
+      name: fading
       in: query
       description: |
-        Désactive l'application du **procédé de délavage** pour l'étape de confection d'un produit.
+        Active l'application du **procédé de délavage** pour l'étape de confection d'un produit.
       required: false
       style: form
       schema:
@@ -1210,11 +1211,11 @@ components:
           minimum: 80
           maximum: 500
           required: false
-        knittingProcess:
+        fabricProcess:
           type: string
-          required: false
+          required: true
           enum:
-            "$ref": "#/components/schemas/KnittingProcessEnum"
+            "$ref": "#/components/schemas/FabricProcessEnum"
         disabledSteps:
           type: string
           required: false
@@ -1341,12 +1342,13 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
-    KnittingProcessEnum:
-      - mix
-      - fully-fashioned
-      - integral
-      - circular
-      - straight
+    FabricProcessEnum:
+      - knitting-mix
+      - knitting-fully-fashioned
+      - knitting-integral
+      - knitting-circular
+      - knitting-straight
+      - weaving
     CountryListResponse:
       type: array
       description: Liste des pays.

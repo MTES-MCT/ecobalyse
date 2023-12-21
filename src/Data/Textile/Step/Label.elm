@@ -107,7 +107,7 @@ toName label =
             "Transformation\u{00A0}- Filature"
 
         Fabric ->
-            "Transformation\u{00A0}- Tissage & Tricotage"
+            "Transformation\u{00A0}- Tissage / Tricotage"
 
         Making ->
             "Transformation\u{00A0}- Confection"

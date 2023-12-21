@@ -152,6 +152,7 @@ textileEndpoints db =
         [ String.join "&"
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
+            , "fabricProcess=knitting-mix"
             , "materials[]=coton;1"
             , "countryFabric=FR"
             , "countryDyeing=FR"
@@ -162,6 +163,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -178,6 +180,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -194,6 +197,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
         , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -209,6 +213,7 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator/{impact} endpoint"
         , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -261,6 +266,7 @@ textileEndpoints db =
           in
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
           , "materials[]=acrylique;0.4"
@@ -348,6 +354,7 @@ textileEndpoints db =
                     [ ( "countryFabric", "Code pays manquant." )
                     , ( "countryDyeing", "Code pays manquant." )
                     , ( "countryMaking", "Code pays manquant." )
+                    , ( "fabricProcess", "Identifiant du type de tissu manquant." )
                     , ( "mass", "La masse est manquante." )
                     , ( "product", "Identifiant du type de produit manquant." )
                     ]
@@ -356,15 +363,15 @@ textileEndpoints db =
             |> asTest "should expose query validation errors"
         , [ "/textile/simulator?mass=-0.17"
           , "product=notAProductID"
+          , "fabricProcess=notAFabricProcess"
           , "material=notAnID"
           , "materials[]=notAnID"
-          , "knittingProcess=notAKnittingProcess"
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
           , "countryMaking=US"
           , "disabledSteps=invalid"
-          , "disabledFading=untrue"
+          , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "ennoblingHeatSource=yolo"
@@ -380,11 +387,11 @@ textileEndpoints db =
                     , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
-                    , ( "knittingProcess", "Procédé de tricotage inconnu: notAKnittingProcess" )
+                    , ( "fabricProcess", "Procédé de tissage/tricotage inconnu: notAFabricProcess" )
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 80 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
-                    , ( "disabledFading", "La valeur ne peut être que true ou false." )
+                    , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )

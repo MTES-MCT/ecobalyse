@@ -4,6 +4,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -38,6 +39,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countrySpinning=PT",
       "countryFabric=FR",
@@ -73,6 +75,7 @@
     "query": [
       "mass=0.3",
       "product=jupe",
+      "fabricProcess=weaving",
       "materials[]=acrylique;0.5",
       "materials[]=acrylique-r;0.5",
       "countryFabric=FR",
@@ -108,6 +111,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;0.5",
       "materials[]=pet;0.45",
       "materials[]=pu;0.05",
@@ -144,6 +148,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -179,6 +184,7 @@
     "query": [
       "mass=0.45",
       "product=pantalon",
+      "fabricProcess=weaving",
       "materials[]=coton;0.9",
       "materials[]=pu;0.1",
       "countryFabric=CN",
@@ -215,6 +221,7 @@
     "query": [
       "mass=0.45",
       "product=jean",
+      "fabricProcess=weaving",
       "materials[]=coton;1",
       "countryFabric=PT",
       "countryDyeing=PT",
@@ -249,11 +256,12 @@
     "query": [
       "mass=0.45",
       "product=jean",
+      "fabricProcess=weaving",
       "materials[]=coton;1",
       "countryFabric=PT",
       "countryDyeing=PT",
       "countryMaking=PT",
-      "disabledFading=true"
+      "fading=false"
     ],
     "impacts": {
       "acd": 0.13026425262297237,
@@ -284,6 +292,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -320,6 +329,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -355,6 +365,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -390,6 +401,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -426,6 +438,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -462,6 +475,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -498,6 +512,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -534,6 +549,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
+      "fabricProcess=knitting-mix",
       "materials[]=coton;1",
       "countryFabric=IN",
       "countryDyeing=IN",
