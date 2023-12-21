@@ -707,7 +707,7 @@ components:
       name: makingDeadStock
       in: query
       description: |
-        Taux de deadstock lors de la confection, entre `0` et `0.3`.
+        Taux de stocks dormants lors de la confection, entre `0` et `0.3`.
       required: false
       style: form
       schema:
@@ -1227,7 +1227,7 @@ components:
           required: false
         makingDeadStock:
           type: number
-          description: Taux de deadstock lors de la confection
+          description: Taux de stocks dormants lors de la confection
           minimum: 0
           maximum: 0.3
           required: false

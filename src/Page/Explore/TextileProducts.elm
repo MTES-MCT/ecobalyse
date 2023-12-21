@@ -157,7 +157,7 @@ table db { detailed, scope } =
           , toCell =
                 fadabaleToString >> text
           }
-        , { label = "Deadstock"
+        , { label = "Stocks dormants"
           , toValue = Split.toPercentString Env.defaultDeadStock |> always
           , toCell =
                 div [ classList [ ( "text-center", not detailed ) ] ]

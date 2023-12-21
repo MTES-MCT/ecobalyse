@@ -388,7 +388,7 @@ makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTrans
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
     , makingDeadStock
-        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de deadstocks"))
+        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de stocks dormants"))
     , makingComplexity
         |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio

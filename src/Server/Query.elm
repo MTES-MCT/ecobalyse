@@ -775,7 +775,7 @@ maybeMakingDeadStockParser key =
                     if float < Split.toFloat Env.minMakingDeadStockRatio || float > Split.toFloat Env.maxMakingDeadStockRatio then
                         Err
                             ( key
-                            , "Le taux de deadstock en confection doit être compris entre "
+                            , "Le taux de stocks dormants en confection doit être compris entre "
                                 ++ Split.toFloatString Env.minMakingDeadStockRatio
                                 ++ " et "
                                 ++ Split.toFloatString Env.maxMakingDeadStockRatio

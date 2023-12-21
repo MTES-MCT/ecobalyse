@@ -1310,7 +1310,7 @@ deadstockView : Config msg modal -> Mass -> Html msg
 deadstockView config deadstock =
     if deadstock /= Quantity.zero then
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ text "Dont deadstock\u{00A0}:\u{00A0}"
+            [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
             , Format.kgToString deadstock |> text
             , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
             ]

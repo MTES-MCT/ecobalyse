@@ -76,9 +76,8 @@ makingDeadStock deadstock baseMass =
     let
         mass =
             -- (product weight + textile deadstock during confection) / (1 - deadstock rate)
-            Mass.kilograms <|
-                Mass.inKilograms baseMass
-                    / (Split.complement deadstock |> Split.toFloat)
+            baseMass
+                |> Quantity.divideBy (Split.toFloat (Split.complement deadstock))
     in
     { deadstock = Quantity.minus baseMass mass, mass = mass }
 
