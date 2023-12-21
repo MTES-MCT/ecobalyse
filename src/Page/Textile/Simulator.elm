@@ -49,9 +49,9 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
+import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
-import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
 
@@ -682,6 +682,43 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
+durabilityField : Unit.Durability -> Html msg
+durabilityField currentDurability =
+    let
+        fromFloat =
+            Unit.durabilityToFloat >> String.fromFloat
+    in
+    div []
+        [ label
+            [ for "durability-field"
+            , class "form-label fw-bold text-truncate"
+            ]
+            [ text "Durabilité" ]
+        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
+            [ input
+                [ type_ "range"
+                , class "d-block form-range"
+
+                --onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
+                , Attr.min (fromFloat Unit.minDurability)
+                , Attr.max (fromFloat Unit.maxDurability)
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , step "0.01"
+                , value (fromFloat currentDurability)
+                ]
+                []
+            , span [ class "text-muted" ]
+                [ currentDurability
+                    |> Unit.durabilityToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                ]
+            ]
+        ]
+
+
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
@@ -690,7 +727,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
             , div [ class "row align-items-start mb-3" ]
                 [ div [ class "col-md-6" ] [ productField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                , div [ class "col-md-3" ] [ RangeSlider.durability2 ]
+                , div [ class "col-md-3" ] [ durabilityField (Unit.durability 1) ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator

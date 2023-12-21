@@ -1,6 +1,5 @@
 module Views.RangeSlider exposing
     ( durability
-    , durability2
     , percent
     , reparability
     , surfaceMass
@@ -12,7 +11,6 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Views.Format as Format
 
 
 type alias DurabilityConfig msg =
@@ -45,38 +43,6 @@ durability config =
             , Attr.disabled config.disabled
             ]
         }
-
-
-durability2 : Html msg
-durability2 =
-    let
-        fromFloat dur =
-            dur |> Unit.durabilityToFloat |> String.fromFloat
-    in
-    div []
-        [ label
-            [ for "durability-field"
-            , class "form-label fw-bold text-truncate"
-            ]
-            [ text "Durabilité" ]
-        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
-            [ input
-                [ type_ "range"
-                , class "d-block form-range"
-
-                --onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
-                , Attr.min (fromFloat Unit.minDurability)
-                , Attr.max (fromFloat Unit.maxDurability)
-
-                -- WARNING: be careful when reordering attributes: for obscure reasons,
-                -- the `value` one MUST be set AFTER the `step` one.
-                , step "0.01"
-                , value (fromFloat (Unit.durability 1))
-                ]
-                []
-            , span [ class "text-muted" ] [ text <| Format.formatFloat 2 (Unit.durabilityToFloat (Unit.durability 1)) ]
-            ]
-        ]
 
 
 type alias ReparabilityConfig msg =
