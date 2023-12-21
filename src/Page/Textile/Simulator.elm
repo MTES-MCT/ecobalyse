@@ -682,13 +682,16 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-durabilityField : Unit.Durability -> Html msg
-durabilityField currentDurability =
+durabilityField : (Maybe Unit.Durability -> Msg) -> Maybe Unit.Durability -> Html Msg
+durabilityField updateDurability maybeDurability =
     let
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
+
+        currentDurability =
+            maybeDurability |> Maybe.withDefault Unit.standardDurability
     in
-    div []
+    div [ class "d-block" ]
         [ label
             [ for "durability-field"
             , class "form-label fw-bold text-truncate"
@@ -698,8 +701,7 @@ durabilityField currentDurability =
             [ input
                 [ type_ "range"
                 , class "d-block form-range"
-
-                --onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
+                , onInput (String.toFloat >> Maybe.map Unit.durability >> updateDurability)
                 , Attr.min (fromFloat Unit.minDurability)
                 , Attr.max (fromFloat Unit.maxDurability)
 
@@ -709,7 +711,7 @@ durabilityField currentDurability =
                 , value (fromFloat currentDurability)
                 ]
                 []
-            , span [ class "text-muted" ]
+            , span [ class "fs-7 text-muted font-monospace" ]
                 [ currentDurability
                     |> Unit.durabilityToFloat
                     |> Format.formatFloat 2
@@ -727,7 +729,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
             , div [ class "row align-items-start mb-3" ]
                 [ div [ class "col-md-6" ] [ productField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                , div [ class "col-md-3" ] [ durabilityField (Unit.durability 1) ]
+                , div [ class "col-md-3" ] [ durabilityField UpdateDurability inputs.durability ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
