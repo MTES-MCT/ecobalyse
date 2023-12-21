@@ -323,7 +323,7 @@ fadingField { inputs, toggleFading } =
                 (inputs.fading
                     |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
                 )
-            , onCheck (\checked -> toggleFading (not checked))
+            , onCheck (\checked -> toggleFading checked)
             ]
             []
         , if Inputs.isFaded inputs then
