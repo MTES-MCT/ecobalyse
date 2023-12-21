@@ -150,7 +150,7 @@
     "mass": 0.5,
     "surfaceMass": 250,
     "yarnSize": 35,
-    "fabric": "knitting",
+    "fabric": "knitting-mix",
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -179,7 +179,7 @@
     "mass": 0.17,
     "surfaceMass": 200,
     "yarnSize": 40,
-    "fabric": "knitting",
+    "fabric": "knitting-mix",
     "dyeing": {
       "defaultMedium": "fabric"
     },

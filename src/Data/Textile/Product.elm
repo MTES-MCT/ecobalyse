@@ -1,28 +1,24 @@
 module Data.Textile.Product exposing
-    ( FabricOptions(..)
-    , Id(..)
+    ( Id(..)
     , Product
     , customDaysOfWear
     , decodeList
     , encode
     , encodeId
     , findById
-    , getFabricProcess
     , getMakingDurationInMinutes
     , idToString
     , isFadedByDefault
-    , isKnitted
     )
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.Knitting exposing (Knitting)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Process as Process exposing (Process, WellKnown)
+import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -33,11 +29,6 @@ import Volume exposing (Volume)
 type alias DyeingOptions =
     { defaultMedium : DyeingMedium
     }
-
-
-type FabricOptions
-    = Knitted Process
-    | Weaved Process
 
 
 type alias MakingOptions =
@@ -70,7 +61,7 @@ type alias Product =
     , mass : Mass
     , surfaceMass : Unit.SurfaceMass
     , yarnSize : Unit.YarnSize
-    , fabric : FabricOptions
+    , fabric : Fabric
     , dyeing : DyeingOptions
     , making : MakingOptions
     , use : UseOptions
@@ -80,21 +71,6 @@ type alias Product =
 
 type Id
     = Id String
-
-
-getFabricProcess : Maybe Knitting -> Product -> WellKnown -> Process
-getFabricProcess maybeKnittingProcess { fabric } wellknown =
-    case fabric of
-        Knitted process ->
-            case maybeKnittingProcess of
-                Just knittingProcess ->
-                    Process.getKnittingProcess knittingProcess wellknown
-
-                Nothing ->
-                    process
-
-        Weaved process ->
-            process
 
 
 isFadedByDefault : Product -> Bool
@@ -119,39 +95,6 @@ findById id =
 idToString : Id -> String
 idToString (Id string) =
     string
-
-
-isKnitted : Product -> Bool
-isKnitted { fabric } =
-    case fabric of
-        Knitted _ ->
-            True
-
-        Weaved _ ->
-            False
-
-
-decodeFabricOptions : List Process -> Decoder FabricOptions
-decodeFabricOptions processes =
-    Decode.string
-        |> Decode.andThen
-            (\str ->
-                case String.toLower str of
-                    "knitting" ->
-                        processes
-                            |> Process.findByUuid (Process.Uuid "9c478d79-ff6b-45e1-9396-c3bd897faa1d")
-                            |> DecodeExtra.fromResult
-                            |> Decode.map Knitted
-
-                    "weaving" ->
-                        processes
-                            |> Process.findByUuid (Process.Uuid "f9686809-f55e-4b96-b1f0-3298959de7d0")
-                            |> DecodeExtra.fromResult
-                            |> Decode.map Weaved
-
-                    _ ->
-                        Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
-            )
 
 
 decodeDyeingOptions : Decoder DyeingOptions
@@ -195,7 +138,7 @@ decode processes =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "yarnSize" Unit.decodeYarnSize
-        |> Pipe.required "fabric" (decodeFabricOptions processes)
+        |> Pipe.required "fabric" Fabric.decode
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
@@ -205,22 +148,6 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-encodeFabricOptions : FabricOptions -> Encode.Value
-encodeFabricOptions v =
-    case v of
-        Knitted process ->
-            Encode.object
-                [ ( "type", Encode.string "knitting" )
-                , ( "processUuid", Process.encodeUuid process.uuid )
-                ]
-
-        Weaved process ->
-            Encode.object
-                [ ( "type", Encode.string "weaving" )
-                , ( "processUuid", Process.encodeUuid process.uuid )
-                ]
 
 
 encodeMakingOptions : MakingOptions -> Encode.Value
@@ -258,7 +185,7 @@ encode v =
         [ ( "id", encodeId v.id )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "fabric", encodeFabricOptions v.fabric )
+        , ( "fabric", Fabric.encode v.fabric )
         , ( "making", encodeMakingOptions v.making )
         , ( "use", encodeUseOptions v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
