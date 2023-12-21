@@ -66,6 +66,12 @@ suite =
                     |> Expect.equal { mass = kg 2, waste = kg 1 }
                     |> asTest "should compute material waste from material and product waste data"
                 ]
+            , describe "Formula.makingDeadStock"
+                [ kg 1
+                    |> Formula.makingDeadStock Split.half
+                    |> Expect.equal { mass = kg 2, deadstock = kg 1 }
+                    |> asTest "should compute deadstock from deadstock data"
+                ]
             , describe "Formula.makingImpact"
                 (let
                     res =
