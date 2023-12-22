@@ -71,6 +71,7 @@ type alias Config msg modal =
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
+    , updateMakingDeadStock : Maybe Split -> msg
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
@@ -438,8 +439,31 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
                 not current.enabled
                     || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
                     || (inputs.fabricProcess == Fabric.KnittingIntegral)
-            , min = 0
+            , min = Split.toPercent Env.minMakingWasteRatio
             , max = Split.toPercent Env.maxMakingWasteRatio
+            }
+        ]
+
+
+makingDeadStockField : Config msg modal -> Html msg
+makingDeadStockField { current, db, inputs, updateMakingDeadStock } =
+    let
+        processName =
+            inputs.product.fabric
+                |> Fabric.getProcess db.wellKnown
+                |> .name
+    in
+    span
+        [ title <| "Taux personnalisé de stocks dormants en confection. Procédé utilisé : " ++ processName
+        ]
+        [ RangeSlider.percent
+            { id = "makingDeadStock"
+            , update = updateMakingDeadStock
+            , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
+            , toString = Step.makingDeadStockToString
+            , disabled = False
+            , min = Split.toPercent Env.minMakingDeadStockRatio
+            , max = Split.toPercent Env.maxMakingDeadStockRatio
             }
         ]
 
@@ -621,6 +645,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                 Label.Making ->
                                     div [ class "mt-2" ]
                                         [ makingWasteField config
+                                        , makingDeadStockField config
                                         , airTransportRatioField config
                                         , fadingField config
                                         ]
@@ -1080,6 +1105,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                             Label.Making ->
                                 List.filterMap identity
                                     [ Just <| makingWasteField config
+                                    , Just <| makingDeadStockField config
                                     , Just <| airTransportRatioField config
                                     , Just (fadingField config)
                                     ]
@@ -1132,6 +1158,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                     , ennoblingToxicityView config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
+                    , deadstockView config current.deadstock
                     , if current.label == Label.EndOfLife then
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
                             [ span [ class "me-2" ] [ text "Probabilité de fin de vie hors-Europe" ]
@@ -1279,6 +1306,19 @@ threadDensityView threadDensity =
 
         Nothing ->
             text ""
+
+
+deadstockView : Config msg modal -> Mass -> Html msg
+deadstockView config deadstock =
+    if deadstock /= Quantity.zero then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
+            , Format.kgToString deadstock |> text
+            , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+            ]
+
+    else
+        text ""
 
 
 view : Config msg modal -> ViewWithTransport msg
