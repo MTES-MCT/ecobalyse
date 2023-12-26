@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "20 décembre 2023"
+    [ { date = "21 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `makingDeadStock` a été rajouté pour représenter
+            le taux de stocks dormants lors de la phase de confection. La valeur par défaut
+            est de 15% (0.15)."""
+      }
+    , { date = "20 décembre 2023"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

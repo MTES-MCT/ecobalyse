@@ -2,11 +2,14 @@ module Data.Env exposing
     ( betagouvUrl
     , communityUrl
     , contactEmail
+    , defaultDeadStock
     , gitbookUrl
     , githubRepository
     , githubUrl
+    , maxMakingDeadStockRatio
     , maxMakingWasteRatio
     , maxMaterials
+    , minMakingDeadStockRatio
     , minMakingWasteRatio
     )
 
@@ -51,6 +54,21 @@ minMakingWasteRatio =
 maxMakingWasteRatio : Split
 maxMakingWasteRatio =
     Split.fourty
+
+
+minMakingDeadStockRatio : Split
+minMakingDeadStockRatio =
+    Split.zero
+
+
+maxMakingDeadStockRatio : Split
+maxMakingDeadStockRatio =
+    Split.thirty
+
+
+defaultDeadStock : Split
+defaultDeadStock =
+    Split.fifteen
 
 
 maxMaterials : Int

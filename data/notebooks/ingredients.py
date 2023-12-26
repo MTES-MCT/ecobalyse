@@ -205,7 +205,7 @@ w_default_origin = ipywidgets.Dropdown(
         ("Europe ou Maghreb (à plus de 95%)", "EuropeAndMaghreb"),
         ("Hors Europe ou Maghreb (à plus de 5%)", "OutOfEuropeAndMaghreb"),
         (
-            "Par avion, hors Europe ou Maghreb (mangue, horicots, ...)",
+            "Par avion, hors Europe ou Maghreb (mangue, haricots, ...)",
             "OutOfEuropeAndMaghrebByPlane",
         ),
     ],
@@ -694,21 +694,27 @@ def reset_branch():
             )
         )
 
+
 @surface_output.capture()
 def display_surface(activity):
     surface_output.clear_output()
     display(ipywidgets.HTML("Computing surface..."))
     lca = bw2calc.LCA({activity: 1})
-    method = ('selected LCI results', 'resource', 'land occupation')
+    method = ("selected LCI results", "resource", "land occupation")
     try:
         lca.lci()
         lca.switch_method(method)
         lca.lcia()
         surface_output.clear_output()
-        display(ipywidgets.HTML(f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"))
+        display(
+            ipywidgets.HTML(
+                f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"
+            )
+        )
     except Exception as e:
         display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
         display(e)
+
 
 @reset_output.capture()
 def reset_activities(_):
@@ -936,9 +942,7 @@ display(
                             w_results,
                         ),
                     ),
-                    ipywidgets.HTML(
-                      "<hr/>Surface mobilisée :"
-                    ),
+                    ipywidgets.HTML("<hr/>Surface mobilisée :"),
                     surface_output,
                     ipywidgets.HTML(
                         "<hr/>Pour un ingrédient, renseignez « ingrédient » :"

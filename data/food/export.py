@@ -13,9 +13,7 @@ from common.export import (
 from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
-import hashlib
 import json
-import uuid
 
 
 # Input
@@ -35,7 +33,7 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 def find_id(dbname, activity):
     print(activity["search"])
-    return search(dbname, activity["search"])["Process identifier"]
+    return search(dbname, activity["search"]).get("Process identifier", activity["id"])
 
 
 if __name__ == "__main__":
@@ -99,7 +97,7 @@ if __name__ == "__main__":
                 "comment"
             ],
             # those are removed at the end:
-            "search": activity["search"]
+            "search": activity["search"],
         }
         for activity in activities
     }
