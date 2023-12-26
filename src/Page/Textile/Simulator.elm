@@ -595,10 +595,7 @@ productField query =
             AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
     in
     div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold text-truncate"
-            ]
+        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
             [ text "Produit" ]
         , button
             [ class "form-select ElementSelector text-start"
@@ -627,6 +624,42 @@ massField massInput =
                 ]
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
+            ]
+        ]
+
+
+durabilityField : (Maybe Unit.Durability -> Msg) -> Maybe Unit.Durability -> Html Msg
+durabilityField updateDurability maybeDurability =
+    let
+        fromFloat =
+            Unit.durabilityToFloat >> String.fromFloat
+
+        currentDurability =
+            maybeDurability |> Maybe.withDefault Unit.standardDurability
+    in
+    div [ class "d-block" ]
+        [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
+            [ text "Durabilité" ]
+        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
+            [ input
+                [ type_ "range"
+                , class "d-block form-range"
+                , onInput (String.toFloat >> Maybe.map Unit.durability >> updateDurability)
+                , Attr.min (fromFloat Unit.minDurability)
+                , Attr.max (fromFloat Unit.maxDurability)
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , step "0.01"
+                , value (fromFloat currentDurability)
+                ]
+                []
+            , span [ class "fs-7 text-muted font-monospace" ]
+                [ currentDurability
+                    |> Unit.durabilityToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                ]
             ]
         ]
 
@@ -682,51 +715,12 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-durabilityField : (Maybe Unit.Durability -> Msg) -> Maybe Unit.Durability -> Html Msg
-durabilityField updateDurability maybeDurability =
-    let
-        fromFloat =
-            Unit.durabilityToFloat >> String.fromFloat
-
-        currentDurability =
-            maybeDurability |> Maybe.withDefault Unit.standardDurability
-    in
-    div [ class "d-block" ]
-        [ label
-            [ for "durability-field"
-            , class "form-label fw-bold text-truncate"
-            ]
-            [ text "Durabilité" ]
-        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
-            [ input
-                [ type_ "range"
-                , class "d-block form-range"
-                , onInput (String.toFloat >> Maybe.map Unit.durability >> updateDurability)
-                , Attr.min (fromFloat Unit.minDurability)
-                , Attr.max (fromFloat Unit.maxDurability)
-
-                -- WARNING: be careful when reordering attributes: for obscure reasons,
-                -- the `value` one MUST be set AFTER the `step` one.
-                , step "0.01"
-                , value (fromFloat currentDurability)
-                ]
-                []
-            , span [ class "fs-7 text-muted font-monospace" ]
-                [ currentDurability
-                    |> Unit.durabilityToFloat
-                    |> Format.formatFloat 2
-                    |> text
-                ]
-            ]
-        ]
-
-
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row align-items-start mb-3" ]
+            , div [ class "row align-items-start flex-md-columns mb-3" ]
                 [ div [ class "col-md-6" ] [ productField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 , div [ class "col-md-3" ] [ durabilityField UpdateDurability inputs.durability ]
