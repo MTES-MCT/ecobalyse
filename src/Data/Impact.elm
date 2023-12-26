@@ -7,6 +7,7 @@ module Data.Impact exposing
     , complementsImpactAsChartEntries
     , decodeImpacts
     , default
+    , divideBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -266,6 +267,11 @@ type Impacts
 default : Definition.Trigram
 default =
     Definition.Ecs
+
+
+divideBy : Float -> Impacts -> Impacts
+divideBy n =
+    mapImpacts (\_ -> Quantity.divideBy n)
 
 
 empty : Impacts

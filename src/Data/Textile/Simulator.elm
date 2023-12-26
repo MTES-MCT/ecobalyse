@@ -25,6 +25,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
@@ -153,6 +154,20 @@ compute db query =
         -- Final impacts
         --
         |> next computeFinalImpacts
+        |> next applyDurability
+
+
+applyDurability : Simulator -> Simulator
+applyDurability ({ impacts, inputs } as simulator) =
+    { simulator
+        | impacts =
+            impacts
+                |> Impact.divideBy
+                    (inputs.durability
+                        |> Maybe.withDefault Unit.standardDurability
+                        |> Unit.durabilityToFloat
+                    )
+    }
 
 
 initializeFinalMass : Simulator -> Simulator
