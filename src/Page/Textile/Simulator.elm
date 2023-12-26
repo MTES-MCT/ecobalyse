@@ -643,8 +643,22 @@ durabilityField updateDurability maybeDurability =
         , div [ class "d-flex justify-content-between gap-3 mt-2" ]
             [ input
                 [ type_ "range"
+                , id "durability-field"
                 , class "d-block form-range"
-                , onInput (String.toFloat >> Maybe.map Unit.durability >> updateDurability)
+                , title "Un double-clic réinitialise la valeur"
+                , onInput
+                    (String.toFloat
+                        >> Maybe.map Unit.durability
+                        >> (\maybeD ->
+                                updateDurability
+                                    (if maybeD == Just Unit.standardDurability then
+                                        Nothing
+
+                                     else
+                                        maybeD
+                                    )
+                           )
+                    )
                 , onDoubleClick (updateDurability Nothing)
                 , Attr.min (fromFloat Unit.minDurability)
                 , Attr.max (fromFloat Unit.maxDurability)
