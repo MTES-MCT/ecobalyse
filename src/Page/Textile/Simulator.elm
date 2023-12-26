@@ -106,6 +106,7 @@ type Msg
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
+    | UpdateMakingDeadStock (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
@@ -424,6 +425,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
 
+        UpdateMakingDeadStock makingDeadStock ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | makingDeadStock = makingDeadStock }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -698,6 +703,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateReparability = UpdateReparability
                     , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste
+                    , updateMakingDeadStock = UpdateMakingDeadStock
                     , updateSurfaceMass = UpdateSurfaceMass
                     , updateYarnSize = UpdateYarnSize
                     }

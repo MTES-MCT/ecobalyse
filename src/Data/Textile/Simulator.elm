@@ -7,6 +7,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Data.Country exposing (Country)
+import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
@@ -117,6 +118,8 @@ compute db query =
         --
         -- Compute Making mass waste - Confection
         |> nextIf Label.Making computeMakingStepWaste
+        -- Compute Making dead stock - Confection
+        |> nextIf Label.Making computeMakingStepDeadStock
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
         |> nextWithDbIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
@@ -513,6 +516,21 @@ computeMakingStepWaste ({ inputs } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
+        |> updateLifeCycleSteps
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+            (Step.initMass mass)
+
+
+computeMakingStepDeadStock : Simulator -> Simulator
+computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
+    let
+        { mass, deadstock } =
+            lifeCycle
+                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
+                |> Formula.makingDeadStock (Maybe.withDefault Env.defaultDeadStock inputs.makingDeadStock)
+    in
+    simulator
+        |> updateLifeCycleStep Label.Making (Step.updateDeadStock deadstock mass)
         |> updateLifeCycleSteps
             [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
             (Step.initMass mass)

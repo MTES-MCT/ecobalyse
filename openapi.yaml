@@ -91,6 +91,7 @@ paths:
         - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -160,6 +161,7 @@ paths:
         - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -231,6 +233,7 @@ paths:
         - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
         - $ref: "#/components/parameters/yarnSizeParam"
         - $ref: "#/components/parameters/surfaceMassParam"
@@ -481,6 +484,7 @@ components:
         durability: 0.9
         reparability: 0.9
         makingWaste: null
+        makingDeadStock: null
         makingComplexity: null
         yarnSize: null
         surfaceMass: null
@@ -697,6 +701,17 @@ components:
         type: number
         minimum: 0
         maximum: 0.4
+    makingDeadStockParam:
+      name: makingDeadStock
+      in: query
+      description: |
+        Taux de stocks dormants lors de la confection, entre `0` et `0.3`.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+        maximum: 0.3
     makingComplexityParam:
       name: makingComplexity
       in: query
@@ -1207,6 +1222,12 @@ components:
           description: Taux de perte en confection
           minimum: 0
           maximum: 0.4
+          required: false
+        makingDeadStock:
+          type: number
+          description: Taux de stocks dormants lors de la confection
+          minimum: 0
+          maximum: 0.3
           required: false
         makingComplexity:
           type: string
