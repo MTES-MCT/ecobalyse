@@ -12,7 +12,6 @@ module Data.Textile.Step exposing
     , initMass
     , makingDeadStockToString
     , makingWasteToString
-    , reparabilityToString
     , surfaceMassToString
     , updateDeadStock
     , updateFromInputs
@@ -296,7 +295,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, durability, reparability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, durability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -386,8 +385,6 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | durability =
                     durability |> Maybe.withDefault Unit.standardDurability
-                , reparability =
-                    reparability |> Maybe.withDefault Unit.standardReparability
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -458,11 +455,6 @@ airTransportRatioToString percentage =
 durabilityToString : Unit.Durability -> String
 durabilityToString (Unit.Durability float) =
     "Durabilité\u{00A0}: " ++ String.fromFloat float
-
-
-reparabilityToString : Unit.Reparability -> String
-reparabilityToString (Unit.Reparability float) =
-    "Réparabilité\u{00A0}: " ++ String.fromFloat float
 
 
 surfaceMassToString : Unit.SurfaceMass -> String

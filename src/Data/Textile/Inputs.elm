@@ -91,7 +91,6 @@ type alias Inputs =
     , countryEndOfLife : Country
     , airTransportRatio : Maybe Split
     , durability : Maybe Unit.Durability
-    , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -124,7 +123,6 @@ type alias Query =
     , countryMaking : Country.Code
     , airTransportRatio : Maybe Split
     , durability : Maybe Unit.Durability
-    , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -247,7 +245,6 @@ fromQuery db query =
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.durability)
-        |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.makingDeadStock)
         |> RE.andMap (Ok query.makingComplexity)
@@ -272,7 +269,6 @@ toQuery inputs =
     , countryMaking = inputs.countryMaking.code
     , airTransportRatio = inputs.airTransportRatio
     , durability = inputs.durability
-    , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
     , makingDeadStock = inputs.makingDeadStock
     , makingComplexity = inputs.makingComplexity
@@ -344,7 +340,7 @@ stepsToStrings inputs =
         ]
     , ifStepEnabled Label.Use
         [ "utilisation"
-        , inputs.countryUse.name ++ useOptionsToString inputs.durability inputs.reparability
+        , inputs.countryUse.name ++ useOptionsToString inputs.durability
         ]
     , ifStepEnabled Label.EndOfLife
         [ "fin de vie"
@@ -417,20 +413,16 @@ makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTrans
            )
 
 
-useOptionsToString : Maybe Unit.Durability -> Maybe Unit.Reparability -> String
-useOptionsToString maybeDurability maybeReparability =
+useOptionsToString : Maybe Unit.Durability -> String
+useOptionsToString maybeDurability =
     let
-        ( durability, reparability ) =
-            ( maybeDurability
+        durability =
+            maybeDurability
                 |> Maybe.map (Unit.durabilityToFloat >> String.fromFloat)
                 |> Maybe.withDefault "standard"
-            , maybeReparability
-                |> Maybe.map (Unit.reparabilityToFloat >> String.fromFloat)
-                |> Maybe.withDefault "standard"
-            )
     in
-    if durability /= "standard" || reparability /= "standard" then
-        " (durabilité " ++ durability ++ ", réparabilité " ++ reparability ++ ")"
+    if durability /= "standard" then
+        " (durabilité " ++ durability ++ ")"
 
     else
         ""
@@ -569,7 +561,6 @@ updateProduct product query =
             | product = product.id
             , mass = product.mass
             , durability = Nothing
-            , reparability = Nothing
             , makingWaste = Nothing
             , makingDeadStock = Nothing
             , makingComplexity = Nothing
@@ -689,7 +680,6 @@ encode inputs =
         , ( "countryMaking", Country.encode inputs.countryMaking )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "durability", inputs.durability |> Maybe.map Unit.encodeDurability |> Maybe.withDefault Encode.null )
-        , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
@@ -727,7 +717,6 @@ decodeQuery =
         |> Pipe.required "countryMaking" Country.decodeCode
         |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "durability" (Decode.maybe Unit.decodeDurability) Nothing
-        |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
@@ -761,7 +750,6 @@ encodeQuery query =
     , ( "countryMaking", query.countryMaking |> Country.encodeCode |> Just )
     , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
     , ( "durability", query.durability |> Maybe.map Unit.encodeDurability )
-    , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
     , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
@@ -919,7 +907,6 @@ tShirtCotonAsie =
     , countryMaking = Country.Code "CN"
     , airTransportRatio = Nothing
     , durability = Nothing
-    , reparability = Nothing
     , makingWaste = Nothing
     , makingDeadStock = Nothing
     , makingComplexity = Nothing

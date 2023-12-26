@@ -367,7 +367,6 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeDurabilityParser "durability")
-        |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -692,35 +691,6 @@ maybeDurabilityParser key =
 
                     else
                         Ok (Just (Unit.durability float))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybeReparabilityParser : String -> Parser (ParseResult (Maybe Unit.Reparability))
-maybeReparabilityParser key =
-    floatParser key
-        |> Query.map
-            (Maybe.map
-                (\float ->
-                    let
-                        ( min, max ) =
-                            ( Unit.reparabilityToFloat Unit.minReparability
-                            , Unit.reparabilityToFloat Unit.maxReparability
-                            )
-                    in
-                    if float < min || float > max then
-                        Err
-                            ( key
-                            , "Le coefficient de réparabilité doit être compris entre "
-                                ++ String.fromFloat min
-                                ++ " et "
-                                ++ String.fromFloat max
-                                ++ "."
-                            )
-
-                    else
-                        Ok (Just (Unit.reparability float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

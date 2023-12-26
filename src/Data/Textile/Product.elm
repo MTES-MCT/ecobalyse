@@ -202,20 +202,16 @@ durability and reparability coefficients.
 -}
 customDaysOfWear :
     Maybe Unit.Durability
-    -> Maybe Unit.Reparability
     -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
     -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
+customDaysOfWear maybeDurability { daysOfWear, wearsPerCycle } =
     let
-        ( durability, reparability ) =
-            ( maybeQuality |> Maybe.withDefault Unit.standardDurability
-            , maybeReparability |> Maybe.withDefault Unit.standardReparability
-            )
+        durability =
+            Maybe.withDefault Unit.standardDurability maybeDurability
 
         newDaysOfWear =
             daysOfWear
                 |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
-                |> Quantity.multiplyBy (Unit.reparabilityToFloat reparability)
     in
     { daysOfWear = newDaysOfWear
     , useNbCycles =

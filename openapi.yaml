@@ -89,7 +89,6 @@ paths:
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/durabilityParam"
-        - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -159,7 +158,6 @@ paths:
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/durabilityParam"
-        - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -231,7 +229,6 @@ paths:
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
         - $ref: "#/components/parameters/durabilityParam"
-        - $ref: "#/components/parameters/reparabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -482,7 +479,6 @@ components:
         countryMaking: "CN"
         airTransportRatio: 0.33
         durability: 0.9
-        reparability: 0.9
         makingWaste: null
         makingDeadStock: null
         makingComplexity: null
@@ -674,18 +670,6 @@ components:
         type: number
         minimum: 0.67
         maximum: 1.45
-    reparabilityParam:
-      name: reparability
-      in: query
-      description: |
-        Indice de réparabilité du produit. Il varie entre `1.00` (peu réparable) et `1.15` (très réparable).
-        Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit.
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 1
-        maximum: 1.15
     makingWasteParam:
       name: makingWaste
       in: query
@@ -1210,12 +1194,6 @@ components:
           description: Durabilité
           minimum: 0.67
           maximum: 1.45
-          required: false
-        reparability:
-          type: number
-          description: Indice de réparabilité du produit
-          minimum: 1
-          maximum: 1.15
           required: false
         makingWaste:
           type: number

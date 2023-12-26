@@ -32,11 +32,9 @@ module Data.Unit exposing
     , impactAggregateScore
     , impactToFloat
     , maxDurability
-    , maxReparability
     , maxSurfaceMass
     , maxYarnSize
     , minDurability
-    , minReparability
     , minSurfaceMass
     , minYarnSize
     , pickPerMeter
@@ -46,8 +44,6 @@ module Data.Unit exposing
     , ratioedForKWh
     , ratioedForKg
     , ratioedForMJ
-    , reparability
-    , reparabilityToFloat
     , standardDurability
     , standardReparability
     , surfaceMassInGramsPerSquareMeters

@@ -1,7 +1,6 @@
 module Views.RangeSlider exposing
     ( durability
     , percent
-    , reparability
     , surfaceMass
     , yarnSize
     )
@@ -35,38 +34,6 @@ durability config =
             [ onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
             , Attr.min (fromFloat Unit.minDurability)
             , Attr.max (fromFloat Unit.maxDurability)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "0.01"
-            , value (fromFloat config.value)
-            , Attr.disabled config.disabled
-            ]
-        }
-
-
-type alias ReparabilityConfig msg =
-    { id : String
-    , update : Maybe Unit.Reparability -> msg
-    , value : Unit.Reparability
-    , toString : Unit.Reparability -> String
-    , disabled : Bool
-    }
-
-
-reparability : ReparabilityConfig msg -> Html msg
-reparability config =
-    let
-        fromFloat =
-            Unit.reparabilityToFloat >> String.fromFloat
-    in
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
-            [ onInput (String.toFloat >> Maybe.map Unit.reparability >> config.update)
-            , Attr.min (fromFloat Unit.minReparability)
-            , Attr.max (fromFloat Unit.maxReparability)
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.

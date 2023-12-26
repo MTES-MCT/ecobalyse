@@ -76,7 +76,6 @@ type alias Config msg modal =
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateDurability : Maybe Unit.Durability -> msg
-    , updateReparability : Maybe Unit.Reparability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
@@ -343,27 +342,6 @@ durabilityField { current, updateDurability } =
             , update = updateDurability
             , value = current.durability
             , toString = Step.durabilityToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
-reparabilityField : Config msg modal -> Html msg
-reparabilityField { current, updateReparability } =
-    span
-        [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
-          , "Il varie entre 1 (peu réparable) à 1.15 (très réparable)."
-          , "Il est calculé à partir du résultat d’une série de tests de réparabilité."
-          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.reparability
-            { id = "reparability"
-            , update = updateReparability
-            , value = current.reparability
-            , toString = Step.reparabilityToString
             , disabled = not current.enabled
             }
         ]
@@ -644,9 +622,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
 
                                 Label.Use ->
                                     div [ class "mt-2" ]
-                                        [ durabilityField config
-                                        , reparabilityField config
-                                        , daysOfWearInfo inputs
+                                        [ daysOfWearInfo inputs
                                         ]
 
                                 _ ->
@@ -955,7 +931,7 @@ daysOfWearInfo inputs =
     let
         info =
             inputs.product.use
-                |> Product.customDaysOfWear inputs.durability inputs.reparability
+                |> Product.customDaysOfWear inputs.durability
     in
     small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
@@ -1104,7 +1080,6 @@ detailedView ({ inputs, selectedImpact, current } as config) =
 
                             Label.Use ->
                                 [ durabilityField config
-                                , reparabilityField config
                                 , daysOfWearInfo inputs
                                 ]
 
