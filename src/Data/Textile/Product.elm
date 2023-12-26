@@ -198,7 +198,7 @@ encodeId =
 
 
 {-| Computes the number of wears and the number of maintainance cycles against
-durability and reparability coefficients.
+durability coefficient.
 -}
 customDaysOfWear :
     Maybe Unit.Durability

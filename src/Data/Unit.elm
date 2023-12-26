@@ -114,7 +114,7 @@ type Durability
 
 minDurability : Durability
 minDurability =
-    Durability 0.8
+    Durability 0.7
 
 
 standardDurability : Durability
@@ -124,7 +124,7 @@ standardDurability =
 
 maxDurability : Durability
 maxDurability =
-    Durability 1.2
+    Durability 1.35
 
 
 durability : Float -> Durability
