@@ -8,6 +8,7 @@ module Data.Impact exposing
     , decodeImpacts
     , default
     , divideBy
+    , divideStepsImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -160,6 +161,18 @@ noStepsImpacts =
     , distribution = Nothing
     , usage = Nothing
     , endOfLife = Nothing
+    }
+
+
+divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
+divideStepsImpactsBy n stepsImpacts =
+    { materials = stepsImpacts.materials |> Maybe.map (Quantity.divideBy n)
+    , transform = stepsImpacts.transform |> Maybe.map (Quantity.divideBy n)
+    , packaging = stepsImpacts.packaging |> Maybe.map (Quantity.divideBy n)
+    , transports = stepsImpacts.transports |> Maybe.map (Quantity.divideBy n)
+    , distribution = stepsImpacts.distribution |> Maybe.map (Quantity.divideBy n)
+    , usage = stepsImpacts.usage |> Maybe.map (Quantity.divideBy n)
+    , endOfLife = stepsImpacts.endOfLife |> Maybe.map (Quantity.divideBy n)
     }
 
 
