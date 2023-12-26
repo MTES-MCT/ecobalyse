@@ -5,7 +5,6 @@ module Data.Textile.Step exposing
     , computeMaterialTransportAndImpact
     , computeTransports
     , create
-    , durabilityToString
     , encode
     , getInputSurface
     , getOutputSurface
@@ -450,11 +449,6 @@ airTransportRatioToString percentage =
 
         _ ->
             Split.toPercentString percentage ++ "% de transport aérien"
-
-
-durabilityToString : Unit.Durability -> String
-durabilityToString (Unit.Durability float) =
-    "Durabilité\u{00A0}: " ++ String.fromFloat float
 
 
 surfaceMassToString : Unit.SurfaceMass -> String

@@ -1,6 +1,5 @@
 module Views.RangeSlider exposing
-    ( durability
-    , percent
+    ( percent
     , surfaceMass
     , yarnSize
     )
@@ -10,38 +9,6 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-
-
-type alias DurabilityConfig msg =
-    { id : String
-    , update : Maybe Unit.Durability -> msg
-    , value : Unit.Durability
-    , toString : Unit.Durability -> String
-    , disabled : Bool
-    }
-
-
-durability : DurabilityConfig msg -> Html msg
-durability config =
-    let
-        fromFloat =
-            Unit.durabilityToFloat >> String.fromFloat
-    in
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
-            [ onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
-            , Attr.min (fromFloat Unit.minDurability)
-            , Attr.max (fromFloat Unit.maxDurability)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "0.01"
-            , value (fromFloat config.value)
-            , Attr.disabled config.disabled
-            ]
-        }
 
 
 type alias PercentConfig msg =

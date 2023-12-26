@@ -332,19 +332,6 @@ fadingField { inputs, toggleFading } =
         ]
 
 
-durabilityField : Config msg modal -> Html msg
-durabilityField { current, updateDurability } =
-    span [ title "Le coefficient de durabilité représente à quel point le produit va durer dans le temps." ]
-        [ RangeSlider.durability
-            { id = "durability"
-            , update = updateDurability
-            , value = current.durability
-            , toString = Step.durabilityToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
 makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     -- Note: This field is only rendered in the detailed step view
@@ -1076,8 +1063,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                                     ]
 
                             Label.Use ->
-                                [ durabilityField config
-                                , daysOfWearInfo inputs
+                                [ daysOfWearInfo inputs
                                 ]
 
                             _ ->
