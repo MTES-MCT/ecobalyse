@@ -12,10 +12,10 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
@@ -61,14 +61,14 @@ type alias Config msg modal =
     , next : Maybe Step
     , selectedImpact : Definition
     , setModal : modal -> msg
-    , toggleDisabledFading : Bool -> msg
+    , toggleFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
-    , updateKnittingProcess : Knitting -> msg
+    , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingWaste : Maybe Split -> msg
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
@@ -202,32 +202,27 @@ spinningProcessField { inputs, updateMaterialSpinning } =
         ]
 
 
-knittingProcessField : Config msg modal -> Html msg
-knittingProcessField { inputs, updateKnittingProcess } =
+fabricProcessField : Config msg modal -> Html msg
+fabricProcessField { inputs, updateFabricProcess } =
     -- Note: This field is only rendered in the detailed step view
     li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ label [ class "text-nowrap w-25", for "knitting-process" ] [ text "Procédé" ]
-        , [ Knitting.Mix
-          , Knitting.FullyFashioned
-          , Knitting.Integral
-          , Knitting.Circular
-          , Knitting.Straight
-          ]
+        [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
+        , Fabric.fabricProcesses
             |> List.map
-                (\knittingProcess ->
+                (\fabricProcess ->
                     option
-                        [ value <| Knitting.toString knittingProcess
-                        , selected <| inputs.knittingProcess == Just knittingProcess
+                        [ value <| Fabric.toString fabricProcess
+                        , selected <| inputs.fabricProcess == fabricProcess
                         ]
-                        [ text <| Knitting.toLabel knittingProcess ]
+                        [ text <| Fabric.toLabel fabricProcess ]
                 )
             |> select
-                [ id "knitting-process"
+                [ id "fabric-process"
                 , class "form-select form-select-sm w-75"
                 , onInput
-                    (Knitting.fromString
-                        >> Result.withDefault Knitting.Mix
-                        >> updateKnittingProcess
+                    (Fabric.fromString
+                        >> Result.withDefault Fabric.KnittingMix
+                        >> updateFabricProcess
                     )
                 ]
         ]
@@ -316,7 +311,7 @@ printingFields { inputs, updatePrinting } =
 
 
 fadingField : Config msg modal -> Html msg
-fadingField { inputs, toggleDisabledFading } =
+fadingField { inputs, toggleFading } =
     label
         [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
         , title "Délavage"
@@ -324,15 +319,18 @@ fadingField { inputs, toggleDisabledFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , checked (not (Maybe.withDefault False inputs.disabledFading))
-            , onCheck (\checked -> toggleDisabledFading (not checked))
+            , checked
+                (inputs.fading
+                    |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
+                )
+            , onCheck (\checked -> toggleFading (not checked))
             ]
             []
-        , if inputs.disabledFading == Just True then
-            text "Délavage désactivé"
+        , if Inputs.isFaded inputs then
+            text "Délavage activé"
 
           else
-            text "Délavage activé"
+            text "Délavage désactivé"
         ]
 
 
@@ -389,7 +387,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
         , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-        , if inputs.knittingProcess == Just Knitting.Integral then
+        , if inputs.fabricProcess == Fabric.KnittingIntegral then
             text "Non applicable"
 
           else
@@ -410,7 +408,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (inputs.knittingProcess == Just Knitting.FullyFashioned)
+                    , disabled (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -424,8 +422,8 @@ makingWasteField : Config msg modal -> Html msg
 makingWasteField { current, db, inputs, updateMakingWaste } =
     let
         processName =
-            db.wellKnown
-                |> Product.getFabricProcess inputs.knittingProcess inputs.product
+            inputs.product.fabric
+                |> Fabric.getProcess db.wellKnown
                 |> .name
     in
     span
@@ -438,8 +436,8 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
             , toString = Step.makingWasteToString
             , disabled =
                 not current.enabled
-                    || (inputs.knittingProcess == Just Knitting.FullyFashioned)
-                    || (inputs.knittingProcess == Just Knitting.Integral)
+                    || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
+                    || (inputs.fabricProcess == Fabric.KnittingIntegral)
             , min = 0
             , max = Split.toPercent Env.maxMakingWasteRatio
             }
@@ -550,25 +548,14 @@ stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } labe
 
 
 stepHeader : Config msg modal -> Html msg
-stepHeader { current, inputs } =
-    label
-        [ class "d-flex align-items-center gap-2"
-        , class "text-dark cursor-pointer"
+stepHeader { current } =
+    div
+        [ class "d-flex align-items-center gap-2 text-dark"
         , classList [ ( "text-secondary", not current.enabled ) ]
-        , title
-            (if current.enabled then
-                "Étape activée, cliquez pour la désactiver"
-
-             else
-                "Étape desactivée, cliquez pour la réactiver"
-            )
         ]
         [ h2 [ class "h5 mb-0" ]
             [ current.label
-                |> Step.displayLabel
-                    { knitted = Product.isKnitted inputs.product
-                    , fadable = inputs.product.making.fadable
-                    }
+                |> Label.toName
                 |> text
             , if current.label == Label.Material then
                 Link.smallPillExternal
@@ -633,11 +620,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                                     div [ class "mt-2" ]
                                         [ makingWasteField config
                                         , airTransportRatioField config
-                                        , if inputs.product.making.fadable then
-                                            fadingField config
-
-                                          else
-                                            text ""
+                                        , fadingField config
                                         ]
 
                                 Label.Use ->
@@ -791,6 +774,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
                         , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                         , id "add-new-element"
                         , availableMaterials
+                            |> List.sortBy .shortName
                             |> AutocompleteSelector.init .shortName
                             |> addMaterialModal Nothing
                             |> setModal
@@ -1053,17 +1037,17 @@ detailedView ({ inputs, selectedImpact, current } as config) =
 
                       else
                         text ""
-                    , if current.label == Label.Fabric && Product.isKnitted inputs.product then
-                        knittingProcessField config
+                    , if current.label == Label.Fabric then
+                        fabricProcessField config
 
                       else
-                        viewProcessInfo current.processInfo.fabric
+                        text ""
                     , if current.label == Label.Making then
                         makingComplexityField config
 
                       else
                         text ""
-                    , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                    , if inputs.fading == Just True then
                         viewProcessInfo current.processInfo.fading
 
                       else
@@ -1095,11 +1079,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                                 List.filterMap identity
                                     [ Just <| makingWasteField config
                                     , Just <| airTransportRatioField config
-                                    , if inputs.product.making.fadable then
-                                        Just (fadingField config)
-
-                                      else
-                                        Nothing
+                                    , Just (fadingField config)
                                     ]
 
                             Label.Use ->

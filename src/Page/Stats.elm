@@ -88,7 +88,7 @@ viewStats { heading, unit } webData =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { mode, apiStats, webStats } =
+view { matomo } { mode, apiStats, webStats } =
     ( "Statistiques"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
@@ -121,6 +121,10 @@ view _ { mode, apiStats, webStats } =
                             ]
 
                     Advanced ->
+                        let
+                            matomoBaseUrl =
+                                "https://" ++ matomo.host ++ "/index.php?"
+                        in
                         div []
                             [ div [ class "widgetIframe" ]
                                 [ iframe
@@ -139,7 +143,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "196" )
+                                      , ( "idSite", matomo.siteId )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )
@@ -147,7 +151,7 @@ view _ { mode, apiStats, webStats } =
                                       ]
                                         |> List.map (\( key, val ) -> key ++ "=" ++ val)
                                         |> String.join "&"
-                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> (++) matomoBaseUrl
                                         |> src
                                     , attribute "width" "100%"
                                     ]
@@ -171,7 +175,7 @@ view _ { mode, apiStats, webStats } =
                                       , ( "widget", "1" )
                                       , ( "moduleToWidgetize", "CoreHome" )
                                       , ( "actionToWidgetize", "renderWidgetContainer" )
-                                      , ( "idSite", "196" )
+                                      , ( "idSite", matomo.siteId )
                                       , ( "period", "day" )
                                       , ( "date", "yesterday" )
                                       , ( "disableLink", "1" )
@@ -179,7 +183,7 @@ view _ { mode, apiStats, webStats } =
                                       ]
                                         |> List.map (\( key, val ) -> key ++ "=" ++ val)
                                         |> String.join "&"
-                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> (++) matomoBaseUrl
                                         |> src
                                     , attribute "width" "100%"
                                     ]

@@ -177,6 +177,32 @@
     }
   },
   {
+    "id": "pig-fr-organic",
+    "search": "Pig, conventional, national average, at farm gate",
+    "suffix": "[fr-organic], constructed by Ecobalyse",
+    "subactivities": [
+      "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
+      "Pig, French average, finishing feed, purchased part, conv prod, at farm gate {FR} U"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "wheat grain FR central region",
+      "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U": "Grain maize, organic, animal feed, at farm gate {FR} U"
+    }
+  },
+  {
+    "id": "pig-br",
+    "search": "Pig, conventional, national average, at farm gate",
+    "suffix": "[br], constructed by Ecobalyse",
+    "subactivities": [
+      "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
+      "Pig, French average, finishing feed, purchased part, conv prod, at farm gate {FR} U"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "wheat grain feed GLO",
+      "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U": "Maize grain non-irrigated at farm BR"
+    }
+  },
+  {
     "id": "sunflower-oil-organic",
     "search": "sunflower oil at mill {glo}",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -198,9 +224,9 @@
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "search": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
-    "suffix": "[organic-fr]",
+    "suffix": "[fr-organic]",
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [organic], constructed by Ecobalyse",
@@ -208,8 +234,8 @@
       "Broiler, broiler feed organic prod, at farm gate {FR} U"
     ],
     "replace": {
-      "Soybean meal, organic, crushing in France common process meal": "Soybean, organic, animal feed, at farm gate {FR} U",
-      "Soybean organic GLO market for cut-off S copied from ecoinvent U": "Soybean, organic, animal feed, at farm gate {FR} U"
+      "Soybean meal, organic, crushing in France common process meal": "Soybean organic animal feed farm gate FR",
+      "Soybean organic GLO market for cut-off S copied from ecoinvent U": "Soybean organic animal feed farm gate FR"
     }
   },
   {
@@ -232,8 +258,8 @@
       "Broiler,broiler feed,conv prod, at farm gate FR"
     ],
     "replace": {
-      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U",
-      "Maize grain dried, conventional, stored and transported, processing {FR} U": "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U"
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Soybean BR market copied",
+      "Maize grain dried, conventional, stored and transported, processing {FR} U": "Soybean BR market copied"
     }
   },
   {
@@ -247,9 +273,9 @@
       "Broiler,broiler feed,conv prod, at farm gate FR"
     ],
     "replace": {
-      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-      "Maize grain dried, conventional, stored and transported, processing {FR} U": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean meal {BR}| soybean meal and crude oil production | Cut-off, U - Copied from Ecoinvent U"
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR} U": "wheat grain feed GLO",
+      "Maize grain dried, conventional, stored and transported, processing {FR} U": "maize grain BR at farm",
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "soybean br market copied"
     }
   },
   {
@@ -263,7 +289,47 @@
       "Broiler,broiler feed,conv prod, at farm gate FR"
     ],
     "replace": {
-      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "Soybean grain dried, stored and transported, processing {FR}"
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR} U": "soybean grain transported fr"
+    }
+  },
+  {
+    "id": "chicken-breast-bbc",
+    "search": "Meat without bone, chicken, for direct consumption",
+    "suffix": "[bbc], constructed by Ecobalyse",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U",
+      "Broiler, live, for direct consumption {FR} U"
+    ],
+    "replace": {
+      "Broiler, conventional, at farm gate FR U": "Broiler, Bleu Blanc Coeur, at farm gate"
+    }
+  },
+  {
+    "id": "chicken-breast-fr-ext-organic",
+    "search": "Meat without bone, chicken, for direct consumption [bbc]",
+    "suffix": "[fr-ext-organic]",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
+      "Broiler, live, for direct consumption {FR} U [bbc]",
+      "Broiler, Bleu Blanc Coeur, at farm gate"
+    ],
+    "replace": {
+      "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR}": "wheat grain organic central region",
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean organic animal feed FR farm gate",
+      "Maize grain dried, conventional, stored and transported, processing {FR} U": "maize grain animal feed organic FR"
+    }
+  },
+  {
+    "id": "chicken-breast-fr-ext",
+    "search": "Meat without bone, chicken, for direct consumption [bbc]",
+    "suffix": "[fr-ext]",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
+      "Broiler, live, for direct consumption {FR} U [bbc]",
+      "Broiler, Bleu Blanc Coeur, at farm gate"
+    ],
+    "replace": {
+      "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
   }
 ]

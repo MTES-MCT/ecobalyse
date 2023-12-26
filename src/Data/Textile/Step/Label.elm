@@ -107,7 +107,7 @@ toName label =
             "Transformation\u{00A0}- Filature"
 
         Fabric ->
-            "Transformation\u{00A0}- Tissage & Tricotage"
+            "Transformation\u{00A0}- Tissage / Tricotage"
 
         Making ->
             "Transformation\u{00A0}- Confection"
@@ -210,10 +210,10 @@ toGitbookPath : Label -> Gitbook.Path
 toGitbookPath label =
     case label of
         Material ->
-            Gitbook.TextileMaterialAndSpinning
+            Gitbook.TextileMaterial
 
         Spinning ->
-            Gitbook.TextileMaterialAndSpinning
+            Gitbook.TextileSpinning
 
         Fabric ->
             Gitbook.TextileFabric

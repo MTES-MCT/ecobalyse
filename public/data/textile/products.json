@@ -10,7 +10,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
       "durationInMinutes": 15
@@ -40,7 +39,6 @@
       "defaultMedium": "yarn"
     },
     "making": {
-      "fadable": true,
       "pcrWaste": 0.22,
       "complexity": "medium",
       "durationInMinutes": 30
@@ -70,7 +68,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
       "durationInMinutes": 15
@@ -100,7 +97,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "high",
       "durationInMinutes": 60
@@ -130,7 +126,6 @@
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "medium",
       "durationInMinutes": 30
@@ -155,12 +150,11 @@
     "mass": 0.5,
     "surfaceMass": 250,
     "yarnSize": 35,
-    "fabric": "knitting",
+    "fabric": "knitting-mix",
     "dyeing": {
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.2,
       "complexity": "low",
       "durationInMinutes": 15
@@ -185,12 +179,11 @@
     "mass": 0.17,
     "surfaceMass": 200,
     "yarnSize": 40,
-    "fabric": "knitting",
+    "fabric": "knitting-mix",
     "dyeing": {
       "defaultMedium": "fabric"
     },
     "making": {
-      "fadable": false,
       "pcrWaste": 0.15,
       "complexity": "low",
       "durationInMinutes": 15
