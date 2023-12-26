@@ -668,8 +668,8 @@ components:
       style: form
       schema:
         type: number
-        minimum: 0.67
-        maximum: 1.45
+        minimum: 0.7
+        maximum: 1.35
     makingWasteParam:
       name: makingWaste
       in: query
@@ -1192,8 +1192,8 @@ components:
         durability:
           type: number
           description: Durabilité
-          minimum: 0.67
-          maximum: 1.45
+          minimum: 0.7
+          maximum: 1.35
           required: false
         makingWaste:
           type: number
