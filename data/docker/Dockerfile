@@ -16,7 +16,7 @@ RUN mkdir -p /home/$NB_USER/data \
 
 # keep in sync with requirements.txt
 # allow to update the image if the source repo is updated
-ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/tags/ccomb-1 bw2-io.json
+ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/tags/ccomb-2 bw2-io.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/tags/1.1.0 bw2-parameters.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/tags/4.0.DEV33 bw2-data.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/tags/2.0.DEV16 bw2-calc.json
