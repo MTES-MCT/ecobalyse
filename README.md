@@ -14,6 +14,17 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
     $ npm install
 
+## Configuration
+
+Les variables d'environnement suivantes doivent être définies :
+
+- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
+- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
+- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
+
+En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
+
 ## Développement
 
 ### Environnement de développement local
@@ -40,6 +51,7 @@ Un server frontend de débogage est alors disponible sur [localhost:1234](http:/
 ### Hooks Git avec Husky et Formatage de Code avec Prettier
 
 Ce projet utilise Husky pour gérer les hooks Git, et Prettier pour le formatage automatique du code.
+Le build sur le CI échouera si les fichiers javascript et json ne sont pas proprement formattés.
 
 #### Pré-requis
 
@@ -57,6 +69,10 @@ Un hook de pre-commit a été configuré pour vérifier que le code est bien for
 Pour résoudre ce problème, vous pouvez exécuter la commande suivante :
 
     $ npm run format:json
+
+Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaler les hooks :
+
+    $ npx husky uninstall
 
 ## Compilation
 
@@ -76,10 +92,7 @@ Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement d
 
 ## Variables d'environnement
 
-Certaines variables d'environnement doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) :
-
-- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-- `MATOMO_TOKEN`: le token [Matomo](https://stats.data.gouv.fr/) permettant le suivi d'audience de l'API.
+Les variables d'environnement doivent être positionnées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) (voir la section [Configuration](#configuration)).
 
 ## Lancement du serveur
 

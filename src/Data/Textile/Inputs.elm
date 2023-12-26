@@ -13,13 +13,18 @@ module Data.Textile.Inputs exposing
     , defaultQuery
     , encode
     , encodeQuery
+    , exampleProductToCategory
+    , exampleProductToString
+    , exampleProducts
     , fromQuery
     , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
-    , jupeCircuitAsie
+    , isFaded
+    , jupeCotonAsie
     , parseBase64Query
+    , productsAndNames
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -39,8 +44,8 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.Knitting as Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
@@ -88,12 +93,13 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
+    , fabricProcess : Fabric
     , disabledSteps : List Label
-    , disabledFading : Maybe Bool
+    , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
@@ -120,16 +126,22 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
+    , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
+    , fabricProcess : Fabric
     , disabledSteps : List Label
-    , disabledFading : Maybe Bool
+    , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
     }
+
+
+isFaded : Inputs -> Bool
+isFaded inputs =
+    inputs.fading == Just True || (inputs.fading == Nothing && Product.isFadedByDefault inputs.product)
 
 
 toMaterialInputs : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
@@ -237,12 +249,13 @@ fromQuery db query =
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
+        |> RE.andMap (Ok query.makingDeadStock)
         |> RE.andMap (Ok query.makingComplexity)
         |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.knittingProcess)
+        |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.disabledSteps)
-        |> RE.andMap (Ok query.disabledFading)
+        |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.ennoblingHeatSource)
@@ -253,16 +266,7 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
-    , countrySpinning =
-        if
-            -- Discard custom spinning country if same as material default country
-            (getMainMaterial inputs.materials |> Result.map .defaultCountry)
-                == Ok inputs.countrySpinning.code
-        then
-            Nothing
-
-        else
-            Just inputs.countrySpinning.code
+    , countrySpinning = Just inputs.countrySpinning.code
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
@@ -270,12 +274,13 @@ toQuery inputs =
     , quality = inputs.quality
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
+    , makingDeadStock = inputs.makingDeadStock
     , makingComplexity = inputs.makingComplexity
     , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
-    , knittingProcess = inputs.knittingProcess
+    , fabricProcess = inputs.fabricProcess
     , disabledSteps = inputs.disabledSteps
-    , disabledFading = inputs.disabledFading
+    , fading = inputs.fading
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
     , ennoblingHeatSource = inputs.ennoblingHeatSource
@@ -308,13 +313,9 @@ stepsToStrings inputs =
         Nothing ->
             []
     , ifStepEnabled Label.Fabric
-        (case inputs.product.fabric of
-            Product.Knitted _ ->
-                [ "tricotage", inputs.knittingProcess |> Maybe.withDefault Knitting.Mix |> Knitting.toString, inputs.countryFabric.name ]
-
-            Product.Weaved _ ->
-                [ "tissage", inputs.countryFabric.name ]
-        )
+        [ Fabric.toLabel inputs.fabricProcess
+        , inputs.countryFabric.name
+        ]
     , ifStepEnabled Label.Ennobling
         [ case inputs.dyeingMedium of
             Just dyeingMedium ->
@@ -383,9 +384,11 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { product, makingWaste, makingComplexity, airTransportRatio, disabledFading } =
+makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTransportRatio, fading } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
+    , makingDeadStock
+        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de stocks dormants"))
     , makingComplexity
         |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
@@ -397,8 +400,8 @@ makingOptionsToString { product, makingWaste, makingComplexity, airTransportRati
                 else
                     Just (Split.toPercentString ratio ++ " de transport aérien")
             )
-    , if product.making.fadable && disabledFading == Just True then
-        Just "non-délavé"
+    , if fading == Just True then
+        Just "délavé"
 
       else
         Nothing
@@ -568,11 +571,12 @@ updateProduct product query =
             , quality = Nothing
             , reparability = Nothing
             , makingWaste = Nothing
+            , makingDeadStock = Nothing
             , makingComplexity = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
-            , knittingProcess = Nothing
-            , disabledFading = Nothing
+            , fabricProcess = product.fabric
+            , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
             , ennoblingHeatSource = Nothing
@@ -663,83 +667,6 @@ computeMaterialTransport db nextCountryCode { material, country, share } =
         Transport.default Impact.empty
 
 
-defaultQuery : Query
-defaultQuery =
-    tShirtCotonIndia
-
-
-tShirtCotonFrance : Query
-tShirtCotonFrance =
-    -- T-shirt circuit France
-    { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
-    , product = Product.Id "tshirt"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "FR"
-    , countryDyeing = Country.Code "FR"
-    , countryMaking = Country.Code "FR"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
-tShirtCotonIndia : Query
-tShirtCotonIndia =
-    -- T-shirt circuit Inde
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "IN"
-        , countryMaking = Country.Code "IN"
-    }
-
-
-tShirtCotonAsie : Query
-tShirtCotonAsie =
-    -- T-shirt circuit Asie
-    { tShirtCotonFrance
-        | countryFabric = Country.Code "CN"
-        , countryDyeing = Country.Code "CN"
-        , countryMaking = Country.Code "CN"
-    }
-
-
-jupeCircuitAsie : Query
-jupeCircuitAsie =
-    -- Jupe circuit Asie
-    { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
-    , product = Product.Id "jupe"
-    , countrySpinning = Nothing
-    , countryFabric = Country.Code "CN"
-    , countryDyeing = Country.Code "CN"
-    , countryMaking = Country.Code "CN"
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
-    , makingWaste = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , knittingProcess = Nothing
-    , disabledSteps = []
-    , disabledFading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , ennoblingHeatSource = Nothing
-    }
-
-
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
     """curl -X POST %apiUrl% \\
@@ -764,12 +691,13 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "knittingProcess", inputs.knittingProcess |> Maybe.map Knitting.encode |> Maybe.withDefault Encode.null )
+        , ( "fabricProcess", inputs.fabricProcess |> Fabric.encode )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
-        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
@@ -801,12 +729,13 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "knittingProcess" (Decode.maybe Knitting.decode) Nothing
+        |> Pipe.required "fabricProcess" Fabric.decode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
+        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
@@ -834,10 +763,11 @@ encodeQuery query =
     , ( "quality", query.quality |> Maybe.map Unit.encodeQuality )
     , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
+    , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-    , ( "knittingProcess", query.knittingProcess |> Maybe.map Knitting.encode )
+    , ( "fabricProcess", query.fabricProcess |> Fabric.encode |> Just )
     , ( "disabledSteps"
       , case query.disabledSteps of
             [] ->
@@ -846,7 +776,7 @@ encodeQuery query =
             list ->
                 Encode.list Label.encode list |> Just
       )
-    , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool )
+    , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
     , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
@@ -891,3 +821,269 @@ parseBase64Query =
         b64decode
             >> Result.toMaybe
             >> Just
+
+
+
+---- Example products
+
+
+type alias ExampleProduct =
+    { name : String
+    , query : Query
+    , category : String
+    }
+
+
+productsAndNames : List ExampleProduct
+productsAndNames =
+    -- 7 base products, from China
+    [ { name = "Tshirt 100% coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
+    , { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
+    , { name = "Chemise 100% coton Asie (250g)", query = chemiseCotonAsie, category = "Chemise" }
+    , { name = "Jean 100% coton Asie (450g)", query = jeanCotonAsie, category = "Jean" }
+    , { name = "Manteau 100% coton Asie (950g)", query = manteauCotonAsie, category = "Manteau / Veste" }
+    , { name = "Pantalon 100% coton Asie (450g)", query = pantalonCotonAsie, category = "Pantalon / Short" }
+    , { name = "Pull 100% coton Asie (500g)", query = pullCotonAsie, category = "Pull / Couche intermédiaire" }
+
+    -- 7 base products, from France
+    , { name = "Tshirt 100% coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
+    , { name = "Jupe 100% coton France (300g)", query = jupeCotonFrance, category = "Jupe / Robe" }
+    , { name = "Chemise 100% coton France (250g)", query = chemiseCotonFrance, category = "Chemise" }
+    , { name = "Jean 100% coton France (450g)", query = jeanCotonFrance, category = "Jean" }
+    , { name = "Manteau 100% coton France (950g)", query = manteauCotonFrance, category = "Manteau / Veste" }
+    , { name = "Pantalon 100% coton France (450g)", query = pantalonCotonFrance, category = "Pantalon / Short" }
+    , { name = "Pull 100% coton France (500g)", query = pullCotonFrance, category = "Pull / Couche intermédiaire" }
+
+    -- Various examples
+    , { name = "Pull 100% laine Asie (500g)", query = pullLaineAsie, category = "Pull / Couche intermédiaire" }
+    , { name = "Jupe 100% polyester Asie (300g)", query = jupePolyesterAsie, category = "Jupe / Robe" }
+    , { name = "Manteau 50% polyamide 50% coton Asie (950g)", query = manteauMixAsie, category = "Manteau / Veste" }
+    , { name = "Tshirt 100% polyester Asie (170g)", query = tShirtPolyesterAsie, category = "Tshirt / Polo" }
+    ]
+
+
+exampleProductToString : Query -> String
+exampleProductToString q =
+    productsAndNames
+        |> List.filterMap
+            (\{ name, query } ->
+                if q == query then
+                    Just name
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProductToCategory : Query -> String
+exampleProductToCategory q =
+    productsAndNames
+        |> List.filterMap
+            (\{ category, query } ->
+                if q == query then
+                    Just category
+
+                else
+                    Nothing
+            )
+        |> List.head
+        |> Maybe.withDefault "Produit personnalisé"
+
+
+exampleProducts : List Query
+exampleProducts =
+    productsAndNames
+        |> List.sortBy .name
+        |> List.map .query
+
+
+defaultQuery : Query
+defaultQuery =
+    tShirtCotonAsie
+
+
+
+-- 7 base products, from China
+
+
+tShirtCotonAsie : Query
+tShirtCotonAsie =
+    { mass = Mass.kilograms 0.17
+    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , product = Product.Id "tshirt"
+    , countrySpinning = Just (Country.Code "CN")
+    , countryFabric = Country.Code "CN"
+    , countryDyeing = Country.Code "CN"
+    , countryMaking = Country.Code "CN"
+    , airTransportRatio = Nothing
+    , quality = Nothing
+    , reparability = Nothing
+    , makingWaste = Nothing
+    , makingDeadStock = Nothing
+    , makingComplexity = Nothing
+    , yarnSize = Nothing
+    , surfaceMass = Nothing
+    , fabricProcess = Fabric.KnittingMix
+    , disabledSteps = []
+    , fading = Nothing
+    , dyeingMedium = Nothing
+    , printing = Nothing
+    , ennoblingHeatSource = Nothing
+    }
+
+
+jupeCotonAsie : Query
+jupeCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.3
+        , product = Product.Id "jupe"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+chemiseCotonAsie : Query
+chemiseCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.25
+        , product = Product.Id "chemise"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+jeanCotonAsie : Query
+jeanCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "jean"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+manteauCotonAsie : Query
+manteauCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.95
+        , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+pantalonCotonAsie : Query
+pantalonCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+pullCotonAsie : Query
+pullCotonAsie =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.5
+        , product = Product.Id "pull"
+    }
+
+
+
+-- 7 base products from France
+
+
+tShirtCotonFrance : Query
+tShirtCotonFrance =
+    { tShirtCotonAsie
+        | countrySpinning = Just (Country.Code "FR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+    }
+
+
+jupeCotonFrance : Query
+jupeCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.3
+        , product = Product.Id "jupe"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+chemiseCotonFrance : Query
+chemiseCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.25
+        , product = Product.Id "chemise"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+jeanCotonFrance : Query
+jeanCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "jean"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+manteauCotonFrance : Query
+manteauCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.95
+        , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+pantalonCotonFrance : Query
+pantalonCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.45
+        , product = Product.Id "manteau"
+        , fabricProcess = Fabric.Weaving
+    }
+
+
+pullCotonFrance : Query
+pullCotonFrance =
+    { tShirtCotonFrance
+        | mass = Mass.kilograms 0.5
+        , product = Product.Id "pull"
+    }
+
+
+
+-- Various examples
+
+
+pullLaineAsie : Query
+pullLaineAsie =
+    { pullCotonAsie
+        | materials = [ { id = Material.Id "laine-mouton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }
+
+
+jupePolyesterAsie : Query
+jupePolyesterAsie =
+    { jupeCotonAsie
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }
+
+
+manteauMixAsie : Query
+manteauMixAsie =
+    { manteauCotonAsie
+        | materials =
+            [ { id = Material.Id "pa", share = Split.half, spinning = Nothing, country = Nothing }
+            , { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
+            ]
+    }
+
+
+tShirtPolyesterAsie : Query
+tShirtPolyesterAsie =
+    { tShirtCotonAsie
+        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
+    }

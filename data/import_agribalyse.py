@@ -1,27 +1,33 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from bw2io.strategies.generic import link_technosphere_by_activity_hash
+from common.export import search, create_activity, delete_exchange, new_exchange
+from common.import_ import add_missing_substances
 from subprocess import call
 from tqdm import tqdm
 from zipfile import ZipFile
 import bw2data
 import bw2io
+import functools
 import json
+import logging
 import os
 import re
-from common.export import (
-    search,
-    create_activity,
-    delete_exchange,
-    new_exchange,
-)
-import logging
-from common.import_ import add_missing_substances
+import sys
 
 PROJECT = "food"
 # Agribalyse
-DATAPATH = "AGB3.1.1.20230306.CSV.zip"
-DBNAME = "Agribalyse 3.1.1"
+AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
+GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
+PASTOECO = [
+    "CONVEN~1.CSV.zip",
+    "Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
+    "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+    "Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
+    "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
+]
 BIOSPHERE = "biosphere3"
 
 
@@ -37,6 +43,7 @@ EXCLUDED = [
     "simapro-water",
 ]
 
+# migrations necessary to link some remaining unlinked technosphere activities
 AGRIBALYSE_MIGRATIONS = [
     {
         "name": "agb-technosphere-fixes",
@@ -46,52 +53,52 @@ AGRIBALYSE_MIGRATIONS = [
             "data": [
                 (
                     (
-                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent",
-                        "litre",
+                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent U",
+                        "l",
                     ),
-                    {"unit": "cubic meter", "multiplier": 1e-3},
+                    {"unit": "m3", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent",
-                        "litre",
+                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent U",
+                        "l",
                     ),
-                    {"unit": "cubic meter", "multiplier": 1e-3},
+                    {"unit": "m3", "multiplier": 1e-3},
                 ),
                 (
                     (
-                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent",
-                        "kilowatt hour",
+                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent",
-                        "kilowatt hour",
+                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent U",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent",
-                        "kilowatt hour",
+                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent U",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent",
-                        "kilowatt hour",
+                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent U",
+                        "kWh",
                     ),
-                    {"unit": "megajoule", "multiplier": 3.6},
+                    {"unit": "MJ", "multiplier": 3.6},
                 ),
                 (
                     (
-                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent",
-                        "square meter",
+                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent U",
+                        "m2",
                     ),
-                    {"unit": "hectare", "multiplier": 1e-4},
+                    {"unit": "ha", "multiplier": 1e-4},
                 ),
             ],
         },
@@ -140,10 +147,10 @@ AGRIBALYSE_PREPARATION_MODES = [
 ]
 
 
-def import_agribalyse(
-    datapath=DATAPATH,
+def import_simapro_csv(
+    datapath,
+    dbname,
     project=PROJECT,
-    dbname=DBNAME,
     biosphere=BIOSPHERE,
     migrations=AGRIBALYSE_MIGRATIONS,
 ):
@@ -153,42 +160,30 @@ def import_agribalyse(
     projects.set_current(project)
     # projects.create_project(project, activate=True, exist_ok=True)
 
-    # Core migrations
-    print("### Creating core data migrations")
-    if len(bw2io.migrations) < 13:
-        bw2io.create_core_migrations()
-    else:
-        print("### Core migrations are already installed")
-
+    print(f"### Importing {datapath}...")
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
         zf.extractall()
         unzipped = datapath[0:-4]
 
-    print("### Patching Agribalyse...")
-    # sed is faster than Python
-    # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-    call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
-    # Fix some errors in Agribalyse:
-    call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
-    call("sed -i 's/0;001172/0,001172/' " + unzipped, shell=True)
+    if "AGB3.1.1" in datapath:
+        print(f"### Patching Agribalyse...")
+        # sed is faster than Python
+        # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
+        call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
+        # Fix some errors in Agribalyse:
+        call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
+        call("sed -i 's/\"0;001172\"/0,001172/' " + unzipped, shell=True)
 
-    print(f"### Importing Agribalyse into {dbname}...")
+    print(f"### Importing into {dbname}...")
     # Do the import and apply "strategies"
-    agribalyse = bw2io.importers.simapro_csv.SimaProCSVImporter(
+    database = bw2io.importers.simapro_csv.SimaProCSVImporter(
         unzipped, dbname, normalize_biosphere=True
     )
     os.unlink(unzipped)
 
-    print("### Applying strategies...")
-    # exclude strategies/migrations in EXCLUDED
-    agribalyse.strategies = [
-        s for s in agribalyse.strategies if not any([e in repr(s) for e in EXCLUDED])
-    ]
-
-    agribalyse.apply_strategies()
-
+    print("### Applying migrations...")
     # Apply provided migrations
     for migration in migrations:
         print(f"### Applying custom migration: {migration['description']}")
@@ -196,16 +191,41 @@ def import_agribalyse(
             migration["data"],
             description=migration["description"],
         )
-        agribalyse.migrate(migration["name"])
+        database.migrate(migration["name"])
+    database.statistics()
 
-    agribalyse.statistics()
+    print("### Applying strategies...")
+    # exclude strategies/migrations in EXCLUDED
+    database.strategies = [
+        s for s in database.strategies if not any([e in repr(s) for e in EXCLUDED])
+    ]
+    database.apply_strategies()
+    database.statistics()
+
+    # try to link remaining unlinked technosphere activities
+    database.apply_strategy(
+        functools.partial(
+            link_technosphere_by_activity_hash, fields=("name", "location")
+        )
+    )
+    database.statistics()
+
     print("### Adding unlinked flows and activities...")
-    bw2data.Database(biosphere).register()
-    agribalyse.add_unlinked_flows_to_biosphere_database(biosphere)
-    agribalyse.add_unlinked_activities()
-    agribalyse.statistics()
-    dsdict = {ds["code"]: ds for ds in agribalyse.data}
-    agribalyse.data = list(dsdict.values())
+    # comment to enable stopping on unlinked activities
+    database.add_unlinked_flows_to_biosphere_database(biosphere)
+    database.add_unlinked_activities()
+
+    # stop if there are unlinked activities
+    if len(list(database.unlinked)):
+        database.write_excel(only_unlinked=True)
+        print(
+            "Look at the above excel file, there are still unlinked activities. Consider improving the migrations"
+        )
+        sys.exit(1)
+    database.statistics()
+
+    dsdict = {ds["code"]: ds for ds in database.data}
+    database.data = list(dsdict.values())
 
     dqr_pattern = r"The overall DQR of this product is: (?P<overall>[\d.]+) {P: (?P<P>[\d.]+), TiR: (?P<TiR>[\d.]+), GR: (?P<GR>[\d.]+), TeR: (?P<TeR>[\d.]+)}"
     ciqual_pattern = r"\[Ciqual code: (?P<ciqual>[\d_]+)\]"
@@ -213,8 +233,11 @@ def import_agribalyse(
     location_pattern_2 = r"\/\ *(?P<location>[\w ,\/\-]+) U$"
 
     print("### Applying additional transformations...")
-    for activity in tqdm(agribalyse):
+    for activity in tqdm(database):
         # Getting activities locations
+        if "name" not in activity:
+            print("skipping en empty activity")
+            continue
         if activity.get("location") is None:
             match = re.search(pattern=location_pattern, string=activity["name"])
             if match is not None:
@@ -287,11 +310,14 @@ def import_agribalyse(
 
         if "filename" in activity:
             del activity["filename"]
-    agribalyse.write_database()
-    print(f"### Finished importing {DBNAME}")
+
+    database.statistics()
+    bw2data.Database(biosphere).register()
+    database.write_database()
+    print(f"### Finished importing {datapath}")
 
 
-def add_average_activity(activity_data, dbname=DBNAME):
+def add_average_activity(activity_data, dbname):
     """Add to the database a new activity : the weighted average of multiple activities
 
     Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the
@@ -307,7 +333,7 @@ def add_average_activity(activity_data, dbname=DBNAME):
         new_exchange(average_activity, activity_add, amount)
 
 
-def replace_activities(activity_variant, activity_data, dbname=DBNAME):
+def replace_activities(activity_variant, activity_data, dbname):
     """Replace all activities in activity_data["replace"] with variants of these activities"""
     for k, v in activity_data["replace"].items():
         activity_old = search(dbname, k)
@@ -320,7 +346,7 @@ def replace_activities(activity_variant, activity_data, dbname=DBNAME):
         delete_exchange(activity_variant, activity_old)
 
 
-def add_variant_activity(activity_data, dbname=DBNAME):
+def add_variant_activity(activity_data, dbname):
     """Add to the database a new activity : the variant of an activity
 
     Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a
@@ -330,14 +356,17 @@ def add_variant_activity(activity_data, dbname=DBNAME):
 
     # create a new variant activity
     # Example: this is where we create the flour-organic activity
+    new_activity_name = search(dbname, activity_data["search"])["name"]
     activity_variant = create_activity(
-        dbname, f"{activity_data['search']} {activity_data['suffix']}", activity
+        dbname,
+        f"{new_activity_name} {activity_data['suffix']}",
+        activity,
     )
 
     # if the activity has no subactivities, we can directly replace the seed activity with the seed
     #  activity variant
     if not activity_data["subactivities"]:
-        replace_activities(activity_variant, activity_data)
+        replace_activities(activity_variant, activity_data, dbname)
 
     # else we have to iterate through subactivities and create a new variant activity for each subactivity
 
@@ -366,13 +395,13 @@ def add_variant_activity(activity_data, dbname=DBNAME):
             # Example: for flour-organic this is where the replace the wheat activity with the
             # wheat-organic activity
             if i == len(activity_data["subactivities"]) - 1:
-                replace_activities(sub_activity_variant, activity_data)
+                replace_activities(sub_activity_variant, activity_data, dbname)
 
             # update the activity_variant (parent activity)
             activity_variant = sub_activity_variant
 
 
-def add_created_activities():
+def add_created_activities(dbname):
     """
     Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
     """
@@ -381,34 +410,46 @@ def add_created_activities():
 
     for activity_data in activities_data:
         if "add" in activity_data:
-            add_average_activity(activity_data)
+            add_average_activity(activity_data, dbname=dbname)
         if "replace" in activity_data:
-            add_variant_activity(activity_data)
+            add_variant_activity(activity_data, dbname)
 
 
-def delete_created_activities(dbname=DBNAME):
+def delete_created_activities(dbname):
     search_results = bw2data.Database(dbname).search(
-        "constructed by Ecobalyse", limit=100
+        "constructed by Ecobalyse", limit=1000
     )
 
     for activity in search_results:
         activity.delete()
-        logging.info(f"Deleted {activity}")
+        print(f"Deleted {activity}")
 
 
 def main():
-    # Import Agribalyse
+    """Import Agribalyse and additional processes"""
     projects.set_current(PROJECT)
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
     bw2data.preferences["biosphere_database"] = BIOSPHERE
     bw2io.bw2setup()
     add_missing_substances(PROJECT, BIOSPHERE)
-    if DBNAME not in bw2data.databases:
-        import_agribalyse()
+    # PASTO ECO
+    if (db := "PastoEco") not in bw2data.databases:
+        for p in PASTOECO:
+            import_simapro_csv(p, db)
     else:
-        print(f"{DBNAME} already imported")
-    delete_created_activities()
-    add_created_activities()
+        print(f"{db} already imported")
+    # GINKO
+    if (db := "Ginko") not in bw2data.databases:
+        import_simapro_csv(GINKO, db)
+    else:
+        print(f"{db} already imported")
+    # AGRIBALYSE
+    if (db := "Agribalyse 3.1.1") not in bw2data.databases:
+        import_simapro_csv(AGRIBALYSE, db)
+        delete_created_activities(db)
+        add_created_activities(db)
+    else:
+        print(f"{db} already imported")
 
 
 if __name__ == "__main__":

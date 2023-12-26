@@ -54,7 +54,37 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "9 novembre 2023"
+    [ { date = "21 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `makingDeadStock` a été rajouté pour représenter
+            le taux de stocks dormants lors de la phase de confection. La valeur par défaut
+            est de 15% (0.15)."""
+      }
+    , { date = "20 décembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `disabledFading` a été renommé en `fading` et représente
+            l'opposé. Sélectionner `true` pour **activer** le délavage."""
+      }
+    , { date = "20 décembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre optionnel `knittingProcess` a été remplacé par le
+            paramètre requis `fabricProcess`, qui prend en compte les différents
+            procédés de tricotage ainsi que le procédé de tissage."""
+      }
+    , { date = "19 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `disabledFading` peut maintenant être configuré pour
+            tous les produits."""
+      }
+    , { date = "9 novembre 2023"
       , level = "minor"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
@@ -77,7 +107,8 @@ changelog =
 - `soybeanBRno-deforestation` devient `soybean-br-no-deforestation`;
 - `sunfloweroil` devient `sunflower-oil`;
 - `sunfloweroil-organic` devient `sunflower-oil-organic`;
-- `tapwater` devient `tap-water`.
+- `tapwater` devient `tap-water`;
+- `comte-AOP` devient `comte-aop`.
 """
       }
     , { date = "12 octobre 2023"

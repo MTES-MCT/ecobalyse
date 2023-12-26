@@ -7,14 +7,15 @@ module Data.Textile.Simulator exposing
     )
 
 import Data.Country exposing (Country)
+import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
+import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.Knitting as Knitting
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
@@ -117,6 +118,8 @@ compute db query =
         --
         -- Compute Making mass waste - Confection
         |> nextIf Label.Making computeMakingStepWaste
+        -- Compute Making dead stock - Confection
+        |> nextIf Label.Making computeMakingStepDeadStock
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
         |> nextWithDbIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
@@ -222,7 +225,7 @@ computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
                                 { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
-                                    if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                                    if Inputs.isFaded inputs then
                                         Just wellKnown.fading
 
                                     else
@@ -472,40 +475,35 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Fabric
-            (\({ country, knittingProcess } as step) ->
+            (\({ country } as step) ->
                 let
-                    productDefaultKnittingProcess =
-                        knittingProcess
-                            |> Maybe.withDefault Knitting.Mix
-
-                    knitting =
-                        db.wellKnown
-                            |> Process.getKnittingProcess productDefaultKnittingProcess
+                    process =
+                        inputs.fabricProcess
+                            |> Fabric.getProcess db.wellKnown
 
                     { kwh, threadDensity, picking, impacts } =
-                        case inputs.product.fabric of
-                            Product.Knitted _ ->
-                                Formula.knittingImpacts step.impacts
-                                    { elec = knitting.elec
-                                    , countryElecProcess = country.electricityProcess
-                                    }
-                                    step.outputMass
+                        if Fabric.isKnitted inputs.fabricProcess then
+                            Formula.knittingImpacts step.impacts
+                                { elec = process.elec
+                                , countryElecProcess = country.electricityProcess
+                                }
+                                step.outputMass
 
-                            Product.Weaved process ->
-                                let
-                                    surfaceMass =
-                                        inputs.surfaceMass
-                                            |> Maybe.withDefault inputs.product.surfaceMass
-                                in
-                                Formula.weavingImpacts step.impacts
-                                    { countryElecProcess = country.electricityProcess
-                                    , outputMass = fabricOutputMass
-                                    , pickingElec = process.elec_pppm
-                                    , surfaceMass = surfaceMass
-                                    , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
-                                    }
+                        else
+                            let
+                                surfaceMass =
+                                    inputs.surfaceMass
+                                        |> Maybe.withDefault inputs.product.surfaceMass
+                            in
+                            Formula.weavingImpacts step.impacts
+                                { countryElecProcess = country.electricityProcess
+                                , outputMass = fabricOutputMass
+                                , pickingElec = process.elec_pppm
+                                , surfaceMass = surfaceMass
+                                , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
+                                }
                 in
-                { step | impacts = impacts, threadDensity = threadDensity, picking = picking, kwh = kwh }
+                { step | impacts = impacts, threadDensity = threadDensity, kwh = kwh, picking = picking }
             )
 
 
@@ -523,13 +521,28 @@ computeMakingStepWaste ({ inputs } as simulator) =
             (Step.initMass mass)
 
 
+computeMakingStepDeadStock : Simulator -> Simulator
+computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
+    let
+        { mass, deadstock } =
+            lifeCycle
+                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
+                |> Formula.makingDeadStock (Maybe.withDefault Env.defaultDeadStock inputs.makingDeadStock)
+    in
+    simulator
+        |> updateLifeCycleStep Label.Making (Step.updateDeadStock deadstock mass)
+        |> updateLifeCycleSteps
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+            (Step.initMass mass)
+
+
 computeFabricStepWaste : TextileDb.Db -> Simulator -> Simulator
 computeFabricStepWaste { wellKnown } ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste (Product.getFabricProcess inputs.knittingProcess inputs.product wellKnown |> .waste)
+                |> Formula.genericWaste (Fabric.getProcess wellKnown inputs.product.fabric |> .waste)
     in
     simulator
         |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)

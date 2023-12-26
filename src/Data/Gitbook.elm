@@ -38,9 +38,11 @@ type Path
     | TextileEnnoblingToxicity -- Inventaires enrichis pour le blanchiment, la teinture et l'impression
     | TextileFabric -- Tissage/Tricotage textile
     | TextileHeat -- Chaleur textile
+    | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
-    | TextileMaterialAndSpinning -- Matière & filature textile
+    | TextileMakingDeadStock -- Deadstock lors de la confection textile
+    | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
 
@@ -111,13 +113,19 @@ pathToString path =
         TextileHeat ->
             "textile/parametres-transverses/chaleur"
 
+        TextileMaterial ->
+            "textile/etapes-du-cycle-de-vie/etape-1-matieres"
+
         TextileMaking ->
             "textile/etapes-du-cycle-de-vie/confection"
 
         TextileMakingComplexity ->
             "textile/etapes-du-cycle-de-vie/confection#electricite-consommee-mj-kwh"
 
-        TextileMaterialAndSpinning ->
+        TextileMakingDeadStock ->
+            "textile/cas-particuliers/stocks-dormants-deadstock"
+
+        TextileSpinning ->
             "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"
 
         TextileTransport ->

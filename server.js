@@ -1,3 +1,4 @@
+require("dotenv").config();
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -13,8 +14,16 @@ const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
+// Env vars
+const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
+
+// Matomo
+if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+  console.error("Matomo environment variables are missing. Please check the README.");
+  process.exit(1);
+}
+
 // Sentry
-const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
   // Note: Sentry middleware *must* be the very first applied to be effective
@@ -40,7 +49,7 @@ app.use(
           "https://sentry.incubateur.net",
           "*.gouv.fr",
         ],
-        "frame-src": ["'self'", "https://stats.beta.gouv.fr"],
+        "frame-src": ["'self'", `https://${process.env.MATOMO_HOST}`],
         "img-src": [
           "'self'",
           "data:",
@@ -51,7 +60,7 @@ app.use(
         // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
         // server sends the appropriate `Access-Control-Allow-Origin` header
         // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", "https://stats.beta.gouv.fr"],
+        "script-src": ["'self'", "'unsafe-inline'", `https://${process.env.MATOMO_HOST}`],
         "object-src": ["blob:"],
       },
     },
@@ -78,11 +87,7 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
 // Matomo
-const apiTracker = lib.setupTracker(
-  "https://stats.beta.gouv.fr/",
-  process.env.MATOMO_TOKEN,
-  openApiContents,
-);
+const apiTracker = lib.setupTracker(openApiContents);
 
 const elmApp = Elm.Server.init();
 

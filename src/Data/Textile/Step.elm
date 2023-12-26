@@ -5,15 +5,16 @@ module Data.Textile.Step exposing
     , computeMaterialTransportAndImpact
     , computeTransports
     , create
-    , displayLabel
     , encode
     , getInputSurface
     , getOutputSurface
     , initMass
+    , makingDeadStockToString
     , makingWasteToString
     , qualityToString
     , reparabilityToString
     , surfaceMassToString
+    , updateDeadStock
     , updateFromInputs
     , updateWaste
     , yarnSizeToString
@@ -26,13 +27,12 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.Knitting exposing (Knitting)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
-import Data.Textile.Product as Product
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -50,6 +50,7 @@ type alias Step =
     , inputMass : Mass
     , outputMass : Mass
     , waste : Mass
+    , deadstock : Mass
     , transport : Transport
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
@@ -61,11 +62,11 @@ type alias Step =
     , reparability : Unit.Reparability
     , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
+    , makingDeadStock : Maybe Split
     , picking : Maybe Unit.PickPerMeter
     , threadDensity : Maybe Unit.ThreadDensity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , knittingProcess : Maybe Knitting
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     }
@@ -104,6 +105,7 @@ create { label, editable, country, enabled } =
     , inputMass = Quantity.zero
     , outputMass = Quantity.zero
     , waste = Quantity.zero
+    , deadstock = Quantity.zero
     , transport = Transport.default defaultImpacts
     , impacts = defaultImpacts
     , complementsImpacts = Impact.noComplementsImpacts
@@ -115,11 +117,11 @@ create { label, editable, country, enabled } =
     , reparability = Unit.standardReparability
     , makingComplexity = Nothing
     , makingWaste = Nothing
+    , makingDeadStock = Nothing
     , picking = Nothing
     , threadDensity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , knittingProcess = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
     }
@@ -144,25 +146,6 @@ defaultProcessInfo =
     , fading = Nothing
     , printing = Nothing
     }
-
-
-displayLabel : { knitted : Bool, fadable : Bool } -> Label -> String
-displayLabel { knitted, fadable } label =
-    case ( label, knitted, fadable ) of
-        ( Label.Making, _, True ) ->
-            "Transformation\u{00A0}- Confection & Délavage"
-
-        ( Label.Making, _, False ) ->
-            "Transformation\u{00A0}- Confection"
-
-        ( Label.Fabric, True, _ ) ->
-            "Transformation\u{00A0}- Tricotage"
-
-        ( Label.Fabric, False, _ ) ->
-            "Transformation\u{00A0}- Tissage"
-
-        _ ->
-            Label.toName label
 
 
 computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
@@ -313,7 +296,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, yarnSize, surfaceMass, knittingProcess, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -337,15 +320,14 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Fabric ->
             { step
-                | knittingProcess = knittingProcess
-                , yarnSize = yarnSize
+                | yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , fabric =
-                            wellKnown
-                                |> Product.getFabricProcess inputs.knittingProcess inputs.product
+                            inputs.product.fabric
+                                |> Fabric.getProcess wellKnown
                                 |> .name
                                 |> Just
                     }
@@ -381,16 +363,12 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
                 , makingWaste = makingWaste
+                , makingDeadStock = makingDeadStock
                 , makingComplexity = makingComplexity
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , fading =
-                            if inputs.product.making.fadable then
-                                Just wellKnown.fading.name
-
-                            else
-                                Nothing
+                        , fading = Just wellKnown.fading.name
                         , airTransportRatio =
                             country.airTransportRatio
                                 |> airTransportRatioToString
@@ -451,6 +429,15 @@ updateWaste waste mass step =
     }
 
 
+updateDeadStock : Mass -> Mass -> Step -> Step
+updateDeadStock deadstock mass step =
+    { step
+        | deadstock = deadstock
+        , inputMass = mass
+        , outputMass = Quantity.difference mass deadstock
+    }
+
+
 airTransportDisabled : Step -> Bool
 airTransportDisabled { enabled, label, country } =
     not enabled
@@ -492,6 +479,15 @@ makingWasteToString makingWaste =
         Split.toPercentString makingWaste ++ "% de pertes"
 
 
+makingDeadStockToString : Split -> String
+makingDeadStockToString makingDeadStock =
+    if makingDeadStock == Split.zero then
+        "Aucun stock dormant en confection"
+
+    else
+        Split.toPercentString makingDeadStock ++ "% de stocks dormants"
+
+
 yarnSizeToString : Unit.YarnSize -> String
 yarnSizeToString yarnSize =
     "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
@@ -512,6 +508,7 @@ encode v =
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
+        , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "transport", Transport.encode v.transport )
         , ( "impacts", Impact.encode v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
@@ -521,6 +518,7 @@ encode v =
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
         , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
