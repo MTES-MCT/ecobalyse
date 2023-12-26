@@ -2,10 +2,12 @@ module Page.Explore.TextileProducts exposing (table)
 
 import Area
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
+import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -100,12 +102,11 @@ table db { detailed, scope } =
           }
         , let
             fabricToString product =
-                case product.fabric of
-                    Product.Knitted _ ->
-                        "Tricotée"
+                if Fabric.isKnitted product.fabric then
+                    "Tricotée"
 
-                    Product.Weaved _ ->
-                        "Tissée"
+                else
+                    "Tissée"
           in
           { label = "Etoffe"
           , toValue = fabricToString
@@ -145,16 +146,23 @@ table db { detailed, scope } =
           }
         , let
             fadabaleToString product =
-                if product.making.fadable then
+                if Product.isFadedByDefault product then
                     "oui"
 
                 else
                     "non"
           in
-          { label = "Délavage"
+          { label = "Délavage par défaut"
           , toValue = fadabaleToString
           , toCell =
                 fadabaleToString >> text
+          }
+        , { label = "Stocks dormants"
+          , toValue = Split.toPercentString Env.defaultDeadStock |> always
+          , toCell =
+                div [ classList [ ( "text-center", not detailed ) ] ]
+                    [ Format.splitAsPercentage Env.defaultDeadStock ]
+                    |> always
           }
         , { label = "Type de teinture"
           , toValue = .dyeing >> .defaultMedium >> DyeingMedium.toLabel

@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
-import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
+import Data.Textile.Inputs as Inputs exposing (Query, tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
@@ -17,6 +17,11 @@ import Server.Route as Route
 import Static.Db as StaticDb
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
+
+
+sampleQuery : Query
+sampleQuery =
+    { tShirtCotonFrance | countrySpinning = Nothing }
 
 
 suite : Test
@@ -157,16 +162,18 @@ textileEndpoints db =
         [ String.join "&"
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
+            , "fabricProcess=knitting-mix"
             , "materials[]=coton;1"
             , "countryFabric=FR"
             , "countryDyeing=FR"
             , "countryMaking=FR"
             ]
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetTextileSimulator (Ok tShirtCotonFrance))
+            |> Expect.equal (Just <| Route.GetTextileSimulator (Ok sampleQuery))
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -178,11 +185,12 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
+                        Ok { sampleQuery | quality = Just (Unit.quality 1.2) }
                 )
             |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -194,11 +202,12 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Ennobling ] }
+                        Ok { sampleQuery | disabledSteps = [ Label.Making, Label.Ennobling ] }
                 )
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
         , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -209,11 +218,12 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulatorSingle Definition.Fwe <|
-                        Ok tShirtCotonFrance
+                        Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/{impact} endpoint"
         , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -224,13 +234,13 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulatorDetailed <|
-                        Ok tShirtCotonFrance
+                        Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/detailed endpoint"
         ]
     , describe "POST endpoints"
         [ "/textile/simulator"
-            |> testEndpoint db "POST" (Inputs.encodeQuery Inputs.tShirtCotonFrance)
+            |> testEndpoint db "POST" (Inputs.encodeQuery tShirtCotonFrance)
             |> Expect.equal (Just Route.PostTextileSimulator)
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"
@@ -266,6 +276,7 @@ textileEndpoints db =
           in
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
+          , "fabricProcess=knitting-mix"
           , "materials[]=coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
           , "materials[]=acrylique;0.4"
@@ -353,6 +364,7 @@ textileEndpoints db =
                     [ ( "countryFabric", "Code pays manquant." )
                     , ( "countryDyeing", "Code pays manquant." )
                     , ( "countryMaking", "Code pays manquant." )
+                    , ( "fabricProcess", "Identifiant du type de tissu manquant." )
                     , ( "mass", "La masse est manquante." )
                     , ( "product", "Identifiant du type de produit manquant." )
                     ]
@@ -361,15 +373,15 @@ textileEndpoints db =
             |> asTest "should expose query validation errors"
         , [ "/textile/simulator?mass=-0.17"
           , "product=notAProductID"
+          , "fabricProcess=notAFabricProcess"
           , "material=notAnID"
           , "materials[]=notAnID"
-          , "knittingProcess=notAKnittingProcess"
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
           , "countryMaking=US"
           , "disabledSteps=invalid"
-          , "disabledFading=untrue"
+          , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "ennoblingHeatSource=yolo"
@@ -385,11 +397,11 @@ textileEndpoints db =
                     , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
-                    , ( "knittingProcess", "Procédé de tricotage inconnu: notAKnittingProcess" )
+                    , ( "fabricProcess", "Procédé de tissage/tricotage inconnu: notAFabricProcess" )
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 80 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
-                    , ( "disabledFading", "La valeur ne peut être que true ou false." )
+                    , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )

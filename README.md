@@ -51,6 +51,7 @@ Un server frontend de débogage est alors disponible sur [localhost:1234](http:/
 ### Hooks Git avec Husky et Formatage de Code avec Prettier
 
 Ce projet utilise Husky pour gérer les hooks Git, et Prettier pour le formatage automatique du code.
+Le build sur le CI échouera si les fichiers javascript et json ne sont pas proprement formattés.
 
 #### Pré-requis
 
@@ -68,6 +69,10 @@ Un hook de pre-commit a été configuré pour vérifier que le code est bien for
 Pour résoudre ce problème, vous pouvez exécuter la commande suivante :
 
     $ npm run format:json
+
+Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaler les hooks :
+
+    $ npx husky uninstall
 
 ## Compilation
 

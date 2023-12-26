@@ -44,8 +44,10 @@ suite =
     suiteWithDb "Data.Simulator"
         (\{ textileDb } ->
             [ describe "Simulator.compute"
-                [ tShirtCotonFrance
-                    |> expectImpact textileDb cch 6.344579997173014
+                [ { tShirtCotonFrance
+                    | countrySpinning = Nothing
+                  }
+                    |> expectImpact textileDb cch 7.317632219395458
                     |> asTest "should compute a simulation cch impact"
                 , describe "disabled steps"
                     [ { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
