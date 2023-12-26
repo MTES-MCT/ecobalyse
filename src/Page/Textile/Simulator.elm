@@ -645,6 +645,7 @@ durabilityField updateDurability maybeDurability =
                 [ type_ "range"
                 , class "d-block form-range"
                 , onInput (String.toFloat >> Maybe.map Unit.durability >> updateDurability)
+                , onDoubleClick (updateDurability Nothing)
                 , Attr.min (fromFloat Unit.minDurability)
                 , Attr.max (fromFloat Unit.maxDurability)
 
