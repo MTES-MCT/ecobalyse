@@ -46,7 +46,7 @@ type alias UseOptions =
     , ratioDryer : Split -- Ratio de séchage électrique (not used in computations)
     , ratioIroning : Split -- Ratio de repassage (not used in computations)
     , timeIroning : Duration -- Temps de repassage (not used in computations)
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (not used in computations)
     }
 
 

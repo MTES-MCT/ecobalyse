@@ -673,7 +673,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     { current = current
                     , db = db
                     , detailedStep = detailedStep
-                    , daysOfWear = simulator.daysOfWear
                     , index = index
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle

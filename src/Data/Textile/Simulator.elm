@@ -25,7 +25,6 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
-import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
@@ -38,7 +37,6 @@ type alias Simulator =
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
     , transport : Transport
-    , daysOfWear : Duration
     , useNbCycles : Int
     }
 
@@ -51,7 +49,6 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
-        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
@@ -69,7 +66,7 @@ init db =
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             let
-                                { daysOfWear, useNbCycles } =
+                                { useNbCycles } =
                                     product.use
                                         |> Product.customDaysOfWear durability
                             in
@@ -78,7 +75,6 @@ init db =
                             , impacts = defaultImpacts
                             , complementsImpacts = Impact.noComplementsImpacts
                             , transport = Transport.default defaultImpacts
-                            , daysOfWear = daysOfWear
                             , useNbCycles = useNbCycles
                             }
                        )

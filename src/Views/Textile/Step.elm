@@ -28,7 +28,6 @@ import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -52,7 +51,6 @@ import Views.Transport as TransportView
 type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
-    , daysOfWear : Duration
     , db : TextileDb.Db
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
