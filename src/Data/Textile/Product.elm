@@ -22,7 +22,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Volume exposing (Volume)
 
 
@@ -197,25 +196,10 @@ encodeId =
     idToString >> Encode.string
 
 
-{-| Computes the number of wears and the number of maintainance cycles against
-durability coefficient.
+{-| Computes the number of maintainance cycles.
 -}
-customDaysOfWear :
-    Maybe Unit.Durability
-    -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
-    -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeDurability { daysOfWear, wearsPerCycle } =
-    let
-        durability =
-            Maybe.withDefault Unit.standardDurability maybeDurability
-
-        newDaysOfWear =
-            daysOfWear
-                |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
-    in
-    { daysOfWear = newDaysOfWear
-    , useNbCycles =
-        Duration.inDays newDaysOfWear
-            / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
-            |> round
-    }
+customDaysOfWear : { productOptions | daysOfWear : Duration, wearsPerCycle : Int } -> Int
+customDaysOfWear { daysOfWear, wearsPerCycle } =
+    Duration.inDays daysOfWear
+        / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
+        |> round

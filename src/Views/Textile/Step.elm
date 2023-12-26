@@ -927,18 +927,17 @@ viewProcessInfo processName =
 daysOfWearInfo : Inputs -> Html msg
 daysOfWearInfo inputs =
     let
-        info =
-            inputs.product.use
-                |> Product.customDaysOfWear inputs.durability
+        useNbCycles =
+            Product.customDaysOfWear inputs.product.use
     in
     small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
-        , Format.days info.daysOfWear
+        , Format.days inputs.product.use.daysOfWear
         , text " portés, "
-        , text <| String.fromInt info.useNbCycles
+        , text <| String.fromInt useNbCycles
         , text <|
             " cycle"
-                ++ (if info.useNbCycles > 1 then
+                ++ (if useNbCycles > 1 then
                         "s"
 
                     else
