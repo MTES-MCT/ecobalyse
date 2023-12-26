@@ -349,18 +349,6 @@
     }
   },
   {
-    "id": "beef-cattle",
-    "name": "Bovins de boucherie",
-    "category": "material",
-    "search": "Beef cattle national average at farm gate"
-  },
-  {
-    "id": "beef-cattle-feedlot",
-    "name": "Bovins de boucherie (Feedlot)",
-    "category": "material",
-    "search": "Beef cattle feedlot or intensive system live weight farm GB"
-  },
-  {
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
@@ -386,13 +374,13 @@
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon (cuit)",
+    "name": "Jambon cuit",
     "search": "Cooked ham case ready at plant",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -404,13 +392,13 @@
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Jambon bio (cuit)",
+    "name": "Jambon cuit bio cuit",
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -437,24 +425,6 @@
       "agro-ecology": 10,
       "animal-welfare": 10
     }
-  },
-  {
-    "id": "pig",
-    "name": "Porc",
-    "category": "material",
-    "search": "Pig conventional national average at farm gate"
-  },
-  {
-    "id": "pig-organic",
-    "name": "Porc bio",
-    "category": "material",
-    "search": "Pig organic system 2 at farm gate"
-  },
-  {
-    "id": "lamb",
-    "name": "Agneau",
-    "search": "Meat with bone lamb",
-    "category": "material"
   },
   {
     "id": "chicken-breast",
@@ -509,23 +479,6 @@
       "agro-ecology": 50,
       "animal-welfare": 50
     }
-  },
-  {
-    "id": "broiler",
-    "name": "Poulet (sortie de ferme)",
-    "search": "Broiler national at farm gate",
-    "category": "material",
-    "default_origin": "EuropeAndMaghreb",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
-  },
-  {
-    "id": "broiler-organic",
-    "name": "Poulet bio",
-    "category": "material",
-    "search": "Broiler organic at farm gate"
   },
   {
     "id": "grape",
@@ -695,23 +648,6 @@
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
-    }
-  },
-  {
-    "id": "pear-organic",
-    "name": "Poire bio ",
-    "search": "Pear, organic, consumption mix/KARBON : 100 (IS)",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
-    "default_origin": "OutOfEuropeAndMaghrebByPlane",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
     }
   },
   {
@@ -2572,11 +2508,11 @@
   },
   {
     "id": "milk-powder",
-    "name": "Poudre de lait",
-    "search": "powder milk non",
+    "name": "Poudre de lait écrémé",
+    "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
     "category": "ingredient",
     "categories": ["dairy_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
@@ -2586,23 +2522,6 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    }
-  },
-  {
-    "id": "brown-sugar",
-    "name": "Sucre de canne",
-    "search": "brown sugar",
-    "category": "ingredient",
-    "categories": ["vegetable_processed"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
     }
   },
   {
@@ -2623,47 +2542,17 @@
     }
   },
   {
-    "id": "beef",
-    "name": "Boeuf Brésil",
-    "search": "Beef,fresh meat",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
     "id": "red-wine",
-    "name": "Vin Rouge",
+    "name": "Vin rouge",
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine ",
     "category": "ingredient",
     "categories": ["misc"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
-    "inedible_part": 0.1,
+    "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Je ne sais pas si je dois prendre en compte l'emballage et le contenant sur le choix de la densité.\nPour le choix de la part non comestible aussi je ne sais pas si je dois considérer la matière première ou le produit fini vu que y a que des fruits et légumes sur la liste.",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
-  },
-  {
-    "id": "large-trout-fr",
-    "name": "Truite Fumée",
-    "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
-    "category": "transformation",
-    "default_origin": "France",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10
@@ -2671,41 +2560,13 @@
   },
   {
     "id": "fresh-shrimps",
-    "name": " Crevettes",
+    "name": " Crevettes fraîches",
     "search": "Fresh shrimps, China production/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.819,
     "density": 1.0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "dry-harm",
-    "name": "Jambon sec",
-    "search": "Dry hams, Hams, Dry hams sliced, industrial production, French production, at plant, 1 kg of dry hams sliced (PDi) : ",
-    "category": "transformation",
-    "default_origin": "EuropeAndMaghreb",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "broiler-label-rouge",
-    "name": "Poulet Label Rouge",
-    "search": "Broiler, Label Rouge, at farm gate/FR U : ",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
@@ -2713,126 +2574,15 @@
       "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    }
-  },
-  {
-    "id": "lardon",
-    "name": "Lardons",
-    "search": "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork meat (PDi) :",
-    "category": "transformation",
-    "default_origin": "EuropeAndMaghreb",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "pig-ue",
-    "name": "Porc",
-    "search": "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork chop case ready (PDi) : ",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "ham",
-    "name": "Jambon",
-    "search": "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) ",
-    "category": "transformation",
-    "default_origin": "France",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "broiler-conventional",
-    "name": "Poulet Brésil",
-    "search": "Broiler, conventional, at farm gate/FR U ",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "veal",
-    "name": "Veau",
-    "search": "Slaughtering and chilling, of veal, industrial production, French production mix, 1 kg of veal quarter/FR U : ",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "tomato-for-processing",
-    "name": "Tomate pour la transformation",
-    "search": "Tomato, average basket, conventional, soil based, non-heated greenhouse, at greenhouse/FR U ",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
     }
   },
   {
     "id": "egg-outdoor",
-    "name": "Oeuf plein air",
+    "name": "Oeuf plein air (code 1-sortie de ferme)",
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 0.974,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "egg-indoor",
-    "name": "Oeuf Conventionnel",
-    "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
     "inedible_part": 0.2,
@@ -2998,9 +2748,9 @@
     }
   },
   {
-    "id": "european-pilchard",
-    "name": "Sardine",
-    "search": "European Pilchard, BBiscay, Seine, average, at landing/FR U : ",
+    "id": "large-trout",
+    "name": "Truite d'élevage (sortie de ferme)",
+    "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "France",
@@ -3009,7 +2759,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Transport réfrigéré avant transformation?",
+    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
     "complements": {
       "agro-diversity": 10,
       "agro-ecology": 10,
@@ -3017,33 +2767,15 @@
     }
   },
   {
-    "id": "mussel",
-    "name": "Moules",
-    "search": "Mussels, with shell, at farm gate/FR U ",
+    "id": "egg-indoor-code2",
+    "name": "Oeuf conventionnel (code 2-sortie de ferme)",
+    "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
+    "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
     "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "honey",
-    "name": "Miel",
-    "search": "Honey, raw, large-scale production, unpackaged, at farm (adapted from WFLDB)/US U :",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
     "complements": {
@@ -3053,73 +2785,21 @@
     }
   },
   {
-    "id": "soybean",
-    "name": "Soja FR",
-    "search": "Soybean grain dried, stored and transported, processing/FR U :",
+    "id": "egg-indoor-code3",
+    "name": "Oeuf conventionnel (code 3-sortie de ferme)",
+    "search": "Egg indoor cage",
     "category": "ingredient",
-    "categories": ["grain_raw"],
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 2.33,
-    "density": 0.271,
-    "inedible_part": 0,
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
     "complements": {
       "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "pork-shop-case",
-    "name": "Porc UE",
-    "search": "Pork chop case ready, Pigs, Pork shop, industrial production, French production mix, at plant, 1 kg of pork chop case ready (PDi) :",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1.0,
-    "inedible_part": 0.2,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
       "agro-ecology": 10,
       "animal-welfare": 10
-    }
-  },
-  {
-    "id": "superior-cooked-ham",
-    "name": "Jambon UE",
-    "search": "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) ",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 1.0,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "cucumber-es",
-    "name": "Concombre Espagne",
-    "search": "cucumber",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
     }
   }
 ]
