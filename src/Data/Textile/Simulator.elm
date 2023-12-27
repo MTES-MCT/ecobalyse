@@ -628,22 +628,23 @@ computeTotalTransportImpacts simulator =
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
-        complementsImpacts =
-            lifeCycle
-                |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy durability
-
         durability =
             inputs.durability
                 |> Maybe.withDefault Unit.standardDurability
                 |> Unit.durabilityToFloat
+
+        complementsImpacts =
+            lifeCycle
+                |> LifeCycle.sumComplementsImpacts
+                |> Impact.divideComplementsImpactsBy durability
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            LifeCycle.computeFinalImpacts lifeCycle
-                |> Impact.impactsWithComplements complementsImpacts
+            lifeCycle
+                |> LifeCycle.computeFinalImpacts
                 |> Impact.divideBy durability
+                |> Impact.impactsWithComplements complementsImpacts
     }
 
 
