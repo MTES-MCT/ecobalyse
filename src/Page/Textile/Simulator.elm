@@ -767,7 +767,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , customScoreInfo =
                     Just
                         (small []
-                            [ text "Hors-durabilité\u{00A0}: "
+                            [ text "Hors modulation durabilité\u{00A0}: "
                             , impacts
                                 |> Impact.multiplyBy
                                     (inputs.durability
