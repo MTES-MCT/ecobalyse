@@ -6,3 +6,4 @@ public/icomoon/*
 public/vendor/*
 tests/e2e-*-output.json
 styles.scss
+tests/e2e-*-output.json

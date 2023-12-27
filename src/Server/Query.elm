@@ -313,6 +313,7 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
+        |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
         |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
@@ -699,6 +700,29 @@ maybeMakingWasteParser key =
                                 ++ Split.toFloatString Env.minMakingWasteRatio
                                 ++ " et "
                                 ++ Split.toFloatString Env.maxMakingWasteRatio
+                                ++ "."
+                            )
+
+                    else
+                        Ok (Split.fromFloat float |> Result.toMaybe)
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeMakingDeadStockParser : String -> Parser (ParseResult (Maybe Split))
+maybeMakingDeadStockParser key =
+    floatParser key
+        |> Query.map
+            (Maybe.map
+                (\float ->
+                    if float < Split.toFloat Env.minMakingDeadStockRatio || float > Split.toFloat Env.maxMakingDeadStockRatio then
+                        Err
+                            ( key
+                            , "Le taux de stocks dormants en confection doit être compris entre "
+                                ++ Split.toFloatString Env.minMakingDeadStockRatio
+                                ++ " et "
+                                ++ Split.toFloatString Env.maxMakingDeadStockRatio
                                 ++ "."
                             )
 

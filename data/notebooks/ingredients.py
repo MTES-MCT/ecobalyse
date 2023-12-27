@@ -75,9 +75,9 @@ def cleanup_json(activities):
 
 
 def save_activities(activities):
-    if not w_institut.value:
+    if not w_contributor.value:
         return
-    with open(ACTIVITIES_TEMP % w_institut.value, "w") as fp:
+    with open(ACTIVITIES_TEMP % w_contributor.value, "w") as fp:
         fp.write(
             json.dumps(
                 cleanup_json([from_flat(from_pretty(i)) for i in activities.values()]),
@@ -141,15 +141,15 @@ def read_activities():
     """Return the activities as a dict indexed with id"""
 
     def read_temp():
-        with open(ACTIVITIES_TEMP % w_institut.value) as fp:
+        with open(ACTIVITIES_TEMP % w_contributor.value) as fp:
             return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
 
-    if not os.path.exists(ACTIVITIES_TEMP % w_institut.value):
-        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
+    if not os.path.exists(ACTIVITIES_TEMP % w_contributor.value):
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
     try:
         igs = read_temp()
     except json.JSONDecodeError:
-        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
+        shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
         igs = read_temp()
 
     return igs
@@ -158,7 +158,7 @@ def read_activities():
 # WIDGETS
 ## technical identifier of the activity (for API/URL/FK)
 style = {"description_width": "initial"}
-w_institut = ipywidgets.Dropdown(
+w_contributor = ipywidgets.Dropdown(
     options=[
         "Écobalyse",
         "ITERG",
@@ -205,7 +205,7 @@ w_default_origin = ipywidgets.Dropdown(
         ("Europe ou Maghreb (à plus de 95%)", "EuropeAndMaghreb"),
         ("Hors Europe ou Maghreb (à plus de 5%)", "OutOfEuropeAndMaghreb"),
         (
-            "Par avion, hors Europe ou Maghreb (mangue, horicots, ...)",
+            "Par avion, hors Europe ou Maghreb (mangue, haricots, ...)",
             "OutOfEuropeAndMaghrebByPlane",
         ),
     ],
@@ -424,6 +424,7 @@ def list_activities(filter=""):
         pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
     )
     df.set_properties(**{"background-color": "#EEE"})
+    list_output.clear_output()
     display(
         ipywidgets.HTML(
             f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}",
@@ -439,7 +440,7 @@ class printer(str):
 
 @file_output.capture()
 def display_output_file():
-    with open(ACTIVITIES_TEMP % w_institut.value) as fp:
+    with open(ACTIVITIES_TEMP % w_contributor.value) as fp:
         display(
             printer(json.dumps(json.load(fp), indent=2, ensure_ascii=False)),
             display_id=True,
@@ -488,6 +489,13 @@ def set_field(field, value, default):
 
 def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
+
+
+def change_contributor(change):
+    list_activities(w_filter.value)
+
+
+w_contributor.observe(change_contributor, names="value")
 
 
 def change_categories(_):
@@ -686,26 +694,32 @@ def reset_branch():
             )
         )
 
+
 @surface_output.capture()
 def display_surface(activity):
     surface_output.clear_output()
     display(ipywidgets.HTML("Computing surface..."))
     lca = bw2calc.LCA({activity: 1})
-    method = ('selected LCI results', 'resource', 'land occupation')
+    method = ("selected LCI results", "resource", "land occupation")
     try:
         lca.lci()
         lca.switch_method(method)
         lca.lcia()
         surface_output.clear_output()
-        display(ipywidgets.HTML(f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"))
+        display(
+            ipywidgets.HTML(
+                f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"
+            )
+        )
     except Exception as e:
         display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
         display(e)
 
+
 @reset_output.capture()
 def reset_activities(_):
     branch = current_branch()
-    if not w_institut.value:
+    if not w_contributor.value:
         display("Sélectionnez d'abord le bon contributeur")
         return
     elif (
@@ -727,7 +741,7 @@ def reset_activities(_):
             )
         )
 
-    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_institut.value)
+    shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
     w_id.options = tuple(read_activities().keys())
     clear_form()
     display_all()
@@ -747,12 +761,26 @@ def clear_reset_output(_):
 
 @git_output.capture()
 def commit_activities(_):
+    git_output.clear_output()
     branch = current_branch()
-    if not w_institut.value:
-        display("Sélectionnez d'abord le bon contributeur")
+    if not w_contributor.value:
+        display(ipywidgets.HTML("Sélectionnez d'abord le bon contributeur"))
         return
-    shutil.copy(ACTIVITIES_TEMP % w_institut.value, ACTIVITIES)
-    if subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0:
+    shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
+    display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
+    if (
+        subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode
+        != 0
+    ):
+        display(
+            ipywidgets.HTML(
+                "<pre style='color: red'>ÉCHEC de la commande: npm run format:json"
+            )
+        )
+        reset_branch()
+    elif (
+        subprocess.run(["git", "add", ACTIVITIES], capture_output=True).returncode != 0
+    ):
         display(
             ipywidgets.HTML("<pre style='color: red'>ÉCHEC de la commande: git add")
         )
@@ -763,7 +791,7 @@ def commit_activities(_):
                 "git",
                 "commit",
                 "-m",
-                f"Changed ingredients (contributed by {w_institut.value})",
+                f"Changed ingredients (contributed by {w_contributor.value})",
             ],
             capture_output=True,
         ).returncode
@@ -815,7 +843,7 @@ branch = current_branch()
 list_activities(w_filter.value)
 display(
     ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
-    w_institut,
+    w_contributor,
     ipywidgets.Tab(
         titles=[
             "Documentation",
@@ -914,9 +942,7 @@ display(
                             w_results,
                         ),
                     ),
-                    ipywidgets.HTML(
-                      "<hr/>Surface mobilisée :"
-                    ),
+                    ipywidgets.HTML("<hr/>Surface mobilisée :"),
                     surface_output,
                     ipywidgets.HTML(
                         "<hr/>Pour un ingrédient, renseignez « ingrédient » :"

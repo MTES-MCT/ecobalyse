@@ -58,9 +58,17 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
-            """Le paramètre permettant de spécifier des compléments (ou bonus)
-            personnalisés par ingrédient a été retiré, il est remplacé par la
+            """Les paramètres permettant de spécifier des compléments (ou bonus)
+            personnalisés par ingrédient ont été retirés, il sont remplacés par la
             gestion automatisée des services écosystémiques."""
+      }
+    , { date = "21 décembre 2023"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `makingDeadStock` a été rajouté pour représenter
+            le taux de stocks dormants lors de la phase de confection. La valeur par défaut
+            est de 15% (0.15)."""
       }
     , { date = "20 décembre 2023"
       , level = "major"

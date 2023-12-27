@@ -183,6 +183,14 @@ describe("API", () => {
           );
         });
 
+        it("should validate the makingDeadStock param", async () => {
+          expectFieldErrorMessage(
+            await makeRequest("/api/textile/simulator", ["makingDeadStock=0.9"]),
+            "makingDeadStock",
+            /doit être compris entre/,
+          );
+        });
+
         it("should validate the makingComplexity param", async () => {
           expectFieldErrorMessage(
             await makeRequest("/api/textile/simulator", ["makingComplexity=bad-complexity"]),
