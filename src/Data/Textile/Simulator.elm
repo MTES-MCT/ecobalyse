@@ -154,20 +154,6 @@ compute db query =
         -- Final impacts
         --
         |> next computeFinalImpacts
-        |> next applyDurability
-
-
-applyDurability : Simulator -> Simulator
-applyDurability ({ impacts, inputs } as simulator) =
-    { simulator
-        | impacts =
-            impacts
-                |> Impact.divideBy
-                    (inputs.durability
-                        |> Maybe.withDefault Unit.standardDurability
-                        |> Unit.durabilityToFloat
-                    )
-    }
 
 
 initializeFinalMass : Simulator -> Simulator
@@ -640,16 +626,24 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ lifeCycle } as simulator) =
+computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
         complementsImpacts =
-            LifeCycle.sumComplementsImpacts lifeCycle
+            lifeCycle
+                |> LifeCycle.sumComplementsImpacts
+                |> Impact.divideComplementsImpactsBy durability
+
+        durability =
+            inputs.durability
+                |> Maybe.withDefault Unit.standardDurability
+                |> Unit.durabilityToFloat
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
             LifeCycle.computeFinalImpacts lifeCycle
                 |> Impact.impactsWithComplements complementsImpacts
+                |> Impact.divideBy durability
     }
 
 

@@ -8,6 +8,7 @@ module Data.Impact exposing
     , decodeImpacts
     , default
     , divideBy
+    , divideComplementsImpactsBy
     , divideStepsImpactsBy
     , empty
     , encode
@@ -76,6 +77,16 @@ applyComplements complement impacts =
     impacts
         |> insertWithoutAggregateComputation Definition.Ecs
             (Quantity.difference ecoScore complement)
+
+
+divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
+divideComplementsImpactsBy n ci =
+    { agroDiversity = ci.agroDiversity |> Quantity.divideBy n
+    , agroEcology = ci.agroEcology |> Quantity.divideBy n
+    , animalWelfare = ci.animalWelfare |> Quantity.divideBy n
+    , microfibers = ci.microfibers |> Quantity.divideBy n
+    , outOfEuropeEOL = ci.outOfEuropeEOL |> Quantity.divideBy n
+    }
 
 
 noComplementsImpacts : ComplementsImpacts
