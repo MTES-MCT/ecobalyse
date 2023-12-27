@@ -169,6 +169,18 @@ type alias StepsImpacts =
     Steps (Maybe Unit.Impact)
 
 
+mapSteps : (a -> a) -> Steps a -> Steps a
+mapSteps fn steps =
+    { materials = fn steps.materials
+    , transform = fn steps.transform
+    , packaging = fn steps.packaging
+    , transports = fn steps.transports
+    , distribution = fn steps.distribution
+    , usage = fn steps.usage
+    , endOfLife = fn steps.endOfLife
+    }
+
+
 noStepsImpacts : StepsImpacts
 noStepsImpacts =
     { materials = Nothing
@@ -182,15 +194,8 @@ noStepsImpacts =
 
 
 divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
-divideStepsImpactsBy n stepsImpacts =
-    { materials = stepsImpacts.materials |> Maybe.map (Quantity.divideBy n)
-    , transform = stepsImpacts.transform |> Maybe.map (Quantity.divideBy n)
-    , packaging = stepsImpacts.packaging |> Maybe.map (Quantity.divideBy n)
-    , transports = stepsImpacts.transports |> Maybe.map (Quantity.divideBy n)
-    , distribution = stepsImpacts.distribution |> Maybe.map (Quantity.divideBy n)
-    , usage = stepsImpacts.usage |> Maybe.map (Quantity.divideBy n)
-    , endOfLife = stepsImpacts.endOfLife |> Maybe.map (Quantity.divideBy n)
-    }
+divideStepsImpactsBy n =
+    mapSteps (Maybe.map (Quantity.divideBy n))
 
 
 type alias StepsColors =
