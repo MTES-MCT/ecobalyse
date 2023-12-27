@@ -77,7 +77,7 @@ init db =
             )
 
 
-{-| Computes a single impact.
+{-| Computes simulation impacts.
 -}
 compute : TextileDb.Db -> Inputs.Query -> Result String Simulator
 compute db query =
@@ -677,7 +677,16 @@ toStepsImpacts trigram simulator =
 
         applyComplement complementImpact =
             if trigram == Definition.Ecs then
-                Maybe.map (Quantity.minus complementImpact)
+                Maybe.map
+                    (Quantity.minus
+                        (complementImpact
+                            |> Quantity.multiplyBy
+                                (simulator.inputs.durability
+                                    |> Maybe.withDefault Unit.standardDurability
+                                    |> Unit.durabilityToFloat
+                                )
+                        )
+                    )
 
             else
                 identity
