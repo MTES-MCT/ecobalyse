@@ -2238,7 +2238,7 @@
   {
     "id": "flank-steak",
     "name": "Bavette (crue)",
-    "search": "Meat without bone, beef, for direct consumption organic constructed",
+    "search": "Meat without bone, beef, for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
@@ -2255,8 +2255,8 @@
   },
   {
     "id": "flank-steak-organic",
-    "name": "Bavette (crue)",
-    "search": "Meat without bone, beef, for direct consumption ",
+    "name": "Bavette bio (crue)",
+    "search": "Meat without bone, beef, for direct consumption organic constructed",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
