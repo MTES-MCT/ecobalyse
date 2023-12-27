@@ -102,6 +102,7 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
+    | UpdateDurability (Maybe Unit.Durability)
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -112,7 +113,6 @@ type Msg
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
-    | UpdateDurability (Maybe Unit.Durability)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateYarnSize (Maybe Unit.YarnSize)
@@ -388,6 +388,18 @@ update ({ queries, navKey } as session) msg model =
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
+        UpdateDurability durability ->
+            ( model, session, Cmd.none )
+                |> updateQuery
+                    { query
+                        | durability =
+                            if durability == Just Unit.standardDurability then
+                                Nothing
+
+                            else
+                                durability
+                    }
+
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
@@ -449,10 +461,6 @@ update ({ queries, navKey } as session) msg model =
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
-
-        UpdateDurability durability ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | durability = durability }
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
@@ -650,15 +658,7 @@ durabilityField updateDurability maybeDurability =
                 , onInput
                     (String.toFloat
                         >> Maybe.map Unit.durability
-                        >> (\maybeD ->
-                                updateDurability
-                                    (if maybeD == Just Unit.standardDurability then
-                                        Nothing
-
-                                     else
-                                        maybeD
-                                    )
-                           )
+                        >> updateDurability
                     )
                 , onDoubleClick (updateDurability Nothing)
                 , Attr.min (fromFloat Unit.minDurability)

@@ -140,7 +140,7 @@ decodeDurability =
             (\float ->
                 if float < durabilityToFloat minDurability || float > durabilityToFloat maxDurability then
                     Decode.fail
-                        ("La qualité spécifiée ("
+                        ("Le coefficient de durabilité spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être comprise entre "
                             ++ String.fromFloat (durabilityToFloat minDurability)
