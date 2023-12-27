@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
@@ -763,6 +764,19 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , switchImpact = SwitchImpact
 
                 -- Score
+                , customScoreInfo =
+                    Just
+                        (small []
+                            [ text "Hors-durabilité\u{00A0}: "
+                            , impacts
+                                |> Impact.multiplyBy
+                                    (inputs.durability
+                                        |> Maybe.withDefault Unit.standardDurability
+                                        |> Unit.durabilityToFloat
+                                    )
+                                |> Format.formatImpact model.impact
+                            ]
+                        )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
 

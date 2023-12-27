@@ -8,18 +8,26 @@ import Mass exposing (Mass)
 import Views.Format as Format
 
 
-type alias Config =
+type alias Config msg =
     { impactDefinition : Definition
+    , customInfo : Maybe (Html msg)
     , mass : Mass
     , score : Impacts
     }
 
 
-view : Config -> Html msg
-view { impactDefinition, mass, score } =
+view : Config msg -> Html msg
+view { customInfo, impactDefinition, mass, score } =
     div [ class "card bg-secondary shadow-sm" ]
-        [ div [ class "card-body text-center text-nowrap text-white display-3 lh-1" ]
-            [ Format.formatImpact impactDefinition score ]
-        , div [ class "card-footer text-white text-center" ]
-            [ text "Pour ", Format.kg mass ]
+        [ div [ class "card-body text-center text-nowrap text-white" ]
+            [ div [ class "display-3 lh-1" ] [ Format.formatImpact impactDefinition score ]
+            , small [] [ text "Pour ", Format.kg mass ]
+            ]
+        , case customInfo of
+            Just html ->
+                div [ class "card-footer text-white text-center" ]
+                    [ html ]
+
+            Nothing ->
+                text ""
         ]
