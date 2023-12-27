@@ -185,7 +185,7 @@ textileEndpoints db =
             |> Expect.equal
                 (Just <|
                     Route.GetTextileSimulator <|
-                        Ok { sampleQuery | durability = Just (Unit.durability 1.2) }
+                        Ok { sampleQuery | durability = Unit.durability 1.2 }
                 )
             |> asTest "should map the /textile/simulator endpoint with the durability parameter set"
         , [ "/textile/simulator?mass=0.17"

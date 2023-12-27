@@ -102,7 +102,7 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
-    | UpdateDurability (Maybe Unit.Durability)
+    | UpdateDurability Unit.Durability
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -390,15 +390,7 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateDurability durability ->
             ( model, session, Cmd.none )
-                |> updateQuery
-                    { query
-                        | durability =
-                            if durability == Just Unit.standardDurability then
-                                Nothing
-
-                            else
-                                durability
-                    }
+                |> updateQuery { query | durability = durability }
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -637,14 +629,11 @@ massField massInput =
         ]
 
 
-durabilityField : (Maybe Unit.Durability -> Msg) -> Maybe Unit.Durability -> Html Msg
-durabilityField updateDurability maybeDurability =
+durabilityField : (Unit.Durability -> Msg) -> Unit.Durability -> Html Msg
+durabilityField updateDurability durability =
     let
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
-
-        currentDurability =
-            maybeDurability |> Maybe.withDefault Unit.standardDurability
     in
     div [ class "d-block" ]
         [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
@@ -658,20 +647,21 @@ durabilityField updateDurability maybeDurability =
                 , onInput
                     (String.toFloat
                         >> Maybe.map Unit.durability
+                        >> Maybe.withDefault Unit.standardDurability
                         >> updateDurability
                     )
-                , onDoubleClick (updateDurability Nothing)
+                , onDoubleClick (updateDurability Unit.standardDurability)
                 , Attr.min (fromFloat Unit.minDurability)
                 , Attr.max (fromFloat Unit.maxDurability)
 
                 -- WARNING: be careful when reordering attributes: for obscure reasons,
                 -- the `value` one MUST be set AFTER the `step` one.
                 , step "0.01"
-                , value (fromFloat currentDurability)
+                , value (fromFloat durability)
                 ]
                 []
             , span [ class "fs-7 text-muted font-monospace" ]
-                [ currentDurability
+                [ durability
                     |> Unit.durabilityToFloat
                     |> Format.formatFloat 2
                     |> text
@@ -704,12 +694,12 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
+                    , updateDurability = UpdateDurability
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateFabricProcess = UpdateFabricProcess
                     , updatePrinting = UpdatePrinting
-                    , updateDurability = UpdateDurability
                     , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste
                     , updateMakingDeadStock = UpdateMakingDeadStock
@@ -769,11 +759,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         (small []
                             [ text "Hors modulation durabilité\u{00A0}: "
                             , impacts
-                                |> Impact.multiplyBy
-                                    (inputs.durability
-                                        |> Maybe.withDefault Unit.standardDurability
-                                        |> Unit.durabilityToFloat
-                                    )
+                                |> Impact.multiplyBy (Unit.durabilityToFloat inputs.durability)
                                 |> Format.formatImpact model.impact
                             ]
                         )

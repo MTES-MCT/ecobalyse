@@ -629,9 +629,7 @@ computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
         durability =
-            inputs.durability
-                |> Maybe.withDefault Unit.standardDurability
-                |> Unit.durabilityToFloat
+            Unit.durabilityToFloat inputs.durability
 
         complementsImpacts =
             lifeCycle
@@ -680,11 +678,7 @@ toStepsImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
-                            |> Quantity.multiplyBy
-                                (simulator.inputs.durability
-                                    |> Maybe.withDefault Unit.standardDurability
-                                    |> Unit.durabilityToFloat
-                                )
+                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.inputs.durability)
                         )
                     )
 

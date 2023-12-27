@@ -90,7 +90,7 @@ type alias Inputs =
     , countryUse : Country
     , countryEndOfLife : Country
     , airTransportRatio : Maybe Split
-    , durability : Maybe Unit.Durability
+    , durability : Unit.Durability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -122,7 +122,7 @@ type alias Query =
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
     , airTransportRatio : Maybe Split
-    , durability : Maybe Unit.Durability
+    , durability : Unit.Durability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -413,16 +413,10 @@ makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTrans
            )
 
 
-useOptionsToString : Maybe Unit.Durability -> String
-useOptionsToString maybeDurability =
-    let
-        durability =
-            maybeDurability
-                |> Maybe.map (Unit.durabilityToFloat >> String.fromFloat)
-                |> Maybe.withDefault "standard"
-    in
-    if durability /= "standard" then
-        " (durabilité " ++ durability ++ ")"
+useOptionsToString : Unit.Durability -> String
+useOptionsToString durability =
+    if durability /= Unit.standardDurability then
+        " (durabilité " ++ String.fromFloat (Unit.durabilityToFloat durability) ++ ")"
 
     else
         ""
@@ -560,7 +554,7 @@ updateProduct product query =
         { query
             | product = product.id
             , mass = product.mass
-            , durability = Nothing
+            , durability = Unit.standardDurability
             , makingWaste = Nothing
             , makingDeadStock = Nothing
             , makingComplexity = Nothing
@@ -679,7 +673,7 @@ encode inputs =
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "durability", inputs.durability |> Maybe.map Unit.encodeDurability |> Maybe.withDefault Encode.null )
+        , ( "durability", Unit.encodeDurability inputs.durability )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
@@ -716,7 +710,7 @@ decodeQuery =
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
         |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "durability" (Decode.maybe Unit.decodeDurability) Nothing
+        |> Pipe.optional "durability" Unit.decodeDurability Unit.standardDurability
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
@@ -749,7 +743,8 @@ encodeQuery query =
     , ( "countryDyeing", query.countryDyeing |> Country.encodeCode |> Just )
     , ( "countryMaking", query.countryMaking |> Country.encodeCode |> Just )
     , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
-    , ( "durability", query.durability |> Maybe.map Unit.encodeDurability )
+
+    -- , ( "durability", Unit.encodeDurability query.durability )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
     , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
@@ -906,7 +901,7 @@ tShirtCotonAsie =
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
     , airTransportRatio = Nothing
-    , durability = Nothing
+    , durability = Unit.standardDurability
     , makingWaste = Nothing
     , makingDeadStock = Nothing
     , makingComplexity = Nothing

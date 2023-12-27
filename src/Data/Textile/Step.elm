@@ -380,8 +380,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Use ->
             { step
-                | durability =
-                    durability |> Maybe.withDefault Unit.standardDurability
+                | durability = durability
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name

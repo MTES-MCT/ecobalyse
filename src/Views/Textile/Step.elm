@@ -64,6 +64,7 @@ type alias Config msg modal =
     , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
+    , updateDurability : Unit.Durability -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateFabricProcess : Fabric -> msg
@@ -73,7 +74,6 @@ type alias Config msg modal =
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateDurability : Maybe Unit.Durability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }

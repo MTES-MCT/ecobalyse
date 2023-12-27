@@ -366,7 +366,7 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeSplitParser "airTransportRatio")
-        |> apply (maybeDurabilityParser "durability")
+        |> apply (durabilityParser "durability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -667,8 +667,8 @@ maybeSplitParser key =
             )
 
 
-maybeDurabilityParser : String -> Parser (ParseResult (Maybe Unit.Durability))
-maybeDurabilityParser key =
+durabilityParser : String -> Parser (ParseResult Unit.Durability)
+durabilityParser key =
     floatParser key
         |> Query.map
             (Maybe.map
@@ -690,9 +690,9 @@ maybeDurabilityParser key =
                             )
 
                     else
-                        Ok (Just (Unit.durability float))
+                        Ok (Unit.durability float)
                 )
-                >> Maybe.withDefault (Ok Nothing)
+                >> Maybe.withDefault (Ok Unit.standardDurability)
             )
 
 
