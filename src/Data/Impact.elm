@@ -80,12 +80,17 @@ applyComplements complement impacts =
 
 
 divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
-divideComplementsImpactsBy n ci =
-    { agroDiversity = ci.agroDiversity |> Quantity.divideBy n
-    , agroEcology = ci.agroEcology |> Quantity.divideBy n
-    , animalWelfare = ci.animalWelfare |> Quantity.divideBy n
-    , microfibers = ci.microfibers |> Quantity.divideBy n
-    , outOfEuropeEOL = ci.outOfEuropeEOL |> Quantity.divideBy n
+divideComplementsImpactsBy n =
+    mapComplementsImpacts (Quantity.divideBy n)
+
+
+mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
+mapComplementsImpacts fn ci =
+    { agroDiversity = fn ci.agroDiversity
+    , agroEcology = fn ci.agroEcology
+    , animalWelfare = fn ci.animalWelfare
+    , microfibers = fn ci.microfibers
+    , outOfEuropeEOL = fn ci.outOfEuropeEOL
     }
 
 
