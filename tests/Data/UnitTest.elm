@@ -33,11 +33,6 @@ suite =
                 |> Decode.decodeString (Unit.decodeRatio { percentage = False })
                 |> Expect.ok
                 |> asTest "should not discard a non-percentage value"
-            , "-100"
-                |> Decode.decodeString Unit.decodeReparability
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
-                |> asTest "should discard erroneous Reparability value"
             , "8868687687"
                 |> Decode.decodeString Unit.decodeSurfaceMass
                 |> Result.mapError Decode.errorToString

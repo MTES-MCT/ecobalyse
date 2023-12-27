@@ -4,14 +4,12 @@ module Data.Unit exposing
     , ImpactUnit(..)
     , PickPerMeter(..)
     , Ratio(..)
-    , Reparability(..)
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
     , decodeDurability
     , decodeImpact
     , decodeRatio
-    , decodeReparability
     , decodeSurfaceMass
     , decodeYarnSize
     , durability
@@ -19,7 +17,6 @@ module Data.Unit exposing
     , encodeDurability
     , encodeImpact
     , encodePickPerMeter
-    , encodeReparability
     , encodeSurfaceMass
     , encodeThreadDensity
     , encodeYarnSize
@@ -45,7 +42,6 @@ module Data.Unit exposing
     , ratioedForKg
     , ratioedForMJ
     , standardDurability
-    , standardReparability
     , surfaceMassInGramsPerSquareMeters
     , surfaceMassToSurface
     , threadDensity
@@ -161,66 +157,6 @@ decodeDurability =
 
 encodeDurability : Durability -> Encode.Value
 encodeDurability (Durability float) =
-    Encode.float float
-
-
-
--- Reparability
-
-
-type Reparability
-    = Reparability Float
-
-
-minReparability : Reparability
-minReparability =
-    Reparability 1
-
-
-standardReparability : Reparability
-standardReparability =
-    minReparability
-
-
-maxReparability : Reparability
-maxReparability =
-    Reparability 1.15
-
-
-reparability : Float -> Reparability
-reparability =
-    Reparability
-
-
-reparabilityToFloat : Reparability -> Float
-reparabilityToFloat (Reparability float) =
-    float
-
-
-decodeReparability : Decoder Reparability
-decodeReparability =
-    Decode.float
-        |> Decode.andThen
-            (\float ->
-                if float < reparabilityToFloat minReparability || float > reparabilityToFloat maxReparability then
-                    Decode.fail
-                        ("L'indice de réparabilité spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (reparabilityToFloat minReparability)
-                            ++ " et "
-                            ++ String.fromFloat (reparabilityToFloat maxReparability)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed float
-            )
-        |> Decode.map reparability
-
-
-encodeReparability : Reparability -> Encode.Value
-encodeReparability (Reparability float) =
     Encode.float float
 
 

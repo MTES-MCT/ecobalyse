@@ -57,7 +57,6 @@ type alias Step =
     , processInfo : ProcessInfo
     , airTransportRatio : Split -- FIXME: why not Maybe?
     , durability : Unit.Durability
-    , reparability : Unit.Reparability
     , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
@@ -112,7 +111,6 @@ create { label, editable, country, enabled } =
     , processInfo = defaultProcessInfo
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , durability = Unit.standardDurability
-    , reparability = Unit.standardReparability
     , makingComplexity = Nothing
     , makingWaste = Nothing
     , makingDeadStock = Nothing
@@ -502,7 +500,6 @@ encode v =
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "durability", Unit.encodeDurability v.durability )
-        , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
