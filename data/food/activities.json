@@ -24,8 +24,8 @@
     "category": "ingredient",
     "categories": ["dairy_product"],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -38,12 +38,12 @@
   {
     "id": "milk-organic",
     "name": "Lait bio (sortie de ferme)",
-    "search": "cow milk organic system number 5",
+    "search": "cow milk organic national average",
     "category": "ingredient",
     "categories": ["dairy_product", "organic"],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -95,9 +95,9 @@
     "categories": ["grain_raw"],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
-    "transport_cooling": "once_transformed",
+    "transport_cooling": "none",
     "visible": true,
     "complements": {
       "agro-diversity": 10,
@@ -106,15 +106,15 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio (sortie de moulin)",
-    "search": "soft wheat grain organic central region",
+    "name": "Blé tendre bio (sortie de ferme)",
+    "search": "wheat organic national",
     "category": "ingredient",
     "categories": ["grain_raw", "organic"],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
-    "transport_cooling": "once_transformed",
+    "transport_cooling": "none",
     "visible": true,
     "complements": {
       "agro-diversity": 50,
@@ -220,40 +220,6 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
-  },
-  {
-    "id": "tomato",
-    "name": "Tomate - sous serre non chauffée (sortie de ferme)",
-    "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "tomato-organic",
-    "name": "Tomate bio (sous serre non chauffée)",
-    "search": "Tomato organic greenhouse production national average at greenhouse",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -442,40 +408,6 @@
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    }
-  },
-  {
-    "id": "grape",
-    "name": "Raisin de cuve (sortie de vignoble)",
-    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh"],
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "grape-organic",
-    "name": "Raisin de cuve bio (sortie de vignoble)",
-    "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
-    "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
     }
   },
   {
@@ -965,7 +897,7 @@
   },
   {
     "id": "tomato-organic-greenhouse",
-    "name": "Tomate bio (sous serre non chauffée)",
+    "name": "Tomate bio sous serre non chauffée (sortie de ferme)",
     "search": "Tomato organic greenhouse production national average at greenhouse",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -974,7 +906,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -982,7 +914,7 @@
   },
   {
     "id": "tomato-greenhouse",
-    "name": "Tomate (sous serre non chauffée)",
+    "name": "Tomate sous serre non chauffée (sortie de ferme)",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1056,7 +988,7 @@
   },
   {
     "id": "tomato-heated-greenhouse",
-    "name": "Tomate - sous serre chauffée (sortie de ferme)",
+    "name": "Tomate sous serre chauffée (sortie de ferme)",
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -2629,6 +2561,40 @@
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
+    }
+  },
+  {
+    "id": "wine-grape-organic",
+    "name": "Raisin de cuve bio (sortie de vignoble)",
+    "search": "Grape full production (phase) organic variety mix Languedoc-Roussillon at vineyard",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "wine-grape",
+    "name": "Raisin de cuve (sortie de vignoble)",
+    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]
