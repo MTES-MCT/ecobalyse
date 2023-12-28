@@ -866,10 +866,10 @@ pour récupérer la dernière version de cet éditeur d'ingrédients. Si l'édit
 ne se recharge pas, patientez une ou deux minutes puis recommencez</li>
                         """
                         """
-<li><b>Étape 2)</b> Dans le sous-onglet « Liste », rechargez la liste des
-ingrédients déjà publiés en cliquant sur le bouton vert « Réinitialiser ». Puis
-consultez la liste des ingrédients déjà ajoutés avant d'ajouter un nouvel
-ingrédients</li>
+<li><b>Étape 2)</b> Cliquez sur le sous-onglet « Liste », puis sélectionnez le
+Contributeur pour charger votre liste temporaire d'ingrédients. Vous pouvez
+annuler les changements temporaires et revenir à la liste publiée en cliquant
+sur le bouton vert « Réinitialiser ». </li>
                         """
                         """
 <li><b>Étape 3)</b> Ajouter un ingrédient :</li>
@@ -888,10 +888,11 @@ chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitér
 cette étape pour chaque ingrédient.
                         """
                         """
-<li><b>Étape 4)</b> : Validez tous les ingrédients ajoutés pour envoyer les
-ajouts à l’équipe Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le
-bouton une fois l’ensemble des modifications faites et les ingrédients
-ajoutés.</li></ul>
+<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
+la branche indiquée et pourra être vérifiée et intégrée en production dans
+Ecobalyse</li></ul>
                         """
                     ),
                 )
