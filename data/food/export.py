@@ -18,8 +18,8 @@ import json
 
 # Input
 PROJECT = "food"
-DBNAME = "Agribalyse 3.1.1"
-BIOSPHERE = DBNAME + " biosphere"
+AGRIBALYSE = "Agribalyse 3.1.1"
+BIOSPHERE = AGRIBALYSE + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
@@ -50,7 +50,7 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": find_id(DBNAME, activity),
+            "default": find_id(activity.get("database", AGRIBALYSE), activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
             "density": activity["density"],
@@ -85,17 +85,23 @@ if __name__ == "__main__":
     processes = {
         activity["id"]: {
             "id": activity["id"],
-            "name": search(DBNAME, activity["search"])["name"],
+            "name": search(activity.get("database", AGRIBALYSE), activity["search"])[
+                "name"
+            ],
             "displayName": activity["name"],
-            "unit": search(DBNAME, activity["search"])["unit"],
-            "identifier": find_id(DBNAME, activity),
-            "system_description": search(DBNAME, activity["search"])[
-                "System description"
+            "unit": search(activity.get("database", AGRIBALYSE), activity["search"])[
+                "unit"
             ],
+            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+            "system_description": search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["System description"],
             "category": activity.get("category"),
-            "comment": list(search(DBNAME, activity["search"]).production())[0][
-                "comment"
-            ],
+            "comment": list(
+                search(
+                    activity.get("database", AGRIBALYSE), activity["search"]
+                ).production()
+            )[0]["comment"],
             # those are removed at the end:
             "search": activity["search"],
         }
@@ -116,7 +122,9 @@ if __name__ == "__main__":
             + f") {str(index)}/{len(processes)}",
             end="\r",
         )
-        lca = bw2calc.LCA({search(DBNAME, process["search"]): 1})
+        lca = bw2calc.LCA(
+            {search(process.get("database", AGRIBALYSE), process["search"]): 1}
+        )
         lca.lci()
         for key, method in impacts_definition.items():
             lca.switch_method(method)
