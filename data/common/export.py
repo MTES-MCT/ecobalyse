@@ -99,25 +99,25 @@ def display_changes(key, oldprocesses, processes):
 def create_activity(dbname, new_activity_name, base_activity=None):
     """Creates a new activity by copying a base activity or from nothing. Returns the created activity"""
     try:
+        if "constructed by Ecobalyse" not in new_activity_name:
+            new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
+        code = str(
+            uuid.UUID(hashlib.md5(new_activity_name.encode("utf-8")).hexdigest())
+        )
         if base_activity:
             new_activity = base_activity.copy(new_activity_name)
         else:
             new_activity = bw2data.Database(dbname).new_activity(
-                {
+                code,
+                **{
                     "production amount": 1,
                     "unit": "kilogram",
                     "type": "process",
                     "comment": "added by Ecobalyse",
-                }
+                },
             )
-        if "constructed by Ecobalyse" not in new_activity_name:
-            new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
-        code = str(
-            uuid.UUID(hashlib.md5(new_activity_name.encode("utf-8")).hexdigest())
-        )
-        new_activity["code"] = code
         new_activity["Process identifier"] = code
         new_activity.save()
         logging.info(f"Created activity {new_activity}")
