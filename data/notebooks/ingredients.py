@@ -857,30 +857,41 @@ display(
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        """<h2>Documentation de cet outil</h2> <ul><li><b>Étape 1)</b> Cliquez sur le
-                        bouton « ▶▶ » dans la barre d'outils supérieure pour récupérer la dernière
-                        version de cet éditeur d'ingrédients. Si l'éditeur ne se recharge pas,
-                        patientez une ou deux minutes puis recommencez</li> <li><b>Étape 2)</b> Dans le
-                        sous-onglet « Liste », rechargez la liste des ingrédients déjà publiés en
-                        cliquant sur le bouton vert « Réinitialiser ». Puis consultez la liste des
-                        ingrédients déjà ajoutés avant d'ajouter un nouvel ingrédients</li>
-                        <li><b>Étape 3)</b> Ajouter un ingrédient :</li> Aller dans le sous-onglet
-                        « Formulaire » pour renseigner les caractéristiques de l’ingrédient à
-                        ajouter. <div style="padding-left: 50px">En utilisant l'explorateur depuis
-                        un autre onglet, il faut d'abord identifier l'ICV correspondant à
-                        l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par exemple
-                        l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
-                        adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
-                        vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
-                        Technosphere de l'explorateur permet de vérifier les procédés qui entrent
-                        dans la composition de « Brown sugar, production, at plant {FR} U ». Il
-                        s’agit bien du procédé « Sugar, from sugarcane {RoW}| sugarcane processing,
-                        traditional annexed plant | Cut-off, S - Copied from Écoinvent U {RoW}
-                        ».</div> Après chaque ingrédient ajouté, cliquez sur « Enregistrer
-                        localement ». Réitérez cette étape pour chaque ingrédient.<li><b>Étape 4)</b> :
-                        Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
-                        Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
-                        l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
+                        """
+<h2>Documentation de cet outil</h2> <ul>
+                        """
+                        """
+<li><b>Étape 1)</b> Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure
+pour récupérer la dernière version de cet éditeur d'ingrédients. Si l'éditeur
+ne se recharge pas, patientez une ou deux minutes puis recommencez</li>
+                        """
+                        """
+<li><b>Étape 2)</b> Dans le sous-onglet « Liste », rechargez la liste des
+ingrédients déjà publiés en cliquant sur le bouton vert « Réinitialiser ». Puis
+consultez la liste des ingrédients déjà ajoutés avant d'ajouter un nouvel
+ingrédients</li>
+                        """
+                        """
+<li><b>Étape 3)</b> Ajouter un ingrédient :</li>
+Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
+l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
+correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
+exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
+vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
+Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
+la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
+chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+cette étape pour chaque ingrédient.
+                        """
+                        """
+<li><b>Étape 4)</b> : Validez tous les ingrédients ajoutés pour envoyer les
+ajouts à l’équipe Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le
+bouton une fois l’ensemble des modifications faites et les ingrédients
+ajoutés.</li></ul>
                         """
                     ),
                 )
