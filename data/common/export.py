@@ -103,6 +103,10 @@ def display_changes(key, oldprocesses, processes):
 
 def create_activity(dbname, new_activity_name, base_activity=None):
     """Creates a new activity by copying a base activity or from nothing. Returns the created activity"""
+    if "constructed by Ecobalyse" not in new_activity_name:
+        new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
+    else:
+        new_activity_name = f"{new_activity_name}"
     try:
         if "constructed by Ecobalyse" not in new_activity_name:
             new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
