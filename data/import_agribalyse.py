@@ -374,7 +374,7 @@ def add_variant_activity(activity_data, dbname):
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
             sub_activity = search(dbname, act_sub_data, "declassified")
-            nb = len(search(dbname, f"{sub_activity['name']}"))
+            nb = len(bw2data.Database(dbname).search(f"{sub_activity['name']}"))
 
             # create a new sub activity variant
             sub_activity_variant = create_activity(
