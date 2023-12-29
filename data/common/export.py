@@ -108,22 +108,23 @@ def create_activity(dbname, new_activity_name, base_activity=None):
     else:
         new_activity_name = f"{new_activity_name}"
     try:
-        if "constructed by Ecobalyse" not in new_activity_name:
-            new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
-        data = {
-            "production amount": 1,
-            "unit": "kilogram",
-            "type": "process",
-            "comment": "added by Ecobalyse",
-            "name": new_activity_name,
-        }
-        code = activity_hash(data)
         if base_activity:
-            new_activity = base_activity.copy(new_activity_name)
+            data = base_activity.as_dict().copy()
+            data["name"] = new_activity_name
+            code = activity_hash(data)
+            new_activity = base_activity.copy(code, name=new_activity_name)
         else:
+            data = {
+                "production amount": 1,
+                "unit": "kilogram",
+                "type": "process",
+                "comment": "added by Ecobalyse",
+                "name": new_activity_name,
+                "System description": "Ecobalyse",
+            }
+            code = activity_hash(data)
             new_activity = bw2data.Database(dbname).new_activity(code, **data)
-        new_activity["name"] = new_activity_name
-        new_activity["System description"] = "Ecobalyse"
+            new_activity["code"] = code
         new_activity["Process identifier"] = code
         new_activity.save()
         logging.info(f"Created activity {new_activity}")
@@ -156,11 +157,11 @@ def delete_exchange(activity, activity_to_delete, amount=False):
 
 def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=None):
     """Create a new exchange. If an activity_to_copy_from is provided, the amount is copied from this activity. Otherwise, the amount is new_amount."""
-    if not new_amount and not activity_to_copy_from:
-        logging.error("No amount or activity to copy from provided. No exchange added")
-        return
-    if not new_amount and activity_to_copy_from:
-        for exchange in activity.exchanges():
+    assert (
+        new_amount is not None or activity_to_copy_from is not None
+    ), "No amount or activity to copy from provided"
+    if new_amount is None and activity_to_copy_from is not None:
+        for exchange in list(activity.exchanges()):
             if exchange.input["name"] == activity_to_copy_from["name"]:
                 new_amount = exchange["amount"]
                 break
