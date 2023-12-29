@@ -381,6 +381,7 @@ def add_variant_activity(activity_data, dbname):
                 f"{sub_activity['name']} {activity_data['suffix']} (variant {nb})",
                 sub_activity,
             )
+            sub_activity_variant.save()
 
             # link the newly created sub_activity_variant to the parent activity_variant
             new_exchange(
