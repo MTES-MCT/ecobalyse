@@ -6,7 +6,7 @@
 from bw2data.project import projects
 from common.export import (
     with_subimpacts,
-    search,
+    cached_search,
     with_corrected_impacts,
     display_changes,
 )
@@ -33,7 +33,9 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 def find_id(dbname, activity):
     print(activity["search"])
-    return search(dbname, activity["search"]).get("Process identifier", activity["id"])
+    return cached_search(dbname, activity["search"]).get(
+        "Process identifier", activity["id"]
+    )
 
 
 if __name__ == "__main__":
@@ -85,15 +87,15 @@ if __name__ == "__main__":
     processes = {
         activity["id"]: {
             "id": activity["id"],
-            "name": search(DBNAME, activity["search"])["name"],
+            "name": cached_search(DBNAME, activity["search"])["name"],
             "displayName": activity["name"],
-            "unit": search(DBNAME, activity["search"])["unit"],
+            "unit": cached_search(DBNAME, activity["search"])["unit"],
             "identifier": find_id(DBNAME, activity),
-            "system_description": search(DBNAME, activity["search"])[
+            "system_description": cached_search(DBNAME, activity["search"])[
                 "System description"
             ],
             "category": activity.get("category"),
-            "comment": list(search(DBNAME, activity["search"]).production())[0][
+            "comment": list(cached_search(DBNAME, activity["search"]).production())[0][
                 "comment"
             ],
             # those are removed at the end:
@@ -116,7 +118,7 @@ if __name__ == "__main__":
             + f") {str(index)}/{len(processes)}",
             end="\r",
         )
-        lca = bw2calc.LCA({search(DBNAME, process["search"]): 1})
+        lca = bw2calc.LCA({cached_search(DBNAME, process["search"]): 1})
         lca.lci()
         for key, method in impacts_definition.items():
             lca.switch_method(method)

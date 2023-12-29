@@ -26,6 +26,10 @@ def with_subimpacts(process):
 
 
 @functools.cache
+def cached_search(dbname, name, excluded_term=None):
+    return search(dbname, name, excluded_term)
+
+
 def search(dbname, name, excluded_term=None):
     results = bw2data.Database(dbname).search(name)
     if excluded_term:
