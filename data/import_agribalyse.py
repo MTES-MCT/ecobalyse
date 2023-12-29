@@ -11,7 +11,6 @@ import bw2data
 import bw2io
 import functools
 import json
-import logging
 import os
 import re
 import sys

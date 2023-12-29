@@ -1,6 +1,7 @@
 # Only pure functions here
 import functools
 import bw2data
+from bw2io.utils import activity_hash
 from peewee import IntegrityError
 import logging
 import hashlib
@@ -101,21 +102,18 @@ def create_activity(dbname, new_activity_name, base_activity=None):
     try:
         if "constructed by Ecobalyse" not in new_activity_name:
             new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
-        code = str(
-            uuid.UUID(hashlib.md5(new_activity_name.encode("utf-8")).hexdigest())
-        )
+        data = {
+            "production amount": 1,
+            "unit": "kilogram",
+            "type": "process",
+            "comment": "added by Ecobalyse",
+            "name": new_activity_name,
+        }
+        code = activity_hash(data)
         if base_activity:
             new_activity = base_activity.copy(new_activity_name)
         else:
-            new_activity = bw2data.Database(dbname).new_activity(
-                code,
-                **{
-                    "production amount": 1,
-                    "unit": "kilogram",
-                    "type": "process",
-                    "comment": "added by Ecobalyse",
-                },
-            )
+            new_activity = bw2data.Database(dbname).new_activity(code, **data)
         new_activity["name"] = new_activity_name
         new_activity["System description"] = "Ecobalyse"
         new_activity["Process identifier"] = code
