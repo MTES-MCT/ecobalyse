@@ -108,9 +108,11 @@ def create_activity(dbname, new_activity_name, base_activity=None):
     try:
         if base_activity:
             data = base_activity.as_dict().copy()
+            del data["code"]
             data["name"] = new_activity_name
+            data["System description"] = "Ecobalyse"
             code = activity_hash(data)
-            new_activity = base_activity.copy(code, name=new_activity_name)
+            new_activity = base_activity.copy(code, **data)
         else:
             data = {
                 "production amount": 1,
