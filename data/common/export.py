@@ -4,10 +4,8 @@ import bw2data
 from bw2io.utils import activity_hash
 from peewee import IntegrityError
 import logging
-import hashlib
-import uuid
 
-logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=logging.ERROR)
 
 
 def with_subimpacts(process):
