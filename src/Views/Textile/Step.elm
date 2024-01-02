@@ -420,15 +420,9 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 
 
 makingWasteField : Config msg modal -> Html msg
-makingWasteField { current, db, inputs, updateMakingWaste } =
-    let
-        processName =
-            inputs.product.fabric
-                |> Fabric.getProcess db.wellKnown
-                |> .name
-    in
+makingWasteField { current, inputs, updateMakingWaste } =
     span
-        [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
+        [ title "Taux moyen de pertes en confection"
         ]
         [ RangeSlider.percent
             { id = "makingWaste"
@@ -446,15 +440,9 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
 
 
 makingDeadStockField : Config msg modal -> Html msg
-makingDeadStockField { current, db, inputs, updateMakingDeadStock } =
-    let
-        processName =
-            inputs.product.fabric
-                |> Fabric.getProcess db.wellKnown
-                |> .name
-    in
+makingDeadStockField { current, updateMakingDeadStock } =
     span
-        [ title <| "Taux personnalisé de stocks dormants en confection. Procédé utilisé : " ++ processName
+        [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur"
         ]
         [ RangeSlider.percent
             { id = "makingDeadStock"

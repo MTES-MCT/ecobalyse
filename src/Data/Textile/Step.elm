@@ -482,7 +482,7 @@ makingWasteToString makingWaste =
 makingDeadStockToString : Split -> String
 makingDeadStockToString makingDeadStock =
     if makingDeadStock == Split.zero then
-        "Aucun stock dormant en confection"
+        "Aucun stock dormant"
 
     else
         Split.toPercentString makingDeadStock ++ "% de stocks dormants"
