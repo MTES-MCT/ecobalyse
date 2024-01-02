@@ -458,8 +458,10 @@ makingDeadStockField { current, updateMakingDeadStock } =
 
 surfaceMassField : Config msg modal -> Product -> Html msg
 surfaceMassField { current, updateSurfaceMass } product =
-    span
-        [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
+    div
+        [ class "mt-2"
+        , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+        ]
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
