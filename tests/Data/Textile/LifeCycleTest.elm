@@ -19,7 +19,6 @@ lifeCycleToTransports : TextileDb.Db -> Inputs.Query -> LifeCycle -> Result Stri
 lifeCycleToTransports textileDb query lifeCycle =
     query
         |> Inputs.fromQuery textileDb
-        |> Result.map .materials
         |> Result.map
             (\materials ->
                 LifeCycle.computeStepsTransport textileDb materials lifeCycle
