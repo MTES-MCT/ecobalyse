@@ -1303,30 +1303,38 @@ threadDensityView threadDensity =
 
 deadstockView : Config msg modal -> Mass -> Html msg
 deadstockView config deadstock =
-    li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-        (if deadstock /= Quantity.zero then
-            [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
-            , Format.kgToString deadstock |> text
-            , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
-            ]
+    if config.current.label == Label.Making then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            (if deadstock /= Quantity.zero then
+                [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
+                , Format.kgToString deadstock |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+                ]
 
-         else
-            [ text "Aucun stock dormant." ]
-        )
+             else
+                [ text "Aucun stock dormant." ]
+            )
+
+    else
+        text ""
 
 
 makingWasteView : Config msg modal -> Mass -> Html msg
 makingWasteView config waste =
-    li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-        (if waste /= Quantity.zero then
-            [ text "Pertes\u{00A0}:\u{00A0}"
-            , Format.kgToString waste |> text
-            , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
-            ]
+    if config.current.label == Label.Making then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            (if waste /= Quantity.zero then
+                [ text "Pertes\u{00A0}:\u{00A0}"
+                , Format.kgToString waste |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
+                ]
 
-         else
-            [ text "Aucune perte en confection." ]
-        )
+             else
+                [ text "Aucune perte en confection." ]
+            )
+
+    else
+        text ""
 
 
 view : Config msg modal -> ViewWithTransport msg
