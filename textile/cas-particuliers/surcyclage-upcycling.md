@@ -10,22 +10,20 @@ L'upcycling consiste donc à développer des vêtements autour de stocks de mati
 
 ## Modélisation Ecobalyse
 
-L'utilisateur a la possibilité de préciser si le vêtement est upcyclé en haut du formulaire.
+L'utilisateur a la possibilité de supprimer tout ou partie des procédés mobilisés sur le cycle de vie du vêtement.
 
-Dans ce cas, \
-1\) les étapes Matières et Transformation (excepté la Confection) ne sont pas comptabilisées dans l'impact environnemental du vêtement,\
-2\) la complexité de l'étape de confection est considérée comme _Très Elevée_ (120 minutes).  &#x20;
+Dès lors, un vêtement upcyclé peut être modélisé dans Ecobalyse.
+
+{% hint style="info" %}
+Du fait des nombreuses possibilités de surcyclage,l'utilisateur doit s'assurer que les principales étapes du surcyclage sont bien reflétées dans la modélisation.
+
+Par exemple, si la confection d'un vêtement surcyclé est plus complexe que la confection d'un même vêtement non-surcyclé,il est nécessaire d'adapter la complexité/durée de l'étapte Confection.&#x20;
+{% endhint %}
 
 ### Illustration
 
-Pour un t-shirt 100% coton, l'upcyclage de ce dernier en France (confection) permet une baisse de l'impact environnemental global du vêtement de l'ordre de -71% tandis que si l'atelier de confection se situe en Inde la baisse est de l'ordre de -31%. Cet écart s'explique par les différences de mix électrique entre ces deux pays.&#x20;
+Pour un t-shirt 100% coton, l'upcyclage de ce dernier permet une baisse de l'impact environnemental global du vêtement de l'ordre de -57% avec les hypothèses suivantes : \
+1\) Complexité en confection : passe de Faible (entre 5 et 15 minutes) à Elevée (entre 30 et 60 minutes),\
+2\) Désactivation des étapes Matières, Filature, Tissage et Ennoblissement.
 
-<div>
-
-<figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton (upcyclé ou non en France).png" alt=""><figcaption><p>Confection effectuée en France</p></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton (upcyclé ou non en Inde).png" alt=""><figcaption><p>Confection effectuée en Inde</p></figcaption></figure>
-
-</div>
+<figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton (upcyclé ou non).png" alt=""><figcaption></figcaption></figure>
