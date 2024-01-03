@@ -8,6 +8,39 @@ description: >-
 
 <details>
 
+<summary>Décembre 2023</summary>
+
+* Intégration stocks dormants (deadstocks)\
+  Plus d'informations sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cas-particuliers/stocks-dormants-deadstock).
+* Possibilité de désactiver des étapes/procédés dans l'interface\
+  (cela permet notamment de faciliter la modélisation de vêtements [upcyclés](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cas-particuliers/surcyclage-upcycling))
+
+</details>
+
+<details>
+
+<summary>Novembre 2023</summary>
+
+* Inventaires enrichis\
+  Enrichissement de certaines inventaires/procédés d'ennoblissement (1 blanchiment, 2 teintures, 2 impressions) afin de mieux refléter l'impact des substances chimiques.\
+  Plus d'information sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis).
+
+</details>
+
+<details>
+
+<summary>Octobre 2023</summary>
+
+* Intégration du complément "Microfibres"\
+  Ajout d'un complément "hors-ACV" afin d'intégrer l'impact des microfibres relarguées tout au long du cycle de vie dans différents compartiments (eau, air, sol). \
+  Plus d'information sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres).
+* Ajout d'un impact agrégé "Coût environnemental" \
+  Plus d'informations sur cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres).
+
+</details>
+
+<details>
+
 <summary>Septembre 2023</summary>
 
 * Intégration du complément "Export Hors Europe" \

@@ -4,6 +4,30 @@ description: L'objectif est de finaliser la méthode d'ici fin 2023.
 
 # Travaux finalisés
 
+## Enjeux Tox/Ecotox (novembre 2023)
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Enrichissement de certains inventaires/procédés d'ennoblissement (1 blanchinement, 2 teintures, 2 impressions) afin de mieux évaluer l'impact des substances chimique.
+
+Plus d'info dans cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis).&#x20;
+
+</details>
+
+## Complément _Microfibres (octobre 2023)_
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Introduction d'un complément "hors-ACV" destiné à estimer l'impact des microfibres relarguées tout au long du cycle de vie dans différents compartiments (eau, air, sol).&#x20;
+
+Plus d'info dans cette [page](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres).&#x20;
+
+</details>
+
 ## Complément _Export Hors Europe (septembre 2023)_
 
 <details>
