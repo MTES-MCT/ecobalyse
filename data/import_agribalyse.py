@@ -11,6 +11,7 @@ import bw2data
 import bw2io
 import functools
 import json
+import argparse
 import os
 import re
 import sys
@@ -443,7 +444,21 @@ def main():
         import_simapro_csv(GINKO, db)
     else:
         print(f"{db} already imported")
+
     # AGRIBALYSE
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--recreate-activities",
+        action="store_true",
+        help="Delete and re-create the created activities",
+    )
+    args = parser.parse_args()
+    db = "Agribalyse 3.1.1"
+
+    if args.recreate_activities:
+        delete_created_activities(db)
+        add_created_activities(db)
+
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE, db)
         delete_created_activities(db)
