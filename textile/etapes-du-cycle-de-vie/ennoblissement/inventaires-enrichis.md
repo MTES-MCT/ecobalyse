@@ -13,9 +13,17 @@ Les modèles d'émission utilisés dans les inventaires/procédés des étapes d
 {% hint style="info" %}
 Différentes publications scientifiques mettent en avant l'absence de prise en compte des émissions de substances chimiques dans les référentiels/ACV existants.
 
-Extrait d'une publication[^1] scientifique à ce sujet :&#x20;
+
+
+Extrait 1 d'une publication[^1] scientifique à ce sujet :&#x20;
 
 _"A recent literature review of LCA studies of textile products showed that textile chemicals were included in the LCI in only 7 out of 58 published studies (Roos 2015). In addition, in three of these seven studies, no matching with CFs to assess potential toxicity impacts of the textile chemicals was done. Thus, in 54 out of 58 relevant studies, the potential toxicity impact of textile chemicals was not included in the reported toxicity impact potential of the product. In addition, it was found that the exclusion of textile chemicals in these 54 studies was made tacitly, which means that the exclusion is not explicitly stated to the reader (Roos 2015)."_
+
+
+
+Extrait 2 du [rapport](https://www.eea.europa.eu/soer/publications/soer-2020) _The European Environment State and Outlook 2020_ publié par la European Environment Agency (EEA) :&#x20;
+
+_"The main challenge in assessing the overall risk, is that the majority of substances in the chemical universe lack either a full hazard characterization and/or exposure estimates across ecosystems and in humans._"
 {% endhint %}
 
 ## Pourquoi enrichir les inventaires ?
