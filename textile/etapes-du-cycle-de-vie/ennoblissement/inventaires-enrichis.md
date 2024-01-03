@@ -65,6 +65,28 @@ _Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p.
 
 </details>
 
+<details>
+
+<summary>Substances caractérisées (tous secteurs)</summary>
+
+Source : [Rapport](https://www.eea.europa.eu/soer/publications/soer-2020) 2020 (p. 240/499) publié par _European Environment Agency_ (EEA)
+
+**Scope / Périmètre**\
+Près de 100,000 substances chimiques sont utilisées sur le marché européen.\
+Parmi elles, près 1/4 (c. 22,600) sont utilisées en quantité significative au sein de l'Union Européenne (+1 tonne par an).&#x20;
+
+**Caractérisation**\
+**-** 0,5% des substances sont correctement caractérisées (c. 500 substances),\
+\- 10% des substances sont relativement bien caractérisées (c. 10,000 substances),\
+\- 20% des substances sont caractérisées sur la base d'informations limitées (c. 20,000 substances)\
+\- 70% des substances ne sont pas caractérisées de manière satisfaisante (c. 70,000 substances)
+
+**Illustration**
+
+![](<../../../.gitbook/assets/image (80).png>)
+
+</details>
+
 L'enrichissement des inventaires passe par la modélisation des paramètres suivants :&#x20;
 
 ![](https://lh7-us.googleusercontent.com/eq4OKzjEN0qAMb8VGotNHNzpBw5achG4WExM05OEl1siG1vEN5NRrVYoHTGoWsHubh\_J1KFHPD4R5AbXFdIVUSYMr3t7-TepZdoqn835hvKgB9SDgYw5oxh6fnUmx5pqumdlUp7JTAlakou5tRouM-OIGw=s2048)
