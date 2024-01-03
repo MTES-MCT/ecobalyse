@@ -42,6 +42,7 @@ type Path
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
     | TextileMakingDeadStock -- Deadstock lors de la confection textile
+    | TextileMakingMakingWaste -- Taux de perte en confection textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -124,6 +125,9 @@ pathToString path =
 
         TextileMakingDeadStock ->
             "textile/cas-particuliers/stocks-dormants-deadstock"
+
+        TextileMakingMakingWaste ->
+            "textile/parametres-transverses/pertes-et-rebus"
 
         TextileSpinning ->
             "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"

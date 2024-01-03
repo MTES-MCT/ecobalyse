@@ -61,9 +61,8 @@ makingWaste pcrWaste baseMass =
     let
         mass =
             -- (product weight + textile waste for confection) / (1 - PCR product waste rate)
-            Mass.kilograms <|
-                Mass.inKilograms baseMass
-                    / (Split.complement pcrWaste |> Split.toFloat)
+            baseMass
+                |> Quantity.divideBy (Split.toFloat (Split.complement pcrWaste))
     in
     { waste = Quantity.minus baseMass mass, mass = mass }
 

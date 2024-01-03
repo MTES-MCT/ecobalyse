@@ -8,6 +8,7 @@ module Data.Textile.Step exposing
     , encode
     , getInputSurface
     , getOutputSurface
+    , getTransportedMass
     , initMass
     , makingDeadStockToString
     , makingWasteToString
@@ -162,15 +163,15 @@ computeMaterialTransportAndImpact db country outputMass materialInput =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> List Inputs.MaterialInput -> Step -> Step -> Step
-computeTransports db materialInputs next ({ processInfo } as current) =
+computeTransports : TextileDb.Db -> Inputs -> Step -> Step -> Step
+computeTransports db inputs next ({ processInfo } as current) =
     let
         roadTransportProcess =
             getRoadTransportProcess db.wellKnown current
 
         transport =
             if current.label == Label.Material then
-                materialInputs
+                inputs.materials
                     |> List.map (computeMaterialTransportAndImpact db next.country current.outputMass)
                     |> Transport.sum
 
@@ -184,7 +185,7 @@ computeTransports db materialInputs next ({ processInfo } as current) =
                     |> computeTransportImpacts current.transport.impacts
                         db.wellKnown
                         roadTransportProcess
-                        current.outputMass
+                        (getTransportedMass inputs current)
     in
     { current
         | processInfo =
@@ -287,6 +288,16 @@ getInputSurface { product, surfaceMass } { inputMass } =
 getOutputSurface : Inputs -> Step -> Area
 getOutputSurface { product, surfaceMass } { outputMass } =
     Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) outputMass
+
+
+getTransportedMass : Inputs -> Step -> Mass
+getTransportedMass inputs { label, outputMass } =
+    -- Transports from the Making step shouldn't include waste, only the final product.
+    if label == Label.Making then
+        inputs.mass
+
+    else
+        outputMass
 
 
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
@@ -465,7 +476,7 @@ makingWasteToString makingWaste =
 makingDeadStockToString : Split -> String
 makingDeadStockToString makingDeadStock =
     if makingDeadStock == Split.zero then
-        "Aucun stock dormant en confection"
+        "Aucun stock dormant"
 
     else
         Split.toPercentString makingDeadStock ++ "% de stocks dormants"
