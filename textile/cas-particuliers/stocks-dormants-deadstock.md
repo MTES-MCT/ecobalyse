@@ -51,7 +51,7 @@ Les stocks dormants sont différents des taux de pertes en confection.&#x20;
 
 L'impact d'un t-shirt 100% coton augmente de +11% suite à l'introduction des deadstock.
 
-<figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton par étape (avec ou sans Deadstock).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton par étape (avec ou sans Deadstock) (1).png" alt=""><figcaption></figcaption></figure>
 
 [^1]: "Fashion on Climate" \_ 2020&#x20;
 
