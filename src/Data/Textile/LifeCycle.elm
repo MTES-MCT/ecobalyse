@@ -30,15 +30,15 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : TextileDb.Db -> List Inputs.MaterialInput -> LifeCycle -> LifeCycle
-computeStepsTransport db materialInputs lifeCycle =
+computeStepsTransport : TextileDb.Db -> Inputs -> LifeCycle -> LifeCycle
+computeStepsTransport db inputs lifeCycle =
     lifeCycle
         |> Array.map
             (\step ->
                 if step.enabled then
                     step
                         |> Step.computeTransports db
-                            materialInputs
+                            inputs
                             (lifeCycle
                                 |> getNextEnabledStep step.label
                                 |> Maybe.withDefault step
