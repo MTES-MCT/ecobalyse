@@ -17,7 +17,7 @@ Dès lors, un vêtement upcyclé peut être modélisé dans Ecobalyse.
 {% hint style="info" %}
 Du fait des nombreuses possibilités de surcyclage,l'utilisateur doit s'assurer que les principales étapes du surcyclage sont bien reflétées dans la modélisation.
 
-Par exemple, si la confection d'un vêtement surcyclé est plus complexe que la confection d'un même vêtement non-surcyclé,il est nécessaire d'adapter la complexité/durée de l'étapte Confection.&#x20;
+Par exemple, si la confection d'un vêtement surcyclé est plus complexe que la confection d'un même vêtement non-surcyclé, il est nécessaire d'adapter la complexité/durée de l'étape Confection.&#x20;
 {% endhint %}
 
 ### Illustration
