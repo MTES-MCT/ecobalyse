@@ -6,7 +6,7 @@
 from bw2data.project import projects
 from common.export import (
     with_subimpacts,
-    search,
+    cached_search,
     with_corrected_impacts,
     display_changes,
 )
@@ -32,7 +32,7 @@ def isUuid(txt):
 
 
 def uuidOrSearch(txt):
-    return txt if isUuid(txt) or txt is None else search(DBNAME, txt)
+    return txt if isUuid(txt) or txt is None else cached_search(DBNAME, txt)
 
 
 if __name__ == "__main__":
@@ -48,15 +48,15 @@ if __name__ == "__main__":
         activity["name"] = (
             activity["name"]
             if "name" in activity
-            else search(DBNAME, activity["search"])["name"]
+            else cached_search(DBNAME, activity["search"])["name"]
             + " {"
-            + search(DBNAME, activity["search"])["location"]
+            + cached_search(DBNAME, activity["search"])["location"]
             + "}"
         )
         activity["uuid"] = (
             activity["uuid"]
             if not activity["source"].startswith("BaseImpact")
-            else search(DBNAME, activity["search"])["activity"]
+            else cached_search(DBNAME, activity["search"])["activity"]
         )
 
     print("Creating material list...")
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         print(f"Computing impacts: {str(index)}/{len(processes)}", end="\r")
         match process["source"]:
             case "BaseImpact":
-                lca = bw2calc.LCA({search(DBNAME, process["search"]): 1})
+                lca = bw2calc.LCA({cached_search(DBNAME, process["search"]): 1})
                 lca.lci()
                 for key, method in impacts_definition.items():
                     lca.switch_method(method)

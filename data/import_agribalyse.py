@@ -11,7 +11,7 @@ import bw2data
 import bw2io
 import functools
 import json
-import logging
+import argparse
 import os
 import re
 import sys
@@ -324,20 +324,20 @@ def add_average_activity(activity_data, dbname):
     weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from
     system 1 to 5
     """
-
     average_activity = create_activity(
         dbname, f"{activity_data['search']} {activity_data['suffix']}"
     )
     for activity_add_name, amount in activity_data["add"].items():
         activity_add = search(dbname, f"{activity_add_name}")
         new_exchange(average_activity, activity_add, amount)
+    average_activity.save()
 
 
 def replace_activities(activity_variant, activity_data, dbname):
     """Replace all activities in activity_data["replace"] with variants of these activities"""
-    for k, v in activity_data["replace"].items():
-        activity_old = search(dbname, k)
-        activity_new = search(dbname, v)
+    for old, new in activity_data["replace"].items():
+        activity_old = search(dbname, old)
+        activity_new = search(dbname, new)
         new_exchange(
             activity_variant,
             activity_new,
@@ -356,10 +356,9 @@ def add_variant_activity(activity_data, dbname):
 
     # create a new variant activity
     # Example: this is where we create the flour-organic activity
-    new_activity_name = search(dbname, activity_data["search"])["name"]
     activity_variant = create_activity(
         dbname,
-        f"{new_activity_name} {activity_data['suffix']}",
+        f"{activity['name']} {activity_data['suffix']}",
         activity,
     )
 
@@ -375,15 +374,17 @@ def add_variant_activity(activity_data, dbname):
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
             sub_activity = search(dbname, act_sub_data, "declassified")
+            nb = len(bw2data.Database(dbname).search(f"{sub_activity['name']}"))
 
             # create a new sub activity variant
             sub_activity_variant = create_activity(
                 dbname,
-                f"{sub_activity['name']} {activity_data['suffix']}",
+                f"{sub_activity['name']} {activity_data['suffix']} (variant {nb})",
                 sub_activity,
             )
+            sub_activity_variant.save()
 
-            # link the newly create sub_activity_variant to the parent activity_variant
+            # link the newly created sub_activity_variant to the parent activity_variant
             new_exchange(
                 activity_variant,
                 sub_activity_variant,
@@ -443,7 +444,21 @@ def main():
         import_simapro_csv(GINKO, db)
     else:
         print(f"{db} already imported")
+
     # AGRIBALYSE
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--recreate-activities",
+        action="store_true",
+        help="Delete and re-create the created activities",
+    )
+    args = parser.parse_args()
+    db = "Agribalyse 3.1.1"
+
+    if args.recreate_activities:
+        delete_created_activities(db)
+        add_created_activities(db)
+
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE, db)
         delete_created_activities(db)
