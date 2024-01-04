@@ -59,19 +59,11 @@ if __name__ == "__main__":
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
             "visible": activity["visible"],
-            "complements": activity.get("complements", []),
+            "ecosystemicServices": activity.get("ecosystemicServices", []),
         }
         for activity in activities
         if activity["category"] == "ingredient"
     ]
-    # cleanup unuseful attributes
-    for ingredient in ingredients:
-        if (
-            "animal_product" not in ingredient["categories"]
-            and "dairy_product" not in ingredient["categories"]
-            and "animal-welfare" in ingredient.get("complements", [])
-        ):
-            del ingredient["complements"]["animal-welfare"]
 
     # Check the id is lowercase and does not contain spaces
     for ingredient in ingredients:
