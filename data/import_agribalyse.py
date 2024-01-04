@@ -150,16 +150,12 @@ AGRIBALYSE_PREPARATION_MODES = [
 def import_simapro_csv(
     datapath,
     dbname,
-    project=PROJECT,
     biosphere=BIOSPHERE,
     migrations=AGRIBALYSE_MIGRATIONS,
 ):
     """
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
     """
-    projects.set_current(project)
-    # projects.create_project(project, activate=True, exist_ok=True)
-
     print(f"### Importing {datapath}...")
     # unzip
     with ZipFile(datapath) as zf:
