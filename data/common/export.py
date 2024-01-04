@@ -105,33 +105,31 @@ def create_activity(dbname, new_activity_name, base_activity=None):
         new_activity_name = f"{new_activity_name}, constructed by Ecobalyse"
     else:
         new_activity_name = f"{new_activity_name}"
-    try:
-        if base_activity:
-            data = base_activity.as_dict().copy()
-            del data["code"]
-            data["name"] = new_activity_name
-            data["System description"] = "Ecobalyse"
-            code = activity_hash(data)
-            new_activity = base_activity.copy(code, **data)
-        else:
-            data = {
-                "production amount": 1,
-                "unit": "kilogram",
-                "type": "process",
-                "comment": "added by Ecobalyse",
-                "name": new_activity_name,
-                "System description": "Ecobalyse",
-            }
-            code = activity_hash(data)
-            new_activity = bw2data.Database(dbname).new_activity(code, **data)
-            new_activity["code"] = code
-        new_activity["Process identifier"] = code
-        new_activity.save()
-        logging.info(f"Created activity {new_activity}")
-        return new_activity
-    except (IntegrityError, bw2data.errors.DuplicateNode):
-        logging.error(f"Activity {new_activity_name} already exists")
-        return search(dbname, new_activity_name)
+
+    if base_activity:
+        data = base_activity.as_dict().copy()
+        del data["code"]
+        data["name"] = new_activity_name
+        data["System description"] = "Ecobalyse"
+        data["database"] = "Ecobalyse"
+        code = activity_hash(data)
+        new_activity = base_activity.copy(code, **data)
+    else:
+        data = {
+            "production amount": 1,
+            "unit": "kilogram",
+            "type": "process",
+            "comment": "added by Ecobalyse",
+            "name": new_activity_name,
+            "System description": "Ecobalyse",
+        }
+        code = activity_hash(data)
+        new_activity = bw2data.Database(dbname).new_activity(code, **data)
+        new_activity["code"] = code
+    new_activity["Process identifier"] = code
+    new_activity.save()
+    logging.info(f"Created activity {new_activity}")
+    return new_activity
 
 
 def delete_exchange(activity, activity_to_delete, amount=False):
