@@ -420,15 +420,9 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 
 
 makingWasteField : Config msg modal -> Html msg
-makingWasteField { current, db, inputs, updateMakingWaste } =
-    let
-        processName =
-            inputs.product.fabric
-                |> Fabric.getProcess db.wellKnown
-                |> .name
-    in
+makingWasteField { current, inputs, updateMakingWaste } =
     span
-        [ title <| "Taux personnalisé de perte en confection, incluant notamment la découpe. Procédé utilisé : " ++ processName
+        [ title "Taux moyen de pertes en confection"
         ]
         [ RangeSlider.percent
             { id = "makingWaste"
@@ -446,15 +440,9 @@ makingWasteField { current, db, inputs, updateMakingWaste } =
 
 
 makingDeadStockField : Config msg modal -> Html msg
-makingDeadStockField { current, db, inputs, updateMakingDeadStock } =
-    let
-        processName =
-            inputs.product.fabric
-                |> Fabric.getProcess db.wellKnown
-                |> .name
-    in
+makingDeadStockField { current, updateMakingDeadStock } =
     span
-        [ title <| "Taux personnalisé de stocks dormants en confection. Procédé utilisé : " ++ processName
+        [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur"
         ]
         [ RangeSlider.percent
             { id = "makingDeadStock"
@@ -470,8 +458,10 @@ makingDeadStockField { current, db, inputs, updateMakingDeadStock } =
 
 surfaceMassField : Config msg modal -> Product -> Html msg
 surfaceMassField { current, updateSurfaceMass } product =
-    span
-        [ title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique." ]
+    div
+        [ class "mt-2"
+        , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+        ]
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
@@ -914,10 +904,12 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
 
 
 viewTransport : Config msg modal -> Html msg
-viewTransport ({ selectedImpact, current } as config) =
+viewTransport ({ selectedImpact, current, inputs } as config) =
     div []
         [ span []
-            [ text "Masse\u{00A0}: ", Format.kg current.outputMass ]
+            [ text "Masse\u{00A0}: "
+            , current |> Step.getTransportedMass inputs |> Format.kg
+            ]
         , if Transport.totalKm current.transport > 0 then
             div [ class "d-flex justify-content-between gap-3 align-items-center" ]
                 [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
@@ -1158,6 +1150,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                     , ennoblingToxicityView config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
+                    , makingWasteView config current.waste
                     , deadstockView config current.deadstock
                     , if current.label == Label.EndOfLife then
                         li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
@@ -1310,12 +1303,35 @@ threadDensityView threadDensity =
 
 deadstockView : Config msg modal -> Mass -> Html msg
 deadstockView config deadstock =
-    if deadstock /= Quantity.zero then
+    if config.current.label == Label.Making then
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
-            , Format.kgToString deadstock |> text
-            , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
-            ]
+            (if deadstock /= Quantity.zero then
+                [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
+                , Format.kgToString deadstock |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+                ]
+
+             else
+                [ text "Aucun stock dormant." ]
+            )
+
+    else
+        text ""
+
+
+makingWasteView : Config msg modal -> Mass -> Html msg
+makingWasteView config waste =
+    if config.current.label == Label.Making then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            (if waste /= Quantity.zero then
+                [ text "Pertes\u{00A0}:\u{00A0}"
+                , Format.kgToString waste |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
+                ]
+
+             else
+                [ text "Aucune perte en confection." ]
+            )
 
     else
         text ""

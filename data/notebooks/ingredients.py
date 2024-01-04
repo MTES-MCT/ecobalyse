@@ -25,10 +25,10 @@ os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.%s.json"
+AGRIBALYSE = "Agribalyse 3.1.1"
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
-DATABASE = bw2data.Database("Agribalyse 3.1.1")
 
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
@@ -43,8 +43,8 @@ pandas.set_option("notebook_repr_html", True)
 pandas.set_option("max_colwidth", 15)
 
 
-def dbsearch(term, **kw):
-    return DATABASE.search(term, **kw)
+def dbsearch(db, term, **kw):
+    return bw2data.Database(db).search(term, **kw)
 
 
 def cleanup_json(activities):
@@ -106,6 +106,7 @@ FIELDS = {
     # process attributes
     "id": "id",
     "name": "Nom",
+    "database": "Base de données",
     "search": "Termes de recherche",
     "default_origin": "Origine par défaut",
     "category": "Catégorie de procédé",
@@ -132,8 +133,6 @@ def to_pretty(d):
 def from_pretty(d):
     """turn a dict with pretty keys to a dict with dotted keys"""
     activity = {reverse(FIELDS)[k]: v for k, v in d.items()}
-    # if not activity.get("variants"):
-    #    activity["variants"] = {}
     return activity
 
 
@@ -142,7 +141,11 @@ def read_activities():
 
     def read_temp():
         with open(ACTIVITIES_TEMP % w_contributor.value) as fp:
-            return {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            fs = {i["id"]: i for i in [to_pretty(to_flat(i)) for i in json.load(fp)]}
+            for k, v in fs.items():
+                v.setdefault("Base de données", AGRIBALYSE)
+                fs[k] = v
+            return fs
 
     if not os.path.exists(ACTIVITIES_TEMP % w_contributor.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
@@ -190,6 +193,10 @@ w_name = ipywidgets.Text(
 ## Is the activity an ingredient?
 w_ingredient = ipywidgets.Checkbox(indent=False, style=style, value=False)
 ## brightway search terms to find the activity
+w_database = ipywidgets.Dropdown(
+    options=[d for d in list(bw2data.databases) if str(d) != "biosphere3"],
+    value=AGRIBALYSE if AGRIBALYSE in bw2data.databases else "",
+)
 w_search = ipywidgets.Text(placeholder="wheat FR farm", style=style)
 w_results = ipywidgets.RadioButtons(
     rows=1,
@@ -458,6 +465,7 @@ def clear_form():
     w_id.options = tuple([""] + list(read_activities().keys()))
     w_id.value = ""
     w_name.value = ""
+    w_database.value = AGRIBALYSE if AGRIBALYSE in bw2data.databases else ""
     w_search.value = ""
     w_results.options = [""]
     w_results.value = ""
@@ -520,8 +528,9 @@ def change_id(change):
         return
     set_field(w_name, i.get("name"), "")
     terms = i.get("search", "")
+    set_field(w_database, i.get("database"), "")
     set_field(w_search, i.get("search"), "")
-    res = dbsearch(terms)
+    res = dbsearch(w_database.value, terms)
     if res:
         w_results.options = [[display_of(r) for r in res][0]]
     else:
@@ -550,9 +559,9 @@ def change_id(change):
 w_id.observe(change_id, names="value")
 
 
-def change_search_of(field):
-    def change_search(change):
-        results = list(dbsearch(change.new, limit=10))
+def changed_database_to(field):
+    def changed_database(change):
+        results = list(dbsearch(change.new, w_search.value, limit=10))
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
@@ -561,7 +570,21 @@ def change_search_of(field):
         else:
             surface_output.clear_output()
 
-    return change_search
+    return changed_database
+
+
+def changed_search_to(field):
+    def changed_search(change):
+        results = list(dbsearch(w_database.value, change.new, limit=10))
+        field.rows = len(results)
+        field.options = [display_of(r) for r in results]
+        if results:
+            field.value = display_of(results[0])
+            display_surface(results[0])
+        else:
+            surface_output.clear_output()
+
+    return changed_search
 
 
 def change_filter(change):
@@ -577,6 +600,7 @@ def add_activity(_):
     activity = {
         "id": w_id.value,
         "name": w_name.value,
+        "database": w_database.value,
         "search": w_search.value,
         "category": w_category.value,
         "categories": w_categories.value,
@@ -829,7 +853,8 @@ def commit_activities(_):
         )
 
 
-w_search.observe(change_search_of(w_results), names="value")
+w_database.observe(changed_database_to(w_results), names="value")
+w_search.observe(changed_search_to(w_results), names="value")
 savebutton.on_click(add_activity)
 delbutton.on_click(delete_activity)
 resetbutton.on_click(reset_activities)
@@ -857,30 +882,42 @@ display(
             ipywidgets.VBox(
                 (
                     ipywidgets.HTML(
-                        """<h2>Documentation de cet outil</h2> <ul><li>Étape 1) Cliquez sur le
-                        bouton « ▶▶ » dans la barre d'outils supérieure pour récupérer la dernière
-                        version de cet éditeur d'ingrédients. Si l'éditeur ne se recharge pas,
-                        patientez une ou deux minutes puis recommencez</li> <li>Étape 2) Dans le
-                        sous-onglet « Liste », rechargez la liste des ingrédients déjà publiés en
-                        cliquant sur le bouton vert « Réinitialiser ». Puis consultez la liste des
-                        ingrédients déjà ajoutés avant d'ajouter un nouvel ingrédients</li>
-                        <li>Étape 3) Ajouter un ingrédient :</li> Aller dans le sous-onglet
-                        « Formulaire » pour renseigner les caractéristiques de l’ingrédient à
-                        ajouter. <div style="padding-left: 50px">En utilisant l'explorateur depuis
-                        un autre onglet, il faut d'abord identifier l'ICV correspondant à
-                        l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par exemple
-                        l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
-                        adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
-                        vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
-                        Technosphere de l'explorateur permet de vérifier les procédés qui entrent
-                        dans la composition de « Brown sugar, production, at plant {FR} U ». Il
-                        s’agit bien du procédé « Sugar, from sugarcane {RoW}| sugarcane processing,
-                        traditional annexed plant | Cut-off, S - Copied from Écoinvent U {RoW}
-                        ».</div> Après chaque ingrédient ajouté, cliquez sur « Enregistrer
-                        localement ». Réitérez cette étape pour chaque ingrédient.<li>Étape 4) :
-                        Validez tous les ingrédients ajoutés pour envoyer les ajouts à l’équipe
-                        Écobalyse. Allez sur l’onglet « Publier », et cliquez sur le bouton une fois
-                        l’ensemble des modifications faites et les ingrédients ajoutés.</li></ul>
+                        """
+<h2>Documentation de cet outil</h2> <ul>
+                        """
+                        """
+<li><b>Étape 1)</b> Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure
+pour récupérer la dernière version de cet éditeur d'ingrédients. Si l'éditeur
+ne se recharge pas, patientez une ou deux minutes puis recommencez</li>
+                        """
+                        """
+<li><b>Étape 2)</b> Cliquez sur le sous-onglet « Liste », puis sélectionnez le
+Contributeur pour charger votre liste temporaire d'ingrédients. Vous pouvez
+annuler les changements temporaires et revenir à la liste publiée en cliquant
+sur le bouton vert « Réinitialiser ». </li>
+                        """
+                        """
+<li><b>Étape 3)</b> Ajouter un ingrédient :</li>
+Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
+l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
+correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
+exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
+vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
+Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
+la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
+chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+cette étape pour chaque ingrédient.
+                        """
+                        """
+<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
+la branche indiquée et pourra être vérifiée et intégrée en production dans
+Ecobalyse</li></ul>
                         """
                     ),
                 )
@@ -927,6 +964,12 @@ display(
                         pouvez préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
                         aider de l'explorateur dans un autre onglet pour naviguer dans
                         Agribalyse."""
+                    ),
+                    ipywidgets.HBox(
+                        (
+                            ipywidgets.Label("Base de données"),
+                            w_database,
+                        ),
                     ),
                     ipywidgets.HBox(
                         (
