@@ -125,7 +125,19 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
+      "Beef cattle national average at farm gate": "Cull cow organic constructed"
+    }
+  },
+  {
+    "id": "meat-beef-organic",
+    "search": "Meat without bone beef for direct consumption",
+    "suffix": "[organic], constructed by Ecobalyse",
+    "subactivities": [
+      "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
+    ],
+    "replace": {
+      "Beef cattle national average at farm gate": "Cull cow organic constructed"
     }
   },
   {

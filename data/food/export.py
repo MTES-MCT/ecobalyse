@@ -6,7 +6,7 @@
 from bw2data.project import projects
 from common.export import (
     with_subimpacts,
-    search,
+    cached_search,
     with_corrected_impacts,
     display_changes,
 )
@@ -33,7 +33,9 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 def find_id(dbname, activity):
     print(activity["search"])
-    return search(dbname, activity["search"]).get("Process identifier", activity["id"])
+    return cached_search(dbname, activity["search"]).get(
+        "Process identifier", activity["id"]
+    )
 
 
 if __name__ == "__main__":
@@ -85,20 +87,20 @@ if __name__ == "__main__":
     processes = {
         activity["id"]: {
             "id": activity["id"],
-            "name": search(activity.get("database", AGRIBALYSE), activity["search"])[
-                "name"
-            ],
+            "name": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["name"],
             "displayName": activity["name"],
-            "unit": search(activity.get("database", AGRIBALYSE), activity["search"])[
-                "unit"
-            ],
+            "unit": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["unit"],
             "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-            "system_description": search(
+            "system_description": cached_search(
                 activity.get("database", AGRIBALYSE), activity["search"]
             )["System description"],
             "category": activity.get("category"),
             "comment": list(
-                search(
+                cached_search(
                     activity.get("database", AGRIBALYSE), activity["search"]
                 ).production()
             )[0]["comment"],
@@ -123,7 +125,7 @@ if __name__ == "__main__":
             end="\r",
         )
         lca = bw2calc.LCA(
-            {search(process.get("database", AGRIBALYSE), process["search"]): 1}
+            {cached_search(process.get("database", AGRIBALYSE), process["search"]): 1}
         )
         lca.lci()
         for key, method in impacts_definition.items():
