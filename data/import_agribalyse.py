@@ -409,21 +409,13 @@ def add_created_activities(dbname):
     with open(ACTIVITIES_TO_CREATE, "r") as f:
         activities_data = json.load(f)
 
+    bw2data.Database(dbname).register()
+
     for activity_data in activities_data:
         if "add" in activity_data:
-            add_average_activity(activity_data, dbname=dbname)
+            add_average_activity(activity_data, dbname)
         if "replace" in activity_data:
             add_variant_activity(activity_data, dbname)
-
-
-def delete_created_activities(dbname):
-    search_results = bw2data.Database(dbname).search(
-        "constructed by Ecobalyse", limit=1000
-    )
-
-    for activity in search_results:
-        activity.delete()
-        print(f"Deleted {activity}")
 
 
 def main():
@@ -455,13 +447,15 @@ def main():
     args = parser.parse_args()
     db = "Agribalyse 3.1.1"
 
-    if args.recreate_activities:
-        delete_created_activities(db)
-        add_created_activities(db)
-
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE, db)
-        delete_created_activities(db)
+    else:
+        print(f"{db} already imported")
+
+    if args.recreate_activities:
+        del bw2data.databases["Ecobalyse"]
+
+    if (db := "Ecobalyse") not in bw2data.databases:
         add_created_activities(db)
     else:
         print(f"{db} already imported")
