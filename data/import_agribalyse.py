@@ -318,7 +318,7 @@ def import_simapro_csv(
 
 
 def add_average_activity(activity_data, dbname):
-    """Add to the database a new activity : the weighted average of multiple activities
+    """Add to the database dbname a new activity : the weighted average of multiple activities
 
     Example : the average activity milk "Cow milk, organic, system n°1, at farm gate/FR U" is the
     weighted average of the activities 'Cow milk, organic, system n°1, at farm gate/FR U' from
@@ -328,7 +328,7 @@ def add_average_activity(activity_data, dbname):
         dbname, f"{activity_data['search']} {activity_data['suffix']}"
     )
     for activity_add_name, amount in activity_data["add"].items():
-        activity_add = search(dbname, f"{activity_add_name}")
+        activity_add = search(activity_data["search_in"], f"{activity_add_name}")
         new_exchange(average_activity, activity_add, amount)
     average_activity.save()
 
@@ -336,8 +336,12 @@ def add_average_activity(activity_data, dbname):
 def replace_activities(activity_variant, activity_data, dbname):
     """Replace all activities in activity_data["replace"] with variants of these activities"""
     for old, new in activity_data["replace"].items():
+        if type(new) is list:
+            searchdb, new = new
+        else:
+            searchdb = dbname
         activity_old = search(dbname, old)
-        activity_new = search(dbname, new)
+        activity_new = search(searchdb, new)
         new_exchange(
             activity_variant,
             activity_new,
@@ -352,7 +356,7 @@ def add_variant_activity(activity_data, dbname):
     Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a
     variant of activity flour
     """
-    activity = search(dbname, activity_data["search"])
+    activity = search(activity_data["search_in"], activity_data["search"])
 
     # create a new variant activity
     # Example: this is where we create the flour-organic activity
@@ -365,7 +369,7 @@ def add_variant_activity(activity_data, dbname):
     # if the activity has no subactivities, we can directly replace the seed activity with the seed
     #  activity variant
     if not activity_data["subactivities"]:
-        replace_activities(activity_variant, activity_data, dbname)
+        replace_activities(activity_variant, activity_data, activity_data["search_in"])
 
     # else we have to iterate through subactivities and create a new variant activity for each subactivity
 
@@ -373,7 +377,15 @@ def add_variant_activity(activity_data, dbname):
     #  we can replace the wheat activity with the wheat-organic activity
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
-            sub_activity = search(dbname, act_sub_data, "declassified")
+            searchdb = None  # WARNING : the last database specified in "subactivities" is used in the "replace"
+            if type(act_sub_data) is list:
+                searchdb, act_sub_data = act_sub_data
+            else:
+                searchdb, act_sub_data = (
+                    searchdb or activity_data["search_in"],
+                    act_sub_data,
+                )
+            sub_activity = search(searchdb, act_sub_data, "declassified")
             nb = len(bw2data.Database(dbname).search(f"{sub_activity['name']}"))
 
             # create a new sub activity variant
@@ -396,7 +408,7 @@ def add_variant_activity(activity_data, dbname):
             # Example: for flour-organic this is where the replace the wheat activity with the
             # wheat-organic activity
             if i == len(activity_data["subactivities"]) - 1:
-                replace_activities(sub_activity_variant, activity_data, dbname)
+                replace_activities(sub_activity_variant, activity_data, searchdb)
 
             # update the activity_variant (parent activity)
             activity_variant = sub_activity_variant
