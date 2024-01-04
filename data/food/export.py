@@ -99,11 +99,15 @@ if __name__ == "__main__":
                 activity.get("database", AGRIBALYSE), activity["search"]
             )["System description"],
             "category": activity.get("category"),
-            "comment": list(
-                cached_search(
-                    activity.get("database", AGRIBALYSE), activity["search"]
-                ).production()
-            )[0]["comment"],
+            "comment": prod[0]["comment"]
+            if (
+                prod := list(
+                    cached_search(
+                        activity.get("database", AGRIBALYSE), activity["search"]
+                    ).production()
+                )
+            )
+            else activity.get("comment", ""),
             # those are removed at the end:
             "search": activity["search"],
         }
