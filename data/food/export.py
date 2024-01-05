@@ -32,7 +32,6 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
 def find_id(dbname, activity):
-    print(activity["search"])
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]
     )
