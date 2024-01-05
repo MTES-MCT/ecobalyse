@@ -37,7 +37,7 @@ suite =
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid GET query"
-                , "/food/recipe?ingredients[]=egg;120"
+                , "/food/recipe?ingredients[]=egg-indoor-code3;120"
                     |> request "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first

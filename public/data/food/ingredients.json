@@ -1,39 +1,5 @@
 [
   {
-    "id": "egg",
-    "name": "Oeuf (sortie de ferme)",
-    "categories": ["animal_product"],
-    "default": "AGRIBALU000000003105162",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.974,
-    "density": 1,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
-  },
-  {
-    "id": "egg-organic",
-    "name": "Oeuf bio (sortie de ferme)",
-    "categories": ["animal_product", "organic"],
-    "default": "AGRIBALU000000003105163",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.974,
-    "density": 1,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
-  },
-  {
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur (sortie de ferme)",
     "categories": ["animal_product", "bleublanccoeur"],
@@ -56,8 +22,8 @@
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003104145",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -71,10 +37,10 @@
     "id": "milk-organic",
     "name": "Lait bio (sortie de ferme)",
     "categories": ["dairy_product", "organic"],
-    "default": "AGRIBALU000000003104151",
+    "default": "843986b19b3ea959b8817afda669dead",
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -123,9 +89,9 @@
     "default": "AGRIBALU000024985200247",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
-    "transport_cooling": "once_transformed",
+    "transport_cooling": "none",
     "visible": true,
     "complements": {
       "agro-diversity": 10,
@@ -134,14 +100,14 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio (sortie de moulin)",
+    "name": "Blé tendre bio (sortie de ferme)",
     "categories": ["grain_raw", "organic"],
-    "default": "AGRIBALU000000003114123",
+    "default": "bdd14c2017eaf0cda1e207e74012c391",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
-    "transport_cooling": "once_transformed",
+    "transport_cooling": "none",
     "visible": true,
     "complements": {
       "agro-diversity": 50,
@@ -245,38 +211,6 @@
     }
   },
   {
-    "id": "tomato",
-    "name": "Tomate - sous serre non chauffée (sortie de ferme)",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003115753",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "tomato-organic",
-    "name": "Tomate bio (sous serre non chauffée)",
-    "categories": ["vegetable_fresh", "organic"],
-    "default": "AGRIBALU000000003115758",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
-  },
-  {
     "id": "potato",
     "name": "Pomme de terre (sortie de ferme)",
     "categories": ["vegetable_fresh"],
@@ -345,12 +279,12 @@
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon (cuit)",
+    "name": "Jambon cuit",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003103910",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -362,12 +296,12 @@
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Jambon bio (cuit)",
+    "name": "Jambon cuit bio cuit",
     "categories": ["animal_product", "organic"],
     "default": "3fc68b77b276cfc781ed546ec32b84f5",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
@@ -429,7 +363,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr-organic",
+    "id": "chicken-breast-organic-fr",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
     "categories": ["animal_product", "organic"],
     "default": "fc9b8a819a1ba51b4fbca210d0771198",
@@ -443,38 +377,6 @@
       "agro-diversity": 50,
       "agro-ecology": 50,
       "animal-welfare": 50
-    }
-  },
-  {
-    "id": "grape",
-    "name": "Raisin de cuve (sortie de vignoble)",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003106864",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "grape-organic",
-    "name": "Raisin de cuve bio (sortie de vignoble)",
-    "categories": ["vegetable_fresh", "organic"],
-    "default": "AGRIBALU000024985200264",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
     }
   },
   {
@@ -598,38 +500,6 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "pear-organic",
-    "name": "Poire bio (sortie de ferme)",
-    "categories": ["vegetable_fresh", "organic"],
-    "default": "AGRIBALU000000003111025",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
-  },
-  {
-    "id": "peach",
-    "name": "Pêche (sortie de ferme)",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003110952",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
     "complements": {
@@ -849,7 +719,7 @@
   },
   {
     "id": "tomato-organic-greenhouse",
-    "name": "Tomate bio (sous serre non chauffée)",
+    "name": "Tomate bio sous serre non chauffée (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003115758",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -857,7 +727,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": false,
+    "visible": true,
     "complements": {
       "agro-diversity": 50,
       "agro-ecology": 50
@@ -865,7 +735,7 @@
   },
   {
     "id": "tomato-greenhouse",
-    "name": "Tomate (sous serre non chauffée)",
+    "name": "Tomate sous serre non chauffée (sortie de ferme)",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003115753",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -932,29 +802,13 @@
   },
   {
     "id": "tomato-heated-greenhouse",
-    "name": "Tomate - sous serre chauffée (sortie de ferme)",
+    "name": "Tomate sous serre chauffée (sortie de ferme)",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003115752",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "cucumber",
-    "name": "Concombre (sous serre chauffée)",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003104392",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
     "complements": {
@@ -2074,54 +1928,6 @@
     }
   },
   {
-    "id": "chicken-breast-bbc",
-    "name": "Blanc de poulet (bleu blanc coeur)",
-    "categories": ["animal_product"],
-    "default": "7d05f4ea6d32b7f5265328ca598a5425",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "chicken-breast-fr-ext",
-    "name": "Blanc de poulet (élevé en extérieur, aliments FR)",
-    "categories": ["animal_product"],
-    "default": "16abe373c29e10b816088d74eb9be974",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
-  },
-  {
-    "id": "chicken-breast-fr-ext-organic",
-    "name": "Blanc de poulet (élevé en extérieur, aliments bio)",
-    "categories": ["animal_product"],
-    "default": "ce9bfd94402d0399dadff3774d5354ad",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.755,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
-  },
-  {
     "id": "chicken-breast-fr",
     "name": "Blanc de poulet (nourri avec des aliments FR)",
     "categories": ["animal_product"],
@@ -2264,6 +2070,221 @@
     "complements": {
       "agro-diversity": 0,
       "agro-ecology": 0
+    }
+  },
+  {
+    "id": "milk-powder",
+    "name": "Poudre de lait écrémé",
+    "categories": ["dairy_product"],
+    "default": "AGRIBALU000000003109401",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "rice-basmati",
+    "name": "Riz basmati",
+    "categories": ["grain_raw"],
+    "default": "AGRIBALU000000003112687",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "red-wine",
+    "name": "Vin rouge",
+    "categories": ["misc"],
+    "default": "AGRIBALU000000003112590",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "fresh-shrimps",
+    "name": " Crevettes fraîches",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003106282",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.819,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "cucumber-greenhouse-heated",
+    "name": "Concombre (sous serre chauffée)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003104392",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "peach-conventional",
+    "name": "Pêche (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110938",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
+    }
+  },
+  {
+    "id": "large-trout",
+    "name": "Truite d'élevage (sortie de ferme)",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003108470",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.819,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "egg-indoor-code2",
+    "name": "Oeuf conventionnel (code 2-sortie de ferme)",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003105152",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "egg-indoor-code3",
+    "name": "Oeuf conventionnel (code 3-sortie de ferme)",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003105151",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "egg-outdoor-code1",
+    "name": "Oeuf plein air (code 1-sortie de ferme)",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003105153",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10,
+      "animal-welfare": 10
+    }
+  },
+  {
+    "id": "egg-organic-code0",
+    "name": "Oeuf bio (sortie de ferme)",
+    "categories": ["animal_product", "organic"],
+    "default": "AGRIBALU000000003105163",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50,
+      "animal-welfare": 50
+    }
+  },
+  {
+    "id": "wine-grape-organic",
+    "name": "Raisin de cuve bio (sortie de vignoble)",
+    "categories": ["vegetable_fresh", "organic"],
+    "default": "AGRIBALU000024985200264",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
+    }
+  },
+  {
+    "id": "wine-grape",
+    "name": "Raisin de cuve (sortie de vignoble)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003106864",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 10,
+      "agro-ecology": 10
     }
   }
 ]

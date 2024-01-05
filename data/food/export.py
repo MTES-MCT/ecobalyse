@@ -52,7 +52,7 @@ if __name__ == "__main__":
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": find_id(activity.get("database", AGRIBALYSE), activity),
+            "default": find_id(activity.get("search_in", AGRIBALYSE), activity),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
             "density": activity["density"],
@@ -88,22 +88,27 @@ if __name__ == "__main__":
         activity["id"]: {
             "id": activity["id"],
             "name": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
+                activity.get("search_in", AGRIBALYSE), activity["search"]
             )["name"],
             "displayName": activity["name"],
             "unit": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
+                activity.get("search_in", AGRIBALYSE), activity["search"]
             )["unit"],
-            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+            "identifier": find_id(activity.get("search_in", AGRIBALYSE), activity),
             "system_description": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
+                activity.get("search_in", AGRIBALYSE), activity["search"]
             )["System description"],
             "category": activity.get("category"),
-            "comment": list(
-                cached_search(
-                    activity.get("database", AGRIBALYSE), activity["search"]
-                ).production()
-            )[0]["comment"],
+            "comment": prod[0]["comment"]
+            if (
+                prod := list(
+                    cached_search(
+                        activity.get("search_in", AGRIBALYSE), activity["search"]
+                    ).production()
+                )
+            )
+            else activity.get("comment", ""),
+            "database": activity.get("search_in", AGRIBALYSE),
             # those are removed at the end:
             "search": activity["search"],
         }
