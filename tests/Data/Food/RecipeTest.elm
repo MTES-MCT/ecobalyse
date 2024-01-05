@@ -187,7 +187,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 109.81255096993756) result
+                                expectImpactEqual (Unit.impact 108.49669638868569) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the bonus taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -195,7 +195,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 71.60837731834789) result
+                                expectImpactEqual (Unit.impact 70.29252273709602) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -206,28 +206,28 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 206.59221791335546
+                                    |> Expect.within (Expect.Absolute 0.01) 204.5461187112795
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 209.21871382758408
+                                    |> Expect.within (Expect.Absolute 0.01) 207.03596775657905
                                     |> asTest "should properly score total impact without bonuses"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) 2.625905745958251
+                                    |> Expect.within (Expect.Absolute 0.01) 2.489849045299553
                                     |> asTest "should properly score bonuses impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 84.1349198658696
+                                    |> Expect.within (Expect.Absolute 0.01) 82.96620071043597
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 44.77936573253617
+                                    |> Expect.within (Expect.Absolute 0.01) 44.35954300191838
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 39.5360312071319
+                                    |> Expect.within (Expect.Absolute 0.01) 39.09165622316107
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 40.76839702204644
+                                    |> Expect.within (Expect.Absolute 0.01) 40.61856782106365
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -286,7 +286,7 @@ suite =
                 ]
             , describe "getMassAtPackaging"
                 [ { ingredients =
-                        [ { id = Ingredient.idFromString "egg"
+                        [ { id = Ingredient.idFromString "egg-indoor-code3"
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
@@ -352,7 +352,7 @@ suite =
               in
               describe "computeIngredientTransport"
                 [ { ingredients =
-                        [ { id = Ingredient.idFromString "egg"
+                        [ { id = Ingredient.idFromString "egg-indoor-code3"
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
