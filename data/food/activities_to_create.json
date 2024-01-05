@@ -276,7 +276,10 @@
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": ["Butter, 82% fat, unsalted, unsalted, at dairy {RER} - Adapted from WFLDB U"],
     "replace": {
-      "Cow milk, national average, at farm gate {FR} U": "Cow milk, organic, system number 5, at farm gate {FR} U"
+      "Cow milk, national average, at farm gate {FR} U": [
+        "Ecobalyse",
+        "cow milk organic national average"
+      ]
     }
   },
   {
