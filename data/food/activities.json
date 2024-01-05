@@ -2439,7 +2439,7 @@
   {
     "id": "red-wine",
     "name": "Vin rouge",
-    "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine ",
+    "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine PGi",
     "category": "ingredient",
     "categories": ["misc"],
     "default_origin": "France",
