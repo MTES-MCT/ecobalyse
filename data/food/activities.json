@@ -10,12 +10,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "milk",
@@ -28,12 +23,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "milk-organic",
@@ -47,12 +37,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "carrot",
@@ -92,10 +77,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.33,
-      "plotSize": 0.45
-    }
+    "ecosystemicServices": { "hedges": 0.33, "plotSize": 0.45 }
   },
   {
     "id": "wheat-organic",
@@ -110,11 +92,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.99,
-      "plotSize": 1.48,
-      "cropDiversity": 7.08
-    }
+    "ecosystemicServices": { "hedges": 0.99, "plotSize": 1.48, "cropDiversity": 7.08 }
   },
   {
     "id": "flour",
@@ -269,12 +247,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham",
@@ -287,12 +260,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-organic",
@@ -306,12 +274,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-fr",
@@ -325,12 +288,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast",
@@ -344,11 +302,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.84,
-      "plotSize": 1.01,
-      "livestockDensity": 2
-    }
+    "ecosystemicServices": { "hedges": 0.84, "plotSize": 1.01, "livestockDensity": 2 }
   },
   {
     "id": "chicken-breast-organic",
@@ -548,12 +502,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "butter-organic",
@@ -567,12 +516,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "onion",
@@ -675,12 +619,7 @@
     "category": "packaging",
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
-  {
-    "id": "paper",
-    "name": "Papier",
-    "category": "packaging",
-    "search": "Kraft paper production"
-  },
+  { "id": "paper", "name": "Papier", "category": "packaging", "search": "Kraft paper production" },
   {
     "id": "pvc",
     "name": "PVC",
@@ -842,12 +781,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "emmental",
@@ -861,12 +795,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "mozzarella",
@@ -880,12 +809,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "tomato-heated-greenhouse",
@@ -1426,10 +1350,7 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
-    "ecosystemicServices": {
-      "hedges": 0.46,
-      "plotSize": 0.48
-    }
+    "ecosystemicServices": { "hedges": 0.46, "plotSize": 0.48 }
   },
   {
     "id": "blackberry",
@@ -1646,12 +1567,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse",
@@ -1664,12 +1580,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -1682,12 +1593,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-tofu",
@@ -1739,12 +1645,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "flank-steak",
@@ -1757,12 +1658,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "flank-steak-organic",
@@ -1776,12 +1672,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rumsteak",
@@ -1794,12 +1685,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "durum-wheat-semolina",
@@ -1950,12 +1836,7 @@
     "density": 0.447,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "olive-oil",
@@ -2021,12 +1902,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rice-basmati",
@@ -2065,12 +1941,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cucumber-greenhouse-heated",
@@ -2110,12 +1981,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)"
   },
   {
     "id": "egg-indoor-code2",
@@ -2128,12 +1994,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-indoor-code3",
@@ -2146,12 +2007,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-outdoor-code1",
@@ -2164,12 +2020,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-organic-code0",
@@ -2182,12 +2033,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "wine-grape-organic",
