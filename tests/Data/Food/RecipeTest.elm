@@ -153,7 +153,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 108.49669638868569) result
+                                expectImpactEqual (Unit.impact 109.52252826911402) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -162,7 +162,7 @@ suite =
 
                             Ok result ->
                                 -- FIXME: check this result once we have SE data
-                                expectImpactEqual (Unit.impact 70.29252273709602) result
+                                expectImpactEqual (Unit.impact 71.31835461752435) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -174,10 +174,10 @@ suite =
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
                                     -- FIXME: check this result once we have SE data
-                                    |> Expect.within (Expect.Absolute 0.01) 208.32399073458512
+                                    |> Expect.within (Expect.Absolute 0.01) 206.1412446635801
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 209.21871382758408
+                                    |> Expect.within (Expect.Absolute 0.01) 207.03596775657905
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
                                     -- FIXME: check this result once we have SE data
