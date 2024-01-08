@@ -1387,12 +1387,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rumsteak",
@@ -1584,11 +1579,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "milk-powder",
@@ -1600,12 +1591,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rice-basmati",
@@ -1617,11 +1603,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "red-wine",
@@ -1633,11 +1615,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "fresh-shrimps",
@@ -1649,12 +1627,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cucumber-greenhouse-heated",
@@ -1666,11 +1639,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "peach-conventional",
@@ -1682,11 +1651,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "large-trout",
@@ -1698,12 +1663,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-indoor-code2",
@@ -1715,12 +1675,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-indoor-code3",
@@ -1732,12 +1687,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-outdoor-code1",
@@ -1749,12 +1699,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-organic-code0",
@@ -1766,12 +1711,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "wine-grape-organic",
@@ -1783,11 +1723,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "wine-grape",
@@ -1799,10 +1735,6 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   }
 ]
