@@ -32,7 +32,6 @@ bw2data.config.p["biosphere_database"] = BIOSPHERE
 
 
 def find_id(dbname, activity):
-    print(activity["search"])
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]
     )
@@ -91,12 +90,17 @@ if __name__ == "__main__":
                 activity.get("database", AGRIBALYSE), activity["search"]
             )["System description"],
             "category": activity.get("category"),
-            "comment": list(
-                cached_search(
-                    activity.get("database", AGRIBALYSE), activity["search"]
-                ).production()
-            )[0]["comment"],
+            "comment": prod[0]["comment"]
+            if (
+                prod := list(
+                    cached_search(
+                        activity.get("database", AGRIBALYSE), activity["search"]
+                    ).production()
+                )
+            )
             # those are removed at the end:
+            else activity.get("comment", ""),
+            "database": activity.get("database", AGRIBALYSE),
             "search": activity["search"],
         }
         for activity in activities

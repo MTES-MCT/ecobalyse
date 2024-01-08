@@ -431,7 +431,7 @@ emptyQuery =
 carrotCake : Query
 carrotCake =
     { ingredients =
-        [ { id = Ingredient.idFromString "egg"
+        [ { id = Ingredient.idFromString "egg-indoor-code3"
           , mass = Mass.grams 120
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
@@ -528,7 +528,7 @@ cannedRatatouille =
 cannedRaviolis : Query
 cannedRaviolis =
     { ingredients =
-        [ { id = Ingredient.idFromString "egg"
+        [ { id = Ingredient.idFromString "egg-indoor-code3"
           , mass = Mass.grams 210
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable

@@ -479,7 +479,7 @@ describe("API", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/food/recipe", {
             ingredients: [
-              { id: "egg", mass: 0.12 },
+              { id: "egg-indoor-code3", mass: 0.12 },
               { id: "wheat", mass: 0.14 },
               { id: "milk", mass: 0.06 },
               { id: "carrot", mass: 0.225 },
