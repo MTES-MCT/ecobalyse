@@ -50,13 +50,6 @@ def dbsearch(db, term, **kw):
 def cleanup_json(activities):
     """consistency of the json file"""
     for i, a in enumerate(activities):
-        # remove animal-welfare for non animal products
-        if (
-            "animal_product" not in a.get("categories", {})
-            and "dairy_product" not in a.get("categories", {})
-            and "animal-welfare" in a.get("complements", {})
-        ):
-            del activities[i]["complements"]["animal-welfare"]
         # remove categories for non-ingredients
         if a["category"] != "ingredient":
             for x in (
@@ -118,10 +111,13 @@ FIELDS = {
     "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
     "explain": "Commentaires",
-    # complements
-    "complements.agro-diversity": "Biodiversité territoriale",
-    "complements.agro-ecology": "Résilience territoriale",
-    "complements.animal-welfare": "Conditions d'élevage",
+    # EcosystemicServices
+    "ecosystemicServices.hedges": "Haies",
+    "ecosystemicServices.plotSize": "Taille de parcelles",
+    "ecosystemicServices.cropDiversity": "Diversité culturale",
+    "ecosystemicServices.permanentPasture": "Prairies permanentes",
+    "ecosystemicServices.livestockDensity": "Chargement territorial",
+    "ecosystemicServices.selfSufficiency": "Autonomie territoriale",
 }
 
 
@@ -351,22 +347,40 @@ w_explain = ipywidgets.Textarea(
 ## COMPLEMENTS
 
 # default coef for the complement indicators
-w_complement_agrodiv = ipywidgets.IntSlider(
+w_ecosys_hedges = ipywidgets.FloatSlider(
     style=style,
     min=0,
-    max=100,
-    step=5,
+    max=10,
+    step=0.01,
 )
-w_complement_agroeco = ipywidgets.IntSlider(
+w_ecosys_plotSize = ipywidgets.FloatSlider(
     min=0,
-    max=100,
-    step=5,
+    max=10,
+    step=0.01,
     style=style,
 )
-w_complement_animal_welfare = ipywidgets.IntSlider(
+w_ecosys_cropDiversity = ipywidgets.FloatSlider(
     min=0,
-    max=100,
-    step=5,
+    max=10,
+    step=0.01,
+    style=style,
+)
+w_ecosys_permanentPasture = ipywidgets.FloatSlider(
+    min=0,
+    max=10,
+    step=0.01,
+    style=style,
+)
+w_ecosys_livestockDensity = ipywidgets.FloatSlider(
+    min=0,
+    max=10,
+    step=0.01,
+    style=style,
+)
+w_ecosys_selfSufficiency = ipywidgets.FloatSlider(
+    min=0,
+    max=10,
+    step=0.01,
     style=style,
 )
 
@@ -478,10 +492,12 @@ def clear_form():
     w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
-    w_complement_agrodiv.value = 0
-    w_complement_agroeco.value = 0
-    w_complement_animal_welfare.disabled = False
-    w_complement_animal_welfare.value = 0
+    w_ecosys_hedges.value = 0
+    w_ecosys_plotSize.value = 0
+    w_ecosys_cropDiversity.value = 0
+    w_ecosys_permanentPasture.value = 0
+    w_ecosys_livestockDensity.value = 0
+    w_ecosys_selfSufficiency.value = 0
 
 
 def set_field(field, value, default):
@@ -507,13 +523,7 @@ w_contributor.observe(change_contributor, names="value")
 
 
 def change_categories(_):
-    w_complement_animal_welfare.disabled = (
-        False
-        if "animal_product" in w_categories.value
-        or "dairy_product" in w_categories.value
-        or not w_categories.value
-        else True
-    )
+    pass
 
 
 w_categories.observe(change_categories, names="value")
@@ -547,13 +557,16 @@ def change_id(change):
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
-    set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
+    set_field(w_ecosys_hedges, i.get("ecosystemicServices.hedges"), 0)
+    set_field(w_ecosys_plotSize, i.get("ecosystemicServices.plotSize"), 0)
+    set_field(w_ecosys_cropDiversity, i.get("ecosystemicServices.cropDiversity"), 0)
     set_field(
-        w_complement_animal_welfare,
-        i.get("complements.animal-welfare"),
-        0,
+        w_ecosys_permanentPasture, i.get("ecosystemicServices.permanentPasture"), 0
     )
+    set_field(
+        w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
+    )
+    set_field(w_ecosys_selfSufficiency, i.get("ecosystemicServices.selfSufficiency"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -611,9 +624,12 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "explain": w_explain.value,
-        "complements.agro-diversity": w_complement_agrodiv.value,
-        "complements.agro-ecology": w_complement_agroeco.value,
-        "complements.animal-welfare": w_complement_animal_welfare.value,
+        "ecosystemicServices.hedges": w_ecosys_hedges.value,
+        "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
+        "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
+        "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
+        "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
+        "ecosystemicServices.selfSufficiency": w_ecosys_selfSufficiency.value,
     }
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
@@ -1117,38 +1133,66 @@ Ecobalyse</li></ul>
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        """<hr/>Pour les compléments hors ACV, voir
+                                        """<hr/>Pour les services écosystémiques, voir
                                         la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                        (TODO: mettre à jour le lien)
                                         """
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.agro-diversity"],
+                                                FIELDS["ecosystemicServices.hedges"],
                                             ),
-                                            w_complement_agrodiv,
+                                            w_ecosys_hedges,
                                         ),
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.agro-ecology"],
+                                                FIELDS["ecosystemicServices.plotSize"],
                                             ),
-                                            w_complement_agroeco,
+                                            w_ecosys_plotSize,
                                         ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """Les conditions d'élevage ne sont exportées que si
-                                        l'ingrédient est dans la catégorie <i>animal_product</i> ou
-                                        <i>dairy_product</i>."""
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.animal-welfare"],
+                                                FIELDS[
+                                                    "ecosystemicServices.cropDiversity"
+                                                ],
                                             ),
-                                            w_complement_animal_welfare,
+                                            w_ecosys_cropDiversity,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS[
+                                                    "ecosystemicServices.permanentPasture"
+                                                ],
+                                            ),
+                                            w_ecosys_permanentPasture,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS[
+                                                    "ecosystemicServices.livestockDensity"
+                                                ],
+                                            ),
+                                            w_ecosys_livestockDensity,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS[
+                                                    "ecosystemicServices.selfSufficiency"
+                                                ],
+                                            ),
+                                            w_ecosys_selfSufficiency,
                                         ),
                                     ),
                                 ),
