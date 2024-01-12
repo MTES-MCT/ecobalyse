@@ -346,43 +346,13 @@ w_explain = ipywidgets.Textarea(
 
 ## COMPLEMENTS
 
-# default coef for the complement indicators
-w_ecosys_hedges = ipywidgets.FloatSlider(
-    style=style,
-    min=0,
-    max=10,
-    step=0.01,
-)
-w_ecosys_plotSize = ipywidgets.FloatSlider(
-    min=0,
-    max=10,
-    step=0.01,
-    style=style,
-)
-w_ecosys_cropDiversity = ipywidgets.FloatSlider(
-    min=0,
-    max=10,
-    step=0.01,
-    style=style,
-)
-w_ecosys_permanentPasture = ipywidgets.FloatSlider(
-    min=0,
-    max=10,
-    step=0.01,
-    style=style,
-)
-w_ecosys_livestockDensity = ipywidgets.FloatSlider(
-    min=0,
-    max=10,
-    step=0.01,
-    style=style,
-)
-w_ecosys_selfSufficiency = ipywidgets.FloatSlider(
-    min=0,
-    max=10,
-    step=0.01,
-    style=style,
-)
+# default coef for the ecosystemic services indicators
+w_ecosys_hedges = ipywidgets.FloatText(style=style, step=0.01)
+w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_selfSufficiency = ipywidgets.FloatText(step=0.01, style=style)
 
 # buttons
 savebutton = ipywidgets.Button(
