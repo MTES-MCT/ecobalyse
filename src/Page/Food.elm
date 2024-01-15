@@ -1371,6 +1371,7 @@ sidebarView session model results =
         , switchImpact = SwitchImpact
 
         -- Score
+        , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
 

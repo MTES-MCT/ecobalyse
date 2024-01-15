@@ -28,7 +28,6 @@ import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -52,7 +51,6 @@ import Views.Transport as TransportView
 type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
-    , daysOfWear : Duration
     , db : TextileDb.Db
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
@@ -66,6 +64,7 @@ type alias Config msg modal =
     , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
+    , updateDurability : Unit.Durability -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateFabricProcess : Fabric -> msg
@@ -75,8 +74,6 @@ type alias Config msg modal =
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
-    , updateQuality : Maybe Unit.Quality -> msg
-    , updateReparability : Maybe Unit.Reparability -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
@@ -335,48 +332,6 @@ fadingField { inputs, toggleFading } =
         ]
 
 
-qualityField : Config msg modal -> Html msg
-qualityField { current, updateQuality } =
-    span
-        [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
-          , "Il varie entre 0.67 (peu durable) et 1.45 (très durable)."
-          , "Il est calculé à partir du résultat d’une série de tests de durabilité."
-          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.quality
-            { id = "quality"
-            , update = updateQuality
-            , value = current.quality
-            , toString = Step.qualityToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
-reparabilityField : Config msg modal -> Html msg
-reparabilityField { current, updateReparability } =
-    span
-        [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
-          , "Il varie entre 1 (peu réparable) à 1.15 (très réparable)."
-          , "Il est calculé à partir du résultat d’une série de tests de réparabilité."
-          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.reparability
-            { id = "reparability"
-            , update = updateReparability
-            , value = current.reparability
-            , toString = Step.reparabilityToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
 makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     -- Note: This field is only rendered in the detailed step view
@@ -587,10 +542,6 @@ stepHeader { current } =
 
 simpleView : Config msg modal -> ViewWithTransport msg
 simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
-    let
-        materialStep =
-            current.label == Label.Material
-    in
     { transport = viewTransport config
     , step =
         div [ class "Step card shadow-sm" ]
@@ -609,7 +560,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                         ]
                     ]
                 ]
-            , if not materialStep then
+            , if current.label /= Label.Material then
                 if current.enabled then
                     div
                         [ class "StepBody card-body row align-items-center" ]
@@ -642,9 +593,7 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
 
                                 Label.Use ->
                                     div [ class "mt-2" ]
-                                        [ qualityField config
-                                        , reparabilityField config
-                                        , daysOfWearInfo inputs
+                                        [ daysOfWearInfo inputs
                                         ]
 
                                 _ ->
@@ -956,18 +905,17 @@ viewProcessInfo processName =
 daysOfWearInfo : Inputs -> Html msg
 daysOfWearInfo inputs =
     let
-        info =
-            inputs.product.use
-                |> Product.customDaysOfWear inputs.quality inputs.reparability
+        useNbCycles =
+            Product.customDaysOfWear inputs.product.use
     in
     small [ class "fs-7" ]
         [ span [ class "pe-1" ] [ Icon.info ]
-        , Format.days info.daysOfWear
+        , Format.days inputs.product.use.daysOfWear
         , text " portés, "
-        , text <| String.fromInt info.useNbCycles
+        , text <| String.fromInt useNbCycles
         , text <|
             " cycle"
-                ++ (if info.useNbCycles > 1 then
+                ++ (if useNbCycles > 1 then
                         "s"
 
                     else
@@ -1106,9 +1054,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                                     ]
 
                             Label.Use ->
-                                [ qualityField config
-                                , reparabilityField config
-                                , daysOfWearInfo inputs
+                                [ daysOfWearInfo inputs
                                 ]
 
                             _ ->
@@ -1353,5 +1299,4 @@ view config =
                 else
                     simpleView config
             )
-        |> Maybe.withDefault
-            (simpleView config)
+        |> Maybe.withDefault (simpleView config)
