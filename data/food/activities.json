@@ -77,7 +77,10 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": { "hedges": 0.33, "plotSize": 0.45 }
+    "ecosystemicServices": {
+      "hedges": 0.33,
+      "plotSize": 0.45
+    }
   },
   {
     "id": "wheat-organic",
@@ -92,7 +95,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": { "hedges": 0.99, "plotSize": 1.48, "cropDiversity": 7.08 }
+    "ecosystemicServices": {
+      "hedges": 0.99,
+      "plotSize": 1.48,
+      "cropDiversity": 7.08
+    }
   },
   {
     "id": "flour",
@@ -297,12 +304,15 @@
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.73,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": { "hedges": 0.84, "plotSize": 1.01, "livestockDensity": 2 }
+    "ecosystemicServices": {
+      "hedges": 0.84,
+      "plotSize": 1.01,
+      "livestockDensity": 2
+    }
   },
   {
     "id": "chicken-breast-organic",
@@ -1350,7 +1360,10 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
-    "ecosystemicServices": { "hedges": 0.46, "plotSize": 0.48 }
+    "ecosystemicServices": {
+      "hedges": 0.46,
+      "plotSize": 0.48
+    }
   },
   {
     "id": "blackberry",
