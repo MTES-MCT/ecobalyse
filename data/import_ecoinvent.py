@@ -49,10 +49,10 @@ def main():
     add_missing_substances(PROJECT, BIOSPHERE)
 
     # Import Ecoinvent
-    if (db := "Ecoinvent 3.9.1 Ecospold") not in bw2data.databases:
-        import_ecoinvent()
-    else:
-        print(f"{db} already imported")
+    # if (db := "Ecoinvent 3.9.1 Ecospold") not in bw2data.databases:
+    #    import_ecoinvent(datapath=DATAPATH, dbname=db)
+    # else:
+    #    print(f"{db} already imported")
     if (db := "Ecoinvent 3.9.1 Simapro") not in bw2data.databases:
         import_simapro_csv(ECOINVENT, db)
     else:

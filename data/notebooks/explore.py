@@ -256,13 +256,15 @@ def changed_project(_):
 
 
 def changed_database(_):
-    database = w_database.value
-    search = w_search.value
-    limit = w_limit.value
-    method = w_method.value
-    impact_category = w_impact_category.value
-    activity = w_activity.value
-    display_all(database, search, limit, method, impact_category, activity)
+    w_activity.value = None
+    display_all(
+        w_database.value,
+        w_search.value,
+        w_limit.value,
+        w_method.value,
+        w_impact_category.value,
+        w_activity.value,
+    )
 
 
 def changed_search(_):
@@ -302,7 +304,9 @@ def changed_method(_):
     activity = w_activity.value
     impact_categories = [m[1:] for m in bw2data.methods if m[0] == method]
     w_impact_category.value = None
-    w_impact_category.options = [(", ".join(i), i) for i in impact_categories]
+    w_impact_category.options = [("", None)] + [
+        (", ".join(i), i) for i in impact_categories
+    ]
     impact_category = w_impact_category.value = (
         impact_category if impact_category in impact_categories else None
     )
