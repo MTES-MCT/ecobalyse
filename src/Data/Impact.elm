@@ -7,6 +7,9 @@ module Data.Impact exposing
     , complementsImpactAsChartEntries
     , decodeImpacts
     , default
+    , divideBy
+    , divideComplementsImpactsBy
+    , divideStepsImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -17,6 +20,7 @@ module Data.Impact exposing
     , getTotalComplementsImpacts
     , impactsWithComplements
     , mapImpacts
+    , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
@@ -73,6 +77,21 @@ applyComplements complement impacts =
     impacts
         |> insertWithoutAggregateComputation Definition.Ecs
             (Quantity.difference ecoScore complement)
+
+
+divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
+divideComplementsImpactsBy n =
+    mapComplementsImpacts (Quantity.divideBy n)
+
+
+mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
+mapComplementsImpacts fn ci =
+    { agroDiversity = fn ci.agroDiversity
+    , agroEcology = fn ci.agroEcology
+    , animalWelfare = fn ci.animalWelfare
+    , microfibers = fn ci.microfibers
+    , outOfEuropeEOL = fn ci.outOfEuropeEOL
+    }
 
 
 noComplementsImpacts : ComplementsImpacts
@@ -150,6 +169,18 @@ type alias StepsImpacts =
     Steps (Maybe Unit.Impact)
 
 
+mapSteps : (a -> a) -> Steps a -> Steps a
+mapSteps fn steps =
+    { materials = fn steps.materials
+    , transform = fn steps.transform
+    , packaging = fn steps.packaging
+    , transports = fn steps.transports
+    , distribution = fn steps.distribution
+    , usage = fn steps.usage
+    , endOfLife = fn steps.endOfLife
+    }
+
+
 noStepsImpacts : StepsImpacts
 noStepsImpacts =
     { materials = Nothing
@@ -160,6 +191,11 @@ noStepsImpacts =
     , usage = Nothing
     , endOfLife = Nothing
     }
+
+
+divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
+divideStepsImpactsBy n =
+    mapSteps (Maybe.map (Quantity.divideBy n))
 
 
 type alias StepsColors =
@@ -268,6 +304,11 @@ default =
     Definition.Ecs
 
 
+divideBy : Float -> Impacts -> Impacts
+divideBy n =
+    mapImpacts (\_ -> Quantity.divideBy n)
+
+
 empty : Impacts
 empty =
     Impacts (Definition.init Quantity.zero)
@@ -288,6 +329,11 @@ mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn (Impacts impacts) =
     Definition.map fn impacts
         |> Impacts
+
+
+multiplyBy : Float -> Impacts -> Impacts
+multiplyBy n =
+    mapImpacts (\_ -> Quantity.multiplyBy n)
 
 
 perKg : Mass -> Impacts -> Impacts

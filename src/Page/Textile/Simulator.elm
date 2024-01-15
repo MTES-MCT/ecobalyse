@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
@@ -49,6 +50,7 @@ import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
+import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -100,6 +102,7 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
+    | UpdateDurability Unit.Durability
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -110,8 +113,6 @@ type Msg
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdatePrinting (Maybe Printing)
-    | UpdateQuality (Maybe Unit.Quality)
-    | UpdateReparability (Maybe Unit.Reparability)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateYarnSize (Maybe Unit.YarnSize)
@@ -387,6 +388,10 @@ update ({ queries, navKey } as session) msg model =
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
+        UpdateDurability durability ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | durability = durability }
+
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
@@ -448,14 +453,6 @@ update ({ queries, navKey } as session) msg model =
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
-
-        UpdateQuality quality ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | quality = quality }
-
-        UpdateReparability reparability ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | reparability = reparability }
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
@@ -592,10 +589,28 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
+productField : Inputs.Query -> Html Msg
+productField query =
+    let
+        autocompleteState =
+            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
+    in
+    div []
+        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
+            [ text "Produit" ]
+        , button
+            [ class "form-select ElementSelector text-start"
+            , id "selector-example"
+            , onClick (SetModal (SelectExampleModal autocompleteState))
+            ]
+            [ text <| Inputs.exampleProductToString query ]
+        ]
+
+
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold" ]
+        [ label [ for "mass", class "form-label fw-bold text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -614,24 +629,44 @@ massField massInput =
         ]
 
 
-productField : Inputs.Query -> Html Msg
-productField query =
+durabilityField : (Unit.Durability -> Msg) -> Unit.Durability -> Html Msg
+durabilityField updateDurability durability =
     let
-        autocompleteState =
-            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
+        fromFloat =
+            Unit.durabilityToFloat >> String.fromFloat
     in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
+    div [ class "d-block" ]
+        [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
+            [ text "Durabilité" ]
+        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
+            [ input
+                [ type_ "range"
+                , id "durability-field"
+                , class "d-block form-range"
+                , title "Un double-clic réinitialise la valeur"
+                , onInput
+                    (String.toFloat
+                        >> Maybe.map Unit.durability
+                        >> Maybe.withDefault Unit.standardDurability
+                        >> updateDurability
+                    )
+                , onDoubleClick (updateDurability Unit.standardDurability)
+                , Attr.min (fromFloat Unit.minDurability)
+                , Attr.max (fromFloat Unit.maxDurability)
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , step "0.01"
+                , value (fromFloat durability)
+                ]
+                []
+            , span [ class "fs-7 text-muted font-monospace" ]
+                [ durability
+                    |> Unit.durabilityToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                ]
             ]
-            [ text "Produit" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ text <| Inputs.exampleProductToString query ]
         ]
 
 
@@ -644,7 +679,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     { current = current
                     , db = db
                     , detailedStep = detailedStep
-                    , daysOfWear = simulator.daysOfWear
                     , index = index
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
@@ -660,13 +694,12 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
+                    , updateDurability = UpdateDurability
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateFabricProcess = UpdateFabricProcess
                     , updatePrinting = UpdatePrinting
-                    , updateQuality = UpdateQuality
-                    , updateReparability = UpdateReparability
                     , updateMakingComplexity = UpdateMakingComplexity
                     , updateMakingWaste = UpdateMakingWaste
                     , updateMakingDeadStock = UpdateMakingDeadStock
@@ -692,16 +725,10 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row" ]
-                [ div [ class "col-sm-9 mb-3" ]
-                    [ productField (Inputs.toQuery inputs)
-                    ]
-                , div [ class "col-sm-3 mb-3" ]
-                    [ inputs.mass
-                        |> Mass.inKilograms
-                        |> String.fromFloat
-                        |> massField
-                    ]
+            , div [ class "row align-items-start flex-md-columns mb-3" ]
+                [ div [ class "col-md-6" ] [ productField (Inputs.toQuery inputs) ]
+                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
+                , div [ class "col-md-3" ] [ durabilityField UpdateDurability inputs.durability ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
@@ -727,6 +754,15 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , switchImpact = SwitchImpact
 
                 -- Score
+                , customScoreInfo =
+                    Just
+                        (small []
+                            [ text "Hors modulation durabilité\u{00A0}: "
+                            , impacts
+                                |> Impact.multiplyBy (Unit.durabilityToFloat inputs.durability)
+                                |> Format.formatImpact model.impact
+                            ]
+                        )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
 

@@ -54,7 +54,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "21 décembre 2023"
+    [ { date = "31 décembre 2023"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Les paramètres `quality` et `reparability` on été supprimés. Il sont
+            remplacés par le champ `durability`."""
+      }
+    , { date = "21 décembre 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
@@ -88,7 +95,7 @@ changelog =
       , level = "minor"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
-            """La liste des matières premières textiles et des ingrédients 
+            """La liste des matières premières textiles et des ingrédients
             alimentaires peuvent maintenant être vides."""
       }
     , { date = "24 octobre 2023"

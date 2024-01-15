@@ -23,6 +23,7 @@ type alias Config msg =
     , switchImpact : Result String Trigram -> msg
 
     -- Score
+    , customScoreInfo : Maybe (Html msg)
     , productMass : Mass
     , totalImpacts : Impacts
 
@@ -53,7 +54,8 @@ view config =
             , switchImpact = config.switchImpact
             }
         , ScoreView.view
-            { impactDefinition = config.selectedImpact
+            { customInfo = config.customScoreInfo
+            , impactDefinition = config.selectedImpact
             , score = config.totalImpacts
             , mass = config.productMass
             }
