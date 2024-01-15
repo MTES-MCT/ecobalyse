@@ -8,6 +8,18 @@ Ce concept n'a rien de nouveau dans l'industrie et est notamment utilisé depuis
 
 L'upcycling consiste donc à développer des vêtements autour de stocks de matières déjà existantes grâce à la créativité des designers. Cette pratique n'est donc pas adaptée aux grandes séries.&#x20;
 
+Il n'existe pas encore de définition normée du surcyclage.&#x20;
+
+<details>
+
+<summary>Focus ADEME (Fonds réemploi-réutilisation et réparation de la filière TLC)</summary>
+
+Extrait de l'étude préalable publiée en 2022
+
+"Le terme « upcycling » (ou surcyclage en français) est de plus en plus utilisé dans la profession. Le mot désignait au départ l’exploitation des matériaux délaissés au cours de la chaîne de production, par opposition au « recyclage » qui porte sur les produits en fin de vie. Bien que la définition de l’upcycling soit encore à construire, l’upcycling englobe désormais la transformation directe des matériaux en nouveaux produits, ou la transformation de pièces conçues pour en augmenter l’attrait. Le « up », marquant l’idée de tirer les matériaux vers le haut. L’upcycling n’a pas de définition règlementaire. Cette activité est considérée exclue du périmètre des études réparation et réemploi-réutilisation."
+
+</details>
+
 ## Modélisation Ecobalyse
 
 L'utilisateur a la possibilité de supprimer tout ou partie des procédés mobilisés sur le cycle de vie du vêtement.
