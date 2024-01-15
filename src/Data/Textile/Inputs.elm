@@ -743,8 +743,7 @@ encodeQuery query =
     , ( "countryDyeing", query.countryDyeing |> Country.encodeCode |> Just )
     , ( "countryMaking", query.countryMaking |> Country.encodeCode |> Just )
     , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
-
-    -- , ( "durability", Unit.encodeDurability query.durability )
+    , ( "durability", query.durability |> Unit.encodeDurability |> Just )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
     , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
