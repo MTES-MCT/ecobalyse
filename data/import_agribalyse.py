@@ -28,6 +28,7 @@ PASTOECO = [
     "Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
     "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
 ]
+CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
 BIOSPHERE = "biosphere3"
 
 
@@ -428,24 +429,6 @@ def add_created_activities(dbname):
 
 def main():
     """Import Agribalyse and additional processes"""
-    projects.set_current(PROJECT)
-    # projects.create_project(PROJECT, activate=True, exist_ok=True)
-    bw2data.preferences["biosphere_database"] = BIOSPHERE
-    bw2io.bw2setup()
-    add_missing_substances(PROJECT, BIOSPHERE)
-    # PASTO ECO
-    if (db := "PastoEco") not in bw2data.databases:
-        for p in PASTOECO:
-            import_simapro_csv(p, db)
-    else:
-        print(f"{db} already imported")
-    # GINKO
-    if (db := "Ginko") not in bw2data.databases:
-        import_simapro_csv(GINKO, db)
-    else:
-        print(f"{db} already imported")
-
-    # AGRIBALYSE
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--recreate-activities",
@@ -453,8 +436,33 @@ def main():
         help="Delete and re-create the created activities",
     )
     args = parser.parse_args()
-    db = "Agribalyse 3.1.1"
 
+    projects.set_current(PROJECT)
+    # projects.create_project(PROJECT, activate=True, exist_ok=True)
+    bw2data.preferences["biosphere_database"] = BIOSPHERE
+    bw2io.bw2setup()
+    add_missing_substances(PROJECT, BIOSPHERE)
+
+    # PASTO ECO
+    if (db := "PastoEco") not in bw2data.databases:
+        for p in PASTOECO:
+            import_simapro_csv(p, db)
+    else:
+        print(f"{db} already imported")
+
+    # GINKO
+    if (db := "Ginko") not in bw2data.databases:
+        import_simapro_csv(GINKO, db)
+    else:
+        print(f"{db} already imported")
+
+    # CTCPA
+    if (db := "CTCPA") not in bw2data.databases:
+        import_simapro_csv(CTCPA, db)
+    else:
+        print(f"{db} already imported")
+
+    # AGRIBALYSE
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(AGRIBALYSE, db)
     else:

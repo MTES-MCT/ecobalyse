@@ -366,8 +366,7 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeSplitParser "airTransportRatio")
-        |> apply (maybeQualityParser "quality")
-        |> apply (maybeReparabilityParser "reparability")
+        |> apply (durabilityParser "durability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -668,16 +667,16 @@ maybeSplitParser key =
             )
 
 
-maybeQualityParser : String -> Parser (ParseResult (Maybe Unit.Quality))
-maybeQualityParser key =
+durabilityParser : String -> Parser (ParseResult Unit.Durability)
+durabilityParser key =
     floatParser key
         |> Query.map
             (Maybe.map
                 (\float ->
                     let
                         ( min, max ) =
-                            ( Unit.qualityToFloat Unit.minQuality
-                            , Unit.qualityToFloat Unit.maxQuality
+                            ( Unit.durabilityToFloat Unit.minDurability
+                            , Unit.durabilityToFloat Unit.maxDurability
                             )
                     in
                     if float < min || float > max then
@@ -691,38 +690,9 @@ maybeQualityParser key =
                             )
 
                     else
-                        Ok (Just (Unit.quality float))
+                        Ok (Unit.durability float)
                 )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybeReparabilityParser : String -> Parser (ParseResult (Maybe Unit.Reparability))
-maybeReparabilityParser key =
-    floatParser key
-        |> Query.map
-            (Maybe.map
-                (\float ->
-                    let
-                        ( min, max ) =
-                            ( Unit.reparabilityToFloat Unit.minReparability
-                            , Unit.reparabilityToFloat Unit.maxReparability
-                            )
-                    in
-                    if float < min || float > max then
-                        Err
-                            ( key
-                            , "Le coefficient de réparabilité doit être compris entre "
-                                ++ String.fromFloat min
-                                ++ " et "
-                                ++ String.fromFloat max
-                                ++ "."
-                            )
-
-                    else
-                        Ok (Just (Unit.reparability float))
-                )
-                >> Maybe.withDefault (Ok Nothing)
+                >> Maybe.withDefault (Ok Unit.standardDurability)
             )
 
 

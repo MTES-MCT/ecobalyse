@@ -12,8 +12,6 @@ module Data.Textile.Step exposing
     , initMass
     , makingDeadStockToString
     , makingWasteToString
-    , qualityToString
-    , reparabilityToString
     , surfaceMassToString
     , updateDeadStock
     , updateFromInputs
@@ -59,8 +57,7 @@ type alias Step =
     , kwh : Energy
     , processInfo : ProcessInfo
     , airTransportRatio : Split -- FIXME: why not Maybe?
-    , quality : Unit.Quality
-    , reparability : Unit.Reparability
+    , durability : Unit.Durability
     , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
@@ -114,8 +111,7 @@ create { label, editable, country, enabled } =
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , quality = Unit.standardQuality
-    , reparability = Unit.standardReparability
+    , durability = Unit.standardDurability
     , makingComplexity = Nothing
     , makingWaste = Nothing
     , makingDeadStock = Nothing
@@ -307,7 +303,7 @@ getTransportedMass inputs { label, outputMass } =
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, durability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -395,10 +391,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Use ->
             { step
-                | quality =
-                    quality |> Maybe.withDefault Unit.standardQuality
-                , reparability =
-                    reparability |> Maybe.withDefault Unit.standardReparability
+                | durability = durability
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -466,16 +459,6 @@ airTransportRatioToString percentage =
             Split.toPercentString percentage ++ "% de transport aérien"
 
 
-qualityToString : Unit.Quality -> String
-qualityToString (Unit.Quality float) =
-    "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
-
-
-reparabilityToString : Unit.Reparability -> String
-reparabilityToString (Unit.Reparability float) =
-    "Réparabilité\u{00A0}: " ++ String.fromFloat float
-
-
 surfaceMassToString : Unit.SurfaceMass -> String
 surfaceMassToString surfaceMass =
     "Grammage\u{00A0}: " ++ String.fromInt (Unit.surfaceMassInGramsPerSquareMeters surfaceMass) ++ "\u{202F}g/m²"
@@ -526,8 +509,7 @@ encode v =
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "quality", Unit.encodeQuality v.quality )
-        , ( "reparability", Unit.encodeReparability v.reparability )
+        , ( "durability", Unit.encodeDurability v.durability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
