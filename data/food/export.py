@@ -58,7 +58,7 @@ if __name__ == "__main__":
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
             "visible": activity["visible"],
-            "ecosystemicServices": activity.get("ecosystemicServices", []),
+            "ecosystemicServices": activity.get("ecosystemicServices", {}),
         }
         for activity in activities
         if activity["category"] == "ingredient"
