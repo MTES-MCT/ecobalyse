@@ -54,7 +54,7 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "31 décembre 2023 - XXX to be replaced"
+    [ { date = "16 janvier 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
@@ -62,7 +62,7 @@ changelog =
             personnalisés par ingrédient ont été retirés, il sont remplacés par la
             gestion automatisée des services écosystémiques."""
       }
-    , { date = "31 décembre 2023 - XXX to be replaced"
+    , { date = "15 janvier 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
