@@ -90,8 +90,7 @@ type alias Inputs =
     , countryUse : Country
     , countryEndOfLife : Country
     , airTransportRatio : Maybe Split
-    , quality : Maybe Unit.Quality
-    , reparability : Maybe Unit.Reparability
+    , durability : Unit.Durability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -123,8 +122,7 @@ type alias Query =
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
     , airTransportRatio : Maybe Split
-    , quality : Maybe Unit.Quality
-    , reparability : Maybe Unit.Reparability
+    , durability : Unit.Durability
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
     , makingComplexity : Maybe MakingComplexity
@@ -246,8 +244,7 @@ fromQuery db query =
         -- The end of life country is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.airTransportRatio)
-        |> RE.andMap (Ok query.quality)
-        |> RE.andMap (Ok query.reparability)
+        |> RE.andMap (Ok query.durability)
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.makingDeadStock)
         |> RE.andMap (Ok query.makingComplexity)
@@ -271,8 +268,7 @@ toQuery inputs =
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
     , airTransportRatio = inputs.airTransportRatio
-    , quality = inputs.quality
-    , reparability = inputs.reparability
+    , durability = inputs.durability
     , makingWaste = inputs.makingWaste
     , makingDeadStock = inputs.makingDeadStock
     , makingComplexity = inputs.makingComplexity
@@ -344,7 +340,7 @@ stepsToStrings inputs =
         ]
     , ifStepEnabled Label.Use
         [ "utilisation"
-        , inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability
+        , inputs.countryUse.name ++ useOptionsToString inputs.durability
         ]
     , ifStepEnabled Label.EndOfLife
         [ "fin de vie"
@@ -417,20 +413,10 @@ makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTrans
            )
 
 
-useOptionsToString : Maybe Unit.Quality -> Maybe Unit.Reparability -> String
-useOptionsToString maybeQuality maybeReparability =
-    let
-        ( quality, reparability ) =
-            ( maybeQuality
-                |> Maybe.map (Unit.qualityToFloat >> String.fromFloat)
-                |> Maybe.withDefault "standard"
-            , maybeReparability
-                |> Maybe.map (Unit.reparabilityToFloat >> String.fromFloat)
-                |> Maybe.withDefault "standard"
-            )
-    in
-    if quality /= "standard" || reparability /= "standard" then
-        " (qualité " ++ quality ++ ", réparabilité " ++ reparability ++ ")"
+useOptionsToString : Unit.Durability -> String
+useOptionsToString durability =
+    if durability /= Unit.standardDurability then
+        " (durabilité " ++ String.fromFloat (Unit.durabilityToFloat durability) ++ ")"
 
     else
         ""
@@ -568,8 +554,7 @@ updateProduct product query =
         { query
             | product = product.id
             , mass = product.mass
-            , quality = Nothing
-            , reparability = Nothing
+            , durability = Unit.standardDurability
             , makingWaste = Nothing
             , makingDeadStock = Nothing
             , makingComplexity = Nothing
@@ -688,8 +673,7 @@ encode inputs =
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
+        , ( "durability", Unit.encodeDurability inputs.durability )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
@@ -726,8 +710,7 @@ decodeQuery =
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
         |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
-        |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
+        |> Pipe.optional "durability" Unit.decodeDurability Unit.standardDurability
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
@@ -760,8 +743,7 @@ encodeQuery query =
     , ( "countryDyeing", query.countryDyeing |> Country.encodeCode |> Just )
     , ( "countryMaking", query.countryMaking |> Country.encodeCode |> Just )
     , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
-    , ( "quality", query.quality |> Maybe.map Unit.encodeQuality )
-    , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability )
+    , ( "durability", query.durability |> Unit.encodeDurability |> Just )
     , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
     , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
@@ -918,8 +900,7 @@ tShirtCotonAsie =
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
     , airTransportRatio = Nothing
-    , quality = Nothing
-    , reparability = Nothing
+    , durability = Unit.standardDurability
     , makingWaste = Nothing
     , makingDeadStock = Nothing
     , makingComplexity = Nothing

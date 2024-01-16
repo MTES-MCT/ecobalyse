@@ -7,6 +7,9 @@ module Data.Impact exposing
     , complementsImpactAsChartEntries
     , decodeImpacts
     , default
+    , divideBy
+    , divideComplementsImpactsBy
+    , divideStepsImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -16,7 +19,9 @@ module Data.Impact exposing
     , getImpact
     , getTotalComplementsImpacts
     , impactsWithComplements
+    , mapComplementsImpacts
     , mapImpacts
+    , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
@@ -53,7 +58,6 @@ type alias ComplementsImpacts =
     , cropDiversity : Unit.Impact
     , permanentPasture : Unit.Impact
     , livestockDensity : Unit.Impact
-    , selfSufficiency : Unit.Impact
 
     -- Other impacts
     , microfibers : Unit.Impact
@@ -69,7 +73,6 @@ addComplementsImpacts a b =
     , cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
     , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
     , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
-    , selfSufficiency = Quantity.plus a.selfSufficiency b.selfSufficiency
 
     -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
@@ -88,6 +91,23 @@ applyComplements complement impacts =
             (Quantity.difference ecoScore complement)
 
 
+divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
+divideComplementsImpactsBy n =
+    mapComplementsImpacts (Quantity.divideBy n)
+
+
+mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
+mapComplementsImpacts fn ci =
+    { hedges = fn ci.hedges
+    , plotSize = fn ci.plotSize
+    , cropDiversity = fn ci.cropDiversity
+    , permanentPasture = fn ci.permanentPasture
+    , livestockDensity = fn ci.livestockDensity
+    , microfibers = fn ci.microfibers
+    , outOfEuropeEOL = fn ci.outOfEuropeEOL
+    }
+
+
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
     { hedges = Unit.impact 0
@@ -95,7 +115,6 @@ noComplementsImpacts =
     , cropDiversity = Unit.impact 0
     , permanentPasture = Unit.impact 0
     , livestockDensity = Unit.impact 0
-    , selfSufficiency = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -109,7 +128,6 @@ getTotalComplementsImpacts complementsImpacts =
         , complementsImpacts.cropDiversity
         , complementsImpacts.permanentPasture
         , complementsImpacts.livestockDensity
-        , complementsImpacts.selfSufficiency
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
@@ -138,7 +156,6 @@ sumEcosystemicImpacts c =
         , c.cropDiversity
         , c.permanentPasture
         , c.livestockDensity
-        , c.selfSufficiency
         ]
 
 
@@ -181,6 +198,18 @@ type alias StepsImpacts =
     Steps (Maybe Unit.Impact)
 
 
+mapSteps : (a -> a) -> Steps a -> Steps a
+mapSteps fn steps =
+    { materials = fn steps.materials
+    , transform = fn steps.transform
+    , packaging = fn steps.packaging
+    , transports = fn steps.transports
+    , distribution = fn steps.distribution
+    , usage = fn steps.usage
+    , endOfLife = fn steps.endOfLife
+    }
+
+
 noStepsImpacts : StepsImpacts
 noStepsImpacts =
     { materials = Nothing
@@ -191,6 +220,11 @@ noStepsImpacts =
     , usage = Nothing
     , endOfLife = Nothing
     }
+
+
+divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
+divideStepsImpactsBy n =
+    mapSteps (Maybe.map (Quantity.divideBy n))
 
 
 type alias StepsColors =
@@ -299,6 +333,11 @@ default =
     Definition.Ecs
 
 
+divideBy : Float -> Impacts -> Impacts
+divideBy n =
+    mapImpacts (\_ -> Quantity.divideBy n)
+
+
 empty : Impacts
 empty =
     Impacts (Definition.init Quantity.zero)
@@ -319,6 +358,11 @@ mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn (Impacts impacts) =
     Definition.map fn impacts
         |> Impacts
+
+
+multiplyBy : Float -> Impacts -> Impacts
+multiplyBy n =
+    mapImpacts (\_ -> Quantity.multiplyBy n)
 
 
 perKg : Mass -> Impacts -> Impacts
@@ -362,7 +406,6 @@ encodeComplementsImpacts c =
         , ( "cropDiversity", Unit.encodeImpact c.cropDiversity )
         , ( "permanentPasture", Unit.encodeImpact c.permanentPasture )
         , ( "livestockDensity", Unit.encodeImpact c.livestockDensity )
-        , ( "selfSufficiency", Unit.encodeImpact c.selfSufficiency )
         , ( "microfibers", Unit.encodeImpact c.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]

@@ -29,7 +29,6 @@ type alias AbstractEcosystemicServices a =
     , cropDiversity : a
     , permanentPasture : a
     , livestockDensity : a
-    , selfSufficiency : a
     }
 
 
@@ -40,7 +39,6 @@ coefficients =
     , cropDiversity = Unit.ratio 2
     , permanentPasture = Unit.ratio 10.5
     , livestockDensity = Unit.ratio 1
-    , selfSufficiency = Unit.ratio 1
     }
 
 
@@ -52,7 +50,6 @@ decode =
         |> Pipe.optional "cropDiversity" Unit.decodeImpact (Unit.impact 0)
         |> Pipe.optional "permanentPasture" Unit.decodeImpact (Unit.impact 0)
         |> Pipe.optional "livestockDensity" Unit.decodeImpact (Unit.impact 0)
-        |> Pipe.optional "selfSufficiency" Unit.decodeImpact (Unit.impact 0)
 
 
 empty : EcosystemicServices
@@ -62,7 +59,6 @@ empty =
     , cropDiversity = Unit.impact 0
     , permanentPasture = Unit.impact 0
     , livestockDensity = Unit.impact 0
-    , selfSufficiency = Unit.impact 0
     }
 
 
@@ -73,5 +69,4 @@ labels =
     , cropDiversity = "Diversité culturale"
     , permanentPasture = "Prairies permanentes"
     , livestockDensity = "Chargement territorial"
-    , selfSufficiency = "Autonomie territoriale"
     }

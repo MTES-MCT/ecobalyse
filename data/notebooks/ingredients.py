@@ -50,13 +50,6 @@ def dbsearch(db, term, **kw):
 def cleanup_json(activities):
     """consistency of the json file"""
     for i, a in enumerate(activities):
-        # remove animal-welfare for non animal products
-        if (
-            "animal_product" not in a.get("categories", {})
-            and "dairy_product" not in a.get("categories", {})
-            and "animal-welfare" in a.get("complements", {})
-        ):
-            del activities[i]["complements"]["animal-welfare"]
         # remove categories for non-ingredients
         if a["category"] != "ingredient":
             for x in (
@@ -118,10 +111,12 @@ FIELDS = {
     "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
     "explain": "Commentaires",
-    # complements
-    "complements.agro-diversity": "Biodiversité territoriale",
-    "complements.agro-ecology": "Résilience territoriale",
-    "complements.animal-welfare": "Conditions d'élevage",
+    # EcosystemicServices
+    "ecosystemicServices.hedges": "Haies",
+    "ecosystemicServices.plotSize": "Taille de parcelles",
+    "ecosystemicServices.cropDiversity": "Diversité culturale",
+    "ecosystemicServices.permanentPasture": "Prairies permanentes",
+    "ecosystemicServices.livestockDensity": "Chargement territorial",
 }
 
 
@@ -350,25 +345,12 @@ w_explain = ipywidgets.Textarea(
 
 ## COMPLEMENTS
 
-# default coef for the complement indicators
-w_complement_agrodiv = ipywidgets.IntSlider(
-    style=style,
-    min=0,
-    max=100,
-    step=5,
-)
-w_complement_agroeco = ipywidgets.IntSlider(
-    min=0,
-    max=100,
-    step=5,
-    style=style,
-)
-w_complement_animal_welfare = ipywidgets.IntSlider(
-    min=0,
-    max=100,
-    step=5,
-    style=style,
-)
+# default coef for the ecosystemic services indicators
+w_ecosys_hedges = ipywidgets.FloatText(style=style, step=0.01)
+w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
 
 # buttons
 savebutton = ipywidgets.Button(
@@ -478,10 +460,11 @@ def clear_form():
     w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
-    w_complement_agrodiv.value = 0
-    w_complement_agroeco.value = 0
-    w_complement_animal_welfare.disabled = False
-    w_complement_animal_welfare.value = 0
+    w_ecosys_hedges.value = 0
+    w_ecosys_plotSize.value = 0
+    w_ecosys_cropDiversity.value = 0
+    w_ecosys_permanentPasture.value = 0
+    w_ecosys_livestockDensity.value = 0
 
 
 def set_field(field, value, default):
@@ -507,13 +490,7 @@ w_contributor.observe(change_contributor, names="value")
 
 
 def change_categories(_):
-    w_complement_animal_welfare.disabled = (
-        False
-        if "animal_product" in w_categories.value
-        or "dairy_product" in w_categories.value
-        or not w_categories.value
-        else True
-    )
+    pass
 
 
 w_categories.observe(change_categories, names="value")
@@ -547,12 +524,14 @@ def change_id(change):
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
-    set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
+    set_field(w_ecosys_hedges, i.get("ecosystemicServices.hedges"), 0)
+    set_field(w_ecosys_plotSize, i.get("ecosystemicServices.plotSize"), 0)
+    set_field(w_ecosys_cropDiversity, i.get("ecosystemicServices.cropDiversity"), 0)
     set_field(
-        w_complement_animal_welfare,
-        i.get("complements.animal-welfare"),
-        0,
+        w_ecosys_permanentPasture, i.get("ecosystemicServices.permanentPasture"), 0
+    )
+    set_field(
+        w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
     )
 
 
@@ -611,9 +590,11 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "explain": w_explain.value,
-        "complements.agro-diversity": w_complement_agrodiv.value,
-        "complements.agro-ecology": w_complement_agroeco.value,
-        "complements.animal-welfare": w_complement_animal_welfare.value,
+        "ecosystemicServices.hedges": w_ecosys_hedges.value,
+        "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
+        "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
+        "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
+        "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
     }
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
@@ -898,23 +879,23 @@ sur le bouton vert « Réinitialiser ». </li>
                         """
                         """
 <li><b>Étape 3)</b> Ajouter un ingrédient :</li>
-Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
 de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
 l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
 correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
-exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
 adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
 vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
 Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
-la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
-du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
 annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
-chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
 cette étape pour chaque ingrédient.
                         """
                         """
-<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
-« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
 modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
 la branche indiquée et pourra être vérifiée et intégrée en production dans
 Ecobalyse</li></ul>
@@ -1117,38 +1098,56 @@ Ecobalyse</li></ul>
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        """<hr/>Pour les compléments hors ACV, voir
+                                        """<hr/>Pour les services écosystémiques, voir
                                         la <a style="color:blue"
                                         href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                        (TODO: mettre à jour le lien)
                                         """
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.agro-diversity"],
+                                                FIELDS["ecosystemicServices.hedges"],
                                             ),
-                                            w_complement_agrodiv,
+                                            w_ecosys_hedges,
                                         ),
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.agro-ecology"],
+                                                FIELDS["ecosystemicServices.plotSize"],
                                             ),
-                                            w_complement_agroeco,
+                                            w_ecosys_plotSize,
                                         ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """Les conditions d'élevage ne sont exportées que si
-                                        l'ingrédient est dans la catégorie <i>animal_product</i> ou
-                                        <i>dairy_product</i>."""
                                     ),
                                     ipywidgets.HBox(
                                         (
                                             ipywidgets.Label(
-                                                FIELDS["complements.animal-welfare"],
+                                                FIELDS[
+                                                    "ecosystemicServices.cropDiversity"
+                                                ],
                                             ),
-                                            w_complement_animal_welfare,
+                                            w_ecosys_cropDiversity,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS[
+                                                    "ecosystemicServices.permanentPasture"
+                                                ],
+                                            ),
+                                            w_ecosys_permanentPasture,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS[
+                                                    "ecosystemicServices.livestockDensity"
+                                                ],
+                                            ),
+                                            w_ecosys_livestockDensity,
                                         ),
                                     ),
                                 ),

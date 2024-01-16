@@ -45,7 +45,6 @@ suite =
                                 , cropDiversity = Unit.impact 0
                                 , permanentPasture = Unit.impact 0
                                 , livestockDensity = Unit.impact 0
-                                , selfSufficiency = Unit.impact 0
                                 }
                      in
                      [ complementsImpacts.hedges
@@ -65,15 +64,13 @@ suite =
                                 , cropDiversity = Unit.impact 1
                                 , permanentPasture = Unit.impact 1
                                 , livestockDensity = Unit.impact 1
-                                , selfSufficiency = Unit.impact 1
                                 }
                      in
                      [ complementsImpacts.hedges
                         |> expectImpactEqual (Unit.impact 14)
                         |> asTest "should compute a non-zero hedges ingredient complement"
                      , Impact.getTotalComplementsImpacts complementsImpacts
-                        -- FIXME: check this result once we have SE data
-                        |> expectImpactEqual (Unit.impact 51)
+                        |> expectImpactEqual (Unit.impact 49)
                         |> asTest "should compute a non-zero total complement"
                      ]
                     )
@@ -152,7 +149,6 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                -- FIXME: check this result once we have SE data
                                 expectImpactEqual (Unit.impact 109.52252826911402) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
@@ -161,7 +157,6 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                -- FIXME: check this result once we have SE data
                                 expectImpactEqual (Unit.impact 71.31835461752435) result
                         )
                      , describe "Scoring"
@@ -173,14 +168,12 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    -- FIXME: check this result once we have SE data
                                     |> Expect.within (Expect.Absolute 0.01) 206.1412446635801
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 207.03596775657905
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
-                                    -- FIXME: check this result once we have SE data
                                     |> Expect.within (Expect.Absolute 0.01) 0.8947230929989551
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)

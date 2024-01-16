@@ -22,7 +22,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Volume exposing (Volume)
 
 
@@ -46,7 +45,7 @@ type alias UseOptions =
     , ratioDryer : Split -- Ratio de séchage électrique (not used in computations)
     , ratioIroning : Split -- Ratio de repassage (not used in computations)
     , timeIroning : Duration -- Temps de repassage (not used in computations)
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (not used in computations)
     }
 
 
@@ -197,29 +196,10 @@ encodeId =
     idToString >> Encode.string
 
 
-{-| Computes the number of wears and the number of maintainance cycles against
-quality and reparability coefficients.
+{-| Computes the number of maintainance cycles.
 -}
-customDaysOfWear :
-    Maybe Unit.Quality
-    -> Maybe Unit.Reparability
-    -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
-    -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
-    let
-        ( quality, reparability ) =
-            ( maybeQuality |> Maybe.withDefault Unit.standardQuality
-            , maybeReparability |> Maybe.withDefault Unit.standardReparability
-            )
-
-        newDaysOfWear =
-            daysOfWear
-                |> Quantity.multiplyBy (Unit.qualityToFloat quality)
-                |> Quantity.multiplyBy (Unit.reparabilityToFloat reparability)
-    in
-    { daysOfWear = newDaysOfWear
-    , useNbCycles =
-        Duration.inDays newDaysOfWear
-            / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
-            |> round
-    }
+customDaysOfWear : { productOptions | daysOfWear : Duration, wearsPerCycle : Int } -> Int
+customDaysOfWear { daysOfWear, wearsPerCycle } =
+    Duration.inDays daysOfWear
+        / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
+        |> round

@@ -25,7 +25,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
-import Duration exposing (Duration)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
@@ -38,7 +38,6 @@ type alias Simulator =
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
     , transport : Transport
-    , daysOfWear : Duration
     , useNbCycles : Int
     }
 
@@ -51,7 +50,6 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
-        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
@@ -64,28 +62,22 @@ init db =
     in
     Inputs.fromQuery db
         >> Result.map
-            (\({ product, quality, reparability } as inputs) ->
+            (\({ product } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
-                            let
-                                { daysOfWear, useNbCycles } =
-                                    product.use
-                                        |> Product.customDaysOfWear quality reparability
-                            in
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , complementsImpacts = Impact.noComplementsImpacts
                             , transport = Transport.default defaultImpacts
-                            , daysOfWear = daysOfWear
-                            , useNbCycles = useNbCycles
+                            , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
             )
 
 
-{-| Computes a single impact.
+{-| Computes simulation impacts.
 -}
 compute : TextileDb.Db -> Inputs.Query -> Result String Simulator
 compute db query =
@@ -636,15 +628,22 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ lifeCycle } as simulator) =
+computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
+        durability =
+            Unit.durabilityToFloat inputs.durability
+
         complementsImpacts =
-            LifeCycle.sumComplementsImpacts lifeCycle
+            lifeCycle
+                |> LifeCycle.sumComplementsImpacts
+                |> Impact.divideComplementsImpactsBy durability
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            LifeCycle.computeFinalImpacts lifeCycle
+            lifeCycle
+                |> LifeCycle.computeFinalImpacts
+                |> Impact.divideBy durability
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -678,7 +677,12 @@ toStepsImpacts trigram simulator =
 
         applyComplement complementImpact =
             if trigram == Definition.Ecs then
-                Maybe.map (Quantity.minus complementImpact)
+                Maybe.map
+                    (Quantity.minus
+                        (complementImpact
+                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.inputs.durability)
+                        )
+                    )
 
             else
                 identity

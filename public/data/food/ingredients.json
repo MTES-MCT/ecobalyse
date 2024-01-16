@@ -203,8 +203,7 @@
       "hedges": 14.37,
       "plotSize": 12.03,
       "permanentPasture": 18.42,
-      "livestockDensity": 45,
-      "selfSufficiency": 40
+      "livestockDensity": 45
     }
   },
   {
@@ -222,8 +221,7 @@
       "hedges": 16.84,
       "plotSize": 13.77,
       "permanentPasture": 22.03,
-      "livestockDensity": 55,
-      "selfSufficiency": 50
+      "livestockDensity": 55
     }
   },
   {
@@ -310,8 +308,7 @@
       "hedges": 1.55,
       "plotSize": 1.59,
       "cropDiversity": 4.63,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "livestockDensity": 2
     }
   },
   {
@@ -329,8 +326,7 @@
       "hedges": 2.6,
       "plotSize": 2.71,
       "cropDiversity": 14.32,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "livestockDensity": 2
     }
   },
   {

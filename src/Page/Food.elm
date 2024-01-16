@@ -715,9 +715,6 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                     , { name = EcosystemicServices.labels.livestockDensity
                       , computedImpact = complementsImpacts.livestockDensity
                       }
-                    , { name = EcosystemicServices.labels.selfSufficiency
-                      , computedImpact = complementsImpacts.selfSufficiency
-                      }
                     ]
                         |> List.map
                             (\{ name, computedImpact } ->
@@ -1371,6 +1368,7 @@ sidebarView session model results =
         , switchImpact = SwitchImpact
 
         -- Score
+        , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
 

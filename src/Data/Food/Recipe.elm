@@ -218,16 +218,8 @@ compute db =
                             |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
-                        { totalComplementsImpact
-                            | hedges = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.hedges
-                            , plotSize = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.plotSize
-                            , cropDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.cropDiversity
-                            , permanentPasture = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.permanentPasture
-                            , livestockDensity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.livestockDensity
-                            , selfSufficiency = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.selfSufficiency
-                            , microfibers = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.microfibers
-                            , outOfEuropeEOL = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.outOfEuropeEOL
-                        }
+                        totalComplementsImpact
+                            |> Impact.mapComplementsImpacts (Quantity.divideBy (Mass.inKilograms preparedMass))
 
                     totalImpactsWithoutComplements =
                         Impact.sumImpacts
@@ -291,7 +283,7 @@ compute db =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
-computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanentPasture, livestockDensity, selfSufficiency } ingredientMass =
+computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanentPasture, livestockDensity } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
@@ -302,7 +294,6 @@ computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanent
     , cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
     , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
-    , selfSufficiency = apply EcosystemicServices.coefficients.selfSufficiency selfSufficiency
 
     -- Note: these complements don't apply to ingredients
     , microfibers = Unit.impact 0
