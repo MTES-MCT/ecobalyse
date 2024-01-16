@@ -117,7 +117,6 @@ FIELDS = {
     "ecosystemicServices.cropDiversity": "Diversité culturale",
     "ecosystemicServices.permanentPasture": "Prairies permanentes",
     "ecosystemicServices.livestockDensity": "Chargement territorial",
-    "ecosystemicServices.selfSufficiency": "Autonomie territoriale",
 }
 
 
@@ -352,7 +351,6 @@ w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
-w_ecosys_selfSufficiency = ipywidgets.FloatText(step=0.01, style=style)
 
 # buttons
 savebutton = ipywidgets.Button(
@@ -467,7 +465,6 @@ def clear_form():
     w_ecosys_cropDiversity.value = 0
     w_ecosys_permanentPasture.value = 0
     w_ecosys_livestockDensity.value = 0
-    w_ecosys_selfSufficiency.value = 0
 
 
 def set_field(field, value, default):
@@ -536,7 +533,6 @@ def change_id(change):
     set_field(
         w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
     )
-    set_field(w_ecosys_selfSufficiency, i.get("ecosystemicServices.selfSufficiency"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -599,7 +595,6 @@ def add_activity(_):
         "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
         "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
         "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
-        "ecosystemicServices.selfSufficiency": w_ecosys_selfSufficiency.value,
     }
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
@@ -884,23 +879,23 @@ sur le bouton vert « Réinitialiser ». </li>
                         """
                         """
 <li><b>Étape 3)</b> Ajouter un ingrédient :</li>
-Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
 de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
 l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
 correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
-exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
 adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
 vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
 Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
-la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
-du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
 annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
-chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
 cette étape pour chaque ingrédient.
                         """
                         """
-<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
-« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
 modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
 la branche indiquée et pourra être vérifiée et intégrée en production dans
 Ecobalyse</li></ul>
@@ -1153,16 +1148,6 @@ Ecobalyse</li></ul>
                                                 ],
                                             ),
                                             w_ecosys_livestockDensity,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "ecosystemicServices.selfSufficiency"
-                                                ],
-                                            ),
-                                            w_ecosys_selfSufficiency,
                                         ),
                                     ),
                                 ),
