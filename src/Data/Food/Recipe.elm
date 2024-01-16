@@ -218,15 +218,8 @@ compute db =
                             |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
-                        { totalComplementsImpact
-                            | hedges = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.hedges
-                            , plotSize = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.plotSize
-                            , cropDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.cropDiversity
-                            , permanentPasture = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.permanentPasture
-                            , livestockDensity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.livestockDensity
-                            , microfibers = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.microfibers
-                            , outOfEuropeEOL = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.outOfEuropeEOL
-                        }
+                        totalComplementsImpact
+                            |> Impact.mapComplementsImpacts (Quantity.divideBy (Mass.inKilograms preparedMass))
 
                     totalImpactsWithoutComplements =
                         Impact.sumImpacts

@@ -19,6 +19,7 @@ module Data.Impact exposing
     , getImpact
     , getTotalComplementsImpacts
     , impactsWithComplements
+    , mapComplementsImpacts
     , mapImpacts
     , multiplyBy
     , noComplementsImpacts
