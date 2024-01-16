@@ -23,7 +23,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 6.71,
+      "plotSize": 2.53,
+      "cropDiversity": 0.0,
+      "permanentPasture": 6.13,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "milk-organic",
@@ -37,7 +44,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 12.22,
+      "plotSize": 4.43,
+      "cropDiversity": 0.28,
+      "permanentPasture": 13.93,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "carrot",
@@ -79,7 +93,10 @@
     "visible": true,
     "ecosystemicServices": {
       "hedges": 0.33,
-      "plotSize": 0.45
+      "plotSize": 0.45,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -98,7 +115,9 @@
     "ecosystemicServices": {
       "hedges": 0.99,
       "plotSize": 1.48,
-      "cropDiversity": 7.08
+      "cropDiversity": 7.08,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -208,11 +227,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 14.37,
-      "plotSize": 12.03,
-      "permanentPasture": 18.42,
-      "livestockDensity": 45,
-      "selfSufficiency": 40
+      "hedges": 346.76,
+      "plotSize": 117.27,
+      "cropDiversity": 0.0,
+      "permanentPasture": 425.48,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -254,7 +273,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
+    }
   },
   {
     "id": "cooked-ham",
@@ -328,11 +354,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 1.55,
-      "plotSize": 1.59,
-      "cropDiversity": 4.63,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "hedges": 30.02,
+      "plotSize": 12.26,
+      "cropDiversity": 4.47,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -629,7 +655,12 @@
     "category": "packaging",
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
   },
-  { "id": "paper", "name": "Papier", "category": "packaging", "search": "Kraft paper production" },
+  {
+    "id": "paper",
+    "name": "Papier",
+    "category": "packaging",
+    "search": "Kraft paper production"
+  },
   {
     "id": "pvc",
     "name": "PVC",
@@ -1362,7 +1393,10 @@
     "explain": "Part non comestible : chataigne, olive",
     "ecosystemicServices": {
       "hedges": 0.46,
-      "plotSize": 0.48
+      "plotSize": 0.48,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1528,7 +1562,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.06,
+      "plotSize": 2.01,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "soybean-organic",
@@ -1541,7 +1582,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.97,
+      "plotSize": 2.11,
+      "cropDiversity": 18.22,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -1781,7 +1829,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)"
+    "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.03
+    }
   },
   {
     "id": "chicken-breast-fr",
@@ -2007,7 +2062,14 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 7.41,
+      "plotSize": 3.32,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
+    }
   },
   {
     "id": "egg-indoor-code3",
@@ -2020,7 +2082,14 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 7.72,
+      "plotSize": 3.47,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
+    }
   },
   {
     "id": "egg-outdoor-code1",
