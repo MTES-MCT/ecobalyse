@@ -45,7 +45,6 @@ suite =
                                 , cropDiversity = Unit.impact 0
                                 , permanentPasture = Unit.impact 0
                                 , livestockDensity = Unit.impact 0
-                                , selfSufficiency = Unit.impact 0
                                 }
                      in
                      [ complementsImpacts.hedges
@@ -65,15 +64,13 @@ suite =
                                 , cropDiversity = Unit.impact 1
                                 , permanentPasture = Unit.impact 1
                                 , livestockDensity = Unit.impact 1
-                                , selfSufficiency = Unit.impact 1
                                 }
                      in
                      [ complementsImpacts.hedges
                         |> expectImpactEqual (Unit.impact 14)
                         |> asTest "should compute a non-zero hedges ingredient complement"
                      , Impact.getTotalComplementsImpacts complementsImpacts
-                        -- FIXME: check this result once we have SE data
-                        |> expectImpactEqual (Unit.impact 51)
+                        |> expectImpactEqual (Unit.impact 49)
                         |> asTest "should compute a non-zero total complement"
                      ]
                     )

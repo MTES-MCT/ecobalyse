@@ -57,7 +57,6 @@ type alias ComplementsImpacts =
     , cropDiversity : Unit.Impact
     , permanentPasture : Unit.Impact
     , livestockDensity : Unit.Impact
-    , selfSufficiency : Unit.Impact
 
     -- Other impacts
     , microfibers : Unit.Impact
@@ -73,7 +72,6 @@ addComplementsImpacts a b =
     , cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
     , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
     , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
-    , selfSufficiency = Quantity.plus a.selfSufficiency b.selfSufficiency
 
     -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
@@ -104,7 +102,6 @@ mapComplementsImpacts fn ci =
     , cropDiversity = fn ci.cropDiversity
     , permanentPasture = fn ci.permanentPasture
     , livestockDensity = fn ci.livestockDensity
-    , selfSufficiency = fn ci.selfSufficiency
     , microfibers = fn ci.microfibers
     , outOfEuropeEOL = fn ci.outOfEuropeEOL
     }
@@ -117,7 +114,6 @@ noComplementsImpacts =
     , cropDiversity = Unit.impact 0
     , permanentPasture = Unit.impact 0
     , livestockDensity = Unit.impact 0
-    , selfSufficiency = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -131,7 +127,6 @@ getTotalComplementsImpacts complementsImpacts =
         , complementsImpacts.cropDiversity
         , complementsImpacts.permanentPasture
         , complementsImpacts.livestockDensity
-        , complementsImpacts.selfSufficiency
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
@@ -160,7 +155,6 @@ sumEcosystemicImpacts c =
         , c.cropDiversity
         , c.permanentPasture
         , c.livestockDensity
-        , c.selfSufficiency
         ]
 
 
@@ -411,7 +405,6 @@ encodeComplementsImpacts c =
         , ( "cropDiversity", Unit.encodeImpact c.cropDiversity )
         , ( "permanentPasture", Unit.encodeImpact c.permanentPasture )
         , ( "livestockDensity", Unit.encodeImpact c.livestockDensity )
-        , ( "selfSufficiency", Unit.encodeImpact c.selfSufficiency )
         , ( "microfibers", Unit.encodeImpact c.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]

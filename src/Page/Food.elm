@@ -715,9 +715,6 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
                     , { name = EcosystemicServices.labels.livestockDensity
                       , computedImpact = complementsImpacts.livestockDensity
                       }
-                    , { name = EcosystemicServices.labels.selfSufficiency
-                      , computedImpact = complementsImpacts.selfSufficiency
-                      }
                     ]
                         |> List.map
                             (\{ name, computedImpact } ->

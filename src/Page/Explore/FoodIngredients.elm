@@ -102,7 +102,6 @@ table _ { detailed, scope } =
                           , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
                           , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
                           , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
-                          , ( EcosystemicServices.labels.selfSufficiency, ecosystemicServices.selfSufficiency )
                           ]
                             |> List.map
                                 (\( label, impact ) ->
