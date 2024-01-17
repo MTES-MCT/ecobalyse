@@ -1,7 +1,6 @@
 module Data.Food.Ingredient.Category exposing
     ( Category(..)
     , decode
-    , fromAnimalOrigin
     , toLabel
     )
 
@@ -23,12 +22,6 @@ type Category
     | VegetableProcessed
     | Organic
     | BleuBlancCoeur
-
-
-fromAnimalOrigin : List Category -> Bool
-fromAnimalOrigin categories =
-    [ AnimalProduct, DairyProduct ]
-        |> List.any (\c -> List.member c categories)
 
 
 fromString : String -> Result String Category

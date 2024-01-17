@@ -2,6 +2,7 @@ module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -91,25 +92,24 @@ table _ { detailed, scope } =
                                 text ""
                         ]
           }
-        , { label = "Compléments"
+        , { label = "Services écosystémiques"
           , toValue = always "N/A"
           , toCell =
-                \ingredient ->
+                \{ ecosystemicServices } ->
                     div [ class "overflow-scroll" ]
-                        [ [ ( "Bonus agro-diversité", .agroDiversity )
-                          , ( "Bonus agro-ecologie", .agroEcology )
-                          , ( "Bonus conditions d'élevage", .animalWelfare )
+                        [ [ ( EcosystemicServices.labels.hedges, ecosystemicServices.hedges )
+                          , ( EcosystemicServices.labels.plotSize, ecosystemicServices.plotSize )
+                          , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
+                          , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
+                          , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
                           ]
                             |> List.map
-                                (\( label, getter ) ->
-                                    ingredient.complements
-                                        |> getter
-                                        |> (\split ->
-                                                span []
-                                                    [ text <| label ++ ": "
-                                                    , Format.splitAsPercentage split
-                                                    ]
-                                           )
+                                (\( label, impact ) ->
+                                    span []
+                                        [ text <| label ++ ": "
+                                        , Unit.impactToFloat impact
+                                            |> Format.formatImpactFloat { unit = "µPt/kg", decimals = 2 }
+                                        ]
                                 )
                             |> div [ class "d-flex gap-2" ]
                         ]

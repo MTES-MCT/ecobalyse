@@ -10,11 +10,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "milk",
@@ -27,10 +23,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 4.69,
+      "plotSize": 2.53,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.61,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -44,10 +42,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 8.55,
+      "plotSize": 4.43,
+      "cropDiversity": 1.1,
+      "permanentPasture": 1.39,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -61,10 +61,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "carrot-organic",
@@ -77,10 +74,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "wheat",
@@ -93,9 +87,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0.33,
+      "plotSize": 0.45,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -109,9 +106,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0.99,
+      "plotSize": 1.48,
+      "cropDiversity": 7.08,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -125,10 +125,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "flour-organic",
@@ -141,10 +138,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sunflower",
@@ -157,10 +151,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sunflower-organic",
@@ -173,10 +164,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rapeseed",
@@ -189,10 +177,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rapeseed-organic",
@@ -205,10 +190,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "potato",
@@ -221,10 +203,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "ground-beef",
@@ -237,10 +216,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 242.73,
+      "plotSize": 117.27,
+      "cropDiversity": 0.0,
+      "permanentPasture": 42.55,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -254,10 +235,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 269.68,
+      "plotSize": 135.63,
+      "cropDiversity": 24.04,
+      "permanentPasture": 45.03,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -271,10 +254,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -288,11 +273,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cooked-ham-organic",
@@ -305,11 +286,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cooked-ham-fr",
@@ -322,11 +299,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chicken-breast",
@@ -339,10 +312,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0.84,
+      "plotSize": 1.01,
+      "livestockDensity": 2
     }
   },
   {
@@ -356,10 +329,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 21.01,
+      "plotSize": 12.26,
+      "cropDiversity": 17.88,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -373,10 +348,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 2.6,
+      "plotSize": 2.71,
+      "cropDiversity": 14.32,
+      "livestockDensity": 2,
+      "selfSufficiency": 5
     }
   },
   {
@@ -390,10 +367,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rapeseed-oil",
@@ -406,10 +380,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rapeseed-oil-organic",
@@ -422,10 +393,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sunflower-oil",
@@ -438,10 +406,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sunflower-oil-organic",
@@ -454,10 +419,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "zucchini",
@@ -470,10 +432,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "zucchini-organic",
@@ -486,10 +445,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "pear",
@@ -502,10 +458,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "peach-organic",
@@ -518,10 +471,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "melon",
@@ -534,10 +484,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "melon-organic",
@@ -550,10 +497,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "butter",
@@ -566,11 +510,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "butter-organic",
@@ -583,11 +523,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "onion",
@@ -600,10 +536,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "eggplant",
@@ -616,10 +549,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "lettuce",
@@ -632,10 +562,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "french-bean",
@@ -648,10 +575,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "durum-wheat",
@@ -664,10 +588,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tap-water",
@@ -680,10 +601,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "lentils-uncooked",
@@ -696,10 +614,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "garden-peas",
@@ -712,10 +627,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tomato-organic-greenhouse",
@@ -728,10 +640,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tomato-greenhouse",
@@ -744,10 +653,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "comte-aop",
@@ -760,11 +666,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "emmental",
@@ -777,11 +679,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "mozzarella",
@@ -794,11 +692,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tomato-heated-greenhouse",
@@ -811,10 +705,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cucumber-greenhouse-non-heated",
@@ -827,10 +718,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "apricot",
@@ -843,10 +731,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "artichoke",
@@ -859,10 +744,7 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cauliflower",
@@ -875,10 +757,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "beetroot",
@@ -891,10 +770,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "beetroot-organic",
@@ -907,10 +783,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "swiss-chard",
@@ -923,10 +796,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "spinach",
@@ -939,10 +809,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "broccoli",
@@ -955,10 +822,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "celery",
@@ -971,10 +835,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "celeriac",
@@ -987,10 +848,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "celeriac-organic",
@@ -1003,10 +861,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cherry",
@@ -1019,10 +874,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "mushroom",
@@ -1035,10 +887,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chestnut",
@@ -1051,10 +900,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "walnut",
@@ -1067,10 +913,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chinese-cabbage",
@@ -1083,10 +926,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "white-cabbage",
@@ -1099,10 +939,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "green-cabbage",
@@ -1115,10 +952,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "red-cabbage",
@@ -1131,10 +965,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "brussels-sprout",
@@ -1147,10 +978,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "curly-kale",
@@ -1163,10 +991,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "lemon",
@@ -1179,10 +1004,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "pumpkin",
@@ -1195,10 +1017,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "squash",
@@ -1211,10 +1030,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "clementine",
@@ -1227,10 +1043,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "mandarin",
@@ -1243,10 +1056,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "orange",
@@ -1259,10 +1069,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "shallot",
@@ -1275,10 +1082,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "endive",
@@ -1291,10 +1095,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "fennel",
@@ -1307,10 +1108,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "broad-beans",
@@ -1323,10 +1121,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "strawberry",
@@ -1339,10 +1134,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "raspberry",
@@ -1355,10 +1147,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "flageolet-bean",
@@ -1371,10 +1160,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "kiwi",
@@ -1387,10 +1173,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "lambs-lettuce",
@@ -1403,10 +1186,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sweet-corn",
@@ -1419,9 +1199,12 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0.46,
+      "plotSize": 0.48,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1435,10 +1218,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "blueberry",
@@ -1451,10 +1231,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "turnip",
@@ -1467,10 +1244,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "turnip-organic",
@@ -1483,10 +1257,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "hazelnut",
@@ -1499,10 +1270,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "pistachio",
@@ -1515,10 +1283,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "leek",
@@ -1531,10 +1296,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chickpea",
@@ -1547,10 +1309,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chickpea-organic",
@@ -1563,10 +1322,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "bellpepper-unheated-greenhouse",
@@ -1579,10 +1335,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "plum",
@@ -1595,10 +1348,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "soybean-humanconsumption",
@@ -1611,9 +1361,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 1.06,
+      "plotSize": 2.01,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1627,9 +1380,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 1.97,
+      "plotSize": 2.11,
+      "cropDiversity": 18.22,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1643,10 +1399,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "soybean-br-deforestation",
@@ -1659,10 +1412,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sausage-meat",
@@ -1675,11 +1425,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sausage-toulouse",
@@ -1692,11 +1438,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -1709,11 +1451,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sausage-tofu",
@@ -1726,10 +1464,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tomato-paste",
@@ -1742,10 +1477,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tomato-concentrated",
@@ -1758,10 +1490,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rib-steak",
@@ -1774,11 +1503,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "flank-steak",
@@ -1791,11 +1516,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "flank-steak-organic",
@@ -1808,11 +1529,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rumsteak",
@@ -1825,11 +1542,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "durum-wheat-semolina",
@@ -1842,10 +1555,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "sugar",
@@ -1858,10 +1568,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "dark-chocolate",
@@ -1874,10 +1581,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "pineapple",
@@ -1890,10 +1594,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "banana",
@@ -1906,10 +1607,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "chicken-breast-br-max",
@@ -1922,9 +1620,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.03
     }
   },
   {
@@ -1938,10 +1639,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cane-sugar",
@@ -1954,10 +1652,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "strawberry-off-season",
@@ -1970,10 +1665,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "avocado",
@@ -1986,10 +1678,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "olive",
@@ -2002,11 +1691,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "olive-oil",
@@ -2019,10 +1704,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "tea-dried",
@@ -2035,10 +1717,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "coffee-ground",
@@ -2051,10 +1730,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "black-pepper",
@@ -2067,10 +1743,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "milk-powder",
@@ -2083,11 +1756,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "rice-basmati",
@@ -2100,10 +1769,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "red-wine",
@@ -2116,10 +1782,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "fresh-shrimps",
@@ -2132,11 +1795,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "cucumber-greenhouse-heated",
@@ -2149,10 +1808,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "peach-conventional",
@@ -2165,10 +1821,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "large-trout",
@@ -2181,11 +1834,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "egg-indoor-code2",
@@ -2198,10 +1847,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 5.19,
+      "plotSize": 3.32,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -2215,10 +1866,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 5.41,
+      "plotSize": 3.47,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -2232,11 +1885,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "egg-organic-code0",
@@ -2249,11 +1898,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "wine-grape-organic",
@@ -2266,10 +1911,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "ecosystemicServices": {}
   },
   {
     "id": "wine-grape",
@@ -2282,9 +1924,6 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "ecosystemicServices": {}
   }
 ]
