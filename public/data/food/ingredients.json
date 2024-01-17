@@ -24,7 +24,7 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 6.71,
+      "hedges": 4.69,
       "plotSize": 2.53,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
@@ -43,9 +43,9 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 12.22,
+      "hedges": 8.55,
       "plotSize": 4.43,
-      "cropDiversity": 0.28,
+      "cropDiversity": 1.1,
       "permanentPasture": 1.39,
       "livestockDensity": 0.0
     }
@@ -217,7 +217,7 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 346.76,
+      "hedges": 242.73,
       "plotSize": 117.27,
       "cropDiversity": 0.0,
       "permanentPasture": 42.55,
@@ -236,9 +236,9 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 385.25,
+      "hedges": 269.68,
       "plotSize": 135.63,
-      "cropDiversity": 6.01,
+      "cropDiversity": 24.04,
       "permanentPasture": 45.03,
       "livestockDensity": 0.0
     }
@@ -330,9 +330,9 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 30.02,
+      "hedges": 21.01,
       "plotSize": 12.26,
-      "cropDiversity": 4.47,
+      "cropDiversity": 17.88,
       "permanentPasture": 0.0,
       "livestockDensity": -0.01
     }
@@ -1848,7 +1848,7 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 7.41,
+      "hedges": 5.19,
       "plotSize": 3.32,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
@@ -1867,7 +1867,7 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 7.72,
+      "hedges": 5.41,
       "plotSize": 3.47,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
