@@ -2,13 +2,13 @@
 
 ## Généralités
 
-Le polyester est la fibre textile la plus utilisée dans le monde (54% de la production mondiale en 2022 et a fait son apparition dans les années 1950. Dérivée du pétrole, cette fibre synthétique peut être utilisée seule ou en mélange avec du coton, laine, etc.&#x20;
+Le polyester est la fibre textile la plus utilisée dans le monde et représente 54% de la production mondiale en 2022. Dérivée du pétrole, cette fibre synthétique peut être utilisée seule ou en mélange avec du coton, laine, etc.&#x20;
+
+La consommation de polyester est en croissance et gagne des parts de marché. Cette tendance s'explique en partie par la capacité de cette fibre à accompagner le développement des pratiques de fast-fashion depuis les années 2000 (fibre abordable aux propriétés multiples permettant notamment des prix bas). Le principal pays producteur est la Chine, suivie de l'Inde et des Etats-Unis.&#x20;
 
 Les fibres de polyester sont par ailleurs utilisées dans différents domaines tels que le transport (pneus, ceintures, etc.), l'ameublement (rembourrage), les emballages, la constructio (isolants, piscines, etc.), etc.)&#x20;
 
-La consommation de cette fibre est en croissance et gagne des parts de marché. Cette tendance s'explique en partie par la capacité de cette fibre à accompagner le développement des pratiques de fast-fashion depuis les années 2000. Le marché est dominé par la Chine; l'Inde et les Etats-Unis étant les autres principaux pays producteurs de fibres synthétiques.&#x20;
-
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Source : Textile Exchange (market report 2023)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Source : Textile Exchange (market report 2023)</p></figcaption></figure>
 
 Dans le textile, les termes PET (polyethylène téréphtalate) et PES (polyester) sont utilisés pour désigner cette fibre.&#x20;
 

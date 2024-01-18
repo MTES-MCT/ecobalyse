@@ -2,7 +2,7 @@
 
 ## Généralités
 
-Le coton est la seconde fibre textile la plus utilisée après le polyester (représente c.22% de la production mondiale 2022 \_ source[^1]).&#x20;
+Le coton est la seconde fibre textile la plus utilisée après le polyester (représente c.22% de la production mondiale de fibres textile 2022 \_ source[^1]).&#x20;
 
 Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vingtaine de pays se partagent la majorité du marché.
 
