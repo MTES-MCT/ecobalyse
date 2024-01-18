@@ -1,4 +1,4 @@
-# Focus laine
+# Focus laine (draft)
 
 ## Généralités
 
@@ -12,13 +12,13 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 </details>
 
-Les conditions de production de la laine varient selon les géographies et les conditions de marché. Par exemple, du fait de conditions de marché difficiles pour l'industrie française ces dernières décennies, la filière française s'est progressivement détricotée (plus d'info ci-dessous).
+La majorité de la laine utilisée aujourd'hui en Europe dans le secteur de l'habillement a été produite hors d'Europe.&#x20;
 
 <details>
 
 <summary>Focus laine française </summary>
 
-La production française de moutons est majoritairement destinée à la production de viande et de lait. Ainsi, la production de laine n'est pas valorisée (1 kg de laine se vend quelques dizaines de centimes seulement... ne couvrant pas les frais de tonte).&#x20;
+La production française de moutons est majoritairement destinée à la production de viande et de lait. Ainsi, la production de laine n'est pas valorisée (1 kg de laine se vend quelques dizaines de centimes ne couvrant pas les frais de tonte autour de 1,5€ par mouton).&#x20;
 
 Cet état de fait fait notamment suite à la désindustrialisation du secteur depuis les années 80 (à l'époque une filière existait dans le Tarn et le Nord principalement).  Les éleveurs se sont alors progressivement tournés depuis vers des races produisant principalement de la viande ou du lait.&#x20;
 
@@ -30,16 +30,16 @@ Afin de correctement valoriser la production de laine, il est nécessaire d'appr
 
 ### Co-produits & Allocation (économique, bio-physique, etc.)
 
-&#x20;L'élevage de moutons permet de produire différents produits (viande, cuir, laine, lait, lanoline, etc.). Selon les régions, les moutons sont élevés pour tout ou partie des co-produits susmentionnés.&#x20;
+Lorsqu'un système génère plusieurs produits, les impacts environnementaux doivent être répartis entre les différents produits via une règle d'allocation.&#x20;
 
-Ainsi, une allocation est nécessaire afin de refléter l'impact environnemental de la production de laine par rapport aux autres co-produits valorisés par l'éleveur.
+C'est le cas de l'élevage de moutons qui permet de produire de la viande, du cuir, de la laine, du lait, de la lanoline, etc.&#x20;
 
-Selon la méthode dl'allocation utilisée, l'impact environnemental de  laine peut varier d'un facteur 1 à 3.
+Plusieurs méthodes d'allocations existent; dont les deux principales utilisées pour le mouton sont présentées ci-dessous.&#x20;
 
-#### Différents types d'allocations existent :&#x20;
+Selon la méthode utilisée et la zone d'élevage, l'impact environnemental de laine peut varier d'un facteur 1 à 3.
 
 {% tabs %}
-{% tab title="Economique" %}
+{% tab title="Allocation économique" %}
 L'allocation économique est la plus utilisée et est recommandée par l'ADEME concernant l'évaluation environnementale de matières d'origine animale.
 
 Cette allocation fluctue selon les prix du marché. Le marché de la laine est organisé par l'International Wool Trade Organization (IWTO). Le marché asiatique fixe les prix car cette région est le principal acheteur de laine pour la transformer.&#x20;
@@ -51,6 +51,8 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 :flag\_nz:Nouvelle-Zélande (151 fermes) => 19% laine / 81% viande\
 :flag\_au:Australie (3 fermes / laine merinos région méridionale) => 47% laine / 53% viande\
 :flag\_au:Australie (3 fermes laine merinos ++ / région septentrionale) => 52% laine / 48% viande&#x20;
+
+:flag\_us: Etats-Unis (année 2007) => 23% laine / 77% viande (source[^2])
 {% endtab %}
 
 {% tab title="Biophysique" %}
@@ -78,8 +80,10 @@ Source utilisée pour les données ci-dessous ([ici](https://link.springer.com/a
 
 Les principaux enjeux environnementaux liés à la production de laine sont :&#x20;
 
-* utilisation des sols,
-* changement climatique,
+* utilisation des sols,\
+
+* changement climatique,\
+  La majorité des émissions proviennent du fait que ces ruminants relarguent du méthane lors du processus digestif.&#x20;
 
 ## Modélisation Ecobalyse
 
@@ -89,14 +93,23 @@ En suivant les recommandations de l'ADEME, une allocation économique est utilis
 
 Deux scénarios sont proposés :&#x20;
 
-* Laine (par défaut) => modélisation d'un scénario moyen basé sur les conditions de marché de 2023 => xx% de l'impact du mouton est alloué à la laine.
-* Laine (France) => modélisation d'un scénario spécifique au marché français => xx% de l'impact du mouton est alloué à la laine.
+* Laine (par défaut) => modélisation d'un scénario moyen en repartant du procédé Ecoinvent _sheep production, for wool_
+* Laine (France) => modélisation d'un scénario spécifique au marché français  en repartant du procédé Ecoinvent _sheep production, for wool_
+
+La seule différence entre ces deux procédés est le taux d'allocation utilisé (cf. ci-dessous).
 
 <details>
 
 <summary>Laine</summary>
 
+Procédé Ecoinvent => _sheep production, for wool_
 
+_**Allocation économique** => 50% de l'impact du mouton est alloué à la laine_ \
+\
+**Hypothèses clés**\
+\- 4,2kg de laine produite par an \
+\- mouton de 8kg\
+\- paturage majoritairement extensif (80%)
 
 </details>
 
@@ -104,8 +117,17 @@ Deux scénarios sont proposés :&#x20;
 
 <summary>Laine française</summary>
 
+Procédé Ecoinvent => _sheep production, for wool_
 
+_**Allocation économique** => 5% de l'impact du mouton est alloué à la laine_ \
+\
+**Hypothèses clés**\
+\- 4,2kg de laine produite par an \
+\- mouton de 8kg\
+\- paturage majoritairement extensif (80%)
 
 </details>
 
 [^1]: Textile Exchange (market report 2023)
+
+[^2]: Travaux ENSAIT & EIME dans le cadre de la mise en place de la base de données EIME
