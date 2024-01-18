@@ -27,6 +27,7 @@ processes-no-impacts.json
 /data/Dockerfile
 /data/ecobalyse_data.egg-info/
 /data/ECOINVENT3.9.1/*
+data/trtrpastoeco/*
 /data/AGB3.1.1.20230306.CSV
 /data/Environmental Footprint 3.1 (adapted) patch wtu.CSV
 /data/Environmental Footprint 3.1 (adapted).CSV

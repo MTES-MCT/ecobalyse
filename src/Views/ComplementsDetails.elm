@@ -8,15 +8,16 @@ import Views.Format as Format
 
 type alias Config =
     { complementsImpacts : Impact.ComplementsImpacts
+    , label : String
     }
 
 
 view : Config -> List (Html msg) -> Html msg
-view { complementsImpacts } detailedImpacts =
+view { complementsImpacts, label } detailedImpacts =
     details [ class "ComplementsDetails fs-7" ]
         (summary []
             [ div [ class "ComplementsTable d-flex justify-content-between w-100" ]
-                [ span [ title "Cliquez pour plier/déplier" ] [ text "Compléments" ]
+                [ span [ title "Cliquez pour plier/déplier" ] [ text label ]
                 , span [ class "text-muted text-end", title "Total des compléments" ]
                     [ complementsImpacts
                         |> Impact.getTotalComplementsImpacts

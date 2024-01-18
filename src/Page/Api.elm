@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "31 décembre 2023"
+    [ { date = "16 janvier 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Les paramètres permettant de spécifier des compléments (ou bonus)
+            personnalisés par ingrédient ont été retirés, il sont remplacés par la
+            gestion automatisée des services écosystémiques."""
+      }
+    , { date = "15 janvier 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

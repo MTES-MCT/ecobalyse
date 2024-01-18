@@ -4,10 +4,8 @@ module Data.Split exposing
     , applyToQuantity
     , complement
     , decodeFloat
-    , decodePercent
     , divideBy
     , encodeFloat
-    , encodePercent
     , fifteen
     , fourty
     , fromFloat
@@ -163,26 +161,6 @@ decodeFloat =
             )
 
 
-decodePercent : Decoder Split
-decodePercent =
-    Decode.int
-        |> Decode.map fromPercent
-        |> Decode.andThen
-            (\result ->
-                case result of
-                    Ok split ->
-                        Decode.succeed split
-
-                    Err error ->
-                        Decode.fail error
-            )
-
-
 encodeFloat : Split -> Encode.Value
 encodeFloat =
     toFloat >> Encode.float
-
-
-encodePercent : Split -> Encode.Value
-encodePercent =
-    toPercent >> Encode.int

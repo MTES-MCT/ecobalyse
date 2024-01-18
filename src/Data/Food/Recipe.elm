@@ -25,6 +25,7 @@ module Data.Food.Recipe exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -32,7 +33,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
@@ -65,7 +66,6 @@ type alias RecipeIngredient =
     , mass : Mass
     , country : Maybe Country
     , planeTransport : Ingredient.PlaneTransport
-    , complements : Ingredient.Complements
     }
 
 
@@ -210,20 +210,16 @@ compute db =
                     preparedMass =
                         getPreparedMassAtConsumer recipe
 
+                    totalComplementsImpact =
+                        computeIngredientsTotalComplements ingredients
+
                     addIngredientsComplements impacts =
                         impacts
                             |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
 
-                    totalComplementsImpact =
-                        ingredients
-                            |> computeIngredientsTotalComplements db.impactDefinitions
-
                     totalComplementsImpactPerKg =
-                        { totalComplementsImpact
-                            | agroDiversity = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroDiversity
-                            , agroEcology = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.agroEcology
-                            , animalWelfare = Quantity.divideBy (Mass.inKilograms preparedMass) totalComplementsImpact.animalWelfare
-                        }
+                        totalComplementsImpact
+                            |> Impact.mapComplementsImpacts (Quantity.divideBy (Mass.inKilograms preparedMass))
 
                     totalImpactsWithoutComplements =
                         Impact.sumImpacts
@@ -286,35 +282,20 @@ compute db =
             )
 
 
-computeIngredientComplementsImpacts : Definitions -> Ingredient.Complements -> Impacts -> Impact.ComplementsImpacts
-computeIngredientComplementsImpacts definitions { agroDiversity, agroEcology, animalWelfare } ingredientImpacts =
+computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
+computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanentPasture, livestockDensity } ingredientMass =
     let
-        -- docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/complements-hors-acv-en-construction
-        ( lduNormalization, lduWeighting ) =
-            definitions.ldu.ecoscoreData
-                |> Maybe.map (\{ normalization, weighting } -> ( normalization, weighting ))
-                |> Maybe.withDefault ( Unit.impact 0, Unit.ratio 0 )
-
-        normalizedLandUse =
-            ingredientImpacts
-                |> Impact.getImpact Definition.Ldu
-                |> Unit.impactAggregateScore lduNormalization lduWeighting
-                |> Unit.impactToFloat
-
-        ensurePositive x =
-            clamp 0 x x
-
-        ( agroDiversityComplement, agroEcologyComplement, animalWelfareComplement ) =
-            ( ensurePositive (2.3 * Split.toFloat agroDiversity * normalizedLandUse)
-            , ensurePositive (2.3 * Split.toFloat agroEcology * normalizedLandUse)
-            , ensurePositive (1.5 * Split.toFloat animalWelfare * normalizedLandUse)
-            )
+        apply coeff =
+            Quantity.multiplyBy (Mass.inKilograms ingredientMass)
+                >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
-    { agroDiversity = Unit.impact agroDiversityComplement
-    , agroEcology = Unit.impact agroEcologyComplement
-    , animalWelfare = Unit.impact animalWelfareComplement
+    { hedges = apply EcosystemicServices.coefficients.hedges hedges
+    , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
+    , cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
+    , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
 
-    -- Note: these complements are Textile specific
+    -- Note: these complements don't apply to ingredients
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -341,13 +322,12 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalComplements : Definitions -> List RecipeIngredient -> Impact.ComplementsImpacts
-computeIngredientsTotalComplements definitions =
+computeIngredientsTotalComplements : List RecipeIngredient -> Impact.ComplementsImpacts
+computeIngredientsTotalComplements =
     List.foldl
-        (\({ complements } as recipeIngredient) acc ->
-            recipeIngredient
-                |> computeIngredientImpacts
-                |> computeIngredientComplementsImpacts definitions complements
+        (\{ ingredient, mass } acc ->
+            mass
+                |> computeIngredientComplementsImpacts ingredient.ecosystemicServices
                 |> Impact.addComplementsImpacts acc
         )
         Impact.noComplementsImpacts
@@ -600,7 +580,7 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, country, planeTransport, complements } =
+ingredientFromQuery { countries, ingredients } { id, mass, country, planeTransport } =
     let
         ingredientResult =
             Ingredient.findByID id ingredients
@@ -623,11 +603,6 @@ ingredientFromQuery { countries, ingredients } { id, mass, country, planeTranspo
             (ingredientResult
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
             )
-        |> RE.andMap
-            (ingredientResult
-                |> Result.map
-                    (\ing -> Maybe.withDefault ing.complements complements)
-            )
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -636,7 +611,6 @@ ingredientQueryFromIngredient ingredient =
     , mass = Mass.grams 100
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
-    , complements = Nothing
     }
 
 

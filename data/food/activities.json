@@ -10,12 +10,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "milk",
@@ -29,10 +24,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 4.69,
+      "plotSize": 2.53,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.61,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -48,10 +45,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 8.55,
+      "plotSize": 4.43,
+      "cropDiversity": 1.1,
+      "permanentPasture": 1.39,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -65,11 +64,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "carrot-organic",
@@ -82,11 +77,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "wheat",
@@ -100,9 +91,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0.33,
+      "plotSize": 0.45,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -118,9 +112,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0.99,
+      "plotSize": 1.48,
+      "cropDiversity": 7.08,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -134,11 +131,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "flour-organic",
@@ -152,11 +145,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "sunflower",
@@ -169,11 +158,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "sunflower-organic",
@@ -186,11 +171,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "rapeseed",
@@ -204,11 +185,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\"",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\""
   },
   {
     "id": "rapeseed-organic",
@@ -222,11 +199,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)"
   },
   {
     "id": "potato",
@@ -239,11 +212,7 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "ground-beef",
@@ -257,10 +226,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 242.73,
+      "plotSize": 117.27,
+      "cropDiversity": 0.0,
+      "permanentPasture": 42.55,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -276,10 +247,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 269.68,
+      "plotSize": 135.63,
+      "cropDiversity": 24.04,
+      "permanentPasture": 45.03,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -301,10 +274,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -318,12 +293,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-organic",
@@ -337,12 +307,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-fr",
@@ -356,12 +321,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast",
@@ -375,10 +335,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 0.84,
+      "plotSize": 1.01,
+      "livestockDensity": 2
     }
   },
   {
@@ -394,10 +354,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 21.01,
+      "plotSize": 12.26,
+      "cropDiversity": 17.88,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -413,10 +375,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
+    "ecosystemicServices": {
+      "hedges": 2.6,
+      "plotSize": 2.71,
+      "cropDiversity": 14.32,
+      "livestockDensity": 2,
+      "selfSufficiency": 5
     }
   },
   {
@@ -430,11 +394,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "rapeseed-oil",
@@ -447,11 +407,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "rapeseed-oil-organic",
@@ -465,11 +421,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "sunflower-oil",
@@ -482,11 +434,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "sunflower-oil-organic",
@@ -500,11 +448,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "zucchini",
@@ -517,11 +461,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "zucchini-organic",
@@ -534,11 +474,7 @@
     "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "pear",
@@ -551,11 +487,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "peach-organic",
@@ -568,11 +500,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": false,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": false
   },
   {
     "id": "melon",
@@ -585,11 +513,7 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "melon-organic",
@@ -602,11 +526,7 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "butter",
@@ -619,12 +539,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "butter-organic",
@@ -638,12 +553,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "onion",
@@ -656,11 +566,7 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "eggplant",
@@ -673,11 +579,7 @@
     "density": 0.398,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "lettuce",
@@ -690,11 +592,7 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "french-bean",
@@ -707,11 +605,7 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "durum-wheat",
@@ -724,11 +618,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "steel",
@@ -861,11 +751,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "domestic-gas-heat",
@@ -884,11 +770,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "garden-peas",
@@ -901,11 +783,7 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "tomato-organic-greenhouse",
@@ -918,11 +796,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "tomato-greenhouse",
@@ -935,11 +809,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "comte-aop",
@@ -953,12 +823,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "emmental",
@@ -972,12 +837,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "mozzarella",
@@ -991,12 +851,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
   },
   {
     "id": "tomato-heated-greenhouse",
@@ -1009,11 +864,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "cucumber-greenhouse-non-heated",
@@ -1026,11 +877,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "apricot",
@@ -1043,11 +890,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "artichoke",
@@ -1061,11 +904,7 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut"
   },
   {
     "id": "cauliflower",
@@ -1079,11 +918,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible.",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible."
   },
   {
     "id": "beetroot",
@@ -1097,11 +932,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)"
   },
   {
     "id": "beetroot-organic",
@@ -1115,11 +946,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
   },
   {
     "id": "swiss-chard",
@@ -1133,11 +960,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)"
   },
   {
     "id": "spinach",
@@ -1150,11 +973,7 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "broccoli",
@@ -1168,11 +987,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé issu de WDFDB (GLO)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé issu de WDFDB (GLO)"
   },
   {
     "id": "celery",
@@ -1186,11 +1001,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé issu de WDFDB (GLO)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé issu de WDFDB (GLO)"
   },
   {
     "id": "celeriac",
@@ -1204,11 +1015,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n"
   },
   {
     "id": "celeriac-organic",
@@ -1222,11 +1029,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
   },
   {
     "id": "cherry",
@@ -1240,11 +1043,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Part non comestible => hypothèse de la prune\n",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Part non comestible => hypothèse de la prune\n"
   },
   {
     "id": "mushroom",
@@ -1258,11 +1057,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas"
   },
   {
     "id": "chestnut",
@@ -1275,11 +1070,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "walnut",
@@ -1292,11 +1083,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "chinese-cabbage",
@@ -1310,11 +1097,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)"
   },
   {
     "id": "white-cabbage",
@@ -1328,11 +1111,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)"
   },
   {
     "id": "green-cabbage",
@@ -1346,11 +1125,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)"
   },
   {
     "id": "red-cabbage",
@@ -1364,11 +1139,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)"
   },
   {
     "id": "brussels-sprout",
@@ -1382,11 +1153,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)"
   },
   {
     "id": "curly-kale",
@@ -1400,11 +1167,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur "
   },
   {
     "id": "lemon",
@@ -1418,11 +1181,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du citron ES issu d'Ecoinvent",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé du citron ES issu d'Ecoinvent"
   },
   {
     "id": "pumpkin",
@@ -1436,11 +1195,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques"
   },
   {
     "id": "squash",
@@ -1454,11 +1209,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille"
   },
   {
     "id": "clementine",
@@ -1472,11 +1223,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)"
   },
   {
     "id": "mandarin",
@@ -1490,11 +1237,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)"
   },
   {
     "id": "orange",
@@ -1508,11 +1251,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)"
   },
   {
     "id": "shallot",
@@ -1526,11 +1265,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de l'échalotte approximé par celui de l'oignon"
   },
   {
     "id": "endive",
@@ -1544,11 +1279,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de l'endive approximé par la laitue.",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de l'endive approximé par la laitue."
   },
   {
     "id": "fennel",
@@ -1562,11 +1293,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives"
   },
   {
     "id": "broad-beans",
@@ -1580,11 +1307,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois"
   },
   {
     "id": "strawberry",
@@ -1598,11 +1321,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Par défaut : fraise espagnole",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Par défaut : fraise espagnole"
   },
   {
     "id": "raspberry",
@@ -1616,11 +1335,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)"
   },
   {
     "id": "flageolet-bean",
@@ -1634,11 +1349,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Densité : même hyp que petit pois",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Densité : même hyp que petit pois"
   },
   {
     "id": "kiwi",
@@ -1652,11 +1363,7 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Part non comestible : même hyp que pomme",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Part non comestible : même hyp que pomme"
   },
   {
     "id": "lambs-lettuce",
@@ -1670,11 +1377,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)"
   },
   {
     "id": "sweet-corn",
@@ -1689,9 +1392,12 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 0.46,
+      "plotSize": 0.48,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1706,11 +1412,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)"
   },
   {
     "id": "blueberry",
@@ -1724,11 +1426,7 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)"
   },
   {
     "id": "turnip",
@@ -1742,11 +1440,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte (hypothèse mix de conso AGB)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la carotte (hypothèse mix de conso AGB)"
   },
   {
     "id": "turnip-organic",
@@ -1760,11 +1454,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
   },
   {
     "id": "hazelnut",
@@ -1777,11 +1467,7 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "pistachio",
@@ -1795,11 +1481,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)"
   },
   {
     "id": "leek",
@@ -1813,11 +1495,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire.",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire."
   },
   {
     "id": "chickpea",
@@ -1831,11 +1509,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Part non comestible : hypothèse petit pois",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Part non comestible : hypothèse petit pois"
   },
   {
     "id": "chickpea-organic",
@@ -1849,11 +1523,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)"
   },
   {
     "id": "bellpepper-unheated-greenhouse",
@@ -1866,11 +1536,7 @@
     "density": 0.295,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "plum",
@@ -1884,11 +1550,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la cerise (hypothèse mix de conso AGB)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Procédé de la cerise (hypothèse mix de conso AGB)"
   },
   {
     "id": "soybean-humanconsumption",
@@ -1902,9 +1564,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
+    "ecosystemicServices": {
+      "hedges": 1.06,
+      "plotSize": 2.01,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1919,9 +1584,12 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 1.97,
+      "plotSize": 2.11,
+      "cropDiversity": 18.22,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   },
   {
@@ -1935,11 +1603,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "soybean-br-deforestation",
@@ -1952,11 +1616,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-meat",
@@ -1969,12 +1629,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse",
@@ -1987,12 +1642,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -2005,12 +1655,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 0
-    }
+    "visible": true
   },
   {
     "id": "sausage-tofu",
@@ -2023,11 +1668,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "tomato-paste",
@@ -2040,11 +1681,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "tomato-concentrated",
@@ -2057,11 +1694,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "rib-steak",
@@ -2074,12 +1707,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "flank-steak",
@@ -2092,12 +1720,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "flank-steak-organic",
@@ -2111,12 +1734,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rumsteak",
@@ -2129,12 +1747,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "durum-wheat-semolina",
@@ -2147,11 +1760,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "sugar",
@@ -2164,11 +1773,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "dark-chocolate",
@@ -2182,11 +1787,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV"
   },
   {
     "id": "pineapple",
@@ -2200,11 +1801,7 @@
     "inedible_part": 0.5,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB.",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB."
   },
   {
     "id": "banana",
@@ -2218,11 +1815,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%.",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%."
   },
   {
     "id": "chicken-breast-br-max",
@@ -2238,9 +1831,12 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.03
     }
   },
   {
@@ -2256,11 +1852,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique"
   },
   {
     "id": "cane-sugar",
@@ -2273,11 +1865,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "strawberry-off-season",
@@ -2290,11 +1878,7 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "avocado",
@@ -2308,11 +1892,7 @@
     "inedible_part": 0.3,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Toujours importé => bonus nuls",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "explain": "Toujours importé => bonus nuls"
   },
   {
     "id": "olive",
@@ -2325,12 +1905,7 @@
     "density": 0.447,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "olive-oil",
@@ -2343,11 +1918,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "tea-dried",
@@ -2360,11 +1931,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "coffee-ground",
@@ -2377,11 +1944,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "visible": true
   },
   {
     "id": "black-pepper",
@@ -2395,11 +1958,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
-    "complements": {
-      "agro-diversity": 0,
-      "agro-ecology": 0
-    }
+    "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\""
   },
   {
     "id": "milk-powder",
@@ -2412,12 +1971,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "rice-basmati",
@@ -2430,11 +1984,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "red-wine",
@@ -2447,11 +1997,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "fresh-shrimps",
@@ -2464,12 +2010,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "cucumber-greenhouse-heated",
@@ -2482,11 +2023,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "peach-conventional",
@@ -2499,11 +2036,7 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   },
   {
     "id": "large-trout",
@@ -2517,12 +2050,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)"
   },
   {
     "id": "egg-indoor-code2",
@@ -2536,10 +2064,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 5.19,
+      "plotSize": 3.32,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -2554,10 +2084,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
+    "ecosystemicServices": {
+      "hedges": 5.41,
+      "plotSize": 3.47,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
@@ -2571,12 +2103,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10,
-      "animal-welfare": 10
-    }
+    "visible": true
   },
   {
     "id": "egg-organic-code0",
@@ -2589,12 +2116,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50,
-      "animal-welfare": 50
-    }
+    "visible": true
   },
   {
     "id": "wine-grape-organic",
@@ -2607,11 +2129,7 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
-    }
+    "visible": true
   },
   {
     "id": "wine-grape",
@@ -2624,10 +2142,6 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true,
-    "complements": {
-      "agro-diversity": 10,
-      "agro-ecology": 10
-    }
+    "visible": true
   }
 ]

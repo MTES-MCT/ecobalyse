@@ -9,7 +9,6 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
@@ -103,7 +102,6 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Nothing)
 
         [ id, mass, countryCode ] ->
             let
@@ -116,7 +114,6 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Nothing)
 
         [ id, mass, countryCode, byPlane ] ->
             let
@@ -129,65 +126,12 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (Ok Nothing)
-
-        [ id, mass, countryCode, byPlane, complements ] ->
-            let
-                ingredient =
-                    ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
-                |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (ingredient |> Result.andThen (complementsParser complements))
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
 
         _ ->
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
-
-
-complementsParser : String -> Ingredient -> Result String (Maybe Ingredient.Complements)
-complementsParser string { name, categories } =
-    let
-        parseComplement : String -> Result String Split
-        parseComplement str =
-            case String.toInt str of
-                Just int ->
-                    Split.fromPercent int
-
-                Nothing ->
-                    Err <| "Valeur de bonus invalide : " ++ str ++ "."
-    in
-    -- Format is either x:y (vegetables) or x:y:z (from animal origin, z being the welfare bonus)
-    case String.split ":" string of
-        [ a, b ] ->
-            Ok Ingredient.Complements
-                |> RE.andMap (parseComplement a)
-                |> RE.andMap (parseComplement b)
-                |> RE.andMap (Ok Split.zero)
-                |> Result.map Just
-
-        [ a, b, c ] ->
-            if not (List.member IngredientCategory.AnimalProduct categories) then
-                Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
-
-            else
-                Ok Ingredient.Complements
-                    |> RE.andMap (parseComplement a)
-                    |> RE.andMap (parseComplement b)
-                    |> RE.andMap (parseComplement c)
-                    |> Result.map Just
-
-        [ "" ] ->
-            Ok Nothing
-
-        _ ->
-            Err <| "Format de bonus d'ingrédient invalide: " ++ string ++ "."
 
 
 countryParser : List Country -> Scope -> String -> Result String (Maybe Country.Code)
