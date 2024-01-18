@@ -1,4 +1,8 @@
-# Focus polyester
+---
+description: Cette page est un brouillon
+---
+
+# Focus polyester (draft)
 
 ## Généralités
 

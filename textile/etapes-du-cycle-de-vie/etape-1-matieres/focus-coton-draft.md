@@ -1,4 +1,8 @@
-# Focus coton
+---
+description: Cette page est un brouillon
+---
+
+# Focus coton (draft)
 
 ## Généralités
 
