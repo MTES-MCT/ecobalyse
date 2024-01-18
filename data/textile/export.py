@@ -69,7 +69,6 @@ if __name__ == "__main__":
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
-            "search": activity["search"] if "search" in activity else "",
             "name": activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
@@ -86,7 +85,6 @@ if __name__ == "__main__":
     print("Creating process list...")
     processes = {
         activity["name"]: {
-            "search": activity["search"] if "search" in activity else "",
             "name": activity["name"],
             "info": activity["info"],
             "unit": activity["unit"],
@@ -102,7 +100,7 @@ if __name__ == "__main__":
             "alias": activity["alias"],
             "step_usage": activity["step_usage"],
             "correctif": activity["correctif"],
-            # "country": activity["country"],
+            "country": activity["country"],
         }
         for activity in activities
     }
