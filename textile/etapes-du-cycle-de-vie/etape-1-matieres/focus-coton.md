@@ -1,6 +1,6 @@
 # Focus coton
 
-## Généralités sur le coton
+## Généralités
 
 Le coton est la seconde fibre textile la plus utilisée après le polyester (représente c.22% de la production mondiale 2022 \_ source[^1]).&#x20;
 
@@ -14,17 +14,7 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
 
 </details>
 
-Les principaux enjeux environnementaux liés à la production de coton sont :&#x20;
-
-* l'utilisation de pesticides et insecticides,\
-  Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
-* la consommation d'eau,\
-  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantite varie fortement selon les régions. Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
-* le changement climatique,\
-  L'utilisation d'engrais, de pesticides/insecticides et de machines agricoles contribuent aux émissions de gaz à effet de serre.&#x20;
-* la détérioritation des sols et de la biodiversité.&#x20;
-
-## Différents types de coton (conventionnel, biologique, recyclé)&#x20;
+### Différents types de coton (conventionnel, biologique, recyclé)&#x20;
 
 * coton conventionnel (72%\* de la production mondiale)
 * coton biologique & autres programmes (27%\* de la production mondiale)\
@@ -35,7 +25,19 @@ Les principaux enjeux environnementaux liés à la production de coton sont :&#x
   \
   \* Source : Textile Exchange \_ Market report 2023
 
-## Procédés disponibles dans Ecobalyse
+### Enjeux environnementaux&#x20;
+
+Les principaux enjeux environnementaux liés à la production de coton sont :&#x20;
+
+* l'utilisation de pesticides et insecticides,\
+  Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
+* la consommation d'eau,\
+  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantite varie fortement selon les régions. Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
+* le changement climatique,\
+  L'utilisation d'engrais, de pesticides/insecticides et de machines agricoles contribuent aux émissions de gaz à effet de serre.&#x20;
+* la détérioritation des sols et de la biodiversité.&#x20;
+
+## Modélisation Ecobalyse
 
 Le production de fibres de coton consiste principalement à : \
 1\) produire les graines (seed-cotton production),\

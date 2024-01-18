@@ -62,6 +62,7 @@
       * [📚 Utilisation de matière recyclée - M1 et M2](textile/etapes-du-cycle-de-vie/etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere.md)
       * [\[Négligé\] Recyclage des vêtements en fin de vie - M3](textile/etapes-du-cycle-de-vie/etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere-1.md)
     * [Focus coton](textile/etapes-du-cycle-de-vie/etape-1-matieres/focus-coton.md)
+    * [Focus polyester](textile/etapes-du-cycle-de-vie/etape-1-matieres/focus-polyester.md)
   * [🧶 Etape 2 - Fabrication du fil](textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil.md)
   * [〰 Etape 2 - Fabrication de l'étoffe](textile/etapes-du-cycle-de-vie/tricotage-tissage.md)
   * [🌈 Etape 3 - Ennoblissement](textile/etapes-du-cycle-de-vie/ennoblissement/README.md)
