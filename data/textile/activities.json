@@ -1425,10 +1425,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
   },
   {
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
@@ -1476,10 +1473,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
   },
   {
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
@@ -1527,10 +1521,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
   },
   {
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
@@ -1578,10 +1569,7 @@
     "geographicOrigin": "Europe puis Asie",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
   },
   {
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -1629,10 +1617,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
   },
   {
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -1680,10 +1665,7 @@
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
   },
   {
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -1731,10 +1713,7 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
   },
   {
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
@@ -1782,10 +1761,7 @@
     "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
   },
   {
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -1833,10 +1809,7 @@
     "geographicOrigin": "Espagne & France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
   },
   {
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -1884,10 +1857,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
   },
   {
     "name": "Soie",
@@ -2692,54 +2662,6 @@
     "alias": null,
     "step_usage": "Matières, Filature",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
-  },
-  {
-    "name": "Feuille de néoprène, inventaire agrégé",
-    "info": "Textile > Matières > Matières synthétiques",
-    "unit": "kg",
-    "source": "Base Impacts 2.01",
-    "uuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
-    "impacts": {
-      "acd": 0.0259965,
-      "bvi": 0.0,
-      "cch": 9.87734,
-      "etf": 0.0,
-      "etf-c": 0.0,
-      "fru": 113.8,
-      "fwe": 0.000243907,
-      "htc": 0.0,
-      "htc-c": 0.0,
-      "htn": 0.0,
-      "htn-c": 0.0,
-      "ior": 3.08841,
-      "ldu": 10.2618,
-      "mru": 8.81388e-6,
-      "ozd": 1.1716e-6,
-      "pco": 0.0133511,
-      "pma": 6.30576e-7,
-      "swe": 0.00399181,
-      "tre": 0.0409916,
-      "wtu": 0.0295386
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
-    "alias": null,
-    "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
-    "id": "neoprene",
-    "materialAndSpinningProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
-    "materialProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "shortName": "Néoprène",
-    "origin": "Synthétiques",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
   },
   {
     "name": "Polyester recyclé (recyclage mécanique)",
