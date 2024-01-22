@@ -487,7 +487,7 @@ cannedRatatouille =
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "tomato"
+        , { id = Ingredient.idFromString "tomato-greenhouse"
           , mass = Mass.grams 250
           , country = Nothing
           , planeTransport = PlaneNotApplicable
@@ -611,7 +611,7 @@ frozenPizzaMargarita =
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "tomato"
+        , { id = Ingredient.idFromString "tomato-greenhouse"
           , mass = Mass.grams 235.00000000000003
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
@@ -671,7 +671,7 @@ frozenPizzaHamCheese =
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "tomato"
+        , { id = Ingredient.idFromString "tomato-greenhouse"
           , mass = Mass.grams 235.00000000000003
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
