@@ -4,7 +4,7 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "",
+    "uuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "impacts": {
       "acd": 0.0015271008,
       "bvi": 0.0,
@@ -76,7 +76,7 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "",
+    "uuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
     "impacts": {
       "acd": 9.2167346e-5,
       "bvi": 0.0,
