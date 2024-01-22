@@ -974,7 +974,7 @@ pantalonCotonAsie : Query
 pantalonCotonAsie =
     { tShirtCotonAsie
         | mass = Mass.kilograms 0.45
-        , product = Product.Id "manteau"
+        , product = Product.Id "pantalon"
         , fabricProcess = Fabric.Weaving
     }
 
@@ -1041,7 +1041,7 @@ pantalonCotonFrance : Query
 pantalonCotonFrance =
     { tShirtCotonFrance
         | mass = Mass.kilograms 0.45
-        , product = Product.Id "manteau"
+        , product = Product.Id "pantalon"
         , fabricProcess = Fabric.Weaving
     }
 
