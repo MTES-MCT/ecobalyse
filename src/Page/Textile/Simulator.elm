@@ -344,21 +344,13 @@ update ({ queries, navKey } as session) msg model =
         SetModal (SelectExampleModal autocomplete) ->
             ( { model | modal = SelectExampleModal autocomplete }
             , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
+            , Ports.addBodyClass "prevent-scrolling"
             )
 
         SetModal (SelectProductModal autocomplete) ->
             ( { model | modal = SelectProductModal autocomplete }
             , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
+            , Ports.addBodyClass "prevent-scrolling"
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -653,7 +645,7 @@ exampleProductField query =
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Produit" ]
+            [ text "Examples" ]
         , button
             [ class "form-select ElementSelector text-start"
             , id "selector-example"
@@ -675,11 +667,14 @@ productField { products } query =
         autocompleteState =
             AutocompleteSelector.init nameFromProductId (List.map .id products)
     in
-    div []
-        [ label [ for "selector-product", class "form-label fw-bold text-truncate" ]
-            [ text "Utilisation et entretien" ]
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "selector-product"
+            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            ]
+            [ text "Catégorie" ]
         , button
-            [ class "form-select ElementSelector text-start"
+            [ class "col-sm-6 flex-fill form-select ElementSelector text-start w-auto"
             , id "selector-product"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
@@ -688,6 +683,54 @@ productField { products } query =
                 |> Result.map .name
                 |> Result.withDefault (Product.idToString query.product)
                 |> text
+            ]
+        ]
+
+
+numberOfReferencesField : Html Msg
+numberOfReferencesField =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "number-of-references"
+            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            ]
+            [ text "Nombre de références" ]
+        , div [ class "col-sm-6" ]
+            [ input [ type_ "number", class "form-control" ] []
+            ]
+        ]
+
+
+productPriceField : Html Msg
+productPriceField =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "number-of-references"
+            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            ]
+            [ text "Prix neuf" ]
+        , div [ class "col-sm-6" ]
+            [ div [ class "input-group" ]
+                [ input [ type_ "number", class "form-control" ] []
+                , span [ class "input-group-text" ] [ text "€" ]
+                ]
+            ]
+        ]
+
+
+marketingDurationField : Html Msg
+marketingDurationField =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "number-of-references"
+            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            ]
+            [ text "Durée de commercialisation" ]
+        , div [ class "col-sm-6" ]
+            [ div [ class "input-group" ]
+                [ input [ type_ "number", class "form-control" ] []
+                , span [ class "input-group-text", title "jours" ] [ text "j." ]
+                ]
             ]
         ]
 
@@ -720,37 +763,36 @@ durabilityField updateDurability durability =
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
     in
-    div [ class "d-block" ]
+    div [ class "d-flex justify-content-start gap-3" ]
         [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
-            [ text "Durabilité" ]
-        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
-            [ input
-                [ type_ "range"
-                , id "durability-field"
-                , class "d-block form-range"
-                , title "Un double-clic réinitialise la valeur"
-                , onInput
-                    (String.toFloat
-                        >> Maybe.map Unit.durability
-                        >> Maybe.withDefault Unit.standardDurability
-                        >> updateDurability
-                    )
-                , onDoubleClick (updateDurability Unit.standardDurability)
-                , Attr.min (fromFloat Unit.minDurability)
-                , Attr.max (fromFloat Unit.maxDurability)
+            [ text "Indice de durabilité" ]
+        , input
+            [ type_ "range"
+            , id "durability-field"
+            , class "form-range w-auto"
+            , title "Un double-clic réinitialise la valeur"
+            , onInput
+                (String.toFloat
+                    >> Maybe.map Unit.durability
+                    >> Maybe.withDefault Unit.standardDurability
+                    >> updateDurability
+                )
+            , onDoubleClick (updateDurability Unit.standardDurability)
+            , Attr.min (fromFloat Unit.minDurability)
+            , Attr.max (fromFloat Unit.maxDurability)
 
-                -- WARNING: be careful when reordering attributes: for obscure reasons,
-                -- the `value` one MUST be set AFTER the `step` one.
-                , step "0.01"
-                , value (fromFloat durability)
-                ]
-                []
-            , span [ class "fs-7 text-muted font-monospace" ]
-                [ durability
-                    |> Unit.durabilityToFloat
-                    |> Format.formatFloat 2
-                    |> text
-                ]
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "0.01"
+            , value (fromFloat durability)
+            , disabled True
+            ]
+            []
+        , span [ class "text-muted font-monospace" ]
+            [ durability
+                |> Unit.durabilityToFloat
+                |> Format.formatFloat 2
+                |> text
             ]
         ]
 
@@ -811,12 +853,28 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-6" ] [ exampleProductField (Inputs.toQuery inputs) ]
+                [ div [ class "col-md-9" ] [ exampleProductField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                , div [ class "col-md-3" ] [ durabilityField UpdateDurability inputs.durability ]
                 ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-6" ] [ productField textileDb (Inputs.toQuery inputs) ]
+            , div [ class "card shadow-sm mb-3" ]
+                [ div [ class "card-header" ] [ text "Durabilité non-physique" ]
+                , div [ class "card-body row align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-6" ]
+                        [ productField textileDb (Inputs.toQuery inputs)
+                        ]
+                    , div [ class "col-md-6" ]
+                        [ numberOfReferencesField
+                        ]
+                    ]
+                , div [ class "card-body row align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-6" ]
+                        [ productPriceField
+                        ]
+                    , div [ class "col-md-6" ]
+                        [ marketingDurationField
+                        ]
+                    ]
+                , div [ class "card-body" ] [ durabilityField UpdateDurability inputs.durability ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
