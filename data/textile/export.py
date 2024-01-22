@@ -63,9 +63,6 @@ if __name__ == "__main__":
     materials = [
         {
             "id": activity["id"],
-            "materialAndSpinningProcessUuid": uuidOrSearch(
-                activity["materialAndSpinningProcessUuid"]
-            ),
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
