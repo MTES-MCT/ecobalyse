@@ -1,5 +1,6 @@
 [
   {
+    "search": "",
     "name": "(EI) Mix électrique réseau, CN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -10,13 +11,13 @@
       "bvi": 0.0,
       "cch": 0.28407856,
       "etf": 0.711914855,
-      "etf-c": 0,
+      "etf-c": 0.71663734332,
       "fru": 2.5963146,
       "fwe": 5.2966609e-5,
       "htc": 8.19e-12,
-      "htc-c": 0,
+      "htc-c": 1.63813654e-11,
       "htn": 8.39e-11,
-      "htn-c": 0,
+      "htn-c": 1.5516067e-10,
       "ior": 0.0048357578,
       "ldu": 0.5567515,
       "mru": 2.63e-7,
@@ -36,6 +37,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ES",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -72,7 +74,8 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "name": "(EI) Mix électrique réseau, FR",
+    "search": "",
+    "name": "Mix électrique réseau, FR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -82,13 +85,13 @@
       "bvi": 0.0,
       "cch": 0.021581196,
       "etf": 0.09126594,
-      "etf-c": 0,
+      "etf-c": 0.1256067558,
       "fru": 3.2188003,
       "fwe": 4.2592527e-6,
       "htc": 6.4e-12,
-      "htc-c": 0,
+      "htc-c": 1.27903874e-11,
       "htn": 1.19e-11,
-      "htn-c": 0,
+      "htn-c": 2.320931e-11,
       "ior": 0.14628567,
       "ldu": 0.096699359,
       "mru": 1.75e-7,
@@ -108,6 +111,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -144,6 +148,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -180,6 +185,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Plume de canard, inventaire agrégé",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -216,6 +222,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de soie",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -252,6 +259,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de lin (filasse)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -288,6 +296,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de lin (étoupe)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -324,6 +333,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -360,6 +370,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de laine de mouton",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -396,6 +407,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de laine de chameau",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -432,6 +444,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de jute / kenaf",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -468,42 +481,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "name": "(EI) Fil de coton conventionnel",
-    "info": "Textile > Matières > Matières naturelles",
-    "unit": "kg",
-    "source": "Ecoinvent 3.9.1",
-    "uuid": "",
-    "impacts": {
-      "acd": 0.050004554,
-      "bvi": 0.0,
-      "cch": 2.758903,
-      "etf": 296.78549,
-      "etf-c": 0,
-      "fru": 21.091752,
-      "fwe": 0.0020965554,
-      "htc": 1.07e-9,
-      "htc-c": 0,
-      "htn": 3.79e-8,
-      "htn-c": 0,
-      "ior": 0.11439048,
-      "ldu": 206.8445,
-      "mru": 2.45e-5,
-      "ozd": 2.1e-7,
-      "pco": 0.013716303,
-      "pma": 3.35e-7,
-      "swe": 0.046469433,
-      "tre": 0.21154201,
-      "wtu": 32.330333
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.201201,
-    "alias": null,
-    "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
-  },
-  {
+    "search": "",
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -540,6 +518,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de chanvre",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -576,6 +555,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil de cachemire",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -612,6 +592,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fil d'angora / mohair",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -648,6 +629,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Fibres de kapok, inventaire agrégé",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -684,6 +666,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de viscose",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -720,6 +703,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polyuréthane",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -756,6 +740,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -792,6 +777,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -828,6 +814,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polypropylène",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -864,6 +851,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polylactide",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -900,6 +888,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polyéthylène",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -940,19 +929,19 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "",
+    "uuid": "ei-pet-uuid",
     "impacts": {
       "acd": 0.0186312,
       "bvi": 0.0,
       "cch": 4.1593321,
       "etf": 12.67545,
-      "etf-c": 0,
+      "etf-c": 13.777083034,
       "fru": 86.374758,
       "fwe": 0.0010940637,
       "htc": 5.23e-10,
-      "htc-c": 0,
+      "htc-c": 1.0454992e-9,
       "htn": 5.04e-9,
-      "htn-c": 0,
+      "htn-c": 9.956801e-9,
       "ior": 0.28591251,
       "ldu": 9.6837138,
       "mru": 3.88e-5,
@@ -969,9 +958,22 @@
     "waste": 0.0319569,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "id": "ei-pet",
+    "materialAndSpinningProcessUuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
+    "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
+    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
+    "recycledFrom": null,
+    "shortName": "(EI) Polyester",
+    "origin": "Synthetic",
+    "primary": true,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 80,
+    "cff": null
   },
   {
+    "search": "",
     "name": "Filament de polyester, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1008,6 +1010,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polyamide 66",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1044,6 +1047,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament d'aramide",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1080,6 +1084,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament d'acrylique",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1116,6 +1121,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament bi-composant polypropylène/polyamide",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1152,6 +1158,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Feuille de néoprène, inventaire agrégé",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1188,6 +1195,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1224,6 +1232,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1260,6 +1269,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1296,6 +1306,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1332,6 +1343,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1368,6 +1380,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1404,6 +1417,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1440,6 +1454,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1476,6 +1491,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1512,6 +1528,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1548,6 +1565,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Soie",
     "info": "Textile > Matières > Matières naturelles uuid_bi=94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "unit": "kg",
@@ -1584,6 +1602,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Lin (filasse)",
     "info": "Textile > Matières > Matières naturelles uuid_bi=e5a6d538-f932-4242-98b4-3a0c6439629c",
     "unit": "kg",
@@ -1620,6 +1639,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Lin (étoupe)",
     "info": "Textile > Matières > Matières naturelles uuid_bi=fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "unit": "kg",
@@ -1656,6 +1676,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Laine de mouton Mérinos",
     "info": "Textile > Matières > Matières naturelles uuid_bi=4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "unit": "kg",
@@ -1692,6 +1713,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Laine de mouton",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
@@ -1728,6 +1750,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Jute",
     "info": "Textile > Matières > Matières naturelles uuid_bi=72010874-4d26-4c7a-95de-c6987dfdedeb",
     "unit": "kg",
@@ -1764,6 +1787,56 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
+    "name": "(EI) Fil de coton conventionnel",
+    "info": "Textile > Matières > Matières naturelles",
+    "unit": "kg",
+    "source": "Ecoinvent 3.9.1",
+    "uuid": "ei-fil-coton-uuid",
+    "impacts": {
+      "acd": 0.050004554,
+      "bvi": 0.0,
+      "cch": 2.758903,
+      "etf": 296.78549,
+      "etf-c": 580.72593,
+      "fru": 21.091752,
+      "fwe": 0.0020965554,
+      "htc": 1.07e-9,
+      "htc-c": 2.1392048e-9,
+      "htn": 3.79e-8,
+      "htn-c": 7.5609412e-8,
+      "ior": 0.11439048,
+      "ldu": 206.8445,
+      "mru": 2.45e-5,
+      "ozd": 2.1e-7,
+      "pco": 0.013716303,
+      "pma": 3.35e-7,
+      "swe": 0.046469433,
+      "tre": 0.21154201,
+      "wtu": 32.330333
+    },
+    "heat_MJ": 0.0,
+    "elec_pppm": 0.0,
+    "elec_MJ": 0.0,
+    "waste": 0.201201,
+    "alias": null,
+    "step_usage": "Matières, Filature",
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "id": "ei-fil-coton",
+    "materialAndSpinningProcessUuid": "ei-fil-coton",
+    "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
+    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
+    "recycledFrom": null,
+    "shortName": "(EI) Coton",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 100,
+    "cff": null
+  },
+  {
+    "search": "",
     "name": "Coton",
     "info": "Textile > Matières > Matières naturelles uuid_bi=f211bbdb-415c-46fd-be4d-ddf199575b44",
     "unit": "kg",
@@ -1800,6 +1873,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Chanvre",
     "info": "Textile > Matières > Matières naturelles uuid_bi=08601439-f338-4f94-ac8c-538061b65d16",
     "unit": "kg",
@@ -1836,6 +1910,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Cachemire",
     "info": "Textile > Matières > Matières naturelles uuid_bi=380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "unit": "kg",
@@ -1872,6 +1947,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Angora",
     "info": "Textile > Matières > Matières naturelles uuid_bi=29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "unit": "kg",
@@ -1908,6 +1984,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Viscose",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "unit": "kg",
@@ -1944,6 +2021,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Filament de polyuréthane / Élasthanne",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "unit": "kg",
@@ -1980,6 +2058,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polytriméthylène téréphtalate (PTT)",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "unit": "kg",
@@ -2016,6 +2095,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polytéréphtalate de butylène (PBT)",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "unit": "kg",
@@ -2052,6 +2132,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polypropylène",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=a30cfbde-393a-40db-9263-ea00bfced0b7",
     "unit": "kg",
@@ -2088,6 +2169,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polylactide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "unit": "kg",
@@ -2124,6 +2206,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyéthylène",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "unit": "kg",
@@ -2160,6 +2243,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyester",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "unit": "kg",
@@ -2196,6 +2280,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyamide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "unit": "kg",
@@ -2232,6 +2317,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Aramide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "unit": "kg",
@@ -2268,6 +2354,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Acrylique",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=aee6709f-0864-4fc5-8760-68cb644a0021",
     "unit": "kg",
@@ -2304,6 +2391,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polypropylène/polyamide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "unit": "kg",
@@ -2340,6 +2428,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyester recyclé (recyclage mécanique)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "unit": "kg",
@@ -2376,6 +2465,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyester recyclé (recyclage chimique partiel)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "unit": "kg",
@@ -2412,6 +2502,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyester recyclé (recyclage chimique complet)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "unit": "kg",
@@ -2448,6 +2539,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyamide recyclé (recyclage chimique)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "unit": "kg",
@@ -2484,6 +2576,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Viscose recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "unit": "kg",
@@ -2520,6 +2613,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Polyamide recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=af5d130d-f18b-438c-9f19-d1ee49756960",
     "unit": "kg",
@@ -2556,6 +2650,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Laine recyclée",
     "info": "Textile > Matières > Matières recyclées uuid_bi=92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "unit": "kg",
@@ -2592,6 +2687,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Coton recyclé (déchets post-consommation)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
@@ -2628,6 +2724,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Coton recyclé (déchets de production)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
@@ -2664,6 +2761,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Acrylique recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=7603beaa-c555-4283-b9f8-4d5d231b8490",
     "unit": "kg",
@@ -2700,6 +2798,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique), inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -2736,6 +2835,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "",
     "name": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
@@ -2772,6 +2872,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Tricotage fully-fashioned",
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
@@ -2808,6 +2909,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Tricotage seamless",
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
@@ -2844,6 +2946,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Tissage (habillement)",
     "info": "Textile > Mise en forme > Tissage",
     "unit": "kg",
@@ -2880,6 +2983,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Teinture sur étoffe",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -2916,6 +3020,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Teinture sur pièce",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -2952,6 +3057,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Teinture sur fil",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -2988,6 +3094,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO",
     "info": "Transport > Maritime > Flotte moyenne",
     "unit": "t*km",
@@ -3024,6 +3131,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO",
     "info": "Transport > Aérien > Flotte moyenne",
     "unit": "t*km",
@@ -3060,6 +3168,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO",
     "info": "Transport > Routier > Flotte moyenne continentale",
     "unit": "t*km",
@@ -3096,6 +3205,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER",
     "info": "Transport > Routier > Flotte moyenne continentale",
     "unit": "t*km",
@@ -3132,6 +3242,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "info": "Transport > Routier > Flotte moyenne française",
     "unit": "t*km",
@@ -3168,6 +3279,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3204,6 +3316,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3240,6 +3353,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3276,6 +3390,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3312,6 +3427,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3348,6 +3464,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3384,6 +3501,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3420,6 +3538,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3456,6 +3575,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3492,6 +3612,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3528,6 +3649,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3564,6 +3686,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, AZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3600,6 +3723,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3636,6 +3760,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3672,6 +3797,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3708,6 +3834,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3744,6 +3871,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3780,6 +3908,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BJ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3816,6 +3945,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3852,6 +3982,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3888,6 +4019,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3924,6 +4056,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BW",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3960,6 +4093,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, BY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3996,6 +4130,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4032,6 +4167,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4068,6 +4204,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4104,6 +4241,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4140,6 +4278,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CI",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4176,6 +4315,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4212,6 +4352,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4248,6 +4389,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4284,6 +4426,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4320,6 +4463,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4356,6 +4500,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4392,6 +4537,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, CZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4428,6 +4574,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, DE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4464,6 +4611,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, DK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4500,6 +4648,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, DO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4536,6 +4685,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, DZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4572,6 +4722,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, EC",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4608,6 +4759,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, EE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4644,6 +4796,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, EG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4680,6 +4833,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ER",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4716,6 +4870,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ET",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4752,6 +4907,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, FI",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4788,6 +4944,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4824,6 +4981,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GB",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4860,6 +5018,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4896,6 +5055,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4932,6 +5092,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GI",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -4968,6 +5129,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, GT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5004,6 +5166,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, HK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5040,6 +5203,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, HN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5076,6 +5240,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, HR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5112,6 +5277,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, HT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5148,6 +5314,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, HU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5184,6 +5351,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ID",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5220,6 +5388,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5256,6 +5425,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5292,6 +5462,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IQ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5328,6 +5499,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5364,6 +5536,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IS",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5400,6 +5573,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, IT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5436,6 +5610,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, JM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5472,6 +5647,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, JO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5508,6 +5684,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, JP",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5544,6 +5721,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5580,6 +5758,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5616,6 +5795,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5652,6 +5832,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KP",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5688,6 +5869,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5724,6 +5906,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KW",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5760,6 +5943,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, KZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5796,6 +5980,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LB",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5832,6 +6017,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5868,6 +6054,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5904,6 +6091,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5940,6 +6128,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LV",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -5976,6 +6165,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, LY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6012,6 +6202,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6048,6 +6239,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6084,6 +6276,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6120,6 +6313,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6156,6 +6350,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6192,6 +6387,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, moyenne, RER",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6228,6 +6424,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6264,6 +6461,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MX",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6300,6 +6498,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6336,6 +6535,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, MZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6372,6 +6572,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6408,6 +6609,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6444,6 +6646,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NI",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6480,6 +6683,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6516,6 +6720,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6552,6 +6757,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, non spécifié",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6588,6 +6794,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NP",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6624,6 +6831,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, NZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6660,6 +6868,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, OM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6696,6 +6905,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6732,6 +6942,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6768,6 +6979,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6804,6 +7016,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6840,6 +7053,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6876,6 +7090,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, PY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6912,6 +7127,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, QA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6948,6 +7164,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, RO",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6984,6 +7201,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, RS",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7020,6 +7238,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, RU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7056,6 +7275,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7092,6 +7312,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7128,6 +7349,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7164,6 +7386,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7200,6 +7423,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SI",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7236,6 +7460,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7272,6 +7497,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7308,6 +7534,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SV",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7344,6 +7571,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, SY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7380,6 +7608,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TG",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7416,6 +7645,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7452,6 +7682,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TJ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7488,6 +7719,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7524,6 +7756,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7560,6 +7793,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TW",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7596,6 +7830,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, TZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7632,6 +7867,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, UA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7668,6 +7904,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, US",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7704,6 +7941,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, UY",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7740,6 +7978,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, UZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7776,6 +8015,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, VE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7812,6 +8052,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, VN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7848,6 +8089,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, YE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7884,6 +8126,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ZA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7920,6 +8163,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ZM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7956,6 +8200,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix électrique réseau, ZW",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7992,6 +8237,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
+    "search": "",
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
@@ -8028,6 +8274,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
@@ -8064,6 +8311,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -8100,6 +8348,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Cape)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8136,6 +8385,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Châle)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8172,6 +8422,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Chemisier)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8208,6 +8459,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Débardeur)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8244,6 +8496,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Echarpe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8280,6 +8533,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Gilet)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8316,6 +8570,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Jean)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8352,6 +8607,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Jupe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8388,6 +8644,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Manteau)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8424,6 +8681,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Pantalon)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8460,6 +8718,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Pull)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8496,6 +8755,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Robe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8532,6 +8792,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (T-shirt)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8568,6 +8829,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Repassage - Ironing (Veste)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
@@ -8604,6 +8866,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Cape) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8640,6 +8903,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Châle) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8676,6 +8940,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Chemisier) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8712,6 +8977,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Débardeur) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8748,6 +9014,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Echarpe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8784,6 +9051,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Gilet) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8820,6 +9088,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jean) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8856,6 +9125,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jupe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8892,6 +9162,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Manteau) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8928,6 +9199,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pantalon) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -8964,6 +9236,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pull) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -9000,6 +9273,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Robe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -9036,6 +9310,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (T-shirt) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -9072,6 +9347,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Veste) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
@@ -9108,6 +9384,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "info": "Transport > Routier > Voiture individuelle",
     "unit": "Item(s)",
@@ -9144,6 +9421,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Mise en décharge de textiles, FR",
     "info": "Traitement de fin de vie > Mise en décharge > Fractions de déchets",
     "unit": "kg",
@@ -9180,6 +9458,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "unit": "kg",
@@ -9216,6 +9495,7 @@
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts"
   },
   {
+    "search": "",
     "name": "Tricotage rectiligne, inventaire désagrégé",
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
@@ -9252,6 +9532,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Tricotage circulaire, inventaire désagrégé",
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
@@ -9288,6 +9569,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RER/Steam Mix (technology mix|production mix, at steam plant), RER",
     "info": "Energie > Chaleur > Mix moyen",
     "unit": "MJ",
@@ -9324,6 +9606,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "info": "Textile > Ennoblissement > Delavage",
     "unit": "kg",
@@ -9360,6 +9643,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Impression",
     "unit": "m2",
@@ -9396,6 +9680,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Impression",
     "unit": "m2",
@@ -9432,6 +9717,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Appret chimique",
     "unit": "kg",
@@ -9468,6 +9754,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Teinture fibres synthétiques",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -9478,14 +9765,14 @@
       "bvi": 0,
       "cch": 0,
       "etf": 0,
-      "etf-c": 0,
+      "etf-c": 104.31895810274,
       "fru": 0,
       "fwe": 0,
       "ior": 0,
       "htc": 0,
-      "htc-c": 0,
+      "htc-c": 2.1936995372e-11,
       "htn": 0,
-      "htn-c": 0,
+      "htn-c": 0.00000000625094526675,
       "ldu": 0,
       "mru": 0,
       "ozd": 0,
@@ -9504,6 +9791,7 @@
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
   {
+    "search": "",
     "name": "Teinture fibres cellulosiques",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -9514,14 +9802,14 @@
       "bvi": 0,
       "cch": 0,
       "etf": 0,
-      "etf-c": 0,
+      "etf-c": 272.815415091109,
       "fru": 0,
       "fwe": 0,
       "ior": 0,
       "htc": 0,
-      "htc-c": 0,
+      "htc-c": 5.891974316e-12,
       "htn": 0,
-      "htn-c": 0,
+      "htn-c": 0.00000000078628564143,
       "ldu": 0,
       "mru": 0,
       "ozd": 0,
@@ -9540,6 +9828,7 @@
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
   {
+    "search": "",
     "name": "Blanchiment",
     "info": "Textile > Ennoblissement > Blanchiment",
     "unit": "kg",
@@ -9550,14 +9839,14 @@
       "bvi": 0,
       "cch": 0,
       "etf": 0,
-      "etf-c": 0,
+      "etf-c": 127.23919595637,
       "fru": 0,
       "fwe": 0,
       "ior": 0,
       "htc": 0,
-      "htc-c": 0,
+      "htc-c": 6.03445356432e-11,
       "htn": 0,
-      "htn-c": 0,
+      "htn-c": 0.000000001553051544382,
       "ldu": 0,
       "mru": 0,
       "ozd": 0,
@@ -9576,6 +9865,7 @@
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
   {
+    "search": "",
     "name": "Impression (pigmentaire)",
     "info": "Textile > Ennoblissement > Impression",
     "unit": "kg",
@@ -9586,14 +9876,14 @@
       "bvi": 0,
       "cch": 0,
       "etf": 0,
-      "etf-c": 0,
+      "etf-c": 340.107561026106,
       "fru": 0,
       "fwe": 0,
       "ior": 0,
       "htc": 0,
-      "htc-c": 0,
+      "htc-c": 3.847432322e-12,
       "htn": 0,
-      "htn-c": 0,
+      "htn-c": 0.000000007326437877005,
       "ldu": 0,
       "mru": 0,
       "ozd": 0,
@@ -9612,6 +9902,7 @@
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
   {
+    "search": "",
     "name": "Impression fixé-lavé (colorants)",
     "info": "Textile > Ennoblissement > Impression",
     "unit": "kg",
@@ -9622,14 +9913,14 @@
       "bvi": 0,
       "cch": 0,
       "etf": 0,
-      "etf-c": 0,
+      "etf-c": 131.926230792062,
       "fru": 0,
       "fwe": 0,
       "ior": 0,
       "htc": 0,
-      "htc-c": 0,
+      "htc-c": 1.30267071248e-12,
       "htn": 0,
-      "htn-c": 0,
+      "htn-c": 0.0000000011829465125544,
       "ldu": 0,
       "mru": 0,
       "ozd": 0,
@@ -9648,6 +9939,7 @@
     "correctif": "Inventaires enrichis (substances chimiques)"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RSA",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9684,6 +9976,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de fioul léger (technologie non spécifiée), RER",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9720,6 +10013,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de fioul léger (technologie non spécifiée), RSA",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9756,6 +10050,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de fioul lourd (technologie non spécifiée), RER",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9792,6 +10087,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de fioul lourd (technologie non spécifiée), RSA",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9828,6 +10124,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de charbon/anthracite (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|> 50MW), RER",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
@@ -9864,6 +10161,7 @@
     "correctif": "non applicable"
   },
   {
+    "search": "",
     "name": "Vapeur à partir de charbon/anthracite (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|> 50MW), RSA",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
