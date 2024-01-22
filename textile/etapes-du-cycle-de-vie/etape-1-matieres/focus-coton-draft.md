@@ -20,14 +20,15 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
 
 ### Différents types de coton (conventionnel, biologique, recyclé)&#x20;
 
-* coton conventionnel (72%\* de la production mondiale)
-* coton biologique & autres programmes (27%\* de la production mondiale)\
+* coton conventionnel (98%\* de la production mondiale)\
+  Près de 25% de la production mondiale de coton est engagée dans des [programmes ](#user-content-fn-2)[^2]\(non certifiés) visant à rendre les pratiques plus soutenables.
+* coton biologique certifié (1,4%)\
   Il n'existe pas de définition claire du coton bio/organique. Le périmètre de ces pratiques est flou et se caractérise par les labels et certifications internationales (ex : GOTS, Oeko-Tex, etc.). \
   Ces pratiques consistent principalement à ne pas traiter ni modifier génétiquement les graines de coton tout en utilisant du compost naturel (remplaçant les engrais chimiques) et des pesticides naturels (remplaçant les pesticides de synthèse).
 * coton recyclé (1%\* de la production mondiale)\
   Réutiliser des fibres existantes permet d'économiser les pesticides, engrais et eau nécessaires pour la production de la même quantité de matière vierge. \
   \
-  \* Source : Textile Exchange \_ Market report 2023
+  \* Source : Textile Exchange (_Market report 2023_ & _Organic Cotton Market Report 2022_)
 
 ### Enjeux environnementaux&#x20;
 
@@ -66,3 +67,5 @@ Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 </details>
 
 [^1]: Market report 2023 \_ Textile Exchange
+
+[^2]: Cf. Market Report 2023 (Textile Exchange) pour plus d'info &#x20;

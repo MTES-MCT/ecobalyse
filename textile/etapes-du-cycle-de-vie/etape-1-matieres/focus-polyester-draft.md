@@ -22,7 +22,7 @@ Dans le textile, les termes PET (polyethylène téréphtalate) et PES (polyester
 
 Le polyester recyclé représente 14% de la production mondiale en 2022.
 
-Il est à noter  qu'il est aujourd'hui très difficile de recycler des vêtements en d'autres vêtements faut de solutions techniques à grande échelle, du fait que le polyester est souvent mélangé à d'autres manières tandis qu'il contient des impuretés.&#x20;
+Il est à noter  qu'il est aujourd'hui très difficile de recycler des vêtements en d'autres vêtements faute de solutions techniques à grande échelle, du fait que le polyester est souvent mélangé à d'autres matières tandis qu'il contient des impuretés.&#x20;
 
 99% du polyester recyclé utilisé dans le textile est fabriqué à partir de bouteilles en plastique.&#x20;
 
@@ -33,10 +33,10 @@ Il est à noter  qu'il est aujourd'hui très difficile de recycler des vêtement
 Les principaux enjeux environnementaux liés à la production de polyester sont :&#x20;
 
 * le changement climatique,\
-  Dérivée du pétrole et en pleine expansion, la production de polyester pour le marché textile participe au dérèglement climatique. L'extraction et le raffinage du pétrole, la production et l'utilisation de produits chimiques ainsi que la productioon d'énergie nécessaire à la production de la fibre expliquent cela.
+  Dérivée du pétrole et en pleine expansion, la production de polyester pour le marché textile participe au dérèglement climatique. L'extraction et le raffinage du pétrole, la production et l'utilisation de produits chimiques ainsi que l'utilisation conséquente d'énergie expliquent cela.
 * les microplastiques,\
   Le polyester relargue sur l'ensemble du cycle de vie des microfibres (microplastiques) qui sont persistants (non biodégradables) dans l'environnement et toxiques pour les organismes vivants. \
-  Un complément à ce sujet a été introduit (cf. [ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres))
+  Un complément à ce sujet a été introduit (cf. [ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres)).
 
 ## Modélisation Ecobalyse
 

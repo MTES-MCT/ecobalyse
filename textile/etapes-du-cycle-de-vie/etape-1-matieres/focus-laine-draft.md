@@ -40,39 +40,60 @@ Selon la méthode utilisée et la zone d'élevage, l'impact environnemental de l
 
 {% tabs %}
 {% tab title="Allocation économique" %}
-L'allocation économique est la plus utilisée et est recommandée par l'ADEME concernant l'évaluation environnementale de matières d'origine animale.
+L'allocation économique est recommandée par l'ADEME concernant l'évaluation environnementale de matières d'origine animale.
 
-Cette allocation fluctue selon les prix du marché. Le marché de la laine est organisé par l'International Wool Trade Organization (IWTO). Le marché asiatique fixe les prix car cette région est le principal acheteur de laine pour la transformer.&#x20;
+Cette allocation fluctue selon les prix et la structure du marché.&#x20;
 
-Voici des ordres de grandeur d'allocations économiques proposées par le marché :&#x20;
+**Focus Prix** \
+Le marché de la laine est organisé par l'International Wool Trade Organization (IWTO). Le marché asiatique fixe les prix car cette région est le principal acheteur de laine pour la transformer.&#x20;
+
+**Focus Structure**\
+Cf. la section Généralités
+
+:bulb: **Illustrations d'allocations économiques :**&#x20;
 
 Selon une étude parue en 2015 et comparant différents systèmes/géographiques de production de laine (source [ici](https://link.springer.com/article/10.1007/s11367-015-0849-z)) : \
-:flag\_gb: Royaume-Uni = 4% laine / 96% viande\
-:flag\_nz:Nouvelle-Zélande (151 fermes) => 19% laine / 81% viande\
-:flag\_au:Australie (3 fermes / laine merinos région méridionale) => 47% laine / 53% viande\
-:flag\_au:Australie (3 fermes laine merinos ++ / région septentrionale) => 52% laine / 48% viande&#x20;
+:flag\_gb: Royaume-Uni = 4% laine\
+:flag\_nz:Nouvelle-Zélande (151 fermes) => 19% laine\
+:flag\_au:Australie (3 fermes / laine merinos / région méridionale) => 47% laine\
+:flag\_au:Australie (3 fermes / laine merinos ++ / région septentrionale) => 52% laine
 
-:flag\_us: Etats-Unis (année 2007) => 23% laine / 77% viande (source[^2])
+Autres sources : \
+:flag\_us: Etats-Unis (année 2007) => 23% laine / 77% viande (source[^2]) \
+:flag\_nz:Nouvelle-Zélande => 3% laine / 95% viande (source[^3])\
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^4])
 {% endtab %}
 
-{% tab title="Biophysique" %}
-Allocation en fonction du contenu en protéines de la laine et de la viande produites par le mouton.
+{% tab title="Allocation biophysique" %}
+Allocation en fonction du contenu en protéines de la laine et de la viande produites par le mouton.\
+L'[IWTO](https://iwto.org/) recommande une allocation biophysique; la laine se voit alors attribuer 35% à 38% des impacts liés à l'élevage du mouton.&#x20;
 
-* l'[IWTO](https://iwto.org/) recommande une allocation biophysique \
-  &#x20;35% à 38% laine / 62% à 65% viande&#x20;
 
-Source utilisée pour les données ci-dessous ([ici](https://link.springer.com/article/10.1007/s11367-015-0849-z)) :&#x20;
 
-* Etude sur 151 fermes en Nouvelle-Zélande  \
-  43% laine / 57% viande
-* Etude sur 3 fermes de laine merinos en Australie (région méridionale)\
-  50% laine / 50% viande
-* Etude 3 fermes de laine merinos de haute-qualité en Australie (région septentrionale)\
-  45% laine / 55% viande&#x20;
+
+
+Selon une étude parue en 2015 et comparant différents systèmes/géographiques de production de laine (source [ici](https://link.springer.com/article/10.1007/s11367-015-0849-z)) : \
+:flag\_gb: Royaume-Uni = 22% laine / 78% viande\
+:flag\_nz:Nouvelle-Zélande (151 fermes) => 43% laine / 57% viande\
+:flag\_au:Australie (3 fermes / laine merinos région méridionale) => 50% laine / 50% viande\
+:flag\_au:Australie (3 fermes laine merinos ++ / région septentrionale) => 45% laine / 55% viande&#x20;
+
+Autres sources : \
+:flag\_au:Australie (deux régions produisant de la laine merino via 52 fermes ) : 47% (source[^5]) \
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 48% laine (source[^6])
 {% endtab %}
 
-{% tab title="[xxx]" %}
+{% tab title="Allocation massique" %}
+:bulb: **Illustrations d'allocations massiques :**&#x20;
 
+Selon une étude parue en 2015 et comparant différents systèmes/géographiques de production de laine (source [i](https://link.springer.com/article/10.1007/s11367-015-0849-z)[ci](https://link.springer.com/article/10.1007/s11367-015-0849-z)) : \
+:flag\_gb: Royaume-Uni = 19% laine \
+:flag\_nz:Nouvelle-Zélande (151 fermes) => 39% laine\
+:flag\_au:Australie (3 fermes / laine merinos région méridionale) => 40% laine &#x20;
+
+Autres sources : \
+:flag\_nz:Nouvelle-Zélande : 20% laine (source[^7])\
+:flag\_nz:Nouvelle-Zélande : 25% laine (source[^8])
 {% endtab %}
 {% endtabs %}
 
@@ -93,14 +114,14 @@ En suivant les recommandations de l'ADEME, une allocation économique est utilis
 
 Deux scénarios sont proposés :&#x20;
 
-* Laine (par défaut) => modélisation d'un scénario moyen en repartant du procédé Ecoinvent _sheep production, for wool_
-* Laine (France) => modélisation d'un scénario spécifique au marché français  en repartant du procédé Ecoinvent _sheep production, for wool_
+* Laine (par défaut) => modélisation d'un scénario moyen (procédé Ecoinvent = _sheep production, for wool_
+* Laine (France) => modélisation d'un scénario spécifique au marché français en appliquant un taux d'allocation économique de 5% au procédé Ecoinvent _sheep production, for wool_
 
 La seule différence entre ces deux procédés est le taux d'allocation utilisé (cf. ci-dessous).
 
 <details>
 
-<summary>Laine</summary>
+<summary>Laine (par défaut)</summary>
 
 Procédé Ecoinvent => _sheep production, for wool_
 
@@ -115,7 +136,7 @@ _**Allocation économique** => 50% de l'impact du mouton est alloué à la laine
 
 <details>
 
-<summary>Laine française</summary>
+<summary>Laine (France)</summary>
 
 Procédé Ecoinvent => _sheep production, for wool_
 
@@ -131,3 +152,15 @@ _**Allocation économique** => 5% de l'impact du mouton est alloué à la laine_
 [^1]: Textile Exchange (market report 2023)
 
 [^2]: Travaux ENSAIT & EIME dans le cadre de la mise en place de la base de données EIME
+
+[^3]: Base de données Gabi (procédé _Sheep wool yarn)_
+
+[^4]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+
+[^5]: Etude parue en 2020 : _Environmental impacts associated with the production, use, and end-of-life of a woollen garment_
+
+[^6]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+
+[^7]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+
+[^8]: Etude parue en 2006 et commissionnée par la New-Zealand Merino Company => "LCA : New Zealand Merino Industry"
