@@ -100,7 +100,7 @@ if __name__ == "__main__":
             "alias": activity["alias"],
             "step_usage": activity["step_usage"],
             "correctif": activity["correctif"],
-            "country": activity["country"],
+            # "country": activity["country"],
         }
         for activity in activities
     }
