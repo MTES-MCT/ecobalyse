@@ -95,6 +95,21 @@
     "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
     "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
+    "name": "(EI) Fil de coton conventionnel",
+    "shortName": "Coton",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 100,
+    "cff": null
+  },
+  {
+    "id": "coton",
+    "materialAndSpinningProcessUuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
+    "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
+    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
+    "recycledFrom": null,
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
     "shortName": "Coton",
     "origin": "NaturalFromVegetal",
@@ -237,6 +252,21 @@
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
+    "cff": null
+  },
+  {
+    "id": "pet",
+    "materialAndSpinningProcessUuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
+    "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
+    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
+    "recycledFrom": null,
+    "name": "(EI) Filament de polyester",
+    "shortName": "Polyester",
+    "origin": "Synthetic",
+    "primary": true,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 80,
     "cff": null
   },
   {
