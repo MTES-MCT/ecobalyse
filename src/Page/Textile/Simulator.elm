@@ -620,12 +620,12 @@ selectProduct autocompleteState ( model, session, _ ) =
                 |> Maybe.withDefault Inputs.defaultQuery.product
 
         currentQuery =
-            model.initialQuery
+            session.queries.textile
 
         updatedQuery =
             { currentQuery | product = product }
     in
-    update session (SetModal NoModal) { model | initialQuery = updatedQuery }
+    update session (SetModal NoModal) model
         |> updateQuery updatedQuery
 
 
