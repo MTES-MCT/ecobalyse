@@ -670,7 +670,7 @@ productCategoryField { products } query =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "selector-product"
-            , class "col-sm-4 col-form-label fw-bold text-truncate"
+            , class "col-sm-4 col-form-label text-truncate"
             ]
             [ text "Catégorie" ]
         , button
@@ -692,11 +692,11 @@ numberOfReferencesField =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
-            , class "col-sm-7 col-form-label fw-bold text-truncate"
+            , class "col-sm-7 col-form-label text-truncate"
             ]
             [ text "Nombre de références" ]
         , div [ class "col-sm-5" ]
-            [ input [ type_ "number", class "form-control" ] []
+            [ input [ type_ "number", id "number-of-references", class "form-control" ] []
             ]
         ]
 
@@ -705,13 +705,13 @@ productPriceField : Html Msg
 productPriceField =
     div [ class "row align-items-center g-2" ]
         [ label
-            [ for "number-of-references"
-            , class "col-sm-4 col-form-label f  w-bold text-truncate"
+            [ for "product-price"
+            , class "col-sm-4 col-form-label text-truncate"
             ]
             [ text "Prix neuf" ]
         , div [ class "col-sm-8" ]
             [ div [ class "input-group" ]
-                [ input [ type_ "number", class "form-control" ] []
+                [ input [ type_ "number", id "product-price", class "form-control" ] []
                 , span [ class "input-group-text" ] [ text "€" ]
                 ]
             ]
@@ -722,13 +722,13 @@ marketingDurationField : Html Msg
 marketingDurationField =
     div [ class "row align-items-center g-2" ]
         [ label
-            [ for "number-of-references"
-            , class "col-sm-7 col-form-label fw-bold text-truncate"
+            [ for "marketing-duration"
+            , class "col-sm-7 col-form-label text-truncate"
             ]
             [ text "Durée de commercialisation" ]
         , div [ class "col-sm-5" ]
             [ div [ class "input-group" ]
-                [ input [ type_ "number", class "form-control" ] []
+                [ input [ type_ "number", id "marketing-duration", class "form-control" ] []
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
                 ]
             ]
@@ -738,7 +738,7 @@ marketingDurationField =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold text-truncate" ]
+        [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -763,21 +763,19 @@ durabilityField updateDurability durability =
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
     in
-    div [ class "d-flex justify-content-start gap-3" ]
-        [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
-            [ text "Indice de durabilité" ]
+    div [ class "d-flex justify-content-center gap-3" ]
+        [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
+            [ text "Indice résultant de durabilité" ]
         , input
             [ type_ "range"
             , id "durability-field"
             , class "form-range w-auto"
-            , title "Un double-clic réinitialise la valeur"
             , onInput
                 (String.toFloat
                     >> Maybe.map Unit.durability
                     >> Maybe.withDefault Unit.standardDurability
                     >> updateDurability
                 )
-            , onDoubleClick (updateDurability Unit.standardDurability)
             , Attr.min (fromFloat Unit.minDurability)
             , Attr.max (fromFloat Unit.maxDurability)
 
@@ -857,7 +855,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
-                [ div [ class "card-header" ] [ text "Durabilité non-physique" ]
+                [ div [ class "card-header fw-bold" ] [ text "Durabilité non-physique" ]
                 , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ productCategoryField textileDb (Inputs.toQuery inputs)
