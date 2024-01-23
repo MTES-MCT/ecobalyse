@@ -150,7 +150,7 @@ Cinq scénarios de fibre sont proposés : synthétique, naturelle origine végé
 
 Pour chacun de ces scénarios, un niveau de Persistance (P) et de Relargage (R) est défini sur une échelle de 0 (très faible) à 10 (très élevé).    &#x20;
 
-<table><thead><tr><th width="314.3333333333333">Nature des fibres (f)</th><th width="202">Persistance (P)</th><th width="160">Relargage (R)</th></tr></thead><tbody><tr><td>Synthétique</td><td>10</td><td>3</td></tr><tr><td>Naturelle (origine végétale)</td><td>3</td><td>7</td></tr><tr><td>Naturelle (origine animale)</td><td>6</td><td>5</td></tr><tr><td>Artificielle (origine organique)</td><td>3</td><td>5</td></tr><tr><td>Artificielle (origine inorganique)</td><td>10</td><td>5</td></tr></tbody></table>
+<table><thead><tr><th width="314.3333333333333">Nature des fibres (f)</th><th width="202">Persistance (P)</th><th width="160">Relargage (R)</th></tr></thead><tbody><tr><td>Synthétique</td><td>10</td><td>3</td></tr><tr><td>Naturelle (origine végétale)</td><td>3</td><td>7</td></tr><tr><td>Naturelle (origine animale)</td><td>6</td><td>5</td></tr><tr><td>Artificielle</td><td>3</td><td>5</td></tr><tr><td>Artificielle (origine inorganique)</td><td>10</td><td>5</td></tr></tbody></table>
 
 **Etape 2 = Pondération des paramètres**
 

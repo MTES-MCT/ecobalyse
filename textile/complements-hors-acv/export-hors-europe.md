@@ -146,13 +146,6 @@ Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la 
 
 </details>
 
-## Modulation du complément "Export hors Europe"
-
-La valeur de la probabilité de fin de vie hors Europe sous forme de déchets peut être modifiée par l'utilisateur qui modéliserait ainsi une probabilité s'écartant de la valeur par défaut définie en fonction du type de vêtement (matières synthétiques vs autre ). La valeur de cette probabilité peut aller de :&#x20;
-
-* 0% --> revient à annuler le complément "Export hors Europe" ;
-* 25% --> revient à considérée que le vêtement a 25% de chance de se retrouver sous forme de déchets Hors Europe (= 2,3x la probabilité par défaut retenue pour les vêtements synthétiques).
-
 ## Affichage du complément "Export hors Europe"
 
 A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Export hors Europe" vient s'ajouter directement au score d'impacts exprimé en points.
