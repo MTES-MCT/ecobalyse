@@ -5218,7 +5218,7 @@
   {
     "id": "lamb-meat-without-bone",
     "name": "Meat without bone, lamb {FR} U",
-    "displayName": "Viande d'agneau (sans os)",
+    "displayName": "Viande d'agneau (désossée)",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109223",
     "system_description": "AGRIBALYSE",
@@ -5250,7 +5250,7 @@
   {
     "id": "lamb-organic-meat-without-bone",
     "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Viande d'agneau (sans os)",
+    "displayName": "Viande d'agneau bio (désossée)",
     "unit": "kilogram",
     "identifier": "f025b4a41c45eabdb2510795b3353ca4",
     "system_description": "Ecobalyse",

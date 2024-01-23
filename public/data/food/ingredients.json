@@ -1928,7 +1928,7 @@
   },
   {
     "id": "lamb-meat-without-bone",
-    "name": "Viande d'agneau (sans os)",
+    "name": "Viande d'agneau (désossée)",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109223",
     "default_origin": "EuropeAndMaghreb",
@@ -1947,7 +1947,7 @@
   },
   {
     "id": "lamb-organic-meat-without-bone",
-    "name": "Viande d'agneau (sans os)",
+    "name": "Viande d'agneau bio (désossée)",
     "categories": ["animal_product"],
     "default": "f025b4a41c45eabdb2510795b3353ca4",
     "default_origin": "EuropeAndMaghreb",
