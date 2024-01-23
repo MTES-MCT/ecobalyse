@@ -371,7 +371,6 @@ parseTextileQuery textileDb =
         |> apply (maybeDurationParser "marketingDuration")
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePriceParser "price")
-        |> apply (maybePriceParser "repairCost")
 
 
 toErrors : ParseResult a -> Result Errors a

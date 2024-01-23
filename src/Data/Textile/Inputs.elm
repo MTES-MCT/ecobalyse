@@ -107,7 +107,6 @@ type alias Inputs =
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
-    , repairCost : Maybe Economics.Price
     }
 
 
@@ -143,7 +142,6 @@ type alias Query =
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
-    , repairCost : Maybe Economics.Price
     }
 
 
@@ -269,7 +267,6 @@ fromQuery db query =
         |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
-        |> RE.andMap (Ok query.repairCost)
 
 
 toQuery : Inputs -> Query
@@ -297,7 +294,6 @@ toQuery inputs =
     , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
-    , repairCost = inputs.repairCost
     }
 
 
@@ -743,7 +739,6 @@ decodeQuery =
         |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
-        |> Pipe.optional "repairCost" (Decode.maybe Economics.decodePrice) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -937,7 +932,6 @@ tShirtCotonAsie =
     , marketingDuration = Nothing
     , numberOfReferences = Nothing
     , price = Nothing
-    , repairCost = Nothing
     }
 
 

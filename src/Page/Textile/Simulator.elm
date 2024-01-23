@@ -23,6 +23,7 @@ import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
@@ -36,6 +37,7 @@ import Data.Textile.Product as Product
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -687,8 +689,8 @@ productCategoryField { products } query =
         ]
 
 
-numberOfReferencesField : Html Msg
-numberOfReferencesField =
+numberOfReferencesField : Int -> Html Msg
+numberOfReferencesField numberOfReferences =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
@@ -696,13 +698,19 @@ numberOfReferencesField =
             ]
             [ text "Nombre de références" ]
         , div [ class "col-sm-5" ]
-            [ input [ type_ "number", id "number-of-references", class "form-control" ] []
+            [ input
+                [ type_ "number"
+                , id "number-of-references"
+                , class "form-control"
+                , value (String.fromInt numberOfReferences)
+                ]
+                []
             ]
         ]
 
 
-productPriceField : Html Msg
-productPriceField =
+productPriceField : Economics.Price -> Html Msg
+productPriceField productPrice =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "product-price"
@@ -711,15 +719,21 @@ productPriceField =
             [ text "Prix neuf" ]
         , div [ class "col-sm-8" ]
             [ div [ class "input-group" ]
-                [ input [ type_ "number", id "product-price", class "form-control" ] []
+                [ input
+                    [ type_ "number"
+                    , id "product-price"
+                    , class "form-control"
+                    , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
+                    ]
+                    []
                 , span [ class "input-group-text" ] [ text "€" ]
                 ]
             ]
         ]
 
 
-marketingDurationField : Html Msg
-marketingDurationField =
+marketingDurationField : Duration -> Html Msg
+marketingDurationField marketingDuration =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "marketing-duration"
@@ -728,7 +742,14 @@ marketingDurationField =
             [ text "Durée de commercialisation" ]
         , div [ class "col-sm-5" ]
             [ div [ class "input-group" ]
-                [ input [ type_ "number", id "marketing-duration", class "form-control" ] []
+                [ input
+                    [ type_ "number"
+                    , id "marketing-duration"
+                    , class "form-control"
+                    , step "1"
+                    , marketingDuration |> Duration.inDays |> String.fromFloat |> value
+                    ]
+                    []
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
                 ]
             ]
@@ -861,15 +882,21 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         [ productCategoryField textileDb (Inputs.toQuery inputs)
                         ]
                     , div [ class "col-md-6" ]
-                        [ numberOfReferencesField
+                        [ inputs.numberOfReferences
+                            |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                            |> numberOfReferencesField
                         ]
                     ]
                 , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
-                        [ productPriceField
+                        [ inputs.price
+                            |> Maybe.withDefault inputs.product.economics.price
+                            |> productPriceField
                         ]
                     , div [ class "col-md-6" ]
-                        [ marketingDurationField
+                        [ inputs.marketingDuration
+                            |> Maybe.withDefault inputs.product.economics.marketingDuration
+                            |> marketingDurationField
                         ]
                     ]
                 , div [ class "card-body" ] [ durabilityField UpdateDurability inputs.durability ]
