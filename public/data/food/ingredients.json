@@ -24,8 +24,8 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 4.69,
-      "plotSize": 2.53,
+      "hedges": 0.31,
+      "plotSize": 0.3,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
       "livestockDensity": 0.0
@@ -43,9 +43,9 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 8.55,
-      "plotSize": 4.43,
-      "cropDiversity": 1.1,
+      "hedges": 0.78,
+      "plotSize": 0.77,
+      "cropDiversity": 0.55,
       "permanentPasture": 1.39,
       "livestockDensity": 0.0
     }
@@ -217,10 +217,10 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 242.73,
-      "plotSize": 117.27,
+      "hedges": 30.56,
+      "plotSize": 25.53,
       "cropDiversity": 0.0,
-      "permanentPasture": 42.55,
+      "permanentPasture": 37.5,
       "livestockDensity": -0.01
     }
   },
@@ -236,10 +236,10 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 269.68,
-      "plotSize": 135.63,
-      "cropDiversity": 24.04,
-      "permanentPasture": 45.03,
+      "hedges": 31.34,
+      "plotSize": 30.48,
+      "cropDiversity": 12.02,
+      "permanentPasture": 34.68,
       "livestockDensity": 0.0
     }
   },
@@ -330,9 +330,9 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 21.01,
-      "plotSize": 12.26,
-      "cropDiversity": 17.88,
+      "hedges": 3.0,
+      "plotSize": 3.07,
+      "cropDiversity": 8.94,
       "permanentPasture": 0.0,
       "livestockDensity": -0.01
     }
@@ -1625,7 +1625,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.03
+      "livestockDensity": -0.04
     }
   },
   {
@@ -1848,8 +1848,8 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 5.19,
-      "plotSize": 3.32,
+      "hedges": 0.77,
+      "plotSize": 0.87,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.01
@@ -1867,8 +1867,8 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 5.41,
-      "plotSize": 3.47,
+      "hedges": 0.64,
+      "plotSize": 0.72,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.01
@@ -1925,5 +1925,43 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "ecosystemicServices": {}
+  },
+  {
+    "id": "lamb-meat-without-bone",
+    "name": "Viande d'agneau (sans os)",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003109223",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 46.22,
+      "plotSize": 38.31,
+      "cropDiversity": 0.0,
+      "permanentPasture": 86.68,
+      "livestockDensity": 0.0
+    }
+  },
+  {
+    "id": "lamb-organic-meat-without-bone",
+    "name": "Viande d'agneau (sans os)",
+    "categories": ["animal_product"],
+    "default": "f025b4a41c45eabdb2510795b3353ca4",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 131.06,
+      "plotSize": 125.0,
+      "cropDiversity": 22.96,
+      "permanentPasture": 193.27,
+      "livestockDensity": 0.0
+    }
   }
 ]
