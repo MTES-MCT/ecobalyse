@@ -37,6 +37,7 @@ type alias Simulator =
     , lifeCycle : LifeCycle
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
+    , durability : Unit.Durability
     , transport : Transport
     , useNbCycles : Int
     }
@@ -70,6 +71,7 @@ init db =
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , complementsImpacts = Impact.noComplementsImpacts
+                            , durability = Unit.standardDurability
                             , transport = Transport.default defaultImpacts
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
@@ -628,22 +630,24 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
+computeFinalImpacts ({ lifeCycle } as simulator) =
     let
         durability =
-            Unit.durabilityToFloat inputs.durability
+            -- TODO: compute durablity
+            Unit.standardDurability
 
         complementsImpacts =
             lifeCycle
                 |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy durability
+                |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
+        , durability = durability
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy durability
+                |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -680,7 +684,7 @@ toStepsImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
-                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.inputs.durability)
+                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.durability)
                         )
                     )
 

@@ -107,7 +107,6 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
-    | UpdateDurability Unit.Durability
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -413,10 +412,6 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
-
-        UpdateDurability durability ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | durability = durability }
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -778,25 +773,19 @@ massField massInput =
         ]
 
 
-durabilityField : (Unit.Durability -> Msg) -> Unit.Durability -> Html Msg
-durabilityField updateDurability durability =
+durabilityField : Unit.Durability -> Html Msg
+durabilityField durability =
     let
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
     in
     div [ class "d-flex justify-content-center gap-3" ]
         [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
-            [ text "Indice résultant de durabilité" ]
+            [ text "Indice de durabilité" ]
         , input
             [ type_ "range"
             , id "durability-field"
             , class "form-range w-auto"
-            , onInput
-                (String.toFloat
-                    >> Maybe.map Unit.durability
-                    >> Maybe.withDefault Unit.standardDurability
-                    >> updateDurability
-                )
             , Attr.min (fromFloat Unit.minDurability)
             , Attr.max (fromFloat Unit.maxDurability)
 
@@ -840,7 +829,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
-                    , updateDurability = UpdateDurability
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
@@ -899,7 +887,9 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> marketingDurationField
                         ]
                     ]
-                , div [ class "card-body" ] [ durabilityField UpdateDurability inputs.durability ]
+                , div [ class "card-body" ]
+                    [ durabilityField simulator.durability
+                    ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
@@ -930,7 +920,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         (small []
                             [ text "Hors modulation durabilité\u{00A0}: "
                             , impacts
-                                |> Impact.multiplyBy (Unit.durabilityToFloat inputs.durability)
+                                |> Impact.multiplyBy (Unit.durabilityToFloat simulator.durability)
                                 |> Format.formatImpact model.impact
                             ]
                         )

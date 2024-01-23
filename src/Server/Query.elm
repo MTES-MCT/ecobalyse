@@ -356,7 +356,6 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeSplitParser "airTransportRatio")
-        |> apply (durabilityParser "durability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -657,35 +656,6 @@ maybeSplitParser key =
                         Ok (Result.toMaybe (Split.fromFloat float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-durabilityParser : String -> Parser (ParseResult Unit.Durability)
-durabilityParser key =
-    floatParser key
-        |> Query.map
-            (Maybe.map
-                (\float ->
-                    let
-                        ( min, max ) =
-                            ( Unit.durabilityToFloat Unit.minDurability
-                            , Unit.durabilityToFloat Unit.maxDurability
-                            )
-                    in
-                    if float < min || float > max then
-                        Err
-                            ( key
-                            , "Le coefficient de qualité intrinsèque doit être compris entre "
-                                ++ String.fromFloat min
-                                ++ " et "
-                                ++ String.fromFloat max
-                                ++ "."
-                            )
-
-                    else
-                        Ok (Unit.durability float)
-                )
-                >> Maybe.withDefault (Ok Unit.standardDurability)
             )
 
 
