@@ -44,6 +44,7 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -55,6 +56,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -102,6 +104,10 @@ type alias Inputs =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
+    , marketingDuration : Maybe Duration
+    , numberOfReferences : Maybe Int
+    , price : Maybe Economics.Price
+    , repairCost : Maybe Economics.Price
     }
 
 
@@ -134,6 +140,10 @@ type alias Query =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
+    , marketingDuration : Maybe Duration
+    , numberOfReferences : Maybe Int
+    , price : Maybe Economics.Price
+    , repairCost : Maybe Economics.Price
     }
 
 
@@ -256,6 +266,10 @@ fromQuery db query =
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.ennoblingHeatSource)
+        |> RE.andMap (Ok query.marketingDuration)
+        |> RE.andMap (Ok query.numberOfReferences)
+        |> RE.andMap (Ok query.price)
+        |> RE.andMap (Ok query.repairCost)
 
 
 toQuery : Inputs -> Query
@@ -280,6 +294,10 @@ toQuery inputs =
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
     , ennoblingHeatSource = inputs.ennoblingHeatSource
+    , marketingDuration = inputs.marketingDuration
+    , numberOfReferences = inputs.numberOfReferences
+    , price = inputs.price
+    , repairCost = inputs.repairCost
     }
 
 
@@ -722,6 +740,10 @@ decodeQuery =
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
+        |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
+        |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
+        |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
+        |> Pipe.optional "repairCost" (Decode.maybe Economics.decodePrice) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -912,6 +934,10 @@ tShirtCotonAsie =
     , dyeingMedium = Nothing
     , printing = Nothing
     , ennoblingHeatSource = Nothing
+    , marketingDuration = Nothing
+    , numberOfReferences = Nothing
+    , price = Nothing
+    , repairCost = Nothing
     }
 
 

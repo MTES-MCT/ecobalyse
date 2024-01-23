@@ -1,4 +1,11 @@
-module Data.Textile.Economics exposing (Economics, Price, decode, priceToFloat)
+module Data.Textile.Economics exposing
+    ( Economics
+    , Price
+    , decode
+    , decodePrice
+    , priceFromFloat
+    , priceToFloat
+    )
 
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -27,6 +34,11 @@ decode =
         |> Pipe.required "numberOfReferences" Decode.int
         |> Pipe.required "price" (Decode.map priceFromFloat Decode.float)
         |> Pipe.required "repairCost" (Decode.map priceFromFloat Decode.float)
+
+
+decodePrice : Decoder Price
+decodePrice =
+    Decode.map priceFromFloat Decode.float
 
 
 priceToFloat : Price -> Float

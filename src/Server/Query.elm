@@ -17,6 +17,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
@@ -28,6 +29,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
+import Duration exposing (Duration)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -271,12 +273,56 @@ maybeTransformParser key transforms =
             )
 
 
+maybePriceParser : String -> Parser (ParseResult (Maybe Economics.Price))
+maybePriceParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toFloat
+                    >> Maybe.map Economics.priceFromFloat
+                    >> Result.fromMaybe "Ce prix est invalide"
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
 distributionParser : String -> Parser (ParseResult (Maybe Distribution))
 distributionParser key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (Retail.fromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeDurationParser : String -> Parser (ParseResult (Maybe Duration))
+maybeDurationParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toFloat
+                    >> Maybe.map Duration.days
+                    >> Result.fromMaybe "Cette durée en jours est invalide"
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeIntParser : String -> Parser (ParseResult (Maybe Int))
+maybeIntParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toInt
+                    >> Result.fromMaybe "Nombre entier invalide"
                     >> Result.map Just
                     >> Result.mapError (\err -> ( key, err ))
                 )
@@ -322,6 +368,10 @@ parseTextileQuery textileDb =
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
         |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
+        |> apply (maybeDurationParser "marketingDuration")
+        |> apply (maybeIntParser "numberOfReferences")
+        |> apply (maybePriceParser "price")
+        |> apply (maybePriceParser "repairCost")
 
 
 toErrors : ParseResult a -> Result Errors a
