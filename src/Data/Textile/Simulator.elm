@@ -12,6 +12,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
@@ -630,11 +631,21 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ lifeCycle } as simulator) =
+computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
         durability =
-            -- TODO: compute durablity
-            Unit.standardDurability
+            Economics.computeDurabilityIndex
+                { marketingDuration =
+                    inputs.marketingDuration
+                        |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , numberOfReferences =
+                    inputs.numberOfReferences
+                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                , price =
+                    inputs.price
+                        |> Maybe.withDefault inputs.product.economics.price
+                , repairCost = inputs.product.economics.repairCost
+                }
 
         complementsImpacts =
             lifeCycle

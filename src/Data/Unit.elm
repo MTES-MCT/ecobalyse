@@ -12,6 +12,7 @@ module Data.Unit exposing
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
+    , durability
     , durabilityToFloat
     , encodeDurability
     , encodeImpact

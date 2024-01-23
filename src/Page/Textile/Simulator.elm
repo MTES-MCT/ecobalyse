@@ -113,9 +113,12 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
+    | UpdateMarketingDuration (Maybe Duration)
     | UpdateMassInput String
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
+    | UpdateNumberOfReferences (Maybe Int)
+    | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
@@ -454,6 +457,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
+        UpdateMarketingDuration marketingDuration ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | marketingDuration = marketingDuration }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -470,6 +477,14 @@ update ({ queries, navKey } as session) msg model =
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
+
+        UpdateNumberOfReferences numberOfReferences ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | numberOfReferences = numberOfReferences }
+
+        UpdatePrice price ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | price = price }
 
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
@@ -698,6 +713,7 @@ numberOfReferencesField numberOfReferences =
                 , id "number-of-references"
                 , class "form-control"
                 , value (String.fromInt numberOfReferences)
+                , onInput (String.toInt >> UpdateNumberOfReferences)
                 ]
                 []
             ]
@@ -719,6 +735,7 @@ productPriceField productPrice =
                     , id "product-price"
                     , class "form-control"
                     , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
+                    , onInput (String.toFloat >> Maybe.map Economics.priceFromFloat >> UpdatePrice)
                     ]
                     []
                 , span [ class "input-group-text" ] [ text "€" ]
@@ -743,6 +760,7 @@ marketingDurationField marketingDuration =
                     , class "form-control"
                     , step "1"
                     , marketingDuration |> Duration.inDays |> String.fromFloat |> value
+                    , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
                     ]
                     []
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
