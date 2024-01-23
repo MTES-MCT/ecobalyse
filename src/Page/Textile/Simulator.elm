@@ -655,8 +655,8 @@ exampleProductField query =
         ]
 
 
-productField : TextileDb.Db -> Inputs.Query -> Html Msg
-productField { products } query =
+productCategoryField : TextileDb.Db -> Inputs.Query -> Html Msg
+productCategoryField { products } query =
     let
         nameFromProductId =
             \productId ->
@@ -670,11 +670,11 @@ productField { products } query =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "selector-product"
-            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            , class "col-sm-4 col-form-label fw-bold text-truncate"
             ]
             [ text "Catégorie" ]
         , button
-            [ class "col-sm-6 flex-fill form-select ElementSelector text-start w-auto"
+            [ class "col-sm-8 flex-fill form-select ElementSelector text-start w-auto"
             , id "selector-product"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
@@ -692,10 +692,10 @@ numberOfReferencesField =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
-            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            , class "col-sm-7 col-form-label fw-bold text-truncate"
             ]
             [ text "Nombre de références" ]
-        , div [ class "col-sm-6" ]
+        , div [ class "col-sm-5" ]
             [ input [ type_ "number", class "form-control" ] []
             ]
         ]
@@ -706,10 +706,10 @@ productPriceField =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
-            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            , class "col-sm-4 col-form-label f  w-bold text-truncate"
             ]
             [ text "Prix neuf" ]
-        , div [ class "col-sm-6" ]
+        , div [ class "col-sm-8" ]
             [ div [ class "input-group" ]
                 [ input [ type_ "number", class "form-control" ] []
                 , span [ class "input-group-text" ] [ text "€" ]
@@ -723,10 +723,10 @@ marketingDurationField =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
-            , class "col-sm-6 col-form-label fw-bold text-truncate"
+            , class "col-sm-7 col-form-label fw-bold text-truncate"
             ]
             [ text "Durée de commercialisation" ]
-        , div [ class "col-sm-6" ]
+        , div [ class "col-sm-5" ]
             [ div [ class "input-group" ]
                 [ input [ type_ "number", class "form-control" ] []
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
@@ -858,15 +858,15 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 ]
             , div [ class "card shadow-sm mb-3" ]
                 [ div [ class "card-header" ] [ text "Durabilité non-physique" ]
-                , div [ class "card-body row align-items-start flex-md-columns" ]
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
-                        [ productField textileDb (Inputs.toQuery inputs)
+                        [ productCategoryField textileDb (Inputs.toQuery inputs)
                         ]
                     , div [ class "col-md-6" ]
                         [ numberOfReferencesField
                         ]
                     ]
-                , div [ class "card-body row align-items-start flex-md-columns" ]
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ productPriceField
                         ]
