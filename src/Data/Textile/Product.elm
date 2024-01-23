@@ -13,6 +13,7 @@ module Data.Textile.Product exposing
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics exposing (Economics)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Process as Process exposing (Process)
@@ -61,6 +62,7 @@ type alias Product =
     , surfaceMass : Unit.SurfaceMass
     , yarnSize : Unit.YarnSize
     , fabric : Fabric
+    , economics : Economics
     , dyeing : DyeingOptions
     , making : MakingOptions
     , use : UseOptions
@@ -138,6 +140,7 @@ decode processes =
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "yarnSize" Unit.decodeYarnSize
         |> Pipe.required "fabric" Fabric.decode
+        |> Pipe.required "economics" Economics.decode
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
