@@ -165,6 +165,23 @@
     }
   },
   {
+    "id": "lamb-organic-meat-without-bone",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "lamb meat without bone",
+    "suffix": "[organic], constructed by Ecobalyse",
+    "subactivities": [
+      "Slaughtering and chilling, of lamb, industrial production, French production mix, 1 kg of half lamb {FR} U {FR}",
+      "Slaughtering and chilling, of lamb, industrial production, French production mix, at plant, 1 kg of lamb carcass {FR} U {FR",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
+    ],
+    "replace": {
+      "Lamb conventional indoor production system at farm gate ": [
+        "Ecobalyse",
+        "lamb organic national average"
+      ]
+    }
+  },
+  {
     "id": "rapeseed-oil-organic",
     "search_in": "Agribalyse 3.1.1",
     "search": "Rapeseed oil mill {GLO}",
