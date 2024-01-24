@@ -366,7 +366,7 @@ def display_main_data(method, impact_category, activity):
     display(Markdown(f"## (Computing impacts...)"))
 
     # Impacts
-    scores = []
+    scores = dict()
     try:
         lca = bw2calc.LCA({activity: 1})
         impacts_error = ""
@@ -374,74 +374,93 @@ def display_main_data(method, impact_category, activity):
         for m in [m for m in bw2data.methods if m[0] == method]:
             lca.switch_method(m)
             lca.lcia()
-            scores.append(
-                {
-                    "Indicateur": ", ".join(m[1:]),
-                    "Score": lca.score,
-                    "Unité": bw2data.methods[m].get("unit", "(no unit)"),
-                }
-            )
+            name = ", ".join(m[1:])
+            scores[name] = {
+                "Indicateur": name,
+                "Score": lca.score,
+                "Unité": bw2data.methods[m].get("unit", "(no unit)"),
+            }
+        if method == EF31:
+            scores["Ecotoxicity, freshwater"] = {
+                "Indicateur": "Ecotoxicity, freshwater",
+                "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
+                + scores["Ecotoxicity, freshwater - part 2"]["Score"],
+                "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
+            }
+            # cleanup to keep 16 subimpacts
+            for subscore in [
+                "Ecotoxicity, freshwater - part 1",
+                "Ecotoxicity, freshwater - part 2",
+                "Ecotoxicity, freshwater - inorganics",
+                "Ecotoxicity, freshwater - organics - p.1",
+                "Ecotoxicity, freshwater - organics - p.2",
+                "Climate change - Biogenic",
+                "Climate change - Fossil",
+                "Climate change - Land use and LU change",
+                "Human toxicity, cancer - inorganics",
+                "Human toxicity, cancer - organics",
+                "Human toxicity, non-cancer - inorganics",
+                "Human toxicity, non-cancer - organics",
+            ]:
+                if subscore in scores:
+                    del scores[subscore]
     except Exception as e:
         impacts_error = (
             "Could not compute impact. Maybe you selected the biosphere?<br/>" + str(e)
         )
-    impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
-    impacts.set_properties(**{"background-color": "#EEE"})
-    impacts.format(formatter={"Score": "{:.4g}".format})
+    dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
+    dfimpacts.set_properties(**{"background-color": "#EEE"})
+    dfimpacts.format(formatter={"Score": "{:.4g}".format})
 
     # PEF
     if scores and method == EF31:
-        scores = {s["Indicateur"]: s["Score"] for s in scores}
         pef = (
-            scores["Acidification"]
+            scores["Acidification"]["Score"]
             / IMPACTS["acd"]["pef"]["normalization"]
             * IMPACTS["acd"]["pef"]["weighting"]
-            + scores["Climate change"]
+            + scores["Climate change"]["Score"]
             / IMPACTS["cch"]["pef"]["normalization"]
             * IMPACTS["cch"]["pef"]["weighting"]
-            + (
-                scores["Ecotoxicity, freshwater - part 1"]
-                + scores["Ecotoxicity, freshwater - part 2"]
-            )
+            + scores["Ecotoxicity, freshwater"]["Score"]
             / IMPACTS["etf"]["pef"]["normalization"]
             * IMPACTS["etf"]["pef"]["weighting"]
-            + scores["Particulate matter"]
+            + scores["Particulate matter"]["Score"]
             / IMPACTS["pma"]["pef"]["normalization"]
             * IMPACTS["pma"]["pef"]["weighting"]
-            + scores["Eutrophication, marine"]
+            + scores["Eutrophication, marine"]["Score"]
             / IMPACTS["swe"]["pef"]["normalization"]
             * IMPACTS["swe"]["pef"]["weighting"]
-            + scores["Eutrophication, freshwater"]
+            + scores["Eutrophication, freshwater"]["Score"]
             / IMPACTS["fwe"]["pef"]["normalization"]
             * IMPACTS["fwe"]["pef"]["weighting"]
-            + scores["Eutrophication, terrestrial"]
+            + scores["Eutrophication, terrestrial"]["Score"]
             / IMPACTS["tre"]["pef"]["normalization"]
             * IMPACTS["tre"]["pef"]["weighting"]
-            + scores["Human toxicity, cancer"]
+            + scores["Human toxicity, cancer"]["Score"]
             / IMPACTS["htc"]["pef"]["normalization"]
             * IMPACTS["htc"]["pef"]["weighting"]
-            + scores["Human toxicity, non-cancer"]
+            + scores["Human toxicity, non-cancer"]["Score"]
             / IMPACTS["htn"]["pef"]["normalization"]
             * IMPACTS["htn"]["pef"]["weighting"]
-            + scores["Ionising radiation"]
+            + scores["Ionising radiation"]["Score"]
             / IMPACTS["ior"]["pef"]["normalization"]
             * IMPACTS["ior"]["pef"]["weighting"]
-            + scores["Land use"]
+            + scores["Land use"]["Score"]
             / IMPACTS["ldu"]["pef"]["normalization"]
             * IMPACTS["ldu"]["pef"]["weighting"]
-            + scores["Ozone depletion"]
+            + scores["Ozone depletion"]["Score"]
             / IMPACTS["ozd"]["pef"]["normalization"]
             * IMPACTS["ozd"]["pef"]["weighting"]
-            + scores["Photochemical ozone formation"]
+            + scores["Photochemical ozone formation"]["Score"]
             / IMPACTS["pco"]["pef"]["normalization"]
             * IMPACTS["pco"]["pef"]["weighting"]
-            + scores["Resource use, fossils"]
+            + scores["Resource use, fossils"]["Score"]
             / IMPACTS["fru"]["pef"]["normalization"]
             * IMPACTS["fru"]["pef"]["weighting"]
-            + scores["Resource use, minerals and metals"]
+            + scores["Resource use, minerals and metals"]["Score"]
             / IMPACTS["mru"]["pef"]["normalization"]
             * IMPACTS["mru"]["pef"]["weighting"]
-            + scores["Water use"]
+            + scores["Water use"]["Score"]
             / IMPACTS["wtu"]["pef"]["normalization"]
             * IMPACTS["wtu"]["pef"]["weighting"]
         )
@@ -652,7 +671,7 @@ def display_main_data(method, impact_category, activity):
                             f"<h2>µPt PEF: {1e6 * pef:10.2f}</h2>" if pef else ""
                         ),
                         ipywidgets.HTML(impacts_error),
-                        ipywidgets.HTML(impacts.to_html()),
+                        ipywidgets.HTML(dfimpacts.to_html()),
                     ]
                 ),
                 ipywidgets.HTML(analysis),
