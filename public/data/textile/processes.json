@@ -1,11 +1,11 @@
 [
   {
     "search": "",
-    "name": "(EI) Mix électrique réseau, CN",
+    "name": "(EI) market group for electricity, medium voltage, CN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
+    "uuid": "a21f671eed68dd9e7d4694f8cf1b28df",
     "impacts": {
       "acd": 0.0015271008,
       "bvi": 0.0,
@@ -34,7 +34,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "search": "",
@@ -75,11 +75,11 @@
   },
   {
     "search": "",
-    "name": "(EI) Mix électrique réseau, FR",
+    "name": "(EI) market for electricity, medium voltage, FR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
+    "uuid": "bae4d1067750357f0217b4273f7a51ff",
     "impacts": {
       "acd": 9.2167346e-5,
       "bvi": 0.0,
@@ -108,7 +108,7 @@
     "waste": 0.0,
     "alias": null,
     "step_usage": "Energie",
-    "correctif": "Correction de l'indicateur radiations ionisantes"
+    "correctif": ""
   },
   {
     "search": "",
@@ -925,11 +925,11 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "name": "(EI) Filament de polyester",
+    "name": "(EI) polyester fibre production, finished",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "ei-pet-uuid",
+    "uuid": "91f1b47ef55e48fab5b5e2ae8ab7bbef",
     "impacts": {
       "acd": 0.0186312,
       "bvi": 0.0,
@@ -1787,11 +1787,11 @@
   },
   {
     "search": "",
-    "name": "(EI) Fil de coton conventionnel",
+    "name": "(EI) fibre production, cotton, ginning, RoW",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "ei-fil-coton-uuid",
+    "uuid": "23d8981e4e4f17b44cd5299eef7784ea",
     "impacts": {
       "acd": 0.050004554,
       "bvi": 0.0,
