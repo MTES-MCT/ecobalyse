@@ -29,7 +29,7 @@
       "plotSize": 0.3,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
-      "livestockDensity": -0.00021
+      "livestockDensity": 0.0
     }
   },
   {
@@ -50,7 +50,7 @@
       "plotSize": 0.77,
       "cropDiversity": 0.55,
       "permanentPasture": 1.39,
-      "livestockDensity": -0.00022
+      "livestockDensity": 0.0
     }
   },
   {
@@ -231,7 +231,7 @@
       "plotSize": 25.53,
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
-      "livestockDensity": -0.00589
+      "livestockDensity": -0.006
     }
   },
   {
@@ -279,7 +279,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01386
+      "livestockDensity": -0.014
     }
   },
   {
@@ -299,7 +299,7 @@
       "plotSize": 1.83,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.05911
+      "livestockDensity": -0.059
     }
   },
   {
@@ -335,7 +335,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.58,
+      "plotSize": 2.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.059
+    }
   },
   {
     "id": "chicken-breast",
@@ -350,9 +357,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 0.84,
-      "plotSize": 1.01,
-      "livestockDensity": 2
+      "hedges": 1.63,
+      "plotSize": 1.95,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.029
     }
   },
   {
@@ -373,7 +382,7 @@
       "plotSize": 3.07,
       "cropDiversity": 8.94,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
+      "livestockDensity": -0.01
     }
   },
   {
@@ -394,7 +403,7 @@
       "plotSize": 5.24,
       "cropDiversity": 27.67,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
+      "livestockDensity": -0.01
     }
   },
   {
@@ -1850,7 +1859,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.04252
+      "livestockDensity": -0.043
     }
   },
   {
@@ -2083,7 +2092,7 @@
       "plotSize": 0.87,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.00773
+      "livestockDensity": -0.008
     }
   },
   {
@@ -2103,7 +2112,7 @@
       "plotSize": 0.72,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.00773
+      "livestockDensity": -0.008
     }
   },
   {
@@ -2175,7 +2184,7 @@
       "plotSize": 38.31,
       "cropDiversity": 0.0,
       "permanentPasture": 86.68,
-      "livestockDensity": 0.00344
+      "livestockDensity": 0.003
     }
   },
   {
@@ -2196,7 +2205,7 @@
       "plotSize": 125.0,
       "cropDiversity": 22.96,
       "permanentPasture": 193.27,
-      "livestockDensity": 0.00086
+      "livestockDensity": 0.001
     }
   }
 ]
