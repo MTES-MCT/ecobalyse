@@ -39,10 +39,10 @@ export_food:
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py; fi
 
-export_textile:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py; fi
+#export_textile:
+#	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+#		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
+#	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py; fi
 
 python:
 	echo Running Python inside the container...
