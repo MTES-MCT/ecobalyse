@@ -736,7 +736,7 @@
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "displayName": "Blanc de poulet bio (nourri avec des aliments FR)",
     "unit": "kilogram",
@@ -5258,25 +5258,25 @@
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
-      "acd": 0.6913417375,
-      "ozd": 8.127297623e-7,
-      "cch": 37.95973524,
-      "fwe": 0.002488555229,
-      "swe": 0.1508751726,
-      "tre": 3.064883571,
-      "pco": 0.06054709711,
-      "pma": 4.676138954e-6,
-      "ior": 0.9549128471,
-      "fru": 76.20229613,
-      "mru": 4.348788766e-5,
-      "ldu": 4194.536031,
-      "wtu": 5.856445197,
-      "htc": 1.961098954e-8,
-      "htn": 5.876529563e-7,
-      "etf": 175.92261782,
-      "etf-c": 283.88397971,
-      "htc-c": 6.656706024e-9,
-      "htn-c": 1.244514286e-7
+      "acd": 0.3704161477,
+      "ozd": 4.938843927e-7,
+      "cch": 29.50094801,
+      "fwe": 0.00242712815,
+      "swe": 0.2581362252,
+      "tre": 1.661855881,
+      "pco": 0.04723059575,
+      "pma": 2.43036256e-6,
+      "ior": 0.3614799245,
+      "fru": 37.44077155,
+      "mru": 1.892886621e-5,
+      "ldu": 6800.67435,
+      "wtu": 2.44971889,
+      "htc": 2.593633067e-8,
+      "htn": 5.615412722e-7,
+      "etf": 34.608772935,
+      "etf-c": 37.5550713532,
+      "htc-c": 1.357633738e-9,
+      "htn-c": 9.41044894e-8
     }
   }
 ]
