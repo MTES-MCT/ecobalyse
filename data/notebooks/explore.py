@@ -380,40 +380,35 @@ def display_main_data(method, impact_category, activity):
                 "Score": lca.score,
                 "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
-        if method == EF31:
-            scores["Ecotoxicity, freshwater"] = {
-                "Indicateur": "Ecotoxicity, freshwater",
-                "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
-                + scores["Ecotoxicity, freshwater - part 2"]["Score"],
-                "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
-            }
-            # cleanup to keep 16 subimpacts
-            for subscore in [
-                "Ecotoxicity, freshwater - part 1",
-                "Ecotoxicity, freshwater - part 2",
-                "Ecotoxicity, freshwater - inorganics",
-                "Ecotoxicity, freshwater - organics - p.1",
-                "Ecotoxicity, freshwater - organics - p.2",
-                "Climate change - Biogenic",
-                "Climate change - Fossil",
-                "Climate change - Land use and LU change",
-                "Human toxicity, cancer - inorganics",
-                "Human toxicity, cancer - organics",
-                "Human toxicity, non-cancer - inorganics",
-                "Human toxicity, non-cancer - organics",
-            ]:
-                if subscore in scores:
-                    del scores[subscore]
     except Exception as e:
         impacts_error = (
             "Could not compute impact. Maybe you selected the biosphere?<br/>" + str(e)
         )
-    dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
-    dfimpacts.set_properties(**{"background-color": "#EEE"})
-    dfimpacts.format(formatter={"Score": "{:.4g}".format})
-
-    # PEF
     if scores and method == EF31:
+        scores["Ecotoxicity, freshwater"] = {
+            "Indicateur": "Ecotoxicity, freshwater",
+            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
+            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
+            "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
+        }
+        # cleanup to keep 16 subimpacts
+        for subscore in [
+            "Ecotoxicity, freshwater - part 1",
+            "Ecotoxicity, freshwater - part 2",
+            "Ecotoxicity, freshwater - inorganics",
+            "Ecotoxicity, freshwater - organics - p.1",
+            "Ecotoxicity, freshwater - organics - p.2",
+            "Climate change - Biogenic",
+            "Climate change - Fossil",
+            "Climate change - Land use and LU change",
+            "Human toxicity, cancer - inorganics",
+            "Human toxicity, cancer - organics",
+            "Human toxicity, non-cancer - inorganics",
+            "Human toxicity, non-cancer - organics",
+        ]:
+            if subscore in scores:
+                del scores[subscore]
+        # PEF
         pef = sum(
             scores[IMPACTS[trigram]["label_en"]]["Score"]
             / IMPACTS[trigram]["pef"]["normalization"]
@@ -426,6 +421,10 @@ def display_main_data(method, impact_category, activity):
         )
     else:
         pef = None
+
+    dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
+    dfimpacts.set_properties(**{"background-color": "#EEE"})
+    dfimpacts.format(formatter={"Score": "{:.4g}".format})
 
     # PRODUCTION
     production = "".join(
