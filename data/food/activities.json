@@ -376,11 +376,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 2.6,
-      "plotSize": 2.71,
-      "cropDiversity": 14.32,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "hedges": 5.03,
+      "plotSize": 5.24,
+      "cropDiversity": 27.67,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.01
     }
   },
   {
