@@ -370,7 +370,7 @@ def display_main_data(method, impact_category, activity):
     display(Markdown(f"## (Computing impacts...)"))
 
     # Impacts
-    scores = []
+    scores = dict()
     try:
         lca = bw2calc.LCA({activity: 1})
         impacts_error = ""
@@ -378,79 +378,57 @@ def display_main_data(method, impact_category, activity):
         for m in [m for m in bw2data.methods if m[0] == method]:
             lca.switch_method(m)
             lca.lcia()
-            scores.append(
-                {
-                    "Indicateur": ", ".join(m[1:]),
-                    "Score": lca.score,
-                    "Unité": bw2data.methods[m].get("unit", "(no unit)"),
-                }
-            )
+            name = ", ".join(m[1:])
+            scores[name] = {
+                "Indicateur": name,
+                "Score": lca.score,
+                "Unité": bw2data.methods[m].get("unit", "(no unit)"),
+            }
     except Exception as e:
         impacts_error = (
             "Could not compute impact. Maybe you selected the biosphere?<br/>" + str(e)
         )
-    impacts = pandas.io.formats.style.Styler(pandas.DataFrame(scores))
-    impacts.set_properties(**{"background-color": "#EEE"})
-    impacts.format(formatter={"Score": "{:.4g}".format})
-
-    # PEF
     if scores and method == EF31:
-        scores = {s["Indicateur"]: s["Score"] for s in scores}
-        pef = (
-            scores["Acidification"]
-            / IMPACTS["acd"]["pef"]["normalization"]
-            * IMPACTS["acd"]["pef"]["weighting"]
-            + scores["Climate change"]
-            / IMPACTS["cch"]["pef"]["normalization"]
-            * IMPACTS["cch"]["pef"]["weighting"]
-            + (
-                scores["Ecotoxicity, freshwater - part 1"]
-                + scores["Ecotoxicity, freshwater - part 2"]
-            )
-            / IMPACTS["etf"]["pef"]["normalization"]
-            * IMPACTS["etf"]["pef"]["weighting"]
-            + scores["Particulate matter"]
-            / IMPACTS["pma"]["pef"]["normalization"]
-            * IMPACTS["pma"]["pef"]["weighting"]
-            + scores["Eutrophication, marine"]
-            / IMPACTS["swe"]["pef"]["normalization"]
-            * IMPACTS["swe"]["pef"]["weighting"]
-            + scores["Eutrophication, freshwater"]
-            / IMPACTS["fwe"]["pef"]["normalization"]
-            * IMPACTS["fwe"]["pef"]["weighting"]
-            + scores["Eutrophication, terrestrial"]
-            / IMPACTS["tre"]["pef"]["normalization"]
-            * IMPACTS["tre"]["pef"]["weighting"]
-            + scores["Human toxicity, cancer"]
-            / IMPACTS["htc"]["pef"]["normalization"]
-            * IMPACTS["htc"]["pef"]["weighting"]
-            + scores["Human toxicity, non-cancer"]
-            / IMPACTS["htn"]["pef"]["normalization"]
-            * IMPACTS["htn"]["pef"]["weighting"]
-            + scores["Ionising radiation"]
-            / IMPACTS["ior"]["pef"]["normalization"]
-            * IMPACTS["ior"]["pef"]["weighting"]
-            + scores["Land use"]
-            / IMPACTS["ldu"]["pef"]["normalization"]
-            * IMPACTS["ldu"]["pef"]["weighting"]
-            + scores["Ozone depletion"]
-            / IMPACTS["ozd"]["pef"]["normalization"]
-            * IMPACTS["ozd"]["pef"]["weighting"]
-            + scores["Photochemical ozone formation"]
-            / IMPACTS["pco"]["pef"]["normalization"]
-            * IMPACTS["pco"]["pef"]["weighting"]
-            + scores["Resource use, fossils"]
-            / IMPACTS["fru"]["pef"]["normalization"]
-            * IMPACTS["fru"]["pef"]["weighting"]
-            + scores["Resource use, minerals and metals"]
-            / IMPACTS["mru"]["pef"]["normalization"]
-            * IMPACTS["mru"]["pef"]["weighting"]
-            + scores["Water use"]
-            / IMPACTS["wtu"]["pef"]["normalization"]
-            * IMPACTS["wtu"]["pef"]["weighting"]
+        scores["Ecotoxicity, freshwater"] = {
+            "Indicateur": "Ecotoxicity, freshwater",
+            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
+            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
+            "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
+        }
+        # cleanup to keep 16 subimpacts
+        for subscore in [
+            "Ecotoxicity, freshwater - part 1",
+            "Ecotoxicity, freshwater - part 2",
+            "Ecotoxicity, freshwater - inorganics",
+            "Ecotoxicity, freshwater - organics - p.1",
+            "Ecotoxicity, freshwater - organics - p.2",
+            "Climate change - Biogenic",
+            "Climate change - Fossil",
+            "Climate change - Land use and LU change",
+            "Human toxicity, cancer - inorganics",
+            "Human toxicity, cancer - organics",
+            "Human toxicity, non-cancer - inorganics",
+            "Human toxicity, non-cancer - organics",
+        ]:
+            if subscore in scores:
+                del scores[subscore]
+        # PEF
+        pef = sum(
+            scores[IMPACTS[trigram]["label_en"]]["Score"]
+            / IMPACTS[trigram]["pef"]["normalization"]
+            * IMPACTS[trigram]["pef"]["weighting"]
+            for trigram in [
+                t
+                for t in IMPACTS.keys()
+                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
+            ]
         )
     else:
         pef = None
+
+    dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
+    dfimpacts.set_properties(**{"background-color": "#EEE"})
+    dfimpacts.format(formatter={"Score": "{:.4g}".format})
 
     # PRODUCTION
     production = "".join(
@@ -656,7 +634,7 @@ def display_main_data(method, impact_category, activity):
                             f"<h2>µPt PEF: {1e6 * pef:10.2f}</h2>" if pef else ""
                         ),
                         ipywidgets.HTML(impacts_error),
-                        ipywidgets.HTML(impacts.to_html()),
+                        ipywidgets.HTML(dfimpacts.to_html()),
                     ]
                 ),
                 ipywidgets.HTML(analysis),

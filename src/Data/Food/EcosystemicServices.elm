@@ -34,11 +34,11 @@ type alias AbstractEcosystemicServices a =
 
 coefficients : Coefficients
 coefficients =
-    { hedges = Unit.ratio 7
+    { hedges = Unit.ratio 3
     , plotSize = Unit.ratio 4
-    , cropDiversity = Unit.ratio 2
-    , permanentPasture = Unit.ratio 10.5
-    , livestockDensity = Unit.ratio 1
+    , cropDiversity = Unit.ratio 1.5
+    , permanentPasture = Unit.ratio 7
+    , livestockDensity = Unit.ratio 1000
     }
 
 
