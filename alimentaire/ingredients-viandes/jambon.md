@@ -28,6 +28,8 @@ $$
 
 <figure><img src="../../.gitbook/assets/porc.png" alt=""><figcaption></figcaption></figure>
 
+<figure><img src="../../.gitbook/assets/Screenshot 2024-01-24 at 15.54.19.png" alt=""><figcaption></figcaption></figure>
+
 On construit différents procédés de jambon **(N)**, sur la base du procédé de référence ('Cooked ham, case ready, at plant' (kilogram, FR, None)), en appliquant les opérations d'abattage à différents procédés de porc sortie de ferme **(N)**.
 
 $$
