@@ -414,55 +414,15 @@ def display_main_data(method, impact_category, activity):
 
     # PEF
     if scores and method == EF31:
-        pef = (
-            scores["Acidification"]["Score"]
-            / IMPACTS["acd"]["pef"]["normalization"]
-            * IMPACTS["acd"]["pef"]["weighting"]
-            + scores["Climate change"]["Score"]
-            / IMPACTS["cch"]["pef"]["normalization"]
-            * IMPACTS["cch"]["pef"]["weighting"]
-            + scores["Ecotoxicity, freshwater"]["Score"]
-            / IMPACTS["etf"]["pef"]["normalization"]
-            * IMPACTS["etf"]["pef"]["weighting"]
-            + scores["Particulate matter"]["Score"]
-            / IMPACTS["pma"]["pef"]["normalization"]
-            * IMPACTS["pma"]["pef"]["weighting"]
-            + scores["Eutrophication, marine"]["Score"]
-            / IMPACTS["swe"]["pef"]["normalization"]
-            * IMPACTS["swe"]["pef"]["weighting"]
-            + scores["Eutrophication, freshwater"]["Score"]
-            / IMPACTS["fwe"]["pef"]["normalization"]
-            * IMPACTS["fwe"]["pef"]["weighting"]
-            + scores["Eutrophication, terrestrial"]["Score"]
-            / IMPACTS["tre"]["pef"]["normalization"]
-            * IMPACTS["tre"]["pef"]["weighting"]
-            + scores["Human toxicity, cancer"]["Score"]
-            / IMPACTS["htc"]["pef"]["normalization"]
-            * IMPACTS["htc"]["pef"]["weighting"]
-            + scores["Human toxicity, non-cancer"]["Score"]
-            / IMPACTS["htn"]["pef"]["normalization"]
-            * IMPACTS["htn"]["pef"]["weighting"]
-            + scores["Ionising radiation"]["Score"]
-            / IMPACTS["ior"]["pef"]["normalization"]
-            * IMPACTS["ior"]["pef"]["weighting"]
-            + scores["Land use"]["Score"]
-            / IMPACTS["ldu"]["pef"]["normalization"]
-            * IMPACTS["ldu"]["pef"]["weighting"]
-            + scores["Ozone depletion"]["Score"]
-            / IMPACTS["ozd"]["pef"]["normalization"]
-            * IMPACTS["ozd"]["pef"]["weighting"]
-            + scores["Photochemical ozone formation"]["Score"]
-            / IMPACTS["pco"]["pef"]["normalization"]
-            * IMPACTS["pco"]["pef"]["weighting"]
-            + scores["Resource use, fossils"]["Score"]
-            / IMPACTS["fru"]["pef"]["normalization"]
-            * IMPACTS["fru"]["pef"]["weighting"]
-            + scores["Resource use, minerals and metals"]["Score"]
-            / IMPACTS["mru"]["pef"]["normalization"]
-            * IMPACTS["mru"]["pef"]["weighting"]
-            + scores["Water use"]["Score"]
-            / IMPACTS["wtu"]["pef"]["normalization"]
-            * IMPACTS["wtu"]["pef"]["weighting"]
+        pef = sum(
+            scores[IMPACTS[trigram]["label_en"]]["Score"]
+            / IMPACTS[trigram]["pef"]["normalization"]
+            * IMPACTS[trigram]["pef"]["weighting"]
+            for trigram in [
+                t
+                for t in IMPACTS.keys()
+                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
+            ]
         )
     else:
         pef = None
