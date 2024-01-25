@@ -29,7 +29,7 @@
       "plotSize": 0.3,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
@@ -50,7 +50,7 @@
       "plotSize": 0.77,
       "cropDiversity": 0.55,
       "permanentPasture": 1.39,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
@@ -231,7 +231,7 @@
       "plotSize": 25.53,
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
-      "livestockDensity": -0.006
+      "livestockDensity": -0.0059
     }
   },
   {
@@ -279,7 +279,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.014
+      "livestockDensity": -0.0139
     }
   },
   {
@@ -299,7 +299,7 @@
       "plotSize": 1.83,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.059
+      "livestockDensity": -0.0591
     }
   },
   {
@@ -341,7 +341,7 @@
       "plotSize": 2.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.059
+      "livestockDensity": -0.0591
     }
   },
   {
@@ -361,7 +361,7 @@
       "plotSize": 1.95,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.029
+      "livestockDensity": -0.0293
     }
   },
   {
@@ -382,7 +382,7 @@
       "plotSize": 3.07,
       "cropDiversity": 8.94,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0101
     }
   },
   {
@@ -403,7 +403,7 @@
       "plotSize": 5.24,
       "cropDiversity": 27.67,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0101
     }
   },
   {
@@ -1859,7 +1859,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.043
+      "livestockDensity": -0.0425
     }
   },
   {
@@ -1875,7 +1875,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique"
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
+    "ecosystemicServices": {
+      "hedges": 2.55,
+      "plotSize": 3.69,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0293
+    }
   },
   {
     "id": "cane-sugar",
@@ -2092,7 +2099,7 @@
       "plotSize": 0.87,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.008
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -2112,7 +2119,7 @@
       "plotSize": 0.72,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.008
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -2184,7 +2191,7 @@
       "plotSize": 38.31,
       "cropDiversity": 0.0,
       "permanentPasture": 86.68,
-      "livestockDensity": 0.003
+      "livestockDensity": 0.0034
     }
   },
   {
@@ -2205,7 +2212,7 @@
       "plotSize": 125.0,
       "cropDiversity": 22.96,
       "permanentPasture": 193.27,
-      "livestockDensity": 0.001
+      "livestockDensity": 0.0009
     }
   }
 ]
