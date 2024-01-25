@@ -7,6 +7,12 @@ module Data.Textile.Economics exposing
     , computeRepairCostIndex
     , decode
     , decodePrice
+    , maxMarketingDuration
+    , maxNumberOfReferences
+    , maxPrice
+    , minMarketingDuration
+    , minNumberOfReferences
+    , minPrice
     , priceFromFloat
     , priceToFloat
     )
@@ -134,6 +140,36 @@ decode =
 decodePrice : Decoder Price
 decodePrice =
     Decode.map priceFromFloat Decode.float
+
+
+minMarketingDuration : Duration
+minMarketingDuration =
+    Duration.days 30
+
+
+minNumberOfReferences : Int
+minNumberOfReferences =
+    1
+
+
+minPrice : Price
+minPrice =
+    Price 1
+
+
+maxMarketingDuration : Duration
+maxMarketingDuration =
+    Duration.days 730
+
+
+maxNumberOfReferences : Int
+maxNumberOfReferences =
+    200000
+
+
+maxPrice : Price
+maxPrice =
+    Price 1000
 
 
 priceToFloat : Price -> Float

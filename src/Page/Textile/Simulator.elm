@@ -709,6 +709,11 @@ numberOfReferencesField numberOfReferences =
                 [ type_ "number"
                 , id "number-of-references"
                 , class "form-control"
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
+                , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
                 , step "100"
                 , value (String.fromInt numberOfReferences)
                 , onInput (String.toInt >> UpdateNumberOfReferences)
@@ -732,6 +737,8 @@ productPriceField productPrice =
                     [ type_ "number"
                     , id "product-price"
                     , class "form-control"
+                    , Attr.min <| String.fromFloat <| Economics.priceToFloat <| Economics.minPrice
+                    , Attr.max <| String.fromFloat <| Economics.priceToFloat <| Economics.maxPrice
                     , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
                     , onInput (String.toFloat >> Maybe.map Economics.priceFromFloat >> UpdatePrice)
                     ]
@@ -756,6 +763,8 @@ marketingDurationField marketingDuration =
                     [ type_ "number"
                     , id "marketing-duration"
                     , class "form-control"
+                    , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
+                    , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
                     , step "1"
                     , marketingDuration |> Duration.inDays |> String.fromFloat |> value
                     , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
