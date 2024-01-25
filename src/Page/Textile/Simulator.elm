@@ -712,6 +712,7 @@ numberOfReferencesField numberOfReferences =
                 [ type_ "number"
                 , id "number-of-references"
                 , class "form-control"
+                , step "100"
                 , value (String.fromInt numberOfReferences)
                 , onInput (String.toInt >> UpdateNumberOfReferences)
                 ]
