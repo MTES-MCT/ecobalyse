@@ -670,14 +670,13 @@ exampleProductField query =
 productCategoryField : TextileDb.Db -> Inputs.Query -> Html Msg
 productCategoryField { products } query =
     let
-        nameFromProductId =
-            \productId ->
-                Product.findById productId products
-                    |> Result.map .name
-                    |> Result.withDefault ""
+        nameFromProductId default id =
+            Product.findById id products
+                |> Result.map .name
+                |> Result.withDefault default
 
         autocompleteState =
-            AutocompleteSelector.init nameFromProductId (List.map .id products)
+            AutocompleteSelector.init (nameFromProductId "") (List.map .id products)
     in
     div [ class "row align-items-center g-2" ]
         [ label
@@ -691,9 +690,7 @@ productCategoryField { products } query =
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
             [ query.product
-                |> (\productId -> Product.findById productId products)
-                |> Result.map .name
-                |> Result.withDefault (Product.idToString query.product)
+                |> nameFromProductId (Product.idToString query.product)
                 |> text
             ]
         ]
