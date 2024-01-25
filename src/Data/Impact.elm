@@ -43,7 +43,6 @@ import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -392,12 +391,10 @@ updateImpact definitions trigram value =
         >> updateAggregatedScores definitions
 
 
-decodeImpacts : Definitions -> Decoder Impacts
-decodeImpacts definitions =
-    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Decode.map (Impacts >> updateAggregatedScores definitions)
+decodeImpacts : Decoder Impacts
+decodeImpacts =
+    Definition.decodeBase (always Unit.decodeImpact)
+        |> Decode.map Impacts
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value

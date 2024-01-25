@@ -51,36 +51,26 @@ impactDefinitions =
 
 textileDb : Result String TextileDb.Db
 textileDb =
-    impactDefinitions
+    textileProductExamplesJson
+        |> TextileExampleProduct.decodeListFromJsonString
         |> Result.andThen
-            (\definitions ->
-                textileProductExamplesJson
-                    |> TextileExampleProduct.decodeListFromJsonString
-                    |> Result.andThen
-                        (\exampleProducts ->
-                            TextileDb.buildFromJson exampleProducts
-                                definitions
-                                textileMaterialsJson
-                                textileProcessesJson
-                                textileProductsJson
-                        )
+            (\exampleProducts ->
+                TextileDb.buildFromJson exampleProducts
+                    textileMaterialsJson
+                    textileProcessesJson
+                    textileProductsJson
             )
 
 
 foodDb : Result String FoodDb.Db
 foodDb =
-    impactDefinitions
+    foodProductExamplesJson
+        |> FoodExampleProduct.decodeListFromJsonString
         |> Result.andThen
-            (\definitions ->
-                foodProductExamplesJson
-                    |> FoodExampleProduct.decodeListFromJsonString
-                    |> Result.andThen
-                        (\exampleProducts ->
-                            FoodDb.buildFromJson exampleProducts
-                                definitions
-                                foodProcessesJson
-                                foodIngredientsJson
-                        )
+            (\exampleProducts ->
+                FoodDb.buildFromJson exampleProducts
+                    foodProcessesJson
+                    foodIngredientsJson
             )
 
 
