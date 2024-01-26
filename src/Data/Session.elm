@@ -7,6 +7,7 @@ module Data.Session exposing
     , deleteBookmark
     , deserializeStore
     , isLoggedIn
+    , loggedIn
     , login
     , logout
     , notifyError
@@ -25,12 +26,14 @@ import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
+import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db exposing (Db)
+import Task
 
 
 type alias Session =
@@ -263,9 +266,41 @@ updateStore update session =
     { session | store = update session.store }
 
 
-login : Session -> Session
-login ({ store } as session) =
-    { session | store = { store | auth = LoggedIn [] [] } }
+loggedIn : Session -> List TextileProcess.Process -> List FoodProcess.Process -> Session
+loggedIn ({ store } as session) textileProcesses foodProcesses =
+    { session | store = { store | auth = LoggedIn textileProcesses foodProcesses } }
+
+
+login : (Result String { textileProcesses : List TextileProcess.Process, foodProcesses : List FoodProcess.Process } -> msg) -> Cmd msg
+login event =
+    Task.attempt event
+        (Task.map2
+            (\textileProcesses foodProcesses -> { textileProcesses = textileProcesses, foodProcesses = foodProcesses })
+            (getProcesses "data/textile/processes_impacts.json" TextileProcess.decodeList)
+            (getProcesses "data/food/processes_impacts.json" FoodProcess.decodeList)
+        )
+
+
+getProcesses : String -> Decoder a -> Task.Task String a
+getProcesses url decoder =
+    Http.task
+        { method = "GET"
+        , headers = []
+        , url = url
+        , body = Http.emptyBody
+        , resolver =
+            Http.stringResolver
+                (\response ->
+                    case response of
+                        Http.GoodStatus_ _ stringBody ->
+                            Decode.decodeString decoder stringBody
+                                |> Result.mapError Decode.errorToString
+
+                        _ ->
+                            Err "Couldn't get the processes"
+                )
+        , timeout = Nothing
+        }
 
 
 logout : Session -> Session
