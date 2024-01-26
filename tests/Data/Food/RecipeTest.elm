@@ -67,10 +67,10 @@ suite =
                                 }
                      in
                      [ complementsImpacts.hedges
-                        |> expectImpactEqual (Unit.impact 14)
+                        |> expectImpactEqual (Unit.impact 6)
                         |> asTest "should compute a non-zero hedges ingredient complement"
                      , Impact.getTotalComplementsImpacts complementsImpacts
-                        |> expectImpactEqual (Unit.impact 49)
+                        |> expectImpactEqual (Unit.impact 2031)
                         |> asTest "should compute a non-zero total complement"
                      ]
                     )
@@ -149,7 +149,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 100.35242826911403) result
+                                expectImpactEqual (Unit.impact 109.68332826911403) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -157,7 +157,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 62.14825461752435) result
+                                expectImpactEqual (Unit.impact 71.47915461752436) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -168,13 +168,13 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 191.88212016738663
+                                    |> Expect.within (Expect.Absolute 0.01) 206.39128198258294
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
                                     |> Expect.within (Expect.Absolute 0.01) 207.03596775657905
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) 15.153847589192416
+                                    |> Expect.within (Expect.Absolute 0.01) 0.6446857739961187
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)

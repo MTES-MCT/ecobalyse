@@ -25,11 +25,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 4.69,
-      "plotSize": 2.53,
+      "hedges": 0.31,
+      "plotSize": 0.3,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
@@ -46,11 +46,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 8.55,
-      "plotSize": 4.43,
-      "cropDiversity": 1.1,
+      "hedges": 0.78,
+      "plotSize": 0.77,
+      "cropDiversity": 0.55,
       "permanentPasture": 1.39,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
@@ -227,11 +227,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 242.73,
-      "plotSize": 117.27,
+      "hedges": 30.56,
+      "plotSize": 25.53,
       "cropDiversity": 0.0,
-      "permanentPasture": 42.55,
-      "livestockDensity": -0.01
+      "permanentPasture": 37.5,
+      "livestockDensity": -0.0059
     }
   },
   {
@@ -248,10 +248,10 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 269.68,
-      "plotSize": 135.63,
-      "cropDiversity": 24.04,
-      "permanentPasture": 45.03,
+      "hedges": 31.34,
+      "plotSize": 30.48,
+      "cropDiversity": 12.02,
+      "permanentPasture": 34.68,
       "livestockDensity": 0.0
     }
   },
@@ -279,7 +279,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0139
     }
   },
   {
@@ -293,7 +293,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.42,
+      "plotSize": 1.83,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0591
+    }
   },
   {
     "id": "cooked-ham-organic",
@@ -307,7 +314,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 6.28,
+      "plotSize": 8.14,
+      "cropDiversity": 31.17,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.017
+    }
   },
   {
     "id": "cooked-ham-fr",
@@ -321,7 +335,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.58,
+      "plotSize": 2.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0591
+    }
   },
   {
     "id": "chicken-breast",
@@ -336,9 +357,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 0.84,
-      "plotSize": 1.01,
-      "livestockDensity": 2
+      "hedges": 1.63,
+      "plotSize": 1.95,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0293
     }
   },
   {
@@ -355,15 +378,15 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 21.01,
-      "plotSize": 12.26,
-      "cropDiversity": 17.88,
+      "hedges": 3.0,
+      "plotSize": 3.07,
+      "cropDiversity": 8.94,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0101
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
     "database": "Ecobalyse",
@@ -376,11 +399,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 2.6,
-      "plotSize": 2.71,
-      "cropDiversity": 14.32,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "hedges": 5.03,
+      "plotSize": 5.24,
+      "cropDiversity": 27.67,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0101
     }
   },
   {
@@ -1836,7 +1859,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.03
+      "livestockDensity": -0.0425
     }
   },
   {
@@ -1852,7 +1875,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique"
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
+    "ecosystemicServices": {
+      "hedges": 2.55,
+      "plotSize": 3.69,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0293
+    }
   },
   {
     "id": "cane-sugar",
@@ -2065,11 +2095,11 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 5.19,
-      "plotSize": 3.32,
+      "hedges": 0.77,
+      "plotSize": 0.87,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -2085,11 +2115,11 @@
     "transport_cooling": "none",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 5.41,
-      "plotSize": 3.47,
+      "hedges": 0.64,
+      "plotSize": 0.72,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -2143,5 +2173,46 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "visible": true
+  },
+  {
+    "id": "lamb-meat-without-bone",
+    "name": "Viande d'agneau (désossée)",
+    "search": "Meat without bone lamb",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 46.22,
+      "plotSize": 38.31,
+      "cropDiversity": 0.0,
+      "permanentPasture": 86.68,
+      "livestockDensity": 0.0034
+    }
+  },
+  {
+    "id": "lamb-organic-meat-without-bone",
+    "name": "Viande d'agneau bio (désossée)",
+    "search": "Meat without bone lamb organic",
+    "database": "Ecobalyse",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 131.06,
+      "plotSize": 125.0,
+      "cropDiversity": 22.96,
+      "permanentPasture": 193.27,
+      "livestockDensity": 0.0009
+    }
   }
 ]
