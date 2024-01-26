@@ -35,4 +35,4 @@ async def surface(_: Request, process: str):
             json.dump(surfaces, fp, ensure_ascii=False)
     else:
         amount = surfaces[process]
-    return {"surface": amount, "unit": server.AnalyseResult(0, 5).UnitName}
+    return {"surface": amount}
