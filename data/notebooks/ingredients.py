@@ -17,8 +17,10 @@ import ipywidgets
 import json
 import pandas
 import pandas.io.formats.style
+import requests
 import shutil
 import subprocess
+import urllib.parse
 
 
 os.chdir("/home/jovyan/ecobalyse/data")
@@ -703,22 +705,33 @@ def reset_branch():
 @surface_output.capture()
 def display_surface(activity):
     surface_output.clear_output()
-    display(ipywidgets.HTML("Computing surface..."))
+    display(ipywidgets.HTML("Computing surface... (please wait at least 15s)"))
     lca = bw2calc.LCA({activity: 1})
     method = ("selected LCI results", "resource", "land occupation")
     try:
         lca.lci()
         lca.switch_method(method)
         lca.lcia()
-        surface_output.clear_output()
-        display(
-            ipywidgets.HTML(
-                f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"
-            )
-        )
+        bwsurface = lca.score
+        bwoutput = str(bwsurface)
     except Exception as e:
-        display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
-        display(e)
+        bwsurface = None
+        bwoutput = repr(e)
+    try:
+        process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+        spsurface = json.loads(
+            requests.get(
+                f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
+            ).content
+        )["surface"]
+        spoutput = str(spsurface)
+    except Exception as e:
+        spsurface = None
+        spoutput = repr(e)
+    surface_output.clear_output()
+    display(
+        ipywidgets.HTML("<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}")
+    )
 
 
 @reset_output.capture()
