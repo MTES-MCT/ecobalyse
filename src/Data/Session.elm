@@ -1,10 +1,14 @@
 module Data.Session exposing
     ( Notification(..)
     , Session
+    , Store
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
     , deserializeStore
+    , isLoggedIn
+    , login
+    , logout
     , notifyError
     , saveBookmark
     , selectAllBookmarks
@@ -257,3 +261,23 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
+
+
+login : Session -> Session
+login ({ store } as session) =
+    { session | store = { store | auth = LoggedIn [] [] } }
+
+
+logout : Session -> Session
+logout ({ store } as session) =
+    { session | store = { store | auth = NotLoggedIn } }
+
+
+isLoggedIn : { a | store : Store } -> Bool
+isLoggedIn { store } =
+    case store.auth of
+        LoggedIn _ _ ->
+            True
+
+        _ ->
+            False
