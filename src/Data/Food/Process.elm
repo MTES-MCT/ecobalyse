@@ -8,6 +8,7 @@ module Data.Food.Process exposing
     , codeToString
     , decodeIdentifier
     , decodeList
+    , encode
     , encodeIdentifier
     , findById
     , findByIdentifier
@@ -21,6 +22,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import Json.Encode.Extra as EncodeExtra
 
 
 {-| Process
@@ -144,6 +146,11 @@ decodeCategory =
         |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
+encodeCategory : Category -> Encode.Value
+encodeCategory =
+    categoryToString >> Encode.string
+
+
 decodeProcess : Decoder Process
 decodeProcess =
     Decode.succeed Process
@@ -156,6 +163,21 @@ decodeProcess =
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" Decode.string
+
+
+encode : Process -> Encode.Value
+encode process =
+    Encode.object
+        [ ( "name", Encode.string (nameToString process.name) )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
+        , ( "impacts", Impact.encode process.impacts )
+        , ( "unit", encodeStringUnit process.unit )
+        , ( "identifier", encodeIdentifier process.code )
+        , ( "category", encodeCategory process.category )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "id", Encode.string process.id_ )
+        ]
 
 
 decodeIdentifier : Decoder Identifier
@@ -221,6 +243,34 @@ decodeStringUnit =
                     _ ->
                         Decode.fail <| "Could not decode unit " ++ str
             )
+
+
+encodeStringUnit : String -> Encode.Value
+encodeStringUnit unit =
+    case unit of
+        "m³" ->
+            Encode.string "cubic meter"
+
+        "kg" ->
+            Encode.string "kilogram"
+
+        "km" ->
+            Encode.string "kilometer"
+
+        "kWh" ->
+            Encode.string "kilowatt hour"
+
+        "l" ->
+            Encode.string "litre"
+
+        "MJ" ->
+            Encode.string "megajoule"
+
+        "ton.km" ->
+            Encode.string "ton kilometer"
+
+        _ ->
+            Encode.string "Could not decode unit"
 
 
 getDisplayName : Process -> String

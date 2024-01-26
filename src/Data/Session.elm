@@ -17,7 +17,9 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -171,13 +173,20 @@ selectNoBookmarks =
 type alias Store =
     { comparedSimulations : Set String
     , bookmarks : List Bookmark
+    , auth : Auth
     }
+
+
+type Auth
+    = NotLoggedIn
+    | LoggedIn (List TextileProcess.Process) (List FoodProcess.Process)
 
 
 defaultStore : Store
 defaultStore =
     { comparedSimulations = Set.empty
     , bookmarks = []
+    , auth = NotLoggedIn
     }
 
 
@@ -186,6 +195,14 @@ decodeStore =
     Decode.succeed Store
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
+        |> JDP.optional "auth" decodeAuth NotLoggedIn
+
+
+decodeAuth : Decoder Auth
+decodeAuth =
+    Decode.succeed LoggedIn
+        |> JDP.required "textileProcesses" TextileProcess.decodeList
+        |> JDP.required "foodProcesses" FoodProcess.decodeList
 
 
 encodeStore : Store -> Encode.Value
@@ -193,7 +210,21 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
+        , ( "auth", encodeAuth store.auth )
         ]
+
+
+encodeAuth : Auth -> Encode.Value
+encodeAuth auth =
+    case auth of
+        NotLoggedIn ->
+            Encode.null
+
+        LoggedIn textileProcesses foodProcesses ->
+            Encode.object
+                [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
+                , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
+                ]
 
 
 deserializeStore : String -> Store
