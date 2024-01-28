@@ -2173,7 +2173,7 @@
   {
     "id": "lamb-organic-meat-without-bone",
     "name": "Viande d'agneau bio (désossée)",
-    "search": "Meat without bone lamb organic",
+    "search": "lamb organic",
     "database": "Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
