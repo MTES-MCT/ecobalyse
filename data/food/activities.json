@@ -1,7 +1,7 @@
 [
   {
     "id": "egg-bleublanccoeur",
-    "name": "Oeuf Bleu-Blanc-Cœur (sortie de ferme)",
+    "name": "Oeuf Bleu-Blanc-Cœur",
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "category": "ingredient",
     "categories": ["animal_product", "bleublanccoeur"],
@@ -14,7 +14,7 @@
   },
   {
     "id": "milk",
-    "name": "Lait (sortie de ferme)",
+    "name": "Lait",
     "search": "Cow milk national average at farm gate",
     "category": "ingredient",
     "categories": ["dairy_product"],
@@ -34,7 +34,7 @@
   },
   {
     "id": "milk-organic",
-    "name": "Lait bio (sortie de ferme)",
+    "name": "Lait bio",
     "search": "cow milk organic national average",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -55,8 +55,8 @@
   },
   {
     "id": "carrot",
-    "name": "Carotte (sortie de ferme)",
-    "search": "Carrot conventional national average at farm gate",
+    "name": "Carotte",
+    "search": "carrot consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -68,7 +68,7 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio (sortie de ferme)",
+    "name": "Carotte bio",
     "search": "Carrot organic Lower Normandy at farm gate",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -81,7 +81,7 @@
   },
   {
     "id": "wheat",
-    "name": "Blé tendre (sortie de ferme)",
+    "name": "Blé tendre",
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "category": "ingredient",
     "categories": ["grain_raw"],
@@ -101,7 +101,7 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio (sortie de ferme)",
+    "name": "Blé tendre bio",
     "search": "wheat organic national",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -149,7 +149,7 @@
   },
   {
     "id": "sunflower",
-    "name": "Tournesol (sortie de ferme)",
+    "name": "Tournesol",
     "search": "Sunflower at farm FR",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -162,7 +162,7 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio (sortie de ferme)",
+    "name": "Tournesol bio",
     "search": "Sunflower grain organic system 3 at farm gate",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw", "organic"],
@@ -175,7 +175,7 @@
   },
   {
     "id": "rapeseed",
-    "name": "Colza (sortie de ferme)",
+    "name": "Colza",
     "search": "Rape seed FR production Cut-off",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -189,7 +189,7 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio (sortie de ferme)",
+    "name": "Colza bio",
     "search": "Winter rapeseed organic at farm gate",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw", "organic"],
@@ -203,8 +203,8 @@
   },
   {
     "id": "potato",
-    "name": "Pomme de terre (sortie de ferme)",
-    "search": "Ware potato conventional variety mix national average at farm gate",
+    "name": "Pomme de terre",
+    "search": "potato consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "France",
@@ -408,7 +408,7 @@
   },
   {
     "id": "mango",
-    "name": "Mangue BR (sortie de ferme)",
+    "name": "Mangue BR",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -475,8 +475,8 @@
   },
   {
     "id": "zucchini",
-    "name": "Courgette (sortie de ferme)",
-    "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
+    "name": "Courgette",
+    "search": "zucchini consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -484,11 +484,12 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "explain": "mix"
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio (sortie de ferme)",
+    "name": "Courgette bio",
     "search": "zucchini springtime under tunnel organic",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -501,8 +502,8 @@
   },
   {
     "id": "pear",
-    "name": "Poire (sortie de ferme)",
-    "search": "pear, conventional, at orchard",
+    "name": "Poire",
+    "search": "pear consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -514,7 +515,7 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio (sortie de ferme)",
+    "name": "Pêche bio",
     "search": "peach organic",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -523,12 +524,12 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "id": "melon",
-    "name": "Melon (sortie de ferme)",
-    "search": "Melon, conventional, national average, at farm gate",
+    "name": "Melon",
+    "search": "Melon consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -540,7 +541,7 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio (sortie de ferme)",
+    "name": "Melon bio",
     "search": "melon organic",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -580,7 +581,7 @@
   },
   {
     "id": "onion",
-    "name": "Oignon (sortie de ferme)",
+    "name": "Oignon",
     "search": "Onion, national average, at farm",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -593,8 +594,8 @@
   },
   {
     "id": "eggplant",
-    "name": "Aubergine (sortie de ferme)",
-    "search": "Zucchini, conventional, national average, at farm gate {FR} U",
+    "name": "Aubergine",
+    "search": "Zucchini consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -606,8 +607,8 @@
   },
   {
     "id": "lettuce",
-    "name": "Laitue (sortie de ferme)",
-    "search": "Lettuce, conventional, national average, at farm gate {FR} U",
+    "name": "Laitue",
+    "search": "Lettuce consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -619,8 +620,8 @@
   },
   {
     "id": "french-bean",
-    "name": "Haricot vert (sortie de ferme)",
-    "search": "French bean, conventional, national average, at farm gate {FR}",
+    "name": "Haricot vert",
+    "search": "French bean consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
@@ -632,7 +633,7 @@
   },
   {
     "id": "durum-wheat",
-    "name": "Blé dur (sortie de ferme)",
+    "name": "Blé dur",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
     "categories": ["grain_raw"],
@@ -784,7 +785,7 @@
   },
   {
     "id": "lentils-uncooked",
-    "name": "Lentilles (sortie de ferme)",
+    "name": "Lentilles",
     "search": "Winter pea, conventional, 15% moisture, at farm gate",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -797,8 +798,8 @@
   },
   {
     "id": "garden-peas",
-    "name": "Petit pois (sortie de ferme)",
-    "search": "annual vining",
+    "name": "Petit pois",
+    "search": "annual vining pea conventional",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -810,7 +811,7 @@
   },
   {
     "id": "tomato-organic-greenhouse",
-    "name": "Tomate bio sous serre non chauffée (sortie de ferme)",
+    "name": "Tomate bio sous serre non chauffée",
     "search": "Tomato organic greenhouse production national average at greenhouse",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -823,7 +824,7 @@
   },
   {
     "id": "tomato-greenhouse",
-    "name": "Tomate sous serre non chauffée (sortie de ferme)",
+    "name": "Tomate sous serre non chauffée",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -878,7 +879,7 @@
   },
   {
     "id": "tomato-heated-greenhouse",
-    "name": "Tomate sous serre chauffée (sortie de ferme)",
+    "name": "Tomate sous serre chauffée",
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -904,8 +905,8 @@
   },
   {
     "id": "apricot",
-    "name": "Abricot (sortie de ferme)",
-    "search": "code:f6f01b92fe478ddbf62a9f0b07512158",
+    "name": "Abricot",
+    "search": "apricot consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -917,8 +918,8 @@
   },
   {
     "id": "artichoke",
-    "name": "Artichaut (sortie de ferme)",
-    "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
+    "name": "Artichaut",
+    "search": "cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -931,8 +932,8 @@
   },
   {
     "id": "cauliflower",
-    "name": "Chou-fleur (sortie de ferme)",
-    "search": "code:aa438e0ac8e5afb8ca845b7dc6f3f212",
+    "name": "Chou-fleur",
+    "search": "cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -940,13 +941,12 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé conventionnel ne correspond pas au procédé bio disponible (cauliflower, winter production) => pas de comparaison possible."
+    "visible": true
   },
   {
     "id": "beetroot",
-    "name": "Betterave rouge (sortie de ferme)",
-    "search": "Carrot, conventional, national average, at farm gate ",
+    "name": "Betterave rouge",
+    "search": "Carrot consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -954,12 +954,11 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé betterave rouge approximé par la carotte (hypothèse reprise d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "beetroot-organic",
-    "name": "Betterave rouge bio (sortie de ferme)",
+    "name": "Betterave rouge bio",
     "search": "code:6408f1ffebe26276c8aa852b45d96aa5",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -973,8 +972,8 @@
   },
   {
     "id": "swiss-chard",
-    "name": "Blette (sortie de ferme)",
-    "search": "Spinach {GLO}| production | ",
+    "name": "Blette",
+    "search": "Spinach GLO production",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -982,12 +981,11 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé blette approximé par l'épinard (hypothèse reprise d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "spinach",
-    "name": "Epinard (sortie de ferme)",
+    "name": "Epinard",
     "search": "Spinach {GLO}| production |",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1000,8 +998,8 @@
   },
   {
     "id": "broccoli",
-    "name": "Brocoli (sortie de ferme)",
-    "search": "Broccoli {GLO}| production ",
+    "name": "Brocoli",
+    "search": "Broccoli consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1009,13 +1007,12 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé issu de WDFDB (GLO)"
+    "visible": true
   },
   {
     "id": "celery",
-    "name": "Céleri branche (sortie de ferme)",
-    "search": "Celery {GLO}| 675 production | Cut-off",
+    "name": "Céleri branche",
+    "search": "Celery consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1023,13 +1020,12 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé issu de WDFDB (GLO)"
+    "visible": true
   },
   {
     "id": "celeriac",
-    "name": "Céleri-rave (sortie de ferme)",
-    "search": "Carrot, conventional, national average, at farm gate ",
+    "name": "Céleri-rave",
+    "search": "Carrot consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1037,12 +1033,11 @@
     "density": 0.6375,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "procédé céleri-rave approximé par la carotte (hypothèse reprise d'Agribalyse)\nHypothèse sur le ratio densité de la carotte, sinon hypothèses céleri\n"
+    "visible": true
   },
   {
     "id": "celeriac-organic",
-    "name": "Céleri-rave bio (sortie de ferme)",
+    "name": "Céleri-rave bio",
     "search": "carrot organic lower",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -1056,7 +1051,7 @@
   },
   {
     "id": "cherry",
-    "name": "Cerise (sortie de ferme)",
+    "name": "Cerise",
     "search": "Cherry, conventional, national average, at orchard {FR}",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1084,7 +1079,7 @@
   },
   {
     "id": "chestnut",
-    "name": "Châtaigne avec coque (sortie de ferme)",
+    "name": "Châtaigne avec coque",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1097,7 +1092,7 @@
   },
   {
     "id": "walnut",
-    "name": "Noix avec coque (sortie de ferme)",
+    "name": "Noix avec coque",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1110,8 +1105,8 @@
   },
   {
     "id": "chinese-cabbage",
-    "name": "Chou chinois (sortie de ferme)",
-    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "name": "Chou chinois",
+    "search": "Cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1119,13 +1114,12 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé du chou chinois approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "white-cabbage",
-    "name": "Chou blanc (sortie de ferme)",
-    "search": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Chou blanc",
+    "search": "Cabbage white consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1133,13 +1127,12 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé du chou blanc issu de WDFDB (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois)"
+    "visible": true
   },
   {
     "id": "green-cabbage",
-    "name": "Chou vert (sortie de ferme)",
-    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "name": "Chou vert",
+    "search": "Cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1147,12 +1140,11 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé du chou vert approximé par le procédé du chou-fleur (hypothèse reprise d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "red-cabbage",
-    "name": "Chou rouge (sortie de ferme)",
+    "name": "Chou rouge",
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1166,8 +1158,8 @@
   },
   {
     "id": "brussels-sprout",
-    "name": "Chou de Bruxelles (sortie de ferme)",
-    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "name": "Chou de Bruxelles",
+    "search": "Cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1175,13 +1167,12 @@
     "density": 0.362,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé du chou de Bruxelles approximé par le procédé du chou-fleur (sauf pour la part non-comestible qui lui est spécifique)"
+    "visible": true
   },
   {
     "id": "curly-kale",
-    "name": "Chou frisé (sortie de ferme)",
-    "search": "Cauliflower, national average, at farm gate {FR} U",
+    "name": "Chou frisé",
+    "search": "Cauliflower consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1194,8 +1185,8 @@
   },
   {
     "id": "lemon",
-    "name": "Citron (sortie de ferme)",
-    "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Citron",
+    "search": "Lemon consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1203,13 +1194,12 @@
     "density": 0.575,
     "inedible_part": 0.3,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé du citron ES issu d'Ecoinvent"
+    "visible": true
   },
   {
     "id": "pumpkin",
-    "name": "Citrouille (sortie de ferme)",
-    "search": "Zucchini, conventional, national average, at farm gate {FR}",
+    "name": "Citrouille",
+    "search": "Zucchini consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1217,13 +1207,12 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de la citrouille approximé par la courgette, sauf pour densité et part non comestible qui lui sont spécifiques"
+    "visible": true
   },
   {
     "id": "squash",
-    "name": "Courge (sortie de ferme)",
-    "search": "Zucchini, conventional, national average, at farm gate {FR}",
+    "name": "Courge",
+    "search": "Zucchini consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1231,13 +1220,12 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de la courge approximé par la courgette, sauf pour densité et part non comestible qui sont celles de la citrouille"
+    "visible": true
   },
   {
     "id": "clementine",
-    "name": "Clémentine (sortie de ferme)",
-    "search": "Clementine, export quality, Souss, at orchard {MA} ",
+    "name": "Clémentine",
+    "search": "Clementine consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1245,13 +1233,12 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de la clémentine marocaine (hypothèse du mix de consommation d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "mandarin",
-    "name": "Mandarine (sortie de ferme)",
-    "search": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Mandarine",
+    "search": "Mandarin  consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1259,13 +1246,12 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de la mandarine espagnole (hypothèse du mix de consommation d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "orange",
-    "name": "Orange (sortie de ferme)",
-    "search": "Orange, fresh grade, at farm {ES} ",
+    "name": "Orange",
+    "search": "Orange consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1273,12 +1259,11 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de l'orange espagnole (hypothèse du mix de consommation d'Agribalyse - 85% d'orange espagnole dans le mix)"
+    "visible": true
   },
   {
     "id": "shallot",
-    "name": "Echalotte (sortie de ferme)",
+    "name": "Echalotte",
     "search": "Onion, national average, at farm {FR} U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1292,8 +1277,8 @@
   },
   {
     "id": "endive",
-    "name": "Endive (sortie de ferme)",
-    "search": "Lettuce, conventional, national average, at farm gate ",
+    "name": "Endive",
+    "search": "Lettuce consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1301,13 +1286,12 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de l'endive approximé par la laitue."
+    "visible": true
   },
   {
     "id": "fennel",
-    "name": "Fenouil (sortie de ferme)",
-    "search": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Fenouil",
+    "search": "Fennel consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1315,12 +1299,11 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé fenouil d'Ecoinvent (GLO)\nPas de densité pour le fenouil. Approximation : densité des endives"
+    "visible": true
   },
   {
     "id": "broad-beans",
-    "name": "Fève (sortie de ferme)",
+    "name": "Fève",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1334,8 +1317,8 @@
   },
   {
     "id": "strawberry",
-    "name": "Fraise - plein champ (sortie de ferme)",
-    "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
+    "name": "Fraise - plein champ",
+    "search": "Strawberry consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1343,12 +1326,11 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Par défaut : fraise espagnole"
+    "visible": true
   },
   {
     "id": "raspberry",
-    "name": "Framboise (sortie de ferme)",
+    "name": "Framboise",
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1362,7 +1344,7 @@
   },
   {
     "id": "flageolet-bean",
-    "name": "Haricot flageolet (sortie de ferme)",
+    "name": "Haricot flageolet",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm ",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1376,8 +1358,8 @@
   },
   {
     "id": "kiwi",
-    "name": "Kiwi (sortie de ferme)",
-    "search": "Kiwi FR, conventional, national average, at plant {FR} U",
+    "name": "Kiwi",
+    "search": "Kiwi FR consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1385,13 +1367,12 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Part non comestible : même hyp que pomme"
+    "visible": true
   },
   {
     "id": "lambs-lettuce",
-    "name": "Mâche (sortie de ferme)",
-    "search": "Lettuce, conventional, national average, at farm gate",
+    "name": "Mâche",
+    "search": "Lettuce consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1399,12 +1380,11 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé laitue (hypothèse reprise d'Agribalyse)"
+    "visible": true
   },
   {
     "id": "sweet-corn",
-    "name": "Maïs doux (sortie de ferme)",
+    "name": "Maïs doux",
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "category": "ingredient",
     "categories": ["grain_raw"],
@@ -1425,7 +1405,7 @@
   },
   {
     "id": "blackberry",
-    "name": "Mûre (sortie de ferme)",
+    "name": "Mûre",
     "search": "Blackberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1439,7 +1419,7 @@
   },
   {
     "id": "blueberry",
-    "name": "Myrtille (sortie de ferme)",
+    "name": "Myrtille",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1453,8 +1433,8 @@
   },
   {
     "id": "turnip",
-    "name": "Navet (sortie de ferme)",
-    "search": "Carrot, conventional, national average, at farm gate {FR} U",
+    "name": "Navet",
+    "search": "Carrot consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1462,12 +1442,11 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Procédé de la carotte (hypothèse mix de conso AGB)"
+    "visible": true
   },
   {
     "id": "turnip-organic",
-    "name": "Navet bio (sortie de ferme)",
+    "name": "Navet bio",
     "search": "carrot organic lower",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
@@ -1481,7 +1460,7 @@
   },
   {
     "id": "hazelnut",
-    "name": "Noisette avec coque (sortie de ferme)",
+    "name": "Noisette avec coque",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1494,7 +1473,7 @@
   },
   {
     "id": "pistachio",
-    "name": "Pistache avec coque (sortie de ferme)",
+    "name": "Pistache avec coque",
     "search": "Peanut {AR}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1508,8 +1487,8 @@
   },
   {
     "id": "leek",
-    "name": "Poireau (sortie de ferme)",
-    "search": "Leek, national average, at plant",
+    "name": "Poireau",
+    "search": "Leek consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -1517,12 +1496,11 @@
     "density": 0.6195,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "explain": "Mix de consommation volontairement repris car transport négligeable à cette étape et pas de procédé at farm majoritaire."
+    "visible": true
   },
   {
     "id": "chickpea",
-    "name": "Pois chiche (sortie de ferme)",
+    "name": "Pois chiche",
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1536,7 +1514,7 @@
   },
   {
     "id": "chickpea-organic",
-    "name": "Pois chiche bio (sortie de ferme)",
+    "name": "Pois chiche bio",
     "search": " \tWinter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw", "organic"],
@@ -1550,7 +1528,7 @@
   },
   {
     "id": "bellpepper-unheated-greenhouse",
-    "name": "Poivron sous serre non chauffée (sortie de ferme)",
+    "name": "Poivron sous serre non chauffée",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1563,7 +1541,7 @@
   },
   {
     "id": "plum",
-    "name": "Prune (sortie de ferme)",
+    "name": "Prune",
     "search": "Cherry, conventional, national average, at orchard ",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1577,7 +1555,7 @@
   },
   {
     "id": "soybean-humanconsumption",
-    "name": "Soja FR (sortie de ferme)",
+    "name": "Soja FR",
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1597,7 +1575,7 @@
   },
   {
     "id": "soybean-organic",
-    "name": "Soja FR bio (sortie de ferme)",
+    "name": "Soja FR bio",
     "search": "soybean organic animal {FR}",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw", "organic"],
@@ -1617,7 +1595,7 @@
   },
   {
     "id": "soybean-br-no-deforestation",
-    "name": "Soja BR non déforestant (sortie de ferme)",
+    "name": "Soja BR non déforestant",
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent \t",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1630,7 +1608,7 @@
   },
   {
     "id": "soybean-br-deforestation",
-    "name": "Soja BR déforestant (sortie de ferme)",
+    "name": "Soja BR déforestant",
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "category": "ingredient",
     "categories": ["nut_oilseed_raw"],
@@ -1815,7 +1793,7 @@
   {
     "id": "pineapple",
     "name": "Ananas",
-    "search": "pineapple glo",
+    "search": "pineapple consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1823,13 +1801,12 @@
     "density": 0.575,
     "inedible_part": 0.5,
     "transport_cooling": "always",
-    "visible": true,
-    "explain": "En première approche, on choisit l'inventaire majoritaire dans l'ICV AGB consumption mix FR. Axe d'améliorartion : Créer un nouvel ananas en prenant également en compte l'ananas CR qui entre aussi en compte dans consumption mix AGB."
+    "visible": true
   },
   {
     "id": "banana",
-    "name": "Banane (sortie de ferme)",
-    "search": "banana at farm glo",
+    "name": "Banane",
+    "search": "banana consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1837,8 +1814,7 @@
     "density": 0.447,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true,
-    "explain": "Choix par défaut de la banane GLO qui représent environ 60% de la banane consumption mix FR d'Agribalyse. Alternative : la banane West Indies représentait elle aussi environ 40%."
+    "visible": true
   },
   {
     "id": "chicken-breast-br-max",
@@ -1899,7 +1875,7 @@
   },
   {
     "id": "strawberry-off-season",
-    "name": "Fraise - hors saison (sortie de ferme)",
+    "name": "Fraise - hors saison",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate/",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
@@ -1912,8 +1888,8 @@
   },
   {
     "id": "avocado",
-    "name": "Avocat (sortie de ferme)",
-    "search": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent ",
+    "name": "Avocat",
+    "search": "Avocado consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1921,12 +1897,11 @@
     "density": 0.6375,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true,
-    "explain": "Toujours importé => bonus nuls"
+    "visible": true
   },
   {
     "id": "olive",
-    "name": "Olive (sortie de ferme)",
+    "name": "Olive",
     "search": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1940,7 +1915,7 @@
   {
     "id": "olive-oil",
     "name": "Huile d'olive ",
-    "search": "Extra Virgin Olive Oil, at plant {ES",
+    "search": "Extra Virgin Olive Oil consumption",
     "category": "ingredient",
     "categories": ["nut_oilseed_processed"],
     "default_origin": "EuropeAndMaghreb",
@@ -2057,8 +2032,8 @@
   },
   {
     "id": "peach-conventional",
-    "name": "Pêche (sortie de ferme)",
-    "search": "Peach, conventional, national average, at orchard/FR U :",
+    "name": "Pêche",
+    "search": "peach consumption",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "EuropeAndMaghreb",
@@ -2066,11 +2041,12 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
+    "explain": "mix",
     "visible": true
   },
   {
     "id": "large-trout",
-    "name": "Truite d'élevage (sortie de ferme)",
+    "name": "Truite d'élevage",
     "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -2137,7 +2113,7 @@
   },
   {
     "id": "egg-organic-code0",
-    "name": "Oeuf bio (sortie de ferme)",
+    "name": "Oeuf bio",
     "search": "Egg organic at farm gate",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
@@ -2197,7 +2173,7 @@
   {
     "id": "lamb-organic-meat-without-bone",
     "name": "Viande d'agneau bio (désossée)",
-    "search": "Meat without bone lamb organic",
+    "search": "lamb organic",
     "database": "Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -2213,6 +2189,24 @@
       "cropDiversity": 22.96,
       "permanentPasture": 193.27,
       "livestockDensity": 0.0009
+    }
+  },
+  {
+    "id": "pear-organic",
+    "name": "Poire bio (sortie de ferme)",
+    "database": "Agribalyse 3.1.1",
+    "search": "pear organic",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "complements": {
+      "agro-diversity": 50,
+      "agro-ecology": 50
     }
   }
 ]
