@@ -1975,7 +1975,7 @@
     "id": "lamb-organic-meat-without-bone",
     "name": "Viande d'agneau bio (désossée)",
     "categories": ["animal_product"],
-    "default": "77097dfec213d8290b21d0134a807f80",
+    "default": "f025b4a41c45eabdb2510795b3353ca4",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
