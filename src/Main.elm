@@ -300,6 +300,7 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
 
+                -- Login
                 ( LoggedIn (Ok { textileProcesses, foodProcesses }), currentPage ) ->
                     let
                         newSession =
@@ -312,13 +313,16 @@ update rawMsg ({ state } as model) =
                     , newSession.store |> Session.serializeStore |> Ports.saveStore
                     )
 
-                ( LoggedIn (Err error), _ ) ->
-                    -- TODO: display an error message
+                ( LoggedIn (Err error), currentPage ) ->
                     let
-                        _ =
-                            Debug.log "Error" error
+                        newSession =
+                            session
+                                |> Session.notifyError "Impossible de charger les impacts lors du login : " error
                     in
-                    ( model
+                    ( { model
+                        | state =
+                            currentPage |> Loaded newSession
+                      }
                     , Cmd.none
                     )
 
