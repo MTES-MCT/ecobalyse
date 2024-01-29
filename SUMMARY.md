@@ -64,6 +64,7 @@
     * [Focus coton (draft)](textile/etapes-du-cycle-de-vie/etape-1-matieres/focus-coton-draft.md)
     * [Focus polyester (draft)](textile/etapes-du-cycle-de-vie/etape-1-matieres/focus-polyester-draft.md)
     * [Focus laine (draft)](textile/etapes-du-cycle-de-vie/etape-1-matieres/focus-laine-draft.md)
+    * [Autres matières naturelles](textile/etapes-du-cycle-de-vie/etape-1-matieres/autres-matieres-naturelles.md)
   * [🧶 Etape 2 - Fabrication du fil](textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil.md)
   * [〰 Etape 2 - Fabrication de l'étoffe](textile/etapes-du-cycle-de-vie/tricotage-tissage.md)
   * [🌈 Etape 3 - Ennoblissement](textile/etapes-du-cycle-de-vie/ennoblissement/README.md)

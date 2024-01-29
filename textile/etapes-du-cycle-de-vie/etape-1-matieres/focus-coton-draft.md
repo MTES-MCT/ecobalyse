@@ -54,7 +54,8 @@ Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 
 <summary>Coton conventionnel</summary>
 
-\[synthèse des principales hypothèses/paramètres]
+**Procédé Ecoinvent** \
+_Fibre production, cotton, ginning, RoW_
 
 </details>
 
@@ -62,7 +63,8 @@ Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 
 <summary>Coton organique</summary>
 
-\[synthèse des principales hypothèses/paramètres]
+**Procédé Ecoinvent** \
+_Fibre production, cotton, organic, ginning, RoW_
 
 </details>
 
