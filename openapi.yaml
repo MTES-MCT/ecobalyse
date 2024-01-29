@@ -456,6 +456,7 @@ components:
         countryFabric: "FR"
         countryDyeing: "FR"
         countryMaking: "FR"
+        fabricProcess: "knitting-mix"
     tShirtChina:
       summary: "T-Shirt Chine, low-cost, 100% Coton"
       value:

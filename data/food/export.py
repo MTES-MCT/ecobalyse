@@ -98,8 +98,8 @@ if __name__ == "__main__":
                     ).production()
                 )
             )
-            # those are removed at the end:
             else activity.get("comment", ""),
+            # those are removed at the end:
             "database": activity.get("database", AGRIBALYSE),
             "search": activity["search"],
         }

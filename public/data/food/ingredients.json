@@ -1,7 +1,7 @@
 [
   {
     "id": "egg-bleublanccoeur",
-    "name": "Oeuf Bleu-Blanc-Cœur (sortie de ferme)",
+    "name": "Oeuf Bleu-Blanc-Cœur",
     "categories": ["animal_product", "bleublanccoeur"],
     "default": "AGRIBALU000000003105149",
     "default_origin": "EuropeAndMaghreb",
@@ -14,7 +14,7 @@
   },
   {
     "id": "milk",
-    "name": "Lait (sortie de ferme)",
+    "name": "Lait",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003104145",
     "default_origin": "EuropeAndMaghreb",
@@ -28,12 +28,12 @@
       "plotSize": 0.3,
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
     "id": "milk-organic",
-    "name": "Lait bio (sortie de ferme)",
+    "name": "Lait bio",
     "categories": ["dairy_product", "organic"],
     "default": "843986b19b3ea959b8817afda669dead",
     "default_origin": "EuropeAndMaghreb",
@@ -47,14 +47,14 @@
       "plotSize": 0.77,
       "cropDiversity": 0.55,
       "permanentPasture": 1.39,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.0002
     }
   },
   {
     "id": "carrot",
-    "name": "Carotte (sortie de ferme)",
+    "name": "Carotte",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102592",
+    "default": "AGRIBALU000000003102585",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -65,7 +65,7 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio (sortie de ferme)",
+    "name": "Carotte bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
@@ -78,7 +78,7 @@
   },
   {
     "id": "wheat",
-    "name": "Blé tendre (sortie de ferme)",
+    "name": "Blé tendre",
     "categories": ["grain_raw"],
     "default": "AGRIBALU000024985200247",
     "default_origin": "France",
@@ -97,7 +97,7 @@
   },
   {
     "id": "wheat-organic",
-    "name": "Blé tendre bio (sortie de ferme)",
+    "name": "Blé tendre bio",
     "categories": ["grain_raw", "organic"],
     "default": "bdd14c2017eaf0cda1e207e74012c391",
     "default_origin": "France",
@@ -142,7 +142,7 @@
   },
   {
     "id": "sunflower",
-    "name": "Tournesol (sortie de ferme)",
+    "name": "Tournesol",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003115216",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -155,7 +155,7 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio (sortie de ferme)",
+    "name": "Tournesol bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "default": "AGRIBALU000024985200157",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -168,7 +168,7 @@
   },
   {
     "id": "rapeseed",
-    "name": "Colza (sortie de ferme)",
+    "name": "Colza",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003112430",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -181,7 +181,7 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio (sortie de ferme)",
+    "name": "Colza bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "default": "AGRIBALU000024985200196",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -194,9 +194,9 @@
   },
   {
     "id": "potato",
-    "name": "Pomme de terre (sortie de ferme)",
+    "name": "Pomme de terre",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003116702",
+    "default": "AGRIBALU000000003111904",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -221,7 +221,7 @@
       "plotSize": 25.53,
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0059
     }
   },
   {
@@ -259,7 +259,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0139
     }
   },
   {
@@ -273,7 +273,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {}
+    "ecosystemicServices": {
+      "hedges": 1.42,
+      "plotSize": 1.83,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0591
+    }
   },
   {
     "id": "cooked-ham-organic",
@@ -286,7 +292,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {}
+    "ecosystemicServices": {
+      "hedges": 6.28,
+      "plotSize": 8.14,
+      "cropDiversity": 31.17,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.017
+    }
   },
   {
     "id": "cooked-ham-fr",
@@ -299,7 +311,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {}
+    "ecosystemicServices": {
+      "hedges": 1.58,
+      "plotSize": 2.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0591
+    }
   },
   {
     "id": "chicken-breast",
@@ -313,9 +331,11 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 0.84,
-      "plotSize": 1.01,
-      "livestockDensity": 2
+      "hedges": 1.63,
+      "plotSize": 1.95,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0293
     }
   },
   {
@@ -334,11 +354,11 @@
       "plotSize": 3.07,
       "cropDiversity": 8.94,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0101
     }
   },
   {
-    "id": "chicken-breast-organic-fr",
+    "id": "chicken-breast-fr-organic",
     "name": "Blanc de poulet bio (nourri avec des aliments FR)",
     "categories": ["animal_product", "organic"],
     "default": "fc9b8a819a1ba51b4fbca210d0771198",
@@ -349,16 +369,16 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 2.6,
-      "plotSize": 2.71,
-      "cropDiversity": 14.32,
-      "livestockDensity": 2,
-      "selfSufficiency": 5
+      "hedges": 5.03,
+      "plotSize": 5.24,
+      "cropDiversity": 27.67,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0101
     }
   },
   {
     "id": "mango",
-    "name": "Mangue BR (sortie de ferme)",
+    "name": "Mangue BR",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
@@ -423,9 +443,9 @@
   },
   {
     "id": "zucchini",
-    "name": "Courgette (sortie de ferme)",
+    "name": "Courgette",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000024985200218",
+    "default": "AGRIBALU000000003117540",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -436,7 +456,7 @@
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio (sortie de ferme)",
+    "name": "Courgette bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000024985200219",
     "default_origin": "EuropeAndMaghreb",
@@ -449,9 +469,9 @@
   },
   {
     "id": "pear",
-    "name": "Poire (sortie de ferme)",
+    "name": "Poire",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003111019",
+    "default": "AGRIBALU000000003111018",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -462,7 +482,7 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio (sortie de ferme)",
+    "name": "Pêche bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003110947",
     "default_origin": "EuropeAndMaghreb",
@@ -470,14 +490,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": false,
+    "visible": true,
     "ecosystemicServices": {}
   },
   {
     "id": "melon",
-    "name": "Melon (sortie de ferme)",
+    "name": "Melon",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003109266",
+    "default": "AGRIBALU000000003109265",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -488,7 +508,7 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio (sortie de ferme)",
+    "name": "Melon bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000024985200102",
     "default_origin": "EuropeAndMaghreb",
@@ -527,7 +547,7 @@
   },
   {
     "id": "onion",
-    "name": "Oignon (sortie de ferme)",
+    "name": "Oignon",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003110467",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -540,9 +560,9 @@
   },
   {
     "id": "eggplant",
-    "name": "Aubergine (sortie de ferme)",
+    "name": "Aubergine",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117541",
+    "default": "AGRIBALU000000003117540",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
@@ -553,9 +573,9 @@
   },
   {
     "id": "lettuce",
-    "name": "Laitue (sortie de ferme)",
+    "name": "Laitue",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108668",
+    "default": "AGRIBALU000000003108667",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -566,9 +586,9 @@
   },
   {
     "id": "french-bean",
-    "name": "Haricot vert (sortie de ferme)",
+    "name": "Haricot vert",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000024985200072",
+    "default": "AGRIBALU000000003106138",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
@@ -579,7 +599,7 @@
   },
   {
     "id": "durum-wheat",
-    "name": "Blé dur (sortie de ferme)",
+    "name": "Blé dur",
     "categories": ["grain_raw"],
     "default": "AGRIBALU000024985200066",
     "default_origin": "EuropeAndMaghreb",
@@ -605,7 +625,7 @@
   },
   {
     "id": "lentils-uncooked",
-    "name": "Lentilles (sortie de ferme)",
+    "name": "Lentilles",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200192",
     "default_origin": "EuropeAndMaghreb",
@@ -618,7 +638,7 @@
   },
   {
     "id": "garden-peas",
-    "name": "Petit pois (sortie de ferme)",
+    "name": "Petit pois",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000024985200024",
     "default_origin": "EuropeAndMaghreb",
@@ -631,7 +651,7 @@
   },
   {
     "id": "tomato-organic-greenhouse",
-    "name": "Tomate bio sous serre non chauffée (sortie de ferme)",
+    "name": "Tomate bio sous serre non chauffée",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003115758",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -644,7 +664,7 @@
   },
   {
     "id": "tomato-greenhouse",
-    "name": "Tomate sous serre non chauffée (sortie de ferme)",
+    "name": "Tomate sous serre non chauffée",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003115753",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -696,7 +716,7 @@
   },
   {
     "id": "tomato-heated-greenhouse",
-    "name": "Tomate sous serre chauffée (sortie de ferme)",
+    "name": "Tomate sous serre chauffée",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003115752",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -722,9 +742,9 @@
   },
   {
     "id": "apricot",
-    "name": "Abricot (sortie de ferme)",
+    "name": "Abricot",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003100510",
+    "default": "AGRIBALU000000003100526",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -735,9 +755,9 @@
   },
   {
     "id": "artichoke",
-    "name": "Artichaut (sortie de ferme)",
+    "name": "Artichaut",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102661",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -748,9 +768,9 @@
   },
   {
     "id": "cauliflower",
-    "name": "Chou-fleur (sortie de ferme)",
+    "name": "Chou-fleur",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102661",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -761,9 +781,9 @@
   },
   {
     "id": "beetroot",
-    "name": "Betterave rouge (sortie de ferme)",
+    "name": "Betterave rouge",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102592",
+    "default": "AGRIBALU000000003102585",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -774,7 +794,7 @@
   },
   {
     "id": "beetroot-organic",
-    "name": "Betterave rouge bio (sortie de ferme)",
+    "name": "Betterave rouge bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
@@ -787,7 +807,7 @@
   },
   {
     "id": "swiss-chard",
-    "name": "Blette (sortie de ferme)",
+    "name": "Blette",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003114717",
     "default_origin": "EuropeAndMaghreb",
@@ -800,7 +820,7 @@
   },
   {
     "id": "spinach",
-    "name": "Epinard (sortie de ferme)",
+    "name": "Epinard",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003114717",
     "default_origin": "EuropeAndMaghreb",
@@ -813,9 +833,9 @@
   },
   {
     "id": "broccoli",
-    "name": "Brocoli (sortie de ferme)",
+    "name": "Brocoli",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102101",
+    "default": "AGRIBALU000000003102102",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -826,9 +846,9 @@
   },
   {
     "id": "celery",
-    "name": "Céleri branche (sortie de ferme)",
+    "name": "Céleri branche",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102720",
+    "default": "AGRIBALU000000003102739",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -839,9 +859,9 @@
   },
   {
     "id": "celeriac",
-    "name": "Céleri-rave (sortie de ferme)",
+    "name": "Céleri-rave",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102592",
+    "default": "AGRIBALU000000003102585",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -852,7 +872,7 @@
   },
   {
     "id": "celeriac-organic",
-    "name": "Céleri-rave bio (sortie de ferme)",
+    "name": "Céleri-rave bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
@@ -865,7 +885,7 @@
   },
   {
     "id": "cherry",
-    "name": "Cerise (sortie de ferme)",
+    "name": "Cerise",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003102916",
     "default_origin": "EuropeAndMaghreb",
@@ -891,7 +911,7 @@
   },
   {
     "id": "chestnut",
-    "name": "Châtaigne avec coque (sortie de ferme)",
+    "name": "Châtaigne avec coque",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003116662",
     "default_origin": "EuropeAndMaghreb",
@@ -904,7 +924,7 @@
   },
   {
     "id": "walnut",
-    "name": "Noix avec coque (sortie de ferme)",
+    "name": "Noix avec coque",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003116663",
     "default_origin": "EuropeAndMaghreb",
@@ -917,9 +937,9 @@
   },
   {
     "id": "chinese-cabbage",
-    "name": "Chou chinois (sortie de ferme)",
+    "name": "Chou chinois",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102675",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -930,9 +950,9 @@
   },
   {
     "id": "white-cabbage",
-    "name": "Chou blanc (sortie de ferme)",
+    "name": "Chou blanc",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102347",
+    "default": "AGRIBALU000000003117129",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -943,9 +963,9 @@
   },
   {
     "id": "green-cabbage",
-    "name": "Chou vert (sortie de ferme)",
+    "name": "Chou vert",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102675",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -956,7 +976,7 @@
   },
   {
     "id": "red-cabbage",
-    "name": "Chou rouge (sortie de ferme)",
+    "name": "Chou rouge",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003102346",
     "default_origin": "EuropeAndMaghreb",
@@ -969,9 +989,9 @@
   },
   {
     "id": "brussels-sprout",
-    "name": "Chou de Bruxelles (sortie de ferme)",
+    "name": "Chou de Bruxelles",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102675",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -982,9 +1002,9 @@
   },
   {
     "id": "curly-kale",
-    "name": "Chou frisé (sortie de ferme)",
+    "name": "Chou frisé",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102675",
+    "default": "AGRIBALU000000003102660",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -995,9 +1015,9 @@
   },
   {
     "id": "lemon",
-    "name": "Citron (sortie de ferme)",
+    "name": "Citron",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108561",
+    "default": "AGRIBALU000000003108602",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1008,9 +1028,9 @@
   },
   {
     "id": "pumpkin",
-    "name": "Citrouille (sortie de ferme)",
+    "name": "Citrouille",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117541",
+    "default": "AGRIBALU000000003117540",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1021,9 +1041,9 @@
   },
   {
     "id": "squash",
-    "name": "Courge (sortie de ferme)",
+    "name": "Courge",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117541",
+    "default": "AGRIBALU000000003117540",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -1034,9 +1054,9 @@
   },
   {
     "id": "clementine",
-    "name": "Clémentine (sortie de ferme)",
+    "name": "Clémentine",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003103409",
+    "default": "AGRIBALU000000003103408",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1047,9 +1067,9 @@
   },
   {
     "id": "mandarin",
-    "name": "Mandarine (sortie de ferme)",
+    "name": "Mandarine",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003109060",
+    "default": "AGRIBALU000000003109061",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1060,9 +1080,9 @@
   },
   {
     "id": "orange",
-    "name": "Orange (sortie de ferme)",
+    "name": "Orange",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003110507",
+    "default": "AGRIBALU000000003110504",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1073,7 +1093,7 @@
   },
   {
     "id": "shallot",
-    "name": "Echalotte (sortie de ferme)",
+    "name": "Echalotte",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003110467",
     "default_origin": "EuropeAndMaghreb",
@@ -1086,9 +1106,9 @@
   },
   {
     "id": "endive",
-    "name": "Endive (sortie de ferme)",
+    "name": "Endive",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108668",
+    "default": "AGRIBALU000000003108667",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 0.118,
@@ -1099,9 +1119,9 @@
   },
   {
     "id": "fennel",
-    "name": "Fenouil (sortie de ferme)",
+    "name": "Fenouil",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003105790",
+    "default": "AGRIBALU000000003105795",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1112,7 +1132,7 @@
   },
   {
     "id": "broad-beans",
-    "name": "Fève (sortie de ferme)",
+    "name": "Fève",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003105780",
     "default_origin": "EuropeAndMaghreb",
@@ -1125,9 +1145,9 @@
   },
   {
     "id": "strawberry",
-    "name": "Fraise - plein champ (sortie de ferme)",
+    "name": "Fraise - plein champ",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000024985200014",
+    "default": "AGRIBALU000000003115000",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1138,7 +1158,7 @@
   },
   {
     "id": "raspberry",
-    "name": "Framboise (sortie de ferme)",
+    "name": "Framboise",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003112470",
     "default_origin": "EuropeAndMaghreb",
@@ -1151,7 +1171,7 @@
   },
   {
     "id": "flageolet-bean",
-    "name": "Haricot flageolet (sortie de ferme)",
+    "name": "Haricot flageolet",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003105780",
     "default_origin": "EuropeAndMaghreb",
@@ -1164,9 +1184,9 @@
   },
   {
     "id": "kiwi",
-    "name": "Kiwi (sortie de ferme)",
+    "name": "Kiwi",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108091",
+    "default": "AGRIBALU000000003108096",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1177,9 +1197,9 @@
   },
   {
     "id": "lambs-lettuce",
-    "name": "Mâche (sortie de ferme)",
+    "name": "Mâche",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108668",
+    "default": "AGRIBALU000000003108667",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1190,7 +1210,7 @@
   },
   {
     "id": "sweet-corn",
-    "name": "Maïs doux (sortie de ferme)",
+    "name": "Maïs doux",
     "categories": ["grain_raw"],
     "default": "AGRIBALU000024985200100",
     "default_origin": "EuropeAndMaghreb",
@@ -1209,7 +1229,7 @@
   },
   {
     "id": "blackberry",
-    "name": "Mûre (sortie de ferme)",
+    "name": "Mûre",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003101582",
     "default_origin": "EuropeAndMaghreb",
@@ -1222,7 +1242,7 @@
   },
   {
     "id": "blueberry",
-    "name": "Myrtille (sortie de ferme)",
+    "name": "Myrtille",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003101680",
     "default_origin": "EuropeAndMaghreb",
@@ -1235,9 +1255,9 @@
   },
   {
     "id": "turnip",
-    "name": "Navet (sortie de ferme)",
+    "name": "Navet",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102592",
+    "default": "AGRIBALU000000003102585",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1248,7 +1268,7 @@
   },
   {
     "id": "turnip-organic",
-    "name": "Navet bio (sortie de ferme)",
+    "name": "Navet bio",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
@@ -1261,7 +1281,7 @@
   },
   {
     "id": "hazelnut",
-    "name": "Noisette avec coque (sortie de ferme)",
+    "name": "Noisette avec coque",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003107313",
     "default_origin": "EuropeAndMaghreb",
@@ -1274,7 +1294,7 @@
   },
   {
     "id": "pistachio",
-    "name": "Pistache avec coque (sortie de ferme)",
+    "name": "Pistache avec coque",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000000003110958",
     "default_origin": "EuropeAndMaghreb",
@@ -1287,9 +1307,9 @@
   },
   {
     "id": "leek",
-    "name": "Poireau (sortie de ferme)",
+    "name": "Poireau",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108547",
+    "default": "AGRIBALU000000003108534",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -1300,7 +1320,7 @@
   },
   {
     "id": "chickpea",
-    "name": "Pois chiche (sortie de ferme)",
+    "name": "Pois chiche",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200192",
     "default_origin": "EuropeAndMaghreb",
@@ -1313,7 +1333,7 @@
   },
   {
     "id": "chickpea-organic",
-    "name": "Pois chiche bio (sortie de ferme)",
+    "name": "Pois chiche bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "default": "AGRIBALU000024985200193",
     "default_origin": "France",
@@ -1326,7 +1346,7 @@
   },
   {
     "id": "bellpepper-unheated-greenhouse",
-    "name": "Poivron sous serre non chauffée (sortie de ferme)",
+    "name": "Poivron sous serre non chauffée",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003101321",
     "default_origin": "France",
@@ -1339,7 +1359,7 @@
   },
   {
     "id": "plum",
-    "name": "Prune (sortie de ferme)",
+    "name": "Prune",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003102916",
     "default_origin": "France",
@@ -1352,7 +1372,7 @@
   },
   {
     "id": "soybean-humanconsumption",
-    "name": "Soja FR (sortie de ferme)",
+    "name": "Soja FR",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200128",
     "default_origin": "France",
@@ -1371,7 +1391,7 @@
   },
   {
     "id": "soybean-organic",
-    "name": "Soja FR bio (sortie de ferme)",
+    "name": "Soja FR bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "default": "AGRIBALU000000003114674",
     "default_origin": "France",
@@ -1390,7 +1410,7 @@
   },
   {
     "id": "soybean-br-no-deforestation",
-    "name": "Soja BR non déforestant (sortie de ferme)",
+    "name": "Soja BR non déforestant",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200001",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1403,7 +1423,7 @@
   },
   {
     "id": "soybean-br-deforestation",
-    "name": "Soja BR déforestant (sortie de ferme)",
+    "name": "Soja BR déforestant",
     "categories": ["nut_oilseed_raw"],
     "default": "AGRIBALU000024985200302",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1587,7 +1607,7 @@
     "id": "pineapple",
     "name": "Ananas",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003111283",
+    "default": "AGRIBALU000000003111299",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -1598,9 +1618,9 @@
   },
   {
     "id": "banana",
-    "name": "Banane (sortie de ferme)",
+    "name": "Banane",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003100924",
+    "default": "AGRIBALU000000003100928",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1625,7 +1645,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.04
+      "livestockDensity": -0.0425
     }
   },
   {
@@ -1639,7 +1659,13 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {}
+    "ecosystemicServices": {
+      "hedges": 2.55,
+      "plotSize": 3.69,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0293
+    }
   },
   {
     "id": "cane-sugar",
@@ -1656,7 +1682,7 @@
   },
   {
     "id": "strawberry-off-season",
-    "name": "Fraise - hors saison (sortie de ferme)",
+    "name": "Fraise - hors saison",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003115025",
     "default_origin": "EuropeAndMaghreb",
@@ -1669,9 +1695,9 @@
   },
   {
     "id": "avocado",
-    "name": "Avocat (sortie de ferme)",
+    "name": "Avocat",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003100748",
+    "default": "AGRIBALU000000003100760",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1682,7 +1708,7 @@
   },
   {
     "id": "olive",
-    "name": "Olive (sortie de ferme)",
+    "name": "Olive",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003110400",
     "default_origin": "EuropeAndMaghreb",
@@ -1697,7 +1723,7 @@
     "id": "olive-oil",
     "name": "Huile d'olive ",
     "categories": ["nut_oilseed_processed"],
-    "default": "AGRIBALU000000003105717",
+    "default": "AGRIBALU000000003105719",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1812,9 +1838,9 @@
   },
   {
     "id": "peach-conventional",
-    "name": "Pêche (sortie de ferme)",
+    "name": "Pêche",
     "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003110938",
+    "default": "AGRIBALU000000003110937",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1825,7 +1851,7 @@
   },
   {
     "id": "large-trout",
-    "name": "Truite d'élevage (sortie de ferme)",
+    "name": "Truite d'élevage",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003108470",
     "default_origin": "France",
@@ -1852,7 +1878,7 @@
       "plotSize": 0.87,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -1871,7 +1897,7 @@
       "plotSize": 0.72,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.01
+      "livestockDensity": -0.0077
     }
   },
   {
@@ -1889,7 +1915,7 @@
   },
   {
     "id": "egg-organic-code0",
-    "name": "Oeuf bio (sortie de ferme)",
+    "name": "Oeuf bio",
     "categories": ["animal_product", "organic"],
     "default": "AGRIBALU000000003105163",
     "default_origin": "EuropeAndMaghreb",
@@ -1942,7 +1968,7 @@
       "plotSize": 38.31,
       "cropDiversity": 0.0,
       "permanentPasture": 86.68,
-      "livestockDensity": 0.0
+      "livestockDensity": 0.0034
     }
   },
   {
@@ -1961,7 +1987,20 @@
       "plotSize": 125.0,
       "cropDiversity": 22.96,
       "permanentPasture": 193.27,
-      "livestockDensity": 0.0
+      "livestockDensity": 0.0009
     }
+  },
+  {
+    "id": "pear-organic",
+    "name": "Poire bio (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003111025",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "visible": true,
+    "ecosystemicServices": {}
   }
 ]
