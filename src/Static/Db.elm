@@ -1,33 +1,20 @@
 module Static.Db exposing
     ( Db
     , db
+    , processes
     , updateEcotoxWeighting
     )
 
 import Data.Common.Db as Common
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
-import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Process as Textile
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
-import Static.Json
-    exposing
-        ( countriesJson
-        , foodIngredientsJson
-        , foodProcessesJson
-        , foodProductExamplesJson
-        , impactsJson
-        , textileMaterialsJson
-        , textileProcessesJson
-        , textileProductExamplesJson
-        , textileProductsJson
-        , transportsJson
-        )
+import Static.Json as StaticJson
 
 
 type alias Db =
@@ -39,50 +26,39 @@ type alias Db =
     }
 
 
-db : Result String Db
-db =
-    Result.map5 Db impactDefinitions textileDb foodDb countries distances
+db : StaticJson.Processes -> Result String Db
+db procs =
+    StaticJson.db procs
+        |> Result.andThen
+            (\{ foodDb, textileDb } ->
+                Result.map3
+                    (\okImpactDefinitions okCountries okDistances ->
+                        Db okImpactDefinitions textileDb foodDb okCountries okDistances
+                    )
+                    impactDefinitions
+                    (countries textileDb)
+                    distances
+            )
 
 
 impactDefinitions : Result String Definitions
 impactDefinitions =
-    Common.impactsFromJson impactsJson
+    Common.impactsFromJson StaticJson.impactsJson
 
 
-textileDb : Result String TextileDb.Db
-textileDb =
-    textileProductExamplesJson
-        |> TextileExampleProduct.decodeListFromJsonString
-        |> Result.andThen
-            (\exampleProducts ->
-                TextileDb.buildFromJson exampleProducts
-                    textileMaterialsJson
-                    textileProcessesJson
-                    textileProductsJson
-            )
+processes : StaticJson.Processes
+processes =
+    StaticJson.processes
 
 
-foodDb : Result String FoodDb.Db
-foodDb =
-    foodProductExamplesJson
-        |> FoodExampleProduct.decodeListFromJsonString
-        |> Result.andThen
-            (\exampleProducts ->
-                FoodDb.buildFromJson exampleProducts
-                    foodProcessesJson
-                    foodIngredientsJson
-            )
-
-
-countries : Result String (List Country)
-countries =
-    textileDb
-        |> Result.andThen (\textile -> Common.countriesFromJson textile countriesJson)
+countries : TextileDb.Db -> Result String (List Country)
+countries textileDb =
+    Common.countriesFromJson textileDb StaticJson.countriesJson
 
 
 distances : Result String Distances
 distances =
-    Common.transportsFromJson transportsJson
+    Common.transportsFromJson StaticJson.transportsJson
 
 
 updateEcotoxWeighting : Db -> Unit.Ratio -> Db
@@ -121,7 +97,7 @@ updateImpactDefinitions ({ textile, food } as db_) definitions =
 
 
 updateCountriesFromNewProcesses : List Textile.Process -> List Country -> List Country
-updateCountriesFromNewProcesses processes =
+updateCountriesFromNewProcesses processList =
     List.map
         (\country ->
             Result.map2
@@ -131,7 +107,7 @@ updateCountriesFromNewProcesses processes =
                         , heatProcess = heatProcess
                     }
                 )
-                (Textile.findByUuid country.electricityProcess.uuid processes)
-                (Textile.findByUuid country.heatProcess.uuid processes)
+                (Textile.findByUuid country.electricityProcess.uuid processList)
+                (Textile.findByUuid country.heatProcess.uuid processList)
                 |> Result.withDefault country
         )
