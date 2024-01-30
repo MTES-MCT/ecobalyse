@@ -64,7 +64,6 @@ type alias Config msg modal =
     , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
-    , updateDurability : Unit.Durability -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateFabricProcess : Fabric -> msg

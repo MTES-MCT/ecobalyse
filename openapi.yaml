@@ -88,7 +88,6 @@ paths:
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -99,6 +98,9 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+        - $ref: "#/components/parameters/numberOfReferences"
+        - $ref: "#/components/parameters/price"
+        - $ref: "#/components/parameters/marketingDuration"
       responses:
         200:
           description: Opération réussie
@@ -157,7 +159,6 @@ paths:
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -168,6 +169,9 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+        - $ref: "#/components/parameters/numberOfReferences"
+        - $ref: "#/components/parameters/price"
+        - $ref: "#/components/parameters/marketingDuration"
       responses:
         200:
           description: successful operation
@@ -228,7 +232,6 @@ paths:
         - $ref: "#/components/parameters/countryMakingParam"
         - $ref: "#/components/parameters/fabricProcessParam"
         - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/durabilityParam"
         - $ref: "#/components/parameters/makingWasteParam"
         - $ref: "#/components/parameters/makingDeadStockParam"
         - $ref: "#/components/parameters/makingComplexityParam"
@@ -239,6 +242,9 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+        - $ref: "#/components/parameters/numberOfReferences"
+        - $ref: "#/components/parameters/price"
+        - $ref: "#/components/parameters/marketingDuration"
       responses:
         200:
           description: Opération réussie
@@ -644,18 +650,39 @@ components:
         type: number
         minimum: 0
         maximum: 1
-    durabilityParam:
-      name: durability
+    numberOfReferences:
+      name: numberOfReferences
       in: query
       description: |
-        Qualité intrinsèque du produit. Le coefficient de durabilité représente à quel point
-        le produit va durer dans le temps.
+        Nombre de références au catalogue de la marque.
       required: false
       style: form
       schema:
         type: number
-        minimum: 0.7
-        maximum: 1.35
+        minimum: 1
+        maximum: 200000
+    price:
+      name: price
+      in: query
+      description: |
+        Prix du produit.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 1
+        maximum: 1000
+    marketingDuration:
+      name: marketingDuration
+      in: query
+      description: |
+        Durée de commercialisation, en jours.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 30
+        maximum: 730
     makingWasteParam:
       name: makingWaste
       in: query
