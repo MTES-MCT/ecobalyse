@@ -1782,7 +1782,7 @@
     "step_usage": "Matières, Filature",
     "correctif": "",
     "id": "ei-fil-coton",
-    "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
+    "materialProcessUuid": "23d8981e4e4f17b44cd5299eef7784ea",
     "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
     "shortName": "(EI) Coton",
