@@ -157,10 +157,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 En fonction du vêtement sélectionné, une opération de tissage ou de tricotage est appliquée par défaut.&#x20;
 
-L'utilisateur n'a actuellement pas la possibilité de : &#x20;
-
-* modifier le type d'étoffe du vêtement modélisé,
-* modéliser des étoffes _non-tissées_.
+L'utilisateur a la possibilité de modifier le procédé par défaut.
 
 Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
 
@@ -443,9 +440,3 @@ Les taux de perte appliqués par défaut correspondent à ceux retenus par le so
 * Tricotage intégral : 0,5%
 
 </details>
-
-## Limites générales
-
-* Produits d'encollage non pris en compte (tissage),
-* Le choix du procédé (tissage/tricotage) n'est pas paramétrable,
-* Les taux de perte ne sont pas paramétrables.

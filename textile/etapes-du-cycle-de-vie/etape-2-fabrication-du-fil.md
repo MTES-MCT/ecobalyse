@@ -129,7 +129,15 @@ _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#
 
 <details>
 
-<summary>Fabrication du fil (filature vs filage) </summary>
+<summary>Blanchiment</summary>
+
+Un procédé de blanchiment est appliqué par défaut selon la nature des fibres constituant le fil.
+
+</details>
+
+<details>
+
+<summary>Fabrication du fil (filature vs filage)</summary>
 
 Un fil peut être fabriqué selon deux procédés : la filature ou le filage.&#x20;
 
@@ -181,13 +189,15 @@ Avec :&#x20;
 
 <details>
 
-<summary>Fabrication du fil (filature vs filage) </summary>
+<summary>Fabrication du fil (filature vs filage) et Blanchiment</summary>
 
 La **filature** est utilisée par défaut pour les fils composés fibres naturelles ou artificielles.
 
 Le **filage** est utilisé par défaut pour les fils composés de filaments (matières synthétiques).
 
-:warning: Ecobalyse ne permet pas de modéliser des fils multi-fibres (ex : fil composé à 50% de coton et 50% de polyester). Si un vêtement est composé de plusieurs matières, Ecobalyse considère que différents fils sont assemblés lors de la fabrication de l'étoffe.&#x20;
+:warning: Ecobalyse ne permet pas de modéliser des fils multi-fibres (ex : fil composé à 50% de coton et 50% de polyester). Si un vêtement est composé de plusieurs matières, Ecobalyse considère que différents fils sont assemblés lors de la fabrication de l'étoffe.
+
+Une étape de **Blanchiment** est appliquée par défaut pour les procédés de filature (fibres naturelles et artificielles). &#x20;
 
 </details>
 
