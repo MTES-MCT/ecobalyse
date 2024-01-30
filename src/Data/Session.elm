@@ -327,7 +327,17 @@ getProcesses url =
 
 logout : Session -> Session
 logout ({ store } as session) =
-    { session | store = { store | auth = NotLoggedIn } }
+    case StaticDb.db StaticDb.processes of
+        Ok db ->
+            { session
+                | store = { store | auth = NotLoggedIn }
+                , textileDb = db.textileDb
+                , foodDb = db.foodDb
+            }
+
+        Err err ->
+            { session | store = { store | auth = NotLoggedIn } }
+                |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
 
 
 isLoggedIn : { a | store : Store } -> Bool
