@@ -107,6 +107,7 @@ type alias Inputs =
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
+    , traceability : Maybe Bool
     }
 
 
@@ -142,6 +143,7 @@ type alias Query =
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
+    , traceability : Maybe Bool
     }
 
 
@@ -267,6 +269,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
+        |> RE.andMap (Ok query.traceability)
 
 
 toQuery : Inputs -> Query
@@ -294,6 +297,7 @@ toQuery inputs =
     , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
+    , traceability = inputs.traceability
     }
 
 
@@ -692,6 +696,7 @@ encode inputs =
         , ( "marketingDuration", inputs.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) |> Maybe.withDefault Encode.null )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
+        , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -732,6 +737,7 @@ decodeQuery =
         |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
+        |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -775,6 +781,7 @@ encodeQuery query =
     , ( "marketingDuration", query.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
     , ( "price", query.price |> Maybe.map Economics.encodePrice )
+    , ( "traceability", query.traceability |> Maybe.map Encode.bool )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -928,6 +935,7 @@ tShirtCotonAsie =
     , marketingDuration = Nothing
     , numberOfReferences = Nothing
     , price = Nothing
+    , traceability = Nothing
     }
 
 

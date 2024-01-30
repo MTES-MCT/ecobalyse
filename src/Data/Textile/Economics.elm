@@ -38,6 +38,7 @@ type alias Economics =
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
+    , traceability : Bool
     }
 
 
@@ -105,9 +106,10 @@ computeDurabilityIndex :
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
+    , traceability : Bool
     }
     -> Unit.Durability
-computeDurabilityIndex { business, marketingDuration, numberOfReferences, price, repairCost } =
+computeDurabilityIndex { business, marketingDuration, numberOfReferences, price, repairCost, traceability } =
     let
         ( minDurability, maxDurability ) =
             ( Unit.durabilityToFloat Unit.minDurability
@@ -118,11 +120,12 @@ computeDurabilityIndex { business, marketingDuration, numberOfReferences, price,
             [ computeMarketingDurationIndex marketingDuration
             , computeNumberOfReferencesIndex numberOfReferences
             , computeRepairCostIndex business price repairCost
+            , computeTraceabilityIndex traceability
             ]
                 |> List.map Unit.ratioToFloat
                 |> List.sum
                 -- FIXME: For now we don't deal with weighting
-                |> (\x -> x / 3)
+                |> (\x -> x / 4)
     in
     minDurability
         + finalIndex
@@ -196,6 +199,17 @@ computeNumberOfReferencesIndex numberOfReferences =
             (lowThreshold - toFloat numberOfReferences) / (lowThreshold - highThreshold)
 
 
+computeTraceabilityIndex : Bool -> Unit.Ratio
+computeTraceabilityIndex traceability =
+    Unit.ratio
+        (if traceability then
+            1
+
+         else
+            0
+        )
+
+
 decode : Decoder Economics
 decode =
     Decode.succeed Economics
@@ -204,6 +218,7 @@ decode =
         |> Pipe.required "numberOfReferences" Decode.int
         |> Pipe.required "price" decodePrice
         |> Pipe.required "repairCost" decodePrice
+        |> Pipe.required "traceability" Decode.bool
 
 
 decodeBusiness : Decoder Business

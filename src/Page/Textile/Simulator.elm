@@ -123,6 +123,7 @@ type Msg
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
+    | UpdateTraceability Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
@@ -506,6 +507,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
+        UpdateTraceability traceability ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | traceability = Just traceability }
+
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
@@ -792,10 +797,10 @@ businessField business =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "business"
-            , class "col-sm-2 col-form-label text-truncate"
+            , class "col-sm-3 col-form-label text-truncate"
             ]
             [ text "Entreprise" ]
-        , div [ class "col-sm-10" ]
+        , div [ class "col-sm-9" ]
             [ [ Economics.SmallBusiness
               , Economics.LargeBusinessWithoutServices
               , Economics.LargeBusinessWithServices
@@ -811,6 +816,22 @@ businessField business =
                     , onInput (Economics.businessFromString >> UpdateBusiness)
                     ]
             ]
+        ]
+
+
+traceabilityField : Bool -> Html Msg
+traceabilityField traceability =
+    div [ class "form-check align-items-center g-2 pt-2" ]
+        [ input
+            [ type_ "checkbox"
+            , id "traceability"
+            , class "form-check-input"
+            , onCheck UpdateTraceability
+            , checked traceability
+            ]
+            []
+        , label [ for "traceability", class "form-check-label" ]
+            [ text "Traçabilité renforcée" ]
         ]
 
 
@@ -950,10 +971,17 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> marketingDurationField
                         ]
                     ]
-                , div [ class "card-body" ]
-                    [ inputs.business
-                        |> Maybe.withDefault inputs.product.economics.business
-                        |> businessField
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-8" ]
+                        [ inputs.business
+                            |> Maybe.withDefault inputs.product.economics.business
+                            |> businessField
+                        ]
+                    , div [ class "col-md-4" ]
+                        [ inputs.traceability
+                            |> Maybe.withDefault inputs.product.economics.traceability
+                            |> traceabilityField
+                        ]
                     ]
                 , div [ class "card-body" ]
                     [ durabilityField simulator.durability

@@ -24,9 +24,10 @@ suite =
                 , numberOfReferences = 20000
                 , price = priceFromFloat 100
                 , repairCost = priceFromFloat 10
+                , traceability = False
                 }
                 |> Unit.durabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.916
+                |> Expect.within (Expect.Absolute 0.01) 0.825
                 |> asTest "should compute durability index"
             ]
         , describe "computeMarketingDurationIndex"

@@ -102,6 +102,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferencesParam"
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -174,6 +175,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferences"
         - $ref: "#/components/parameters/price"
         - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: successful operation
@@ -248,6 +250,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferences"
         - $ref: "#/components/parameters/price"
         - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -702,6 +705,16 @@ components:
         type: number
         minimum: 1
         maximum: 999
+    traceabilityParam:
+      name: traceability
+      in: query
+      description: |
+        Traçabilité renforcée
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["true", "false"]
     makingWasteParam:
       name: makingWaste
       in: query
@@ -1301,6 +1314,10 @@ components:
           type: number
           minimum: 1
           maximum: 999
+        traceability:
+          description: |
+            Traçabilité renforcée
+          type: boolean
     TextileQueryMaterial:
       type: object
       additionalProperties: false

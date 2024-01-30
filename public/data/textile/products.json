@@ -11,7 +11,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 20,
-      "repairCost": 10
+      "repairCost": 10,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -47,7 +48,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 28,
-      "repairCost": 14
+      "repairCost": 14,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "yarn"
@@ -83,7 +85,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 18,
-      "repairCost": 9
+      "repairCost": 9,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -119,7 +122,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 62,
-      "repairCost": 31
+      "repairCost": 31,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -155,7 +159,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 28,
-      "repairCost": 14
+      "repairCost": 14,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -191,7 +196,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 30,
-      "repairCost": 15
+      "repairCost": 15,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -227,7 +233,8 @@
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 20,
-      "repairCost": 10
+      "repairCost": 10,
+      "traceability": false
     },
     "dyeing": {
       "defaultMedium": "fabric"
