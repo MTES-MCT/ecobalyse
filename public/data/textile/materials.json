@@ -1,7 +1,7 @@
 [
   {
     "id": "soie",
-    "materialProcessUuid": "e3e70682-c209-4cac-629f-6fbed82c07cd",
+    "materialProcessUuid": "4646e2fbfb0669dd6e3215e441dffcbe",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de soie",
@@ -14,26 +14,12 @@
     "cff": null
   },
   {
-    "id": "lin-filasse",
-    "materialProcessUuid": "cd613e30-d8f1-6adf-91b7-584a2265b1f5",
+    "id": "lin",
+    "materialProcessUuid": "4bc515319f905a20243cb6d551748008",
     "recycledProcessUuid": null,
     "recycledFrom": null,
-    "name": "Fil de lin (filasse)",
-    "shortName": "Lin (filasse)",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
-    "id": "lin-etoupe",
-    "materialProcessUuid": "d95bafc8-f2a4-d27b-dcf4-bb99f4bea973",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Fil de lin (étoupe)",
-    "shortName": "Lin (étoupe)",
+    "name": "Fil de lin",
+    "shortName": "Lin",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
