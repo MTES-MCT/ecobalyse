@@ -107,6 +107,7 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
+    | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -415,6 +416,13 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
+
+        UpdateBusiness (Ok business) ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | business = Just business }
+
+        UpdateBusiness (Err error) ->
+            ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -765,6 +773,9 @@ marketingDurationField marketingDuration =
                     , class "form-control"
                     , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
                     , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
+
+                    -- WARNING: be careful when reordering attributes: for obscure reasons,
+                    -- the `value` one MUST be set AFTER the `step` one.
                     , step "1"
                     , marketingDuration |> Duration.inDays |> String.fromFloat |> value
                     , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
@@ -772,6 +783,33 @@ marketingDurationField marketingDuration =
                     []
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
                 ]
+            ]
+        ]
+
+
+businessField : Economics.Business -> Html Msg
+businessField business =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "business"
+            , class "col-sm-2 col-form-label text-truncate"
+            ]
+            [ text "Entreprise" ]
+        , div [ class "col-sm-10" ]
+            [ [ Economics.SmallBusiness
+              , Economics.LargeBusinessWithoutServices
+              , Economics.LargeBusinessWithServices
+              ]
+                |> List.map
+                    (\b ->
+                        option [ value (Economics.businessToString b), selected (business == b) ]
+                            [ text (Economics.businessToLabel b) ]
+                    )
+                |> select
+                    [ id "business"
+                    , class "form-select"
+                    , onInput (Economics.businessFromString >> UpdateBusiness)
+                    ]
             ]
         ]
 
@@ -911,6 +949,11 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> Maybe.withDefault inputs.product.economics.marketingDuration
                             |> marketingDurationField
                         ]
+                    ]
+                , div [ class "card-body" ]
+                    [ inputs.business
+                        |> Maybe.withDefault inputs.product.economics.business
+                        |> businessField
                     ]
                 , div [ class "card-body" ]
                     [ durabilityField simulator.durability

@@ -103,6 +103,7 @@ type alias Inputs =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
+    , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
@@ -137,6 +138,7 @@ type alias Query =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , ennoblingHeatSource : Maybe HeatSource
+    , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
@@ -261,6 +263,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.ennoblingHeatSource)
+        |> RE.andMap (Ok query.business)
         |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
@@ -287,6 +290,7 @@ toQuery inputs =
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
     , ennoblingHeatSource = inputs.ennoblingHeatSource
+    , business = inputs.business
     , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
@@ -684,6 +688,10 @@ encode inputs =
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
+        , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
+        , ( "marketingDuration", inputs.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) |> Maybe.withDefault Encode.null )
+        , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
+        , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -720,6 +728,7 @@ decodeQuery =
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
+        |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
         |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
@@ -762,6 +771,10 @@ encodeQuery query =
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
     , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
+    , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
+    , ( "marketingDuration", query.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) )
+    , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
+    , ( "price", query.price |> Maybe.map Economics.encodePrice )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -911,6 +924,7 @@ tShirtCotonAsie =
     , dyeingMedium = Nothing
     , printing = Nothing
     , ennoblingHeatSource = Nothing
+    , business = Nothing
     , marketingDuration = Nothing
     , numberOfReferences = Nothing
     , price = Nothing

@@ -7,6 +7,7 @@
     "yarnSize": 40,
     "fabric": "weaving",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 20,
@@ -42,6 +43,7 @@
     "yarnSize": 40,
     "fabric": "weaving",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 28,
@@ -77,6 +79,7 @@
     "yarnSize": 40,
     "fabric": "weaving",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 18,
@@ -112,6 +115,7 @@
     "yarnSize": 30,
     "fabric": "weaving",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 62,
@@ -147,6 +151,7 @@
     "yarnSize": 40,
     "fabric": "weaving",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 28,
@@ -182,6 +187,7 @@
     "yarnSize": 35,
     "fabric": "knitting-mix",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 30,
@@ -217,6 +223,7 @@
     "yarnSize": 40,
     "fabric": "knitting-mix",
     "economics": {
+      "business": "large-business-without-services",
       "marketingDuration": 60,
       "numberOfReferences": 20000,
       "price": 20,

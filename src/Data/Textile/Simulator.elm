@@ -635,7 +635,10 @@ computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
         durability =
             Economics.computeDurabilityIndex
-                { marketingDuration =
+                { business =
+                    inputs.business
+                        |> Maybe.withDefault inputs.product.economics.business
+                , marketingDuration =
                     inputs.marketingDuration
                         |> Maybe.withDefault inputs.product.economics.marketingDuration
                 , numberOfReferences =
