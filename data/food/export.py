@@ -14,7 +14,11 @@ from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import json
-
+from food.ecosystemic_services import (
+    ecosystemic_factors,
+    ecosystemic_services_list,
+    ecs_transform,
+)
 
 # Input
 PROJECT = "food"
@@ -99,6 +103,9 @@ if __name__ == "__main__":
                 )
             )
             else activity.get("comment", ""),
+            "land_footprint": activity.get("land_footprint", ""),
+            "cropGroup": activity.get("cropGroup", ""),
+            "scenario": activity.get("scenario", ""),
             # those are removed at the end:
             "database": activity.get("database", AGRIBALYSE),
             "search": activity["search"],
@@ -109,6 +116,21 @@ if __name__ == "__main__":
     for p in processes:
         if not processes[p]["category"]:
             del processes[p]["category"]
+
+    # compute the ecosystemic services
+    for index, (processid, process) in enumerate(processes.items()):
+        if (
+            process["land_footprint"] != ""
+            and (cropGroup := process["cropGroup"])
+            and (scenario := process["scenario"])
+        ):
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[cropGroup][eco_service][scenario]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * process["land_footprint"]
+                process.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
 
     # compute the impacts of base processes
     print("Computing impacts:")
