@@ -133,8 +133,8 @@ decode =
     Decode.succeed Economics
         |> Pipe.required "marketingDuration" (Decode.map Duration.days Decode.float)
         |> Pipe.required "numberOfReferences" Decode.int
-        |> Pipe.required "price" (Decode.map priceFromFloat Decode.float)
-        |> Pipe.required "repairCost" (Decode.map priceFromFloat Decode.float)
+        |> Pipe.required "price" decodePrice
+        |> Pipe.required "repairCost" decodePrice
 
 
 decodePrice : Decoder Price
