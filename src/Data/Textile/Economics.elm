@@ -7,6 +7,7 @@ module Data.Textile.Economics exposing
     , businessToString
     , computeDurabilityIndex
     , computeMarketingDurationIndex
+    , computeMaterialsOriginIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
     , decode
@@ -24,6 +25,8 @@ module Data.Textile.Economics exposing
     , priceToFloat
     )
 
+import Data.Split as Split
+import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -103,13 +106,14 @@ businessToString business =
 computeDurabilityIndex :
     { business : Business
     , marketingDuration : Duration
+    , materialsOriginShares : Origin.Shares
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
     , traceability : Bool
     }
     -> Unit.Durability
-computeDurabilityIndex { business, marketingDuration, numberOfReferences, price, repairCost, traceability } =
+computeDurabilityIndex params =
     let
         ( minDurability, maxDurability ) =
             ( Unit.durabilityToFloat Unit.minDurability
@@ -117,10 +121,11 @@ computeDurabilityIndex { business, marketingDuration, numberOfReferences, price,
             )
 
         finalIndex =
-            [ computeMarketingDurationIndex marketingDuration
-            , computeNumberOfReferencesIndex numberOfReferences
-            , computeRepairCostIndex business price repairCost
-            , computeTraceabilityIndex traceability
+            [ computeMaterialsOriginIndex params.materialsOriginShares |> Tuple.first
+            , computeMarketingDurationIndex params.marketingDuration
+            , computeNumberOfReferencesIndex params.numberOfReferences
+            , computeRepairCostIndex params.business params.price params.repairCost
+            , computeTraceabilityIndex params.traceability
             ]
                 |> List.map Unit.ratioToFloat
                 |> List.sum
@@ -152,6 +157,18 @@ computeMarketingDurationIndex marketingDuration =
 
         else
             (marketingDurationDays - lowThreshold) / (highThreshold - lowThreshold)
+
+
+computeMaterialsOriginIndex : Origin.Shares -> ( Unit.Ratio, String )
+computeMaterialsOriginIndex { naturalFromAnimal, naturalFromVegetal } =
+    if Split.toPercent naturalFromAnimal > 90 then
+        ( Unit.ratio 1, "Matières naturelles d'origine animale" )
+
+    else if Split.toPercent naturalFromVegetal > 90 then
+        ( Unit.ratio 0.5, "Matières naturelles d'origine végétale" )
+
+    else
+        ( Unit.ratio 0, "" )
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio

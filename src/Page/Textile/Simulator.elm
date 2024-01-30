@@ -983,8 +983,17 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> traceabilityField
                         ]
                     ]
-                , div [ class "card-body" ]
-                    [ durabilityField simulator.durability
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-6 fw-bold text-center text-muted" ]
+                        [ inputs.materials
+                            |> Inputs.getMaterialsOriginShares
+                            |> Economics.computeMaterialsOriginIndex
+                            |> Tuple.second
+                            |> text
+                        ]
+                    , div [ class "col-md-6 text-center" ]
+                        [ durabilityField simulator.durability
+                        ]
                     ]
                 ]
             , div []

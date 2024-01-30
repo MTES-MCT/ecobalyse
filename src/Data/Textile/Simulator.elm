@@ -641,6 +641,8 @@ computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
                 , marketingDuration =
                     inputs.marketingDuration
                         |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , materialsOriginShares =
+                    Inputs.getMaterialsOriginShares inputs.materials
                 , numberOfReferences =
                     inputs.numberOfReferences
                         |> Maybe.withDefault inputs.product.economics.numberOfReferences

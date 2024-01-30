@@ -1,6 +1,8 @@
 module Data.Textile.EconomicsTest exposing (..)
 
+import Data.Split as Split
 import Data.Textile.Economics as Economics exposing (..)
+import Data.Textile.Material.Origin exposing (defaultShares)
 import Data.Unit as Unit
 import Duration
 import Expect
@@ -21,6 +23,7 @@ suite =
             [ Economics.computeDurabilityIndex
                 { business = SmallBusiness
                 , marketingDuration = Duration.days 60
+                , materialsOriginShares = defaultShares
                 , numberOfReferences = 20000
                 , price = priceFromFloat 100
                 , repairCost = priceFromFloat 10
@@ -38,6 +41,20 @@ suite =
                 |> expectRatioEqual 0.5
                 |> asTest "should compute average ratio"
             , Economics.computeMarketingDurationIndex (Duration.days 180)
+                |> expectRatioEqual 1
+                |> asTest "should compute highest ratio"
+            ]
+        , describe "computeMaterialsOriginIndex"
+            [ Economics.computeMaterialsOriginIndex { defaultShares | synthetic = Split.full }
+                |> Tuple.first
+                |> expectRatioEqual 0
+                |> asTest "should compute lowest ratio"
+            , Economics.computeMaterialsOriginIndex { defaultShares | naturalFromVegetal = Split.full }
+                |> Tuple.first
+                |> expectRatioEqual 0.5
+                |> asTest "should compute average ratio"
+            , Economics.computeMaterialsOriginIndex { defaultShares | naturalFromAnimal = Split.full }
+                |> Tuple.first
                 |> expectRatioEqual 1
                 |> asTest "should compute highest ratio"
             ]

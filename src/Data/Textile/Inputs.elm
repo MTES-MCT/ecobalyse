@@ -18,6 +18,7 @@ module Data.Textile.Inputs exposing
     , exampleProducts
     , fromQuery
     , getMaterialMicrofibersComplement
+    , getMaterialsOriginShares
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
@@ -49,7 +50,7 @@ import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Material.Origin as Origin
+import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -600,25 +601,42 @@ getTotalMicrofibersComplement { mass, materials } =
         |> Quantity.sum
 
 
+getMaterialsOriginShares : List MaterialInput -> Origin.Shares
+getMaterialsOriginShares materialInputs =
+    { artificialFromInorganic = materialInputs |> getMaterialCategoryShare Origin.ArtificialFromInorganic
+    , artificialFromOrganic = materialInputs |> getMaterialCategoryShare Origin.ArtificialFromOrganic
+    , naturalFromAnimal = materialInputs |> getMaterialCategoryShare Origin.NaturalFromAnimal
+    , naturalFromVegetal = materialInputs |> getMaterialCategoryShare Origin.NaturalFromVegetal
+    , synthetic = materialInputs |> getMaterialCategoryShare Origin.Synthetic
+    }
+
+
+getMaterialCategoryShare : Origin -> List MaterialInput -> Split
+getMaterialCategoryShare origin =
+    List.filterMap
+        (\{ material, share } ->
+            if material.origin == origin then
+                Just (Split.toPercent share)
+
+            else
+                Nothing
+        )
+        >> List.sum
+        >> Split.fromPercent
+        >> Result.withDefault Split.zero
+
+
 getOutOfEuropeEOLProbability : List MaterialInput -> Split
 getOutOfEuropeEOLProbability materialInputs =
     -- We consider that the garment enters the "synthetic materials" category as
     -- soon as synthetic materials represent more than 10% of its composition.
     let
-        syntheticShare =
+        syntheticMaterialsShare =
             materialInputs
-                |> List.filterMap
-                    (\{ material, share } ->
-                        if material.origin == Origin.Synthetic then
-                            Just (Split.toPercent share)
-
-                        else
-                            Nothing
-                    )
-                |> List.sum
+                |> getMaterialCategoryShare Origin.Synthetic
     in
     Split.fromFloat
-        (if syntheticShare >= 10 then
+        (if Split.toPercent syntheticMaterialsShare >= 10 then
             0.11
 
          else
