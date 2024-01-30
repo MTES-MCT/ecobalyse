@@ -121,16 +121,14 @@ computeDurabilityIndex params =
             )
 
         finalIndex =
-            [ computeMaterialsOriginIndex params.materialsOriginShares |> Tuple.first
-            , computeMarketingDurationIndex params.marketingDuration
-            , computeNumberOfReferencesIndex params.numberOfReferences
-            , computeRepairCostIndex params.business params.price params.repairCost
-            , computeTraceabilityIndex params.traceability
+            [ ( 0.15, computeMaterialsOriginIndex params.materialsOriginShares |> Tuple.first )
+            , ( 0.2, computeMarketingDurationIndex params.marketingDuration )
+            , ( 0.2, computeNumberOfReferencesIndex params.numberOfReferences )
+            , ( 0.3, computeRepairCostIndex params.business params.price params.repairCost )
+            , ( 0.15, computeTraceabilityIndex params.traceability )
             ]
-                |> List.map Unit.ratioToFloat
+                |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum
-                -- FIXME: For now we don't deal with weighting
-                |> (\x -> x / 4)
     in
     minDurability
         + finalIndex
