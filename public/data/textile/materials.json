@@ -238,6 +238,20 @@
     "cff": null
   },
   {
+    "id": "pet-r",
+    "materialProcessUuid": "087896096b5bede914ef3ec1062b1c02",
+    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
+    "recycledFrom": null,
+    "name": "(EI) polyethylene terephthalate production, granulate RoW, recycled",
+    "shortName": "(EI) Polyester",
+    "origin": "Synthetic",
+    "primary": true,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 80,
+    "cff": null
+  },
+  {
     "id": "pa",
     "materialProcessUuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
     "recycledProcessUuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
