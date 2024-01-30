@@ -71,7 +71,7 @@
   },
   {
     "id": "coton",
-    "materialProcessUuid": "23d8981e4e4f17b44cd5299eef7784ea",
+    "materialProcessUuid": "a211822aabe83653a6079b9d5677daed",
     "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
     "name": "(EI) fibre production, cotton, ginning, RoW",
@@ -85,7 +85,7 @@
   },
   {
     "id": "coton-organic",
-    "materialProcessUuid": "23d8981e4e4f17b44cd5299eef7784ea",
+    "materialProcessUuid": "c4074203f7e37252cddb07ea191c404a",
     "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
     "name": "(EI) fibre production, cotton, organic, ginning RoW",
@@ -99,7 +99,7 @@
   },
   {
     "id": "chanvre",
-    "materialProcessUuid": "6513270e-269e-0d37-f2a7-4de452e6b438",
+    "materialProcessUuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de chanvre",
