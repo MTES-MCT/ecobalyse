@@ -62,11 +62,25 @@ if __name__ == "__main__":
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
             "visible": activity["visible"],
-            "ecosystemicServices": activity.get("ecosystemicServices", {}),
         }
         for activity in activities
         if activity["category"] == "ingredient"
     ]
+
+    # compute the ecosystemic services
+    for ingredient in ingredients:
+        if (
+            ingredient["land_footprint"] != ""
+            and (cropGroup := ingredient["cropGroup"])
+            and (scenario := ingredient["scenario"])
+        ):
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[cropGroup][eco_service][scenario]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * ingredient["land_footprint"]
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
 
     # Check the id is lowercase and does not contain spaces
     for ingredient in ingredients:
@@ -116,21 +130,6 @@ if __name__ == "__main__":
     for p in processes:
         if not processes[p]["category"]:
             del processes[p]["category"]
-
-    # compute the ecosystemic services
-    for index, (processid, process) in enumerate(processes.items()):
-        if (
-            process["land_footprint"] != ""
-            and (cropGroup := process["cropGroup"])
-            and (scenario := process["scenario"])
-        ):
-            for eco_service in ecosystemic_services_list:
-                factor_raw = ecosystemic_factors[cropGroup][eco_service][scenario]
-                factor_transformed = ecs_transform(eco_service, factor_raw)
-                factor_final = factor_transformed * process["land_footprint"]
-                process.setdefault("ecosystemicServices", {})[eco_service] = float(
-                    "{:.5g}".format(factor_final)
-                )
 
     # compute the impacts of base processes
     print("Computing impacts:")
