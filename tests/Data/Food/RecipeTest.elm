@@ -149,7 +149,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 172.89760950411426) result
+                                expectImpactEqual (Unit.impact 173.43618621456568) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -157,7 +157,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 132.16779209043284) result
+                                expectImpactEqual (Unit.impact 132.70636880088426) result
                         )
                      , describe "Scoring"
                         (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
@@ -168,10 +168,10 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 308.4089903862655
+                                    |> Expect.within (Expect.Absolute 0.01) 309.2464547939685
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 309.0536761602616
+                                    |> Expect.within (Expect.Absolute 0.01) 309.8911405679646
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
                                     |> Expect.within (Expect.Absolute 0.01) 0.6446857739961187
@@ -180,16 +180,16 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 199.34116380006103
+                                    |> Expect.within (Expect.Absolute 0.01) 199.60634978528796
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 44.35954300191838
+                                    |> Expect.within (Expect.Absolute 0.01) 44.62421423026246
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 29.99268437838309
+                                    |> Expect.within (Expect.Absolute 0.01) 30.11804805394062
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 35.3602849798991
+                                    |> Expect.within (Expect.Absolute 0.01) 35.542528498473544
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )

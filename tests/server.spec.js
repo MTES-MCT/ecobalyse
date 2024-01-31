@@ -358,7 +358,7 @@ describe("API", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
-          name: "Lait (sortie de ferme)",
+          name: "Lait",
           defaultOrigin: "Europe et Maghreb",
         });
       });
