@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
@@ -50,10 +51,12 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -948,7 +951,17 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
-                [ div [ class "card-header fw-bold" ] [ text "Durabilité non-physique" ]
+                [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+                    [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
+                    , Button.docsPillLink
+                        [ class "bg-secondary"
+                        , style "height" "24px"
+                        , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                        , title "Documentation"
+                        , target "_blank"
+                        ]
+                        [ Icon.question ]
+                    ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ productCategoryField textileDb (Inputs.toQuery inputs)
