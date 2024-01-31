@@ -830,7 +830,7 @@ traceabilityField traceability =
             , checked traceability
             ]
             []
-        , label [ for "traceability", class "form-check-label" ]
+        , label [ for "traceability", class "form-check-label text-truncate" ]
             [ text "Traçabilité renforcée" ]
         ]
 
@@ -949,7 +949,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 ]
             , div [ class "card shadow-sm mb-3" ]
                 [ div [ class "card-header fw-bold" ] [ text "Durabilité non-physique" ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ productCategoryField textileDb (Inputs.toQuery inputs)
                         ]
@@ -959,7 +959,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> numberOfReferencesField
                         ]
                     ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ inputs.price
                             |> Maybe.withDefault inputs.product.economics.price
@@ -971,7 +971,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> marketingDurationField
                         ]
                     ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-8" ]
                         [ inputs.business
                             |> Maybe.withDefault inputs.product.economics.business
@@ -983,13 +983,15 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> traceabilityField
                         ]
                     ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-6 fw-bold text-center text-muted" ]
-                        [ inputs.materials
-                            |> Inputs.getMaterialsOriginShares
-                            |> Economics.computeMaterialsOriginIndex
-                            |> Tuple.second
-                            |> text
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ let
+                        mainMaterialOrigin =
+                            Inputs.getMaterialsOriginShares inputs.materials
+                                |> Economics.computeMaterialsOriginIndex
+                                |> Tuple.second
+                      in
+                      div [ class "col-md-6 fw-bold text-center text-muted text-truncate", title mainMaterialOrigin ]
+                        [ text mainMaterialOrigin
                         ]
                     , div [ class "col-md-6 text-center" ]
                         [ durabilityField simulator.durability
