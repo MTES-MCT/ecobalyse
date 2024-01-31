@@ -84,10 +84,10 @@ businessToLabel business =
             "PME/TPE"
 
         LargeBusinessWithServices ->
-            "Grande entreprise proposant un service de réparation et de prise en garantie"
+            "Grande entreprise proposant un service de réparation et de garantie"
 
         LargeBusinessWithoutServices ->
-            "Grande entreprise ne proposant pas de service de réparation ou de prise en garantie"
+            "Grande entreprise ne proposant pas de service de réparation ou de garantie"
 
 
 businessToString : Business -> String
