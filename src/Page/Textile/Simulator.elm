@@ -23,6 +23,7 @@ import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
@@ -36,6 +37,7 @@ import Data.Textile.Product as Product
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -105,16 +107,18 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
-    | UpdateDurability Unit.Durability
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
+    | UpdateMarketingDuration (Maybe Duration)
     | UpdateMassInput String
     | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
     | UpdateMaterialSpinning Material Spinning
+    | UpdateNumberOfReferences (Maybe Int)
+    | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
@@ -344,21 +348,13 @@ update ({ queries, navKey } as session) msg model =
         SetModal (SelectExampleModal autocomplete) ->
             ( { model | modal = SelectExampleModal autocomplete }
             , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
+            , Ports.addBodyClass "prevent-scrolling"
             )
 
         SetModal (SelectProductModal autocomplete) ->
             ( { model | modal = SelectProductModal autocomplete }
             , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
+            , Ports.addBodyClass "prevent-scrolling"
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -420,10 +416,6 @@ update ({ queries, navKey } as session) msg model =
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        UpdateDurability durability ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | durability = durability }
-
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
@@ -465,6 +457,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
+        UpdateMarketingDuration marketingDuration ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | marketingDuration = marketingDuration }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -481,6 +477,14 @@ update ({ queries, navKey } as session) msg model =
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
+
+        UpdateNumberOfReferences numberOfReferences ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | numberOfReferences = numberOfReferences }
+
+        UpdatePrice price ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | price = price }
 
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
@@ -653,7 +657,7 @@ exampleProductField query =
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Produit" ]
+            [ text "Examples" ]
         , button
             [ class "form-select ElementSelector text-start"
             , id "selector-example"
@@ -663,31 +667,111 @@ exampleProductField query =
         ]
 
 
-productField : TextileDb.Db -> Inputs.Query -> Html Msg
-productField { products } query =
+productCategoryField : TextileDb.Db -> Inputs.Query -> Html Msg
+productCategoryField { products } query =
     let
-        nameFromProductId =
-            \productId ->
-                Product.findById productId products
-                    |> Result.map .name
-                    |> Result.withDefault ""
+        nameFromProductId default id =
+            Product.findById id products
+                |> Result.map .name
+                |> Result.withDefault default
 
         autocompleteState =
-            AutocompleteSelector.init nameFromProductId (List.map .id products)
+            AutocompleteSelector.init (nameFromProductId "") (List.map .id products)
     in
-    div []
-        [ label [ for "selector-product", class "form-label fw-bold text-truncate" ]
-            [ text "Utilisation et entretien" ]
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "selector-product"
+            , class "col-sm-4 col-form-label text-truncate"
+            ]
+            [ text "Catégorie" ]
         , button
-            [ class "form-select ElementSelector text-start"
+            [ class "col-sm-8 flex-fill form-select ElementSelector text-start w-auto"
             , id "selector-product"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
             [ query.product
-                |> (\productId -> Product.findById productId products)
-                |> Result.map .name
-                |> Result.withDefault (Product.idToString query.product)
+                |> nameFromProductId (Product.idToString query.product)
                 |> text
+            ]
+        ]
+
+
+numberOfReferencesField : Int -> Html Msg
+numberOfReferencesField numberOfReferences =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "number-of-references"
+            , class "col-sm-7 col-form-label text-truncate"
+            ]
+            [ text "Nombre de références" ]
+        , div [ class "col-sm-5" ]
+            [ input
+                [ type_ "number"
+                , id "number-of-references"
+                , class "form-control"
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
+                , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
+                , step "100"
+                , value (String.fromInt numberOfReferences)
+                , onInput (String.toInt >> UpdateNumberOfReferences)
+                ]
+                []
+            ]
+        ]
+
+
+productPriceField : Economics.Price -> Html Msg
+productPriceField productPrice =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "product-price"
+            , class "col-sm-4 col-form-label text-truncate"
+            ]
+            [ text "Prix neuf" ]
+        , div [ class "col-sm-8" ]
+            [ div [ class "input-group" ]
+                [ input
+                    [ type_ "number"
+                    , id "product-price"
+                    , class "form-control"
+                    , Attr.min <| String.fromFloat <| Economics.priceToFloat <| Economics.minPrice
+                    , Attr.max <| String.fromFloat <| Economics.priceToFloat <| Economics.maxPrice
+                    , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
+                    , onInput (String.toFloat >> Maybe.map Economics.priceFromFloat >> UpdatePrice)
+                    ]
+                    []
+                , span [ class "input-group-text" ] [ text "€" ]
+                ]
+            ]
+        ]
+
+
+marketingDurationField : Duration -> Html Msg
+marketingDurationField marketingDuration =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "marketing-duration"
+            , class "col-sm-7 col-form-label text-truncate"
+            ]
+            [ text "Durée de commercialisation" ]
+        , div [ class "col-sm-5" ]
+            [ div [ class "input-group" ]
+                [ input
+                    [ type_ "number"
+                    , id "marketing-duration"
+                    , class "form-control"
+                    , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
+                    , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
+                    , step "1"
+                    , marketingDuration |> Duration.inDays |> String.fromFloat |> value
+                    , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
+                    ]
+                    []
+                , span [ class "input-group-text", title "jours" ] [ text "j." ]
+                ]
             ]
         ]
 
@@ -695,7 +779,7 @@ productField { products } query =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold text-truncate" ]
+        [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -714,43 +798,34 @@ massField massInput =
         ]
 
 
-durabilityField : (Unit.Durability -> Msg) -> Unit.Durability -> Html Msg
-durabilityField updateDurability durability =
+durabilityField : Unit.Durability -> Html Msg
+durabilityField durability =
     let
         fromFloat =
             Unit.durabilityToFloat >> String.fromFloat
     in
-    div [ class "d-block" ]
-        [ label [ for "durability-field", class "form-label fw-bold text-truncate" ]
-            [ text "Durabilité" ]
-        , div [ class "d-flex justify-content-between gap-3 mt-2" ]
-            [ input
-                [ type_ "range"
-                , id "durability-field"
-                , class "d-block form-range"
-                , title "Un double-clic réinitialise la valeur"
-                , onInput
-                    (String.toFloat
-                        >> Maybe.map Unit.durability
-                        >> Maybe.withDefault Unit.standardDurability
-                        >> updateDurability
-                    )
-                , onDoubleClick (updateDurability Unit.standardDurability)
-                , Attr.min (fromFloat Unit.minDurability)
-                , Attr.max (fromFloat Unit.maxDurability)
+    div [ class "d-flex justify-content-center gap-3" ]
+        [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
+            [ text "Indice de durabilité" ]
+        , input
+            [ type_ "range"
+            , id "durability-field"
+            , class "form-range w-auto"
+            , Attr.min (fromFloat Unit.minDurability)
+            , Attr.max (fromFloat Unit.maxDurability)
 
-                -- WARNING: be careful when reordering attributes: for obscure reasons,
-                -- the `value` one MUST be set AFTER the `step` one.
-                , step "0.01"
-                , value (fromFloat durability)
-                ]
-                []
-            , span [ class "fs-7 text-muted font-monospace" ]
-                [ durability
-                    |> Unit.durabilityToFloat
-                    |> Format.formatFloat 2
-                    |> text
-                ]
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "0.01"
+            , value (fromFloat durability)
+            , disabled True
+            ]
+            []
+        , span [ class "text-muted font-monospace" ]
+            [ durability
+                |> Unit.durabilityToFloat
+                |> Format.formatFloat 2
+                |> text
             ]
         ]
 
@@ -779,7 +854,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
-                    , updateDurability = UpdateDurability
                     , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
@@ -811,12 +885,36 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-6" ] [ exampleProductField (Inputs.toQuery inputs) ]
+                [ div [ class "col-md-9" ] [ exampleProductField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                , div [ class "col-md-3" ] [ durabilityField UpdateDurability inputs.durability ]
                 ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-6" ] [ productField textileDb (Inputs.toQuery inputs) ]
+            , div [ class "card shadow-sm mb-3" ]
+                [ div [ class "card-header fw-bold" ] [ text "Durabilité non-physique" ]
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-6" ]
+                        [ productCategoryField textileDb (Inputs.toQuery inputs)
+                        ]
+                    , div [ class "col-md-6" ]
+                        [ inputs.numberOfReferences
+                            |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                            |> numberOfReferencesField
+                        ]
+                    ]
+                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-6" ]
+                        [ inputs.price
+                            |> Maybe.withDefault inputs.product.economics.price
+                            |> productPriceField
+                        ]
+                    , div [ class "col-md-6" ]
+                        [ inputs.marketingDuration
+                            |> Maybe.withDefault inputs.product.economics.marketingDuration
+                            |> marketingDurationField
+                        ]
+                    ]
+                , div [ class "card-body" ]
+                    [ durabilityField simulator.durability
+                    ]
                 ]
             , div []
                 [ lifeCycleStepsView textileDb model simulator
@@ -847,7 +945,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         (small []
                             [ text "Hors modulation durabilité\u{00A0}: "
                             , impacts
-                                |> Impact.multiplyBy (Unit.durabilityToFloat inputs.durability)
+                                |> Impact.multiplyBy (Unit.durabilityToFloat simulator.durability)
                                 |> Format.formatImpact model.impact
                             ]
                         )

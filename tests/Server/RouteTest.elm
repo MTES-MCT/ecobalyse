@@ -9,7 +9,6 @@ import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Step.Label as Label
-import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -161,23 +160,6 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal (Just <| Route.GetTextileSimulator (Ok sampleQuery))
             |> asTest "should map the /textile/simulator endpoint"
-        , [ "/textile/simulator?mass=0.17"
-          , "product=tshirt"
-          , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
-          , "countryFabric=FR"
-          , "countryDyeing=FR"
-          , "countryMaking=FR"
-          , "durability=1.2"
-          ]
-            |> String.join "&"
-            |> testEndpoint db "GET" Encode.null
-            |> Expect.equal
-                (Just <|
-                    Route.GetTextileSimulator <|
-                        Ok { sampleQuery | durability = Unit.durability 1.2 }
-                )
-            |> asTest "should map the /textile/simulator endpoint with the durability parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"

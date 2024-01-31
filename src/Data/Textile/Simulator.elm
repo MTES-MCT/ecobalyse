@@ -12,6 +12,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
@@ -37,6 +38,7 @@ type alias Simulator =
     , lifeCycle : LifeCycle
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
+    , durability : Unit.Durability
     , transport : Transport
     , useNbCycles : Int
     }
@@ -70,6 +72,7 @@ init db =
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , complementsImpacts = Impact.noComplementsImpacts
+                            , durability = Unit.standardDurability
                             , transport = Transport.default defaultImpacts
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
@@ -631,19 +634,31 @@ computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
         durability =
-            Unit.durabilityToFloat inputs.durability
+            Economics.computeDurabilityIndex
+                { marketingDuration =
+                    inputs.marketingDuration
+                        |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , numberOfReferences =
+                    inputs.numberOfReferences
+                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                , price =
+                    inputs.price
+                        |> Maybe.withDefault inputs.product.economics.price
+                , repairCost = inputs.product.economics.repairCost
+                }
 
         complementsImpacts =
             lifeCycle
                 |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy durability
+                |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
+        , durability = durability
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy durability
+                |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -680,7 +695,7 @@ toStepsImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
-                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.inputs.durability)
+                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.durability)
                         )
                     )
 
