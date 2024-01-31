@@ -62,7 +62,7 @@ describe("API", () => {
       it("should render with materials list", async () => {
         await expectListResponseContains("/api/textile/materials", {
           id: "coton",
-          name: "Fil de coton conventionnel, inventaire partiellement agrégé",
+          name: "(EI) Fil de coton",
         });
       });
     });
