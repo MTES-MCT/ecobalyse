@@ -1,15 +1,5 @@
 [
   {
-    "code": "AL",
-    "name": "Albanie",
-    "zone": "Europe",
-    "electricityProcessUuid": "945f8fc8-a7cb-4cbd-98aa-7ab364b482a0",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "BD",
     "name": "Bangladesh",
     "zone": "Asia",
@@ -18,16 +8,6 @@
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
     "aquaticPollutionScenario": "Worst"
-  },
-  {
-    "code": "BE",
-    "name": "Belgique",
-    "zone": "Europe",
-    "electricityProcessUuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "BR",
@@ -40,16 +20,6 @@
     "aquaticPollutionScenario": "Worst"
   },
   {
-    "code": "CH",
-    "name": "Suisse",
-    "zone": "Europe",
-    "electricityProcessUuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "CN",
     "name": "Chine",
     "zone": "Asia",
@@ -57,36 +27,6 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["food", "textile"],
-    "aquaticPollutionScenario": "Average"
-  },
-  {
-    "code": "CZ",
-    "name": "Tchèquie",
-    "zone": "Europe",
-    "electricityProcessUuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "DE",
-    "name": "Allemagne",
-    "zone": "Europe",
-    "electricityProcessUuid": "2f4ccc4d-d96d-4f9b-a462-487c914f88d5",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "EG",
-    "name": "Egypte",
-    "zone": "Africa",
-    "electricityProcessUuid": "92df3ca1-8f77-495f-83d1-0d1970585cea",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0,
-    "scopes": [],
     "aquaticPollutionScenario": "Average"
   },
   {
@@ -100,16 +40,6 @@
     "aquaticPollutionScenario": "Best"
   },
   {
-    "code": "ET",
-    "name": "Ethiopie",
-    "zone": "Africa",
-    "electricityProcessUuid": "65ec9860-bfb4-4c3a-bd72-e0e8bbcefea1",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Worst"
-  },
-  {
     "code": "FR",
     "name": "France",
     "zone": "Europe",
@@ -118,46 +48,6 @@
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
     "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "GB",
-    "name": "Royaume-Uni",
-    "zone": "Europe",
-    "electricityProcessUuid": "17c53aa0-ee44-4d2e-8923-5410a6fb1bba",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "GR",
-    "name": "Grèce",
-    "zone": "Europe",
-    "electricityProcessUuid": "2de25500-c6a5-4723-be3d-9fc674bce785",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "HU",
-    "name": "Hongrie",
-    "zone": "Europe",
-    "electricityProcessUuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "IN",
-    "name": "Inde",
-    "zone": "Asia",
-    "electricityProcessUuid": "4ee8150b0cbf3603e03345d780ba7a61",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33,
-    "scopes": [],
-    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "IT",
@@ -200,26 +90,6 @@
     "aquaticPollutionScenario": "Average"
   },
   {
-    "code": "MM",
-    "name": "Myanmar",
-    "zone": "Asia",
-    "electricityProcessUuid": "11fbcf50-22e3-4db0-b19f-c841bf7f8692",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33,
-    "scopes": [],
-    "aquaticPollutionScenario": "Worst"
-  },
-  {
-    "code": "NL",
-    "name": "Pays-Bas",
-    "zone": "Europe",
-    "electricityProcessUuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "NZ",
     "name": "Nouvelle-Zélande",
     "zone": "Oceania",
@@ -240,26 +110,6 @@
     "aquaticPollutionScenario": "Worst"
   },
   {
-    "code": "PK",
-    "name": "Pakistan",
-    "zone": "Asia",
-    "electricityProcessUuid": "028c9bf863a1ab77a0e636029afc5839",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33,
-    "scopes": [],
-    "aquaticPollutionScenario": "Worst"
-  },
-  {
-    "code": "PL",
-    "name": "Pologne",
-    "zone": "Europe",
-    "electricityProcessUuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "PT",
     "name": "Portugal",
     "zone": "Europe",
@@ -267,16 +117,6 @@
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0,
     "scopes": ["textile"],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "RO",
-    "name": "Roumanie",
-    "zone": "Europe",
-    "electricityProcessUuid": "9dadf1cf-d142-42c7-a269-da69c7bd0016",
-    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0,
-    "scopes": [],
     "aquaticPollutionScenario": "Best"
   },
   {
@@ -307,16 +147,6 @@
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
-    "aquaticPollutionScenario": "Average"
-  },
-  {
-    "code": "TW",
-    "name": "Taiwan",
-    "zone": "Asia",
-    "electricityProcessUuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33,
-    "scopes": [],
     "aquaticPollutionScenario": "Average"
   },
   {
