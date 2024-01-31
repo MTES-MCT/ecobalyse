@@ -21,6 +21,7 @@ import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
+import Page.Explore.Common as Common
 import Page.Explore.Table exposing (Table)
 import Quantity
 import Route
@@ -146,17 +147,12 @@ table db { detailed, scope } =
                         ]
           }
         , let
-            fadabaleToString product =
-                if Product.isFadedByDefault product then
-                    "oui"
-
-                else
-                    "non"
+            fadableToString product =
+                Common.boolText (Product.isFadedByDefault product)
           in
           { label = "Délavage par défaut"
-          , toValue = fadabaleToString
-          , toCell =
-                fadabaleToString >> text
+          , toValue = fadableToString
+          , toCell = fadableToString >> text
           }
         , { label = "Stocks dormants"
           , toValue = Split.toPercentString Env.defaultDeadStock |> always
@@ -251,6 +247,10 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.priceInEUR product.economics.repairCost ]
           }
+        , { label = "Type d'entreprise"
+          , toValue = .economics >> .business >> Economics.businessToLabel
+          , toCell = .economics >> .business >> Economics.businessToLabel >> text
+          }
         , { label = "Durée de commercialisation moyenne"
           , toValue = .economics >> .marketingDuration >> Duration.inDays >> String.fromFloat
           , toCell =
@@ -266,6 +266,10 @@ table db { detailed, scope } =
                         [ product.economics.numberOfReferences |> String.fromInt |> text
                         , text " références"
                         ]
+          }
+        , { label = "Traçabilité renforcée\u{00A0}?"
+          , toValue = .economics >> .traceability >> Common.boolText
+          , toCell = .economics >> .traceability >> Common.boolText >> text
           }
         ]
     }
