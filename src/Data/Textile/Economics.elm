@@ -154,11 +154,12 @@ computeMarketingDurationIndex marketingDuration =
 
 computeMaterialsOriginIndex : Origin.Shares -> ( Unit.Ratio, String )
 computeMaterialsOriginIndex { naturalFromAnimal, naturalFromVegetal } =
-    if Split.toPercent naturalFromAnimal > 90 then
-        ( Unit.ratio 1, "Matières naturelles d'origine animale" )
+    if Split.toPercent naturalFromAnimal + Split.toPercent naturalFromVegetal > 90 then
+        if Split.toPercent naturalFromAnimal > 90 then
+            ( Unit.ratio 1, "Matières naturelles d'origine animale" )
 
-    else if Split.toPercent naturalFromVegetal > 90 then
-        ( Unit.ratio 0.5, "Matières naturelles d'origine végétale" )
+        else
+            ( Unit.ratio 0.5, "Matières naturelles" )
 
     else
         ( Unit.ratio 0, "" )
