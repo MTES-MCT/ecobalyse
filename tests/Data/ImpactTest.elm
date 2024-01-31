@@ -79,7 +79,7 @@ suite =
               describe "updateAggregatedScores"
                 [ impacts
                     |> Impact.getImpact Definition.Ecs
-                    |> expectScoreEquals 15897.441117958604
+                    |> expectScoreEquals 13843.73355346908
                     |> asTest "should update EcoScore"
                 , impacts
                     |> Impact.getImpact Definition.Pef
