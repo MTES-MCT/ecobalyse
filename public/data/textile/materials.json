@@ -1,6 +1,6 @@
 [
   {
-    "id": "soie",
+    "id": "(EI) soie",
     "materialProcessUuid": "4646e2fbfb0669dd6e3215e441dffcbe",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -14,7 +14,7 @@
     "cff": null
   },
   {
-    "id": "lin",
+    "id": "(EI) lin",
     "materialProcessUuid": "4bc515319f905a20243cb6d551748008",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -28,12 +28,12 @@
     "cff": null
   },
   {
-    "id": "laine-merinos",
-    "materialProcessUuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
+    "id": "laine-par-defaut",
+    "materialProcessUuid": "wool-default",
     "recycledProcessUuid": null,
     "recycledFrom": null,
-    "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
-    "shortName": "Laine de mouton Mérinos",
+    "name": "Laine par défaut",
+    "shortName": "Laine par défaut",
     "origin": "NaturalFromAnimal",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
@@ -42,12 +42,12 @@
     "cff": null
   },
   {
-    "id": "laine-mouton",
-    "materialProcessUuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
+    "id": "laine--nouvelle-filiere",
+    "materialProcessUuid": "wool-new",
     "recycledProcessUuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "recycledFrom": null,
-    "name": "Fil de laine de mouton",
-    "shortName": "Laine de mouton",
+    "name": "Laine nouvelle filière",
+    "shortName": "Laine nouvelle filière",
     "origin": "NaturalFromAnimal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
