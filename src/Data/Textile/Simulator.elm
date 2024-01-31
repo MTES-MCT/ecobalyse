@@ -633,16 +633,17 @@ computeTotalTransportImpacts simulator =
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     let
+        materialOriginShares =
+            Inputs.getMaterialsOriginShares inputs.materials
+
         durability =
-            Economics.computeDurabilityIndex
+            Economics.computeDurabilityIndex materialOriginShares
                 { business =
                     inputs.business
                         |> Maybe.withDefault inputs.product.economics.business
                 , marketingDuration =
                     inputs.marketingDuration
                         |> Maybe.withDefault inputs.product.economics.marketingDuration
-                , materialsOriginShares =
-                    Inputs.getMaterialsOriginShares inputs.materials
                 , numberOfReferences =
                     inputs.numberOfReferences
                         |> Maybe.withDefault inputs.product.economics.numberOfReferences

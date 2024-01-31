@@ -103,17 +103,8 @@ businessToString business =
             "large-business-without-services"
 
 
-computeDurabilityIndex :
-    { business : Business
-    , marketingDuration : Duration
-    , materialsOriginShares : Origin.Shares
-    , numberOfReferences : Int
-    , price : Price
-    , repairCost : Price
-    , traceability : Bool
-    }
-    -> Unit.Durability
-computeDurabilityIndex params =
+computeDurabilityIndex : Origin.Shares -> Economics -> Unit.Durability
+computeDurabilityIndex materialsOriginShares economics =
     let
         ( minDurability, maxDurability ) =
             ( Unit.durabilityToFloat Unit.minDurability
@@ -121,11 +112,11 @@ computeDurabilityIndex params =
             )
 
         finalIndex =
-            [ ( 0.15, computeMaterialsOriginIndex params.materialsOriginShares |> Tuple.first )
-            , ( 0.2, computeMarketingDurationIndex params.marketingDuration )
-            , ( 0.2, computeNumberOfReferencesIndex params.numberOfReferences )
-            , ( 0.3, computeRepairCostIndex params.business params.price params.repairCost )
-            , ( 0.15, computeTraceabilityIndex params.traceability )
+            [ ( 0.15, computeMaterialsOriginIndex materialsOriginShares |> Tuple.first )
+            , ( 0.2, computeMarketingDurationIndex economics.marketingDuration )
+            , ( 0.2, computeNumberOfReferencesIndex economics.numberOfReferences )
+            , ( 0.3, computeRepairCostIndex economics.business economics.price economics.repairCost )
+            , ( 0.15, computeTraceabilityIndex economics.traceability )
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum

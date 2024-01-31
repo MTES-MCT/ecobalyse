@@ -20,10 +20,9 @@ suite : Test
 suite =
     describe "Data.Textile.Economics"
         [ describe "computeDurabilityIndex"
-            [ Economics.computeDurabilityIndex
+            [ Economics.computeDurabilityIndex defaultShares
                 { business = SmallBusiness
                 , marketingDuration = Duration.days 60
-                , materialsOriginShares = defaultShares
                 , numberOfReferences = 20000
                 , price = priceFromFloat 100
                 , repairCost = priceFromFloat 10
