@@ -244,30 +244,17 @@ Une valeur par défaut de 8% est appliquée dans le calculateur pour ces deux pa
 
 ### Méthodologie de calcul
 
-L’étape _Fabrication de l'étoffe_ est modélisée comme suit :&#x20;
+L’étape _Fabrication de l'étoffe_ mobilise uniquement une consommation d'électricité propre à chaque procédé.&#x20;
 
-| Tissage                                                                                                                                                                                                                                 | Tricotage                                                                                                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![](https://lh5.googleusercontent.com/hFiTD7FyKN-d83RBb81ZqJ3w\_9ytwkLH-38ouoLwKjJyuDvFplcG3mT475f40OjB7T9VsIEXCLIEZxFd0snarPOhIr2jSdRNsqM8GLzjdh4NR3fT5gAIuqYdhse5wsJb2ZbEqHO-p7d4fMp9gMEj-OhXHsn\_85LK7ChSxap7m7O1YihwDTotOo0JTngtog) | ![](https://lh5.googleusercontent.com/hFiTD7FyKN-d83RBb81ZqJ3w\_9ytwkLH-38ouoLwKjJyuDvFplcG3mT475f40OjB7T9VsIEXCLIEZxFd0snarPOhIr2jSdRNsqM8GLzjdh4NR3fT5gAIuqYdhse5wsJb2ZbEqHO-p7d4fMp9gMEj-OhXHsn\_85LK7ChSxap7m7O1YihwDTotOo0JTngtog) |
-
-L’impact global de cette étape (tissage ou tricotage) se comprend donc comme la somme des impacts des :&#x20;
-
-* procédé retenus (cf. intérieur du _system boundaries_)
-* flux externes devant être ajoutés (électricité)
-
-La formule suivante s'applique donc :
+L’impact global de cette étape (tissage ou tricotage) se comprend donc comme l'impact électricité qui s'exprime ainsi :&#x20;
 
 $$
-ImpactEtoffe = ImpactProcédé + ImpactElec
+Impact Etoffe = ImpactElec = kWh * MixElectriquePays
 $$
 
 {% hint style="warning" %}
-Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape Etoffe se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
+Remarque : les autres flux mobilisés lors des procédés de tissage ou tricotage (ex : huiles/lubrifiants, encollage, etc.) sont apparus comme significatifs dans le cadre de nos travaux (contribution inférieure à 5% de l'impact total du procédé) ce qui explique cette méthode de calcul.&#x20;
 {% endhint %}
-
-$$
-ImpactElec = kWh * MixElectriquePays
-$$
 
 #### Calcul de la quantité d'électricité (kWh)&#x20;
 
@@ -282,23 +269,27 @@ $$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
 
 $$kWh = Grammage (g/m2) * Titrage (Nm) / 2 /1,08*MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
 
-
-
 Exemple : Robe / poids 300g / tissu 200g/m2 / fil 40 Nm / tissu à produire 375g : \
 $$kWh = 200 * 40  /2/1,08*375/200*0,0003145=2,18$$
+
+:bulb: La valeur de 0,0003145 kWh / duites.m est reprise du socle technique Base Impacts (ADEME).
 {% endtab %}
 
 {% tab title="Tricot" %}
 kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
 
-Procédés mobilisés :\
+Procédés disponibles :\
 \- tricotage rectiligne : 1,2 kWh/kg\
 \- tricotage circulaire 1,2 kWh/kg\
 \- tricotage fully-fashioned / seamless : 1,7 kWh/kg\
 \- tricotage intégral : 3,7 kWh/kg\
 \- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
+
+Les quantité d'électricité proposées par défaut ont été reprises des données Base Impacts. Une revue bibliographique ainsi que de nombreuses interviews avec les industriels ont été menés en 2023 afin de préciser ces données. Cependant, peu de données fiables par type de procédé ont été remontés.
 {% endtab %}
 {% endtabs %}
+
+
 
 ### Hypothèses par défaut&#x20;
 
@@ -326,8 +317,7 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
 #### Métier à tricoter
 
 * Procédé par défaut \
-  En l'absence de précision de la part de l'utilisateur, un procédé par défaut est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe). \
-  Procédé par défaut = _Tricotage moyen (mix de métiers circulaire & rectiligne) / UUID Base Impacts = 9c478d79-ff6b-45e1-9396-c3bd897faa1d_
+  En l'absence de précision de la part de l'utilisateur, un procédé par défaut est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
 * Cas particuliers
   * _Tricotage fully-fashioned / seamless_ (optionnel)\
     Dans le cas où l'utilisateur sélectionne l'un de ces procédés, les paramètres de la confection sont modifiés en conséquence et figés. \
@@ -417,7 +407,7 @@ De (trop) nombreux paramètres impactent la manière dont est tricotée une éto
 
 <summary>Tissage (6,25%)</summary>
 
-Un taux de perte de 6,25% est appliqué par défaut et correspond à la valeur retenue par le socle technique actuellement utilisé (Tissage (habillement) \_ Base Impacts \_ ADEME).&#x20;
+Un taux de perte de 6,25% est appliqué par défaut et correspond à la valeur retenue par le socle technique historique Base Impacts (ADEME).&#x20;
 
 Les pertes du tissage se décomposent comme suit :&#x20;
 
@@ -431,7 +421,7 @@ Les pertes du tissage se décomposent comme suit :&#x20;
 
 <summary>Tricotage</summary>
 
-Les taux de perte appliqués par défaut correspondent à ceux retenus par le socle technique actuellement utilisé (Base Impacts \_ ADEME).&#x20;
+Les taux de perte appliqués par défaut correspondent à ceux retenus par le socle technique historique Base Impacts (ADEME).&#x20;
 
 * Tricotage circulaire, inventaire désagrégé : 3,4%
 * Tricotage rectiligne, inventaire désagrégé : 4%
