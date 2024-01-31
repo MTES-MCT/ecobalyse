@@ -7,6 +7,7 @@ import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
@@ -235,6 +236,36 @@ table db { detailed, scope } =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.hours product.use.timeIroning ]
+          }
+        , { label = "Prix par défaut"
+          , toValue = .economics >> .price >> Economics.priceToFloat >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.priceInEUR product.economics.price ]
+          }
+        , { label = "Coût de réparation par défaut"
+          , toValue = .economics >> .repairCost >> Economics.priceToFloat >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.priceInEUR product.economics.repairCost ]
+          }
+        , { label = "Durée de commercialisation moyenne"
+          , toValue = .economics >> .marketingDuration >> Duration.inDays >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.days product.economics.marketingDuration ]
+          }
+        , { label = "Nombre de références"
+          , toValue = .economics >> .numberOfReferences >> String.fromInt
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ product.economics.numberOfReferences |> String.fromInt |> text
+                        , text " références"
+                        ]
           }
         ]
     }
