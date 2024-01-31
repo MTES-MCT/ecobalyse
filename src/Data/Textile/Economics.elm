@@ -120,11 +120,15 @@ computeDurabilityIndex materialsOriginShares economics =
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum
+
+        formatIndex =
+            -- Rounds at 2 decimals
+            (*) 100 >> round >> (\x -> toFloat x / 100)
     in
     minDurability
         + finalIndex
         * (maxDurability - minDurability)
-        |> clamp minDurability maxDurability
+        |> formatIndex
         |> Unit.durability
 
 
