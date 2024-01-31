@@ -186,9 +186,12 @@ computeRepairCostIndex business price repairCost =
     Unit.ratio <|
         case business of
             LargeBusinessWithoutServices ->
+                (repairabilityIndice * 0.67) + 0.33
+
+            LargeBusinessWithServices ->
                 repairabilityIndice * 0.67
 
-            _ ->
+            SmallBusiness ->
                 repairabilityIndice
 
 

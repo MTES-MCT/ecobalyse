@@ -85,21 +85,21 @@ suite =
                     |> expectRatioEqual 0
                     |> asTest "should compute lowest ratio"
                 , computeRepairCostIndex LargeBusinessWithServices (priceFromFloat 100) (priceFromFloat 41.5)
-                    |> expectRatioEqual 0.5
+                    |> expectRatioEqual 0.335
                     |> asTest "should compute average ratio"
                 , computeRepairCostIndex LargeBusinessWithServices (priceFromFloat 100) (priceFromFloat 10)
-                    |> expectRatioEqual 1
+                    |> expectRatioEqual 0.67
                     |> asTest "should compute highest ratio"
                 ]
             , describe "for large businesses with no service offerings"
                 [ computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 90)
-                    |> expectRatioEqual 0
+                    |> expectRatioEqual 0.33
                     |> asTest "should compute lowest ratio"
                 , computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 41.5)
-                    |> expectRatioEqual 0.335
+                    |> expectRatioEqual 0.665
                     |> asTest "should compute average ratio"
                 , computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 10)
-                    |> expectRatioEqual 0.67
+                    |> expectRatioEqual 1
                     |> asTest "should compute highest ratio"
                 ]
             ]
