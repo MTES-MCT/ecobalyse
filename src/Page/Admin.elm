@@ -24,7 +24,8 @@ type alias Model =
 
 
 type Msg
-    = UpdateEcoscoreWeighting Trigram (Maybe Float)
+    = Submit
+    | UpdateEcoscoreWeighting Trigram (Maybe Float)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -36,8 +37,17 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update ({ foodDb, textileDb } as session) msg model =
     case msg of
+        Submit ->
+            ( model
+            , { session
+                | foodDb = { foodDb | impactDefinitions = model.definitions }
+                , textileDb = { textileDb | impactDefinitions = model.definitions }
+              }
+            , Cmd.none
+            )
+
         UpdateEcoscoreWeighting trigram (Just float) ->
             ( { model
                 | definitions =
@@ -128,7 +138,9 @@ view _ { definitions } =
                             [ td [ class "text-end", colspan 4 ] []
                             , td []
                                 [ button
-                                    [ class "btn btn-secondary w-100" ]
+                                    [ class "btn btn-secondary w-100"
+                                    , onClick Submit
+                                    ]
                                     [ text "Mettre à jour" ]
                                 ]
                             ]
