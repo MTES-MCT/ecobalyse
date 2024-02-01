@@ -6,6 +6,9 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
+const textileProcesses = process.env.TEXTILE_PROCESSES || "public/data/textile/processes.json";
+const foodProcesses = process.env.FOOD_PROCESSES || "public/data/food/processes.json";
+console.log("textileProcesses", textileProcesses);
 
 function getJson(path) {
   const raw = JSON.parse(fs.readFileSync(path).toString());
@@ -23,11 +26,11 @@ const elmWithFixtures = elmTemplate
   .replace("%transportsJson%", getJson("public/data/transports.json"))
   // Food JSON data
   .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
-  .replace("%foodProcessesJson%", getJson("public/data/food/processes_impacts.json"))
+  .replace("%foodProcessesJson%", getJson(foodProcesses))
   .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
   // Textile JSON data
   .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
-  .replace("%textileProcessesJson%", getJson("public/data/textile/processes_impacts.json"))
+  .replace("%textileProcessesJson%", getJson(textileProcesses))
   .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
   .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
 

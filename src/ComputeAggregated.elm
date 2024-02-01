@@ -6,6 +6,7 @@ import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Process as TextileProcess
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Quantity
 
 
 type alias Flags =
@@ -29,6 +30,26 @@ decodeProcesses decoder definitions processesString =
             )
 
 
+keepOnlyAggregated : List { a | impacts : Impacts } -> List { a | impacts : Impacts }
+keepOnlyAggregated processes =
+    processes
+        |> List.map
+            (\process ->
+                { process
+                    | impacts =
+                        Impact.mapImpacts
+                            (\def impact ->
+                                if Definition.isAggregate def then
+                                    impact
+
+                                else
+                                    Quantity.zero
+                            )
+                            process.impacts
+                }
+            )
+
+
 init : Flags -> ( (), Cmd () )
 init { definitionsString, textileProcessesString, foodProcessesString } =
     let
@@ -46,9 +67,20 @@ init { definitionsString, textileProcessesString, foodProcessesString } =
                         in
                         Result.map2
                             (\textileProcesses foodProcesses ->
+                                let
+                                    textileProcessesOnlyAggregated =
+                                        textileProcesses
+                                            |> keepOnlyAggregated
+
+                                    foodProcessesOnlyAggregated =
+                                        foodProcesses
+                                            |> keepOnlyAggregated
+                                in
                                 Encode.object
                                     [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                                     , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
+                                    , ( "textileProcessesOnlyAggregated", Encode.list TextileProcess.encode textileProcessesOnlyAggregated )
+                                    , ( "foodProcessesOnlyAggregated", Encode.list FoodProcess.encode foodProcessesOnlyAggregated )
                                     ]
                             )
                             textileProcessesResult

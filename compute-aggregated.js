@@ -11,10 +11,12 @@ const elmApp = Elm.ComputeAggregated.init({
 	}
 });
 
-elmApp.ports.export.subscribe(({ textileProcesses, foodProcesses }) => {
+elmApp.ports.export.subscribe(({ textileProcesses, foodProcesses, textileProcessesOnlyAggregated, foodProcessesOnlyAggregated }) => {
 	try {
 	  fs.writeFileSync('public/data/textile/processes_impacts.json', JSON.stringify(textileProcesses, null, 2));
 	  fs.writeFileSync('public/data/food/processes_impacts.json', JSON.stringify(foodProcesses, null, 2));
+	  fs.writeFileSync('public/data/textile/processes.json', JSON.stringify(textileProcessesOnlyAggregated, null, 2));
+	  fs.writeFileSync('public/data/food/processes.json', JSON.stringify(foodProcessesOnlyAggregated, null, 2));
 		console.log("EXPORTED!");
 	} catch (err) {
 	  console.error(err);
