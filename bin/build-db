@@ -23,11 +23,11 @@ const elmWithFixtures = elmTemplate
   .replace("%transportsJson%", getJson("public/data/transports.json"))
   // Food JSON data
   .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
-  .replace("%foodProcessesJson%", getJson("public/data/food/processes.json"))
+  .replace("%foodProcessesJson%", getJson("public/data/food/processes_impacts.json"))
   .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
   // Textile JSON data
   .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
-  .replace("%textileProcessesJson%", getJson("public/data/textile/processes.json"))
+  .replace("%textileProcessesJson%", getJson("public/data/textile/processes_impacts.json"))
   .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
   .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
 

@@ -331,8 +331,7 @@ logout ({ store } as session) =
         Ok db ->
             { session
                 | store = { store | auth = NotLoggedIn }
-                , textileDb = db.textileDb
-                , foodDb = db.foodDb
+                , db = db
             }
 
         Err err ->
