@@ -58,13 +58,13 @@ suite =
                 |> asTest "should compute highest ratio"
             ]
         , describe "computeNumberOfReferencesIndex"
-            [ Economics.computeNumberOfReferencesIndex 20000
+            [ Economics.computeNumberOfReferencesIndex 8000
                 |> expectRatioEqual 0
                 |> asTest "should compute lowest ratio"
-            , Economics.computeNumberOfReferencesIndex 12500
+            , Economics.computeNumberOfReferencesIndex 7000
                 |> expectRatioEqual 0.5
                 |> asTest "should compute average ratio"
-            , Economics.computeNumberOfReferencesIndex 5000
+            , Economics.computeNumberOfReferencesIndex 6000
                 |> expectRatioEqual 1
                 |> asTest "should compute highest ratio"
             ]

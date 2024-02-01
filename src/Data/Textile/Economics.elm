@@ -200,7 +200,7 @@ computeNumberOfReferencesIndex : Int -> Unit.Ratio
 computeNumberOfReferencesIndex numberOfReferences =
     let
         ( highThreshold, lowThreshold ) =
-            ( 5000, 20000 )
+            ( 6000, 8000 )
     in
     Unit.ratio <|
         if numberOfReferences < highThreshold then
