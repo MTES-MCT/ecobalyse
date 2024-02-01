@@ -10,3 +10,8 @@ const elmApp = Elm.ComputeAggregated.init({
 		"foodProcessesString": fs.readFileSync("public/data/food/processes_impacts.json", "utf-8")
 	}
 });
+
+elmApp.ports.export.subscribe(({ textileProcesses, foodProcesses }) => {
+	console.log("textile processes", textileProcesses);
+	console.log("food processes", foodProcesses);
+});
