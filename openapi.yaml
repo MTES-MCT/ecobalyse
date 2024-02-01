@@ -98,9 +98,11 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
-        - $ref: "#/components/parameters/numberOfReferences"
-        - $ref: "#/components/parameters/price"
-        - $ref: "#/components/parameters/marketingDuration"
+        - $ref: "#/components/parameters/businessParam"
+        - $ref: "#/components/parameters/numberOfReferencesParam"
+        - $ref: "#/components/parameters/priceParam"
+        - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -169,9 +171,11 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+        - $ref: "#/components/parameters/businessParam"
         - $ref: "#/components/parameters/numberOfReferences"
         - $ref: "#/components/parameters/price"
-        - $ref: "#/components/parameters/marketingDuration"
+        - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: successful operation
@@ -242,9 +246,11 @@ paths:
         - $ref: "#/components/parameters/ennoblingHeatSourceParam"
         - $ref: "#/components/parameters/dyeingMediumParam"
         - $ref: "#/components/parameters/printingParam"
+        - $ref: "#/components/parameters/businessParam"
         - $ref: "#/components/parameters/numberOfReferences"
         - $ref: "#/components/parameters/price"
-        - $ref: "#/components/parameters/marketingDuration"
+        - $ref: "#/components/parameters/marketingDurationParam"
+        - $ref: "#/components/parameters/traceabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -650,7 +656,23 @@ components:
         type: number
         minimum: 0
         maximum: 1
-    numberOfReferences:
+    businessParam:
+      name: business
+      in: query
+      description: |
+        Type d'entreprise et d'offre de services :
+
+        - `small-business`: PME/TPE
+        - `large-business-with-services`: Grande entreprise proposant un service de réparation et de prise en garantie
+        - `large-business-without-services` (par défaut): Grande entreprise ne proposant pas de service de réparation ou de prise en garantie
+      required: false
+      style: form
+      schema:
+        type: string
+        required: true
+        enum:
+          "$ref": "#/components/schemas/BusinessEnum"
+    numberOfReferencesParam:
       name: numberOfReferences
       in: query
       description: |
@@ -660,19 +682,19 @@ components:
       schema:
         type: number
         minimum: 1
-        maximum: 200000
-    price:
+        maximum: 999999
+    priceParam:
       name: price
       in: query
       description: |
-        Prix du produit.
+        Prix du produit, en Euros (€).
       required: false
       style: form
       schema:
         type: number
         minimum: 1
         maximum: 1000
-    marketingDuration:
+    marketingDurationParam:
       name: marketingDuration
       in: query
       description: |
@@ -681,8 +703,18 @@ components:
       style: form
       schema:
         type: number
-        minimum: 30
-        maximum: 730
+        minimum: 1
+        maximum: 999
+    traceabilityParam:
+      name: traceability
+      in: query
+      description: |
+        Traçabilité renforcée
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["true", "false"]
     makingWasteParam:
       name: makingWaste
       in: query
@@ -1253,6 +1285,39 @@ components:
           - distribution
           - use
           - eol
+        business:
+          type: string
+          required: true
+          description: |
+            Type d'entreprise et d'offre de services :
+
+            - `small-business`: PME/TPE
+            - `large-business-with-services`: Grande entreprise proposant un service de réparation et de prise en garantie
+            - `large-business-without-services` (par défaut): Grande entreprise ne proposant pas de service de réparation ou de prise en garantie
+          enum:
+            "$ref": "#/components/schemas/BusinessEnum"
+        numberOfReferences:
+          description: |
+            Nombre de références au catalogue de la marque.
+          type: number
+          minimum: 1
+          maximum: 999999
+        price:
+          description: |
+            Prix du produit.
+          type: number
+          minimum: 1
+          maximum: 1000
+        marketingDuration:
+          description: |
+            Durée de commercialisation, en jours.
+          type: number
+          minimum: 1
+          maximum: 999
+        traceability:
+          description: |
+            Traçabilité renforcée
+          type: boolean
     TextileQueryMaterial:
       type: object
       additionalProperties: false
@@ -1367,6 +1432,10 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    BusinessEnum:
+      - small-business
+      - large-business-with-services
+      - large-business-without-services
     FabricProcessEnum:
       - knitting-mix
       - knitting-fully-fashioned

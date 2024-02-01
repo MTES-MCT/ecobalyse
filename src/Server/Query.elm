@@ -316,6 +316,19 @@ maybeDurationParser key =
             )
 
 
+maybeBusiness : String -> Parser (ParseResult (Maybe Economics.Business))
+maybeBusiness key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (Economics.businessFromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
 maybeIntParser : String -> Parser (ParseResult (Maybe Int))
 maybeIntParser key =
     Query.string key
@@ -367,9 +380,11 @@ parseTextileQuery textileDb =
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
         |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
+        |> apply (maybeBusiness "business")
         |> apply (maybeDurationParser "marketingDuration")
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePriceParser "price")
+        |> apply (maybeBoolParser "traceability")
 
 
 toErrors : ParseResult a -> Result Errors a

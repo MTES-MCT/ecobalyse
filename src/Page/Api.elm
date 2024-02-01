@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "16 janvier 2024"
+    [ { date = "31 janvier 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `durability` récemment introduit est remplacé par 5 nouveaux
+            paramètres permettant de calculer cet indice\u{00A0}: `business`, `marketingDuration`,
+            `numberOfReferences`, `price`, `repairCost` et `traceability`."""
+      }
+    , { date = "16 janvier 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
