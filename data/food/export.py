@@ -15,9 +15,9 @@ import bw2calc
 import bw2data
 import json
 from food.ecosystemic_services import (
-    ecosystemic_factors,
     ecosystemic_services_list,
     ecs_transform,
+    load_ecosystemic_dic
 )
 
 # Input
@@ -26,6 +26,7 @@ AGRIBALYSE = "Agribalyse 3.1.1"
 BIOSPHERE = AGRIBALYSE + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
+ECOSYSTEMIC_FACTORS = "ecosystemic_factors.csv"
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
 PROCESSES = "../../public/data/food/processes.json"
@@ -48,7 +49,7 @@ if __name__ == "__main__":
 
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
-
+    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS)
     print("Creating ingredient list...")
     ingredients = [
         {
@@ -70,7 +71,7 @@ if __name__ == "__main__":
     # compute the ecosystemic services
     for ingredient in ingredients:
         if (
-            ingredient["land_footprint"] != ""
+            ("land_footprint" in ingredient) and ingredient["land_footprint"] 
             and (cropGroup := ingredient["cropGroup"])
             and (scenario := ingredient["scenario"])
         ):

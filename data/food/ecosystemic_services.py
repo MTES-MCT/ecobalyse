@@ -2,7 +2,6 @@ import json
 import pandas as pd
 
 ACTIVITIES = "activities.json"
-ECOSYSTEMIC_FACTORS = "ecosystemic_factors.csv"
 THRESHOLD_HEDGES = 140  # ml/ha
 THRESHOLD_CROPSIZE = 8  # ha
 THRESHOLD_DIVERSITY = 7.5
@@ -34,31 +33,28 @@ def ecs_transform(eco_service, value):
         return func_above(value)
 
 
-with open(ACTIVITIES, "r") as f:
-    activities = json.load(f)
-
-
 # load ecosystemic csv as dictionary
+def load_ecosystemic_dic(PATH):
+    ecosystemic_factors_csv = pd.read_csv(PATH, sep=";")
+    ecosystemic_factors = {}
+    for _, row in ecosystemic_factors_csv.iterrows():
+        cropGroup = row["group"]
+        ecosystemic_factors[cropGroup] = {
+            "hedges": {
+                "reference": row["hedges_reference"],
+                "bio": row["hedges_bio"],
+                "import": row["hedges_import"],
+            },
+            "plotSize": {
+                "reference": row["plotSize_reference"],
+                "bio": row["plotSize_bio"],
+                "import": row["plotSize_import"],
+            },
+            "cropDiversity": {
+                "reference": row["cropDiversity_reference"],
+                "bio": row["cropDiversity_bio"],
+                "import": row["cropDiversity_import"],
+            },
+        }
+    return ecosystemic_factors
 
-ecosystemic_factors_csv = pd.read_csv(ECOSYSTEMIC_FACTORS, sep=";")
-ecosystemic_factors = {}
-
-for _, row in ecosystemic_factors_csv.iterrows():
-    cropGroup = row["group"]
-    ecosystemic_factors[cropGroup] = {
-        "hedges": {
-            "reference": row["hedges_reference"],
-            "bio": row["hedges_bio"],
-            "import": row["hedges_import"],
-        },
-        "plotSize": {
-            "reference": row["plotSize_reference"],
-            "bio": row["plotSize_bio"],
-            "import": row["plotSize_import"],
-        },
-        "cropDiversity": {
-            "reference": row["cropDiversity_reference"],
-            "bio": row["cropDiversity_bio"],
-            "import": row["cropDiversity_import"],
-        },
-    }
