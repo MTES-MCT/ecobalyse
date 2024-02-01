@@ -6,6 +6,7 @@ module Data.Textile.Db exposing
     , updateWellKnownFromNewProcesses
     )
 
+import Data.Impact as Impact
 import Data.Textile.ExampleProduct as TextileExampleProduct exposing (ExampleProduct)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
@@ -26,7 +27,7 @@ type alias Db =
 buildFromJson : String -> String -> String -> String -> Result String Db
 buildFromJson exampleProductsJson materialsJson productsJson processesJson =
     processesJson
-        |> Decode.decodeString Process.decodeList
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->

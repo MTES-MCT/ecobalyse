@@ -151,12 +151,12 @@ encodeCategory =
     categoryToString >> Encode.string
 
 
-decodeProcess : Decoder Process
-decodeProcess =
+decodeProcess : Decoder Impact.Impacts -> Decoder Process
+decodeProcess impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "impacts" Impact.decodeImpacts
+        |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "category" decodeCategory
@@ -186,9 +186,9 @@ decodeIdentifier =
         |> Decode.map codeFromString
 
 
-decodeList : Decoder (List Process)
-decodeList =
-    Decode.list decodeProcess
+decodeList : Decoder Impact.Impacts -> Decoder (List Process)
+decodeList impactsDecoder =
+    Decode.list (decodeProcess impactsDecoder)
 
 
 encodeIdentifier : Identifier -> Encode.Value

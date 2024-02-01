@@ -25,6 +25,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Http
@@ -209,8 +210,8 @@ decodeStore =
 decodeAuth : Decoder Auth
 decodeAuth =
     Decode.succeed LoggedIn
-        |> JDP.required "textileProcesses" TextileProcess.decodeList
-        |> JDP.required "foodProcesses" FoodProcess.decodeList
+        |> JDP.required "textileProcesses" (TextileProcess.decodeList Impact.decodeImpacts)
+        |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
 encodeStore : Store -> Encode.Value

@@ -1,6 +1,7 @@
 /.env
 /dist
 elm-stuff
+/compute-aggregated-app.js
 /node_modules
 /public/app.js
 /public/icomoon/*.txt

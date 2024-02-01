@@ -8,6 +8,7 @@ module Data.Impact.Definition exposing
     , Trigrams
     , decode
     , decodeBase
+    , decodeWithoutAggregated
     , encodeBase
     , filter
     , foldl
@@ -528,8 +529,8 @@ isAggregate trigram =
 ---- Decoders
 
 
-decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
-decodeBase decoder =
+decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Trigrams a)
+decodeWithoutAggregated decoder =
     Decode.succeed Trigrams
         |> Pipe.required "acd" (decoder "acd")
         |> Pipe.required "cch" (decoder "cch")
@@ -550,6 +551,11 @@ decodeBase decoder =
         |> Pipe.required "swe" (decoder "swe")
         |> Pipe.required "tre" (decoder "tre")
         |> Pipe.required "wtu" (decoder "wtu")
+
+
+decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
+decodeBase decoder =
+    decodeWithoutAggregated decoder
         |> Pipe.required "ecs" (decoder "ecs")
         |> Pipe.required "pef" (decoder "pef")
 

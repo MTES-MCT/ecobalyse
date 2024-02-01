@@ -88,8 +88,8 @@ decodeFromUuid processes =
             )
 
 
-decode : Decoder Process
-decode =
+decode : Decoder Impact.Impacts -> Decoder Process
+decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
@@ -98,7 +98,7 @@ decode =
         |> Pipe.required "correctif" Decode.string
         |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "uuid" decodeUuid
-        |> Pipe.required "impacts" Impact.decodeImpacts
+        |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -106,9 +106,9 @@ decode =
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 
-decodeList : Decoder (List Process)
-decodeList =
-    Decode.list decode
+decodeList : Decoder Impact.Impacts -> Decoder (List Process)
+decodeList impactsDecoder =
+    Decode.list (decode impactsDecoder)
 
 
 decodeUuid : Decoder Uuid
