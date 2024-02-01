@@ -7,6 +7,7 @@ module Data.Session exposing
     , deserializeStore
     , maxComparedSimulations
     , notifyError
+    , notifyInfo
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
@@ -49,6 +50,7 @@ type alias Session =
 
 type Notification
     = GenericError String String
+    | Info String
 
 
 closeNotification : Notification -> Session -> Session
@@ -59,6 +61,11 @@ closeNotification notification ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
+
+
+notifyInfo : String -> Session -> Session
+notifyInfo text ({ notifications } as session) =
+    { session | notifications = notifications ++ [ Info text ] }
 
 
 

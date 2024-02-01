@@ -153,6 +153,7 @@ headerMenuLinks =
     mainMenuLinks
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
+           , Internal "Admin" Route.Admin Admin
            ]
 
 
@@ -341,6 +342,14 @@ notificationView { closeNotification } notification =
             Alert.simple
                 { level = Alert.Danger
                 , title = Just title
+                , close = Just (closeNotification notification)
+                , content = [ text message ]
+                }
+
+        Session.Info message ->
+            Alert.simple
+                { level = Alert.Info
+                , title = Nothing
                 , close = Just (closeNotification notification)
                 , content = [ text message ]
                 }

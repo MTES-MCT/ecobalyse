@@ -7,7 +7,7 @@ module Page.Admin exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -45,7 +45,8 @@ update ({ foodDb, textileDb } as session) msg model =
                 | foodDb = { foodDb | impactDefinitions = model.definitions }
                 , textileDb = { textileDb | impactDefinitions = model.definitions }
               }
-            , Cmd.none
+                |> Session.notifyInfo "Coefficients de pondération mis à jour"
+            , Ports.scrollTo { x = 0, y = 0 }
             )
 
         UpdateEcoscoreWeighting trigram (Just float) ->
@@ -107,13 +108,17 @@ view _ { definitions } =
                                                     ]
                                                 , td []
                                                     [ input
-                                                        [ type_ "number"
+                                                        [ type_ "text"
                                                         , class "form-control"
-                                                        , step "0.0001"
-                                                        , Unit.ratioToFloat ecoscoreData.weighting
+                                                        , ecoscoreData.weighting
+                                                            |> Unit.ratioToFloat
                                                             |> String.fromFloat
                                                             |> value
-                                                        , onInput (String.toFloat >> UpdateEcoscoreWeighting def.trigram)
+                                                        , onInput
+                                                            (String.replace "," "."
+                                                                >> String.toFloat
+                                                                >> UpdateEcoscoreWeighting def.trigram
+                                                            )
                                                         ]
                                                         []
                                                     ]
