@@ -303,7 +303,7 @@ getTransportedMass inputs { label, outputMass } =
 updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, durability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -391,8 +391,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Use ->
             { step
-                | durability = durability
-                , processInfo =
+                | processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , useIroning = Just inputs.product.use.ironingProcess.name

@@ -6,6 +6,12 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 20,
+      "repairCost": 10
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -35,6 +41,12 @@
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 28,
+      "repairCost": 14
+    },
     "dyeing": {
       "defaultMedium": "yarn"
     },
@@ -64,6 +76,12 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 18,
+      "repairCost": 9
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -93,6 +111,12 @@
     "surfaceMass": 450,
     "yarnSize": 30,
     "fabric": "weaving",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 62,
+      "repairCost": 31
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -122,6 +146,12 @@
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 28,
+      "repairCost": 14
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -151,6 +181,12 @@
     "surfaceMass": 250,
     "yarnSize": 35,
     "fabric": "knitting-mix",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 30,
+      "repairCost": 15
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -180,6 +216,12 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "knitting-mix",
+    "economics": {
+      "marketingDuration": 60,
+      "numberOfReferences": 20000,
+      "price": 20,
+      "repairCost": 10
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
