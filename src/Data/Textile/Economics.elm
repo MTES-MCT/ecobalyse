@@ -55,9 +55,9 @@ type Price
 type Business
     = -- PME/TPE
       SmallBusiness
-      -- Grande entreprise proposant un service de réparation et de prise en garantie
+      -- Grande entreprise proposant un service de réparation et de garantie
     | LargeBusinessWithServices
-      -- Grande entreprise ne proposant pas de service de réparation ou de prise en garantie
+      -- Grande entreprise ne proposant pas de service de réparation ou de garantie
     | LargeBusinessWithoutServices
 
 
@@ -187,10 +187,10 @@ computeRepairCostIndex business price repairCost =
     Unit.ratio <|
         case business of
             LargeBusinessWithoutServices ->
-                (repairabilityIndice * 0.67) + 0.33
+                repairabilityIndice * 0.67
 
             LargeBusinessWithServices ->
-                repairabilityIndice * 0.67
+                repairabilityIndice * 0.67 + 0.33
 
             SmallBusiness ->
                 repairabilityIndice
