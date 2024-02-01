@@ -3,7 +3,7 @@ module Data.Food.Process exposing
     , Identifier
     , Process
     , ProcessName
-    , categoryToString
+    , categoryToLabel
     , codeFromString
     , codeToString
     , decodeIdentifier
@@ -94,6 +94,34 @@ categoryFromString string =
 
 categoryToString : Category -> String
 categoryToString category =
+    case category of
+        Energy ->
+            "energy"
+
+        Ingredient ->
+            "ingredient"
+
+        Material ->
+            "material"
+
+        Packaging ->
+            "packaging"
+
+        Processing ->
+            "processing"
+
+        Transform ->
+            "transformation"
+
+        Transport ->
+            "transport"
+
+        WasteTreatment ->
+            "waste treatment"
+
+
+categoryToLabel : Category -> String
+categoryToLabel category =
     case category of
         Energy ->
             "Énergie"

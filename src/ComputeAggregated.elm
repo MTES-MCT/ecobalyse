@@ -1,4 +1,4 @@
-port module ComputeAggregated exposing (..)
+port module ComputeAggregated exposing (main)
 
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact exposing (Impacts)
@@ -6,10 +6,6 @@ import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Process as TextileProcess
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-
-
-type Msg
-    = NoOp
 
 
 type alias Flags =
@@ -33,7 +29,7 @@ decodeProcesses decoder definitions processesString =
             )
 
 
-init : Flags -> ( (), Cmd Msg )
+init : Flags -> ( (), Cmd () )
 init { definitionsString, textileProcessesString, foodProcessesString } =
     let
         toExport =
@@ -75,14 +71,7 @@ init { definitionsString, textileProcessesString, foodProcessesString } =
             )
 
 
-update : Msg -> Cmd Msg
-update msg =
-    case msg of
-        NoOp ->
-            Cmd.none
-
-
-main : Program Flags () Msg
+main : Program Flags () ()
 main =
     Platform.worker
         { init = init
