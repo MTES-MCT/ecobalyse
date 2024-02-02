@@ -63,10 +63,10 @@ def load_ecosystemic_dic(PATH):
 
 def plot_ecs_transformations(save_path=None):
     # Create a range of values for x-axis (input values for ecs_transform)
-    value_range_dic = {
-        "hedges": range(0, 200),
-        "plotSize": range(0, 25),
-        "cropDiversity": range(0, 30),
+    plot_characteristic_dic = {
+        "hedges": {"range": range(0, 200), "unit": "Mètre linéaire de haie/ha"},
+        "plotSize": {"range": range(0, 25), "unit": "Taille de parcelle (ha)"},
+        "cropDiversity": {"range": range(0, 30), "unit": "Simpson number"},
     }  # Adjust the range based on expected values
 
     num_plots = len(ecosystemic_services_list)
@@ -80,14 +80,14 @@ def plot_ecs_transformations(save_path=None):
 
     # Plotting the transformations for each ecosystemic service in a separate subplot
     for index, eco_service in enumerate(ecosystemic_services_list):
-        value_range = value_range_dic[eco_service]
+        value_range = plot_characteristic_dic[eco_service]["range"]
         transformed_values = [
             ecs_transform(eco_service, value) for value in value_range
         ]
         ax = axes[index]
         ax.plot(value_range, transformed_values, label=eco_service)
-        ax.set_title(f"Transformation: {eco_service}")
-        ax.set_xlabel("Input Value")
+        ax.set_title(f"{eco_service}")
+        ax.set_xlabel(plot_characteristic_dic[eco_service]["unit"])
         ax.set_ylabel("Transformed Value")
         ax.legend()
         ax.grid(True)
