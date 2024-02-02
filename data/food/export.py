@@ -27,7 +27,7 @@ AGRIBALYSE = "Agribalyse 3.1.1"
 BIOSPHERE = AGRIBALYSE + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
-ECOSYSTEMIC_FACTORS = "ecosystemic_factors.csv"
+ECOSYSTEMIC_FACTORS = "ecosystemic_services/ecosystemic_factors.csv"
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
 PROCESSES = "../../public/data/food/processes.json"
@@ -63,9 +63,18 @@ if __name__ == "__main__":
             "density": activity["density"],
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
-            "land_footprint": activity.get("land_footprint"),
-            "crop_group": activity.get("crop_group"),
-            "scenario": activity.get("scenario"),
+            "ecosystemicServices": activity.get("ecosystemicServices", {}),
+            **(
+                {"land_footprint": activity["land_footprint"]}
+                if "land_footprint" in activity
+                else {}
+            ),
+            **(
+                {"crop_group": activity["crop_group"]}
+                if "crop_group" in activity
+                else {}
+            ),
+            **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
             "visible": activity["visible"],
         }
         for activity in activities
@@ -133,9 +142,6 @@ if __name__ == "__main__":
                 )
             )
             else activity.get("comment", ""),
-            "land_footprint": activity.get("land_footprint", ""),
-            "crop_group": activity.get("crop_group", ""),
-            "scenario": activity.get("scenario", ""),
             # those are removed at the end:
             "database": activity.get("database", AGRIBALYSE),
             "search": activity["search"],
@@ -194,3 +200,4 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
+
