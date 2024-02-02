@@ -21,12 +21,10 @@ decodeProcesses decoder definitions processesString =
     processesString
         |> Decode.decodeString decoder
         |> Result.map
-            (\processes ->
-                processes
-                    |> List.map
-                        (\process ->
-                            { process | impacts = Impact.updateAggregatedScores definitions process.impacts }
-                        )
+            (List.map
+                (\process ->
+                    { process | impacts = Impact.updateAggregatedScores definitions process.impacts }
+                )
             )
 
 
