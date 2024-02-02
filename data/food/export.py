@@ -98,7 +98,7 @@ if __name__ == "__main__":
             for eco_service in ecosystemic_services_list:
                 factor_raw = ecosystemic_factors[crop_group][eco_service][scenario]
                 factor_transformed = ecs_transform(eco_service, factor_raw)
-                factor_final = factor_transformed * ingredient["land_footprint"]
+                factor_final = factor_transformed * land_footprint
                 ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
                     "{:.5g}".format(factor_final)
                 )
@@ -200,4 +200,3 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
-

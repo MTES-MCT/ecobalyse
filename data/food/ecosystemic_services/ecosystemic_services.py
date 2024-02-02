@@ -1,17 +1,15 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 THRESHOLD_HEDGES = 140  # ml/ha
 THRESHOLD_PLOTSIZE = 8  # ha
-THRESHOLD_CROPDIVERSITY = 7.5
-
-THRESHOLD_HEDGES = 140  # ml/ha
-THRESHOLD_PLOTSIZE = 8  # ha
-THRESHOLD_CROPDIVERSITY = 7.5
+THRESHOLD_CROPDIVERSITY = 7.5  # simpson number
 
 ecosystemic_services_list = ["hedges", "plotSize", "cropDiversity"]
 
+
+# For each eco_service, we associate a transformation function
+# to get a visual idea of the function, look at ecs_transformations.png
 TRANSFORM = {
     "hedges": (THRESHOLD_HEDGES, lambda x: x / THRESHOLD_HEDGES, lambda x: 1),
     "plotSize": (THRESHOLD_PLOTSIZE, lambda x: 1 - x / THRESHOLD_PLOTSIZE, lambda x: 0),
