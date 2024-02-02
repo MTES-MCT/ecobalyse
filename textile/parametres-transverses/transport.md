@@ -12,7 +12,7 @@ Le transport considéré est la somme des transports à prévoir entre chaque é
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](pertes-et-rebus.md).
 
-<table><thead><tr><th width="102">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td><p>Matière</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td>Matière première</td></tr><tr><td>2.</td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Matière première</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Habit</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Habit</td></tr></tbody></table>
+<table><thead><tr><th width="102">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td><p>Matière</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td>Matière première</td></tr><tr><td>2.</td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Vêtement</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Vêtement</td></tr></tbody></table>
 
 \*Pays paramétré directement dans le calculateur.
 
@@ -130,7 +130,46 @@ Lorsque deux étapes successives sont réalisées dans un même pays, une distan
 
 ## Distribution
 
-Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur. Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
+Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
+
+Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
+
+## Pays par défaut (étapes de Transformation)&#x20;
+
+Pour les étapes de transformation (filature, tissage/tricotage, ennoblissement et confection), des scénarios par défaut sont proposés pour répondre aux différents cas d'usage :&#x20;
+
+<details>
+
+<summary>Je connais le pays où a lieu l'étape </summary>
+
+Option 1 => le pays est proposé dans Ecobalyse => je le sélectionne
+
+Option 2 => le pays n'est pas proposé dans Ecobalyse => je sélectionne la région (ex : _Europe de l'Ouest_ pour _Allemagne_)
+
+
+
+Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :&#x20;
+
+* Europe de l'Ouest = Espagne
+* Europe de l'Est = République Tchèque
+* Asie = Chine
+* Afrique = Ethiopie&#x20;
+* Amérique du Nord = Etats-Unis
+* Amérique latine = Brésil
+* Océanie = Australie
+* Moyen-Orient = Turquie
+
+</details>
+
+<details>
+
+<summary>Je ne connais pas le lieu où a lieu l'étape</summary>
+
+Je sélectionne l'option _Inconnu (par défaut)._&#x20;
+
+L'Inde est utilisé en arrière plan pour définir les distances et modes de transport utilisés pour cette option.
+
+</details>
 
 ## Procédés
 
