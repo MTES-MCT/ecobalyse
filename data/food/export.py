@@ -93,6 +93,10 @@ if __name__ == "__main__":
                 ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
                     "{:.5g}".format(factor_final)
                 )
+        else:
+            ecosystemicServices = ingredient.get("ecosystemicServices")
+            if ecosystemicServices:
+                ingredient.setdefault("ecosystemicServices", ecosystemicServices)
 
     # Check the id is lowercase and does not contain spaces
     for ingredient in ingredients:
