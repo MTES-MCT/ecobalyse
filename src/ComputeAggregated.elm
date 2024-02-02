@@ -94,12 +94,11 @@ init { definitionsString, textileProcessesString, foodProcessesString } =
             )
 
         Err error ->
-            let
-                _ =
-                    Debug.log "error while decoding" error
-            in
             ( ()
-            , Cmd.none
+            , error
+                |> Decode.errorToString
+                |> Encode.string
+                |> logError
             )
 
 
@@ -113,3 +112,6 @@ main =
 
 
 port export : Encode.Value -> Cmd msg
+
+
+port logError : Encode.Value -> Cmd msg

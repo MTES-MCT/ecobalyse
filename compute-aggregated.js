@@ -22,3 +22,7 @@ elmApp.ports.export.subscribe(({ textileProcesses, foodProcesses, textileProcess
 	  console.error(err);
 	}
 });
+
+elmApp.ports.logError.subscribe(errorMessage => {
+	console.error("Error:", errorMessage);
+});
