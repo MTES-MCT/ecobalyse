@@ -14,10 +14,11 @@ from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import json
-from food.ecosystemic_services import (
+from food.ecosystemic_services.ecosystemic_services import (
     ecosystemic_services_list,
     ecs_transform,
-    load_ecosystemic_dic
+    load_ecosystemic_dic,
+    plot_ecs_transformations,
 )
 
 # Input
@@ -49,7 +50,7 @@ if __name__ == "__main__":
 
     with open(ACTIVITIES, "r") as f:
         activities = json.load(f)
-    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS)
+
     print("Creating ingredient list...")
     ingredients = [
         {
@@ -62,6 +63,9 @@ if __name__ == "__main__":
             "density": activity["density"],
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
+            "land_footprint": activity.get("land_footprint"),
+            "crop_group": activity.get("crop_group"),
+            "scenario": activity.get("scenario"),
             "visible": activity["visible"],
         }
         for activity in activities
@@ -69,14 +73,21 @@ if __name__ == "__main__":
     ]
 
     # compute the ecosystemic services
+
+    # display the plots
+    plot_ecs_transformations(save_path="ecosystemic_services/ecs_transformations.png")
+
+    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS)
+
     for ingredient in ingredients:
-        if (
-            ("land_footprint" in ingredient) and ingredient["land_footprint"] 
-            and (cropGroup := ingredient["cropGroup"])
-            and (scenario := ingredient["scenario"])
-        ):
+        land_footprint = ingredient.get("land_footprint")
+        crop_group = ingredient.get("crop_group")
+        scenario = ingredient.get("scenario")
+
+        if land_footprint and crop_group and scenario:
+            print(f"Computing ecosystemic services for {ingredient['id']}")
             for eco_service in ecosystemic_services_list:
-                factor_raw = ecosystemic_factors[cropGroup][eco_service][scenario]
+                factor_raw = ecosystemic_factors[crop_group][eco_service][scenario]
                 factor_transformed = ecs_transform(eco_service, factor_raw)
                 factor_final = factor_transformed * ingredient["land_footprint"]
                 ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
@@ -119,7 +130,7 @@ if __name__ == "__main__":
             )
             else activity.get("comment", ""),
             "land_footprint": activity.get("land_footprint", ""),
-            "cropGroup": activity.get("cropGroup", ""),
+            "crop_group": activity.get("crop_group", ""),
             "scenario": activity.get("scenario", ""),
             # those are removed at the end:
             "database": activity.get("database", AGRIBALYSE),

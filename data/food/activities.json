@@ -10,14 +10,7 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.72,
-      "plotSize": 0.93,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    }
+    "visible": true
   },
   {
     "id": "milk",
@@ -30,14 +23,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.31,
-      "plotSize": 0.3,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.61,
-      "livestockDensity": -0.0002
-    }
+    "visible": true
   },
   {
     "id": "milk-organic",
@@ -51,14 +37,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.78,
-      "plotSize": 0.77,
-      "cropDiversity": 0.55,
-      "permanentPasture": 1.39,
-      "livestockDensity": -0.0002
-    }
+    "visible": true
   },
   {
     "id": "carrot",
@@ -97,17 +76,10 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
     "land_footprint": 1.19,
-    "cropGroup": "BLE TENDRE",
+    "crop_group": "BLE TENDRE",
     "scenario": "reference",
-    "ecosystemicServices": {
-      "hedges": 0.33,
-      "plotSize": 0.45,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    }
+    "visible": true
   },
   {
     "id": "wheat-organic",
@@ -121,17 +93,10 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
     "land_footprint": 2.95,
-    "cropGroup": "BLE TENDRE",
+    "crop_group": "BLE TENDRE",
     "scenario": "organic",
-    "ecosystemicServices": {
-      "hedges": 0.99,
-      "plotSize": 1.48,
-      "cropDiversity": 7.08,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    }
+    "visible": true
   },
   {
     "id": "flour",
@@ -238,14 +203,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 30.56,
-      "plotSize": 25.53,
-      "cropDiversity": 0.0,
-      "permanentPasture": 37.5,
-      "livestockDensity": -0.0059
-    }
+    "visible": true
   },
   {
     "id": "ground-beef-organic",
@@ -259,14 +217,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 31.34,
-      "plotSize": 30.48,
-      "cropDiversity": 12.02,
-      "permanentPasture": 34.68,
-      "livestockDensity": 0.0
-    }
+    "visible": true
   },
   {
     "id": "cull-cow-organic",
@@ -286,14 +237,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0139
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham",
@@ -306,14 +250,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.42,
-      "plotSize": 1.83,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0548
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-organic",
@@ -327,14 +264,7 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 6.28,
-      "plotSize": 8.14,
-      "cropDiversity": 31.17,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0158
-    }
+    "visible": true
   },
   {
     "id": "cooked-ham-fr",
@@ -348,14 +278,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.58,
-      "plotSize": 2.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0548
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast",
@@ -368,14 +291,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.63,
-      "plotSize": 1.95,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-organic",
@@ -389,14 +305,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 3.0,
-      "plotSize": 3.07,
-      "cropDiversity": 8.94,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
-    }
+    "visible": true
   },
   {
     "id": "chicken-breast-fr-organic",
@@ -410,14 +319,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 5.03,
-      "plotSize": 5.24,
-      "cropDiversity": 27.67,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
-    }
+    "visible": true
   },
   {
     "id": "mango",
@@ -1406,15 +1308,11 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
+    "land_footprint": 0.953,
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "reference",
     "visible": true,
-    "explain": "Part non comestible : chataigne, olive",
-    "ecosystemicServices": {
-      "hedges": 0.46,
-      "plotSize": 0.48,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    }
+    "explain": "Part non comestible : chataigne, olive"
   },
   {
     "id": "blackberry",
@@ -1577,14 +1475,10 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.06,
-      "plotSize": 2.01,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    }
+    "land_footprint": 4.02,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "reference",
+    "visible": true
   },
   {
     "id": "soybean-organic",
@@ -1597,14 +1491,10 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.97,
-      "plotSize": 2.11,
-      "cropDiversity": 18.22,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    }
+    "land_footprint": 5.63,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "organic",
+    "visible": true
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -1842,14 +1732,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0425
-    }
+    "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)"
   },
   {
     "id": "chicken-breast-fr",
@@ -1864,14 +1747,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
-    "ecosystemicServices": {
-      "hedges": 2.55,
-      "plotSize": 3.69,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
-    }
+    "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique"
   },
   {
     "id": "cane-sugar",
@@ -2082,14 +1958,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.77,
-      "plotSize": 0.87,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    }
+    "visible": true
   },
   {
     "id": "egg-indoor-code3",
@@ -2102,14 +1971,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.64,
-      "plotSize": 0.72,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    }
+    "visible": true
   },
   {
     "id": "egg-outdoor-code1",
@@ -2122,14 +1984,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.74,
-      "plotSize": 0.83,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    }
+    "visible": true
   },
   {
     "id": "egg-organic-code0",
@@ -2142,14 +1997,7 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.77,
-      "plotSize": 1.96,
-      "cropDiversity": 10.6,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0027
-    }
+    "visible": true
   },
   {
     "id": "wine-grape-organic",
@@ -2188,14 +2036,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 46.22,
-      "plotSize": 38.31,
-      "cropDiversity": 0.0,
-      "permanentPasture": 86.68,
-      "livestockDensity": 0.0034
-    }
+    "visible": true
   },
   {
     "id": "lamb-organic-meat-without-bone",
@@ -2209,14 +2050,7 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true,
-    "ecosystemicServices": {
-      "hedges": 131.06,
-      "plotSize": 125.0,
-      "cropDiversity": 22.96,
-      "permanentPasture": 193.27,
-      "livestockDensity": 0.0009
-    }
+    "visible": true
   },
   {
     "id": "pear-organic",
