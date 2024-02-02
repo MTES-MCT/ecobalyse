@@ -78,6 +78,11 @@ def plot_ecs_transformations(save_path=None):
     if num_plots == 1:
         axes = [axes]
 
+    # Add the title text at the top of the plot
+    fig.suptitle(
+        "The greater the transformed value, the higher the ecosystemic service value, the lower the overall environmental impact",
+        fontsize=14,
+    )
     # Plotting the transformations for each ecosystemic service in a separate subplot
     for index, eco_service in enumerate(ecosystemic_services_list):
         value_range = plot_characteristic_dic[eco_service]["range"]
@@ -91,7 +96,8 @@ def plot_ecs_transformations(save_path=None):
         ax.set_ylabel("Transformed Value")
         ax.legend()
         ax.grid(True)
+
     if save_path:
-        plt.savefig(save_path)
+        plt.savefig(save_path, bbox_inches="tight")
 
     plt.tight_layout()
