@@ -919,18 +919,7 @@
     "waste": 0.0319569,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "",
-    "id": "ei-pet",
-    "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
-    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
-    "recycledFrom": null,
-    "shortName": "(EI) Polyester",
-    "origin": "Synthetic",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 80,
-    "cff": null
+    "correctif": ""
   },
   {
     "name": "(EI) polyethylene terephthalate production, granulate RoW, recycled",
@@ -965,18 +954,7 @@
     "waste": 0.0319569,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "",
-    "id": "pet-r",
-    "materialProcessUuid": "087896096b5bede914ef3ec1062b1c02",
-    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
-    "recycledFrom": null,
-    "shortName": "(EI) Polyester recyclé",
-    "origin": "Synthetic",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 80,
-    "cff": null
+    "correctif": ""
   },
   {
     "search": "",
@@ -2007,18 +1985,7 @@
     "waste": 0.201201,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "",
-    "id": "ei-fil-coton",
-    "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
-    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
-    "recycledFrom": null,
-    "shortName": "(EI) Coton",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 100,
-    "cff": null
+    "correctif": ""
   },
   {
     "search": "",
@@ -2054,18 +2021,7 @@
     "waste": 0.201201,
     "alias": null,
     "step_usage": "Matières, Filature",
-    "correctif": "",
-    "id": "fil-coton-bio",
-    "materialProcessUuid": "c4074203f7e37252cddb07ea191c404a",
-    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
-    "recycledFrom": null,
-    "shortName": "(EI) Coton bio",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 100,
-    "cff": null
+    "correctif": ""
   },
   {
     "search": "",
