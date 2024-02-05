@@ -6,6 +6,7 @@ module Page.Admin exposing
     , view
     )
 
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -36,15 +37,39 @@ init session =
     )
 
 
+updateSessionDbWithUpdatedImpactWeightings : Definitions -> Session -> Session
+updateSessionDbWithUpdatedImpactWeightings definitions ({ foodDb, textileDb } as session) =
+    { session
+        | foodDb =
+            { foodDb
+                | impactDefinitions = definitions
+                , processes =
+                    foodDb.processes
+                        |> List.map
+                            (\({ impacts } as process) ->
+                                { process | impacts = Impact.updateAggregatedScores definitions impacts }
+                            )
+            }
+        , textileDb =
+            { textileDb
+                | impactDefinitions = definitions
+                , processes =
+                    textileDb.processes
+                        |> List.map
+                            (\({ impacts } as process) ->
+                                { process | impacts = Impact.updateAggregatedScores definitions impacts }
+                            )
+            }
+    }
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb, textileDb } as session) msg model =
+update session msg model =
     case msg of
         Submit ->
             ( model
-            , { session
-                | foodDb = { foodDb | impactDefinitions = model.definitions }
-                , textileDb = { textileDb | impactDefinitions = model.definitions }
-              }
+            , session
+                |> updateSessionDbWithUpdatedImpactWeightings model.definitions
                 |> Session.notifyInfo "Coefficients de pondération mis à jour"
             , Ports.scrollTo { x = 0, y = 0 }
             )

@@ -32,6 +32,7 @@ module Data.Impact exposing
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
+    , updateAggregatedScores
     , updateImpact
     )
 
@@ -393,9 +394,7 @@ decodeImpacts definitions =
     Definition.decodeWithoutAggregated (always Unit.decodeImpact)
         |> Pipe.hardcoded (Unit.impact 0)
         |> Pipe.hardcoded (Unit.impact 0)
-        |> Decode.map Impacts
-        -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
-        |> Decode.map (updateAggregatedScores definitions)
+        |> Decode.map (Impacts >> updateAggregatedScores definitions)
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
