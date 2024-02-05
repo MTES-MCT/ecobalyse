@@ -3,6 +3,7 @@ module Data.Textile.LifeCycle exposing
     , computeFinalImpacts
     , computeStepsTransport
     , computeTotalTransportImpacts
+    , decode
     , encode
     , fromQuery
     , getNextEnabledStep
@@ -16,10 +17,13 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Process as Process
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
+import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
@@ -168,3 +172,9 @@ updateSteps labels update_ lifeCycle =
 encode : LifeCycle -> Encode.Value
 encode =
     Encode.array Step.encode
+
+
+decode : Definitions -> List Process.Process -> Decoder LifeCycle
+decode definitions processes =
+    Decode.list (Step.decode definitions processes)
+        |> Decode.map Array.fromList

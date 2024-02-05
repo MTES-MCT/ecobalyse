@@ -5,6 +5,7 @@ module Data.Impact exposing
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
+    , decodeComplementsImpacts
     , decodeImpacts
     , default
     , divideBy
@@ -411,6 +412,18 @@ encodeComplementsImpacts c =
         , ( "microfibers", Unit.encodeImpact c.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]
+
+
+decodeComplementsImpacts : Decoder ComplementsImpacts
+decodeComplementsImpacts =
+    Decode.succeed ComplementsImpacts
+        |> Pipe.required "hedges" Unit.decodeImpact
+        |> Pipe.required "plotSize" Unit.decodeImpact
+        |> Pipe.required "cropDiversity" Unit.decodeImpact
+        |> Pipe.required "permanentPasture" Unit.decodeImpact
+        |> Pipe.required "livestockDensity" Unit.decodeImpact
+        |> Pipe.required "microfibers" Unit.decodeImpact
+        |> Pipe.required "outOfEuropeEOL" Unit.decodeImpact
 
 
 encode : Impacts -> Encode.Value

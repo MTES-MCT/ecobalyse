@@ -5,6 +5,7 @@ module Data.Textile.Step exposing
     , computeMaterialTransportAndImpact
     , computeTransports
     , create
+    , decode
     , encode
     , getInputSurface
     , getOutputSurface
@@ -22,21 +23,25 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
-import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Printing exposing (Printing)
+import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
+import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -487,7 +492,7 @@ yarnSizeToDtexString yarnSize =
 encode : Step -> Encode.Value
 encode v =
     Encode.object
-        [ ( "label", Encode.string (Label.toString v.label) )
+        [ ( "label", Label.encode v.label )
         , ( "enabled", Encode.bool v.enabled )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
@@ -497,6 +502,7 @@ encode v =
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "transport", Transport.encode v.transport )
         , ( "impacts", Impact.encode v.impacts )
+        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
@@ -508,7 +514,39 @@ encode v =
         , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
         , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "dyeingMedium", v.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
+        , ( "printing", v.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         ]
+
+
+decode : Definitions -> List Process.Process -> Decoder Step
+decode definitions processes =
+    Decode.succeed Step
+        |> Pipe.required "label" (Decode.string |> Decode.andThen (Label.fromCodeString >> DE.fromResult))
+        |> Pipe.required "enabled" Decode.bool
+        |> Pipe.required "country" (Country.decode processes)
+        |> Pipe.required "editable" Decode.bool
+        |> Pipe.required "inputMass" (Decode.float |> Decode.map Mass.kilograms)
+        |> Pipe.required "outputMass" (Decode.float |> Decode.map Mass.kilograms)
+        |> Pipe.required "waste" (Decode.float |> Decode.map Mass.kilograms)
+        |> Pipe.required "deadstock" (Decode.float |> Decode.map Mass.kilograms)
+        |> Pipe.required "transport" Transport.decode
+        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
+        |> Pipe.required "complementsImpacts" Impact.decodeComplementsImpacts
+        |> Pipe.required "heat_MJ" (Decode.float |> Decode.map Energy.megajoules)
+        |> Pipe.required "elec_kWh" (Decode.float |> Decode.map Energy.kilowattHours)
+        |> Pipe.required "processInfo" decodeProcessInfo
+        |> Pipe.required "airTransportRatio" Split.decodeFloat
+        |> Pipe.required "durability" Unit.decodeDurability
+        |> Pipe.optional "makingComplexity" (MakingComplexity.decode |> Decode.map Just) Nothing
+        |> Pipe.optional "makingWaste" (Split.decodeFloat |> Decode.map Just) Nothing
+        |> Pipe.optional "makingDeadStock" (Split.decodeFloat |> Decode.map Just) Nothing
+        |> Pipe.optional "picking" (Unit.decodePickPerMeter |> Decode.map Just) Nothing
+        |> Pipe.optional "threadDensity" (Unit.decodeThreadDensity |> Decode.map Just) Nothing
+        |> Pipe.optional "yarnSize" (Unit.decodeYarnSize |> Decode.map Just) Nothing
+        |> Pipe.optional "surfaceMass" (Unit.decodeSurfaceMass |> Decode.map Just) Nothing
+        |> Pipe.optional "dyeingMedium" (DyeingMedium.decode |> Decode.map Just) Nothing
+        |> Pipe.optional "printing" (Printing.decode |> Decode.map Just) Nothing
 
 
 encodeProcessInfo : ProcessInfo -> Encode.Value
@@ -533,3 +571,28 @@ encodeProcessInfo v =
         , ( "distribution", encodeMaybeString v.distribution )
         , ( "fading", encodeMaybeString v.fading )
         ]
+
+
+decodeProcessInfo : Decoder ProcessInfo
+decodeProcessInfo =
+    let
+        decodeMaybeString field =
+            Pipe.optional field (Decode.string |> Decode.map Just) Nothing
+    in
+    Decode.succeed ProcessInfo
+        |> decodeMaybeString "countryElec"
+        |> decodeMaybeString "countryHeat"
+        |> decodeMaybeString "airTransportRatio"
+        |> decodeMaybeString "airTransport"
+        |> decodeMaybeString "seaTransport"
+        |> decodeMaybeString "roadTransport"
+        |> decodeMaybeString "useIroning"
+        |> decodeMaybeString "useNonIroning"
+        |> decodeMaybeString "passengerCar"
+        |> decodeMaybeString "endOfLife"
+        |> decodeMaybeString "fabric"
+        |> decodeMaybeString "dyeing"
+        |> decodeMaybeString "making"
+        |> decodeMaybeString "distribution"
+        |> decodeMaybeString "fading"
+        |> decodeMaybeString "printing"

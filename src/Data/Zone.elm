@@ -1,10 +1,12 @@
 module Data.Zone exposing
     ( Zone(..)
     , decode
+    , encode
     )
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Encode as Encode
 
 
 type Zone
@@ -21,6 +23,13 @@ decode : Decoder Zone
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+encode : Zone -> Encode.Value
+encode zone =
+    zone
+        |> toString
+        |> Encode.string
 
 
 fromString : String -> Result String Zone
@@ -49,3 +58,28 @@ fromString string =
 
         _ ->
             Err <| "Zone géographique inconnue : " ++ string
+
+
+toString : Zone -> String
+toString zone =
+    case zone of
+        Africa ->
+            "Africa"
+
+        Asia ->
+            "Asia"
+
+        Europe ->
+            "Europe"
+
+        MiddleEast ->
+            "Middle_East"
+
+        NorthAmerica ->
+            "North_America"
+
+        Oceania ->
+            "Oceania"
+
+        SouthAmerica ->
+            "South_America"

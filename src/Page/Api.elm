@@ -1,6 +1,7 @@
 module Page.Api exposing
     ( Model
     , Msg(..)
+    , getApiServerUrl
     , init
     , update
     , view

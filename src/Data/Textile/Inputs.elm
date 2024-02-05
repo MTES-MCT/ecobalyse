@@ -694,10 +694,10 @@ encode inputs =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
-        , ( "product", Product.encode inputs.product )
-        , ( "countryFabric", Country.encode inputs.countryFabric )
-        , ( "countryDyeing", Country.encode inputs.countryDyeing )
-        , ( "countryMaking", Country.encode inputs.countryMaking )
+        , ( "product", Product.encodeId inputs.product.id )
+        , ( "countryFabric", Country.encodeCode inputs.countryFabric.code )
+        , ( "countryDyeing", Country.encodeCode inputs.countryDyeing.code )
+        , ( "countryMaking", Country.encodeCode inputs.countryMaking.code )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
@@ -720,7 +720,8 @@ encode inputs =
 
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
-    [ ( "material", Material.encode v.material |> Just )
+    [ ( "id", Material.encodeId v.material.id |> Just )
+    , ( "material", Material.encode v.material |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
     , ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )

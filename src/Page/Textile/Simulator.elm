@@ -42,9 +42,11 @@ import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import Mass
 import Platform.Cmd as Cmd
 import Ports
+import RemoteData exposing (WebData)
 import Route
 import Static.Db as Db exposing (Db)
 import Task
@@ -66,6 +68,7 @@ import Views.Textile.Step as StepView
 
 type alias Model =
     { simulator : Result String Simulator
+    , simulatorData : WebData Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -90,6 +93,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnApiReceived (WebData Simulator)
     | OnAutocompleteExample (Autocomplete.Msg Inputs.Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product.Id)
@@ -150,6 +154,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
+      , simulatorData = RemoteData.Loading
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -168,16 +173,19 @@ init trigram maybeUrlQuery session =
                 Ok _ ->
                     identity
            )
-    , case maybeUrlQuery of
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ case maybeUrlQuery of
+            -- If we don't have an URL query, we may be coming from another app page, so we should
+            -- reposition the viewport at the top.
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
 
-        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
-        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
-        Just _ ->
-            Cmd.none
+            -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+            -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
+            Just _ ->
+                Cmd.none
+        , Simulator.getCompute session initialQuery OnApiReceived
+        ]
     )
 
 
@@ -206,7 +214,7 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ textileDb, queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -226,6 +234,14 @@ update ({ queries, navKey } as session) msg model =
             )
 
         NoOp ->
+            ( model, session, Cmd.none )
+
+        OnApiReceived webData ->
+            let
+                _ =
+                    webData
+                        |> Debug.log "API answer"
+            in
             ( model, session, Cmd.none )
 
         OpenComparator ->
