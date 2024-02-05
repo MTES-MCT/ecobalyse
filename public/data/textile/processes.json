@@ -1,6 +1,6 @@
 [
   {
-    "search": "",
+    "search": "market group medium CN",
     "name": "(EI) market group for electricity, medium voltage, CN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -74,7 +74,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium FR",
     "name": "(EI) market for electricity, medium voltage, FR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -739,7 +739,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "polypropylene granulate",
     "name": "(EI) Filament de polypropylène",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -886,6 +886,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "polyethylene granulate RoW amorphous",
     "name": "(EI) polyethylene terephthalate production, granulate",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -922,6 +923,7 @@
     "correctif": ""
   },
   {
+    "search": "polyethylene granulate RoW amorphous recycled",
     "name": "(EI) polyethylene terephthalate production, granulate RoW, recycled",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -1327,7 +1329,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "viscose recycled",
     "name": "(EI) Fil de viscose recyclé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
@@ -1585,7 +1587,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "cocoon production silkworm RoW",
     "name": "(EI) Soie",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -1658,7 +1660,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "flax RoW",
     "name": "(EI) Lin",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -1951,12 +1953,12 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "fibre production cotton ginning RoW",
     "name": "(EI) fibre production, cotton, ginning, RoW",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "23d8981e4e4f17b44cd5299eef7784ea",
+    "uuid": "a211822aabe83653a6079b9d5677daed",
     "impacts": {
       "acd": 0.050004554,
       "bvi": 0.0,
@@ -2061,7 +2063,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "sunn RoW",
     "name": "(EI) Fil de chanvre",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -2171,7 +2173,7 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
-    "search": "",
+    "search": "market viscose",
     "name": "(EI) Filament de viscose",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
@@ -3539,7 +3541,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium TN",
     "name": "(EI) market for electricity, medium voltage, TN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3575,7 +3577,7 @@
     "correctif": ""
   },
   {
-    "search": "",
+    "search": "medium TR",
     "name": "(EI) market for electricity, medium voltage, TR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -3981,7 +3983,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium BD",
     "name": "(EI) market for electricity, medium voltage, BD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6016,7 +6018,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium KH",
     "name": "(EI) market for electricity, medium voltage, KH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -6238,7 +6240,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium LK",
     "name": "(EI) market for electricity, medium voltage, LK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -7236,7 +7238,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium PK",
     "name": "(EI) market for electricity, medium voltage, PK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
@@ -8271,7 +8273,7 @@
     "correctif": "Correction de l'indicateur radiations ionisantes"
   },
   {
-    "search": "",
+    "search": "medium VN",
     "name": "(EI) market for electricity, medium voltage, VN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
