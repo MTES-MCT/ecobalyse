@@ -60,7 +60,8 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 
 Autres sources : \
 :flag\_us: Etats-Unis (année 2007) => 23% laine (source[^2]) \
-:flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^3])
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^3])\
+Travaux EIME/ENSAIT => 65% laine (procédé _Wool after combing_ )
 {% endtab %}
 
 {% tab title="Allocation biophysique" %}
@@ -115,14 +116,16 @@ Deux scénarios sont proposés :&#x20;
 
 Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
 
-### Comprendre les impacts environnementaux de la laine
+### Mieux comprendre les impacts dans Ecobalyse
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
 
 **Principaux enseignements**
 
 * 47% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
-  L'alimentation du mouton (12kg de soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
+  Les deux principales raisons expliquant cela sont : \
+  1\) la pondération élevée de cet indicateur dans le coût environnemental (21,06%)\
+  2\) l'alimentation du mouton (12kg de soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
   Un paramètre clé à préciser est l'alimentation moyenne des moutons utilisés pour la laine textile.
 * Le complément Microfibres (570 uPts / kg de fibre naturelle d'origine animale) explique une part significative de l'impact de la laine (28% de _Laine (nouvelle filière)_ et 7% de _Laine (par défaut)_ ).&#x20;
 

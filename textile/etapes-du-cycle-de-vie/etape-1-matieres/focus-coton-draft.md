@@ -68,6 +68,20 @@ _Fibre production, cotton, organic, ginning, RoW_
 
 </details>
 
+### Mieux comprendre les impacts dans Ecobalyse
+
+<figure><img src="../../../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+
+**Principaux enseignements**
+
+* La production de coton conventionnel (3,131 uPts / kg) est 3 à 4 fois plus impactante que celle du coton organique (847 uPts / kg)
+* 69% de l'impact du coton conventionnel provient de l'indicateur Ecotoxicité de l'eau douce. \
+  Les deux principales raisons expliquant cela sont : \
+  1\) la pondération élevée de cet indicateur dans le coût environnemental (21,06%)\
+  2\) l'utilisation de pesticides et insecticides (tels le Trichlorfon et Chlorpyrifos) dans la culture du coton. &#x20;
+* Le complément Microfibres (420 uPts / kg de fibre naturelle d'origine végétale) explique une part significative de l'impact de la laine (13% de _Coton conventionnel_ et 50% de _Coton organique_).&#x20;
+* La consommation d'eau ressort de manière significative (6% de l'impact total / 32m3 par kg) seulement pour le coton conventionnel tandis que 0m3 d'eau est considéré pour la culture du coton organique.
+
 [^1]: Market report 2023 \_ Textile Exchange
 
 [^2]: Cf. Market Report 2023 (Textile Exchange) pour plus d'info &#x20;

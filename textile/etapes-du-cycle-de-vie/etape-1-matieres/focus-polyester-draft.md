@@ -63,3 +63,11 @@ Procédé Ecoinvent => _polyethylene terephthalate production, granulate, amorph
 Procédé Ecoinvent => _polyethylene terephthalate production, granulate, amorphous, recycled_
 
 </details>
+
+### Mieux comprendre les impacts dans Ecobalyse
+
+<figure><img src="../../../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
+
+**Principaux enseignements**
+
+* Le complément Microfibres explique la majorité de l'impact du polyester (75% pour le polyester et 85% pour le polyester recyclé)
