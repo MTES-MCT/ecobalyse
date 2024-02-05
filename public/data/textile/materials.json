@@ -210,20 +210,6 @@
     "cff": null
   },
   {
-    "id": "cachemire",
-    "materialProcessUuid": "6018366c-f658-f7a7-5ed3-4fe53a096533",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Fil de cachemire",
-    "shortName": "Cachemire",
-    "origin": "NaturalFromAnimal",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "angora-mohair",
     "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "recycledProcessUuid": null,
