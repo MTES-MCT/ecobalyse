@@ -131,51 +131,52 @@ view _ { definitions } =
                                                         |> Format.formatFloat 2
                                                         |> text
                                                     ]
-                                                , td []
-                                                    [ input
-                                                        [ type_ "text"
-                                                        , class "form-control"
-                                                        , ecoscoreData.weighting
+                                                , td [ class "text-end", style "max-width" "100px" ]
+                                                    [ if def.trigram == Definition.EtfC then
+                                                        input
+                                                            [ type_ "number"
+                                                            , class "form-control text-end"
+                                                            , step "0.01"
+                                                            , ecoscoreData.weighting
+                                                                |> Unit.ratioToFloat
+                                                                |> (*) 100
+                                                                -- FIXME: move to some Math module?
+                                                                |> ((*) 100 >> round >> (\x -> toFloat x / toFloat 100))
+                                                                |> String.fromFloat
+                                                                |> value
+                                                            , onInput
+                                                                (String.toFloat
+                                                                    >> Maybe.map (\x -> x / toFloat 100)
+                                                                    >> UpdateEcoscoreWeighting def.trigram
+                                                                )
+                                                            ]
+                                                            []
+
+                                                      else
+                                                        ecoscoreData.weighting
                                                             |> Unit.ratioToFloat
-                                                            |> String.fromFloat
-                                                            |> value
-                                                        , onInput
-                                                            (String.replace "," "."
-                                                                >> String.toFloat
-                                                                >> UpdateEcoscoreWeighting def.trigram
-                                                            )
-                                                        ]
-                                                        []
+                                                            |> (*) 100
+                                                            |> Format.percent
                                                     ]
                                                 ]
                                         )
                             )
                         |> tbody []
-                    , tbody []
-                        [ tr []
-                            [ td [ class "text-end", colspan 4 ] []
-                            , td []
-                                [ text "Total: "
-                                , definitions
-                                    |> Definition.toList
-                                    |> List.filterMap (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat))
-                                    |> List.sum
-                                    |> String.fromFloat
-                                    |> text
-                                ]
-                            ]
-                        , tr []
-                            [ td [ class "text-end", colspan 4 ] []
-                            , td []
-                                [ button
-                                    [ class "btn btn-secondary w-100"
-                                    , onClick Submit
-                                    ]
-                                    [ text "Mettre à jour" ]
-                                ]
-                            ]
-                        ]
                     ]
+                ]
+            , div [ class "d-flex justify-content-end align-items-center gap-2", colspan 5 ]
+                [ text "Total: "
+                , definitions
+                    |> Definition.toList
+                    |> List.filterMap (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat))
+                    |> List.sum
+                    |> (*) 100
+                    |> Format.percent
+                , button
+                    [ class "btn btn-secondary"
+                    , onClick Submit
+                    ]
+                    [ text "Mettre à jour" ]
                 ]
             ]
       ]
