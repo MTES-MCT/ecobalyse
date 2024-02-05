@@ -1,6 +1,6 @@
 # Focus laine (draft)
 
-## Généralités
+énéralités
 
 La fibre de laine représente 1,1% de la production mondiale de fibres textile en 2022 (source[^1]). Les principaux pays producteurs sont la Chine , l'Australie et la Nouvelle-Zélande.
 
@@ -8,7 +8,7 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 <summary>Production mondiale par pays</summary>
 
-![](<../../../.gitbook/assets/image (1).png>)
+![](<../../../.gitbook/assets/image (1) (1).png>)
 
 </details>
 
@@ -114,6 +114,17 @@ Deux scénarios sont proposés :&#x20;
   (permet de modéliser une laine provenant d'une filière en construction comme c'est le cas pour le marché français).&#x20;
 
 Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
+
+### Comprendre les impacts environnementaux de la laine
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
+
+**Principaux enseignements**
+
+* 47% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
+  L'alimentation du mouton (12kg de soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
+  Un paramètre clé à préciser est l'alimentation moyenne des moutons utilisés pour la laine textile.
+* Le complément Microfibres (570 uPts / kg de fibre naturelle d'origine animale) explique une part significative de l'impact de la laine (28% de _Laine (nouvelle filière)_ et 7% de _Laine (par défaut)_ ).&#x20;
 
 [^1]: Textile Exchange (market report 2023)
 
