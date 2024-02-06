@@ -50,7 +50,6 @@ import Route
 import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
-import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
@@ -66,8 +65,7 @@ import Views.Textile.Step as StepView
 
 
 type alias Model =
-    { simulator : Result String Simulator
-    , simulatorData : WebData Simulator
+    { simulatorData : WebData Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -152,8 +150,7 @@ init trigram maybeUrlQuery session =
             initialQuery
                 |> Simulator.compute session.db
     in
-    ( { simulator = simulator
-      , simulatorData = RemoteData.Loading
+    ( { simulatorData = RemoteData.Loading
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -203,12 +200,12 @@ findExistingBookmarkName { db, store } query =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model
-        | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
-      }
-    , session |> Session.updateTextileQuery query
-    , commands
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Simulator.getCompute session query OnApiReceived
+        ]
     )
 
 
@@ -235,13 +232,25 @@ update ({ queries, navKey } as session) msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnApiReceived webData ->
+        OnApiReceived (RemoteData.Success simulator) ->
             let
-                _ =
-                    webData
-                        |> Debug.log "API answer"
+                updatedQuery =
+                    Inputs.toQuery simulator.inputs
             in
-            ( model, session, Cmd.none )
+            ( { model
+                | simulatorData = RemoteData.Success simulator
+                , bookmarkName = updatedQuery |> findExistingBookmarkName session
+              }
+            , session |> Session.updateTextileQuery updatedQuery
+            , Cmd.none
+            )
+
+        OnApiReceived _ ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du calcul de la simulation" "Erreur lors de la requête à l'API"
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -471,19 +480,19 @@ update ({ queries, navKey } as session) msg model =
                     { query
                         | fabricProcess = fabricProcess
                         , makingWaste =
-                            model.simulator
-                                |> Result.map
+                            model.simulatorData
+                                |> RemoteData.map
                                     (\simulator ->
                                         Fabric.getMakingWaste simulator.inputs.product.making.pcrWaste fabricProcess
                                     )
-                                |> Result.toMaybe
+                                |> RemoteData.toMaybe
                         , makingComplexity =
-                            model.simulator
-                                |> Result.map
+                            model.simulatorData
+                                |> RemoteData.map
                                     (\simulator ->
                                         Fabric.getMakingComplexity simulator.inputs.product.making.complexity fabricProcess
                                     )
-                                |> Result.toMaybe
+                                |> RemoteData.toMaybe
                     }
 
         UpdateMakingComplexity makingComplexity ->
@@ -1103,8 +1112,8 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            (case model.simulator of
-                Ok simulator ->
+            (case model.simulatorData of
+                RemoteData.Success simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
                         NoModal ->
@@ -1174,14 +1183,8 @@ view session model =
                                 }
                     ]
 
-                Err error ->
-                    [ Alert.simple
-                        { level = Alert.Danger
-                        , close = Nothing
-                        , title = Just "Erreur"
-                        , content = [ text error ]
-                        }
-                    ]
+                _ ->
+                    [ div [] [ text "loading" ] ]
             )
       ]
     )
