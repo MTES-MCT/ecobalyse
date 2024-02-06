@@ -19,6 +19,7 @@ module Data.Transport exposing
 import Data.Country as Country
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -44,11 +45,11 @@ type alias Transport =
     , sea : Length
     , seaCooled : Length
     , air : Length
-    , impacts : Impacts
+    , impacts : Maybe Impacts
     }
 
 
-default : Impacts -> Transport
+default : Maybe Impacts -> Transport
 default impacts =
     { road = Quantity.zero
     , roadCooled = Quantity.zero
@@ -72,7 +73,7 @@ defaultInland scope =
     , sea = Quantity.zero
     , seaCooled = Quantity.zero
     , air = Quantity.zero
-    , impacts = Impact.empty
+    , impacts = Nothing
     }
 
 
@@ -117,7 +118,7 @@ computeImpacts { wellKnown } mass transport =
                     )
                 |> Impact.sumImpacts
     in
-    { transport | impacts = transportImpacts }
+    { transport | impacts = Just transportImpacts }
 
 
 sum : List Transport -> Transport
@@ -130,10 +131,10 @@ sum =
                 , sea = acc.sea |> Quantity.plus sea
                 , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
                 , air = acc.air |> Quantity.plus air
-                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                , impacts = Maybe.map2 (\i accImpacts -> Impact.sumImpacts [ accImpacts, i ]) impacts acc.impacts
             }
         )
-        (default Impact.empty)
+        (default (Just Impact.empty))
 
 
 totalKm : Transport -> Float
@@ -199,7 +200,7 @@ getTransportBetween scope cA cB distances =
                             -- reverse query source dict
                             getTransportBetween scope cB cA distances
                 )
-            |> Maybe.withDefault (default Impact.empty)
+            |> Maybe.withDefault (default Nothing)
 
 
 decodeKm : Decoder Length
@@ -213,8 +214,8 @@ encodeKm =
     Length.inKilometers >> Encode.float
 
 
-decode : Decoder Transport
-decode =
+decode : Definitions -> Decoder Transport
+decode definitions =
     Decode.map6 Transport
         (Decode.field "road" decodeKm)
         -- roadCooled
@@ -223,7 +224,7 @@ decode =
         -- seaCooled
         (Decode.succeed Quantity.zero)
         (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.empty)
+        (Decode.maybe (Decode.field "impacts" (Impact.decodeImpacts definitions)))
 
 
 encode : Transport -> Encode.Value
@@ -234,23 +235,23 @@ encode v =
         , ( "sea", encodeKm v.sea )
         , ( "seaCooled", encodeKm v.seaCooled )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encode v.impacts )
+        , ( "impacts", v.impacts |> Maybe.map Impact.encode |> Maybe.withDefault Encode.null )
         ]
 
 
-decodeDistance : Decoder Distance
-decodeDistance =
+decodeDistance : Definitions -> Decoder Distance
+decodeDistance definitions =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
         (\str _ -> Country.codeFromString str)
         Country.codeToString
-        decode
+        (decode definitions)
 
 
-decodeDistances : Decoder Distances
-decodeDistances =
+decodeDistances : Definitions -> Decoder Distances
+decodeDistances definitions =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
         (\str _ -> Country.codeFromString str)
         Country.codeToString
-        decodeDistance
+        (decodeDistance definitions)

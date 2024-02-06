@@ -23,7 +23,11 @@ type alias Db =
 
 rdb : Result String Db
 rdb =
-    Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
+    rdefinitions
+        |> Result.andThen
+            (\definitions ->
+                Result.map4 (Db definitions) rtextile rfood rcountries (rdistances definitions)
+            )
 
 
 rdefinitions : Result String Definitions
@@ -54,9 +58,9 @@ rcountries =
     rtextile |> Result.andThen (\textile -> Common.countriesFromJson textile countriesJson)
 
 
-rdistances : Result String Distances
-rdistances =
-    Common.transportsFromJson transportsJson
+rdistances : Definitions -> Result String Distances
+rdistances definitions =
+    Common.transportsFromJson definitions transportsJson
 
 
 updateEcotoxWeighting : Db -> Unit.Ratio -> Db

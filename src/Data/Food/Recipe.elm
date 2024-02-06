@@ -184,7 +184,7 @@ compute db =
                                         (\distrib ->
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
-                                    |> Maybe.withDefault (Transport.default Impact.empty)
+                                    |> Maybe.withDefault (Transport.default Nothing)
                         in
                         Transport.computeImpacts db.food mass transport
 
@@ -193,6 +193,7 @@ compute db =
                             [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
+                                |> Maybe.withDefault Impact.empty
                             ]
 
                     transformedIngredientsMass =
@@ -228,6 +229,7 @@ compute db =
                             , packagingImpacts
                             , distributionImpacts
                             , distributionTransport.impacts
+                                |> Maybe.withDefault Impact.empty
                             , preparationImpacts
                             ]
 
@@ -657,7 +659,10 @@ toStepsImpacts trigram results =
     { materials = getImpact results.recipe.ingredientsTotal
     , transform = getImpact results.recipe.transform
     , packaging = getImpact results.packaging
-    , transports = getImpact results.transports.impacts
+    , transports =
+        results.transports.impacts
+            |> Maybe.withDefault Impact.empty
+            |> getImpact
     , distribution = getImpact results.distribution.total
     , usage = getImpact results.preparation
     , endOfLife = Nothing

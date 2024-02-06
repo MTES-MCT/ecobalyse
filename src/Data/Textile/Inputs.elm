@@ -40,7 +40,6 @@ module Data.Textile.Inputs exposing
 
 import Base64
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -671,7 +670,7 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
                 nextCountryCode
 
     else
-        Transport.default Impact.empty
+        Transport.default Nothing
 
 
 buildApiQuery : String -> Query -> String

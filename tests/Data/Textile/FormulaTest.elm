@@ -235,7 +235,7 @@ testTransportRatio airTransportRatio { road, sea, air } =
     , sea = km sea
     , seaCooled = km 0
     , air = km air
-    , impacts = Impact.empty
+    , impacts = Just Impact.empty
     }
         |> Formula.transportRatio airTransportRatio
         |> (\t ->

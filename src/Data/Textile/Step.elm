@@ -23,7 +23,6 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Definitions)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
@@ -99,10 +98,6 @@ type alias ProcessInfo =
 
 create : { label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
 create { label, editable, country, enabled } =
-    let
-        defaultImpacts =
-            Impact.empty
-    in
     { label = label
     , enabled = enabled
     , country = country
@@ -111,8 +106,8 @@ create { label, editable, country, enabled } =
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , deadstock = Quantity.zero
-    , transport = Transport.default defaultImpacts
-    , impacts = defaultImpacts
+    , transport = Transport.default Nothing
+    , impacts = Impact.empty
     , complementsImpacts = Impact.noComplementsImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
@@ -224,6 +219,7 @@ computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, 
                     in
                     Quantity.sum [ roadImpact, seaImpact, airImpact ]
                 )
+            |> Just
     }
 
 
@@ -518,18 +514,18 @@ encode v =
         ]
 
 
-decode : Definitions -> List Process.Process -> Decoder Step
-decode definitions processes =
+decode : Db -> Decoder Step
+decode { definitions, textile } =
     Decode.succeed Step
         |> Pipe.required "label" (Decode.string |> Decode.andThen (Label.fromCodeString >> DE.fromResult))
         |> Pipe.required "enabled" Decode.bool
-        |> Pipe.required "country" (Country.decode processes)
+        |> Pipe.required "country" (Country.decode textile.processes)
         |> Pipe.required "editable" Decode.bool
         |> Pipe.required "inputMass" (Decode.float |> Decode.map Mass.kilograms)
         |> Pipe.required "outputMass" (Decode.float |> Decode.map Mass.kilograms)
         |> Pipe.required "waste" (Decode.float |> Decode.map Mass.kilograms)
         |> Pipe.required "deadstock" (Decode.float |> Decode.map Mass.kilograms)
-        |> Pipe.required "transport" Transport.decode
+        |> Pipe.required "transport" (Transport.decode definitions)
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "complementsImpacts" Impact.decodeComplementsImpacts
         |> Pipe.required "heat_MJ" (Decode.float |> Decode.map Energy.megajoules)

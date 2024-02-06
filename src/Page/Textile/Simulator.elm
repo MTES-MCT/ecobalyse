@@ -1083,7 +1083,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                             ]
                         )
                 , productMass = inputs.mass
-                , totalImpacts = impacts
+                , totalImpacts =
+                    impacts
 
                 -- Ecotox weighting customization
                 , updateEcotoxWeighting = UpdateEcotoxWeighting

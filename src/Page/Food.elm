@@ -937,6 +937,7 @@ ingredientListView db selectedImpact recipe results =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
                                     |> .impacts
+                                    |> Maybe.withDefault Impact.empty
                                     |> Format.formatImpact selectedImpact
                             }
                     )
@@ -1040,7 +1041,9 @@ transportToTransformationView selectedImpact results =
                         }
                 )
             , span []
-                [ Format.formatImpact selectedImpact results.recipe.transports.impacts
+                [ results.recipe.transports.impacts
+                    |> Maybe.withDefault Impact.empty
+                    |> Format.formatImpact selectedImpact
                 , Button.smallPillLink
                     [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
                     , target "_blank"
@@ -1111,7 +1114,9 @@ transportToDistributionView selectedImpact recipe results =
                         }
                 )
             , span []
-                [ Format.formatImpact selectedImpact results.distribution.transports.impacts
+                [ results.distribution.transports.impacts
+                    |> Maybe.withDefault Impact.empty
+                    |> Format.formatImpact selectedImpact
                 , Button.smallPillLink
                     [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
                     , target "_blank"

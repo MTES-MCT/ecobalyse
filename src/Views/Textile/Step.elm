@@ -688,7 +688,9 @@ viewMaterials config =
                                     , title "Impact du transport pour cette matière"
                                     ]
                                     [ text "(+ "
-                                    , Format.formatImpact config.selectedImpact transport.impacts
+                                    , transport.impacts
+                                        |> Maybe.withDefault Impact.empty
+                                        |> Format.formatImpact config.selectedImpact
                                     , text ")"
                                     ]
                               ]
@@ -876,6 +878,7 @@ viewTransport ({ selectedImpact, current, inputs } as config) =
                     )
                 , span []
                     [ current.transport.impacts
+                        |> Maybe.withDefault Impact.empty
                         |> Format.formatImpact selectedImpact
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]

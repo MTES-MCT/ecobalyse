@@ -17,9 +17,7 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
-import Data.Textile.Process as Process
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
@@ -63,16 +61,18 @@ computeTotalTransportImpacts =
                 , air = acc.air |> Quantity.plus transport.air
                 , impacts =
                     acc.impacts
-                        |> Impact.mapImpacts
-                            (\trigram impact ->
-                                Quantity.sum
-                                    [ impact
-                                    , Impact.getImpact trigram transport.impacts
-                                    ]
+                        |> Maybe.map
+                            (Impact.mapImpacts
+                                (\trigram impact ->
+                                    Quantity.sum
+                                        [ impact
+                                        , Impact.getImpact trigram (transport.impacts |> Maybe.withDefault Impact.empty)
+                                        ]
+                                )
                             )
             }
         )
-        (Transport.default Impact.empty)
+        (Transport.default (Just Impact.empty))
 
 
 computeFinalImpacts : LifeCycle -> Impacts
@@ -86,7 +86,7 @@ computeFinalImpacts =
                             Quantity.sum
                                 [ Impact.getImpact trigram impacts
                                 , impact
-                                , Impact.getImpact trigram transport.impacts
+                                , Impact.getImpact trigram (transport.impacts |> Maybe.withDefault Impact.empty)
                                 ]
                         )
 
@@ -174,7 +174,7 @@ encode =
     Encode.array Step.encode
 
 
-decode : Definitions -> List Process.Process -> Decoder LifeCycle
-decode definitions processes =
-    Decode.list (Step.decode definitions processes)
+decode : Db -> Decoder LifeCycle
+decode db =
+    Decode.list (Step.decode db)
         |> Decode.map Array.fromList

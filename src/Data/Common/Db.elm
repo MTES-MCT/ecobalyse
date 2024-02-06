@@ -25,9 +25,9 @@ countriesFromJson textile =
         >> Result.mapError Decode.errorToString
 
 
-transportsFromJson : String -> Result String Distances
-transportsFromJson =
-    Decode.decodeString Transport.decodeDistances
+transportsFromJson : Definitions -> String -> Result String Distances
+transportsFromJson definitions =
+    Decode.decodeString (Transport.decodeDistances definitions)
         >> Result.mapError Decode.errorToString
 
 
