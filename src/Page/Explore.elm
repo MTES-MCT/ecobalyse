@@ -344,14 +344,14 @@ textileMaterialsExplorer :
     -> List (Html Msg)
 textileMaterialsExplorer tableConfig tableState maybeId db =
     [ db.materials
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileMaterials.table
     , case maybeId of
         Just id ->
             detailsModal
                 (case Material.findById id db.materials of
                     Ok material ->
                         material
-                            |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
+                            |> Table.viewDetails Scope.Textile TextileMaterials.table
 
                     Err error ->
                         alert error
