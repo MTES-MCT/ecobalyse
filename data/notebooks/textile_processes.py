@@ -50,7 +50,8 @@ for p in textile_processes:
     line["name"] = p["name"]
     writer.writerow(line)
 
-df = pandas.read_csv("textile_processes.csv").apply(
+csvfile.seek(0)
+df = pandas.read_csv(csvfile).apply(
     lambda row: pandas.Series(scores(row.to_dict())), axis=1
 )
 names = df.iloc[:, 0]
