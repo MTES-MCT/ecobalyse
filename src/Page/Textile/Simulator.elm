@@ -435,6 +435,8 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateEcotoxWeighting (Just ratio) ->
             ( model, session |> Session.updateEcotoxWeighting ratio, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
