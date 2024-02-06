@@ -7,7 +7,7 @@ module Page.Admin exposing
     )
 
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -26,7 +26,7 @@ type alias Model =
 
 type Msg
     = Submit
-    | UpdateEcoscoreWeighting Trigram (Maybe Float)
+    | UpdateEcotoxWeighting (Maybe Float)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -74,11 +74,11 @@ update session msg model =
             , Ports.scrollTo { x = 0, y = 0 }
             )
 
-        UpdateEcoscoreWeighting trigram (Just float) ->
+        UpdateEcotoxWeighting (Just float) ->
             ( { model
                 | definitions =
                     model.definitions
-                        |> Definition.update trigram
+                        |> Definition.update Definition.EtfC
                             (\({ ecoscoreData } as definition) ->
                                 { definition
                                     | ecoscoreData =
@@ -91,7 +91,7 @@ update session msg model =
             , Cmd.none
             )
 
-        UpdateEcoscoreWeighting _ Nothing ->
+        UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
 
 
@@ -147,7 +147,7 @@ view _ { definitions } =
                                                             , onInput
                                                                 (String.toFloat
                                                                     >> Maybe.map (\x -> x / toFloat 100)
-                                                                    >> UpdateEcoscoreWeighting def.trigram
+                                                                    >> UpdateEcotoxWeighting
                                                                 )
                                                             ]
                                                             []
