@@ -667,8 +667,8 @@ computeFinalImpacts { impactDefinitions } ({ inputs, lifeCycle } as simulator) =
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.updateAggregatedScores impactDefinitions
                 |> Impact.divideBy (Unit.durabilityToFloat durability)
+                |> Impact.updateAggregatedScores impactDefinitions
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
