@@ -1,7 +1,6 @@
 module Data.Textile.Simulator exposing
     ( Simulator
     , compute
-    , decode
     , encode
     , getCompute
     , stepMaterialImpacts

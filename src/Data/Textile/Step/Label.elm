@@ -8,7 +8,6 @@ module Data.Textile.Step.Label exposing
     , toGitbookPath
     , toId
     , toName
-    , toString
     )
 
 import Data.Gitbook as Gitbook

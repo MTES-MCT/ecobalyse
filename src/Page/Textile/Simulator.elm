@@ -42,7 +42,6 @@ import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Json.Encode as Encode
 import Mass
 import Platform.Cmd as Cmd
 import Ports
@@ -214,7 +213,7 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ textileDb, queries, navKey } as session) msg model =
+update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
