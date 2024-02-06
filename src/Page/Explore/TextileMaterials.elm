@@ -39,9 +39,9 @@ table { countries } { detailed, scope } =
                         a [ Route.href (Route.Explore scope (Dataset.TextileMaterials (Just material.id))) ]
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
-        , { label = "Nom"
-          , toValue = .name
-          , toCell = .name >> text
+        , { label = "Procédé"
+          , toValue = .materialProcess >> .name
+          , toCell = .materialProcess >> .name >> text
           }
         , { label = "Origine"
           , toValue = .origin >> Origin.toLabel
@@ -60,10 +60,6 @@ table { countries } { detailed, scope } =
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat { unit = "\u{202F}µPts/kg", decimals = 2 }
                         ]
-          }
-        , { label = "Procédé"
-          , toValue = .materialProcess >> .name
-          , toCell = .materialProcess >> .name >> text
           }
         , { label = "Procédé de fabrication du fil"
           , toValue = .origin >> Origin.threadProcess
