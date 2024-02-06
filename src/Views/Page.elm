@@ -346,14 +346,6 @@ notificationView { closeNotification } notification =
                 , content = [ text message ]
                 }
 
-        Session.Info message ->
-            Alert.simple
-                { level = Alert.Info
-                , title = Nothing
-                , close = Just (closeNotification notification)
-                , content = [ text message ]
-                }
-
 
 notFound : Html msg
 notFound =

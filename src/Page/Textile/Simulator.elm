@@ -434,7 +434,7 @@ update ({ queries, navKey } as session) msg model =
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
         UpdateEcotoxWeighting (Just ratio) ->
-            ( model, Session.updateEcotoxWeighting ratio session, Cmd.none )
+            ( model, session |> Session.updateEcotoxWeighting ratio, Cmd.none )
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
@@ -886,7 +886,9 @@ ecotoxWeightingField impactDefinitions =
                 [ type_ "number"
                 , id "ecotox-weighting"
                 , class "form-control text-end"
-                , step "0.01"
+                , Attr.min "0"
+                , Attr.max "25"
+                , step "0.1"
                 , etfCWeighting
                     |> (*) 100
                     -- FIXME: move to some Math module?
@@ -896,7 +898,7 @@ ecotoxWeightingField impactDefinitions =
                 , onInput
                     (String.toFloat
                         >> Maybe.map (\x -> x / toFloat 100)
-                        >> Maybe.map Unit.ratio
+                        >> Maybe.map (clamp 0 25 >> Unit.ratio)
                         >> UpdateEcotoxWeighting
                     )
                 ]

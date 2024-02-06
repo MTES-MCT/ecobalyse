@@ -7,11 +7,9 @@ module Data.Session exposing
     , deserializeStore
     , maxComparedSimulations
     , notifyError
-    , notifyInfo
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
-    , updateDbDefinitions
     , updateEcotoxWeighting
     , updateFoodQuery
     , updateTextileQuery
@@ -22,7 +20,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definitions)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
 import Data.Unit as Unit
@@ -55,7 +53,6 @@ type alias Session =
 
 type Notification
     = GenericError String String
-    | Info String
 
 
 closeNotification : Notification -> Session -> Session
@@ -66,11 +63,6 @@ closeNotification notification ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
-
-
-notifyInfo : String -> Session -> Session
-notifyInfo text ({ notifications } as session) =
-    { session | notifications = notifications ++ [ Info text ] }
 
 
 
@@ -261,5 +253,63 @@ updateDbDefinitions definitions ({ foodDb, textileDb } as session) =
 
 
 updateEcotoxWeighting : Unit.Ratio -> Session -> Session
-updateEcotoxWeighting _ session =
+updateEcotoxWeighting (Unit.Ratio ratio) session =
+    let
+        defsToUpdate =
+            [ Definition.Acd
+            , Definition.Fru
+            , Definition.Fwe
+            , Definition.Ior
+            , Definition.Ldu
+            , Definition.Mru
+            , Definition.Ozd
+            , Definition.Pco
+            , Definition.Pma
+            , Definition.Swe
+            , Definition.Tre
+            , Definition.Wtu
+            ]
+
+        cleanRatio =
+            clamp 0 25 ratio
+
+        newDefinitions =
+            session.textileDb.impactDefinitions
+                -- Start with updating EtfC with the provided ratio
+                |> Definition.update Definition.EtfC
+                    (\({ ecoscoreData } as definition) ->
+                        { definition
+                            | ecoscoreData =
+                                ecoscoreData
+                                    |> Maybe.map (\ecs -> { ecs | weighting = Unit.ratio cleanRatio })
+                        }
+                    )
+                -- Apply Pascal's formula to the other definitions to adjust
+                |> Definition.map
+                    (\trg def ->
+                        if List.member trg defsToUpdate then
+                            let
+                                pefWeighting =
+                                    def.pefData
+                                        |> Maybe.map .weighting
+                                        |> Maybe.withDefault (Unit.ratio 0)
+                                        |> Unit.ratioToFloat
+                            in
+                            { def
+                                | ecoscoreData =
+                                    def.ecoscoreData
+                                        |> Maybe.map
+                                            (\ecoscoreData ->
+                                                { ecoscoreData
+                                                  -- = (PEF weighting for this trigram) * (78.94% - custom ratio) / 73.05%
+                                                    | weighting = Unit.ratio (pefWeighting * (0.7894 - cleanRatio) / 0.7305)
+                                                }
+                                            )
+                            }
+
+                        else
+                            def
+                    )
+    in
     session
+        |> updateDbDefinitions newDefinitions
