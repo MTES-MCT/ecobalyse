@@ -30,6 +30,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -110,6 +111,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -400,6 +402,14 @@ update ({ queries } as session) msg model =
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( model, session |> Session.updateEcotoxWeighting ratio, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
@@ -1371,6 +1381,7 @@ sidebarView session model results =
         , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
+        , updateEcotoxWeighting = UpdateEcotoxWeighting
 
         -- Impacts tabs
         , impactTabsConfig =
