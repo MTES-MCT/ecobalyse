@@ -11,6 +11,8 @@ module Data.Session exposing
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
+    , updateDbDefinitions
+    , updateEcotoxWeighting
     , updateFoodQuery
     , updateTextileQuery
     )
@@ -19,8 +21,11 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
+import Data.Impact as Impact
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -224,3 +229,37 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
+
+
+{-| Updates food and textile databases with updated impact definitions and recomputes
+resulting aggregated impacts.
+-}
+updateDbDefinitions : Definitions -> Session -> Session
+updateDbDefinitions definitions ({ foodDb, textileDb } as session) =
+    { session
+        | foodDb =
+            { foodDb
+                | impactDefinitions = definitions
+                , processes =
+                    foodDb.processes
+                        |> List.map
+                            (\({ impacts } as process) ->
+                                { process | impacts = Impact.updateAggregatedScores definitions impacts }
+                            )
+            }
+        , textileDb =
+            { textileDb
+                | impactDefinitions = definitions
+                , processes =
+                    textileDb.processes
+                        |> List.map
+                            (\({ impacts } as process) ->
+                                { process | impacts = Impact.updateAggregatedScores definitions impacts }
+                            )
+            }
+    }
+
+
+updateEcotoxWeighting : Unit.Ratio -> Session -> Session
+updateEcotoxWeighting _ session =
+    session

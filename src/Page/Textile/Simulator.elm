@@ -17,7 +17,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -112,6 +112,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -431,6 +432,12 @@ update ({ queries, navKey } as session) msg model =
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( model, Session.updateEcotoxWeighting ratio session, Cmd.none )
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
             ( model, session, Cmd.none )
@@ -860,6 +867,45 @@ massField massInput =
         ]
 
 
+ecotoxWeightingField : Definitions -> Html Msg
+ecotoxWeightingField impactDefinitions =
+    let
+        etfCWeighting =
+            impactDefinitions
+                |> Definition.get Definition.EtfC
+                |> .ecoscoreData
+                |> Maybe.map (.weighting >> Unit.ratioToFloat)
+                |> Maybe.withDefault 0
+    in
+    div []
+        [ label [ for "ecotox-weighting", class "form-label text-truncate" ]
+            [ text "Pondération Ecotox" ]
+        , div
+            [ class "input-group" ]
+            [ input
+                [ type_ "number"
+                , id "ecotox-weighting"
+                , class "form-control text-end"
+                , step "0.01"
+                , etfCWeighting
+                    |> (*) 100
+                    -- FIXME: move to some Math module?
+                    |> ((*) 100 >> round >> (\x -> toFloat x / toFloat 100))
+                    |> String.fromFloat
+                    |> value
+                , onInput
+                    (String.toFloat
+                        >> Maybe.map (\x -> x / toFloat 100)
+                        >> Maybe.map Unit.ratio
+                        >> UpdateEcotoxWeighting
+                    )
+                ]
+                []
+            , span [ class "input-group-text" ] [ text "%" ]
+            ]
+        ]
+
+
 durabilityField : Unit.Durability -> Html Msg
 durabilityField durability =
     let
@@ -947,8 +993,9 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-9" ] [ exampleProductField (Inputs.toQuery inputs) ]
+                [ div [ class "col-md-6" ] [ exampleProductField (Inputs.toQuery inputs) ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
+                , div [ class "col-md-3" ] [ ecotoxWeightingField textileDb.impactDefinitions ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
