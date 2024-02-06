@@ -162,7 +162,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -185,11 +185,10 @@ computeTransports db inputs next ({ processInfo } as current) =
             else
                 db.distances
                     |> Transport.getTransportBetween Scope.Textile
-                        current.transport.impacts
                         current.country.code
                         next.country.code
                     |> computeTransportSummary current
-                    |> computeTransportImpacts current.transport.impacts
+                    |> computeTransportImpacts
                         db.textile.wellKnown
                         roadTransportProcess
                         (getTransportedMass inputs current)
@@ -205,15 +204,15 @@ computeTransports db inputs next ({ processInfo } as current) =
     }
 
 
-computeTransportImpacts : Impacts -> WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , roadCooled = Quantity.zero
     , sea = sea
     , seaCooled = Quantity.zero
     , air = air
     , impacts =
-        impacts
+        Impact.empty
             |> Impact.mapImpacts
                 (\trigram _ ->
                     let
@@ -233,7 +232,7 @@ computeTransportSummary step transport =
     let
         ( noTransports, defaultInland ) =
             ( Transport.default step.transport.impacts
-            , Transport.defaultInland Scope.Textile step.transport.impacts
+            , Transport.defaultInland Scope.Textile
             )
     in
     case step.label of

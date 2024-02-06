@@ -42,16 +42,16 @@ suite =
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetween Scope.Textile (Country.Code "FR") (Country.Code "CN")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetween Scope.Textile (Country.Code "CN") (Country.Code "FR")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "FR")
-                    |> Expect.equal (Transport.defaultInland Scope.Textile Impact.empty)
+                    |> Transport.getTransportBetween Scope.Textile (Country.Code "FR") (Country.Code "FR")
+                    |> Expect.equal (Transport.defaultInland Scope.Textile)
                     |> asTest "should apply default inland transport when country is the same"
                 ]
             ]

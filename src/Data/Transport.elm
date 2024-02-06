@@ -59,8 +59,8 @@ default impacts =
     }
 
 
-defaultInland : Scope -> Impacts -> Transport
-defaultInland scope impacts =
+defaultInland : Scope -> Transport
+defaultInland scope =
     { road =
         case scope of
             Scope.Food ->
@@ -72,7 +72,7 @@ defaultInland scope impacts =
     , sea = Quantity.zero
     , seaCooled = Quantity.zero
     , air = Quantity.zero
-    , impacts = impacts
+    , impacts = Impact.empty
     }
 
 
@@ -178,14 +178,13 @@ roadSeaTransportRatio { road, sea } =
 
 getTransportBetween :
     Scope
-    -> Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween scope impacts cA cB distances =
+getTransportBetween scope cA cB distances =
     if cA == cB then
-        defaultInland scope impacts
+        defaultInland scope
 
     else
         distances
@@ -194,13 +193,13 @@ getTransportBetween scope impacts cA cB distances =
                 (\countries ->
                     case Dict.get cB countries of
                         Just transport ->
-                            { transport | impacts = impacts }
+                            transport
 
                         Nothing ->
                             -- reverse query source dict
-                            getTransportBetween scope impacts cB cA distances
+                            getTransportBetween scope cB cA distances
                 )
-            |> Maybe.withDefault (default impacts)
+            |> Maybe.withDefault (default Impact.empty)
 
 
 decodeKm : Decoder Length

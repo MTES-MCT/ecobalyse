@@ -659,9 +659,6 @@ computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transpo
 computeMaterialTransport distances nextCountryCode { material, country, share } =
     if share /= Split.zero then
         let
-            emptyImpacts =
-                Impact.empty
-
             countryCode =
                 country
                     |> Maybe.map .code
@@ -670,7 +667,6 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
         distances
             |> Transport.getTransportBetween
                 Scope.Textile
-                emptyImpacts
                 countryCode
                 nextCountryCode
 

@@ -339,9 +339,6 @@ computeIngredientsTotalComplements =
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
-        emptyImpacts =
-            Impact.empty
-
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
             -- and we selected a transport by plane, then we take an air transport ratio of 1
@@ -358,7 +355,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                         -- In case a custom country is provided, compute the distances to it from France
                         Just { code } ->
                             db.distances
-                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Transport.getTransportBetween Scope.Food code france
                                 |> Formula.transportRatio planeRatio
 
                         -- Otherwise retrieve ingredient's default origin transport data
