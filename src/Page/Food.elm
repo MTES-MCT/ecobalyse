@@ -63,8 +63,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : FoodDb.Db
-    , impact : Definition
+    { impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -129,8 +128,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault queries.food
     in
-    ( { db = foodDb
-      , impact = impact
+    ( { impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
@@ -149,7 +147,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries } as session) msg model =
+update ({ foodDb, queries } as session) msg model =
     let
         query =
             queries.food
@@ -171,7 +169,7 @@ update ({ queries } as session) msg model =
         AddPackaging ->
             let
                 firstPackaging =
-                    model.db.processes
+                    foodDb.processes
                         |> Recipe.availablePackagings (List.map .code query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -196,7 +194,7 @@ update ({ queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    model.db.processes
+                    foodDb.processes
                         |> Process.listByCategory Process.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -1293,7 +1291,7 @@ mainView session model =
     let
         computed =
             session.queries.food
-                |> Recipe.compute model.db
+                |> Recipe.compute session.foodDb
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
@@ -1305,7 +1303,7 @@ mainView session model =
                 Err error ->
                     errorView error
             , session.queries.food
-                |> debugQueryView model.db
+                |> debugQueryView session.foodDb
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
@@ -1402,22 +1400,22 @@ sidebarView session model results =
 
 
 stepListView : Session -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView session { db, impact, initialQuery } recipe results =
+stepListView ({ foodDb } as session) { impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
-            (ingredientListView db impact recipe results)
+            (ingredientListView foodDb impact recipe results)
         , transportToTransformationView impact results
         , div [ class "card shadow-sm" ]
-            (transformView db impact recipe results)
+            (transformView foodDb impact recipe results)
         , transportToPackagingView recipe results
         , div [ class "card shadow-sm" ]
-            (packagingListView db impact recipe results)
+            (packagingListView foodDb impact recipe results)
         , transportToDistributionView impact recipe results
         , div [ class "card shadow-sm" ]
             (distributionView impact recipe results)
         , transportToConsumptionView recipe
         , div [ class "card shadow-sm" ]
-            (consumptionView db impact recipe results)
+            (consumptionView foodDb impact recipe results)
         , transportAfterConsumptionView recipe results
         , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
             [ a [ Route.href Route.Home ]

@@ -232,6 +232,7 @@ compute db =
 
                     totalImpacts =
                         addIngredientsComplements totalImpactsWithoutComplements
+                            |> Impact.updateAggregatedScores db.impactDefinitions
 
                     -- Note: Product impacts per kg is computed against prepared
                     --       product mass at consumer, excluding packaging
