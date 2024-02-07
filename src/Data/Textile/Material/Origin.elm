@@ -1,6 +1,8 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
+    , Shares
     , decode
+    , defaultShares
     , isSynthetic
     , threadProcess
     , toLabel
@@ -8,6 +10,7 @@ module Data.Textile.Material.Origin exposing
     , toString
     )
 
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -21,10 +24,29 @@ type Origin
     | Synthetic
 
 
+type alias Shares =
+    { artificialFromInorganic : Split
+    , artificialFromOrganic : Split
+    , naturalFromAnimal : Split
+    , naturalFromVegetal : Split
+    , synthetic : Split
+    }
+
+
 decode : Decoder Origin
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+defaultShares : Shares
+defaultShares =
+    { artificialFromInorganic = Split.zero
+    , artificialFromOrganic = Split.zero
+    , naturalFromAnimal = Split.zero
+    , naturalFromVegetal = Split.zero
+    , synthetic = Split.zero
+    }
 
 
 fromString : String -> Result String Origin

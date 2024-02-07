@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
@@ -50,10 +51,12 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
@@ -107,6 +110,7 @@ type Msg
     | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
+    | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
@@ -122,6 +126,7 @@ type Msg
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
+    | UpdateTraceability Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
@@ -416,6 +421,13 @@ update ({ queries, navKey } as session) msg model =
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
+        UpdateBusiness (Ok business) ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | business = Just business }
+
+        UpdateBusiness (Err error) ->
+            ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
+
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
@@ -497,6 +509,10 @@ update ({ queries, navKey } as session) msg model =
         UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
+
+        UpdateTraceability traceability ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | traceability = Just traceability }
 
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
@@ -765,6 +781,9 @@ marketingDurationField marketingDuration =
                     , class "form-control"
                     , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
                     , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
+
+                    -- WARNING: be careful when reordering attributes: for obscure reasons,
+                    -- the `value` one MUST be set AFTER the `step` one.
                     , step "1"
                     , marketingDuration |> Duration.inDays |> String.fromFloat |> value
                     , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
@@ -773,6 +792,49 @@ marketingDurationField marketingDuration =
                 , span [ class "input-group-text", title "jours" ] [ text "j." ]
                 ]
             ]
+        ]
+
+
+businessField : Economics.Business -> Html Msg
+businessField business =
+    div [ class "row align-items-center g-2" ]
+        [ label
+            [ for "business"
+            , class "col-sm-3 col-form-label text-truncate"
+            ]
+            [ text "Entreprise" ]
+        , div [ class "col-sm-9" ]
+            [ [ Economics.SmallBusiness
+              , Economics.LargeBusinessWithoutServices
+              , Economics.LargeBusinessWithServices
+              ]
+                |> List.map
+                    (\b ->
+                        option [ value (Economics.businessToString b), selected (business == b) ]
+                            [ text (Economics.businessToLabel b) ]
+                    )
+                |> select
+                    [ id "business"
+                    , class "form-select"
+                    , onInput (Economics.businessFromString >> UpdateBusiness)
+                    ]
+            ]
+        ]
+
+
+traceabilityField : Bool -> Html Msg
+traceabilityField traceability =
+    div [ class "form-check align-items-center g-2 pt-2" ]
+        [ input
+            [ type_ "checkbox"
+            , id "traceability"
+            , class "form-check-input"
+            , onCheck UpdateTraceability
+            , checked traceability
+            ]
+            []
+        , label [ for "traceability", class "form-check-label text-truncate" ]
+            [ text "Traçabilité renforcée" ]
         ]
 
 
@@ -889,8 +951,18 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
-                [ div [ class "card-header fw-bold" ] [ text "Durabilité non-physique" ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+                    [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
+                    , Button.docsPillLink
+                        [ class "bg-secondary"
+                        , style "height" "24px"
+                        , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                        , title "Documentation"
+                        , target "_blank"
+                        ]
+                        [ Icon.question ]
+                    ]
+                , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ productCategoryField textileDb (Inputs.toQuery inputs)
                         ]
@@ -900,7 +972,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> numberOfReferencesField
                         ]
                     ]
-                , div [ class "card-body row g-3 align-items-start flex-md-columns" ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
                         [ inputs.price
                             |> Maybe.withDefault inputs.product.economics.price
@@ -912,8 +984,31 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                             |> marketingDurationField
                         ]
                     ]
-                , div [ class "card-body" ]
-                    [ durabilityField simulator.durability
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-8" ]
+                        [ inputs.business
+                            |> Maybe.withDefault inputs.product.economics.business
+                            |> businessField
+                        ]
+                    , div [ class "col-md-4" ]
+                        [ inputs.traceability
+                            |> Maybe.withDefault inputs.product.economics.traceability
+                            |> traceabilityField
+                        ]
+                    ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ let
+                        mainMaterialOrigin =
+                            Inputs.getMaterialsOriginShares inputs.materials
+                                |> Economics.computeMaterialsOriginIndex
+                                |> Tuple.second
+                      in
+                      div [ class "col-md-6 fw-bold text-center text-muted text-truncate", title mainMaterialOrigin ]
+                        [ text mainMaterialOrigin
+                        ]
+                    , div [ class "col-md-6 text-center" ]
+                        [ durabilityField simulator.durability
+                        ]
                     ]
                 ]
             , div []

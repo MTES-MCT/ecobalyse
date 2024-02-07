@@ -30,6 +30,7 @@ type Path
     | TextileAerialTransport -- Part du transport aérien textile
     | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
+    | TextileDurability -- Durabilité textile
     | TextileElectricity -- Électricité textile
     | TextileEndOfLife -- Fin de vie textile
     | TextileEndOfLifeOutOfEuropeComplement -- Complément Fin de vie textile hors-Europe
@@ -89,6 +90,10 @@ pathToString path =
 
         TextileDistribution ->
             "textile/etapes-du-cycle-de-vie/distribution"
+
+        TextileDurability ->
+            -- FIXME: this page doesn't exist, there is no docs for durability just yet
+            "textile/durabilite"
 
         TextileElectricity ->
             "textile/parametres-transverses/electricite"

@@ -1,8 +1,20 @@
-module Page.Explore.Common exposing (scopesView)
+module Page.Explore.Common exposing
+    ( boolText
+    , scopesView
+    )
 
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+
+
+boolText : Bool -> String
+boolText bool =
+    if bool then
+        "oui"
+
+    else
+        "non"
 
 
 scopesView : { a | scopes : List Scope } -> Html msg
