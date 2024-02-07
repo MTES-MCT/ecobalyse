@@ -1379,6 +1379,8 @@ sidebarView session model results =
         , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
+
+        -- Ecotox weighting customization
         , updateEcotoxWeighting = UpdateEcotoxWeighting
 
         -- Impacts tabs

@@ -65,8 +65,8 @@ view config =
             , mass = config.productMass
             }
         , if config.selectedImpact.trigram == Definition.Ecs then
-            config.updateEcotoxWeighting
-                |> ecotoxWeightingField config.session.textileDb.impactDefinitions
+            config.session.textileDb.impactDefinitions
+                |> ecotoxWeightingField config.updateEcotoxWeighting
 
           else
             text ""
@@ -88,8 +88,8 @@ view config =
         ]
 
 
-ecotoxWeightingField : Definitions -> (Maybe Unit.Ratio -> msg) -> Html msg
-ecotoxWeightingField impactDefinitions updateEcotoxWeighting =
+ecotoxWeightingField : (Maybe Unit.Ratio -> msg) -> Definitions -> Html msg
+ecotoxWeightingField updateEcotoxWeighting impactDefinitions =
     let
         etfCWeighting =
             impactDefinitions

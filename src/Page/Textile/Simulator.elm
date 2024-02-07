@@ -1055,6 +1055,8 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
+
+                -- Ecotox weighting customization
                 , updateEcotoxWeighting = UpdateEcotoxWeighting
 
                 -- Impacts tabs
