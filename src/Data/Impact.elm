@@ -3,6 +3,7 @@ module Data.Impact exposing
     , Impacts
     , StepsImpacts
     , addComplementsImpacts
+    , adjustEcotoxWeighting
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
@@ -492,6 +493,70 @@ computeAggregatedScore definitions getter (Impacts impacts) =
                     |> Maybe.withDefault Quantity.zero
             )
         |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
+
+
+{-| Adjust the EtfC (Ecotox) weighting and ensure redistributing other Ecoscore weightings
+accordingly. The methodology and formulas are described in this card:
+<https://www.notion.so/Rendre-param-trable-la-pond-ration-de-l-cotox-894d42e217c6448a883346203dff8db4>
+FIXME: ensure the card contents are moved to the public documentation eventually
+-}
+adjustEcotoxWeighting : Unit.Ratio -> Definitions -> Definitions
+adjustEcotoxWeighting (Unit.Ratio weighting) definitions =
+    let
+        defsToUpdate =
+            [ Definition.Acd
+            , Definition.Fru
+            , Definition.Fwe
+            , Definition.Ior
+            , Definition.Ldu
+            , Definition.Mru
+            , Definition.Ozd
+            , Definition.Pco
+            , Definition.Pma
+            , Definition.Swe
+            , Definition.Tre
+            , Definition.Wtu
+            ]
+
+        cleanWeighting =
+            clamp 0 25 weighting
+    in
+    definitions
+        -- Start with updating EtfC with the provided ratio
+        |> Definition.update Definition.EtfC
+            (\({ ecoscoreData } as definition) ->
+                { definition
+                    | ecoscoreData =
+                        ecoscoreData
+                            |> Maybe.map (\data -> { data | weighting = Unit.ratio cleanWeighting })
+                }
+            )
+        -- Then redistribute the other weightings accordingly
+        |> Definition.map
+            (\trg def ->
+                if List.member trg defsToUpdate then
+                    let
+                        pefWeighting =
+                            def.pefData
+                                |> Maybe.map .weighting
+                                |> Maybe.withDefault (Unit.ratio 0)
+                                |> Unit.ratioToFloat
+                    in
+                    { def
+                        | ecoscoreData =
+                            def.ecoscoreData
+                                |> Maybe.map
+                                    (\ecoscoreData ->
+                                        { ecoscoreData
+                                          -- = (PEF weighting for this trigram) * (78.94% - custom weighting) / 73.05%
+                                            | weighting = Unit.ratio (pefWeighting * (0.7894 - cleanWeighting) / 0.7305)
+                                        }
+                                    )
+                    }
+
+                else
+                    def
+            )
 
 
 

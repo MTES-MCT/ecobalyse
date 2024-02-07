@@ -1,11 +1,13 @@
 module Data.Food.Db exposing
     ( Db
     , buildFromJson
+    , updateImpactDefinitions
     )
 
 import Data.Country exposing (Country)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
+import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport
@@ -44,3 +46,22 @@ buildFromJson { impactDefinitions, countries, transports } foodProcessesJson ing
                         )
             )
         |> Result.mapError Decode.errorToString
+
+
+{-| Update database with new definitions and recomputes processes aggregated impacts accordingly.
+-}
+updateImpactDefinitions : Definitions -> Db -> Db
+updateImpactDefinitions definitions db =
+    { db
+        | impactDefinitions = definitions
+        , processes =
+            db.processes
+                |> List.map
+                    (\({ impacts } as process) ->
+                        { process
+                            | impacts =
+                                impacts
+                                    |> Impact.updateAggregatedScores definitions
+                        }
+                    )
+    }

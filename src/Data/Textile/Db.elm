@@ -1,9 +1,11 @@
 module Data.Textile.Db exposing
     ( Db
     , buildFromJson
+    , updateImpactDefinitions
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as TextileProcess
@@ -51,3 +53,22 @@ decode =
                                     )
                         )
             )
+
+
+{-| Update database with new definitions and recomputes processes aggregated impacts accordingly.
+-}
+updateImpactDefinitions : Definitions -> Db -> Db
+updateImpactDefinitions definitions db =
+    { db
+        | impactDefinitions = definitions
+        , processes =
+            db.processes
+                |> List.map
+                    (\({ impacts } as process) ->
+                        { process
+                            | impacts =
+                                impacts
+                                    |> Impact.updateAggregatedScores definitions
+                        }
+                    )
+    }
