@@ -64,7 +64,12 @@ view config =
             , score = config.totalImpacts
             , mass = config.productMass
             }
-        , ecotoxWeightingField config.session.textileDb.impactDefinitions config.updateEcotoxWeighting
+        , if config.selectedImpact.trigram == Definition.Ecs then
+            config.updateEcotoxWeighting
+                |> ecotoxWeightingField config.session.textileDb.impactDefinitions
+
+          else
+            text ""
         , config.impactTabsConfig
             |> ImpactTabs.view config.session.textileDb.impactDefinitions
         , BookmarkView.view
