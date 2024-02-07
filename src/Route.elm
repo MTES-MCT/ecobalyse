@@ -19,7 +19,6 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 type Route
     = Home
-    | Admin
     | Api
     | Changelog
     | Editorial String
@@ -42,9 +41,6 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
-
-        -- Admin
-        , Parser.map Admin (Parser.s "admin")
 
         --  Explorer
         , Parser.map (\scope -> Explore scope (Dataset.Impacts Nothing))
@@ -154,9 +150,6 @@ toString route =
             case route of
                 Home ->
                     []
-
-                Admin ->
-                    [ "admin" ]
 
                 Api ->
                     [ "api" ]

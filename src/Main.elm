@@ -7,7 +7,6 @@ import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Inputs as TextileInputs
 import Html
-import Page.Admin as Admin
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
@@ -33,8 +32,7 @@ type alias Flags =
 
 
 type Page
-    = AdminPage Admin.Model
-    | ApiPage Api.Model
+    = ApiPage Api.Model
     | BlankPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
@@ -62,7 +60,6 @@ type alias Model =
 
 type Msg
     = ApiMsg Api.Msg
-    | AdminMsg Admin.Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -147,10 +144,6 @@ setRoute url ( { state } as model, cmds ) =
                     Home.init session
                         |> toPage HomePage HomeMsg
 
-                Just Route.Admin ->
-                    Admin.init session
-                        |> toPage AdminPage AdminMsg
-
                 Just Route.Api ->
                     Api.init session
                         |> toPage ApiPage ApiMsg
@@ -216,10 +209,6 @@ update rawMsg ({ state } as model) =
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
-
-                ( AdminMsg adminMsg, AdminPage adminModel ) ->
-                    Admin.update session adminMsg adminModel
-                        |> toPage AdminPage AdminMsg
 
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
@@ -375,11 +364,6 @@ view { state, mobileNavigationOpened } =
                     Home.view session homeModel
                         |> mapMsg HomeMsg
                         |> Page.frame (pageConfig Page.Home)
-
-                AdminPage examplesModel ->
-                    Admin.view session examplesModel
-                        |> mapMsg AdminMsg
-                        |> Page.frame (pageConfig Page.Admin)
 
                 ApiPage examplesModel ->
                     Api.view session examplesModel

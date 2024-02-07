@@ -24,8 +24,7 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Admin
-    | Api
+    = Api
     | Changelog
     | Editorial String
     | Explore
@@ -153,7 +152,6 @@ headerMenuLinks =
     mainMenuLinks
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
-           , Internal "Admin" Route.Admin Admin
            ]
 
 
