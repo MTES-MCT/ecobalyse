@@ -6,6 +6,7 @@ module Data.Impact exposing
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeComplementsImpacts
+    , decodeFullImpacts
     , decodeImpacts
     , default
     , divideBy
@@ -399,6 +400,14 @@ decodeImpacts definitions =
         |> Pipe.hardcoded (Unit.impact 0)
         |> Pipe.hardcoded (Unit.impact 0)
         |> Decode.map (Impacts >> updateAggregatedScores definitions)
+
+
+decodeFullImpacts : Decoder Impacts
+decodeFullImpacts =
+    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
+        |> Pipe.required "ecs" Unit.decodeImpact
+        |> Pipe.required "pef" Unit.decodeImpact
+        |> Decode.map Impacts
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value

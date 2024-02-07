@@ -71,7 +71,7 @@ decode db =
     Decode.succeed Simulator
         |> Pipe.required "inputs" (Inputs.decodeQuery |> Decode.andThen (Inputs.fromQuery db >> DE.fromResult))
         |> Pipe.required "lifeCycle" (LifeCycle.decode db)
-        |> Pipe.required "impacts" (Impact.decodeImpacts db.definitions)
+        |> Pipe.required "impacts" Impact.decodeFullImpacts
         |> Pipe.required "complementsImpacts" Impact.decodeComplementsImpacts
         |> Pipe.required "durability" Unit.decodeDurability
         |> Pipe.required "transport" (Transport.decode db.definitions)
