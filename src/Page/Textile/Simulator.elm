@@ -834,7 +834,7 @@ traceabilityField traceability =
             ]
             []
         , label [ for "traceability", class "form-check-label text-truncate" ]
-            [ text "Traçabilité renforcée" ]
+            [ text "Traçabilité affichée" ]
         ]
 
 
