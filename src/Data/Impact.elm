@@ -3,7 +3,6 @@ module Data.Impact exposing
     , Impacts
     , StepsImpacts
     , addComplementsImpacts
-    , adjustEcotoxWeighting
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
@@ -27,6 +26,7 @@ module Data.Impact exposing
     , noStepsImpacts
     , parseTrigram
     , perKg
+    , setEcotoxWeighting
     , stepsColors
     , stepsImpactsAsChartEntries
     , sumEcosystemicImpacts
@@ -495,13 +495,13 @@ computeAggregatedScore definitions getter (Impacts impacts) =
         |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
 
 
-{-| Adjust the EtfC (Ecotox) weighting and ensure redistributing other Ecoscore weightings
+{-| Set the ecotoxicity weighting (EtfC) then redistribute other Ecoscore weightings
 accordingly. The methodology and formulas are described in this card:
 <https://www.notion.so/Rendre-param-trable-la-pond-ration-de-l-cotox-894d42e217c6448a883346203dff8db4>
 FIXME: ensure the card contents are moved to the public documentation eventually
 -}
-adjustEcotoxWeighting : Unit.Ratio -> Definitions -> Definitions
-adjustEcotoxWeighting (Unit.Ratio weighting) definitions =
+setEcotoxWeighting : Unit.Ratio -> Definitions -> Definitions
+setEcotoxWeighting (Unit.Ratio weighting) definitions =
     let
         defsToUpdate =
             [ Definition.Acd

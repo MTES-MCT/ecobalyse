@@ -228,7 +228,7 @@ updateEcotoxWeighting weighting ({ foodDb, textileDb } as session) =
         definitions =
             -- Note: food and textile db impact definitions are the same data
             textileDb.impactDefinitions
-                |> Impact.adjustEcotoxWeighting weighting
+                |> Impact.setEcotoxWeighting weighting
     in
     { session
         | foodDb = FoodDb.updateImpactDefinitions definitions foodDb
