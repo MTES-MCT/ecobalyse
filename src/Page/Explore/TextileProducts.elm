@@ -267,7 +267,7 @@ table db { detailed, scope } =
                         , text " références"
                         ]
           }
-        , { label = "Traçabilité renforcée\u{00A0}?"
+        , { label = "Traçabilité affichée\u{00A0}?"
           , toValue = .economics >> .traceability >> Common.boolText
           , toCell = .economics >> .traceability >> Common.boolText >> text
           }
