@@ -16,10 +16,13 @@ import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
+import Data.Textile.Db as TextileDb
+import Data.Textile.Inputs as TextileInputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator as TextileSimulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -32,6 +35,7 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import RemoteData exposing (WebData)
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -44,12 +48,14 @@ type alias Model =
     { dataset : Dataset
     , scope : Scope
     , tableState : SortableTable.State
+    , textileProductsAndSimulatorDatas : List { product : Product, simulatorData : WebData TextileSimulator.Simulator }
     }
 
 
 type Msg
     = NoOp
     | CloseModal
+    | OnTextileApiReceived Product (WebData TextileSimulator.Simulator)
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
@@ -84,9 +90,32 @@ init scope dataset session =
     ( { dataset = dataset
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
+      , textileProductsAndSimulatorDatas =
+            session.textileDb.products
+                |> List.map
+                    (\product ->
+                        { product = product, simulatorData = RemoteData.NotAsked }
+                    )
       }
     , session
-    , Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ Ports.scrollTo { x = 0, y = 0 }
+        , case dataset of
+            Dataset.TextileProducts _ ->
+                session.textileDb.products
+                    |> List.map
+                        (\product ->
+                            let
+                                defaultQuery =
+                                    TextileInputs.defaultQuery
+                            in
+                            TextileSimulator.getCompute session (TextileInputs.updateProduct product defaultQuery) (OnTextileApiReceived product)
+                        )
+                    |> Cmd.batch
+
+            _ ->
+                Cmd.none
+        ]
     )
 
 
@@ -104,6 +133,30 @@ update session msg model =
                 |> Route.Explore model.scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
+            )
+
+        OnTextileApiReceived p (RemoteData.Success simulator) ->
+            ( { model
+                | textileProductsAndSimulatorDatas =
+                    model.textileProductsAndSimulatorDatas
+                        |> List.map
+                            (\({ product } as productAndSimulatorData) ->
+                                if product == p then
+                                    { productAndSimulatorData | simulatorData = RemoteData.Success simulator }
+
+                                else
+                                    productAndSimulatorData
+                            )
+              }
+            , session
+            , Cmd.none
+            )
+
+        OnTextileApiReceived product _ ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du calcul de la simulation" ("Erreur lors de la requête à l'API pour le produit " ++ product.name)
+            , Cmd.none
             )
 
         OpenDetail route ->
@@ -306,20 +359,25 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 
 textileProductsExplorer :
-    Db
-    -> Table.Config Product Msg
+    Table.Config { product : Product, simulatorData : WebData TextileSimulator.Simulator } Msg
     -> SortableTable.State
     -> Maybe Product.Id
+    -> List { product : Product, simulatorData : WebData TextileSimulator.Simulator }
+    -> TextileDb.Db
     -> List (Html Msg)
-textileProductsExplorer db tableConfig tableState maybeId =
-    [ db.textile.products
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
+textileProductsExplorer tableConfig tableState maybeId productsAndSimulatorDatas db =
+    [ productsAndSimulatorDatas
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProducts.table
     , case maybeId of
         Just id ->
             detailsModal
                 (case Product.findById id db.textile.products of
                     Ok product ->
-                        Table.viewDetails Scope.Textile (TextileProducts.table db) product
+                        productsAndSimulatorDatas
+                            |> List.filter (\entry -> entry.product == product)
+                            |> List.head
+                            |> Maybe.map (Table.viewDetails Scope.Textile TextileProducts.table)
+                            |> Maybe.withDefault (alert "produit non trouvé")
 
                     Err error ->
                         alert error
@@ -383,11 +441,8 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore session { scope, dataset, tableState } =
+explore { db } { scope, dataset, tableState, textileProductsAndSimulatorDatas } =
     let
-        db =
-            session.db
-
         defaultCustomizations =
             SortableTable.defaultCustomizations
 
@@ -418,7 +473,7 @@ explore session { scope, dataset, tableState } =
             textileMaterialsExplorer db tableConfig tableState maybeId
 
         Dataset.TextileProducts maybeId ->
-            textileProductsExplorer db tableConfig tableState maybeId
+            db.textile |> textileProductsExplorer tableConfig tableState maybeId textileProductsAndSimulatorDatas
 
         Dataset.TextileProcesses maybeId ->
             textileProcessesExplorer db tableConfig tableState maybeId

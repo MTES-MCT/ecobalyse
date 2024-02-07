@@ -145,10 +145,6 @@ init trigram maybeUrlQuery session =
             -- Otherwise, fallback to use session query
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.textile
-
-        simulator =
-            initialQuery
-                |> Simulator.compute session.db
     in
     ( { simulatorData = RemoteData.Loading
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -162,13 +158,6 @@ init trigram maybeUrlQuery session =
       }
     , session
         |> Session.updateTextileQuery initialQuery
-        |> (case simulator of
-                Err error ->
-                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
-
-                Ok _ ->
-                    identity
-           )
     , Cmd.batch
         [ case maybeUrlQuery of
             -- If we don't have an URL query, we may be coming from another app page, so we should
