@@ -21,6 +21,8 @@ module Data.Impact exposing
     , impactsWithComplements
     , mapComplementsImpacts
     , mapImpacts
+    , maxEcotoxWeighting
+    , minEcotoxWeighting
     , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
@@ -495,6 +497,16 @@ computeAggregatedScore definitions getter (Impacts impacts) =
         |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
 
 
+minEcotoxWeighting : Unit.Ratio
+minEcotoxWeighting =
+    Unit.ratio 0
+
+
+maxEcotoxWeighting : Unit.Ratio
+maxEcotoxWeighting =
+    Unit.ratio 0.25
+
+
 {-| Set the ecotoxicity weighting (EtfC) then redistribute other Ecoscore weightings
 accordingly. The methodology and formulas are described in this card:
 <https://www.notion.so/Rendre-param-trable-la-pond-ration-de-l-cotox-894d42e217c6448a883346203dff8db4>
@@ -519,7 +531,8 @@ setEcotoxWeighting (Unit.Ratio weighting) definitions =
             ]
 
         cleanWeighting =
-            clamp 0 25 weighting
+            weighting
+                |> clamp (Unit.ratioToFloat minEcotoxWeighting) (Unit.ratioToFloat maxEcotoxWeighting)
     in
     definitions
         -- Start with updating EtfC with the provided ratio

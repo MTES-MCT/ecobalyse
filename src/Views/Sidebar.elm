@@ -1,7 +1,7 @@
 module Views.Sidebar exposing (Config, view)
 
 import Data.Bookmark exposing (Bookmark)
-import Data.Impact exposing (Impacts)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram)
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
@@ -97,6 +97,15 @@ ecotoxWeightingField updateEcotoxWeighting impactDefinitions =
                 |> .ecoscoreData
                 |> Maybe.map (.weighting >> Unit.ratioToFloat)
                 |> Maybe.withDefault 0
+
+        fromPercentString =
+            String.toFloat >> Maybe.map (Unit.ratio << (\x -> x / toFloat 100))
+
+        toPercentString =
+            Unit.ratioToFloat >> (*) 100 >> String.fromFloat
+
+        round2 =
+            (*) 100 >> round >> (\x -> toFloat x / toFloat 100)
     in
     div [ class "row d-flex align-items-center" ]
         [ div [ class "col-sm-6 d-flex align-items-center pt-1" ]
@@ -110,21 +119,14 @@ ecotoxWeightingField updateEcotoxWeighting impactDefinitions =
                     [ type_ "number"
                     , id "ecotox-weighting"
                     , class "form-control text-end"
-                    , Attr.min "0"
-                    , Attr.max "25"
+                    , Attr.min (toPercentString Impact.minEcotoxWeighting)
+                    , Attr.max (toPercentString Impact.maxEcotoxWeighting)
+
+                    -- WARNING: be careful when reordering attributes: for obscure reasons,
+                    -- the `value` one MUST be set AFTER the `step` one.
                     , step "0.01"
-                    , etfCWeighting
-                        |> (*) 100
-                        -- FIXME: move to some Math module?
-                        |> ((*) 100 >> round >> (\x -> toFloat x / toFloat 100))
-                        |> String.fromFloat
-                        |> value
-                    , onInput
-                        (String.toFloat
-                            >> Maybe.map (\x -> x / toFloat 100)
-                            >> Maybe.map (clamp 0 25 >> Unit.ratio)
-                            >> updateEcotoxWeighting
-                        )
+                    , round2 (etfCWeighting * 100) |> String.fromFloat |> value
+                    , onInput (fromPercentString >> updateEcotoxWeighting)
                     ]
                     []
                 , span [ class "input-group-text" ] [ text "%" ]
