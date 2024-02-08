@@ -11,6 +11,7 @@ module Data.Textile.Process exposing
     , getImpact
     , getPrintingProcess
     , loadWellKnown
+    , mapWellKnownProcesses
     , uuidToString
     )
 
@@ -239,6 +240,44 @@ loadWellKnown processes =
         |> load .steamCoalRER
         |> load .steamCoalRSA
         |> load .weaving
+
+
+mapWellKnownProcesses : (Process -> Process) -> WellKnown -> WellKnown
+mapWellKnownProcesses update wellKnown =
+    { airTransport = update wellKnown.airTransport
+    , bleaching = update wellKnown.bleaching
+    , seaTransport = update wellKnown.seaTransport
+    , roadTransportPreMaking = update wellKnown.roadTransportPreMaking
+    , roadTransportPostMaking = update wellKnown.roadTransportPostMaking
+    , distribution = update wellKnown.distribution
+    , dyeingYarn = update wellKnown.dyeingYarn
+    , dyeingFabric = update wellKnown.dyeingFabric
+    , dyeingArticle = update wellKnown.dyeingArticle
+    , dyeingSynthetic = update wellKnown.dyeingSynthetic
+    , dyeingCellulosic = update wellKnown.dyeingCellulosic
+    , printingPigment = update wellKnown.printingPigment
+    , printingSubstantive = update wellKnown.printingSubstantive
+    , printingPaste = update wellKnown.printingPaste
+    , printingDyes = update wellKnown.printingDyes
+    , finishing = update wellKnown.finishing
+    , passengerCar = update wellKnown.passengerCar
+    , endOfLife = update wellKnown.endOfLife
+    , fading = update wellKnown.fading
+    , steamGasRER = update wellKnown.steamGasRER
+    , steamGasRSA = update wellKnown.steamGasRSA
+    , steamLightFuelRER = update wellKnown.steamLightFuelRER
+    , steamLightFuelRSA = update wellKnown.steamLightFuelRSA
+    , steamHeavyFuelRER = update wellKnown.steamHeavyFuelRER
+    , steamHeavyFuelRSA = update wellKnown.steamHeavyFuelRSA
+    , steamCoalRER = update wellKnown.steamCoalRER
+    , steamCoalRSA = update wellKnown.steamCoalRSA
+    , knittingMix = update wellKnown.knittingMix
+    , knittingFullyFashioned = update wellKnown.knittingFullyFashioned
+    , knittingSeamless = update wellKnown.knittingSeamless
+    , knittingCircular = update wellKnown.knittingCircular
+    , knittingStraight = update wellKnown.knittingStraight
+    , weaving = update wellKnown.weaving
+    }
 
 
 aliasToString : Alias -> String
