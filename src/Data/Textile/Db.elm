@@ -144,7 +144,7 @@ updateProducts processes =
 
 updateWellKnown : List Process -> WellKnown -> WellKnown
 updateWellKnown processes =
-    Process.mapWellKnownProcesses
+    Process.mapWellKnown
         (\({ uuid } as process) ->
             Process.findByUuid uuid processes
                 |> Result.withDefault process

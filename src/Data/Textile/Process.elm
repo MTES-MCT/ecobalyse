@@ -11,7 +11,7 @@ module Data.Textile.Process exposing
     , getImpact
     , getPrintingProcess
     , loadWellKnown
-    , mapWellKnownProcesses
+    , mapWellKnown
     , uuidToString
     )
 
@@ -242,8 +242,8 @@ loadWellKnown processes =
         |> load .weaving
 
 
-mapWellKnownProcesses : (Process -> Process) -> WellKnown -> WellKnown
-mapWellKnownProcesses update wellKnown =
+mapWellKnown : (Process -> Process) -> WellKnown -> WellKnown
+mapWellKnown update wellKnown =
     { airTransport = update wellKnown.airTransport
     , bleaching = update wellKnown.bleaching
     , seaTransport = update wellKnown.seaTransport
