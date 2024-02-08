@@ -15,12 +15,13 @@ module Data.Textile.LifeCycle exposing
     )
 
 import Array exposing (Array)
+import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Distances, Transport)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
@@ -30,14 +31,15 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : TextileDb.Db -> Inputs -> LifeCycle -> LifeCycle
-computeStepsTransport db inputs lifeCycle =
+computeStepsTransport : Distances -> TextileDb.Db -> Inputs -> LifeCycle -> LifeCycle
+computeStepsTransport distances db inputs lifeCycle =
     lifeCycle
         |> Array.map
             (\step ->
                 if step.enabled then
                     step
                         |> Step.computeTransports db
+                            distances
                             inputs
                             (lifeCycle
                                 |> getNextEnabledStep step.label
@@ -118,9 +120,9 @@ getStepProp label prop default =
     getStep label >> Maybe.map prop >> Maybe.withDefault default
 
 
-fromQuery : TextileDb.Db -> Inputs.Query -> Result String LifeCycle
-fromQuery db =
-    Inputs.fromQuery db >> Result.map (init db)
+fromQuery : List Country -> TextileDb.Db -> Inputs.Query -> Result String LifeCycle
+fromQuery countries db =
+    Inputs.fromQuery countries db >> Result.map (init db)
 
 
 init : TextileDb.Db -> Inputs -> LifeCycle

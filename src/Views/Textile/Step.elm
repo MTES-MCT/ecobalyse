@@ -2,7 +2,7 @@ module Views.Textile.Step exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
@@ -52,6 +52,7 @@ type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
     , db : TextileDb.Db
+    , countries : List Country
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
     , index : Int
@@ -83,7 +84,7 @@ type alias ViewWithTransport msg =
 
 
 countryField : Config msg modal -> Html msg
-countryField { db, current, updateCountry } =
+countryField { countries, current, updateCountry } =
     div []
         [ if current.editable then
             CountrySelect.view
@@ -92,7 +93,7 @@ countryField { db, current, updateCountry } =
                     , disabled (not current.enabled)
                     , onInput (Country.codeFromString >> updateCountry current.label)
                     ]
-                , countries = db.countries
+                , countries = countries
                 , onSelect = updateCountry current.label
                 , scope = Scope.Textile
                 , selectedCountry = current.country.code
@@ -792,7 +793,7 @@ viewMaterialComplements finalProductMass materialInput =
 
 
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig { addMaterialModal, db, countries, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -822,7 +823,7 @@ createElementSelectorConfig { addMaterialModal, db, deleteMaterial, current, sel
     , db =
         { elements = db.materials
         , countries =
-            db.countries
+            countries
                 |> Scope.only Scope.Textile
                 |> List.sortBy .name
         , definitions = db.impactDefinitions

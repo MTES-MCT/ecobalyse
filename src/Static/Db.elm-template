@@ -1,38 +1,28 @@
-module Static.Db exposing (Db, db)
+module Static.Db exposing (impactsDb, textileDb, foodDb, countriesDb, distancesDb)
 
+import Data.Common.Db as Common
+import Data.Country exposing (Country)
+import Data.Food.Db as Food
+import Data.Impact.Definition exposing (Definitions)
+import Data.Textile.Db as Textile
+import Data.Transport exposing (Distances)
 
-import Data.Food.Db as FoodDb
-import Data.Textile.Db as TextileDb
+impactsDb : Result String Definitions
+impactsDb = Common.impactsFromJson """%impactsJson%"""
 
+textileDb : Result String Textile.Db
+textileDb = Textile.buildFromJson """%textileJson%"""
 
-type alias Db =
-    { foodDb : FoodDb.Db,  textileDb : TextileDb.Db }
-
-
-textileDb : Result String TextileDb.Db
-textileDb =
-    """%textileJson%""" |> TextileDb.buildFromJson
-
-
-foodProcessesJson : String
-foodProcessesJson =
-    """%foodProcessesJson%"""
-
-
-foodIngredientsJson : String
-foodIngredientsJson =
-    """%foodIngredientsJson%"""
-
-
-foodDb : Result String FoodDb.Db
+foodDb : Result String Food.Db
 foodDb =
-    textileDb
+    impactsDb
         |> Result.andThen
-            (\textileDbParsed ->
-                FoodDb.buildFromJson textileDbParsed foodProcessesJson foodIngredientsJson
+            (\definitions ->
+                Food.buildFromJson definitions """%foodProcessesJson%""" """%foodIngredientsJson%"""
             )
 
+countriesDb : Result String (List Country)
+countriesDb = textileDb |> Result.andThen (\tdb -> Common.countriesFromJson tdb """%countriesJson%""")
 
-db : Result String Db
-db =
-    Result.map2 Db foodDb textileDb
+distancesDb : Result String Distances
+distancesDb = Common.transportsFromJson """%transportsJson%"""

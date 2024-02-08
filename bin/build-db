@@ -19,16 +19,15 @@ function serializeForElmTemplateString(toStringify) {
   return JSON.stringify(toStringify).replaceAll("\\", "\\\\");
 }
 
-function buildTextileJsonDb(basePath = "public/data") {
+function buildImpactsJsonDb(basePath = "public/data") {
+  return serializeForElmTemplateString(getJson(`${basePath}/impacts.json`));
+}
+
+function buildTextileJsonDb(basePath = "public/data/textile") {
   return serializeForElmTemplateString({
-    // common data
-    countries: getJson(`${basePath}/countries.json`),
-    impacts: getJson(`${basePath}/impacts.json`),
-    transports: getJson(`${basePath}/transports.json`),
-    // textile data
-    materials: getJson(`${basePath}/textile/materials.json`),
-    processes: getJson(`${basePath}/textile/processes.json`),
-    products: getJson(`${basePath}/textile/products.json`),
+    materials: getJson(`${basePath}/materials.json`),
+    processes: getJson(`${basePath}/processes.json`),
+    products: getJson(`${basePath}/products.json`),
   });
 }
 
@@ -40,12 +39,23 @@ function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
   return serializeForElmTemplateString(getJson(`${basePath}/ingredients.json`));
 }
 
+function buildCountriesJsonDb() {
+  return serializeForElmTemplateString(getJson(`public/data/countries.json`));
+}
+
+function buildTransportsJsonDb() {
+  return serializeForElmTemplateString(getJson(`public/data/transports.json`));
+}
+
 const targetDbFile = "src/Static/Db.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
+  .replace("%impactsJson%", buildImpactsJsonDb())
   .replace("%textileJson%", buildTextileJsonDb())
   .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
+  .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb())
+  .replace("%countriesJson%", buildCountriesJsonDb())
+  .replace("%transportsJson%", buildTransportsJsonDb());
 
 const header =
   "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db` SCRIPT";

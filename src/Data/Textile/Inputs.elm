@@ -55,7 +55,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Distances, Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -211,22 +211,22 @@ getMainMaterialCountry countries =
             )
 
 
-fromQuery : TextileDb.Db -> Query -> Result String Inputs
-fromQuery db query =
+fromQuery : List Country -> TextileDb.Db -> Query -> Result String Inputs
+fromQuery countries db query =
     let
         materials =
             query.materials
-                |> toMaterialInputs db.materials db.countries
+                |> toMaterialInputs db.materials countries
 
         franceResult =
-            Country.findByCode (Country.Code "FR") db.countries
+            Country.findByCode (Country.Code "FR") countries
 
         -- TODO: we don't use the main material country anymore as each material can specify
         -- its own country. We still need a country per step though, so we'll just default
         -- to using France.
         mainMaterialCountry =
             materials
-                |> Result.andThen (getMainMaterialCountry db.countries)
+                |> Result.andThen (getMainMaterialCountry countries)
                 |> RE.orElse franceResult
     in
     Ok Inputs
@@ -240,14 +240,14 @@ fromQuery db query =
         |> RE.andMap
             (case query.countrySpinning of
                 Just spinningCountryCode ->
-                    Country.findByCode spinningCountryCode db.countries
+                    Country.findByCode spinningCountryCode countries
 
                 Nothing ->
                     mainMaterialCountry
             )
-        |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
-        |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
-        |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
+        |> RE.andMap (countries |> Country.findByCode query.countryFabric)
+        |> RE.andMap (countries |> Country.findByCode query.countryDyeing)
+        |> RE.andMap (countries |> Country.findByCode query.countryMaking)
         -- The distribution country is always France
         |> RE.andMap franceResult
         -- The use country is always France
@@ -655,8 +655,8 @@ getOutOfEuropeEOLComplement { mass, materials } =
          )
 
 
-computeMaterialTransport : TextileDb.Db -> Country.Code -> MaterialInput -> Transport
-computeMaterialTransport db nextCountryCode { material, country, share } =
+computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transport
+computeMaterialTransport distances nextCountryCode { material, country, share } =
     if share /= Split.zero then
         let
             emptyImpacts =
@@ -667,7 +667,7 @@ computeMaterialTransport db nextCountryCode { material, country, share } =
                     |> Maybe.map .code
                     |> Maybe.withDefault material.defaultCountry
         in
-        db.transports
+        distances
             |> Transport.getTransportBetween
                 Scope.Textile
                 emptyImpacts

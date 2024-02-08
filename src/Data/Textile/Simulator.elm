@@ -25,7 +25,7 @@ import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Distances, Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
@@ -56,13 +56,13 @@ encode v =
         ]
 
 
-init : TextileDb.Db -> Inputs.Query -> Result String Simulator
-init db =
+init : List Country -> TextileDb.Db -> Inputs.Query -> Result String Simulator
+init countries db =
     let
         defaultImpacts =
             Impact.empty
     in
-    Inputs.fromQuery db
+    Inputs.fromQuery countries db
         >> Result.map
             (\({ product } as inputs) ->
                 inputs
@@ -82,8 +82,8 @@ init db =
 
 {-| Computes simulation impacts.
 -}
-compute : TextileDb.Db -> Inputs.Query -> Result String Simulator
-compute db query =
+compute : Distances -> List Country -> TextileDb.Db -> Inputs.Query -> Result String Simulator
+compute distances countries db query =
     let
         next fn =
             Result.map fn
@@ -105,7 +105,7 @@ compute db query =
             else
                 identity
     in
-    init db query
+    init countries db query
         -- Ensure end product mass is first applied to the final Distribution step
         |> next initializeFinalMass
         --
@@ -150,7 +150,7 @@ compute db query =
         -- TRANSPORTS
         --
         -- Compute step transport
-        |> nextWithDb computeStepsTransport
+        |> nextWithDb (computeStepsTransport distances)
         -- Compute transport summary
         |> next computeTotalTransportImpacts
         --
@@ -616,9 +616,9 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
         |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
 
 
-computeStepsTransport : TextileDb.Db -> Simulator -> Simulator
-computeStepsTransport db simulator =
-    simulator |> updateLifeCycle (LifeCycle.computeStepsTransport db simulator.inputs)
+computeStepsTransport : Distances -> TextileDb.Db -> Simulator -> Simulator
+computeStepsTransport distances db simulator =
+    simulator |> updateLifeCycle (LifeCycle.computeStepsTransport distances db simulator.inputs)
 
 
 computeTotalTransportImpacts : Simulator -> Simulator
