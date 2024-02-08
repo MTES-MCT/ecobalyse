@@ -24,7 +24,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -145,7 +145,7 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : TextileDb.Db -> Distances -> Country -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact : Textile.Db -> Distances -> Country -> Mass -> Inputs.MaterialInput -> Transport
 computeMaterialTransportAndImpact db distances country outputMass materialInput =
     let
         materialMass =
@@ -163,7 +163,7 @@ computeMaterialTransportAndImpact db distances country outputMass materialInput 
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> Distances -> Inputs -> Step -> Step -> Step
+computeTransports : Textile.Db -> Distances -> Inputs -> Step -> Step -> Step
 computeTransports db distances inputs next ({ processInfo } as current) =
     let
         roadTransportProcess =
@@ -300,7 +300,7 @@ getTransportedMass inputs { label, outputMass } =
         outputMass
 
 
-updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
+updateFromInputs : Textile.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
         { airTransportRatio, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =

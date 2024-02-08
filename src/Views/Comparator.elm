@@ -74,7 +74,7 @@ sidebarView { countries, session, toggle } =
                         ( bookmark
                             |> Bookmark.toQueryDescription
                                 countries
-                                { foodDb = session.foodDb, textileDb = session.textileDb }
+                                { food = session.food, textile = session.textile }
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
@@ -110,11 +110,11 @@ sidebarView { countries, session, toggle } =
 
 
 addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
-addToComparison { countries, distances, definitions, foodDb, textileDb } label query =
+addToComparison { countries, distances, definitions, food, textile } label query =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute distances countries definitions foodDb
+                |> Recipe.compute distances countries definitions food
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { label = label
@@ -128,7 +128,7 @@ addToComparison { countries, distances, definitions, foodDb, textileDb } label q
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute distances countries textileDb
+                |> Simulator.compute distances countries textile
                 |> Result.map
                     (\simulator ->
                         { label = label

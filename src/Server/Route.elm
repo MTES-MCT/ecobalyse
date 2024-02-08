@@ -63,7 +63,7 @@ type Route
 
 
 parser : Food.Db -> Textile.Db -> List Country -> Parser (Route -> a) a
-parser foodDb textileDb countries =
+parser foodDb textile countries =
     Parser.oneOf
         [ -- Food
           Parser.map GetFoodCountryList (s "GET" </> s "food" </> s "countries")
@@ -77,9 +77,9 @@ parser foodDb textileDb countries =
         , Parser.map GetTextileCountryList (s "GET" </> s "textile" </> s "countries")
         , Parser.map GetTextileMaterialList (s "GET" </> s "textile" </> s "materials")
         , Parser.map GetTextileProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textileDb)
-        , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textileDb)
-        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textileDb)
+        , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
+        , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
+        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
         , Parser.map PostTextileSimulator (s "POST" </> s "textile" </> s "simulator")
         , Parser.map PostTextileSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
         , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)

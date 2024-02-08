@@ -7,7 +7,7 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
@@ -15,7 +15,7 @@ import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
@@ -65,27 +65,27 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : List Country -> FoodDb.Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery countries foodDb =
+parseFoodQuery : List Country -> Food.Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery countries food =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" foodDb countries)
-        |> apply (maybeTransformParser "transform" foodDb.processes)
-        |> apply (packagingListParser "packaging" foodDb.processes)
+        |> apply (ingredientListParser "ingredients" food countries)
+        |> apply (maybeTransformParser "transform" food.processes)
+        |> apply (packagingListParser "packaging" food.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
 
 
-ingredientListParser : String -> FoodDb.Db -> List Country -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key foodDb countries =
+ingredientListParser : String -> Food.Db -> List Country -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key food countries =
     Query.custom (key ++ "[]")
-        (List.map (ingredientParser countries foodDb)
+        (List.map (ingredientParser countries food)
             >> RE.combine
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-ingredientParser : List Country -> FoodDb.Db -> String -> Result String BuilderQuery.IngredientQuery
-ingredientParser countries foodDb string =
+ingredientParser : List Country -> Food.Db -> String -> Result String BuilderQuery.IngredientQuery
+ingredientParser countries food string =
     let
         byPlaneParser byPlane ingredient =
             ingredient
@@ -96,7 +96,7 @@ ingredientParser countries foodDb string =
         [ id, mass ] ->
             let
                 ingredient =
-                    foodDb.ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -108,7 +108,7 @@ ingredientParser countries foodDb string =
         [ id, mass, countryCode ] ->
             let
                 ingredient =
-                    foodDb.ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -120,7 +120,7 @@ ingredientParser countries foodDb string =
         [ id, mass, countryCode, byPlane ] ->
             let
                 ingredient =
-                    foodDb.ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -358,12 +358,12 @@ parseTransform_ transforms string =
             Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
 
 
-parseTextileQuery : List Country -> TextileDb.Db -> Parser (Result Errors Inputs.Query)
-parseTextileQuery countries textileDb =
+parseTextileQuery : List Country -> Textile.Db -> Parser (Result Errors Inputs.Query)
+parseTextileQuery countries textile =
     succeed (Ok Inputs.Query)
         |> apply (massParserInKilograms "mass")
-        |> apply (materialListParser "materials" textileDb.materials countries)
-        |> apply (productParser "product" textileDb.products)
+        |> apply (materialListParser "materials" textile.materials countries)
+        |> apply (productParser "product" textile.products)
         |> apply (maybeTextileCountryParser "countrySpinning" countries)
         |> apply (textileCountryParser "countryFabric" countries)
         |> apply (textileCountryParser "countryDyeing" countries)

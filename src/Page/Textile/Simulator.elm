@@ -136,7 +136,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram maybeUrlQuery ({ textileDb, distances, countries, definitions } as session) =
+init trigram maybeUrlQuery ({ textile, distances, countries, definitions } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -146,7 +146,7 @@ init trigram maybeUrlQuery ({ textileDb, distances, countries, definitions } as 
 
         simulator =
             initialQuery
-                |> Simulator.compute distances countries textileDb
+                |> Simulator.compute distances countries textile
     in
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -181,13 +181,13 @@ init trigram maybeUrlQuery ({ textileDb, distances, countries, definitions } as 
 
 
 findExistingBookmarkName : Session -> Inputs.Query -> String
-findExistingBookmarkName { countries, textileDb, store } query =
+findExistingBookmarkName { countries, textile, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery countries textileDb
+                |> Inputs.fromQuery countries textile
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )
@@ -196,7 +196,7 @@ findExistingBookmarkName { countries, textileDb, store } query =
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
-        | simulator = query |> Simulator.compute session.distances session.countries session.textileDb
+        | simulator = query |> Simulator.compute session.distances session.countries session.textile
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
@@ -946,7 +946,7 @@ lifeCycleStepsView countries distances definitions db { detailedStep, impact } s
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ countries, distances, definitions, textileDb } as session) model ({ inputs, impacts } as simulator) =
+simulatorView ({ countries, distances, definitions, textile } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -968,7 +968,7 @@ simulatorView ({ countries, distances, definitions, textileDb } as session) mode
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
-                        [ productCategoryField textileDb (Inputs.toQuery inputs)
+                        [ productCategoryField textile (Inputs.toQuery inputs)
                         ]
                     , div [ class "col-md-6" ]
                         [ inputs.numberOfReferences
@@ -1016,7 +1016,7 @@ simulatorView ({ countries, distances, definitions, textileDb } as session) mode
                     ]
                 ]
             , div []
-                [ lifeCycleStepsView countries distances definitions textileDb model simulator
+                [ lifeCycleStepsView countries distances definitions textile model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                     [ a [ Route.href Route.Home ]
                         [ text "« Retour à l'accueil" ]
@@ -1140,7 +1140,7 @@ view session model =
                                 , title = "Sélectionnez une utilisation de produit"
                                 , toLabel =
                                     \productId ->
-                                        Product.findById productId session.textileDb.products
+                                        Product.findById productId session.textile.products
                                             |> Result.map .name
                                             |> Result.withDefault (Product.idToString productId)
                                 , toCategory = always ""

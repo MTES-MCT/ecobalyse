@@ -17,10 +17,10 @@ module Data.Session exposing
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country exposing (Country)
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definitions)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.Inputs as TextileInputs
 import Data.Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
@@ -39,8 +39,8 @@ type alias Session =
     , countries : List Country
     , distances : Distances
     , definitions : Definitions
-    , textileDb : TextileDb.Db
-    , foodDb : FoodDb.Db
+    , textile : Textile.Db
+    , food : Food.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query

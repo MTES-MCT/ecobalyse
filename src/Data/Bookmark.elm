@@ -13,11 +13,11 @@ module Data.Bookmark exposing
     )
 
 import Data.Country exposing (Country)
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -127,17 +127,17 @@ toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
 
 
-toQueryDescription : List Country -> { foodDb : FoodDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
-toQueryDescription countries { foodDb, textileDb } bookmark =
+toQueryDescription : List Country -> { food : Food.Db, textile : Textile.Db } -> Bookmark -> String
+toQueryDescription countries { food, textile } bookmark =
     case bookmark.query of
         Food foodQuery ->
             foodQuery
-                |> Recipe.fromQuery countries foodDb
+                |> Recipe.fromQuery countries food
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
         Textile textileQuery ->
             textileQuery
-                |> TextileQuery.fromQuery countries textileDb
+                |> TextileQuery.fromQuery countries textile
                 |> Result.map TextileQuery.toString
                 |> Result.withDefault bookmark.name

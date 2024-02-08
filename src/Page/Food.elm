@@ -15,7 +15,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country exposing (Country)
 import Data.Dataset as Dataset
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
@@ -64,7 +64,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : FoodDb.Db
+    { db : Food.Db
     , impact : Definition
     , initialQuery : Query
     , bookmarkName : String
@@ -120,7 +120,7 @@ type Msg
 
 
 init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ definitions, foodDb, queries } as session) trigram maybeQuery =
+init ({ definitions, food, queries } as session) trigram maybeQuery =
     let
         impact =
             Definition.get trigram definitions
@@ -129,7 +129,7 @@ init ({ definitions, foodDb, queries } as session) trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault queries.food
     in
-    ( { db = foodDb
+    ( { db = food
       , impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
@@ -511,13 +511,13 @@ focusNode node ( model, session, commands ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { countries, foodDb, store } query =
+findExistingBookmarkName { countries, food, store } query =
     store.bookmarks
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Recipe.fromQuery countries foodDb
+                |> Recipe.fromQuery countries food
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
@@ -619,7 +619,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
 
 type alias UpdateIngredientConfig =
     { excluded : List Ingredient.Id
-    , db : FoodDb.Db
+    , db : Food.Db
     , countries : List Country
     , definitions : Definitions
     , distances : Distances
@@ -764,7 +764,7 @@ updateIngredientFormView ({ db, distances, recipeIngredient, selectedImpact, tra
         )
 
 
-displayTransportDistances : Distances -> FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances : Distances -> Food.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances distances db ingredient ingredientQuery event =
     span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
@@ -842,7 +842,7 @@ displayTransportDistances distances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : Distances -> List Country -> Definitions -> FoodDb.Db -> Query -> Html Msg
+debugQueryView : Distances -> List Country -> Definitions -> Food.Db -> Query -> Html Msg
 debugQueryView distances countries definitions db query =
     let
         debugView =
@@ -877,7 +877,7 @@ errorView error =
         }
 
 
-ingredientListView : List Country -> Definitions -> Distances -> FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : List Country -> Definitions -> Distances -> Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView countries definitions distances db selectedImpact recipe results =
     let
         availableIngredients =
@@ -964,7 +964,7 @@ ingredientListView countries definitions distances db selectedImpact recipe resu
     ]
 
 
-packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
@@ -1220,7 +1220,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1429,7 +1429,7 @@ stepListView ({ countries, definitions, distances } as session) { db, impact, in
         ]
 
 
-transformView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =

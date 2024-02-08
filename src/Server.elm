@@ -27,7 +27,7 @@ import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (countriesDb, distancesDb, foodDb, impactsDb, textileDb)
+import Static.Db exposing (rcountries, rdefinitions, rdistances, rfood, rtextile)
 
 
 type Msg
@@ -125,8 +125,8 @@ toFoodResults query results =
 
 
 executeFoodQuery : Distances -> List Country -> Definitions -> Food.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
-executeFoodQuery distances countries definitions foodDb encoder =
-    BuilderRecipe.compute distances countries definitions foodDb
+executeFoodQuery distances countries definitions foodb encoder =
+    BuilderRecipe.compute distances countries definitions foodb
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
@@ -320,15 +320,15 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case distancesDb of
+            case rdistances of
                 Ok distances ->
-                    case countriesDb of
+                    case rcountries of
                         Ok countries ->
-                            case impactsDb of
+                            case rdefinitions of
                                 Ok impacts ->
-                                    case foodDb of
+                                    case rfood of
                                         Ok food ->
-                                            case textileDb of
+                                            case rtextile of
                                                 Ok textile ->
                                                     cmdRequest distances countries impacts food textile request
 

@@ -19,7 +19,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db exposing (countriesDb, distancesDb, foodDb, impactsDb, textileDb)
+import Static.Db exposing (Db, rcountries, rdefinitions, rdistances, rfood, rtextile)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -83,19 +83,19 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case Result.map5 (\impactsDb textileDb foodDb countriesDb distancesDb -> { definitions = impactsDb, textile = textileDb, food = foodDb, countries = countriesDb, distances = distancesDb }) impactsDb textileDb foodDb countriesDb distancesDb of
-                    Ok { definitions, textile, food, countries, distances } ->
+                case Result.map5 Db rdefinitions rtextile rfood rcountries rdistances of
+                    Ok db ->
                         Loaded
                             { clientUrl = flags.clientUrl
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
                             , matomo = flags.matomo
-                            , countries = countries
-                            , distances = distances
-                            , definitions = definitions
-                            , foodDb = food
-                            , textileDb = textile
+                            , countries = db.countries
+                            , distances = db.distances
+                            , definitions = db.definitions
+                            , food = db.food
+                            , textile = db.textile
                             , notifications = []
                             , queries =
                                 { food = FoodQuery.carrotCake
@@ -160,7 +160,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    Explore.init session.foodDb scope dataset session
+                    Explore.init session.food scope dataset session
                         |> toPage ExplorePage ExploreMsg
 
                 Just Route.FoodBuilderHome ->
