@@ -49,7 +49,7 @@ view config =
         , style "top" "7px"
         ]
         [ ImpactView.selector
-            config.session.textileDb.impactDefinitions
+            config.session.definitions
             { selectedImpact = config.selectedImpact.trigram
             , switchImpact = config.switchImpact
             }
@@ -60,7 +60,7 @@ view config =
             , mass = config.productMass
             }
         , config.impactTabsConfig
-            |> ImpactTabs.view config.session.textileDb.impactDefinitions
+            |> ImpactTabs.view config.session.definitions
         , BookmarkView.view
             { session = config.session
             , activeTab = config.activeBookmarkTab

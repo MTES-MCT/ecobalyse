@@ -16,10 +16,13 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
+import Data.Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -33,6 +36,9 @@ type alias Session =
     , store : Store
     , currentVersion : Version
     , matomo : { host : String, siteId : String }
+    , countries : List Country
+    , distances : Distances
+    , definitions : Definitions
     , textileDb : TextileDb.Db
     , foodDb : FoodDb.Db
     , notifications : List Notification

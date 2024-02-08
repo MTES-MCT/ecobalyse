@@ -19,7 +19,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db as StaticDb
+import Static.Db exposing (countriesDb, distancesDb, foodDb, impactsDb, textileDb)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -83,16 +83,19 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case StaticDb.db of
-                    Ok db ->
+                case Result.map5 (\impactsDb textileDb foodDb countriesDb distancesDb -> { definitions = impactsDb, textile = textileDb, food = foodDb, countries = countriesDb, distances = distancesDb }) impactsDb textileDb foodDb countriesDb distancesDb of
+                    Ok { definitions, textile, food, countries, distances } ->
                         Loaded
                             { clientUrl = flags.clientUrl
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
                             , matomo = flags.matomo
-                            , foodDb = db.foodDb
-                            , textileDb = db.textileDb
+                            , countries = countries
+                            , distances = distances
+                            , definitions = definitions
+                            , foodDb = food
+                            , textileDb = textile
                             , notifications = []
                             , queries =
                                 { food = FoodQuery.carrotCake

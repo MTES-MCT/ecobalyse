@@ -252,7 +252,7 @@ bookmarkView { session, impact, delete, scope } ({ name, query } as bookmark) =
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
-                |> Bookmark.toQueryDescription { foodDb = session.foodDb, textileDb = session.textileDb }
+                |> Bookmark.toQueryDescription session.countries { foodDb = session.foodDb, textileDb = session.textileDb }
                 |> title
             , bookmarkRoute
                 |> Route.toString

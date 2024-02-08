@@ -14,10 +14,10 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -37,6 +37,7 @@ import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
+import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
@@ -135,7 +136,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram maybeUrlQuery ({ textileDb } as session) =
+init trigram maybeUrlQuery ({ textileDb, distances, countries, definitions } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -145,7 +146,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
 
         simulator =
             initialQuery
-                |> Simulator.compute textileDb
+                |> Simulator.compute distances countries textileDb
     in
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -153,7 +154,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
       , comparisonType = ComparatorView.Subscores
       , initialQuery = initialQuery
       , detailedStep = Nothing
-      , impact = Definition.get trigram textileDb.impactDefinitions
+      , impact = Definition.get trigram definitions
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -180,13 +181,13 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
 
 
 findExistingBookmarkName : Session -> Inputs.Query -> String
-findExistingBookmarkName { textileDb, store } query =
+findExistingBookmarkName { countries, textileDb, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery textileDb
+                |> Inputs.fromQuery countries textileDb
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )
@@ -195,7 +196,7 @@ findExistingBookmarkName { textileDb, store } query =
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
-        | simulator = query |> Simulator.compute session.textileDb
+        | simulator = query |> Simulator.compute session.distances session.countries session.textileDb
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
@@ -892,13 +893,16 @@ durabilityField durability =
         ]
 
 
-lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { detailedStep, impact } simulator =
+lifeCycleStepsView : List Country -> Distances -> Definitions -> TextileDb.Db -> Model -> Simulator -> Html Msg
+lifeCycleStepsView countries distances definitions db { detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { current = current
+                    , countries = countries
+                    , definitions = definitions
+                    , distances = distances
                     , db = db
                     , detailedStep = detailedStep
                     , index = index
@@ -942,7 +946,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
+simulatorView ({ countries, distances, definitions, textileDb } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -1012,7 +1016,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                     ]
                 ]
             , div []
-                [ lifeCycleStepsView textileDb model simulator
+                [ lifeCycleStepsView countries distances definitions textileDb model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                     [ a [ Route.href Route.Home ]
                         [ text "« Retour à l'accueil" ]
@@ -1051,7 +1055,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
-                        |> ImpactTabs.forTextile session.textileDb.impactDefinitions simulator
+                        |> ImpactTabs.forTextile session.definitions simulator
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
@@ -1089,6 +1093,7 @@ view session model =
                                 , content =
                                     [ ComparatorView.view
                                         { session = session
+                                        , countries = session.countries
                                         , impact = model.impact
                                         , comparisonType = model.comparisonType
                                         , switchComparisonType = SwitchComparisonType

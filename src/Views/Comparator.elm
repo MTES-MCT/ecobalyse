@@ -4,6 +4,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Country exposing (Country)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -22,10 +23,11 @@ import Views.Container as Container
 
 
 type alias Config msg =
-    { session : Session
+    { comparisonType : ComparisonType
+    , countries : List Country
     , impact : Definition
-    , comparisonType : ComparisonType
     , switchComparisonType : ComparisonType -> msg
+    , session : Session
     , toggle : Bookmark -> Bool -> msg
     }
 
@@ -58,7 +60,7 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { session, toggle } =
+sidebarView { countries, session, toggle } =
     [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
         [ text "Sélectionnez jusqu'à "
         , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
@@ -71,6 +73,7 @@ sidebarView { session, toggle } =
                     ( description, isCompared ) =
                         ( bookmark
                             |> Bookmark.toQueryDescription
+                                countries
                                 { foodDb = session.foodDb, textileDb = session.textileDb }
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
@@ -107,11 +110,11 @@ sidebarView { session, toggle } =
 
 
 addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
-addToComparison session label query =
+addToComparison { countries, distances, definitions, foodDb, textileDb } label query =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute session.foodDb
+                |> Recipe.compute distances countries definitions foodDb
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { label = label
@@ -125,7 +128,7 @@ addToComparison session label query =
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute session.textileDb
+                |> Simulator.compute distances countries textileDb
                 |> Result.map
                     (\simulator ->
                         { label = label
@@ -181,10 +184,10 @@ comparatorView { session, comparisonType, switchComparisonType } =
                 data =
                     case comparisonType of
                         IndividualImpacts ->
-                            dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
+                            dataForIndividualImpacts session.definitions chartsData
 
                         Subscores ->
-                            dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
+                            dataForSubscoresImpacts session.definitions chartsData
 
                         Steps ->
                             dataForSteps chartsData

@@ -125,7 +125,7 @@ availablePackagings usedProcesses processes =
 
 
 compute : Distances -> List Country -> Definitions -> Food.Db -> Query -> Result String ( Recipe, Results )
-compute distances countries impactDefinitions db =
+compute distances countries definitions db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery countries db
         >> Result.map
@@ -245,7 +245,7 @@ compute distances countries impactDefinitions db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> Scoring.compute impactDefinitions
+                            |> Scoring.compute definitions
                                 (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe

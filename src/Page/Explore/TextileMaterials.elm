@@ -1,10 +1,9 @@
 module Page.Explore.TextileMaterials exposing (table)
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
@@ -23,8 +22,8 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
-table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
-table { countries } { detailed, scope } =
+table : List Country -> { detailed : Bool, scope : Scope } -> Table Material String msg
+table countries { detailed, scope } =
     { toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
     , rows =

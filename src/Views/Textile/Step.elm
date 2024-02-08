@@ -7,7 +7,7 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
-import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
@@ -26,7 +26,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
@@ -50,11 +50,13 @@ import Views.Transport as TransportView
 
 type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    , countries : List Country
     , current : Step
     , db : TextileDb.Db
-    , countries : List Country
+    , definitions : Definitions
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
+    , distances : Distances
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
@@ -69,8 +71,8 @@ type alias Config msg modal =
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
-    , updateMakingWaste : Maybe Split -> msg
     , updateMakingDeadStock : Maybe Split -> msg
+    , updateMakingWaste : Maybe Split -> msg
     , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
@@ -646,7 +648,7 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
 
 
 viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as config) =
+viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setModal } as config) =
     ul [ class "CardList list-group list-group-flush" ]
         ((inputs.materials
             |> List.map
@@ -659,7 +661,7 @@ viewMaterials ({ addMaterialModal, db, inputs, selectedImpact, setModal } as con
 
                         transport =
                             materialInput
-                                |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
+                                |> Step.computeMaterialTransportAndImpact db distances nextCountry config.current.outputMass
                     in
                     li [ class "ElementFormWrapper list-group-item" ]
                         (List.concat
@@ -793,7 +795,7 @@ viewMaterialComplements finalProductMass materialInput =
 
 
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig { addMaterialModal, db, countries, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig { addMaterialModal, db, definitions, countries, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -826,7 +828,7 @@ createElementSelectorConfig { addMaterialModal, db, countries, deleteMaterial, c
             countries
                 |> Scope.only Scope.Textile
                 |> List.sortBy .name
-        , definitions = db.impactDefinitions
+        , definitions = definitions
         }
     , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
