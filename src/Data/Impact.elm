@@ -36,7 +36,7 @@ module Data.Impact exposing
     )
 
 import Data.Color as Color
-import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -325,7 +325,7 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
 
 
 type Impacts
-    = Impacts (Base Unit.Impact)
+    = Impacts (Trigrams Unit.Impact)
 
 
 default : Definition.Trigram
