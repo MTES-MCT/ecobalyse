@@ -21,17 +21,21 @@ module Data.Impact exposing
     , impactsWithComplements
     , mapComplementsImpacts
     , mapImpacts
+    , maxEcotoxWeighting
+    , minEcotoxWeighting
     , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
     , perKg
+    , setEcotoxWeighting
     , stepsColors
     , stepsImpactsAsChartEntries
     , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
+    , updateAggregatedScores
     , updateImpact
     )
 
@@ -393,9 +397,7 @@ decodeImpacts definitions =
     Definition.decodeWithoutAggregated (always Unit.decodeImpact)
         |> Pipe.hardcoded (Unit.impact 0)
         |> Pipe.hardcoded (Unit.impact 0)
-        |> Decode.map Impacts
-        -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
-        |> Decode.map (updateAggregatedScores definitions)
+        |> Decode.map (Impacts >> updateAggregatedScores definitions)
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
@@ -493,6 +495,81 @@ computeAggregatedScore definitions getter (Impacts impacts) =
                     |> Maybe.withDefault Quantity.zero
             )
         |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
+
+
+minEcotoxWeighting : Unit.Ratio
+minEcotoxWeighting =
+    Unit.ratio 0
+
+
+maxEcotoxWeighting : Unit.Ratio
+maxEcotoxWeighting =
+    Unit.ratio 0.25
+
+
+{-| Set the ecotoxicity weighting (EtfC) then redistribute other Ecoscore weightings
+accordingly. The methodology and formulas are described in this card:
+<https://www.notion.so/Rendre-param-trable-la-pond-ration-de-l-cotox-894d42e217c6448a883346203dff8db4>
+FIXME: ensure the card contents are moved to the public documentation eventually
+-}
+setEcotoxWeighting : Unit.Ratio -> Definitions -> Definitions
+setEcotoxWeighting (Unit.Ratio weighting) definitions =
+    let
+        defsToUpdate =
+            [ Definition.Acd
+            , Definition.Fru
+            , Definition.Fwe
+            , Definition.Ior
+            , Definition.Ldu
+            , Definition.Mru
+            , Definition.Ozd
+            , Definition.Pco
+            , Definition.Pma
+            , Definition.Swe
+            , Definition.Tre
+            , Definition.Wtu
+            ]
+
+        cleanWeighting =
+            weighting
+                |> clamp (Unit.ratioToFloat minEcotoxWeighting) (Unit.ratioToFloat maxEcotoxWeighting)
+    in
+    definitions
+        -- Start with updating EtfC with the provided ratio
+        |> Definition.update Definition.EtfC
+            (\({ ecoscoreData } as definition) ->
+                { definition
+                    | ecoscoreData =
+                        ecoscoreData
+                            |> Maybe.map (\data -> { data | weighting = Unit.ratio cleanWeighting })
+                }
+            )
+        -- Then redistribute the other weightings accordingly
+        |> Definition.map
+            (\trg def ->
+                if List.member trg defsToUpdate then
+                    let
+                        pefWeighting =
+                            def.pefData
+                                |> Maybe.map .weighting
+                                |> Maybe.withDefault (Unit.ratio 0)
+                                |> Unit.ratioToFloat
+                    in
+                    { def
+                        | ecoscoreData =
+                            def.ecoscoreData
+                                |> Maybe.map
+                                    (\ecoscoreData ->
+                                        { ecoscoreData
+                                          -- = (PEF weighting for this trigram) * (78.94% - custom weighting) / 73.05%
+                                            | weighting = Unit.ratio (pefWeighting * (0.7894 - cleanWeighting) / 0.7305)
+                                        }
+                                    )
+                    }
+
+                else
+                    def
+            )
 
 
 

@@ -10,6 +10,7 @@ module Data.Session exposing
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
+    , updateEcotoxWeighting
     , updateFoodQuery
     , updateTextileQuery
     )
@@ -18,8 +19,10 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
+import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -217,3 +220,22 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
+
+
+updateEcotoxWeighting : Unit.Ratio -> Session -> Session
+updateEcotoxWeighting weighting ({ foodDb, textileDb } as session) =
+    let
+        definitions =
+            -- Note: food and textile db impact definitions are the same data
+            textileDb.impactDefinitions
+                |> Impact.setEcotoxWeighting weighting
+
+        updatedTextileDb =
+            TextileDb.updateImpactDefinitions definitions textileDb
+    in
+    { session
+        | foodDb =
+            foodDb
+                |> FoodDb.updateImpactDefinitions updatedTextileDb.countries definitions
+        , textileDb = updatedTextileDb
+    }

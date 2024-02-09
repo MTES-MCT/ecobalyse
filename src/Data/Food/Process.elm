@@ -14,6 +14,7 @@ module Data.Food.Process exposing
     , getDisplayName
     , listByCategory
     , loadWellKnown
+    , mapWellKnown
     , nameToString
     )
 
@@ -268,3 +269,16 @@ loadWellKnown processes =
         |> resolve "tap-water"
         |> resolve "low-voltage-electricity"
         |> resolve "domestic-gas-heat"
+
+
+mapWellKnown : (Process -> Process) -> WellKnown -> WellKnown
+mapWellKnown update wellKnown =
+    { lorryTransport = update wellKnown.lorryTransport
+    , boatTransport = update wellKnown.boatTransport
+    , planeTransport = update wellKnown.planeTransport
+    , lorryCoolingTransport = update wellKnown.lorryCoolingTransport
+    , boatCoolingTransport = update wellKnown.boatCoolingTransport
+    , water = update wellKnown.water
+    , lowVoltageElectricity = update wellKnown.lowVoltageElectricity
+    , domesticGasHeat = update wellKnown.domesticGasHeat
+    }

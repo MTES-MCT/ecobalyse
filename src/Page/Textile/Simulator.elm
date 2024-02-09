@@ -112,6 +112,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -431,6 +432,14 @@ update ({ queries, navKey } as session) msg model =
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( model, session |> Session.updateEcotoxWeighting ratio, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
             ( model, session, Cmd.none )
@@ -1046,6 +1055,9 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
+
+                -- Ecotox weighting customization
+                , updateEcotoxWeighting = UpdateEcotoxWeighting
 
                 -- Impacts tabs
                 , impactTabsConfig =
