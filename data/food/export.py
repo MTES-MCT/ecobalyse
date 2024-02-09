@@ -14,7 +14,12 @@ from common.impacts import impacts as impacts_definition
 import bw2calc
 import bw2data
 import json
-
+from food.ecosystemic_services.ecosystemic_services import (
+    ecosystemic_services_list,
+    ecs_transform,
+    load_ecosystemic_dic,
+    plot_ecs_transformations,
+)
 
 # Input
 PROJECT = "food"
@@ -22,6 +27,7 @@ AGRIBALYSE = "Agribalyse 3.1.1"
 BIOSPHERE = AGRIBALYSE + " biosphere"
 ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
+ECOSYSTEMIC_FACTORS = "ecosystemic_services/ecosystemic_factors.csv"
 # Output
 INGREDIENTS = "../../public/data/food/ingredients.json"
 PROCESSES = "../../public/data/food/processes.json"
@@ -57,12 +63,45 @@ if __name__ == "__main__":
             "density": activity["density"],
             "inedible_part": activity["inedible_part"],
             "transport_cooling": activity["transport_cooling"],
-            "visible": activity["visible"],
             "ecosystemicServices": activity.get("ecosystemicServices", {}),
+            **(
+                {"land_footprint": activity["land_footprint"]}
+                if "land_footprint" in activity
+                else {}
+            ),
+            **(
+                {"crop_group": activity["crop_group"]}
+                if "crop_group" in activity
+                else {}
+            ),
+            **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
+            "visible": activity["visible"],
         }
         for activity in activities
         if activity["category"] == "ingredient"
     ]
+
+    # compute the ecosystemic services
+
+    # display the plots
+    plot_ecs_transformations(save_path="ecosystemic_services/ecs_transformations.png")
+
+    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS)
+
+    for ingredient in ingredients:
+        land_footprint = ingredient.get("land_footprint")
+        crop_group = ingredient.get("crop_group")
+        scenario = ingredient.get("scenario")
+
+        if land_footprint and crop_group and scenario:
+            print(f"Computing ecosystemic services for {ingredient['id']}")
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[crop_group][eco_service][scenario]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * land_footprint
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
 
     # Check the id is lowercase and does not contain spaces
     for ingredient in ingredients:
