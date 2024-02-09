@@ -61,20 +61,23 @@ updateImpactDefinitions : Definitions -> Db -> Db
 updateImpactDefinitions definitions db =
     let
         updatedProcesses =
-            db.processes |> updateProcesses definitions
+            db.processes
+                |> updateProcessesFromNewDefinitions definitions
     in
     { db
         | impactDefinitions = definitions
         , processes = updatedProcesses
-        , countries = db.countries |> updateCountries updatedProcesses
-        , materials = db.materials |> updateMaterials updatedProcesses
-        , products = db.products |> updateProducts updatedProcesses
-        , wellKnown = db.wellKnown |> updateWellKnown updatedProcesses
+        , countries = db.countries |> updateCountriesFromNewProcesses updatedProcesses
+        , materials = db.materials |> updateMaterialsFromNewProcesses updatedProcesses
+        , products = db.products |> updateProductsFromNewProcesses updatedProcesses
+        , wellKnown = db.wellKnown |> updateWellKnownFromNewProcesses updatedProcesses
     }
 
 
-updateProcesses : Definitions -> List Process -> List Process
-updateProcesses definitions =
+{-| Update processes with new impact definitions, ensuring recomputing aggregated impacts.
+-}
+updateProcessesFromNewDefinitions : Definitions -> List Process -> List Process
+updateProcessesFromNewDefinitions definitions =
     List.map
         (\({ impacts } as process) ->
             { process
@@ -85,8 +88,8 @@ updateProcesses definitions =
         )
 
 
-updateCountries : List Process -> List Country -> List Country
-updateCountries processes =
+updateCountriesFromNewProcesses : List Process -> List Country -> List Country
+updateCountriesFromNewProcesses processes =
     List.map
         (\country ->
             Result.map2
@@ -102,8 +105,8 @@ updateCountries processes =
         )
 
 
-updateMaterials : List Process -> List Material -> List Material
-updateMaterials processes =
+updateMaterialsFromNewProcesses : List Process -> List Material -> List Material
+updateMaterialsFromNewProcesses processes =
     List.map
         (\material ->
             Result.map2
@@ -122,8 +125,8 @@ updateMaterials processes =
         )
 
 
-updateProducts : List Process -> List Product -> List Product
-updateProducts processes =
+updateProductsFromNewProcesses : List Process -> List Product -> List Product
+updateProductsFromNewProcesses processes =
     List.map
         (\({ use } as product) ->
             Result.map2
@@ -142,10 +145,11 @@ updateProducts processes =
         )
 
 
-updateWellKnown : List Process -> WellKnown -> WellKnown
-updateWellKnown processes =
+updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
+updateWellKnownFromNewProcesses processes =
     Process.mapWellKnown
         (\({ uuid } as process) ->
-            Process.findByUuid uuid processes
+            processes
+                |> Process.findByUuid uuid
                 |> Result.withDefault process
         )

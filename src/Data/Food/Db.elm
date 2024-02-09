@@ -54,19 +54,21 @@ updateImpactDefinitions : List Country -> Definitions -> Db -> Db
 updateImpactDefinitions textileCountries definitions db =
     let
         updatedProcesses =
-            db.processes |> updateProcesses definitions
+            db.processes |> updateProcessesFromNewDefinitions definitions
     in
     { db
         | impactDefinitions = definitions
         , processes = updatedProcesses
         , countries = textileCountries
-        , ingredients = db.ingredients |> updateIngredients updatedProcesses
-        , wellKnown = db.wellKnown |> updateWellKnown updatedProcesses
+        , ingredients = db.ingredients |> updateIngredientsFromNewProcesses updatedProcesses
+        , wellKnown = db.wellKnown |> updateWellKnownFromNewProcesses updatedProcesses
     }
 
 
-updateProcesses : Definitions -> List Process -> List Process
-updateProcesses definitions =
+{-| Update processes with new impact definitions, ensuring recomputing aggregated impacts.
+-}
+updateProcessesFromNewDefinitions : Definitions -> List Process -> List Process
+updateProcessesFromNewDefinitions definitions =
     List.map
         (\({ impacts } as process) ->
             { process
@@ -77,20 +79,22 @@ updateProcesses definitions =
         )
 
 
-updateIngredients : List Process -> List Ingredient -> List Ingredient
-updateIngredients processes =
+updateIngredientsFromNewProcesses : List Process -> List Ingredient -> List Ingredient
+updateIngredientsFromNewProcesses processes =
     List.map
         (\ingredient ->
-            Result.map (\default -> { ingredient | default = default })
-                (Process.findByIdentifier (Process.codeFromString ingredient.default.id_) processes)
+            processes
+                |> Process.findByIdentifier (Process.codeFromString ingredient.default.id_)
+                |> Result.map (\default -> { ingredient | default = default })
                 |> Result.withDefault ingredient
         )
 
 
-updateWellKnown : List Process -> WellKnown -> WellKnown
-updateWellKnown processes =
+updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
+updateWellKnownFromNewProcesses processes =
     Process.mapWellKnown
         (\({ id_ } as process) ->
-            Process.findByIdentifier (Process.codeFromString id_) processes
+            processes
+                |> Process.findByIdentifier (Process.codeFromString id_)
                 |> Result.withDefault process
         )
