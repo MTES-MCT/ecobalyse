@@ -33,7 +33,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
-    | BlankPage
+    | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -42,15 +42,13 @@ type Page
     | NotFoundPage
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
-
-
-type State
-    = Loaded Session Page
-    | Errored String
+    | BadData String
 
 
 type alias Model =
-    { state : State
+    { db : Result String Db
+    , page : Page
+    , session : Session
     , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
@@ -81,31 +79,24 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
-    setRoute url
-        ( { state =
-                case Result.map5 Db rdefinitions rtextile rfood rcountries rdistances of
-                    Ok db ->
-                        Loaded
-                            { clientUrl = flags.clientUrl
-                            , navKey = navKey
-                            , store = Session.deserializeStore flags.rawStore
-                            , currentVersion = Request.Version.Unknown
-                            , matomo = flags.matomo
-                            , countries = db.countries
-                            , distances = db.distances
-                            , definitions = db.definitions
-                            , food = db.food
-                            , textile = db.textile
-                            , notifications = []
-                            , queries =
-                                { food = FoodQuery.carrotCake
-                                , textile = TextileInputs.defaultQuery
-                                }
-                            }
-                            BlankPage
-
-                    Err err ->
-                        Errored err
+    let
+        session =
+            { clientUrl = flags.clientUrl
+            , navKey = navKey
+            , store = Session.deserializeStore flags.rawStore
+            , currentVersion = Request.Version.Unknown
+            , matomo = flags.matomo
+            , notifications = []
+            , queries =
+                { food = FoodQuery.carrotCake
+                , textile = TextileInputs.defaultQuery
+                }
+            }
+    in
+    setRoute url <|
+        ( { db = Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
+          , page = LoadingPage
+          , session = session
           , mobileNavigationOpened = False
           , navKey = navKey
           }
@@ -117,97 +108,105 @@ init flags url navKey =
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute url ( { state } as model, cmds ) =
-    case state of
-        Loaded session _ ->
+setRoute url ( model, cmds ) =
+    let
+        -- TODO: factor this with `update` internal `toPage`
+        toPage page subMsg ( subModel, newSession, subCmds ) =
             let
-                -- TODO: factor this with `update` internal `toPage`
-                toPage page subMsg ( subModel, newSession, subCmds ) =
-                    let
-                        storeCmd =
-                            if session.store /= newSession.store then
-                                newSession.store |> Session.serializeStore |> Ports.saveStore
+                storeCmd =
+                    if model.session.store /= newSession.store then
+                        newSession.store |> Session.serializeStore |> Ports.saveStore
 
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded newSession (page subModel) }
-                    , Cmd.batch
-                        [ cmds
-                        , Cmd.map subMsg subCmds
-                        , storeCmd
-                        ]
-                    )
+                    else
+                        Cmd.none
             in
-            case Route.fromUrl url of
-                Nothing ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+            ( { model
+                | session = newSession
+                , page = page subModel
+              }
+            , Cmd.batch
+                [ cmds
+                , Cmd.map subMsg subCmds
+                , storeCmd
+                ]
+            )
+    in
+    case model.db of
+        Ok db ->
+            Route.fromUrl url
+                |> Maybe.map
+                    (\route ->
+                        case route of
+                            Route.Home ->
+                                Home.init model.session
+                                    |> toPage HomePage HomeMsg
 
-                Just Route.Home ->
-                    Home.init session
-                        |> toPage HomePage HomeMsg
+                            Route.Api ->
+                                Api.init model.session
+                                    |> toPage ApiPage ApiMsg
 
-                Just Route.Api ->
-                    Api.init session
-                        |> toPage ApiPage ApiMsg
+                            Route.Changelog ->
+                                Changelog.init model.session
+                                    |> toPage ChangelogPage ChangelogMsg
 
-                Just Route.Changelog ->
-                    Changelog.init session
-                        |> toPage ChangelogPage ChangelogMsg
+                            Route.Editorial slug ->
+                                Editorial.init slug model.session
+                                    |> toPage EditorialPage EditorialMsg
 
-                Just (Route.Editorial slug) ->
-                    Editorial.init slug session
-                        |> toPage EditorialPage EditorialMsg
+                            Route.Explore scope dataset ->
+                                Explore.init scope dataset model.session
+                                    |> toPage ExplorePage ExploreMsg
 
-                Just (Route.Explore scope dataset) ->
-                    Explore.init session.food scope dataset session
-                        |> toPage ExplorePage ExploreMsg
+                            Route.FoodBuilderHome ->
+                                FoodBuilder.init db model.session Impact.default Nothing
+                                    |> toPage FoodBuilderPage FoodBuilderMsg
 
-                Just Route.FoodBuilderHome ->
-                    FoodBuilder.init session Impact.default Nothing
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                            Route.FoodBuilder trigram maybeQuery ->
+                                FoodBuilder.init db model.session trigram maybeQuery
+                                    |> toPage FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.FoodBuilder trigram maybeQuery) ->
-                    FoodBuilder.init session trigram maybeQuery
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                            Route.Stats ->
+                                Stats.init model.session
+                                    |> toPage StatsPage StatsMsg
 
-                Just Route.Stats ->
-                    Stats.init session
-                        |> toPage StatsPage StatsMsg
+                            Route.TextileSimulatorHome ->
+                                TextileSimulator.init db Impact.default Nothing model.session
+                                    |> toPage TextileSimulatorPage TextileSimulatorMsg
 
-                Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Nothing session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                            Route.TextileSimulator trigram maybeQuery ->
+                                TextileSimulator.init db trigram maybeQuery model.session
+                                    |> toPage TextileSimulatorPage TextileSimulatorMsg
+                    )
+                |> Maybe.withDefault
+                    ( { model | page = NotFoundPage }, Cmd.none )
 
-                Just (Route.TextileSimulator trigram maybeQuery) ->
-                    TextileSimulator.init trigram maybeQuery session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
-
-        Errored _ ->
-            -- FIXME: Static database decoding error, highly unlikely to ever happen
-            ( model, cmds )
+        Err error ->
+            ( { model | page = BadData error }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update rawMsg ({ state } as model) =
-    case ( state, rawMsg ) of
-        ( Loaded session page, msg ) ->
+update msg model =
+    case model.db of
+        Ok db ->
             let
                 -- TODO: factor this with `setRoute` internal `toPage`
                 toPage toModel toMsg ( newModel, newSession, newCmd ) =
                     let
                         storeCmd =
-                            if session.store /= newSession.store then
+                            if model.session.store /= newSession.store then
                                 newSession.store |> Session.serializeStore |> Ports.saveStore
 
                             else
                                 Cmd.none
                     in
-                    ( { model | state = Loaded newSession (toModel newModel) }
+                    ( { model | session = newSession, page = toModel newModel }
                     , Cmd.map toMsg (Cmd.batch [ newCmd, storeCmd ])
                     )
+
+                session =
+                    model.session
             in
-            case ( msg, page ) of
+            case ( msg, model.page ) of
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
@@ -231,11 +230,11 @@ update rawMsg ({ state } as model) =
 
                 -- Food
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
-                    FoodBuilder.update session foodMsg foodModel
+                    FoodBuilder.update db session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
                 ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
-                    TextileSimulator.update session counterMsg counterModel
+                    TextileSimulator.update db session counterMsg counterModel
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
@@ -246,9 +245,8 @@ update rawMsg ({ state } as model) =
                 -- Notifications
                 ( CloseNotification notification, currentPage ) ->
                     ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.closeNotification notification)
+                        | page = currentPage
+                        , session = session |> Session.closeNotification notification
                       }
                     , Cmd.none
                     )
@@ -256,8 +254,8 @@ update rawMsg ({ state } as model) =
                 -- Store
                 ( StoreChanged json, currentPage ) ->
                     ( { model
-                        | state =
-                            currentPage |> Loaded { session | store = Session.deserializeStore json }
+                        | page = currentPage
+                        , session = { session | store = Session.deserializeStore json }
                       }
                     , Cmd.none
                     )
@@ -281,7 +279,7 @@ update rawMsg ({ state } as model) =
                         |> setRoute url
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
-                    ( model, Nav.pushUrl session.navKey (Url.toString url) )
+                    ( model, Nav.pushUrl model.session.navKey (Url.toString url) )
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
@@ -289,9 +287,8 @@ update rawMsg ({ state } as model) =
                 -- Version check
                 ( VersionReceived webData, currentPage ) ->
                     ( { model
-                        | state =
-                            currentPage
-                                |> Loaded { session | currentVersion = Request.Version.updateVersion session.currentVersion webData }
+                        | page = currentPage
+                        , session = { session | currentVersion = Request.Version.updateVersion session.currentVersion webData }
                       }
                     , Cmd.none
                     )
@@ -301,34 +298,34 @@ update rawMsg ({ state } as model) =
 
                 -- Catch-all
                 ( _, NotFoundPage ) ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+                    ( { model | page = NotFoundPage }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
 
-        ( Errored _, _ ) ->
-            ( model, Cmd.none )
+        Err error ->
+            ( { model | page = BadData error }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { state } =
+subscriptions model =
     Sub.batch
         [ Ports.storeChanged StoreChanged
         , Request.Version.pollVersion VersionPoll
-        , case state of
-            Loaded _ (HomePage subModel) ->
+        , case model.page of
+            HomePage subModel ->
                 Home.subscriptions subModel
                     |> Sub.map HomeMsg
 
-            Loaded _ (ExplorePage subModel) ->
+            ExplorePage subModel ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
 
-            Loaded _ (FoodBuilderPage subModel) ->
+            FoodBuilderPage subModel ->
                 FoodBuilder.subscriptions subModel
                     |> Sub.map FoodBuilderMsg
 
-            Loaded _ (TextileSimulatorPage subModel) ->
+            TextileSimulatorPage subModel ->
                 TextileSimulator.subscriptions subModel
                     |> Sub.map TextileSimulatorMsg
 
@@ -338,68 +335,60 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { state, mobileNavigationOpened } =
-    case state of
-        Errored error ->
-            { title = "Erreur lors du chargement…"
-            , body =
-                [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
-                , Html.pre [] [ Html.text error ]
-                ]
-            }
+view model =
+    let
+        pageConfig =
+            Page.Config model.session
+                model.mobileNavigationOpened
+                CloseMobileNavigation
+                OpenMobileNavigation
+                LoadUrl
+                ReloadPage
+                CloseNotification
 
-        Loaded session page ->
-            let
-                pageConfig =
-                    Page.Config session
-                        mobileNavigationOpened
-                        CloseMobileNavigation
-                        OpenMobileNavigation
-                        LoadUrl
-                        ReloadPage
-                        CloseNotification
-
-                mapMsg msg ( title, content ) =
-                    ( title, content |> List.map (Html.map msg) )
-            in
-            case page of
+        mapMsg msg ( title, content ) =
+            ( title, content |> List.map (Html.map msg) )
+    in
+    case model.db of
+        Ok db ->
+            case model.page of
                 HomePage homeModel ->
-                    Home.view session homeModel
+                    Home.view model.session homeModel
                         |> mapMsg HomeMsg
                         |> Page.frame (pageConfig Page.Home)
 
                 ApiPage examplesModel ->
-                    Api.view session examplesModel
+                    Api.view model.session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
 
                 ChangelogPage changelogModel ->
-                    Changelog.view session changelogModel
+                    Changelog.view model.session changelogModel
                         |> mapMsg ChangelogMsg
                         |> Page.frame (pageConfig Page.Changelog)
 
                 EditorialPage editorialModel ->
-                    Editorial.view session editorialModel
+                    Editorial.view model.session editorialModel
                         |> mapMsg EditorialMsg
                         |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
                 ExplorePage examplesModel ->
-                    Explore.view session examplesModel
+                    Explore.view db examplesModel
                         |> mapMsg ExploreMsg
                         |> Page.frame (pageConfig Page.Explore)
 
                 FoodBuilderPage foodModel ->
-                    FoodBuilder.view session foodModel
+                    FoodBuilder.view db model.session foodModel
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
 
                 TextileSimulatorPage simulatorModel ->
-                    TextileSimulator.view session simulatorModel
+                    TextileSimulator.view db model.session simulatorModel
                         |> mapMsg TextileSimulatorMsg
                         |> Page.frame (pageConfig Page.TextileSimulator)
 
                 StatsPage statsModel ->
-                    Stats.view session statsModel
+                    Stats.view model.session statsModel
                         |> mapMsg StatsMsg
                         |> Page.frame (pageConfig Page.Stats)
 
@@ -407,9 +396,25 @@ view { state, mobileNavigationOpened } =
                     ( "Page manquante", [ Page.notFound ] )
                         |> Page.frame (pageConfig Page.Other)
 
-                BlankPage ->
+                LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
                         |> Page.frame (pageConfig Page.Other)
+
+                BadData error ->
+                    { title = "Erreur lors du chargement…"
+                    , body =
+                        [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
+                        , Html.pre [] [ Html.text error ]
+                        ]
+                    }
+
+        Err error ->
+            { title = "Erreur lors du chargement…"
+            , body =
+                [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
+                , Html.pre [] [ Html.text error ]
+                ]
+            }
 
 
 main : Program Flags Model Msg

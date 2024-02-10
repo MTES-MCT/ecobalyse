@@ -43,7 +43,6 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
@@ -65,6 +64,7 @@ import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
 
@@ -211,12 +211,12 @@ getMainMaterialCountry countries =
             )
 
 
-fromQuery : List Country -> Textile.Db -> Query -> Result String Inputs
-fromQuery countries db query =
+fromQuery : Db -> Query -> Result String Inputs
+fromQuery { countries, textile } query =
     let
         materials =
             query.materials
-                |> toMaterialInputs db.materials countries
+                |> toMaterialInputs textile.materials countries
 
         franceResult =
             Country.findByCode (Country.Code "FR") countries
@@ -232,7 +232,7 @@ fromQuery countries db query =
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap materials
-        |> RE.andMap (db.products |> Product.findById query.product)
+        |> RE.andMap (textile.products |> Product.findById query.product)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default

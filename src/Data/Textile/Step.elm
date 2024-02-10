@@ -33,12 +33,13 @@ import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Distances, Transport)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias Step =
@@ -145,8 +146,8 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : Textile.Db -> Distances -> Country -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact db distances country outputMass materialInput =
+computeMaterialTransportAndImpact : Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact { distances, textile } country outputMass materialInput =
     let
         materialMass =
             materialInput.share
@@ -155,7 +156,7 @@ computeMaterialTransportAndImpact db distances country outputMass materialInput 
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -163,27 +164,27 @@ computeMaterialTransportAndImpact db distances country outputMass materialInput 
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : Textile.Db -> Distances -> Inputs -> Step -> Step -> Step
-computeTransports db distances inputs next ({ processInfo } as current) =
+computeTransports : Db -> Inputs -> Step -> Step -> Step
+computeTransports db inputs next ({ processInfo } as current) =
     let
         roadTransportProcess =
-            getRoadTransportProcess db.wellKnown current
+            getRoadTransportProcess db.textile.wellKnown current
 
         transport =
             if current.label == Label.Material then
                 inputs.materials
-                    |> List.map (computeMaterialTransportAndImpact db distances next.country current.outputMass)
+                    |> List.map (computeMaterialTransportAndImpact db next.country current.outputMass)
                     |> Transport.sum
 
             else
-                distances
+                db.distances
                     |> Transport.getTransportBetween Scope.Textile
                         current.transport.impacts
                         current.country.code
                         next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
-                        db.wellKnown
+                        db.textile.wellKnown
                         roadTransportProcess
                         (getTransportedMass inputs current)
     in
@@ -191,8 +192,8 @@ computeTransports db distances inputs next ({ processInfo } as current) =
         | processInfo =
             { processInfo
                 | roadTransport = Just roadTransportProcess.name
-                , seaTransport = Just db.wellKnown.seaTransport.name
-                , airTransport = Just db.wellKnown.airTransport.name
+                , seaTransport = Just db.textile.wellKnown.seaTransport.name
+                , airTransport = Just db.textile.wellKnown.airTransport.name
             }
         , transport = transport
     }

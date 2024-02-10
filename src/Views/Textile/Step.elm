@@ -2,15 +2,14 @@ module Views.Textile.Step exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
-import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Formula as Formula
@@ -26,7 +25,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Distances)
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
@@ -35,6 +34,7 @@ import Html.Events exposing (..)
 import Mass exposing (Mass)
 import Quantity
 import Route
+import Static.Db exposing (Db)
 import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
@@ -50,13 +50,9 @@ import Views.Transport as TransportView
 
 type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
-    , countries : List Country
     , current : Step
-    , db : TextileDb.Db
-    , definitions : Definitions
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
-    , distances : Distances
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
@@ -85,8 +81,8 @@ type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
 
 
-countryField : Config msg modal -> Html msg
-countryField { countries, current, updateCountry } =
+countryField : Db -> Config msg modal -> Html msg
+countryField db { current, updateCountry } =
     div []
         [ if current.editable then
             CountrySelect.view
@@ -95,7 +91,7 @@ countryField { countries, current, updateCountry } =
                     , disabled (not current.enabled)
                     , onInput (Country.codeFromString >> updateCountry current.label)
                     ]
-                , countries = countries
+                , countries = db.countries
                 , onSelect = updateCountry current.label
                 , scope = Scope.Textile
                 , selectedCountry = current.country.code
@@ -542,67 +538,67 @@ stepHeader { current } =
         ]
 
 
-simpleView : Config msg modal -> ViewWithTransport msg
-simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
-    { transport = viewTransport config
+simpleView : Db -> Config msg modal -> ViewWithTransport msg
+simpleView db c =
+    { transport = viewTransport c
     , step =
         div [ class "Step card shadow-sm" ]
             [ div
                 [ class "StepHeader card-header"
-                , StepsBorder.style <| Label.toColor current.label
-                , id <| Label.toId current.label
+                , StepsBorder.style <| Label.toColor c.current.label
+                , id <| Label.toId c.current.label
                 ]
                 [ div [ class "row d-flex align-items-center" ]
-                    [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
+                    [ div [ class "col-9 col-sm-6" ] [ stepHeader c ]
                     , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
                         [ div [ class "d-none d-sm-block text-center" ]
-                            [ viewStepImpacts selectedImpact current
+                            [ viewStepImpacts c.selectedImpact c.current
                             ]
-                        , stepActions config current.label
+                        , stepActions c c.current.label
                         ]
                     ]
                 ]
-            , if current.label /= Label.Material then
-                if current.enabled then
+            , if c.current.label /= Label.Material then
+                if c.current.enabled then
                     div
                         [ class "StepBody card-body row align-items-center" ]
                         [ div [ class "col-11 col-lg-7" ]
-                            [ countryField config
-                            , case current.label of
+                            [ countryField db c
+                            , case c.current.label of
                                 Label.Spinning ->
                                     div [ class "mt-2 fs-7 text-muted" ]
-                                        [ yarnSizeField config inputs.product
+                                        [ yarnSizeField c c.inputs.product
                                         ]
 
                                 Label.Fabric ->
                                     div [ class "mt-2 fs-7" ]
-                                        [ fabricProcessField config
-                                        , surfaceMassField config inputs.product
+                                        [ fabricProcessField c
+                                        , surfaceMassField c c.inputs.product
                                         ]
 
                                 Label.Ennobling ->
                                     div [ class "mt-2" ]
-                                        [ ennoblingGenericFields config
+                                        [ ennoblingGenericFields c
                                         ]
 
                                 Label.Making ->
                                     div [ class "mt-2" ]
-                                        [ makingWasteField config
-                                        , makingDeadStockField config
-                                        , airTransportRatioField config
-                                        , fadingField config
+                                        [ makingWasteField c
+                                        , makingDeadStockField c
+                                        , airTransportRatioField c
+                                        , fadingField c
                                         ]
 
                                 Label.Use ->
                                     div [ class "mt-2" ]
-                                        [ daysOfWearInfo inputs
+                                        [ daysOfWearInfo c.inputs
                                         ]
 
                                 _ ->
                                     text ""
                             ]
                         , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton { disabled = False } (toggleStep current.label)
+                            [ BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
                             ]
                         ]
 
@@ -612,14 +608,14 @@ simpleView ({ inputs, selectedImpact, current, toggleStep } as config) =
                         , class "d-flex justify-content-center align-items-center"
                         , class " gap-1 w-100"
                         , id "add-new-element"
-                        , onClick (toggleStep current.label)
+                        , onClick (c.toggleStep c.current.label)
                         ]
                         [ i [ class "icon icon-plus" ] []
-                        , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
+                        , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
                         ]
 
               else
-                viewMaterials config
+                viewMaterials db c
             ]
     }
 
@@ -647,10 +643,10 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
         text ""
 
 
-viewMaterials : Config msg modal -> Html msg
-viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setModal } as config) =
+viewMaterials : Db -> Config msg modal -> Html msg
+viewMaterials db config =
     ul [ class "CardList list-group list-group-flush" ]
-        ((inputs.materials
+        ((config.inputs.materials
             |> List.map
                 (\materialInput ->
                     let
@@ -661,16 +657,16 @@ viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setMod
 
                         transport =
                             materialInput
-                                |> Step.computeMaterialTransportAndImpact db distances nextCountry config.current.outputMass
+                                |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
                     in
                     li [ class "ElementFormWrapper list-group-item" ]
                         (List.concat
                             [ materialInput
-                                |> createElementSelectorConfig config
+                                |> createElementSelectorConfig db config
                                 |> BaseElement.view
-                            , if selectedImpact.trigram == Definition.Ecs then
+                            , if config.selectedImpact.trigram == Definition.Ecs then
                                 [ materialInput
-                                    |> viewMaterialComplements inputs.mass
+                                    |> viewMaterialComplements config.inputs.mass
                                 ]
 
                               else
@@ -691,7 +687,7 @@ viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setMod
                                     , title "Impact du transport pour cette matière"
                                     ]
                                     [ text "(+ "
-                                    , Format.formatImpact selectedImpact transport.impacts
+                                    , Format.formatImpact config.selectedImpact transport.impacts
                                     , text ")"
                                     ]
                               ]
@@ -701,18 +697,18 @@ viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setMod
          )
             ++ [ let
                     length =
-                        List.length inputs.materials
+                        List.length config.inputs.materials
 
                     excluded =
-                        inputs.materials
+                        config.inputs.materials
                             |> List.map .material
 
                     availableMaterials =
-                        db.materials
+                        db.textile.materials
                             |> List.filter (\element -> not (List.member element excluded))
 
                     totalShares =
-                        inputs.materials
+                        config.inputs.materials
                             |> List.map (.share >> Split.toFloat >> clamp 0 1)
                             |> List.sum
 
@@ -744,8 +740,8 @@ viewMaterials ({ addMaterialModal, db, distances, inputs, selectedImpact, setMod
                         , availableMaterials
                             |> List.sortBy .shortName
                             |> AutocompleteSelector.init .shortName
-                            |> addMaterialModal Nothing
-                            |> setModal
+                            |> config.addMaterialModal Nothing
+                            |> config.setModal
                             |> onClick
                         , disabled <| length >= Env.maxMaterials
                         ]
@@ -794,8 +790,8 @@ viewMaterialComplements finalProductMass materialInput =
         ]
 
 
-createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig { addMaterialModal, db, definitions, countries, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig : Db -> Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
+createElementSelectorConfig db { addMaterialModal, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -823,12 +819,12 @@ createElementSelectorConfig { addMaterialModal, db, definitions, countries, dele
     { allowEmptyList = False
     , baseElement = baseElement
     , db =
-        { elements = db.materials
+        { elements = db.textile.materials
         , countries =
-            countries
+            db.countries
                 |> Scope.only Scope.Textile
                 |> List.sortBy .name
-        , definitions = definitions
+        , definitions = db.definitions
         }
     , defaultCountry = materialInput.material.geographicOrigin
     , delete = deleteMaterial
@@ -966,8 +962,8 @@ ennoblingHeatSourceField ({ inputs } as config) =
         ]
 
 
-detailedView : Config msg modal -> ViewWithTransport msg
-detailedView ({ inputs, selectedImpact, current } as config) =
+detailedView : Db -> Config msg modal -> ViewWithTransport msg
+detailedView db ({ inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -991,7 +987,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                         ]
                     ]
                 , infoListElement
-                    [ li [ class "list-group-item" ] [ countryField config ]
+                    [ li [ class "list-group-item" ] [ countryField db config ]
                     , viewProcessInfo current.processInfo.countryElec
                     , case current.label of
                         Label.Ennobling ->
@@ -1098,7 +1094,7 @@ detailedView ({ inputs, selectedImpact, current } as config) =
                       else
                         text ""
                     , surfaceInfoView inputs current
-                    , ennoblingToxicityView config current
+                    , ennoblingToxicityView db config current
                     , pickingView current.picking
                     , threadDensityView current.threadDensity
                     , makingWasteView config current.waste
@@ -1144,14 +1140,14 @@ surfaceInfoView inputs current =
             text ""
 
 
-ennoblingToxicityView : Config msg modal -> Step -> Html msg
-ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
+ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
+ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
     if current.label == Label.Ennobling then
         let
             bleachingToxicity =
                 current.outputMass
                     |> Formula.bleachingImpacts current.impacts
-                        { bleachingProcess = db.wellKnown.bleaching
+                        { bleachingProcess = db.textile.wellKnown.bleaching
                         , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                         }
 
@@ -1162,10 +1158,10 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
                             Formula.materialDyeingToxicityImpacts current.impacts
                                 { dyeingToxicityProcess =
                                     if Origin.isSynthetic material.origin then
-                                        db.wellKnown.dyeingSynthetic
+                                        db.textile.wellKnown.dyeingSynthetic
 
                                     else
-                                        db.wellKnown.dyeingCellulosic
+                                        db.textile.wellKnown.dyeingCellulosic
                                 , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                                 }
                                 current.outputMass
@@ -1178,7 +1174,7 @@ ennoblingToxicityView ({ db, selectedImpact, inputs } as config) current =
                     Just { kind, ratio } ->
                         let
                             { printingToxicityProcess } =
-                                Process.getPrintingProcess kind db.wellKnown
+                                Process.getPrintingProcess kind db.textile.wellKnown
                         in
                         current.outputMass
                             |> Formula.materialPrintingToxicityImpacts
@@ -1288,17 +1284,17 @@ makingWasteView config waste =
         text ""
 
 
-view : Config msg modal -> ViewWithTransport msg
-view config =
+view : Db -> Config msg modal -> ViewWithTransport msg
+view db config =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
     config.detailedStep
         |> Maybe.map
             (\index ->
                 if config.index == index then
-                    detailedView config
+                    detailedView db config
 
                 else
-                    simpleView config
+                    simpleView db config
             )
-        |> Maybe.withDefault (simpleView config)
+        |> Maybe.withDefault (simpleView db config)

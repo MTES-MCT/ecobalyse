@@ -11,18 +11,15 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.Db as Food
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
-import Data.Textile.Db as Textile
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
-import Data.Transport as Transport exposing (Distances)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -36,6 +33,7 @@ import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route exposing (Route)
+import Static.Db exposing (Db)
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Container as Container
@@ -43,8 +41,7 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { food : Food.Db
-    , dataset : Dataset
+    { dataset : Dataset
     , scope : Scope
     , tableState : SortableTable.State
     }
@@ -58,8 +55,8 @@ type Msg
     | SetTableState SortableTable.State
 
 
-init : Food.Db -> Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
-init food scope dataset session =
+init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
+init scope dataset session =
     let
         initialSort =
             case dataset of
@@ -84,8 +81,7 @@ init food scope dataset session =
                 Dataset.TextileProcesses _ ->
                     "Nom"
     in
-    ( { food = food
-      , dataset = dataset
+    ( { dataset = dataset
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
       }
@@ -209,14 +205,13 @@ alert error =
 
 
 countriesExplorer :
-    Table.Config Country Msg
+    Db
+    -> Table.Config Country Msg
     -> SortableTable.State
     -> Scope
     -> Maybe Country.Code
-    -> Transport.Distances
-    -> List Country
     -> List (Html Msg)
-countriesExplorer tableConfig tableState scope maybeCode distances countries =
+countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries
         |> List.filter (.scopes >> List.member scope)
         |> Table.viewList OpenDetail tableConfig tableState scope (ExploreCountries.table distances countries)
@@ -257,22 +252,22 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 
 foodIngredientsExplorer :
-    Table.Config Ingredient Msg
+    Db
+    -> Table.Config Ingredient Msg
     -> SortableTable.State
     -> Maybe Ingredient.Id
-    -> Food.Db
     -> List (Html Msg)
-foodIngredientsExplorer tableConfig tableState maybeId db =
-    [ db.ingredients
+foodIngredientsExplorer { food } tableConfig tableState maybeId =
+    [ food.ingredients
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodIngredients.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodIngredients.table food)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Ingredient.findByID id db.ingredients of
+                (case Ingredient.findByID id food.ingredients of
                     Ok ingredient ->
                         ingredient
-                            |> Table.viewDetails Scope.Food (FoodIngredients.table db)
+                            |> Table.viewDetails Scope.Food (FoodIngredients.table food)
 
                     Err error ->
                         alert error
@@ -284,22 +279,22 @@ foodIngredientsExplorer tableConfig tableState maybeId db =
 
 
 foodProcessesExplorer :
-    Table.Config FoodProcess.Process Msg
+    Db
+    -> Table.Config FoodProcess.Process Msg
     -> SortableTable.State
     -> Maybe FoodProcess.Identifier
-    -> Food.Db
     -> List (Html Msg)
-foodProcessesExplorer tableConfig tableState maybeId db =
-    [ db.processes
+foodProcessesExplorer { food } tableConfig tableState maybeId =
+    [ food.processes
         |> List.sortBy (.name >> FoodProcess.nameToString)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table db)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table food)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodProcess.findByIdentifier id db.processes of
+                (case FoodProcess.findByIdentifier id food.processes of
                     Ok process ->
                         process
-                            |> Table.viewDetails Scope.Food (FoodProcesses.table db)
+                            |> Table.viewDetails Scope.Food (FoodProcesses.table food)
 
                     Err error ->
                         alert error
@@ -311,23 +306,20 @@ foodProcessesExplorer tableConfig tableState maybeId db =
 
 
 textileProductsExplorer :
-    Table.Config Product Msg
+    Db
+    -> Table.Config Product Msg
     -> SortableTable.State
     -> Maybe Product.Id
-    -> Distances
-    -> List Country
-    -> Textile.Db
     -> List (Html Msg)
-textileProductsExplorer tableConfig tableState maybeId distances countries db =
-    [ db.products
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table distances countries db)
+textileProductsExplorer db tableConfig tableState maybeId =
+    [ db.textile.products
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Product.findById id db.products of
+                (case Product.findById id db.textile.products of
                     Ok product ->
-                        product
-                            |> Table.viewDetails Scope.Textile (TextileProducts.table distances countries db)
+                        Table.viewDetails Scope.Textile (TextileProducts.table db) product
 
                     Err error ->
                         alert error
@@ -339,22 +331,21 @@ textileProductsExplorer tableConfig tableState maybeId distances countries db =
 
 
 textileMaterialsExplorer :
-    Table.Config Material Msg
+    Db
+    -> Table.Config Material Msg
     -> SortableTable.State
     -> Maybe Material.Id
-    -> List Country
-    -> Textile.Db
     -> List (Html Msg)
-textileMaterialsExplorer tableConfig tableState maybeId countries db =
-    [ db.materials
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table countries)
+textileMaterialsExplorer db tableConfig tableState maybeId =
+    [ db.textile.materials
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Material.findById id db.materials of
+                (case Material.findById id db.textile.materials of
                     Ok material ->
                         material
-                            |> Table.viewDetails Scope.Textile (TextileMaterials.table countries)
+                            |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
 
                     Err error ->
                         alert error
@@ -366,18 +357,18 @@ textileMaterialsExplorer tableConfig tableState maybeId countries db =
 
 
 textileProcessesExplorer :
-    Table.Config Process.Process Msg
+    Db
+    -> Table.Config Process.Process Msg
     -> SortableTable.State
     -> Maybe Process.Uuid
-    -> Textile.Db
     -> List (Html Msg)
-textileProcessesExplorer tableConfig tableState maybeId db =
-    [ db.processes
+textileProcessesExplorer { textile } tableConfig tableState maybeId =
+    [ textile.processes
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProcesses.table
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findByUuid id db.processes of
+                (case Process.findByUuid id textile.processes of
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Textile TextileProcesses.table
@@ -391,8 +382,8 @@ textileProcessesExplorer tableConfig tableState maybeId db =
     ]
 
 
-explore : Session -> Model -> List (Html Msg)
-explore { textile, countries, distances, definitions } { food, scope, dataset, tableState } =
+explore : Db -> Model -> List (Html Msg)
+explore db { scope, dataset, tableState } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -409,31 +400,29 @@ explore { textile, countries, distances, definitions } { food, scope, dataset, t
     in
     case dataset of
         Dataset.Countries maybeCode ->
-            countries |> countriesExplorer tableConfig tableState scope maybeCode distances
+            countriesExplorer db tableConfig tableState scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
-            impactsExplorer definitions tableConfig tableState scope maybeTrigram
+            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
-            food
-                |> foodIngredientsExplorer tableConfig tableState maybeId
+            foodIngredientsExplorer db tableConfig tableState maybeId
 
         Dataset.FoodProcesses maybeId ->
-            food
-                |> foodProcessesExplorer tableConfig tableState maybeId
+            foodProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
-            textile |> textileMaterialsExplorer tableConfig tableState maybeId countries
+            textileMaterialsExplorer db tableConfig tableState maybeId
 
         Dataset.TextileProducts maybeId ->
-            textile |> textileProductsExplorer tableConfig tableState maybeId distances countries
+            textileProductsExplorer db tableConfig tableState maybeId
 
         Dataset.TextileProcesses maybeId ->
-            textile |> textileProcessesExplorer tableConfig tableState maybeId
+            textileProcessesExplorer db tableConfig tableState maybeId
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view session model =
+view : Db -> Model -> ( String, List (Html Msg) )
+view db model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
@@ -443,7 +432,7 @@ view session model =
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
                     ]
                 ]
-            , explore session model
+            , explore db model
                 |> div [ class "mt-3" ]
             ]
       ]

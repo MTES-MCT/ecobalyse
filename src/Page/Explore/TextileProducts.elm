@@ -1,12 +1,10 @@
 module Page.Explore.TextileProducts exposing (table)
 
 import Area
-import Data.Country exposing (Country)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
@@ -17,7 +15,6 @@ import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
-import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Duration
 import Html exposing (..)
@@ -27,6 +24,7 @@ import Page.Explore.Common as Common
 import Page.Explore.Table exposing (Table)
 import Quantity
 import Route
+import Static.Db exposing (Db)
 import Views.Format as Format
 import Volume
 
@@ -36,8 +34,8 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Distances -> List Country -> Textile.Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
-table distances countries db { detailed, scope } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
     , rows =
@@ -122,7 +120,7 @@ table distances countries db { detailed, scope } =
                     outputMass =
                         TextileInputs.defaultQuery
                             |> TextileInputs.updateProduct product
-                            |> Simulator.compute distances countries db
+                            |> Simulator.compute db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
                             |> Result.withDefault Quantity.zero
 

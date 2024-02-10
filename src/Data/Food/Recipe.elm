@@ -33,12 +33,12 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impact.Definition as Definition
 import Data.Scope as Scope
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
-import Data.Transport as Transport exposing (Distances, Transport)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
 import Json.Encode as Encode
@@ -46,6 +46,7 @@ import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import String.Extra as SE
 import Volume exposing (Volume)
 
@@ -124,10 +125,10 @@ availablePackagings usedProcesses processes =
         |> List.filter (\process -> not (List.member process.code usedProcesses))
 
 
-compute : Distances -> List Country -> Definitions -> Food.Db -> Query -> Result String ( Recipe, Results )
-compute distances countries definitions db =
+compute : Db -> Query -> Result String ( Recipe, Results )
+compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
-    fromQuery countries db
+    fromQuery db
         >> Result.map
             (\({ ingredients, transform, packaging, distribution, preparation } as recipe) ->
                 let
@@ -148,7 +149,7 @@ compute distances countries definitions db =
                     ingredientsTransport =
                         ingredients
                             -- FIXME pass the wellknown to computeIngredientTransport
-                            |> List.map (computeIngredientTransport distances db)
+                            |> List.map (computeIngredientTransport db)
                             |> Transport.sum
 
                     transformImpacts =
@@ -164,7 +165,7 @@ compute distances countries definitions db =
                                         volume =
                                             getTransformedIngredientsVolume recipe
                                     in
-                                    Retail.computeImpacts volume distrib db.wellKnown
+                                    Retail.computeImpacts volume distrib db.food.wellKnown
                                 )
                             |> Maybe.withDefault Impact.empty
 
@@ -185,7 +186,7 @@ compute distances countries definitions db =
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.empty)
                         in
-                        Transport.computeImpacts db mass transport
+                        Transport.computeImpacts db.food mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts
@@ -204,7 +205,7 @@ compute distances countries definitions db =
 
                     preparationImpacts =
                         preparation
-                            |> List.map (Preparation.apply db transformedIngredientsMass)
+                            |> List.map (Preparation.apply db.food transformedIngredientsMass)
                             |> (Impact.sumImpacts >> List.singleton >> Impact.sumImpacts)
 
                     preparedMass =
@@ -245,7 +246,7 @@ compute distances countries definitions db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> Scoring.compute definitions
+                            |> Scoring.compute db.definitions
                                 (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe
@@ -333,8 +334,8 @@ computeIngredientsTotalComplements =
         Impact.noComplementsImpacts
 
 
-computeIngredientTransport : Distances -> Food.Db -> RecipeIngredient -> Transport
-computeIngredientTransport distances db { ingredient, country, mass, planeTransport } =
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
             Impact.empty
@@ -354,7 +355,7 @@ computeIngredientTransport distances db { ingredient, country, mass, planeTransp
                     case country of
                         -- In case a custom country is provided, compute the distances to it from France
                         Just { code } ->
-                            distances
+                            db.distances
                                 |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                                 |> Formula.transportRatio planeRatio
 
@@ -405,7 +406,7 @@ computeIngredientTransport distances db { ingredient, country, mass, planeTransp
                 |> toTransformation
                 |> toLogistics
     in
-    Transport.computeImpacts db mass transport
+    Transport.computeImpacts db.food mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)
@@ -464,12 +465,12 @@ encodeScoring scoring =
         ]
 
 
-fromQuery : List Country -> Food.Db -> Query -> Result String Recipe
-fromQuery countries db query =
+fromQuery : Db -> Query -> Result String Recipe
+fromQuery db query =
     Ok Recipe
-        |> RE.andMap (ingredientListFromQuery countries db query)
-        |> RE.andMap (transformFromQuery db query)
-        |> RE.andMap (packagingListFromQuery db query)
+        |> RE.andMap (ingredientListFromQuery db query)
+        |> RE.andMap (transformFromQuery db.food query)
+        |> RE.andMap (packagingListFromQuery db.food query)
         |> RE.andMap (Ok query.distribution)
         |> RE.andMap (preparationListFromQuery query)
 
@@ -574,22 +575,22 @@ getRecipeIngredientProcess { ingredient } =
     ingredient.default
 
 
-ingredientListFromQuery : List Country -> Food.Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery countries db =
-    .ingredients >> RE.combineMap (ingredientFromQuery countries db)
+ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery db =
+    .ingredients >> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : List Country -> Food.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery countries db { id, mass, country, planeTransport } =
+ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery db { id, mass, country, planeTransport } =
     let
         ingredientResult =
-            Ingredient.findByID id db.ingredients
+            Ingredient.findByID id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap ingredientResult
         |> RE.andMap (Ok mass)
         |> RE.andMap
-            (case Maybe.map (\c -> Country.findByCode c countries) country of
+            (case Maybe.map (\c -> Country.findByCode c db.countries) country of
                 Just (Ok country_) ->
                     Ok (Just country_)
 

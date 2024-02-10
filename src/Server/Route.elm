@@ -12,6 +12,7 @@ import Data.Textile.Db as Textile
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
 import Server.Request exposing (Request)
+import Static.Db exposing (Db)
 import Url
 import Url.Parser as Parser exposing ((</>), (<?>), Parser, s)
 
@@ -86,8 +87,8 @@ parser foodDb textile countries =
         ]
 
 
-endpoint : List Country -> Food.Db -> Textile.Db -> Request -> Maybe Route
-endpoint countries food textile { method, url } =
+endpoint : Db -> Request -> Maybe Route
+endpoint { countries, food, textile } { method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.

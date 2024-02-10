@@ -11,6 +11,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Route
+import Static.Db exposing (Db)
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
 
@@ -37,8 +38,8 @@ type ActiveTab
     | ShareTab
 
 
-view : ManagerConfig msg -> Html msg
-view ({ activeTab, switchTab } as config) =
+view : Db -> ManagerConfig msg -> Html msg
+view db cfg =
     CardTabs.view
         { tabs =
             [ ( SaveTab, "Sauvegarder" )
@@ -47,17 +48,17 @@ view ({ activeTab, switchTab } as config) =
                 |> List.map
                     (\( tab, label ) ->
                         { label = label
-                        , onTabClick = switchTab tab
-                        , active = activeTab == tab
+                        , onTabClick = cfg.switchTab tab
+                        , active = cfg.activeTab == tab
                         }
                     )
         , content =
-            [ case activeTab of
+            [ case cfg.activeTab of
                 ShareTab ->
-                    shareTabView config
+                    shareTabView cfg
 
                 SaveTab ->
-                    managerView config
+                    managerView db cfg
             ]
         }
 
@@ -140,31 +141,31 @@ shareTabView { session, impact, copyToClipBoard, scope } =
         ]
 
 
-managerView : ManagerConfig msg -> Html msg
-managerView ({ session, bookmarkName, scope } as config) =
+managerView : Db -> ManagerConfig msg -> Html msg
+managerView db cfg =
     let
         bookmarks =
-            scopedBookmarks session scope
+            scopedBookmarks cfg.session cfg.scope
 
         ( queryExists, nameExists ) =
             ( bookmarks
                 |> List.map .query
-                |> List.member (queryFromScope session scope)
+                |> List.member (queryFromScope cfg.session cfg.scope)
             , bookmarks
                 |> List.map .name
-                |> List.member bookmarkName
+                |> List.member cfg.bookmarkName
             )
     in
     div []
         [ div [ class "card-body pb-2" ]
-            [ Html.form [ onSubmit config.save ]
+            [ Html.form [ onSubmit cfg.save ]
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "text"
                         , class "form-control"
-                        , onInput config.update
+                        , onInput cfg.update
                         , placeholder "Nom de la simulation"
-                        , value bookmarkName
+                        , value cfg.bookmarkName
                         , required True
                         , pattern "^(?!\\s*$).+"
                         , readonly queryExists
@@ -190,15 +191,15 @@ managerView ({ session, bookmarkName, scope } as config) =
                     text "Donnez un nom à cette simulation pour la retrouver plus tard"
                 ]
             ]
-        , bookmarksView config
+        , bookmarksView db cfg
         ]
 
 
-bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView ({ session, compare, scope } as config) =
+bookmarksView : Db -> ManagerConfig msg -> Html msg
+bookmarksView db cfg =
     let
         bookmarks =
-            scopedBookmarks session scope
+            scopedBookmarks cfg.session cfg.scope
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
@@ -207,42 +208,37 @@ bookmarksView ({ session, compare, scope } as config) =
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer vos simulations sauvegardées"
                 , disabled (List.isEmpty bookmarks)
-                , onClick compare
+                , onClick cfg.compare
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Comparer"
                 ]
             ]
-        , if List.length bookmarks == 0 then
-            div [ class "card-body form-text fs-7 pt-2" ]
-                [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
-
-          else
-            bookmarks
-                |> Bookmark.sort
-                |> List.map (bookmarkView config)
-                |> ul
-                    [ class "list-group list-group-flush rounded-bottom overflow-auto"
-                    , style "max-height" "50vh"
-                    ]
+        , bookmarks
+            |> Bookmark.sort
+            |> List.map (bookmarkView db cfg)
+            |> ul
+                [ class "list-group list-group-flush rounded-bottom overflow-auto"
+                , style "max-height" "50vh"
+                ]
         ]
 
 
-bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView { session, impact, delete, scope } ({ name, query } as bookmark) =
+bookmarkView : Db -> ManagerConfig msg -> Bookmark -> Html msg
+bookmarkView db cfg ({ name, query } as bookmark) =
     let
         currentQuery =
-            queryFromScope session scope
+            queryFromScope cfg.session cfg.scope
 
         bookmarkRoute =
             case query of
                 Bookmark.Food foodQuery ->
                     Just foodQuery
-                        |> Route.FoodBuilder impact.trigram
+                        |> Route.FoodBuilder cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
-                        |> Route.TextileSimulator impact.trigram
+                        |> Route.TextileSimulator cfg.impact.trigram
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
@@ -252,11 +248,11 @@ bookmarkView { session, impact, delete, scope } ({ name, query } as bookmark) =
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
-                |> Bookmark.toQueryDescription session.countries { food = session.food, textile = session.textile }
+                |> Bookmark.toQueryDescription db
                 |> title
             , bookmarkRoute
                 |> Route.toString
-                |> (++) session.clientUrl
+                |> (++) cfg.session.clientUrl
                 |> href
             ]
             [ text name ]
@@ -265,7 +261,7 @@ bookmarkView { session, impact, delete, scope } ({ name, query } as bookmark) =
             , class "btn btn-sm btn-danger"
             , title "Supprimer"
             , attribute "aria-label" "Supprimer"
-            , onClick (delete bookmark)
+            , onClick (cfg.delete bookmark)
             ]
             [ Icon.trash ]
         ]

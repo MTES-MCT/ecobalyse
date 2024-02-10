@@ -8,6 +8,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
+import Static.Db exposing (Db)
 import Views.Bookmark as BookmarkView
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
@@ -42,14 +43,14 @@ type alias Config msg =
     }
 
 
-view : Config msg -> Html msg
-view config =
+view : Db -> Config msg -> Html msg
+view db config =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
         [ ImpactView.selector
-            config.session.definitions
+            db.definitions
             { selectedImpact = config.selectedImpact.trigram
             , switchImpact = config.switchImpact
             }
@@ -60,8 +61,8 @@ view config =
             , mass = config.productMass
             }
         , config.impactTabsConfig
-            |> ImpactTabs.view config.session.definitions
-        , BookmarkView.view
+            |> ImpactTabs.view db.definitions
+        , BookmarkView.view db
             { session = config.session
             , activeTab = config.activeBookmarkTab
             , bookmarkName = config.bookmarkName

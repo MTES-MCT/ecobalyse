@@ -4,7 +4,6 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Country exposing (Country)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -18,13 +17,13 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Result.Extra as RE
 import Set
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Container as Container
 
 
 type alias Config msg =
     { comparisonType : ComparisonType
-    , countries : List Country
     , impact : Definition
     , switchComparisonType : ComparisonType -> msg
     , session : Session
@@ -47,20 +46,20 @@ type alias ChartsData =
     }
 
 
-view : Config msg -> Html msg
-view config =
+view : Db -> Config msg -> Html msg
+view db config =
     Container.fluid []
         [ div [ class "row" ]
-            [ sidebarView config
+            [ sidebarView db config
                 |> div [ class "col-lg-4 border-end fs-7 p-0" ]
-            , comparatorView config
+            , comparatorView db config
                 |> div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
             ]
         ]
 
 
-sidebarView : Config msg -> List (Html msg)
-sidebarView { countries, session, toggle } =
+sidebarView : Db -> Config msg -> List (Html msg)
+sidebarView db { session, toggle } =
     [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
         [ text "Sélectionnez jusqu'à "
         , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
@@ -72,9 +71,7 @@ sidebarView { countries, session, toggle } =
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription
-                                countries
-                                { food = session.food, textile = session.textile }
+                            |> Bookmark.toQueryDescription db
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
@@ -109,12 +106,12 @@ sidebarView { countries, session, toggle } =
     ]
 
 
-addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
-addToComparison { countries, distances, definitions, food, textile } label query =
+addToComparison : Db -> String -> Bookmark.Query -> Result String ChartsData
+addToComparison db label query =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute distances countries definitions food
+                |> Recipe.compute db
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { label = label
@@ -128,7 +125,7 @@ addToComparison { countries, distances, definitions, food, textile } label query
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute distances countries textile
+                |> Simulator.compute db
                 |> Result.map
                     (\simulator ->
                         { label = label
@@ -142,15 +139,15 @@ addToComparison { countries, distances, definitions, food, textile } label query
                     )
 
 
-comparatorView : Config msg -> List (Html msg)
-comparatorView { session, comparisonType, switchComparisonType } =
+comparatorView : Db -> Config msg -> List (Html msg)
+comparatorView db config =
     let
         charts =
-            session.store.bookmarks
+            config.session.store.bookmarks
                 |> List.filterMap
                     (\bookmark ->
-                        if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
-                            Just (addToComparison session bookmark.name bookmark.query)
+                        if Set.member (Bookmark.toId bookmark) config.session.store.comparedSimulations then
+                            Just (addToComparison db bookmark.name bookmark.query)
 
                         else
                             Nothing
@@ -164,11 +161,11 @@ comparatorView { session, comparisonType, switchComparisonType } =
       ]
         |> List.map
             (\( label, toComparisonType ) ->
-                li [ class "TabsTab nav-item", classList [ ( "active", comparisonType == toComparisonType ) ] ]
+                li [ class "TabsTab nav-item", classList [ ( "active", config.comparisonType == toComparisonType ) ] ]
                     [ button
                         [ class "nav-link no-outline border-top-0 py-1"
-                        , classList [ ( "active", comparisonType == toComparisonType ) ]
-                        , onClick (switchComparisonType toComparisonType)
+                        , classList [ ( "active", config.comparisonType == toComparisonType ) ]
+                        , onClick (config.switchComparisonType toComparisonType)
                         ]
                         [ text label ]
                     ]
@@ -182,12 +179,12 @@ comparatorView { session, comparisonType, switchComparisonType } =
         Ok chartsData ->
             let
                 data =
-                    case comparisonType of
+                    case config.comparisonType of
                         IndividualImpacts ->
-                            dataForIndividualImpacts session.definitions chartsData
+                            dataForIndividualImpacts db.definitions chartsData
 
                         Subscores ->
-                            dataForSubscoresImpacts session.definitions chartsData
+                            dataForSubscoresImpacts db.definitions chartsData
 
                         Steps ->
                             dataForSteps chartsData
@@ -198,7 +195,7 @@ comparatorView { session, comparisonType, switchComparisonType } =
             div
                 [ class "h-100"
                 , class
-                    (case comparisonType of
+                    (case config.comparisonType of
                         IndividualImpacts ->
                             "individual-impacts"
 

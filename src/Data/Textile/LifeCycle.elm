@@ -15,31 +15,29 @@ module Data.Textile.LifeCycle exposing
     )
 
 import Array exposing (Array)
-import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Textile.Db as Textile
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Distances, Transport)
+import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Distances -> Textile.Db -> Inputs -> LifeCycle -> LifeCycle
-computeStepsTransport distances db inputs lifeCycle =
+computeStepsTransport : Db -> Inputs -> LifeCycle -> LifeCycle
+computeStepsTransport db inputs lifeCycle =
     lifeCycle
         |> Array.map
             (\step ->
                 if step.enabled then
                     step
                         |> Step.computeTransports db
-                            distances
                             inputs
                             (lifeCycle
                                 |> getNextEnabledStep step.label
@@ -120,13 +118,13 @@ getStepProp label prop default =
     getStep label >> Maybe.map prop >> Maybe.withDefault default
 
 
-fromQuery : List Country -> Textile.Db -> Inputs.Query -> Result String LifeCycle
-fromQuery countries db =
-    Inputs.fromQuery countries db >> Result.map (init db)
+fromQuery : Db -> Inputs.Query -> Result String LifeCycle
+fromQuery db =
+    Inputs.fromQuery db >> Result.map (init db)
 
 
-init : Textile.Db -> Inputs -> LifeCycle
-init db inputs =
+init : Db -> Inputs -> LifeCycle
+init { textile } inputs =
     Inputs.countryList inputs
         |> List.map2
             (\( label, editable ) country ->
@@ -146,7 +144,7 @@ init db inputs =
             , ( Label.Use, False )
             , ( Label.EndOfLife, False )
             ]
-        |> List.map (Step.updateFromInputs db inputs)
+        |> List.map (Step.updateFromInputs textile inputs)
         |> Array.fromList
 
 

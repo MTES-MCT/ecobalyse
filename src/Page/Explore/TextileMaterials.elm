@@ -1,6 +1,6 @@
 module Page.Explore.TextileMaterials exposing (table)
 
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Split as Split
@@ -11,6 +11,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
@@ -22,8 +23,8 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
-table : List Country -> { detailed : Bool, scope : Scope } -> Table Material String msg
-table countries { detailed, scope } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
+table db { detailed, scope } =
     { toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
     , rows =
@@ -79,13 +80,13 @@ table countries { detailed, scope } =
         , { label = "Pays de production et de filature par défaut"
           , toValue =
                 .defaultCountry
-                    >> (\maybeCountry -> Country.findByCode maybeCountry countries)
+                    >> (\maybeCountry -> Country.findByCode maybeCountry db.countries)
                     >> Result.map .name
                     >> Result.toMaybe
                     >> Maybe.withDefault "error"
           , toCell =
                 \material ->
-                    case Country.findByCode material.defaultCountry countries of
+                    case Country.findByCode material.defaultCountry db.countries of
                         Ok country ->
                             text country.name
 
