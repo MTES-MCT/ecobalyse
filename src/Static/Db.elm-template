@@ -1,4 +1,4 @@
-module Static.Db exposing (rdefinitions, rtextile, rfood, rcountries, rdistances, Db)
+module Static.Db exposing (Db, rdb)
 
 import Data.Common.Db as Common
 import Data.Country exposing (Country)
@@ -34,3 +34,6 @@ type alias Db =
     , countries: List Country
     , distances:Distances
     }
+
+rdb : Result String Db
+rdb = Result.map5 Db rdefinitions rtextile rfood rcountries rdistances

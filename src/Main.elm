@@ -19,7 +19,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db exposing (Db, rcountries, rdefinitions, rdistances, rfood, rtextile)
+import Static.Db exposing (Db, rdb)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -94,7 +94,7 @@ init flags url navKey =
             }
     in
     setRoute url <|
-        ( { db = Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
+        ( { db = rdb
           , page = LoadingPage
           , session = session
           , mobileNavigationOpened = False

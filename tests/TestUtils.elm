@@ -8,7 +8,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Unit as Unit
 import Expect exposing (Expectation)
-import Static.Db exposing (Db, rcountries, rdefinitions, rdistances, rfood, rtextile)
+import Static.Db exposing (Db, rdb)
 import Test exposing (..)
 
 
@@ -19,7 +19,7 @@ asTest label =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case Result.map5 Db rdefinitions rtextile rfood rcountries rdistances of
+    case rdb of
         Ok db ->
             describe name (suite db)
 

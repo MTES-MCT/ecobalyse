@@ -30,7 +30,7 @@ expectImpactEqual expectedImpactUnit =
 suite : Test
 suite =
     suiteWithDb "Data.Food.Recipe"
-        (\{ foodDb } ->
+        (\db ->
             [ let
                 testComputedComplements complements =
                     Recipe.computeIngredientComplementsImpacts complements (Mass.kilograms 2)
@@ -78,7 +78,7 @@ suite =
             , let
                 recipe =
                     carrotCake
-                        |> Recipe.fromQuery foodDb
+                        |> Recipe.fromQuery db
               in
               describe "fromQuery"
                 [ recipe
@@ -91,7 +91,7 @@ suite =
                             , mass = Mass.kilograms 0
                             }
                   }
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery db
                     |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
@@ -100,7 +100,7 @@ suite =
                         carrotCake.ingredients
                             |> List.map (\ingredient -> { ingredient | planeTransport = Ingredient.ByPlane })
                   }
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery db
                     |> Expect.err
                     |> asTest "should return an Err for an invalid 'planeTransport' value for an ingredient without a default origin by plane"
                 ]
@@ -109,7 +109,7 @@ suite =
                     (let
                         carrotCakeResults =
                             carrotCake
-                                |> Recipe.compute foodDb
+                                |> Recipe.compute db
                      in
                      [ carrotCakeResults
                         |> Result.map (Tuple.second >> .total)
@@ -201,7 +201,7 @@ suite =
                       let
                         withPreps preps =
                             { carrotCake | preparation = preps }
-                                |> Recipe.compute foodDb
+                                |> Recipe.compute db
                                 |> Result.map (Tuple.second >> .preparedMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
                       in
@@ -228,12 +228,12 @@ suite =
                   , distribution = Nothing
                   , preparation = []
                   }
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
                     |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
                     |> asTest "should compute recipe ingredients mass with no cooking involved"
                 , carrotCake
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
                     |> Expect.equal (Ok (Mass.kilograms 0.748104))
                     |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
@@ -241,12 +241,12 @@ suite =
             , let
                 carrotCakeWithPackaging =
                     carrotCake
-                        |> Recipe.compute foodDb
+                        |> Recipe.compute db
                         |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
 
                 carrotCakeWithNoPackaging =
                     { carrotCake | packaging = [] }
-                        |> Recipe.compute foodDb
+                        |> Recipe.compute db
                         |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
               in
               describe "getTransformedIngredientsMass"
@@ -269,7 +269,7 @@ suite =
                     recipe
                         |> .ingredients
                         |> List.head
-                        |> Maybe.map (Recipe.computeIngredientTransport foodDb)
+                        |> Maybe.map (Recipe.computeIngredientTransport db)
                         |> Maybe.map .air
                         |> Maybe.map Length.inKilometers
               in
@@ -286,7 +286,7 @@ suite =
                   , distribution = Nothing
                   , preparation = []
                   }
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 0))
                     |> asTest "should have no air transport for standard ingredients"
@@ -296,7 +296,7 @@ suite =
                   , distribution = Nothing
                   , preparation = []
                   }
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 18000))
                     |> asTest "should have air transport for mango from its default origin"
@@ -306,7 +306,7 @@ suite =
                   , distribution = Just Retail.ambient
                   , preparation = []
                   }
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 8189))
                     |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
@@ -316,7 +316,7 @@ suite =
                   , distribution = Just Retail.ambient
                   , preparation = []
                   }
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute db
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 0))
                     |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"

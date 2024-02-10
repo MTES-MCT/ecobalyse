@@ -24,7 +24,7 @@ import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, rcountries, rdefinitions, rdistances, rfood, rtextile)
+import Static.Db exposing (Db, rdb)
 
 
 type Msg
@@ -317,7 +317,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case Result.map5 Db rdefinitions rtextile rfood rcountries rdistances of
+            case rdb of
                 Ok db ->
                     cmdRequest db request
 
