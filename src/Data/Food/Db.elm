@@ -1,6 +1,8 @@
 module Data.Food.Db exposing
     ( Db
     , buildFromJson
+    , updateIngredientsFromNewProcesses
+    , updateWellKnownFromNewProcesses
     )
 
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -35,3 +37,24 @@ buildFromJson definitions processesJson ingredientsJson =
                         )
             )
         |> Result.mapError Decode.errorToString
+
+
+updateIngredientsFromNewProcesses : List Process -> List Ingredient -> List Ingredient
+updateIngredientsFromNewProcesses processes =
+    List.map
+        (\ingredient ->
+            processes
+                |> Process.findByIdentifier (Process.codeFromString ingredient.default.id_)
+                |> Result.map (\default -> { ingredient | default = default })
+                |> Result.withDefault ingredient
+        )
+
+
+updateWellKnownFromNewProcesses : List Process -> Process.WellKnown -> Process.WellKnown
+updateWellKnownFromNewProcesses processes =
+    Process.mapWellKnown
+        (\({ id_ } as process) ->
+            processes
+                |> Process.findByIdentifier (Process.codeFromString id_)
+                |> Result.withDefault process
+        )
