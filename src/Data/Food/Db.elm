@@ -7,6 +7,7 @@ module Data.Food.Db exposing
 
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.WellKnown as WellKnown exposing (WellKnown)
 import Data.Impact.Definition exposing (Definitions)
 import Json.Decode as Decode
 import Json.Decode.Extra as DE
@@ -15,7 +16,7 @@ import Json.Decode.Extra as DE
 type alias Db =
     { processes : List Process
     , ingredients : List Ingredient
-    , wellKnown : Process.WellKnown
+    , wellKnown : WellKnown
     }
 
 
@@ -30,7 +31,7 @@ buildFromJson definitions processesJson ingredientsJson =
                         (Ingredient.decodeIngredients processes
                             |> Decode.andThen
                                 (\ingredients ->
-                                    Process.loadWellKnown processes
+                                    WellKnown.load processes
                                         |> Result.map (Db processes ingredients)
                                         |> DE.fromResult
                                 )
@@ -50,9 +51,9 @@ updateIngredientsFromNewProcesses processes =
         )
 
 
-updateWellKnownFromNewProcesses : List Process -> Process.WellKnown -> Process.WellKnown
+updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
 updateWellKnownFromNewProcesses processes =
-    Process.mapWellKnown
+    WellKnown.map
         (\({ id_ } as process) ->
             processes
                 |> Process.findByIdentifier (Process.codeFromString id_)
