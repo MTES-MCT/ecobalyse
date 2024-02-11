@@ -47,7 +47,7 @@ function buildTransportsJsonDb() {
   return serializeForElmTemplateString(getJson(`public/data/transports.json`));
 }
 
-const targetDbFile = "src/Static/Db.elm";
+const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   .replace("%impactsJson%", buildImpactsJsonDb())
@@ -58,7 +58,7 @@ const elmWithFixtures = elmTemplate
   .replace("%transportsJson%", buildTransportsJsonDb());
 
 const header =
-  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db` SCRIPT";
+  "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";
 
 try {
   fs.writeFileSync(targetDbFile, `${header}\n\n${elmWithFixtures}`);

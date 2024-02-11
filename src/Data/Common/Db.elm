@@ -6,7 +6,7 @@ module Data.Common.Db exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Textile.Db as Textile
+import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
 
@@ -17,7 +17,7 @@ impactsFromJson =
         >> Result.mapError Decode.errorToString
 
 
-countriesFromJson : Textile.Db -> String -> Result String (List Country)
+countriesFromJson : TextileDb.Db -> String -> Result String (List Country)
 countriesFromJson textile =
     Decode.decodeString (Country.decodeList textile.processes)
         >> Result.mapError Decode.errorToString

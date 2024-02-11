@@ -156,7 +156,7 @@ compute db query =
         --
         -- Final impacts
         --
-        |> next computeFinalImpacts
+        |> nextWithDb computeFinalImpacts
 
 
 initializeFinalMass : Simulator -> Simulator
@@ -630,8 +630,8 @@ computeTotalTransportImpacts simulator =
     }
 
 
-computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
+computeFinalImpacts : Db -> Simulator -> Simulator
+computeFinalImpacts { definitions } ({ inputs, lifeCycle } as simulator) =
     let
         materialOriginShares =
             Inputs.getMaterialsOriginShares inputs.materials
@@ -667,6 +667,7 @@ computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
+                |> Impact.updateAggregatedScores definitions
                 |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }

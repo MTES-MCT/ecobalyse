@@ -1,0 +1,31 @@
+module Static.Json exposing (countriesJson, foodIngredientsJson, foodProcessesJson, impactsJson, textileJson, transportsJson)
+
+
+impactsJson : String
+impactsJson =
+    """%impactsJson%"""
+
+
+textileJson : String
+textileJson =
+    """%textileJson%"""
+
+
+foodProcessesJson : String
+foodProcessesJson =
+    """%foodProcessesJson%"""
+
+
+foodIngredientsJson : String
+foodIngredientsJson =
+    """%foodIngredientsJson%"""
+
+
+countriesJson : String
+countriesJson =
+    """%countriesJson%"""
+
+
+transportsJson : String
+transportsJson =
+    """%transportsJson%"""

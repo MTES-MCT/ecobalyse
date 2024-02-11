@@ -5,17 +5,17 @@ module Data.Textile.Db exposing
 
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as TextileProcess
+import Data.Textile.Process as Process exposing (Process, WellKnown)
 import Data.Textile.Product as Product exposing (Product)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
 
 type alias Db =
-    { processes : List TextileProcess.Process
+    { processes : List Process
     , materials : List Material
     , products : List Product
-    , wellKnown : TextileProcess.WellKnown
+    , wellKnown : WellKnown
     }
 
 
@@ -27,7 +27,7 @@ buildFromJson definitions json =
 
 decode : Definitions -> Decoder Db
 decode definitions =
-    Decode.field "processes" (TextileProcess.decodeList definitions)
+    Decode.field "processes" (Process.decodeList definitions)
         |> Decode.andThen
             (\processes ->
                 Decode.map2 (Db processes)
@@ -35,7 +35,7 @@ decode definitions =
                     (Decode.field "products" (Product.decodeList processes))
                     |> Decode.andThen
                         (\partiallyLoaded ->
-                            TextileProcess.loadWellKnown processes
+                            Process.loadWellKnown processes
                                 |> Result.map partiallyLoaded
                                 |> DE.fromResult
                         )

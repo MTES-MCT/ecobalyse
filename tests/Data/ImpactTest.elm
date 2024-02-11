@@ -106,5 +106,27 @@ suite =
                     |> Expect.within (Expect.Absolute 0.01) 1
                     |> asTest "should be 1"
                 ]
+            , describe "setEcotoxWeighting"
+                [ db.definitions
+                    |> Impact.setEcotoxWeighting (Unit.ratio 0)
+                    |> Definition.get Definition.Acd
+                    |> (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat) >> Maybe.withDefault -99)
+                    |> Expect.within (Expect.Absolute 0.001) 0.067
+                    |> asTest "should update other weightings"
+                , db.definitions
+                    |> Impact.setEcotoxWeighting (Unit.ratio 0)
+                    |> Definition.toList
+                    |> List.filterMap (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat))
+                    |> List.sum
+                    |> Expect.within (Expect.Absolute 0.001) 1
+                    |> asTest "should sum all Ecs weightings to 100% when EtfC is set to 0"
+                , db.definitions
+                    |> Impact.setEcotoxWeighting (Unit.ratio 0.25)
+                    |> Definition.toList
+                    |> List.filterMap (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat))
+                    |> List.sum
+                    |> Expect.within (Expect.Absolute 0.001) 1
+                    |> asTest "should sum all Ecs weightings to 100% when EtfC is set to 25"
+                ]
             ]
         )

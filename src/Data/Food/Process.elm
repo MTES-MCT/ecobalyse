@@ -14,10 +14,11 @@ module Data.Food.Process exposing
     , getDisplayName
     , listByCategory
     , loadWellKnown
+    , mapWellKnown
     , nameToString
     )
 
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definitions)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -33,7 +34,7 @@ various other data like categories, code, unit...
 type alias Process =
     { name : ProcessName
     , displayName : Maybe String
-    , impacts : Impact.Impacts
+    , impacts : Impacts
     , unit : String
     , code : Identifier
     , category : Category
@@ -268,3 +269,16 @@ loadWellKnown processes =
         |> resolve "tap-water"
         |> resolve "low-voltage-electricity"
         |> resolve "domestic-gas-heat"
+
+
+mapWellKnown : (Process -> Process) -> WellKnown -> WellKnown
+mapWellKnown update wellKnown =
+    { lorryTransport = update wellKnown.lorryTransport
+    , boatTransport = update wellKnown.boatTransport
+    , planeTransport = update wellKnown.planeTransport
+    , lorryCoolingTransport = update wellKnown.lorryCoolingTransport
+    , boatCoolingTransport = update wellKnown.boatCoolingTransport
+    , water = update wellKnown.water
+    , lowVoltageElectricity = update wellKnown.lowVoltageElectricity
+    , domesticGasHeat = update wellKnown.domesticGasHeat
+    }

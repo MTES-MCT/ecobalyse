@@ -14,7 +14,6 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
-import Data.Food.Db as Food
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
@@ -30,6 +29,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -39,7 +39,7 @@ import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -63,7 +63,8 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { impact : Definition
+    { db : Db
+    , impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -110,6 +111,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -127,7 +129,8 @@ init db session trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault session.queries.food
     in
-    ( { impact = impact
+    ( { db = db
+      , impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName db session
       , bookmarkTab = BookmarkView.SaveTab
@@ -400,6 +403,14 @@ update db ({ queries } as session) msg model =
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery db (Query.updateDistribution newDistribution query)
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( { model | db = Db.updateEcotoxWeighting db ratio }, session, Cmd.none )
+                -- triggers recompute
+                |> updateQuery db query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
@@ -954,11 +965,11 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-packagingListView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
-            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
+            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.food.processes
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -991,7 +1002,7 @@ packagingListView db selectedImpact recipe results =
                     (\packaging ->
                         updateProcessFormView
                             { processes =
-                                db.processes
+                                db.food.processes
                                     |> Process.listByCategory Process.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .code)
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
@@ -1210,7 +1221,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1259,7 +1270,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db results.recipe.transformedMass
+                                    |> Preparation.apply db.food results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1370,6 +1381,9 @@ sidebarView db session model results =
         , productMass = results.preparedMass
         , totalImpacts = results.total
 
+        -- Ecotox weighting customization
+        , updateEcotoxWeighting = UpdateEcotoxWeighting
+
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
@@ -1395,16 +1409,16 @@ stepListView db session { impact, initialQuery } recipe results =
             (ingredientListView db impact recipe results)
         , transportToTransformationView impact results
         , div [ class "card shadow-sm" ]
-            (transformView db.food impact recipe results)
+            (transformView db impact recipe results)
         , transportToPackagingView recipe results
         , div [ class "card shadow-sm" ]
-            (packagingListView db.food impact recipe results)
+            (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
         , div [ class "card shadow-sm" ]
             (distributionView impact recipe results)
         , transportToConsumptionView recipe
         , div [ class "card shadow-sm" ]
-            (consumptionView db.food impact recipe results)
+            (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
         , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
             [ a [ Route.href Route.Home ]
@@ -1419,7 +1433,7 @@ stepListView db session { impact, initialQuery } recipe results =
         ]
 
 
-transformView : Food.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =
@@ -1451,7 +1465,7 @@ transformView db selectedImpact recipe results =
             Just transform ->
                 updateProcessFormView
                     { processes =
-                        db.processes
+                        db.food.processes
                             |> Process.listByCategory Process.Transform
                     , excluded = [ transform.process.code ]
                     , processQuery = { code = transform.process.code, mass = transform.mass }

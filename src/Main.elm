@@ -212,8 +212,8 @@ update msg model =
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
 
-                ( ApiMsg changelogMsg, ApiPage changelogModel ) ->
-                    Api.update session changelogMsg changelogModel
+                ( ApiMsg apiMsg, ApiPage apiModel ) ->
+                    Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->

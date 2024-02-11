@@ -46,7 +46,7 @@ import Mass
 import Platform.Cmd as Cmd
 import Ports
 import Route
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -65,7 +65,8 @@ import Views.Textile.Step as StepView
 
 
 type alias Model =
-    { simulator : Result String Simulator
+    { db : Db
+    , simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -113,6 +114,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -149,7 +151,8 @@ init db trigram maybeUrlQuery session =
             initialQuery
                 |> Simulator.compute db
     in
-    ( { simulator = simulator
+    ( { db = db
+      , simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName db session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -433,6 +436,14 @@ update db ({ queries, navKey } as session) msg model =
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery db { query | dyeingMedium = Just dyeingMedium }
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( { model | db = Db.updateEcotoxWeighting db ratio }, session, Cmd.none )
+                -- triggers recompute
+                |> updateQuery db query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
             ( model, session, Cmd.none )
@@ -836,7 +847,7 @@ traceabilityField traceability =
             ]
             []
         , label [ for "traceability", class "form-check-label text-truncate" ]
-            [ text "Traçabilité renforcée" ]
+            [ text "Traçabilité affichée" ]
         ]
 
 
@@ -1047,6 +1058,9 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
+
+                -- Ecotox weighting customization
+                , updateEcotoxWeighting = UpdateEcotoxWeighting
 
                 -- Impacts tabs
                 , impactTabsConfig =
