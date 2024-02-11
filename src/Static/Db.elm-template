@@ -11,7 +11,11 @@ rdefinitions : Result String Definitions
 rdefinitions = Common.impactsFromJson """%impactsJson%"""
 
 rtextile : Result String Textile.Db
-rtextile = Textile.buildFromJson """%textileJson%"""
+rtextile =
+    rdefinitions
+        |> Result.andThen
+            (\definitions ->
+                Textile.buildFromJson definitions """%textileJson%""")
 
 rfood : Result String Food.Db
 rfood =
