@@ -20,11 +20,11 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Energy
@@ -1174,7 +1174,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     Just { kind, ratio } ->
                         let
                             { printingToxicityProcess } =
-                                Process.getPrintingProcess kind db.textile.wellKnown
+                                WellKnown.getPrintingProcess kind db.textile.wellKnown
                         in
                         current.outputMass
                             |> Formula.materialPrintingToxicityImpacts

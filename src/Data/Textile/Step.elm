@@ -33,6 +33,7 @@ import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -199,7 +200,7 @@ computeTransports db inputs next ({ processInfo } as current) =
     }
 
 
-computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts : Impacts -> WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , roadCooled = Quantity.zero
@@ -267,7 +268,7 @@ computeTransportSummary step transport =
                 |> Formula.transportRatio Split.zero
 
 
-getRoadTransportProcess : Process.WellKnown -> Step -> Process
+getRoadTransportProcess : WellKnown -> Step -> Process
 getRoadTransportProcess wellKnown { label } =
     case label of
         Label.Making ->
@@ -351,7 +352,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                         , countryElec = Just country.electricityProcess.name
                         , dyeing =
                             wellKnown
-                                |> Process.getDyeingProcess
+                                |> WellKnown.getDyeingProcess
                                     (dyeingMedium
                                         |> Maybe.withDefault inputs.product.dyeing.defaultMedium
                                     )
@@ -361,7 +362,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                             printing
                                 |> Maybe.map
                                     (\{ kind } ->
-                                        Process.getPrintingProcess kind wellKnown |> .printingProcess |> .name
+                                        WellKnown.getPrintingProcess kind wellKnown |> .printingProcess |> .name
                                     )
                     }
             }

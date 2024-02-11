@@ -8,8 +8,9 @@ module Data.Textile.Db exposing
 
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process exposing (Process, WellKnown)
+import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
@@ -38,7 +39,7 @@ decode definitions =
                     (Decode.field "products" (Product.decodeList processes))
                     |> Decode.andThen
                         (\partiallyLoaded ->
-                            Process.loadWellKnown processes
+                            WellKnown.load processes
                                 |> Result.map partiallyLoaded
                                 |> DE.fromResult
                         )
@@ -47,7 +48,7 @@ decode definitions =
 
 updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
 updateWellKnownFromNewProcesses processes =
-    Process.mapWellKnown
+    WellKnown.map
         (\({ uuid } as process) ->
             processes
                 |> Process.findByUuid uuid

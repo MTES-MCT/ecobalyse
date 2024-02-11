@@ -20,10 +20,11 @@ import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
-import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -233,9 +234,9 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
             )
 
 
-getEnnoblingHeatProcess : Country -> Process.WellKnown -> Maybe HeatSource -> Process
+getEnnoblingHeatProcess : Country -> WellKnown -> Maybe HeatSource -> Process
 getEnnoblingHeatProcess country wellKnown =
-    Maybe.map (Process.getEnnoblingHeatProcess wellKnown country.zone)
+    Maybe.map (WellKnown.getEnnoblingHeatProcess wellKnown country.zone)
         >> Maybe.withDefault country.heatProcess
 
 
@@ -255,7 +256,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
 
                     dyeingProcess =
                         textile.wellKnown
-                            |> Process.getDyeingProcess productDefaultMedium
+                            |> WellKnown.getDyeingProcess productDefaultMedium
 
                     dyeingToxicity =
                         inputs.materials
@@ -299,7 +300,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                     Just { kind, ratio } ->
                         let
                             { printingProcess, printingToxicityProcess } =
-                                Process.getPrintingProcess kind textile.wellKnown
+                                WellKnown.getPrintingProcess kind textile.wellKnown
 
                             { heat, kwh, impacts } =
                                 step.outputMass

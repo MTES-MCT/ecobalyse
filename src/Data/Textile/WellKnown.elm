@@ -1,9 +1,10 @@
 module Data.Textile.WellKnown exposing
-    ( getDyeingProcess
+    ( WellKnown
+    , getDyeingProcess
     , getEnnoblingHeatProcess
     , getPrintingProcess
-    , loadWellKnown
-    , mapWellKnown
+    , load
+    , map
     )
 
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -104,10 +105,10 @@ getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, 
             { printingProcess = printingSubstantive, printingToxicityProcess = printingDyes }
 
 
-loadWellKnown : List Process -> Result String WellKnown
-loadWellKnown processes =
+load : List Process -> Result String WellKnown
+load processes =
     let
-        map =
+        mapping =
             { airTransport = "air-transport"
             , bleaching = "bleaching"
             , seaTransport = "sea-transport"
@@ -143,47 +144,47 @@ loadWellKnown processes =
             , weaving = "weaving"
             }
 
-        load get =
-            RE.andMap (Process.findByAlias (get map) processes)
+        find get =
+            RE.andMap (Process.findByAlias (get mapping) processes)
     in
     Ok WellKnown
-        |> load .airTransport
-        |> load .bleaching
-        |> load .seaTransport
-        |> load .roadTransportPreMaking
-        |> load .roadTransportPostMaking
-        |> load .distribution
-        |> load .dyeingYarn
-        |> load .dyeingFabric
-        |> load .dyeingArticle
-        |> load .dyeingSynthetic
-        |> load .dyeingCellulosic
-        |> load .knittingMix
-        |> load .knittingFullyFashioned
-        |> load .knittingSeamless
-        |> load .knittingCircular
-        |> load .knittingStraight
-        |> load .printingPigment
-        |> load .printingSubstantive
-        |> load .printingPaste
-        |> load .printingDyes
-        |> load .finishing
-        |> load .passengerCar
-        |> load .endOfLife
-        |> load .fading
-        |> load .steamGasRER
-        |> load .steamGasRSA
-        |> load .steamLightFuelRER
-        |> load .steamLightFuelRSA
-        |> load .steamHeavyFuelRER
-        |> load .steamHeavyFuelRSA
-        |> load .steamCoalRER
-        |> load .steamCoalRSA
-        |> load .weaving
+        |> find .airTransport
+        |> find .bleaching
+        |> find .seaTransport
+        |> find .roadTransportPreMaking
+        |> find .roadTransportPostMaking
+        |> find .distribution
+        |> find .dyeingYarn
+        |> find .dyeingFabric
+        |> find .dyeingArticle
+        |> find .dyeingSynthetic
+        |> find .dyeingCellulosic
+        |> find .knittingMix
+        |> find .knittingFullyFashioned
+        |> find .knittingSeamless
+        |> find .knittingCircular
+        |> find .knittingStraight
+        |> find .printingPigment
+        |> find .printingSubstantive
+        |> find .printingPaste
+        |> find .printingDyes
+        |> find .finishing
+        |> find .passengerCar
+        |> find .endOfLife
+        |> find .fading
+        |> find .steamGasRER
+        |> find .steamGasRSA
+        |> find .steamLightFuelRER
+        |> find .steamLightFuelRSA
+        |> find .steamHeavyFuelRER
+        |> find .steamHeavyFuelRSA
+        |> find .steamCoalRER
+        |> find .steamCoalRSA
+        |> find .weaving
 
 
-mapWellKnown : (Process -> Process) -> WellKnown -> WellKnown
-mapWellKnown update wellKnown =
+map : (Process -> Process) -> WellKnown -> WellKnown
+map update wellKnown =
     { airTransport = update wellKnown.airTransport
     , bleaching = update wellKnown.bleaching
     , seaTransport = update wellKnown.seaTransport
