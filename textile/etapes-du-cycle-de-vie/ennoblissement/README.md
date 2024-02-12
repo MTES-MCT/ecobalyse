@@ -1,15 +1,13 @@
 # 🌈 Etape 3 - Ennoblissement
 
-## Description
-
 L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
 
 L’étape d’ennoblissement se décompose en 3 sous-étapes :&#x20;
 
-* Pré-traitement = Traitement et nettoyage du tissu\
-  (les procédés de pré-traitement des fibres sont rattachés à la filature)&#x20;
-* Teinture et Impression = Application de colorants/pigments&#x20;
-* Finition = Application d’apprêts
+* Pré-traitement = Traitement et nettoyage des fibres,\
+  (ces derniers peuvent être réalisés sur fil, sur étoffe ou sur article)
+* Teinture et Impression = Application de colorants/pigments,
+* Finition = Application d’apprêts.
 
 Une description détaillée de ces sous-étapes est proposée en bas de page.
 
@@ -19,11 +17,10 @@ Une description détaillée de ces sous-étapes est proposée en bas de page.
 
 <details>
 
-<summary>Pré-traitement</summary>
+<summary>Pré-traitements</summary>
 
-Non applicable
-
-_En l’absence de donnée suffisamment précise dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
+* Nature des fibres (synthétique, naturelle d'origine animale, etc.),
+* Type d'étoffe (tissée vs tricotée).
 
 </details>
 
@@ -32,18 +29,10 @@ _En l’absence de donnée suffisamment précise dans la Base Impacts, l’étap
 <summary>Teinture / Impression</summary>
 
 * Pays (obligatoire)
-* Teinture (obligatoire)
-  * support : fil, tissu, article
-* Impression (optionnel)
-  * procédé : fixé-lavé, pigmentaire
-  * surface imprimée (%)\
-
-
-_Prochainement disponibles :_ \
-_=> Procédé de teinture (discontinu vs continu)_\
-_=> Type de fibre teinte (cellulosique, laine, polyester, etc.)_\
-_=> Colorants de teinture (dispersés, acides, réactifs, etc.)_\
-_=> Source de chaleur paramétrable (gaz naturel, fuel, etc.)_
+* Nature des fibres (synthétique, naturelle d'origine animale, etc.),
+* Impression (optionnel)\
+  Procédé : fixé-lavé, pigmentaire\
+  Surface imprimée (%)
 
 </details>
 
@@ -57,19 +46,9 @@ _=> Source de chaleur paramétrable (gaz naturel, fuel, etc.)_
 
 ### Méthodologie de calcul
 
-#### Etape 1 =  Modélisation des inventaires selon l'approche Base Impacts :&#x20;
+#### Etape 1 =  Modélisation des flux externes des procédés
 
-|                                                                                                                                             Teinture / Impression                                                                                                                                             |                                                                                                                                                            Finition                                                                                                                                                            |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|   <p><em>procédé de teinture</em></p><p><img src="https://lh5.googleusercontent.com/jqLuWcT2QKxQbN-RCWaoRzgUVpRxDJMb6QLzsbnhNG9xh7ksarvEbYH0lhw2GBkGVDYm6jaRa-iItg2GxagVaqbQKcfrZgcj45tM2Q-spgIw7BQd5F8xHE8Y66df6YS1FKgq8NS6ZbGJJuGyE3wrGIrqThW6BVuMiVN1ALSdvbNlIvGCb2iM9JSATg" alt="Procédés Teinture"></p>  | <p><em>procédé de finition</em></p><p><img src="https://lh6.googleusercontent.com/OMLBrxTzLifDKI8-yBAht3NcDsMbGZzbAQvti-D33Pp__vKa_b6bKWed8P7FqoH7ZqbbPTXu1SmpIfWUQZUurSI6u6sRLKbdNpBaFnUODDx_1RcuA_W6znyWPgQmJ1zXW-mADTxdeKX9PWBsuy0KisNRSMbaQABm5G4mY-rd-gE1PHtMKuObW0Ha4A" alt="Procédés Finition (apprêts chimiques)"></p> |
-| <p><em>prodédé d'impression</em></p><p><img src="https://lh6.googleusercontent.com/WFXgakkV04JekfM2Cn-vkgOLU2QJv7m96A_8SLg_DWYqx8ko7cblFcaNafhUgBvH4brkdVZ2lksYJbixn8Lx74VBwqObrmHx5iPT3sWc4Otg2jgHeRnAma71VWeuPN96VKC2ufIYsghG80M7eiWRxOZPDQ3GCFOVf3Df-s8cUSqo_NGYnqWsmYsrNQ" alt="Procédés Impression"></p> |                                                                                                                                                                                                                                                                                                                                |
-
-L'impact global de l'Ennoblissement se comprend donc comme résultant de la somme des impacts des :&#x20;
-
-* procédés retenus \
-  (cf. intérieur du _system boundaries_)
-* flux externes devant être ajoutés à chaque procédé \
-  ([chaleur](../../parametres-transverses/chaleur.md) et/ou [électricité](../../parametres-transverses/electricite.md))
+L'impact global de l''étape Ennoblissement se comprend comme résultant de la somme des impacts des procédés retenus.&#x20;
 
 L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../impacts-consideres.md)).
 
@@ -77,33 +56,45 @@ $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
 $$
 
+Le CoefImpactProcédé correspond à la somme des impacts des flux externes considérés :&#x20;
+
+* :zap:électricité (exprimé en kWh / kg),
+* :fire: chaleur (exprimé en MJ / kg),
+* :blue\_circle: eau (exprimé en m3 / kg).&#x20;
+
 Plus de détail sur la gestion des masses : [Pertes et rebut](../../parametres-transverses/pertes-et-rebus.md).
 
 #### Etape 2 =  Ajout des impacts Ecotox/Tox via la construction d'inventaires enrichis&#x20;
 
 Du fait de limites inhérentes à la Base Impacts (non prise en compte des indicateurs _Ecotoxicité Aquatique_, _Toxicité Humaine Cancérigène_, _Toxicité Humaine Non Cancérigène_) et à l'industrie Textile (absence de transparence/modélisation des substances chimiques utilisées lors des étapes d'ennoblissement), Ecobalyse propose des inventaires enrichis (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)). &#x20;
 
-### Procédés disponibles dans la Base Impacts
+### Procédés mobilisés&#x20;
 
 <details>
 
-<summary>Pré-traitement (0 procédé)</summary>
+<summary>Pré-traitement (3 procédés)</summary>
 
-Non applicable
+* Blanchiment (Bleaching)\
+  Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
 
-_En l’absence de donnée suffisamment précise dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
+<!---->
+
+* Dégraissage ou Débouillissage (Scouring)\
+  Consiste à éliminer les impuretés naturelles et graisses des fibres naturelles afin de rendre les fibres perméables au processus aval (blanchiment, teinture, etc.).&#x20;
+
+<!---->
+
+* Désencollage (Desizing)\
+  Consiste à apprêter les fibres avec des produits appropriés (amidon, agents mouillants et lubrifiants) avant l'étape de tissage, puis à les retirer après la réalisation du tissu.
 
 </details>
 
 <details>
 
-<summary>Teinture / Impression (5 procédés)</summary>
+<summary>Teinture (2 procédés)</summary>
 
-* teinture sur fil, procédé représentatif
-* teinture sur tissu, procédé représentatif
-* teinture sur article, procédé représentatif
-* impression pigmentaire, procédé représentatif
-* impression fixé-lavé, procédé représentatif
+* teinture en discontinue (pour les fibres synthétiques)
+* teinture en continue (pour les autres fibres)&#x20;
 
 </details>
 
@@ -111,46 +102,66 @@ _En l’absence de donnée suffisamment précise dans la Base Impacts, l’étap
 
 <summary>Finition (1 procédé par défaut)</summary>
 
-* apprêt chimique, procédé représentatif
+* Finition (apprêts chimiques, en continue)&#x20;
+
+</details>
+
+<details>
+
+<summary>Impression</summary>
+
+* Impression pigmentaire, procédé représentatif
+* Impression fixé-lavé, procédé représentatif
 
 </details>
 
 ### Hypothèses par défaut
 
-#### Support de teinture <=> Vêtement
+#### Procédé <=> Type de fibre (synthétique, naturelle origine animale, etc.)
 
-Un procédé de teinture est appliqué par défaut selon la catégorie du produit modélisé (jean, jupe, t-shirt, etc.).
+* Blanchiment (Bleaching)\
+  Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
+* Dégraissage/Débouillissage  (Scouring)\
+  Appliqué par défaut pour les matières naturelles.&#x20;
+* Désencollage (Desizing)\
+  Appliqué par défaut pour toutes les étoffes tissées.&#x20;
+* Teinture en discontinue (Batch dyeing)\
+  Appliqué par défaut pour les fibres synthétiques
+* Teinture en continue (Continuous dyeing)\
+  Appliqué par défaut pour les autres fibres&#x20;
 
-<table><thead><tr><th width="137" align="center">Support de teinture</th><th width="384" align="center">Catégorie</th><th align="center">Energie consommée par kg de produit</th></tr></thead><tbody><tr><td align="center">Fil</td><td align="center">jean</td><td align="center">électricité : 2,82 kWh<br>chaleur : 33,42 MJ</td></tr><tr><td align="center">Tissu</td><td align="center">cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste</td><td align="center">électricité : 1,99 kWh<br>chaleur : 25,87 MJ</td></tr><tr><td align="center">Article</td><td align="center"></td><td align="center">électricité : 2,56 kWh<br>chaleur : 39,28 MJ</td></tr></tbody></table>
+#### Consommations d'eau, d'énergie et de chaleur
 
-{% hint style="warning" %}
-Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas un paramètre maîtrisé par les industriels aujourd'hui.&#x20;
+<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,07</td><td>2,16</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,04</td><td>0,2</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,05</td><td>0,15</td><td>3,6</td></tr><tr><td>Teinture</td><td>Continue</td><td>0,1</td><td>0,3</td><td>7,2</td></tr><tr><td>Teinture</td><td>Discontinue (batch dyeing)</td><td>0,18</td><td>0,8</td><td>21,6</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,01</td><td>0,4</td><td>9</td></tr></tbody></table>
 
-Nous ne permettons donc pas de modifier la quantité d'énergie.
+{% hint style="info" %}
+Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1] (données moyennes)\*.\
+Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2018, 2018). \
+Ecobalyse a extrait des valeurs Min-Max-Average (cf. ci-dessous) sur la base des graphes de restitutions proposés dans la partie _3.6 Specific water and energy consumption_.&#x20;
 
-Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
+\
+\* Excepté le procédé _Finition - Par défaut_ qui est issu du procédé Base Impacts [_apprêt chimique anti-tâche, procédé représentatif_](#user-content-fn-2)[^2] _._ L'introduction d'un tel procédé permet d'estimer les consommations des apprêts chimiques car ces derniers (apprêt anti-tâche, anti-acarien, etc.) sont généralement appliqués lors d'un même bain.
 {% endhint %}
 
-#### Finition
+<div>
 
-Un procédé d'apprêt chimique ([_apprêt chimique anti-tâche, procédé représentatif_](#user-content-fn-1)[^1]) est appliqué par défaut à chaque produit modélisé : \
-Chaleur = 10,74 MJ / kg de vêtement\
-Electricité = 0,45 kWh / kg de vêtement
+<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-L'utilisateur n'a, à ce stade, pas la possibilité de préciser cette sous-étape pour plusieurs raisons mentionnées ci-dessous.&#x20;
+ 
 
-<details>
+<figure><img src="../../../.gitbook/assets/Consommation d&#x27;eau (m3 _ kg)  (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<summary>Plus d'info</summary>
+ 
 
-* la majorité des textiles font l'objet d'au moins un apprêt chimique lors de la sous-étape Finition,
-* les apprêts chimiques contribuent fortement à l'indicateur écotoxicité aquatique qui n'est actuellement pas pris en compte dans le calculateur (donc modéliser l'utilisation d'un ou plusieurs apprêts chimiques n'a actuellement aucun impact sur cet indicateur),
-* la consommation d'énergie reste relativement stable quel que soit le nombre d'apprêts chimiques utilisés (anti-tâche, anti-acarien, etc.) car ils sont généralement appliqués lors d'un même bain,
-* deux procédés d'apprêts mécaniques sont disponibles dans la Base Impacts mais ils s'appliquent uniquement à certaines fibres et ils consomment très peu d'énergie.
+<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
 
-Des évolutions sont prévues dans les prochains mois pour répondre à cette limite.&#x20;
+</div>
 
-</details>
+{% hint style="warning" %}
+Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas un paramètre maîtrisé par les industriels aujourd'hui. De plus, les premières estimations se basent généralement sur des consommations annuelles au niveau de l'usine ramenées à un produit sur la base de règles d'allocation grossières.&#x20;
+
+Nous ne permettons donc pas de modifier la quantité d'énergie afin d'assurer une comparabilité des résultats.
+{% endhint %}
 
 #### Source de production de vapeur &#x20;
 
@@ -164,14 +175,6 @@ Par défaut, un mix régional est appliqué selon le pays (cf. section [Chaleur]
 
 Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
 La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface d'étoffe entrante). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
-
-#### Fibre <=> Procédé de teinture (en cours)
-
-Il n’est pas encore possible de différencier les procédés de teinture (continu ou discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés selon la fibre teinte (cellulosique, laine, mix de fibres, etc.).
-
-Cela s’explique en partie par le manque de profondeur de la base de données utilisée (Base Impacts).
-
-Ces paramétrages seront prochainement disponibles sur le calculateur.
 
 #### Taux de perte (%)
 
@@ -234,4 +237,6 @@ Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimique
 
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
 
-[^1]: UUID = 63baddae-e05d-404b-a73f-371044a24fe9
+[^1]: Best Available Techniques (BAT) Reference Document for the Textiles Industry \_ Joint Research Center.
+
+[^2]: UUID = 63baddae-e05d-404b-a73f-371044a24fe9
