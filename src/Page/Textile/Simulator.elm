@@ -43,6 +43,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Api as Api
 import Platform.Cmd as Cmd
 import Ports
 import RemoteData exposing (WebData)
@@ -145,6 +146,9 @@ init trigram maybeUrlQuery session =
             -- Otherwise, fallback to use session query
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.textile
+
+        apiUrl =
+            Api.getApiServerUrl session
     in
     ( { simulatorData = RemoteData.Loading
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -169,7 +173,7 @@ init trigram maybeUrlQuery session =
             -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
             Just _ ->
                 Cmd.none
-        , Simulator.getCompute session initialQuery OnApiReceived
+        , Simulator.getCompute apiUrl session.textileDb initialQuery OnApiReceived
         ]
     )
 
@@ -189,11 +193,15 @@ findExistingBookmarkName { db, store } query =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
+    let
+        apiUrl =
+            Api.getApiServerUrl session
+    in
     ( model
     , session
     , Cmd.batch
         [ commands
-        , Simulator.getCompute session query OnApiReceived
+        , Simulator.getCompute apiUrl session.textileDb query OnApiReceived
         ]
     )
 
@@ -325,11 +333,7 @@ update ({ queries, navKey } as session) msg model =
         SaveBookmark ->
             ( model
             , session
-            , Time.now
-                |> Task.perform
-                    (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Textile query)
-                    )
+            , saveSimulatorCommand model
             )
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -544,6 +548,20 @@ update ({ queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+saveSimulatorCommand : Model -> Cmd Msg
+saveSimulatorCommand model =
+    case model.simulatorData of
+        RemoteData.Success simulator ->
+            Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Textile simulator)
+                    )
+
+        _ ->
+            Cmd.none
 
 
 toggleStepDetails : Int -> Maybe Int -> Maybe Int

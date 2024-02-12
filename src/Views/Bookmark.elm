@@ -140,6 +140,30 @@ shareTabView { session, impact, copyToClipBoard, scope } =
         ]
 
 
+bookmarkQueryExists : Session -> Scope -> List Bookmark -> Bool
+bookmarkQueryExists { queries } scope bookmarks =
+    case scope of
+        Scope.Food ->
+            bookmarks
+                |> List.map .query
+                |> List.member (Bookmark.Food queries.food)
+
+        Scope.Textile ->
+            bookmarks
+                |> List.map .query
+                |> List.filter
+                    (\bookmark ->
+                        case bookmark of
+                            Bookmark.Food _ ->
+                                False
+
+                            Bookmark.Textile query ->
+                                TextileInputs.toQuery query.inputs == queries.textile
+                    )
+                |> List.isEmpty
+                |> not
+
+
 managerView : ManagerConfig msg -> Html msg
 managerView cfg =
     let
@@ -147,9 +171,7 @@ managerView cfg =
             scopedBookmarks cfg.session cfg.scope
 
         ( queryExists, nameExists ) =
-            ( bookmarks
-                |> List.map .query
-                |> List.member (queryFromScope cfg.session cfg.scope)
+            ( bookmarkQueryExists cfg.session cfg.scope bookmarks
             , bookmarks
                 |> List.map .name
                 |> List.member cfg.bookmarkName
@@ -226,8 +248,16 @@ bookmarksView cfg =
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
 bookmarkView cfg ({ name, query } as bookmark) =
     let
-        currentQuery =
-            queryFromScope cfg.session cfg.scope
+        isCurrentQuery q =
+            case ( cfg.scope, q ) of
+                ( Scope.Textile, Bookmark.Textile textileQuery ) ->
+                    cfg.session.queries.textile == TextileInputs.toQuery textileQuery.inputs
+
+                ( Scope.Food, Bookmark.Food foodQuery ) ->
+                    cfg.session.queries.food == foodQuery
+
+                _ ->
+                    False
 
         bookmarkRoute =
             case query of
@@ -235,17 +265,20 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Textile textileQuery ->
-                    Just textileQuery
+                Bookmark.Textile simulator ->
+                    simulator
+                        |> .inputs
+                        |> TextileInputs.toQuery
+                        |> Just
                         |> Route.TextileSimulator cfg.impact.trigram
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
-        , classList [ ( "active", query == currentQuery ) ]
+        , classList [ ( "active", isCurrentQuery query ) ]
         ]
         [ a
             [ class "text-truncate"
-            , classList [ ( "active text-white", query == currentQuery ) ]
+            , classList [ ( "active text-white", isCurrentQuery query ) ]
             , bookmark
                 |> Bookmark.toQueryDescription cfg.session.db
                 |> title
@@ -264,16 +297,6 @@ bookmarkView cfg ({ name, query } as bookmark) =
             ]
             [ Icon.trash ]
         ]
-
-
-queryFromScope : Session -> Scope -> Bookmark.Query
-queryFromScope session scope =
-    case scope of
-        Scope.Food ->
-            Bookmark.Food session.queries.food
-
-        Scope.Textile ->
-            Bookmark.Textile session.queries.textile
 
 
 scopedBookmarks : Session -> Scope -> List Bookmark

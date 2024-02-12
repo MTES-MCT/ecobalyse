@@ -89,7 +89,7 @@ init flags url navKey =
                             { db = db
                             , clientUrl = flags.clientUrl
                             , navKey = navKey
-                            , store = Session.deserializeStore flags.rawStore
+                            , store = Session.deserializeStore db.textileDb flags.rawStore
                             , currentVersion = Request.Version.Unknown
                             , matomo = flags.matomo
                             , notifications = []
@@ -253,7 +253,7 @@ update rawMsg ({ state } as model) =
                 ( StoreChanged json, currentPage ) ->
                     ( { model
                         | state =
-                            currentPage |> Loaded { session | store = Session.deserializeStore json }
+                            currentPage |> Loaded { session | store = Session.deserializeStore session.textileDb json }
                       }
                     , Cmd.none
                     )

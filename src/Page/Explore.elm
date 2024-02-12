@@ -26,6 +26,7 @@ import Data.Textile.Simulator as TextileSimulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Api as Api
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
@@ -108,8 +109,11 @@ init scope dataset session =
                             let
                                 defaultQuery =
                                     TextileInputs.defaultQuery
+
+                                apiUrl =
+                                    Api.getApiServerUrl session
                             in
-                            TextileSimulator.getCompute session (TextileInputs.updateProduct product defaultQuery) (OnTextileApiReceived product)
+                            TextileSimulator.getCompute apiUrl session.textileDb (TextileInputs.updateProduct product defaultQuery) (OnTextileApiReceived product)
                         )
                     |> Cmd.batch
 

@@ -170,11 +170,11 @@ defaultStore =
     }
 
 
-decodeStore : Decoder Store
-decodeStore =
+decodeStore : Db -> Decoder Store
+decodeStore textileDb =
     Decode.succeed Store
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
+        |> JDP.optional "bookmarks" (Decode.list (Bookmark.decode textileDb)) []
 
 
 encodeStore : Store -> Encode.Value
@@ -185,9 +185,9 @@ encodeStore store =
         ]
 
 
-deserializeStore : String -> Store
-deserializeStore =
-    Decode.decodeString decodeStore
+deserializeStore : Db -> String -> Store
+deserializeStore textileDb =
+    Decode.decodeString (decodeStore textileDb)
         -- FIXME: this should return a `Result String Store` so we could inform
         -- users something went wrong while decoding their data (eg. so they can
         -- report the issue).

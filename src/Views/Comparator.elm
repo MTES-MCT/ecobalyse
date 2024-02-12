@@ -70,7 +70,8 @@ sidebarView { session, toggle } =
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription session.db
+                            |> Bookmark.toQueryDescription
+                                session.db
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
@@ -122,20 +123,16 @@ addToComparison session label query =
                         }
                     )
 
-        Bookmark.Textile textileQuery ->
-            textileQuery
-                |> Simulator.compute session.db
-                |> Result.map
-                    (\simulator ->
-                        { label = label
-                        , impacts = simulator.impacts
-                        , complementsImpact = simulator.complementsImpacts
-                        , stepsImpacts =
-                            simulator
-                                |> Simulator.toStepsImpacts Definition.Ecs
-                                |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)
-                        }
-                    )
+        Bookmark.Textile simulator ->
+            { label = label
+            , impacts = simulator.impacts
+            , complementsImpact = simulator.complementsImpacts
+            , stepsImpacts =
+                simulator
+                    |> Simulator.toStepsImpacts Definition.Ecs
+                    |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)
+            }
+                |> Ok
 
 
 comparatorView : Config msg -> List (Html msg)

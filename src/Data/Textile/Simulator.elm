@@ -1,6 +1,7 @@
 module Data.Textile.Simulator exposing
     ( Simulator
     , compute
+    , decode
     , encode
     , getCompute
     , stepMaterialImpacts
@@ -11,7 +12,6 @@ import Data.Country exposing (Country)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
-import Data.Session exposing (Session)
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
@@ -36,7 +36,6 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass
-import Page.Api as Api
 import Quantity
 import RemoteData exposing (WebData)
 import Static.Db exposing (Db)
@@ -177,16 +176,12 @@ compute db query =
         |> nextWithDb computeFinalImpacts
 
 
-getCompute : Session -> Inputs.Query -> (WebData Simulator -> msg) -> Cmd msg
-getCompute session query onApiReceived =
-    let
-        apiUrl =
-            Api.getApiServerUrl session
-    in
+getCompute : String -> Db -> Inputs.Query -> (WebData Simulator -> msg) -> Cmd msg
+getCompute apiUrl db query onApiReceived =
     Http.post
         { url = apiUrl ++ "/textile/simulator/detailed"
         , body = Http.jsonBody (Inputs.encodeQuery query)
-        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decode session.db)
+        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decode db)
         }
 
 
