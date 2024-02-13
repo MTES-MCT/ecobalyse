@@ -38,8 +38,8 @@ type alias Process =
     }
 
 
-type alias Alias =
-    String
+type Alias
+    = Alias String
 
 
 type Uuid
@@ -47,10 +47,10 @@ type Uuid
 
 
 findByAlias : Alias -> List Process -> Result String Process
-findByAlias alias =
+findByAlias ((Alias str) as alias) =
     List.filter (.alias >> (==) (Just alias))
         >> List.head
-        >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
+        >> Result.fromMaybe ("Procédé introuvable par alias: " ++ str)
 
 
 findByUuid : Uuid -> List Process -> Result String Process
@@ -96,7 +96,7 @@ decode definitions =
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" (Unit.decodeRatio { percentage = False })
-        |> Pipe.required "alias" (Decode.maybe Decode.string)
+        |> Pipe.required "alias" (Decode.maybe <| Decode.map Alias Decode.string)
 
 
 decodeList : Definitions -> Decoder (List Process)
