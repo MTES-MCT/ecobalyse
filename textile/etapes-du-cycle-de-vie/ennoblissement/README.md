@@ -15,6 +15,14 @@ Une description détaillée de ces sous-étapes est proposée en bas de page.
 
 ### Paramètres mobilisés
 
+Un paramètre transverse et plusieurs paramètres spécifiques aux 3 sous-étapes (pré-traitements, teinture/impression et finition) constituant l'étape Ennoblissement sont mobilisés :&#x20;
+
+**Paramètre transverse**&#x20;
+
+* **Pays** (origine) où ont lieu les étapes d'ennoblissement
+
+**Paramètres spécifiques**&#x20;
+
 <details>
 
 <summary>Pré-traitements</summary>
@@ -28,11 +36,11 @@ Une description détaillée de ces sous-étapes est proposée en bas de page.
 
 <summary>Teinture / Impression</summary>
 
-* Pays (obligatoire)
 * Nature des fibres (synthétique, naturelle d'origine animale, etc.),
-* Impression (optionnel)\
-  Procédé : fixé-lavé, pigmentaire\
-  Surface imprimée (%)
+* Présence de motifs imprimés (optionnel)\
+  Si oui :\
+  \- type de procédé (fixé-lavé ou pigmentaire)\
+  \- surface imprimée (%)
 
 </details>
 
@@ -40,15 +48,19 @@ Une description détaillée de ces sous-étapes est proposée en bas de page.
 
 <summary>Finition</summary>
 
-* Pays (obligatoire)
+Non applicable (un scénario par défaut applicable à tous les vêtements est proposé)
 
 </details>
+
+{% hint style="info" %}
+Pour rappel, des inventaires enrichis ont été construits et intégrés dans le référentiel afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors de l'étape Ennoblissement (cf. la section [Inventaires enrichis](inventaires-enrichis.md) pour plus de détails).&#x20;
+{% endhint %}
 
 ### Méthodologie de calcul
 
 #### Etape 1 =  Modélisation des flux externes des procédés
 
-L'impact global de l''étape Ennoblissement se comprend comme résultant de la somme des impacts des procédés retenus.&#x20;
+L'impact global de l''étape Ennoblissement se comprend comme la somme des impacts des procédés retenus pour chaque modélisation/vêtement.&#x20;
 
 L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../impacts-consideres.md)).
 
@@ -56,17 +68,23 @@ $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
 $$
 
-Le CoefImpactProcédé correspond à la somme des impacts des flux externes considérés :&#x20;
+Le CoefImpactProcédé correspond à la somme des impacts des flux externes mobilisés dans Ecobalyse :&#x20;
 
 * :zap:électricité (exprimé en kWh / kg),
 * :fire: chaleur (exprimé en MJ / kg),
 * :blue\_circle: eau (exprimé en m3 / kg).&#x20;
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](../../parametres-transverses/pertes-et-rebus.md).
+Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../parametres-transverses/pertes-et-rebus.md).
 
-#### Etape 2 =  Ajout des impacts Ecotox/Tox via la construction d'inventaires enrichis&#x20;
+#### Etape 2 =  Ajout des inventaires enrichis (impacts Ecotox/Tox)
 
-Du fait de limites inhérentes à la Base Impacts (non prise en compte des indicateurs _Ecotoxicité Aquatique_, _Toxicité Humaine Cancérigène_, _Toxicité Humaine Non Cancérigène_) et à l'industrie Textile (absence de transparence/modélisation des substances chimiques utilisées lors des étapes d'ennoblissement), Ecobalyse propose des inventaires enrichis (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)). &#x20;
+Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)).&#x20;
+
+{% hint style="info" %}
+La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile pour diverses raisons.
+
+Ecobalyse propose de premiers scénarios précis et transparents afin de permettre aux acteurs Textile (industriels, fabricants de colorants, etc.)  et scientifiques (écotoxicologues, experts ACV, etc.) de collaborer pour plus de transparence.&#x20;
+{% endhint %}
 
 ### Procédés mobilisés&#x20;
 
@@ -74,17 +92,11 @@ Du fait de limites inhérentes à la Base Impacts (non prise en compte des indic
 
 <summary>Pré-traitement (3 procédés)</summary>
 
-* Blanchiment (Bleaching)\
-  Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
-
-<!---->
-
-* Dégraissage ou Débouillissage (Scouring)\
+* Dégraissage ou Débouillissage (scouring)\
   Consiste à éliminer les impuretés naturelles et graisses des fibres naturelles afin de rendre les fibres perméables au processus aval (blanchiment, teinture, etc.).&#x20;
-
-<!---->
-
-* Désencollage (Desizing)\
+* Blanchiment (bleaching)\
+  Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
+* Désencollage (desizing)\
   Consiste à apprêter les fibres avec des produits appropriés (amidon, agents mouillants et lubrifiants) avant l'étape de tissage, puis à les retirer après la réalisation du tissu.
 
 </details>
@@ -93,8 +105,12 @@ Du fait de limites inhérentes à la Base Impacts (non prise en compte des indic
 
 <summary>Teinture (2 procédés)</summary>
 
-* teinture en discontinue (pour les fibres synthétiques)
-* teinture en continue (pour les autres fibres)&#x20;
+* teinture en discontinu (batch dyeing)\
+  Egalement appelée teinture par épuisement ce procédé consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires (bain de teinture) pendant une période allant de quelques minutes à quelques heures.
+* teinture en continu (continuous dyeing)\
+  Consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards) soit en utilisant d'autres systèmes d'application. Permet d'obtenir des hauts rendements.&#x20;
+
+Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus sur l'ennoblissement.
 
 </details>
 
@@ -110,50 +126,60 @@ Du fait de limites inhérentes à la Base Impacts (non prise en compte des indic
 
 <summary>Impression</summary>
 
-* Impression pigmentaire, procédé représentatif
-* Impression fixé-lavé, procédé représentatif
+* Impression pigmentaire,
+* Impression fixé-lavé.
 
 </details>
 
 ### Hypothèses par défaut
 
-#### Procédé <=> Type de fibre (synthétique, naturelle origine animale, etc.)
+#### Procédés de Pré-traitements <=> Type de fibres (synthétique, naturelle origine animale, etc.)
 
 * Blanchiment (Bleaching)\
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
 * Dégraissage/Débouillissage  (Scouring)\
   Appliqué par défaut pour les matières naturelles.&#x20;
+* Mercerisage (Mercerising)\
+  Appliqué par défaut pour le coton.
+* Lavage\
+  Appliqué par défaut pour les matières synthétiques.
 * Désencollage (Desizing)\
   Appliqué par défaut pour toutes les étoffes tissées.&#x20;
+
+**Procédés de Teinture / Impression <=> Type de fibres (synthétique, naturelle origine animale, etc.)**
+
 * Teinture en discontinue (Batch dyeing)\
   Appliqué par défaut pour les fibres synthétiques
 * Teinture en continue (Continuous dyeing)\
   Appliqué par défaut pour les autres fibres&#x20;
+* Impression pigmentaire (optionnel = à ajouter par l'utilisateur)
+* Impression fixé-lavé (optionnel = à ajouter par l'utilisateur)
 
 #### Consommations d'eau, d'énergie et de chaleur
 
-<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,07</td><td>2,16</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,04</td><td>0,2</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,05</td><td>0,15</td><td>3,6</td></tr><tr><td>Teinture</td><td>Continue</td><td>0,1</td><td>0,3</td><td>7,2</td></tr><tr><td>Teinture</td><td>Discontinue (batch dyeing)</td><td>0,18</td><td>0,8</td><td>21,6</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,01</td><td>0,4</td><td>9</td></tr></tbody></table>
+<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,07</td><td>2,16</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,04</td><td>0,2</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,05</td><td>0,15</td><td>3,6</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,02</td><td>0,15</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,01</td><td>0,07</td><td>1,8</td></tr><tr><td>Teinture</td><td>Continue</td><td>0,1</td><td>0,3</td><td>7,2</td></tr><tr><td>Teinture</td><td>Discontinue (batch dyeing)</td><td>0,18</td><td>0,8</td><td>21,6</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>non applicable</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>non applicable</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,01</td><td>0,4</td><td>9</td></tr></tbody></table>
 
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1] (données moyennes)\*.\
-Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2018, 2018). \
-Ecobalyse a extrait des valeurs Min-Max-Average (cf. ci-dessous) sur la base des graphes de restitutions proposés dans la partie _3.6 Specific water and energy consumption_.&#x20;
+Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2018, 2018).&#x20;
 
-\
-\* Excepté le procédé _Finition - Par défaut_ qui est issu du procédé Base Impacts [_apprêt chimique anti-tâche, procédé représentatif_](#user-content-fn-2)[^2] _._ L'introduction d'un tel procédé permet d'estimer les consommations des apprêts chimiques car ces derniers (apprêt anti-tâche, anti-acarien, etc.) sont généralement appliqués lors d'un même bain.
+Ecobalyse a extrait des valeurs Min-Max-Average (cf. ci-dessous) sur la base des graphes de restitutions proposés dans la partie _3.6 Specific water and energy consumption_. \
+
+
+&#x20;\* Les consommations d'énergie des deux procédés d'impression sont reprises des _procédés représentatifs_ de la Base Impacts  (ADEME).
 {% endhint %}
 
 <div>
 
-<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../../../.gitbook/assets/Consommation d&#x27;eau (m3 _ kg)  (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation d&#x27;eau (m3 _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (3).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -192,6 +218,22 @@ Aucune perte n'est appliquée lors de l'étape Ennoblissement.
 
 Les procédés de pré-traitement consistent à traiter et nettoyer le tissu, généralement en préparation de la teinture. Cependant, même si le tissu n’est pas teint, l’étape de pré-traitement est nécessaire pour le nettoyer. Plusieurs procédés peuvent être utilisés selon la matière traitée (lavage, désencollage, flambage, mercerisage, débouillissage, blanchiment, etc.). Le pré-traitement des fibres naturelles est en général plus complexe que celui des fibres synthétiques et artificielles.
 
+<details>
+
+<summary>En savoir plus sur les pré-traitements </summary>
+
+Mercerisage : Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
+
+Dégraissage / Débouillissage : Consiste à extraire les impuretés présentes sur la fibre (ex : pectines, graisses et cires, etc.).&#x20;
+
+Blanchiment : Consiste à éliminer les colorants naturels de la fibre pour la rentre plus blanche et hydrophyle.&#x20;
+
+Désencollage : Consiste à supprimer les produits d'encollage encore présents sur le tissu.&#x20;
+
+Lavage : Consiste à éliminer les agents de préparation présents sur le fil synthétique.&#x20;
+
+</details>
+
 ### Teinture / Impression
 
 Les procédés de teinture et impression consistent tous les deux à appliquer un colorant sur le tissu. Toutefois, le procédé d’impression, au lieu de colorer l'ensemble du support, se concentre sur des zones définies afin d'obtenir le motif désiré.
@@ -205,15 +247,35 @@ Les deux procédés sont basés sur une moyenne de trois techniques : impression
 
 <details>
 
-<summary>En savoir plus</summary>
+<summary>En savoir plus sur la teinture</summary>
 
 Concernant la **teinture**, deux principaux procédés sont utilisés dans l’industrie : la teinture en discontinu et la teinture en continu (et semi-continu).&#x20;
 
 La teinture en **discontinu** (également appelée teinture par épuisement) consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires pendant une période allant de quelques minutes à quelques heures. Un paramètre important en teinture en discontinu est le rapport de bain (MLR = Mass to Liquor Ratio). Il s'agit du rapport de poids entre la matière sèche totale et la solution totale. Ainsi, par exemple, un rapport de bain de 1:10 signifie 10 litres d'eau pour 1 kg de matière textile.&#x20;
 
-La teinture en **continu** consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards), soit en utilisant d'autres systèmes d'application. Dans ces procédés, le facteur dont il faut tenir compte est le taux d’emport ou taux d’exprimage (masse en grammes de solution absorbée pour 100 grammes d'étoffe sèche) et la concentration du colorant.
+La teinture en **continu** consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards), soit en utilisant d'autres systèmes d'application. Cette technique permet d'obtenir des hauts rendements. Dans ces procédés, le facteur dont il faut tenir compte est le taux d’emport ou taux d’exprimage (masse en grammes de solution absorbée pour 100 grammes d'étoffe sèche) et la concentration du colorant.
 
 Les procédés de teinture en discontinu conduisent en général à des consommations d'eau et d'énergie plus élevées que les procédés continus. Cependant, bien que les procédés de teinture en continu consomment moins d'eau, ces derniers nécessitent une concentration plus élevée de colorant dans le bain d’imprégnation. (entre 10 et 100g/L vs entre 0,1 et 1g/L pour les procédés en discontinu). Ainsi, le rejet de cet effluent concentré peut entraîner une charge de pollution plus élevée qu’en teinture en discontinu.
+
+**Colorants utilisés**
+
+Différents colorants sont utilisés selon la nature des fibres à teindre :&#x20;
+
+Fibres cellulosiques => réactifs / directs / de cuve / souffre
+
+Laine et soie => acides / chrome / métallièfres
+
+Fibres synthétiques => dispersés / acides
+
+
+
+Les fibres mélangées peuvent être teintres en une seule étape dans le même bain lorsque les colorants sont compatibles (ou en deux bains/phases successives si nécessaire).&#x20;
+
+</details>
+
+<details>
+
+<summary>En savoir plus sur l'impression</summary>
 
 **L’impression** consiste systématiquement à préparer la pâte d’impression, appliquer la pâte au support en utilisant différentes techniques, fixer les colorants sur l’étoffe puis traiter/laver/sécher l’étoffe.&#x20;
 
@@ -238,5 +300,3 @@ Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimique
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
 
 [^1]: Best Available Techniques (BAT) Reference Document for the Textiles Industry \_ Joint Research Center.
-
-[^2]: UUID = 63baddae-e05d-404b-a73f-371044a24fe9
