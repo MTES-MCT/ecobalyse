@@ -232,15 +232,6 @@ computeTransportSummary step transport =
             )
     in
     case step.label of
-        Label.Ennobling ->
-            transport
-                -- Note: no air transport ratio at the Dyeing step
-                |> Formula.transportRatio Split.zero
-                -- Added intermediary inland transport distances to materialize
-                -- "processing" + "dyeing" steps (see Excel)
-                -- Also ensure we don't add unnecessary air transport
-                |> Transport.add { defaultInland | air = Quantity.zero }
-
         Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
