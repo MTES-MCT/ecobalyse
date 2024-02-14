@@ -90,7 +90,7 @@ Ecobalyse propose de premiers scénarios précis et transparents afin de permett
 
 <details>
 
-<summary>Pré-traitement (3 procédés)</summary>
+<summary>Pré-traitement (5 procédés)</summary>
 
 * Dégraissage ou Débouillissage (scouring)\
   Consiste à éliminer les impuretés naturelles et graisses des fibres naturelles afin de rendre les fibres perméables au processus aval (blanchiment, teinture, etc.).&#x20;
@@ -98,6 +98,10 @@ Ecobalyse propose de premiers scénarios précis et transparents afin de permett
   Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
 * Désencollage (desizing)\
   Consiste à apprêter les fibres avec des produits appropriés (amidon, agents mouillants et lubrifiants) avant l'étape de tissage, puis à les retirer après la réalisation du tissu.
+* Mercerisage (mercerising)\
+  Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
+* Lavage (washing)\
+  Consiste à éliminer les agents de préparation présentes sur le fil synthétique.&#x20;
 
 </details>
 
@@ -135,15 +139,15 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 
 #### Procédés de Pré-traitements <=> Type de fibres (synthétique, naturelle origine animale, etc.)
 
-* Blanchiment (Bleaching)\
+* Blanchiment (bleaching)\
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
-* Dégraissage/Débouillissage  (Scouring)\
+* Dégraissage/Débouillissage  (scouring)\
   Appliqué par défaut pour les matières naturelles.&#x20;
-* Mercerisage (Mercerising)\
+* Mercerisage (mercerising)\
   Appliqué par défaut pour le coton.
-* Lavage\
+* Lavage (washing)\
   Appliqué par défaut pour les matières synthétiques.
-* Désencollage (Desizing)\
+* Désencollage (desizing)\
   Appliqué par défaut pour toutes les étoffes tissées.&#x20;
 
 **Procédés de Teinture / Impression <=> Type de fibres (synthétique, naturelle origine animale, etc.)**
