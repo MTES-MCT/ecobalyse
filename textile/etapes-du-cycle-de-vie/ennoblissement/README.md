@@ -183,7 +183,7 @@ Ecobalyse a extrait des valeurs Min-Max-Average (cf. ci-dessous) sur la base des
 
  
 
-<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (4).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
