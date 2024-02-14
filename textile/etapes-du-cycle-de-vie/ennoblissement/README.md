@@ -165,7 +165,7 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1]\*.&#x20;
 
-Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2018, 2018).&#x20;
+Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2017, 2018).&#x20;
 
 Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
 1\) Extraction manuelle des valeurs Min-Max-Average (cf. graphes ci-dessous / Partie _3.6 Specific water and energy consumption)._\
@@ -177,11 +177,11 @@ Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
 
 <div>
 
-<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (5).png" alt=""><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (3).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
