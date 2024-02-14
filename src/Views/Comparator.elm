@@ -17,7 +17,6 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Result.Extra as RE
 import Set
-import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Container as Container
 
@@ -46,20 +45,20 @@ type alias ChartsData =
     }
 
 
-view : Db -> Config msg -> Html msg
-view db config =
+view : Config msg -> Html msg
+view config =
     Container.fluid []
         [ div [ class "row" ]
-            [ sidebarView db config
+            [ sidebarView config
                 |> div [ class "col-lg-4 border-end fs-7 p-0" ]
-            , comparatorView db config
+            , comparatorView config
                 |> div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
             ]
         ]
 
 
-sidebarView : Db -> Config msg -> List (Html msg)
-sidebarView db { session, toggle } =
+sidebarView : Config msg -> List (Html msg)
+sidebarView { session, toggle } =
     [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
         [ text "Sélectionnez jusqu'à "
         , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
@@ -71,7 +70,7 @@ sidebarView db { session, toggle } =
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription db
+                            |> Bookmark.toQueryDescription session.db
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
@@ -106,12 +105,12 @@ sidebarView db { session, toggle } =
     ]
 
 
-addToComparison : Db -> String -> Bookmark.Query -> Result String ChartsData
-addToComparison db label query =
+addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
+addToComparison session label query =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute db
+                |> Recipe.compute session.db
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { label = label
@@ -125,7 +124,7 @@ addToComparison db label query =
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute db
+                |> Simulator.compute session.db
                 |> Result.map
                     (\simulator ->
                         { label = label
@@ -139,15 +138,15 @@ addToComparison db label query =
                     )
 
 
-comparatorView : Db -> Config msg -> List (Html msg)
-comparatorView db config =
+comparatorView : Config msg -> List (Html msg)
+comparatorView config =
     let
         charts =
             config.session.store.bookmarks
                 |> List.filterMap
                     (\bookmark ->
                         if Set.member (Bookmark.toId bookmark) config.session.store.comparedSimulations then
-                            Just (addToComparison db bookmark.name bookmark.query)
+                            Just (addToComparison config.session bookmark.name bookmark.query)
 
                         else
                             Nothing
@@ -181,10 +180,10 @@ comparatorView db config =
                 data =
                     case config.comparisonType of
                         IndividualImpacts ->
-                            dataForIndividualImpacts db.definitions chartsData
+                            dataForIndividualImpacts config.session.db.definitions chartsData
 
                         Subscores ->
-                            dataForSubscoresImpacts db.definitions chartsData
+                            dataForSubscoresImpacts config.session.db.definitions chartsData
 
                         Steps ->
                             dataForSteps chartsData

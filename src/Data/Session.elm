@@ -23,10 +23,12 @@ import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
+import Static.Db exposing (Db)
 
 
 type alias Session =
-    { navKey : Nav.Key
+    { db : Db
+    , navKey : Nav.Key
     , clientUrl : String
     , store : Store
     , currentVersion : Version

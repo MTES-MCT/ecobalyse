@@ -10,7 +10,7 @@ module Data.Textile.WellKnown exposing
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Printing as Printing
-import Data.Textile.Process as Process exposing (Process)
+import Data.Textile.Process as Process exposing (Alias(..), Process)
 import Data.Zone as Zone exposing (Zone)
 import Result.Extra as RE
 
@@ -145,7 +145,7 @@ load processes =
             }
 
         find get =
-            RE.andMap (Process.findByAlias (get mapping) processes)
+            RE.andMap (Process.findByAlias (Alias <| get mapping) processes)
     in
     Ok WellKnown
         |> find .airTransport

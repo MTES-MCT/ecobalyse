@@ -12,6 +12,20 @@ import Data.Unit as Unit
 import Static.Json exposing (countriesJson, foodIngredientsJson, foodProcessesJson, impactsJson, textileJson, transportsJson)
 
 
+type alias Db =
+    { definitions : Definitions
+    , textile : TextileDb.Db
+    , food : FoodDb.Db
+    , countries : List Country
+    , distances : Distances
+    }
+
+
+rdb : Result String Db
+rdb =
+    Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
+
+
 rdefinitions : Result String Definitions
 rdefinitions =
     Common.impactsFromJson impactsJson
@@ -45,29 +59,9 @@ rdistances =
     Common.transportsFromJson transportsJson
 
 
-type alias Db =
-    { definitions : Definitions
-    , textile : TextileDb.Db
-    , food : FoodDb.Db
-    , countries : List Country
-    , distances : Distances
-    }
-
-
-rdb : Result String Db
-rdb =
-    Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
-
-
 updateEcotoxWeighting : Db -> Unit.Ratio -> Db
 updateEcotoxWeighting db weighting =
-    let
-        definitions =
-            -- Note: food and textile db impact definitions are the same data
-            db.definitions
-                |> Impact.setEcotoxWeighting weighting
-    in
-    updateImpactDefinitions db definitions
+    updateImpactDefinitions db (Impact.setEcotoxWeighting weighting db.definitions)
 
 
 {-| Update database with new definitions and recompute processes aggregated impacts accordingly.

@@ -382,9 +382,12 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     ]
 
 
-explore : Db -> Model -> List (Html Msg)
-explore db { scope, dataset, tableState } =
+explore : Session -> Model -> List (Html Msg)
+explore session { scope, dataset, tableState } =
     let
+        db =
+            session.db
+
         defaultCustomizations =
             SortableTable.defaultCustomizations
 
@@ -421,8 +424,8 @@ explore db { scope, dataset, tableState } =
             textileProcessesExplorer db tableConfig tableState maybeId
 
 
-view : Db -> Model -> ( String, List (Html Msg) )
-view db model =
+view : Session -> Model -> ( String, List (Html Msg) )
+view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
@@ -432,7 +435,7 @@ view db model =
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
                     ]
                 ]
-            , explore db model
+            , explore session model
                 |> div [ class "mt-3" ]
             ]
       ]

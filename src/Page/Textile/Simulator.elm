@@ -65,8 +65,7 @@ import Views.Textile.Step as StepView
 
 
 type alias Model =
-    { db : Db
-    , simulator : Result String Simulator
+    { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -134,12 +133,11 @@ type Msg
 
 
 init :
-    Db
-    -> Definition.Trigram
+    Definition.Trigram
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init db trigram maybeUrlQuery session =
+init trigram maybeUrlQuery session =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -149,16 +147,15 @@ init db trigram maybeUrlQuery session =
 
         simulator =
             initialQuery
-                |> Simulator.compute db
+                |> Simulator.compute session.db
     in
-    ( { db = db
-      , simulator = simulator
-      , bookmarkName = initialQuery |> findExistingBookmarkName db session
+    ( { simulator = simulator
+      , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , initialQuery = initialQuery
       , detailedStep = Nothing
-      , impact = Definition.get trigram db.definitions
+      , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -184,8 +181,8 @@ init db trigram maybeUrlQuery session =
     )
 
 
-findExistingBookmarkName : Db -> Session -> Inputs.Query -> String
-findExistingBookmarkName db { store } query =
+findExistingBookmarkName : Session -> Inputs.Query -> String
+findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
         |> Maybe.map .name
@@ -197,27 +194,27 @@ findExistingBookmarkName db { store } query =
             )
 
 
-updateQuery : Db -> Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery db query ( model, session, commands ) =
+updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery query ( model, session, commands ) =
     ( { model
-        | simulator = query |> Simulator.compute db
-        , bookmarkName = query |> findExistingBookmarkName db session
+        | simulator = query |> Simulator.compute session.db
+        , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , commands
     )
 
 
-update : Db -> Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update db ({ queries, navKey } as session) msg model =
+update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
     in
     case msg of
         AddMaterial material ->
-            update db session (SetModal NoModal) model
-                |> updateQuery db (Inputs.addMaterial material query)
+            update session (SetModal NoModal) model
+                |> updateQuery (Inputs.addMaterial material query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -285,15 +282,15 @@ update db ({ queries, navKey } as session) msg model =
         OnAutocompleteSelect ->
             case model.modal of
                 AddMaterialModal maybeOldMaterial autocompleteState ->
-                    updateMaterial db query model session maybeOldMaterial autocompleteState
+                    updateMaterial query model session maybeOldMaterial autocompleteState
 
                 SelectExampleModal autocompleteState ->
                     ( model, session, Cmd.none )
-                        |> selectExample db autocompleteState
+                        |> selectExample autocompleteState
 
                 SelectProductModal autocompleteState ->
                     ( model, session, Cmd.none )
-                        |> selectProduct db autocompleteState
+                        |> selectProduct autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -306,11 +303,11 @@ update db ({ queries, navKey } as session) msg model =
 
         RemoveMaterial materialId ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Inputs.removeMaterial materialId query)
+                |> updateQuery (Inputs.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery db model.initialQuery
+                |> updateQuery model.initialQuery
 
         SaveBookmark ->
             ( model
@@ -405,11 +402,11 @@ update db ({ queries, navKey } as session) msg model =
 
         ToggleFading fading ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | fading = Just fading }
+                |> updateQuery { query | fading = Just fading }
 
         ToggleStep label ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Inputs.toggleStep label query)
+                |> updateQuery (Inputs.toggleStep label query)
 
         ToggleStepDetails index ->
             ( { model
@@ -421,37 +418,41 @@ update db ({ queries, navKey } as session) msg model =
 
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | airTransportRatio = airTransportRatio }
+                |> updateQuery { query | airTransportRatio = airTransportRatio }
 
         UpdateBookmarkName newName ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
         UpdateBusiness (Ok business) ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | business = Just business }
+                |> updateQuery { query | business = Just business }
 
         UpdateBusiness (Err error) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | dyeingMedium = Just dyeingMedium }
+                |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
         UpdateEcotoxWeighting (Just ratio) ->
-            ( { model | db = Db.updateEcotoxWeighting db ratio }, session, Cmd.none )
+            let
+                db =
+                    session.db
+            in
+            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
                 -- triggers recompute
-                |> updateQuery db query
+                |> updateQuery query
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
 
         UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
+                |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
         UpdateFabricProcess fabricProcess ->
             ( model, session, Cmd.none )
-                |> updateQuery db
+                |> updateQuery
                     { query
                         | fabricProcess = fabricProcess
                         , makingWaste =
@@ -472,64 +473,64 @@ update db ({ queries, navKey } as session) msg model =
 
         UpdateMakingComplexity makingComplexity ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | makingComplexity = Just makingComplexity }
+                |> updateQuery { query | makingComplexity = Just makingComplexity }
 
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | makingWaste = makingWaste }
+                |> updateQuery { query | makingWaste = makingWaste }
 
         UpdateMakingDeadStock makingDeadStock ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | makingDeadStock = makingDeadStock }
+                |> updateQuery { query | makingDeadStock = makingDeadStock }
 
         UpdateMarketingDuration marketingDuration ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | marketingDuration = marketingDuration }
+                |> updateQuery { query | marketingDuration = marketingDuration }
 
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
                     ( model, session, Cmd.none )
-                        |> updateQuery db { query | mass = mass }
+                        |> updateQuery { query | mass = mass }
 
                 Nothing ->
                     ( model, session, Cmd.none )
 
         UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Inputs.updateMaterial oldMaterial.id newMaterial query)
+                |> updateQuery (Inputs.updateMaterial oldMaterial.id newMaterial query)
 
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Inputs.updateMaterialSpinning material spinning query)
+                |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
 
         UpdateNumberOfReferences numberOfReferences ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | numberOfReferences = numberOfReferences }
+                |> updateQuery { query | numberOfReferences = numberOfReferences }
 
         UpdatePrice price ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | price = price }
+                |> updateQuery { query | price = price }
 
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | printing = printing }
+                |> updateQuery { query | printing = printing }
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Inputs.updateStepCountry label code query)
+                |> updateQuery (Inputs.updateStepCountry label code query)
 
         UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | surfaceMass = surfaceMass }
+                |> updateQuery { query | surfaceMass = surfaceMass }
 
         UpdateTraceability traceability ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | traceability = Just traceability }
+                |> updateQuery { query | traceability = Just traceability }
 
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
-                |> updateQuery db { query | yarnSize = yarnSize }
+                |> updateQuery { query | yarnSize = yarnSize }
 
 
 toggleStepDetails : Int -> Maybe Int -> Maybe Int
@@ -582,8 +583,8 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-updateExistingMaterial : Db -> Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
-updateExistingMaterial db query model session oldMaterial newMaterial =
+updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
+updateExistingMaterial query model session oldMaterial newMaterial =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -594,26 +595,26 @@ updateExistingMaterial db query model session oldMaterial newMaterial =
             }
     in
     model
-        |> update db session (SetModal NoModal)
-        |> updateQuery db (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+        |> update session (SetModal NoModal)
+        |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
         |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
-updateMaterial : Db -> Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
-updateMaterial db query model session maybeOldMaterial autocompleteState =
+updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
+updateMaterial query model session maybeOldMaterial autocompleteState =
     let
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
     in
     Maybe.map2
-        (updateExistingMaterial db query model session)
+        (updateExistingMaterial query model session)
         maybeOldMaterial
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
             (model
-                |> update db session (SetModal NoModal)
-                |> selectMaterial db autocompleteState
+                |> update session (SetModal NoModal)
+                |> selectMaterial autocompleteState
                 |> focusNode
                     (maybeSelectedValue
                         |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
@@ -634,19 +635,19 @@ focusNode node ( model, session, commands ) =
     )
 
 
-selectExample : Db -> Autocomplete Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectExample db autocompleteState ( model, session, _ ) =
+selectExample : Autocomplete Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Inputs.defaultQuery
     in
-    update db session (SetModal NoModal) { model | initialQuery = example }
-        |> updateQuery db example
+    update session (SetModal NoModal) { model | initialQuery = example }
+        |> updateQuery example
 
 
-selectProduct : Db -> Autocomplete Product.Id -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectProduct db autocompleteState ( model, session, _ ) =
+selectProduct : Autocomplete Product.Id -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProduct autocompleteState ( model, session, _ ) =
     let
         product =
             Autocomplete.selectedValue autocompleteState
@@ -658,12 +659,12 @@ selectProduct db autocompleteState ( model, session, _ ) =
         updatedQuery =
             { currentQuery | product = product }
     in
-    update db session (SetModal NoModal) model
-        |> updateQuery db updatedQuery
+    update session (SetModal NoModal) model
+        |> updateQuery updatedQuery
 
 
-selectMaterial : Db -> Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectMaterial db autocompleteState ( model, session, _ ) =
+selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectMaterial autocompleteState ( model, session, _ ) =
     let
         material =
             Autocomplete.selectedValue autocompleteState
@@ -675,7 +676,7 @@ selectMaterial db autocompleteState ( model, session, _ ) =
                 |> Maybe.map AddMaterial
                 |> Maybe.withDefault NoOp
     in
-    update db session msg model
+    update session msg model
 
 
 exampleProductField : Inputs.Query -> Html Msg
@@ -953,8 +954,8 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-simulatorView : Db -> Session -> Model -> Simulator -> Html Msg
-simulatorView db session model ({ inputs, impacts } as simulator) =
+simulatorView : Session -> Model -> Simulator -> Html Msg
+simulatorView session model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -976,7 +977,7 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
-                        [ productCategoryField db.textile (Inputs.toQuery inputs)
+                        [ productCategoryField session.db.textile (Inputs.toQuery inputs)
                         ]
                     , div [ class "col-md-6" ]
                         [ inputs.numberOfReferences
@@ -1024,7 +1025,7 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
                     ]
                 ]
             , div []
-                [ lifeCycleStepsView db model simulator
+                [ lifeCycleStepsView session.db model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                     [ a [ Route.href Route.Home ]
                         [ text "« Retour à l'accueil" ]
@@ -1038,7 +1039,7 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
                 ]
             ]
         , div [ class "col-lg-4 bg-white" ]
-            [ SidebarView.view db
+            [ SidebarView.view
                 { session = session
                 , scope = Scope.Textile
 
@@ -1066,7 +1067,7 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
-                        |> ImpactTabs.forTextile db.definitions simulator
+                        |> ImpactTabs.forTextile session.db.definitions simulator
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
@@ -1082,13 +1083,13 @@ simulatorView db session model ({ inputs, impacts } as simulator) =
         ]
 
 
-view : Db -> Session -> Model -> ( String, List (Html Msg) )
-view db session model =
+view : Session -> Model -> ( String, List (Html Msg) )
+view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
             (case model.simulator of
                 Ok simulator ->
-                    [ simulatorView db session model simulator
+                    [ simulatorView session model simulator
                     , case model.modal of
                         NoModal ->
                             text ""
@@ -1102,7 +1103,7 @@ view db session model =
                                 , subTitle = Just "en score d'impact, par produit"
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparatorView.view db
+                                    [ ComparatorView.view
                                         { session = session
                                         , impact = model.impact
                                         , comparisonType = model.comparisonType
@@ -1150,7 +1151,7 @@ view db session model =
                                 , title = "Sélectionnez une utilisation de produit"
                                 , toLabel =
                                     \productId ->
-                                        Product.findById productId db.textile.products
+                                        Product.findById productId session.db.textile.products
                                             |> Result.map .name
                                             |> Result.withDefault (Product.idToString productId)
                                 , toCategory = always ""

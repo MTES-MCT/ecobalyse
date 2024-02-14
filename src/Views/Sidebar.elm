@@ -10,7 +10,6 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass exposing (Mass)
-import Static.Db exposing (Db)
 import Views.Bookmark as BookmarkView
 import Views.Impact as ImpactView
 import Views.ImpactTabs as ImpactTabs
@@ -48,8 +47,12 @@ type alias Config msg =
     }
 
 
-view : Db -> Config msg -> Html msg
-view db config =
+view : Config msg -> Html msg
+view config =
+    let
+        db =
+            config.session.db
+    in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"

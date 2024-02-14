@@ -63,8 +63,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : Db
-    , impact : Definition
+    { impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -119,20 +118,19 @@ type Msg
     | UpdateDistribution String
 
 
-init : Db -> Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init db session trigram maybeQuery =
+init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init session trigram maybeQuery =
     let
         impact =
-            Definition.get trigram db.definitions
+            Definition.get trigram session.db.definitions
 
         query =
             maybeQuery
                 |> Maybe.withDefault session.queries.food
     in
-    ( { db = db
-      , impact = impact
+    ( { impact = impact
       , initialQuery = query
-      , bookmarkName = query |> findExistingBookmarkName db session
+      , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , modal = NoModal
@@ -148,8 +146,8 @@ init db session trigram maybeQuery =
     )
 
 
-update : Db -> Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update db ({ queries } as session) msg model =
+update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update ({ db, queries } as session) msg model =
     let
         query =
             queries.food
@@ -157,16 +155,13 @@ update db ({ queries } as session) msg model =
         maybeUpdateQuery : (a -> Query) -> Maybe a -> ( Model, Session, Cmd Msg )
         maybeUpdateQuery toQuery maybeThing =
             maybeThing
-                |> Maybe.map (\thing -> updateQuery db (toQuery thing) ( model, session, Cmd.none ))
+                |> Maybe.map (\thing -> updateQuery (toQuery thing) ( model, session, Cmd.none ))
                 |> Maybe.withDefault ( model, session, Cmd.none )
     in
     case msg of
         AddIngredient ingredient ->
-            update db session (SetModal NoModal) model
-                |> updateQuery db
-                    (query
-                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
-                    )
+            update session (SetModal NoModal) model
+                |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
             let
@@ -210,14 +205,13 @@ update db ({ queries } as session) msg model =
 
         AddDistribution ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.setDistribution Retail.ambient query)
+                |> updateQuery (Query.setDistribution Retail.ambient query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
         DeleteBookmark bookmark ->
-            updateQuery db
-                query
+            updateQuery query
                 ( model
                 , session |> Session.deleteBookmark bookmark
                 , Cmd.none
@@ -225,19 +219,19 @@ update db ({ queries } as session) msg model =
 
         DeleteIngredient ingredientId ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.deleteIngredient ingredientId query)
+                |> updateQuery (Query.deleteIngredient ingredientId query)
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Recipe.deletePackaging code query)
+                |> updateQuery (Recipe.deletePackaging code query)
 
         DeletePreparation id ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.deletePreparation id query)
+                |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            update db session (SetModal NoModal) { model | initialQuery = queryToLoad }
-                |> updateQuery db queryToLoad
+            update session (SetModal NoModal) { model | initialQuery = queryToLoad }
+                |> updateQuery queryToLoad
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -275,11 +269,11 @@ update db ({ queries } as session) msg model =
         OnAutocompleteSelect ->
             case model.modal of
                 AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
-                    updateIngredient db query model session maybeOldRecipeIngredient autocompleteState
+                    updateIngredient query model session maybeOldRecipeIngredient autocompleteState
 
                 SelectExampleModal autocompleteState ->
                     ( model, session, Cmd.none )
-                        |> selectExample db autocompleteState
+                        |> selectExample autocompleteState
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -298,15 +292,15 @@ update db ({ queries } as session) msg model =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery db model.initialQuery
+                |> updateQuery model.initialQuery
 
         ResetDistribution ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Recipe.resetDistribution query)
+                |> updateQuery (Recipe.resetDistribution query)
 
         ResetTransform ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Recipe.resetTransform query)
+                |> updateQuery (Recipe.resetTransform query)
 
         SaveBookmark ->
             ( model
@@ -402,36 +396,36 @@ update db ({ queries } as session) msg model =
 
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.updateDistribution newDistribution query)
+                |> updateQuery (Query.updateDistribution newDistribution query)
 
         UpdateEcotoxWeighting (Just ratio) ->
-            ( { model | db = Db.updateEcotoxWeighting db ratio }, session, Cmd.none )
+            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
                 -- triggers recompute
-                |> updateQuery db query
+                |> updateQuery query
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
 
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.updateIngredient oldIngredient.id newIngredient query)
+                |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.updatePackaging code newPackaging query)
+                |> updateQuery (Query.updatePackaging code newPackaging query)
 
         UpdatePreparation oldId newId ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.updatePreparation oldId newId query)
+                |> updateQuery (Query.updatePreparation oldId newId query)
 
         UpdateTransform newTransform ->
             ( model, session, Cmd.none )
-                |> updateQuery db (Query.updateTransform newTransform query)
+                |> updateQuery (Query.updateTransform newTransform query)
 
 
-updateQuery : Db -> Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery db query ( model, session, msg ) =
-    ( { model | bookmarkName = query |> findExistingBookmarkName db session }
+updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery query ( model, session, msg ) =
+    ( { model | bookmarkName = query |> findExistingBookmarkName session }
     , session |> Session.updateFoodQuery query
     , msg
     )
@@ -466,8 +460,8 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-updateExistingIngredient : Db -> Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
-updateExistingIngredient db query model session oldRecipeIngredient newIngredient =
+updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
     let
         ingredientQuery : Query.IngredientQuery
@@ -479,26 +473,26 @@ updateExistingIngredient db query model session oldRecipeIngredient newIngredien
             }
     in
     model
-        |> update db session (SetModal NoModal)
-        |> updateQuery db (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
+        |> update session (SetModal NoModal)
+        |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
         |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
-updateIngredient : Db -> Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
-updateIngredient db query model session maybeOldRecipeIngredient autocompleteState =
+updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
+updateIngredient query model session maybeOldRecipeIngredient autocompleteState =
     let
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
     in
     Maybe.map2
-        (updateExistingIngredient db query model session)
+        (updateExistingIngredient query model session)
         maybeOldRecipeIngredient
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new ingredient
             (model
-                |> update db session (SetModal NoModal)
-                |> selectIngredient db autocompleteState
+                |> update session (SetModal NoModal)
+                |> selectIngredient autocompleteState
                 |> focusNode
                     (maybeSelectedValue
                         |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
@@ -519,8 +513,8 @@ focusNode node ( model, session, commands ) =
     )
 
 
-findExistingBookmarkName : Db -> Session -> Query -> String
-findExistingBookmarkName db { store } query =
+findExistingBookmarkName : Session -> Query -> String
+findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
@@ -532,8 +526,8 @@ findExistingBookmarkName db { store } query =
             )
 
 
-selectExample : Db -> Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectExample db autocompleteState ( model, session, _ ) =
+selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
@@ -542,11 +536,11 @@ selectExample db autocompleteState ( model, session, _ ) =
         msg =
             LoadQuery example
     in
-    update db session msg model
+    update session msg model
 
 
-selectIngredient : Db -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectIngredient db autocompleteState ( model, session, _ ) =
+selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectIngredient autocompleteState ( model, session, _ ) =
     let
         ingredient =
             Autocomplete.selectedValue autocompleteState
@@ -558,7 +552,7 @@ selectIngredient db autocompleteState ( model, session, _ ) =
                 |> Maybe.map AddIngredient
                 |> Maybe.withDefault NoOp
     in
-    update db session msg model
+    update session msg model
 
 
 
@@ -1309,7 +1303,7 @@ mainView db session model =
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
                 Ok ( _, results ) ->
-                    sidebarView db session model results
+                    sidebarView session model results
 
                 Err error ->
                     errorView error
@@ -1366,9 +1360,9 @@ processSelectorView selectedCode event excluded processes =
         )
 
 
-sidebarView : Db -> Session -> Model -> Recipe.Results -> Html Msg
-sidebarView db session model results =
-    SidebarView.view db
+sidebarView : Session -> Model -> Recipe.Results -> Html Msg
+sidebarView session model results =
+    SidebarView.view
         { session = session
         , scope = Scope.Food
 
@@ -1484,11 +1478,11 @@ transformView db selectedImpact recipe results =
     ]
 
 
-view : Db -> Session -> Model -> ( String, List (Html Msg) )
-view db session model =
+view : Session -> Model -> ( String, List (Html Msg) )
+view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ mainView db session model
+            [ mainView session.db session model
             , case model.modal of
                 NoModal ->
                     text ""
@@ -1502,7 +1496,7 @@ view db session model =
                         , subTitle = Just "en score d'impact, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
                         , content =
-                            [ ComparatorView.view db
+                            [ ComparatorView.view
                                 { session = session
                                 , impact = model.impact
                                 , comparisonType = model.comparisonType

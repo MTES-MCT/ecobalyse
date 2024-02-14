@@ -1,5 +1,5 @@
 module Data.Textile.Process exposing
-    ( Alias
+    ( Alias(..)
     , Process
     , Uuid(..)
     , decodeFromUuid
