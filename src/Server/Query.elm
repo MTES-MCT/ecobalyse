@@ -68,15 +68,15 @@ succeed =
 parseFoodQuery : List Country -> Food.Db -> Parser (Result Errors BuilderQuery.Query)
 parseFoodQuery countries food =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" food countries)
+        |> apply (ingredientListParser "ingredients" countries food)
         |> apply (maybeTransformParser "transform" food.processes)
         |> apply (packagingListParser "packaging" food.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
 
 
-ingredientListParser : String -> Food.Db -> List Country -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key food countries =
+ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key countries food =
     Query.custom (key ++ "[]")
         (List.map (ingredientParser countries food)
             >> RE.combine
