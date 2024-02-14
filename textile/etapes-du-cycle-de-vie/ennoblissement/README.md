@@ -71,8 +71,7 @@ $$
 Le CoefImpactProcédé correspond à la somme des impacts des flux externes mobilisés dans Ecobalyse :&#x20;
 
 * :zap:électricité (exprimé en kWh / kg),
-* :fire: chaleur (exprimé en MJ / kg),
-* :blue\_circle: eau (exprimé en m3 / kg).&#x20;
+* :fire: chaleur (exprimé en MJ / kg).
 
 Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../parametres-transverses/pertes-et-rebus.md).
 
@@ -159,9 +158,9 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 * Impression pigmentaire (optionnel = à ajouter par l'utilisateur)
 * Impression fixé-lavé (optionnel = à ajouter par l'utilisateur)
 
-#### Consommations d'eau, d'énergie et de chaleur
+#### Consommations d'énergie (électricité et chaleur)
 
-<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,03</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,02</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,02</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,01</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,05</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>0,23</td><td>1,2</td><td>32,4</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>non applicable</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>non applicable</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,02</td><td>0,6</td><td>13,5</td></tr></tbody></table>
+<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>1,2</td><td>32,4</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,6</td><td>13,5</td></tr></tbody></table>
 
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1]\*.&#x20;
@@ -179,10 +178,6 @@ Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
 <div>
 
 <figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../../../.gitbook/assets/Consommation d&#x27;eau (m3 _ kg)  (2).png" alt=""><figcaption></figcaption></figure>
 
  
 
@@ -213,11 +208,7 @@ La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la 
 
 Aucune perte n'est appliquée lors de l'étape Ennoblissement.
 
-## Limites
 
-* Absence d'inventaires enrichis pour les principaux apprêts chimiques (procédés de finition) = sous-estimation des enjeux tox/ecotox
-* Indicateur "consommation d'eau" non modélisé&#x20;
-* Utilisation de scénarios moyen/average pour les inventaires enrichis => construction en cours de scénarios Best/Worst pour mieux différencier les pratiques
 
 ## En savoir plus sur l'ennoblissement
 
