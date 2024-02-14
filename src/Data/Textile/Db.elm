@@ -11,8 +11,8 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
+import Json.Decode as Decode exposing (Error(..))
+import Json.Encode as Encode
 
 
 type alias Db =
@@ -23,27 +23,19 @@ type alias Db =
     }
 
 
-buildFromJson : Definitions -> String -> Result String Db
-buildFromJson definitions json =
-    Decode.decodeString (decode definitions) json
-        |> Result.mapError Decode.errorToString
-
-
-decode : Definitions -> Decoder Db
-decode definitions =
-    Decode.field "processes" (Process.decodeList definitions)
-        |> Decode.andThen
+buildFromJson : Definitions -> String -> String -> String -> Result String Db
+buildFromJson definitions materialsJson processesJson productsJson =
+    Decode.decodeString (Process.decodeList definitions) processesJson
+        |> Result.andThen
             (\processes ->
-                Decode.map2 (Db processes)
-                    (Decode.field "materials" (Material.decodeList processes))
-                    (Decode.field "products" (Product.decodeList processes))
-                    |> Decode.andThen
-                        (\partiallyLoaded ->
-                            WellKnown.load processes
-                                |> Result.map partiallyLoaded
-                                |> DE.fromResult
-                        )
+                Result.map3 (Db processes)
+                    (Decode.decodeString (Material.decodeList processes) materialsJson)
+                    (Decode.decodeString (Product.decodeList processes) productsJson)
+                    (WellKnown.load processes
+                        |> Result.mapError (\error -> Failure error (Encode.string processesJson))
+                    )
             )
+        |> Result.mapError Decode.errorToString
 
 
 updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown

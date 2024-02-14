@@ -23,12 +23,16 @@ function buildImpactsJsonDb(basePath = "public/data") {
   return serializeForElmTemplateString(getJson(`${basePath}/impacts.json`));
 }
 
-function buildTextileJsonDb(basePath = "public/data/textile") {
-  return serializeForElmTemplateString({
-    materials: getJson(`${basePath}/materials.json`),
-    processes: getJson(`${basePath}/processes.json`),
-    products: getJson(`${basePath}/products.json`),
-  });
+function buildTextileMaterialsJsonDb(basePath = "public/data/textile") {
+  return serializeForElmTemplateString(getJson(`${basePath}/materials.json`));
+}
+
+function buildTextileProcessesJsonDb(basePath = "public/data/textile") {
+  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
+}
+
+function buildTextileProductsJsonDb(basePath = "public/data/textile") {
+  return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
 }
 
 function buildFoodProcessesJsonDb(basePath = "public/data/food") {
@@ -51,7 +55,9 @@ const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   .replace("%impactsJson%", buildImpactsJsonDb())
-  .replace("%textileJson%", buildTextileJsonDb())
+  .replace("%textileMaterialsJson%", buildTextileMaterialsJsonDb())
+  .replace("%textileProcessesJson%", buildTextileProcessesJsonDb())
+  .replace("%textileProductsJson%", buildTextileProductsJsonDb())
   .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb())
   .replace("%countriesJson%", buildCountriesJsonDb())

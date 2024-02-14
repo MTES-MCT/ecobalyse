@@ -9,7 +9,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.Process as Textile
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
-import Static.Json exposing (countriesJson, foodIngredientsJson, foodProcessesJson, impactsJson, textileJson, transportsJson)
+import Static.Json exposing (countriesJson, foodIngredientsJson, foodProcessesJson, impactsJson, textileMaterialsJson, textileProcessesJson, textileProductsJson, transportsJson)
 
 
 type alias Db =
@@ -36,7 +36,7 @@ rtextile =
     rdefinitions
         |> Result.andThen
             (\definitions ->
-                TextileDb.buildFromJson definitions textileJson
+                TextileDb.buildFromJson definitions textileMaterialsJson textileProcessesJson textileProductsJson
             )
 
 
