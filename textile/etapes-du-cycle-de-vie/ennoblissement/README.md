@@ -161,13 +161,16 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 
 #### Consommations d'eau, d'énergie et de chaleur
 
-<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,07</td><td>2,16</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,04</td><td>0,2</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,05</td><td>0,15</td><td>3,6</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,02</td><td>0,15</td><td>7,2</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,01</td><td>0,07</td><td>1,8</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,1</td><td>0,3</td><td>10,8</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>0,18</td><td>0,8</td><td>21,6</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>non applicable</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>non applicable</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,01</td><td>0,4</td><td>9</td></tr></tbody></table>
+<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>m3 / kg (eau) </th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,01</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,03</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,02</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,02</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,01</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,05</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>0,23</td><td>1,2</td><td>32,4</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>non applicable</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>non applicable</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continue)</td><td>0,02</td><td>0,6</td><td>13,5</td></tr></tbody></table>
 
 {% hint style="info" %}
-Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1] (données moyennes)\*.\
+Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1]\*.&#x20;
+
 Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2018, 2018).&#x20;
 
-Ecobalyse a extrait des valeurs Min-Max-Average (cf. ci-dessous) sur la base des graphes de restitutions proposés dans la partie _3.6 Specific water and energy consumption_. \
+Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
+1\) Extraction manuelle des valeurs Min-Max-Average (cf. graphes ci-dessous / Partie _3.6 Specific water and energy consumption)._\
+2\) Majoration de +50% appliquée sur la valeur "Average/Moyenne" car les sites ayant participé à l'étude sont considérés comme ce qui se fait de mieux en termes d'efficacité.\
 
 
 &#x20;\* Les consommations d'énergie des deux procédés d'impression sont reprises des _procédés représentatifs_ de la Base Impacts  (ADEME).
