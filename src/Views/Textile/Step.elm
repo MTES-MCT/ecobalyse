@@ -963,8 +963,8 @@ ennoblingHeatSourceField ({ inputs } as config) =
         ]
 
 
-detailedView : Db -> Config msg modal -> ViewWithTransport msg
-detailedView db ({ inputs, selectedImpact, current } as config) =
+detailedView : Config msg modal -> ViewWithTransport msg
+detailedView ({ db, inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1285,17 +1285,17 @@ makingWasteView config waste =
         text ""
 
 
-view : Db -> Config msg modal -> ViewWithTransport msg
-view db config =
+view : Config msg modal -> ViewWithTransport msg
+view cfg =
     -- FIXME: Step views should decide what to render according to ViewMode; move
     -- decision to caller and use appropriate view functions accordingly
-    config.detailedStep
+    cfg.detailedStep
         |> Maybe.map
             (\index ->
-                if config.index == index then
-                    detailedView db config
+                if cfg.index == index then
+                    detailedView cfg
 
                 else
-                    simpleView config
+                    simpleView cfg
             )
-        |> Maybe.withDefault (simpleView config)
+        |> Maybe.withDefault (simpleView cfg)

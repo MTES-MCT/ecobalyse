@@ -76,7 +76,7 @@ view config =
             text ""
         , config.impactTabsConfig
             |> ImpactTabs.view db.definitions
-        , BookmarkView.view db
+        , BookmarkView.view
             { session = config.session
             , activeTab = config.activeBookmarkTab
             , bookmarkName = config.bookmarkName

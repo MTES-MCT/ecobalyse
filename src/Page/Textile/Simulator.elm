@@ -911,8 +911,9 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
-                StepView.view db
-                    { current = current
+                StepView.view
+                    { db = db
+                    , current = current
                     , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
