@@ -7,7 +7,6 @@ module Data.Food.Query exposing
     , addPreparation
     , b64encode
     , buildApiQuery
-    , carrotCake
     , decode
     , deleteIngredient
     , deletePreparation
@@ -15,6 +14,7 @@ module Data.Food.Query exposing
     , encode
     , parseBase64Query
     , recipes
+    , royalPizza
     , serialize
     , setDistribution
     , setTransform
@@ -373,7 +373,6 @@ type alias Product =
 recipesAndNames : List Product
 recipesAndNames =
     [ { name = "Produit vide", query = emptyQuery, category = "" }
-    , { name = "Carrot cake (643g)", query = carrotCake, category = "Pâtisserie" }
     , { name = "Épinards congelés (815g)", query = frozenSpinach, category = "Produit surgelé" }
     , { name = "Pizza jambon fromage congelée (474g)", query = frozenPizzaHamCheese, category = "Produit surgelé" }
     , { name = "Pizza margherita congelée (662g)", query = frozenPizzaMargherita, category = "Produit surgelé" }
@@ -441,47 +440,6 @@ emptyQuery =
     , packaging = []
     , distribution = Nothing
     , preparation = []
-    }
-
-
-carrotCake : Query
-carrotCake =
-    { ingredients =
-        [ { id = Ingredient.idFromString "egg-indoor-code3"
-          , mass = Mass.grams 120
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "wheat"
-          , mass = Mass.grams 140
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "milk"
-          , mass = Mass.grams 60
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "carrot"
-          , mass = Mass.grams 225
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        ]
-    , transform =
-        Just
-            { -- Cooking, industrial, 1kg of cooked product/ FR U
-              code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 545
-            }
-    , packaging =
-        [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
-            code = Process.codeFromString "AGRIBALU000000003104019"
-          , mass = Mass.grams 105
-          }
-        ]
-    , distribution = Just Retail.ambient
-    , preparation = [ Preparation.Id "refrigeration" ]
     }
 
 

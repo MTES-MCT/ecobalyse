@@ -48,26 +48,30 @@ foodEndpoints db =
             |> Expect.equal (Just Route.GetFoodPackagingList)
             |> asTest "should map the /food/packagings endpoint"
         , [ "/food/recipe?"
-
-          -- Here goes our "famous" carrot cake…
-          , "ingredients[]=egg-indoor-code3;120"
-          , "ingredients[]=wheat;140"
-          , "ingredients[]=milk;60"
-          , "ingredients[]=carrot;225"
-          , "transform=AGRIBALU000000003103966;545"
-          , "packaging[]=AGRIBALU000000003104019;105"
-          , "distribution=ambient"
-          , "preparation[]=refrigeration"
+          , "ingredients[]=flour;97"
+          , "ingredients[]=tomato-paste;89"
+          , "ingredients[]=mozzarella;70"
+          , "ingredients[]=cooked-ham;16"
+          , "ingredients[]=sugar;5"
+          , "ingredients[]=mushroom;31"
+          , "ingredients[]=rapeseed-oil;16"
+          , "ingredients[]=black-pepper;1"
+          , "ingredients[]=tap-water;22"
+          , "transform=AGRIBALU000000003103966;363"
+          , "packaging[]=AGRIBALU000000003104019;100"
+          , "distribution=frozen"
+          , "preparation[]=freezing"
+          , "preparation[]=oven"
           , "category=cakes"
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.carrotCake))
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.royalPizza))
             |> asTest "should map the /food/recipe endpoint"
         ]
     , describe "POST endpoints"
         [ "/food/recipe"
-            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.carrotCake)
+            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.emptyQuery)
             |> Expect.equal (Just Route.PostFoodRecipe)
             |> asTest "should map the POST /food/recipe endpoint"
         , "/food/recipe"

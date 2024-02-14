@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
-import Data.Food.Query exposing (carrotCake)
+import Data.Food.Query exposing (royalPizza)
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
@@ -77,14 +77,14 @@ suite =
                 ]
             , let
                 recipe =
-                    carrotCake
+                    royalPizza
                         |> Recipe.fromQuery db
               in
               describe "fromQuery"
                 [ recipe
                     |> Expect.ok
                     |> asTest "should return an Ok for a valid query"
-                , { carrotCake
+                , { royalPizza
                     | transform =
                         Just
                             { code = Process.codeFromString "not a process"
@@ -95,9 +95,9 @@ suite =
                     |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
-                , { carrotCake
+                , { royalPizza
                     | ingredients =
-                        carrotCake.ingredients
+                        royalPizza.ingredients
                             |> List.map (\ingredient -> { ingredient | planeTransport = Ingredient.ByPlane })
                   }
                     |> Recipe.fromQuery db
@@ -107,11 +107,11 @@ suite =
             , describe "compute"
                 [ describe "standard carrot cake"
                     (let
-                        carrotCakeResults =
-                            carrotCake
+                        royalPizzaResults =
+                            royalPizza
                                 |> Recipe.compute db
                      in
-                     [ carrotCakeResults
+                     [ royalPizzaResults
                         |> Result.map (Tuple.second >> .total)
                         |> Result.withDefault Impact.empty
                         |> TestUtils.expectImpactsEqual
@@ -138,29 +138,29 @@ suite =
                             , wtu = Expect.greaterThan 0
                             }
                         |> asTest "should return computed impacts where none equals zero"
-                     , carrotCakeResults
+                     , royalPizzaResults
                         |> Result.map (Tuple.second >> .recipe >> .edibleMass >> Mass.inKilograms)
                         |> Result.withDefault -99
-                        |> Expect.within (Expect.Absolute 0.01) 0.498
+                        |> Expect.within (Expect.Absolute 0.01) 0.3439
                         |> asTest "should compute ingredients total edible mass"
                      , asTest "should have the total ecs impact with the complement taken into account"
-                        (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
+                        (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
                             Err err ->
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 173.4376562145657) result
+                                expectImpactEqual (Unit.impact 154.91436882904637) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
-                        (case carrotCakeResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
+                        (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
                             Err err ->
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 132.70783880088428) result
+                                expectImpactEqual (Unit.impact 127.48660115171738) result
                         )
                      , describe "Scoring"
-                        (case carrotCakeResults |> Result.map (Tuple.second >> .scoring) of
+                        (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
                             Err err ->
                                 [ Expect.fail err
                                     |> asTest "should not fail"
@@ -168,28 +168,28 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 309.2464547939685
+                                    |> Expect.within (Expect.Absolute 0.01) 556.9374282273577
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 309.8911405679646
+                                    |> Expect.within (Expect.Absolute 0.01) 554.882723252471
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) 0.6446857739961187
+                                    |> Expect.within (Expect.Absolute 0.01) -2.0547049748866746
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 199.60634978528796
+                                    |> Expect.within (Expect.Absolute 0.01) 267.98085257165883
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 44.62421423026246
+                                    |> Expect.within (Expect.Absolute 0.01) 107.33994991732318
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 30.11804805394062
+                                    |> Expect.within (Expect.Absolute 0.01) 61.860211171292505
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 35.542528498473544
+                                    |> Expect.within (Expect.Absolute 0.01) 117.70170959219656
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -200,7 +200,7 @@ suite =
                       -- raw-to-cooked ratio should have been applied to resulting mass just once.
                       let
                         withPreps preps =
-                            { carrotCake | preparation = preps }
+                            { royalPizza | preparation = preps }
                                 |> Recipe.compute db
                                 |> Result.map (Tuple.second >> .preparedMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
@@ -232,29 +232,29 @@ suite =
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
                     |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
                     |> asTest "should compute recipe ingredients mass with no cooking involved"
-                , carrotCake
+                , royalPizza
                     |> Recipe.compute db
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                    |> Expect.equal (Ok (Mass.kilograms 0.748104))
+                    |> Expect.equal (Ok (Mass.kilograms 0.4365544000000001))
                     |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                 ]
             , let
-                carrotCakeWithPackaging =
-                    carrotCake
+                royalPizzaWithPackaging =
+                    royalPizza
                         |> Recipe.compute db
                         |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
 
-                carrotCakeWithNoPackaging =
-                    { carrotCake | packaging = [] }
+                royalPizzaWithNoPackaging =
+                    { royalPizza | packaging = [] }
                         |> Recipe.compute db
                         |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
               in
               describe "getTransformedIngredientsMass"
-                [ carrotCakeWithPackaging
-                    |> Expect.equal (Ok (Mass.kilograms 0.643104))
+                [ royalPizzaWithPackaging
+                    |> Expect.equal (Ok (Mass.kilograms 0.3365544000000001))
                     |> asTest "should compute recipe treansformed ingredients mass excluding packaging one"
-                , carrotCakeWithPackaging
-                    |> Expect.equal carrotCakeWithNoPackaging
+                , royalPizzaWithPackaging
+                    |> Expect.equal royalPizzaWithNoPackaging
                     |> asTest "should give the same mass including packaging or not"
                 ]
             , let
