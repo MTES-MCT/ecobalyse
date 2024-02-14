@@ -49,7 +49,8 @@ import Views.Transport as TransportView
 
 
 type alias Config msg modal =
-    { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    { db : Db
+    , addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
@@ -81,20 +82,20 @@ type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
 
 
-countryField : Db -> Config msg modal -> Html msg
-countryField db { current, updateCountry } =
+countryField : Config msg modal -> Html msg
+countryField cfg =
     div []
-        [ if current.editable then
+        [ if cfg.current.editable then
             CountrySelect.view
                 { attributes =
                     [ class "form-select"
-                    , disabled (not current.enabled)
-                    , onInput (Country.codeFromString >> updateCountry current.label)
+                    , disabled (not cfg.current.enabled)
+                    , onInput (Country.codeFromString >> cfg.updateCountry cfg.current.label)
                     ]
-                , countries = db.countries
-                , onSelect = updateCountry current.label
+                , countries = cfg.db.countries
+                , onSelect = cfg.updateCountry cfg.current.label
                 , scope = Scope.Textile
-                , selectedCountry = current.country.code
+                , selectedCountry = cfg.current.country.code
                 }
 
           else
@@ -104,7 +105,7 @@ countryField db { current, updateCountry } =
                     , title "Le pays n'est pas modifiable à cet étape"
                     ]
                     [ Icon.lock ]
-                , text current.country.name
+                , text cfg.current.country.name
                 ]
         ]
 
@@ -538,8 +539,8 @@ stepHeader { current } =
         ]
 
 
-simpleView : Db -> Config msg modal -> ViewWithTransport msg
-simpleView db c =
+simpleView : Config msg modal -> ViewWithTransport msg
+simpleView c =
     { transport = viewTransport c
     , step =
         div [ class "Step card shadow-sm" ]
@@ -563,7 +564,7 @@ simpleView db c =
                     div
                         [ class "StepBody card-body row align-items-center" ]
                         [ div [ class "col-11 col-lg-7" ]
-                            [ countryField db c
+                            [ countryField c
                             , case c.current.label of
                                 Label.Spinning ->
                                     div [ class "mt-2 fs-7 text-muted" ]
@@ -615,7 +616,7 @@ simpleView db c =
                         ]
 
               else
-                viewMaterials db c
+                viewMaterials c
             ]
     }
 
@@ -643,8 +644,8 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
         text ""
 
 
-viewMaterials : Db -> Config msg modal -> Html msg
-viewMaterials db config =
+viewMaterials : Config msg modal -> Html msg
+viewMaterials config =
     ul [ class "CardList list-group list-group-flush" ]
         ((config.inputs.materials
             |> List.map
@@ -657,12 +658,12 @@ viewMaterials db config =
 
                         transport =
                             materialInput
-                                |> Step.computeMaterialTransportAndImpact db nextCountry config.current.outputMass
+                                |> Step.computeMaterialTransportAndImpact config.db nextCountry config.current.outputMass
                     in
                     li [ class "ElementFormWrapper list-group-item" ]
                         (List.concat
                             [ materialInput
-                                |> createElementSelectorConfig db config
+                                |> createElementSelectorConfig config
                                 |> BaseElement.view
                             , if config.selectedImpact.trigram == Definition.Ecs then
                                 [ materialInput
@@ -704,7 +705,7 @@ viewMaterials db config =
                             |> List.map .material
 
                     availableMaterials =
-                        db.textile.materials
+                        config.db.textile.materials
                             |> List.filter (\element -> not (List.member element excluded))
 
                     totalShares =
@@ -790,8 +791,8 @@ viewMaterialComplements finalProductMass materialInput =
         ]
 
 
-createElementSelectorConfig : Db -> Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
-createElementSelectorConfig db { addMaterialModal, deleteMaterial, current, selectedImpact, inputs, setModal, updateMaterial } materialInput =
+createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
+createElementSelectorConfig cfg materialInput =
     let
         materialQuery : Inputs.MaterialQuery
         materialQuery =
@@ -808,30 +809,30 @@ createElementSelectorConfig db { addMaterialModal, deleteMaterial, current, sele
             }
 
         excluded =
-            inputs.materials
+            cfg.inputs.materials
                 |> List.map .material
 
         impacts =
-            current
-                |> stepMaterialImpacts db materialInput.material
+            cfg.current
+                |> stepMaterialImpacts cfg.db materialInput.material
                 |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
     in
     { allowEmptyList = False
     , baseElement = baseElement
     , db =
-        { elements = db.textile.materials
+        { elements = cfg.db.textile.materials
         , countries =
-            db.countries
+            cfg.db.countries
                 |> Scope.only Scope.Textile
                 |> List.sortBy .name
-        , definitions = db.definitions
+        , definitions = cfg.db.definitions
         }
     , defaultCountry = materialInput.material.geographicOrigin
-    , delete = deleteMaterial
+    , delete = cfg.deleteMaterial
     , excluded = excluded
     , impact = impacts
-    , selectedImpact = selectedImpact
-    , selectElement = \_ autocompleteState -> setModal (addMaterialModal (Just materialInput) autocompleteState)
+    , selectedImpact = cfg.selectedImpact
+    , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
     , quantityView =
         \{ quantity, onChange } ->
             SplitInput.view
@@ -843,7 +844,7 @@ createElementSelectorConfig db { addMaterialModal, deleteMaterial, current, sele
     , toString = .shortName
     , update =
         \_ newElement ->
-            updateMaterial
+            cfg.updateMaterial
                 materialQuery
                 { materialQuery
                     | id = newElement.element.id
@@ -987,7 +988,7 @@ detailedView db ({ inputs, selectedImpact, current } as config) =
                         ]
                     ]
                 , infoListElement
-                    [ li [ class "list-group-item" ] [ countryField db config ]
+                    [ li [ class "list-group-item" ] [ countryField config ]
                     , viewProcessInfo current.processInfo.countryElec
                     , case current.label of
                         Label.Ennobling ->
@@ -1295,6 +1296,6 @@ view db config =
                     detailedView db config
 
                 else
-                    simpleView db config
+                    simpleView config
             )
-        |> Maybe.withDefault (simpleView db config)
+        |> Maybe.withDefault (simpleView config)
