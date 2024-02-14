@@ -817,7 +817,7 @@ royalPizzaFR =
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 1
-          , country = Just (Country.Code "FR")
+          , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tap-water"
