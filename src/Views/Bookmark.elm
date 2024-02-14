@@ -11,7 +11,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Route
-import Static.Db exposing (Db)
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
 
@@ -38,8 +37,8 @@ type ActiveTab
     | ShareTab
 
 
-view : Db -> ManagerConfig msg -> Html msg
-view db cfg =
+view : ManagerConfig msg -> Html msg
+view cfg =
     CardTabs.view
         { tabs =
             [ ( SaveTab, "Sauvegarder" )
@@ -58,7 +57,7 @@ view db cfg =
                     shareTabView cfg
 
                 SaveTab ->
-                    managerView db cfg
+                    managerView cfg
             ]
         }
 
@@ -141,8 +140,8 @@ shareTabView { session, impact, copyToClipBoard, scope } =
         ]
 
 
-managerView : Db -> ManagerConfig msg -> Html msg
-managerView db cfg =
+managerView : ManagerConfig msg -> Html msg
+managerView cfg =
     let
         bookmarks =
             scopedBookmarks cfg.session cfg.scope
@@ -191,12 +190,12 @@ managerView db cfg =
                     text "Donnez un nom à cette simulation pour la retrouver plus tard"
                 ]
             ]
-        , bookmarksView db cfg
+        , bookmarksView cfg
         ]
 
 
-bookmarksView : Db -> ManagerConfig msg -> Html msg
-bookmarksView db cfg =
+bookmarksView : ManagerConfig msg -> Html msg
+bookmarksView cfg =
     let
         bookmarks =
             scopedBookmarks cfg.session cfg.scope
@@ -216,7 +215,7 @@ bookmarksView db cfg =
             ]
         , bookmarks
             |> Bookmark.sort
-            |> List.map (bookmarkView db cfg)
+            |> List.map (bookmarkView cfg)
             |> ul
                 [ class "list-group list-group-flush rounded-bottom overflow-auto"
                 , style "max-height" "50vh"
@@ -224,8 +223,8 @@ bookmarksView db cfg =
         ]
 
 
-bookmarkView : Db -> ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView db cfg ({ name, query } as bookmark) =
+bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
+bookmarkView cfg ({ name, query } as bookmark) =
     let
         currentQuery =
             queryFromScope cfg.session cfg.scope
@@ -248,7 +247,7 @@ bookmarkView db cfg ({ name, query } as bookmark) =
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
-                |> Bookmark.toQueryDescription db
+                |> Bookmark.toQueryDescription cfg.session.db
                 |> title
             , bookmarkRoute
                 |> Route.toString
