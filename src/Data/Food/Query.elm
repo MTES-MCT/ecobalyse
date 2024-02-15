@@ -29,7 +29,7 @@ module Data.Food.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Ingredient as Ingredient exposing (PlaneTransport(..))
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
@@ -373,22 +373,22 @@ type alias Product =
 recipesAndNames : List Product
 recipesAndNames =
     [ { name = "Produit vide", query = emptyQuery, category = "" }
-    , { name = "Pizza Royale (350g) - 6", query = royalPizza, category = "Produit surgelé" }
-    , { name = "Pizza Royale FR (350g) - 6", query = royalPizzaFR, category = "Produit surgelé" }
-    , { name = "Pizza végétale (385g) - 19", query = vegetablePizza, category = "Produit surgelé" }
-    , { name = "Pizza végétale FR (385g) - 19", query = vegetablePizzaFR, category = "Produit surgelé" }
+    , { name = "Farine de blé bio FR (1kg) - 20", query = wheatFROrganic, category = "Produits céréaliers" }
+    , { name = "Farine de blé FR (1kg) - 22", query = wheatFR, category = "Produits céréaliers" }
+    , { name = "Farine de blé origine Ukraine (1kg) - 22", query = wheatUKR, category = "Produits céréaliers" }
+    , { name = "Filets de poulet bio FR (250g) - 95", query = chickenFROrganic, category = "Volaille" }
+    , { name = "Filets de poulet FR (250g) - 96", query = chickenFR, category = "Volaille" }
+    , { name = "Filets de poulet origine Brésil (250g) - 100", query = chickenBR, category = "Volaille" }
     , { name = "Pizza bolognese (375g) - 21", query = bolognesePizza, category = "Produit surgelé" }
     , { name = "Pizza bolognese FR (375g) - 21", query = bolognesePizzaFR, category = "Produit surgelé" }
     , { name = "Pizza bolognese FR bio (375g) - 21", query = bolognesePizzaFROrganic, category = "Produit surgelé" }
+    , { name = "Pizza royale (350g) - 6", query = royalPizza, category = "Produit surgelé" }
+    , { name = "Pizza royale FR (350g) - 6", query = royalPizzaFR, category = "Produit surgelé" }
+    , { name = "Pizza végétale (385g) - 19", query = vegetablePizza, category = "Produit surgelé" }
+    , { name = "Pizza végétale FR (385g) - 19", query = vegetablePizzaFR, category = "Produit surgelé" }
     , { name = "Steak haché surgelé origine Brésil (200g) - 82", query = groundSteakBR, category = "Viande bovine" }
     , { name = "Steak haché surgelé FR (250g) - 95", query = groundSteakFR, category = "Viande bovine" }
     , { name = "Steak haché surgelé bio FR (200g) - 78", query = groundSteakFROrganic, category = "Viande bovine" }
-    , { name = "Filets de poulet origine Brésil (250g) - 100", query = chickenBR, category = "Volaille" }
-    , { name = "Filets de poulet bio FR (250g) - 95", query = chickenFROrganic, category = "Volaille" }
-    , { name = "Filets de poulet FR (250g) - 96", query = chickenFR, category = "Volaille" }
-    , { name = "Farine de blé origine Ukraine (1kg) - 22", query = wheatUKR, category = "Produits céréaliers" }
-    , { name = "Farine de blé FR (1kg) - 22", query = wheatFR, category = "Produits céréaliers" }
-    , { name = "Farine de blé bio FR (1kg) - 20", query = wheatFROrganic, category = "Produits céréaliers" }
     ]
 
 
