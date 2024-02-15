@@ -7,7 +7,7 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-sumDefinitions : Definition.Base Int -> Int
+sumDefinitions : Definition.Trigrams Int -> Int
 sumDefinitions =
     Definition.foldl (\_ a b -> a + b) 0
 
@@ -15,13 +15,13 @@ sumDefinitions =
 suite : Test
 suite =
     suiteWithDb "Data.Impact.Definition"
-        (\{ textileDb } ->
+        (\db ->
             [ Definition.trigrams
                 |> List.length
                 |> Expect.equal 21
                 |> asTest "There are 21 impact trigrams"
             , Definition.trigrams
-                |> List.map ((\trigram -> Definition.get trigram textileDb.impactDefinitions) >> .trigram >> Definition.toString)
+                |> List.map ((\trigram -> Definition.get trigram db.definitions) >> .trigram >> Definition.toString)
                 |> Set.fromList
                 |> Set.toList
                 |> List.length
@@ -56,7 +56,7 @@ suite =
                 |> sumDefinitions
                 |> Expect.equal 1
                 |> asTest "filter will zero all the values for fields filtered out"
-            , Definition.toList textileDb.impactDefinitions
+            , Definition.toList db.definitions
                 |> List.length
                 |> Expect.equal 21
                 |> asTest "there are 21 impacts in total"

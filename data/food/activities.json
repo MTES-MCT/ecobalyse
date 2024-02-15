@@ -10,7 +10,14 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 0.72,
+      "plotSize": 0.93,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0077
+    }
   },
   {
     "id": "milk",
@@ -90,6 +97,9 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
+    "land_footprint": 1.19,
+    "crop_group": "BLE TENDRE",
+    "scenario": "reference",
     "visible": true,
     "ecosystemicServices": {
       "hedges": 0.33,
@@ -111,6 +121,9 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
+    "land_footprint": 2.95,
+    "crop_group": "BLE TENDRE",
+    "scenario": "organic",
     "visible": true,
     "ecosystemicServices": {
       "hedges": 0.99,
@@ -299,7 +312,7 @@
       "plotSize": 1.83,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.0591
+      "livestockDensity": -0.0548
     }
   },
   {
@@ -320,7 +333,7 @@
       "plotSize": 8.14,
       "cropDiversity": 31.17,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.017
+      "livestockDensity": -0.0158
     }
   },
   {
@@ -341,7 +354,7 @@
       "plotSize": 2.0,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.0591
+      "livestockDensity": -0.0548
     }
   },
   {
@@ -1393,6 +1406,9 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
+    "land_footprint": 0.953,
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "reference",
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
     "ecosystemicServices": {
@@ -1564,6 +1580,9 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
+    "land_footprint": 4.02,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "reference",
     "visible": true,
     "ecosystemicServices": {
       "hedges": 1.06,
@@ -1584,6 +1603,9 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
+    "land_footprint": 5.63,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "organic",
     "visible": true,
     "ecosystemicServices": {
       "hedges": 1.97,
@@ -2109,7 +2131,14 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 0.74,
+      "plotSize": 0.83,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0077
+    }
   },
   {
     "id": "egg-organic-code0",
@@ -2122,7 +2151,14 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "ecosystemicServices": {
+      "hedges": 1.77,
+      "plotSize": 1.96,
+      "cropDiversity": 10.6,
+      "permanentPasture": 0.0,
+      "livestockDensity": -0.0027
+    }
   },
   {
     "id": "wine-grape-organic",

@@ -14,7 +14,6 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
-import Data.Food.Db as FoodDb
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
@@ -30,6 +29,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -39,6 +39,7 @@ import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
+import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -62,8 +63,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : FoodDb.Db
-    , impact : Definition
+    { impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -110,6 +110,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -118,17 +119,16 @@ type Msg
 
 
 init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ foodDb, queries } as session) trigram maybeQuery =
+init session trigram maybeQuery =
     let
         impact =
-            Definition.get trigram foodDb.impactDefinitions
+            Definition.get trigram session.db.definitions
 
         query =
             maybeQuery
-                |> Maybe.withDefault queries.food
+                |> Maybe.withDefault session.queries.food
     in
-    ( { db = foodDb
-      , impact = impact
+    ( { impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
@@ -147,7 +147,7 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries } as session) msg model =
+update ({ db, queries } as session) msg model =
     let
         query =
             queries.food
@@ -161,15 +161,12 @@ update ({ queries } as session) msg model =
     case msg of
         AddIngredient ingredient ->
             update session (SetModal NoModal) model
-                |> updateQuery
-                    (query
-                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
-                    )
+                |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
             let
                 firstPackaging =
-                    model.db.processes
+                    db.food.processes
                         |> Recipe.availablePackagings (List.map .code query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -194,7 +191,7 @@ update ({ queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    model.db.processes
+                    db.food.processes
                         |> Process.listByCategory Process.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -401,6 +398,14 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
+
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
@@ -509,13 +514,13 @@ focusNode node ( model, session, commands ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { foodDb, store } query =
+findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Recipe.fromQuery foodDb
+                |> Recipe.fromQuery db
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
@@ -617,7 +622,6 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
 
 type alias UpdateIngredientConfig =
     { excluded : List Ingredient.Id
-    , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , selectedImpact : Definition
@@ -625,8 +629,8 @@ type alias UpdateIngredientConfig =
     }
 
 
-createElementSelectorConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
-createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
+createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, impact, selectedImpact } =
     let
         baseElement =
             { element = recipeIngredient.ingredient
@@ -637,17 +641,17 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
     { allowEmptyList = True
     , baseElement = baseElement
     , db =
-        { elements = db.ingredients
+        { elements = db.food.ingredients
         , countries =
             db.countries
                 |> Scope.only Scope.Food
                 |> List.sortBy .name
-        , definitions = db.impactDefinitions
+        , definitions = db.definitions
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
     , excluded =
-        db.ingredients
+        db.food.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
     , quantityView =
@@ -671,8 +675,8 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpact } as updateIngredientConfig) =
+updateIngredientFormView : Db -> UpdateIngredientConfig -> Html Msg
+updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -687,7 +691,7 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
 
         config : BaseElement.Config Ingredient Mass Msg
         config =
-            createElementSelectorConfig ingredientQuery updateIngredientConfig
+            createElementSelectorConfig db ingredientQuery updateIngredientConfig
     in
     li [ class "ElementFormWrapper list-group-item" ]
         (BaseElement.view config
@@ -759,7 +763,7 @@ updateIngredientFormView ({ db, recipeIngredient, selectedImpact, transportImpac
         )
 
 
-displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances db ingredient ingredientQuery event =
     span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
@@ -837,7 +841,7 @@ displayTransportDistances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : FoodDb.Db -> Query -> Html Msg
+debugQueryView : Db -> Query -> Html Msg
 debugQueryView db query =
     let
         debugView =
@@ -872,11 +876,11 @@ errorView error =
         }
 
 
-ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     let
         availableIngredients =
-            db.ingredients
+            db.food.ingredients
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                 |> List.sortBy .name
 
@@ -919,9 +923,8 @@ ingredientListView db selectedImpact recipe results =
             recipe.ingredients
                 |> List.map
                     (\ingredient ->
-                        updateIngredientFormView
+                        updateIngredientFormView db
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
-                            , db = db
                             , recipeIngredient = ingredient
                             , impact =
                                 results.recipe.ingredients
@@ -956,11 +959,11 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
-            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
+            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.food.processes
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -993,7 +996,7 @@ packagingListView db selectedImpact recipe results =
                     (\packaging ->
                         updateProcessFormView
                             { processes =
-                                db.processes
+                                db.food.processes
                                     |> Process.listByCategory Process.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .code)
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
@@ -1212,7 +1215,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1261,7 +1264,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db results.recipe.transformedMass
+                                    |> Preparation.apply db.food results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1278,24 +1281,24 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-mainView : Session -> Model -> Html Msg
-mainView session model =
+mainView : Db -> Session -> Model -> Html Msg
+mainView db session model =
     let
         computed =
             session.queries.food
-                |> Recipe.compute model.db
+                |> Recipe.compute db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView session model recipe results
+                    stepListView db session model recipe results
 
                 Err error ->
                     errorView error
             , session.queries.food
-                |> debugQueryView model.db
+                |> debugQueryView db
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
@@ -1372,6 +1375,9 @@ sidebarView session model results =
         , productMass = results.preparedMass
         , totalImpacts = results.total
 
+        -- Ecotox weighting customization
+        , updateEcotoxWeighting = UpdateEcotoxWeighting
+
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
@@ -1390,8 +1396,8 @@ sidebarView session model results =
         }
 
 
-stepListView : Session -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView session { db, impact, initialQuery } recipe results =
+stepListView : Db -> Session -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView db session { impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1421,7 +1427,7 @@ stepListView session { db, impact, initialQuery } recipe results =
         ]
 
 
-transformView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =
@@ -1453,7 +1459,7 @@ transformView db selectedImpact recipe results =
             Just transform ->
                 updateProcessFormView
                     { processes =
-                        db.processes
+                        db.food.processes
                             |> Process.listByCategory Process.Transform
                     , excluded = [ transform.process.code ]
                     , processQuery = { code = transform.process.code, mass = transform.mass }
@@ -1476,7 +1482,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ mainView session model
+            [ mainView session.db session model
             , case model.modal of
                 NoModal ->
                     text ""

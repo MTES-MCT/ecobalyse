@@ -46,6 +46,7 @@ import Mass
 import Platform.Cmd as Cmd
 import Ports
 import Route
+import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -112,6 +113,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -135,7 +137,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram maybeUrlQuery ({ textileDb } as session) =
+init trigram maybeUrlQuery session =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -145,7 +147,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
 
         simulator =
             initialQuery
-                |> Simulator.compute textileDb
+                |> Simulator.compute session.db
     in
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
@@ -153,7 +155,7 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
       , comparisonType = ComparatorView.Subscores
       , initialQuery = initialQuery
       , detailedStep = Nothing
-      , impact = Definition.get trigram textileDb.impactDefinitions
+      , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -180,13 +182,13 @@ init trigram maybeUrlQuery ({ textileDb } as session) =
 
 
 findExistingBookmarkName : Session -> Inputs.Query -> String
-findExistingBookmarkName { textileDb, store } query =
+findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery textileDb
+                |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )
@@ -195,7 +197,7 @@ findExistingBookmarkName { textileDb, store } query =
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
-        | simulator = query |> Simulator.compute session.textileDb
+        | simulator = query |> Simulator.compute session.db
         , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
@@ -431,6 +433,18 @@ update ({ queries, navKey } as session) msg model =
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
+
+        UpdateEcotoxWeighting (Just ratio) ->
+            let
+                db =
+                    session.db
+            in
+            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
 
         UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
             ( model, session, Cmd.none )
@@ -892,14 +906,14 @@ durabilityField durability =
         ]
 
 
-lifeCycleStepsView : TextileDb.Db -> Model -> Simulator -> Html Msg
+lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
 lifeCycleStepsView db { detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
-                    { current = current
-                    , db = db
+                    { db = db
+                    , current = current
                     , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
@@ -942,7 +956,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator) =
+simulatorView session model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -964,7 +978,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
-                        [ productCategoryField textileDb (Inputs.toQuery inputs)
+                        [ productCategoryField session.db.textile (Inputs.toQuery inputs)
                         ]
                     , div [ class "col-md-6" ]
                         [ inputs.numberOfReferences
@@ -1012,7 +1026,7 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                     ]
                 ]
             , div []
-                [ lifeCycleStepsView textileDb model simulator
+                [ lifeCycleStepsView session.db model simulator
                 , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                     [ a [ Route.href Route.Home ]
                         [ text "« Retour à l'accueil" ]
@@ -1047,11 +1061,14 @@ simulatorView ({ textileDb } as session) model ({ inputs, impacts } as simulator
                 , productMass = inputs.mass
                 , totalImpacts = impacts
 
+                -- Ecotox weighting customization
+                , updateEcotoxWeighting = UpdateEcotoxWeighting
+
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
-                        |> ImpactTabs.forTextile session.textileDb.impactDefinitions simulator
+                        |> ImpactTabs.forTextile session.db.definitions simulator
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
@@ -1135,7 +1152,7 @@ view session model =
                                 , title = "Sélectionnez une utilisation de produit"
                                 , toLabel =
                                     \productId ->
-                                        Product.findById productId session.textileDb.products
+                                        Product.findById productId session.db.textile.products
                                             |> Result.map .name
                                             |> Result.withDefault (Product.idToString productId)
                                 , toCategory = always ""

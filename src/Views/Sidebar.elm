@@ -1,12 +1,14 @@
 module Views.Sidebar exposing (Config, view)
 
 import Data.Bookmark exposing (Bookmark)
-import Data.Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Definition, Trigram)
+import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram)
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
+import Html.Events exposing (..)
 import Mass exposing (Mass)
 import Views.Bookmark as BookmarkView
 import Views.Impact as ImpactView
@@ -27,6 +29,9 @@ type alias Config msg =
     , productMass : Mass
     , totalImpacts : Impacts
 
+    -- Ecotox weighting customization
+    , updateEcotoxWeighting : Maybe Unit.Ratio -> msg
+
     -- Impacts tabs
     , impactTabsConfig : ImpactTabs.Config msg
 
@@ -44,12 +49,16 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view config =
+    let
+        db =
+            config.session.db
+    in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
         [ ImpactView.selector
-            config.session.textileDb.impactDefinitions
+            db.definitions
             { selectedImpact = config.selectedImpact.trigram
             , switchImpact = config.switchImpact
             }
@@ -59,8 +68,14 @@ view config =
             , score = config.totalImpacts
             , mass = config.productMass
             }
+        , if config.selectedImpact.trigram == Definition.Ecs then
+            db.definitions
+                |> ecotoxWeightingField config.updateEcotoxWeighting
+
+          else
+            text ""
         , config.impactTabsConfig
-            |> ImpactTabs.view config.session.textileDb.impactDefinitions
+            |> ImpactTabs.view db.definitions
         , BookmarkView.view
             { session = config.session
             , activeTab = config.activeBookmarkTab
@@ -74,4 +89,51 @@ view config =
             , update = config.updateBookmarkName
             , switchTab = config.switchBookmarkTab
             }
+        ]
+
+
+ecotoxWeightingField : (Maybe Unit.Ratio -> msg) -> Definitions -> Html msg
+ecotoxWeightingField updateEcotoxWeighting impactDefinitions =
+    let
+        etfCWeighting =
+            impactDefinitions
+                |> Definition.get Definition.EtfC
+                |> .ecoscoreData
+                |> Maybe.map (.weighting >> Unit.ratioToFloat)
+                |> Maybe.withDefault 0
+
+        fromPercentString =
+            String.toFloat >> Maybe.map (Unit.ratio << (\x -> x / toFloat 100))
+
+        toPercentString =
+            Unit.ratioToFloat >> (*) 100 >> String.fromFloat
+
+        round2 =
+            (*) 100 >> round >> (\x -> toFloat x / toFloat 100)
+    in
+    div [ class "row d-flex align-items-center" ]
+        [ div [ class "col-sm-6 d-flex align-items-center pt-1" ]
+            [ label [ for "ecotox-weighting", class "form-label text-truncate" ]
+                [ text "Pondération Ecotox" ]
+            ]
+        , div [ class "col-sm-6 d-flex align-items-center" ]
+            [ div
+                [ class "input-group" ]
+                [ input
+                    [ type_ "number"
+                    , id "ecotox-weighting"
+                    , class "form-control text-end"
+                    , Attr.min (toPercentString Impact.minEcotoxWeighting)
+                    , Attr.max (toPercentString Impact.maxEcotoxWeighting)
+
+                    -- WARNING: be careful when reordering attributes: for obscure reasons,
+                    -- the `value` one MUST be set AFTER the `step` one.
+                    , step "0.01"
+                    , round2 (etfCWeighting * 100) |> String.fromFloat |> value
+                    , onInput (fromPercentString >> updateEcotoxWeighting)
+                    ]
+                    []
+                , span [ class "input-group-text" ] [ text "%" ]
+                ]
+            ]
         ]

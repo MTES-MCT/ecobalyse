@@ -1,53 +1,88 @@
 module Data.Textile.Db exposing
     ( Db
     , buildFromJson
+    , updateMaterialsFromNewProcesses
+    , updateProductsFromNewProcesses
+    , updateWellKnownFromNewProcesses
     )
 
-import Data.Country as Country exposing (Country)
-import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as TextileProcess
+import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
-import Data.Transport as Transport exposing (Distances)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
+import Json.Decode as Decode exposing (Error(..))
+import Json.Encode as Encode
 
 
 type alias Db =
-    { impactDefinitions : Definitions
-    , processes : List TextileProcess.Process
-    , countries : List Country
+    { processes : List Process
     , materials : List Material
     , products : List Product
-    , transports : Distances
-    , wellKnown : TextileProcess.WellKnown
+    , wellKnown : WellKnown
     }
 
 
-buildFromJson : String -> Result String Db
-buildFromJson json =
-    Decode.decodeString decode json
+buildFromJson : Definitions -> String -> String -> String -> Result String Db
+buildFromJson definitions materialsJson processesJson productsJson =
+    Decode.decodeString (Process.decodeList definitions) processesJson
+        |> Result.andThen
+            (\processes ->
+                Result.map3 (Db processes)
+                    (Decode.decodeString (Material.decodeList processes) materialsJson)
+                    (Decode.decodeString (Product.decodeList processes) productsJson)
+                    (WellKnown.load processes
+                        |> Result.mapError (\error -> Failure error (Encode.string processesJson))
+                    )
+            )
         |> Result.mapError Decode.errorToString
 
 
-decode : Decoder Db
-decode =
-    Decode.field "impacts" Definition.decode
-        |> Decode.andThen
-            (\definitions ->
-                Decode.field "processes" (TextileProcess.decodeList definitions)
-                    |> Decode.andThen
-                        (\processes ->
-                            Decode.map4 (Db definitions processes)
-                                (Decode.field "countries" (Country.decodeList processes))
-                                (Decode.field "materials" (Material.decodeList processes))
-                                (Decode.field "products" (Product.decodeList processes))
-                                (Decode.field "transports" Transport.decodeDistances)
-                                |> Decode.andThen
-                                    (\partiallyLoaded ->
-                                        TextileProcess.loadWellKnown processes
-                                            |> Result.map partiallyLoaded
-                                            |> DE.fromResult
-                                    )
-                        )
-            )
+updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
+updateWellKnownFromNewProcesses processes =
+    WellKnown.map
+        (\({ uuid } as process) ->
+            processes
+                |> Process.findByUuid uuid
+                |> Result.withDefault process
+        )
+
+
+updateMaterialsFromNewProcesses : List Process -> List Material -> List Material
+updateMaterialsFromNewProcesses processes =
+    List.map
+        (\material ->
+            Result.map2
+                (\materialProcess maybeRecycledProcess ->
+                    { material
+                        | materialProcess = materialProcess
+                        , recycledProcess = maybeRecycledProcess
+                    }
+                )
+                (Process.findByUuid material.materialProcess.uuid processes)
+                (material.recycledProcess
+                    |> Maybe.map (\{ uuid } -> processes |> Process.findByUuid uuid |> Result.map Just)
+                    |> Maybe.withDefault (Ok Nothing)
+                )
+                |> Result.withDefault material
+        )
+
+
+updateProductsFromNewProcesses : List Process -> List Product -> List Product
+updateProductsFromNewProcesses processes =
+    List.map
+        (\({ use } as product) ->
+            Result.map2
+                (\ironingProcess nonIroningProcess ->
+                    { product
+                        | use =
+                            { use
+                                | ironingProcess = ironingProcess
+                                , nonIroningProcess = nonIroningProcess
+                            }
+                    }
+                )
+                (Process.findByUuid product.use.ironingProcess.uuid processes)
+                (Process.findByUuid product.use.nonIroningProcess.uuid processes)
+                |> Result.withDefault product
+        )

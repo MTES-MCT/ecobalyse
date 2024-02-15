@@ -24,7 +24,7 @@ module Data.Food.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -46,6 +46,7 @@ import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import String.Extra as SE
 import Volume exposing (Volume)
 
@@ -124,7 +125,7 @@ availablePackagings usedProcesses processes =
         |> List.filter (\process -> not (List.member process.code usedProcesses))
 
 
-compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
+compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
@@ -164,7 +165,7 @@ compute db =
                                         volume =
                                             getTransformedIngredientsVolume recipe
                                     in
-                                    Retail.computeImpacts volume distrib db.wellKnown
+                                    Retail.computeImpacts volume distrib db.food.wellKnown
                                 )
                             |> Maybe.withDefault Impact.empty
 
@@ -185,7 +186,7 @@ compute db =
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.empty)
                         in
-                        Transport.computeImpacts db mass transport
+                        Transport.computeImpacts db.food mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts
@@ -204,7 +205,7 @@ compute db =
 
                     preparationImpacts =
                         preparation
-                            |> List.map (Preparation.apply db transformedIngredientsMass)
+                            |> List.map (Preparation.apply db.food transformedIngredientsMass)
                             |> (Impact.sumImpacts >> List.singleton >> Impact.sumImpacts)
 
                     preparedMass =
@@ -231,7 +232,9 @@ compute db =
                             ]
 
                     totalImpacts =
-                        addIngredientsComplements totalImpactsWithoutComplements
+                        totalImpactsWithoutComplements
+                            |> Impact.updateAggregatedScores db.definitions
+                            |> addIngredientsComplements
 
                     -- Note: Product impacts per kg is computed against prepared
                     --       product mass at consumer, excluding packaging
@@ -245,7 +248,7 @@ compute db =
 
                     scoring =
                         impactsPerKgWithoutComplements
-                            |> Scoring.compute db.impactDefinitions
+                            |> Scoring.compute db.definitions
                                 (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe
@@ -333,7 +336,7 @@ computeIngredientsTotalComplements =
         Impact.noComplementsImpacts
 
 
-computeIngredientTransport : FoodDb.Db -> RecipeIngredient -> Transport
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
 computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
@@ -354,7 +357,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                     case country of
                         -- In case a custom country is provided, compute the distances to it from France
                         Just { code } ->
-                            db.transports
+                            db.distances
                                 |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                                 |> Formula.transportRatio planeRatio
 
@@ -405,7 +408,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    Transport.computeImpacts db mass transport
+    Transport.computeImpacts db.food mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)
@@ -464,12 +467,12 @@ encodeScoring scoring =
         ]
 
 
-fromQuery : FoodDb.Db -> Query -> Result String Recipe
+fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
     Ok Recipe
         |> RE.andMap (ingredientListFromQuery db query)
-        |> RE.andMap (transformFromQuery db query)
-        |> RE.andMap (packagingListFromQuery db query)
+        |> RE.andMap (transformFromQuery db.food query)
+        |> RE.andMap (packagingListFromQuery db.food query)
         |> RE.andMap (Ok query.distribution)
         |> RE.andMap (preparationListFromQuery query)
 
@@ -574,22 +577,22 @@ getRecipeIngredientProcess { ingredient } =
     ingredient.default
 
 
-ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
 ingredientListFromQuery db =
     .ingredients >> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, country, planeTransport } =
+ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery db { id, mass, country, planeTransport } =
     let
         ingredientResult =
-            Ingredient.findByID id ingredients
+            Ingredient.findByID id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap ingredientResult
         |> RE.andMap (Ok mass)
         |> RE.andMap
-            (case Maybe.map (\c -> Country.findByCode c countries) country of
+            (case Maybe.map (\c -> Country.findByCode c db.countries) country of
                 Just (Ok country_) ->
                     Ok (Just country_)
 
@@ -615,7 +618,7 @@ ingredientQueryFromIngredient ingredient =
 
 
 packagingListFromQuery :
-    FoodDb.Db
+    Food.Db
     -> { a | packaging : List BuilderQuery.ProcessQuery }
     -> Result String (List Packaging)
 packagingListFromQuery db query =
@@ -623,7 +626,7 @@ packagingListFromQuery db query =
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : FoodDb.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
+packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByIdentifier code processes)
@@ -693,7 +696,7 @@ toString { ingredients, transform, packaging } =
 
 
 transformFromQuery :
-    FoodDb.Db
+    Food.Db
     -> { a | transform : Maybe BuilderQuery.ProcessQuery }
     -> Result String (Maybe Transform)
 transformFromQuery { processes } query =

@@ -5,7 +5,6 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
@@ -25,6 +24,7 @@ import Page.Explore.Common as Common
 import Page.Explore.Table exposing (Table)
 import Quantity
 import Route
+import Static.Db exposing (Db)
 import Views.Format as Format
 import Volume
 
@@ -34,7 +34,7 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope

@@ -19,7 +19,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db as StaticDb
+import Static.Db as Static
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -33,7 +33,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
-    | BlankPage
+    | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -83,23 +83,22 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case StaticDb.db of
+                case Static.rdb of
                     Ok db ->
                         Loaded
-                            { clientUrl = flags.clientUrl
+                            { db = db
+                            , clientUrl = flags.clientUrl
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
                             , matomo = flags.matomo
-                            , foodDb = db.foodDb
-                            , textileDb = db.textileDb
                             , notifications = []
                             , queries =
                                 { food = FoodQuery.carrotCake
                                 , textile = TextileInputs.defaultQuery
                                 }
                             }
-                            BlankPage
+                            LoadingPage
 
                     Err err ->
                         Errored err
@@ -157,7 +156,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    Explore.init session.foodDb scope dataset session
+                    Explore.init scope dataset session
                         |> toPage ExplorePage ExploreMsg
 
                 Just Route.FoodBuilderHome ->
@@ -210,8 +209,8 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
 
-                ( ApiMsg changelogMsg, ApiPage changelogModel ) ->
-                    Api.update session changelogMsg changelogModel
+                ( ApiMsg apiMsg, ApiPage apiModel ) ->
+                    Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
@@ -404,7 +403,7 @@ view { state, mobileNavigationOpened } =
                     ( "Page manquante", [ Page.notFound ] )
                         |> Page.frame (pageConfig Page.Other)
 
-                BlankPage ->
+                LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
                         |> Page.frame (pageConfig Page.Other)
 

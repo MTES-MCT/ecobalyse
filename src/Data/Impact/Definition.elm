@@ -1,11 +1,11 @@
 module Data.Impact.Definition exposing
     ( AggregatedScoreData
-    , Base
     , Definition
     , Definitions
     , Quality(..)
     , Source
     , Trigram(..)
+    , Trigrams
     , decode
     , decodeWithoutAggregated
     , encodeBase
@@ -90,7 +90,7 @@ type alias Definition =
     }
 
 
-type alias Base a =
+type alias Trigrams a =
     {- We use a type variable here because this type is used for both
        * impact definitions (Definition.Definition)
        * processes impacts (Data.Impacts)
@@ -122,14 +122,14 @@ type alias Base a =
 
 
 type alias Definitions =
-    Base Definition
+    Trigrams Definition
 
 
 
 ---- Helpers
 
 
-init : a -> Base a
+init : a -> Trigrams a
 init a =
     { acd = a
     , cch = a
@@ -157,7 +157,7 @@ init a =
     }
 
 
-update : Trigram -> (a -> a) -> Base a -> Base a
+update : Trigram -> (a -> a) -> Trigrams a -> Trigrams a
 update trigram updateFunc definitions =
     case trigram of
         Acd ->
@@ -259,7 +259,7 @@ toList definitions =
         |> List.map (\trigram -> get trigram definitions)
 
 
-get : Trigram -> Base a -> a
+get : Trigram -> Trigrams a -> a
 get trigram definitions =
     case trigram of
         Acd ->
@@ -327,7 +327,7 @@ get trigram definitions =
             definitions.pef
 
 
-map : (Trigram -> a -> b) -> Base a -> Base b
+map : (Trigram -> a -> b) -> Trigrams a -> Trigrams b
 map func definitions =
     { acd = func Acd definitions.acd
     , cch = func Cch definitions.cch
@@ -355,7 +355,7 @@ map func definitions =
     }
 
 
-filter : (Trigram -> Bool) -> (a -> a) -> Base a -> Base a
+filter : (Trigram -> Bool) -> (a -> a) -> Trigrams a -> Trigrams a
 filter func zero base =
     -- Use the "zero-ing" function to "filter out" the fields that don't return True
     trigrams
@@ -370,7 +370,7 @@ filter func zero base =
             base
 
 
-foldl : (Trigram -> a -> b -> b) -> b -> Base a -> b
+foldl : (Trigram -> a -> b -> b) -> b -> Trigrams a -> b
 foldl func acc base =
     trigrams
         |> List.foldl
@@ -528,9 +528,9 @@ isAggregate trigram =
 ---- Decoders
 
 
-decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Base a)
+decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Trigrams a)
 decodeWithoutAggregated decoder =
-    Decode.succeed Base
+    Decode.succeed Trigrams
         |> Pipe.required "acd" (decoder "acd")
         |> Pipe.required "cch" (decoder "cch")
         |> Pipe.required "etf" (decoder "etf")
@@ -615,7 +615,7 @@ decodeDefinition trigram =
 ---- Encoders
 
 
-encodeBase : (a -> Encode.Value) -> Base a -> Encode.Value
+encodeBase : (a -> Encode.Value) -> Trigrams a -> Encode.Value
 encodeBase encoder base =
     trigrams
         |> List.map
