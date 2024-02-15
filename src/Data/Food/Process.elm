@@ -3,28 +3,25 @@ module Data.Food.Process exposing
     , Identifier
     , Process
     , ProcessName
-    , WellKnown
     , categoryToString
     , codeFromString
     , codeToString
     , decodeIdentifier
     , decodeList
     , encodeIdentifier
+    , findById
     , findByIdentifier
     , getDisplayName
     , listByCategory
-    , loadWellKnown
-    , mapWellKnown
     , nameToString
     )
 
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definitions)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Result.Extra as RE
 
 
 {-| Process
@@ -34,7 +31,7 @@ various other data like categories, code, unit...
 type alias Process =
     { name : ProcessName
     , displayName : Maybe String
-    , impacts : Impact.Impacts
+    , impacts : Impacts
     , unit : String
     , code : Identifier
     , category : Category
@@ -61,18 +58,6 @@ type Identifier
 
 type ProcessName
     = ProcessName String
-
-
-type alias WellKnown =
-    { lorryTransport : Process
-    , boatTransport : Process
-    , planeTransport : Process
-    , lorryCoolingTransport : Process
-    , boatCoolingTransport : Process
-    , water : Process
-    , lowVoltageElectricity : Process
-    , domesticGasHeat : Process
-    }
 
 
 categoryFromString : String -> Result String Category
@@ -252,33 +237,3 @@ getDisplayName process =
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
     List.filter (.category >> (==) category)
-
-
-loadWellKnown : List Process -> Result String WellKnown
-loadWellKnown processes =
-    let
-        resolve id_ =
-            RE.andMap (findById processes id_)
-    in
-    Ok WellKnown
-        |> resolve "lorry"
-        |> resolve "boat"
-        |> resolve "plane"
-        |> resolve "lorry-cooling"
-        |> resolve "boat-cooling"
-        |> resolve "tap-water"
-        |> resolve "low-voltage-electricity"
-        |> resolve "domestic-gas-heat"
-
-
-mapWellKnown : (Process -> Process) -> WellKnown -> WellKnown
-mapWellKnown update wellKnown =
-    { lorryTransport = update wellKnown.lorryTransport
-    , boatTransport = update wellKnown.boatTransport
-    , planeTransport = update wellKnown.planeTransport
-    , lorryCoolingTransport = update wellKnown.lorryCoolingTransport
-    , boatCoolingTransport = update wellKnown.boatCoolingTransport
-    , water = update wellKnown.water
-    , lowVoltageElectricity = update wellKnown.lowVoltageElectricity
-    , domesticGasHeat = update wellKnown.domesticGasHeat
-    }

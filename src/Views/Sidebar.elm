@@ -49,12 +49,16 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view config =
+    let
+        db =
+            config.session.db
+    in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
         [ ImpactView.selector
-            config.session.textileDb.impactDefinitions
+            db.definitions
             { selectedImpact = config.selectedImpact.trigram
             , switchImpact = config.switchImpact
             }
@@ -65,13 +69,13 @@ view config =
             , mass = config.productMass
             }
         , if config.selectedImpact.trigram == Definition.Ecs then
-            config.session.textileDb.impactDefinitions
+            db.definitions
                 |> ecotoxWeightingField config.updateEcotoxWeighting
 
           else
             text ""
         , config.impactTabsConfig
-            |> ImpactTabs.view config.session.textileDb.impactDefinitions
+            |> ImpactTabs.view db.definitions
         , BookmarkView.view
             { session = config.session
             , activeTab = config.activeBookmarkTab

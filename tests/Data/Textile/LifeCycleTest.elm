@@ -1,11 +1,11 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
 import Data.Country as Country
-import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Expect
 import Length
+import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -15,24 +15,24 @@ km =
     Length.kilometers
 
 
-lifeCycleToTransports : TextileDb.Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
-lifeCycleToTransports textileDb query lifeCycle =
+lifeCycleToTransports : Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
+lifeCycleToTransports db query lifeCycle =
     query
-        |> Inputs.fromQuery textileDb
+        |> Inputs.fromQuery db
         |> Result.map
             (\materials ->
-                LifeCycle.computeStepsTransport textileDb materials lifeCycle
+                LifeCycle.computeStepsTransport db materials lifeCycle
             )
 
 
 suite : Test
 suite =
     suiteWithDb "Data.LifeCycle"
-        (\{ textileDb } ->
+        (\db ->
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
-                    |> LifeCycle.fromQuery textileDb
-                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonFrance)
+                    |> LifeCycle.fromQuery db
+                    |> Result.andThen (lifeCycleToTransports db tShirtCotonFrance)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2500, 21549 ))
@@ -46,8 +46,8 @@ suite =
                         }
                   in
                   tShirtCotonEnnoblementIndia
-                    |> LifeCycle.fromQuery textileDb
-                    |> Result.andThen (lifeCycleToTransports textileDb tShirtCotonEnnoblementIndia)
+                    |> LifeCycle.fromQuery db
+                    |> Result.andThen (lifeCycleToTransports db tShirtCotonEnnoblementIndia)
                     |> Result.map LifeCycle.computeTotalTransportImpacts
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 1500, 45471 ))
