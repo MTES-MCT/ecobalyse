@@ -857,28 +857,22 @@ type alias ExampleProduct =
 productsAndNames : List ExampleProduct
 productsAndNames =
     -- 7 base products, from China
-    [ { name = "Tshirt 100% coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
-    , { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
+    [ { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
     , { name = "Chemise 100% coton Asie (250g)", query = chemiseCotonAsie, category = "Chemise" }
     , { name = "Jean 100% coton Asie (450g)", query = jeanCotonAsie, category = "Jean" }
     , { name = "Manteau 100% coton Asie (950g)", query = manteauCotonAsie, category = "Manteau / Veste" }
     , { name = "Pantalon 100% coton Asie (450g)", query = pantalonCotonAsie, category = "Pantalon / Short" }
-    , { name = "Pull 100% coton Asie (500g)", query = pullCotonAsie, category = "Pull / Couche intermédiaire" }
 
     -- 7 base products, from France
-    , { name = "Tshirt 100% coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
     , { name = "Jupe 100% coton France (300g)", query = jupeCotonFrance, category = "Jupe / Robe" }
     , { name = "Chemise 100% coton France (250g)", query = chemiseCotonFrance, category = "Chemise" }
     , { name = "Jean 100% coton France (450g)", query = jeanCotonFrance, category = "Jean" }
     , { name = "Manteau 100% coton France (950g)", query = manteauCotonFrance, category = "Manteau / Veste" }
     , { name = "Pantalon 100% coton France (450g)", query = pantalonCotonFrance, category = "Pantalon / Short" }
-    , { name = "Pull 100% coton France (500g)", query = pullCotonFrance, category = "Pull / Couche intermédiaire" }
 
     -- Various examples
-    , { name = "Pull 100% laine Asie (500g)", query = pullLaineAsie, category = "Pull / Couche intermédiaire" }
     , { name = "Jupe 100% polyester Asie (300g)", query = jupePolyesterAsie, category = "Jupe / Robe" }
     , { name = "Manteau 50% polyamide 50% coton Asie (950g)", query = manteauMixAsie, category = "Manteau / Veste" }
-    , { name = "Tshirt 100% polyester Asie (170g)", query = tShirtPolyesterAsie, category = "Tshirt / Polo" }
 
     -- More examples
     , { name = "Tshirt coton bio France marque éthique (150g)", query = tshirtCotonBiofranceMarqueEthique, category = "Tshirt / Polo" }
@@ -1084,23 +1078,8 @@ pantalonCotonFrance =
     }
 
 
-pullCotonFrance : Query
-pullCotonFrance =
-    { tShirtCotonFrance
-        | mass = Mass.kilograms 0.5
-        , product = Product.Id "pull"
-    }
-
-
 
 -- Various examples
-
-
-pullLaineAsie : Query
-pullLaineAsie =
-    { pullCotonAsie
-        | materials = [ { id = Material.Id "laine-mouton", share = Split.full, spinning = Nothing, country = Nothing } ]
-    }
 
 
 jupePolyesterAsie : Query
@@ -1117,13 +1096,6 @@ manteauMixAsie =
             [ { id = Material.Id "pa", share = Split.half, spinning = Nothing, country = Nothing }
             , { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
             ]
-    }
-
-
-tShirtPolyesterAsie : Query
-tShirtPolyesterAsie =
-    { tShirtCotonAsie
-        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
     }
 
 
