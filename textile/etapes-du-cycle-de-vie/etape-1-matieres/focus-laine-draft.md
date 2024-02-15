@@ -105,14 +105,7 @@ Autres sources : \
 {% endtab %}
 {% endtabs %}
 
-### Enjeux environnementaux
 
-Les principaux enjeux environnementaux liés à la production de laine sont :&#x20;
-
-* utilisation des sols,
-* changement climatique,\
-  La majorité des émissions proviennent du fait que ces ruminants relarguent du méthane lors du processus digestif ainsi que de l'énergie nécessaire sur l'ensemble du cycle de vie.
-* consommation d'eau.
 
 ## Modélisation Ecobalyse
 
@@ -138,7 +131,7 @@ Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
 
-**Principaux enseignements**
+**Aller plus loin**
 
 * 47% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
   Les deux principales raisons expliquant cela sont : \
