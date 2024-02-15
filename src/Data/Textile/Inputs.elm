@@ -882,7 +882,7 @@ productsAndNames =
     , { name = "Tshirt coton France marque traditionnelle (150g)", query = tshirtCotonFranceMarqueTraditionnelle, category = "Tshirt / Polo" }
     , { name = "Tshirt lin France (100%) marque éthique (150g)", query = tshirtLinfranceMarqueEthique, category = "Tshirt / Polo" }
     , { name = "Pull laine France marque éthique (550g) [A CONSOLIDER]", query = pullLaineFranceMarqueEthique, category = "Pull / Couche intermédiaire" }
-    , { name = "Pull laine paysanne France (100%) marque éthique (550g)", query = pullLainePaysanneFranceMarqueEthique, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull laine paysanne France (100%) marque éthique (550g) [A CONSOLIDER]", query = pullLainePaysanneFranceMarqueEthique, category = "Pull / Couche intermédiaire" }
     , { name = "Pull polyester Chine ultra fast fashion (500g)", query = pullPolyesterChineUltraFastFashion, category = "Pull / Couche intermédiaire" }
     , { name = "Pull viscose Chine fast fashion (500g)", query = pullViscoseChineFastFashion, category = "Pull / Couche intermédiaire" }
     , { name = "Pull coton Pakistan marque traditionnelle (500g)", query = pullCotonPakistanMarqueTraditionnelle, category = "Pull / Couche intermédiaire" }
