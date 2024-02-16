@@ -7,7 +7,6 @@ module Data.Food.Query exposing
     , addPreparation
     , b64encode
     , buildApiQuery
-    , carrotCake
     , decode
     , deleteIngredient
     , deletePreparation
@@ -15,6 +14,7 @@ module Data.Food.Query exposing
     , encode
     , parseBase64Query
     , recipes
+    , royalPizza
     , serialize
     , setDistribution
     , setTransform
@@ -29,7 +29,7 @@ module Data.Food.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Ingredient as Ingredient exposing (PlaneTransport(..))
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
@@ -373,12 +373,22 @@ type alias Product =
 recipesAndNames : List Product
 recipesAndNames =
     [ { name = "Produit vide", query = emptyQuery, category = "" }
-    , { name = "Carrot cake (643g)", query = carrotCake, category = "Pâtisserie" }
-    , { name = "Épinards congelés (815g)", query = frozenSpinach, category = "Produit surgelé" }
-    , { name = "Pizza jambon fromage congelée (474g)", query = frozenPizzaHamCheese, category = "Produit surgelé" }
-    , { name = "Pizza margharita congelée (662g)", query = frozenPizzaMargarita, category = "Produit surgelé" }
-    , { name = "Ratatouille en conserve (804g)", query = cannedRatatouille, category = "Conserve" }
-    , { name = "Raviolis en conserve (733g)", query = cannedRaviolis, category = "Conserve" }
+    , { name = "Farine de blé bio FR (1kg) - 20", query = wheatFROrganic, category = "Produits céréaliers" }
+    , { name = "Farine de blé FR (1kg) - 22", query = wheatFR, category = "Produits céréaliers" }
+    , { name = "Farine de blé origine Ukraine (1kg) - 22", query = wheatUKR, category = "Produits céréaliers" }
+    , { name = "Filets de poulet bio FR (250g) - 95", query = chickenFROrganic, category = "Volaille" }
+    , { name = "Filets de poulet FR (250g) - 96", query = chickenFR, category = "Volaille" }
+    , { name = "Filets de poulet origine Brésil (250g) - 100", query = chickenBR, category = "Volaille" }
+    , { name = "Pizza bolognese (375g) - 21", query = bolognesePizza, category = "Produit surgelé" }
+    , { name = "Pizza bolognese FR (375g) - 21", query = bolognesePizzaFR, category = "Produit surgelé" }
+    , { name = "Pizza bolognese FR bio (375g) - 21", query = bolognesePizzaFROrganic, category = "Produit surgelé" }
+    , { name = "Pizza royale (350g) - 6", query = royalPizza, category = "Produit surgelé" }
+    , { name = "Pizza royale FR (350g) - 6", query = royalPizzaFR, category = "Produit surgelé" }
+    , { name = "Pizza végétale (385g) - 19", query = vegetablePizza, category = "Produit surgelé" }
+    , { name = "Pizza végétale FR (385g) - 19", query = vegetablePizzaFR, category = "Produit surgelé" }
+    , { name = "Steak haché surgelé origine Brésil (200g) - 82", query = groundSteakBR, category = "Viande bovine" }
+    , { name = "Steak haché surgelé FR (250g) - 95", query = groundSteakFR, category = "Viande bovine" }
+    , { name = "Steak haché surgelé bio FR (200g) - 78", query = groundSteakFROrganic, category = "Viande bovine" }
     ]
 
 
@@ -428,82 +438,51 @@ emptyQuery =
     }
 
 
-carrotCake : Query
-carrotCake =
+royalPizza : Query
+royalPizza =
     { ingredients =
-        [ { id = Ingredient.idFromString "egg-indoor-code3"
-          , mass = Mass.grams 120
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 97
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "wheat"
-          , mass = Mass.grams 140
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 89
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "milk"
-          , mass = Mass.grams 60
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 70
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "carrot"
-          , mass = Mass.grams 225
+        , { id = Ingredient.idFromString "cooked-ham"
+          , mass = Mass.grams 16
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        ]
-    , transform =
-        Just
-            { -- Cooking, industrial, 1kg of cooked product/ FR U
-              code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 545
-            }
-    , packaging =
-        [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
-            code = Process.codeFromString "AGRIBALU000000003104019"
-          , mass = Mass.grams 105
-          }
-        ]
-    , distribution = Just Retail.ambient
-    , preparation = [ Preparation.Id "refrigeration" ]
-    }
-
-
-cannedRatatouille : Query
-cannedRatatouille =
-    { ingredients =
-        [ { id = Ingredient.idFromString "eggplant"
-          , mass = Mass.grams 175
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 5
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "zucchini"
-          , mass = Mass.grams 175
+        , { id = Ingredient.idFromString "mushroom"
+          , mass = Mass.grams 31
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "bellpepper-unheated-greenhouse"
-          , mass = Mass.grams 175
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 16
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "tomato-greenhouse"
-          , mass = Mass.grams 250
-          , country = Nothing
-          , planeTransport = PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "onion"
-          , mass = Mass.grams 175
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "olive-oil"
-          , mass = Mass.grams 45
-          , country = Nothing
-          , planeTransport = PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "black-pepper"
-          , mass = Mass.grams 2
+          , mass = Mass.grams 1
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 22
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -511,133 +490,297 @@ cannedRatatouille =
     , transform =
         Just
             { code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 997
+            , mass = Mass.grams 363
             }
     , packaging =
-        [ { code = Process.codeFromString "AGRIBALU000000003114927"
-          , mass = Mass.grams 100
-          }
-        ]
-    , distribution = Just Retail.ambient
-    , preparation =
-        [ Preparation.Id "pan-warming"
-        ]
-    }
-
-
-cannedRaviolis : Query
-cannedRaviolis =
-    { ingredients =
-        [ { id = Ingredient.idFromString "egg-indoor-code3"
-          , mass = Mass.grams 210
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "flour"
-          , mass = Mass.grams 310
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "ground-beef"
-          , mass = Mass.grams 310
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "onion"
-          , mass = Mass.grams 15
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        , { id = Ingredient.idFromString "black-pepper"
-          , mass = Mass.grams 2
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        ]
-    , transform =
-        Just
-            { code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 847
-            }
-    , packaging =
-        [ { code = Process.codeFromString "AGRIBALU000000003114927"
-          , mass = Mass.grams 100
-          }
-        ]
-    , distribution = Just Retail.ambient
-    , preparation =
-        [ Preparation.Id "pan-warming"
-        ]
-    }
-
-
-frozenSpinach : Query
-frozenSpinach =
-    { ingredients =
-        [ { id = Ingredient.idFromString "spinach"
-          , mass = Mass.grams 840
-          , country = Nothing
-          , planeTransport = Ingredient.PlaneNotApplicable
-          }
-        ]
-    , transform =
-        Just
-            { code = Process.codeFromString "AGRIBALU000000003102449"
-            , mass = Mass.grams 840
-            }
-    , packaging =
-        [ { code = Process.codeFromString "AGRIBALU000000003114927"
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
           , mass = Mass.grams 100
           }
         ]
     , distribution = Just Retail.frozen
     , preparation =
         [ Preparation.Id "freezing"
-        , Preparation.Id "pan-warming"
+        , Preparation.Id "oven"
         ]
     }
 
 
-frozenPizzaMargarita : Query
-frozenPizzaMargarita =
+royalPizzaFR : Query
+royalPizzaFR =
     { ingredients =
         [ { id = Ingredient.idFromString "flour"
-          , mass = Mass.grams 100
+          , mass = Mass.grams 97
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 89
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 70
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "cooked-ham"
+          , mass = Mass.grams 16
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 5
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mushroom"
+          , mass = Mass.grams 31
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 16
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "black-pepper"
+          , mass = Mass.grams 1
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "olive-oil"
-          , mass = Mass.grams 30
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 22
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 363
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+vegetablePizza : Query
+vegetablePizza =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 113
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 76
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 36
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 4
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 21
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "black-pepper"
+          , mass = Mass.grams 2
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "emmental"
+          , mass = Mass.grams 12
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato-greenhouse"
-          , mass = Mass.grams 235.00000000000003
+          , mass = Mass.grams 36
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "bellpepper-unheated-greenhouse"
+          , mass = Mass.grams 36
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 12
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 22
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 396
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+vegetablePizzaFR : Query
+vegetablePizzaFR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 113
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 76
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 36
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 4
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 21
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "black-pepper"
+          , mass = Mass.grams 2
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "emmental"
+          , mass = Mass.grams 12
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-greenhouse"
+          , mass = Mass.grams 36
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "bellpepper-unheated-greenhouse"
+          , mass = Mass.grams 36
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 12
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 22
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 370
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+bolognesePizza : Query
+bolognesePizza =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 148
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-paste"
           , mass = Mass.grams 100
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "mozzarella"
-          , mass = Mass.grams 125
+          , mass = Mass.grams 19
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "tomato-concentrated"
-          , mass = Mass.grams 30
+        , { id = Ingredient.idFromString "ground-beef-feedlot"
+          , mass = Mass.grams 43
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 3
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 5
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 33
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "emmental"
-          , mass = Mass.grams 100
+          , mass = Mass.grams 19
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "black-pepper"
-          , mass = Mass.grams 5
+        , { id = Ingredient.idFromString "sunflower-oil"
+          , mass = Mass.grams 2
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 14
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "carrot"
+          , mass = Mass.grams 6
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -645,14 +788,11 @@ frozenPizzaMargarita =
     , transform =
         Just
             { code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 725
+            , mass = Mass.grams 398
             }
     , packaging =
         [ { code = Process.codeFromString "AGRIBALU000000003104019"
-          , mass = Mass.grams 105
-          }
-        , { code = Process.codeFromString "AGRIBALU000000003110698"
-          , mass = Mass.grams 5
+          , mass = Mass.grams 100
           }
         ]
     , distribution = Just Retail.frozen
@@ -663,41 +803,73 @@ frozenPizzaMargarita =
     }
 
 
-frozenPizzaHamCheese : Query
-frozenPizzaHamCheese =
+bolognesePizzaFR : Query
+bolognesePizzaFR =
     { ingredients =
         [ { id = Ingredient.idFromString "flour"
-          , mass = Mass.grams 100
-          , country = Nothing
+          , mass = Mass.grams 148
+          , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "tomato-greenhouse"
-          , mass = Mass.grams 235.00000000000003
-          , country = Nothing
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 100
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 19
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "ground-beef"
+          , mass = Mass.grams 43
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 3
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil"
+          , mass = Mass.grams 5
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 33
+          , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "emmental"
-          , mass = Mass.grams 100
-          , country = Nothing
+          , mass = Mass.grams 19
+          , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "cooked-ham"
-          , mass = Mass.grams 100
-          , country = Nothing
+        , { id = Ingredient.idFromString "sunflower-oil"
+          , mass = Mass.grams 2
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 14
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "carrot"
+          , mass = Mass.grams 6
+          , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         ]
     , transform =
         Just
             { code = Process.codeFromString "AGRIBALU000000003103966"
-            , mass = Mass.grams 725
+            , mass = Mass.grams 392
             }
     , packaging =
         [ { code = Process.codeFromString "AGRIBALU000000003104019"
-          , mass = Mass.grams 105
-          }
-        , { code = Process.codeFromString "AGRIBALU000000003110698"
-          , mass = Mass.grams 5
+          , mass = Mass.grams 100
           }
         ]
     , distribution = Just Retail.frozen
@@ -705,4 +877,279 @@ frozenPizzaHamCheese =
         [ Preparation.Id "freezing"
         , Preparation.Id "oven"
         ]
+    }
+
+
+bolognesePizzaFROrganic : Query
+bolognesePizzaFROrganic =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour-organic"
+          , mass = Mass.grams 148
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tomato-paste"
+          , mass = Mass.grams 100
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "mozzarella"
+          , mass = Mass.grams 19
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "ground-beef-organic"
+          , mass = Mass.grams 43
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sugar"
+          , mass = Mass.grams 3
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "rapeseed-oil-organic"
+          , mass = Mass.grams 5
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "tap-water"
+          , mass = Mass.grams 33
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "emmental"
+          , mass = Mass.grams 19
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "sunflower-oil-organic"
+          , mass = Mass.grams 2
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "onion"
+          , mass = Mass.grams 14
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        , { id = Ingredient.idFromString "carrot-organic"
+          , mass = Mass.grams 6
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform =
+        Just
+            { code = Process.codeFromString "AGRIBALU000000003103966"
+            , mass = Mass.grams 398
+            }
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+          , mass = Mass.grams 100
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+groundSteakBR : Query
+groundSteakBR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "ground-beef-feedlot"
+          , mass = Mass.grams 200
+          , country = Just (Country.Code "BR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003111575"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "pan-cooking"
+        ]
+    }
+
+
+groundSteakFR : Query
+groundSteakFR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "ground-beef"
+          , mass = Mass.grams 250
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003110698"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "pan-cooking"
+        ]
+    }
+
+
+groundSteakFROrganic : Query
+groundSteakFROrganic =
+    { ingredients =
+        [ { id = Ingredient.idFromString "ground-beef-organic"
+          , mass = Mass.grams 200
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003111575"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "pan-cooking"
+        ]
+    }
+
+
+chickenBR : Query
+chickenBR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "chicken-breast-br-max"
+          , mass = Mass.grams 250
+          , country = Just (Country.Code "BR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003111575"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+chickenFROrganic : Query
+chickenFROrganic =
+    { ingredients =
+        [ { id = Ingredient.idFromString "chicken-breast-organic"
+          , mass = Mass.grams 250
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003111575"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+chickenFR : Query
+chickenFR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "chicken-breast"
+          , mass = Mass.grams 250
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003111575"
+          , mass = Mass.grams 50
+          }
+        ]
+    , distribution = Just Retail.frozen
+    , preparation =
+        [ Preparation.Id "freezing"
+        , Preparation.Id "oven"
+        ]
+    }
+
+
+wheatUKR : Query
+wheatUKR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 1000
+          , country = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003108113"
+          , mass = Mass.grams 20
+          }
+        ]
+    , distribution = Just Retail.ambient
+    , preparation = []
+    }
+
+
+wheatFR : Query
+wheatFR =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour"
+          , mass = Mass.grams 1000
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003108113"
+          , mass = Mass.grams 20
+          }
+        ]
+    , distribution = Just Retail.ambient
+    , preparation = []
+    }
+
+
+wheatFROrganic : Query
+wheatFROrganic =
+    { ingredients =
+        [ { id = Ingredient.idFromString "flour-organic"
+          , mass = Mass.grams 1000
+          , country = Just (Country.Code "FR")
+          , planeTransport = Ingredient.PlaneNotApplicable
+          }
+        ]
+    , transform = Nothing
+    , packaging =
+        [ { code = Process.codeFromString "AGRIBALU000000003108113"
+          , mass = Mass.grams 20
+          }
+        ]
+    , distribution = Just Retail.ambient
+    , preparation = []
     }
