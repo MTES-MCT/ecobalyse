@@ -3,12 +3,14 @@ module Data.Food.EcosystemicServices exposing
     , coefficients
     , decode
     , empty
+    , encode
     , labels
     )
 
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 
 
 type alias EcosystemicServices =
@@ -50,6 +52,17 @@ decode =
         |> Pipe.optional "cropDiversity" Unit.decodeImpact (Unit.impact 0)
         |> Pipe.optional "permanentPasture" Unit.decodeImpact (Unit.impact 0)
         |> Pipe.optional "livestockDensity" Unit.decodeImpact (Unit.impact 0)
+
+
+encode : EcosystemicServices -> Encode.Value
+encode services =
+    Encode.object
+        [ ( "hedges", Unit.encodeImpact services.hedges )
+        , ( "plotSize", Unit.encodeImpact services.plotSize )
+        , ( "cropDiversity", Unit.encodeImpact services.cropDiversity )
+        , ( "permanentPasture", Unit.encodeImpact services.permanentPasture )
+        , ( "livestockDensity", Unit.encodeImpact services.livestockDensity )
+        ]
 
 
 empty : EcosystemicServices

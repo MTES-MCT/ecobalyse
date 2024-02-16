@@ -1,11 +1,13 @@
 module Data.Food.Origin exposing
     ( Origin(..)
     , decode
+    , encode
     , toLabel
     )
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Encode as Encode
 
 
 type Origin
@@ -19,6 +21,11 @@ decode : Decoder Origin
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+encode : Origin -> Encode.Value
+encode =
+    toString >> Encode.string
 
 
 fromString : String -> Result String Origin
@@ -38,6 +45,22 @@ fromString string =
 
         _ ->
             Err <| "Origine géographique inconnue : " ++ string
+
+
+toString : Origin -> String
+toString origin =
+    case origin of
+        France ->
+            "France"
+
+        EuropeAndMaghreb ->
+            "EuropeAndMaghreb"
+
+        OutOfEuropeAndMaghreb ->
+            "OutOfEuropeAndMaghreb"
+
+        OutOfEuropeAndMaghrebByPlane ->
+            "OutOfEuropeAndMaghrebByPlane"
 
 
 toLabel : Origin -> String

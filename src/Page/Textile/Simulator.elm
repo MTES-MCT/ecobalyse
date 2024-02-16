@@ -173,7 +173,7 @@ init trigram maybeUrlQuery session =
             -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
             Just _ ->
                 Cmd.none
-        , Simulator.getCompute apiUrl session.textileDb initialQuery OnApiReceived
+        , Simulator.getCompute apiUrl session.db initialQuery OnApiReceived
         ]
     )
 
@@ -201,7 +201,7 @@ updateQuery query ( model, session, commands ) =
     , session
     , Cmd.batch
         [ commands
-        , Simulator.getCompute apiUrl session.textileDb query OnApiReceived
+        , Simulator.getCompute apiUrl session.db query OnApiReceived
         ]
     )
 

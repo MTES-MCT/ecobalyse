@@ -92,7 +92,7 @@ init scope dataset session =
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
       , textileProductsAndSimulatorDatas =
-            session.textileDb.products
+            session.db.textile.products
                 |> List.map
                     (\product ->
                         { product = product, simulatorData = RemoteData.NotAsked }
@@ -103,7 +103,7 @@ init scope dataset session =
         [ Ports.scrollTo { x = 0, y = 0 }
         , case dataset of
             Dataset.TextileProducts _ ->
-                session.textileDb.products
+                session.db.textile.products
                     |> List.map
                         (\product ->
                             let
@@ -113,7 +113,7 @@ init scope dataset session =
                                 apiUrl =
                                     Api.getApiServerUrl session
                             in
-                            TextileSimulator.getCompute apiUrl session.textileDb (TextileInputs.updateProduct product defaultQuery) (OnTextileApiReceived product)
+                            TextileSimulator.getCompute apiUrl session.db (TextileInputs.updateProduct product defaultQuery) (OnTextileApiReceived product)
                         )
                     |> Cmd.batch
 
@@ -375,7 +375,7 @@ textileProductsExplorer tableConfig tableState maybeId productsAndSimulatorDatas
     , case maybeId of
         Just id ->
             detailsModal
-                (case Product.findById id db.textile.products of
+                (case Product.findById id db.products of
                     Ok product ->
                         productsAndSimulatorDatas
                             |> List.filter (\entry -> entry.product == product)

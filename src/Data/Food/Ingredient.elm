@@ -6,8 +6,11 @@ module Data.Food.Ingredient exposing
     , byPlaneAllowed
     , byPlaneByDefault
     , decodeId
+    , decodeIngredient
     , decodeIngredients
+    , decodePlaneTransport
     , encodeId
+    , encodeIngredient
     , encodePlaneTransport
     , findByID
     , getDefaultOriginTransport
@@ -22,7 +25,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Density exposing (Density, gramsPerCubicCentimeter)
+import Density exposing (Density, gramsPerCubicCentimeter, inGramsPerCubicCentimeter)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -96,6 +99,23 @@ encodeId (Id str) =
     Encode.string str
 
 
+decodePlaneTransport : Decoder PlaneTransport
+decodePlaneTransport =
+    Decode.string
+        |> Decode.map
+            (\plane ->
+                case plane of
+                    "byPlane" ->
+                        ByPlane
+
+                    "noPlane" ->
+                        NoPlane
+
+                    _ ->
+                        NoPlane
+            )
+
+
 encodePlaneTransport : PlaneTransport -> Maybe Encode.Value
 encodePlaneTransport planeTransport =
     case planeTransport of
@@ -146,6 +166,23 @@ decodeIngredient processes =
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
 
 
+encodeIngredient : Ingredient -> Encode.Value
+encodeIngredient ingredient =
+    Encode.object
+        [ ( "id", encodeId ingredient.id )
+        , ( "name", Encode.string ingredient.name )
+        , ( "categories", Encode.list IngredientCategory.encode ingredient.categories )
+        , ( "default", Process.encode ingredient.default )
+        , ( "default_origin", Origin.encode ingredient.defaultOrigin )
+        , ( "inedible_part", Split.encodeFloat ingredient.inediblePart )
+        , ( "raw_to_cooked_ratio", ingredient.rawToCookedRatio |> Unit.ratioToFloat |> Encode.float )
+        , ( "density", inGramsPerCubicCentimeter ingredient.density |> Encode.float )
+        , ( "transport_cooling", encodeTransportCooling ingredient.transportCooling )
+        , ( "visible", Encode.bool ingredient.visible )
+        , ( "ecosystemicServices", EcosystemicServices.encode ingredient.ecosystemicServices )
+        ]
+
+
 decodeTransportCooling : Decoder TransportCooling
 decodeTransportCooling =
     Decode.string
@@ -164,6 +201,21 @@ decodeTransportCooling =
                     invalid ->
                         Decode.fail <| "Valeur de transport frigorifique invalide : " ++ invalid
             )
+
+
+encodeTransportCooling : TransportCooling -> Encode.Value
+encodeTransportCooling transportCooling =
+    (case transportCooling of
+        NoCooling ->
+            "none"
+
+        AlwaysCool ->
+            "always"
+
+        CoolOnceTransformed ->
+            "once_transformed"
+    )
+        |> Encode.string
 
 
 findByID : Id -> List Ingredient -> Result String Ingredient

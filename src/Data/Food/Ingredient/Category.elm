@@ -1,11 +1,13 @@
 module Data.Food.Ingredient.Category exposing
     ( Category(..)
     , decode
+    , encode
     , toLabel
     )
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Encode as Encode
 
 
 type Category
@@ -70,6 +72,49 @@ fromString str =
             Err <| "Categorie d'ingrédient invalide : " ++ str
 
 
+toString : Category -> String
+toString category =
+    case category of
+        AnimalProduct ->
+            "animal_product"
+
+        Conventional ->
+            "conventional"
+
+        DairyProduct ->
+            "dairy_product"
+
+        GrainRaw ->
+            "grain_raw"
+
+        GrainProcessed ->
+            "grain_processed"
+
+        Misc ->
+            "misc"
+
+        NutOilseedRaw ->
+            "nut_oilseed_raw"
+
+        NutOilseedProcessed ->
+            "nut_oilseed_processed"
+
+        SpiceCondimentOrAdditive ->
+            "spice_condiment_additive"
+
+        VegetableFresh ->
+            "vegetable_fresh"
+
+        VegetableProcessed ->
+            "vegetable_processed"
+
+        Organic ->
+            "organic"
+
+        BleuBlancCoeur ->
+            "bleublanccoeur"
+
+
 toLabel : Category -> String
 toLabel category =
     case category of
@@ -117,3 +162,8 @@ decode : Decoder Category
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+encode : Category -> Encode.Value
+encode =
+    toString >> Encode.string
