@@ -10,7 +10,8 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "milk",
@@ -30,7 +31,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.61,
       "livestockDensity": -0.0002
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "milk-organic",
@@ -64,7 +66,8 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "carrot-organic",
@@ -77,7 +80,8 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "wheat",
@@ -97,7 +101,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "wheat-organic",
@@ -131,7 +136,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "flour-organic",
@@ -158,7 +164,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sunflower-organic",
@@ -171,7 +178,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rapeseed",
@@ -185,7 +193,8 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\""
+    "explain": "à préciser car ce n'est aps un procédé FR donc il n'est pas indiqué dans AGB s'il s'agit bien d'un procédé \"sortie de ferme\"",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rapeseed-organic",
@@ -199,7 +208,8 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)"
+    "explain": "Le procédé FR pour le bio (contrairement au conv qui est issu de WFDB)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "potato",
@@ -212,7 +222,8 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ground-beef",
@@ -232,7 +243,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
       "livestockDensity": -0.0059
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ground-beef-organic",
@@ -259,7 +271,8 @@
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
-    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9"
+    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ground-beef-feedlot",
@@ -300,7 +313,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0591
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cooked-ham-organic",
@@ -362,7 +376,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0293
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chicken-breast-organic",
@@ -417,7 +432,8 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rapeseed-oil",
@@ -430,7 +446,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rapeseed-oil-organic",
@@ -457,7 +474,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sunflower-oil-organic",
@@ -485,7 +503,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "mix"
+    "explain": "mix",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "zucchini-organic",
@@ -498,7 +517,8 @@
     "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pear",
@@ -511,7 +531,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "peach-organic",
@@ -524,7 +545,8 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "melon",
@@ -537,7 +559,8 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "melon-organic",
@@ -550,7 +573,8 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "butter",
@@ -563,7 +587,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "butter-organic",
@@ -590,7 +615,8 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "eggplant",
@@ -603,7 +629,8 @@
     "density": 0.398,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lettuce",
@@ -616,7 +643,8 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "french-bean",
@@ -629,7 +657,8 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "durum-wheat",
@@ -642,127 +671,148 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
-    "search": "Steel unalloyed {RER} steel production converter unalloyed"
+    "search": "Steel unalloyed {RER} steel production converter unalloyed",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
-    "search": "Packaging film low density polyethylene {RER} production"
+    "search": "Packaging film low density polyethylene {RER} production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
-    "search": "Polystyrene expandable {RER} production"
+    "search": "Polystyrene expandable {RER} production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
-    "search": "Packaging glass white {RER} w/o CH+DE production"
+    "search": "Packaging glass white {RER} w/o CH+DE production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
-    "search": "Polypropylene granulate {RER}| production"
+    "search": "Polypropylene granulate {RER}| production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
-    "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent"
+    "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
-    "search": "Kraft paper production"
+    "search": "Kraft paper production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
-    "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation"
+    "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pet",
     "name": "PET",
     "category": "packaging",
-    "search": "Polyethylene terephthalate granulate bottle grade {RER} production"
+    "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
-    "search": "Polyethylene high density granulate {RER} production"
+    "search": "Polyethylene high density granulate {RER} production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
-    "search": "Aluminium primary ingot {RoW} production"
+    "search": "Aluminium primary ingot {RoW} production",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
-    "search": "Canning fruits or vegetables industrial 1kg of canned product FR"
+    "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "category": "transformation",
-    "search": "Mixing processing dummy"
+    "search": "Mixing processing dummy",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
-    "search": "Cooking industrial 1kg of cooked product FR"
+    "search": "Cooking industrial 1kg of cooked product FR",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
-    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5"
+    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
-    "search": "Transport freight sea ship"
+    "search": "Transport freight sea ship",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "plane",
     "name": "Avion",
     "category": "transport",
-    "search": "Transport freight aircraft"
+    "search": "Transport freight aircraft",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "category": "transport",
-    "search": "Transport freight sea ship reefer"
+    "search": "Transport freight sea ship reefer",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry-cooling",
     "category": "transport",
     "name": "Camion frigorifique",
-    "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}"
+    "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "category": "energy",
-    "search": "Electricity low voltage {FR} market"
+    "search": "Electricity low voltage {FR} market",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tap-water",
@@ -775,13 +825,15 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "category": "energy",
-    "search": "Heat central or small-scale natural gas Europe market"
+    "search": "Heat central or small-scale natural gas Europe market",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lentils-uncooked",
@@ -794,7 +846,8 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "garden-peas",
@@ -807,7 +860,8 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tomato-organic-greenhouse",
@@ -820,7 +874,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tomato-greenhouse",
@@ -833,7 +888,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "comte-aop",
@@ -847,7 +903,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "emmental",
@@ -861,7 +918,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mozzarella",
@@ -875,7 +933,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. "
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tomato-heated-greenhouse",
@@ -888,7 +947,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cucumber-greenhouse-non-heated",
@@ -901,7 +961,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "apricot",
@@ -914,7 +975,8 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "artichoke",
@@ -928,7 +990,8 @@
     "inedible_part": 0.6,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut"
+    "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cauliflower",
@@ -941,7 +1004,8 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "beetroot",
@@ -954,7 +1018,8 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "beetroot-organic",
@@ -968,7 +1033,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "swiss-chard",
@@ -981,7 +1047,8 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "spinach",
@@ -994,7 +1061,8 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "broccoli",
@@ -1007,7 +1075,8 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "celery",
@@ -1020,7 +1089,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "celeriac",
@@ -1033,7 +1103,8 @@
     "density": 0.6375,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "celeriac-organic",
@@ -1047,7 +1118,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cherry",
@@ -1061,7 +1133,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Part non comestible => hypothèse de la prune\n"
+    "explain": "Part non comestible => hypothèse de la prune\n",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mushroom",
@@ -1075,7 +1148,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas"
+    "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chestnut",
@@ -1088,7 +1162,8 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "walnut",
@@ -1101,7 +1176,8 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chinese-cabbage",
@@ -1114,7 +1190,8 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "white-cabbage",
@@ -1127,7 +1204,8 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "green-cabbage",
@@ -1140,7 +1218,8 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "red-cabbage",
@@ -1154,7 +1233,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)"
+    "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "brussels-sprout",
@@ -1167,7 +1247,8 @@
     "density": 0.362,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "curly-kale",
@@ -1181,7 +1262,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur "
+    "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lemon",
@@ -1194,7 +1276,8 @@
     "density": 0.575,
     "inedible_part": 0.3,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pumpkin",
@@ -1207,7 +1290,8 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "squash",
@@ -1220,7 +1304,8 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "clementine",
@@ -1233,7 +1318,8 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mandarin",
@@ -1246,7 +1332,8 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "orange",
@@ -1259,7 +1346,8 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "shallot",
@@ -1273,7 +1361,8 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de l'échalotte approximé par celui de l'oignon"
+    "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "endive",
@@ -1286,7 +1375,8 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "fennel",
@@ -1299,7 +1389,8 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "broad-beans",
@@ -1313,7 +1404,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois"
+    "explain": "Procédé suisse ?\nRatios : reprise des hypothèses des petit-pois",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "strawberry",
@@ -1326,7 +1418,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "raspberry",
@@ -1340,7 +1433,8 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)"
+    "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "flageolet-bean",
@@ -1354,7 +1448,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Densité : même hyp que petit pois"
+    "explain": "Densité : même hyp que petit pois",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "kiwi",
@@ -1367,7 +1462,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lambs-lettuce",
@@ -1380,7 +1476,8 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sweet-corn",
@@ -1401,7 +1498,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "blackberry",
@@ -1415,7 +1513,8 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)"
+    "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "blueberry",
@@ -1429,7 +1528,8 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)"
+    "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "turnip",
@@ -1442,7 +1542,8 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "turnip-organic",
@@ -1456,7 +1557,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la carotte bio (donc Basse-Normandie)"
+    "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "hazelnut",
@@ -1469,7 +1571,8 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pistachio",
@@ -1483,7 +1586,8 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)"
+    "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "leek",
@@ -1496,7 +1600,8 @@
     "density": 0.6195,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chickpea",
@@ -1510,7 +1615,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Part non comestible : hypothèse petit pois"
+    "explain": "Part non comestible : hypothèse petit pois",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chickpea-organic",
@@ -1524,7 +1630,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)"
+    "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "bellpepper-unheated-greenhouse",
@@ -1537,7 +1644,8 @@
     "density": 0.295,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "plum",
@@ -1551,7 +1659,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "Procédé de la cerise (hypothèse mix de conso AGB)"
+    "explain": "Procédé de la cerise (hypothèse mix de conso AGB)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "soybean-humanconsumption",
@@ -1571,7 +1680,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "soybean-organic",
@@ -1591,7 +1701,8 @@
       "cropDiversity": 18.22,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -1604,7 +1715,8 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "soybean-br-deforestation",
@@ -1617,7 +1729,8 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sausage-meat",
@@ -1630,7 +1743,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sausage-toulouse",
@@ -1643,7 +1757,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -1656,7 +1771,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sausage-tofu",
@@ -1669,7 +1785,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tomato-paste",
@@ -1682,7 +1799,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tomato-concentrated",
@@ -1695,7 +1813,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rib-steak",
@@ -1708,7 +1827,8 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "flank-steak",
@@ -1721,7 +1841,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "flank-steak-organic",
@@ -1748,7 +1869,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "durum-wheat-semolina",
@@ -1761,7 +1883,8 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sugar",
@@ -1774,7 +1897,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "dark-chocolate",
@@ -1788,7 +1912,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV"
+    "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pineapple",
@@ -1801,7 +1926,8 @@
     "density": 0.575,
     "inedible_part": 0.5,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "banana",
@@ -1814,7 +1940,8 @@
     "density": 0.447,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "chicken-breast-br-max",
@@ -1871,7 +1998,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "strawberry-off-season",
@@ -1884,7 +2012,8 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "avocado",
@@ -1897,7 +2026,8 @@
     "density": 0.6375,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "olive",
@@ -1910,7 +2040,8 @@
     "density": 0.447,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "olive-oil",
@@ -1923,7 +2054,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tea-dried",
@@ -1936,7 +2068,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "coffee-ground",
@@ -1949,7 +2082,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "black-pepper",
@@ -1963,7 +2097,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\""
+    "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "milk-powder",
@@ -1976,7 +2111,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rice-basmati",
@@ -1989,7 +2125,8 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "red-wine",
@@ -2002,7 +2139,8 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "fresh-shrimps",
@@ -2015,7 +2153,8 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cucumber-greenhouse-heated",
@@ -2028,7 +2167,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "peach-conventional",
@@ -2042,7 +2182,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
     "explain": "mix",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "large-trout",
@@ -2056,7 +2197,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)"
+    "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "egg-indoor-code2",
@@ -2076,7 +2218,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "egg-indoor-code3",
@@ -2096,7 +2239,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "egg-outdoor-code1",
@@ -2109,7 +2253,8 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "egg-organic-code0",
@@ -2122,7 +2267,8 @@
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "wine-grape-organic",
@@ -2135,7 +2281,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "wine-grape",
@@ -2148,7 +2295,8 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lamb-meat-without-bone",
@@ -2168,7 +2316,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 86.68,
       "livestockDensity": 0.0034
-    }
+    },
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lamb-organic-meat-without-bone",
@@ -2203,10 +2352,27 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
+    "visible": true
+  },
+  {
+    "id": "apple",
+    "name": "Pomme (sortie de ferme)",
+    "database": "Agribalyse 3.1.1",
+    "search": "Apple, conventional, national average, at orchard {FR} U",
+    "category": "ingredient",
+    "categories": ["vegetable_fresh"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
     "visible": true,
-    "complements": {
-      "agro-diversity": 50,
-      "agro-ecology": 50
+    "ecosystemicServices": {
+      "hedges": 0.107,
+      "plotSize": 0.214,
+      "cropDiversity": 0.226,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
     }
   }
 ]
