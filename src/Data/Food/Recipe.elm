@@ -13,6 +13,7 @@ module Data.Food.Recipe exposing
     , deletePackaging
     , encodeResults
     , fromQuery
+    , getCompute
     , getMassAtPackaging
     , getPackagingMass
     , getTransformedIngredientsMass
@@ -43,6 +44,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
 import Dict
+import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -50,6 +52,7 @@ import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Quantity
+import RemoteData exposing (WebData)
 import Result.Extra as RE
 import Static.Db exposing (Db)
 import String.Extra as SE
@@ -298,6 +301,15 @@ compute db =
                   }
                 )
             )
+
+
+getCompute : String -> Db -> Query -> (WebData Results -> msg) -> Cmd msg
+getCompute apiUrl db query onApiReceived =
+    Http.post
+        { url = apiUrl ++ "/textile/simulator/detailed"
+        , body = Http.jsonBody (BuilderQuery.encode query)
+        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decodeResults db)
+        }
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
