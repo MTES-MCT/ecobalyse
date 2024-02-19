@@ -9,7 +9,6 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computeProcessImpacts
-    , decodeResults
     , deletePackaging
     , encodeResults
     , fromQuery

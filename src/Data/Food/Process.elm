@@ -8,7 +8,6 @@ module Data.Food.Process exposing
     , codeToString
     , decodeIdentifier
     , decodeList
-    , encode
     , encodeIdentifier
     , findById
     , findByIdentifier
@@ -92,34 +91,6 @@ categoryFromString string =
             Err <| "Catégorie de procédé invalide: " ++ string
 
 
-categoryToString : Category -> String
-categoryToString category =
-    case category of
-        Energy ->
-            "energy"
-
-        Ingredient ->
-            "ingredient"
-
-        Material ->
-            "material"
-
-        Packaging ->
-            "packaging"
-
-        Processing ->
-            "processing"
-
-        Transform ->
-            "transformation"
-
-        Transport ->
-            "transport"
-
-        WasteTreatment ->
-            "waste treatment"
-
-
 categoryToLabel : Category -> String
 categoryToLabel category =
     case category of
@@ -174,11 +145,6 @@ decodeCategory =
         |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
-encodeCategory : Category -> Encode.Value
-encodeCategory =
-    categoryToString >> Encode.string
-
-
 decodeProcess : Definitions -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
@@ -191,21 +157,6 @@ decodeProcess definitions =
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" Decode.string
-
-
-encode : Process -> Encode.Value
-encode process =
-    Encode.object
-        [ ( "name", process.name |> nameToString |> Encode.string )
-        , ( "displayName", process.displayName |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        , ( "impacts", Impact.encode process.impacts )
-        , ( "unit", encodeStringUnit process.unit )
-        , ( "identifier", encodeIdentifier process.code )
-        , ( "category", encodeCategory process.category )
-        , ( "system_description", Encode.string process.systemDescription )
-        , ( "comment", process.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        , ( "id", Encode.string process.id_ )
-        ]
 
 
 decodeIdentifier : Decoder Identifier
@@ -271,35 +222,6 @@ decodeStringUnit =
                     _ ->
                         Decode.fail <| "Could not decode unit " ++ str
             )
-
-
-encodeStringUnit : String -> Encode.Value
-encodeStringUnit stringUnit =
-    case stringUnit of
-        "m³" ->
-            Encode.string "cubic meter"
-
-        "kg" ->
-            Encode.string "kilogram"
-
-        "km" ->
-            Encode.string "kilometer"
-
-        "kWh" ->
-            Encode.string "kilowatt hour"
-
-        "l" ->
-            Encode.string "litre"
-
-        "MJ" ->
-            Encode.string "megajoule"
-
-        "ton.km" ->
-            Encode.string "ton kilometer"
-
-        _ ->
-            -- We should never be in this case
-            Encode.string ""
 
 
 getDisplayName : Process -> String
