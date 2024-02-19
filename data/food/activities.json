@@ -73,7 +73,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.13,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -89,7 +89,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.16,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -248,7 +248,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.29,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -530,7 +530,7 @@
     "visible": true,
     "explain": "mix",
     "land_footprint": 0.23,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -546,7 +546,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.14,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -594,7 +594,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.43,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -610,7 +610,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.5,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -653,7 +653,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.26,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -669,7 +669,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.23,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -685,7 +685,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.11,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -701,7 +701,7 @@
     "transport_cooling": "always",
     "visible": true,
     "land_footprint": 1.34,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -888,7 +888,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 1.38,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -904,7 +904,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.1,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -920,7 +920,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.06,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -978,7 +978,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.04,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -994,7 +994,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.06,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1027,7 +1027,7 @@
     "visible": true,
     "explain": "Artichaut approximé par le procédé du chou fleur, mais auquel on applique les ratios (cru/cuit, densité, part non comestible) de l'artichaut",
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1043,7 +1043,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1108,7 +1108,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.05,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1124,7 +1124,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.12,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1140,7 +1140,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.14,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1156,7 +1156,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.13,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1173,7 +1173,7 @@
     "visible": true,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "land_footprint": 0.16,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -1207,7 +1207,7 @@
     "visible": true,
     "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
     "land_footprint": 0.51,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1255,7 +1255,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1271,7 +1271,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.11,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1287,7 +1287,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1304,7 +1304,7 @@
     "visible": true,
     "explain": "Procédé du chou rouge issu d'Ecoinvent (et non pas approximé par le procédé du chou-fleur comme pour le chou chinois et le chou vert)",
     "land_footprint": 0.11,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1320,7 +1320,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1337,7 +1337,7 @@
     "visible": true,
     "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur ",
     "land_footprint": 0.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1369,7 +1369,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.23,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1385,7 +1385,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.23,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1450,7 +1450,7 @@
     "visible": true,
     "explain": "Procédé de l'échalotte approximé par celui de l'oignon",
     "land_footprint": 0.26,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1466,7 +1466,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.11,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1515,7 +1515,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 1.31,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1532,7 +1532,7 @@
     "visible": true,
     "explain": "Par défaut : fraise serve (reprise de l'hyp d'Agribalyse)",
     "land_footprint": 2.03,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1549,7 +1549,7 @@
     "visible": true,
     "explain": "Densité : même hyp que petit pois",
     "land_footprint": 2.8,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1581,7 +1581,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.11,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1622,7 +1622,7 @@
     "visible": true,
     "explain": "Procédé mûre de Serbie (hypothèse reprise du mix de consommation d'Agribalyse)",
     "land_footprint": 1.95,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1639,7 +1639,7 @@
     "visible": true,
     "explain": "Procédé myrtille du Canada (hypothèse reprise du mix de consommation d'Agribalyse)",
     "land_footprint": 3.45,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1655,7 +1655,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.13,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1672,7 +1672,7 @@
     "visible": true,
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "land_footprint": 0.16,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic"
   },
   {
@@ -1721,7 +1721,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.17,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1771,7 +1771,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.09,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1934,7 +1934,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.44,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -1950,7 +1950,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 0.84,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
@@ -2157,7 +2157,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 1.08,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "import"
   },
   {
@@ -2322,7 +2322,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "land_footprint": 0.23,
-    "crop_group": "LEGUMES OU FLEURS",
+    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
   {
