@@ -324,11 +324,12 @@ decodeImpacts definitions =
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, outOfEuropeEOL } =
+encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, microfibers, outOfEuropeEOL } =
     Encode.object
         [ ( "agroDiversity", Unit.impactToFloat agroDiversity |> Encode.float )
         , ( "agroEcology", Unit.impactToFloat agroEcology |> Encode.float )
         , ( "animalWelfare", Unit.impactToFloat animalWelfare |> Encode.float )
+        , ( "microfibers", Unit.impactToFloat microfibers |> Encode.float )
         , ( "outOfEuropeEOL", Unit.impactToFloat outOfEuropeEOL |> Encode.float )
         ]
 
