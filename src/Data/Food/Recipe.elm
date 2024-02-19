@@ -21,6 +21,7 @@ module Data.Food.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
+    , toQuery
     , toStepsImpacts
     , toString
     )
@@ -306,9 +307,9 @@ compute db =
 getCompute : String -> Db -> Query -> (WebData Results -> msg) -> Cmd msg
 getCompute apiUrl db query onApiReceived =
     Http.post
-        { url = apiUrl ++ "/textile/simulator/detailed"
+        { url = apiUrl ++ "/food/recipe"
         , body = Http.jsonBody (BuilderQuery.encode query)
-        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decodeResults db)
+        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decode db)
         }
 
 
@@ -468,6 +469,11 @@ encodeResults results =
         ]
 
 
+decode : Db -> Decoder Results
+decode db =
+    Decode.field "results" (decodeResults db)
+
+
 decodeResults : Db -> Decoder Results
 decodeResults db =
     Decode.succeed Results
@@ -482,14 +488,6 @@ decodeResults db =
         |> Pipe.required "distribution" (decodeDistribution db.definitions)
         |> Pipe.required "preparation" (Impact.decodeImpacts db.definitions)
         |> Pipe.required "transports" (Transport.decode db.definitions)
-
-
-
---    Encode.object
---       [ ( "total", Impact.encode results.distribution.total )
---       , ( "transports", Transport.encode results.distribution.transports )
---       ]
--- )
 
 
 encodeScoring : Scoring -> Encode.Value
@@ -576,7 +574,7 @@ decodeRecipeIngredient { definitions, food, textile } =
                     )
                 |> Pipe.required "mass" (Decode.float |> Decode.map Mass.grams)
                 |> Pipe.required "country" (Decode.maybe (Country.decode textile.processes))
-                |> Pipe.required "planeTransport" Ingredient.decodePlaneTransport
+                |> Pipe.optional "planeTransport" Ingredient.decodePlaneTransport Ingredient.NoPlane
             )
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
 

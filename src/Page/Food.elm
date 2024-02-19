@@ -21,7 +21,7 @@ import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as Query exposing (Query)
-import Data.Food.Recipe as Recipe exposing (Recipe)
+import Data.Food.Recipe as Recipe exposing (Recipe, Results)
 import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
@@ -36,8 +36,10 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
+import Page.Api as Api
 import Ports
 import Quantity
+import RemoteData exposing (WebData)
 import Route
 import Static.Db as Db exposing (Db)
 import Task
@@ -63,7 +65,8 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { impact : Definition
+    { resultsData : WebData Results
+    , impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -93,6 +96,7 @@ type Msg
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
+    | OnApiReceived (WebData Results)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
@@ -127,8 +131,12 @@ init session trigram maybeQuery =
         query =
             maybeQuery
                 |> Maybe.withDefault session.queries.food
+
+        apiUrl =
+            Api.getApiServerUrl session
     in
-    ( { impact = impact
+    ( { resultsData = RemoteData.Loading
+      , impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
@@ -137,12 +145,15 @@ init session trigram maybeQuery =
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session |> Session.updateFoodQuery query
-    , case maybeQuery of
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ case maybeQuery of
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
 
-        Just _ ->
-            Cmd.none
+            Just _ ->
+                Cmd.none
+        , Recipe.getCompute apiUrl session.db query OnApiReceived
+        ]
     )
 
 
@@ -235,6 +246,26 @@ update ({ db, queries } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnApiReceived (RemoteData.Success results) ->
+            let
+                updatedQuery =
+                    Recipe.toQuery results.inputs
+            in
+            ( { model
+                | resultsData = RemoteData.Success results
+                , bookmarkName = updatedQuery |> findExistingBookmarkName session
+              }
+            , session |> Session.updateFoodQuery updatedQuery
+            , Cmd.none
+            )
+
+        OnApiReceived _ ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du calcul de la simulation" "Erreur lors de la requête à l'API"
+            , Cmd.none
+            )
 
         OnAutocompleteExample autocompleteMsg ->
             case model.modal of
@@ -425,9 +456,16 @@ update ({ db, queries } as session) msg model =
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
+    let
+        apiUrl =
+            Api.getApiServerUrl session
+    in
     ( { model | bookmarkName = query |> findExistingBookmarkName session }
     , session |> Session.updateFoodQuery query
-    , msg
+    , Cmd.batch
+        [ msg
+        , Recipe.getCompute apiUrl session.db query OnApiReceived
+        ]
     )
 
 
@@ -841,8 +879,8 @@ displayTransportDistances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : Db -> Query -> Html Msg
-debugQueryView db query =
+debugQueryView : Model -> Query -> Html Msg
+debugQueryView model query =
     let
         debugView =
             text >> List.singleton >> pre []
@@ -856,10 +894,9 @@ debugQueryView db query =
                     |> debugView
                 ]
             , div [ class "col-5" ]
-                [ query
-                    |> Recipe.compute db
-                    |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
-                    |> Result.withDefault "Error serializing the impacts"
+                [ model.resultsData
+                    |> RemoteData.map (Recipe.encodeResults >> Encode.encode 2)
+                    |> RemoteData.withDefault "Error serializing the impacts"
                     |> debugView
                 ]
             ]
@@ -1288,30 +1325,28 @@ consumptionView db selectedImpact recipe results =
 
 mainView : Db -> Session -> Model -> Html Msg
 mainView db session model =
-    let
-        computed =
-            session.queries.food
-                |> Recipe.compute db
-    in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ menuView session.queries.food
-            , case computed of
-                Ok ( recipe, results ) ->
-                    stepListView db session model recipe results
+            , case model.resultsData of
+                RemoteData.Success results ->
+                    stepListView db session model results.inputs results
 
-                Err error ->
-                    errorView error
+                RemoteData.Loading ->
+                    Html.text "Loading"
+
+                _ ->
+                    errorView "Erreur lors du chargement des résultats de la simulation"
             , session.queries.food
-                |> debugQueryView db
+                |> debugQueryView model
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
-            [ case computed of
-                Ok ( _, results ) ->
+            [ case model.resultsData of
+                RemoteData.Success results ->
                     sidebarView session model results
 
-                Err error ->
-                    errorView error
+                _ ->
+                    errorView "Erreur lors du chargement des résultats de la simulation"
             ]
         ]
 

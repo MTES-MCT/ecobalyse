@@ -172,7 +172,7 @@ encodeIngredient ingredient =
         [ ( "id", encodeId ingredient.id )
         , ( "name", Encode.string ingredient.name )
         , ( "categories", Encode.list IngredientCategory.encode ingredient.categories )
-        , ( "default", Process.encode ingredient.default )
+        , ( "default", Encode.string (Process.codeToString ingredient.default.code) )
         , ( "default_origin", Origin.encode ingredient.defaultOrigin )
         , ( "inedible_part", Split.encodeFloat ingredient.inediblePart )
         , ( "raw_to_cooked_ratio", ingredient.rawToCookedRatio |> Unit.ratioToFloat |> Encode.float )
