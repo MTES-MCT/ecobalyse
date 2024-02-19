@@ -872,7 +872,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 2.79,
-    "crop_group": "LEGUMINEUSES A GRAINS",
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference"
   },
   {
@@ -1223,7 +1223,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 6.13,
-    "crop_group": "FRUITS A COQUE",
+    "crop_group": "FRUITS A COQUESS",
     "scenario": "reference"
   },
   {
@@ -1239,7 +1239,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 6.53,
-    "crop_group": "FRUITS A COQUE",
+    "crop_group": "FRUITS A COQUES",
     "scenario": "reference"
   },
   {
@@ -1688,7 +1688,7 @@
     "transport_cooling": "none",
     "visible": true,
     "land_footprint": 8.1,
-    "crop_group": "FRUITS A COQUE",
+    "crop_group": "FRUITS A COQUES",
     "scenario": "reference"
   },
   {
@@ -1705,7 +1705,7 @@
     "visible": true,
     "explain": "Procédé de la cacahuète argentine (hypothèse reprise du mix de conso AGB)",
     "land_footprint": 4.4,
-    "crop_group": "FRUITS A COQUE",
+    "crop_group": "FRUITS A COQUES",
     "scenario": "reference"
   },
   {
@@ -1738,7 +1738,7 @@
     "visible": true,
     "explain": "Part non comestible : hypothèse petit pois",
     "land_footprint": 2.79,
-    "crop_group": "LEGUMINEUSES A GRAINS",
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference"
   },
   {
@@ -1755,7 +1755,7 @@
     "visible": true,
     "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
     "land_footprint": 2.36,
-    "crop_group": "LEGUMINEUSES A GRAINS",
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic"
   },
   {
