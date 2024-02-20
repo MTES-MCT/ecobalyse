@@ -34,8 +34,9 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
 
 Les principaux enjeux environnementaux liés à la production de coton sont :&#x20;
 
-* l'utilisation de pesticides et insecticides,\
-  Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
+* la toxicité humaine et l'écotoxicité aquatique,\
+  Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton\
+  (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
 * la consommation d'eau,\
   Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantite varie fortement selon les régions. Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
 * le changement climatique,\
@@ -45,8 +46,8 @@ Les principaux enjeux environnementaux liés à la production de coton sont :&#x
 ## Modélisation Ecobalyse
 
 Le production de fibres de coton consiste principalement à : \
-1\) produire les graines (seed-cotton production),\
-2\) égrener (fibre production, cotton, ginning).&#x20;
+1\) produire les graines de coton (seed-cotton production),\
+2\) égrener (fibre production, cotton, ginning).
 
 Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 
@@ -56,6 +57,8 @@ Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 
 **Procédé Ecoinvent** \
 _Fibre production, cotton, ginning, RoW_
+
+Procédé basé sur une moyenne pondérée des trois principaux pays producteurs (Chine, Inde, Etats-Unis). 2kg de graines de coton sont nécessaires pour produire 1kg de fibre de coton.
 
 </details>
 
@@ -67,6 +70,8 @@ _Fibre production, cotton, ginning, RoW_
 _Fibre production, cotton, organic, ginning, RoW_
 
 </details>
+
+Le périmètre considéré se situe entre la culture de la plante et l'égrennage (avant application de pré-traitements tels que le blanchiment).&#x20;
 
 ### Mieux comprendre les impacts dans Ecobalyse
 
@@ -81,6 +86,8 @@ _Fibre production, cotton, organic, ginning, RoW_
   2\) l'utilisation de pesticides et insecticides (tels le Trichlorfon et Chlorpyrifos) dans la culture du coton. &#x20;
 * Le complément Microfibres (420 uPts / kg de fibre naturelle d'origine végétale) explique une part significative de l'impact de la laine (13% de _Coton conventionnel_ et 50% de _Coton organique_).&#x20;
 * La consommation d'eau ressort de manière significative (6% de l'impact total / 32m3 par kg) seulement pour le coton conventionnel tandis que 0m3 d'eau est considéré pour la culture du coton organique.
+* Le rendement pris en compte dans le coton conventionnel Ecoinvent est de 2,671 kg / ha (vs un rendement moyen de l'industrie autour de 770kg / ha). Le procédé représenterait-il une hypothèse de type "best case scenario" ?
+* La quantité de pesticides prise en compte dans le coton conventionnel Ecoinvent est de 3,6kg / ha (vs une consommation moyenne dans l'industrie autour de 300/400 kg / ha). Le procédé représenterait-il une hypothèse de type "best case scenario" ?
 
 [^1]: Market report 2023 \_ Textile Exchange
 

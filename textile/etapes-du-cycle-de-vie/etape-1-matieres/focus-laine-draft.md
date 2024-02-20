@@ -65,8 +65,7 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 Autres sources : \
 :flag\_us: Etats-Unis (année 2007) => 23% laine (source[^4]) \
 :flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^5])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 19% laine (source[^6])\
-Travaux EIME/ENSAIT => 65% laine (procédé _Wool after combing_ )
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 19% laine (source[^6])
 {% endtab %}
 
 {% tab title="Allocation biophysique" %}
