@@ -66,7 +66,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0325,
+      "plotSize": 0.08125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.13,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -79,7 +86,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.092571,
+      "plotSize": 0.14,
+      "cropDiversity": 0.44816
+    },
+    "land_footprint": 0.16,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -136,7 +150,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.43179,
+      "plotSize": 0.58125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.55,
+    "crop_group": "BLE TENDRE",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -162,7 +183,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.3629,
+      "plotSize": 1.7887,
+      "cropDiversity": 1.9223
+    },
+    "land_footprint": 4.77,
+    "crop_group": "TOURNESOL",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -175,7 +203,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 2.2603,
+      "plotSize": 2.1975,
+      "cropDiversity": 20.721
+    },
+    "land_footprint": 5.86,
+    "crop_group": "TOURNESOL",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -188,7 +223,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.82971,
+      "plotSize": 0.9075,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 3.63,
+    "crop_group": "COLZA",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -201,7 +243,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.804,
+      "plotSize": 2.255,
+      "cropDiversity": 10.941
+    },
+    "land_footprint": 4.51,
+    "crop_group": "COLZA",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -214,7 +263,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0725,
+      "plotSize": 0.18125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.29,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -398,7 +454,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.41,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -437,7 +500,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 2.4543,
+      "plotSize": 3.2212,
+      "cropDiversity": 3.4618
+    },
+    "land_footprint": 8.59,
+    "crop_group": "TOURNESOL",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -463,7 +533,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0575,
+      "plotSize": 0.14375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.23,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -476,7 +553,14 @@
     "density": 1,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.081,
+      "plotSize": 0.1225,
+      "cropDiversity": 0.39214
+    },
+    "land_footprint": 0.14,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -489,7 +573,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.11329,
+      "plotSize": 0.2275,
+      "cropDiversity": 0.24024
+    },
+    "land_footprint": 0.26,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -502,7 +593,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.58571,
+      "plotSize": 0.7175,
+      "cropDiversity": 0.51496
+    },
+    "land_footprint": 0.82,
+    "crop_group": "VERGERS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -515,7 +613,14 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1075,
+      "plotSize": 0.26875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.43,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -528,7 +633,14 @@
     "density": 0.447,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.28929,
+      "plotSize": 0.4375,
+      "cropDiversity": 1.4005
+    },
+    "land_footprint": 0.5,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -567,7 +679,14 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.065,
+      "plotSize": 0.1625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.26,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -580,7 +699,14 @@
     "density": 0.398,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0575,
+      "plotSize": 0.14375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.23,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -593,7 +719,14 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0275,
+      "plotSize": 0.06875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.11,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -606,7 +739,14 @@
     "density": 0.271,
     "inedible_part": 0.1,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.335,
+      "plotSize": 0.8375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.34,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -619,7 +759,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.89014,
+      "plotSize": 1.2562,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.01,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -645,7 +792,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.57793,
+      "plotSize": 1.395,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.79,
+    "crop_group": "LEGUMINEUSES A GRAIN",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -658,7 +812,14 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.345,
+      "plotSize": 0.8625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.38,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -671,7 +832,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.057857,
+      "plotSize": 0.0875,
+      "cropDiversity": 0.2801
+    },
+    "land_footprint": 0.1,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -684,7 +852,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.015,
+      "plotSize": 0.0375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.06,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -736,7 +911,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.01,
+      "plotSize": 0.025,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.04,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -749,7 +931,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.015,
+      "plotSize": 0.0375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.06,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -762,7 +951,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.25707,
+      "plotSize": 0.51625,
+      "cropDiversity": 0.54516
+    },
+    "land_footprint": 0.59,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -775,7 +971,14 @@
     "density": 0.362,
     "inedible_part": 0.6,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -788,7 +991,14 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -801,7 +1011,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.012071,
+      "plotSize": 0.0325,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.13,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -814,7 +1031,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.060571,
+      "plotSize": 0.14,
+      "cropDiversity": 0.27136
+    },
+    "land_footprint": 0.16,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -827,7 +1051,14 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0046429,
+      "plotSize": 0.0125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.05,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -840,7 +1071,14 @@
     "density": 0.118,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0125,
+      "plotSize": 0.03125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.05,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -853,7 +1091,14 @@
     "density": 0.2355,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.03,
+      "plotSize": 0.075,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.12,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -866,7 +1111,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.035,
+      "plotSize": 0.0875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.14,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -879,7 +1131,14 @@
     "density": 0.6375,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0325,
+      "plotSize": 0.08125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.13,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -892,7 +1151,14 @@
     "density": 0.6375,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.092571,
+      "plotSize": 0.14,
+      "cropDiversity": 0.44816
+    },
+    "land_footprint": 0.16,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -905,7 +1171,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 6.1261,
+      "plotSize": 12.303,
+      "cropDiversity": 12.991
+    },
+    "land_footprint": 14.06,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -918,7 +1191,14 @@
     "density": 0.118,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1275,
+      "plotSize": 0.31875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.51,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -931,7 +1211,14 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.839,
+      "plotSize": 5.3637,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 6.13,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -944,7 +1231,14 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.959,
+      "plotSize": 5.7138,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 6.53,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -957,7 +1251,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -970,7 +1271,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0275,
+      "plotSize": 0.06875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.11,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -983,7 +1291,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -996,7 +1311,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0275,
+      "plotSize": 0.06875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.11,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1009,7 +1331,14 @@
     "density": 0.362,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1022,7 +1351,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1125,
+      "plotSize": 0.28125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1035,7 +1371,14 @@
     "density": 0.575,
     "inedible_part": 0.3,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.122,
+      "plotSize": 0.245,
+      "cropDiversity": 0.25872
+    },
+    "land_footprint": 0.28,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1048,7 +1391,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0575,
+      "plotSize": 0.14375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.23,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1061,7 +1411,14 @@
     "density": 0.362,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0575,
+      "plotSize": 0.14375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.23,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1074,7 +1431,14 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.23529,
+      "plotSize": 0.4725,
+      "cropDiversity": 0.49896
+    },
+    "land_footprint": 0.54,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1087,7 +1451,14 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.1525,
+      "plotSize": 0.30625,
+      "cropDiversity": 0.3234
+    },
+    "land_footprint": 0.35,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1100,7 +1471,14 @@
     "density": 0.575,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.14814,
+      "plotSize": 0.2975,
+      "cropDiversity": 0.31416
+    },
+    "land_footprint": 0.34,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1113,7 +1491,14 @@
     "density": 0.6195,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.065,
+      "plotSize": 0.1625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.26,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1126,7 +1511,14 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0275,
+      "plotSize": 0.06875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.11,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1139,7 +1531,14 @@
     "density": 0.118,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.014857,
+      "plotSize": 0.04,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.16,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1152,7 +1551,14 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.66,
+      "plotSize": 1.05,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.8,
+    "crop_group": "PROTEAGINEUX",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1165,7 +1571,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.3275,
+      "plotSize": 0.81875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.31,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1178,7 +1591,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.5075,
+      "plotSize": 1.2687,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.03,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1191,7 +1611,14 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.7,
+      "plotSize": 1.75,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.8,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1204,7 +1631,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.27014,
+      "plotSize": 0.5425,
+      "cropDiversity": 0.57288
+    },
+    "land_footprint": 0.62,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1217,7 +1651,14 @@
     "density": 0.118,
     "inedible_part": 0.4,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0275,
+      "plotSize": 0.06875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.11,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1252,7 +1693,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.4875,
+      "plotSize": 1.2188,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.95,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1265,7 +1713,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.8625,
+      "plotSize": 2.1562,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 3.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1278,7 +1733,14 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0325,
+      "plotSize": 0.08125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.13,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1291,7 +1753,14 @@
     "density": 0.6375,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.092571,
+      "plotSize": 0.14,
+      "cropDiversity": 0.44816
+    },
+    "land_footprint": 0.16,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1304,7 +1773,14 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 2.43,
+      "plotSize": 7.0875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 8.1,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1317,7 +1793,14 @@
     "density": 0.24,
     "inedible_part": 0.5,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.32,
+      "plotSize": 3.85,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 4.4,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1330,7 +1813,14 @@
     "density": 0.6195,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0425,
+      "plotSize": 0.10625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.17,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1343,7 +1833,14 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.57793,
+      "plotSize": 1.395,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.79,
+    "crop_group": "LEGUMINEUSES A GRAIN",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1356,7 +1853,14 @@
     "density": 0.24,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.77543,
+      "plotSize": 1.18,
+      "cropDiversity": 9.3999
+    },
+    "land_footprint": 2.36,
+    "crop_group": "LEGUMINEUSES A GRAIN",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1369,7 +1873,14 @@
     "density": 0.295,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0225,
+      "plotSize": 0.05625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.09,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1382,7 +1893,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 6.1261,
+      "plotSize": 12.303,
+      "cropDiversity": 12.991
+    },
+    "land_footprint": 14.06,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1439,7 +1957,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.48,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1452,7 +1977,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 2.84,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1517,7 +2049,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.11,
+      "plotSize": 0.275,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.44,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1530,7 +2069,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.21,
+      "plotSize": 0.525,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.84,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1595,7 +2141,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.6829,
+      "plotSize": 2.375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 3.8,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1608,7 +2161,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.042714,
+      "plotSize": 0.115,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.46,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1634,7 +2194,14 @@
     "density": 0.575,
     "inedible_part": 0.5,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.27,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1647,7 +2214,14 @@
     "density": 0.447,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.3,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1698,7 +2272,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.54,
+    "crop_group": "DIVERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1711,7 +2292,14 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.08,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1724,7 +2312,14 @@
     "density": 0.6375,
     "inedible_part": 0.3,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.02,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1750,7 +2345,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 5.8431,
+      "plotSize": 10.526,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 12.03,
+    "crop_group": "OLIVIERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1763,7 +2365,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 3.66,
+      "plotSize": 7.35,
+      "cropDiversity": 7.7616
+    },
+    "land_footprint": 8.4,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1776,7 +2385,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 11.69,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1789,7 +2405,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 16.08,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1815,7 +2438,14 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.21,
+    "crop_group": "RIZ",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1854,7 +2484,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0575,
+      "plotSize": 0.14375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.23,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1867,7 +2504,14 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.20479,
+      "plotSize": 0.41125,
+      "cropDiversity": 0.43428
+    },
+    "land_footprint": 0.47,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1969,7 +2613,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.29429,
+      "plotSize": 0.90125,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.03,
+    "crop_group": "VIGNES",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1982,7 +2633,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.2425,
+      "plotSize": 0.84875,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.97,
+    "crop_group": "VIGNES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -2033,7 +2691,14 @@
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.27143,
+      "plotSize": 0.3325,
+      "cropDiversity": 0.23864
+    },
+    "land_footprint": 0.38,
+    "crop_group": "VERGERS",
+    "scenario": "organic",
     "visible": true
   }
 ]
