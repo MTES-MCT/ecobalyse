@@ -8462,7 +8462,7 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "72cc0b64fbbf5cc8501cb45f86ba813d",
+    "uuid": "heat-france",
     "impacts": {
       "acd": 3.42e-4,
       "cch": 0.0642089822,
@@ -8488,7 +8488,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": "heat-fr",
+    "alias": "heat-france",
     "step_usage": "Energie",
     "correctif": "non applicable"
   },
@@ -8498,7 +8498,7 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "72cc0b64fbbf5cc8501cb45f86ba813d",
+    "uuid": "heat-europe",
     "impacts": {
       "acd": 3.22e-4,
       "cch": 0.06361097712,
@@ -8524,7 +8524,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": "heat-eu",
+    "alias": "heat-europe",
     "step_usage": "Energie",
     "correctif": "non applicable"
   },
@@ -8534,7 +8534,7 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
-    "uuid": "72cc0b64fbbf5cc8501cb45f86ba813d",
+    "uuid": "heat-row",
     "impacts": {
       "acd": 4.26e-4,
       "cch": 0.06675050379,

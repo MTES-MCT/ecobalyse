@@ -6,7 +6,6 @@ module Data.Textile.Simulator exposing
     , toStepsImpacts
     )
 
-import Data.Country exposing (Country)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -14,17 +13,15 @@ import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
-import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
-import Data.Textile.Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
+import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -234,12 +231,6 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
             )
 
 
-getEnnoblingHeatProcess : Country -> WellKnown -> Maybe HeatSource -> Process
-getEnnoblingHeatProcess country wellKnown =
-    Maybe.map (WellKnown.getEnnoblingHeatProcess wellKnown country.zone)
-        >> Maybe.withDefault country.heatProcess
-
-
 computeDyeingImpacts : Db -> Simulator -> Simulator
 computeDyeingImpacts { textile } ({ inputs } as simulator) =
     simulator
@@ -247,8 +238,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
             (\({ country, dyeingMedium } as step) ->
                 let
                     heatProcess =
-                        inputs.ennoblingHeatSource
-                            |> getEnnoblingHeatProcess country textile.wellKnown
+                        WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
 
                     productDefaultMedium =
                         dyeingMedium
@@ -306,7 +296,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
                                         { printingProcess = printingProcess
-                                        , heatProcess = getEnnoblingHeatProcess country textile.wellKnown inputs.ennoblingHeatSource
+                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
                                         , elecProcess = country.electricityProcess
                                         , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                         , ratio = ratio
@@ -333,7 +323,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
 
 
 computeFinishingImpacts : Db -> Simulator -> Simulator
-computeFinishingImpacts { textile } ({ inputs } as simulator) =
+computeFinishingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
@@ -342,7 +332,7 @@ computeFinishingImpacts { textile } ({ inputs } as simulator) =
                         step.outputMass
                             |> Formula.finishingImpacts step.impacts
                                 { finishingProcess = textile.wellKnown.finishing
-                                , heatProcess = getEnnoblingHeatProcess country textile.wellKnown inputs.ennoblingHeatSource
+                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
                                 , elecProcess = country.electricityProcess
                                 }
                 in
