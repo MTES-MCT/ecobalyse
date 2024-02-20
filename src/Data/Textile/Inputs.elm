@@ -46,7 +46,6 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -103,7 +102,6 @@ type alias Inputs =
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
-    , ennoblingHeatSource : Maybe HeatSource
     , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
@@ -139,7 +137,6 @@ type alias Query =
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
-    , ennoblingHeatSource : Maybe HeatSource
     , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
@@ -265,7 +262,6 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
-        |> RE.andMap (Ok query.ennoblingHeatSource)
         |> RE.andMap (Ok query.business)
         |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
@@ -293,7 +289,6 @@ toQuery inputs =
     , fading = inputs.fading
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
-    , ennoblingHeatSource = inputs.ennoblingHeatSource
     , business = inputs.business
     , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
@@ -573,7 +568,6 @@ updateProduct product query =
             , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
-            , ennoblingHeatSource = Nothing
         }
 
     else
@@ -709,7 +703,6 @@ encode inputs =
         , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
-        , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
         , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
         , ( "marketingDuration", inputs.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) |> Maybe.withDefault Encode.null )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
@@ -750,7 +743,6 @@ decodeQuery =
         |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
-        |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
         |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
         |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
@@ -794,7 +786,6 @@ encodeQuery query =
     , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
-    , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
     , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
     , ( "marketingDuration", query.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
@@ -957,7 +948,6 @@ tShirtCotonAsie =
     , fading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
-    , ennoblingHeatSource = Nothing
     , business = Nothing
     , marketingDuration = Nothing
     , numberOfReferences = Nothing
