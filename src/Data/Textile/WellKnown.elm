@@ -7,11 +7,11 @@ module Data.Textile.WellKnown exposing
     , map
     )
 
+import Data.Country exposing (Code(..), Country)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Printing as Printing
 import Data.Textile.Process as Process exposing (Alias(..), Process)
-import Data.Zone as Zone exposing (Zone)
+import Data.Zone as Zone
 import Result.Extra as RE
 
 
@@ -40,14 +40,9 @@ type alias WellKnown =
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
-    , steamGasRER : Process
-    , steamGasRSA : Process
-    , steamLightFuelRER : Process
-    , steamLightFuelRSA : Process
-    , steamHeavyFuelRER : Process
-    , steamHeavyFuelRSA : Process
-    , steamCoalRER : Process
-    , steamCoalRSA : Process
+    , heatFrance : Process
+    , heatEurope : Process
+    , heatRoW : Process
     , weaving : Process
     }
 
@@ -65,34 +60,21 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
-getEnnoblingHeatProcess wk zone heatSource =
+getEnnoblingHeatProcess : WellKnown -> Country -> Process
+getEnnoblingHeatProcess wk country =
     -- Note: As per methodology documentation, retrieve a RER heat source process
     --       for european countries, RSA otherwise.
-    case ( zone, heatSource ) of
-        ( Zone.Europe, HeatSource.Coal ) ->
-            wk.steamCoalRER
+    case country.code of
+        Code "FR" ->
+            wk.heatFrance
 
-        ( Zone.Europe, HeatSource.NaturalGas ) ->
-            wk.steamGasRER
+        _ ->
+            case country.zone of
+                Zone.Europe ->
+                    wk.heatEurope
 
-        ( Zone.Europe, HeatSource.HeavyFuel ) ->
-            wk.steamHeavyFuelRER
-
-        ( Zone.Europe, HeatSource.LightFuel ) ->
-            wk.steamLightFuelRER
-
-        ( _, HeatSource.Coal ) ->
-            wk.steamCoalRSA
-
-        ( _, HeatSource.NaturalGas ) ->
-            wk.steamGasRSA
-
-        ( _, HeatSource.HeavyFuel ) ->
-            wk.steamHeavyFuelRSA
-
-        ( _, HeatSource.LightFuel ) ->
-            wk.steamLightFuelRSA
+                _ ->
+                    wk.heatRoW
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
@@ -128,14 +110,9 @@ load processes =
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
             , fading = "fading"
-            , steamGasRER = "steam-gas-rer"
-            , steamGasRSA = "steam-gas-rsa"
-            , steamLightFuelRER = "steam-light-fuel-rer"
-            , steamLightFuelRSA = "steam-light-fuel-rsa"
-            , steamHeavyFuelRER = "steam-heavy-fuel-rer"
-            , steamHeavyFuelRSA = "steam-heavy-fuel-rsa"
-            , steamCoalRER = "steam-coal-rer"
-            , steamCoalRSA = "steam-coal-rsa"
+            , heatFrance = "heat-france"
+            , heatEurope = "heat-europe"
+            , heatRoW = "heat-row"
             , knittingMix = "knitting-mix"
             , knittingFullyFashioned = "knitting-fully-fashioned"
             , knittingSeamless = "knitting-seamless"
@@ -172,14 +149,9 @@ load processes =
         |> find .passengerCar
         |> find .endOfLife
         |> find .fading
-        |> find .steamGasRER
-        |> find .steamGasRSA
-        |> find .steamLightFuelRER
-        |> find .steamLightFuelRSA
-        |> find .steamHeavyFuelRER
-        |> find .steamHeavyFuelRSA
-        |> find .steamCoalRER
-        |> find .steamCoalRSA
+        |> find .heatFrance
+        |> find .heatEurope
+        |> find .heatRoW
         |> find .weaving
 
 
@@ -204,14 +176,9 @@ map update wellKnown =
     , passengerCar = update wellKnown.passengerCar
     , endOfLife = update wellKnown.endOfLife
     , fading = update wellKnown.fading
-    , steamGasRER = update wellKnown.steamGasRER
-    , steamGasRSA = update wellKnown.steamGasRSA
-    , steamLightFuelRER = update wellKnown.steamLightFuelRER
-    , steamLightFuelRSA = update wellKnown.steamLightFuelRSA
-    , steamHeavyFuelRER = update wellKnown.steamHeavyFuelRER
-    , steamHeavyFuelRSA = update wellKnown.steamHeavyFuelRSA
-    , steamCoalRER = update wellKnown.steamCoalRER
-    , steamCoalRSA = update wellKnown.steamCoalRSA
+    , heatFrance = update wellKnown.heatFrance
+    , heatEurope = update wellKnown.heatEurope
+    , heatRoW = update wellKnown.heatRoW
     , knittingMix = update wellKnown.knittingMix
     , knittingFullyFashioned = update wellKnown.knittingFullyFashioned
     , knittingSeamless = update wellKnown.knittingSeamless
