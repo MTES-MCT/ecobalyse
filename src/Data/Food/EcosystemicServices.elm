@@ -38,7 +38,7 @@ coefficients =
     , plotSize = Unit.ratio 4
     , cropDiversity = Unit.ratio 1.5
     , permanentPasture = Unit.ratio 7
-    , livestockDensity = Unit.ratio 1000
+    , livestockDensity = Unit.ratio 3000
     }
 
 
