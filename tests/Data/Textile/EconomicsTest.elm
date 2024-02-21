@@ -58,16 +58,26 @@ suite =
                 |> asTest "should compute highest ratio"
             ]
         , describe "computeNumberOfReferencesIndex"
-            [ Economics.computeNumberOfReferencesIndex 8000
-                |> expectRatioEqual 0
-                |> asTest "should compute lowest ratio"
-            , Economics.computeNumberOfReferencesIndex 7000
-                |> expectRatioEqual 0.5
-                |> asTest "should compute average ratio"
-            , Economics.computeNumberOfReferencesIndex 6000
-                |> expectRatioEqual 1
-                |> asTest "should compute highest ratio"
-            ]
+            ([ ( 1, 1 )
+             , ( 3000, 1 )
+             , ( 3001, 0.999 )
+             , ( 4500, 0.9 )
+             , ( 5999, 0.801 )
+             , ( 6000, 0.8 )
+             , ( 7500, 0.525 )
+             , ( 8000, 0.433 )
+             , ( 9000, 0.25 )
+             , ( 10500, 0.125 )
+             , ( 11500, 0.041 )
+             , ( 12000, 0 )
+             ]
+                |> List.map
+                    (\( n, expectedIndex ) ->
+                        Economics.computeNumberOfReferencesIndex n
+                            |> expectRatioEqual expectedIndex
+                            |> asTest ("should compute n=" ++ String.fromInt n)
+                    )
+            )
         , describe "computeRepairCostIndex"
             [ describe "for TPE/PME"
                 [ computeRepairCostIndex SmallBusiness (priceFromFloat 100) (priceFromFloat 90)
