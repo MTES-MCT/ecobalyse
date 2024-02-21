@@ -54,7 +54,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "31 janvier 2024"
+    [ { date = "21 février 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `ennoblingHeatSourceParam` est supprimé. La source
+            de chaleur est donnée par la zone France, Europe ou World,
+            calculée depuis le pays."""
+      }
+    , { date = "31 janvier 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
