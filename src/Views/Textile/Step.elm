@@ -1106,10 +1106,14 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                                 [ text "Fin de vie"
                                 , Format.formatImpact selectedImpact current.impacts
                                 ]
-                            , div [ class "d-flex justify-content-between" ]
-                                [ text "Export hors-Europe"
-                                , Format.complement current.complementsImpacts.outOfEuropeEOL
-                                ]
+                            , if selectedImpact.trigram == Definition.Ecs then
+                                div [ class "d-flex justify-content-between" ]
+                                    [ text "Export hors-Europe"
+                                    , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                    ]
+
+                              else
+                                text ""
                             , div [ class "d-flex justify-content-between" ]
                                 [ span [ class "me-2 text-truncate" ] [ text "Probabilité de fin de vie hors-Europe" ]
                                 , span [ class "text-nowrap" ]
