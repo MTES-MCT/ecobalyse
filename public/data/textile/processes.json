@@ -8458,7 +8458,7 @@
   },
   {
     "search": "",
-    "name": "(EI) Heat, natural gas, France",
+    "name": "(EI) Heat mix (FR)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -8494,7 +8494,7 @@
   },
   {
     "search": "",
-    "name": "(EI) Heat, natural gas, Europe",
+    "name": "(EI) Heat mix (Europe)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -8530,7 +8530,7 @@
   },
   {
     "search": "",
-    "name": "(EI) Heat, natural gas, RoW",
+    "name": "(EI) Heat mix (World)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
