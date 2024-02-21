@@ -8490,7 +8490,7 @@
     "waste": 0.0,
     "alias": "heat-france",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": "Reconstitution du mix"
   },
   {
     "search": "",
@@ -8526,7 +8526,7 @@
     "waste": 0.0,
     "alias": "heat-europe",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": "Reconstitution du mix"
   },
   {
     "search": "",
@@ -8562,7 +8562,7 @@
     "waste": 0.0,
     "alias": "heat-row",
     "step_usage": "Energie",
-    "correctif": "non applicable"
+    "correctif": "Reconstitution du mix"
   },
   {
     "search": "",
