@@ -19,7 +19,6 @@ import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
@@ -379,7 +378,6 @@ parseTextileQuery countries textile =
         |> apply (maybeBoolParser "fading")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
-        |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
         |> apply (maybeBusiness "business")
         |> apply (maybeDurationParser "marketingDuration")
         |> apply (maybeIntParser "numberOfReferences")
@@ -616,23 +614,6 @@ maybeDyeingMedium key =
                     case DyeingMedium.fromString str of
                         Ok dyeingMedium ->
                             Ok (Just dyeingMedium)
-
-                        Err err ->
-                            Err ( key, err )
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybeEnnoblingHeatSource : String -> Parser (ParseResult (Maybe HeatSource))
-maybeEnnoblingHeatSource key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (\str ->
-                    case HeatSource.fromString str of
-                        Ok heatSource ->
-                            Ok (Just heatSource)
 
                         Err err ->
                             Err ( key, err )

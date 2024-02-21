@@ -26,7 +26,6 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
@@ -114,7 +113,6 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateEcotoxWeighting (Maybe Unit.Ratio)
-    | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
@@ -445,10 +443,6 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
-
-        UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
         UpdateFabricProcess fabricProcess ->
             ( model, session, Cmd.none )
@@ -930,7 +924,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
-                    , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateFabricProcess = UpdateFabricProcess
