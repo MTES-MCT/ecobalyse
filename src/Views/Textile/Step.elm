@@ -957,7 +957,8 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                     ]
                 , infoListElement
                     [ li [ class "list-group-item" ] [ countryField config ]
-                    , viewProcessInfo current.processInfo.countryElec
+                    , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
+                    , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
                     , viewProcessInfo current.processInfo.distribution
                     , viewProcessInfo current.processInfo.useIroning
                     , viewProcessInfo current.processInfo.useNonIroning
