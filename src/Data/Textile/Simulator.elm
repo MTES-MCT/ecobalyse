@@ -238,7 +238,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
             (\({ country, dyeingMedium } as step) ->
                 let
                     heatProcess =
-                        WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
+                        WellKnown.getEnnoblingHeatProcess textile.wellKnown country
 
                     productDefaultMedium =
                         dyeingMedium
@@ -296,7 +296,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
                                         { printingProcess = printingProcess
-                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
+                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                         , elecProcess = country.electricityProcess
                                         , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                         , ratio = ratio
@@ -332,7 +332,7 @@ computeFinishingImpacts { textile } simulator =
                         step.outputMass
                             |> Formula.finishingImpacts step.impacts
                                 { finishingProcess = textile.wellKnown.finishing
-                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country.zone
+                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                 , elecProcess = country.electricityProcess
                                 }
                 in

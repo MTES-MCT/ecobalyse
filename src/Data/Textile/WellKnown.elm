@@ -7,10 +7,11 @@ module Data.Textile.WellKnown exposing
     , map
     )
 
+import Data.Country exposing (Code(..), Country)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Printing as Printing
 import Data.Textile.Process as Process exposing (Alias(..), Process)
-import Data.Zone as Zone exposing (Zone)
+import Data.Zone as Zone
 import Result.Extra as RE
 
 
@@ -59,16 +60,21 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getEnnoblingHeatProcess : WellKnown -> Zone -> Process
-getEnnoblingHeatProcess wk zone =
+getEnnoblingHeatProcess : WellKnown -> Country -> Process
+getEnnoblingHeatProcess wk country =
     -- Note: As per methodology documentation, retrieve a RER heat source process
     --       for european countries, RSA otherwise.
-    case zone of
-        Zone.Europe ->
-            wk.heatEurope
+    case country.code of
+        Code "FR" ->
+            wk.heatFrance
 
         _ ->
-            wk.heatRoW
+            case country.zone of
+                Zone.Europe ->
+                    wk.heatEurope
+
+                _ ->
+                    wk.heatRoW
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
