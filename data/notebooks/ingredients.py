@@ -394,11 +394,9 @@ w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
 # parameters used to compute ecosystemicServices
-w_ecosys_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
-w_ecosys_landFootprint = ipywidgets.FloatText()
-w_ecosys_scenario = ipywidgets.Dropdown(
-    options=["reference", "organic", "import"], value=None
-)
+w_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
+w_landFootprint = ipywidgets.FloatText()
+w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
 savebutton = ipywidgets.Button(
@@ -513,9 +511,9 @@ def clear_form():
     w_ecosys_cropDiversity.value = 0
     w_ecosys_permanentPasture.value = 0
     w_ecosys_livestockDensity.value = 0
-    w_ecosys_cropGroup.value = None
-    w_ecosys_landFootprint.value = 0
-    w_ecosys_scenario.value = None
+    w_cropGroup.value = None
+    w_landFootprint.value = 0
+    w_scenario.value = None
 
 
 def set_field(field, value, default):
@@ -584,9 +582,9 @@ def change_id(change):
     set_field(
         w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
     )
-    set_field(w_ecosys_scenario, i.get("scenario"), None)
-    set_field(w_ecosys_cropGroup, i.get("crop_group"), None)
-    set_field(w_ecosys_landFootprint, i.get("land_footprint"), 0)
+    set_field(w_scenario, i.get("scenario"), None)
+    set_field(w_cropGroup, i.get("crop_group"), None)
+    set_field(w_landFootprint, i.get("land_footprint"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -656,9 +654,9 @@ def add_activity(_):
         if "animal_product" in w_categories.value
         or "dairy_product" in w_categories.value
         else {
-            "crop_group": w_ecosys_cropGroup.value,
-            "scenario": w_ecosys_scenario.value,
-            "land_footprint": w_ecosys_landFootprint.value,
+            "crop_group": w_cropGroup.value,
+            "scenario": w_scenario.value,
+            "land_footprint": w_landFootprint.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -782,14 +780,15 @@ def display_surface(activity):
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        spsurface = json.loads(
+        w_landFootprint.value = json.loads(
             requests.get(
                 f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
             ).content
         )["surface"]
-        spoutput = str(spsurface)
+        spoutput = str(w_landFootprint.value)
+        w_landFootprint
     except Exception as e:
-        spsurface = None
+        w_landFootprint.value = None
         spoutput = repr(e)
     surface_output.clear_output()
     display(
@@ -1247,7 +1246,7 @@ Ecobalyse</li></ul>
                                                             ipywidgets.Label(
                                                                 FIELDS["crop_group"],
                                                             ),
-                                                            w_ecosys_cropGroup,
+                                                            w_cropGroup,
                                                         ),
                                                     ),
                                                     ipywidgets.HBox(
@@ -1255,7 +1254,7 @@ Ecobalyse</li></ul>
                                                             ipywidgets.Label(
                                                                 FIELDS["scenario"],
                                                             ),
-                                                            w_ecosys_scenario,
+                                                            w_scenario,
                                                         ),
                                                     ),
                                                     ipywidgets.HBox(
@@ -1265,7 +1264,7 @@ Ecobalyse</li></ul>
                                                                     "land_footprint"
                                                                 ],
                                                             ),
-                                                            w_ecosys_landFootprint,
+                                                            w_landFootprint,
                                                         ),
                                                     ),
                                                 ]
