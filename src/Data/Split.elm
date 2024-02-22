@@ -7,12 +7,16 @@ module Data.Split exposing
     , divideBy
     , encodeFloat
     , fifteen
+    , five
     , fourty
     , fromFloat
     , fromPercent
     , full
     , half
+    , ninetyFive
     , quarter
+    , seventy
+    , seventyFive
     , tenth
     , thirty
     , toFloat
@@ -49,6 +53,11 @@ full =
     Split 100
 
 
+five : Split
+five =
+    Split 5
+
+
 tenth : Split
 tenth =
     Split 10
@@ -77,6 +86,21 @@ fourty =
 half : Split
 half =
     Split 50
+
+
+seventy : Split
+seventy =
+    Split 70
+
+
+seventyFive : Split
+seventyFive =
+    Split 75
+
+
+ninetyFive : Split
+ninetyFive =
+    Split 95
 
 
 quarter : Split

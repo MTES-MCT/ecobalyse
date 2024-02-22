@@ -54,7 +54,23 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "16 janvier 2024"
+    [ { date = "21 février 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `ennoblingHeatSourceParam` est supprimé. La source
+            de chaleur est donnée par la zone France, Europe ou World,
+            calculée depuis le pays."""
+      }
+    , { date = "31 janvier 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `durability` récemment introduit est remplacé par 5 nouveaux
+            paramètres permettant de calculer cet indice\u{00A0}: `business`, `marketingDuration`,
+            `numberOfReferences`, `price`, `repairCost` et `traceability`."""
+      }
+    , { date = "16 janvier 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =

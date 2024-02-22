@@ -110,7 +110,7 @@ type Durability
 
 minDurability : Durability
 minDurability =
-    Durability 0.7
+    Durability 0.65
 
 
 standardDurability : Durability

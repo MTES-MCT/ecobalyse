@@ -24,7 +24,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -33,12 +33,14 @@ import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias Step =
@@ -145,17 +147,17 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact db country outputMass materialInput =
+computeMaterialTransportAndImpact : Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact { distances, textile } country outputMass materialInput =
     let
         materialMass =
             materialInput.share
                 |> Split.applyToQuantity outputMass
     in
     materialInput
-        |> Inputs.computeMaterialTransport db country.code
+        |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -163,11 +165,11 @@ computeMaterialTransportAndImpact db country outputMass materialInput =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> Inputs -> Step -> Step -> Step
+computeTransports : Db -> Inputs -> Step -> Step -> Step
 computeTransports db inputs next ({ processInfo } as current) =
     let
         roadTransportProcess =
-            getRoadTransportProcess db.wellKnown current
+            getRoadTransportProcess db.textile.wellKnown current
 
         transport =
             if current.label == Label.Material then
@@ -176,14 +178,14 @@ computeTransports db inputs next ({ processInfo } as current) =
                     |> Transport.sum
 
             else
-                db.transports
+                db.distances
                     |> Transport.getTransportBetween Scope.Textile
                         current.transport.impacts
                         current.country.code
                         next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
-                        db.wellKnown
+                        db.textile.wellKnown
                         roadTransportProcess
                         (getTransportedMass inputs current)
     in
@@ -191,14 +193,14 @@ computeTransports db inputs next ({ processInfo } as current) =
         | processInfo =
             { processInfo
                 | roadTransport = Just roadTransportProcess.name
-                , seaTransport = Just db.wellKnown.seaTransport.name
-                , airTransport = Just db.wellKnown.airTransport.name
+                , seaTransport = Just db.textile.wellKnown.seaTransport.name
+                , airTransport = Just db.textile.wellKnown.airTransport.name
             }
         , transport = transport
     }
 
 
-computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts : Impacts -> WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , roadCooled = Quantity.zero
@@ -230,15 +232,6 @@ computeTransportSummary step transport =
             )
     in
     case step.label of
-        Label.Ennobling ->
-            transport
-                -- Note: no air transport ratio at the Dyeing step
-                |> Formula.transportRatio Split.zero
-                -- Added intermediary inland transport distances to materialize
-                -- "processing" + "dyeing" steps (see Excel)
-                -- Also ensure we don't add unnecessary air transport
-                |> Transport.add { defaultInland | air = Quantity.zero }
-
         Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
@@ -266,7 +259,7 @@ computeTransportSummary step transport =
                 |> Formula.transportRatio Split.zero
 
 
-getRoadTransportProcess : Process.WellKnown -> Step -> Process
+getRoadTransportProcess : WellKnown -> Step -> Process
 getRoadTransportProcess wellKnown { label } =
     case label of
         Label.Making ->
@@ -300,10 +293,10 @@ getTransportedMass inputs { label, outputMass } =
         outputMass
 
 
-updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
+updateFromInputs : Textile.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, durability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -350,7 +343,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                         , countryElec = Just country.electricityProcess.name
                         , dyeing =
                             wellKnown
-                                |> Process.getDyeingProcess
+                                |> WellKnown.getDyeingProcess
                                     (dyeingMedium
                                         |> Maybe.withDefault inputs.product.dyeing.defaultMedium
                                     )
@@ -360,7 +353,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                             printing
                                 |> Maybe.map
                                     (\{ kind } ->
-                                        Process.getPrintingProcess kind wellKnown |> .printingProcess |> .name
+                                        WellKnown.getPrintingProcess kind wellKnown |> .printingProcess |> .name
                                     )
                     }
             }
@@ -391,8 +384,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Use ->
             { step
-                | durability = durability
-                , processInfo =
+                | processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , useIroning = Just inputs.product.use.ironingProcess.name

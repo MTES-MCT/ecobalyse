@@ -6,6 +6,14 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 20,
+      "repairCost": 10,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -35,6 +43,14 @@
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 28,
+      "repairCost": 14,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "yarn"
     },
@@ -64,6 +80,14 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 18,
+      "repairCost": 9,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -93,6 +117,14 @@
     "surfaceMass": 450,
     "yarnSize": 30,
     "fabric": "weaving",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 62,
+      "repairCost": 31,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -122,6 +154,14 @@
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 28,
+      "repairCost": 14,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -151,6 +191,14 @@
     "surfaceMass": 250,
     "yarnSize": 35,
     "fabric": "knitting-mix",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 30,
+      "repairCost": 15,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },
@@ -180,6 +228,14 @@
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "knitting-mix",
+    "economics": {
+      "business": "large-business-without-services",
+      "marketingDuration": 60,
+      "numberOfReferences": 8000,
+      "price": 20,
+      "repairCost": 10,
+      "traceability": false
+    },
     "dyeing": {
       "defaultMedium": "fabric"
     },

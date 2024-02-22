@@ -16,25 +16,23 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
-import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileInputs
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
+import Static.Db exposing (Db)
 
 
 type alias Session =
-    { navKey : Nav.Key
+    { db : Db
+    , navKey : Nav.Key
     , clientUrl : String
     , store : Store
     , currentVersion : Version
     , matomo : { host : String, siteId : String }
-    , textileDb : TextileDb.Db
-    , foodDb : FoodDb.Db
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query

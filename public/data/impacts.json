@@ -55,7 +55,7 @@
     "ecoscore": {
       "color": "#91cf4f",
       "normalization": 5.55695e1,
-      "weighting": 0.0564
+      "weighting": 0.0491
     }
   },
   "ozd": {
@@ -80,7 +80,7 @@
     "ecoscore": {
       "color": "#ffc000",
       "normalization": 5.3648e-2,
-      "weighting": 0.0574
+      "weighting": 0.05
     }
   },
   "cch": {
@@ -130,7 +130,7 @@
     "ecoscore": {
       "color": "#548235",
       "normalization": 1.60685,
-      "weighting": 0.0255
+      "weighting": 0.0222
     }
   },
   "swe": {
@@ -155,7 +155,7 @@
     "ecoscore": {
       "color": "#70ad47",
       "normalization": 1.95452e1,
-      "weighting": 0.0269
+      "weighting": 0.0235
     }
   },
   "tre": {
@@ -180,7 +180,7 @@
     "ecoscore": {
       "color": "#c5e0b4",
       "normalization": 1.76755e2,
-      "weighting": 0.0337
+      "weighting": 0.0294
     }
   },
   "pco": {
@@ -205,7 +205,7 @@
     "ecoscore": {
       "color": "#ff6161",
       "normalization": 4.08592e1,
-      "weighting": 0.0435
+      "weighting": 0.0379
     }
   },
   "pma": {
@@ -230,7 +230,7 @@
     "ecoscore": {
       "color": "#ffc000",
       "normalization": 5.95367e-4,
-      "weighting": 0.0815
+      "weighting": 0.071
     }
   },
   "ior": {
@@ -255,7 +255,7 @@
     "ecoscore": {
       "color": "#be8f00",
       "normalization": 4.22016e3,
-      "weighting": 0.0456
+      "weighting": 0.0397
     }
   },
   "fru": {
@@ -280,7 +280,7 @@
     "ecoscore": {
       "color": "#9dc3e6",
       "normalization": 6.50043e4,
-      "weighting": 0.0757
+      "weighting": 0.0659
     }
   },
   "mru": {
@@ -305,7 +305,7 @@
     "ecoscore": {
       "color": "#698ed0",
       "normalization": 6.36226e-2,
-      "weighting": 0.0687
+      "weighting": 0.0598
     }
   },
   "ldu": {
@@ -330,7 +330,7 @@
     "ecoscore": {
       "color": "#a9d18e",
       "normalization": 8.19498e5,
-      "weighting": 0.0722
+      "weighting": 0.0629
     }
   },
   "wtu": {
@@ -355,7 +355,7 @@
     "ecoscore": {
       "color": "#0070c0",
       "normalization": 1.14687e4,
-      "weighting": 0.0774
+      "weighting": 0.0674
     }
   },
   "etf": {
@@ -396,8 +396,8 @@
     "pef": null,
     "ecoscore": {
       "color": "#375622",
-      "normalization": 5.67166e4,
-      "weighting": 0.0407
+      "normalization": 1.04926e5,
+      "weighting": 0.2106
     },
     "correction": [
       { "sub-impact": "etf-o", "weighting": 2 },
@@ -443,7 +443,7 @@
     "ecoscore": {
       "color": "#f4b183",
       "normalization": 1.72529e-5,
-      "weighting": 0.0452
+      "weighting": 0
     },
     "correction": [
       { "sub-impact": "htc-o", "weighting": 2 },
@@ -489,7 +489,7 @@
     "ecoscore": {
       "color": "#43682b",
       "normalization": 1.28736e-4,
-      "weighting": 0.039
+      "weighting": 0
     },
     "correction": [
       { "sub-impact": "htn-o", "weighting": 2 },

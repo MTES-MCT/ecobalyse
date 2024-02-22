@@ -5,8 +5,8 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as TextileInputs
@@ -20,9 +20,11 @@ import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
+import Page.Explore.Common as Common
 import Page.Explore.Table exposing (Table)
 import Quantity
 import Route
+import Static.Db exposing (Db)
 import Views.Format as Format
 import Volume
 
@@ -32,7 +34,7 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
@@ -145,17 +147,12 @@ table db { detailed, scope } =
                         ]
           }
         , let
-            fadabaleToString product =
-                if Product.isFadedByDefault product then
-                    "oui"
-
-                else
-                    "non"
+            fadableToString product =
+                Common.boolText (Product.isFadedByDefault product)
           in
           { label = "Délavage par défaut"
-          , toValue = fadabaleToString
-          , toCell =
-                fadabaleToString >> text
+          , toValue = fadableToString
+          , toCell = fadableToString >> text
           }
         , { label = "Stocks dormants"
           , toValue = Split.toPercentString Env.defaultDeadStock |> always
@@ -235,6 +232,44 @@ table db { detailed, scope } =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.hours product.use.timeIroning ]
+          }
+        , { label = "Prix par défaut"
+          , toValue = .economics >> .price >> Economics.priceToFloat >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.priceInEUR product.economics.price ]
+          }
+        , { label = "Coût de réparation par défaut"
+          , toValue = .economics >> .repairCost >> Economics.priceToFloat >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.priceInEUR product.economics.repairCost ]
+          }
+        , { label = "Type d'entreprise"
+          , toValue = .economics >> .business >> Economics.businessToLabel
+          , toCell = .economics >> .business >> Economics.businessToLabel >> text
+          }
+        , { label = "Durée de commercialisation moyenne"
+          , toValue = .economics >> .marketingDuration >> Duration.inDays >> String.fromFloat
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Format.days product.economics.marketingDuration ]
+          }
+        , { label = "Nombre de références"
+          , toValue = .economics >> .numberOfReferences >> String.fromInt
+          , toCell =
+                \product ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ product.economics.numberOfReferences |> String.fromInt |> text
+                        , text " références"
+                        ]
+          }
+        , { label = "Traçabilité affichée\u{00A0}?"
+          , toValue = .economics >> .traceability >> Common.boolText
+          , toCell = .economics >> .traceability >> Common.boolText >> text
           }
         ]
     }

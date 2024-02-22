@@ -9,7 +9,6 @@ import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Step.Label as Label
-import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -49,26 +48,30 @@ foodEndpoints db =
             |> Expect.equal (Just Route.GetFoodPackagingList)
             |> asTest "should map the /food/packagings endpoint"
         , [ "/food/recipe?"
-
-          -- Here goes our "famous" carrot cake…
-          , "ingredients[]=egg-indoor-code3;120"
-          , "ingredients[]=wheat;140"
-          , "ingredients[]=milk;60"
-          , "ingredients[]=carrot;225"
-          , "transform=AGRIBALU000000003103966;545"
-          , "packaging[]=AGRIBALU000000003104019;105"
-          , "distribution=ambient"
-          , "preparation[]=refrigeration"
+          , "ingredients[]=flour;97"
+          , "ingredients[]=tomato-paste;89"
+          , "ingredients[]=mozzarella;70"
+          , "ingredients[]=cooked-ham;16"
+          , "ingredients[]=sugar;5"
+          , "ingredients[]=mushroom;31"
+          , "ingredients[]=rapeseed-oil;16"
+          , "ingredients[]=black-pepper;1"
+          , "ingredients[]=tap-water;22"
+          , "transform=AGRIBALU000000003103966;363"
+          , "packaging[]=AGRIBALU000000003104019;100"
+          , "distribution=frozen"
+          , "preparation[]=freezing"
+          , "preparation[]=oven"
           , "category=cakes"
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.carrotCake))
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.royalPizza))
             |> asTest "should map the /food/recipe endpoint"
         ]
     , describe "POST endpoints"
         [ "/food/recipe"
-            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.carrotCake)
+            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.emptyQuery)
             |> Expect.equal (Just Route.PostFoodRecipe)
             |> asTest "should map the POST /food/recipe endpoint"
         , "/food/recipe"
@@ -161,23 +164,6 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal (Just <| Route.GetTextileSimulator (Ok sampleQuery))
             |> asTest "should map the /textile/simulator endpoint"
-        , [ "/textile/simulator?mass=0.17"
-          , "product=tshirt"
-          , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
-          , "countryFabric=FR"
-          , "countryDyeing=FR"
-          , "countryMaking=FR"
-          , "durability=1.2"
-          ]
-            |> String.join "&"
-            |> testEndpoint db "GET" Encode.null
-            |> Expect.equal
-                (Just <|
-                    Route.GetTextileSimulator <|
-                        Ok { sampleQuery | durability = Unit.durability 1.2 }
-                )
-            |> asTest "should map the /textile/simulator endpoint with the durability parameter set"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"
@@ -325,11 +311,6 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
             |> asTest "should validate invalid material country code"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
-            |> Maybe.andThen extractTextileErrors
-            |> Maybe.andThen (Dict.get "ennoblingHeatSource")
-            |> Expect.equal (Just "Source de production de vapeur inconnue: bonk")
-            |> asTest "should validate invalid ennoblingHeatSource identifier"
         , testEndpoint db "GET" Encode.null "/textile/simulator?printing=plop"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
@@ -374,7 +355,6 @@ textileEndpoints db =
           , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
-          , "ennoblingHeatSource=yolo"
           , "yarnSize=0"
           ]
             |> String.join "&"
@@ -394,7 +374,6 @@ textileEndpoints db =
                     , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
-                    , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
                     , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
                     ]
                     |> Just
