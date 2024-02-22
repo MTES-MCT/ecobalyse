@@ -13,7 +13,6 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Formula as Formula
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
@@ -65,7 +64,6 @@ type alias Config msg modal =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingMedium : DyeingMedium -> msg
-    , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingDeadStock : Maybe Split -> msg
@@ -933,36 +931,6 @@ ennoblingGenericFields config =
         ]
 
 
-ennoblingHeatSourceField : Config msg modal -> Html msg
-ennoblingHeatSourceField ({ inputs } as config) =
-    -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
-        , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
-            |> List.map
-                (\heatSource ->
-                    option
-                        [ value (HeatSource.toString heatSource)
-                        , selected <| inputs.ennoblingHeatSource == Just heatSource
-                        ]
-                        [ text (HeatSource.toLabelWithZone inputs.countryDyeing.zone heatSource) ]
-                )
-            |> (::)
-                (option [ selected <| inputs.ennoblingHeatSource == Nothing ]
-                    [ text "Mix régional" ]
-                )
-            |> select
-                [ id "ennobling-heat-source"
-                , class "form-select form-select-sm w-75"
-                , onInput
-                    (HeatSource.fromString
-                        >> Result.toMaybe
-                        >> config.updateEnnoblingHeatSource
-                    )
-                ]
-        ]
-
-
 detailedView : Config msg modal -> ViewWithTransport msg
 detailedView ({ db, inputs, selectedImpact, current } as config) =
     let
@@ -989,13 +957,8 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                     ]
                 , infoListElement
                     [ li [ class "list-group-item" ] [ countryField config ]
-                    , viewProcessInfo current.processInfo.countryElec
-                    , case current.label of
-                        Label.Ennobling ->
-                            ennoblingHeatSourceField config
-
-                        _ ->
-                            viewProcessInfo current.processInfo.countryHeat
+                    , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
+                    , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
                     , viewProcessInfo current.processInfo.distribution
                     , viewProcessInfo current.processInfo.useIroning
                     , viewProcessInfo current.processInfo.useNonIroning
@@ -1101,12 +1064,31 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                     , makingWasteView config current.waste
                     , deadstockView config current.deadstock
                     , if current.label == Label.EndOfLife then
-                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
-                            [ span [ class "me-2" ] [ text "Probabilité de fin de vie hors-Europe" ]
-                            , inputs.materials
-                                |> Inputs.getOutOfEuropeEOLProbability
-                                |> Format.splitAsPercentage
-                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                        li [ class "list-group-item text-muted" ]
+                            [ div [ class "d-flex justify-content-between" ]
+                                [ text "Fin de vie"
+                                , Format.formatImpact selectedImpact current.impacts
+                                ]
+                            , if selectedImpact.trigram == Definition.Ecs then
+                                div [ class "text-start mt-2" ]
+                                    [ span [ class "fw-bold" ] [ text "Complément" ]
+                                    , div [ class "d-flex justify-content-between" ]
+                                        [ text "-\u{00A0}Export hors-Europe"
+                                        , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                        ]
+                                    , div [ class "d-flex justify-content-between" ]
+                                        [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
+                                        , span [ class "text-nowrap" ]
+                                            [ inputs.materials
+                                                |> Inputs.getOutOfEuropeEOLProbability
+                                                |> Format.splitAsPercentage
+                                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                                            ]
+                                        ]
+                                    ]
+
+                              else
+                                text ""
                             ]
 
                       else

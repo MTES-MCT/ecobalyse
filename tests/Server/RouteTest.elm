@@ -311,11 +311,6 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
             |> asTest "should validate invalid material country code"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
-            |> Maybe.andThen extractTextileErrors
-            |> Maybe.andThen (Dict.get "ennoblingHeatSource")
-            |> Expect.equal (Just "Source de production de vapeur inconnue: bonk")
-            |> asTest "should validate invalid ennoblingHeatSource identifier"
         , testEndpoint db "GET" Encode.null "/textile/simulator?printing=plop"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
@@ -360,7 +355,6 @@ textileEndpoints db =
           , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
-          , "ennoblingHeatSource=yolo"
           , "yarnSize=0"
           ]
             |> String.join "&"
@@ -380,7 +374,6 @@ textileEndpoints db =
                     , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
-                    , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
                     , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
                     ]
                     |> Just
