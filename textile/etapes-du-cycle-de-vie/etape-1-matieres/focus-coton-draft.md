@@ -86,8 +86,6 @@ Le périmètre considéré se situe entre la culture de la plante et l'égrennag
   2\) l'utilisation de pesticides et insecticides (tels le Trichlorfon et Chlorpyrifos) dans la culture du coton. &#x20;
 * Le complément Microfibres (420 uPts / kg de fibre naturelle d'origine végétale) explique une part significative de l'impact de la laine (13% de _Coton conventionnel_ et 50% de _Coton organique_).&#x20;
 * La consommation d'eau ressort de manière significative (6% de l'impact total / 32m3 par kg) seulement pour le coton conventionnel tandis que 0m3 d'eau est considéré pour la culture du coton organique.
-* Le rendement pris en compte dans le coton conventionnel Ecoinvent est de 2,671 kg / ha (vs un rendement moyen de l'industrie autour de 770kg / ha). Le procédé représenterait-il une hypothèse de type "best case scenario" ?
-* La quantité de pesticides prise en compte dans le coton conventionnel Ecoinvent est de 3,6kg / ha (vs une consommation moyenne dans l'industrie autour de 300/400 kg / ha). Le procédé représenterait-il une hypothèse de type "best case scenario" ?
 
 [^1]: Market report 2023 \_ Textile Exchange
 
