@@ -9,8 +9,10 @@ module Data.Unit exposing
     , YarnSize
     , decodeDurability
     , decodeImpact
+    , decodePickPerMeter
     , decodeRatio
     , decodeSurfaceMass
+    , decodeThreadDensity
     , decodeYarnSize
     , durability
     , durabilityToFloat
@@ -252,6 +254,12 @@ encodeThreadDensity (ThreadDensity float) =
     Encode.float float
 
 
+decodeThreadDensity : Decoder ThreadDensity
+decodeThreadDensity =
+    Decode.float
+        |> Decode.map ThreadDensity
+
+
 threadDensity : Float -> ThreadDensity
 threadDensity =
     ThreadDensity
@@ -298,6 +306,12 @@ pickPerMeterToFloat (PickPerMeter int) =
 encodePickPerMeter : PickPerMeter -> Encode.Value
 encodePickPerMeter (PickPerMeter int) =
     Encode.int int
+
+
+decodePickPerMeter : Decoder PickPerMeter
+decodePickPerMeter =
+    Decode.int
+        |> Decode.map PickPerMeter
 
 
 

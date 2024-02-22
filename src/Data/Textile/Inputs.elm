@@ -40,7 +40,6 @@ module Data.Textile.Inputs exposing
 
 import Base64
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -653,9 +652,6 @@ computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transpo
 computeMaterialTransport distances nextCountryCode { material, country, share } =
     if share /= Split.zero then
         let
-            emptyImpacts =
-                Impact.empty
-
             countryCode =
                 country
                     |> Maybe.map .code
@@ -664,12 +660,11 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
         distances
             |> Transport.getTransportBetween
                 Scope.Textile
-                emptyImpacts
                 countryCode
                 nextCountryCode
 
     else
-        Transport.default Impact.empty
+        Transport.default Nothing
 
 
 buildApiQuery : String -> Query -> String
@@ -688,10 +683,10 @@ encode inputs =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
-        , ( "product", Product.encode inputs.product )
-        , ( "countryFabric", Country.encode inputs.countryFabric )
-        , ( "countryDyeing", Country.encode inputs.countryDyeing )
-        , ( "countryMaking", Country.encode inputs.countryMaking )
+        , ( "product", Product.encodeId inputs.product.id )
+        , ( "countryFabric", Country.encodeCode inputs.countryFabric.code )
+        , ( "countryDyeing", Country.encodeCode inputs.countryDyeing.code )
+        , ( "countryMaking", Country.encodeCode inputs.countryMaking.code )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
@@ -713,7 +708,8 @@ encode inputs =
 
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
-    [ ( "material", Material.encode v.material |> Just )
+    [ ( "id", Material.encodeId v.material.id |> Just )
+    , ( "material", Material.encode v.material |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
     , ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )

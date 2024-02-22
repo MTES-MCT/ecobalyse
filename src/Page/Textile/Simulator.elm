@@ -42,13 +42,14 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Api as Api
 import Platform.Cmd as Cmd
 import Ports
+import RemoteData exposing (WebData)
 import Route
 import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
-import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
@@ -64,7 +65,7 @@ import Views.Textile.Step as StepView
 
 
 type alias Model =
-    { simulator : Result String Simulator
+    { simulatorData : WebData Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -89,6 +90,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnApiReceived (WebData Simulator)
     | OnAutocompleteExample (Autocomplete.Msg Inputs.Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product.Id)
@@ -143,11 +145,10 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.textile
 
-        simulator =
-            initialQuery
-                |> Simulator.compute session.db
+        apiUrl =
+            Api.getApiServerUrl session
     in
-    ( { simulator = simulator
+    ( { simulatorData = RemoteData.Loading
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
@@ -159,23 +160,19 @@ init trigram maybeUrlQuery session =
       }
     , session
         |> Session.updateTextileQuery initialQuery
-        |> (case simulator of
-                Err error ->
-                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+    , Cmd.batch
+        [ case maybeUrlQuery of
+            -- If we don't have an URL query, we may be coming from another app page, so we should
+            -- reposition the viewport at the top.
+            Nothing ->
+                Ports.scrollTo { x = 0, y = 0 }
 
-                Ok _ ->
-                    identity
-           )
-    , case maybeUrlQuery of
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-
-        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
-        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
-        Just _ ->
-            Cmd.none
+            -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+            -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
+            Just _ ->
+                Cmd.none
+        , Simulator.getCompute apiUrl session.db initialQuery OnApiReceived
+        ]
     )
 
 
@@ -194,12 +191,16 @@ findExistingBookmarkName { db, store } query =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model
-        | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
-      }
-    , session |> Session.updateTextileQuery query
-    , commands
+    let
+        apiUrl =
+            Api.getApiServerUrl session
+    in
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Simulator.getCompute apiUrl session.db query OnApiReceived
+        ]
     )
 
 
@@ -225,6 +226,26 @@ update ({ queries, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OnApiReceived (RemoteData.Success simulator) ->
+            let
+                updatedQuery =
+                    Inputs.toQuery simulator.inputs
+            in
+            ( { model
+                | simulatorData = RemoteData.Success simulator
+                , bookmarkName = updatedQuery |> findExistingBookmarkName session
+              }
+            , session |> Session.updateTextileQuery updatedQuery
+            , Cmd.none
+            )
+
+        OnApiReceived _ ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du calcul de la simulation" "Erreur lors de la requête à l'API"
+            , Cmd.none
+            )
 
         OpenComparator ->
             ( { model | modal = ComparatorModal }
@@ -310,11 +331,7 @@ update ({ queries, navKey } as session) msg model =
         SaveBookmark ->
             ( model
             , session
-            , Time.now
-                |> Task.perform
-                    (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Textile query)
-                    )
+            , saveSimulatorCommand model
             )
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -450,19 +467,19 @@ update ({ queries, navKey } as session) msg model =
                     { query
                         | fabricProcess = fabricProcess
                         , makingWaste =
-                            model.simulator
-                                |> Result.map
+                            model.simulatorData
+                                |> RemoteData.map
                                     (\simulator ->
                                         Fabric.getMakingWaste simulator.inputs.product.making.pcrWaste fabricProcess
                                     )
-                                |> Result.toMaybe
+                                |> RemoteData.toMaybe
                         , makingComplexity =
-                            model.simulator
-                                |> Result.map
+                            model.simulatorData
+                                |> RemoteData.map
                                     (\simulator ->
                                         Fabric.getMakingComplexity simulator.inputs.product.making.complexity fabricProcess
                                     )
-                                |> Result.toMaybe
+                                |> RemoteData.toMaybe
                     }
 
         UpdateMakingComplexity makingComplexity ->
@@ -525,6 +542,20 @@ update ({ queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
+
+
+saveSimulatorCommand : Model -> Cmd Msg
+saveSimulatorCommand model =
+    case model.simulatorData of
+        RemoteData.Success simulator ->
+            Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Textile simulator)
+                    )
+
+        _ ->
+            Cmd.none
 
 
 toggleStepDetails : Int -> Maybe Int -> Maybe Int
@@ -1052,7 +1083,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                             ]
                         )
                 , productMass = inputs.mass
-                , totalImpacts = impacts
+                , totalImpacts =
+                    impacts
 
                 -- Ecotox weighting customization
                 , updateEcotoxWeighting = UpdateEcotoxWeighting
@@ -1081,8 +1113,8 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            (case model.simulator of
-                Ok simulator ->
+            (case model.simulatorData of
+                RemoteData.Success simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
                         NoModal ->
@@ -1152,14 +1184,8 @@ view session model =
                                 }
                     ]
 
-                Err error ->
-                    [ Alert.simple
-                        { level = Alert.Danger
-                        , close = Nothing
-                        , title = Just "Erreur"
-                        , content = [ text error ]
-                        }
-                    ]
+                _ ->
+                    [ div [] [ text "loading" ] ]
             )
       ]
     )

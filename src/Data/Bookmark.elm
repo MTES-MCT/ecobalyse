@@ -16,6 +16,7 @@ import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
+import Data.Textile.Simulator as TextileSimulator
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Static.Db exposing (Db)
@@ -31,22 +32,22 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
-    | Textile TextileQuery.Query
+    | Textile TextileSimulator.Simulator
 
 
-decode : Decoder Bookmark
-decode =
+decode : Db -> Decoder Bookmark
+decode textileDb =
     Decode.map3 Bookmark
         (Decode.field "name" Decode.string)
         (Decode.field "created" (Decode.map Time.millisToPosix Decode.int))
-        (Decode.field "query" decodeQuery)
+        (Decode.field "query" (decodeQuery textileDb))
 
 
-decodeQuery : Decoder Query
-decodeQuery =
+decodeQuery : Db -> Decoder Query
+decodeQuery textileDb =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map Textile TextileQuery.decodeQuery
+        , Decode.map Textile (TextileSimulator.decode textileDb)
         ]
 
 
@@ -66,7 +67,7 @@ encodeQuery v =
             FoodQuery.encode query
 
         Textile query ->
-            TextileQuery.encodeQuery query
+            TextileSimulator.encode query
 
 
 isFood : Bookmark -> Bool
@@ -89,20 +90,28 @@ isTextile { query } =
             False
 
 
-findByQuery : Query -> List Bookmark -> Maybe Bookmark
-findByQuery query =
-    List.filter (.query >> (==) query)
+findByFoodQuery : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
+findByFoodQuery foodQuery =
+    List.filter (.query >> (==) (Food foodQuery))
         >> List.head
 
 
-findByFoodQuery : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
-findByFoodQuery foodQuery =
-    findByQuery (Food foodQuery)
-
-
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
-findByTextileQuery textileQuery =
-    findByQuery (Textile textileQuery)
+findByTextileQuery textileQuery bookmarks =
+    bookmarks
+        |> List.filter
+            (\bookmark ->
+                case bookmark.query of
+                    Textile simulator ->
+                        simulator
+                            |> .inputs
+                            |> TextileQuery.toQuery
+                            |> (==) textileQuery
+
+                    _ ->
+                        False
+            )
+        |> List.head
 
 
 scope : Bookmark -> Scope
@@ -134,8 +143,7 @@ toQueryDescription db bookmark =
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
-        Textile textileQuery ->
-            textileQuery
-                |> TextileQuery.fromQuery db
-                |> Result.map TextileQuery.toString
-                |> Result.withDefault bookmark.name
+        Textile simulator ->
+            simulator
+                |> .inputs
+                |> TextileQuery.toString

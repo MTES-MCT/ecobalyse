@@ -5,6 +5,8 @@ module Data.Impact exposing
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
+    , decodeComplementsImpacts
+    , decodeFullImpacts
     , decodeImpacts
     , default
     , divideBy
@@ -400,6 +402,14 @@ decodeImpacts definitions =
         |> Decode.map (Impacts >> updateAggregatedScores definitions)
 
 
+decodeFullImpacts : Decoder Impacts
+decodeFullImpacts =
+    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
+        |> Pipe.required "ecs" Unit.decodeImpact
+        |> Pipe.required "pef" Unit.decodeImpact
+        |> Decode.map Impacts
+
+
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
 encodeComplementsImpacts c =
     Encode.object
@@ -411,6 +421,18 @@ encodeComplementsImpacts c =
         , ( "microfibers", Unit.encodeImpact c.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]
+
+
+decodeComplementsImpacts : Decoder ComplementsImpacts
+decodeComplementsImpacts =
+    Decode.succeed ComplementsImpacts
+        |> Pipe.required "hedges" Unit.decodeImpact
+        |> Pipe.required "plotSize" Unit.decodeImpact
+        |> Pipe.required "cropDiversity" Unit.decodeImpact
+        |> Pipe.required "permanentPasture" Unit.decodeImpact
+        |> Pipe.required "livestockDensity" Unit.decodeImpact
+        |> Pipe.required "microfibers" Unit.decodeImpact
+        |> Pipe.required "outOfEuropeEOL" Unit.decodeImpact
 
 
 encode : Impacts -> Encode.Value

@@ -3,7 +3,6 @@ module Data.Textile.Product exposing
     , Product
     , customDaysOfWear
     , decodeList
-    , encode
     , encodeId
     , findById
     , getMakingDurationInMinutes
@@ -150,48 +149,6 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-encodeMakingOptions : MakingOptions -> Encode.Value
-encodeMakingOptions v =
-    Encode.object
-        [ ( "pcrWaste", Split.encodeFloat v.pcrWaste )
-        , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
-        , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
-        ]
-
-
-encodeUseOptions : UseOptions -> Encode.Value
-encodeUseOptions v =
-    Encode.object
-        [ ( "ironingProcessUuid", Process.encodeUuid v.ironingProcess.uuid )
-        , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
-        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
-        , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
-        , ( "ratioDryer", Split.encodeFloat v.ratioDryer )
-        , ( "ratioIroning", Split.encodeFloat v.ratioIroning )
-        , ( "timeIroning", Encode.float (Duration.inHours v.timeIroning) )
-        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
-        ]
-
-
-encodeEndOfLifeOptions : EndOfLifeOptions -> Encode.Value
-encodeEndOfLifeOptions v =
-    Encode.object
-        [ ( "volume", v.volume |> Volume.inCubicMeters |> Encode.float ) ]
-
-
-encode : Product -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "id", encodeId v.id )
-        , ( "name", Encode.string v.name )
-        , ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "fabric", Fabric.encode v.fabric )
-        , ( "making", encodeMakingOptions v.making )
-        , ( "use", encodeUseOptions v.use )
-        , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
-        ]
 
 
 encodeId : Id -> Encode.Value

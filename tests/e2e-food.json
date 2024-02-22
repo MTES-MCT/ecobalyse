@@ -27,6 +27,8 @@
     },
     "scoring": {
       "all": 1511.8012201413133,
+      "allWithoutComplements": 1511.8012201413133,
+      "complements": 0,
       "climate": 514.7953142562342,
       "biodiversity": 563.5022393024126,
       "health": 138.50524277262488,
@@ -61,6 +63,8 @@
     },
     "scoring": {
       "all": 246.96687235884224,
+      "allWithoutComplements": 246.96687235884224,
+      "complements": 0,
       "climate": 46.220422793524044,
       "biodiversity": 127.94031966780582,
       "health": 26.010851116595646,
@@ -95,6 +99,8 @@
     },
     "scoring": {
       "all": 740.8505543967632,
+      "allWithoutComplements": 740.8505543967632,
+      "complements": 0,
       "climate": 235.61960436606554,
       "biodiversity": 294.41684733490706,
       "health": 64.78076039513768,
@@ -129,6 +135,8 @@
     },
     "scoring": {
       "all": 740.8505543967632,
+      "allWithoutComplements": 740.8505543967632,
+      "complements": 0,
       "climate": 235.61960436606554,
       "biodiversity": 294.41684733490706,
       "health": 64.78076039513768,
@@ -163,6 +171,8 @@
     },
     "scoring": {
       "all": 160.69849066194342,
+      "allWithoutComplements": 160.69849066194342,
+      "complements": 0,
       "climate": 19.442908649644302,
       "biodiversity": 93.5941822486273,
       "health": 13.910920734869546,

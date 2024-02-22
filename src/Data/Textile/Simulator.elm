@@ -1,7 +1,9 @@
 module Data.Textile.Simulator exposing
     ( Simulator
     , compute
+    , decode
     , encode
+    , getCompute
     , stepMaterialImpacts
     , toStepsImpacts
     )
@@ -25,9 +27,14 @@ import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
+import Http
+import Json.Decode as Decode
+import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass
 import Quantity
+import RemoteData exposing (WebData)
 import Static.Db exposing (Db)
 
 
@@ -49,17 +56,26 @@ encode v =
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
+        , ( "durability", Unit.encodeDurability v.durability )
         , ( "transport", Transport.encode v.transport )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
 
+decode : Db -> Decode.Decoder Simulator
+decode db =
+    Decode.succeed Simulator
+        |> Pipe.required "inputs" (Inputs.decodeQuery |> Decode.andThen (Inputs.fromQuery db >> DE.fromResult))
+        |> Pipe.required "lifeCycle" (LifeCycle.decode db)
+        |> Pipe.required "impacts" Impact.decodeFullImpacts
+        |> Pipe.required "complementsImpacts" Impact.decodeComplementsImpacts
+        |> Pipe.required "durability" Unit.decodeDurability
+        |> Pipe.required "transport" (Transport.decode db.definitions)
+        |> Pipe.required "useNbCycles" Decode.int
+
+
 init : Db -> Inputs.Query -> Result String Simulator
 init db =
-    let
-        defaultImpacts =
-            Impact.empty
-    in
     Inputs.fromQuery db
         >> Result.map
             (\({ product } as inputs) ->
@@ -68,10 +84,10 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , impacts = defaultImpacts
+                            , impacts = Impact.empty
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability = Unit.standardDurability
-                            , transport = Transport.default defaultImpacts
+                            , transport = Transport.default Nothing
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -155,6 +171,15 @@ compute db query =
         -- Final impacts
         --
         |> nextWithDb computeFinalImpacts
+
+
+getCompute : String -> Db -> Inputs.Query -> (WebData Simulator -> msg) -> Cmd msg
+getCompute apiUrl db query onApiReceived =
+    Http.post
+        { url = apiUrl ++ "/textile/simulator/detailed"
+        , body = Http.jsonBody (Inputs.encodeQuery query)
+        , expect = Http.expectJson (RemoteData.fromResult >> onApiReceived) (decode db)
+        }
 
 
 initializeFinalMass : Simulator -> Simulator
@@ -716,7 +741,7 @@ toStepsImpacts trigram simulator =
             |> Impact.sumImpacts
             |> getImpact
     , packaging = Nothing
-    , transports = getImpact simulator.transport.impacts
+    , transports = getImpact (simulator.transport.impacts |> Maybe.withDefault Impact.empty)
     , distribution = Nothing
     , usage = getImpacts Label.Use |> getImpact
     , endOfLife =

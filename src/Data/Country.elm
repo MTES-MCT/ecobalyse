@@ -4,6 +4,7 @@ module Data.Country exposing
     , Country
     , codeFromString
     , codeToString
+    , decode
     , decodeCode
     , decodeList
     , encode
@@ -89,6 +90,7 @@ encode v =
     Encode.object
         [ ( "code", encodeCode v.code )
         , ( "name", Encode.string v.name )
+        , ( "zone", Zone.encode v.zone )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )

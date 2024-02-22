@@ -3,7 +3,7 @@ module Data.Food.Process exposing
     , Identifier
     , Process
     , ProcessName
-    , categoryToString
+    , categoryToLabel
     , codeFromString
     , codeToString
     , decodeIdentifier
@@ -91,8 +91,8 @@ categoryFromString string =
             Err <| "Catégorie de procédé invalide: " ++ string
 
 
-categoryToString : Category -> String
-categoryToString category =
+categoryToLabel : Category -> String
+categoryToLabel category =
     case category of
         Energy ->
             "Énergie"

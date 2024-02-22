@@ -187,7 +187,7 @@ elecImpact elecNeeds volume =
 
 distributionTransport : Distribution -> Bool -> Transport
 distributionTransport (Distribution _ needs) needsCooling =
-    Transport.default Impact.empty
+    Transport.default Nothing
         |> Transport.addRoadWithCooling needs.transport needsCooling
 
 
