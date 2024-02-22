@@ -1064,12 +1064,31 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                     , makingWasteView config current.waste
                     , deadstockView config current.deadstock
                     , if current.label == Label.EndOfLife then
-                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-center" ]
-                            [ span [ class "me-2" ] [ text "Probabilité de fin de vie hors-Europe" ]
-                            , inputs.materials
-                                |> Inputs.getOutOfEuropeEOLProbability
-                                |> Format.splitAsPercentage
-                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                        li [ class "list-group-item text-muted" ]
+                            [ div [ class "d-flex justify-content-between" ]
+                                [ text "Fin de vie"
+                                , Format.formatImpact selectedImpact current.impacts
+                                ]
+                            , if selectedImpact.trigram == Definition.Ecs then
+                                div [ class "text-start mt-2" ]
+                                    [ span [ class "fw-bold" ] [ text "Complément" ]
+                                    , div [ class "d-flex justify-content-between" ]
+                                        [ text "-\u{00A0}Export hors-Europe"
+                                        , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                        ]
+                                    , div [ class "d-flex justify-content-between" ]
+                                        [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
+                                        , span [ class "text-nowrap" ]
+                                            [ inputs.materials
+                                                |> Inputs.getOutOfEuropeEOLProbability
+                                                |> Format.splitAsPercentage
+                                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                                            ]
+                                        ]
+                                    ]
+
+                              else
+                                text ""
                             ]
 
                       else
