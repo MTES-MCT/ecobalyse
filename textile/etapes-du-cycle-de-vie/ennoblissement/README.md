@@ -58,9 +58,9 @@ Pour rappel, des inventaires enrichis ont été construits et intégrés dans le
 
 ### Méthodologie de calcul
 
-#### Etape 1 =  Modélisation des flux externes des procédés
+L'impact global de l''étape Ennoblissement se comprend comme la somme des impacts des procédés retenus pour chaque modélisation/vêtement.
 
-L'impact global de l''étape Ennoblissement se comprend comme la somme des impacts des procédés retenus pour chaque modélisation/vêtement.&#x20;
+#### Etape 1 =  Modélisation des flux externes des procédés
 
 L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../impacts-consideres.md)).
 

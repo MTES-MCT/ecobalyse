@@ -93,9 +93,40 @@ L'enrichissement des inventaires passe par la modélisation des paramètres suiv
 
 
 
-## Paramètres mobilisés
+## Modélisation Ecobalyse
 
-### &#x20;Paramètres transverses
+### &#x20;Paramètres mobilisés&#x20;
+
+* Nature des fibres (synthétique, naturelle d'origine animale, etc.),
+
+### Méthodologie de calcul
+
+L'impact des inventaires enrichis correspond à la somme des impacts des inventaires enrichis mobilisés par le produit modélisé. Chaque produit modélisé appelle un ou plusieurs inventaires enrichis selon la méthodologie présentée ci-dessous.
+
+L'impact de chaque inventaire enrichi pris séparement correspond au produit de la masse "sortante" de l'étape Ennoblissement avec les coefficient d'impact.
+
+Trois indicateurs sont considérés dans les inventaires enrichis : Ecotoxicité Aquatique, Toxicité Humaine cancérigène, Toxicité Humaine non-cancérigène (cf. ci-dessous pour plus de détails).&#x20;
+
+$$
+ImpactInventaireEnrichi= MasseSortante(kg) * CoefImpactInventaireEnrichi
+$$
+
+<figure><img src="../../../.gitbook/assets/image (89).png" alt=""><figcaption></figcaption></figure>
+
+### Hypothèses par défaut
+
+#### Inventaire enrichi <=> Type de fibres (synthétique, naturelle origine animale, etc.)
+
+* Blanchiment (bleaching)\
+  Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
+* Teinture de fibres cellulosiques (continu)\
+  Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
+* Teinture de fibres synthétiques (discontinu)\
+  Appliqué par défaut pour les matières synthétiques.
+* Impression pigmentaire\
+  Optionnel (lorsque l'utilisateur ajoute ce procédé d'impression)
+* Impression fixé-lavé \
+  Optionnel (lorsque l'utilisateur ajoute ce procédé d'impression)
 
 #### Pays <=> Taux de pollution aquatique (%)
 
@@ -209,7 +240,7 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
 {% endtab %}
 {% endtabs %}
 
-### Inventaire #2 = Teinture de fibres cellulosiques en continue&#x20;
+### Inventaire #2 = Teinture de fibres cellulosiques en continu
 
 {% tabs %}
 {% tab title="Scénario" %}
@@ -260,7 +291,7 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
 {% endtab %}
 {% endtabs %}
 
-### Inventaire #3 = Teinture de fibres synthétiques en discontinue
+### Inventaire #3 = Teinture de fibres synthétiques en discontinu
 
 {% tabs %}
 {% tab title="Scénario" %}
@@ -421,7 +452,7 @@ L'introduction d'inventaires enrichis (scénario **moyen/average**) impacte peu 
 
 
 
-Des travaux sont en cours afin de construire des scénarios "Best" et "Worst" selon le(s) pays d'ennoblissement et l'adaptation de paramètres clés (ex : rapport de bain, concentration, choix des substances, etc.).
+Des travaux sont en cours afin de préciser les scénarios "Best" et "Worst" via l'adaptation de paramètres clés (ex : rapport de bain, concentration, choix des substances, etc.).
 
 </details>
 
