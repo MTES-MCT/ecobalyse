@@ -222,6 +222,16 @@ pageFooter { currentVersion } =
                     ]
                     []
                 ]
+            , a [ class "FooterBrand py-3", href "https://www.ademe.fr/" ]
+                [ img
+                    [ class "FooterLogo"
+                    , alt "Ademe"
+                    , src "img/logo_ademe.svg"
+                    , style "height" "120px"
+                    , style "aspect-ratio" "auto 79.41 / 93.61"
+                    ]
+                    []
+                ]
             , div [ class "d-flex justify-content-end align-items-center gap-4 mt-2" ]
                 [ Link.external [ class "FooterInstitutionLink", href "https://www.ademe.fr/" ]
                     [ text "ademe.fr" ]
