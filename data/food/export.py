@@ -36,6 +36,12 @@ projects.set_current(PROJECT)
 # projects.activate_project(PROJECT)
 bw2data.config.p["biosphere_database"] = BIOSPHERE
 
+print("Syncing datackages...")
+for method in bw2data.methods:
+    bw2data.Method(method).process()
+
+for database in bw2data.databases:
+    bw2data.Database(database).process()
 
 def find_id(dbname, activity):
     return cached_search(dbname, activity["search"]).get(
