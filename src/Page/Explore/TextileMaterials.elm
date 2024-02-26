@@ -39,7 +39,7 @@ table db { detailed, scope } =
                         a [ Route.href (Route.Explore scope (Dataset.TextileMaterials (Just material.id))) ]
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
-        , { label = "Procédé"
+        , { label = "Nom"
           , toValue = .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
           }
