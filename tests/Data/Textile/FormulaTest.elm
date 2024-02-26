@@ -47,12 +47,12 @@ noOpProcess =
 suite : Test
 suite =
     suiteWithDb "Data.Formula"
-        (\{ textileDb } ->
+        (\db ->
             let
                 defaultImpacts =
                     Impact.empty
-                        |> Impact.updateImpact textileDb.impactDefinitions Definition.Cch Quantity.zero
-                        |> Impact.updateImpact textileDb.impactDefinitions Definition.Fwe Quantity.zero
+                        |> Impact.updateImpact db.definitions Definition.Cch Quantity.zero
+                        |> Impact.updateImpact db.definitions Definition.Fwe Quantity.zero
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
@@ -84,15 +84,15 @@ suite =
                                     { noOpProcess
                                         | impacts =
                                             Impact.empty
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Cch (Unit.impact 0.5)
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Fwe (Unit.impact 1.5)
+                                                |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.5)
+                                                |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1.5)
                                     }
                                 , countryHeatProcess =
                                     { noOpProcess
                                         | impacts =
                                             Impact.empty
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Cch (Unit.impact 0.5)
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Fwe (Unit.impact 1.5)
+                                                |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.5)
+                                                |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1.5)
                                     }
                                 }
                  in
@@ -121,8 +121,8 @@ suite =
                                 { noOpProcess
                                     | impacts =
                                         Impact.empty
-                                            |> Impact.updateImpact textileDb.impactDefinitions Definition.Cch (Unit.impact 8.13225e-2)
-                                            |> Impact.updateImpact textileDb.impactDefinitions Definition.Fwe (Unit.impact 3.26897e-8)
+                                            |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 8.13225e-2)
+                                            |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 3.26897e-8)
                                 }
                             , outputMass = kg 0.478
                             , pickingElec = 1
@@ -161,8 +161,8 @@ suite =
                                     { noOpProcess
                                         | impacts =
                                             Impact.empty
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Cch (Unit.impact 0.2)
-                                                |> Impact.updateImpact textileDb.impactDefinitions Definition.Fwe (Unit.impact 0.5)
+                                                |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.2)
+                                                |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 0.5)
                                     }
                                 }
                  in

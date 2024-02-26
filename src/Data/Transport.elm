@@ -16,7 +16,7 @@ module Data.Transport exposing
     )
 
 import Data.Country as Country
-import Data.Food.Process as Process
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
@@ -93,7 +93,7 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : { a | wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
+computeImpacts : { a | wellKnown : WellKnown } -> Mass -> Transport -> Transport
 computeImpacts { wellKnown } mass transport =
     let
         transportImpacts =

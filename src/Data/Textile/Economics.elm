@@ -197,20 +197,31 @@ computeRepairCostIndex business price repairCost =
 
 
 computeNumberOfReferencesIndex : Int -> Unit.Ratio
-computeNumberOfReferencesIndex numberOfReferences =
+computeNumberOfReferencesIndex n =
     let
-        ( highThreshold, lowThreshold ) =
-            ( 6000, 8000 )
+        fromThreshold high low =
+            (low - toFloat n) / (low - high)
     in
     Unit.ratio <|
-        if numberOfReferences < highThreshold then
-            1
-
-        else if numberOfReferences > lowThreshold then
+        if n > 12000 then
+            -- Over 12000: 0%
             0
 
+        else if n > 9000 then
+            -- From 9000 to 12000: decreasing from 25% to 0%
+            fromThreshold 9000 12000 * 0.25
+
+        else if n > 6000 then
+            -- From 6000 to 9000: decreasing from 80% to 25%
+            0.25 + (fromThreshold 6000 9000 * (0.8 - 0.25))
+
+        else if n > 3000 then
+            -- From 3000 to 6000: decreasing from 100% to 80%
+            0.8 + (fromThreshold 3000 6000 * 0.2)
+
         else
-            (lowThreshold - toFloat numberOfReferences) / (lowThreshold - highThreshold)
+            -- From 0 to 3000: 100%
+            1
 
 
 computeTraceabilityIndex : Bool -> Unit.Ratio

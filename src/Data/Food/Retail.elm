@@ -17,7 +17,8 @@ module Data.Food.Retail exposing
    and the impact of storing the product at the store
 -}
 
-import Data.Food.Process exposing (Process, WellKnown)
+import Data.Food.Process exposing (Process)
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit

@@ -1202,6 +1202,10 @@ q {
     width: 22px;
     height: 22px;
   }
+
+  &Header {
+    min-height: 43px;
+  }
 }
 
 .Subscores {

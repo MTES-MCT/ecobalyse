@@ -30,32 +30,28 @@ franceChina impacts =
 suite : Test
 suite =
     suiteWithDb "Data.Transport"
-        (\{ textileDb } ->
-            let
-                defaultImpacts =
-                    Impact.empty
-            in
-            [ textileDb.countries
+        (\db ->
+            [ db.countries
                 |> List.map
                     (\{ code } ->
-                        AnyDict.keys textileDb.transports
+                        AnyDict.keys db.distances
                             |> List.member code
                             |> Expect.equal True
                             |> asTest (Country.codeToString code ++ "should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
-                [ textileDb.transports
-                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "FR") (Country.Code "CN")
-                    |> Expect.equal (franceChina defaultImpacts)
+                [ db.distances
+                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two countries"
-                , textileDb.transports
-                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "CN") (Country.Code "FR")
-                    |> Expect.equal (franceChina defaultImpacts)
+                , db.distances
+                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two swapped countries"
-                , textileDb.transports
-                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "FR") (Country.Code "FR")
-                    |> Expect.equal (Transport.defaultInland Scope.Textile defaultImpacts)
+                , db.distances
+                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "FR")
+                    |> Expect.equal (Transport.defaultInland Scope.Textile Impact.empty)
                     |> asTest "should apply default inland transport when country is the same"
                 ]
             ]

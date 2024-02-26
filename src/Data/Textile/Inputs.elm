@@ -43,11 +43,9 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -55,7 +53,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Distances, Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -65,6 +63,7 @@ import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
 
@@ -103,7 +102,6 @@ type alias Inputs =
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
-    , ennoblingHeatSource : Maybe HeatSource
     , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
@@ -139,7 +137,6 @@ type alias Query =
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
-    , ennoblingHeatSource : Maybe HeatSource
     , business : Maybe Economics.Business
     , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
@@ -211,28 +208,28 @@ getMainMaterialCountry countries =
             )
 
 
-fromQuery : TextileDb.Db -> Query -> Result String Inputs
-fromQuery db query =
+fromQuery : Db -> Query -> Result String Inputs
+fromQuery { countries, textile } query =
     let
         materials =
             query.materials
-                |> toMaterialInputs db.materials db.countries
+                |> toMaterialInputs textile.materials countries
 
         franceResult =
-            Country.findByCode (Country.Code "FR") db.countries
+            Country.findByCode (Country.Code "FR") countries
 
         -- TODO: we don't use the main material country anymore as each material can specify
         -- its own country. We still need a country per step though, so we'll just default
         -- to using France.
         mainMaterialCountry =
             materials
-                |> Result.andThen (getMainMaterialCountry db.countries)
+                |> Result.andThen (getMainMaterialCountry countries)
                 |> RE.orElse franceResult
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap materials
-        |> RE.andMap (db.products |> Product.findById query.product)
+        |> RE.andMap (textile.products |> Product.findById query.product)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default
@@ -240,14 +237,14 @@ fromQuery db query =
         |> RE.andMap
             (case query.countrySpinning of
                 Just spinningCountryCode ->
-                    Country.findByCode spinningCountryCode db.countries
+                    Country.findByCode spinningCountryCode countries
 
                 Nothing ->
                     mainMaterialCountry
             )
-        |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
-        |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
-        |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
+        |> RE.andMap (countries |> Country.findByCode query.countryFabric)
+        |> RE.andMap (countries |> Country.findByCode query.countryDyeing)
+        |> RE.andMap (countries |> Country.findByCode query.countryMaking)
         -- The distribution country is always France
         |> RE.andMap franceResult
         -- The use country is always France
@@ -265,7 +262,6 @@ fromQuery db query =
         |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
-        |> RE.andMap (Ok query.ennoblingHeatSource)
         |> RE.andMap (Ok query.business)
         |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
@@ -293,7 +289,6 @@ toQuery inputs =
     , fading = inputs.fading
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
-    , ennoblingHeatSource = inputs.ennoblingHeatSource
     , business = inputs.business
     , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
@@ -573,7 +568,6 @@ updateProduct product query =
             , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
-            , ennoblingHeatSource = Nothing
         }
 
     else
@@ -655,8 +649,8 @@ getOutOfEuropeEOLComplement { mass, materials } =
          )
 
 
-computeMaterialTransport : TextileDb.Db -> Country.Code -> MaterialInput -> Transport
-computeMaterialTransport db nextCountryCode { material, country, share } =
+computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transport
+computeMaterialTransport distances nextCountryCode { material, country, share } =
     if share /= Split.zero then
         let
             emptyImpacts =
@@ -667,7 +661,7 @@ computeMaterialTransport db nextCountryCode { material, country, share } =
                     |> Maybe.map .code
                     |> Maybe.withDefault material.defaultCountry
         in
-        db.transports
+        distances
             |> Transport.getTransportBetween
                 Scope.Textile
                 emptyImpacts
@@ -709,7 +703,6 @@ encode inputs =
         , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
-        , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
         , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
         , ( "marketingDuration", inputs.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) |> Maybe.withDefault Encode.null )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
@@ -750,7 +743,6 @@ decodeQuery =
         |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
-        |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
         |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
         |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
@@ -794,7 +786,6 @@ encodeQuery query =
     , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
-    , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode )
     , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
     , ( "marketingDuration", query.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
@@ -857,28 +848,37 @@ type alias ExampleProduct =
 productsAndNames : List ExampleProduct
 productsAndNames =
     -- 7 base products, from China
-    [ { name = "Tshirt 100% coton Asie (170g)", query = tShirtCotonAsie, category = "Tshirt / Polo" }
-    , { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
+    [ { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
     , { name = "Chemise 100% coton Asie (250g)", query = chemiseCotonAsie, category = "Chemise" }
     , { name = "Jean 100% coton Asie (450g)", query = jeanCotonAsie, category = "Jean" }
     , { name = "Manteau 100% coton Asie (950g)", query = manteauCotonAsie, category = "Manteau / Veste" }
     , { name = "Pantalon 100% coton Asie (450g)", query = pantalonCotonAsie, category = "Pantalon / Short" }
-    , { name = "Pull 100% coton Asie (500g)", query = pullCotonAsie, category = "Pull / Couche intermédiaire" }
 
     -- 7 base products, from France
-    , { name = "Tshirt 100% coton France (170g)", query = tShirtCotonFrance, category = "Tshirt / Polo" }
     , { name = "Jupe 100% coton France (300g)", query = jupeCotonFrance, category = "Jupe / Robe" }
     , { name = "Chemise 100% coton France (250g)", query = chemiseCotonFrance, category = "Chemise" }
     , { name = "Jean 100% coton France (450g)", query = jeanCotonFrance, category = "Jean" }
     , { name = "Manteau 100% coton France (950g)", query = manteauCotonFrance, category = "Manteau / Veste" }
     , { name = "Pantalon 100% coton France (450g)", query = pantalonCotonFrance, category = "Pantalon / Short" }
-    , { name = "Pull 100% coton France (500g)", query = pullCotonFrance, category = "Pull / Couche intermédiaire" }
 
     -- Various examples
-    , { name = "Pull 100% laine Asie (500g)", query = pullLaineAsie, category = "Pull / Couche intermédiaire" }
     , { name = "Jupe 100% polyester Asie (300g)", query = jupePolyesterAsie, category = "Jupe / Robe" }
     , { name = "Manteau 50% polyamide 50% coton Asie (950g)", query = manteauMixAsie, category = "Manteau / Veste" }
-    , { name = "Tshirt 100% polyester Asie (170g)", query = tShirtPolyesterAsie, category = "Tshirt / Polo" }
+
+    -- More examples
+    , { name = "Tshirt coton bio France marque éthique (150g)", query = tshirtCotonBiofranceMarqueEthique, category = "Tshirt / Polo" }
+    , { name = "Tshirt synthétique Chine ultra fast fashion (150g)", query = tshirtSynthetiqueChineUltraFastFashion, category = "Tshirt / Polo" }
+    , { name = "Tshirt coton Asie fast fashion (150g)", query = tshirtCotonAsieFastFashion, category = "Tshirt / Polo" }
+    , { name = "Tshirt coton Pakistan marque traditionnelle (150g)", query = tshirtCotonPakistanMarqueTraditionnelle, category = "Tshirt / Polo" }
+    , { name = "Tshirt coton France marque traditionnelle (150g)", query = tshirtCotonFranceMarqueTraditionnelle, category = "Tshirt / Polo" }
+    , { name = "Tshirt lin France (100%) marque éthique (150g)", query = tshirtLinfranceMarqueEthique, category = "Tshirt / Polo" }
+    , { name = "Pull laine France marque éthique (550g) [A CONSOLIDER]", query = pullLaineFranceMarqueEthique, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull laine paysanne France (100%) marque éthique (550g) [A CONSOLIDER]", query = pullLainePaysanneFranceMarqueEthique, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull polyester Chine ultra fast fashion (500g)", query = pullPolyesterChineUltraFastFashion, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull viscose Chine fast fashion (500g)", query = pullViscoseChineFastFashion, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull coton Pakistan marque traditionnelle (500g)", query = pullCotonPakistanMarqueTraditionnelle, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull coton bio France marque traditionnelle (500g)", query = pullCotonBioFranceMarqueTraditionnelle, category = "Pull / Couche intermédiaire" }
+    , { name = "Pull coton Asie fast fashion (500g)", query = pullCotonAsieFastFashion, category = "Pull / Couche intermédiaire" }
     ]
 
 
@@ -948,7 +948,6 @@ tShirtCotonAsie =
     , fading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
-    , ennoblingHeatSource = Nothing
     , business = Nothing
     , marketingDuration = Nothing
     , numberOfReferences = Nothing
@@ -1069,23 +1068,8 @@ pantalonCotonFrance =
     }
 
 
-pullCotonFrance : Query
-pullCotonFrance =
-    { tShirtCotonFrance
-        | mass = Mass.kilograms 0.5
-        , product = Product.Id "pull"
-    }
-
-
 
 -- Various examples
-
-
-pullLaineAsie : Query
-pullLaineAsie =
-    { pullCotonAsie
-        | materials = [ { id = Material.Id "laine-mouton", share = Split.full, spinning = Nothing, country = Nothing } ]
-    }
 
 
 jupePolyesterAsie : Query
@@ -1105,8 +1089,345 @@ manteauMixAsie =
     }
 
 
-tShirtPolyesterAsie : Query
-tShirtPolyesterAsie =
+
+-- More examples
+
+
+tshirtCotonBiofranceMarqueEthique : Query
+tshirtCotonBiofranceMarqueEthique =
     { tShirtCotonAsie
-        | materials = [ { id = Material.Id "pet", share = Split.full, spinning = Nothing, country = Nothing } ]
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-coton-organic"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "TR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.SmallBusiness
+        , marketingDuration = Just (Duration.days 300)
+        , numberOfReferences = Just 200
+        , price = Just (Economics.priceFromFloat 30)
+        , traceability = Just True
+    }
+
+
+tshirtSynthetiqueChineUltraFastFashion : Query
+tshirtSynthetiqueChineUltraFastFashion =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-pet"
+              , share = Split.ninetyFive
+              , spinning = Nothing
+              , country = Nothing
+              }
+            , { id = Material.Id "pu"
+              , share = Split.five
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "CN")
+        , countryFabric = Country.Code "CN"
+        , countryDyeing = Country.Code "CN"
+        , countryMaking = Country.Code "CN"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithoutServices
+        , marketingDuration = Just (Duration.days 65)
+        , numberOfReferences = Just 100000
+        , price = Just (Economics.priceFromFloat 10)
+        , traceability = Just False
+    }
+
+
+tshirtCotonAsieFastFashion : Query
+tshirtCotonAsieFastFashion =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-coton"
+              , share = Split.seventyFive
+              , spinning = Nothing
+              , country = Nothing
+              }
+            , { id = Material.Id "coton-rdp"
+              , share = Split.quarter
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "IN")
+        , countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "IN"
+        , countryMaking = Country.Code "IN"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithoutServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 12000
+        , price = Just (Economics.priceFromFloat 10)
+        , traceability = Just False
+    }
+
+
+tshirtCotonPakistanMarqueTraditionnelle : Query
+tshirtCotonPakistanMarqueTraditionnelle =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-coton"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "PK")
+        , countryFabric = Country.Code "PK"
+        , countryDyeing = Country.Code "PK"
+        , countryMaking = Country.Code "PK"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 2500
+        , price = Just (Economics.priceFromFloat 40)
+        , traceability = Just False
+    }
+
+
+tshirtCotonFranceMarqueTraditionnelle : Query
+tshirtCotonFranceMarqueTraditionnelle =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-coton"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "TR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 2500
+        , price = Just (Economics.priceFromFloat 40)
+        , traceability = Just False
+    }
+
+
+tshirtLinfranceMarqueEthique : Query
+tshirtLinfranceMarqueEthique =
+    { tShirtCotonAsie
+        | mass = Mass.kilograms 0.15
+        , materials =
+            [ { id = Material.Id "ei-lin"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Just (Country.Code "FR")
+              }
+            ]
+        , product = Product.Id "tshirt"
+        , countrySpinning = Just (Country.Code "FR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.SmallBusiness
+        , marketingDuration = Just (Duration.days 300)
+        , numberOfReferences = Just 200
+        , price = Just (Economics.priceFromFloat 30)
+        , traceability = Just True
+    }
+
+
+pullLaineFranceMarqueEthique : Query
+pullLaineFranceMarqueEthique =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.55
+        , materials =
+            [ { id = Material.Id "ei-laine-par-defaut"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "CN")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.SmallBusiness
+        , marketingDuration = Just (Duration.days 300)
+        , numberOfReferences = Just 200
+        , price = Just (Economics.priceFromFloat 95)
+        , traceability = Just True
+    }
+
+
+pullLainePaysanneFranceMarqueEthique : Query
+pullLainePaysanneFranceMarqueEthique =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.55
+        , materials =
+            [ { id = Material.Id "ei-laine-nouvelle-filiere"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Just (Country.Code "FR")
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "FR")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.SmallBusiness
+        , marketingDuration = Just (Duration.days 300)
+        , numberOfReferences = Just 200
+        , price = Just (Economics.priceFromFloat 95)
+        , traceability = Just True
+    }
+
+
+pullPolyesterChineUltraFastFashion : Query
+pullPolyesterChineUltraFastFashion =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.5
+        , materials =
+            [ { id = Material.Id "ei-pet"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "CN")
+        , countryFabric = Country.Code "CN"
+        , countryDyeing = Country.Code "CN"
+        , countryMaking = Country.Code "CN"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithoutServices
+        , marketingDuration = Just (Duration.days 65)
+        , numberOfReferences = Just 100000
+        , price = Just (Economics.priceFromFloat 20)
+        , traceability = Just False
+    }
+
+
+pullViscoseChineFastFashion : Query
+pullViscoseChineFastFashion =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.5
+        , materials =
+            [ { id = Material.Id "ei-viscose"
+              , share = Split.seventy
+              , spinning = Nothing
+              , country = Nothing
+              }
+            , { id = Material.Id "pa"
+              , share = Split.thirty
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "CN")
+        , countryFabric = Country.Code "CN"
+        , countryDyeing = Country.Code "CN"
+        , countryMaking = Country.Code "CN"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithoutServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 12000
+        , price = Just (Economics.priceFromFloat 20)
+        , traceability = Just False
+    }
+
+
+pullCotonPakistanMarqueTraditionnelle : Query
+pullCotonPakistanMarqueTraditionnelle =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.5
+        , materials =
+            [ { id = Material.Id "ei-coton"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "PK")
+        , countryFabric = Country.Code "PK"
+        , countryDyeing = Country.Code "PK"
+        , countryMaking = Country.Code "PK"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 2500
+        , price = Just (Economics.priceFromFloat 70)
+        , traceability = Just False
+    }
+
+
+pullCotonBioFranceMarqueTraditionnelle : Query
+pullCotonBioFranceMarqueTraditionnelle =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.5
+        , materials =
+            [ { id = Material.Id "ei-coton-organic"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "IN")
+        , countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 2500
+        , price = Just (Economics.priceFromFloat 70)
+        , traceability = Just True
+    }
+
+
+pullCotonAsieFastFashion : Query
+pullCotonAsieFastFashion =
+    { pullCotonAsie
+        | mass = Mass.kilograms 0.5
+        , materials =
+            [ { id = Material.Id "ei-coton"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Nothing
+              }
+            ]
+        , product = Product.Id "pull"
+        , countrySpinning = Just (Country.Code "CN")
+        , countryFabric = Country.Code "CN"
+        , countryDyeing = Country.Code "CN"
+        , countryMaking = Country.Code "CN"
+        , fabricProcess = Fabric.KnittingMix
+        , business = Just Economics.LargeBusinessWithoutServices
+        , marketingDuration = Just (Duration.days 115)
+        , numberOfReferences = Just 12000
+        , price = Just (Economics.priceFromFloat 20)
+        , traceability = Just False
     }
