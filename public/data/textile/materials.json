@@ -126,8 +126,22 @@
     "cff": null
   },
   {
-    "id": "jute-kenaf",
+    "id": "ei-jute-kenaf",
     "materialProcessUuid": "9df0524c7ee3b4f1f31067565192df9a",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "name": "(EI) Fil de jute / kenaf",
+    "shortName": "(EI) Jute / kenaf",
+    "origin": "NaturalFromVegetal",
+    "primary": false,
+    "geographicOrigin": "Asie - Pacifique",
+    "defaultCountry": "CN",
+    "priority": 0,
+    "cff": null
+  },
+  {
+    "id": "jute-kenaf",
+    "materialProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de jute / kenaf",
@@ -375,6 +389,20 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 80,
+    "cff": null
+  },
+  {
+    "id": "ei-pa",
+    "materialProcessUuid": "88a1395a1c61be31b0bc692e977dd10b",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "name": "(EI) nylon 6-6 production",
+    "shortName": "(EI) Nylon",
+    "origin": "Synthetic",
+    "primary": true,
+    "geographicOrigin": "Europe",
+    "defaultCountry": "FR",
+    "priority": 0,
     "cff": null
   },
   {
