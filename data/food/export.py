@@ -31,19 +31,21 @@ CONFIG = {
     "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
     "PROCESSES_FILE": "../../public/data/food/processes.json",
+    "LAND_OCCUPATION_METHOD": ('selected LCI results', 'resource', 'land occupation'),
 }
+
 
 def setup_environment():
     projects.set_current(CONFIG["PROJECT"])
     bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
+def sync_datapackages():
     print("Syncing datackages...")
     for method in bw2data.methods:
         bw2data.Method(method).process()
 
     for database in bw2data.databases:
         bw2data.Database(database).process()
-
 
 def find_id(dbname, activity):
     return cached_search(dbname, activity["search"]).get(
@@ -58,7 +60,9 @@ def create_ingredient_list(activities):
             "id": activity["id"],
             "name": activity["name"],
             "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
+            "default": find_id(
+                activity.get("database", CONFIG["AGRIBALYSE"]), activity
+            ),
             "default_origin": activity["default_origin"],
             "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
             "density": activity["density"],
@@ -76,12 +80,50 @@ def create_ingredient_list(activities):
                 else {}
             ),
             **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
+            "search": activity["search"],
+            "database": activity.get("database", CONFIG["AGRIBALYSE"]),
             "visible": activity["visible"],
         }
         for activity in activities
         if activity["category"] == "ingredient"
     ]
- 
+
+
+def compute_land_occupation(ingredients):
+    """"""
+    print("Computing land occupation for ingredients")
+    for index, ingredient in enumerate(ingredients):
+        progress_bar(index, len(ingredients))
+        lca = bw2calc.LCA(
+            {
+                cached_search(
+                    ingredient.get("database", CONFIG["AGRIBALYSE"]),
+                    ingredient["search"],
+                ): 1
+            }
+        )
+        lca.lci()
+        lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
+        lca.lcia()
+        ingredient["land_occupation"] = float("{:.10g}".format(lca.score))
+
+    for attribute in ["search", "database"]:
+        if attribute in ingredient:
+            del ingredient[attribute]
+    return ingredients
+
+def check_ids(ingredients):
+    # Check the id is lowercase and does not contain spaces
+    for ingredient in ingredients:
+        if (
+            ingredient["id"].lower() != ingredient["id"]
+            or ingredient["id"].replace(" ", "") != ingredient["id"]
+        ):
+            raise ValueError(
+                f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
+            )
+
+
 def compute_ecosystemic_factors(ingredients, ecosystemic_factors):
     for ingredient in ingredients:
         land_footprint = ingredient.get("land_footprint")
@@ -98,6 +140,7 @@ def compute_ecosystemic_factors(ingredients, ecosystemic_factors):
                 "{:.5g}".format(factor_final)
             )
     return ingredients
+
 
 def create_process_list(activities):
     print("Creating process list...")
@@ -135,45 +178,24 @@ def create_process_list(activities):
         for activity in activities
     }
 
-if __name__ == "__main__":
-    # keep the previous processes with old impacts
-    with open(CONFIG["PROCESSES_FILE"]) as f:
-        oldprocesses = json.load(f)
 
-    with open(CONFIG["ACTIVITIES_FILE"], "r") as f:
-        activities = json.load(f)
+def progress_bar(index, total):
+    print(
+        "(" + (index) * "•" + (total - index) * " " + f") {str(index)}/{total}",
+        end="\r",
+    )
 
-    ingredients = create_ingredient_list(activities)
 
-    # compute the ecosystemic services
-    plot_ecs_transformations(save_path="ecosystemic_services/ecs_transformations.png")
-    ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    ingredients = compute_ecosystemic_factors(ingredients, ecosystemic_factors)
-
-    # Check the id is lowercase and does not contain spaces
-    for ingredient in ingredients:
-        if (
-            ingredient["id"].lower() != ingredient["id"]
-            or ingredient["id"].replace(" ", "") != ingredient["id"]
-        ):
-            raise ValueError(
-                f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
-            )
-        
-    processes = create_process_list(activities)
-    
-    # compute the impacts of base processes
+def compute_impacts(processes):
     print("Computing impacts:")
     for index, (processid, process) in enumerate(processes.items()):
-        print(
-            "("
-            + (index) * "•"
-            + (len(processes) - index) * " "
-            + f") {str(index)}/{len(processes)}",
-            end="\r",
-        )
+        progress_bar(index, len(processes))
         lca = bw2calc.LCA(
-            {cached_search(process.get("database", CONFIG["AGRIBALYSE"]), process["search"]): 1}
+            {
+                cached_search(
+                    process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+                ): 1
+            }
         )
         lca.lci()
         for key, method in impacts_definition.items():
@@ -188,6 +210,30 @@ if __name__ == "__main__":
         for attribute in ["search"]:
             if attribute in process:
                 del process[attribute]
+
+
+if __name__ == "__main__":
+    setup_environment()
+
+    # keep the previous processes with old impacts
+    with open(CONFIG["PROCESSES_FILE"]) as f:
+        oldprocesses = json.load(f)
+
+    with open(CONFIG["ACTIVITIES_FILE"], "r") as f:
+        activities = json.load(f)
+
+    ingredients = create_ingredient_list(activities)
+    ingredients = compute_land_occupation(ingredients)
+    # compute the ecosystemic services
+    plot_ecs_transformations(save_path="ecosystemic_services/ecs_transformations.png")
+    ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
+    ingredients = compute_ecosystemic_factors(ingredients, ecosystemic_factors)
+
+    check_ids(ingredients)
+
+    processes = create_process_list(activities)
+
+    compute_impacts(processes)
 
     print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
     with open(CONFIG["IMPACTS_FILE"], "r") as f:
@@ -209,3 +255,4 @@ if __name__ == "__main__":
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {CONFIG['PROCESSES_FILE']}")
+
