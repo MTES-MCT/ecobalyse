@@ -198,7 +198,7 @@ if __name__ == "__main__":
         json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
-    print(f"\nExported {len(ingredients)} ingredients to {CONFIG["INGREDIENTS_FILE"]}")
+    print(f"\nExported {len(ingredients)} ingredients to {CONFIG['INGREDIENTS_FILE']}")
 
     # display impacts that have changed
     display_changes("id", oldprocesses, processes)
@@ -208,4 +208,4 @@ if __name__ == "__main__":
         json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
         # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
         outfile.write("\n")
-    print(f"Exported {len(processes)} processes to {CONFIG["PROCESSES_FILE"]}")
+    print(f"Exported {len(processes)} processes to {CONFIG['PROCESSES_FILE']}")
