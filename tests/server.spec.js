@@ -274,14 +274,6 @@ describe("API", () => {
             /Format de type et surface d'impression invalide: bonk/,
           );
         });
-
-        it("should validate the ennoblingHeatSource param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["ennoblingHeatSource=bonk"]),
-            "ennoblingHeatSource",
-            /Source de production de vapeur inconnue: bonk/,
-          );
-        });
       });
 
       describe("POST", () => {

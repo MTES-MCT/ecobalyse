@@ -3,13 +3,16 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Country exposing (Country)
+import Data.Food.Db as Food
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Textile.Db as Textile
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
 import Server.Request exposing (Request)
-import Static.Db as StaticDb
+import Static.Db exposing (Db)
 import Url
 import Url.Parser as Parser exposing ((</>), (<?>), Parser, s)
 
@@ -60,35 +63,35 @@ type Route
     | PostTextileSimulatorSingle Definition.Trigram
 
 
-parser : StaticDb.Db -> Parser (Route -> a) a
-parser { foodDb, textileDb } =
+parser : Food.Db -> Textile.Db -> List Country -> Parser (Route -> a) a
+parser foodDb textile countries =
     Parser.oneOf
         [ -- Food
           Parser.map GetFoodCountryList (s "GET" </> s "food" </> s "countries")
         , Parser.map GetFoodIngredientList (s "GET" </> s "food" </> s "ingredients")
         , Parser.map GetFoodTransformList (s "GET" </> s "food" </> s "transforms")
         , Parser.map GetFoodPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery foodDb)
+        , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery countries foodDb)
         , Parser.map PostFoodRecipe (s "POST" </> s "food" </> s "recipe")
 
         -- Textile
         , Parser.map GetTextileCountryList (s "GET" </> s "textile" </> s "countries")
         , Parser.map GetTextileMaterialList (s "GET" </> s "textile" </> s "materials")
         , Parser.map GetTextileProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)
-        , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery textileDb)
-        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
+        , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
+        , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
+        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
         , Parser.map PostTextileSimulator (s "POST" </> s "textile" </> s "simulator")
         , Parser.map PostTextileSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
         , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
 
 
-endpoint : StaticDb.Db -> Request -> Maybe Route
-endpoint dbs { method, url } =
+endpoint : Db -> Request -> Maybe Route
+endpoint { countries, food, textile } { method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.
     -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser dbs))
+        |> Maybe.andThen (Parser.parse (parser food textile countries))

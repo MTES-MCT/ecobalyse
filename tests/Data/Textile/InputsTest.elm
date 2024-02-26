@@ -26,11 +26,11 @@ sampleQuery =
 suite : Test
 suite =
     suiteWithDb "Data.Inputs"
-        (\{ textileDb } ->
+        (\db ->
             [ describe "Base64"
                 [ describe "Encoding and decoding queries"
                     [ sampleQuery
-                        |> Inputs.fromQuery textileDb
+                        |> Inputs.fromQuery db
                         |> Result.map Inputs.toQuery
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should encode and decode a query"
@@ -49,7 +49,7 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery textileDb
+                    |> Inputs.fromQuery db
                     |> Result.map Inputs.countryList
                     |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                     |> Expect.equal (Ok (Country.codeFromString "CN"))
@@ -59,17 +59,17 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery textileDb
+                    |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")
                     |> asTest "should validate country codes"
                 ]
             , describe "Product update"
                 [ asTest "should update step masses"
-                    (case Product.findById (Product.Id "jean") textileDb.products of
+                    (case Product.findById (Product.Id "jean") db.textile.products of
                         Ok jean ->
                             tShirtCotonAsie
                                 |> Inputs.updateProduct jean
-                                |> Simulator.compute textileDb
+                                |> Simulator.compute db
                                 |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Distribution .inputMass Quantity.zero)
                                 |> Expect.equal (Ok jean.mass)
 
@@ -79,7 +79,7 @@ suite =
                 ]
             , let
                 testComplementEqual x =
-                    Inputs.fromQuery textileDb
+                    Inputs.fromQuery db
                         >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
@@ -99,7 +99,7 @@ suite =
                 ]
             , let
                 testComplementEqual x =
-                    Inputs.fromQuery textileDb
+                    Inputs.fromQuery db
                         >> Result.map (Inputs.getTotalMicrofibersComplement >> Unit.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
@@ -120,7 +120,7 @@ suite =
             , Inputs.productsAndNames
                 |> List.map
                     (\{ name, query } ->
-                        Expect.ok (Inputs.fromQuery textileDb query)
+                        Expect.ok (Inputs.fromQuery db query)
                             |> asTest (name ++ " example is ok")
                     )
                 |> describe "productsAndNames"

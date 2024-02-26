@@ -74,10 +74,12 @@ start_notebook:
 	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 
 stop_notebook:
-	$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter"
-	@while [ `docker container inspect -f '{{.State.Running}}' $(NAME) ` = "true" ]; do \
-		echo "stopping jupyter"; sleep 1; \
-	done
+	@echo "Stopping Jupyter notebook and container..."
+	@# Kill the Jupyter process inside the container (if specifically needed)
+	-@$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter" || true
+	@# Stop the container explicitly
+	-docker stop $(NAME) || echo "Container $(NAME) not running or already stopped."
+	@echo "Container $(NAME) has been stopped."
 
 start_bwapi:
 	echo starting the Brightway API on port 8000...

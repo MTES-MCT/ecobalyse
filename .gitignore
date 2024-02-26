@@ -11,7 +11,7 @@ elm-stuff
 /public/main.css
 /public/main.css.map
 /server-app.js
-/src/Static/Db.elm
+/src/Static/Json.elm
 /xls
 /public/version.json
 /.parcel-cache/
