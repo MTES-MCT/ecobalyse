@@ -57,28 +57,8 @@
     "visible": true
   },
   {
-    "id": "carrot",
-    "name": "Carotte",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102585",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6375,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.0325,
-      "plotSize": 0.08125,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.13,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "carrot-organic",
-    "name": "Carotte bio",
+    "name": "Carotte bio (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
     "default_origin": "EuropeAndMaghreb",
@@ -87,11 +67,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "once_transformed",
     "ecosystemicServices": {
-      "hedges": 0.092571,
-      "plotSize": 0.14,
-      "cropDiversity": 0.44816
+      "hedges": 0.091896,
+      "plotSize": 0.13898,
+      "cropDiversity": 0.44489
     },
-    "land_footprint": 0.16,
+    "land_footprint": 0.15883282826495596,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -254,26 +234,6 @@
     "visible": true
   },
   {
-    "id": "potato",
-    "name": "Pomme de terre",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003111904",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6375,
-    "inedible_part": 0.1,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.0725,
-      "plotSize": 0.18125,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.29,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "ground-beef",
     "name": "Boeuf haché (cru)",
     "categories": ["animal_product"],
@@ -345,7 +305,7 @@
       "plotSize": 1.83,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
-      "livestockDensity": -0.0548
+      "livestockDensity": -0.0591
     },
     "visible": true
   },
@@ -524,68 +484,28 @@
     "visible": true
   },
   {
-    "id": "zucchini",
-    "name": "Courgette",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117540",
+    "id": "zucchini-organic",
+    "name": "Courgette bio (sortie de ferme)",
+    "categories": ["vegetable_fresh", "organic"],
+    "default": "AGRIBALU000024985200219",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.0575,
-      "plotSize": 0.14375,
-      "cropDiversity": 0.0
+      "hedges": 0.078395,
+      "plotSize": 0.11856,
+      "cropDiversity": 0.37953
     },
-    "land_footprint": 0.23,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "zucchini-organic",
-    "name": "Courgette bio",
-    "categories": ["vegetable_fresh", "organic"],
-    "default": "AGRIBALU000024985200219",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.081,
-      "plotSize": 0.1225,
-      "cropDiversity": 0.39214
-    },
-    "land_footprint": 0.14,
+    "land_footprint": 0.135497686521566,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
   },
   {
-    "id": "pear",
-    "name": "Poire",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003111018",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.11329,
-      "plotSize": 0.2275,
-      "cropDiversity": 0.24024
-    },
-    "land_footprint": 0.26,
-    "crop_group": "VERGERS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "peach-organic",
-    "name": "Pêche bio",
+    "name": "Pêche bio (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003110947",
     "default_origin": "EuropeAndMaghreb",
@@ -594,41 +514,21 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.58571,
-      "plotSize": 0.7175,
-      "cropDiversity": 0.51496
+      "hedges": 0.58492,
+      "plotSize": 0.71653,
+      "cropDiversity": 0.51426
     },
-    "land_footprint": 0.82,
+    "land_footprint": 0.8188873816560418,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
   },
   {
-    "id": "melon",
-    "name": "Melon",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003109265",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.4,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.1075,
-      "plotSize": 0.26875,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.43,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "melon-organic",
-    "name": "Melon bio",
+    "name": "Melon bio (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000024985200102",
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.4,
@@ -667,86 +567,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
-    "visible": true
-  },
-  {
-    "id": "onion",
-    "name": "Oignon",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003110467",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6195,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.065,
-      "plotSize": 0.1625,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.26,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "eggplant",
-    "name": "Aubergine",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117540",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.398,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.0575,
-      "plotSize": 0.14375,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.23,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "lettuce",
-    "name": "Laitue",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108667",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.118,
-    "inedible_part": 0.4,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.0275,
-      "plotSize": 0.06875,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.11,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "french-bean",
-    "name": "Haricot vert",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003106138",
-    "default_origin": "OutOfEuropeAndMaghrebByPlane",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.271,
-    "inedible_part": 0.1,
-    "transport_cooling": "always",
-    "ecosystemicServices": {
-      "hedges": 0.335,
-      "plotSize": 0.8375,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 1.34,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
     "visible": true
   },
   {
@@ -803,35 +623,15 @@
     "visible": true
   },
   {
-    "id": "garden-peas",
-    "name": "Petit pois",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000024985200024",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 2.33,
-    "density": 0.24,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.345,
-      "plotSize": 0.8625,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 1.38,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "tomato-organic-greenhouse",
-    "name": "Tomate bio sous serre non chauffée",
+    "name": "Tomate bio sous serre non chauffée (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003115758",
-    "default_origin": "OutOfEuropeAndMaghreb",
+    "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
+    "transport_cooling": "always",
     "ecosystemicServices": {
       "hedges": 0.057857,
       "plotSize": 0.0875,
@@ -840,26 +640,6 @@
     "land_footprint": 0.1,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": true
-  },
-  {
-    "id": "tomato-greenhouse",
-    "name": "Tomate sous serre non chauffée",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003115753",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.015,
-      "plotSize": 0.0375,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.06,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
     "visible": true
   },
   {
@@ -899,26 +679,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
-    "visible": true
-  },
-  {
-    "id": "tomato-heated-greenhouse",
-    "name": "Tomate sous serre chauffée",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003115752",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.01,
-      "plotSize": 0.025,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.04,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
     "visible": true
   },
   {
@@ -962,26 +722,6 @@
     "visible": true
   },
   {
-    "id": "artichoke",
-    "name": "Artichaut",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102660",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.362,
-    "inedible_part": 0.6,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.1125,
-      "plotSize": 0.28125,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.45,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "cauliflower",
     "name": "Chou-fleur",
     "categories": ["vegetable_fresh"],
@@ -1002,35 +742,15 @@
     "visible": true
   },
   {
-    "id": "beetroot",
-    "name": "Betterave rouge",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102585",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6375,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.012071,
-      "plotSize": 0.0325,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.13,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "beetroot-organic",
-    "name": "Betterave rouge bio",
+    "name": "Betterave rouge bio (sortie de ferme)",
     "categories": ["vegetable_fresh", "organic"],
     "default": "AGRIBALU000000003102611",
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
     "inedible_part": 0.1,
-    "transport_cooling": "none",
+    "transport_cooling": "always",
     "ecosystemicServices": {
       "hedges": 0.060571,
       "plotSize": 0.14,
@@ -1159,26 +879,6 @@
     "land_footprint": 0.16,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": true
-  },
-  {
-    "id": "cherry",
-    "name": "Cerise",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102916",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 6.1261,
-      "plotSize": 12.303,
-      "cropDiversity": 12.991
-    },
-    "land_footprint": 14.06,
-    "crop_group": "VERGERS",
-    "scenario": "reference",
     "visible": true
   },
   {
@@ -1362,48 +1062,8 @@
     "visible": true
   },
   {
-    "id": "lemon",
-    "name": "Citron",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108602",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.575,
-    "inedible_part": 0.3,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.122,
-      "plotSize": 0.245,
-      "cropDiversity": 0.25872
-    },
-    "land_footprint": 0.28,
-    "crop_group": "VERGERS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "pumpkin",
     "name": "Citrouille",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003117540",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.362,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.0575,
-      "plotSize": 0.14375,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.23,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "squash",
-    "name": "Courge",
     "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003117540",
     "default_origin": "EuropeAndMaghreb",
@@ -1764,26 +1424,6 @@
     "visible": true
   },
   {
-    "id": "hazelnut",
-    "name": "Noisette avec coque",
-    "categories": ["nut_oilseed_raw"],
-    "default": "AGRIBALU000000003107313",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 0.24,
-    "inedible_part": 0.5,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 2.43,
-      "plotSize": 7.0875,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 8.1,
-    "crop_group": "FRUITS A COQUES",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
     "id": "pistachio",
     "name": "Pistache avec coque",
     "categories": ["nut_oilseed_raw"],
@@ -1800,26 +1440,6 @@
     },
     "land_footprint": 4.4,
     "crop_group": "FRUITS A COQUES",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "leek",
-    "name": "Poireau",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003108534",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6195,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.0425,
-      "plotSize": 0.10625,
-      "cropDiversity": 0.0
-    },
-    "land_footprint": 0.17,
-    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
   },
@@ -1880,26 +1500,6 @@
     },
     "land_footprint": 0.09,
     "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "plum",
-    "name": "Prune",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003102916",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 6.1261,
-      "plotSize": 12.303,
-      "cropDiversity": 12.991
-    },
-    "land_footprint": 14.06,
-    "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
   },
@@ -2325,7 +1925,7 @@
   {
     "id": "olive",
     "name": "Olive",
-    "categories": ["animal_product"],
+    "categories": ["vegetable_fresh"],
     "default": "AGRIBALU000000003110400",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
@@ -2491,26 +2091,6 @@
     },
     "land_footprint": 0.23,
     "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "peach-conventional",
-    "name": "Pêche",
-    "categories": ["vegetable_fresh"],
-    "default": "AGRIBALU000000003110937",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.2,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.20479,
-      "plotSize": 0.41125,
-      "cropDiversity": 0.43428
-    },
-    "land_footprint": 0.47,
-    "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
   },
@@ -2692,6 +2272,26 @@
     "inedible_part": 0.1,
     "transport_cooling": "none",
     "ecosystemicServices": {
+      "hedges": 0.27307,
+      "plotSize": 0.33451,
+      "cropDiversity": 0.24008
+    },
+    "land_footprint": 0.38229635673932616,
+    "crop_group": "VERGERS",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "apple",
+    "name": "Pomme (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003100459",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
       "hedges": 0.27143,
       "plotSize": 0.3325,
       "cropDiversity": 0.23864
@@ -2699,6 +2299,966 @@
     "land_footprint": 0.38,
     "crop_group": "VERGERS",
     "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "carrot-fr",
+    "name": "Carotte FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102592",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.030834,
+      "plotSize": 0.077085,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.12333583188828015,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "carrot-eu",
+    "name": "Carotte UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102563",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.1802707158308635,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "carrot-non-ue",
+    "name": "Carotte hors UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102564",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.28754145691431554,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "zucchini-fr",
+    "name": "Courgette FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200218",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.024414,
+      "plotSize": 0.061035,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.0976557893177337,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "zucchini-eu",
+    "name": "Courgette UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003117541",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.22895499508484513,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "pear-fr",
+    "name": "Poire FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003111019",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.10467,
+      "plotSize": 0.21019,
+      "cropDiversity": 0.22197
+    },
+    "land_footprint": 0.2402223288900337,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "pear-eu",
+    "name": "Poire UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003111005",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.26409236881890263,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "peach-fr",
+    "name": "Pêche FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110952",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.20773,
+      "plotSize": 0.41717,
+      "cropDiversity": 0.44053
+    },
+    "land_footprint": 0.4767671166332219,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "peach-eu",
+    "name": "Pêche UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110917",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.4604600969201655,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "melon-fr",
+    "name": "Melon FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003109266",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.4,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.10613,
+      "plotSize": 0.26532,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.4245124832275369,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "melon-eu",
+    "name": "Melon UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003109266",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.4,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.4245124832275369,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "potato-industry-fr",
+    "name": "Pomme de terre industrie FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200170",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.072314,
+      "plotSize": 0.18079,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.2892563843094771,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "potato-table-fr",
+    "name": "Pomme de terre de table FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200169",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.072315,
+      "plotSize": 0.18079,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.28926186197910325,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "potato-starch",
+    "name": "Fécule de pomme de terre",
+    "categories": ["vegetable_processed"],
+    "default": "AGRIBALU000000003111897",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.79665209842946,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "onion-fr",
+    "name": "Oignon FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110467",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.065,
+      "plotSize": 0.1625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.26,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "onion-eu",
+    "name": "Oignon UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110441",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.2157503211459354,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "onion-non-ue",
+    "name": "Oignon hors UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003110442",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.2436707630156826,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "eggplant-fr",
+    "name": "Aubergine FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200218",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.398,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.024414,
+      "plotSize": 0.061035,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.0976557893177337,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "eggplant-eu",
+    "name": "Aubergine UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200218",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.398,
+    "inedible_part": 0.1,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.0976557893177337,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "french-bean-fr",
+    "name": "Haricot vert FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200072",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.271,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.33389,
+      "plotSize": 0.83472,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.3355550247988053,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "french-bean-eu",
+    "name": "Haricot vert UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200072",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.271,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.3355550247988053,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "french-bean-non-eu",
+    "name": "Haricot vert hors UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200072",
+    "default_origin": "OutOfEuropeAndMaghrebByPlane",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.271,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.3355550247988053,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "lettuce-fr",
+    "name": "Laitue FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003108668",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.4,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.027222,
+      "plotSize": 0.068056,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.1088898131414479,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "lettuce-eu",
+    "name": "Laitue UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003107604",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.4,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.09184830824850201,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "lettuce-non-eu",
+    "name": "Laitue hors UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003107604",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.118,
+    "inedible_part": 0.4,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.09184830824850201,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "garden-peas-fr",
+    "name": "Petit pois FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200024",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.345,
+      "plotSize": 0.8625,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.38,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "garden-peas-eu",
+    "name": "Petit pois UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200024",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 1.38,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "cherry-fr",
+    "name": "Cerise FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102916",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 6.1261,
+      "plotSize": 12.303,
+      "cropDiversity": 12.991
+    },
+    "land_footprint": 14.06,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "lemon-eu",
+    "name": "Citron UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003108561",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.3,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.27998977051148904,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "plum-fr",
+    "name": "Prune FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102916",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 6.1261,
+      "plotSize": 12.303,
+      "cropDiversity": 12.991
+    },
+    "land_footprint": 14.06,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "squash-fr",
+    "name": "Courge FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200218",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.024414,
+      "plotSize": 0.061035,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.0976557893177337,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "squash-eu",
+    "name": "Courge UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003117541",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.22895499508484513,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "squash-organic",
+    "name": "Courge bio (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200219",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.078395,
+      "plotSize": 0.11856,
+      "cropDiversity": 0.37953
+    },
+    "land_footprint": 0.135497686521566,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "tomato-heated-greenhouse-fr",
+    "name": "Tomate sous serre chauffée",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003115752",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.01,
+      "plotSize": 0.025,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.04,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "tomato-greenhouse-fr",
+    "name": "Tomate sous serre non chauffée FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003115753",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.015,
+      "plotSize": 0.0375,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.06,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "tomato-greenhouse-eu",
+    "name": "Tomate UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003115743",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.08931800900440257,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "apricot-fr",
+    "name": "Abricot FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003100510",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.25786,
+      "plotSize": 0.51783,
+      "cropDiversity": 0.54683
+    },
+    "land_footprint": 0.5918090797657374,
+    "crop_group": "VERGERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "apricot-eu",
+    "name": "Abricot UE par défaut (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003100510",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.5918090797657374,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-non-eu",
+    "name": "Noisette hors UE avec coque (sortie de ferme)",
+    "categories": ["nut_oilseed_raw"],
+    "default": "AGRIBALU000000003107313",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 8.1,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-eu",
+    "name": "Noisette UE avec coque (sortie de ferme)",
+    "categories": ["nut_oilseed_raw"],
+    "default": "AGRIBALU000000003107312",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 7.054242233148819,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-unshelled-eu",
+    "name": "Noisette décortiquée UE par défaut",
+    "categories": ["nut_oilseed_raw"],
+    "default": "AGRIBALU000000003107318",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 14.113481475364038,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-unshelled-non-eu",
+    "name": "Noisette décortiquée hors UE par défaut",
+    "categories": ["nut_oilseed_raw"],
+    "default": "AGRIBALU000000003107319",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 16.203589547263125,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "artichoke-fr",
+    "name": "Artichaut FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102661",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.6,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.11128,
+      "plotSize": 0.2782,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.44512050373762024,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "artichoke-organic",
+    "name": "Artichaut bio (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200052",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.362,
+    "inedible_part": 0.6,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.38976,
+      "plotSize": 0.58945,
+      "cropDiversity": 1.8869
+    },
+    "land_footprint": 0.6736524550069993,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "cauliflower-organic",
+    "name": "Chou-fleur bio (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200052",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.2355,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.38976,
+      "plotSize": 0.58945,
+      "cropDiversity": 1.8869
+    },
+    "land_footprint": 0.6736524550069993,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "cauliflower-fr",
+    "name": "Chou-fleur FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000024985200045",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.2355,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.11548,
+      "plotSize": 0.28871,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.46193773048543957,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "leek-fr",
+    "name": "Poireau FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003108547",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.04323,
+      "plotSize": 0.10807,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.1729183475047969,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "beetroot-fr",
+    "name": "Betterave rouge FR (sortie de ferme)",
+    "categories": ["vegetable_fresh"],
+    "default": "AGRIBALU000000003102592",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.011453,
+      "plotSize": 0.030834,
+      "cropDiversity": 0.0
+    },
+    "land_footprint": 0.12333583188828015,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "reference",
     "visible": true
   }
 ]
