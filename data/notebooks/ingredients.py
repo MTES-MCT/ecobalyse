@@ -780,11 +780,14 @@ def display_surface(activity):
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        w_landFootprint.value = json.loads(
-            requests.get(
-                f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
-            ).content
-        )["surface"]
+        w_landFootprint.value = (
+            json.loads(
+                requests.get(
+                    f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
+                ).content
+            )["surface"]
+            or 0
+        )
         spoutput = str(w_landFootprint.value)
         w_landFootprint
     except Exception as e:
