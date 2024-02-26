@@ -28,6 +28,42 @@ PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.%s.json"
 AGRIBALYSE = "Agribalyse 3.1.1"
+CROP_GROUPS = [
+    "BLE TENDRE",
+    "MAIS GRAIN ET ENSILAGE",
+    "ORGE",
+    "AUTRES CEREALES",
+    "COLZA",
+    "TOURNESOL",
+    "AUTRES OLEAGINEUX",
+    "PROTEAGINEUX",
+    "PLANTES A FIBRES",
+    "SEMENCES",
+    "GEL (surfaces gelées sans production)",
+    "GEL INDUSTRIEL",
+    "AUTRES GELS",
+    "RIZ",
+    "LEGUMINEUSES A GRAIN",
+    "FOURRAGE",
+    "ESTIVES LANDES",
+    "PRAIRIES PERMANENTES",
+    "PRAIRIES TEMPORAIRES",
+    "VERGERS",
+    "VIGNES",
+    "FRUITS A COQUES",
+    "OLIVIERS",
+    "AUTRES CULTURES INDUSTRIELLES",
+    "LEGUMES-FLEURS",
+    "CANNE A SUCRE",
+    "ARBORICULTURE",
+    "DIVERS",
+    "BOVINS VIANDE",
+    "BOVINS LAIT",
+    "OVINS VIANDE",
+    "OVINS LAIT",
+    "VOLAILLES",
+    "PORCINS",
+]
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -113,12 +149,16 @@ FIELDS = {
     "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
     "explain": "Commentaires",
-    # EcosystemicServices
+    # EcosystemicServices for animal products
     "ecosystemicServices.hedges": "Haies",
     "ecosystemicServices.plotSize": "Taille de parcelles",
     "ecosystemicServices.cropDiversity": "Diversité culturale",
     "ecosystemicServices.permanentPasture": "Prairies permanentes",
     "ecosystemicServices.livestockDensity": "Chargement territorial",
+    # EcosystemicServices for other products
+    "crop_group": "Groupe de culture",
+    "land_footprint": "Empreinte terrestre (m²a)",
+    "scenario": "Scenario",
 }
 
 
@@ -229,18 +269,18 @@ w_category = ipywidgets.Dropdown(
 )
 w_categories = ipywidgets.TagsInput(
     allowed_tags=[
-        ("animal_product"),
-        ("dairy_product"),
-        ("grain_raw"),
-        ("grain_processed"),
-        ("nut_oilseed_raw"),
-        ("nut_oilseed_processed"),
-        ("misc"),
-        ("spice_condiment_additive"),
-        ("vegetable_fresh"),
-        ("vegetable_processed"),
-        ("organic"),
-        ("bleublanccoeur"),
+        "animal_product",
+        "dairy_product",
+        "grain_raw",
+        "grain_processed",
+        "nut_oilseed_raw",
+        "nut_oilseed_processed",
+        "misc",
+        "spice_condiment_additive",
+        "vegetable_fresh",
+        "vegetable_processed",
+        "organic",
+        "bleublanccoeur",
     ],
     style=style,
     allow_duplicates=False,
@@ -353,6 +393,10 @@ w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
 w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
+# parameters used to compute ecosystemicServices
+w_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
+w_landFootprint = ipywidgets.FloatText()
+w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
 savebutton = ipywidgets.Button(
@@ -467,6 +511,9 @@ def clear_form():
     w_ecosys_cropDiversity.value = 0
     w_ecosys_permanentPasture.value = 0
     w_ecosys_livestockDensity.value = 0
+    w_cropGroup.value = None
+    w_landFootprint.value = 0
+    w_scenario.value = None
 
 
 def set_field(field, value, default):
@@ -484,7 +531,7 @@ def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
-def change_contributor(change):
+def change_contributor(_):
     list_activities(w_filter.value)
 
 
@@ -535,6 +582,9 @@ def change_id(change):
     set_field(
         w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
     )
+    set_field(w_scenario, i.get("scenario"), None)
+    set_field(w_cropGroup, i.get("crop_group"), None)
+    set_field(w_landFootprint, i.get("land_footprint"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -592,12 +642,23 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "explain": w_explain.value,
-        "ecosystemicServices.hedges": w_ecosys_hedges.value,
-        "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
-        "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
-        "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
-        "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
     }
+    activity.update(
+        {
+            "ecosystemicServices.hedges": w_ecosys_hedges.value,
+            "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
+            "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
+            "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
+            "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
+        }
+        if "animal_product" in w_categories.value
+        or "dairy_product" in w_categories.value
+        else {
+            "crop_group": w_cropGroup.value,
+            "scenario": w_scenario.value,
+            "land_footprint": w_landFootprint.value,
+        }
+    )
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
     if "id" not in activity:
@@ -719,14 +780,15 @@ def display_surface(activity):
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        spsurface = json.loads(
+        w_landFootprint.value = json.loads(
             requests.get(
                 f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
             ).content
         )["surface"]
-        spoutput = str(spsurface)
+        spoutput = str(w_landFootprint.value)
+        w_landFootprint
     except Exception as e:
-        spsurface = None
+        w_landFootprint.value = None
         spoutput = repr(e)
     surface_output.clear_output()
     display(
@@ -1112,56 +1174,102 @@ Ecobalyse</li></ul>
                                     ),
                                     ipywidgets.HTML(
                                         """<hr/>Pour les services écosystémiques, voir
-                                        la <a style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
-                                        (TODO: mettre à jour le lien)
-                                        """
+                                            la <a style="color:blue"
+                                            href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                            (TODO: mettre à jour le lien)
+                                            """
                                     ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["ecosystemicServices.hedges"],
+                                    ipywidgets.Accordion(
+                                        titles=[
+                                            "Services écosystémiques : Ingrédients d'origine animale",
+                                            "Services écosystémiques : Autres ingrédients",
+                                        ],
+                                        children=[
+                                            ipywidgets.VBox(
+                                                [
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.hedges"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_hedges,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.plotSize"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_plotSize,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.cropDiversity"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_cropDiversity,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.permanentPasture"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_permanentPasture,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.livestockDensity"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_livestockDensity,
+                                                        ),
+                                                    ),
+                                                ]
                                             ),
-                                            w_ecosys_hedges,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["ecosystemicServices.plotSize"],
+                                            ipywidgets.VBox(
+                                                [
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS["crop_group"],
+                                                            ),
+                                                            w_cropGroup,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS["scenario"],
+                                                            ),
+                                                            w_scenario,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "land_footprint"
+                                                                ],
+                                                            ),
+                                                            w_landFootprint,
+                                                        ),
+                                                    ),
+                                                ]
                                             ),
-                                            w_ecosys_plotSize,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "ecosystemicServices.cropDiversity"
-                                                ],
-                                            ),
-                                            w_ecosys_cropDiversity,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "ecosystemicServices.permanentPasture"
-                                                ],
-                                            ),
-                                            w_ecosys_permanentPasture,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS[
-                                                    "ecosystemicServices.livestockDensity"
-                                                ],
-                                            ),
-                                            w_ecosys_livestockDensity,
-                                        ),
+                                        ],
                                     ),
                                 ),
                             ),
