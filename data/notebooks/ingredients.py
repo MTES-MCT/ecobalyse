@@ -773,23 +773,22 @@ def display_surface(activity):
         lca.lci()
         lca.switch_method(method)
         lca.lcia()
-        bwsurface = lca.score
-        bwoutput = str(bwsurface)
+        w_landFootprint.value = lca.score
+        bwoutput = str(w_landFootprint.value)
     except Exception as e:
-        bwsurface = 0
+        w_landFootprint.value = 0
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        spsurface = json.loads(
+        w_landFootprint.value = json.loads(
             requests.get(
                 f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
             ).content
         )["surface"]
         spoutput = str(w_landFootprint.value)
     except Exception as e:
-        spsurface = 0
+        w_landFootprint.value = 0
         spoutput = repr(e)
-    w_landFootprint.value = spsurface or bwsurface
     surface_output.clear_output()
     display(
         ipywidgets.HTML(
