@@ -406,6 +406,43 @@
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau"
   },
   {
+    "search": "jute production rainfed RoW",
+    "name": "(EI) Fil de jute / kenaf",
+    "info": "Textile > Matières > Matières naturelles",
+    "unit": "kg",
+    "source": "Ecoinvent 3.9.1",
+    "uuid": "9df0524c7ee3b4f1f31067565192df9a",
+    "impacts": {
+      "acd": 1.09e-2,
+      "cch": 0.28103474,
+      "etf": 7.60667136,
+      "etf-c": 7.663736642,
+      "fru": 1.7516863,
+      "fwe": 3.02e-3,
+      "htc": 1.53e-9,
+      "htc-c": 2.106274e-10,
+      "htn": -4.48e-8,
+      "htn-c": 2.0157556e-10,
+      "ior": 0.0035643237,
+      "ldu": 0.8987201,
+      "mru": 1.47e-6,
+      "ozd": 2.21e-9,
+      "pco": 1.14e-3,
+      "pma": 7.73e-8,
+      "swe": 5.08e-3,
+      "tre": 0.047358001,
+
+      "wtu": 0.022374184
+    },
+    "heat_MJ": 0.0,
+    "elec_pppm": 0.0,
+    "elec_MJ": 0.0,
+    "waste": 0.270519,
+    "alias": null,
+    "step_usage": "Matières, Filature",
+    "correctif": ""
+  },
+  {
     "search": "",
     "name": "Fil de jute / kenaf",
     "info": "Textile > Matières > Matières naturelles",
