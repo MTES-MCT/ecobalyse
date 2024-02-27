@@ -4320,6 +4320,7 @@
     "inedible_part": 0.4,
     "transport_cooling": "always",
     "visible": true,
+    "explain": "icv melon",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "land_footprint": 0.5270972461158159
