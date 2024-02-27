@@ -53,7 +53,8 @@ Les entreprises qui souhaitent préciser le mix chaleur de tout ou partie des é
 
 ### Limites
 
-Les deux procédés Ecoinvent utilisés (chaleur à partir de gaz naturel vs chaleur à partir d'autres sources) pour reconstituer les mix chaleur régionaux (France, Europe, Monde) sont basés sur des mix de consommation européens ("Market group for heat" / "RER").&#x20;
+* Les deux procédés Ecoinvent utilisés (chaleur à partir de gaz naturel vs chaleur à partir d'autres sources) pour reconstituer les mix chaleur régionaux (France, Europe, Monde) sont basés sur des mix de consommation européens ("Market group for heat" / "RER"),
+* Le mix chaleur World (Rest Of the World) est basé sur des données 2010.
 
 [^1]: Source : Etude Carbone 4 :  [https://www.carbone4.com/publication-chaleur-renouvelable](https://www.carbone4.com/publication-chaleur-renouvelable)
 
