@@ -79,37 +79,32 @@ def process_activity_for_ingredient(activity):
         "density": activity["density"],
         "inedible_part": activity["inedible_part"],
         "transport_cooling": activity["transport_cooling"],
-        "ecosystemicServices": activity.get("ecosystemicServices", {}),
-        **(
-            {"land_footprint": activity["land_footprint"]}
-            if "land_footprint" in activity
-            else {}
-        ),
+        **({"land_occupation": activity["land_occupation"]} if "land_occupation" in activity else {}),
         **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
         **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
-        "search": activity["search"],
-        "database": activity.get("database", CONFIG["AGRIBALYSE"]),
+        "ecosystemicServices": activity.get("ecosystemicServices", {}),
         "visible": activity["visible"],
     }
 
 
 def compute_land_occupation(activities):
     """"""
-    print("Computing land occupation for ingredients")
+    print("Computing land occupation for activities")
     for index, activity in enumerate(activities):
         progress_bar(index, len(activities))
-        lca = bw2calc.LCA(
-            {
-                cached_search(
-                    activity.get("database", CONFIG["AGRIBALYSE"]),
-                    activity["search"],
-                ): 1
-            }
-        )
-        lca.lci()
-        lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
-        lca.lcia()
-        activity["land_occupation"] = float("{:.10g}".format(lca.score))
+        if "land_occupation" not in activity:
+            lca = bw2calc.LCA(
+                {
+                    cached_search(
+                        activity.get("database", CONFIG["AGRIBALYSE"]),
+                        activity["search"],
+                    ): 1
+                }
+            )
+            lca.lci()
+            lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
+            lca.lcia()
+            activity["land_occupation"] = float("{:.10g}".format(lca.score))
 
 
 def check_ids(ingredients):
@@ -126,26 +121,23 @@ def check_ids(ingredients):
 
 def compute_ecosystemic_factors(ingredients, ecosystemic_factors):
     for ingredient in ingredients:
-        land_footprint = ingredient.get("land_footprint")
-        crop_group = ingredient.get("crop_group")
-        scenario = ingredient.get("scenario")
-
-    if land_footprint and crop_group and scenario:
-        print(f"Computing ecosystemic services for {ingredient['id']}")
-        for eco_service in ecosystemic_services_list:
-            factor_raw = ecosystemic_factors[crop_group][eco_service][scenario]
-            factor_transformed = ecs_transform(eco_service, factor_raw)
-            factor_final = factor_transformed * land_footprint
-            ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
-                "{:.5g}".format(factor_final)
-            )
-    return ingredients
+        if all(
+            ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
+        ):
+            print(f"Computing ecosystemic services for {ingredient['id']}")
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][ingredient["scenario"]]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * ingredient["land_occupation"]
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
 
 
 def create_process_list(activities):
     print("Creating process list...")
     return {
-        activity[id]: process_activity_for_processes(activity)
+        activity["id"]: process_activity_for_processes(activity)
         for activity in activities
     }
 
@@ -221,7 +213,7 @@ if __name__ == "__main__":
 
     plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
     ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    ingredients = compute_ecosystemic_factors(ingredients, ecosystemic_factors)
+    compute_ecosystemic_factors(ingredients, ecosystemic_factors)
 
     check_ids(ingredients)
     processes = create_process_list(activities)
@@ -234,4 +226,4 @@ if __name__ == "__main__":
     export_json(activities, CONFIG["ACTIVITIES_FILE"])
     export_json(ingredients, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes)
-    export_json(processes, CONFIG["PROCESSES_FILE"])
+    export_json(list(processes.values()), CONFIG["PROCESSES_FILE"])
