@@ -566,6 +566,7 @@ def change_id(change):
         i.get("default_origin"),
         "EuropeAndMaghreb",
     )
+    set_field(w_explain, i.get("explain"), "")
     set_field(w_category, i.get("category"), "")
     set_field(w_categories, i.get("categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
