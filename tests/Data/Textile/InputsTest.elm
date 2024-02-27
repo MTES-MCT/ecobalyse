@@ -131,7 +131,7 @@ suite =
                     |> Encode.encode 2
                     |> String.length
                     |> Expect.greaterThan 0
-                    |> asTest "should encode products and names"
+                    |> asTest "should encode example products"
                 ]
             ]
         )

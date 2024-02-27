@@ -12,6 +12,7 @@ module Data.Food.Query exposing
     , deletePreparation
     , emptyQuery
     , encode
+    , encodeExampleProducts
     , exampleProducts
     , parseBase64Query
     , royalPizza
@@ -368,6 +369,18 @@ type alias ExampleProduct =
     , query : Query
     , category : String
     }
+
+
+encodeExampleProducts : List ExampleProduct -> Encode.Value
+encodeExampleProducts =
+    Encode.list
+        (\{ name, query, category } ->
+            Encode.object
+                [ ( "name", Encode.string name )
+                , ( "query", encode query )
+                , ( "category", Encode.string category )
+                ]
+        )
 
 
 exampleProducts : List ExampleProduct
