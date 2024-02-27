@@ -42,7 +42,6 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
-import Platform.Cmd as Cmd
 import Ports
 import Route
 import Static.Db as Db exposing (Db)
@@ -677,7 +676,10 @@ exampleProductField : Inputs.Query -> Html Msg
 exampleProductField query =
     let
         autocompleteState =
-            AutocompleteSelector.init Inputs.exampleProductToString Inputs.exampleProducts
+            Inputs.exampleProducts
+                |> List.sortBy .name
+                |> List.map .query
+                |> AutocompleteSelector.init Inputs.exampleProductToString
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]

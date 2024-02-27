@@ -12,8 +12,8 @@ module Data.Food.Query exposing
     , deletePreparation
     , emptyQuery
     , encode
+    , exampleProducts
     , parseBase64Query
-    , recipes
     , royalPizza
     , serialize
     , setDistribution
@@ -363,15 +363,15 @@ parseBase64Query =
 ---- Example recipes
 
 
-type alias Product =
+type alias ExampleProduct =
     { name : String
     , query : Query
     , category : String
     }
 
 
-recipesAndNames : List Product
-recipesAndNames =
+exampleProducts : List ExampleProduct
+exampleProducts =
     [ { name = "Produit vide", query = emptyQuery, category = "" }
     , { name = "Farine de blé bio FR (1kg) - 20", query = wheatFROrganic, category = "Produits céréaliers" }
     , { name = "Farine de blé FR (1kg) - 22", query = wheatFR, category = "Produits céréaliers" }
@@ -392,15 +392,9 @@ recipesAndNames =
     ]
 
 
-recipes : List Query
-recipes =
-    recipesAndNames
-        |> List.map .query
-
-
 toString : Query -> String
 toString q =
-    recipesAndNames
+    exampleProducts
         |> List.filterMap
             (\{ name, query } ->
                 if q == query then
@@ -415,7 +409,7 @@ toString q =
 
 toCategory : Query -> String
 toCategory q =
-    recipesAndNames
+    exampleProducts
         |> List.filterMap
             (\{ query, category } ->
                 if q == query then

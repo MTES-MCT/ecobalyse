@@ -1315,7 +1315,9 @@ menuView : Query -> Html Msg
 menuView query =
     let
         autocompleteState =
-            AutocompleteSelector.init Query.toString Query.recipes
+            Query.exampleProducts
+                |> List.map .query
+                |> AutocompleteSelector.init Query.toString
     in
     div []
         [ label

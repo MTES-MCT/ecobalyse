@@ -26,7 +26,6 @@ module Data.Textile.Inputs exposing
     , isFaded
     , jupeCotonAsie
     , parseBase64Query
-    , productsAndNames
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -858,8 +857,8 @@ encodeExampleProducts =
         )
 
 
-productsAndNames : List ExampleProduct
-productsAndNames =
+exampleProducts : List ExampleProduct
+exampleProducts =
     -- 7 base products, from China
     [ { name = "Jupe 100% coton Asie (300g)", query = jupeCotonAsie, category = "Jupe / Robe" }
     , { name = "Chemise 100% coton Asie (250g)", query = chemiseCotonAsie, category = "Chemise" }
@@ -897,7 +896,7 @@ productsAndNames =
 
 exampleProductToString : Query -> String
 exampleProductToString q =
-    productsAndNames
+    exampleProducts
         |> List.filterMap
             (\{ name, query } ->
                 if q == query then
@@ -912,7 +911,7 @@ exampleProductToString q =
 
 exampleProductToCategory : Query -> String
 exampleProductToCategory q =
-    productsAndNames
+    exampleProducts
         |> List.filterMap
             (\{ category, query } ->
                 if q == query then
@@ -923,13 +922,6 @@ exampleProductToCategory q =
             )
         |> List.head
         |> Maybe.withDefault "Produit personnalisé"
-
-
-exampleProducts : List Query
-exampleProducts =
-    productsAndNames
-        |> List.sortBy .name
-        |> List.map .query
 
 
 defaultQuery : Query

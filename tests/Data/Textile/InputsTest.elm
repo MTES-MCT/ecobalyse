@@ -118,15 +118,16 @@ suite =
                     |> testComplementEqual -102.85
                     |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
                 ]
-            , Inputs.productsAndNames
-                |> List.map
-                    (\{ name, query } ->
-                        Expect.ok (Inputs.fromQuery db query)
-                            |> asTest (name ++ " example is ok")
-                    )
-                |> describe "productsAndNames"
+            , describe "exampleProducts"
+                (Inputs.exampleProducts
+                    |> List.map
+                        (\{ name, query } ->
+                            Expect.ok (Inputs.fromQuery db query)
+                                |> asTest (name ++ " example product is ok")
+                        )
+                )
             , describe "encodeExampleProducts"
-                [ Inputs.encodeExampleProducts Inputs.productsAndNames
+                [ Inputs.encodeExampleProducts Inputs.exampleProducts
                     |> Encode.encode 2
                     |> String.length
                     |> Expect.greaterThan 0
