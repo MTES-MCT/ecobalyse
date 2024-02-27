@@ -20,6 +20,7 @@ import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -68,7 +69,7 @@ type alias Config msg modal =
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingDeadStock : Maybe Split -> msg
     , updateMakingWaste : Maybe Split -> msg
-    , updateMaterial : Inputs.MaterialQuery -> Inputs.MaterialQuery -> msg
+    , updateMaterial : MaterialQuery -> MaterialQuery -> msg
     , updateMaterialSpinning : Material -> Spinning -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
@@ -792,7 +793,7 @@ viewMaterialComplements finalProductMass materialInput =
 createElementSelectorConfig : Config msg modal -> Inputs.MaterialInput -> BaseElement.Config Material Split msg
 createElementSelectorConfig cfg materialInput =
     let
-        materialQuery : Inputs.MaterialQuery
+        materialQuery : MaterialQuery
         materialQuery =
             { id = materialInput.material.id
             , share = materialInput.share

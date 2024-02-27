@@ -10,7 +10,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.Inputs as TextileQuery
+import Data.Textile.Query as TextileQuery
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)

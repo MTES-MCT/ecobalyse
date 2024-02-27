@@ -19,12 +19,12 @@ import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as TextileQuery
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
@@ -357,9 +357,9 @@ parseTransform_ transforms string =
             Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
 
 
-parseTextileQuery : List Country -> Textile.Db -> Parser (Result Errors Inputs.Query)
+parseTextileQuery : List Country -> Textile.Db -> Parser (Result Errors TextileQuery.Query)
 parseTextileQuery countries textile =
-    succeed (Ok Inputs.Query)
+    succeed (Ok TextileQuery.Query)
         |> apply (massParserInKilograms "mass")
         |> apply (materialListParser "materials" textile.materials countries)
         |> apply (productParser "product" textile.products)
@@ -464,7 +464,7 @@ productParser key products =
             )
 
 
-materialListParser : String -> List Material -> List Country -> Parser (ParseResult (List Inputs.MaterialQuery))
+materialListParser : String -> List Material -> List Country -> Parser (ParseResult (List TextileQuery.MaterialQuery))
 materialListParser key materials countries =
     Query.custom (key ++ "[]")
         (List.map (parseMaterial_ materials countries)
@@ -474,7 +474,7 @@ materialListParser key materials countries =
         )
 
 
-parseMaterial_ : List Material -> List Country -> String -> Result String Inputs.MaterialQuery
+parseMaterial_ : List Material -> List Country -> String -> Result String TextileQuery.MaterialQuery
 parseMaterial_ materials countries string =
     case String.split ";" string of
         [ id, share, spinningString, countryCode ] ->
@@ -482,7 +482,7 @@ parseMaterial_ materials countries string =
                 |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
-                        Ok Inputs.MaterialQuery
+                        Ok TextileQuery.MaterialQuery
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
@@ -494,7 +494,7 @@ parseMaterial_ materials countries string =
                 |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
-                        Ok Inputs.MaterialQuery
+                        Ok TextileQuery.MaterialQuery
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
@@ -502,7 +502,7 @@ parseMaterial_ materials countries string =
                     )
 
         [ id, share ] ->
-            Ok Inputs.MaterialQuery
+            Ok TextileQuery.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
                 |> Result.map (\partiallyApplied -> partiallyApplied Nothing Nothing)
@@ -558,7 +558,7 @@ parseSpinning material spinningString =
                 )
 
 
-validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
+validateMaterialList : List TextileQuery.MaterialQuery -> Result String (List TextileQuery.MaterialQuery)
 validateMaterialList list =
     if list == [] then
         Ok []

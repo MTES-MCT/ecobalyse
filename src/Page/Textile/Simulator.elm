@@ -35,6 +35,7 @@ import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product
+import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
@@ -68,7 +69,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , initialQuery : Inputs.Query
+    , initialQuery : Query
     , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
@@ -80,7 +81,7 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
-    | SelectExampleModal (Autocomplete Inputs.Query)
+    | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product.Id)
 
 
@@ -89,7 +90,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnAutocompleteExample (Autocomplete.Msg Inputs.Query)
+    | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product.Id)
     | OnAutocompleteSelect
@@ -119,7 +120,7 @@ type Msg
     | UpdateMakingDeadStock (Maybe Split)
     | UpdateMarketingDuration (Maybe Duration)
     | UpdateMassInput String
-    | UpdateMaterial Inputs.MaterialQuery Inputs.MaterialQuery
+    | UpdateMaterial MaterialQuery MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdateNumberOfReferences (Maybe Int)
     | UpdatePrice (Maybe Economics.Price)
@@ -130,11 +131,7 @@ type Msg
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
-init :
-    Definition.Trigram
-    -> Maybe Inputs.Query
-    -> Session
-    -> ( Model, Session, Cmd Msg )
+init : Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
 init trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -179,7 +176,7 @@ init trigram maybeUrlQuery session =
     )
 
 
-findExistingBookmarkName : Session -> Inputs.Query -> String
+findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByTextileQuery query
@@ -192,7 +189,7 @@ findExistingBookmarkName { db, store } query =
             )
 
 
-updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.db
@@ -212,7 +209,7 @@ update ({ queries, navKey } as session) msg model =
     case msg of
         AddMaterial material ->
             update session (SetModal NoModal) model
-                |> updateQuery (Inputs.addMaterial material query)
+                |> updateQuery (Query.addMaterial material query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -301,7 +298,7 @@ update ({ queries, navKey } as session) msg model =
 
         RemoveMaterial materialId ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.removeMaterial materialId query)
+                |> updateQuery (Query.removeMaterial materialId query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -404,7 +401,7 @@ update ({ queries, navKey } as session) msg model =
 
         ToggleStep label ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.toggleStep label query)
+                |> updateQuery (Query.toggleStep label query)
 
         ToggleStepDetails index ->
             ( { model
@@ -492,11 +489,11 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateMaterial oldMaterial newMaterial ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterial oldMaterial.id newMaterial query)
+                |> updateQuery (Query.updateMaterial oldMaterial.id newMaterial query)
 
         UpdateMaterialSpinning material spinning ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialSpinning material spinning query)
+                |> updateQuery (Query.updateMaterialSpinning material spinning query)
 
         UpdateNumberOfReferences numberOfReferences ->
             ( model, session, Cmd.none )
@@ -512,7 +509,7 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateStepCountry label code query)
+                |> updateQuery (Query.updateStepCountry label code query)
 
         UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )
@@ -577,10 +574,10 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-updateExistingMaterial : Inputs.Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
+updateExistingMaterial : Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
 updateExistingMaterial query model session oldMaterial newMaterial =
     let
-        materialQuery : Inputs.MaterialQuery
+        materialQuery : MaterialQuery
         materialQuery =
             { id = newMaterial.id
             , share = oldMaterial.share
@@ -590,11 +587,11 @@ updateExistingMaterial query model session oldMaterial newMaterial =
     in
     model
         |> update session (SetModal NoModal)
-        |> updateQuery (Inputs.updateMaterial oldMaterial.material.id materialQuery query)
+        |> updateQuery (Query.updateMaterial oldMaterial.material.id materialQuery query)
         |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
-updateMaterial : Inputs.Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
+updateMaterial : Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
 updateMaterial query model session maybeOldMaterial autocompleteState =
     let
         maybeSelectedValue =
@@ -629,12 +626,12 @@ focusNode node ( model, session, commands ) =
     )
 
 
-selectExample : Autocomplete Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Inputs.defaultQuery
+                |> Maybe.withDefault Query.default
     in
     update session (SetModal NoModal) { model | initialQuery = example }
         |> updateQuery example
@@ -645,7 +642,7 @@ selectProduct autocompleteState ( model, session, _ ) =
     let
         product =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Inputs.defaultQuery.product
+                |> Maybe.withDefault Query.default.product
 
         currentQuery =
             session.queries.textile
@@ -673,7 +670,7 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : List ExampleProduct -> Inputs.Query -> Html Msg
+exampleProductField : List ExampleProduct -> Query -> Html Msg
 exampleProductField exampleProducts query =
     let
         autocompleteState =
@@ -693,7 +690,7 @@ exampleProductField exampleProducts query =
         ]
 
 
-productCategoryField : TextileDb.Db -> Inputs.Query -> Html Msg
+productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
         nameFromProductId default id =
