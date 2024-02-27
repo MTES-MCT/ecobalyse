@@ -25,6 +25,7 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
+import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -185,7 +186,7 @@ findExistingBookmarkName { db, store } query =
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery db
+                |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )
@@ -672,14 +673,13 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : Inputs.Query -> Html Msg
-exampleProductField query =
+exampleProductField : List ExampleProduct -> Inputs.Query -> Html Msg
+exampleProductField exampleProducts query =
     let
         autocompleteState =
-            Inputs.exampleProducts
-                |> List.sortBy .name
+            exampleProducts
                 |> List.map .query
-                |> AutocompleteSelector.init Inputs.exampleProductToString
+                |> AutocompleteSelector.init (ExampleProduct.toString exampleProducts)
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
@@ -689,7 +689,7 @@ exampleProductField query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ text <| Inputs.exampleProductToString query ]
+            [ text <| ExampleProduct.toString exampleProducts query ]
         ]
 
 
@@ -956,7 +956,10 @@ simulatorView session model ({ inputs, impacts } as simulator) =
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-9" ] [ exampleProductField (Inputs.toQuery inputs) ]
+                [ div [ class "col-md-9" ]
+                    [ Inputs.toQuery inputs
+                        |> exampleProductField session.db.textile.exampleProducts
+                    ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
@@ -1132,8 +1135,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = Inputs.exampleProductToString
-                                , toCategory = Inputs.exampleProductToCategory
+                                , toLabel = ExampleProduct.toString session.db.textile.exampleProducts
+                                , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
                                 }
 
                         SelectProductModal autocompleteState ->

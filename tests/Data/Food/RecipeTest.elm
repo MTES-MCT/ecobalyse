@@ -1,10 +1,10 @@
 module Data.Food.RecipeTest exposing (..)
 
 import Data.Country as Country
+import Data.Food.Fixtures exposing (royalPizza)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
-import Data.Food.Query exposing (royalPizza)
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact

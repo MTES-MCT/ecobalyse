@@ -15,6 +15,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Food.EcosystemicServices as EcosystemicServices
+import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -1264,7 +1265,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db.food results.recipe.transformedMass
+                                    |> Preparation.apply db.food.wellKnown results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1290,7 +1291,7 @@ mainView db session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView session.queries.food
+            [ menuView db.food.exampleProducts session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1311,13 +1312,13 @@ mainView db session model =
         ]
 
 
-menuView : Query -> Html Msg
-menuView query =
+menuView : List ExampleProduct -> Query -> Html Msg
+menuView exampleProducts query =
     let
         autocompleteState =
-            Query.exampleProducts
+            exampleProducts
                 |> List.map .query
-                |> AutocompleteSelector.init Query.toString
+                |> AutocompleteSelector.init (ExampleProduct.toString exampleProducts)
     in
     div []
         [ label
@@ -1330,9 +1331,8 @@ menuView query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ span
-                []
-                [ text <| Query.toString query ]
+            [ span []
+                [ text <| ExampleProduct.toString exampleProducts query ]
             ]
         ]
 
@@ -1535,8 +1535,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Query.toString
-                        , toCategory = Query.toCategory
+                        , toLabel = ExampleProduct.toString session.db.food.exampleProducts
+                        , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
                         }
             ]
       ]

@@ -18,7 +18,7 @@ km =
 lifeCycleToTransports : Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
 lifeCycleToTransports db query lifeCycle =
     query
-        |> Inputs.fromQuery db
+        |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
         |> Result.map
             (\materials ->
                 LifeCycle.computeStepsTransport db materials lifeCycle
