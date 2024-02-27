@@ -777,23 +777,27 @@ def display_surface(activity):
         bwsurface = lca.score
         bwoutput = str(bwsurface)
     except Exception as e:
-        bwsurface = None
+        bwsurface = 0
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        w_landFootprint.value = json.loads(
+        spsurface = json.loads(
             requests.get(
                 f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
             ).content
         )["surface"]
-        spoutput = str(w_landFootprint.value)
-        w_landFootprint
+
+        spoutput = str(spsurface)
+        spsurface = float(spsurface)
     except Exception as e:
-        w_landFootprint.value = None
+        spsurface = 0
         spoutput = repr(e)
+    w_landFootprint.value = spsurface or bwsurface
     surface_output.clear_output()
     display(
-        ipywidgets.HTML("<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}")
+        ipywidgets.HTML(
+            "<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}" "</ul>"
+        )
     )
 
 
