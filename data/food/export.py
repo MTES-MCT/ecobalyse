@@ -79,10 +79,10 @@ def process_activity_for_ingredient(activity):
         "density": activity["density"],
         "inedible_part": activity["inedible_part"],
         "transport_cooling": activity["transport_cooling"],
+        "ecosystemicServices": activity.get("ecosystemicServices", {}),
         **({"land_occupation": activity["land_occupation"]} if "land_occupation" in activity else {}),
         **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
         **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
-        "ecosystemicServices": activity.get("ecosystemicServices", {}),
         "visible": activity["visible"],
     }
 
