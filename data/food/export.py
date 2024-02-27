@@ -152,13 +152,7 @@ if __name__ == "__main__":
     # compute the impacts of base processes
     print("Computing impacts:")
     for index, (processid, process) in enumerate(processes.items()):
-        print(
-            "("
-            + (index) * "•"
-            + (len(processes) - index) * " "
-            + f") {str(index)}/{len(processes)}",
-            end="\r",
-        )
+        print(f"Export in progress: {str(index)}/{len(processes)}", end="\r")
         lca = bw2calc.LCA(
             {cached_search(process.get("database", AGRIBALYSE), process["search"]): 1}
         )
