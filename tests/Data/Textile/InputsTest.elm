@@ -10,6 +10,7 @@ import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Expect
+import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
 import Test exposing (..)
@@ -124,5 +125,12 @@ suite =
                             |> asTest (name ++ " example is ok")
                     )
                 |> describe "productsAndNames"
+            , describe "encodeExampleProducts"
+                [ Inputs.encodeExampleProducts Inputs.productsAndNames
+                    |> Encode.encode 2
+                    |> String.length
+                    |> Expect.greaterThan 0
+                    |> asTest "should encode products and names"
+                ]
             ]
         )

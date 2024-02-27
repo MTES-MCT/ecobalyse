@@ -12,6 +12,7 @@ module Data.Textile.Inputs exposing
     , decodeQuery
     , defaultQuery
     , encode
+    , encodeExampleProducts
     , encodeQuery
     , exampleProductToCategory
     , exampleProductToString
@@ -843,6 +844,18 @@ type alias ExampleProduct =
     , query : Query
     , category : String
     }
+
+
+encodeExampleProducts : List ExampleProduct -> Encode.Value
+encodeExampleProducts =
+    Encode.list
+        (\{ name, query, category } ->
+            Encode.object
+                [ ( "name", Encode.string name )
+                , ( "query", encodeQuery query )
+                , ( "category", Encode.string category )
+                ]
+        )
 
 
 productsAndNames : List ExampleProduct
