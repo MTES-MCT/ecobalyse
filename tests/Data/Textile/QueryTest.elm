@@ -29,7 +29,7 @@ suite =
             [ describe "Base64"
                 [ describe "Encoding and decoding queries"
                     [ sampleQuery
-                        |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                        |> Inputs.fromQuery db
                         |> Result.map Inputs.toQuery
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should encode and decode a query"

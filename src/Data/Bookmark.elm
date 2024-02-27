@@ -137,6 +137,6 @@ toQueryDescription db bookmark =
 
         Textile textileQuery ->
             textileQuery
-                |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault bookmark.name

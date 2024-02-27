@@ -37,6 +37,7 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import Views.Format as Format
 
 
@@ -145,12 +146,12 @@ getMainMaterialCountry countries =
             )
 
 
-fromQuery : List Country -> List Material -> List Product -> Query -> Result String Inputs
-fromQuery countries materials products query =
+fromQuery : Db -> Query -> Result String Inputs
+fromQuery { countries, textile } query =
     let
         materials_ =
             query.materials
-                |> fromMaterialQuery materials countries
+                |> fromMaterialQuery textile.materials countries
 
         franceResult =
             Country.findByCode (Country.Code "FR") countries
@@ -166,7 +167,7 @@ fromQuery countries materials products query =
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap materials_
-        |> RE.andMap (products |> Product.findById query.product)
+        |> RE.andMap (textile.products |> Product.findById query.product)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default

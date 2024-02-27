@@ -61,7 +61,7 @@ init db =
         defaultImpacts =
             Impact.empty
     in
-    Inputs.fromQuery db.countries db.textile.materials db.textile.products
+    Inputs.fromQuery db
         >> Result.map
             (\({ product } as inputs) ->
                 inputs

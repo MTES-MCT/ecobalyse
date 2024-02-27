@@ -183,7 +183,7 @@ findExistingBookmarkName { db, store } query =
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
             )

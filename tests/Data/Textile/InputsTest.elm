@@ -29,7 +29,7 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                    |> Inputs.fromQuery db
                     |> Result.map Inputs.countryList
                     |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                     |> Expect.equal (Ok (Country.codeFromString "CN"))
@@ -39,13 +39,13 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                    |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")
                     |> asTest "should validate country codes"
                 ]
             , let
                 testComplementEqual x =
-                    Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                    Inputs.fromQuery db
                         >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Unit.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
@@ -65,7 +65,7 @@ suite =
                 ]
             , let
                 testComplementEqual x =
-                    Inputs.fromQuery db.countries db.textile.materials db.textile.products
+                    Inputs.fromQuery db
                         >> Result.map (Inputs.getTotalMicrofibersComplement >> Unit.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
