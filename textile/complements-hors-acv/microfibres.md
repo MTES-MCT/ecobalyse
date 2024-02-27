@@ -150,7 +150,7 @@ Cinq scénarios de fibre sont proposés : synthétique, naturelle origine végé
 
 Pour chacun de ces scénarios, un niveau de Persistance (P) et de Relargage (R) est défini sur une échelle de 0 (très faible) à 10 (très élevé).    &#x20;
 
-<table><thead><tr><th width="314.3333333333333">Nature des fibres (f)</th><th width="202">Persistance (P)</th><th width="160">Relargage (R)</th></tr></thead><tbody><tr><td>Synthétique</td><td>10</td><td>3</td></tr><tr><td>Naturelle (origine végétale)</td><td>3</td><td>7</td></tr><tr><td>Naturelle (origine animale)</td><td>6</td><td>5</td></tr><tr><td>Artificielle</td><td>3</td><td>5</td></tr><tr><td>Artificielle (origine inorganique)</td><td>10</td><td>5</td></tr></tbody></table>
+<table><thead><tr><th width="314.3333333333333">Nature des fibres (f)</th><th width="202">Persistance (P)</th><th width="160">Relargage (R)</th></tr></thead><tbody><tr><td>Synthétique</td><td>10</td><td>4</td></tr><tr><td>Naturelle (origine végétale)</td><td>1</td><td>6</td></tr><tr><td>Naturelle (origine animale)</td><td>3</td><td>6</td></tr><tr><td>Artificielle</td><td>3</td><td>4</td></tr><tr><td>Artificielle (origine inorganique)</td><td>10</td><td>4</td></tr></tbody></table>
 
 **Etape 2 = Pondération des paramètres**
 
@@ -172,7 +172,7 @@ $$
 
 Cette valeur de référence (`Ref(f)`) est exprimée en pourcentage (%) et reflète la part du coefficient microfibres (`CoefMicroF.`) applicable à chaque scénario.&#x20;
 
-<table><thead><tr><th width="314.3333333333333">Type de fibre (f)</th><th width="202">0,7 * P</th><th width="160">0,3 * R</th><th>Ref (f)</th></tr></thead><tbody><tr><td>Synthétique</td><td> 7</td><td>0,9</td><td>79%</td></tr><tr><td>Naturelle (origine végétale)</td><td>2,1</td><td>2,1</td><td>42%</td></tr><tr><td>Naturelle (origine animale)</td><td>4,2</td><td>1,5 </td><td>57%</td></tr><tr><td>Artificielle (origine organique)</td><td>2,1</td><td>1,5 </td><td>36%</td></tr><tr><td>Artificielle (origine inorganique)</td><td>7</td><td>1,5</td><td>85%</td></tr></tbody></table>
+<table><thead><tr><th width="314.3333333333333">Type de fibre (f)</th><th width="202">0,7 * P</th><th width="160">0,3 * R</th><th>Ref (f)</th></tr></thead><tbody><tr><td>Synthétique</td><td> 7</td><td>1,2</td><td>82%</td></tr><tr><td>Naturelle (origine végétale)</td><td>0,7</td><td>1,8</td><td>25%</td></tr><tr><td>Naturelle (origine animale)</td><td>2,1</td><td>1,8</td><td>39%</td></tr><tr><td>Artificielle (origine organique)</td><td>2,1</td><td>1,2 </td><td>33%</td></tr><tr><td>Artificielle (origine inorganique)</td><td>7</td><td>1,2</td><td>82%</td></tr></tbody></table>
 
 ## Calcul du complément "Microfibres"
 
@@ -198,14 +198,14 @@ Pour les vêtements muli-fibres, une somme pondérée des scénarios de référe
 
 Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de :&#x20;
 
-* \+8% pour la version 100% coton\
+* \+5% pour la version 100% coton\
   Impact initial = 915 micro-pts\
-  Impact final = 915 + (42% \* 100% \* 0,17 \* 1000 ) = 915 + 71= 986 micro-pts
+  Impact final = 915 + (25% \* 100% \* 0,17 \* 1000 ) = 915 + 43= 958 micro-pts
 * &#x20;\+19% pour la version 100% synthétique\
   Impact initial = 715 micro-pts\
-  Impact final = 715 + (79% \* 100% \* 0,17 \* 1000) = 715 + 134 = 849 micro-pts
+  Impact final = 715 + (82% \* 100% \* 0,17 \* 1000) = 715 + 139 = 854 micro-pts
 
-<img src="../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (1).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (2).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (4).png" alt="" data-size="original">
 
 </details>
 
