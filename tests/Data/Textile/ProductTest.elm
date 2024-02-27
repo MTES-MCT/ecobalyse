@@ -1,16 +1,10 @@
 module Data.Textile.ProductTest exposing (..)
 
-import Data.Textile.Inputs as Inputs
 import Data.Textile.Product as Product
 import Duration
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest)
-
-
-sampleQuery : Inputs.Query
-sampleQuery =
-    Inputs.tShirtCotonAsie
 
 
 suite : Test

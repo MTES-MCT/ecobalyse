@@ -83,7 +83,7 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case Static.rdb of
+                case Static.db of
                     Ok db ->
                         Loaded
                             { db = db

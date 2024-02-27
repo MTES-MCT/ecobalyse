@@ -8,60 +8,28 @@
 const fs = require("fs");
 
 function getJson(path) {
-  return JSON.parse(fs.readFileSync(path).toString());
-}
-
-/**
- * Adapts a standard JSON string to what is expected to be the format
- * used in Elm's template strings (`"""{}"""`).
- */
-function serializeForElmTemplateString(toStringify) {
-  return JSON.stringify(toStringify).replaceAll("\\", "\\\\");
-}
-
-function buildImpactsJsonDb(basePath = "public/data") {
-  return serializeForElmTemplateString(getJson(`${basePath}/impacts.json`));
-}
-
-function buildTextileMaterialsJsonDb(basePath = "public/data/textile") {
-  return serializeForElmTemplateString(getJson(`${basePath}/materials.json`));
-}
-
-function buildTextileProcessesJsonDb(basePath = "public/data/textile") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
-}
-
-function buildTextileProductsJsonDb(basePath = "public/data/textile") {
-  return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
-}
-
-function buildFoodProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
-}
-
-function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/ingredients.json`));
-}
-
-function buildCountriesJsonDb() {
-  return serializeForElmTemplateString(getJson(`public/data/countries.json`));
-}
-
-function buildTransportsJsonDb() {
-  return serializeForElmTemplateString(getJson(`public/data/transports.json`));
+  const raw = JSON.parse(fs.readFileSync(path).toString());
+  // Adapts a standard JSON string to what is expected to be the format
+  // used in Elm's template strings (`"""{}"""`).
+  return JSON.stringify(raw).replaceAll("\\", "\\\\");
 }
 
 const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
-  .replace("%impactsJson%", buildImpactsJsonDb())
-  .replace("%textileMaterialsJson%", buildTextileMaterialsJsonDb())
-  .replace("%textileProcessesJson%", buildTextileProcessesJsonDb())
-  .replace("%textileProductsJson%", buildTextileProductsJsonDb())
-  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb())
-  .replace("%countriesJson%", buildCountriesJsonDb())
-  .replace("%transportsJson%", buildTransportsJsonDb());
+  // Transverse JSON data
+  .replace("%countriesJson%", getJson("public/data/countries.json"))
+  .replace("%impactsJson%", getJson("public/data/impacts.json"))
+  .replace("%transportsJson%", getJson("public/data/transports.json"))
+  // Food JSON data
+  .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
+  .replace("%foodProcessesJson%", getJson("public/data/food/processes.json"))
+  .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
+  // Textile JSON data
+  .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
+  .replace("%textileProcessesJson%", getJson("public/data/textile/processes.json"))
+  .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
+  .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
 
 const header =
   "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";

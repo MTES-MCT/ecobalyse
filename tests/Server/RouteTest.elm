@@ -1,6 +1,7 @@
 module Server.RouteTest exposing (..)
 
 import Data.Country as Country
+import Data.Food.Fixtures as Fixtures
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
@@ -66,7 +67,7 @@ foodEndpoints db =
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.royalPizza))
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok Fixtures.royalPizza))
             |> asTest "should map the /food/recipe endpoint"
         ]
     , describe "POST endpoints"
