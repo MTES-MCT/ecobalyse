@@ -4,7 +4,7 @@ description: Choix du procédé de chaleur en fonction du pays
 
 # 🔥 Chaleur
 
-## Fonctionnement
+## Modélisation Ecobalyse
 
 ### Généralités
 
@@ -14,33 +14,49 @@ Deux scénarios existent pour modéliser la consommation de chaleur des procéd�
 
 **Scénario 1** :  la chaleur est déjà intégrée dans le procédé mobilisé en tant que Flux Interne&#x20;
 
-**Scénario 2** : la chaleur n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe\
-Dans ce cas précis, la quantité de chaleur nécessaire pour actionner le procédé mobilisé correspond au produit de la masse "sortante" du procédé mobilisé (ex : masse d'étoffe en sortie du tissage) avec le coefficient du flux intermédiaire correspondant à la chaleur (`32045a18-e8a3-4068-9078-d17c72cea73d`).
+**Scénario 2** : la chaleur n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe
 
-### Spécificités
+Dans ce cas précis, la quantité de chaleur nécessaire pour actionner le procédé mobilisé correspond au produit de la masse "sortante" du procédé mobilisé (ex : masse d'étoffe en sortie du tissage) avec les coefficients du flux intermédiaire de chaleur mobilisé.&#x20;
 
-#### Source de chaleur < = >  pays&#x20;
+### Scénarios
 
-L'impact environnemental de la production de chaleur varie significativement selon la source/technologie utilisée.
+#### Mix chaleur < = >  région
 
-Ecobalyse applique par défaut un procédé de chaleur qui dépend  du pays dans lequel est réalisée le procédé mobilisé.
+Troix régions sont proposées dans Ecobalyse pour préciser le mix chaleur utilisé par les entreprises  : France, Europe, Monde.
 
-Trois procédés de chaleur sont disponibles dans la Base Impacts; ils correspondent à des mix moyens :&#x20;
+En l'absence de procédés Ecoinvent modélisant les mix chaleurs de ces 3 régions, Ecobalyse a reconstitué de tels procédés en repartant de deux procédés source Ecoinvent :&#x20;
 
-<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>UUID</th></tr></thead><tbody><tr><td>France</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), FR</td><td>12fc43f2-a007-423b-a619-619d725793ea</td></tr><tr><td>Europe</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), RER</td><td>63b1b03f-1f73-4791-829d-d49c06ddc8ee</td></tr><tr><td>Asie-Pacifique</td><td>Mix Vapeur (mix technologique | mix de production, en sortie de chaudière), RSA</td><td>2e8de6f6-0ea1-455b-adce-ea74d307d222</td></tr></tbody></table>
+* Consommation de chaleur produite à partir de gaz naturel \
+  procédé = _Market group for heat, district or industrial, natural gas; RER_
+* Consommation de chaleur produite à partir de sources autres que gaz naturel\
+  procédé = _Market group for heat, district or industrial, other than natural gas_ ; RER
 
-En première approche, trois scénarios par défaut sont appliqués : &#x20;
+<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>Sources de chaleur</th></tr></thead><tbody><tr><td>France</td><td>Heat mix (FR) </td><td><a data-footnote-ref href="#user-content-fn-1">40% gaz naturel / 60% autres</a></td></tr><tr><td>Europe</td><td>Heat mix (Europe) </td><td><a data-footnote-ref href="#user-content-fn-2">44% gaz naturel / 56% autres</a></td></tr><tr><td>Rest of the world</td><td>Heat mix (World) </td><td><a data-footnote-ref href="#user-content-fn-3">23% gaz naturel / 77% autres</a></td></tr></tbody></table>
 
-<table><thead><tr><th width="261">Pays</th><th width="251">Procédé chaleur</th></tr></thead><tbody><tr><td>France</td><td>France (FR)</td></tr><tr><td>Autres pays européens</td><td>Europe (RER)</td></tr><tr><td>Autres pays, hors Europe</td><td>Asie-Pacifique (RSA)</td></tr></tbody></table>
+#### Illustration de l'impact de ces 3 scénarios :&#x20;
 
-{% hint style="warning" %}
-Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi les procédés proposés dans la base Impacts. Plusieurs points discutables apparaissent :
+<div>
 
-* Des pays hors Asie (par exemple Afrique du Nord) se voient appliqué un mix vapeur RSA (Asie Pacifique).
-* Cette approche ne permet pas de distinguer des mix vapeur nationaux qui seraient spécifiques (exemple : transition du fuel lourd vers le gaz en Tunisie).
-* Dans le cas de la France, un procédé de mix vapeur spécifique à ce pays est proposé. La France est le seul pays pour lequel un tel procédé est proposé dans la base Impacts.
+<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = uPts).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = kg CO2 eq.).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+{% hint style="info" %}
+Ces scénarios par défaut permettent de couvrir le Niveau 1 du dispositif d'affichage environnemental.&#x20;
+
+Les entreprises qui souhaitent préciser le mix chaleur de tout ou partie des étapes de production peut le faire dans le cadre des Niveaux 2 et 3.&#x20;
 {% endhint %}
 
-## Limites
+### Limites
 
-Il peut être proposé de permettre de sélectionner une source de chaleur spécifique (fuel, gaz naturel, bois, etc.) selon le site industriel et/ou le pays.
+Les deux procédés Ecoinvent utilisés (chaleur à partir de gaz naturel vs chaleur à partir d'autres sources) pour reconstituer les mix chaleur régionaux (France, Europe, Monde) sont basés sur des mix de consommation européens ("Market group for heat" / "RER").&#x20;
+
+[^1]: Source : Etude Carbone 4 :  [https://www.carbone4.com/publication-chaleur-renouvelable](https://www.carbone4.com/publication-chaleur-renouvelable)
+
+[^2]: Source : Etude Reuters : [https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/](https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/)
+
+[^3]: Article CarbonTrust (UK) : [https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat](https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat)

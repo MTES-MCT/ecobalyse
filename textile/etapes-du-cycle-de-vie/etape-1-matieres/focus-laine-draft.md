@@ -8,7 +8,7 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 <summary>Production mondiale par pays</summary>
 
-![](<../../../.gitbook/assets/image (1) (1).png>)
+![](<../../../.gitbook/assets/image (1) (1) (1).png>)
 
 **Vision détaillée (par type d'élevage et de débouchés) en 2011  (**[**source**](#user-content-fn-2)[^2]**)**
 
@@ -128,16 +128,16 @@ Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
 
 ### Mieux comprendre les impacts dans Ecobalyse
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
 
 **Aller plus loin**
 
-* 47% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
+* 33% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
   Les deux principales raisons expliquant cela sont : \
   1\) la pondération élevée de cet indicateur dans le coût environnemental (21,06%)\
-  2\) l'alimentation du mouton (12kg de soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
+  2\) l'alimentation du mouton (29kg de tourteaux soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
   Un paramètre clé à préciser est l'alimentation moyenne des moutons utilisés pour la laine textile.
-* Le complément Microfibres (570 uPts / kg de fibre naturelle d'origine animale) explique une part significative de l'impact de la laine (28% de _Laine (nouvelle filière)_ et 7% de _Laine (par défaut)_ ).&#x20;
+* Le complément Microfibres (570 uPts / kg de fibre naturelle d'origine animale) explique une part significative de l'impact de la laine (32% de _Laine (nouvelle filière)_ et 9% de _Laine (par défaut)_ ).&#x20;
 
 [^1]: Textile Exchange (market report 2023)
 
