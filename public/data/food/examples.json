@@ -1,0 +1,666 @@
+[
+  {
+    "name": "Produit vide",
+    "query": {
+      "ingredients": []
+    },
+    "category": ""
+  },
+  {
+    "name": "Farine de blé bio FR (1kg) - 20",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour-organic",
+          "mass": 1000,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003108113",
+          "mass": 20
+        }
+      ],
+      "distribution": "ambient"
+    },
+    "category": "Produits céréaliers"
+  },
+  {
+    "name": "Farine de blé FR (1kg) - 22",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 1000,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003108113",
+          "mass": 20
+        }
+      ],
+      "distribution": "ambient"
+    },
+    "category": "Produits céréaliers"
+  },
+  {
+    "name": "Farine de blé origine Ukraine (1kg) - 22",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 1000
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003108113",
+          "mass": 20
+        }
+      ],
+      "distribution": "ambient"
+    },
+    "category": "Produits céréaliers"
+  },
+  {
+    "name": "Filets de poulet bio FR (250g) - 95",
+    "query": {
+      "ingredients": [
+        {
+          "id": "chicken-breast-organic",
+          "mass": 250,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003111575",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Volaille"
+  },
+  {
+    "name": "Filets de poulet FR (250g) - 96",
+    "query": {
+      "ingredients": [
+        {
+          "id": "chicken-breast",
+          "mass": 250,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003111575",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Volaille"
+  },
+  {
+    "name": "Filets de poulet origine Brésil (250g) - 100",
+    "query": {
+      "ingredients": [
+        {
+          "id": "chicken-breast-br-max",
+          "mass": 250,
+          "country": "BR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003111575",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Volaille"
+  },
+  {
+    "name": "Pizza bolognese (375g) - 21",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 148
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 100
+        },
+        {
+          "id": "mozzarella",
+          "mass": 19
+        },
+        {
+          "id": "ground-beef-feedlot",
+          "mass": 43
+        },
+        {
+          "id": "sugar",
+          "mass": 3
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 5
+        },
+        {
+          "id": "tap-water",
+          "mass": 33
+        },
+        {
+          "id": "emmental",
+          "mass": 19
+        },
+        {
+          "id": "sunflower-oil",
+          "mass": 2
+        },
+        {
+          "id": "onion",
+          "mass": 14
+        },
+        {
+          "id": "carrot",
+          "mass": 6
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 398
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza bolognese FR (375g) - 21",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 148,
+          "country": "FR"
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 100,
+          "country": "FR"
+        },
+        {
+          "id": "mozzarella",
+          "mass": 19,
+          "country": "FR"
+        },
+        {
+          "id": "ground-beef",
+          "mass": 43,
+          "country": "FR"
+        },
+        {
+          "id": "sugar",
+          "mass": 3,
+          "country": "FR"
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 5,
+          "country": "FR"
+        },
+        {
+          "id": "tap-water",
+          "mass": 33,
+          "country": "FR"
+        },
+        {
+          "id": "emmental",
+          "mass": 19,
+          "country": "FR"
+        },
+        {
+          "id": "sunflower-oil",
+          "mass": 2,
+          "country": "FR"
+        },
+        {
+          "id": "onion",
+          "mass": 14,
+          "country": "FR"
+        },
+        {
+          "id": "carrot",
+          "mass": 6,
+          "country": "FR"
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 392
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza bolognese FR bio (375g) - 21",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour-organic",
+          "mass": 148,
+          "country": "FR"
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 100,
+          "country": "FR"
+        },
+        {
+          "id": "mozzarella",
+          "mass": 19,
+          "country": "FR"
+        },
+        {
+          "id": "ground-beef-organic",
+          "mass": 43,
+          "country": "FR"
+        },
+        {
+          "id": "sugar",
+          "mass": 3,
+          "country": "FR"
+        },
+        {
+          "id": "rapeseed-oil-organic",
+          "mass": 5,
+          "country": "FR"
+        },
+        {
+          "id": "tap-water",
+          "mass": 33,
+          "country": "FR"
+        },
+        {
+          "id": "emmental",
+          "mass": 19,
+          "country": "FR"
+        },
+        {
+          "id": "sunflower-oil-organic",
+          "mass": 2,
+          "country": "FR"
+        },
+        {
+          "id": "onion",
+          "mass": 14,
+          "country": "FR"
+        },
+        {
+          "id": "carrot-organic",
+          "mass": 6,
+          "country": "FR"
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 398
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza royale (350g) - 6",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 97
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 89
+        },
+        {
+          "id": "mozzarella",
+          "mass": 70
+        },
+        {
+          "id": "cooked-ham",
+          "mass": 16
+        },
+        {
+          "id": "sugar",
+          "mass": 5
+        },
+        {
+          "id": "mushroom",
+          "mass": 31
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 16
+        },
+        {
+          "id": "black-pepper",
+          "mass": 1
+        },
+        {
+          "id": "tap-water",
+          "mass": 22
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 363
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza royale FR (350g) - 6",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 97,
+          "country": "FR"
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 89,
+          "country": "FR"
+        },
+        {
+          "id": "mozzarella",
+          "mass": 70,
+          "country": "FR"
+        },
+        {
+          "id": "cooked-ham",
+          "mass": 16,
+          "country": "FR"
+        },
+        {
+          "id": "sugar",
+          "mass": 5,
+          "country": "FR"
+        },
+        {
+          "id": "mushroom",
+          "mass": 31,
+          "country": "FR"
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 16,
+          "country": "FR"
+        },
+        {
+          "id": "black-pepper",
+          "mass": 1
+        },
+        {
+          "id": "tap-water",
+          "mass": 22,
+          "country": "FR"
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 363
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza végétale (385g) - 19",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 113
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 76
+        },
+        {
+          "id": "mozzarella",
+          "mass": 36.00000000000001
+        },
+        {
+          "id": "sugar",
+          "mass": 4
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 21
+        },
+        {
+          "id": "black-pepper",
+          "mass": 2
+        },
+        {
+          "id": "emmental",
+          "mass": 12
+        },
+        {
+          "id": "tomato-greenhouse",
+          "mass": 36.00000000000001
+        },
+        {
+          "id": "bellpepper-unheated-greenhouse",
+          "mass": 36.00000000000001
+        },
+        {
+          "id": "onion",
+          "mass": 12
+        },
+        {
+          "id": "tap-water",
+          "mass": 22
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 396
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Pizza végétale FR (385g) - 19",
+    "query": {
+      "ingredients": [
+        {
+          "id": "flour",
+          "mass": 113,
+          "country": "FR"
+        },
+        {
+          "id": "tomato-paste",
+          "mass": 76,
+          "country": "FR"
+        },
+        {
+          "id": "mozzarella",
+          "mass": 36.00000000000001,
+          "country": "FR"
+        },
+        {
+          "id": "sugar",
+          "mass": 4,
+          "country": "FR"
+        },
+        {
+          "id": "rapeseed-oil",
+          "mass": 21,
+          "country": "FR"
+        },
+        {
+          "id": "black-pepper",
+          "mass": 2
+        },
+        {
+          "id": "emmental",
+          "mass": 12,
+          "country": "FR"
+        },
+        {
+          "id": "tomato-greenhouse",
+          "mass": 36.00000000000001,
+          "country": "FR"
+        },
+        {
+          "id": "bellpepper-unheated-greenhouse",
+          "mass": 36.00000000000001,
+          "country": "FR"
+        },
+        {
+          "id": "onion",
+          "mass": 12,
+          "country": "FR"
+        },
+        {
+          "id": "tap-water",
+          "mass": 22,
+          "country": "FR"
+        }
+      ],
+      "transform": {
+        "code": "AGRIBALU000000003103966",
+        "mass": 370
+      },
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003104019",
+          "mass": 100
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "oven"]
+    },
+    "category": "Produit surgelé"
+  },
+  {
+    "name": "Steak haché surgelé origine Brésil (200g) - 82",
+    "query": {
+      "ingredients": [
+        {
+          "id": "ground-beef-feedlot",
+          "mass": 200,
+          "country": "BR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003111575",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "pan-cooking"]
+    },
+    "category": "Viande bovine"
+  },
+  {
+    "name": "Steak haché surgelé FR (250g) - 95",
+    "query": {
+      "ingredients": [
+        {
+          "id": "ground-beef",
+          "mass": 250,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003110698",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "pan-cooking"]
+    },
+    "category": "Viande bovine"
+  },
+  {
+    "name": "Steak haché surgelé bio FR (200g) - 78",
+    "query": {
+      "ingredients": [
+        {
+          "id": "ground-beef-organic",
+          "mass": 200,
+          "country": "FR"
+        }
+      ],
+      "packaging": [
+        {
+          "code": "AGRIBALU000000003111575",
+          "mass": 50
+        }
+      ],
+      "distribution": "frozen",
+      "preparation": ["freezing", "pan-cooking"]
+    },
+    "category": "Viande bovine"
+  }
+]
