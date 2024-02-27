@@ -679,7 +679,7 @@ exampleProductField exampleProducts query =
         autocompleteState =
             exampleProducts
                 |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toString exampleProducts)
+                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
@@ -689,7 +689,7 @@ exampleProductField exampleProducts query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ text <| ExampleProduct.toString exampleProducts query ]
+            [ text <| ExampleProduct.toName exampleProducts query ]
         ]
 
 
@@ -1135,7 +1135,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = ExampleProduct.toString session.db.textile.exampleProducts
+                                , toLabel = ExampleProduct.toName session.db.textile.exampleProducts
                                 , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
                                 }
 

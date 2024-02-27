@@ -1318,7 +1318,7 @@ menuView exampleProducts query =
         autocompleteState =
             exampleProducts
                 |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toString exampleProducts)
+                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
     div []
         [ label
@@ -1332,7 +1332,7 @@ menuView exampleProducts query =
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
             [ span []
-                [ text <| ExampleProduct.toString exampleProducts query ]
+                [ text <| ExampleProduct.toName exampleProducts query ]
             ]
         ]
 
@@ -1535,7 +1535,7 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = ExampleProduct.toString session.db.food.exampleProducts
+                        , toLabel = ExampleProduct.toName session.db.food.exampleProducts
                         , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
                         }
             ]

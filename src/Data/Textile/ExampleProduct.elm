@@ -2,7 +2,7 @@ module Data.Textile.ExampleProduct exposing
     ( ExampleProduct
     , decodeListFromJsonString
     , toCategory
-    , toString
+    , toName
     )
 
 import Data.Textile.Inputs as Inputs exposing (Query)
@@ -30,20 +30,6 @@ decodeListFromJsonString =
         >> Result.mapError Decode.errorToString
 
 
-
--- These will likely be useful in a near future
--- encode : ExampleProduct -> Encode.Value
--- encode { name, query, category } =
---     Encode.object
---         [ ( "name", Encode.string name )
---         , ( "query", Query.encode query )
---         , ( "category", Encode.string category )
---         ]
--- encodeList : List ExampleProduct -> Encode.Value
--- encodeList =
---     Encode.list encode
-
-
 toCategory : List ExampleProduct -> Query -> String
 toCategory examples q =
     examples
@@ -59,8 +45,8 @@ toCategory examples q =
         |> Maybe.withDefault ""
 
 
-toString : List ExampleProduct -> Query -> String
-toString examples q =
+toName : List ExampleProduct -> Query -> String
+toName examples q =
     examples
         |> List.filterMap
             (\{ name, query } ->
