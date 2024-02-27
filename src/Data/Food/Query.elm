@@ -466,7 +466,7 @@ royalPizza =
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "mushroom"
+        , { id = Ingredient.idFromString "mushroom-eu"
           , mass = Mass.grams 31
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
@@ -533,7 +533,7 @@ royalPizzaFR =
           , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable
           }
-        , { id = Ingredient.idFromString "mushroom"
+        , { id = Ingredient.idFromString "mushroom-eu"
           , mass = Mass.grams 31
           , country = Just (Country.Code "FR")
           , planeTransport = Ingredient.PlaneNotApplicable

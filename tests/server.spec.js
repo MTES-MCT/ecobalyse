@@ -404,7 +404,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane value", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;BR;badValue"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=mango-non-eu;123;BR;badValue"]),
             "ingredients",
             /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
           );
@@ -472,7 +472,7 @@ describe("API", () => {
           const response = await makePostRequest("/api/food/recipe", {
             ingredients: [
               { id: "egg-indoor-code3", mass: 0.12 },
-              { id: "wheat", mass: 0.14 },
+              { id: "soft-wheat-fr", mass: 0.14 },
               { id: "milk", mass: 0.06 },
               { id: "carrot-fr", mass: 0.225 },
             ],

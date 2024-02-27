@@ -149,7 +149,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 130.8943152279544) result
+                                expectImpactEqual (Unit.impact 131.763987931143) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -157,7 +157,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 105.76008717746056) result
+                                expectImpactEqual (Unit.impact 105.81146967746056) result
                         )
                      , describe "Scoring"
                         (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -168,28 +168,28 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 478.55369389827956
+                                    |> Expect.within (Expect.Absolute 0.01) 481.13774183581535
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 472.25827508931434
+                                    |> Expect.within (Expect.Absolute 0.01) 474.68965082883403
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) -6.295418808965206
+                                    |> Expect.within (Expect.Absolute 0.01) -6.448091006981336
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 185.35640440850204
+                                    |> Expect.within (Expect.Absolute 0.01) 185.95551578842688
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 107.33994991732318
+                                    |> Expect.within (Expect.Absolute 0.01) 108.35763169433548
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 61.860211171292505
+                                    |> Expect.within (Expect.Absolute 0.01) 62.08054112486502
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 117.70170959219656
+                                    |> Expect.within (Expect.Absolute 0.01) 118.29596222120665
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -217,7 +217,7 @@ suite =
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
                           }
-                        , { id = Ingredient.idFromString "wheat"
+                        , { id = Ingredient.idFromString "soft-wheat-fr"
                           , mass = Mass.grams 140
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
@@ -259,7 +259,7 @@ suite =
                 ]
             , let
                 mango =
-                    { id = Ingredient.idFromString "mango"
+                    { id = Ingredient.idFromString "mango-non-eu"
                     , mass = Mass.grams 120
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
