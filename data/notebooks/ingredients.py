@@ -631,9 +631,9 @@ w_filter.observe(change_filter, names="value")
 def add_activity(_):
     activity = {
         "id": w_id.value,
-        "name": w_name.value,
+        "name": w_name.value.strip(),
         "database": w_database.value,
-        "search": w_search.value,
+        "search": w_search.value.strip(),
         "category": w_category.value,
         "categories": w_categories.value,
         "default_origin": w_default_origin.value,
@@ -642,7 +642,7 @@ def add_activity(_):
         "inedible_part": w_inedible.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "explain": w_explain.value,
+        "explain": w_explain.value.strip(),
     }
     activity.update(
         {
