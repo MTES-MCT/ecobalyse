@@ -7,6 +7,7 @@ module Data.Textile.Db exposing
     )
 
 import Data.Impact.Definition exposing (Definitions)
+import Data.Textile.ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
@@ -16,19 +17,20 @@ import Json.Encode as Encode
 
 
 type alias Db =
-    { processes : List Process
+    { exampleProducts : List ExampleProduct
+    , processes : List Process
     , materials : List Material
     , products : List Product
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : Definitions -> String -> String -> String -> Result String Db
-buildFromJson definitions materialsJson processesJson productsJson =
+buildFromJson : List ExampleProduct -> Definitions -> String -> String -> String -> Result String Db
+buildFromJson exampleProducts definitions materialsJson processesJson productsJson =
     Decode.decodeString (Process.decodeList definitions) processesJson
         |> Result.andThen
             (\processes ->
-                Result.map3 (Db processes)
+                Result.map3 (Db exampleProducts processes)
                     (Decode.decodeString (Material.decodeList processes) materialsJson)
                     (Decode.decodeString (Product.decodeList processes) productsJson)
                     (WellKnown.load processes

@@ -205,7 +205,7 @@ compute db =
 
                     preparationImpacts =
                         preparation
-                            |> List.map (Preparation.apply db.food transformedIngredientsMass)
+                            |> List.map (Preparation.apply db.food.wellKnown transformedIngredientsMass)
                             |> (Impact.sumImpacts >> List.singleton >> Impact.sumImpacts)
 
                     preparedMass =

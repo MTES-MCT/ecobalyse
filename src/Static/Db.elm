@@ -1,15 +1,33 @@
-module Static.Db exposing (Db, rdb, updateEcotoxWeighting)
+module Static.Db exposing
+    ( Db
+    , db
+    , updateEcotoxWeighting
+    )
 
 import Data.Common.Db as Common
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
+import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Process as Textile
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
-import Static.Json exposing (countriesJson, foodIngredientsJson, foodProcessesJson, impactsJson, textileMaterialsJson, textileProcessesJson, textileProductsJson, transportsJson)
+import Static.Json
+    exposing
+        ( countriesJson
+        , foodIngredientsJson
+        , foodProcessesJson
+        , foodProductExamplesJson
+        , impactsJson
+        , textileMaterialsJson
+        , textileProcessesJson
+        , textileProductExamplesJson
+        , textileProductsJson
+        , transportsJson
+        )
 
 
 type alias Db =
@@ -21,63 +39,81 @@ type alias Db =
     }
 
 
-rdb : Result String Db
-rdb =
-    Result.map5 Db rdefinitions rtextile rfood rcountries rdistances
+db : Result String Db
+db =
+    Result.map5 Db impactDefinitions textileDb foodDb countries distances
 
 
-rdefinitions : Result String Definitions
-rdefinitions =
+impactDefinitions : Result String Definitions
+impactDefinitions =
     Common.impactsFromJson impactsJson
 
 
-rtextile : Result String TextileDb.Db
-rtextile =
-    rdefinitions
+textileDb : Result String TextileDb.Db
+textileDb =
+    impactDefinitions
         |> Result.andThen
             (\definitions ->
-                TextileDb.buildFromJson definitions textileMaterialsJson textileProcessesJson textileProductsJson
+                textileProductExamplesJson
+                    |> TextileExampleProduct.decodeListFromJsonString
+                    |> Result.andThen
+                        (\exampleProducts ->
+                            TextileDb.buildFromJson exampleProducts
+                                definitions
+                                textileMaterialsJson
+                                textileProcessesJson
+                                textileProductsJson
+                        )
             )
 
 
-rfood : Result String FoodDb.Db
-rfood =
-    rdefinitions
+foodDb : Result String FoodDb.Db
+foodDb =
+    impactDefinitions
         |> Result.andThen
             (\definitions ->
-                FoodDb.buildFromJson definitions foodProcessesJson foodIngredientsJson
+                foodProductExamplesJson
+                    |> FoodExampleProduct.decodeListFromJsonString
+                    |> Result.andThen
+                        (\exampleProducts ->
+                            FoodDb.buildFromJson exampleProducts
+                                definitions
+                                foodProcessesJson
+                                foodIngredientsJson
+                        )
             )
 
 
-rcountries : Result String (List Country)
-rcountries =
-    rtextile |> Result.andThen (\textile -> Common.countriesFromJson textile countriesJson)
+countries : Result String (List Country)
+countries =
+    textileDb
+        |> Result.andThen (\textile -> Common.countriesFromJson textile countriesJson)
 
 
-rdistances : Result String Distances
-rdistances =
+distances : Result String Distances
+distances =
     Common.transportsFromJson transportsJson
 
 
 updateEcotoxWeighting : Db -> Unit.Ratio -> Db
-updateEcotoxWeighting db weighting =
-    updateImpactDefinitions db (Impact.setEcotoxWeighting weighting db.definitions)
+updateEcotoxWeighting db_ weighting =
+    updateImpactDefinitions db_ (Impact.setEcotoxWeighting weighting db_.definitions)
 
 
 {-| Update database with new definitions and recompute processes aggregated impacts accordingly.
 -}
 updateImpactDefinitions : Db -> Definitions -> Db
-updateImpactDefinitions ({ textile, food } as db) definitions =
+updateImpactDefinitions ({ textile, food } as db_) definitions =
     let
         updatedFoodProcesses =
-            Common.updateProcessesFromNewDefinitions definitions db.food.processes
+            Common.updateProcessesFromNewDefinitions definitions db_.food.processes
 
         updatedTextileProcesses =
-            Common.updateProcessesFromNewDefinitions definitions db.textile.processes
+            Common.updateProcessesFromNewDefinitions definitions db_.textile.processes
     in
-    { db
+    { db_
         | definitions = definitions
-        , countries = db.countries |> updateCountriesFromNewProcesses updatedTextileProcesses
+        , countries = db_.countries |> updateCountriesFromNewProcesses updatedTextileProcesses
         , textile =
             { textile
                 | processes = updatedTextileProcesses
@@ -88,7 +124,7 @@ updateImpactDefinitions ({ textile, food } as db) definitions =
         , food =
             { food
                 | processes = updatedFoodProcesses
-                , ingredients = FoodDb.updateIngredientsFromNewProcesses updatedFoodProcesses db.food.ingredients
+                , ingredients = FoodDb.updateIngredientsFromNewProcesses updatedFoodProcesses db_.food.ingredients
                 , wellKnown = FoodDb.updateWellKnownFromNewProcesses updatedFoodProcesses food.wellKnown
             }
     }
