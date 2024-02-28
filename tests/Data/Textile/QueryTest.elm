@@ -24,7 +24,7 @@ sampleQuery =
 
 suite : Test
 suite =
-    suiteWithDb "Data.Inputs"
+    suiteWithDb "Data.Query"
         (\db ->
             [ describe "Base64"
                 [ describe "Encoding and decoding queries"

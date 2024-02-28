@@ -94,7 +94,7 @@ init flags url navKey =
                             , matomo = flags.matomo
                             , notifications = []
                             , queries =
-                                { food = FoodQuery.emptyQuery
+                                { food = FoodQuery.empty
                                 , textile = TextileQuery.default
                                 }
                             }
