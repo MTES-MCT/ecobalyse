@@ -1,8 +1,6 @@
 const fs = require("fs");
 const request = require("supertest");
-const superagent = require("superagent");
 const app = require("../server");
-const ingredients = require("../public/data/food/ingredients.json");
 
 const e2eOutput = { food: [], textile: [] };
 
