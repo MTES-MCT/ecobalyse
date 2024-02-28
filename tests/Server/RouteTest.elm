@@ -5,10 +5,10 @@ import Data.Food.Fixtures as Fixtures
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
-import Data.Textile.Inputs as Inputs exposing (Query, tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
+import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
 import Dict exposing (Dict)
 import Expect
@@ -217,7 +217,7 @@ textileEndpoints db =
         ]
     , describe "POST endpoints"
         [ "/textile/simulator"
-            |> testEndpoint db "POST" (Inputs.encodeQuery tShirtCotonFrance)
+            |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
             |> Expect.equal (Just Route.PostTextileSimulator)
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"
@@ -394,7 +394,7 @@ testEndpoint dbs method body url =
         }
 
 
-extractQuery : Route.Route -> Maybe Inputs.Query
+extractQuery : Route.Route -> Maybe Query
 extractQuery route =
     case route of
         Route.GetTextileSimulator (Ok query) ->
