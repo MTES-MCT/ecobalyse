@@ -12,36 +12,38 @@ La consommation de chaleur s'exprime en mégajoules (MJ).
 
 Deux scénarios existent pour modéliser la consommation de chaleur des procédés mobilisés :&#x20;
 
-**Scénario 1** :  la chaleur est déjà intégrée dans le procédé mobilisé en tant que Flux Interne&#x20;
+**Scénario 1** :  la chaleur est déjà intégrée dans le procédé mobilisé en tant que Flux Interne,&#x20;
 
-**Scénario 2** : la chaleur n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe
+**Scénario 2** : la chaleur n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe (c'est par exemple le cas pour de nombreux procédés de l'étape Ennoblissement).&#x20;
 
-Dans ce cas précis, la quantité de chaleur nécessaire pour actionner le procédé mobilisé correspond au produit de la masse "sortante" du procédé mobilisé (ex : masse d'étoffe en sortie du tissage) avec les coefficients du flux intermédiaire de chaleur mobilisé.&#x20;
+Dans ce cas précis, la quantité de chaleur nécessaire pour actionner le procédé mobilisé correspond au produit de la masse "sortante" du procédé mobilisé (ex : 0,5kg d'étoffe en sortie de l'étape Ennoblissement) avec le coefficient du flux externe de chaleur mobilisé (ex : 3,2 MJ / kg de chaleur pour le procédé de pré-traitement _Désencollage)_.&#x20;
 
-### Scénarios
+### Procédés mobilisés
 
-#### Mix chaleur < = >  région
+La base de données Ecoinvent ne propose pas de mix chaleur industrielle par zone géographique (ex : France, Europe, Asie, etc.). En l'absence de tels mix régionaux, Ecobalyse reconstitue de tels mix régionaux sur la base de quatre procédés source :&#x20;
 
-Troix régions sont proposées dans Ecobalyse pour préciser le mix chaleur utilisé par les entreprises  : France, Europe, Monde.
+* Consommation de chaleur produite à partir de gaz naturel (x2 régions : RER -Europe- et Global)\
+  procédé = _Market group for heat, district or industrial, natural gas_
+* Consommation de chaleur produite à partir d'autres sources (x2 régions : RER -Europe- et Global)\
+  procédé = _Market group for heat, district or industrial, other than natural gas_&#x20;
 
-En l'absence de procédés Ecoinvent modélisant les mix chaleurs de ces 3 régions, Ecobalyse a reconstitué de tels procédés en repartant de deux procédés source Ecoinvent :&#x20;
+### Mix chaleurs (Europe x Monde)
 
-* Consommation de chaleur produite à partir de gaz naturel \
-  procédé = _Market group for heat, district or industrial, natural gas; RER_
-* Consommation de chaleur produite à partir de sources autres que gaz naturel\
-  procédé = _Market group for heat, district or industrial, other than natural gas_ ; RER
+Deux régions sont proposées dans Ecobalyse :&#x20;
 
-<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>Sources de chaleur</th></tr></thead><tbody><tr><td>France</td><td>Heat mix (FR) </td><td><a data-footnote-ref href="#user-content-fn-1">40% gaz naturel / 60% autres</a></td></tr><tr><td>Europe</td><td>Heat mix (Europe) </td><td><a data-footnote-ref href="#user-content-fn-2">44% gaz naturel / 56% autres</a></td></tr><tr><td>Rest of the world</td><td>Heat mix (World) </td><td><a data-footnote-ref href="#user-content-fn-3">23% gaz naturel / 77% autres</a></td></tr></tbody></table>
+<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>Sources de chaleur</th></tr></thead><tbody><tr><td>Europe</td><td>Heat mix (Europe) </td><td><a data-footnote-ref href="#user-content-fn-1">44% gaz naturel / 56% autres</a></td></tr><tr><td>Rest of the world</td><td>Heat mix (World) </td><td><a data-footnote-ref href="#user-content-fn-2">23% gaz naturel / 77% autres</a></td></tr></tbody></table>
 
-#### Illustration de l'impact de ces 3 scénarios :&#x20;
+En compilant pour chaque zone (Europe et Monde) les sources de chaleur (gaz naturel vs autres sources) et leurs contributions au mix régional (ex : 44% gaz naturel vs 56% autres sources pour l'Europe), nous pouvons reconstituer l'impact de la consommation de chaleur industrielle au sein de chacune de ces zones.&#x20;
+
+La consommation de chaleur industrielle à l'échelle mondiale est significativement plus impactante que celle européenne (+73% en score d'impacts -uPts-).
 
 <div>
 
-<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = uPts).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = uPts) (1).png" alt=""><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = kg CO2 eq.).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = kg CO2 eq.) (2).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -53,11 +55,8 @@ Les entreprises qui souhaitent préciser le mix chaleur de tout ou partie des é
 
 ### Limites
 
-* Les deux procédés Ecoinvent utilisés (chaleur à partir de gaz naturel vs chaleur à partir d'autres sources) pour reconstituer les mix chaleur régionaux (France, Europe, Monde) sont basés sur des mix de consommation européens ("Market group for heat" / "RER"),
 * Le mix chaleur World (Rest Of the World) est basé sur des données 2010.
 
-[^1]: Source : Etude Carbone 4 :  [https://www.carbone4.com/publication-chaleur-renouvelable](https://www.carbone4.com/publication-chaleur-renouvelable)
+[^1]: Source : Etude Reuters : [https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/](https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/)
 
-[^2]: Source : Etude Reuters : [https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/](https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/)
-
-[^3]: Article CarbonTrust (UK) : [https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat](https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat)
+[^2]: Article CarbonTrust (UK) : [https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat](https://www.carbontrust.com/news-and-insights/insights/industrial-renewable-heat)
