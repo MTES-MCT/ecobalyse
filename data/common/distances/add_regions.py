@@ -5,15 +5,15 @@ import json
 import copy
 
 regions = {
-    "IN": "--",
-    "ES": "REO",
-    "CZ": "REE",
-    "IN": "RAS",
-    "ET": "RAF",
-    "TR": "RMO",
-    "BR": "RAL",
-    "US": "RAN",
-    "AU": "ROC",
+    "---": "IN",
+    "REO": "ES",
+    "REE": "CZ",
+    "RAS": "IN",
+    "RAF": "ET",
+    "RMO": "TR",
+    "RAL": "BR",
+    "RAN": "US",
+    "ROC": "AU",
 }
 old = dict()
 with open("distances.json") as f:
@@ -21,10 +21,12 @@ with open("distances.json") as f:
 
 new = copy.deepcopy(old)
 for origin, destinations in old.items():
-    if origin in regions:
-        new[regions[origin]] = destinations
+    if origin in regions.values():
+        for r in [r for r, c in regions.items() if c == origin]:
+            new[r] = destinations
     for destination, distances in destinations.items():
         if destination in regions:
             new[origin][regions[destination]] = distances
 
-print(json.dumps(new))
+with open("distances_with_regions.json", "w") as f:
+    json.dump(new, f, ensure_ascii=False)
