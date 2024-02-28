@@ -72,7 +72,7 @@ foodEndpoints db =
         ]
     , describe "POST endpoints"
         [ "/food/recipe"
-            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.emptyQuery)
+            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
             |> Expect.equal (Just Route.PostFoodRecipe)
             |> asTest "should map the POST /food/recipe endpoint"
         , "/food/recipe"

@@ -4,8 +4,34 @@ import bw2data
 from bw2io.utils import activity_hash
 from peewee import IntegrityError
 import logging
+import json
 
 logging.basicConfig(level=logging.ERROR)
+
+
+def export_json(data, filename):
+    """
+    Export data to a JSON file, with added newline at the end.
+    """
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+        file.write("\n")  # Add a newline at the end of the file
+    print(f"\nExported {len(data)} elements to {filename}")
+
+
+def load_json(filename):
+    """
+    Load JSON data from a file.
+    """
+    with open(filename, "r") as file:
+        return json.load(file)
+
+
+def progress_bar(index, total):
+    print(
+        "(" + (index) * "•" + (total - index) * " " + f") {str(index)}/{total}",
+        end="\r",
+    )
 
 
 def with_subimpacts(process):
