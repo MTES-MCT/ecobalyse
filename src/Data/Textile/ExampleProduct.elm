@@ -5,7 +5,7 @@ module Data.Textile.ExampleProduct exposing
     , toName
     )
 
-import Data.Textile.Inputs as Inputs exposing (Query)
+import Data.Textile.Query as Query exposing (Query)
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -20,7 +20,7 @@ decode : Decoder ExampleProduct
 decode =
     Decode.map3 ExampleProduct
         (Decode.field "name" Decode.string)
-        (Decode.field "query" Inputs.decodeQuery)
+        (Decode.field "query" Query.decode)
         (Decode.field "category" Decode.string)
 
 
