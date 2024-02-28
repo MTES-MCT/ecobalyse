@@ -1,8 +1,9 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
 import Data.Country as Country
-import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
+import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.Textile.Query exposing (Query, tShirtCotonFrance)
 import Expect
 import Length
 import Static.Db exposing (Db)
@@ -15,10 +16,10 @@ km =
     Length.kilometers
 
 
-lifeCycleToTransports : Db -> Inputs.Query -> LifeCycle -> Result String LifeCycle
+lifeCycleToTransports : Db -> Query -> LifeCycle -> Result String LifeCycle
 lifeCycleToTransports db query lifeCycle =
     query
-        |> Inputs.fromQuery db.countries db.textile.materials db.textile.products
+        |> Inputs.fromQuery db
         |> Result.map
             (\materials ->
                 LifeCycle.computeStepsTransport db materials lifeCycle

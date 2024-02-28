@@ -9,10 +9,10 @@ import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
-import Data.Textile.Inputs as TextileInputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
@@ -118,8 +118,8 @@ table db { detailed, scope } =
             picking product surfaceMass ys =
                 let
                     outputMass =
-                        TextileInputs.defaultQuery
-                            |> TextileInputs.updateProduct product
+                        TextileQuery.default
+                            |> TextileQuery.updateProduct product
                             |> Simulator.compute db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
                             |> Result.withDefault Quantity.zero
