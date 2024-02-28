@@ -2592,7 +2592,8 @@
     "transport_cooling": "none",
     "crop_group": "BLE TENDRE",
     "scenario": "import",
-    "visible": true
+    "visible": true,
+    "land_occupation": 2.772345656
   },
   {
     "id": "wheat-us",
@@ -2608,7 +2609,8 @@
     "transport_cooling": "none",
     "crop_group": "BLE TENDRE",
     "scenario": "import",
-    "visible": true
+    "visible": true,
+    "land_occupation": 4.587598955
   },
   {
     "id": "tomato-greenhouse-es",
@@ -2624,7 +2626,8 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 0.08821701014
   },
   {
     "id": "cherry-tr",
@@ -2641,6 +2644,7 @@
     "visible": true,
     "explain": "Part non comestible => hypothèse de la prune\n",
     "crop_group": "VERGERS",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 1.78731697
   }
 ]
