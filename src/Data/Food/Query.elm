@@ -10,7 +10,7 @@ module Data.Food.Query exposing
     , decode
     , deleteIngredient
     , deletePreparation
-    , emptyQuery
+    , empty
     , encode
     , parseBase64Query
     , serialize
@@ -175,6 +175,16 @@ deleteIngredient id query =
             query.ingredients |> List.filter (.id >> (/=) id)
     }
         |> updateTransformMass
+
+
+empty : Query
+empty =
+    { ingredients = []
+    , transform = Nothing
+    , packaging = []
+    , distribution = Nothing
+    , preparation = []
+    }
 
 
 encode : Query -> Encode.Value
@@ -353,13 +363,3 @@ parseBase64Query =
         b64decode
             >> Result.toMaybe
             >> Just
-
-
-emptyQuery : Query
-emptyQuery =
-    { ingredients = []
-    , transform = Nothing
-    , packaging = []
-    , distribution = Nothing
-    , preparation = []
-    }
