@@ -344,6 +344,7 @@ describe("API", () => {
       for (const { name, query } of textileExamples) {
         it(name, async () => {
           const response = await makePostRequest("/api/textile/simulator", query);
+          expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
         });
       }
@@ -532,6 +533,7 @@ describe("API", () => {
       for (const { name, query } of foodExamples) {
         it(name, async () => {
           const response = await makePostRequest("/api/food/recipe", query);
+          expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
         });
       }
