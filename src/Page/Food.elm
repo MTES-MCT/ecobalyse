@@ -532,7 +532,7 @@ selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.emptyQuery
+                |> Maybe.withDefault Query.empty
 
         msg =
             LoadQuery example

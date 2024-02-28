@@ -52,7 +52,7 @@ suite =
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
                 , "/food/recipe"
-                    |> request "POST" (FoodQuery.encode FoodQuery.emptyQuery)
+                    |> request "POST" (FoodQuery.encode FoodQuery.empty)
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200
