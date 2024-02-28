@@ -114,7 +114,7 @@
     "name": "France",
     "zone": "Europe",
     "electricityProcessUuid": "3c131d87f8dd997d14d2ffc3477f83e6",
-    "heatProcessUuid": "heat-france",
+    "heatProcessUuid": "heat-europe",
     "airTransportRatio": 0,
     "scopes": ["food", "textile"],
     "aquaticPollutionScenario": "Best"

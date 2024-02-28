@@ -3,17 +3,19 @@
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
+import bw2calc
+import bw2data
 from bw2data.project import projects
+from common.impacts import impacts as impacts_definition
 from common.export import (
     with_subimpacts,
     cached_search,
     with_corrected_impacts,
     display_changes,
+    load_json,
+    export_json,
+    progress_bar,
 )
-from common.impacts import impacts as impacts_definition
-import bw2calc
-import bw2data
-import json
 from food.ecosystemic_services.ecosystemic_services import (
     ecosystemic_services_list,
     ecs_transform,
@@ -21,20 +23,33 @@ from food.ecosystemic_services.ecosystemic_services import (
     plot_ecs_transformations,
 )
 
-# Input
-PROJECT = "food"
-AGRIBALYSE = "Agribalyse 3.1.1"
-BIOSPHERE = AGRIBALYSE + " biosphere"
-ACTIVITIES = "activities.json"
-IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
-ECOSYSTEMIC_FACTORS = "ecosystemic_services/ecosystemic_factors.csv"
-# Output
-INGREDIENTS = "../../public/data/food/ingredients.json"
-PROCESSES = "../../public/data/food/processes.json"
+# Configuration
+CONFIG = {
+    "PROJECT": "food",
+    "AGRIBALYSE": "Agribalyse 3.1.1",
+    "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
+    "ACTIVITIES_FILE": "activities.json",
+    "IMPACTS_FILE": "../../public/data/impacts.json",
+    "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
+    "ECS_PNG": "ecosystemic_services/ecs_transformations.png",
+    "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
+    "PROCESSES_FILE": "../../public/data/food/processes.json",
+    "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
+}
 
-projects.set_current(PROJECT)
-# projects.activate_project(PROJECT)
-bw2data.config.p["biosphere_database"] = BIOSPHERE
+
+def setup_environment():
+    projects.set_current(CONFIG["PROJECT"])
+    bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
+
+
+def sync_datapackages():
+    print("Syncing datackages...")
+    for method in bw2data.methods:
+        bw2data.Method(method).process()
+
+    for database in bw2data.databases:
+        bw2data.Database(database).process()
 
 
 def find_id(dbname, activity):
@@ -43,66 +58,59 @@ def find_id(dbname, activity):
     )
 
 
-if __name__ == "__main__":
-    # keep the previous processes with old impacts
-    with open(PROCESSES) as f:
-        oldprocesses = json.load(f)
-
-    with open(ACTIVITIES, "r") as f:
-        activities = json.load(f)
-
+def create_ingredient_list(activities):
     print("Creating ingredient list...")
-    ingredients = [
-        {
-            "id": activity["id"],
-            "name": activity["name"],
-            "categories": [c for c in activity["categories"] if c != "ingredient"],
-            "default": find_id(activity.get("database", AGRIBALYSE), activity),
-            "default_origin": activity["default_origin"],
-            "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
-            "density": activity["density"],
-            "inedible_part": activity["inedible_part"],
-            "transport_cooling": activity["transport_cooling"],
-            "ecosystemicServices": activity.get("ecosystemicServices", {}),
-            **(
-                {"land_footprint": activity["land_footprint"]}
-                if "land_footprint" in activity
-                else {}
-            ),
-            **(
-                {"crop_group": activity["crop_group"]}
-                if "crop_group" in activity
-                else {}
-            ),
-            **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
-            "visible": activity["visible"],
-        }
+    return [
+        process_activity_for_ingredient(activity)
         for activity in activities
         if activity["category"] == "ingredient"
     ]
 
-    # compute the ecosystemic services
 
-    # display the plots
-    plot_ecs_transformations(save_path="ecosystemic_services/ecs_transformations.png")
+def process_activity_for_ingredient(activity):
+    return {
+        "id": activity["id"],
+        "name": activity["name"],
+        "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
+        "default_origin": activity["default_origin"],
+        "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
+        "density": activity["density"],
+        "inedible_part": activity["inedible_part"],
+        "transport_cooling": activity["transport_cooling"],
+        "ecosystemicServices": activity.get("ecosystemicServices", {}),
+        **(
+            {"land_occupation": activity["land_occupation"]}
+            if "land_occupation" in activity
+            else {}
+        ),
+        **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
+        **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
+        "visible": activity["visible"],
+    }
 
-    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS)
 
-    for ingredient in ingredients:
-        land_footprint = ingredient.get("land_footprint")
-        crop_group = ingredient.get("crop_group")
-        scenario = ingredient.get("scenario")
+def compute_land_occupation(activities):
+    """"""
+    print("Computing land occupation for activities")
+    for index, activity in enumerate(activities):
+        progress_bar(index, len(activities))
+        if "land_occupation" not in activity:
+            lca = bw2calc.LCA(
+                {
+                    cached_search(
+                        activity.get("database", CONFIG["AGRIBALYSE"]),
+                        activity["search"],
+                    ): 1
+                }
+            )
+            lca.lci()
+            lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
+            lca.lcia()
+            activity["land_occupation"] = float("{:.10g}".format(lca.score))
 
-        if land_footprint and crop_group and scenario:
-            print(f"Computing ecosystemic services for {ingredient['id']}")
-            for eco_service in ecosystemic_services_list:
-                factor_raw = ecosystemic_factors[crop_group][eco_service][scenario]
-                factor_transformed = ecs_transform(eco_service, factor_raw)
-                factor_final = factor_transformed * land_footprint
-                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
-                    "{:.5g}".format(factor_final)
-                )
 
+def check_ids(ingredients):
     # Check the id is lowercase and does not contain spaces
     for ingredient in ingredients:
         if (
@@ -113,23 +121,50 @@ if __name__ == "__main__":
                 f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
             )
 
+
+def compute_ecosystemic_factors(ingredients, ecosystemic_factors):
+    for ingredient in ingredients:
+        if all(
+            ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
+        ):
+            print(f"Computing ecosystemic services for {ingredient['id']}")
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][
+                    ingredient["scenario"]
+                ]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * ingredient["land_occupation"]
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
+
+
+def create_process_list(activities):
     print("Creating process list...")
-    processes = {
-        activity["id"]: {
-            "id": activity["id"],
-            "name": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
-            )["name"],
-            "displayName": activity["name"],
-            "unit": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
-            )["unit"],
-            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-            "system_description": cached_search(
-                activity.get("database", AGRIBALYSE), activity["search"]
-            )["System description"],
-            "category": activity.get("category"),
-            "comment": prod[0]["comment"]
+    return {
+        activity["id"]: process_activity_for_processes(activity)
+        for activity in activities
+    }
+
+
+def process_activity_for_processes(activity):
+    AGRIBALYSE = CONFIG["AGRIBALYSE"]
+    return {
+        "id": activity["id"],
+        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
+            "name"
+        ],
+        "displayName": activity["name"],
+        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
+            "unit"
+        ],
+        "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+        "system_description": cached_search(
+            activity.get("database", AGRIBALYSE), activity["search"]
+        )["System description"],
+        "category": activity.get("category"),
+        "comment": (
+            prod[0]["comment"]
             if (
                 prod := list(
                     cached_search(
@@ -137,24 +172,24 @@ if __name__ == "__main__":
                     ).production()
                 )
             )
-            else activity.get("comment", ""),
-            # those are removed at the end:
-            "database": activity.get("database", AGRIBALYSE),
-            "search": activity["search"],
-        }
-        for activity in activities
+            else activity.get("comment", "")
+        ),
+        # those are removed at the end:
+        "database": activity.get("database", AGRIBALYSE),
+        "search": activity["search"],
     }
-    # remove empty category
-    for p in processes:
-        if not processes[p]["category"]:
-            del processes[p]["category"]
 
-    # compute the impacts of base processes
+
+def compute_impacts(processes):
     print("Computing impacts:")
-    for index, (processid, process) in enumerate(processes.items()):
-        print(f"Export in progress: {str(index)}/{len(processes)}", end="\r")
+    for index, (_, process) in enumerate(processes.items()):
+        progress_bar(index, len(processes))
         lca = bw2calc.LCA(
-            {cached_search(process.get("database", AGRIBALYSE), process["search"]): 1}
+            {
+                cached_search(
+                    process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+                ): 1
+            }
         )
         lca.lci()
         for key, method in impacts_definition.items():
@@ -170,23 +205,30 @@ if __name__ == "__main__":
             if attribute in process:
                 del process[attribute]
 
-    print("Computing corrected impacts (etf-c, htc-c, htn-c)...")
-    with open(IMPACTS, "r") as f:
-        processes = with_corrected_impacts(json.load(f), processes)
 
-    # export ingredients
-    with open(INGREDIENTS, "w") as outfile:
-        json.dump(ingredients, outfile, indent=2, ensure_ascii=False)
-        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
-        outfile.write("\n")
-    print(f"\nExported {len(ingredients)} ingredients to {INGREDIENTS}")
+if __name__ == "__main__":
+    setup_environment()
 
-    # display impacts that have changed
+    # keep the previous processes with old impacts
+    oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
+    activities = load_json(CONFIG["ACTIVITIES_FILE"])
+
+    ingredients = create_ingredient_list(activities)
+    compute_land_occupation(activities)
+
+    plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
+    ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
+    compute_ecosystemic_factors(ingredients, ecosystemic_factors)
+
+    check_ids(ingredients)
+    processes = create_process_list(activities)
+    compute_impacts(processes)
+
+    processes = with_corrected_impacts(load_json(CONFIG["IMPACTS_FILE"]), processes)
+
+    # Export
+
+    export_json(activities, CONFIG["ACTIVITIES_FILE"])
+    export_json(ingredients, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes)
-
-    # export processes
-    with open(PROCESSES, "w") as outfile:
-        json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
-        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
-        outfile.write("\n")
-    print(f"Exported {len(processes)} processes to {PROCESSES}")
+    export_json(list(processes.values()), CONFIG["PROCESSES_FILE"])

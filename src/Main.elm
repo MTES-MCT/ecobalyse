@@ -5,7 +5,7 @@ import Browser.Navigation as Nav
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
-import Data.Textile.Inputs as TextileInputs
+import Data.Textile.Query as TextileQuery
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -94,8 +94,8 @@ init flags url navKey =
                             , matomo = flags.matomo
                             , notifications = []
                             , queries =
-                                { food = FoodQuery.emptyQuery
-                                , textile = TextileInputs.defaultQuery
+                                { food = FoodQuery.empty
+                                , textile = TextileQuery.default
                                 }
                             }
                             LoadingPage

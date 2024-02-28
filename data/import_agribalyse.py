@@ -22,6 +22,7 @@ PASTOECO = [
     "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
 ]
 CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
+WFLDB = "WFLDB.CSV.zip"
 BIOSPHERE = "biosphere3"
 
 
@@ -132,6 +133,12 @@ def main():
     # CTCPA
     if (db := "CTCPA") not in bw2data.databases:
         import_simapro_csv(CTCPA, db, excluded_strategies=EXCLUDED)
+    else:
+        print(f"{db} already imported")
+
+    # WFLDB 
+    if (db := "WFLDB") not in bw2data.databases:
+        import_simapro_csv(WFLDB, db, excluded_strategies=EXCLUDED)
     else:
         print(f"{db} already imported")
 

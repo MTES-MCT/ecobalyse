@@ -157,7 +157,7 @@ FIELDS = {
     "ecosystemicServices.livestockDensity": "Chargement territorial",
     # EcosystemicServices for other products
     "crop_group": "Groupe de culture",
-    "land_footprint": "Empreinte terrestre (m²a)",
+    "land_occupation": "Empreinte terrestre (m²a)",
     "scenario": "Scenario",
 }
 
@@ -585,7 +585,7 @@ def change_id(change):
     )
     set_field(w_scenario, i.get("scenario"), None)
     set_field(w_cropGroup, i.get("crop_group"), None)
-    set_field(w_landFootprint, i.get("land_footprint"), 0)
+    set_field(w_landFootprint, i.get("land_occupation"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -657,7 +657,7 @@ def add_activity(_):
         else {
             "crop_group": w_cropGroup.value,
             "scenario": w_scenario.value,
-            "land_footprint": w_landFootprint.value,
+            "land_occupation": w_landFootprint.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -1266,7 +1266,7 @@ Ecobalyse</li></ul>
                                                         (
                                                             ipywidgets.Label(
                                                                 FIELDS[
-                                                                    "land_footprint"
+                                                                    "land_occupation"
                                                                 ],
                                                             ),
                                                             w_landFootprint,

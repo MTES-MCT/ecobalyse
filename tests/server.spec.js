@@ -1,8 +1,6 @@
 const fs = require("fs");
 const request = require("supertest");
-const superagent = require("superagent");
 const app = require("../server");
-const ingredients = require("../public/data/food/ingredients.json");
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -322,7 +320,7 @@ describe("API", () => {
     });
 
     describe("End to end textile simulations", () => {
-      const e2eTextile = JSON.parse(fs.readFileSync(`${__dirname}/e2e-textile.json`).toString());
+      const e2eTextile = require(`${__dirname}/e2e-textile.json`);
 
       for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
@@ -334,6 +332,18 @@ describe("API", () => {
             impacts: response.body.impacts,
           });
           expect(response.body.impacts).toEqual(impacts);
+        });
+      }
+    });
+
+    describe("Textile product examples checks", () => {
+      const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+
+      for (const { name, query } of textileExamples) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/textile/simulator", query);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
         });
       }
     });
@@ -497,7 +507,7 @@ describe("API", () => {
     });
 
     describe("End to end food simulations", () => {
-      const e2eFood = JSON.parse(fs.readFileSync(`${__dirname}/e2e-food.json`).toString());
+      const e2eFood = require(`${__dirname}/e2e-food.json`);
 
       for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
@@ -515,52 +525,16 @@ describe("API", () => {
       }
     });
 
-    describe("Food ingredients ecoscore deviation", () => {
-      async function requestDev(path, body) {
-        return await request(app).post(path).send(body);
-      }
+    describe("Food product examples checks", () => {
+      const foodExamples = require(`${__dirname}/../public/data/food/examples.json`);
 
-      async function requestProd(path, body) {
-        return await superagent
-          .post(`https://ecobalyse.beta.gouv.fr${path}`)
-          .send(body)
-          .set("accept", "json");
+      for (const { name, query } of foodExamples) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/food/recipe", query);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+        });
       }
-
-      // The purpose of these checks is to ensure we don't inadvertandly introduce
-      // unoticed large deviations for ingredients impacts.
-      // Procedure in case of test failure:
-      // - check if the large deviation is legit or not
-      // - if it's not, fix it
-      // - if it's intended, comment the test below, commit, push
-      // - merge your branch onto master
-      // - uncomment this test on master, commit, push
-      // - done.
-      //for (const { id } of ingredients.filter(({ visible }) => visible)) {
-      //  it(`${id} should not have ecoscore deviating with production more than 5%`, async () => {
-      //    const path = "/api/food/recipe";
-      //    const query = { ingredients: [{ id, mass: 0.1 }] };
-      //    try {
-      //      const dev = await requestDev(path, query);
-      //      const prod = await requestProd(path, query);
-      //      const devEcs = dev.body.results.total.ecs;
-      //      const prodEcs = prod.body.results.total.ecs;
-      //      const deviation = 100 - (devEcs / prodEcs) * 100;
-      //      expect(deviation).toBeLessThan(5);
-      //    } catch (err) {
-      //      // Check for an HTTP error
-      //      if (err.status && err.response && err.response.text) {
-      //        // Only process ingredients existing in production, skip otherwise
-      //        if (!err.response.text.includes(`Ingrédient introuvable par id : ${id}`)) {
-      //          throw `${err.status} ${err.message}: ${err.response.text}`;
-      //        }
-      //      } else {
-      //        // Not an HTTP error, re-raise
-      //        throw err;
-      //      }
-      //    }
-      //  });
-      //}
     });
   });
 });

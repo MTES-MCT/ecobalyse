@@ -5,7 +5,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
-import Data.Textile.Inputs as TextileInputs
+import Data.Textile.Query as TextileQuery
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -85,9 +85,9 @@ shareTabView { session, impact, copyToClipBoard, scope } =
                         |> Route.toString
                         |> (++) session.clientUrl
                     , session.queries.textile
-                        |> TextileInputs.buildApiQuery session.clientUrl
+                        |> TextileQuery.buildApiQuery session.clientUrl
                     , session.queries.textile
-                        |> TextileInputs.encodeQuery
+                        |> TextileQuery.encode
                         |> Encode.encode 2
                     )
     in

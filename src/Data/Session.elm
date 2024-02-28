@@ -17,7 +17,7 @@ module Data.Session exposing
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Query as FoodQuery
-import Data.Textile.Inputs as TextileInputs
+import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -36,7 +36,7 @@ type alias Session =
     , notifications : List Notification
     , queries :
         { food : FoodQuery.Query
-        , textile : TextileInputs.Query
+        , textile : TextileQuery.Query
         }
     }
 
@@ -94,7 +94,7 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateTextileQuery : TextileInputs.Query -> Session -> Session
+updateTextileQuery : TextileQuery.Query -> Session -> Session
 updateTextileQuery textileQuery ({ queries } as session) =
     { session | queries = { queries | textile = textileQuery } }
 

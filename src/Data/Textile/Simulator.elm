@@ -19,6 +19,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query exposing (Query)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
@@ -54,13 +55,13 @@ encode v =
         ]
 
 
-init : Db -> Inputs.Query -> Result String Simulator
+init : Db -> Query -> Result String Simulator
 init db =
     let
         defaultImpacts =
             Impact.empty
     in
-    Inputs.fromQuery db.countries db.textile.materials db.textile.products
+    Inputs.fromQuery db
         >> Result.map
             (\({ product } as inputs) ->
                 inputs
@@ -80,7 +81,7 @@ init db =
 
 {-| Computes simulation impacts.
 -}
-compute : Db -> Inputs.Query -> Result String Simulator
+compute : Db -> Query -> Result String Simulator
 compute db query =
     let
         next fn =

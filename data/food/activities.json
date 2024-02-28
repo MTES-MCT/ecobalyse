@@ -18,7 +18,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
-    }
+    },
+    "land_occupation": 4.46757635
   },
   {
     "id": "milk",
@@ -39,7 +40,8 @@
       "permanentPasture": 0.61,
       "livestockDensity": -0.0002
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.391110637
   },
   {
     "id": "milk-organic",
@@ -60,7 +62,8 @@
       "cropDiversity": 0.55,
       "permanentPasture": 1.39,
       "livestockDensity": -0.0002
-    }
+    },
+    "land_occupation": 1.75061187
   },
   {
     "id": "carrot-organic",
@@ -77,7 +80,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.21597245636871945
+    "land_occupation": 0.1586615887
   },
   {
     "id": "flour",
@@ -92,7 +95,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 1.55,
+    "land_occupation": 1.548413603,
     "crop_group": "BLE TENDRE",
     "scenario": "reference"
   },
@@ -108,7 +111,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "land_occupation": 3.274768814
   },
   {
     "id": "sunflower-organic",
@@ -126,7 +130,7 @@
     "explain": "icv bio : consumption mix bio Gingko",
     "crop_group": "TOURNESOL",
     "scenario": "organic",
-    "land_footprint": 1.4552603207337782
+    "land_occupation": 5.860028225
   },
   {
     "id": "rapeseed-organic",
@@ -143,7 +147,7 @@
     "visible": true,
     "crop_group": "COLZA",
     "scenario": "organic",
-    "land_footprint": 4.508728421152503
+    "land_occupation": 4.508453339
   },
   {
     "id": "ground-beef",
@@ -164,7 +168,8 @@
       "permanentPasture": 37.5,
       "livestockDensity": -0.0059
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 53.2806594
   },
   {
     "id": "ground-beef-organic",
@@ -185,14 +190,16 @@
       "cropDiversity": 12.02,
       "permanentPasture": 34.68,
       "livestockDensity": 0.0
-    }
+    },
+    "land_occupation": 48.10660048
   },
   {
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 28.82249325
   },
   {
     "id": "ground-beef-feedlot",
@@ -213,7 +220,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0139
-    }
+    },
+    "land_occupation": 52.4624274
   },
   {
     "id": "cooked-ham",
@@ -234,7 +242,8 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0591
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.558046439
   },
   {
     "id": "cooked-ham-organic",
@@ -255,7 +264,8 @@
       "cropDiversity": 31.17,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0158
-    }
+    },
+    "land_occupation": 24.05215563
   },
   {
     "id": "cooked-ham-fr",
@@ -276,7 +286,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0548
-    }
+    },
+    "land_occupation": 7.438570311
   },
   {
     "id": "chicken-breast",
@@ -297,7 +308,8 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0293
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.039436164
   },
   {
     "id": "chicken-breast-organic",
@@ -318,7 +330,8 @@
       "cropDiversity": 8.94,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0101
-    }
+    },
+    "land_occupation": 15.82110984
   },
   {
     "id": "chicken-breast-fr-organic",
@@ -339,7 +352,8 @@
       "cropDiversity": 27.67,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0101
-    }
+    },
+    "land_occupation": 18.52244428
   },
   {
     "id": "rapeseed-oil",
@@ -353,7 +367,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 8.484055245
   },
   {
     "id": "rapeseed-oil-organic",
@@ -367,7 +382,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "visible": true
+    "visible": true,
+    "land_occupation": 7.473754766
   },
   {
     "id": "sunflower-oil",
@@ -382,7 +398,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 8.59,
+    "land_occupation": 8.588620992,
     "crop_group": "TOURNESOL",
     "scenario": "reference"
   },
@@ -398,7 +414,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "visible": true
+    "visible": true,
+    "land_occupation": 14.36844372
   },
   {
     "id": "zucchini-organic",
@@ -415,7 +432,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.135497686521566
+    "land_occupation": 0.1352116869
   },
   {
     "id": "peach-organic",
@@ -432,7 +449,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.8188873816560418
+    "land_occupation": 0.8185755967
   },
   {
     "id": "melon-organic",
@@ -449,7 +466,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.5
+    "land_occupation": 0.5000263656
   },
   {
     "id": "butter",
@@ -463,7 +480,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 9.167676909
   },
   {
     "id": "butter-organic",
@@ -477,147 +495,168 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "land_occupation": 11.53376237
   },
   {
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.04564122948
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
     "search": "Packaging film low density polyethylene {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.2292804427
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
     "search": "Polystyrene expandable {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.000610793334
   },
   {
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.211062261
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
     "search": "Polypropylene granulate {RER}| production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.03011341585
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.113967426
   },
   {
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
     "search": "Kraft paper production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 5.741060888
   },
   {
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.08960342165
   },
   {
     "id": "pet",
     "name": "PET",
     "category": "packaging",
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.079813952
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
     "search": "Polyethylene high density granulate {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.03500785459
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
     "search": "Aluminium primary ingot {RoW} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.4286118448
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.01180912862
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "category": "transformation",
     "search": "Mixing processing dummy",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
     "search": "Cooking industrial 1kg of cooked product FR",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.1056149549
   },
   {
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.01022983599
   },
   {
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
     "search": "Transport freight sea ship",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.245968834e-5
   },
   {
     "id": "plane",
     "name": "Avion",
     "category": "transport",
     "search": "Transport freight aircraft",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.00268767529
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "category": "transport",
     "search": "Transport freight sea ship reefer",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0001605949799
   },
   {
     "id": "lorry-cooling",
     "category": "transport",
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0117792982
   },
   {
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "category": "energy",
     "search": "Electricity low voltage {FR} market",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.009591199223
   },
   {
     "id": "tap-water",
@@ -631,14 +670,16 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 2.10364488e-5
   },
   {
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "category": "energy",
     "search": "Heat central or small-scale natural gas Europe market",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0002758175609
   },
   {
     "id": "comte-aop",
@@ -653,7 +694,8 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.303181904
   },
   {
     "id": "emmental",
@@ -668,7 +710,8 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.640954284
   },
   {
     "id": "mozzarella",
@@ -683,7 +726,8 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 4.783923222
   },
   {
     "id": "beetroot-organic",
@@ -701,7 +745,7 @@
     "explain": "icv bio = icv carotte bio ginko",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "organic",
-    "land_footprint": 0.21597245636871945
+    "land_occupation": 0.1586615887
   },
   {
     "id": "celeriac-organic",
@@ -719,7 +763,7 @@
     "explain": "Procédé de la carotte bio (donc Basse-Normandie)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.21597245636871945
+    "land_occupation": 0.1586615887
   },
   {
     "id": "turnip-organic",
@@ -736,7 +780,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.15883282826495596
+    "land_occupation": 0.1586615887
   },
   {
     "id": "chickpea-organic",
@@ -754,7 +798,7 @@
     "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic",
-    "land_footprint": 2.36
+    "land_occupation": 2.362643424
   },
   {
     "id": "bellpepper-unheated-greenhouse",
@@ -769,7 +813,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 0.09,
+    "land_occupation": 0.08073666082,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
@@ -784,7 +828,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "land_footprint": 4.02,
+    "land_occupation": 4.01933867,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "reference",
     "visible": true,
@@ -808,7 +852,7 @@
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "land_footprint": 5.63,
+    "land_occupation": 5.627292234,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "organic",
     "visible": true,
@@ -834,7 +878,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 2.48,
+    "land_occupation": 2.475542131,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "import"
   },
@@ -851,7 +895,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 2.84,
+    "land_occupation": 2.834505807,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "import"
   },
@@ -867,7 +911,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 9.348404415
   },
   {
     "id": "sausage-toulouse",
@@ -881,7 +926,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 19.32745302
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -895,7 +941,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 19.43306797
   },
   {
     "id": "sausage-tofu",
@@ -909,7 +956,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.68537247
   },
   {
     "id": "tomato-paste",
@@ -924,7 +972,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 0.44,
+    "land_occupation": 0.436514912,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
@@ -941,7 +989,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 0.84,
+    "land_occupation": 0.8391834274,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference"
   },
@@ -957,7 +1005,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 34.73183225
   },
   {
     "id": "flank-steak",
@@ -971,7 +1020,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 43.41602331
   },
   {
     "id": "flank-steak-organic",
@@ -985,7 +1035,8 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "visible": true
+    "visible": true,
+    "land_occupation": 39.19859355
   },
   {
     "id": "rumsteak",
@@ -999,7 +1050,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 43.41602331
   },
   {
     "id": "durum-wheat-semolina",
@@ -1014,7 +1066,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 3.8,
+    "land_occupation": 3.787168395,
     "crop_group": "AUTRES CEREALES",
     "scenario": "reference"
   },
@@ -1031,7 +1083,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 0.46,
+    "land_occupation": 0.4554658065,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference"
   },
@@ -1048,7 +1100,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "On considère une origine \"Europe\" car le transport du cacao est intégré à l'ICV",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 7.265146111
   },
   {
     "id": "chicken-breast-br-max",
@@ -1070,7 +1123,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0425
-    }
+    },
+    "land_occupation": 9.35109173
   },
   {
     "id": "chicken-breast-fr",
@@ -1092,7 +1146,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0293
-    }
+    },
+    "land_occupation": 7.297867846
   },
   {
     "id": "cane-sugar",
@@ -1107,7 +1162,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 1.54,
+    "land_occupation": 1.541979267,
     "crop_group": "DIVERS",
     "scenario": "import"
   },
@@ -1124,7 +1179,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 8.4,
+    "land_occupation": 8.391110547,
     "crop_group": "VERGERS",
     "scenario": "reference"
   },
@@ -1141,7 +1196,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 11.69,
+    "land_occupation": 11.67705463,
     "crop_group": "VERGERS",
     "scenario": "import"
   },
@@ -1159,7 +1214,7 @@
     "visible": true,
     "explain": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
     "database": "Agribalyse 3.1.1",
-    "land_footprint": 16.08,
+    "land_occupation": 16.07087042,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "import"
   },
@@ -1175,7 +1230,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 21.53074424
   },
   {
     "id": "red-wine",
@@ -1189,7 +1245,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.732091583
   },
   {
     "id": "fresh-shrimps",
@@ -1203,7 +1260,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.85501141
   },
   {
     "id": "large-trout",
@@ -1218,7 +1276,8 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.550819896
   },
   {
     "id": "egg-indoor-code2",
@@ -1239,7 +1298,8 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 3.718097733
   },
   {
     "id": "egg-indoor-code3",
@@ -1260,7 +1320,8 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 3.069579193
   },
   {
     "id": "egg-outdoor-code1",
@@ -1281,7 +1342,8 @@
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
-    }
+    },
+    "land_occupation": 4.268467591
   },
   {
     "id": "egg-organic-code0",
@@ -1302,7 +1364,8 @@
       "cropDiversity": 10.6,
       "permanentPasture": 0.0,
       "livestockDensity": -0.0027
-    }
+    },
+    "land_occupation": 6.778933314
   },
   {
     "id": "wine-grape-organic",
@@ -1319,7 +1382,7 @@
     "visible": true,
     "crop_group": "VIGNES",
     "scenario": "organic",
-    "land_footprint": 1.3764492753623188
+    "land_occupation": 1.032679591
   },
   {
     "id": "lamb-meat-without-bone",
@@ -1340,7 +1403,8 @@
       "permanentPasture": 86.68,
       "livestockDensity": 0.0034
     },
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 96.54788709
   },
   {
     "id": "lamb-organic-meat-without-bone",
@@ -1361,7 +1425,8 @@
       "cropDiversity": 22.96,
       "permanentPasture": 193.27,
       "livestockDensity": 0.0009
-    }
+    },
+    "land_occupation": 206.0803103
   },
   {
     "id": "pear-organic",
@@ -1379,7 +1444,7 @@
     "explain": "icv bio = icv mix gingko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.41691130691904194
+    "land_occupation": 0.3820688838
   },
   {
     "id": "carrot-fr",
@@ -1396,7 +1461,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.12333583188828015
+    "land_occupation": 0.12333583188828015
   },
   {
     "id": "carrot-eu",
@@ -1413,7 +1478,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.1802707158308635
+    "land_occupation": 0.1802707158308635
   },
   {
     "id": "carrot-non-ue",
@@ -1430,7 +1495,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.28754145691431554
+    "land_occupation": 0.28754145691431554
   },
   {
     "id": "zucchini-fr",
@@ -1447,7 +1512,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.0976557893177337
+    "land_occupation": 0.0976557893177337
   },
   {
     "id": "zucchini-eu",
@@ -1464,7 +1529,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.22895499508484513
+    "land_occupation": 0.22895499508484513
   },
   {
     "id": "pear-fr",
@@ -1481,7 +1546,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.2402223288900337
+    "land_occupation": 0.2402223288900337
   },
   {
     "id": "pear-eu",
@@ -1498,7 +1563,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.26409236881890263
+    "land_occupation": 0.26409236881890263
   },
   {
     "id": "peach-fr",
@@ -1515,7 +1580,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.4767671166332219
+    "land_occupation": 0.4767671166332219
   },
   {
     "id": "peach-eu",
@@ -1532,7 +1597,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.4604600969201655
+    "land_occupation": 0.4604600969201655
   },
   {
     "id": "melon-fr",
@@ -1549,7 +1614,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.4245124832275369
+    "land_occupation": 0.4245124832275369
   },
   {
     "id": "melon-eu",
@@ -1567,7 +1632,7 @@
     "explain": "ICV UE = ICV FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.4245124832275369
+    "land_occupation": 0.4245124832275369
   },
   {
     "id": "potato-industry-fr",
@@ -1584,7 +1649,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.2892563843094771
+    "land_occupation": 0.2892563843094771
   },
   {
     "id": "potato-table-fr",
@@ -1601,7 +1666,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.28926186197910325
+    "land_occupation": 0.28926186197910325
   },
   {
     "id": "potato-starch",
@@ -1618,7 +1683,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.79665209842946
+    "land_occupation": 1.79665209842946
   },
   {
     "id": "onion-fr",
@@ -1635,7 +1700,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.26
+    "land_occupation": 0.26
   },
   {
     "id": "onion-eu",
@@ -1653,7 +1718,7 @@
     "explain": "UE= pays bas",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.2157503211459354
+    "land_occupation": 0.2157503211459354
   },
   {
     "id": "onion-non-ue",
@@ -1670,7 +1735,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.2436707630156826
+    "land_occupation": 0.2436707630156826
   },
   {
     "id": "eggplant-fr",
@@ -1687,7 +1752,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.0976557893177337
+    "land_occupation": 0.0976557893177337
   },
   {
     "id": "eggplant-eu",
@@ -1705,7 +1770,7 @@
     "explain": "UE = FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.0976557893177337
+    "land_occupation": 0.0976557893177337
   },
   {
     "id": "french-bean-fr",
@@ -1722,7 +1787,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 1.3355550247988053
+    "land_occupation": 1.3355550247988053
   },
   {
     "id": "french-bean-eu",
@@ -1740,7 +1805,7 @@
     "explain": "ICV UE=FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.3355550247988053
+    "land_occupation": 1.3355550247988053
   },
   {
     "id": "french-bean-non-eu",
@@ -1758,7 +1823,7 @@
     "explain": "ICV hors UE = FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.3355550247988053
+    "land_occupation": 1.3355550247988053
   },
   {
     "id": "lettuce-fr",
@@ -1775,7 +1840,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.1088898131414479
+    "land_occupation": 0.1088898131414479
   },
   {
     "id": "lettuce-eu",
@@ -1793,7 +1858,7 @@
     "explain": "ICV UE = ICV glo",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.09184830824850201
+    "land_occupation": 0.09184830824850201
   },
   {
     "id": "lettuce-non-eu",
@@ -1811,7 +1876,7 @@
     "explain": "ICV hors UE = ICV glo",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.09184830824850201
+    "land_occupation": 0.09184830824850201
   },
   {
     "id": "garden-peas-fr",
@@ -1828,7 +1893,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 1.38
+    "land_occupation": 1.38
   },
   {
     "id": "garden-peas-eu",
@@ -1846,7 +1911,7 @@
     "explain": "ICV UE = ICV FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.38
+    "land_occupation": 1.38
   },
   {
     "id": "cherry-fr",
@@ -1863,7 +1928,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 14.06
+    "land_occupation": 14.06
   },
   {
     "id": "lemon-eu",
@@ -1881,7 +1946,7 @@
     "explain": "ICV UE = icv ES",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.27998977051148904
+    "land_occupation": 0.27998977051148904
   },
   {
     "id": "plum-fr",
@@ -1898,7 +1963,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 14.06
+    "land_occupation": 14.06
   },
   {
     "id": "squash-fr",
@@ -1915,7 +1980,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.0976557893177337
+    "land_occupation": 0.0976557893177337
   },
   {
     "id": "squash-eu",
@@ -1932,7 +1997,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.22895499508484513
+    "land_occupation": 0.22895499508484513
   },
   {
     "id": "squash-organic",
@@ -1949,7 +2014,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.135497686521566
+    "land_occupation": 0.135497686521566
   },
   {
     "id": "tomato-heated-greenhouse-fr",
@@ -1966,7 +2031,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.04
+    "land_occupation": 0.04
   },
   {
     "id": "tomato-greenhouse-fr",
@@ -1983,7 +2048,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.06
+    "land_occupation": 0.06
   },
   {
     "id": "tomato-greenhouse-eu",
@@ -2001,7 +2066,7 @@
     "explain": "ICV UE = ICV ES",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.08931800900440257
+    "land_occupation": 0.08931800900440257
   },
   {
     "id": "apricot-fr",
@@ -2018,7 +2083,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.5918090797657374
+    "land_occupation": 0.5918090797657374
   },
   {
     "id": "apricot-eu",
@@ -2035,7 +2100,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.5918090797657374
+    "land_occupation": 0.5918090797657374
   },
   {
     "id": "hazelnut-non-eu",
@@ -2053,7 +2118,7 @@
     "explain": "icv hors ue = icv TR",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 8.1
+    "land_occupation": 8.1
   },
   {
     "id": "hazelnut-eu",
@@ -2071,7 +2136,7 @@
     "explain": "icv ue = icv IT",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 7.054242233148819
+    "land_occupation": 7.054242233148819
   },
   {
     "id": "hazelnut-unshelled-eu",
@@ -2089,7 +2154,7 @@
     "explain": "ICV UE = ICV IT",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 14.113481475364038
+    "land_occupation": 14.113481475364038
   },
   {
     "id": "hazelnut-unshelled-non-eu",
@@ -2107,7 +2172,7 @@
     "explain": "icv hors UE = ICV TR",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 16.203589547263125
+    "land_occupation": 16.203589547263125
   },
   {
     "id": "artichoke-fr",
@@ -2124,7 +2189,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.44512050373762024
+    "land_occupation": 0.44512050373762024
   },
   {
     "id": "artichoke-organic",
@@ -2141,7 +2206,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.7721396965461186
+    "land_occupation": 0.7721396965461186
   },
   {
     "id": "cauliflower-organic",
@@ -2158,7 +2223,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.6736524550069993
+    "land_occupation": 0.6736524550069993
   },
   {
     "id": "cauliflower-fr",
@@ -2175,7 +2240,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.46193773048543957
+    "land_occupation": 0.46193773048543957
   },
   {
     "id": "leek-fr",
@@ -2192,7 +2257,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.1729183475047969
+    "land_occupation": 0.1729183475047969
   },
   {
     "id": "beetroot-fr",
@@ -2209,7 +2274,7 @@
     "visible": true,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference",
-    "land_footprint": 0.12333583188828015
+    "land_occupation": 0.12333583188828015
   },
   {
     "id": "turnip-fr",
@@ -2226,7 +2291,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.12333583188828015
+    "land_occupation": 0.12333583188828015
   },
   {
     "id": "turnip-eu",
@@ -2243,7 +2308,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.1802707158308635
+    "land_occupation": 0.1802707158308635
   },
   {
     "id": "turnip-non-eu",
@@ -2261,7 +2326,7 @@
     "explain": "ICV hors UE = ICV row",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.28754145691431554
+    "land_occupation": 0.28754145691431554
   },
   {
     "id": "chinese-cabbage-fr",
@@ -2278,7 +2343,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.46193773048543957
+    "land_occupation": 0.46193773048543957
   },
   {
     "id": "chinese-cabbage-organic",
@@ -2296,7 +2361,7 @@
     "explain": "icv bio = icv mix ginko (attention incohérence du coup avec le conventionnel qui appelle l'ICV cauliflower)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.7721396965461186
+    "land_occupation": 0.7721396965461186
   },
   {
     "id": "white-cabbage-non-eu",
@@ -2314,7 +2379,7 @@
     "explain": "ICV hors UE = ICV row",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.10360184975001348
+    "land_occupation": 0.10360184975001348
   },
   {
     "id": "green-cabbage-fr",
@@ -2332,7 +2397,7 @@
     "explain": "On prend pour le cauliflower (et tous les proxy utilisant cauliflower), le \"winter conventional\" pour garantir la comparabilité avec l'ICV bio",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.46193773048543957
+    "land_occupation": 0.46193773048543957
   },
   {
     "id": "green-cabbage-organic",
@@ -2349,7 +2414,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.6736524550069993
+    "land_occupation": 0.6736524550069993
   },
   {
     "id": "red-cabbage-non-eu",
@@ -2367,7 +2432,7 @@
     "explain": "icv hors ue = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.11
+    "land_occupation": 0.11
   },
   {
     "id": "shallot-fr",
@@ -2384,7 +2449,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.26
+    "land_occupation": 0.26
   },
   {
     "id": "orange-eu",
@@ -2402,7 +2467,7 @@
     "explain": "ICV UE = ICV ES",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.34941029429860554
+    "land_occupation": 0.34941029429860554
   },
   {
     "id": "orange-non-eu",
@@ -2420,7 +2485,7 @@
     "explain": "ICV hors UE = ICV ZA",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.2708312448910977
+    "land_occupation": 0.2708312448910977
   },
   {
     "id": "olive-eu",
@@ -2438,7 +2503,7 @@
     "explain": "ICV UE = ICV ES (car 70% de la conso FR)",
     "crop_group": "OLIVIERS",
     "scenario": "import",
-    "land_footprint": 2.026852436246489
+    "land_occupation": 2.026852436246489
   },
   {
     "id": "rapeseed-fr",
@@ -2455,7 +2520,7 @@
     "visible": true,
     "crop_group": "COLZA",
     "scenario": "reference",
-    "land_footprint": 3.6332974372768536
+    "land_occupation": 3.6332974372768536
   },
   {
     "id": "rapeseed-eu",
@@ -2473,7 +2538,7 @@
     "explain": "icv UE = icv Glo",
     "crop_group": "COLZA",
     "scenario": "import",
-    "land_footprint": 5.119240317773792
+    "land_occupation": 5.119240317773792
   },
   {
     "id": "rapeseed-non-eu",
@@ -2491,7 +2556,7 @@
     "explain": "icv hors ue = icv CA ",
     "crop_group": "COLZA",
     "scenario": "import",
-    "land_footprint": 5.365016737978805
+    "land_occupation": 5.365016737978805
   },
   {
     "id": "pistachio-non-eu",
@@ -2509,7 +2574,7 @@
     "explain": "icv hors UE = icv CN (pays producteur majorant)",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 2.7502023508379936
+    "land_occupation": 2.7502023508379936
   },
   {
     "id": "peanut-non-eu",
@@ -2527,7 +2592,7 @@
     "explain": "icv hors UE = icv IN (pays producteur majorant)",
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
-    "land_footprint": 11.34845714598582
+    "land_occupation": 11.34845714598582
   },
   {
     "id": "olive-oil-eu",
@@ -2544,7 +2609,7 @@
     "visible": true,
     "crop_group": "OLIVIERS",
     "scenario": "reference",
-    "land_footprint": 12.03
+    "land_occupation": 12.03
   },
   {
     "id": "avocado-non-eu",
@@ -2562,7 +2627,7 @@
     "explain": "1 seul ICV dispo (glo)",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 1.0194336927702459
+    "land_occupation": 1.0194336927702459
   },
   {
     "id": "chickpea-fr",
@@ -2579,7 +2644,7 @@
     "visible": true,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference",
-    "land_footprint": 2.79
+    "land_occupation": 2.79
   },
   {
     "id": "sunflower-fr",
@@ -2597,7 +2662,7 @@
     "explain": "part non comestible des noix",
     "crop_group": "TOURNESOL",
     "scenario": "reference",
-    "land_footprint": 4.77
+    "land_occupation": 4.77
   },
   {
     "id": "sunflower-eu",
@@ -2615,7 +2680,7 @@
     "explain": "part non comestible des noix\nicv ue = icv HU",
     "crop_group": "TOURNESOL",
     "scenario": "import",
-    "land_footprint": 2.1239980855789122
+    "land_occupation": 2.1239980855789122
   },
   {
     "id": "sunflower-non-eu",
@@ -2633,7 +2698,7 @@
     "explain": "icv hors ue = icv glo",
     "crop_group": "TOURNESOL",
     "scenario": "import",
-    "land_footprint": 3.4944861075504163
+    "land_occupation": 3.4944861075504163
   },
   {
     "id": "kiwi-fr",
@@ -2650,7 +2715,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.9621049816156189
+    "land_occupation": 0.9621049816156189
   },
   {
     "id": "kiwi-eu",
@@ -2667,7 +2732,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.31780832776090634
+    "land_occupation": 0.31780832776090634
   },
   {
     "id": "kiwi-non-eu",
@@ -2685,7 +2750,7 @@
     "explain": "icv hors ue = icv glo",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.31780832776090634
+    "land_occupation": 0.31780832776090634
   },
   {
     "id": "mango-non-eu",
@@ -2702,7 +2767,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.41
+    "land_occupation": 0.41
   },
   {
     "id": "spinach-non-eu",
@@ -2720,7 +2785,7 @@
     "explain": "icv hors UE = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.05
+    "land_occupation": 0.05
   },
   {
     "id": "fennel-fr",
@@ -2738,7 +2803,7 @@
     "explain": "icv FR = icv glo (reprise hyp mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.15881247412378605
+    "land_occupation": 0.15881247412378605
   },
   {
     "id": "fennel-eu",
@@ -2756,7 +2821,7 @@
     "explain": "icv UE = icv glo = icv FR (imp majoritairement d'italie)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.15881247412378605
+    "land_occupation": 0.15881247412378605
   },
   {
     "id": "broccoli-eu",
@@ -2774,7 +2839,7 @@
     "explain": "icv eu = icv glo (hyp AGB)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.11709118385660207
+    "land_occupation": 0.11709118385660207
   },
   {
     "id": "blueberry-non-eu",
@@ -2792,7 +2857,7 @@
     "explain": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 3.45
+    "land_occupation": 3.45
   },
   {
     "id": "raspberry-eu",
@@ -2810,7 +2875,7 @@
     "explain": "icv ue = icv RS (seul dispo dans agb)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 2.03
+    "land_occupation": 2.03
   },
   {
     "id": "strawberry-eu",
@@ -2828,7 +2893,7 @@
     "explain": "icv ue = icv ES (car majorité des importations). ICV plein champ (donc différence de modes de production avec ICV FR qui est une moy nationale de plusieurs modes de production)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.9516721361287832
+    "land_occupation": 1.9516721361287832
   },
   {
     "id": "strawberry-non-eu",
@@ -2846,7 +2911,7 @@
     "explain": "icv hors ue = icv MA",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 1.2688532832565271
+    "land_occupation": 1.2688532832565271
   },
   {
     "id": "banana-wi",
@@ -2864,7 +2929,7 @@
     "explain": "cas particulier : icv antilles + transport par défaut hors UE + SE France",
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.3477724646954863
+    "land_occupation": 0.3477724646954863
   },
   {
     "id": "banana-non-eu",
@@ -2882,7 +2947,7 @@
     "explain": "icv hors ue = icv glo",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.27599736924273083
+    "land_occupation": 0.27599736924273083
   },
   {
     "id": "cucumber-fr-inseason",
@@ -2900,7 +2965,7 @@
     "explain": "icv fr de saison = icv fr tomate serre non chauffée.",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.06
+    "land_occupation": 0.06
   },
   {
     "id": "cucumber-fr-offseason",
@@ -2918,7 +2983,7 @@
     "explain": "icv fr hors saison = icv glo concombre serre chauffée.",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.22536109199087415
+    "land_occupation": 0.22536109199087415
   },
   {
     "id": "cucumber-eu",
@@ -2936,7 +3001,7 @@
     "explain": "icv ue = icv glo disponible (donc concombre glo serre chauffée)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.22536109199087415
+    "land_occupation": 0.22536109199087415
   },
   {
     "id": "strawberry-fr-inseason",
@@ -2954,7 +3019,7 @@
     "explain": "à vérifier avec Vincent : icv FR de saison = icv fraise FR plein champ (pourrait être Strawberry, soilless protected crops, non-heated, conventional, at farm gate {FR} par symétrie avec la fraise FR hors saison qui prend l'icv serre chauffée)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.6380864199968058
+    "land_occupation": 0.6380864199968058
   },
   {
     "id": "strawberry-fr-offseason",
@@ -2972,7 +3037,7 @@
     "explain": "à vérifier avec Vincent : icv FR hors saison = icv fraise FR serre chauffée",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 1.0821398434504004
+    "land_occupation": 1.0821398434504004
   },
   {
     "id": "celery-fr",
@@ -2990,7 +3055,7 @@
     "explain": "icv fr = icv glo (seul dispo et utilisé pour le mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.13833008133095676
+    "land_occupation": 0.13833008133095676
   },
   {
     "id": "celery-eu",
@@ -3008,7 +3073,7 @@
     "explain": "icv ue = icv glo (idem que icv fr, seul dispo et utilisé pour le mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.13833008133095676
+    "land_occupation": 0.13833008133095676
   },
   {
     "id": "celeriac-fr",
@@ -3026,7 +3091,7 @@
     "explain": "icv celeri-rave fr = icv carotte fr",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.12333583188828015
+    "land_occupation": 0.12333583188828015
   },
   {
     "id": "celeriac-eu",
@@ -3044,7 +3109,7 @@
     "explain": "icv celeri-rave eu = icv carotte nl (même hyp que pour la carotte, et cohérent avec importation de celeri rave d'UE)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.1802707158308635
+    "land_occupation": 0.1802707158308635
   },
   {
     "id": "celeriac-non-eu",
@@ -3062,7 +3127,7 @@
     "explain": "icv celeri-rave hors eu = icv carotte row (même hyp que pour la carotte)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.28754145691431554
+    "land_occupation": 0.28754145691431554
   },
   {
     "id": "walnut-inshell-fr",
@@ -3079,7 +3144,7 @@
     "visible": true,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
-    "land_footprint": 6.53
+    "land_occupation": 6.53
   },
   {
     "id": "walnut-husked-fr",
@@ -3097,7 +3162,7 @@
     "explain": "icv à vérifier avec Vincent",
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
-    "land_footprint": 6.162216038989542
+    "land_occupation": 6.162216038989542
   },
   {
     "id": "chestnut-husked-fr",
@@ -3115,7 +3180,7 @@
     "explain": "même icv que noix",
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
-    "land_footprint": 6.162216038989542
+    "land_occupation": 6.162216038989542
   },
   {
     "id": "chestnut-inshell-fr",
@@ -3132,7 +3197,7 @@
     "visible": true,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
-    "land_footprint": 6.13
+    "land_occupation": 6.13
   },
   {
     "id": "mandarin-eu",
@@ -3150,7 +3215,7 @@
     "explain": "icv ue = icv ES",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.34442656770861924
+    "land_occupation": 0.34442656770861924
   },
   {
     "id": "mushroom-eu",
@@ -3168,7 +3233,7 @@
     "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.51
+    "land_occupation": 0.51
   },
   {
     "id": "brussels-sprout-fr",
@@ -3185,7 +3250,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.46193773048543957
+    "land_occupation": 0.46193773048543957
   },
   {
     "id": "brussels-sprout-organic",
@@ -3202,7 +3267,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.6736524550069993
+    "land_occupation": 0.6736524550069993
   },
   {
     "id": "lentils-uncooked-fr",
@@ -3219,7 +3284,7 @@
     "visible": true,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference",
-    "land_footprint": 2.79
+    "land_occupation": 2.79
   },
   {
     "id": "curly-kale-fr",
@@ -3237,7 +3302,7 @@
     "explain": "Procédé du chou frisé approximé par le procédé du chou-fleur",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.46193773048543957
+    "land_occupation": 0.46193773048543957
   },
   {
     "id": "curly-kale-organic",
@@ -3255,7 +3320,7 @@
     "explain": "Procédé du chou frisé bio approximé par le procédé du chou-fleur bio",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.6736524550069993
+    "land_occupation": 0.6736524550069993
   },
   {
     "id": "pumpkin-fr",
@@ -3273,7 +3338,7 @@
     "explain": "procédé citrouille approximé par la courgette (hyp AGB)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.22895499508484513
+    "land_occupation": 0.22895499508484513
   },
   {
     "id": "clementine-non-eu",
@@ -3291,7 +3356,7 @@
     "explain": "icv hors ue = icv MA",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.5316750392063939
+    "land_occupation": 0.5316750392063939
   },
   {
     "id": "endive-fr",
@@ -3309,7 +3374,7 @@
     "explain": "icv endive = icv laitue",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.1088898131414479
+    "land_occupation": 0.1088898131414479
   },
   {
     "id": "endive-eu",
@@ -3327,7 +3392,7 @@
     "explain": "mêmes hypothèses que laitue",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.09184830824850201
+    "land_occupation": 0.09184830824850201
   },
   {
     "id": "wine-grape-fr",
@@ -3344,7 +3409,7 @@
     "visible": true,
     "crop_group": "VIGNES",
     "scenario": "reference",
-    "land_footprint": 0.97
+    "land_occupation": 0.97
   },
   {
     "id": "lambs-lettuce-fr",
@@ -3361,7 +3426,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 0.1088898131414479
+    "land_occupation": 0.1088898131414479
   },
   {
     "id": "lambs-lettuce-eu",
@@ -3378,7 +3443,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 0.09184830824850201
+    "land_occupation": 0.09184830824850201
   },
   {
     "id": "sweet-corn-fr",
@@ -3396,7 +3461,7 @@
     "explain": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "scenario": "reference",
-    "land_footprint": 0.953
+    "land_occupation": 0.953
   },
   {
     "id": "pineapple-non-eu",
@@ -3414,7 +3479,7 @@
     "explain": "icv hors ue = icv CR (principal pays d'importation et valeur majorante)",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.2965265782314691
+    "land_occupation": 0.2965265782314691
   },
   {
     "id": "broad-beans-eu",
@@ -3432,7 +3497,7 @@
     "explain": "Procédé suisse (seul dispo dans AGB)\nRatios : reprise des hypothèses des petit-pois",
     "crop_group": "PROTEAGINEUX",
     "scenario": "import",
-    "land_footprint": 2.8
+    "land_occupation": 2.8
   },
   {
     "id": "broad-beans-fr",
@@ -3450,7 +3515,7 @@
     "explain": "Procédé suisse (seul dispo dans AGB, meme hyp que agb)\nRatios : reprise des hypothèses des petit-pois",
     "crop_group": "PROTEAGINEUX",
     "scenario": "reference",
-    "land_footprint": 2.8
+    "land_occupation": 2.8
   },
   {
     "id": "swiss-chard-eu",
@@ -3468,7 +3533,7 @@
     "explain": "icv blette = icv épinard",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "import",
-    "land_footprint": 0.05
+    "land_occupation": 0.05
   },
   {
     "id": "swiss-chard-fr",
@@ -3486,7 +3551,7 @@
     "explain": "icv blette = icv épinard",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference",
-    "land_footprint": 0.05
+    "land_occupation": 0.05
   },
   {
     "id": "flageolet-bean-eu",
@@ -3504,7 +3569,7 @@
     "explain": "Densité : même hyp que petit pois",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
-    "land_footprint": 2.8
+    "land_occupation": 2.8
   },
   {
     "id": "flageolet-bean-fr",
@@ -3522,7 +3587,7 @@
     "explain": "Densité : même hyp que petit pois",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
-    "land_footprint": 2.8
+    "land_occupation": 2.8
   },
   {
     "id": "rice-basmati-non-eu",
@@ -3540,7 +3605,7 @@
     "explain": "icv hors ue = icv IN",
     "crop_group": "RIZ",
     "scenario": "import",
-    "land_footprint": 1.21
+    "land_occupation": 1.21
   },
   {
     "id": "soft-wheat-organic",
@@ -3557,7 +3622,7 @@
     "visible": true,
     "crop_group": "BLE TENDRE",
     "scenario": "organic",
-    "land_footprint": 2.6334180524867206
+    "land_occupation": 2.6334180524867206
   },
   {
     "id": "soft-wheat-fr",
@@ -3574,7 +3639,7 @@
     "visible": true,
     "crop_group": "BLE TENDRE",
     "scenario": "reference",
-    "land_footprint": 1.19
+    "land_occupation": 1.19
   },
   {
     "id": "soft-wheat-non-eu",
@@ -3592,7 +3657,7 @@
     "explain": "icv hors ue = icv glo (majorant)",
     "crop_group": "BLE TENDRE",
     "scenario": "import",
-    "land_footprint": 2.7526017487732166
+    "land_occupation": 2.7526017487732166
   },
   {
     "id": "durum-wheat-fr",
@@ -3609,7 +3674,7 @@
     "visible": true,
     "crop_group": "AUTRES CEREALES",
     "scenario": "reference",
-    "land_footprint": 2.01
+    "land_occupation": 2.01
   },
   {
     "id": "durum-wheat-eu",
@@ -3627,7 +3692,7 @@
     "explain": "blé dur UE majorant (GR)",
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
-    "land_footprint": 3.522339539389686
+    "land_occupation": 3.522339539389686
   },
   {
     "id": "durum-wheat-non-eu",
@@ -3645,7 +3710,7 @@
     "explain": "blé dur hors UE majorant (AU)",
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
-    "land_footprint": 3.375516724097795
+    "land_occupation": 3.375516724097795
   },
   {
     "id": "apple-organic",
@@ -3663,7 +3728,7 @@
     "explain": "icv bio = icv mix gingko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.38
+    "land_occupation": 0.38
   },
   {
     "id": "apple-fr",
@@ -3680,7 +3745,7 @@
     "visible": true,
     "crop_group": "VERGERS",
     "scenario": "reference",
-    "land_footprint": 0.38
+    "land_occupation": 0.38
   },
   {
     "id": "potato-table-organic",
@@ -3698,7 +3763,7 @@
     "explain": "icv bio = icv ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.4722120942351419
+    "land_occupation": 0.4722120942351419
   },
   {
     "id": "potato-industry-organic",
@@ -3715,7 +3780,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.4702722617322555
+    "land_occupation": 0.4702722617322555
   },
   {
     "id": "kiwi-organic",
@@ -3733,7 +3798,7 @@
     "explain": "ocv bio = icv mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.6058029841998362
+    "land_occupation": 0.6058029841998362
   },
   {
     "id": "red-cabbage-organic",
@@ -3751,7 +3816,7 @@
     "explain": "icv bio = icv mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.1312199498824066
+    "land_occupation": 0.1312199498824066
   },
   {
     "id": "sugar-beet-organic",
@@ -3768,7 +3833,7 @@
     "visible": true,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "organic",
-    "land_footprint": 0.0761093611061273
+    "land_occupation": 0.0761093611061273
   },
   {
     "id": "papaya-organic",
@@ -3786,7 +3851,7 @@
     "explain": "icv bio = icv mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.1739832985919137
+    "land_occupation": 0.1739832985919137
   },
   {
     "id": "tomato-organic",
@@ -3804,7 +3869,7 @@
     "explain": "icv bio = icv mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.027386877875633438
+    "land_occupation": 0.027386877875633438
   },
   {
     "id": "pineapple-organic",
@@ -3822,7 +3887,7 @@
     "explain": "icv bio Ginko + compléments bio + transport par défaut hors UE",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.27183328740299434
+    "land_occupation": 0.27183328740299434
   },
   {
     "id": "garden-peas-organic",
@@ -3839,7 +3904,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 4.732492469966047
+    "land_occupation": 4.732492469966047
   },
   {
     "id": "almond-inshell-organic",
@@ -3857,7 +3922,7 @@
     "explain": "icv bio = icv bio CN ginko (utilisé pour le mix bio Ginko)",
     "crop_group": "FRUITS A COQUES",
     "scenario": "organic",
-    "land_footprint": 5.678362653143869
+    "land_occupation": 5.678362653143869
   },
   {
     "id": "lettuce-organic",
@@ -3875,7 +3940,7 @@
     "explain": "icv bio = icv bio fr ginko (utilisé pour mix ginko)",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.03135932533266212
+    "land_occupation": 0.03135932533266212
   },
   {
     "id": "mango-organic",
@@ -3893,7 +3958,7 @@
     "explain": "icv bio ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.8368627191981346
+    "land_occupation": 0.8368627191981346
   },
   {
     "id": "lychee-organic",
@@ -3911,7 +3976,7 @@
     "explain": "icv bio ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.8368627191981346
+    "land_occupation": 0.8368627191981346
   },
   {
     "id": "lychee-non-eu",
@@ -3929,7 +3994,7 @@
     "explain": "icv mangue (reprise hyp Ginko) sans transport en avion",
     "crop_group": "VERGERS",
     "scenario": "import",
-    "land_footprint": 0.41
+    "land_occupation": 0.41
   },
   {
     "id": "banana-organic",
@@ -3947,7 +4012,7 @@
     "explain": "icv bio = icv mix Ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.507190070288124
+    "land_occupation": 0.507190070288124
   },
   {
     "id": "orange-organic",
@@ -3965,7 +4030,7 @@
     "explain": "ICV bio = icv ES bio ginko car constitue 86% du mix bio ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.37137037037037035
+    "land_occupation": 0.37137037037037035
   },
   {
     "id": "lemon-organic",
@@ -3983,7 +4048,7 @@
     "explain": "ICV bio = icv ES car icv utilisé dans le mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.3011111167036458
+    "land_occupation": 0.3011111167036458
   },
   {
     "id": "celery-organic",
@@ -4000,7 +4065,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.13499997787177878
+    "land_occupation": 0.13499997787177878
   },
   {
     "id": "olive-organic",
@@ -4018,7 +4083,7 @@
     "explain": "pas d'olive conv FR donc transport bio = transport ue",
     "crop_group": "OLIVIERS",
     "scenario": "organic",
-    "land_footprint": 3.631654573968224
+    "land_occupation": 3.631654573968224
   },
   {
     "id": "peanut-organic",
@@ -4036,7 +4101,7 @@
     "explain": "icv bio ginko + compléments bio + transports hors ue",
     "crop_group": "FRUITS A COQUES",
     "scenario": "organic",
-    "land_footprint": 5.229883391320086
+    "land_occupation": 5.229883391320086
   },
   {
     "id": "raspberry-organic",
@@ -4054,7 +4119,7 @@
     "explain": "icv bio = icv RS ginko + transport UE car pas de conv FR",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 3.228532152901265
+    "land_occupation": 3.228532152901265
   },
   {
     "id": "lambs-lettuce-organic",
@@ -4072,7 +4137,7 @@
     "explain": "idem que laitue",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.03135932533266212
+    "land_occupation": 0.03135932533266212
   },
   {
     "id": "endive-organic",
@@ -4090,7 +4155,7 @@
     "explain": "icv endive = icv laitue",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.03135932533266212
+    "land_occupation": 0.03135932533266212
   },
   {
     "id": "durum-wheat-organic",
@@ -4108,7 +4173,7 @@
     "explain": "icv bio = icv fr bio ginko (utilisé pour mix ginko)",
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
-    "land_footprint": 2.5811340696785146
+    "land_occupation": 2.5811340696785146
   },
   {
     "id": "onion-organic",
@@ -4125,7 +4190,7 @@
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.2840070160120382
+    "land_occupation": 0.2840070160120382
   },
   {
     "id": "rice-basmati-organic",
@@ -4143,7 +4208,7 @@
     "explain": "icv bio glo ginko + SE bio + transport hors ue",
     "crop_group": "RIZ",
     "scenario": "organic",
-    "land_footprint": 1.4067635468906579
+    "land_occupation": 1.4067635468906579
   },
   {
     "id": "radish-organic",
@@ -4161,7 +4226,7 @@
     "explain": "radis bio = radio bio glo ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.032849996124208525
+    "land_occupation": 0.032849996124208525
   },
   {
     "id": "lentils-uncooked-organic",
@@ -4179,7 +4244,7 @@
     "explain": "icv bio = icv CA bio ginko",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic",
-    "land_footprint": 7.95448056949499
+    "land_occupation": 7.95448056949499
   },
   {
     "id": "apricot-organic",
@@ -4197,7 +4262,7 @@
     "explain": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 0.7014772270387482
+    "land_occupation": 0.7014772270387482
   },
   {
     "id": "leek-organic",
@@ -4215,7 +4280,7 @@
     "explain": "icv utilisé dans mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.14296478127707435
+    "land_occupation": 0.14296478127707435
   },
   {
     "id": "cherry-organic",
@@ -4233,7 +4298,7 @@
     "explain": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 25.49228831792611
+    "land_occupation": 25.49228831792611
   },
   {
     "id": "plum-organic",
@@ -4251,7 +4316,7 @@
     "explain": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "land_footprint": 25.49228831792611
+    "land_occupation": 25.49228831792611
   },
   {
     "id": "shallot-organic",
@@ -4269,7 +4334,7 @@
     "explain": "icv utilisé dans mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.2840070160120382
+    "land_occupation": 0.2840070160120382
   },
   {
     "id": "blueberry-organic",
@@ -4287,7 +4352,7 @@
     "explain": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 3.3336667542676595
+    "land_occupation": 3.3336667542676595
   },
   {
     "id": "spinach-organic",
@@ -4305,7 +4370,7 @@
     "explain": "icv hors UE = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.04691249539079209
+    "land_occupation": 0.04691249539079209
   },
   {
     "id": "watermelon-organic",
@@ -4323,6 +4388,6 @@
     "explain": "icv melon",
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "land_footprint": 0.5270972461158159
+    "land_occupation": 0.5270972461158159
   }
 ]
