@@ -120,7 +120,8 @@ getStepProp label prop default =
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle
 fromQuery db =
-    Inputs.fromQuery db >> Result.map (init db)
+    Inputs.fromQuery db.countries db.textile.materials db.textile.products
+        >> Result.map (init db)
 
 
 init : Db -> Inputs -> LifeCycle

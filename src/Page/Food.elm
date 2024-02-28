@@ -8,12 +8,14 @@ module Page.Food exposing
     )
 
 import Autocomplete exposing (Autocomplete)
+import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Food.EcosystemicServices as EcosystemicServices
+import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -159,8 +161,7 @@ update ({ db, queries } as session) msg model =
     in
     case msg of
         AddIngredient ingredient ->
-            model
-                |> update session (SetModal NoModal)
+            update session (SetModal NoModal) model
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
@@ -230,8 +231,7 @@ update ({ db, queries } as session) msg model =
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            { model | initialQuery = queryToLoad }
-                |> update session (SetModal NoModal)
+            update session (SetModal NoModal) { model | initialQuery = queryToLoad }
                 |> updateQuery queryToLoad
 
         NoOp ->
@@ -327,7 +327,7 @@ update ({ db, queries } as session) msg model =
         SetModal NoModal ->
             ( { model | modal = NoModal }
             , session
-            , Ports.removeBodyClass "prevent-scrolling"
+            , commandsForNoModal model.modal
             )
 
         SetModal ComparatorModal ->
@@ -339,13 +339,21 @@ update ({ db, queries } as session) msg model =
         SetModal (AddIngredientModal maybeOldIngredient autocomplete) ->
             ( { model | modal = AddIngredientModal maybeOldIngredient autocomplete }
             , session
-            , Ports.addBodyClass "prevent-scrolling"
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         SetModal (SelectExampleModal autocomplete) ->
             ( { model | modal = SelectExampleModal autocomplete }
             , session
-            , Ports.addBodyClass "prevent-scrolling"
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         SwitchBookmarksTab bookmarkTab ->
@@ -424,6 +432,35 @@ updateQuery query ( model, session, msg ) =
     )
 
 
+commandsForNoModal : Modal -> Cmd Msg
+commandsForNoModal modal =
+    case modal of
+        AddIngredientModal maybeOldIngredient _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus
+                    -- This whole "node to focus" management is happening as a fallback
+                    -- if the modal was closed without choosing anything.
+                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                    -- and overload any focus being done here.
+                    (maybeOldIngredient
+                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
+                        |> Maybe.withDefault "add-new-element"
+                    )
+                    |> Task.attempt (always NoOp)
+                ]
+
+        SelectExampleModal _ ->
+            Cmd.batch
+                [ Ports.removeBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
+                    |> Task.attempt (always NoOp)
+                ]
+
+        _ ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
 updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
@@ -439,6 +476,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     model
         |> update session (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
+        |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
 updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
@@ -456,7 +494,24 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
             (model
                 |> update session (SetModal NoModal)
                 |> selectIngredient autocompleteState
+                |> focusNode
+                    (maybeSelectedValue
+                        |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
+                        |> Maybe.withDefault "add-new-element"
+                    )
             )
+
+
+focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+focusNode node ( model, session, commands ) =
+    ( model
+    , session
+    , Cmd.batch
+        [ commands
+        , Dom.focus node
+            |> Task.attempt (always NoOp)
+        ]
+    )
 
 
 findExistingBookmarkName : Session -> Query -> String
@@ -1210,7 +1265,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db.food results.recipe.transformedMass
+                                    |> Preparation.apply db.food.wellKnown results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1236,7 +1291,7 @@ mainView db session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView session.queries.food
+            [ menuView db.food.exampleProducts session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1257,11 +1312,13 @@ mainView db session model =
         ]
 
 
-menuView : Query -> Html Msg
-menuView query =
+menuView : List ExampleProduct -> Query -> Html Msg
+menuView exampleProducts query =
     let
         autocompleteState =
-            AutocompleteSelector.init Query.toString Query.recipes
+            exampleProducts
+                |> List.map .query
+                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
     div []
         [ label
@@ -1274,9 +1331,8 @@ menuView query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ span
-                []
-                [ text <| Query.toString query ]
+            [ span []
+                [ text <| ExampleProduct.toName exampleProducts query ]
             ]
         ]
 
@@ -1479,8 +1535,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Query.toString
-                        , toCategory = Query.toCategory
+                        , toLabel = ExampleProduct.toName session.db.food.exampleProducts
+                        , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
                         }
             ]
       ]
