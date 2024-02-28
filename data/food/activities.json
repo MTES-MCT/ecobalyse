@@ -833,8 +833,8 @@
     "scenario": "reference",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 1.06,
-      "plotSize": 2.01,
+      "hedges": 1.0623,
+      "plotSize": 2.0097,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
@@ -857,9 +857,9 @@
     "scenario": "organic",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 1.97,
-      "plotSize": 2.11,
-      "cropDiversity": 18.22,
+      "hedges": 1.9696,
+      "plotSize": 2.1102,
+      "cropDiversity": 18.21,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
     },

@@ -16,6 +16,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
+    "land_occupation": 4.46757635,
     "visible": true
   },
   {
@@ -35,6 +36,7 @@
       "permanentPasture": 0.61,
       "livestockDensity": -0.0002
     },
+    "land_occupation": 1.391110637,
     "visible": true
   },
   {
@@ -54,6 +56,7 @@
       "permanentPasture": 1.39,
       "livestockDensity": -0.0002
     },
+    "land_occupation": 1.75061187,
     "visible": true
   },
   {
@@ -67,11 +70,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.12496,
-      "plotSize": 0.18898,
-      "cropDiversity": 0.60494
+      "hedges": 0.091797,
+      "plotSize": 0.13883,
+      "cropDiversity": 0.44441
     },
-    "land_footprint": 0.21597245636871945,
+    "land_occupation": 0.1586615887,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -87,11 +90,11 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "ecosystemicServices": {
-      "hedges": 0.43179,
-      "plotSize": 0.58125,
+      "hedges": 0.43134,
+      "plotSize": 0.58066,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.55,
+    "land_occupation": 1.548413603,
     "crop_group": "BLE TENDRE",
     "scenario": "reference",
     "visible": true
@@ -107,6 +110,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "ecosystemicServices": {},
+    "land_occupation": 3.274768814,
     "visible": true
   },
   {
@@ -120,11 +124,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.56131,
-      "plotSize": 0.54572,
-      "cropDiversity": 5.1458
+      "hedges": 2.2603,
+      "plotSize": 2.1975,
+      "cropDiversity": 20.721
     },
-    "land_footprint": 1.4552603207337782,
+    "land_occupation": 5.860028225,
     "crop_group": "TOURNESOL",
     "scenario": "organic",
     "visible": true
@@ -140,11 +144,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.8035,
-      "plotSize": 2.2544,
+      "hedges": 1.8034,
+      "plotSize": 2.2542,
       "cropDiversity": 10.938
     },
-    "land_footprint": 4.508728421152503,
+    "land_occupation": 4.508453339,
     "crop_group": "COLZA",
     "scenario": "organic",
     "visible": true
@@ -166,6 +170,7 @@
       "permanentPasture": 37.5,
       "livestockDensity": -0.0059
     },
+    "land_occupation": 53.2806594,
     "visible": true
   },
   {
@@ -185,6 +190,7 @@
       "permanentPasture": 34.68,
       "livestockDensity": 0.0
     },
+    "land_occupation": 48.10660048,
     "visible": true
   },
   {
@@ -204,6 +210,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0139
     },
+    "land_occupation": 52.4624274,
     "visible": true
   },
   {
@@ -223,6 +230,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0591
     },
+    "land_occupation": 6.558046439,
     "visible": true
   },
   {
@@ -242,6 +250,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0158
     },
+    "land_occupation": 24.05215563,
     "visible": true
   },
   {
@@ -261,6 +270,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0548
     },
+    "land_occupation": 7.438570311,
     "visible": true
   },
   {
@@ -280,6 +290,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0293
     },
+    "land_occupation": 6.039436164,
     "visible": true
   },
   {
@@ -299,6 +310,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0101
     },
+    "land_occupation": 15.82110984,
     "visible": true
   },
   {
@@ -318,6 +330,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0101
     },
+    "land_occupation": 18.52244428,
     "visible": true
   },
   {
@@ -331,6 +344,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 8.484055245,
     "visible": true
   },
   {
@@ -344,6 +358,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 7.473754766,
     "visible": true
   },
   {
@@ -357,11 +372,11 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "ecosystemicServices": {
-      "hedges": 2.4543,
-      "plotSize": 3.2212,
-      "cropDiversity": 3.4618
+      "hedges": 2.4539,
+      "plotSize": 3.2207,
+      "cropDiversity": 3.4612
     },
-    "land_footprint": 8.59,
+    "land_occupation": 8.588620992,
     "crop_group": "TOURNESOL",
     "scenario": "reference",
     "visible": true
@@ -377,6 +392,7 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "ecosystemicServices": {},
+    "land_occupation": 14.36844372,
     "visible": true
   },
   {
@@ -390,11 +406,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.078395,
-      "plotSize": 0.11856,
-      "cropDiversity": 0.37953
+      "hedges": 0.07823,
+      "plotSize": 0.11831,
+      "cropDiversity": 0.37873
     },
-    "land_footprint": 0.135497686521566,
+    "land_occupation": 0.1352116869,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -410,11 +426,11 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.58492,
-      "plotSize": 0.71653,
-      "cropDiversity": 0.51426
+      "hedges": 0.5847,
+      "plotSize": 0.71625,
+      "cropDiversity": 0.51407
     },
-    "land_footprint": 0.8188873816560418,
+    "land_occupation": 0.8185755967,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -430,11 +446,11 @@
     "inedible_part": 0.4,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.28929,
-      "plotSize": 0.4375,
-      "cropDiversity": 1.4005
+      "hedges": 0.2893,
+      "plotSize": 0.43752,
+      "cropDiversity": 1.4006
     },
-    "land_footprint": 0.5,
+    "land_occupation": 0.5000263656,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -450,6 +466,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 9.167676909,
     "visible": true
   },
   {
@@ -463,6 +480,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 11.53376237,
     "visible": true
   },
   {
@@ -476,6 +494,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 2.10364488e-5,
     "visible": true
   },
   {
@@ -489,6 +508,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 6.303181904,
     "visible": true
   },
   {
@@ -502,6 +522,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 6.640954284,
     "visible": true
   },
   {
@@ -515,6 +536,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 4.783923222,
     "visible": true
   },
   {
@@ -528,11 +550,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.081761,
-      "plotSize": 0.18898,
-      "cropDiversity": 0.36629
+      "hedges": 0.060065,
+      "plotSize": 0.13883,
+      "cropDiversity": 0.26909
     },
-    "land_footprint": 0.21597245636871945,
+    "land_occupation": 0.1586615887,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "organic",
     "visible": true
@@ -548,11 +570,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.12496,
-      "plotSize": 0.18898,
-      "cropDiversity": 0.60494
+      "hedges": 0.091797,
+      "plotSize": 0.13883,
+      "cropDiversity": 0.44441
     },
-    "land_footprint": 0.21597245636871945,
+    "land_occupation": 0.1586615887,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -568,11 +590,11 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.091896,
-      "plotSize": 0.13898,
-      "cropDiversity": 0.44489
+      "hedges": 0.091797,
+      "plotSize": 0.13883,
+      "cropDiversity": 0.44441
     },
-    "land_footprint": 0.15883282826495596,
+    "land_occupation": 0.1586615887,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -588,11 +610,11 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.77543,
-      "plotSize": 1.18,
-      "cropDiversity": 9.3999
+      "hedges": 0.7763,
+      "plotSize": 1.1813,
+      "cropDiversity": 9.4104
     },
-    "land_footprint": 2.36,
+    "land_occupation": 2.362643424,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic",
     "visible": true
@@ -608,11 +630,11 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.0225,
-      "plotSize": 0.05625,
+      "hedges": 0.020184,
+      "plotSize": 0.05046,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.09,
+    "land_occupation": 0.08073666082,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -628,13 +650,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.0624,
-      "plotSize": 2.01,
+      "hedges": 1.0623,
+      "plotSize": 2.0097,
       "cropDiversity": 0.0,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
     },
-    "land_footprint": 4.02,
+    "land_occupation": 4.01933867,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "reference",
     "visible": true
@@ -650,13 +672,13 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.9705,
-      "plotSize": 2.1113,
-      "cropDiversity": 18.219,
+      "hedges": 1.9696,
+      "plotSize": 2.1102,
+      "cropDiversity": 18.21,
       "permanentPasture": 0.0,
       "livestockDensity": 0.0
     },
-    "land_footprint": 5.63,
+    "land_occupation": 5.627292234,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "organic",
     "visible": true
@@ -676,7 +698,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.48,
+    "land_occupation": 2.475542131,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "import",
     "visible": true
@@ -696,7 +718,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.84,
+    "land_occupation": 2.834505807,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "import",
     "visible": true
@@ -712,6 +734,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 9.348404415,
     "visible": true
   },
   {
@@ -725,6 +748,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 19.32745302,
     "visible": true
   },
   {
@@ -738,6 +762,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 19.43306797,
     "visible": true
   },
   {
@@ -751,6 +776,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 1.68537247,
     "visible": true
   },
   {
@@ -764,11 +790,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.11,
-      "plotSize": 0.275,
+      "hedges": 0.10913,
+      "plotSize": 0.27282,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.44,
+    "land_occupation": 0.436514912,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -784,11 +810,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.21,
-      "plotSize": 0.525,
+      "hedges": 0.2098,
+      "plotSize": 0.52449,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.84,
+    "land_occupation": 0.8391834274,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -804,6 +830,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 34.73183225,
     "visible": true
   },
   {
@@ -817,6 +844,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 43.41602331,
     "visible": true
   },
   {
@@ -830,6 +858,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 39.19859355,
     "visible": true
   },
   {
@@ -843,6 +872,7 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 43.41602331,
     "visible": true
   },
   {
@@ -856,11 +886,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.6829,
-      "plotSize": 2.375,
+      "hedges": 1.6772,
+      "plotSize": 2.367,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.8,
+    "land_occupation": 3.787168395,
     "crop_group": "AUTRES CEREALES",
     "scenario": "reference",
     "visible": true
@@ -876,11 +906,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.042714,
-      "plotSize": 0.115,
+      "hedges": 0.042293,
+      "plotSize": 0.11387,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46,
+    "land_occupation": 0.4554658065,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference",
     "visible": true
@@ -896,6 +926,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 7.265146111,
     "visible": true
   },
   {
@@ -915,6 +946,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0425
     },
+    "land_occupation": 9.35109173,
     "visible": true
   },
   {
@@ -934,6 +966,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0293
     },
+    "land_occupation": 7.297867846,
     "visible": true
   },
   {
@@ -951,7 +984,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.54,
+    "land_occupation": 1.541979267,
     "crop_group": "DIVERS",
     "scenario": "import",
     "visible": true
@@ -967,11 +1000,11 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 3.66,
-      "plotSize": 7.35,
-      "cropDiversity": 7.7616
+      "hedges": 3.6561,
+      "plotSize": 7.3422,
+      "cropDiversity": 7.7534
     },
-    "land_footprint": 8.4,
+    "land_occupation": 8.391110547,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -991,7 +1024,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 11.69,
+    "land_occupation": 11.67705463,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -1011,7 +1044,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 16.08,
+    "land_occupation": 16.07087042,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "import",
     "visible": true
@@ -1027,6 +1060,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 21.53074424,
     "visible": true
   },
   {
@@ -1040,6 +1074,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "ecosystemicServices": {},
+    "land_occupation": 1.732091583,
     "visible": true
   },
   {
@@ -1053,6 +1088,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 1.85501141,
     "visible": true
   },
   {
@@ -1066,6 +1102,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "ecosystemicServices": {},
+    "land_occupation": 1.550819896,
     "visible": true
   },
   {
@@ -1085,6 +1122,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
+    "land_occupation": 3.718097733,
     "visible": true
   },
   {
@@ -1104,6 +1142,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
+    "land_occupation": 3.069579193,
     "visible": true
   },
   {
@@ -1123,6 +1162,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
+    "land_occupation": 4.268467591,
     "visible": true
   },
   {
@@ -1142,6 +1182,7 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0027
     },
+    "land_occupation": 6.778933314,
     "visible": true
   },
   {
@@ -1155,11 +1196,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.39327,
-      "plotSize": 1.2044,
+      "hedges": 0.29505,
+      "plotSize": 0.90359,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.3764492753623188,
+    "land_occupation": 1.032679591,
     "crop_group": "VIGNES",
     "scenario": "organic",
     "visible": true
@@ -1181,6 +1222,7 @@
       "permanentPasture": 86.68,
       "livestockDensity": 0.0034
     },
+    "land_occupation": 96.54788709,
     "visible": true
   },
   {
@@ -1200,6 +1242,7 @@
       "permanentPasture": 193.27,
       "livestockDensity": 0.0009
     },
+    "land_occupation": 206.0803103,
     "visible": true
   },
   {
@@ -1213,11 +1256,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.29779,
-      "plotSize": 0.3648,
-      "cropDiversity": 0.26182
+      "hedges": 0.27291,
+      "plotSize": 0.33431,
+      "cropDiversity": 0.23994
     },
-    "land_footprint": 0.41691130691904194,
+    "land_occupation": 0.3820688838,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -1237,7 +1280,7 @@
       "plotSize": 0.077085,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.12333583188828015,
+    "land_occupation": 0.12333583188828015,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1257,7 +1300,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1802707158308635,
+    "land_occupation": 0.1802707158308635,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1277,7 +1320,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.28754145691431554,
+    "land_occupation": 0.28754145691431554,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1297,7 +1340,7 @@
       "plotSize": 0.061035,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.0976557893177337,
+    "land_occupation": 0.0976557893177337,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1317,7 +1360,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.22895499508484513,
+    "land_occupation": 0.22895499508484513,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1337,7 +1380,7 @@
       "plotSize": 0.21019,
       "cropDiversity": 0.22197
     },
-    "land_footprint": 0.2402223288900337,
+    "land_occupation": 0.2402223288900337,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -1357,7 +1400,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.26409236881890263,
+    "land_occupation": 0.26409236881890263,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -1377,7 +1420,7 @@
       "plotSize": 0.41717,
       "cropDiversity": 0.44053
     },
-    "land_footprint": 0.4767671166332219,
+    "land_occupation": 0.4767671166332219,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -1397,7 +1440,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.4604600969201655,
+    "land_occupation": 0.4604600969201655,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -1417,7 +1460,7 @@
       "plotSize": 0.26532,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.4245124832275369,
+    "land_occupation": 0.4245124832275369,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1437,7 +1480,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.4245124832275369,
+    "land_occupation": 0.4245124832275369,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1457,7 +1500,7 @@
       "plotSize": 0.18079,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.2892563843094771,
+    "land_occupation": 0.2892563843094771,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1477,7 +1520,7 @@
       "plotSize": 0.18079,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.28926186197910325,
+    "land_occupation": 0.28926186197910325,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1497,7 +1540,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.79665209842946,
+    "land_occupation": 1.79665209842946,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1517,7 +1560,7 @@
       "plotSize": 0.1625,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.26,
+    "land_occupation": 0.26,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1537,7 +1580,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.2157503211459354,
+    "land_occupation": 0.2157503211459354,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1557,7 +1600,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.2436707630156826,
+    "land_occupation": 0.2436707630156826,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1577,7 +1620,7 @@
       "plotSize": 0.061035,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.0976557893177337,
+    "land_occupation": 0.0976557893177337,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1597,7 +1640,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.0976557893177337,
+    "land_occupation": 0.0976557893177337,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1617,7 +1660,7 @@
       "plotSize": 0.83472,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.3355550247988053,
+    "land_occupation": 1.3355550247988053,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1637,7 +1680,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.3355550247988053,
+    "land_occupation": 1.3355550247988053,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1657,7 +1700,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.3355550247988053,
+    "land_occupation": 1.3355550247988053,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1677,7 +1720,7 @@
       "plotSize": 0.068056,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1088898131414479,
+    "land_occupation": 0.1088898131414479,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1697,7 +1740,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.09184830824850201,
+    "land_occupation": 0.09184830824850201,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1717,7 +1760,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.09184830824850201,
+    "land_occupation": 0.09184830824850201,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1737,7 +1780,7 @@
       "plotSize": 0.8625,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.38,
+    "land_occupation": 1.38,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1757,7 +1800,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.38,
+    "land_occupation": 1.38,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1777,7 +1820,7 @@
       "plotSize": 12.303,
       "cropDiversity": 12.991
     },
-    "land_footprint": 14.06,
+    "land_occupation": 14.06,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -1797,7 +1840,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.27998977051148904,
+    "land_occupation": 0.27998977051148904,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -1817,7 +1860,7 @@
       "plotSize": 12.303,
       "cropDiversity": 12.991
     },
-    "land_footprint": 14.06,
+    "land_occupation": 14.06,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -1837,7 +1880,7 @@
       "plotSize": 0.061035,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.0976557893177337,
+    "land_occupation": 0.0976557893177337,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1857,7 +1900,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.22895499508484513,
+    "land_occupation": 0.22895499508484513,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1877,7 +1920,7 @@
       "plotSize": 0.11856,
       "cropDiversity": 0.37953
     },
-    "land_footprint": 0.135497686521566,
+    "land_occupation": 0.135497686521566,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -1897,7 +1940,7 @@
       "plotSize": 0.025,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.04,
+    "land_occupation": 0.04,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1917,7 +1960,7 @@
       "plotSize": 0.0375,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.06,
+    "land_occupation": 0.06,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -1937,7 +1980,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.08931800900440257,
+    "land_occupation": 0.08931800900440257,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -1957,7 +2000,7 @@
       "plotSize": 0.51783,
       "cropDiversity": 0.54683
     },
-    "land_footprint": 0.5918090797657374,
+    "land_occupation": 0.5918090797657374,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -1977,7 +2020,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.5918090797657374,
+    "land_occupation": 0.5918090797657374,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -1997,7 +2040,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 8.1,
+    "land_occupation": 8.1,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2017,7 +2060,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 7.054242233148819,
+    "land_occupation": 7.054242233148819,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2037,7 +2080,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 14.113481475364038,
+    "land_occupation": 14.113481475364038,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2057,7 +2100,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 16.203589547263125,
+    "land_occupation": 16.203589547263125,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2077,7 +2120,7 @@
       "plotSize": 0.2782,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.44512050373762024,
+    "land_occupation": 0.44512050373762024,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2097,7 +2140,7 @@
       "plotSize": 0.67562,
       "cropDiversity": 2.1628
     },
-    "land_footprint": 0.7721396965461186,
+    "land_occupation": 0.7721396965461186,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -2117,7 +2160,7 @@
       "plotSize": 0.58945,
       "cropDiversity": 1.8869
     },
-    "land_footprint": 0.6736524550069993,
+    "land_occupation": 0.6736524550069993,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -2137,7 +2180,7 @@
       "plotSize": 0.28871,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46193773048543957,
+    "land_occupation": 0.46193773048543957,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2157,7 +2200,7 @@
       "plotSize": 0.10807,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1729183475047969,
+    "land_occupation": 0.1729183475047969,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2177,7 +2220,7 @@
       "plotSize": 0.030834,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.12333583188828015,
+    "land_occupation": 0.12333583188828015,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference",
     "visible": true
@@ -2197,7 +2240,7 @@
       "plotSize": 0.077085,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.12333583188828015,
+    "land_occupation": 0.12333583188828015,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2217,7 +2260,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1802707158308635,
+    "land_occupation": 0.1802707158308635,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2237,7 +2280,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.28754145691431554,
+    "land_occupation": 0.28754145691431554,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2257,7 +2300,7 @@
       "plotSize": 0.28871,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46193773048543957,
+    "land_occupation": 0.46193773048543957,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2277,7 +2320,7 @@
       "plotSize": 0.67562,
       "cropDiversity": 2.1628
     },
-    "land_footprint": 0.7721396965461186,
+    "land_occupation": 0.7721396965461186,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -2297,7 +2340,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.10360184975001348,
+    "land_occupation": 0.10360184975001348,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2317,7 +2360,7 @@
       "plotSize": 0.28871,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46193773048543957,
+    "land_occupation": 0.46193773048543957,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2337,7 +2380,7 @@
       "plotSize": 0.58945,
       "cropDiversity": 1.8869
     },
-    "land_footprint": 0.6736524550069993,
+    "land_occupation": 0.6736524550069993,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -2357,7 +2400,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.11,
+    "land_occupation": 0.11,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2377,7 +2420,7 @@
       "plotSize": 0.1625,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.26,
+    "land_occupation": 0.26,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2397,7 +2440,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.34941029429860554,
+    "land_occupation": 0.34941029429860554,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2417,7 +2460,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.2708312448910977,
+    "land_occupation": 0.2708312448910977,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2437,7 +2480,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.026852436246489,
+    "land_occupation": 2.026852436246489,
     "crop_group": "OLIVIERS",
     "scenario": "import",
     "visible": true
@@ -2457,7 +2500,7 @@
       "plotSize": 0.90832,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.6332974372768536,
+    "land_occupation": 3.6332974372768536,
     "crop_group": "COLZA",
     "scenario": "reference",
     "visible": true
@@ -2477,7 +2520,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 5.119240317773792,
+    "land_occupation": 5.119240317773792,
     "crop_group": "COLZA",
     "scenario": "import",
     "visible": true
@@ -2497,7 +2540,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 5.365016737978805,
+    "land_occupation": 5.365016737978805,
     "crop_group": "COLZA",
     "scenario": "import",
     "visible": true
@@ -2517,7 +2560,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.7502023508379936,
+    "land_occupation": 2.7502023508379936,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2537,7 +2580,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 11.34845714598582,
+    "land_occupation": 11.34845714598582,
     "crop_group": "FRUITS A COQUES",
     "scenario": "import",
     "visible": true
@@ -2557,7 +2600,7 @@
       "plotSize": 10.526,
       "cropDiversity": 0.0
     },
-    "land_footprint": 12.03,
+    "land_occupation": 12.03,
     "crop_group": "OLIVIERS",
     "scenario": "reference",
     "visible": true
@@ -2577,7 +2620,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.0194336927702459,
+    "land_occupation": 1.0194336927702459,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2597,7 +2640,7 @@
       "plotSize": 1.395,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.79,
+    "land_occupation": 2.79,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference",
     "visible": true
@@ -2617,7 +2660,7 @@
       "plotSize": 1.7887,
       "cropDiversity": 1.9223
     },
-    "land_footprint": 4.77,
+    "land_occupation": 4.77,
     "crop_group": "TOURNESOL",
     "scenario": "reference",
     "visible": true
@@ -2637,7 +2680,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.1239980855789122,
+    "land_occupation": 2.1239980855789122,
     "crop_group": "TOURNESOL",
     "scenario": "import",
     "visible": true
@@ -2657,7 +2700,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.4944861075504163,
+    "land_occupation": 3.4944861075504163,
     "crop_group": "TOURNESOL",
     "scenario": "import",
     "visible": true
@@ -2677,7 +2720,7 @@
       "plotSize": 0.84184,
       "cropDiversity": 0.88899
     },
-    "land_footprint": 0.9621049816156189,
+    "land_occupation": 0.9621049816156189,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -2697,7 +2740,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.31780832776090634,
+    "land_occupation": 0.31780832776090634,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2717,7 +2760,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.31780832776090634,
+    "land_occupation": 0.31780832776090634,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2737,7 +2780,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.41,
+    "land_occupation": 0.41,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2757,7 +2800,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.05,
+    "land_occupation": 0.05,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2777,7 +2820,7 @@
       "plotSize": 0.099258,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.15881247412378605,
+    "land_occupation": 0.15881247412378605,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2797,7 +2840,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.15881247412378605,
+    "land_occupation": 0.15881247412378605,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2817,7 +2860,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.11709118385660207,
+    "land_occupation": 0.11709118385660207,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2837,7 +2880,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.45,
+    "land_occupation": 3.45,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2857,7 +2900,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.03,
+    "land_occupation": 2.03,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2877,7 +2920,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.9516721361287832,
+    "land_occupation": 1.9516721361287832,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2897,7 +2940,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.2688532832565271,
+    "land_occupation": 1.2688532832565271,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2917,7 +2960,7 @@
       "plotSize": 0.3043,
       "cropDiversity": 0.32134
     },
-    "land_footprint": 0.3477724646954863,
+    "land_occupation": 0.3477724646954863,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -2937,7 +2980,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.27599736924273083,
+    "land_occupation": 0.27599736924273083,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -2957,7 +3000,7 @@
       "plotSize": 0.0375,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.06,
+    "land_occupation": 0.06,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2977,7 +3020,7 @@
       "plotSize": 0.14085,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.22536109199087415,
+    "land_occupation": 0.22536109199087415,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -2997,7 +3040,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.22536109199087415,
+    "land_occupation": 0.22536109199087415,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3017,7 +3060,7 @@
       "plotSize": 0.3988,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.6380864199968058,
+    "land_occupation": 0.6380864199968058,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3037,7 +3080,7 @@
       "plotSize": 0.67634,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.0821398434504004,
+    "land_occupation": 1.0821398434504004,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3057,7 +3100,7 @@
       "plotSize": 0.086456,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.13833008133095676,
+    "land_occupation": 0.13833008133095676,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3077,7 +3120,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.13833008133095676,
+    "land_occupation": 0.13833008133095676,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3097,7 +3140,7 @@
       "plotSize": 0.077085,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.12333583188828015,
+    "land_occupation": 0.12333583188828015,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3117,7 +3160,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1802707158308635,
+    "land_occupation": 0.1802707158308635,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3137,7 +3180,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.28754145691431554,
+    "land_occupation": 0.28754145691431554,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3157,7 +3200,7 @@
       "plotSize": 5.7138,
       "cropDiversity": 0.0
     },
-    "land_footprint": 6.53,
+    "land_occupation": 6.53,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
     "visible": true
@@ -3177,7 +3220,7 @@
       "plotSize": 5.3919,
       "cropDiversity": 0.0
     },
-    "land_footprint": 6.162216038989542,
+    "land_occupation": 6.162216038989542,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
     "visible": true
@@ -3197,7 +3240,7 @@
       "plotSize": 5.3919,
       "cropDiversity": 0.0
     },
-    "land_footprint": 6.162216038989542,
+    "land_occupation": 6.162216038989542,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
     "visible": true
@@ -3217,7 +3260,7 @@
       "plotSize": 5.3637,
       "cropDiversity": 0.0
     },
-    "land_footprint": 6.13,
+    "land_occupation": 6.13,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
     "visible": true
@@ -3237,7 +3280,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.34442656770861924,
+    "land_occupation": 0.34442656770861924,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -3257,7 +3300,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.51,
+    "land_occupation": 0.51,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3277,7 +3320,7 @@
       "plotSize": 0.28871,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46193773048543957,
+    "land_occupation": 0.46193773048543957,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3297,7 +3340,7 @@
       "plotSize": 0.58945,
       "cropDiversity": 1.8869
     },
-    "land_footprint": 0.6736524550069993,
+    "land_occupation": 0.6736524550069993,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3317,7 +3360,7 @@
       "plotSize": 1.395,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.79,
+    "land_occupation": 2.79,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "reference",
     "visible": true
@@ -3337,7 +3380,7 @@
       "plotSize": 0.28871,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.46193773048543957,
+    "land_occupation": 0.46193773048543957,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3357,7 +3400,7 @@
       "plotSize": 0.58945,
       "cropDiversity": 1.8869
     },
-    "land_footprint": 0.6736524550069993,
+    "land_occupation": 0.6736524550069993,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3377,7 +3420,7 @@
       "plotSize": 0.1431,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.22895499508484513,
+    "land_occupation": 0.22895499508484513,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3397,7 +3440,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.5316750392063939,
+    "land_occupation": 0.5316750392063939,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -3417,7 +3460,7 @@
       "plotSize": 0.068056,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1088898131414479,
+    "land_occupation": 0.1088898131414479,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3437,7 +3480,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.09184830824850201,
+    "land_occupation": 0.09184830824850201,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3457,7 +3500,7 @@
       "plotSize": 0.84875,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.97,
+    "land_occupation": 0.97,
     "crop_group": "VIGNES",
     "scenario": "reference",
     "visible": true
@@ -3477,7 +3520,7 @@
       "plotSize": 0.068056,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.1088898131414479,
+    "land_occupation": 0.1088898131414479,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3497,7 +3540,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.09184830824850201,
+    "land_occupation": 0.09184830824850201,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3517,7 +3560,7 @@
       "plotSize": 0.4765,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.953,
+    "land_occupation": 0.953,
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "scenario": "reference",
     "visible": true
@@ -3537,7 +3580,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.2965265782314691,
+    "land_occupation": 0.2965265782314691,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -3557,7 +3600,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.8,
+    "land_occupation": 2.8,
     "crop_group": "PROTEAGINEUX",
     "scenario": "import",
     "visible": true
@@ -3577,7 +3620,7 @@
       "plotSize": 1.05,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.8,
+    "land_occupation": 2.8,
     "crop_group": "PROTEAGINEUX",
     "scenario": "reference",
     "visible": true
@@ -3597,7 +3640,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.05,
+    "land_occupation": 0.05,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "import",
     "visible": true
@@ -3617,7 +3660,7 @@
       "plotSize": 0.0125,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.05,
+    "land_occupation": 0.05,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "reference",
     "visible": true
@@ -3637,7 +3680,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.8,
+    "land_occupation": 2.8,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -3657,7 +3700,7 @@
       "plotSize": 1.75,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.8,
+    "land_occupation": 2.8,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
@@ -3677,7 +3720,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.21,
+    "land_occupation": 1.21,
     "crop_group": "RIZ",
     "scenario": "import",
     "visible": true
@@ -3697,7 +3740,7 @@
       "plotSize": 1.3167,
       "cropDiversity": 6.3202
     },
-    "land_footprint": 2.6334180524867206,
+    "land_occupation": 2.6334180524867206,
     "crop_group": "BLE TENDRE",
     "scenario": "organic",
     "visible": true
@@ -3717,7 +3760,7 @@
       "plotSize": 0.44625,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.19,
+    "land_occupation": 1.19,
     "crop_group": "BLE TENDRE",
     "scenario": "reference",
     "visible": true
@@ -3737,7 +3780,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.7526017487732166,
+    "land_occupation": 2.7526017487732166,
     "crop_group": "BLE TENDRE",
     "scenario": "import",
     "visible": true
@@ -3757,7 +3800,7 @@
       "plotSize": 1.2562,
       "cropDiversity": 0.0
     },
-    "land_footprint": 2.01,
+    "land_occupation": 2.01,
     "crop_group": "AUTRES CEREALES",
     "scenario": "reference",
     "visible": true
@@ -3777,7 +3820,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.522339539389686,
+    "land_occupation": 3.522339539389686,
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
     "visible": true
@@ -3797,7 +3840,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.375516724097795,
+    "land_occupation": 3.375516724097795,
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
     "visible": true
@@ -3817,7 +3860,7 @@
       "plotSize": 0.3325,
       "cropDiversity": 0.23864
     },
-    "land_footprint": 0.38,
+    "land_occupation": 0.38,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -3837,7 +3880,7 @@
       "plotSize": 0.3325,
       "cropDiversity": 0.35112
     },
-    "land_footprint": 0.38,
+    "land_occupation": 0.38,
     "crop_group": "VERGERS",
     "scenario": "reference",
     "visible": true
@@ -3857,7 +3900,7 @@
       "plotSize": 0.41319,
       "cropDiversity": 1.3227
     },
-    "land_footprint": 0.4722120942351419,
+    "land_occupation": 0.4722120942351419,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3877,7 +3920,7 @@
       "plotSize": 0.41149,
       "cropDiversity": 1.3172
     },
-    "land_footprint": 0.4702722617322555,
+    "land_occupation": 0.4702722617322555,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3897,7 +3940,7 @@
       "plotSize": 0.53008,
       "cropDiversity": 0.38044
     },
-    "land_footprint": 0.6058029841998362,
+    "land_occupation": 0.6058029841998362,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -3917,7 +3960,7 @@
       "plotSize": 0.11482,
       "cropDiversity": 0.36755
     },
-    "land_footprint": 0.1312199498824066,
+    "land_occupation": 0.1312199498824066,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3937,7 +3980,7 @@
       "plotSize": 0.066596,
       "cropDiversity": 0.12908
     },
-    "land_footprint": 0.0761093611061273,
+    "land_occupation": 0.0761093611061273,
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "scenario": "organic",
     "visible": true
@@ -3957,7 +4000,7 @@
       "plotSize": 0.15224,
       "cropDiversity": 0.10926
     },
-    "land_footprint": 0.1739832985919137,
+    "land_occupation": 0.1739832985919137,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -3977,7 +4020,7 @@
       "plotSize": 0.023964,
       "cropDiversity": 0.076711
     },
-    "land_footprint": 0.027386877875633438,
+    "land_occupation": 0.027386877875633438,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -3997,7 +4040,7 @@
       "plotSize": 0.23785,
       "cropDiversity": 0.17071
     },
-    "land_footprint": 0.27183328740299434,
+    "land_occupation": 0.27183328740299434,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4017,7 +4060,7 @@
       "plotSize": 4.1409,
       "cropDiversity": 13.256
     },
-    "land_footprint": 4.732492469966047,
+    "land_occupation": 4.732492469966047,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4037,7 +4080,7 @@
       "plotSize": 4.9686,
       "cropDiversity": 0.0
     },
-    "land_footprint": 5.678362653143869,
+    "land_occupation": 5.678362653143869,
     "crop_group": "FRUITS A COQUES",
     "scenario": "organic",
     "visible": true
@@ -4057,7 +4100,7 @@
       "plotSize": 0.027439,
       "cropDiversity": 0.087837
     },
-    "land_footprint": 0.03135932533266212,
+    "land_occupation": 0.03135932533266212,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4077,7 +4120,7 @@
       "plotSize": 0.73225,
       "cropDiversity": 0.52555
     },
-    "land_footprint": 0.8368627191981346,
+    "land_occupation": 0.8368627191981346,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4097,7 +4140,7 @@
       "plotSize": 0.73225,
       "cropDiversity": 0.52555
     },
-    "land_footprint": 0.8368627191981346,
+    "land_occupation": 0.8368627191981346,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4117,7 +4160,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_footprint": 0.41,
+    "land_occupation": 0.41,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
@@ -4137,7 +4180,7 @@
       "plotSize": 0.44379,
       "cropDiversity": 0.31852
     },
-    "land_footprint": 0.507190070288124,
+    "land_occupation": 0.507190070288124,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4157,7 +4200,7 @@
       "plotSize": 0.32495,
       "cropDiversity": 0.23322
     },
-    "land_footprint": 0.37137037037037035,
+    "land_occupation": 0.37137037037037035,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4177,7 +4220,7 @@
       "plotSize": 0.26347,
       "cropDiversity": 0.1891
     },
-    "land_footprint": 0.3011111167036458,
+    "land_occupation": 0.3011111167036458,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4197,7 +4240,7 @@
       "plotSize": 0.11812,
       "cropDiversity": 0.37813
     },
-    "land_footprint": 0.13499997787177878,
+    "land_occupation": 0.13499997787177878,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4217,7 +4260,7 @@
       "plotSize": 3.1777,
       "cropDiversity": 0.0
     },
-    "land_footprint": 3.631654573968224,
+    "land_occupation": 3.631654573968224,
     "crop_group": "OLIVIERS",
     "scenario": "organic",
     "visible": true
@@ -4237,7 +4280,7 @@
       "plotSize": 4.5761,
       "cropDiversity": 0.0
     },
-    "land_footprint": 5.229883391320086,
+    "land_occupation": 5.229883391320086,
     "crop_group": "FRUITS A COQUES",
     "scenario": "organic",
     "visible": true
@@ -4257,7 +4300,7 @@
       "plotSize": 2.825,
       "cropDiversity": 9.0431
     },
-    "land_footprint": 3.228532152901265,
+    "land_occupation": 3.228532152901265,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4277,7 +4320,7 @@
       "plotSize": 0.027439,
       "cropDiversity": 0.087837
     },
-    "land_footprint": 0.03135932533266212,
+    "land_occupation": 0.03135932533266212,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4297,7 +4340,7 @@
       "plotSize": 0.027439,
       "cropDiversity": 0.087837
     },
-    "land_footprint": 0.03135932533266212,
+    "land_occupation": 0.03135932533266212,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4317,7 +4360,7 @@
       "plotSize": 1.6132,
       "cropDiversity": 3.7814
     },
-    "land_footprint": 2.5811340696785146,
+    "land_occupation": 2.5811340696785146,
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
     "visible": true
@@ -4337,7 +4380,7 @@
       "plotSize": 0.24851,
       "cropDiversity": 0.7955
     },
-    "land_footprint": 0.2840070160120382,
+    "land_occupation": 0.2840070160120382,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4357,7 +4400,7 @@
       "plotSize": 0.17585,
       "cropDiversity": 0.0
     },
-    "land_footprint": 1.4067635468906579,
+    "land_occupation": 1.4067635468906579,
     "crop_group": "RIZ",
     "scenario": "organic",
     "visible": true
@@ -4377,7 +4420,7 @@
       "plotSize": 0.028744,
       "cropDiversity": 0.092013
     },
-    "land_footprint": 0.032849996124208525,
+    "land_occupation": 0.032849996124208525,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4397,7 +4440,7 @@
       "plotSize": 3.9772,
       "cropDiversity": 31.683
     },
-    "land_footprint": 7.95448056949499,
+    "land_occupation": 7.95448056949499,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic",
     "visible": true
@@ -4417,7 +4460,7 @@
       "plotSize": 0.61379,
       "cropDiversity": 0.44053
     },
-    "land_footprint": 0.7014772270387482,
+    "land_occupation": 0.7014772270387482,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4437,7 +4480,7 @@
       "plotSize": 0.12509,
       "cropDiversity": 0.40044
     },
-    "land_footprint": 0.14296478127707435,
+    "land_occupation": 0.14296478127707435,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4457,7 +4500,7 @@
       "plotSize": 22.306,
       "cropDiversity": 16.009
     },
-    "land_footprint": 25.49228831792611,
+    "land_occupation": 25.49228831792611,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4477,7 +4520,7 @@
       "plotSize": 22.306,
       "cropDiversity": 16.009
     },
-    "land_footprint": 25.49228831792611,
+    "land_occupation": 25.49228831792611,
     "crop_group": "VERGERS",
     "scenario": "organic",
     "visible": true
@@ -4497,7 +4540,7 @@
       "plotSize": 0.24851,
       "cropDiversity": 0.7955
     },
-    "land_footprint": 0.2840070160120382,
+    "land_occupation": 0.2840070160120382,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4517,7 +4560,7 @@
       "plotSize": 2.917,
       "cropDiversity": 9.3376
     },
-    "land_footprint": 3.3336667542676595,
+    "land_occupation": 3.3336667542676595,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4537,7 +4580,7 @@
       "plotSize": 0.041048,
       "cropDiversity": 0.1314
     },
-    "land_footprint": 0.04691249539079209,
+    "land_occupation": 0.04691249539079209,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
@@ -4557,7 +4600,7 @@
       "plotSize": 0.46121,
       "cropDiversity": 1.4764
     },
-    "land_footprint": 0.5270972461158159,
+    "land_occupation": 0.5270972461158159,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true
