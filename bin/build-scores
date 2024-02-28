@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+const request = require("supertest");
+const app = require("../server");
+
+const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+// const textileScores = require(`${__dirname}/../public/data/textile/scores.json`);
+const foodExamples = require(`${__dirname}/../public/data/food/examples.json`);
+// const foodScores = require(`${__dirname}/../public/data/food/scores.json`);
+
+async function makePostRequest(path, body) {
+  return await request(app).post(path).send(body);
+}
+
+function sort(examples) {
+  return examples.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+}
+
+async function getScores(path, examples) {
+  const newScores = {};
+  for (const { name, query } of sort(examples)) {
+    const res = await makePostRequest(path, query);
+    newScores[name] = res.body.impacts?.ecs || res.body.results?.total?.ecs;
+  }
+  return newScores;
+}
+
+async function run() {
+  //const productNames = textileExamples.map(({ name }) => name);
+  const newTextileScores = await getScores("/api/textile/simulator", textileExamples);
+  console.log(newTextileScores);
+  const newFoodScores = await getScores("/api/food/recipe", foodExamples);
+  console.log(newFoodScores);
+}
+
+run();
