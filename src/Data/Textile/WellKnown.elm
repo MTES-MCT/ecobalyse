@@ -7,7 +7,7 @@ module Data.Textile.WellKnown exposing
     , map
     )
 
-import Data.Country exposing (Code(..), Country)
+import Data.Country exposing (Country)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Printing as Printing
 import Data.Textile.Process as Process exposing (Alias(..), Process)
@@ -40,7 +40,6 @@ type alias WellKnown =
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
-    , heatFrance : Process
     , heatEurope : Process
     , heatRoW : Process
     , weaving : Process
@@ -64,17 +63,12 @@ getEnnoblingHeatProcess : WellKnown -> Country -> Process
 getEnnoblingHeatProcess wk country =
     -- Note: As per methodology documentation, retrieve a RER heat source process
     --       for european countries, RSA otherwise.
-    case country.code of
-        Code "FR" ->
-            wk.heatFrance
+    case country.zone of
+        Zone.Europe ->
+            wk.heatEurope
 
         _ ->
-            case country.zone of
-                Zone.Europe ->
-                    wk.heatEurope
-
-                _ ->
-                    wk.heatRoW
+            wk.heatRoW
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
@@ -110,7 +104,6 @@ load processes =
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
             , fading = "fading"
-            , heatFrance = "heat-france"
             , heatEurope = "heat-europe"
             , heatRoW = "heat-row"
             , knittingMix = "knitting-mix"
@@ -149,7 +142,6 @@ load processes =
         |> find .passengerCar
         |> find .endOfLife
         |> find .fading
-        |> find .heatFrance
         |> find .heatEurope
         |> find .heatRoW
         |> find .weaving
@@ -176,7 +168,6 @@ map update wellKnown =
     , passengerCar = update wellKnown.passengerCar
     , endOfLife = update wellKnown.endOfLife
     , fading = update wellKnown.fading
-    , heatFrance = update wellKnown.heatFrance
     , heatEurope = update wellKnown.heatEurope
     , heatRoW = update wellKnown.heatRoW
     , knittingMix = update wellKnown.knittingMix
