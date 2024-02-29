@@ -9,7 +9,7 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 import Static.Db exposing (Db)
 import Views.Format as Format
@@ -21,11 +21,11 @@ table db { detailed, scope } =
     , toRoute = .name >> Just >> Dataset.FoodExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
-          , toValue = .name
+          , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Coût environnemental"
-          , toValue = getScore db >> Unit.impactToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
           , toCell =
                 \example ->
                     div [ classList [ ( "text-end", not detailed ) ] ]

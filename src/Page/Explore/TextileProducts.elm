@@ -21,7 +21,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
 import Page.Explore.Common as Common
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Quantity
 import Route
 import Static.Db exposing (Db)
@@ -40,7 +40,7 @@ table db { detailed, scope } =
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
     , columns =
         [ { label = "Identifiant"
-          , toValue = .id >> Product.idToString
+          , toValue = Table.StringValue <| .id >> Product.idToString
           , toCell =
                 \product ->
                     if detailed then
@@ -51,25 +51,25 @@ table db { detailed, scope } =
                             [ code [] [ text (Product.idToString product.id) ] ]
           }
         , { label = "Produit(s) concerné(s)"
-          , toValue = .name
+          , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Poids"
-          , toValue = .mass >> Mass.inGrams >> String.fromFloat
+          , toValue = Table.FloatValue <| .mass >> Mass.inGrams
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.kg product.mass ]
           }
         , { label = "Titrage"
-          , toValue = .yarnSize >> Unit.yarnSizeInKilometers >> String.fromInt
+          , toValue = Table.IntValue <| .yarnSize >> Unit.yarnSizeInKilometers
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ product.yarnSize |> Format.yarnSize ]
           }
         , { label = "Grammage"
-          , toValue = .surfaceMass >> Unit.surfaceMassInGramsPerSquareMeters >> String.fromInt
+          , toValue = Table.IntValue <| .surfaceMass >> Unit.surfaceMassInGramsPerSquareMeters
           , toCell =
                 \{ surfaceMass } ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
@@ -82,7 +82,7 @@ table db { detailed, scope } =
                     |> Formula.computeThreadDensity surfaceMass
           in
           { label = "Densité de fils"
-          , toValue = computeThreadDensity >> Unit.threadDensityToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| computeThreadDensity >> Unit.threadDensityToFloat
           , toCell =
                 computeThreadDensity >> Format.threadDensity
           }
@@ -92,11 +92,11 @@ table db { detailed, scope } =
                     / toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
           in
           { label = "Surface"
-          , toValue = computeSurface >> String.fromFloat
+          , toValue = Table.FloatValue computeSurface
           , toCell = computeSurface >> Area.squareMeters >> Format.squareMeters
           }
         , { label = "Volume"
-          , toValue = .endOfLife >> .volume >> Volume.inCubicMeters >> String.fromFloat
+          , toValue = Table.FloatValue <| .endOfLife >> .volume >> Volume.inCubicMeters
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
@@ -111,7 +111,7 @@ table db { detailed, scope } =
                     "Tissée"
           in
           { label = "Etoffe"
-          , toValue = fabricToString
+          , toValue = Table.StringValue fabricToString
           , toCell = fabricToString >> text
           }
         , let
@@ -135,10 +135,10 @@ table db { detailed, scope } =
           in
           { label = "Duites.m"
           , toValue =
-                \({ surfaceMass, yarnSize } as product) ->
-                    picking product surfaceMass yarnSize
-                        |> Unit.pickPerMeterToFloat
-                        |> String.fromFloat
+                Table.FloatValue <|
+                    \({ surfaceMass, yarnSize } as product) ->
+                        picking product surfaceMass yarnSize
+                            |> Unit.pickPerMeterToFloat
           , toCell =
                 \({ surfaceMass, yarnSize } as product) ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
@@ -151,115 +151,115 @@ table db { detailed, scope } =
                 Common.boolText (Product.isFadedByDefault product)
           in
           { label = "Délavage par défaut"
-          , toValue = fadableToString
+          , toValue = Table.StringValue fadableToString
           , toCell = fadableToString >> text
           }
         , { label = "Stocks dormants"
-          , toValue = Split.toPercentString Env.defaultDeadStock |> always
+          , toValue = Table.IntValue (Split.toPercent Env.defaultDeadStock |> always)
           , toCell =
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.splitAsPercentage Env.defaultDeadStock ]
                     |> always
           }
         , { label = "Type de teinture"
-          , toValue = .dyeing >> .defaultMedium >> DyeingMedium.toLabel
+          , toValue = Table.StringValue <| .dyeing >> .defaultMedium >> DyeingMedium.toLabel
           , toCell = .dyeing >> .defaultMedium >> DyeingMedium.toLabel >> text
           }
         , { label = "Confection (complexité)"
-          , toValue = .making >> .complexity >> MakingComplexity.toLabel
+          , toValue = Table.StringValue <| .making >> .complexity >> MakingComplexity.toLabel
           , toCell = .making >> .complexity >> MakingComplexity.toLabel >> text
           }
         , { label = "Confection (# minutes)"
-          , toValue = Product.getMakingDurationInMinutes >> Duration.inMinutes >> String.fromFloat
+          , toValue = Table.FloatValue <| Product.getMakingDurationInMinutes >> Duration.inMinutes
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Product.getMakingDurationInMinutes product |> Format.minutes ]
           }
         , { label = "Confection (taux de perte)"
-          , toValue = .making >> .pcrWaste >> Split.toPercentString
+          , toValue = Table.IntValue <| .making >> .pcrWaste >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.splitAsPercentage product.making.pcrWaste ]
           }
         , { label = "Nombre de jours porté"
-          , toValue = .use >> .daysOfWear >> Duration.inDays >> String.fromFloat
+          , toValue = Table.FloatValue <| .use >> .daysOfWear >> Duration.inDays
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.days product.use.daysOfWear ]
           }
         , { label = "Utilisations avant lavage"
-          , toValue = .use >> .wearsPerCycle >> String.fromInt
+          , toValue = Table.IntValue <| .use >> .wearsPerCycle
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ text <| String.fromInt product.use.wearsPerCycle ]
           }
         , { label = "Cycles d'entretien (par défaut)"
-          , toValue = .use >> .defaultNbCycles >> String.fromInt
+          , toValue = Table.IntValue <| .use >> .defaultNbCycles
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ text <| String.fromInt product.use.defaultNbCycles ]
           }
         , { label = "Procédé de repassage"
-          , toValue = .use >> .ironingProcess >> .name
+          , toValue = Table.StringValue <| .use >> .ironingProcess >> .name
           , toCell = .use >> .ironingProcess >> .name >> withTitle
           }
         , { label = "Procédé d'utilisation hors-repassage"
-          , toValue = .use >> .nonIroningProcess >> .name
+          , toValue = Table.StringValue <| .use >> .nonIroningProcess >> .name
           , toCell = .use >> .nonIroningProcess >> .name >> withTitle
           }
         , { label = "Séchage électrique"
-          , toValue = .use >> .ratioDryer >> Split.toPercentString
+          , toValue = Table.IntValue <| .use >> .ratioDryer >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.splitAsPercentage product.use.ratioDryer ]
           }
         , { label = "Repassage (part)"
-          , toValue = .use >> .ratioIroning >> Split.toPercentString
+          , toValue = Table.IntValue <| .use >> .ratioIroning >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.splitAsPercentage product.use.ratioIroning ]
           }
         , { label = "Repassage (temps)"
-          , toValue = .use >> .timeIroning >> Duration.inHours >> String.fromFloat
+          , toValue = Table.FloatValue <| .use >> .timeIroning >> Duration.inHours
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.hours product.use.timeIroning ]
           }
         , { label = "Prix par défaut"
-          , toValue = .economics >> .price >> Economics.priceToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| .economics >> .price >> Economics.priceToFloat
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.priceInEUR product.economics.price ]
           }
         , { label = "Coût de réparation par défaut"
-          , toValue = .economics >> .repairCost >> Economics.priceToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| .economics >> .repairCost >> Economics.priceToFloat
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.priceInEUR product.economics.repairCost ]
           }
         , { label = "Type d'entreprise"
-          , toValue = .economics >> .business >> Economics.businessToLabel
+          , toValue = Table.StringValue <| .economics >> .business >> Economics.businessToLabel
           , toCell = .economics >> .business >> Economics.businessToLabel >> text
           }
         , { label = "Durée de commercialisation moyenne"
-          , toValue = .economics >> .marketingDuration >> Duration.inDays >> String.fromFloat
+          , toValue = Table.FloatValue <| .economics >> .marketingDuration >> Duration.inDays
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.days product.economics.marketingDuration ]
           }
         , { label = "Nombre de références"
-          , toValue = .economics >> .numberOfReferences >> String.fromInt
+          , toValue = Table.IntValue <| .economics >> .numberOfReferences
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
@@ -268,7 +268,7 @@ table db { detailed, scope } =
                         ]
           }
         , { label = "Traçabilité affichée\u{00A0}?"
-          , toValue = .economics >> .traceability >> Common.boolText
+          , toValue = Table.StringValue <| .economics >> .traceability >> Common.boolText
           , toCell = .economics >> .traceability >> Common.boolText >> text
           }
         ]

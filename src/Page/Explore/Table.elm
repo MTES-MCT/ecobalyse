@@ -1,6 +1,7 @@
 module Page.Explore.Table exposing
     ( Config
     , Table
+    , Value(..)
     , viewDetails
     , viewList
     )
@@ -20,10 +21,16 @@ type alias Table data comparable msg =
     , columns :
         List
             { label : String
-            , toValue : data -> comparable
+            , toValue : Value comparable data
             , toCell : data -> Html msg
             }
     }
+
+
+type Value comparable data
+    = FloatValue (data -> Float)
+    | IntValue (data -> Int)
+    | StringValue (data -> String)
 
 
 type alias Config data msg =
@@ -81,7 +88,18 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                     SortableTable.veryCustomColumn
                                         { name = label
                                         , viewData = \item -> { attributes = [], children = [ toCell item ] }
-                                        , sorter = SortableTable.increasingOrDecreasingBy toValue
+                                        , sorter =
+                                            -- Note: yes, this looks odd but provides necessary type hints
+                                            --       to the compiler so all branches are type-consistent
+                                            case toValue of
+                                                FloatValue getFloat ->
+                                                    SortableTable.increasingOrDecreasingBy getFloat
+
+                                                IntValue getInt ->
+                                                    SortableTable.increasingOrDecreasingBy getInt
+
+                                                StringValue getString ->
+                                                    SortableTable.increasingOrDecreasingBy getString
                                         }
                                 )
                     , customizations =

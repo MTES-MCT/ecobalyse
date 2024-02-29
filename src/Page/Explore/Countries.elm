@@ -10,7 +10,7 @@ import Dict.Any as Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
@@ -22,77 +22,77 @@ table distances countries { detailed, scope } =
     { toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , columns =
-        [ Just
-            { label = "Code"
-            , toValue = .code >> Country.codeToString
-            , toCell =
-                \country ->
-                    if detailed then
-                        code [] [ text (Country.codeToString country.code) ]
+        List.filterMap identity
+            [ Just
+                { label = "Code"
+                , toValue = Table.StringValue <| .code >> Country.codeToString
+                , toCell =
+                    \country ->
+                        if detailed then
+                            code [] [ text (Country.codeToString country.code) ]
 
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
-                            [ code [] [ text (Country.codeToString country.code) ] ]
-            }
-        , Just
-            { label = "Nom"
-            , toValue = .name
-            , toCell = .name >> text
-            }
-        , Just
-            { label = "Mix éléctrique"
-            , toValue = .electricityProcess >> .name
-            , toCell = .electricityProcess >> .name >> text
-            }
-        , Just
-            { label = "Chaleur"
-            , toValue = .heatProcess >> .name
-            , toCell = .heatProcess >> .name >> text
-            }
-        , if scope == Scope.Textile then
-            Just
-                { label = "Taux de pollution aquatique"
-                , toValue = .aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercentString
+                        else
+                            a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
+                                [ code [] [ text (Country.codeToString country.code) ] ]
+                }
+            , Just
+                { label = "Nom"
+                , toValue = Table.StringValue .name
+                , toCell = .name >> text
+                }
+            , Just
+                { label = "Mix éléctrique"
+                , toValue = Table.StringValue <| .electricityProcess >> .name
+                , toCell = .electricityProcess >> .name >> text
+                }
+            , Just
+                { label = "Chaleur"
+                , toValue = Table.StringValue <| .heatProcess >> .name
+                , toCell = .heatProcess >> .name >> text
+                }
+            , if scope == Scope.Textile then
+                Just
+                    { label = "Taux de pollution aquatique"
+                    , toValue = Table.IntValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)
+                    , toCell =
+                        \country ->
+                            div [ classList [ ( "text-end", not detailed ) ] ]
+                                [ Format.splitAsPercentage (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
+                                , Link.smallPillExternal
+                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
+                                    [ Icon.info ]
+                                ]
+                    }
+
+              else
+                Nothing
+            , Just
+                { label = "Part du transport aérien"
+                , toValue = Table.IntValue (.airTransportRatio >> Split.toPercent)
                 , toCell =
                     \country ->
                         div [ classList [ ( "text-end", not detailed ) ] ]
-                            [ Format.splitAsPercentage (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
+                            [ Format.splitAsPercentage country.airTransportRatio
                             , Link.smallPillExternal
-                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
+                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
                                 [ Icon.info ]
                             ]
                 }
-
-          else
-            Nothing
-        , Just
-            { label = "Part du transport aérien"
-            , toValue = .airTransportRatio >> Split.toPercentString
-            , toCell =
-                \country ->
-                    div [ classList [ ( "text-end", not detailed ) ] ]
-                        [ Format.splitAsPercentage country.airTransportRatio
-                        , Link.smallPillExternal
-                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
-                            [ Icon.info ]
-                        ]
-            }
-        , Just
-            { label = "Domaines"
-            , toValue = .scopes >> List.map Scope.toLabel >> String.join "/"
-            , toCell = Common.scopesView
-            }
-        , if detailed then
-            Just
-                { label = "Distances"
-                , toValue = always ""
-                , toCell = displayDistances countries distances
+            , Just
+                { label = "Domaines"
+                , toValue = Table.StringValue <| .scopes >> List.map Scope.toLabel >> String.join "/"
+                , toCell = Common.scopesView
                 }
+            , if detailed then
+                Just
+                    { label = "Distances"
+                    , toValue = Table.StringValue <| always ""
+                    , toCell = displayDistances countries distances
+                    }
 
-          else
-            Nothing
-        ]
-            |> List.filterMap identity
+              else
+                Nothing
+            ]
     }
 
 
