@@ -38,7 +38,7 @@ table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
           , toValue = .id >> Product.idToString
           , toCell =

@@ -24,7 +24,7 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient Stri
 table _ { detailed, scope } =
     { toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
           , toValue = .id >> Ingredient.idToString
           , toCell =

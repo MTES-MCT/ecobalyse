@@ -13,7 +13,7 @@ table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
     { toId = .uuid >> Process.uuidToString
     , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Étape"
           , toValue = .stepUsage
           , toCell = .stepUsage >> text

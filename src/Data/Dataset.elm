@@ -29,6 +29,7 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
+    | FoodExamples (Maybe String)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
     | TextileProducts (Maybe Product.Id)
@@ -44,6 +45,7 @@ datasets scope =
                 Scope.Food ->
                     [ FoodIngredients Nothing
                     , FoodProcesses Nothing
+                    , FoodExamples Nothing
                     ]
 
                 Scope.Textile ->
@@ -59,6 +61,9 @@ fromSlug string =
     case string of
         "countries" ->
             Countries Nothing
+
+        "examples" ->
+            FoodExamples Nothing
 
         "ingredients" ->
             FoodIngredients Nothing
@@ -126,6 +131,9 @@ reset dataset =
         Impacts _ ->
             Impacts Nothing
 
+        FoodExamples _ ->
+            FoodExamples Nothing
+
         FoodIngredients _ ->
             FoodIngredients Nothing
 
@@ -149,6 +157,9 @@ same a b =
             True
 
         ( Impacts _, Impacts _ ) ->
+            True
+
+        ( FoodExamples _, FoodExamples _ ) ->
             True
 
         ( FoodIngredients _, FoodIngredients _ ) ->
@@ -178,6 +189,9 @@ setIdFromString idString dataset =
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
+
+        FoodExamples _ ->
+            FoodExamples (Just idString)
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
@@ -209,6 +223,9 @@ strings dataset =
         Impacts _ ->
             { slug = "impacts", label = "Impacts" }
 
+        FoodExamples _ ->
+            { slug = "examples", label = "Exemples" }
+
         FoodIngredients _ ->
             { slug = "ingredients", label = "Ingrédients" }
 
@@ -233,6 +250,12 @@ toRoutePath dataset =
 
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
+
+        FoodExamples Nothing ->
+            [ slug dataset ]
+
+        FoodExamples (Just name) ->
+            [ slug dataset, name ]
 
         FoodIngredients Nothing ->
             [ slug dataset ]
