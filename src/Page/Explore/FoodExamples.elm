@@ -1,7 +1,7 @@
 module Page.Explore.FoodExamples exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Food.ExampleProduct exposing (ExampleProduct)
+import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -17,8 +17,8 @@ import Views.Format as Format
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
 table db { detailed, scope } =
-    { toId = .name
-    , toRoute = .name >> Just >> Dataset.FoodExamples >> Route.Explore scope
+    { toId = .id >> ExampleProduct.uuidToString
+    , toRoute = .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
           , toValue = Table.StringValue .name

@@ -266,17 +266,17 @@ foodExamplesExplorer :
     Db
     -> Table.Config FoodExampleProduct.ExampleProduct Msg
     -> SortableTable.State
-    -> Maybe String
+    -> Maybe FoodExampleProduct.Uuid
     -> List (Html Msg)
-foodExamplesExplorer db tableConfig tableState maybeName =
+foodExamplesExplorer db tableConfig tableState maybeId =
     [ db.food.exampleProducts
         |> List.filter (.query >> (/=) FoodQuery.empty)
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
-    , case maybeName of
-        Just name ->
+    , case maybeId of
+        Just id ->
             detailsModal
-                (case FoodExampleProduct.findByName name db.food.exampleProducts of
+                (case FoodExampleProduct.findByUuid id db.food.exampleProducts of
                     Ok example ->
                         example
                             |> Table.viewDetails Scope.Food (FoodExamples.table db)
@@ -348,16 +348,16 @@ textileExamplesExplorer :
     Db
     -> Table.Config TextileExampleProduct.ExampleProduct Msg
     -> SortableTable.State
-    -> Maybe String
+    -> Maybe TextileExampleProduct.Uuid
     -> List (Html Msg)
-textileExamplesExplorer db tableConfig tableState maybeName =
+textileExamplesExplorer db tableConfig tableState maybeId =
     [ db.textile.exampleProducts
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
-    , case maybeName of
-        Just name ->
+    , case maybeId of
+        Just id ->
             detailsModal
-                (case TextileExampleProduct.findByName name db.textile.exampleProducts of
+                (case TextileExampleProduct.findByUuid id db.textile.exampleProducts of
                     Ok example ->
                         example
                             |> Table.viewDetails Scope.Food (TextileExamples.table db)

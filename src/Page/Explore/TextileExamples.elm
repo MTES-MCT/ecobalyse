@@ -4,7 +4,7 @@ import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope exposing (Scope)
-import Data.Textile.ExampleProduct exposing (ExampleProduct)
+import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
@@ -17,8 +17,8 @@ import Views.Format as Format
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
 table db { detailed, scope } =
-    { toId = .name
-    , toRoute = .name >> Just >> Dataset.TextileExamples >> Route.Explore scope
+    { toId = .id >> ExampleProduct.uuidToString
+    , toRoute = .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
           , toValue = Table.StringValue .name

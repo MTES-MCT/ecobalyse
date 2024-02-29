@@ -11,10 +11,12 @@ module Data.Dataset exposing
     )
 
 import Data.Country as Country
+import Data.Food.ExampleProduct as FoodExample
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
+import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
@@ -29,10 +31,10 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
-    | FoodExamples (Maybe String)
+    | FoodExamples (Maybe FoodExample.Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
-    | TextileExamples (Maybe String)
+    | TextileExamples (Maybe TextileExample.Uuid)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -208,7 +210,7 @@ setIdFromString idString dataset =
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         FoodExamples _ ->
-            FoodExamples (Just idString)
+            FoodExamples (Just (FoodExample.uuidFromString idString))
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
@@ -217,7 +219,7 @@ setIdFromString idString dataset =
             FoodProcesses (Just (FoodProcess.codeFromString idString))
 
         TextileExamples _ ->
-            TextileExamples (Just idString)
+            TextileExamples (Just (TextileExample.uuidFromString idString))
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -277,8 +279,8 @@ toRoutePath dataset =
         FoodExamples Nothing ->
             [ slug dataset ]
 
-        FoodExamples (Just name) ->
-            [ slug dataset, name ]
+        FoodExamples (Just id) ->
+            [ slug dataset, FoodExample.uuidToString id ]
 
         FoodIngredients Nothing ->
             [ slug dataset ]
@@ -301,8 +303,8 @@ toRoutePath dataset =
         TextileExamples Nothing ->
             [ slug dataset ]
 
-        TextileExamples (Just name) ->
-            [ slug dataset, name ]
+        TextileExamples (Just id) ->
+            [ slug dataset, TextileExample.uuidToString id ]
 
         TextileProducts Nothing ->
             [ slug dataset ]
