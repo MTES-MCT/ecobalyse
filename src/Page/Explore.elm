@@ -11,12 +11,15 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
+import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
+import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
@@ -24,10 +27,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Explore.Countries as ExploreCountries
+import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Table as Table
+import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
@@ -66,11 +71,17 @@ init scope dataset session =
                 Dataset.Impacts _ ->
                     "Code"
 
+                Dataset.FoodExamples _ ->
+                    "Coût Environnemental"
+
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
 
                 Dataset.FoodProcesses _ ->
                     "Nom"
+
+                Dataset.TextileExamples _ ->
+                    "Coût Environnemental"
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"
@@ -251,6 +262,34 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
     ]
 
 
+foodExamplesExplorer :
+    Db
+    -> Table.Config FoodExampleProduct.ExampleProduct Msg
+    -> SortableTable.State
+    -> Maybe FoodExampleProduct.Uuid
+    -> List (Html Msg)
+foodExamplesExplorer db tableConfig tableState maybeId =
+    [ db.food.exampleProducts
+        |> List.filter (.query >> (/=) FoodQuery.empty)
+        |> List.sortBy .name
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case FoodExampleProduct.findByUuid id db.food.exampleProducts of
+                    Ok example ->
+                        example
+                            |> Table.viewDetails Scope.Food (FoodExamples.table db)
+
+                    Err error ->
+                        alert error
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 foodIngredientsExplorer :
     Db
     -> Table.Config Ingredient Msg
@@ -295,6 +334,33 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Food (FoodProcesses.table food)
+
+                    Err error ->
+                        alert error
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
+textileExamplesExplorer :
+    Db
+    -> Table.Config TextileExampleProduct.ExampleProduct Msg
+    -> SortableTable.State
+    -> Maybe TextileExampleProduct.Uuid
+    -> List (Html Msg)
+textileExamplesExplorer db tableConfig tableState maybeId =
+    [ db.textile.exampleProducts
+        |> List.sortBy .name
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case TextileExampleProduct.findByUuid id db.textile.exampleProducts of
+                    Ok example ->
+                        example
+                            |> Table.viewDetails Scope.Food (TextileExamples.table db)
 
                     Err error ->
                         alert error
@@ -408,11 +474,17 @@ explore session { scope, dataset, tableState } =
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
+        Dataset.FoodExamples maybeId ->
+            foodExamplesExplorer db tableConfig tableState maybeId
+
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
         Dataset.FoodProcesses maybeId ->
             foodProcessesExplorer db tableConfig tableState maybeId
+
+        Dataset.TextileExamples maybeId ->
+            textileExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId

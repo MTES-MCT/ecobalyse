@@ -5,7 +5,7 @@ import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
 import Data.Scope exposing (Scope)
 import Html exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
@@ -13,9 +13,9 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Pro
 table _ { detailed, scope } =
     { toId = .code >> FoodProcess.codeToString
     , toRoute = .code >> Just >> Dataset.FoodProcesses >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
-          , toValue = .code >> FoodProcess.codeToString
+          , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
           , toCell =
                 \process ->
                     if detailed then
@@ -26,31 +26,31 @@ table _ { detailed, scope } =
                             [ code [] [ text (FoodProcess.codeToString process.code) ] ]
           }
         , { label = "Nom"
-          , toValue = getDisplayName
+          , toValue = Table.StringValue getDisplayName
           , toCell = getDisplayName >> text
           }
         , { label = "Catégorie"
-          , toValue = .category >> FoodProcess.categoryToString
+          , toValue = Table.StringValue <| .category >> FoodProcess.categoryToString
           , toCell = .category >> FoodProcess.categoryToString >> text
           }
         , { label = "Nom technique"
-          , toValue = .name >> FoodProcess.nameToString
+          , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
           , toCell = .name >> FoodProcess.nameToString >> text
           }
         , { label = "Identifiant source"
-          , toValue = .code >> FoodProcess.codeToString
+          , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
           , toCell = \process -> code [] [ text (FoodProcess.codeToString process.code) ]
           }
         , { label = "Unité"
-          , toValue = .unit
+          , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
           }
         , { label = "Description du système"
-          , toValue = .systemDescription
+          , toValue = Table.StringValue <| .systemDescription
           , toCell = .systemDescription >> text
           }
         , { label = "Commentaire"
-          , toValue = .comment >> Maybe.withDefault "N/A"
+          , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
           , toCell = .comment >> Maybe.withDefault "N/A" >> text
           }
         ]
