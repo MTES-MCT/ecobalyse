@@ -14,6 +14,7 @@ import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
+import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
@@ -269,6 +270,7 @@ foodExamplesExplorer :
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeName =
     [ db.food.exampleProducts
+        |> List.filter (.query >> (/=) FoodQuery.empty)
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
     , case maybeName of
