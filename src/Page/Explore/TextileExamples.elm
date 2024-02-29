@@ -24,6 +24,10 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
+        , { label = "Catégorie"
+          , toValue = Table.StringValue .category
+          , toCell = .category >> text
+          }
         , { label = "Coût environnemental"
           , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
           , toCell =
