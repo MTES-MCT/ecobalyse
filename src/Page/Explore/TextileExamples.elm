@@ -8,11 +8,10 @@ import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Static.Db exposing (Db)
-import Views.Format as Format
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
@@ -41,27 +40,8 @@ table db { detailed, scope } =
                                 |> List.map (getScore db >> Unit.impactToFloat)
                                 |> List.maximum
                                 |> Maybe.withDefault 0
-
-                        percent =
-                            score / max * 100
                     in
-                    div [ class "d-flex justify-content-between align-items-center gap-2", style "min-width" "20vw" ]
-                        [ div
-                            [ classList [ ( "text-end", not detailed ) ]
-                            , style "min-width" "80px"
-                            ]
-                            [ getScore db example
-                                |> Unit.impactToFloat
-                                |> Format.formatImpactFloat db.definitions.ecs
-                            ]
-                        , div [ class "progress", style "min-width" "calc(19vw - 80px)" ]
-                            [ div
-                                [ class "progress-bar bg-secondary"
-                                , style "width" <| String.fromFloat percent ++ "%"
-                                ]
-                                []
-                            ]
-                        ]
+                    Common.impactBarGraph detailed max score
           }
         ]
     }
