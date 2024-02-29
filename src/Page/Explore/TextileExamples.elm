@@ -46,12 +46,15 @@ table db { detailed, scope } =
                             score / max * 100
                     in
                     div [ class "d-flex justify-content-between align-items-center gap-2", style "min-width" "20vw" ]
-                        [ div [ classList [ ( "text-end", not detailed ) ] ]
+                        [ div
+                            [ classList [ ( "text-end", not detailed ) ]
+                            , style "min-width" "80px"
+                            ]
                             [ getScore db example
                                 |> Unit.impactToFloat
                                 |> Format.formatImpactFloat db.definitions.ecs
                             ]
-                        , div [ class "progress", style "min-width" "19vw" ]
+                        , div [ class "progress", style "min-width" "calc(19vw - 80px)" ]
                             [ div
                                 [ class "progress-bar bg-secondary"
                                 , style "width" <| String.fromFloat percent ++ "%"

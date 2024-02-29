@@ -9,7 +9,7 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table as Table exposing (Table)
+import Page.Explore.Table as Table exposing (Column, Table)
 import Route
 import Static.Db exposing (Db)
 import Views.Format as Format
@@ -28,41 +28,8 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .category
           , toCell = .category >> text
           }
-        , { label = "Coût Environnemental"
-          , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
-          , toCell =
-                \example ->
-                    div [ classList [ ( "text-end", not detailed ) ] ]
-                        [ getScore db example
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat db.definitions.ecs
-                        ]
-          }
-        , { label = ""
-          , toValue = Table.NoValue
-          , toCell =
-                \example ->
-                    let
-                        score =
-                            getScore db example |> Unit.impactToFloat
-
-                        max =
-                            db.food.exampleProducts
-                                |> List.map (getScore db >> Unit.impactToFloat)
-                                |> List.maximum
-                                |> Maybe.withDefault 0
-
-                        percent =
-                            score / max * 100
-                    in
-                    div [ class "progress", style "min-width" "20vw" ]
-                        [ div
-                            [ class "progress-bar bg-secondary"
-                            , style "width" <| String.fromFloat percent ++ "%"
-                            ]
-                            []
-                        ]
-          }
+        , scoreCell db "Coût Environnemental" detailed (getScore db)
+        , scoreCell db "Coût Environnemental/100g" detailed (getScorePer100g db)
         ]
     }
 
@@ -73,3 +40,55 @@ getScore db =
         >> Recipe.compute db
         >> Result.map (Tuple.second >> .total >> Impact.getImpact Definition.Ecs)
         >> Result.withDefault (Unit.impact 0)
+
+
+getScorePer100g : Db -> ExampleProduct -> Unit.Impact
+getScorePer100g db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .perKg
+                >> Impact.getImpact Definition.Ecs
+                >> (\x -> Unit.impact (Unit.impactToFloat x / 10))
+            )
+        >> Result.withDefault (Unit.impact 0)
+
+
+scoreCell : Db -> String -> Bool -> (ExampleProduct -> Unit.Impact) -> Column ExampleProduct comparable msg
+scoreCell db label detailed scoreGetter =
+    { label = label
+    , toValue = Table.FloatValue <| scoreGetter >> Unit.impactToFloat
+    , toCell =
+        \example ->
+            let
+                score =
+                    scoreGetter example |> Unit.impactToFloat
+
+                max =
+                    db.food.exampleProducts
+                        |> List.map (scoreGetter >> Unit.impactToFloat)
+                        |> List.maximum
+                        |> Maybe.withDefault 0
+
+                percent =
+                    score / max * 100
+            in
+            div [ class "d-flex justify-content-between align-items-center gap-2", style "min-width" "20vw" ]
+                [ div
+                    [ classList [ ( "text-end", not detailed ) ]
+                    , style "min-width" "80px"
+                    ]
+                    [ scoreGetter example
+                        |> Unit.impactToFloat
+                        |> Format.formatImpactFloat db.definitions.ecs
+                    ]
+                , div [ class "progress", style "min-width" "calc(19vw - 80px)" ]
+                    [ div
+                        [ class "progress-bar bg-secondary"
+                        , style "width" <| String.fromFloat percent ++ "%"
+                        ]
+                        []
+                    ]
+                ]
+    }

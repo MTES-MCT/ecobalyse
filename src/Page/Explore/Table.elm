@@ -1,5 +1,6 @@
 module Page.Explore.Table exposing
-    ( Config
+    ( Column
+    , Config
     , Table
     , Value(..)
     , viewDetails
@@ -18,12 +19,14 @@ import Views.Table as TableView
 type alias Table data comparable msg =
     { toId : data -> String
     , toRoute : data -> Route
-    , columns :
-        List
-            { label : String
-            , toValue : Value comparable data
-            , toCell : data -> Html msg
-            }
+    , columns : List (Column data comparable msg)
+    }
+
+
+type alias Column data comparable msg =
+    { label : String
+    , toValue : Value comparable data
+    , toCell : data -> Html msg
     }
 
 
@@ -31,7 +34,6 @@ type Value comparable data
     = FloatValue (data -> Float)
     | IntValue (data -> Int)
     | StringValue (data -> String)
-    | NoValue
 
 
 type alias Config data msg =
@@ -101,9 +103,6 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
                                                 StringValue getString ->
                                                     SortableTable.increasingOrDecreasingBy getString
-
-                                                NoValue ->
-                                                    SortableTable.unsortable
                                         }
                                 )
                     , customizations =
