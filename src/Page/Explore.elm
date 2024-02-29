@@ -11,13 +11,14 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
+import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
@@ -30,6 +31,7 @@ import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Table as Table
+import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
@@ -76,6 +78,9 @@ init scope dataset session =
 
                 Dataset.FoodProcesses _ ->
                     "Nom"
+
+                Dataset.TextileExamples _ ->
+                    "Coût environnemental"
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"
@@ -258,7 +263,7 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 foodExamplesExplorer :
     Db
-    -> Table.Config ExampleProduct Msg
+    -> Table.Config FoodExampleProduct.ExampleProduct Msg
     -> SortableTable.State
     -> Maybe String
     -> List (Html Msg)
@@ -269,7 +274,7 @@ foodExamplesExplorer db tableConfig tableState maybeName =
     , case maybeName of
         Just name ->
             detailsModal
-                (case ExampleProduct.findByName name db.food.exampleProducts of
+                (case FoodExampleProduct.findByName name db.food.exampleProducts of
                     Ok example ->
                         example
                             |> Table.viewDetails Scope.Food (FoodExamples.table db)
@@ -327,6 +332,33 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Food (FoodProcesses.table food)
+
+                    Err error ->
+                        alert error
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
+textileExamplesExplorer :
+    Db
+    -> Table.Config TextileExampleProduct.ExampleProduct Msg
+    -> SortableTable.State
+    -> Maybe String
+    -> List (Html Msg)
+textileExamplesExplorer db tableConfig tableState maybeName =
+    [ db.textile.exampleProducts
+        |> List.sortBy .name
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
+    , case maybeName of
+        Just name ->
+            detailsModal
+                (case TextileExampleProduct.findByName name db.textile.exampleProducts of
+                    Ok example ->
+                        example
+                            |> Table.viewDetails Scope.Food (TextileExamples.table db)
 
                     Err error ->
                         alert error
@@ -448,6 +480,9 @@ explore session { scope, dataset, tableState } =
 
         Dataset.FoodProcesses maybeId ->
             foodProcessesExplorer db tableConfig tableState maybeId
+
+        Dataset.TextileExamples maybeId ->
+            textileExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId

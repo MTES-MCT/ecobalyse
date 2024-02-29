@@ -1,6 +1,7 @@
 module Data.Textile.ExampleProduct exposing
     ( ExampleProduct
     , decodeListFromJsonString
+    , findByName
     , toCategory
     , toName
     )
@@ -28,6 +29,13 @@ decodeListFromJsonString : String -> Result String (List ExampleProduct)
 decodeListFromJsonString =
     Decode.decodeString (Decode.list decode)
         >> Result.mapError Decode.errorToString
+
+
+findByName : String -> List ExampleProduct -> Result String ExampleProduct
+findByName name =
+    List.filter (.name >> (==) name)
+        >> List.head
+        >> Result.fromMaybe ("Exemple introuvable: " ++ name)
 
 
 toCategory : List ExampleProduct -> Query -> String
