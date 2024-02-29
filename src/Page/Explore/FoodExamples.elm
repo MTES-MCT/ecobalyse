@@ -34,6 +34,31 @@ table db { detailed, scope } =
                             |> Format.formatImpactFloat db.definitions.ecs
                         ]
           }
+        , { label = ""
+          , toValue = Table.NoValue
+          , toCell =
+                \example ->
+                    let
+                        score =
+                            getScore db example |> Unit.impactToFloat
+
+                        max =
+                            db.food.exampleProducts
+                                |> List.map (getScore db >> Unit.impactToFloat)
+                                |> List.maximum
+                                |> Maybe.withDefault 0
+
+                        percent =
+                            score / max * 100
+                    in
+                    div [ class "progress", style "min-width" "20vw" ]
+                        [ div
+                            [ class "progress-bar bg-secondary"
+                            , style "width" <| String.fromFloat percent ++ "%"
+                            ]
+                            []
+                        ]
+          }
         ]
     }
 

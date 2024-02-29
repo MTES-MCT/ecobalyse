@@ -14,8 +14,6 @@ import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
-import Data.Food.Recipe as Recipe
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
@@ -23,7 +21,6 @@ import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -444,21 +441,7 @@ explore session { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodExamples maybeId ->
-            foodExamplesExplorer db
-                { tableConfig
-                    | columns =
-                        [ SortableTable.stringColumn "Nom" .name
-                        , SortableTable.floatColumn "Coût environnemental"
-                            (.query
-                                >> Recipe.compute db
-                                >> Result.map (Tuple.second >> .total >> Impact.getImpact Definition.Ecs)
-                                >> Result.withDefault (Unit.impact 0)
-                                >> Unit.impactToFloat
-                            )
-                        ]
-                }
-                tableState
-                maybeId
+            foodExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
