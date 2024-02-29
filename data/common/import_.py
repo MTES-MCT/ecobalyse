@@ -362,3 +362,12 @@ def add_missing_substances(project, biosphere):
     for code, activity in substances.items():
         if not [flow for flow in bio if flow["code"] == code]:
             bio.new_activity(code, **activity)
+
+
+def sync_datapackages():
+    print("Syncing datapackages...")
+    for method in bw2data.methods:
+        bw2data.Method(method).process()
+
+    for database in bw2data.databases:
+        bw2data.Database(database).process()

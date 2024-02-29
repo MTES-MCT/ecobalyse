@@ -2,9 +2,10 @@
 
 from bw2data.project import projects
 from common.import_ import (
+    add_created_activities,
     add_missing_substances,
     import_simapro_csv,
-    add_created_activities,
+    sync_datapackages,
 )
 import bw2data
 import bw2io
@@ -136,7 +137,7 @@ def main():
     else:
         print(f"{db} already imported")
 
-    # WFLDB 
+    # WFLDB
     if (db := "WFLDB") not in bw2data.databases:
         import_simapro_csv(WFLDB, db, excluded_strategies=EXCLUDED)
     else:
@@ -160,6 +161,7 @@ def main():
         add_created_activities(db, ACTIVITIES_TO_CREATE)
     else:
         print(f"{db} already imported")
+    sync_datapackages()
 
 
 if __name__ == "__main__":
