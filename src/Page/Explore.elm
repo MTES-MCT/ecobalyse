@@ -72,7 +72,7 @@ init scope dataset session =
                     "Code"
 
                 Dataset.FoodExamples _ ->
-                    "Coût environnemental"
+                    "Coût Environnemental"
 
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
@@ -81,7 +81,7 @@ init scope dataset session =
                     "Nom"
 
                 Dataset.TextileExamples _ ->
-                    "Coût environnemental"
+                    "Coût Environnemental"
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"

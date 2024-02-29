@@ -28,18 +28,8 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .category
           , toCell = .category >> text
           }
-        , { label = "Coût Env."
+        , { label = "Coût Environnemental"
           , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
-          , toCell =
-                \example ->
-                    div [ classList [ ( "text-end", not detailed ) ] ]
-                        [ getScore db example
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat db.definitions.ecs
-                        ]
-          }
-        , { label = ""
-          , toValue = Table.NoValue
           , toCell =
                 \example ->
                     let
@@ -55,12 +45,19 @@ table db { detailed, scope } =
                         percent =
                             score / max * 100
                     in
-                    div [ class "progress", style "min-width" "20vw" ]
-                        [ div
-                            [ class "progress-bar bg-secondary"
-                            , style "width" <| String.fromFloat percent ++ "%"
+                    div [ class "d-flex justify-content-between align-items-center gap-2", style "min-width" "20vw" ]
+                        [ div [ classList [ ( "text-end", not detailed ) ] ]
+                            [ getScore db example
+                                |> Unit.impactToFloat
+                                |> Format.formatImpactFloat db.definitions.ecs
                             ]
-                            []
+                        , div [ class "progress", style "min-width" "19vw" ]
+                            [ div
+                                [ class "progress-bar bg-secondary"
+                                , style "width" <| String.fromFloat percent ++ "%"
+                                ]
+                                []
+                            ]
                         ]
           }
         ]
