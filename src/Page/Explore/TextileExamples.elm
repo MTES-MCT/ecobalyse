@@ -28,7 +28,7 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .category
           , toCell = .category >> text
           }
-        , { label = "Coût environnemental"
+        , { label = "Coût Env."
           , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
           , toCell =
                 \example ->
