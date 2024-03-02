@@ -35,7 +35,7 @@ ACTIVITIES_TO_CREATE = "food/activities_to_create.json"
 EXCLUDED = [
     "normalize_simapro_biosphere_names",
     "normalize_biosphere_names",
-    #    "fix_localized_water_flows",
+    "fix_localized_water_flows",  # both agb and ef31 adapted have localized wf
     "simapro-water",
 ]
 
