@@ -96,6 +96,22 @@ AGRIBALYSE_MIGRATIONS = [
                     ),
                     {"unit": "ha", "multiplier": 1e-4},
                 ),
+                [
+                    ("Water, river, ID", "l"),
+                    {"unit": "cubic meter", "multiplier": 0.001},
+                ],
+                [
+                    ("Water, well, ID", "l"),
+                    {"unit": "cubic meter", "multiplier": 0.001},
+                ],
+                [
+                    ("Water, river, ES", "l"),
+                    {"unit": "cubic meter", "multiplier": 0.001},
+                ],
+                [
+                    ("Water, well, ES", "l"),
+                    {"unit": "cubic meter", "multiplier": 0.001},
+                ],
             ],
         },
     }
