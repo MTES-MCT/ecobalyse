@@ -117,6 +117,11 @@ Données moyenne de biodégradabilité ("Degradation rate") utilisées dans les 
 Ces données sont issues de tests sur le compartiment Marin/Marine et peuvent varier de manière significative selon différents paramètres (ex : température de l'eau, exposition à la lumière/UV, etc.).
 
 <figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Ces premières études mettent en avant de fortes disparités en termes de persistance/biodégradabilité entre les fibres synthétiques (ex : polyester) et naturelles (ex : coton).\
+Le coton se dégrade 10 à 100 fois plus rapidement que certaines fibres synthétiques (ex : nylon, polyester) sur la base des travaux MariLCA et TheMicrofibreConsortium susmentionnés.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Relargage" %}
