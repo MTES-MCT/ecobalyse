@@ -129,16 +129,22 @@ update session msg model =
             ( { model | scope = scope }
             , session
             , (case model.dataset of
-                -- When changing scopes, if we were on a tab that is common between both scopes, don't "reset" the selected tab.
-                -- Only the "impacts" and "countries" tabs are common at the moment, and the "impacts" tab is the one by default,
-                -- so in effect this check makes sure that if we selected the "countries" tab and we change the scope, the
-                -- selected tab isn't changed back automatically to the "impacts" tab.
+                -- Try selecting the most appropriate tab when switching scope.
                 Dataset.Countries _ ->
-                    Route.Explore scope (Dataset.Countries Nothing)
+                    Dataset.Countries Nothing
+
+                Dataset.Impacts _ ->
+                    Dataset.Impacts Nothing
 
                 _ ->
-                    Route.Explore scope (Dataset.Impacts Nothing)
+                    case scope of
+                        Scope.Food ->
+                            Dataset.FoodExamples Nothing
+
+                        Scope.Textile ->
+                            Dataset.TextileExamples Nothing
               )
+                |> Route.Explore scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
             )
@@ -449,11 +455,8 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore session { scope, dataset, tableState } =
+explore { db } { scope, dataset, tableState } =
     let
-        db =
-            session.db
-
         defaultCustomizations =
             SortableTable.defaultCustomizations
 

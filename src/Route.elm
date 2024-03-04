@@ -43,7 +43,15 @@ parser =
         , Parser.map Stats (Parser.s "stats")
 
         --  Explorer
-        , Parser.map (\scope -> Explore scope (Dataset.Impacts Nothing))
+        , Parser.map
+            (\scope ->
+                case scope of
+                    Scope.Food ->
+                        Explore scope (Dataset.FoodExamples Nothing)
+
+                    Scope.Textile ->
+                        Explore scope (Dataset.TextileExamples Nothing)
+            )
             (Parser.s "explore" </> Scope.parseSlug)
         , Parser.map Explore
             (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug)
@@ -160,8 +168,11 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Explore Scope.Food (Dataset.Impacts Nothing) ->
+                Explore Scope.Food (Dataset.FoodExamples Nothing) ->
                     [ "explore", "food" ]
+
+                Explore Scope.Textile (Dataset.TextileExamples Nothing) ->
+                    [ "explore", "textile" ]
 
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset

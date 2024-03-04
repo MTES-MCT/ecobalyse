@@ -42,22 +42,23 @@ type Dataset
 
 datasets : Scope -> List Dataset
 datasets scope =
-    Impacts Nothing
-        :: Countries Nothing
-        :: (case scope of
-                Scope.Food ->
-                    [ FoodIngredients Nothing
-                    , FoodProcesses Nothing
-                    , FoodExamples Nothing
-                    ]
+    case scope of
+        Scope.Food ->
+            [ FoodExamples Nothing
+            , Countries Nothing
+            , Impacts Nothing
+            , FoodIngredients Nothing
+            , FoodProcesses Nothing
+            ]
 
-                Scope.Textile ->
-                    [ TextileProducts Nothing
-                    , TextileMaterials Nothing
-                    , TextileProcesses Nothing
-                    , TextileExamples Nothing
-                    ]
-           )
+        Scope.Textile ->
+            [ TextileExamples Nothing
+            , Countries Nothing
+            , Impacts Nothing
+            , TextileProducts Nothing
+            , TextileMaterials Nothing
+            , TextileProcesses Nothing
+            ]
 
 
 fromSlug : String -> Dataset
@@ -65,6 +66,9 @@ fromSlug string =
     case string of
         "countries" ->
             Countries Nothing
+
+        "impacts" ->
+            Impacts Nothing
 
         "food-examples" ->
             FoodExamples Nothing
@@ -84,11 +88,8 @@ fromSlug string =
         "processes" ->
             TextileProcesses Nothing
 
-        "textile-examples" ->
-            TextileExamples Nothing
-
         _ ->
-            Impacts Nothing
+            TextileExamples Nothing
 
 
 isDetailed : Dataset -> Bool
@@ -295,7 +296,7 @@ toRoutePath dataset =
             [ slug dataset, FoodProcess.codeToString id ]
 
         Impacts Nothing ->
-            []
+            [ slug dataset ]
 
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
