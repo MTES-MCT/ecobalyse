@@ -2751,7 +2751,12 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.772345656,
     "crop_group": "BLE TENDRE",
     "scenario": "import",
     "visible": true
@@ -2766,7 +2771,12 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 4.587598955,
     "crop_group": "BLE TENDRE",
     "scenario": "import",
     "visible": true
@@ -2781,7 +2791,12 @@
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.08821701014,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -2796,7 +2811,12 @@
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.78731697,
     "crop_group": "VERGERS",
     "scenario": "import",
     "visible": true
