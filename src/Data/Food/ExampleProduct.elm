@@ -1,8 +1,12 @@
 module Data.Food.ExampleProduct exposing
     ( ExampleProduct
+    , Uuid
     , decodeListFromJsonString
+    , findByUuid
     , toCategory
     , toName
+    , uuidFromString
+    , uuidToString
     )
 
 import Data.Food.Query as Query exposing (Query)
@@ -10,15 +14,21 @@ import Json.Decode as Decode exposing (Decoder)
 
 
 type alias ExampleProduct =
-    { name : String
+    { id : Uuid
+    , name : String
     , query : Query
     , category : String
     }
 
 
+type Uuid
+    = Uuid String
+
+
 decode : Decoder ExampleProduct
 decode =
-    Decode.map3 ExampleProduct
+    Decode.map4 ExampleProduct
+        (Decode.field "id" (Decode.map Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "query" Query.decode)
         (Decode.field "category" Decode.string)
@@ -28,6 +38,13 @@ decodeListFromJsonString : String -> Result String (List ExampleProduct)
 decodeListFromJsonString =
     Decode.decodeString (Decode.list decode)
         >> Result.mapError Decode.errorToString
+
+
+findByUuid : Uuid -> List ExampleProduct -> Result String ExampleProduct
+findByUuid id =
+    List.filter (.id >> (==) id)
+        >> List.head
+        >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ uuidToString id)
 
 
 toCategory : List ExampleProduct -> Query -> String
@@ -58,3 +75,13 @@ toName examples q =
             )
         |> List.head
         |> Maybe.withDefault "Produit personnalisé"
+
+
+uuidFromString : String -> Uuid
+uuidFromString =
+    Uuid
+
+
+uuidToString : Uuid -> String
+uuidToString (Uuid string) =
+    string

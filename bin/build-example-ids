@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const crypto = require("crypto");
+
+const foodExamples = require("../public/data/food/examples.json");
+const textileExamples = require("../public/data/textile/examples.json");
+
+function generateIdentifiers(examples) {
+  const results = examples.map(({ id, name, category, query }) => {
+    return {
+      id: id || crypto.randomUUID(),
+      // note: ensure consistent keys ordering
+      name,
+      category,
+      query,
+    };
+  });
+  return JSON.stringify(results, null, 2);
+}
+
+fs.writeFileSync(
+  `${__dirname}/../public/data/food/examples.json`,
+  generateIdentifiers(foodExamples),
+);
+fs.writeFileSync(
+  `${__dirname}/../public/data/textile/examples.json`,
+  generateIdentifiers(textileExamples),
+);

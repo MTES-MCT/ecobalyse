@@ -13,7 +13,7 @@ import Data.Split as Split
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
@@ -24,9 +24,9 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient Stri
 table _ { detailed, scope } =
     { toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
-          , toValue = .id >> Ingredient.idToString
+          , toValue = Table.StringValue <| .id >> Ingredient.idToString
           , toCell =
                 \ingredient ->
                     if detailed then
@@ -37,19 +37,19 @@ table _ { detailed, scope } =
                             [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
           }
         , { label = "Nom"
-          , toValue = .name
+          , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Catégories"
-          , toValue = .categories >> List.map IngredientCategory.toLabel >> String.join ","
+          , toValue = Table.StringValue <| .categories >> List.map IngredientCategory.toLabel >> String.join ","
           , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
-          , toValue = .defaultOrigin >> Origin.toLabel
+          , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
           }
         , { label = "Part non-comestible"
-          , toValue = .inediblePart >> Split.toPercentString
+          , toValue = Table.IntValue <| .inediblePart >> Split.toPercent
           , toCell =
                 \{ inediblePart } ->
                     div [ classList [ ( "text-end", not detailed ) ] ]
@@ -63,7 +63,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Rapport cru/cuit"
-          , toValue = .rawToCookedRatio >> Unit.ratioToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| .rawToCookedRatio >> Unit.ratioToFloat
           , toCell =
                 \{ rawToCookedRatio } ->
                     div [ classList [ ( "text-end", not detailed ) ] ]
@@ -77,7 +77,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Procédé"
-          , toValue = .default >> .name >> Process.nameToString
+          , toValue = Table.StringValue <| .default >> .name >> Process.nameToString
           , toCell =
                 \{ default } ->
                     div []
@@ -93,7 +93,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Services écosystémiques"
-          , toValue = always "N/A"
+          , toValue = Table.StringValue <| always "N/A"
           , toCell =
                 \{ ecosystemicServices } ->
                     div [ class "overflow-scroll" ]

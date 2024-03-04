@@ -23,6 +23,7 @@ The number of routes is n(n-1)/2 with n the number of countries.
 
 countries = [
     "AL",
+    "AU",
     "BD",
     "BE",
     "BR",

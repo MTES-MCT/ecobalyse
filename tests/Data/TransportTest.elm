@@ -18,7 +18,7 @@ km =
 
 franceChina : Impacts -> Transport
 franceChina impacts =
-    { road = km 8169
+    { road = km 9005
     , roadCooled = km 0
     , sea = km 21549
     , seaCooled = km 0
@@ -37,7 +37,7 @@ suite =
                         AnyDict.keys db.distances
                             |> List.member code
                             |> Expect.equal True
-                            |> asTest (Country.codeToString code ++ "should have transports data available")
+                            |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"

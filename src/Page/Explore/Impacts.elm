@@ -6,7 +6,7 @@ import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Impact as ImpactView
@@ -17,9 +17,9 @@ table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
     { toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Code"
-          , toValue = .trigram >> Definition.toString
+          , toValue = Table.StringValue <| .trigram >> Definition.toString
           , toCell =
                 \def ->
                     if detailed then
@@ -30,17 +30,21 @@ table { detailed, scope } =
                             [ code [] [ text (Definition.toString def.trigram) ] ]
           }
         , { label = "Nom"
-          , toValue = .label
+          , toValue = Table.StringValue <| .label
           , toCell =
                 \def ->
                     span [ title def.label ] [ text def.label ]
           }
         , { label = "Unité"
-          , toValue = .unit
+          , toValue = Table.StringValue <| .unit
           , toCell = \def -> code [] [ text def.unit ]
           }
         , { label = "Normalisation (PEF)"
-          , toValue = .pefData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .pefData
+                        >> Maybe.map (.normalization >> Unit.impactToFloat)
+                        >> Maybe.withDefault 0
           , toCell =
                 \def ->
                     def.pefData
@@ -48,11 +52,19 @@ table { detailed, scope } =
                         |> Maybe.withDefault (text "N/A")
           }
         , { label = "Pondération (PEF)"
-          , toValue = .pefData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .pefData
+                        >> Maybe.map (.weighting >> Unit.ratioToFloat)
+                        >> Maybe.withDefault 0
           , toCell = .pefData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Normalisation (Sc. Imp.)"
-          , toValue = .ecoscoreData >> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .ecoscoreData
+                        >> Maybe.map (.normalization >> Unit.impactToFloat)
+                        >> Maybe.withDefault 0
           , toCell =
                 \def ->
                     def.ecoscoreData
@@ -60,27 +72,32 @@ table { detailed, scope } =
                         |> Maybe.withDefault (text "N/A")
           }
         , { label = "Pondération (Sc. Imp.)"
-          , toValue = .ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat >> Format.formatFloat 2) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .ecoscoreData
+                        >> Maybe.map (.weighting >> Unit.ratioToFloat)
+                        >> Maybe.withDefault 0
           , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Niveau de qualité"
           , toValue =
-                \def ->
-                    case def.quality of
-                        Definition.NotFinished ->
-                            "0"
+                Table.IntValue <|
+                    \def ->
+                        case def.quality of
+                            Definition.NotFinished ->
+                                0
 
-                        Definition.GoodQuality ->
-                            "4"
+                            Definition.GoodQuality ->
+                                4
 
-                        Definition.AverageQuality ->
-                            "3"
+                            Definition.AverageQuality ->
+                                3
 
-                        Definition.BadQuality ->
-                            "2"
+                            Definition.BadQuality ->
+                                2
 
-                        Definition.UnknownQuality ->
-                            "1"
+                            Definition.UnknownQuality ->
+                                1
           , toCell =
                 \def ->
                     def.quality
@@ -88,7 +105,7 @@ table { detailed, scope } =
                         |> div [ classList [ ( "text-center", not detailed ) ] ]
           }
         , { label = "Source"
-          , toValue = .source >> .label
+          , toValue = Table.StringValue <| .source >> .label
           , toCell =
                 \def ->
                     a
@@ -98,7 +115,7 @@ table { detailed, scope } =
                         [ text def.source.label ]
           }
         , { label = "Description"
-          , toValue = .description
+          , toValue = Table.StringValue .description
           , toCell =
                 \def ->
                     if detailed then
