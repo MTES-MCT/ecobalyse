@@ -52,7 +52,7 @@ suite =
               in
               describe "getOutOfEuropeEOLComplement"
                 [ tShirtCotonFrance
-                    |> testComplementEqual -51
+                    |> testComplementEqual -42.5
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
@@ -60,7 +60,7 @@ suite =
                         , { id = Material.Id "pu", share = Split.half, spinning = Nothing, country = Nothing }
                         ]
                   }
-                    |> testComplementEqual -93.5
+                    |> testComplementEqual -102
                     |> asTest "should compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
                 ]
             , let
@@ -72,7 +72,7 @@ suite =
               in
               describe "getMicrofibersComplement"
                 [ tShirtCotonFrance
-                    |> testComplementEqual -71.4
+                    |> testComplementEqual -42.5
                     |> asTest "should compute Microfibers complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
@@ -80,7 +80,7 @@ suite =
                         , { id = Material.Id "pu", share = Split.half, spinning = Nothing, country = Nothing }
                         ]
                   }
-                    |> testComplementEqual -102.85
+                    |> testComplementEqual -90.95
                     |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
                 ]
             ]
