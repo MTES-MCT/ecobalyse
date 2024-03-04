@@ -17,6 +17,7 @@ import Data.Scope as Scope
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
+import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -24,7 +25,7 @@ import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, rdb)
+import Static.Db exposing (Db, db)
 
 
 type Msg
@@ -81,7 +82,7 @@ toAllImpactsSimple { inputs, impacts } =
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
@@ -107,7 +108,7 @@ toSingleImpactSimple trigram { inputs, impacts } =
           , Impact.encodeSingleImpact impacts trigram
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
@@ -128,7 +129,7 @@ executeFoodQuery db encoder =
         >> toResponse
 
 
-executeTextileQuery : Db -> (Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
+executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery db encoder =
     Simulator.compute db
         >> Result.map encoder
@@ -285,17 +286,17 @@ handleRequest db request =
 
         Just Route.PostTextileSimulator ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
+                |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db toAllImpactsSimple)
 
         Just Route.PostTextileSimulatorDetailed ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
+                |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db Simulator.encode)
 
         Just (Route.PostTextileSimulatorSingle trigram) ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
+                |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db (toSingleImpactSimple trigram))
 
         Nothing ->
@@ -317,7 +318,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case rdb of
+            case db of
                 Ok db ->
                     cmdRequest db request
 

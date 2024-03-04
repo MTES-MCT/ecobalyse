@@ -22,6 +22,7 @@ PASTOECO = [
     "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
 ]
 CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
+WFLDB = "WFLDB.CSV.zip"
 BIOSPHERE = "biosphere3"
 
 
@@ -99,6 +100,13 @@ AGRIBALYSE_MIGRATIONS = [
     }
 ]
 
+def sync_datapackages():
+    print("Syncing datackages...")
+    for method in bw2data.methods:
+        bw2data.Method(method).process()
+
+    for database in bw2data.databases:
+        bw2data.Database(database).process()
 
 def main():
     """Import Agribalyse and additional processes"""
@@ -135,6 +143,12 @@ def main():
     else:
         print(f"{db} already imported")
 
+    # WFLDB 
+    if (db := "WFLDB") not in bw2data.databases:
+        import_simapro_csv(WFLDB, db, excluded_strategies=EXCLUDED)
+    else:
+        print(f"{db} already imported")
+
     # AGRIBALYSE
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(
@@ -153,7 +167,7 @@ def main():
         add_created_activities(db, ACTIVITIES_TO_CREATE)
     else:
         print(f"{db} already imported")
-
+    sync_datapackages()
 
 if __name__ == "__main__":
     main()

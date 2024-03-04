@@ -11,10 +11,12 @@ module Data.Dataset exposing
     )
 
 import Data.Country as Country
+import Data.Food.ExampleProduct as FoodExample
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
+import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
@@ -29,8 +31,10 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
+    | FoodExamples (Maybe FoodExample.Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
+    | TextileExamples (Maybe TextileExample.Uuid)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -44,12 +48,14 @@ datasets scope =
                 Scope.Food ->
                     [ FoodIngredients Nothing
                     , FoodProcesses Nothing
+                    , FoodExamples Nothing
                     ]
 
                 Scope.Textile ->
                     [ TextileProducts Nothing
                     , TextileMaterials Nothing
                     , TextileProcesses Nothing
+                    , TextileExamples Nothing
                     ]
            )
 
@@ -59,6 +65,9 @@ fromSlug string =
     case string of
         "countries" ->
             Countries Nothing
+
+        "food-examples" ->
+            FoodExamples Nothing
 
         "ingredients" ->
             FoodIngredients Nothing
@@ -75,6 +84,9 @@ fromSlug string =
         "processes" ->
             TextileProcesses Nothing
 
+        "textile-examples" ->
+            TextileExamples Nothing
+
         _ ->
             Impacts Nothing
 
@@ -88,10 +100,16 @@ isDetailed dataset =
         Impacts (Just _) ->
             True
 
+        FoodExamples (Just _) ->
+            True
+
         FoodIngredients (Just _) ->
             True
 
         FoodProcesses (Just _) ->
+            True
+
+        TextileExamples (Just _) ->
             True
 
         TextileProducts (Just _) ->
@@ -126,11 +144,17 @@ reset dataset =
         Impacts _ ->
             Impacts Nothing
 
+        FoodExamples _ ->
+            FoodExamples Nothing
+
         FoodIngredients _ ->
             FoodIngredients Nothing
 
         FoodProcesses _ ->
             FoodProcesses Nothing
+
+        TextileExamples _ ->
+            TextileExamples Nothing
 
         TextileProducts _ ->
             TextileProducts Nothing
@@ -151,10 +175,16 @@ same a b =
         ( Impacts _, Impacts _ ) ->
             True
 
+        ( FoodExamples _, FoodExamples _ ) ->
+            True
+
         ( FoodIngredients _, FoodIngredients _ ) ->
             True
 
         ( FoodProcesses _, FoodProcesses _ ) ->
+            True
+
+        ( TextileExamples _, TextileExamples _ ) ->
             True
 
         ( TextileProducts _, TextileProducts _ ) ->
@@ -179,11 +209,17 @@ setIdFromString idString dataset =
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
+        FoodExamples _ ->
+            FoodExamples (Just (FoodExample.uuidFromString idString))
+
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
 
         FoodProcesses _ ->
             FoodProcesses (Just (FoodProcess.codeFromString idString))
+
+        TextileExamples _ ->
+            TextileExamples (Just (TextileExample.uuidFromString idString))
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -209,11 +245,17 @@ strings dataset =
         Impacts _ ->
             { slug = "impacts", label = "Impacts" }
 
+        FoodExamples _ ->
+            { slug = "food-examples", label = "Exemples" }
+
         FoodIngredients _ ->
             { slug = "ingredients", label = "Ingrédients" }
 
         FoodProcesses _ ->
             { slug = "food-processes", label = "Procédés" }
+
+        TextileExamples _ ->
+            { slug = "textile-examples", label = "Exemples" }
 
         TextileProducts _ ->
             { slug = "products", label = "Produits" }
@@ -234,6 +276,12 @@ toRoutePath dataset =
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
 
+        FoodExamples Nothing ->
+            [ slug dataset ]
+
+        FoodExamples (Just id) ->
+            [ slug dataset, FoodExample.uuidToString id ]
+
         FoodIngredients Nothing ->
             [ slug dataset ]
 
@@ -251,6 +299,12 @@ toRoutePath dataset =
 
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
+
+        TextileExamples Nothing ->
+            [ slug dataset ]
+
+        TextileExamples (Just id) ->
+            [ slug dataset, TextileExample.uuidToString id ]
 
         TextileProducts Nothing ->
             [ slug dataset ]

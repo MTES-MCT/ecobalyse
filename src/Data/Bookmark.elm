@@ -15,7 +15,8 @@ module Data.Bookmark exposing
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.Inputs as TextileQuery
+import Data.Textile.Inputs as Inputs
+import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Static.Db exposing (Db)
@@ -46,7 +47,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map Textile TextileQuery.decodeQuery
+        , Decode.map Textile TextileQuery.decode
         ]
 
 
@@ -66,7 +67,7 @@ encodeQuery v =
             FoodQuery.encode query
 
         Textile query ->
-            TextileQuery.encodeQuery query
+            TextileQuery.encode query
 
 
 isFood : Bookmark -> Bool
@@ -136,6 +137,6 @@ toQueryDescription db bookmark =
 
         Textile textileQuery ->
             textileQuery
-                |> TextileQuery.fromQuery db
-                |> Result.map TextileQuery.toString
+                |> Inputs.fromQuery db
+                |> Result.map Inputs.toString
                 |> Result.withDefault bookmark.name

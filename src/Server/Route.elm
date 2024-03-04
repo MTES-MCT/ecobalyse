@@ -9,7 +9,7 @@ import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Textile.Db as Textile
-import Data.Textile.Inputs as TextileInputs
+import Data.Textile.Query as TextileQuery
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Static.Db exposing (Db)
@@ -49,11 +49,11 @@ type Route
       --     Textile Product list
     | GetTextileProductList
       --     Textile Simple version of all impacts (GET, query string)
-    | GetTextileSimulator (Result Query.Errors TextileInputs.Query)
+    | GetTextileSimulator (Result Query.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (GET, query string)
-    | GetTextileSimulatorDetailed (Result Query.Errors TextileInputs.Query)
+    | GetTextileSimulatorDetailed (Result Query.Errors TextileQuery.Query)
       --     Textile Simple version for one specific impact (GET, query string)
-    | GetTextileSimulatorSingle Definition.Trigram (Result Query.Errors TextileInputs.Query)
+    | GetTextileSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
     | PostTextileSimulator

@@ -23,7 +23,7 @@ suite =
                   , heat = ( Energy.megajoules 1, Split.half )
                   , applyRawToCookedRatio = False
                   }
-                    |> Preparation.apply food (Mass.kilograms 1)
+                    |> Preparation.apply food.wellKnown (Mass.kilograms 1)
                     |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.001) 0.08

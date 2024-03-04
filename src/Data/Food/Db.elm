@@ -5,6 +5,7 @@ module Data.Food.Db exposing
     , updateWellKnownFromNewProcesses
     )
 
+import Data.Food.ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.WellKnown as WellKnown exposing (WellKnown)
@@ -14,14 +15,15 @@ import Json.Decode.Extra as DE
 
 
 type alias Db =
-    { processes : List Process
+    { exampleProducts : List ExampleProduct
+    , processes : List Process
     , ingredients : List Ingredient
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : Definitions -> String -> String -> Result String Db
-buildFromJson definitions processesJson ingredientsJson =
+buildFromJson : List ExampleProduct -> Definitions -> String -> String -> Result String Db
+buildFromJson exampleProducts definitions processesJson ingredientsJson =
     processesJson
         |> Decode.decodeString (Process.decodeList definitions)
         |> Result.andThen
@@ -32,7 +34,7 @@ buildFromJson definitions processesJson ingredientsJson =
                             |> Decode.andThen
                                 (\ingredients ->
                                     WellKnown.load processes
-                                        |> Result.map (Db processes ingredients)
+                                        |> Result.map (Db exampleProducts processes ingredients)
                                         |> DE.fromResult
                                 )
                         )
