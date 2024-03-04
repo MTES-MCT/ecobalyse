@@ -56,11 +56,13 @@ Cf. la section Généralités
 
 :bulb: **Illustrations d'allocations économiques :**&#x20;
 
-Selon une étude parue en 2015 et comparant différents systèmes/géographiques de production de laine (source [ici](https://link.springer.com/article/10.1007/s11367-015-0849-z)) : \
+Selon l'étude [Wiedemann et al (2015)](https://link.springer.com/article/10.1007/s11367-015-0849-z) : \
 :flag\_gb: Royaume-Uni = 4% laine\
 :flag\_nz:Nouvelle-Zélande (151 fermes) => 19% laine\
 :flag\_au:Australie (3 fermes / laine merinos / région méridionale) => 47% laine\
 :flag\_au:Australie (3 fermes / laine merinos ++ / région septentrionale) => 52% laine
+
+Cette étude propose par ailleurs un indice des prix de la laine et de la viande selon différentes région (cf. tableau dans la section suivante).
 
 Autres sources : \
 :flag\_us: Etats-Unis (année 2007) => 23% laine (source[^4]) \
@@ -104,7 +106,21 @@ Autres sources : \
 {% endtab %}
 {% endtabs %}
 
+### Modes d'élevage (alimentation & occupation des sols)
 
+Selon les races de mouton (Romney, Merino, Lleyn, Cheviot, etc.) et les zones (Angleterre, Australie, etc.), les modèdes d'élevage varient. Cela impacte directement l'impact de la laine, notamment à travers les hypothèses liées à l'alimentation des moutons.&#x20;
+
+Voici différents scénarios proposés par [Wiedemann et al (2015)](https://link.springer.com/article/10.1007/s11367-015-0849-z) :&#x20;
+
+<table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-13">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
+
+De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont des terres non-arables (paturages) ne rentrant pas en compétition avec d'autres types d'occupation des sols (cf. notamment cette [étude ](#user-content-fn-14)[^14]à ce sujet). &#x20;
+
+* Services écosystématiques\
+  L'élevage extensif (paturages) propose des impacts positifs sur l'environnement tels que la limitation des feux de forêts grâce à l'entretien des prairies ou encore la limitation d'espèces végétales invasives. \
+  Dans l'étude [Ripoll-Bosch et al, 2013](#user-content-fn-15)[^15], il est démontré que l'élevage extensif des moutons en Espagne propose des bénéfices écosystémiques tels que la préservation de la biodiversité et des paysages.&#x20;
+* Alimentation\
+  L'élevage extensif (paturages) limite la nécessité de nourrir les moutons avec des intrants tels que les tourteaux de soja.
 
 ## Modélisation Ecobalyse
 
@@ -114,19 +130,48 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 <figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption><p>Illustration des étapes de fabrication de fibres de laine</p></figcaption></figure>
 
-### Utilisation d'une allocation économique
+### Scénarios proposés
 
-En suivant les recommandations de l'ADEME, une allocation économique est utilisée.
+Ecobalyse propose 3 types de laine :&#x20;
 
-Deux scénarios sont proposés :&#x20;
+* Laine (par défaut)\
+  Représente la majorité de la laine actuellement utilisée dans les textiles d'habillement (laine provenant majoritairement d'Australie / Nouvelle-Zélande)&#x20;
+* Laine (nouvelle filière) \
+  Représente les marchés/géographies où des moutons sont élevées majoritairement pour la viande et/ou lait (la laine représentant un co-produit non valorisé; un déchet). C'est le cas de la filière française en 2023.&#x20;
+* Laine merinos\
+  Permet de distinguer ce mode d'élevage qui diffère de celui de la laine par défaut.&#x20;
 
-* Laine (par défaut) => allocation économique de 50% &#x20;
-* Laine (nouvelle filière) => allocation économique de 10% \
-  (permet de modéliser une laine provenant d'une filière en construction comme c'est le cas pour le marché français).&#x20;
+<mark style="color:orange;">\[afficher l'impact de ces 3 laines lorsque les résultats sont figés]</mark>
 
-Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
+### Focus techniques&#x20;
 
-### Mieux comprendre les impacts dans Ecobalyse
+<details>
+
+<summary>Allocation économique</summary>
+
+En suivant les recommandations de l'ADEME, une allocation économique est utilisée.&#x20;
+
+Les taux d'allocation économique retenus sont :&#x20;
+
+* Laine (par défaut) => 37% &#x20;
+* Laine (nouvelle filière) => 4%&#x20;
+* Laine merinos =>  50%
+
+</details>
+
+<details>
+
+<summary>Mode d'élevage</summary>
+
+* Laine (par défaut) => 50%  (Extensif) / 50% (Autre)
+* Laine (nouvelle filière) =>  50%  (Extensif) / 50% (Autre)
+* Laine merinos =>   95%  (Extensif) / 5% (Autre)
+
+</details>
+
+
+
+### \[old]&#x20;
 
 <figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
 
@@ -168,3 +213,9 @@ Le procédé Ecoinvent utilisé est _Sheep production, for wool, RoW._&#x20;
 [^12]: Data from Ledgard et al. (2009, 2011)\
     \
     Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
+
+[^13]: Rapport entre la quantité annuelle de laine produite (greasy wool) et de viande vendue (live weight).
+
+[^14]: "Wool Production Systematic review of Life Cycle Assessment studies" (Author : C. Devaux, Sweden, 2019).
+
+[^15]: [https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618](https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618)
