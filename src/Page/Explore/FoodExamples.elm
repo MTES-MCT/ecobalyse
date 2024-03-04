@@ -8,6 +8,7 @@ import Data.Impact.Definition as Definition
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
@@ -29,6 +30,16 @@ table db { detailed, scope } =
           }
         , scoreCell db "Coût Environnemental" detailed (getScore db)
         , scoreCell db "Coût Environnemental/100g" detailed (getScorePer100g db)
+        , { label = ""
+          , toValue = Table.NoValue
+          , toCell =
+                \{ query } ->
+                    a
+                        [ class "btn btn-primary btn-sm w-100"
+                        , Route.href <| Route.FoodBuilder Definition.Ecs (Just query)
+                        ]
+                        [ text "Ouvrir" ]
+          }
         ]
     }
 

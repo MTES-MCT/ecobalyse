@@ -8,6 +8,7 @@ import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Route
@@ -42,6 +43,16 @@ table db { detailed, scope } =
                                 |> Maybe.withDefault 0
                     in
                     Common.impactBarGraph detailed max score
+          }
+        , { label = ""
+          , toValue = Table.NoValue
+          , toCell =
+                \{ query } ->
+                    a
+                        [ class "btn btn-primary btn-sm w-100"
+                        , Route.href <| Route.TextileSimulator Definition.Ecs (Just query)
+                        ]
+                        [ text "Ouvrir" ]
           }
         ]
     }
