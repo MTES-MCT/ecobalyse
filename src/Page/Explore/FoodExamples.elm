@@ -13,6 +13,7 @@ import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
 import Static.Db exposing (Db)
+import Views.Icon as Icon
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
@@ -33,12 +34,13 @@ table db { detailed, scope } =
         , { label = ""
           , toValue = Table.NoValue
           , toCell =
-                \{ query } ->
+                \{ name, query } ->
                     a
-                        [ class "btn btn-primary btn-sm w-100"
+                        [ class "btn btn-light btn-sm w-100"
                         , Route.href <| Route.FoodBuilder Definition.Ecs (Just query)
+                        , title <| "Charger " ++ name
                         ]
-                        [ text "Ouvrir" ]
+                        [ Icon.search ]
           }
         ]
     }
