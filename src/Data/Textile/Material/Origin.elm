@@ -84,19 +84,19 @@ toMicrofibersComplement origin =
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
         ArtificialFromInorganic ->
-            Unit.impact -850
+            Unit.impact -820
 
         ArtificialFromOrganic ->
-            Unit.impact -360
+            Unit.impact -330
 
         NaturalFromAnimal ->
-            Unit.impact -570
+            Unit.impact -390
 
         NaturalFromVegetal ->
-            Unit.impact -420
+            Unit.impact -250
 
         Synthetic ->
-            Unit.impact -790
+            Unit.impact -820
 
 
 toLabel : Origin -> String
