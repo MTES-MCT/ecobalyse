@@ -17,6 +17,7 @@ api = FastAPI()
 lock: bool = False
 current_project = None
 
+
 @api.get("/impact", response_class=JSONResponse)
 async def impact(_: Request, project: str, process: str, method: str):
     """exemple:
@@ -28,8 +29,8 @@ async def impact(_: Request, project: str, process: str, method: str):
     global lock
     global current_project
     while lock:
-         print("waiting for lock release...")
-         sleep(1)
+        print("waiting for lock release...")
+        sleep(1)
 
     lock = True
 
@@ -46,8 +47,8 @@ async def impact(_: Request, project: str, process: str, method: str):
             server.Analyse(project, 0, process, "Methods", method, "")
             results, i = {}, 0
             while (r := server.AnalyseResult(0, i)).IndicatorName:
-                 results[r.IndicatorName] = {'amount': r.Amount, 'unit': r.UnitName}
-                 i += 1
+                results[r.IndicatorName] = {"amount": r.Amount, "unit": r.UnitName}
+                i += 1
             impacts.setdefault(f"{project}/{process}", {})
             impacts[f"{project}/{process}"][method] = results
             with open("impacts.json", "w") as fp:
@@ -55,7 +56,7 @@ async def impact(_: Request, project: str, process: str, method: str):
         else:
             results = impacts.get(f"{project}/{process}", {}).get(method, {})
     except Exception as e:
-            results = repr(e)
+        results = repr(e)
     lock = False
     print(results)
-    return {"impact": results}
+    return results
