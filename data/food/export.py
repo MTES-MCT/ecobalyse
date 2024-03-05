@@ -204,10 +204,12 @@ def compute_impacts(processes):
                 ).content
             ),
         )
-        if results is not None:
-            # simapro failed (unexisting Ecobalyse project or some other reason)
+        if type(results) is dict and results:
+            # simapro succeeded
             process["impacts"] = results
+            print(f"got impacts from simapro for: {process['name']}")
         else:
+            # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
             lca = bw2calc.LCA(
                 {
@@ -223,6 +225,7 @@ def compute_impacts(processes):
                 process.setdefault("impacts", {})[key] = float(
                     "{:.10g}".format(lca.score)
                 )
+            print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
         process = with_subimpacts(process)

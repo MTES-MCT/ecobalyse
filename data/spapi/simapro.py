@@ -27,6 +27,7 @@ async def impact(_: Request, project: str, process: str, method: str):
     """
     print(f"{project}/{process}/{method}")
     global lock
+    global server
     global current_project
     while lock:
         print("waiting for lock release...")
@@ -34,11 +35,12 @@ async def impact(_: Request, project: str, process: str, method: str):
 
     lock = True
 
+    impacts = {}
     if os.path.exists("impacts.json"):
         impacts = json.load(open("impacts.json"))
     try:
         if not impacts.get(f"{project}/{process}", {}).get(method, {}):
-            if project != current_project:
+            if not server.ProjectOpen or project != current_project:
                 print("Opening project...")
                 server.OpenProject(project, "")
                 current_project = project
@@ -57,6 +59,8 @@ async def impact(_: Request, project: str, process: str, method: str):
             results = impacts.get(f"{project}/{process}", {}).get(method, {})
     except Exception as e:
         results = repr(e)
+        current_project = None
+
     lock = False
     print(results)
     return results

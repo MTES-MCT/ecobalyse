@@ -89,6 +89,8 @@ impacts = {
 
 def bytrigram(definitions, bynames):
     """takes the definitions above and some impacts by name, return the impacts by trigram"""
+    if type(bynames) is not dict:
+        print(bynames)
     names2trigrams = {method[1]: trigram for trigram, method in definitions.items()}
     try:
         return {
@@ -96,5 +98,5 @@ def bytrigram(definitions, bynames):
             for name, amount in bynames.items()
             if names2trigrams.get(name)
         }
-    except:
-        return None
+    except Exception as e:
+        return str(e)

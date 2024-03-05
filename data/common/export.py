@@ -46,6 +46,8 @@ def progress_bar(index, total):
 
 def with_subimpacts(process):
     """compute subimpacts in the process"""
+    if not process["impacts"]:
+        return process
     # etf-o = etf-o1 + etf-o2
     process["impacts"]["etf-o"] = (
         process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
