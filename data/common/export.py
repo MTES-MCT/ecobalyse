@@ -2,11 +2,21 @@
 import functools
 import bw2data
 from bw2io.utils import activity_hash
-from peewee import IntegrityError
 import logging
 import json
 
 logging.basicConfig(level=logging.ERROR)
+
+
+def spproject(activity):
+    """return the current simapro project for an activity"""
+    match activity.get("database"):
+        case "Ginko":
+            return "Ginko"
+        case "Ecobalyse":
+            return "Ecobalyse"
+        case _:
+            return "AGB3.1.1 2023-03-06"
 
 
 def export_json(data, filename):
