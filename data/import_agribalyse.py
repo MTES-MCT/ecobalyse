@@ -128,7 +128,16 @@ GINKO_STRATEGIES = [
 ]
 
 
-def main():
+def sync_datapackages():
+    print("Syncing datackages...")
+    for method in bw2data.methods:
+        bw2data.Method(method).process()
+
+    for database in bw2data.databases:
+        bw2data.Database(database).process()
+
+
+if __name__ == "__main__":
     """Import Agribalyse and additional processes"""
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -192,7 +201,3 @@ def main():
     else:
         print(f"{db} already imported")
     sync_datapackages()
-
-
-if __name__ == "__main__":
-    main()
