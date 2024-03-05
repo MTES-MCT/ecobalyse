@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from bw2io.strategies.generic import link_iterable_by_fields
 from common.import_ import (
     add_created_activities,
     add_missing_substances,
     import_simapro_csv,
     sync_datapackages,
 )
+import argparse
 import bw2data
 import bw2io
-import argparse
+import functools
 
 PROJECT = "food"
 AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
@@ -96,25 +98,33 @@ AGRIBALYSE_MIGRATIONS = [
                     ),
                     {"unit": "ha", "multiplier": 1e-4},
                 ),
+            ]
+            + sum(
                 [
-                    ("Water, river, ID", "l"),
-                    {"unit": "cubic meter", "multiplier": 0.001},
+                    [
+                        [
+                            (f"Water, river, {country}", "l"),
+                            {"unit": "cubic meter", "multiplier": 0.001},
+                        ],
+                        [
+                            (f"Water, well, {country}", "l"),
+                            {"unit": "cubic meter", "multiplier": 0.001},
+                        ],
+                    ]
+                    # only ES for AGB, all for Ginko
+                    for country in ["ES", "ID", "CO", "CR", "EC", "IN", "BR", "US"]
                 ],
-                [
-                    ("Water, well, ID", "l"),
-                    {"unit": "cubic meter", "multiplier": 0.001},
-                ],
-                [
-                    ("Water, river, ES", "l"),
-                    {"unit": "cubic meter", "multiplier": 0.001},
-                ],
-                [
-                    ("Water, well, ES", "l"),
-                    {"unit": "cubic meter", "multiplier": 0.001},
-                ],
-            ],
+                [],
+            ),
         },
     }
+]
+GINKO_STRATEGIES = [
+    functools.partial(
+        link_iterable_by_fields,
+        other=bw2data.Database("Agribalyse 3.1.1"),
+        kind="technosphere",
+    )
 ]
 
 
@@ -141,12 +151,6 @@ def main():
     else:
         print(f"{db} already imported")
 
-    # GINKO
-    if (db := "Ginko") not in bw2data.databases:
-        import_simapro_csv(GINKO, db, excluded_strategies=EXCLUDED)
-    else:
-        print(f"{db} already imported")
-
     # CTCPA
     if (db := "CTCPA") not in bw2data.databases:
         import_simapro_csv(CTCPA, db, excluded_strategies=EXCLUDED)
@@ -161,11 +165,21 @@ def main():
 
     # AGRIBALYSE
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
+        print("first Agribalyse...")
         import_simapro_csv(
             AGRIBALYSE,
             db,
             migrations=AGRIBALYSE_MIGRATIONS,
             excluded_strategies=EXCLUDED,
+        )
+        print("then Ginko...")
+        import_simapro_csv(
+            GINKO,
+            "Agribalyse 3.1.1",
+            excluded_strategies=EXCLUDED,
+            migrations=AGRIBALYSE_MIGRATIONS,
+            # other_strategies=GINKO_STRATEGIES,
+            source="Ginko",
         )
     else:
         print(f"{db} already imported")
