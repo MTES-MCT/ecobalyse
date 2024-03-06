@@ -3,6 +3,7 @@ module Data.Food.ExampleProduct exposing
     , Uuid
     , decodeListFromJsonString
     , findByUuid
+    , parseUuid
     , toCategory
     , toName
     , uuidFromString
@@ -11,6 +12,7 @@ module Data.Food.ExampleProduct exposing
 
 import Data.Food.Query as Query exposing (Query)
 import Json.Decode as Decode exposing (Decoder)
+import Url.Parser as Parser exposing (Parser)
 
 
 type alias ExampleProduct =
@@ -45,6 +47,11 @@ findByUuid id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ uuidToString id)
+
+
+parseUuid : Parser (Uuid -> a) a
+parseUuid =
+    Parser.custom "FOODEXAMPLE" (uuidFromString >> Just)
 
 
 toCategory : List ExampleProduct -> Query -> String

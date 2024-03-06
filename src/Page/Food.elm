@@ -2,6 +2,7 @@ module Page.Food exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -69,6 +70,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , editedExample : Maybe ExampleProduct
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -134,6 +136,7 @@ init session trigram maybeQuery =
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , editedExample = Nothing
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -144,6 +147,32 @@ init session trigram maybeQuery =
 
         Just _ ->
             Cmd.none
+    )
+
+
+initFromExample : Session -> ExampleProduct.Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.food.exampleProducts
+                |> ExampleProduct.findByUuid uuid
+
+        query =
+            example
+                |> Result.map .query
+                |> Result.withDefault Query.empty
+    in
+    ( { impact = session.db.definitions |> Definition.get Definition.Ecs
+      , initialQuery = query
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , editedExample = Result.toMaybe example
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session |> Session.updateFoodQuery query
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -1282,6 +1311,21 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
+editedExampleHeader : Query -> ExampleProduct -> Html Msg
+editedExampleHeader currentQuery example =
+    div [ class "row" ]
+        [ h2 [ class "h5 fw-normal col-sm-9" ]
+            [ text "Édition de ", strong [] [ text example.name ] ]
+        , div [ class "col-sm-3 text-end" ]
+            [ button
+                [ class "btn btn-primary w-100"
+                , disabled <| example.query == currentQuery
+                ]
+                [ text "Enregistrer" ]
+            ]
+        ]
+
+
 mainView : Db -> Session -> Model -> Html Msg
 mainView db session model =
     let
@@ -1291,7 +1335,14 @@ mainView db session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView db.food.exampleProducts session.queries.food
+            [ case model.editedExample of
+                Just example ->
+                    example
+                        |> editedExampleHeader session.queries.food
+
+                Nothing ->
+                    db.food.exampleProducts
+                        |> exampleProductSelector session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1312,8 +1363,8 @@ mainView db session model =
         ]
 
 
-menuView : List ExampleProduct -> Query -> Html Msg
-menuView exampleProducts query =
+exampleProductSelector : Query -> List ExampleProduct -> Html Msg
+exampleProductSelector query exampleProducts =
     let
         autocompleteState =
             exampleProducts

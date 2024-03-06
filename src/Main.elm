@@ -169,6 +169,10 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.init session trigram maybeQuery
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
+                Just (Route.FoodBuilderExample uuid) ->
+                    FoodBuilder.initFromExample session uuid
+                        |> toPage FoodBuilderPage FoodBuilderMsg
+
                 Just Route.Stats ->
                     Stats.init session
                         |> toPage StatsPage StatsMsg

@@ -6,6 +6,7 @@ module Route exposing
     )
 
 import Data.Dataset as Dataset exposing (Dataset)
+import Data.Food.ExampleProduct as FoodExampleProduct
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -23,8 +24,9 @@ type Route
     | Changelog
     | Editorial String
     | Explore Scope Dataset
-    | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
+    | FoodBuilderHome
+    | FoodBuilderExample FoodExampleProduct.Uuid
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | Stats
@@ -69,6 +71,11 @@ parser =
                 </> Parser.s "build"
                 </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
+            )
+        , Parser.map FoodBuilderExample
+            (Parser.s "food"
+                </> Parser.s "edit-example"
+                </> FoodExampleProduct.parseUuid
             )
 
         -- Textile specific routes
@@ -187,6 +194,9 @@ toString route =
 
                 FoodBuilder trigram (Just query) ->
                     [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
+
+                FoodBuilderExample uuid ->
+                    [ "food", "edit-example", FoodExampleProduct.uuidToString uuid ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
