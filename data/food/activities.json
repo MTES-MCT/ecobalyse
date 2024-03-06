@@ -2463,7 +2463,10 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
-    "land_occupation": 4.268467591
+    "land_occupation": 4.268467591,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "egg"
   },
   {
     "id": "egg-organic-code0",
