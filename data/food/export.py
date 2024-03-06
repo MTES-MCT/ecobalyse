@@ -3,19 +3,17 @@
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
-import bw2calc
-import bw2data
-import json
 from bw2data.project import projects
-from common.impacts import impacts as impacts_definition
+from common.impacts import impacts as definitions, main_method, bytrigram
 from common.export import (
-    with_subimpacts,
     cached_search,
-    with_corrected_impacts,
     display_changes,
-    load_json,
     export_json,
+    load_json,
     progress_bar,
+    spproject,
+    with_corrected_impacts,
+    with_subimpacts,
 )
 from food.ecosystemic_services.ecosystemic_services import (
     load_ecosystemic_dic,
@@ -24,6 +22,11 @@ from food.ecosystemic_services.ecosystemic_services import (
     compute_vegetal_ecosystemic_services,
     compute_animal_ecosystemic_services,
 )
+import bw2calc
+import bw2data
+import json
+import requests
+import urllib.parse
 
 # Configuration
 CONFIG = {
@@ -169,20 +172,46 @@ def process_activity_for_processes(activity):
 
 def compute_impacts(processes):
     print("Computing impacts:")
-    for index, (processid, process) in enumerate(processes.items()):
+    for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
-        lca = bw2calc.LCA(
-            {
-                cached_search(
-                    process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
-                ): 1
-            }
+
+        # simapro
+        activity = cached_search(
+            process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
         )
-        lca.lci()
-        for key, method in impacts_definition.items():
-            lca.switch_method(method)
-            lca.lcia()
-            process.setdefault("impacts", {})[key] = float("{:.10g}".format(lca.score))
+        strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+        project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+        method = urllib.parse.quote(main_method, encoding=None, errors=None)
+        results = bytrigram(
+            definitions,
+            json.loads(
+                requests.get(
+                    f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+                ).content
+            ),
+        )
+        if type(results) is dict and results:
+            # simapro succeeded
+            process["impacts"] = results
+            print(f"got impacts from simapro for: {process['name']}")
+        else:
+            # simapro failed (unexisting Ecobalyse project or some other reason)
+            # brightway
+            lca = bw2calc.LCA(
+                {
+                    cached_search(
+                        process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+                    ): 1
+                }
+            )
+            lca.lci()
+            for key, method in definitions.items():
+                lca.switch_method(method)
+                lca.lcia()
+                process.setdefault("impacts", {})[key] = float(
+                    "{:.10g}".format(lca.score)
+                )
+            print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
         process = with_subimpacts(process)
