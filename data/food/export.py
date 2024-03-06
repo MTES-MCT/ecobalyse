@@ -3,11 +3,6 @@
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
-<<<<<<< HEAD
-import bw2calc
-import bw2data
-=======
->>>>>>> 27248fe378d5a255c4343498dc506ec8cfd458df
 from bw2data.project import projects
 from common.impacts import impacts as definitions, main_method, bytrigram
 from common.export import (
