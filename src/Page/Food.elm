@@ -70,7 +70,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , editedExample : Maybe ExampleProduct
+    , editedExample : Maybe { initial : ExampleProduct, current : ExampleProduct }
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -114,6 +114,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateEcotoxWeighting (Maybe Unit.Ratio)
+    | UpdateEditedExample ExampleProduct
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -167,7 +168,7 @@ initFromExample session uuid =
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
-      , editedExample = Result.toMaybe example
+      , editedExample = example |> Result.map (\ex -> { initial = ex, current = ex }) |> Result.toMaybe
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -433,6 +434,21 @@ update ({ db, queries } as session) msg model =
                 -- triggers recompute
                 |> updateQuery query
 
+        UpdateEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map
+                            (\editedExampleState ->
+                                { editedExampleState
+                                    | current = updatedExample
+                                }
+                            )
+              }
+            , session
+            , Cmd.none
+            )
+
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
 
@@ -455,7 +471,17 @@ update ({ db, queries } as session) msg model =
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    ( { model | bookmarkName = query |> findExistingBookmarkName session }
+    ( { model
+        | bookmarkName = query |> findExistingBookmarkName session
+        , editedExample =
+            model.editedExample
+                |> Maybe.map
+                    (\({ current } as editedExampleState) ->
+                        { editedExampleState
+                            | current = { current | query = query }
+                        }
+                    )
+      }
     , session |> Session.updateFoodQuery query
     , msg
     )
@@ -1311,17 +1337,44 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-editedExampleHeader : Query -> ExampleProduct -> Html Msg
-editedExampleHeader currentQuery example =
+editedExampleHeader : { initial : ExampleProduct, current : ExampleProduct } -> Html Msg
+editedExampleHeader { initial, current } =
+    let
+        modified =
+            current /= initial
+    in
     div [ class "row" ]
-        [ h2 [ class "h5 fw-normal col-sm-9" ]
-            [ text "Édition de ", strong [] [ text example.name ] ]
-        , div [ class "col-sm-3 text-end" ]
+        [ div [ class "col-md-9 d-flex justify-content-between align-items-center gap-2" ]
+            [ h2 [ class "h5 fw-normal text-nowrap mb-0" ] [ text "Modifier" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , value current.name
+                , onInput <| \newName -> UpdateEditedExample { current | name = newName }
+                ]
+                []
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , value current.category
+                , onInput <| \newCategory -> UpdateEditedExample { current | category = newCategory }
+                ]
+                []
+            ]
+        , div [ class "col-md-3 text-end" ]
             [ button
                 [ class "btn btn-primary w-100"
-                , disabled <| example.query == currentQuery
+                , disabled (not modified)
                 ]
-                [ text "Enregistrer" ]
+                [ text <|
+                    "Enregistrer"
+                        ++ (if modified then
+                                "*"
+
+                            else
+                                ""
+                           )
+                ]
             ]
         ]
 
@@ -1336,9 +1389,8 @@ mainView db session model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ case model.editedExample of
-                Just example ->
-                    example
-                        |> editedExampleHeader session.queries.food
+                Just editedExampleState ->
+                    editedExampleHeader editedExampleState
 
                 Nothing ->
                     db.food.exampleProducts
