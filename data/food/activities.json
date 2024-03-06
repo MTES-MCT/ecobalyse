@@ -2456,13 +2456,7 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.74,
-      "plotSize": 0.83,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    },
+    "scenario": "reference",
     "land_occupation": 4.268467591,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
