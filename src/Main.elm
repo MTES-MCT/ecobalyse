@@ -26,6 +26,7 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
+    , github : { repository : String, branch : String }
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -88,6 +89,7 @@ init flags url navKey =
                         Loaded
                             { db = db
                             , clientUrl = flags.clientUrl
+                            , github = { repository = flags.github.repository, branch = flags.github.branch }
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown

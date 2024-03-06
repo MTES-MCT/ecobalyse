@@ -28,6 +28,7 @@ import Static.Db exposing (Db)
 
 type alias Session =
     { db : Db
+    , github : { repository : String, branch : String }
     , navKey : Nav.Key
     , clientUrl : String
     , store : Store

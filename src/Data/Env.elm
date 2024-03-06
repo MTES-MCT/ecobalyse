@@ -4,8 +4,6 @@ module Data.Env exposing
     , contactEmail
     , defaultDeadStock
     , gitbookUrl
-    , githubRepository
-    , githubUrl
     , maxMakingDeadStockRatio
     , maxMakingWasteRatio
     , maxMaterials
@@ -34,16 +32,6 @@ contactEmail =
 gitbookUrl : String
 gitbookUrl =
     "https://fabrique-numerique.gitbook.io/ecobalyse"
-
-
-githubRepository : String
-githubRepository =
-    "MTES-MCT/ecobalyse"
-
-
-githubUrl : String
-githubUrl =
-    "https://github.com/" ++ githubRepository
 
 
 minMakingWasteRatio : Split
