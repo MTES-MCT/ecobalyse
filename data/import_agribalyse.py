@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
-from bw2io.strategies.generic import link_iterable_by_fields
+from bw2io.strategies.generic import link_technosphere_by_activity_hash
 from common.import_ import (
     add_created_activities,
     add_missing_substances,
@@ -121,9 +121,9 @@ AGRIBALYSE_MIGRATIONS = [
 ]
 GINKO_STRATEGIES = [
     functools.partial(
-        link_iterable_by_fields,
-        other=bw2data.Database("Agribalyse 3.1.1"),
-        kind="technosphere",
+        link_technosphere_by_activity_hash,
+        external_db_name="Agribalyse 3.1.1",
+        fields=("name", "unit"),
     )
 ]
 
@@ -157,6 +157,14 @@ if __name__ == "__main__":
     if (db := "PastoEco") not in bw2data.databases:
         for p in PASTOECO:
             import_simapro_csv(p, db, excluded_strategies=EXCLUDED)
+    else:
+        print(f"{db} already imported")
+
+    # GINKO
+    if (db := "Ginko") not in bw2data.databases:
+        import_simapro_csv(
+            GINKO, db, excluded_strategies=EXCLUDED, other_strategies=GINKO_STRATEGIES
+        )
     else:
         print(f"{db} already imported")
 

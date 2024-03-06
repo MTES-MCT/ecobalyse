@@ -1,5 +1,4 @@
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
-from bw2io.strategies.generic import link_iterable_by_fields
 from common.export import search, create_activity, delete_exchange, new_exchange
 from subprocess import call
 from tqdm import tqdm
@@ -236,14 +235,6 @@ def import_simapro_csv(
             link_technosphere_by_activity_hash, fields=("name", "location")
         )
     )
-    # # if Ginko is in a separate db:
-    # database.apply_strategy(
-    #    functools.partial(
-    #        link_technosphere_by_activity_hash,
-    #        external_db_name="Agribalyse 3.1.1",
-    #        fields=("name", "unit"),
-    #    )
-    # )
     database.statistics()
 
     print("### Adding unlinked flows and activities...")
