@@ -35,8 +35,8 @@ def ecs_transform(eco_service, value):
         return func_above(value)
 
 
-# load ecosystemic csv as dictionary
 def load_ecosystemic_dic(PATH):
+    """Load ecosystemic csv as dictionary"""
     ecosystemic_factors_csv = pd.read_csv(PATH, sep=";")
     ecosystemic_factors = {}
     for _, row in ecosystemic_factors_csv.iterrows():
@@ -57,8 +57,77 @@ def load_ecosystemic_dic(PATH):
                 "organic": row["cropDiversity_organic"],
                 "import": row["cropDiversity_import"],
             },
+            "load": {
+                "reference": row["load_reference"],
+                "organic": row["load_organic"],
+                "import": row["load_import"],
+            },
         }
     return ecosystemic_factors
+
+
+def load_ugb_dic(PATH):
+    ugb_df = pd.read_csv(PATH, sep=";")
+    ugb_dic = {}
+    ugb_df.set_index("animal_group2")
+    ugb_df.to_dict("index")
+    for _, row in ugb_df.iterrows():
+        group = row["animal_group2"]
+        ugb_dic.get(group, {})[row["animal_product"]] = row["value"]
+    return ugb_dic
+
+
+def compute_vegetal_ecosystemic_services(ingredients, ecosystemic_factors):
+    for ingredient in ingredients:
+        if all(
+            ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
+        ):
+            print(f"Computing ecosystemic services for {ingredient['id']}")
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][
+                    ingredient["scenario"]
+                ]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * ingredient["land_occupation"]
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
+
+
+def compute_animal_ecosystemic_services(
+    ingredients, activities, ecosystemic_factors, feed_file, ugb
+):
+    for animal_product, feed_quantities in feed_file.items():
+        hedges = 0
+        cropSize = 0
+        cropDiversity = 0
+        for feed_name, quantity in feed_quantities.items():
+            feed_properties = ingredients[feed_name]
+            hedges += quantity * feed_properties["hedges"]
+            cropSize += quantity * feed_properties["cropSize"]
+            cropDiversity += quantity * feed_properties["cropDiversity"]
+        ingredients[animal_product]["hedges"] = hedges
+        ingredients[animal_product]["cropSize"] = cropSize
+        ingredients[animal_product]["cropDiversity"] = cropDiversity
+
+        ingredients[animal_product]["meadows"] = feed_quantities.get(
+            "temporary-meadow", 0
+        ) + feed_quantities.get("permanent-meadow", 0)
+
+        ingredients[animal_product]["load"] = compute_load_ecosystemic_service(
+            activities[animal_product], ugb, ecosystemic_factors
+        )
+
+
+def compute_load_ecosystemic_service(animal_properties, ugb, ecosystemic_factors):
+
+    load_per_ugb = ecosystemic_factors[animal_properties["animal_group1"]]["load"][
+        animal_properties["scenario"]
+    ]
+    ugb_per_kg = ugb[animal_properties["animal_group2"]][
+        animal_properties["animal_product"]
+    ]
+    return load_per_ugb * ugb_per_kg
 
 
 def plot_ecs_transformations(save_path=None):

@@ -18,10 +18,11 @@ from common.export import (
     progress_bar,
 )
 from food.ecosystemic_services.ecosystemic_services import (
-    ecosystemic_services_list,
-    ecs_transform,
     load_ecosystemic_dic,
+    load_ugb_dic,
     plot_ecs_transformations,
+    compute_vegetal_ecosystemic_services,
+    compute_animal_ecosystemic_services,
 )
 
 # Configuration
@@ -32,6 +33,8 @@ CONFIG = {
     "ACTIVITIES_FILE": "activities.json",
     "IMPACTS_FILE": "../../public/data/impacts.json",
     "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
+    "FEED_FILE": "ecosystemic_services/feed.json",
+    "UGB_FILE": "ecosystemic_services/ugb.csv",
     "ECS_PNG": "ecosystemic_services/ecs_transformations.png",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
     "PROCESSES_FILE": "../../public/data/food/processes.json",
@@ -80,7 +83,11 @@ def process_activity_for_ingredient(activity):
         "inedible_part": activity["inedible_part"],
         "transport_cooling": activity["transport_cooling"],
         "ecosystemicServices": activity.get("ecosystemicServices", {}),
-        **({"land_occupation": activity["land_occupation"]} if "land_occupation" in activity else {}),
+        **(
+            {"land_occupation": activity["land_occupation"]}
+            if "land_occupation" in activity
+            else {}
+        ),
         **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
         **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
         "visible": activity["visible"],
@@ -117,21 +124,6 @@ def check_ids(ingredients):
             raise ValueError(
                 f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
             )
-
-
-def compute_ecosystemic_factors(ingredients, ecosystemic_factors):
-    for ingredient in ingredients:
-        if all(
-            ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
-        ):
-            print(f"Computing ecosystemic services for {ingredient['id']}")
-            for eco_service in ecosystemic_services_list:
-                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][ingredient["scenario"]]
-                factor_transformed = ecs_transform(eco_service, factor_raw)
-                factor_final = factor_transformed * ingredient["land_occupation"]
-                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
-                    "{:.5g}".format(factor_final)
-                )
 
 
 def create_process_list(activities):
@@ -213,7 +205,13 @@ if __name__ == "__main__":
 
     plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
     ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    compute_ecosystemic_factors(ingredients, ecosystemic_factors)
+    compute_vegetal_ecosystemic_services(ingredients, ecosystemic_factors)
+
+    feed_file = load_json(CONFIG["FEED_FILE"])
+    ugb = load_ugb_dic(CONFIG["UGB_FILE"])
+    compute_animal_ecosystemic_services(
+        ingredients, activities, ecosystemic_factors, feed_file, ugb
+    )
 
     check_ids(ingredients)
     processes = create_process_list(activities)
