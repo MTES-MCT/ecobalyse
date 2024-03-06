@@ -232,8 +232,8 @@ update rawMsg ({ state } as model) =
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
-                ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
-                    TextileSimulator.update session counterMsg counterModel
+                ( TextileSimulatorMsg simulatorMsg, TextileSimulatorPage simulatorModel ) ->
+                    TextileSimulator.update session simulatorMsg simulatorModel
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats

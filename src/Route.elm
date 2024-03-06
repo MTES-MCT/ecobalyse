@@ -43,20 +43,22 @@ parser =
         , Parser.map Stats (Parser.s "stats")
 
         --  Explorer
-        , Parser.map
-            (\scope ->
-                case scope of
-                    Scope.Food ->
-                        Explore scope (Dataset.FoodExamples Nothing)
+        , (Parser.s "explore" </> Scope.parse)
+            |> Parser.map
+                (\scope ->
+                    Explore scope
+                        (case scope of
+                            Scope.Food ->
+                                Dataset.FoodExamples Nothing
 
-                    Scope.Textile ->
-                        Explore scope (Dataset.TextileExamples Nothing)
-            )
-            (Parser.s "explore" </> Scope.parseSlug)
+                            Scope.Textile ->
+                                Dataset.TextileExamples Nothing
+                        )
+                )
         , Parser.map Explore
-            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug)
+            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
         , Parser.map toExploreWithId
-            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug </> Parser.string)
+            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug </> Parser.string)
 
         --
         -- Food specific routes
