@@ -81,6 +81,16 @@ pandas.set_option("notebook_repr_html", True)
 pandas.set_option("max_colwidth", 15)
 
 
+def spproject(activity):
+    match activity.get("database"):
+        case "Ginko":
+            return "Ginko"
+        case "Ecobalyse":
+            return "Ecobalyse"
+        case _:
+            return "AGB3.1.1 2023-03-06"
+
+
 def dbsearch(db, term, **kw):
     return bw2data.Database(db).search(term, **kw)
 
@@ -781,12 +791,17 @@ def display_surface(activity):
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        spsurface = json.loads(
-            requests.get(
-                f"http://simapro.ecobalyse.fr:8000/surface?process={process}"
-            ).content
-        )["surface"]
-
+        project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+        method = urllib.parse.quote("Selected LCI results", encoding=None, errors=None)
+        spsurface = (
+            json.loads(
+                requests.get(
+                    f"http://simapro.ecobalyse.fr:8000/impact?process={process}&project={project}&method={method}"
+                ).content
+            )
+            .get("Land occupation", {})
+            .get("amount", 0)
+        )
         spoutput = str(spsurface)
         spsurface = float(spsurface)
     except Exception as e:

@@ -8,6 +8,17 @@ import json
 logging.basicConfig(level=logging.ERROR)
 
 
+def spproject(activity):
+    """return the current simapro project for an activity"""
+    match activity.get("database"):
+        case "Ginko":
+            return "Ginko"
+        case "Ecobalyse":
+            return "Ecobalyse"
+        case _:
+            return "AGB3.1.1 2023-03-06"
+
+
 def export_json(data, filename):
     """
     Export data to a JSON file, with added newline at the end.
@@ -32,6 +43,8 @@ def progress_bar(index, total):
 
 def with_subimpacts(process):
     """compute subimpacts in the process"""
+    if not process["impacts"]:
+        return process
     # etf-o = etf-o1 + etf-o2
     process["impacts"]["etf-o"] = (
         process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
