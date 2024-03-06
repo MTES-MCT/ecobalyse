@@ -1,4 +1,27 @@
-module Views.Icon exposing (..)
+module Views.Icon exposing
+    ( boat
+    , boatCooled
+    , build
+    , bus
+    , busCooled
+    , check
+    , checkCircle
+    , clipboard
+    , exclamation
+    , ham
+    , info
+    , lock
+    , pencil
+    , plane
+    , plus
+    , question
+    , search
+    , stats
+    , trash
+    , warning
+    , zoomin
+    , zoomout
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -69,6 +92,11 @@ info =
 lock : Html msg
 lock =
     icon "lock"
+
+
+pencil : Html msg
+pencil =
+    icon "pencil"
 
 
 plane : Html msg

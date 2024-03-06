@@ -10,12 +10,14 @@ module Data.Session exposing
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
+    , updateFoodExample
     , updateFoodQuery
     , updateTextileQuery
     )
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.ExampleProduct exposing (ExampleProduct)
 import Data.Food.Query as FoodQuery
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -84,6 +86,39 @@ saveBookmark bookmark =
                     bookmark :: store.bookmarks
             }
         )
+
+
+
+-- Example products
+
+
+updateFoodExample : ExampleProduct -> Session -> Session
+updateFoodExample updated ({ db } as session) =
+    let
+        { food } =
+            db
+
+        { exampleProducts } =
+            food
+    in
+    { session
+        | db =
+            { db
+                | food =
+                    { food
+                        | exampleProducts =
+                            exampleProducts
+                                |> List.map
+                                    (\example ->
+                                        if example.id == updated.id then
+                                            updated
+
+                                        else
+                                            example
+                                    )
+                    }
+            }
+    }
 
 
 

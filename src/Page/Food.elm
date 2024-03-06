@@ -106,6 +106,7 @@ type Msg
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SaveEditedExample ExampleProduct
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -354,6 +355,16 @@ update ({ db, queries } as session) msg model =
             , Cmd.none
             )
 
+        SaveEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map (\state -> { state | initial = updatedExample })
+              }
+            , session |> Session.updateFoodExample updatedExample
+            , Cmd.none
+            )
+
         SetModal NoModal ->
             ( { model | modal = NoModal }
             , session
@@ -438,12 +449,7 @@ update ({ db, queries } as session) msg model =
             ( { model
                 | editedExample =
                     model.editedExample
-                        |> Maybe.map
-                            (\editedExampleState ->
-                                { editedExampleState
-                                    | current = updatedExample
-                                }
-                            )
+                        |> Maybe.map (\state -> { state | current = updatedExample })
               }
             , session
             , Cmd.none
@@ -1343,7 +1349,7 @@ editedExampleHeader { initial, current } =
         modified =
             current /= initial
     in
-    div [ class "row" ]
+    div [ class "row g-2" ]
         [ div [ class "col-md-9 d-flex justify-content-between align-items-center gap-2" ]
             [ h2 [ class "h5 fw-normal text-nowrap mb-0" ] [ text "Modifier" ]
             , input
@@ -1361,10 +1367,11 @@ editedExampleHeader { initial, current } =
                 ]
                 []
             ]
-        , div [ class "col-md-3 text-end" ]
+        , div [ class "col-md-3 d-flex justify-content-between" ]
             [ button
                 [ class "btn btn-primary w-100"
                 , disabled (not modified)
+                , onClick <| SaveEditedExample current
                 ]
                 [ text <|
                     "Enregistrer"
@@ -1374,6 +1381,13 @@ editedExampleHeader { initial, current } =
                             else
                                 ""
                            )
+                ]
+            , a
+                [ class "btn btn-light"
+                , title "Retour à l'explorateur"
+                , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                ]
+                [ text "←"
                 ]
             ]
         ]
