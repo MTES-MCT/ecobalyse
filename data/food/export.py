@@ -79,6 +79,7 @@ def process_activity_for_ingredient(activity):
         "id": activity["id"],
         "name": activity["name"],
         "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "search": activity["search"],
         "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
         "default_origin": activity["default_origin"],
         "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
