@@ -174,21 +174,11 @@ if __name__ == "__main__":
 
     # AGRIBALYSE
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
-        print("first Agribalyse...")
         import_simapro_csv(
             AGRIBALYSE,
             db,
             migrations=AGRIBALYSE_MIGRATIONS,
             excluded_strategies=EXCLUDED,
-        )
-        print("then Ginko...")
-        import_simapro_csv(
-            GINKO,
-            "Agribalyse 3.1.1",
-            excluded_strategies=EXCLUDED,
-            migrations=AGRIBALYSE_MIGRATIONS,
-            # other_strategies=GINKO_STRATEGIES,
-            source="Ginko",
         )
     else:
         print(f"{db} already imported")
