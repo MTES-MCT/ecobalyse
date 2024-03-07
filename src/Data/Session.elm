@@ -3,6 +3,7 @@ module Data.Session exposing
     , Session
     , checkComparedSimulations
     , closeNotification
+    , createFoodExample
     , deleteBookmark
     , deserializeStore
     , maxComparedSimulations
@@ -19,6 +20,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.ExampleProduct exposing (ExampleProduct)
 import Data.Food.Query as FoodQuery
+import Data.Textile.ExampleProduct as ExampleProduct
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -90,6 +92,32 @@ saveBookmark bookmark =
 
 
 -- Example products
+
+
+createFoodExample : FoodQuery.Query -> Session -> Session
+createFoodExample query ({ db } as session) =
+    let
+        { food } =
+            db
+
+        { exampleProducts } =
+            food
+    in
+    { session
+        | db =
+            { db
+                | food =
+                    { food
+                        | exampleProducts =
+                            -- { id = ExampleProduct.uuidFromString "newId"
+                            -- , name = "newName"
+                            -- , category = ""
+                            -- , query = query
+                            -- } ::
+                            exampleProducts
+                    }
+            }
+    }
 
 
 updateFoodExample : ExampleProduct -> Session -> Session

@@ -4,12 +4,14 @@ module Views.Icon exposing
     , build
     , bus
     , busCooled
+    , cancel
     , check
     , checkCircle
     , clipboard
     , exclamation
     , ham
     , info
+    , list
     , lock
     , pencil
     , plane
@@ -59,6 +61,11 @@ busCooled =
         [ snow ]
 
 
+cancel : Html msg
+cancel =
+    icon "cancel"
+
+
 check : Html msg
 check =
     icon "check"
@@ -87,6 +94,11 @@ ham =
 info : Html msg
 info =
     icon "info"
+
+
+list : Html msg
+list =
+    icon "list"
 
 
 lock : Html msg

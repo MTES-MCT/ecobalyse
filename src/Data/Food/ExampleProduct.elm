@@ -2,6 +2,7 @@ module Data.Food.ExampleProduct exposing
     ( ExampleProduct
     , Uuid
     , decodeListFromJsonString
+    , findByQuery
     , findByUuid
     , parseUuid
     , toCategory
@@ -47,6 +48,13 @@ findByUuid id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ uuidToString id)
+
+
+findByQuery : Query -> List ExampleProduct -> Result String ExampleProduct
+findByQuery query =
+    List.filter (.query >> (==) query)
+        >> List.head
+        >> Result.fromMaybe "Exemple introuvable"
 
 
 parseUuid : Parser (Uuid -> a) a

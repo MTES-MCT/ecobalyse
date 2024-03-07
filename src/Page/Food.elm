@@ -90,6 +90,7 @@ type Msg
     | AddTransform
     | AddDistribution
     | CopyToClipBoard String
+    | CreateExample Query
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
@@ -241,6 +242,13 @@ update ({ db, queries } as session) msg model =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
+
+        CreateExample newQuery ->
+            ( model
+            , session
+                |> Session.createFoodExample newQuery
+            , Cmd.none
+            )
 
         DeleteBookmark bookmark ->
             updateQuery query
@@ -1384,10 +1392,17 @@ editedExampleHeader { initial, current } =
                 ]
             , a
                 [ class "btn btn-light"
+                , title "Annuler l'édition"
+                , Route.href Route.FoodBuilderHome
+                ]
+                [ Icon.cancel
+                ]
+            , a
+                [ class "btn btn-light"
                 , title "Retour à l'explorateur"
                 , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
                 ]
-                [ text "←"
+                [ Icon.list
                 ]
             ]
         ]
@@ -1437,20 +1452,30 @@ exampleProductSelector query exampleProducts =
                 |> List.map .query
                 |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
-            ]
-            [ text "Produit" ]
-        , button
+    div [ class "d-flex justify-content-between" ]
+        [ button
             [ class "form-select ElementSelector text-start"
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ span []
-                [ text <| ExampleProduct.toName exampleProducts query ]
+            [ text <| ExampleProduct.toName exampleProducts query
             ]
+        , case ExampleProduct.findByQuery query exampleProducts of
+            Ok { id } ->
+                a
+                    [ class "btn btn-light"
+                    , Route.href <| Route.FoodBuilderExample id
+                    , title "Éditer cet exemple"
+                    ]
+                    [ Icon.pencil ]
+
+            Err _ ->
+                button
+                    [ class "btn btn-light"
+                    , onClick <| CreateExample query
+                    , title "Ajouter cet exemple"
+                    ]
+                    [ Icon.plus ]
         ]
 
 
