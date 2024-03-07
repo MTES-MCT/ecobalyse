@@ -473,7 +473,6 @@ components:
         countryDyeing: "CN"
         countryMaking: "CN"
         airTransportRatio: 0.33
-        durability: 0.9
         makingWaste: null
         makingDeadStock: null
         makingComplexity: null
@@ -1192,12 +1191,6 @@ components:
           description: Part de transport aérien
           minimum: 0
           maximum: 1
-          required: false
-        durability:
-          type: number
-          description: Durabilité
-          minimum: 0.5
-          maximum: 1.5
           required: false
         makingWaste:
           type: number

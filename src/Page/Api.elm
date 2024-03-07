@@ -55,13 +55,6 @@ getApiServerUrl { clientUrl } =
 changelog : List News
 changelog =
     [ { date = "21 février 2024"
-      , level = "minor"
-      , domains = [ "Textile" ]
-      , md =
-            """Le paramètre `durability` doit maintenant être compris entre `0.5` et `1.5`,
-            alors qu'il était précédemment contraint entre `0.65` et `1.35`."""
-      }
-    , { date = "21 février 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
