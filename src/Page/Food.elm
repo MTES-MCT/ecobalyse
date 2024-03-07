@@ -44,6 +44,7 @@ import Route
 import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
+import UUID exposing (UUID)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.BaseElement as BaseElement
@@ -153,7 +154,7 @@ init session trigram maybeQuery =
     )
 
 
-initFromExample : Session -> ExampleProduct.Uuid -> ( Model, Session, Cmd Msg )
+initFromExample : Session -> UUID -> ( Model, Session, Cmd Msg )
 initFromExample session uuid =
     let
         example =

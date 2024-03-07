@@ -11,7 +11,6 @@ module Data.Dataset exposing
     )
 
 import Data.Country as Country
-import Data.Food.ExampleProduct as FoodExample
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
@@ -20,6 +19,7 @@ import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
+import UUID exposing (UUID)
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -31,7 +31,7 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
-    | FoodExamples (Maybe FoodExample.Uuid)
+    | FoodExamples (Maybe UUID)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
     | TextileExamples (Maybe TextileExample.Uuid)
@@ -211,7 +211,7 @@ setIdFromString idString dataset =
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         FoodExamples _ ->
-            FoodExamples (Just (FoodExample.uuidFromString idString))
+            FoodExamples (UUID.fromString idString |> Result.toMaybe)
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
@@ -281,7 +281,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodExamples (Just id) ->
-            [ slug dataset, FoodExample.uuidToString id ]
+            [ slug dataset, UUID.toString id ]
 
         FoodIngredients Nothing ->
             [ slug dataset ]

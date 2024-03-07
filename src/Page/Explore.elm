@@ -40,6 +40,7 @@ import Ports
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
+import UUID exposing (UUID)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Modal as ModalView
@@ -272,7 +273,7 @@ foodExamplesExplorer :
     Db
     -> Table.Config FoodExampleProduct.ExampleProduct Msg
     -> SortableTable.State
-    -> Maybe FoodExampleProduct.Uuid
+    -> Maybe UUID
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
     [ db.food.exampleProducts
