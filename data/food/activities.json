@@ -112,7 +112,9 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "land_occupation": 3.274768814
+    "land_occupation": 3.274768814,
+    "crop_group": "BLE TENDRE",
+    "scenario": "organic"
   },
   {
     "id": "sunflower-organic",
@@ -368,7 +370,9 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 8.484055245
+    "land_occupation": 8.484055245,
+    "crop_group": "COLZA",
+    "scenario": "reference"
   },
   {
     "id": "rapeseed-oil-organic",
@@ -383,7 +387,9 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "land_occupation": 7.473754766
+    "land_occupation": 7.473754766,
+    "crop_group": "COLZA",
+    "scenario": "organic"
   },
   {
     "id": "sunflower-oil",
@@ -415,7 +421,9 @@
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "land_occupation": 14.36844372
+    "land_occupation": 14.36844372,
+    "crop_group": "TOURNESOL",
+    "scenario": "organic"
   },
   {
     "id": "zucchini-organic",
@@ -1246,7 +1254,9 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.732091583
+    "land_occupation": 1.732091583,
+    "crop_group": "VIGNES",
+    "scenario": "reference"
   },
   {
     "id": "fresh-shrimps",

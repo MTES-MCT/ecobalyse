@@ -109,8 +109,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.0994,
+      "plotSize": 1.6374,
+      "cropDiversity": 7.8594
+    },
     "land_occupation": 3.274768814,
+    "crop_group": "BLE TENDRE",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -343,8 +349,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.9392,
+      "plotSize": 2.121,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 8.484055245,
+    "crop_group": "COLZA",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -357,8 +369,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 2.9895,
+      "plotSize": 3.7369,
+      "cropDiversity": 18.131
+    },
     "land_occupation": 7.473754766,
+    "crop_group": "COLZA",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -391,8 +409,14 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 5.5421,
+      "plotSize": 5.3882,
+      "cropDiversity": 50.807
+    },
     "land_occupation": 14.36844372,
+    "crop_group": "TOURNESOL",
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1073,8 +1097,14 @@
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.43302,
+      "plotSize": 1.5156,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 1.732091583,
+    "crop_group": "VIGNES",
+    "scenario": "reference",
     "visible": true
   },
   {
