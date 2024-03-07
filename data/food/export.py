@@ -195,9 +195,11 @@ def compute_impacts(processes):
                 ).content
             ),
         )
-        # WARNING assume remote is MJ if process is in kWh (couldn't find unit from COM intf)
+        # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and type(results) is dict:
             results = {k: v * 3.6 for k, v in results.items()}
+        if process["unit"] == "litre" and type(results) is dict:
+            results = {k: v / 1000 for k, v in results.items()}
 
         if type(results) is dict and results:
             # simapro succeeded

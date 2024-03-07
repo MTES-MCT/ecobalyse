@@ -3,7 +3,6 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import json
 import os.path
-from time import sleep
 import win32com.client
 
 server = win32com.client.Dispatch("SimaPro.SimaProServer")
@@ -16,7 +15,6 @@ projects = [server.Projects(i) for i in range(server.Projects.Count())]
 print(f"Existing projects: {', '.join(projects)}")
 
 api = FastAPI()
-current_project = None
 
 
 @api.get("/impact", response_class=JSONResponse)
@@ -27,7 +25,6 @@ async def impact(_: Request, project: str, process: str, method: str):
     process: "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U"
     """
     print(f"{project}/{process}/{method}")
-    global current_project
 
     impacts = {}
     if os.path.exists("impacts.json"):
@@ -38,10 +35,9 @@ async def impact(_: Request, project: str, process: str, method: str):
     else:
         if project not in projects:
             return f"project {project} does not exist in SimaPro"
-        if not server.ProjectOpen or project != current_project:
+        if not server.ProjectOpen or project != server.CurrentProject:
             print(f"Opening project {project}...")
             server.OpenProject(project, "")
-            current_project = project
 
         print("Computing results...")
         existing = [
