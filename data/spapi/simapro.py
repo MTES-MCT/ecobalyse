@@ -12,9 +12,10 @@ server.alias = r"C:\Users\Public\Documents\SimaPro\Database"
 server.Database = "Professional"
 print("Opening database...")
 server.OpenDatabase()
+projects = [server.Projects(i) for i in range(server.Projects.Count())]
+print(f"Existing projects: {', '.join(projects)}")
 
 api = FastAPI()
-lock: bool = False
 current_project = None
 
 
@@ -26,28 +27,44 @@ async def impact(_: Request, project: str, process: str, method: str):
     process: "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U"
     """
     print(f"{project}/{process}/{method}")
-    global lock
-    global server
     global current_project
-    while lock:
-        print("waiting for lock release...")
-        sleep(1)
-
-    lock = True
 
     impacts = {}
     if os.path.exists("impacts.json"):
         impacts = json.load(open("impacts.json"))
-    try:
-        if not impacts.get(f"{project}/{process}", {}).get(method, {}):
-            if not server.ProjectOpen or project != current_project:
-                print("Opening project...")
-                server.OpenProject(project, "")
-                current_project = project
 
-            print("Computing results...")
-            server.Analyse(project, 0, process, "Methods", method, "")
+    if impacts.get(f"{project}/{process}", {}).get(method, {}):
+        return impacts.get(f"{project}/{process}", {}).get(method, {})
+    else:
+        if project not in projects:
+            return f"project {project} does not exist in SimaPro"
+        if not server.ProjectOpen or project != current_project:
+            print(f"Opening project {project}...")
+            server.OpenProject(project, "")
+            current_project = project
+
+        print("Computing results...")
+        existing = [
+            e
+            for e in [
+                ((i, server.FindProcess(project, i, process)[0])) for i in range(12)
+            ]
+            if e[1]
+        ]
+        found = existing[0] if len(existing) else None
+        if found:
+            server.Analyse(project, found[0], process, "Methods", method, "")
             results, i = {}, 0
+            try:
+                # try the first and stop if it raises (typically on a Dummy process.
+                # Seems a bug in the COM intf)
+                server.AnalyseResult(0, 0)
+            except:
+                impacts.setdefault(f"{project}/{process}", {})
+                impacts[f"{project}/{process}"][method] = results
+                with open("impacts.json", "w") as fp:
+                    json.dump(impacts, fp, ensure_ascii=False)
+                return {}
             while (r := server.AnalyseResult(0, i)).IndicatorName:
                 results[r.IndicatorName] = {"amount": r.Amount, "unit": r.UnitName}
                 i += 1
@@ -55,12 +72,6 @@ async def impact(_: Request, project: str, process: str, method: str):
             impacts[f"{project}/{process}"][method] = results
             with open("impacts.json", "w") as fp:
                 json.dump(impacts, fp, ensure_ascii=False)
+            return results
         else:
-            results = impacts.get(f"{project}/{process}", {}).get(method, {})
-    except Exception as e:
-        results = repr(e)
-        current_project = None
-
-    lock = False
-    print(results)
-    return results
+            return {}

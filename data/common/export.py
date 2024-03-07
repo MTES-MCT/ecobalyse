@@ -14,7 +14,7 @@ def spproject(activity):
         case "Ginko":
             return "Ginko"
         case "Ecobalyse":
-            return "Ecobalyse"
+            return "EcobalyseIsNotASimaProProject"
         case _:
             return "AGB3.1.1 2023-03-06"
 
