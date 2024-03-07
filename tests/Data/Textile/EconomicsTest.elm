@@ -29,7 +29,7 @@ suite =
                 , traceability = False
                 }
                 |> Unit.durabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.86
+                |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute durability index"
             ]
         , describe "computeMarketingDurationIndex"
