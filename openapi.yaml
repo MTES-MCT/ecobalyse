@@ -1196,8 +1196,8 @@ components:
         durability:
           type: number
           description: Durabilité
-          minimum: 0.7
-          maximum: 1.35
+          minimum: 0.5
+          maximum: 1.5
           required: false
         makingWaste:
           type: number
