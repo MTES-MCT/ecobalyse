@@ -178,11 +178,11 @@
           "mass": 2
         },
         {
-          "id": "onion",
+          "id": "onion-fr",
           "mass": 14
         },
         {
-          "id": "carrot",
+          "id": "carrot-fr",
           "mass": 6
         }
       ],
@@ -252,12 +252,12 @@
           "country": "FR"
         },
         {
-          "id": "onion",
+          "id": "onion-fr",
           "mass": 14,
           "country": "FR"
         },
         {
-          "id": "carrot",
+          "id": "carrot-fr",
           "mass": 6,
           "country": "FR"
         }
@@ -328,7 +328,7 @@
           "country": "FR"
         },
         {
-          "id": "onion",
+          "id": "onion-fr",
           "mass": 14,
           "country": "FR"
         },
@@ -379,7 +379,7 @@
           "mass": 5
         },
         {
-          "id": "mushroom",
+          "id": "mushroom-eu",
           "mass": 31
         },
         {
@@ -441,7 +441,7 @@
           "country": "FR"
         },
         {
-          "id": "mushroom",
+          "id": "mushroom-eu",
           "mass": 31,
           "country": "FR"
         },
@@ -509,7 +509,7 @@
           "mass": 12
         },
         {
-          "id": "tomato-greenhouse",
+          "id": "tomato-greenhouse-fr",
           "mass": 36.00000000000001
         },
         {
@@ -517,7 +517,7 @@
           "mass": 36.00000000000001
         },
         {
-          "id": "onion",
+          "id": "onion-fr",
           "mass": 12
         },
         {
@@ -580,7 +580,7 @@
           "country": "FR"
         },
         {
-          "id": "tomato-greenhouse",
+          "id": "tomato-greenhouse-fr",
           "mass": 36.00000000000001,
           "country": "FR"
         },
@@ -590,7 +590,7 @@
           "country": "FR"
         },
         {
-          "id": "onion",
+          "id": "onion-fr",
           "mass": 12,
           "country": "FR"
         },

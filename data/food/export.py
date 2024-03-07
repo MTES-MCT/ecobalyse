@@ -47,15 +47,6 @@ def setup_environment():
     bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
 
-def sync_datapackages():
-    print("Syncing datackages...")
-    for method in bw2data.methods:
-        bw2data.Method(method).process()
-
-    for database in bw2data.databases:
-        bw2data.Database(database).process()
-
-
 def find_id(dbname, activity):
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]

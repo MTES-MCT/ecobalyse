@@ -379,7 +379,7 @@ describe("API", () => {
       describe("GET", () => {
         it("should compute 21 impacts for food", async () => {
           const response = await makeRequest("/api/food/recipe", [
-            "ingredients[]=carrot;268",
+            "ingredients[]=carrot-fr;268",
             "transform=AGRIBALU000000003103966;1050",
             "distribution=ambient",
           ]);
@@ -398,7 +398,7 @@ describe("API", () => {
 
         it("should validate an ingredient mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;-1"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot-fr;-1"]),
             "ingredients",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -406,7 +406,7 @@ describe("API", () => {
 
         it("should validate an ingredient country code", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadCountryCode"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot-fr;123;BadCountryCode"]),
             "ingredients",
             /Code pays invalide: BadCountryCode/,
           );
@@ -414,7 +414,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane value", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;BR;badValue"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=mango-non-eu;123;BR;badValue"]),
             "ingredients",
             /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
           );
@@ -422,7 +422,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;byPlane"]),
+            await makeRequest("/api/food/recipe", ["ingredients[]=carrot-fr;123;BR;byPlane"]),
             "ingredients",
             /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
           );
@@ -482,9 +482,9 @@ describe("API", () => {
           const response = await makePostRequest("/api/food/recipe", {
             ingredients: [
               { id: "egg-indoor-code3", mass: 0.12 },
-              { id: "wheat", mass: 0.14 },
+              { id: "soft-wheat-fr", mass: 0.14 },
               { id: "milk", mass: 0.06 },
-              { id: "carrot", mass: 0.225 },
+              { id: "carrot-fr", mass: 0.225 },
             ],
             transform: {
               code: "AGRIBALU000000003103966",
