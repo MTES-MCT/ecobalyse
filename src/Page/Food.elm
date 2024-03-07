@@ -40,6 +40,7 @@ import Length
 import Mass exposing (Mass)
 import Ports
 import Quantity
+import Random
 import Route
 import Static.Db as Db exposing (Db)
 import Task
@@ -92,6 +93,7 @@ type Msg
     | AddDistribution
     | CopyToClipBoard String
     | CreateExample Query
+    | CreateExampleComplete ExampleProduct
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
@@ -247,7 +249,17 @@ update ({ db, queries } as session) msg model =
         CreateExample newQuery ->
             ( model
             , session
-                |> Session.createFoodExample newQuery
+            , Time.now
+                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time)))
+                |> Task.map (\seed -> Random.step UUID.generator seed |> Tuple.first)
+                |> Task.map (\uuid -> { id = uuid, name = "Nouvel exemple de produit ", category = "", query = newQuery })
+                |> Task.perform CreateExampleComplete
+            )
+
+        CreateExampleComplete example ->
+            ( model
+            , session
+                |> Session.createFoodExample example
             , Cmd.none
             )
 

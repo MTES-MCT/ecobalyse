@@ -93,8 +93,8 @@ saveBookmark bookmark =
 -- Example products
 
 
-createFoodExample : FoodQuery.Query -> Session -> Session
-createFoodExample _ ({ db } as session) =
+createFoodExample : ExampleProduct -> Session -> Session
+createFoodExample example ({ db } as session) =
     let
         { food } =
             db
@@ -107,13 +107,7 @@ createFoodExample _ ({ db } as session) =
             { db
                 | food =
                     { food
-                        | exampleProducts =
-                            -- { id = ExampleProduct.uuidFromString "newId"
-                            -- , name = "newName"
-                            -- , category = ""
-                            -- , query = query
-                            -- } ::
-                            exampleProducts
+                        | exampleProducts = example :: exampleProducts
                     }
             }
     }
