@@ -443,12 +443,12 @@ airTransportDisabled { enabled, label, country } =
 
 airTransportRatioToString : Split -> String
 airTransportRatioToString percentage =
-    case Split.toPercent percentage of
+    case Split.toPercent percentage |> round of
         0 ->
             "Aucun transport aérien"
 
         _ ->
-            Split.toPercentString percentage ++ "% de transport aérien"
+            Split.toPercentString 0 percentage ++ "% de transport aérien"
 
 
 surfaceMassToString : Unit.SurfaceMass -> String
@@ -462,7 +462,7 @@ makingWasteToString makingWaste =
         "Aucune perte en confection"
 
     else
-        Split.toPercentString makingWaste ++ "% de pertes"
+        Split.toPercentString 2 makingWaste ++ "% de pertes"
 
 
 makingDeadStockToString : Split -> String
@@ -471,7 +471,7 @@ makingDeadStockToString makingDeadStock =
         "Aucun stock dormant"
 
     else
-        Split.toPercentString makingDeadStock ++ "% de stocks dormants"
+        Split.toPercentString 2 makingDeadStock ++ "% de stocks dormants"
 
 
 yarnSizeToString : Unit.YarnSize -> String

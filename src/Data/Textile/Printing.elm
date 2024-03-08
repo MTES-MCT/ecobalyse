@@ -116,7 +116,7 @@ kindLabel kind =
 
 toFullLabel : Printing -> String
 toFullLabel { kind, ratio } =
-    kindLabel kind ++ " (" ++ Split.toPercentString ratio ++ "%)"
+    kindLabel kind ++ " (" ++ Split.toPercentString 2 ratio ++ "%)"
 
 
 toString : Kind -> String

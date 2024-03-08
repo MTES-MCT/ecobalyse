@@ -64,7 +64,7 @@ suite =
         , describe "Format.percentage"
             [ 0.12
                 |> Split.fromFloat
-                |> Result.map Format.splitAsPercentage
+                |> Result.map (Format.splitAsPercentage 0)
                 |> Expect.equal (Ok (text "12\u{202F}%"))
                 |> asTest "should properly format a Split as percentage"
             , 0.12

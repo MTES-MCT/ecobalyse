@@ -322,7 +322,7 @@ materialsToString materials =
                             |> Maybe.map .name
                             |> Maybe.withDefault (" par défaut (" ++ material.geographicOrigin ++ ")")
                 in
-                Split.toPercentString share
+                Split.toPercentString 0 share
                     ++ "% "
                     ++ material.shortName
                     ++ " provenance "
@@ -334,9 +334,9 @@ materialsToString materials =
 makingOptionsToString : Inputs -> String
 makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTransportRatio, fading } =
     [ makingWaste
-        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de perte"))
+        |> Maybe.map (Split.toPercentString 2 >> (\s -> s ++ "\u{202F}% de perte"))
     , makingDeadStock
-        |> Maybe.map (Split.toPercentString >> (\s -> s ++ "\u{202F}% de stocks dormants"))
+        |> Maybe.map (Split.toPercentString 2 >> (\s -> s ++ "\u{202F}% de stocks dormants"))
     , makingComplexity
         |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
@@ -346,7 +346,7 @@ makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTrans
                     Nothing
 
                 else
-                    Just (Split.toPercentString ratio ++ " de transport aérien")
+                    Just (Split.toPercentString 0 ratio ++ " de transport aérien")
             )
     , if fading == Just True then
         Just "délavé"

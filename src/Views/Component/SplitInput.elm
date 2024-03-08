@@ -22,7 +22,7 @@ view { disabled, share, onChange } =
             , step "1"
             , share
                 |> Split.toPercent
-                |> String.fromInt
+                |> String.fromFloat
                 |> value
             , title "Quantité en pourcents"
             , onInput <|
@@ -33,7 +33,7 @@ view { disabled, share, onChange } =
 
                          else
                             str
-                                |> String.toInt
+                                |> String.toFloat
                                 |> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
                         )
             , Attr.min "0"

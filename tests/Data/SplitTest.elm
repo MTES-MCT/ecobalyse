@@ -77,18 +77,6 @@ suite =
                 |> Expect.equal (Ok 12)
                 |> asTest "should provide a percent constructor and extractor"
             ]
-        , describe "full percents (round up)"
-            [ 0.119
-                |> Split.fromFloat
-                |> Expect.equal (Split.fromFloat 0.12)
-                |> asTest "should only store full percents, rounded to the closest percent (up)"
-            ]
-        , describe "full percents (round down)"
-            [ 0.121
-                |> Split.fromFloat
-                |> Expect.equal (Split.fromFloat 0.12)
-                |> asTest "should only store full percents, rounded to the closest percent (down)"
-            ]
         , describe "toFloatString"
             [ 0.12
                 |> Split.fromFloat
@@ -99,9 +87,14 @@ suite =
         , describe "toPercentString"
             [ 0.12
                 |> Split.fromFloat
-                |> Result.map Split.toPercentString
+                |> Result.map (Split.toPercentString 0)
                 |> Expect.equal (Ok "12")
                 |> asTest "should return a percent string representation"
+            , 0.12
+                |> Split.fromFloat
+                |> Result.map (Split.toPercentString 2)
+                |> Expect.equal (Ok "12,00")
+                |> asTest "should return a percent string representation with decimals"
             ]
         , describe "complement"
             [ Split.zero

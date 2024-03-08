@@ -270,10 +270,10 @@ printingFields { inputs, updatePrinting } =
                         |> List.map
                             (\percent ->
                                 option
-                                    [ value (String.fromInt percent)
+                                    [ value (String.fromFloat percent)
                                     , selected <| Ok ratio == Split.fromPercent percent
                                     ]
-                                    [ text <| String.fromInt percent ++ "%" ]
+                                    [ text <| String.fromFloat percent ++ "%" ]
                             )
                         |> select
                             [ class "form-select form-select-sm"
@@ -281,7 +281,7 @@ printingFields { inputs, updatePrinting } =
                             , disabled <| inputs.printing == Nothing
                             , onInput
                                 (\str ->
-                                    case String.toInt str of
+                                    case String.toFloat str of
                                         Just percent ->
                                             inputs.printing
                                                 |> Maybe.map
@@ -386,8 +386,8 @@ makingWasteField { current, inputs, updateMakingWaste } =
                 not current.enabled
                     || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
                     || (inputs.fabricProcess == Fabric.KnittingIntegral)
-            , min = Split.toPercent Env.minMakingWasteRatio
-            , max = Split.toPercent Env.maxMakingWasteRatio
+            , min = Env.minMakingWasteRatio |> Split.toPercent |> round
+            , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
         ]
 
@@ -403,8 +403,8 @@ makingDeadStockField { current, updateMakingDeadStock } =
             , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
             , toString = Step.makingDeadStockToString
             , disabled = False
-            , min = Split.toPercent Env.minMakingDeadStockRatio
-            , max = Split.toPercent Env.maxMakingDeadStockRatio
+            , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
+            , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
             }
         ]
 
@@ -1082,7 +1082,7 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                                         , span [ class "text-nowrap" ]
                                             [ inputs.materials
                                                 |> Inputs.getOutOfEuropeEOLProbability
-                                                |> Format.splitAsPercentage
+                                                |> Format.splitAsPercentage 2
                                             , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
                                             ]
                                         ]
