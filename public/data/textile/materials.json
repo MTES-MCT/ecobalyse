@@ -130,8 +130,8 @@
     "materialProcessUuid": "9df0524c7ee3b4f1f31067565192df9a",
     "recycledProcessUuid": null,
     "recycledFrom": null,
-    "name": "(EI) Fil de jute / kenaf",
-    "shortName": "(EI) Jute / kenaf",
+    "name": "(EI) Jute",
+    "shortName": "(EI) Jute",
     "origin": "NaturalFromVegetal",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
@@ -183,7 +183,7 @@
   },
   {
     "id": "ei-coton-organic",
-    "materialProcessUuid": "c4074203f7e37252cddb07ea191c404a",
+    "materialProcessUuid": "coton-bio",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "(EI) Coton bio",
@@ -435,7 +435,7 @@
   },
   {
     "id": "acrylique",
-    "materialProcessUuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
+    "materialProcessUuid": "acrylique",
     "recycledProcessUuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "recycledFrom": null,
     "name": "Filament d'acrylique",
