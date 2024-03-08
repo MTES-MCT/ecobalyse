@@ -7,11 +7,11 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope exposing (Scope)
 import Data.Unit as Unit
+import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Column, Table)
-import Prng.Uuid as Uuid
 import Route
 import Static.Db exposing (Db)
 import Views.Icon as Icon

@@ -12,9 +12,9 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
+import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
 import Html.Attributes as Attr
-import Prng.Uuid as Uuid exposing (Uuid)
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser)
 

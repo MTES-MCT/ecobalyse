@@ -19,7 +19,7 @@ import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
-import Prng.Uuid as Uuid exposing (Uuid)
+import Data.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
 
 

@@ -10,8 +10,8 @@ module Data.Food.ExampleProduct exposing
     )
 
 import Data.Food.Query as Query exposing (Query)
+import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
-import Prng.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
 
 

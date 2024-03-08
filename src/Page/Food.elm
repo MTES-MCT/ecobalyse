@@ -32,6 +32,7 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -39,9 +40,7 @@ import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Ports
-import Prng.Uuid as Uuid exposing (Uuid)
 import Quantity
-import Random.Pcg.Extended as Random
 import Route
 import Static.Db as Db exposing (Db)
 import Task
@@ -250,9 +249,7 @@ update ({ db, queries } as session) msg model =
         CreateExample newQuery ->
             ( model
             , session
-            , Time.now
-                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time) []))
-                |> Task.map (\seed -> Random.step Uuid.generator seed |> Tuple.first)
+            , Uuid.generateUuid
                 |> Task.map (\uuid -> { id = uuid, name = "Nouvel exemple de produit ", category = "", query = newQuery })
                 |> Task.perform CreateExampleComplete
             )
@@ -288,9 +285,7 @@ update ({ db, queries } as session) msg model =
         DuplicateExample example ->
             ( model
             , session
-            , Time.now
-                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time) []))
-                |> Task.map (\seed -> Random.step Uuid.generator seed |> Tuple.first)
+            , Uuid.generateUuid
                 |> Task.map
                     (\uuid ->
                         { id = uuid

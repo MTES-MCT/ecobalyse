@@ -23,6 +23,7 @@ import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -37,7 +38,6 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
-import Prng.Uuid exposing (Uuid)
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
