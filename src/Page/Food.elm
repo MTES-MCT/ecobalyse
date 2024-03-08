@@ -1384,37 +1384,63 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-editedExampleHeader : { initial : ExampleProduct, current : ExampleProduct } -> Html Msg
-editedExampleHeader { initial, current } =
+editedExampleHeader : List ExampleProduct -> { initial : ExampleProduct, current : ExampleProduct } -> Html Msg
+editedExampleHeader exampleProducts { initial, current } =
     let
         modified =
             current /= initial
+
+        valid =
+            exampleProducts
+                |> ExampleProduct.findByName current.name
+                |> Result.toMaybe
+                |> (==) Nothing
     in
-    div [ class "row g-2" ]
-        [ div [ class "col-md-9 d-flex justify-content-between align-items-center gap-2" ]
-            [ h2 [ class "h5 fw-normal text-nowrap mb-0" ] [ text "Modifier" ]
-            , input
-                [ type_ "text"
-                , class "form-control"
-                , value current.name
-                , onInput <| \newName -> UpdateEditedExample { current | name = newName }
+    div [ class "d-flex flex-column gap-2" ]
+        [ div [ class "row g-2" ]
+            [ div [ class "col-sm-6" ]
+                [ label [] [ text "Nom de l'exemple" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , value current.name
+                    , onInput <| \newName -> UpdateEditedExample { current | name = newName }
+                    ]
+                    []
                 ]
-                []
-            , input
-                [ type_ "text"
-                , class "form-control"
-                , value current.category
-                , onInput <| \newCategory -> UpdateEditedExample { current | category = newCategory }
+            , div [ class "col-sm-6" ]
+                [ label [] [ text "Catégorie" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , value current.category
+                    , onInput <| \newCategory -> UpdateEditedExample { current | category = newCategory }
+                    ]
+                    []
                 ]
-                []
             ]
-        , div [ class "col-md-3 d-flex justify-content-between" ]
-            [ button
-                [ class "btn btn-primary w-100"
-                , disabled (not modified)
+        , div [ class "btn-group d-flex justify-content-end gap-2" ]
+            [ a
+                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
+                , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                ]
+                [ Icon.list
+                , text "Explorateur d'exemples"
+                ]
+            , a
+                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
+                , Route.href Route.FoodBuilderHome
+                ]
+                [ Icon.cancel
+                , text "Annuler l'édition"
+                ]
+            , button
+                [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
+                , disabled (not modified || not valid)
                 , onClick <| SaveEditedExample current
                 ]
-                [ text <|
+                [ Icon.save
+                , text <|
                     "Enregistrer"
                         ++ (if modified then
                                 "*"
@@ -1423,26 +1449,12 @@ editedExampleHeader { initial, current } =
                                 ""
                            )
                 ]
-            , a
-                [ class "btn btn-light"
-                , title "Annuler l'édition"
-                , Route.href Route.FoodBuilderHome
-                ]
-                [ Icon.cancel
-                ]
-            , a
-                [ class "btn btn-light"
-                , title "Retour à l'explorateur"
-                , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
-                ]
-                [ Icon.list
-                ]
             ]
         ]
 
 
-mainView : Db -> Session -> Model -> Html Msg
-mainView db session model =
+mainView : Session -> Model -> Html Msg
+mainView ({ db } as session) model =
     let
         computed =
             session.queries.food
@@ -1452,7 +1464,7 @@ mainView db session model =
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ case model.editedExample of
                 Just editedExampleState ->
-                    editedExampleHeader editedExampleState
+                    editedExampleHeader db.food.exampleProducts editedExampleState
 
                 Nothing ->
                     db.food.exampleProducts
@@ -1485,41 +1497,45 @@ exampleProductSelector query exampleProducts =
                 |> List.map .query
                 |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
-    div [ class "d-flex justify-content-between" ]
-        [ button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ text <| ExampleProduct.toName exampleProducts query
-            ]
-        , case ( query == Query.empty, ExampleProduct.findByQuery query exampleProducts ) of
-            ( False, Ok example ) ->
-                div [ class "btn-group" ]
-                    [ a
-                        [ class "btn btn-light"
-                        , Route.href <| Route.FoodBuilderExample example.id
-                        , title "Éditer cet exemple"
+    div []
+        [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
+            [ text "Exemples" ]
+        , div [ class "d-flex justify-content-between align-items-center" ]
+            [ button
+                [ class "form-select ElementSelector text-start"
+                , id "selector-example"
+                , onClick (SetModal (SelectExampleModal autocompleteState))
+                ]
+                [ text <| ExampleProduct.toName exampleProducts query
+                ]
+            , case ( query == Query.empty, ExampleProduct.findByQuery query exampleProducts ) of
+                ( False, Ok example ) ->
+                    div [ class "btn-group" ]
+                        [ a
+                            [ class "btn btn-light"
+                            , Route.href <| Route.FoodBuilderExample example.id
+                            , title "Éditer cet exemple"
+                            ]
+                            [ Icon.pencil ]
+                        , button
+                            [ class "btn btn-light"
+                            , title "Dupliquer cet exemple"
+                            , onClick <| DuplicateExample example
+                            ]
+                            [ Icon.copy ]
                         ]
-                        [ Icon.pencil ]
-                    , button
+
+                ( False, Err _ ) ->
+                    button
                         [ class "btn btn-light"
-                        , title "Dupliquer cet exemple"
-                        , onClick <| DuplicateExample example
+                        , onClick <| CreateExample query
+                        , title "Ajouter cet exemple"
                         ]
-                        [ Icon.copy ]
-                    ]
+                        [ Icon.plus ]
 
-            ( False, Err _ ) ->
-                button
-                    [ class "btn btn-light"
-                    , onClick <| CreateExample query
-                    , title "Ajouter cet exemple"
-                    ]
-                    [ Icon.plus ]
-
-            _ ->
-                text ""
+                _ ->
+                    text ""
+            ]
         ]
 
 
@@ -1670,7 +1686,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ mainView session.db session model
+            [ mainView session model
             , case model.modal of
                 NoModal ->
                     text ""

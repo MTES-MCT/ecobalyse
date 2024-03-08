@@ -18,6 +18,7 @@ module Views.Icon exposing
     , plane
     , plus
     , question
+    , save
     , search
     , stats
     , trash
@@ -130,6 +131,11 @@ plus =
 question : Html msg
 question =
     icon "question"
+
+
+save : Html msg
+save =
+    icon "save"
 
 
 search : Html msg

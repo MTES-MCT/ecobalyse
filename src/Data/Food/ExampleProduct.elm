@@ -1,6 +1,7 @@
 module Data.Food.ExampleProduct exposing
     ( ExampleProduct
     , decodeListFromJsonString
+    , findByName
     , findByQuery
     , findByUuid
     , parseUuid
@@ -35,6 +36,13 @@ decodeListFromJsonString : String -> Result String (List ExampleProduct)
 decodeListFromJsonString =
     Decode.decodeString (Decode.list decode)
         >> Result.mapError Decode.errorToString
+
+
+findByName : String -> List ExampleProduct -> Result String ExampleProduct
+findByName name =
+    List.filter (.name >> (==) name)
+        >> List.head
+        >> Result.fromMaybe ("Exemple introuvable avec le nom " ++ name)
 
 
 findByUuid : Uuid -> List ExampleProduct -> Result String ExampleProduct

@@ -679,8 +679,8 @@ exampleProductField exampleProducts query =
                 |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
     div []
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Examples" ]
+        [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
+            [ text "Exemples" ]
         , button
             [ class "form-select ElementSelector text-start"
             , id "selector-example"
@@ -848,7 +848,7 @@ traceabilityField traceability =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label text-truncate" ]
+        [ label [ for "mass", class "form-label text-truncate mb-0" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
