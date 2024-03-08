@@ -39,13 +39,13 @@ import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Ports
+import Prng.Uuid as Uuid exposing (Uuid)
 import Quantity
-import Random
+import Random.Pcg.Extended as Random
 import Route
 import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
-import UUID exposing (UUID)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.BaseElement as BaseElement
@@ -156,7 +156,7 @@ init session trigram maybeQuery =
     )
 
 
-initFromExample : Session -> UUID -> ( Model, Session, Cmd Msg )
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
 initFromExample session uuid =
     let
         example =
@@ -250,8 +250,8 @@ update ({ db, queries } as session) msg model =
             ( model
             , session
             , Time.now
-                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time)))
-                |> Task.map (\seed -> Random.step UUID.generator seed |> Tuple.first)
+                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time) []))
+                |> Task.map (\seed -> Random.step Uuid.generator seed |> Tuple.first)
                 |> Task.map (\uuid -> { id = uuid, name = "Nouvel exemple de produit ", category = "", query = newQuery })
                 |> Task.perform CreateExampleComplete
             )

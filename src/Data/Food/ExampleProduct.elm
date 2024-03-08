@@ -10,12 +10,12 @@ module Data.Food.ExampleProduct exposing
 
 import Data.Food.Query as Query exposing (Query)
 import Json.Decode as Decode exposing (Decoder)
-import UUID exposing (UUID)
+import Prng.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
 
 
 type alias ExampleProduct =
-    { id : UUID
+    { id : Uuid
     , name : String
     , query : Query
     , category : String
@@ -25,7 +25,7 @@ type alias ExampleProduct =
 decode : Decoder ExampleProduct
 decode =
     Decode.map4 ExampleProduct
-        (Decode.field "id" UUID.jsonDecoder)
+        (Decode.field "id" Uuid.decoder)
         (Decode.field "name" Decode.string)
         (Decode.field "query" Query.decode)
         (Decode.field "category" Decode.string)
@@ -37,11 +37,11 @@ decodeListFromJsonString =
         >> Result.mapError Decode.errorToString
 
 
-findByUuid : UUID -> List ExampleProduct -> Result String ExampleProduct
+findByUuid : Uuid -> List ExampleProduct -> Result String ExampleProduct
 findByUuid id =
     List.filter (.id >> (==) id)
         >> List.head
-        >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ UUID.toString id)
+        >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ Uuid.toString id)
 
 
 findByQuery : Query -> List ExampleProduct -> Result String ExampleProduct
@@ -51,9 +51,9 @@ findByQuery query =
         >> Result.fromMaybe "Exemple introuvable"
 
 
-parseUuid : Parser (UUID -> a) a
+parseUuid : Parser (Uuid -> a) a
 parseUuid =
-    Parser.custom "FOODEXAMPLE" (UUID.fromString >> Result.toMaybe)
+    Parser.custom "FOODEXAMPLE" Uuid.fromString
 
 
 toCategory : List ExampleProduct -> Query -> String

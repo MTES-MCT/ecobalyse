@@ -37,10 +37,10 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import Prng.Uuid exposing (Uuid)
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
-import UUID exposing (UUID)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Modal as ModalView
@@ -273,7 +273,7 @@ foodExamplesExplorer :
     Db
     -> Table.Config FoodExampleProduct.ExampleProduct Msg
     -> SortableTable.State
-    -> Maybe UUID
+    -> Maybe Uuid
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
     [ db.food.exampleProducts

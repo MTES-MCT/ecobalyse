@@ -14,7 +14,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Html exposing (Attribute)
 import Html.Attributes as Attr
-import UUID exposing (UUID)
+import Prng.Uuid as Uuid exposing (Uuid)
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser)
 
@@ -27,7 +27,7 @@ type Route
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderHome
-    | FoodBuilderExample UUID
+    | FoodBuilderExample Uuid
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | Stats
@@ -197,7 +197,7 @@ toString route =
                     [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
 
                 FoodBuilderExample uuid ->
-                    [ "food", "edit-example", UUID.toString uuid ]
+                    [ "food", "edit-example", Uuid.toString uuid ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
