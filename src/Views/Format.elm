@@ -216,9 +216,9 @@ splitAsFloat int value =
         |> text
 
 
-splitAsPercentage : Split -> Html msg
-splitAsPercentage value =
-    Split.toPercentString value
+splitAsPercentage : Int -> Split -> Html msg
+splitAsPercentage decimals value =
+    Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
 

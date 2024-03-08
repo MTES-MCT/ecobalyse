@@ -155,10 +155,10 @@ table db { detailed, scope } =
           , toCell = fadableToString >> text
           }
         , { label = "Stocks dormants"
-          , toValue = Table.IntValue (Split.toPercent Env.defaultDeadStock |> always)
+          , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)
           , toCell =
                 div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ Format.splitAsPercentage Env.defaultDeadStock ]
+                    [ Format.splitAsPercentage 0 Env.defaultDeadStock ]
                     |> always
           }
         , { label = "Type de teinture"
@@ -177,11 +177,11 @@ table db { detailed, scope } =
                         [ Product.getMakingDurationInMinutes product |> Format.minutes ]
           }
         , { label = "Confection (taux de perte)"
-          , toValue = Table.IntValue <| .making >> .pcrWaste >> Split.toPercent
+          , toValue = Table.FloatValue <| .making >> .pcrWaste >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage product.making.pcrWaste ]
+                        [ Format.splitAsPercentage 2 product.making.pcrWaste ]
           }
         , { label = "Nombre de jours porté"
           , toValue = Table.FloatValue <| .use >> .daysOfWear >> Duration.inDays
@@ -213,18 +213,18 @@ table db { detailed, scope } =
           , toCell = .use >> .nonIroningProcess >> .name >> withTitle
           }
         , { label = "Séchage électrique"
-          , toValue = Table.IntValue <| .use >> .ratioDryer >> Split.toPercent
+          , toValue = Table.FloatValue <| .use >> .ratioDryer >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage product.use.ratioDryer ]
+                        [ Format.splitAsPercentage 0 product.use.ratioDryer ]
           }
         , { label = "Repassage (part)"
-          , toValue = Table.IntValue <| .use >> .ratioIroning >> Split.toPercent
+          , toValue = Table.FloatValue <| .use >> .ratioIroning >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage product.use.ratioIroning ]
+                        [ Format.splitAsPercentage 0 product.use.ratioIroning ]
           }
         , { label = "Repassage (temps)"
           , toValue = Table.FloatValue <| .use >> .timeIroning >> Duration.inHours
