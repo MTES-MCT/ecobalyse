@@ -140,7 +140,7 @@ $$
 
 <summary>Illustration</summary>
 
-Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la fin de vie passerait de 0% (avant introduction du complément Fin de vie Hors Europe) à 5% ou 11% selon la composition du vêtement.&#x20;
+Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la fin de vie passerait de 0% (avant introduction du complément Fin de vie Hors Europe) à 4% ou 12% selon la composition du vêtement.&#x20;
 
 <img src="../../.gitbook/assets/Comparaison - Jean 100% synthétique (450g).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - Jean 100% cotton (450g).png" alt="" data-size="original">
 
