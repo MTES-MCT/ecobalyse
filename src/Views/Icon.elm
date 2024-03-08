@@ -8,6 +8,7 @@ module Views.Icon exposing
     , check
     , checkCircle
     , clipboard
+    , copy
     , exclamation
     , ham
     , info
@@ -79,6 +80,11 @@ checkCircle =
 clipboard : Html msg
 clipboard =
     icon "clipboard"
+
+
+copy : Html msg
+copy =
+    icon "copy"
 
 
 exclamation : Html msg

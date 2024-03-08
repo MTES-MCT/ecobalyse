@@ -98,6 +98,7 @@ type Msg
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
+    | DuplicateExample ExampleProduct
     | LoadQuery Query
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
@@ -260,7 +261,9 @@ update ({ db, queries } as session) msg model =
             ( model
             , session
                 |> Session.createFoodExample example
-            , Cmd.none
+            , Route.FoodBuilderExample example.id
+                |> Route.toString
+                |> Navigation.pushUrl session.navKey
             )
 
         DeleteBookmark bookmark ->
@@ -281,6 +284,23 @@ update ({ db, queries } as session) msg model =
         DeletePreparation id ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.deletePreparation id query)
+
+        DuplicateExample example ->
+            ( model
+            , session
+            , Time.now
+                |> Task.andThen (\time -> Task.succeed (Random.initialSeed (Time.posixToMillis time) []))
+                |> Task.map (\seed -> Random.step Uuid.generator seed |> Tuple.first)
+                |> Task.map
+                    (\uuid ->
+                        { id = uuid
+                        , name = "Copie de " ++ example.name
+                        , category = example.category
+                        , query = example.query
+                        }
+                    )
+                |> Task.perform CreateExampleComplete
+            )
 
         LoadQuery queryToLoad ->
             update session (SetModal NoModal) { model | initialQuery = queryToLoad }
@@ -1473,22 +1493,33 @@ exampleProductSelector query exampleProducts =
             ]
             [ text <| ExampleProduct.toName exampleProducts query
             ]
-        , case ExampleProduct.findByQuery query exampleProducts of
-            Ok { id } ->
-                a
-                    [ class "btn btn-light"
-                    , Route.href <| Route.FoodBuilderExample id
-                    , title "Éditer cet exemple"
+        , case ( query == Query.empty, ExampleProduct.findByQuery query exampleProducts ) of
+            ( False, Ok example ) ->
+                div [ class "btn-group" ]
+                    [ a
+                        [ class "btn btn-light"
+                        , Route.href <| Route.FoodBuilderExample example.id
+                        , title "Éditer cet exemple"
+                        ]
+                        [ Icon.pencil ]
+                    , button
+                        [ class "btn btn-light"
+                        , title "Dupliquer cet exemple"
+                        , onClick <| DuplicateExample example
+                        ]
+                        [ Icon.copy ]
                     ]
-                    [ Icon.pencil ]
 
-            Err _ ->
+            ( False, Err _ ) ->
                 button
                     [ class "btn btn-light"
                     , onClick <| CreateExample query
                     , title "Ajouter cet exemple"
                     ]
                     [ Icon.plus ]
+
+            _ ->
+                text ""
         ]
 
 
