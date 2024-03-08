@@ -462,7 +462,7 @@ makingWasteToString makingWaste =
         "Aucune perte en confection"
 
     else
-        Split.toPercentString 2 makingWaste ++ "% de pertes"
+        Split.toPercentString 0 makingWaste ++ "% de pertes"
 
 
 makingDeadStockToString : Split -> String
@@ -471,7 +471,7 @@ makingDeadStockToString makingDeadStock =
         "Aucun stock dormant"
 
     else
-        Split.toPercentString 2 makingDeadStock ++ "% de stocks dormants"
+        Split.toPercentString 0 makingDeadStock ++ "% de stocks dormants"
 
 
 yarnSizeToString : Unit.YarnSize -> String

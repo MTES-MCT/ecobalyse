@@ -90,11 +90,16 @@ suite =
                 |> Result.map (Split.toPercentString 0)
                 |> Expect.equal (Ok "12")
                 |> asTest "should return a percent string representation"
+            , 0.1234
+                |> Split.fromFloat
+                |> Result.map (Split.toPercentString 2)
+                |> Expect.equal (Ok "12,34")
+                |> asTest "should return a percent string representation with decimals"
             , 0.12
                 |> Split.fromFloat
                 |> Result.map (Split.toPercentString 2)
                 |> Expect.equal (Ok "12,00")
-                |> asTest "should return a percent string representation with decimals"
+                |> asTest "should return a percent string representation with decimals and trailing zeroes"
             ]
         , describe "complement"
             [ Split.zero

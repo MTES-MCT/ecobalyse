@@ -334,9 +334,9 @@ materialsToString materials =
 makingOptionsToString : Inputs -> String
 makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTransportRatio, fading } =
     [ makingWaste
-        |> Maybe.map (Split.toPercentString 2 >> (\s -> s ++ "\u{202F}% de perte"))
+        |> Maybe.map (Split.toPercentString 0 >> (\s -> s ++ "\u{202F}% de perte"))
     , makingDeadStock
-        |> Maybe.map (Split.toPercentString 2 >> (\s -> s ++ "\u{202F}% de stocks dormants"))
+        |> Maybe.map (Split.toPercentString 0 >> (\s -> s ++ "\u{202F}% de stocks dormants"))
     , makingComplexity
         |> Maybe.map (\complexity -> "complexité de confection " ++ MakingComplexity.toLabel complexity)
     , airTransportRatio
