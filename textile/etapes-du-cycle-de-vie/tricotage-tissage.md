@@ -1,4 +1,8 @@
-# 〰 Etape 2 - Fabrication de l'étoffe
+---
+description: 'keywords : fabricProcess'
+---
+
+# 〰️ Etape 2 - Fabrication de l'étoffe
 
 ## Description
 

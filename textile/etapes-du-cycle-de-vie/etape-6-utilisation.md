@@ -22,6 +22,8 @@ De la même manière, avec une qualité intrinsèque à 1.45, cette veste aura 1
 
 ## Réparabilité
 
+_keyword : reparability_
+
 La réparabilité est introduite dans la version 1.3 du projet de PEFCR Apparel & Footwear éditée en mars 2022.
 
 Comme la qualité intrinsèque, elle se traduit par un coefficient, compris entre 1 et 1,15, qui s'applique ensuite à la durée de vie du vêtement. Les coefficients de réparabilité et de durabilité sont multipliés afin d'être appliqués ensemble à la durée de vie.

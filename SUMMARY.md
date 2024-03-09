@@ -48,6 +48,7 @@
   * [🌾 Semoule de blé dur](alimentaire/stock-doc-ingredients/semoule-de-ble-dur.md)
   * [🧀 Comté](alimentaire/stock-doc-ingredients/comte.md)
   * [🌼 Huile de colza](alimentaire/stock-doc-ingredients/huile-de-colza.md)
+  * [Services écosystemiques végétaux](alimentaire/stock-doc-ingredients/services-ecosystemiques-vegetaux.md)
 
 ## 👕 Textile
 
