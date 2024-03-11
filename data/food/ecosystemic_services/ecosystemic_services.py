@@ -106,26 +106,37 @@ def compute_animal_ecosystemic_services(
         cropDiversity = 0
         ecosystemicServices = ingredients_dic[animal_product]["ecosystemicServices"]
         for feed_name, quantity in feed_quantities.items():
+            assert (
+                feed_name in ingredients_dic
+            ), f"feed {feed_name} is not present in ingredients"
             feed_properties = ingredients_dic[feed_name]
             hedges += quantity * feed_properties["ecosystemicServices"]["hedges"]
             plotSize += quantity * feed_properties["ecosystemicServices"]["plotSize"]
-            cropDiversity += quantity * feed_properties["ecosystemicServices"]["cropDiversity"]
+            cropDiversity += (
+                quantity * feed_properties["ecosystemicServices"]["cropDiversity"]
+            )
         ecosystemicServices["hedges"] = hedges
         ecosystemicServices["plotSize"] = plotSize
         ecosystemicServices["cropDiversity"] = cropDiversity
 
-        ecosystemicServices["permanentPasture"] = feed_quantities.get("permanent-pasture", 0)
+        ecosystemicServices["permanentPasture"] = feed_quantities.get(
+            "permanent-pasture", 0
+        )
 
-        ecosystemicServices["livestockDensity"] = compute_livestockDensity_ecosystemic_service(
-            activities_dic[animal_product], ugb, ecosystemic_factors
+        ecosystemicServices["livestockDensity"] = (
+            compute_livestockDensity_ecosystemic_service(
+                activities_dic[animal_product], ugb, ecosystemic_factors
+            )
         )
 
 
-def compute_livestockDensity_ecosystemic_service(animal_properties, ugb, ecosystemic_factors):
+def compute_livestockDensity_ecosystemic_service(
+    animal_properties, ugb, ecosystemic_factors
+):
 
-    livestockDensity_per_ugb = ecosystemic_factors[animal_properties["animal_group1"]]["livestockDensity"][
-        animal_properties["scenario"]
-    ]
+    livestockDensity_per_ugb = ecosystemic_factors[animal_properties["animal_group1"]][
+        "livestockDensity"
+    ][animal_properties["scenario"]]
     ugb_per_kg = ugb[animal_properties["animal_group2"]][
         animal_properties["animal_product"]
     ]

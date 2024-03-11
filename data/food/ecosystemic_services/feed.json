@@ -3,5 +3,11 @@
     "sweet-corn-fr": 1.18,
     "soft-wheat-fr": 0.682,
     "soybean-br-deforestation": 0.471
+  },
+  "ground-beef": {
+    "silage-maize-fr": 3.42,
+    "sweet-corn-fr": 1.27,
+    "temporary-pasture": 5.05,
+    "permanent-pasture": 37.5
   }
 }

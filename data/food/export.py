@@ -126,6 +126,7 @@ def create_process_list(activities):
     return {
         activity["id"]: process_activity_for_processes(activity)
         for activity in activities
+        if "not_a_process" not in activity["categories"]
     }
 
 
