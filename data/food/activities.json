@@ -180,14 +180,18 @@
     "transport_cooling": "always",
     "visible": true,
     "ecosystemicServices": {
-      "hedges": 30.56,
-      "plotSize": 25.53,
+      "hedges": 34.8448136,
+      "plotSize": 29.357698,
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
-      "livestockDensity": -0.0059
+      "livestockDensity": -0.00255
     },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 53.2806594
+    "land_occupation": 53.2806594,
+    "scenario": "reference",
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat"
   },
   {
     "id": "ground-beef-organic",
@@ -215,6 +219,7 @@
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
+    "categories": [],
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 28.82249325
@@ -526,6 +531,7 @@
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
+    "categories": [],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.04564122948
@@ -534,6 +540,7 @@
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
+    "categories": [],
     "search": "Packaging film low density polyethylene {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.2292804427
@@ -542,6 +549,7 @@
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
+    "categories": [],
     "search": "Polystyrene expandable {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.000610793334
@@ -550,6 +558,7 @@
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
+    "categories": [],
     "search": "Packaging glass white {RER} w/o CH+DE production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.211062261
@@ -558,6 +567,7 @@
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
+    "categories": [],
     "search": "Polypropylene granulate {RER}| production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.03011341585
@@ -566,6 +576,7 @@
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
+    "categories": [],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 1.113967426
@@ -574,6 +585,7 @@
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
+    "categories": [],
     "search": "Kraft paper production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 5.741060888
@@ -582,6 +594,7 @@
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
+    "categories": [],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.08960342165
@@ -590,6 +603,7 @@
     "id": "pet",
     "name": "PET",
     "category": "packaging",
+    "categories": [],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.079813952
@@ -598,6 +612,7 @@
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
+    "categories": [],
     "search": "Polyethylene high density granulate {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.03500785459
@@ -606,6 +621,7 @@
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
+    "categories": [],
     "search": "Aluminium primary ingot {RoW} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.4286118448
@@ -614,6 +630,7 @@
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
+    "categories": [],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.01180912862
@@ -622,6 +639,7 @@
     "id": "mixing",
     "name": "Mélange",
     "category": "transformation",
+    "categories": [],
     "search": "Mixing processing dummy",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0
@@ -630,6 +648,7 @@
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
+    "categories": [],
     "search": "Cooking industrial 1kg of cooked product FR",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.1056149549
@@ -638,6 +657,7 @@
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
+    "categories": [],
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.01022983599
@@ -646,6 +666,7 @@
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
+    "categories": [],
     "search": "Transport freight sea ship",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 6.245968834e-5
@@ -654,6 +675,7 @@
     "id": "plane",
     "name": "Avion",
     "category": "transport",
+    "categories": [],
     "search": "Transport freight aircraft",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.00268767529
@@ -662,6 +684,7 @@
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "category": "transport",
+    "categories": [],
     "search": "Transport freight sea ship reefer",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0001605949799
@@ -669,6 +692,7 @@
   {
     "id": "lorry-cooling",
     "category": "transport",
+    "categories": [],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
     "database": "Agribalyse 3.1.1",
@@ -678,6 +702,7 @@
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "category": "energy",
+    "categories": [],
     "search": "Electricity low voltage {FR} market",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.009591199223
@@ -701,6 +726,7 @@
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "category": "energy",
+    "categories": [],
     "search": "Heat central or small-scale natural gas Europe market",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0002758175609
@@ -4595,7 +4621,8 @@
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
-    "scenario": "reference"
+    "scenario": "reference",
+    "land_occupation": 0.8932985763
   },
   {
     "id": "silage-maize-organic",
@@ -4612,7 +4639,8 @@
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 0.8932985763
   },
   {
     "id": "temporary-pasture",

@@ -51,6 +51,8 @@ def setup_environment():
 
 
 def find_id(dbname, activity):
+    if activity["search"] == "":
+        return activity["id"]
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]
     )
