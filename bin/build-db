@@ -8,7 +8,6 @@
 const fs = require("fs");
 const textileProcesses = process.env.TEXTILE_PROCESSES || "public/data/textile/processes.json";
 const foodProcesses = process.env.FOOD_PROCESSES || "public/data/food/processes.json";
-console.log("textileProcesses", textileProcesses);
 
 function getJson(path) {
   const raw = JSON.parse(fs.readFileSync(path).toString());
