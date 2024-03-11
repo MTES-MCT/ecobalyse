@@ -14,7 +14,7 @@ def spproject(activity):
         case "Ginko":
             return "Ginko"
         case "Ecobalyse":
-            return "Ecobalyse"
+            return "EcobalyseIsNotASimaProProject"
         case _:
             return "AGB3.1.1 2023-03-06"
 
@@ -38,10 +38,7 @@ def load_json(filename):
 
 
 def progress_bar(index, total):
-    print(
-        "(" + (index) * "•" + (total - index) * " " + f") {str(index)}/{total}",
-        end="\r",
-    )
+    print(f"Export in progress: {str(index)}/{total}", end="\r")
 
 
 def with_subimpacts(process):

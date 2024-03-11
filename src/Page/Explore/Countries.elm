@@ -53,11 +53,11 @@ table distances countries { detailed, scope } =
             , if scope == Scope.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
-                    , toValue = Table.IntValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)
+                    , toValue = Table.FloatValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)
                     , toCell =
                         \country ->
                             div [ classList [ ( "text-end", not detailed ) ] ]
-                                [ Format.splitAsPercentage (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
+                                [ Format.splitAsPercentage 2 (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
                                 , Link.smallPillExternal
                                     [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
                                     [ Icon.info ]
@@ -68,11 +68,11 @@ table distances countries { detailed, scope } =
                 Nothing
             , Just
                 { label = "Part du transport aérien"
-                , toValue = Table.IntValue (.airTransportRatio >> Split.toPercent)
+                , toValue = Table.FloatValue (.airTransportRatio >> Split.toPercent)
                 , toCell =
                     \country ->
                         div [ classList [ ( "text-end", not detailed ) ] ]
-                            [ Format.splitAsPercentage country.airTransportRatio
+                            [ Format.splitAsPercentage 0 country.airTransportRatio
                             , Link.smallPillExternal
                                 [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
                                 [ Icon.info ]

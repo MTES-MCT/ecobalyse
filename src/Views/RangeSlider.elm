@@ -28,14 +28,14 @@ percent config =
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toInt >> Maybe.andThen (Split.fromPercent >> Result.toMaybe) >> config.update)
+            [ onInput (String.toFloat >> Maybe.andThen (Split.fromPercent >> Result.toMaybe) >> config.update)
             , Attr.min (String.fromInt config.min)
             , Attr.max (String.fromInt config.max)
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
-            , value (String.fromInt (Split.toPercent config.value))
+            , value (String.fromFloat (Split.toPercent config.value))
             , Attr.disabled config.disabled
             ]
         }

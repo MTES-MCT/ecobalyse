@@ -50,15 +50,6 @@ def setup_environment():
     bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
 
-def sync_datapackages():
-    print("Syncing datackages...")
-    for method in bw2data.methods:
-        bw2data.Method(method).process()
-
-    for database in bw2data.databases:
-        bw2data.Database(database).process()
-
-
 def find_id(dbname, activity):
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]
@@ -191,6 +182,12 @@ def compute_impacts(processes):
                 ).content
             ),
         )
+        # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+        if process["unit"] == "kilowatt hour" and type(results) is dict:
+            results = {k: v * 3.6 for k, v in results.items()}
+        if process["unit"] == "litre" and type(results) is dict:
+            results = {k: v / 1000 for k, v in results.items()}
+
         if type(results) is dict and results:
             # simapro succeeded
             process["impacts"] = results

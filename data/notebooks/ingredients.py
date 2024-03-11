@@ -167,7 +167,7 @@ FIELDS = {
     "ecosystemicServices.livestockDensity": "Chargement territorial",
     # EcosystemicServices for other products
     "crop_group": "Groupe de culture",
-    "land_footprint": "Empreinte terrestre (m²a)",
+    "land_occupation": "Empreinte terrestre (m²a)",
     "scenario": "Scenario",
 }
 
@@ -576,6 +576,7 @@ def change_id(change):
         i.get("default_origin"),
         "EuropeAndMaghreb",
     )
+    set_field(w_explain, i.get("explain"), "")
     set_field(w_category, i.get("category"), "")
     set_field(w_categories, i.get("categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
@@ -594,7 +595,7 @@ def change_id(change):
     )
     set_field(w_scenario, i.get("scenario"), None)
     set_field(w_cropGroup, i.get("crop_group"), None)
-    set_field(w_landFootprint, i.get("land_footprint"), 0)
+    set_field(w_landFootprint, i.get("land_occupation"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -640,9 +641,9 @@ w_filter.observe(change_filter, names="value")
 def add_activity(_):
     activity = {
         "id": w_id.value,
-        "name": w_name.value,
+        "name": w_name.value.strip(),
         "database": w_database.value,
-        "search": w_search.value,
+        "search": w_search.value.strip(),
         "category": w_category.value,
         "categories": w_categories.value,
         "default_origin": w_default_origin.value,
@@ -651,7 +652,7 @@ def add_activity(_):
         "inedible_part": w_inedible.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "explain": w_explain.value,
+        "explain": w_explain.value.strip(),
     }
     activity.update(
         {
@@ -666,7 +667,7 @@ def add_activity(_):
         else {
             "crop_group": w_cropGroup.value,
             "scenario": w_scenario.value,
-            "land_footprint": w_landFootprint.value,
+            "land_occupation": w_landFootprint.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -786,13 +787,13 @@ def display_surface(activity):
         bwsurface = lca.score
         bwoutput = str(bwsurface)
     except Exception as e:
-        bwsurface = None
+        bwsurface = 0
         bwoutput = repr(e)
     try:
         process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
         project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
         method = urllib.parse.quote("Selected LCI results", encoding=None, errors=None)
-        w_landFootprint.value = (
+        spsurface = (
             json.loads(
                 requests.get(
                     f"http://simapro.ecobalyse.fr:8000/impact?process={process}&project={project}&method={method}"
@@ -801,14 +802,17 @@ def display_surface(activity):
             .get("Land occupation", {})
             .get("amount", 0)
         )
-        spoutput = str(w_landFootprint.value)
-        w_landFootprint
+        spoutput = str(spsurface)
+        spsurface = float(spsurface)
     except Exception as e:
-        w_landFootprint.value = None
+        spsurface = 0
         spoutput = repr(e)
+    w_landFootprint.value = spsurface or bwsurface
     surface_output.clear_output()
     display(
-        ipywidgets.HTML("<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}")
+        ipywidgets.HTML(
+            "<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}" "</ul>"
+        )
     )
 
 
@@ -1277,7 +1281,7 @@ Ecobalyse</li></ul>
                                                         (
                                                             ipywidgets.Label(
                                                                 FIELDS[
-                                                                    "land_footprint"
+                                                                    "land_occupation"
                                                                 ],
                                                             ),
                                                             w_landFootprint,

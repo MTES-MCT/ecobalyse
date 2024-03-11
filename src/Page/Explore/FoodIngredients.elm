@@ -49,13 +49,12 @@ table _ { detailed, scope } =
           , toCell = .defaultOrigin >> Origin.toLabel >> text
           }
         , { label = "Part non-comestible"
-          , toValue = Table.IntValue <| .inediblePart >> Split.toPercent
+          , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
           , toCell =
                 \{ inediblePart } ->
                     div [ classList [ ( "text-end", not detailed ) ] ]
                         [ inediblePart
                             |> Split.toPercent
-                            |> toFloat
                             |> Format.percent
                         , Link.smallPillExternal
                             [ href (Gitbook.publicUrlFromPath Gitbook.FoodInediblePart) ]

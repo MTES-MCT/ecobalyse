@@ -174,6 +174,8 @@ def import_simapro_csv(
     biosphere=BIOSPHERE,
     migrations=[],
     excluded_strategies=[],
+    other_strategies=[],
+    source=None,
 ):
     """
     Import file at path `datapath` into database named `dbname`, and apply provided brightway `migrations`.
@@ -199,6 +201,9 @@ def import_simapro_csv(
     database = bw2io.importers.simapro_csv.SimaProCSVImporter(
         unzipped, dbname, normalize_biosphere=True
     )
+    if source:
+        for ds in database:
+            ds["source"] = source
     os.unlink(unzipped)
 
     print("### Applying migrations...")
@@ -218,11 +223,13 @@ def import_simapro_csv(
         s
         for s in database.strategies
         if not any([e in repr(s) for e in excluded_strategies])
-    ]
+    ] + other_strategies
     database.apply_strategies()
     database.statistics()
-
     # try to link remaining unlinked technosphere activities
+    database.apply_strategy(
+        functools.partial(link_technosphere_by_activity_hash, fields=("name", "unit"))
+    )
     database.apply_strategy(
         functools.partial(
             link_technosphere_by_activity_hash, fields=("name", "location")
@@ -231,7 +238,7 @@ def import_simapro_csv(
     database.statistics()
 
     print("### Adding unlinked flows and activities...")
-    # comment to enable stopping on unlinked activities
+    # comment to enable stopping on unlinked activities and creating an excel file
     database.add_unlinked_flows_to_biosphere_database(biosphere)
     database.add_unlinked_activities()
 
@@ -362,3 +369,12 @@ def add_missing_substances(project, biosphere):
     for code, activity in substances.items():
         if not [flow for flow in bio if flow["code"] == code]:
             bio.new_activity(code, **activity)
+
+
+def sync_datapackages():
+    print("Syncing datapackages...")
+    for method in bw2data.methods:
+        bw2data.Method(method).process()
+
+    for database in bw2data.databases:
+        bw2data.Database(database).process()

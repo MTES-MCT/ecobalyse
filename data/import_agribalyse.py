@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
 from bw2data.project import projects
+from bw2io.strategies.generic import link_technosphere_by_activity_hash
 from common.import_ import (
+    add_created_activities,
     add_missing_substances,
     import_simapro_csv,
-    add_created_activities,
+    sync_datapackages,
 )
+import argparse
 import bw2data
 import bw2io
-import argparse
+import functools
 
 PROJECT = "food"
 AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
@@ -34,7 +37,7 @@ ACTIVITIES_TO_CREATE = "food/activities_to_create.json"
 EXCLUDED = [
     "normalize_simapro_biosphere_names",
     "normalize_biosphere_names",
-    "fix_localized_water_flows",
+    "fix_localized_water_flows",  # both agb and ef31 adapted have localized wf
     "simapro-water",
 ]
 
@@ -95,10 +98,35 @@ AGRIBALYSE_MIGRATIONS = [
                     ),
                     {"unit": "ha", "multiplier": 1e-4},
                 ),
-            ],
+            ]
+            + sum(
+                [
+                    [
+                        [
+                            (f"Water, river, {country}", "l"),
+                            {"unit": "cubic meter", "multiplier": 0.001},
+                        ],
+                        [
+                            (f"Water, well, {country}", "l"),
+                            {"unit": "cubic meter", "multiplier": 0.001},
+                        ],
+                    ]
+                    # only ES for AGB, all for Ginko
+                    for country in ["ES", "ID", "CO", "CR", "EC", "IN", "BR", "US"]
+                ],
+                [],
+            ),
         },
     }
 ]
+GINKO_STRATEGIES = [
+    functools.partial(
+        link_technosphere_by_activity_hash,
+        external_db_name="Agribalyse 3.1.1",
+        fields=("name", "unit"),
+    )
+]
+
 
 def sync_datapackages():
     print("Syncing datackages...")
@@ -108,7 +136,8 @@ def sync_datapackages():
     for database in bw2data.databases:
         bw2data.Database(database).process()
 
-def main():
+
+if __name__ == "__main__":
     """Import Agribalyse and additional processes"""
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -133,7 +162,9 @@ def main():
 
     # GINKO
     if (db := "Ginko") not in bw2data.databases:
-        import_simapro_csv(GINKO, db, excluded_strategies=EXCLUDED)
+        import_simapro_csv(
+            GINKO, db, excluded_strategies=EXCLUDED, other_strategies=GINKO_STRATEGIES
+        )
     else:
         print(f"{db} already imported")
 
@@ -143,7 +174,7 @@ def main():
     else:
         print(f"{db} already imported")
 
-    # WFLDB 
+    # WFLDB
     if (db := "WFLDB") not in bw2data.databases:
         import_simapro_csv(WFLDB, db, excluded_strategies=EXCLUDED)
     else:
@@ -168,6 +199,3 @@ def main():
     else:
         print(f"{db} already imported")
     sync_datapackages()
-
-if __name__ == "__main__":
-    main()
