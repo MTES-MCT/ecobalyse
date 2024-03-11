@@ -22,6 +22,7 @@ module Views.Icon exposing
     , search
     , stats
     , trash
+    , undo
     , warning
     , zoomin
     , zoomout
@@ -156,6 +157,11 @@ stats =
 trash : Html msg
 trash =
     icon "trash"
+
+
+undo : Html msg
+undo =
+    icon "undo"
 
 
 warning : Html msg

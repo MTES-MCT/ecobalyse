@@ -1394,9 +1394,10 @@ editedExampleHeader exampleProducts { initial, current } =
     div [ class "d-flex flex-column gap-2" ]
         [ div [ class "row g-2" ]
             [ div [ class "col-sm-6" ]
-                [ label [] [ text "Nom de l'exemple" ]
+                [ label [ for "example-name" ] [ text "Nom de l'exemple" ]
                 , input
                     [ type_ "text"
+                    , id "example-name"
                     , class "form-control"
                     , value current.name
                     , onInput <| \newName -> UpdateEditedExample { current | name = newName }
@@ -1404,9 +1405,10 @@ editedExampleHeader exampleProducts { initial, current } =
                     []
                 ]
             , div [ class "col-sm-6" ]
-                [ label [] [ text "Catégorie" ]
+                [ label [ for "example-category" ] [ text "Catégorie" ]
                 , input
                     [ type_ "text"
+                    , id "example-category"
                     , class "form-control"
                     , value current.category
                     , onInput <| \newCategory -> UpdateEditedExample { current | category = newCategory }
@@ -1428,6 +1430,14 @@ editedExampleHeader exampleProducts { initial, current } =
                 ]
                 [ Icon.cancel
                 , text "Annuler l'édition"
+                ]
+            , a
+                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
+                , classList [ ( "disabled", not modified ) ]
+                , Route.href (Route.FoodBuilderExample initial.id)
+                ]
+                [ Icon.undo
+                , text "Réinitialiser"
                 ]
             , button
                 [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
