@@ -227,8 +227,8 @@ if __name__ == "__main__":
     oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
     activities = load_json(CONFIG["ACTIVITIES_FILE"])
 
-    ingredients = create_ingredient_list(activities)
     compute_land_occupation(activities)
+    ingredients = create_ingredient_list(activities)
 
     plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
     ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])

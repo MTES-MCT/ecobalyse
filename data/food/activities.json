@@ -147,7 +147,8 @@
     "transport_cooling": "once_transformed",
     "visible": false,
     "crop_group": "TOURNESOL",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 6.069033284
   },
   {
     "id": "rapeseed-organic",
@@ -935,7 +936,8 @@
     "transport_cooling": "none",
     "visible": false,
     "crop_group": "AUTRES OLEAGINEUX",
-    "scenario": "reference"
+    "scenario": "reference",
+    "land_occupation": 4.020943175
   },
   {
     "id": "sausage-meat",
@@ -1735,7 +1737,8 @@
     "transport_cooling": "none",
     "crop_group": "BLE TENDRE",
     "scenario": "import",
-    "visible": false
+    "visible": false,
+    "land_occupation": 2.702647189
   },
   {
     "id": "onion-fr",
@@ -4062,7 +4065,8 @@
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 1.758672374
   },
   {
     "id": "barley",
@@ -4078,13 +4082,25 @@
     "crop_group": "ORGE",
     "scenario": "reference",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 1.496487505
   },
   {
     "id": "barley-organic",
     "name": "Orge bio",
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
-    "land_occupation": 0.41
+    "category": "ingredient",
+    "categories": ["grain_raw"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "crop_group": "ORGE",
+    "scenario": "organic",
+    "visible": false,
+    "explain": "",
+    "land_occupation": 2.894604758
   },
   {
     "id": "banana-organic",
@@ -4314,7 +4330,8 @@
     "crop_group": "ORGE",
     "scenario": "import",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 1.358825431
   },
   {
     "id": "triticale-organic",
@@ -4330,7 +4347,8 @@
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 3.166417803
   },
   {
     "id": "bean",
@@ -4346,7 +4364,8 @@
     "crop_group": "AUTRES CEREALES",
     "scenario": "reference",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 2.089788637
   },
   {
     "id": "bean-organic",
@@ -4362,7 +4381,8 @@
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
     "visible": false,
-    "explain": ""
+    "explain": "",
+    "land_occupation": 2.822956957
   },
   {
     "id": "alfalfa-organic",
@@ -4377,7 +4397,8 @@
     "transport_cooling": "none",
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
-    "visible": false
+    "visible": false,
+    "land_occupation": 1.504183421
   },
   {
     "id": "radish-organic",
