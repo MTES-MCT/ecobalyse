@@ -5,7 +5,6 @@ module Data.Session exposing
     , closeNotification
     , deleteBookmark
     , deserializeStore
-    , maxComparedSimulations
     , notifyError
     , saveBookmark
     , serializeStore
@@ -103,11 +102,6 @@ updateTextileQuery textileQuery ({ queries } as session) =
 -- Comparator
 
 
-maxComparedSimulations : Int
-maxComparedSimulations =
-    12
-
-
 checkComparedSimulations : Session -> Session
 checkComparedSimulations =
     updateStore
@@ -118,7 +112,6 @@ checkComparedSimulations =
                         -- Add max bookmarks to compared sims
                         bookmarks
                             |> Bookmark.sort
-                            |> List.take maxComparedSimulations
                             |> List.map Bookmark.toId
                             |> Set.fromList
 

@@ -7,7 +7,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Session as Session exposing (Session)
+import Data.Session exposing (Session)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Dict
@@ -60,9 +60,7 @@ view config =
 sidebarView : Config msg -> List (Html msg)
 sidebarView { session, toggle } =
     [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
-        [ text "Sélectionnez jusqu'à "
-        , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
-        , text " simulations pour les comparer\u{00A0}:"
+        [ text "Sélectionnez des simulations pour les comparer\u{00A0}:"
         ]
     , session.store.bookmarks
         |> List.map
@@ -84,11 +82,7 @@ sidebarView { session, toggle } =
                         , class "form-check-input"
                         , onCheck (toggle bookmark)
                         , checked isCompared
-                        , disabled
-                            (not isCompared
-                                && Set.size session.store.comparedSimulations
-                                >= Session.maxComparedSimulations
-                            )
+                        , disabled (not isCompared)
                         ]
                         []
                     , span [ class "ps-2" ]
