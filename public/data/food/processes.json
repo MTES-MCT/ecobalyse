@@ -7,6 +7,7 @@
     "identifier": "AGRIBALU000000003105149",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product", "bleublanccoeur"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -39,6 +40,7 @@
     "identifier": "AGRIBALU000000003104145",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "FRANCE",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -71,6 +73,7 @@
     "identifier": "843986b19b3ea959b8817afda669dead",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["dairy_product", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -103,6 +106,7 @@
     "identifier": "carrot-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -135,6 +139,7 @@
     "identifier": "AGRIBALU000000003116999",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_processed"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -167,6 +172,7 @@
     "identifier": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["grain_processed", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -199,6 +205,7 @@
     "identifier": "sunflower-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -231,6 +238,7 @@
     "identifier": "AGRIBALU000000003115221",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -263,6 +271,7 @@
     "identifier": "AGRIBALU000024985200196",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -295,6 +304,7 @@
     "identifier": "AGRIBALU000000003107081",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -327,6 +337,7 @@
     "identifier": "67f1a99d8093f1b2b3e4e7f8b292953c",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -359,6 +370,7 @@
     "identifier": "AGRIBALU000000003104412",
     "system_description": "AGRIBALYSE",
     "category": "material",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -391,6 +403,7 @@
     "identifier": "6fcaacd84b90aec94cf924041ff09fc9",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -423,6 +436,7 @@
     "identifier": "AGRIBALU000000003103910",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "Product already packed.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -455,6 +469,7 @@
     "identifier": "3fc68b77b276cfc781ed546ec32b84f5",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product", "organic"],
     "comment": "Product already packed.",
     "database": "Ecobalyse",
     "impacts": {
@@ -487,6 +502,7 @@
     "identifier": "bbbce945e38218c05c671aa17bcedbe2",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "Product already packed.",
     "database": "Ecobalyse",
     "impacts": {
@@ -519,6 +535,7 @@
     "identifier": "AGRIBALU000000003109221",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -551,6 +568,7 @@
     "identifier": "d41682caea2d55a3b95173f276b9d903",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -583,6 +601,7 @@
     "identifier": "fc9b8a819a1ba51b4fbca210d0771198",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -615,6 +634,7 @@
     "identifier": "AGRIBALU000000003112448",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_processed"],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -647,6 +667,7 @@
     "identifier": "425b95709f7882fa60c6b42f3add1873",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["nut_oilseed_processed", "organic"],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "database": "Ecobalyse",
     "impacts": {
@@ -679,6 +700,7 @@
     "identifier": "AGRIBALU000000003115182",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_processed"],
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -711,6 +733,7 @@
     "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["nut_oilseed_processed", "organic"],
     "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "database": "Ecobalyse",
     "impacts": {
@@ -743,6 +766,7 @@
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -775,6 +799,7 @@
     "identifier": "AGRIBALU000000003110947",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "FRANCE",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -807,6 +832,7 @@
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -839,6 +865,7 @@
     "identifier": "AGRIBALU000000003102321",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -871,6 +898,7 @@
     "identifier": "4ada2b1db5db813770f5ec73a5b1c109",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["dairy_product", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -903,6 +931,7 @@
     "identifier": "AGRIBALU000000003114927",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -935,6 +964,7 @@
     "identifier": "AGRIBALU000000003110698",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -967,6 +997,7 @@
     "identifier": "AGRIBALU000000003111575",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -999,6 +1030,7 @@
     "identifier": "AGRIBALU000000003110706",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1031,6 +1063,7 @@
     "identifier": "AGRIBALU000000003111571",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1063,6 +1096,7 @@
     "identifier": "AGRIBALU000000003104019",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1095,6 +1129,7 @@
     "identifier": "AGRIBALU000000003108113",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1127,6 +1162,7 @@
     "identifier": "AGRIBALU000000003111586",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1159,6 +1195,7 @@
     "identifier": "AGRIBALU000000003111562",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1191,6 +1228,7 @@
     "identifier": "AGRIBALU000000003111564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1223,6 +1261,7 @@
     "identifier": "AGRIBALU000000003100294",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "packaging",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1255,6 +1294,7 @@
     "identifier": "AGRIBALU000000003102449",
     "system_description": "AGRIBALYSE",
     "category": "transformation",
+    "categories": [],
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1287,6 +1327,7 @@
     "identifier": "AGRIBALU000000003100079",
     "system_description": "AGRIBALYSE",
     "category": "transformation",
+    "categories": [],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1319,6 +1360,7 @@
     "identifier": "AGRIBALU000000003103966",
     "system_description": "AGRIBALYSE",
     "category": "transformation",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1351,6 +1393,7 @@
     "identifier": "AGRIBALU000000003115929",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1383,6 +1426,7 @@
     "identifier": "AGRIBALU000000003115957",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1415,6 +1459,7 @@
     "identifier": "AGRIBALU000000003115903",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1447,6 +1492,7 @@
     "identifier": "AGRIBALU000000003115959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1479,6 +1525,7 @@
     "identifier": "AGRIBALU000000003115944",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "transport",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1511,6 +1558,7 @@
     "identifier": "AGRIBALU000000003105270",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "energy",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1543,6 +1591,7 @@
     "identifier": "AGRIBALU000000003115449",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1575,6 +1624,7 @@
     "identifier": "AGRIBALU000000003107383",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "energy",
+    "categories": [],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1607,6 +1657,7 @@
     "identifier": "AGRIBALU000000003103732",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1639,6 +1690,7 @@
     "identifier": "AGRIBALU000000003105529",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1671,6 +1723,7 @@
     "identifier": "AGRIBALU000000003110032",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1703,6 +1756,7 @@
     "identifier": "beetroot-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -1735,6 +1789,7 @@
     "identifier": "celeriac-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -1767,6 +1822,7 @@
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1799,6 +1855,7 @@
     "identifier": "AGRIBALU000024985200193",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1831,6 +1888,7 @@
     "identifier": "AGRIBALU000000003101321",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 34497462272",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1863,6 +1921,7 @@
     "identifier": "AGRIBALU000024985200128",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1895,6 +1954,7 @@
     "identifier": "AGRIBALU000000003114674",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "Rdt mean = 2,25 t/ha",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1927,6 +1987,7 @@
     "identifier": "AGRIBALU000024985200001",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Production Volume Amount: 76692414464",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1959,6 +2020,7 @@
     "identifier": "AGRIBALU000024985200302",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Production Volume Amount: 76692414464",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -1991,6 +2053,7 @@
     "identifier": "AGRIBALU000000003114580",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2023,6 +2086,7 @@
     "identifier": "AGRIBALU000000003113461",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "None",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2055,6 +2119,7 @@
     "identifier": "AGRIBALU000000003115859",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2087,6 +2152,7 @@
     "identifier": "AGRIBALU000000003115854",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2119,6 +2185,7 @@
     "identifier": "AGRIBALU000000003111467",
     "system_description": "",
     "category": "ingredient",
+    "categories": [],
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2151,6 +2218,7 @@
     "identifier": "AGRIBALU000000003115655",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2183,6 +2251,7 @@
     "identifier": "AGRIBALU000000003115656",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2215,6 +2284,7 @@
     "identifier": "AGRIBALU000000003109214",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2247,6 +2317,7 @@
     "identifier": "AGRIBALU000000003109219",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "This dataset includes packaging",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2279,6 +2350,7 @@
     "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "This dataset includes packaging",
     "database": "Ecobalyse",
     "impacts": {
@@ -2311,6 +2383,7 @@
     "identifier": "AGRIBALU000000003109219",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "This dataset includes packaging",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2343,6 +2416,7 @@
     "identifier": "AGRIBALU000000003105079",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_processed"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2375,6 +2449,7 @@
     "identifier": "AGRIBALU000000003109942",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "Economic allocation",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2407,6 +2482,7 @@
     "identifier": "AGRIBALU000000003104662",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2439,6 +2515,7 @@
     "identifier": "b9f380cbd26fef2f30b16cbe06edd732",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -2471,6 +2548,7 @@
     "identifier": "862a53ceeeaf072c8528a71d2fa6a027",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -2503,6 +2581,7 @@
     "identifier": "AGRIBALU000000003102182",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2535,6 +2614,7 @@
     "identifier": "AGRIBALU000000003115509",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["misc"],
     "comment": "Production Volume Amount: 1436769536",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2567,6 +2647,7 @@
     "identifier": "AGRIBALU000000003103623",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["misc"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2599,6 +2680,7 @@
     "identifier": "AGRIBALU000000003101545",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["spice_condiment_additive"],
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2631,6 +2713,7 @@
     "identifier": "AGRIBALU000000003109401",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["dairy_product"],
     "comment": "This process describes the production of Milk, powder, skimmed in France.Included activities are : production in country of origin and transport",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2663,6 +2746,7 @@
     "identifier": "AGRIBALU000000003112590",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["misc"],
     "comment": "(4,4,2,1,2),",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2695,6 +2779,7 @@
     "identifier": "AGRIBALU000000003106282",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2727,6 +2812,7 @@
     "identifier": "AGRIBALU000000003108470",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2759,6 +2845,7 @@
     "identifier": "AGRIBALU000000003105152",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2791,6 +2878,7 @@
     "identifier": "AGRIBALU000000003105151",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2823,6 +2911,7 @@
     "identifier": "AGRIBALU000000003105153",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2855,6 +2944,7 @@
     "identifier": "AGRIBALU000000003105163",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["animal_product", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2887,6 +2977,7 @@
     "identifier": "wine-grape-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -2919,6 +3010,7 @@
     "identifier": "AGRIBALU000000003109223",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -2951,6 +3043,7 @@
     "identifier": "f025b4a41c45eabdb2510795b3353ca4",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["animal_product"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -2983,6 +3076,7 @@
     "identifier": "pear-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -3015,6 +3109,7 @@
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3047,6 +3142,7 @@
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3079,6 +3175,7 @@
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18370729984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3111,6 +3208,7 @@
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3143,6 +3241,7 @@
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3175,6 +3274,7 @@
     "identifier": "AGRIBALU000000003111019",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3207,6 +3307,7 @@
     "identifier": "AGRIBALU000000003111005",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit qualityProduction Volume Amount: 277274240",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3239,6 +3340,7 @@
     "identifier": "AGRIBALU000000003110952",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "FRANCE",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3271,6 +3373,7 @@
     "identifier": "AGRIBALU000000003110917",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit qualityProduction Volume Amount: 1257250944",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3303,6 +3406,7 @@
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3335,6 +3439,7 @@
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3367,6 +3472,7 @@
     "identifier": "AGRIBALU000024985200170",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3399,6 +3505,7 @@
     "identifier": "AGRIBALU000024985200169",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3431,6 +3538,7 @@
     "identifier": "AGRIBALU000000003111897",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_processed"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3463,6 +3571,7 @@
     "identifier": "AGRIBALU000000003117048",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3495,6 +3604,7 @@
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3527,6 +3637,7 @@
     "identifier": "AGRIBALU000000003110441",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 55000 kg/haProduction Volume Amount: 1402423040",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3559,6 +3670,7 @@
     "identifier": "AGRIBALU000000003110442",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 38596923392",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3591,6 +3703,7 @@
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3623,6 +3736,7 @@
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3655,6 +3769,7 @@
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3687,6 +3802,7 @@
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3719,6 +3835,7 @@
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3751,6 +3868,7 @@
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3783,6 +3901,7 @@
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 23622365184",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3815,6 +3934,7 @@
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 23622365184",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3847,6 +3967,7 @@
     "identifier": "AGRIBALU000024985200024",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3879,6 +4000,7 @@
     "identifier": "AGRIBALU000024985200024",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3911,6 +4033,7 @@
     "identifier": "AGRIBALU000000003102916",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3943,6 +4066,7 @@
     "identifier": "AGRIBALU000000003108561",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 37000 kg/haProduction Volume Amount: 674371008",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -3975,6 +4099,7 @@
     "identifier": "AGRIBALU000000003102916",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4007,6 +4132,7 @@
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4039,6 +4165,7 @@
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4071,6 +4198,7 @@
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4103,6 +4231,7 @@
     "identifier": "AGRIBALU000000003115752",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4135,6 +4264,7 @@
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4167,6 +4297,7 @@
     "identifier": "AGRIBALU000000003115743",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.Production Volume Amount: 4255320576",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4199,6 +4330,7 @@
     "identifier": "AGRIBALU000000003100510",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4231,6 +4363,7 @@
     "identifier": "AGRIBALU000000003100510",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4263,6 +4396,7 @@
     "identifier": "AGRIBALU000000003107313",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "FAOstats average 2013-2017",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4295,6 +4429,7 @@
     "identifier": "AGRIBALU000000003107312",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "FAOstats average 2013 - 2017",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4327,6 +4462,7 @@
     "identifier": "AGRIBALU000000003107318",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. Source : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4359,6 +4495,7 @@
     "identifier": "AGRIBALU000000003107319",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. Source : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4391,6 +4528,7 @@
     "identifier": "AGRIBALU000000003102661",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4423,6 +4561,7 @@
     "identifier": "artichoke-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -4455,6 +4594,7 @@
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4487,6 +4627,7 @@
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4519,6 +4660,7 @@
     "identifier": "AGRIBALU000000003108547",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4551,6 +4693,7 @@
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4583,6 +4726,7 @@
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4615,6 +4759,7 @@
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4647,6 +4792,7 @@
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18370729984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4679,6 +4825,7 @@
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4711,6 +4858,7 @@
     "identifier": "chinese-cabbage-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -4743,6 +4891,7 @@
     "identifier": "AGRIBALU000000003102347",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 28512262144",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4775,6 +4924,7 @@
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4807,6 +4957,7 @@
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4839,6 +4990,7 @@
     "identifier": "AGRIBALU000000003102346",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 28983492608",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4871,6 +5023,7 @@
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4903,6 +5056,7 @@
     "identifier": "AGRIBALU000000003110507",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "SPAIN",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4935,6 +5089,7 @@
     "identifier": "AGRIBALU000000003110506",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.Production Volume Amount: 1645182976",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4967,6 +5122,7 @@
     "identifier": "AGRIBALU000000003110400",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit qualityProduction Volume Amount: 6459754496",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -4999,6 +5155,7 @@
     "identifier": "AGRIBALU000000003112430",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "EcoSpold01Location=FRProduction Volume Amount: 4532871168",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5031,6 +5188,7 @@
     "identifier": "AGRIBALU000000003112456",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5063,6 +5221,7 @@
     "identifier": "AGRIBALU000000003112455",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "CANADA",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5095,6 +5254,7 @@
     "identifier": "AGRIBALU000000003110959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Reference flow: Yield = 3470 kg/haProduction Volume Amount: 15861245952",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5127,6 +5287,7 @@
     "identifier": "AGRIBALU000000003110960",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Reference flow: Yield = 1000 kg/haProduction Volume Amount: 6338124800",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5159,6 +5320,7 @@
     "identifier": "AGRIBALU000000003105719",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_processed"],
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5191,6 +5353,7 @@
     "identifier": "AGRIBALU000000003100748",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 3840904960",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5223,6 +5386,7 @@
     "identifier": "AGRIBALU000024985200192",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5255,6 +5419,7 @@
     "identifier": "AGRIBALU000000003115216",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "FRANCE",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5287,6 +5452,7 @@
     "identifier": "AGRIBALU000000003115218",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "HUNGARY",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5319,6 +5485,7 @@
     "identifier": "AGRIBALU000000003115217",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5351,6 +5518,7 @@
     "identifier": "AGRIBALU000000003108090",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5383,6 +5551,7 @@
     "identifier": "AGRIBALU000000003108089",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 1350206976",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5415,6 +5584,7 @@
     "identifier": "AGRIBALU000000003108089",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 1350206976",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5447,6 +5617,7 @@
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "BRAZIL",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5479,6 +5650,7 @@
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18088361984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5511,6 +5683,7 @@
     "identifier": "AGRIBALU000000003105790",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 240114696192",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5543,6 +5716,7 @@
     "identifier": "AGRIBALU000000003105790",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 240114696192",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5575,6 +5749,7 @@
     "identifier": "AGRIBALU000000003102101",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18174699520",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5607,6 +5782,7 @@
     "identifier": "AGRIBALU000000003101680",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5639,6 +5815,7 @@
     "identifier": "AGRIBALU000000003112470",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5671,6 +5848,7 @@
     "identifier": "AGRIBALU000024985200014",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5703,6 +5881,7 @@
     "identifier": "AGRIBALU000024985200015",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5735,6 +5914,7 @@
     "identifier": "AGRIBALU000000003100930",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5767,6 +5947,7 @@
     "identifier": "AGRIBALU000000003100924",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)India is considered since it is a major banana producer, with 29% of global production.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5799,6 +5980,7 @@
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5831,6 +6013,7 @@
     "identifier": "AGRIBALU000000003104392",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 57559834624",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5863,6 +6046,7 @@
     "identifier": "AGRIBALU000000003104392",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 57559834624",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5895,6 +6079,7 @@
     "identifier": "AGRIBALU000024985200146",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5927,6 +6112,7 @@
     "identifier": "AGRIBALU000000003115025",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5959,6 +6145,7 @@
     "identifier": "AGRIBALU000000003102720",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 8969982976",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -5991,6 +6178,7 @@
     "identifier": "AGRIBALU000000003102720",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 8969982976",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6023,6 +6211,7 @@
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6055,6 +6244,7 @@
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6087,6 +6277,7 @@
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18370729984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6119,6 +6310,7 @@
     "identifier": "AGRIBALU000000003116663",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6151,6 +6343,7 @@
     "identifier": "AGRIBALU000000003116668",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6183,6 +6376,7 @@
     "identifier": "AGRIBALU000000003116668",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6215,6 +6409,7 @@
     "identifier": "AGRIBALU000000003116662",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6247,6 +6442,7 @@
     "identifier": "AGRIBALU000000003109060",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit qualityProduction Volume Amount: 2046639488",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6279,6 +6475,7 @@
     "identifier": "AGRIBALU000000003100184",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. This dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. The infrastructure are excluded as well as the mushroom packaging.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6311,6 +6508,7 @@
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6343,6 +6541,7 @@
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6375,6 +6574,7 @@
     "identifier": "AGRIBALU000024985200192",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6407,6 +6607,7 @@
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6439,6 +6640,7 @@
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["organic", "vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6471,6 +6673,7 @@
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6503,6 +6706,7 @@
     "identifier": "AGRIBALU000000003103409",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "MOROCCO",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6535,6 +6739,7 @@
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6567,6 +6772,7 @@
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 23622365184",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6599,6 +6805,7 @@
     "identifier": "AGRIBALU000000003106864",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6631,6 +6838,7 @@
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6663,6 +6871,7 @@
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 23622365184",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6695,6 +6904,7 @@
     "identifier": "AGRIBALU000024985200100",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6727,6 +6937,7 @@
     "identifier": "AGRIBALU000000003111295",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Yield from Ingwersen 2012.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6759,6 +6970,7 @@
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 4",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6791,6 +7003,7 @@
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 4",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6823,6 +7036,7 @@
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18088361984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6855,6 +7069,7 @@
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "Production Volume Amount: 18088361984",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6887,6 +7102,7 @@
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Production Volume Amount: 4",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6919,6 +7135,7 @@
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "Production Volume Amount: 4",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6951,6 +7168,7 @@
     "identifier": "AGRIBALU000000003112687",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "Production Volume Amount: 8769999872",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -6983,6 +7201,7 @@
     "identifier": "bdd14c2017eaf0cda1e207e74012c391",
     "system_description": "Ecobalyse",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "",
     "database": "Ecobalyse",
     "impacts": {
@@ -7015,6 +7234,7 @@
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7047,6 +7267,7 @@
     "identifier": "AGRIBALU000000003117044",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7079,6 +7300,7 @@
     "identifier": "AGRIBALU000024985200066",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7111,6 +7333,7 @@
     "identifier": "AGRIBALU000000003105055",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7143,6 +7366,7 @@
     "identifier": "AGRIBALU000000003105051",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)Yield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7175,6 +7399,7 @@
     "identifier": "apple-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["organic", "vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7207,6 +7432,7 @@
     "identifier": "AGRIBALU000000003100459",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "FRANCE",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7239,6 +7465,7 @@
     "identifier": "potato-table-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7271,6 +7498,7 @@
     "identifier": "potato-industry-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7303,6 +7531,7 @@
     "identifier": "kiwi-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7335,6 +7564,7 @@
     "identifier": "red-cabbage-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7367,6 +7597,7 @@
     "identifier": "sugar-beet-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_processed", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7399,6 +7630,7 @@
     "identifier": "papaya-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7431,6 +7663,7 @@
     "identifier": "tomato-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7463,6 +7696,7 @@
     "identifier": "pineapple-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7495,6 +7729,7 @@
     "identifier": "garden-peas-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7527,6 +7762,7 @@
     "identifier": "almond-inshell-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7559,6 +7795,7 @@
     "identifier": "lettuce-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7591,6 +7828,7 @@
     "identifier": "mango-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7623,6 +7861,7 @@
     "identifier": "lychee-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7655,6 +7894,7 @@
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "BRAZIL",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7687,6 +7927,7 @@
     "identifier": "AGRIBALU000000003110378",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7719,6 +7960,7 @@
     "identifier": "AGRIBALU000000003114832",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7751,6 +7993,7 @@
     "identifier": "AGRIBALU000000003100974",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7783,6 +8026,7 @@
     "identifier": "AGRIBALU000000003100976",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -7815,6 +8059,7 @@
     "identifier": "banana-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7847,6 +8092,7 @@
     "identifier": "orange-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7879,6 +8125,7 @@
     "identifier": "lemon-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7911,6 +8158,7 @@
     "identifier": "celery-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7943,6 +8191,7 @@
     "identifier": "olive-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -7975,6 +8224,7 @@
     "identifier": "peanut-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8007,6 +8257,7 @@
     "identifier": "raspberry-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8039,6 +8290,7 @@
     "identifier": "lambs-lettuce-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8071,6 +8323,7 @@
     "identifier": "endive-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8103,6 +8356,7 @@
     "identifier": "durum-wheat-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8135,6 +8389,7 @@
     "identifier": "onion-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8167,6 +8422,7 @@
     "identifier": "rice-basmati-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8199,6 +8455,7 @@
     "identifier": "AGRIBALU000000003100967",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "Economic allocation based on FEFAC (2015)",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8231,6 +8488,7 @@
     "identifier": "AGRIBALU000000003116024",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8263,6 +8521,7 @@
     "identifier": "AGRIBALU000000003105752",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8295,6 +8554,7 @@
     "identifier": "AGRIBALU000000003110915",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8327,6 +8587,7 @@
     "identifier": "AGRIBALU000000003100242",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["grain_raw", "organic"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8359,6 +8620,7 @@
     "identifier": "radish-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8391,6 +8653,7 @@
     "identifier": "lentils-uncooked-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["nut_oilseed_raw", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8423,6 +8686,7 @@
     "identifier": "apricot-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8455,6 +8719,7 @@
     "identifier": "leek-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8487,6 +8752,7 @@
     "identifier": "cherry-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8519,6 +8785,7 @@
     "identifier": "plum-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8551,6 +8818,7 @@
     "identifier": "shallot-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8583,6 +8851,7 @@
     "identifier": "blueberry-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8615,6 +8884,7 @@
     "identifier": "spinach-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8647,6 +8917,7 @@
     "identifier": "watermelon-organic",
     "system_description": "",
     "category": "ingredient",
+    "categories": ["vegetable_fresh", "organic"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "database": "Ginko",
     "impacts": {
@@ -8679,6 +8950,7 @@
     "identifier": "AGRIBALU000024985200246",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8711,6 +8983,7 @@
     "identifier": "AGRIBALU000024985200246",
     "system_description": "AGRIBALYSE",
     "category": "ingredient",
+    "categories": ["grain_raw"],
     "comment": "",
     "database": "Agribalyse 3.1.1",
     "impacts": {
@@ -8733,6 +9006,74 @@
       "etf-c": 29.384245666057765,
       "htc-c": 3.533950735334252e-11,
       "htn-c": 2.3951630912741e-9
+    }
+  },
+  {
+    "id": "temporary-pasture",
+    "name": "temporary-pasture",
+    "displayName": "Prairie temporaire (en m2a)",
+    "unit": "kilogram",
+    "identifier": "temporary-pasture",
+    "system_description": "dummy",
+    "category": "ingredient",
+    "categories": ["dummy"],
+    "comment": "",
+    "database": "Agribalyse 3.1.1",
+    "search": "",
+    "impacts": {
+      "acd": 0,
+      "ozd": 0,
+      "cch": 0,
+      "fwe": 0,
+      "swe": 0,
+      "tre": 0,
+      "pco": 0,
+      "pma": 0,
+      "ior": 0,
+      "fru": 0,
+      "mru": 0,
+      "ldu": 0,
+      "wtu": 0,
+      "htc": 0,
+      "htn": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "htc-c": 0,
+      "htn-c": 0
+    }
+  },
+  {
+    "id": "permanent-pasture",
+    "name": "permanent-pasture",
+    "displayName": "Prairie permanente (en m2a)",
+    "unit": "kilogram",
+    "identifier": "permanent-pasture",
+    "system_description": "dummy",
+    "category": "ingredient",
+    "categories": ["dummy"],
+    "comment": "",
+    "database": "Agribalyse 3.1.1",
+    "search": "",
+    "impacts": {
+      "acd": 0,
+      "ozd": 0,
+      "cch": 0,
+      "fwe": 0,
+      "swe": 0,
+      "tre": 0,
+      "pco": 0,
+      "pma": 0,
+      "ior": 0,
+      "fru": 0,
+      "mru": 0,
+      "ldu": 0,
+      "wtu": 0,
+      "htc": 0,
+      "htn": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "htc-c": 0,
+      "htn-c": 0
     }
   }
 ]

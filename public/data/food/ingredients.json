@@ -5172,7 +5172,7 @@
   {
     "id": "temporary-pasture",
     "name": "Prairie temporaire (en m2a)",
-    "categories": ["not_a_process"],
+    "categories": ["dummy"],
     "search": "",
     "default": "temporary-pasture",
     "default_origin": "France",
@@ -5193,7 +5193,7 @@
   {
     "id": "permanent-pasture",
     "name": "Prairie permanente (en m2a)",
-    "categories": ["not_a_process"],
+    "categories": ["dummy"],
     "search": "",
     "default": "permanent-pasture",
     "default_origin": "France",

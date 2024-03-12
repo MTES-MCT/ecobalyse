@@ -128,12 +128,27 @@ def create_process_list(activities):
     return {
         activity["id"]: process_activity_for_processes(activity)
         for activity in activities
-        if "not_a_process" not in activity["categories"]
     }
 
 
 def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
+    if "dummy" in activity["categories"]:
+        return {
+            "id": activity["id"],
+            "name": activity["id"],
+            "displayName": activity["name"],
+            "unit": "kilogram",
+            "identifier": activity["id"],
+            "system_description": "dummy",
+            "category": activity.get("category"),
+            "categories": activity.get("categories"),
+            "comment": activity.get("comment", ""),
+            # those are removed at the end:
+            "database": activity.get("database", AGRIBALYSE),
+            "search": activity["search"],
+        }
+
     return {
         "id": activity["id"],
         "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
@@ -148,6 +163,7 @@ def process_activity_for_processes(activity):
             activity.get("database", AGRIBALYSE), activity["search"]
         )["System description"],
         "category": activity.get("category"),
+        "categories": activity.get("categories"),
         "comment": (
             prod[0]["comment"]
             if (
@@ -169,6 +185,11 @@ def compute_impacts(processes):
     print("Computing impacts:")
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
+        if "dummy" in process["categories"]:
+            for key, method in definitions.items():
+                process.setdefault("impacts", {})[key] = 0
+            process = with_subimpacts(process)
+            continue
 
         # simapro
         activity = cached_search(
