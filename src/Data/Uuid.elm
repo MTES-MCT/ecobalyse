@@ -1,12 +1,14 @@
 module Data.Uuid exposing
     ( Uuid
     , decoder
+    , encode
     , fromString
     , generateUuid
     , toString
     )
 
 import Json.Decode exposing (Decoder)
+import Json.Encode as Encode
 import Prng.Uuid as Uuid
 import Random.Pcg.Extended as Random
 import Task exposing (Task)
@@ -27,6 +29,11 @@ generateUuid =
 decoder : Decoder Uuid
 decoder =
     Uuid.decoder
+
+
+encode : Uuid -> Encode.Value
+encode =
+    Uuid.encode
 
 
 fromString : String -> Maybe Uuid

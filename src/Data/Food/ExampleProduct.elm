@@ -1,6 +1,7 @@
 module Data.Food.ExampleProduct exposing
     ( ExampleProduct
     , decodeListFromJsonString
+    , encodeList
     , findByName
     , findByQuery
     , findByUuid
@@ -12,6 +13,7 @@ module Data.Food.ExampleProduct exposing
 import Data.Food.Query as Query exposing (Query)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -36,6 +38,21 @@ decodeListFromJsonString : String -> Result String (List ExampleProduct)
 decodeListFromJsonString =
     Decode.decodeString (Decode.list decode)
         >> Result.mapError Decode.errorToString
+
+
+encode : ExampleProduct -> Encode.Value
+encode example =
+    Encode.object
+        [ ( "id", Uuid.encode example.id )
+        , ( "name", Encode.string example.name )
+        , ( "category", Encode.string example.category )
+        , ( "query", Query.encode example.query )
+        ]
+
+
+encodeList : List ExampleProduct -> Encode.Value
+encodeList =
+    Encode.list encode
 
 
 findByName : String -> List ExampleProduct -> Result String ExampleProduct

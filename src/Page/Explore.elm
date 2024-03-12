@@ -27,6 +27,7 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
@@ -479,7 +480,20 @@ explore { db } { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodExamples maybeId ->
-            foodExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
+            , div [ class "text-center mt-3" ]
+                [ a
+                    [ class "btn btn-primary"
+                    , download "examples.json"
+                    , db.food.exampleProducts
+                        |> FoodExampleProduct.encodeList
+                        |> Encode.encode 2
+                        |> (++) "data:text/json;charset=utf-8,"
+                        |> href
+                    ]
+                    [ text "Télécharger mes modifications" ]
+                ]
+            ]
 
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
