@@ -53,7 +53,7 @@ class Product(models.Model):
 class Material(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
     materialProcessUuid = models.CharField(max_length=50)
-    recycledProcessUuid = models.CharField(max_length=50)
+    recycledProcessUuid = models.CharField(max_length=50, null=True)
     recycledFrom = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=200)
     shortName = models.CharField(max_length=50)
@@ -62,8 +62,8 @@ class Material(models.Model):
     defaultCountry = models.CharField(max_length=3, choices=COUNTRIES)
     priority = models.IntegerField()
     # cff
-    manufacturerAllocation = models.FloatField()
-    recycledQualityRatio = models.FloatField()
+    manufacturerAllocation = models.FloatField(null=True)
+    recycledQualityRatio = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
