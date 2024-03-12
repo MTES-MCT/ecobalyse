@@ -35,6 +35,7 @@ def delkey(key, record):
 
 def init():
     """populate the db with public json data"""
+    # PROCESSES
     with open(
         join(
             dirname(dirname(dirname(here))),
@@ -51,6 +52,8 @@ def init():
                 for p in processes
             ]
         )
+
+    # MATERIALS
     with open(
         join(
             dirname(dirname(dirname(here))),
@@ -66,10 +69,10 @@ def init():
             [
                 Material(
                     **delkey(
-                        "recycledFrom", delkey("primary", flatten("cff", p.copy()))
+                        "recycledFrom", delkey("primary", flatten("cff", m.copy()))
                     )
                 )
-                for p in materials
+                for m in materials
             ]
         )
         # update with recycledFrom
@@ -82,3 +85,31 @@ def init():
                 else None
             )
         Material.objects.bulk_update(mobjects, ["recycledFrom"])
+
+    # PRODUCTS
+    with open(
+        join(
+            dirname(dirname(dirname(here))),
+            "public",
+            "data",
+            "textile",
+            "products.json",
+        )
+    ) as f:
+        products = json.load(f)
+        Product.objects.bulk_create(
+            [
+                Product(
+                    **flatten(
+                        "endOfLife",
+                        flatten(
+                            "use",
+                            flatten(
+                                "making", flatten("dyeing", flatten("economics", p))
+                            ),
+                        ),
+                    )
+                )
+                for p in products
+            ]
+        )
