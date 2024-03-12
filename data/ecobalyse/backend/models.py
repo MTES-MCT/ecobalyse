@@ -72,6 +72,7 @@ class Material(models.Model):
 class Process(models.Model):
     search = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
+    source = models.CharField(max_length=200)
     info = models.CharField(max_length=200)
     unit = models.CharField(max_length=50, choices=UNITS)
     uuid = models.CharField(max_length=50)
@@ -98,14 +99,15 @@ class Process(models.Model):
     elec_pppm = models.FloatField()
     elec_MJ = models.FloatField()
     waste = models.FloatField()
-    alias = models.CharField(max_length=50)
+    alias = models.CharField(max_length=50, null=True)
     step_usage = models.CharField(max_length=50, choices=STEPUSAGES)
+    correctif = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
 
 
-class Exemple(models.Model):
+class Example(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=50, choices=CATEGORIES)
@@ -123,8 +125,8 @@ class Exemple(models.Model):
 
 
 class Share(models.Model):
-    """m2m relation of Exemple with an extra field"""
+    """m2m relation of Example with an extra field"""
 
-    exemple = models.ForeignKey(Exemple, on_delete=models.CASCADE)
+    exemple = models.ForeignKey(Example, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     share = models.FloatField()
