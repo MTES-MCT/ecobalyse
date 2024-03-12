@@ -200,8 +200,8 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 34.8448136,
-      "plotSize": 29.357698,
+      "hedges": 34.6779483,
+      "plotSize": 29.319280499999998,
       "cropDiversity": 0.0,
       "permanentPasture": 37.5,
       "livestockDensity": -0.00255
@@ -222,13 +222,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 31.34,
-      "plotSize": 30.48,
-      "cropDiversity": 12.02,
+      "hedges": 39.6806036,
+      "plotSize": 35.2594641,
+      "cropDiversity": 14.98153,
       "permanentPasture": 34.68,
-      "livestockDensity": 0.0
+      "livestockDensity": -0.00267
     },
     "land_occupation": 48.10660048,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -4494,6 +4495,27 @@
     "land_occupation": 1.758672374,
     "crop_group": "AUTRES CEREALES",
     "scenario": "import",
+    "visible": false
+  },
+  {
+    "id": "oats-organic",
+    "name": "Avoine bio",
+    "categories": ["grain_raw"],
+    "search": "Spring oats, organic, national average, at feed plant {FR}",
+    "default": "AGRIBALU000000003114832",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 1.2007,
+      "plotSize": 1.4798,
+      "cropDiversity": 3.4686
+    },
+    "land_occupation": 2.367630827,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "organic",
     "visible": false
   },
   {

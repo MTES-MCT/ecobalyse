@@ -133,14 +133,13 @@ def compute_animal_ecosystemic_services(
 def compute_livestockDensity_ecosystemic_service(
     animal_properties, ugb, ecosystemic_factors
 ):
-
-    livestockDensity_per_ugb = ecosystemic_factors[animal_properties["animal_group1"]][
-        "livestockDensity"
-    ][animal_properties["scenario"]]
-    ugb_per_kg = ugb[animal_properties["animal_group2"]][
-        animal_properties["animal_product"]
-    ]
-    return livestockDensity_per_ugb * ugb_per_kg
+    try:
+        livestockDensity_per_ugb = ecosystemic_factors[animal_properties["animal_group1"]]["livestockDensity"][animal_properties["scenario"]]
+        ugb_per_kg = ugb[animal_properties["animal_group2"]][animal_properties["animal_product"]]
+        return livestockDensity_per_ugb * ugb_per_kg
+    except KeyError as e:        
+        print(f"Error processing animal with ID {animal_properties.get('id', 'Unknown')}: Missing key {e}")
+        raise
 
 
 def plot_ecs_transformations(save_path=None):

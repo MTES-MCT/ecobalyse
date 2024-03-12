@@ -7712,6 +7712,38 @@
     }
   },
   {
+    "id": "oats-organic",
+    "name": "Spring oats, organic, national average, at feed plant {FR} U",
+    "displayName": "Avoine bio",
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003114832",
+    "system_description": "AGRIBALYSE",
+    "category": "ingredient",
+    "comment": "",
+    "database": "Agribalyse 3.1.1",
+    "impacts": {
+      "acd": 0.006267191389247638,
+      "cch": 0.3817506116004498,
+      "pma": 3.7411608835367965e-8,
+      "swe": 0.0059460932438795055,
+      "fwe": 0.0001968361141728547,
+      "tre": 0.028366070265065917,
+      "htc": 4.831650069155533e-9,
+      "htn": 1.5833544480270908e-7,
+      "ior": 0.030360621927744927,
+      "ldu": 119.24333735534513,
+      "ozd": 2.931495107104457e-8,
+      "pco": 0.002014877109876094,
+      "fru": 2.4015058209061473,
+      "mru": 1.0322727123393446e-6,
+      "wtu": 0.010080297154355163,
+      "etf": 2.8820777501199655,
+      "etf-c": 2.9971361776925387,
+      "htc-c": 9.995179194346873e-11,
+      "htn-c": 1.516696611570589e-10
+    }
+  },
+  {
     "id": "barley",
     "name": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
     "displayName": "Orge",

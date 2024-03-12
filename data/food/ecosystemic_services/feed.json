@@ -6,8 +6,18 @@
   },
   "ground-beef": {
     "silage-maize-fr": 3.42,
-    "sweet-corn-fr": 1.27,
+    "soft-wheat-fr": 1.27,
+    "soybean-br-deforestation": 0.53,
     "temporary-pasture": 5.05,
     "permanent-pasture": 37.5
+  },
+  "ground-beef-organic": {
+    "silage-maize-organic": 0.77,
+    "soft-wheat-organic": 0.44,
+    "oats-organic": 0.32,
+    "triticale-organic": 1.59,
+    "alfalfa-organic": 1.36,
+    "temporary-pasture": 10.35,
+    "permanent-pasture": 34.68
   }
 }
