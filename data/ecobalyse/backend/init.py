@@ -61,15 +61,24 @@ def init():
         )
     ) as f:
         materials = json.load(f)
+        # all fields except the recursive recycledFrom foreignkey
         Material.objects.bulk_create(
             [
-                Material(**delkey("recycledFrom", delkey("primary", flatten("cff", p))))
+                Material(
+                    **delkey(
+                        "recycledFrom", delkey("primary", flatten("cff", p.copy()))
+                    )
+                )
                 for p in materials
             ]
         )
-        tuples = [
-            (Material.objects.get(pk=p["id"]), p.get("recycledFrom")) for p in materials
-        ]
-        for t in tuples:
-            t[0].recycledFrom = Material.objects.get(pk=t[1]) if t[1] else None
-        Material.objects.bulk_update([t[0] for t in tuples], ["recycledFrom"])
+        # update with recycledFrom
+        mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
+        recycledFroms = {m["id"]: m.get("recycledFrom") for m in materials}
+        for m in mobjects:
+            m.recycledFrom = (
+                Material.objects.get(pk=recycledFroms[m.id])
+                if recycledFroms[m.id]
+                else None
+            )
+        Material.objects.bulk_update(mobjects, ["recycledFrom"])
