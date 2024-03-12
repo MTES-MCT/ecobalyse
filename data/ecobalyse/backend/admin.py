@@ -3,19 +3,25 @@ from .models import Process, Material, Product, Example
 
 
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
+
+
+class MaterialsInline(admin.TabularInline):
+    model = Example.materials.through
 
 
 class MaterialAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
+    # inlines = [MaterialsInline]
 
 
 class ProcessAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 class ExempleAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
+    inlines = [MaterialsInline]
 
 
 admin.site.register(Product, ProductAdmin)
