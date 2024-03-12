@@ -7,6 +7,8 @@ module Data.Session exposing
     , deserializeStore
     , notifyError
     , saveBookmark
+    , selectAllBookmarks
+    , selectNoBookmarks
     , serializeStore
     , toggleComparedSimulation
     , updateFoodQuery
@@ -141,6 +143,22 @@ toggleComparedSimulation bookmark checked =
                         Set.remove (Bookmark.toId bookmark) store.comparedSimulations
             }
         )
+
+
+selectAllBookmarks : Session -> Session
+selectAllBookmarks =
+    updateStore
+        (\store ->
+            { store
+                | comparedSimulations =
+                    store.bookmarks |> List.map Bookmark.toId |> Set.fromList
+            }
+        )
+
+
+selectNoBookmarks : Session -> Session
+selectNoBookmarks =
+    updateStore (\store -> { store | comparedSimulations = Set.empty })
 
 
 
