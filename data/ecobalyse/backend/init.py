@@ -48,7 +48,7 @@ def init():
         processes = json.load(f)
         Process.objects.bulk_create(
             [
-                Process(**delkey("bvi", delchar("-", flatten("impacts", p))))
+                Process(**delkey("bvi", delchar("-", flatten("impacts", p.copy()))))
                 for p in processes
             ]
         )
@@ -105,7 +105,8 @@ def init():
                         flatten(
                             "use",
                             flatten(
-                                "making", flatten("dyeing", flatten("economics", p))
+                                "making",
+                                flatten("dyeing", flatten("economics", p.copy())),
                             ),
                         ),
                     )
@@ -113,3 +114,39 @@ def init():
                 for p in products
             ]
         )
+
+    # EXAMPLES
+    with open(
+        join(
+            dirname(dirname(dirname(here))),
+            "public",
+            "data",
+            "textile",
+            "examples.json",
+        )
+    ) as f:
+        examples = json.load(f)
+        # all fields except the recursive recycledFrom foreignkey
+        Example.objects.bulk_create(
+            [
+                Example(
+                    **delkey(
+                        "materials",
+                        delkey(
+                            "fabricProcess",
+                            delkey("product", flatten("query", e.copy())),
+                        ),
+                    )
+                )
+                for e in examples
+            ]
+        )
+        # update with product and fabricProcess
+        eobjects = [Example.objects.get(pk=m["id"]) for m in examples]
+        products = {e["id"]: e["query"]["product"] for e in examples}
+        fabricProcesses = {m["id"]: m["query"]["fabricProcess"] for m in examples}
+        for e in eobjects:
+            e.product = Product.objects.get(pk=products[e.id])
+            e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
+                pass
+        Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
