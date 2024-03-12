@@ -1,50 +1,38 @@
 from django.db import models
+from .choices import (
+    BUSINESSES,
+    CATEGORIES,
+    COUNTRIES,
+    DYEINGMEDIA,
+    FABRICS,
+    MAXKINGCOMPLEXITIES,
+    ORIGINS,
+    STEPUSAGES,
+    UNITS,
+)
 
 # textile
-
-fabrics = {
-    "weaving": "Tissage",
-    "knitting-straight": "Tricotage Rectiligne",
-    "knitting-circular": "Tricotage Circulaire",
-    "knitting-integral": "Tricotage Intégral / Whole garment",
-    "knitting-fully-fashioned": "Tricotage Fully fashioned / Seamless",
-    "knitting-mix": "Tricotage moyen (par défaut)",
-}
-businesses = {
-    "small-business": "PME/TPE",
-    "large-business-with-services": "Grande entreprise proposant un service de réparation et de garantie",
-    "large-business-without-services": "Grande entreprise ne proposant pas de service de réparation ou de garantie",
-}
-dyeingMediums = {"article": "Article", "fabric": "Tissu", "yarn": "Fil"}
-makingComplexities = {
-    "very-high": "Très élevée",
-    "high": "Élevée",
-    "medium": "Moyenne",
-    "low": "Faible",
-    "very-low": "Très faible",
-    "not-applicable": "Non applicable",
-}
 
 
 class Product(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     mass = models.FloatField()
     surfaceMass = models.FloatField()
     yarnSize = models.FloatField()
-    fabric = models.CharField(max_length=50, choices=fabrics)
+    fabric = models.CharField(max_length=50, choices=FABRICS)
     # economics
-    business = models.CharField(max_length=50, choices=businesses)
+    business = models.CharField(max_length=50, choices=BUSINESSES)
     marketingDuration = models.FloatField()
     numberOfReferences = models.IntegerField()
     price = models.FloatField()
     repairCost = models.FloatField()
     traceability = models.BooleanField()
     # dyeing
-    defaultMedium = models.CharField(max_length=50, choices=dyeingMediums)
+    defaultMedium = models.CharField(max_length=50, choices=DYEINGMEDIA)
     # making
     pcrWaste = models.FloatField()
-    complexity = models.CharField(max_length=50, choices=makingComplexities)
+    complexity = models.CharField(max_length=50, choices=MAXKINGCOMPLEXITIES)
     durationInMinutes = models.FloatField()
     # use
     ironingProcessUuid = models.CharField(max_length=50)
@@ -57,3 +45,86 @@ class Product(models.Model):
     wearsPerCycle = models.FloatField()
     # enf of life
     volume = models.FloatField()
+
+    def __str__(self):
+        return self.name
+
+
+class Material(models.Model):
+    id = models.CharField(max_length=50, primary_key=True)
+    materialProcessUuid = models.CharField(max_length=50)
+    recycledProcessUuid = models.CharField(max_length=50)
+    recycledFrom = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=200)
+    shortName = models.CharField(max_length=50)
+    origin = models.CharField(max_length=50, choices=ORIGINS)
+    geographicOrigin = models.CharField(max_length=200)
+    defaultCountry = models.CharField(max_length=3, choices=COUNTRIES)
+    priority = models.IntegerField()
+    # cff
+    manufacturerAllocation = models.FloatField()
+    recycledQualityRatio = models.FloatField()
+
+    def __str__(self):
+        return self.name
+
+
+class Process(models.Model):
+    search = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    info = models.CharField(max_length=200)
+    unit = models.CharField(max_length=50, choices=UNITS)
+    uuid = models.CharField(max_length=50)
+    acd = models.FloatField()
+    cch = models.FloatField()
+    etf = models.FloatField()
+    etfc = models.FloatField()
+    fru = models.FloatField()
+    fwe = models.FloatField()
+    htc = models.FloatField()
+    htcc = models.FloatField()
+    htn = models.FloatField()
+    htnc = models.FloatField()
+    ior = models.FloatField()
+    ldu = models.FloatField()
+    mru = models.FloatField()
+    ozd = models.FloatField()
+    pco = models.FloatField()
+    pma = models.FloatField()
+    swe = models.FloatField()
+    tre = models.FloatField()
+    wtu = models.FloatField()
+    heat_MJ = models.FloatField()
+    elec_pppm = models.FloatField()
+    elec_MJ = models.FloatField()
+    waste = models.FloatField()
+    alias = models.CharField(max_length=50)
+    step_usage = models.CharField(max_length=50, choices=STEPUSAGES)
+
+    def __str__(self):
+        return self.name
+
+
+class Exemple(models.Model):
+    id = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=200)
+    category = models.CharField(max_length=50, choices=CATEGORIES)
+    mass = models.FloatField()
+    materials = models.ManyToManyField(Material, through="Share")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    countrySpinning = models.CharField(max_length=50, choices=COUNTRIES)
+    countryFabric = models.CharField(max_length=50, choices=COUNTRIES)
+    countryDyeing = models.CharField(max_length=50, choices=COUNTRIES)
+    countryMaking = models.CharField(max_length=50, choices=COUNTRIES)
+    fabricProcess = models.ForeignKey(Process, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Share(models.Model):
+    """m2m relation of Exemple with an extra field"""
+
+    exemple = models.ForeignKey(Exemple, on_delete=models.CASCADE)
+    material = models.ForeignKey(Material, on_delete=models.CASCADE)
+    share = models.FloatField()
