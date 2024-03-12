@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Process, Material, Product, Exemple
+from .models import Process, Material, Product, Example
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -21,4 +21,4 @@ class ExempleAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Material, MaterialAdmin)
 admin.site.register(Process, ProcessAdmin)
-admin.site.register(Exemple, ExempleAdmin)
+admin.site.register(Example, ExempleAdmin)
