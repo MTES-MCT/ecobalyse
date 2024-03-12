@@ -53,8 +53,10 @@ class Product(models.Model):
 class Material(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
     materialProcessUuid = models.CharField(max_length=50)
-    recycledProcessUuid = models.CharField(max_length=50, null=True)
-    recycledFrom = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    recycledProcessUuid = models.CharField(max_length=50, null=True, blank=True)
+    recycledFrom = models.ForeignKey(
+        "self", null=True, on_delete=models.SET_NULL, blank=True
+    )
     name = models.CharField(max_length=200)
     shortName = models.CharField(max_length=50)
     origin = models.CharField(max_length=50, choices=ORIGINS)
@@ -62,15 +64,15 @@ class Material(models.Model):
     defaultCountry = models.CharField(max_length=3, choices=COUNTRIES)
     priority = models.IntegerField()
     # cff
-    manufacturerAllocation = models.FloatField(null=True)
-    recycledQualityRatio = models.FloatField(null=True)
+    manufacturerAllocation = models.FloatField(null=True, blank=True)
+    recycledQualityRatio = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Process(models.Model):
-    search = models.CharField(max_length=200)
+    search = models.CharField(max_length=200, blank=True)
     name = models.CharField(max_length=200)
     source = models.CharField(max_length=200)
     info = models.CharField(max_length=200)
@@ -112,13 +114,23 @@ class Example(models.Model):
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=50, choices=CATEGORIES)
     mass = models.FloatField()
-    materials = models.ManyToManyField(Material, through="Share")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    materials = models.ManyToManyField(
+        Material, through="Share", related_name="examples"
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    # fields of products (?)
+    business = models.CharField(max_length=50, choices=BUSINESSES)
+    marketingDuration = models.FloatField(null=True)
+    numberOfReferences = models.IntegerField(null=True)
+    price = models.FloatField(null=True)
+    repairCost = models.FloatField(null=True, blank=True)
+    traceability = models.BooleanField(null=True)
+
     countrySpinning = models.CharField(max_length=50, choices=COUNTRIES)
     countryFabric = models.CharField(max_length=50, choices=COUNTRIES)
     countryDyeing = models.CharField(max_length=50, choices=COUNTRIES)
     countryMaking = models.CharField(max_length=50, choices=COUNTRIES)
-    fabricProcess = models.ForeignKey(Process, on_delete=models.CASCADE)
+    fabricProcess = models.ForeignKey(Process, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
