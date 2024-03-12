@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const github = require("./lib/github");
 
 const app = express(); // web app
 const api = express(); // api app
@@ -29,6 +30,9 @@ if (SENTRY_DSN) {
   // Note: Sentry middleware *must* be the very first applied to be effective
   app.use(Sentry.Handlers.requestHandler());
 }
+
+// Allow app to handle POST requests JSON body parameters
+app.use(express.json());
 
 // Web
 
@@ -81,6 +85,16 @@ app.use(
 app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
+
+// Example products update endpoint
+app.post("/contrib/examples/:type", async (req, res) => {
+  // try {
+  const { status } = await github.createExamplesPR(req.params.type, req.body);
+  res.status(status).send({ ok: status >= 200 && status < 400 });
+  // } catch ({ message }) {
+  //   res.status(400).send({ error: message });
+  // }
+});
 
 // API
 
