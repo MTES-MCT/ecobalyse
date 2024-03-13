@@ -88,12 +88,12 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
 // Example products update endpoint
 app.post("/contrib/examples/:type", async (req, res) => {
-  // try {
-  const { status } = await github.createExamplesPR(req.params.type, req.body);
-  res.status(status).send({ ok: status >= 200 && status < 400 });
-  // } catch ({ message }) {
-  //   res.status(400).send({ error: message });
-  // }
+  try {
+    const { status } = await github.createExamplesPR(req.params.type, req.body);
+    res.status(status).send({ ok: status >= 200 && status < 400 });
+  } catch ({ message }) {
+    res.status(400).send({ error: message });
+  }
 });
 
 // API
