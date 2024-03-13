@@ -7,7 +7,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Session as Session exposing (Session)
+import Data.Session exposing (Session)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Dict
@@ -24,8 +24,10 @@ import Views.Container as Container
 type alias Config msg =
     { comparisonType : ComparisonType
     , impact : Definition
-    , switchComparisonType : ComparisonType -> msg
+    , selectAll : msg
+    , selectNone : msg
     , session : Session
+    , switchComparisonType : ComparisonType -> msg
     , toggle : Bookmark -> Bool -> msg
     }
 
@@ -58,11 +60,13 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { session, toggle } =
-    [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
-        [ text "Sélectionnez jusqu'à "
-        , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
-        , text " simulations pour les comparer\u{00A0}:"
+sidebarView { session, toggle, selectAll, selectNone } =
+    [ div [ class "p-2 ps-3 mb-0 text-muted" ]
+        [ text "Sélectionnez des simulations pour les comparer"
+        ]
+    , div [ class "text-center" ]
+        [ button [ class "btn btn-sm btn-link pt-0", onClick selectAll ] [ text "tout sélectionner" ]
+        , button [ class "btn btn-sm btn-link pt-0", onClick selectNone ] [ text "tout désélectionner" ]
         ]
     , session.store.bookmarks
         |> List.map
@@ -84,11 +88,6 @@ sidebarView { session, toggle } =
                         , class "form-check-input"
                         , onCheck (toggle bookmark)
                         , checked isCompared
-                        , disabled
-                            (not isCompared
-                                && Set.size session.store.comparedSimulations
-                                >= Session.maxComparedSimulations
-                            )
                         ]
                         []
                     , span [ class "ps-2" ]

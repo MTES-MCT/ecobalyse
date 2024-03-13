@@ -111,6 +111,8 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SaveEditedExample ExampleProduct
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -400,6 +402,12 @@ update ({ db, queries } as session) msg model =
             , session |> Session.updateFoodExample updatedExample
             , Cmd.none
             )
+
+        SelectAllBookmarks ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        SelectNoBookmarks ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
 
         SetModal NoModal ->
             ( { model | modal = NoModal }
@@ -1709,6 +1717,8 @@ view session model =
                                 { session = session
                                 , impact = model.impact
                                 , comparisonType = model.comparisonType
+                                , selectAll = SelectAllBookmarks
+                                , selectNone = SelectNoBookmarks
                                 , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }
