@@ -1,8 +1,11 @@
 #/bin/bash
 
 bin/run &
-python data/ecobalyse/manage.py runserver &
+pushd data/ecobalyse
+gunicorn ecobalyse.wsgi &
+sleep 0.5
 trap "pkill SIGTERM -P $$" SIGTERM
+popd
 
 npm run server:start &
 trap "pkill SIGTERM -P $$" SIGTERM
