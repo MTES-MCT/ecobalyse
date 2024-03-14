@@ -17,7 +17,16 @@ config =
 getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
 getChangelog { github } event =
     RemoteData.Http.getWithConfig config
-        -- FIXME: specify branch
         ("https://api.github.com/repos/" ++ github.repository ++ "/commits?sha=" ++ github.branch)
         event
         (Decode.list Github.decodeCommit)
+
+
+
+-- createExamplesPR : Session -> Scope -> (WebData () -> msg) -> Cmd msg
+-- createExamplesPR _ scope event =
+--     RemoteData.Http.getWithConfig config
+--         ("/api/contrib/examples/" ++ Scope.toString scope)
+--         event
+--         -- Note: we're only interested if the request was successful or not
+--         (Decode.succeed ())

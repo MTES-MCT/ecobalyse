@@ -31,9 +31,6 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.requestHandler());
 }
 
-// Allow app to handle POST requests JSON body parameters
-app.use(express.json());
-
 // Web
 
 // Note: helmet middlewares have to be called *after* the Sentry middleware
@@ -86,17 +83,10 @@ app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
-// Example products update endpoint
-app.post("/contrib/examples/:type", async (req, res) => {
-  try {
-    const { status } = await github.createExamplesPR(req.params.type, req.body);
-    res.status(status).send({ ok: status >= 200 && status < 400 });
-  } catch ({ message }) {
-    res.status(400).send({ error: message });
-  }
-});
-
 // API
+
+// Allow app to handle POST requests JSON body parameters
+api.use(express.json());
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
@@ -120,6 +110,16 @@ api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
 api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
+
+// Example products update endpoint
+api.post("/contrib/examples/:type", async (req, res) => {
+  try {
+    const { status } = await github.createExamplesPR(req.params.type, req.body);
+    res.status(status).send({ ok: status >= 200 && status < 400 });
+  } catch ({ message }) {
+    res.status(400).send({ error: message });
+  }
+});
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), (req, res) => {
