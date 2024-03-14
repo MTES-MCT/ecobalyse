@@ -1,12 +1,14 @@
 module Page.Explore.TextileExamples exposing (table)
 
 import Data.Dataset as Dataset
+import Data.Example exposing (Example)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope exposing (Scope)
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
+import Data.Textile.Query exposing (Query)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
+import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
@@ -16,9 +18,9 @@ import Static.Db exposing (Db)
 import Views.Icon as Icon
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table (Example Query) String msg
 table db { detailed, scope } =
-    { toId = .id >> ExampleProduct.uuidToString
+    { toId = .id >> Uuid.toString
     , toRoute = .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
@@ -38,7 +40,7 @@ table db { detailed, scope } =
                             getScore db example |> Unit.impactToFloat
 
                         max =
-                            db.textile.exampleProducts
+                            db.textile.examples
                                 |> List.map (getScore db >> Unit.impactToFloat)
                                 |> List.maximum
                                 |> Maybe.withDefault 0
@@ -60,7 +62,7 @@ table db { detailed, scope } =
     }
 
 
-getScore : Db -> ExampleProduct -> Unit.Impact
+getScore : Db -> Example Query -> Unit.Impact
 getScore db =
     .query
         >> Simulator.compute db

@@ -6,13 +6,14 @@ module Static.Db exposing
 
 import Data.Common.Db as Common
 import Data.Country exposing (Country)
+import Data.Example as Example
 import Data.Food.Db as FoodDb
-import Data.Food.ExampleProduct as FoodExampleProduct
+import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
-import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Process as Textile
+import Data.Textile.Query as TextileQuery
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Static.Json
@@ -55,7 +56,7 @@ textileDb =
         |> Result.andThen
             (\definitions ->
                 textileProductExamplesJson
-                    |> TextileExampleProduct.decodeListFromJsonString
+                    |> Example.decodeListFromJsonString TextileQuery.decode
                     |> Result.andThen
                         (\exampleProducts ->
                             TextileDb.buildFromJson exampleProducts
@@ -73,10 +74,10 @@ foodDb =
         |> Result.andThen
             (\definitions ->
                 foodProductExamplesJson
-                    |> FoodExampleProduct.decodeListFromJsonString
+                    |> Example.decodeListFromJsonString FoodQuery.decode
                     |> Result.andThen
-                        (\exampleProducts ->
-                            FoodDb.buildFromJson exampleProducts
+                        (\examples ->
+                            FoodDb.buildFromJson examples
                                 definitions
                                 foodProcessesJson
                                 foodIngredientsJson

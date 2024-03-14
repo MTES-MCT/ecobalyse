@@ -15,7 +15,6 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
@@ -34,7 +33,7 @@ type Dataset
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
-    | TextileExamples (Maybe TextileExample.Uuid)
+    | TextileExamples (Maybe Uuid)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -220,7 +219,7 @@ setIdFromString idString dataset =
             FoodProcesses (Just (FoodProcess.codeFromString idString))
 
         TextileExamples _ ->
-            TextileExamples (Just (TextileExample.uuidFromString idString))
+            TextileExamples (Uuid.fromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -305,7 +304,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileExamples (Just id) ->
-            [ slug dataset, TextileExample.uuidToString id ]
+            [ slug dataset, Uuid.toString id ]
 
         TextileProducts Nothing ->
             [ slug dataset ]

@@ -15,8 +15,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
+import Data.Example as Example exposing (Example)
 import Data.Food.EcosystemicServices as EcosystemicServices
-import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -71,7 +71,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , editedExample : Maybe { initial : ExampleProduct, current : ExampleProduct }
+    , editedExample : Maybe { initial : Example Query, current : Example Query }
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -92,12 +92,12 @@ type Msg
     | AddDistribution
     | CopyToClipBoard String
     | CreateExample Query
-    | CreateExampleComplete ExampleProduct
+    | CreateExampleComplete (Example Query)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
-    | DuplicateExample ExampleProduct
+    | DuplicateExample (Example Query)
     | LoadQuery Query
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
@@ -110,7 +110,7 @@ type Msg
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SaveEditedExample ExampleProduct
+    | SaveEditedExample (Example Query)
     | SelectAllBookmarks
     | SelectNoBookmarks
     | SetModal Modal
@@ -121,7 +121,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateEcotoxWeighting (Maybe Unit.Ratio)
-    | UpdateEditedExample ExampleProduct
+    | UpdateEditedExample (Example Query)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -162,8 +162,8 @@ initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
 initFromExample session uuid =
     let
         example =
-            session.db.food.exampleProducts
-                |> ExampleProduct.findByUuid uuid
+            session.db.food.examples
+                |> Example.findByUuid uuid
 
         query =
             example
@@ -1387,15 +1387,15 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-editedExampleHeader : List ExampleProduct -> { initial : ExampleProduct, current : ExampleProduct } -> Html Msg
-editedExampleHeader exampleProducts { initial, current } =
+editedExampleHeader : List (Example Query) -> { initial : Example Query, current : Example Query } -> Html Msg
+editedExampleHeader examples { initial, current } =
     let
         modified =
             current /= initial
 
         valid =
-            exampleProducts
-                |> ExampleProduct.findByName current.name
+            examples
+                |> Example.findByName current.name
                 |> Result.toMaybe
                 |> (==) Nothing
     in
@@ -1477,10 +1477,10 @@ mainView ({ db } as session) model =
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
             [ case model.editedExample of
                 Just editedExampleState ->
-                    editedExampleHeader db.food.exampleProducts editedExampleState
+                    editedExampleHeader db.food.examples editedExampleState
 
                 Nothing ->
-                    db.food.exampleProducts
+                    db.food.examples
                         |> exampleProductSelector session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
@@ -1502,13 +1502,13 @@ mainView ({ db } as session) model =
         ]
 
 
-exampleProductSelector : Query -> List ExampleProduct -> Html Msg
-exampleProductSelector query exampleProducts =
+exampleProductSelector : Query -> List (Example Query) -> Html Msg
+exampleProductSelector query examples =
     let
         autocompleteState =
-            exampleProducts
+            examples
                 |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
+                |> AutocompleteSelector.init (Example.toName examples)
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
@@ -1519,9 +1519,9 @@ exampleProductSelector query exampleProducts =
                 , id "selector-example"
                 , onClick (SetModal (SelectExampleModal autocompleteState))
                 ]
-                [ text <| ExampleProduct.toName exampleProducts query
+                [ text <| Example.toName examples query
                 ]
-            , case ( query == Query.empty, ExampleProduct.findByQuery query exampleProducts ) of
+            , case ( query == Query.empty, Example.findByQuery query examples ) of
                 ( False, Ok example ) ->
                     div [ class "btn-group" ]
                         [ a
@@ -1752,8 +1752,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = ExampleProduct.toName session.db.food.exampleProducts
-                        , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
+                        , toLabel = Example.toName session.db.food.examples
+                        , toCategory = Example.toCategory session.db.food.examples
                         }
             ]
       ]

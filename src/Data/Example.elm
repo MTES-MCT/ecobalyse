@@ -1,5 +1,5 @@
-module Data.Food.ExampleProduct exposing
-    ( ExampleProduct
+module Data.Example exposing
+    ( Example
     , decodeListFromJsonString
     , encodeList
     , findByName
@@ -10,66 +10,65 @@ module Data.Food.ExampleProduct exposing
     , toName
     )
 
-import Data.Food.Query as Query exposing (Query)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Url.Parser as Parser exposing (Parser)
 
 
-type alias ExampleProduct =
+type alias Example query =
     { id : Uuid
     , name : String
-    , query : Query
     , category : String
+    , query : query
     }
 
 
-decode : Decoder ExampleProduct
-decode =
-    Decode.map4 ExampleProduct
+decode : Decoder query -> Decoder (Example query)
+decode decodeQuery =
+    Decode.map4 Example
         (Decode.field "id" Uuid.decoder)
         (Decode.field "name" Decode.string)
-        (Decode.field "query" Query.decode)
         (Decode.field "category" Decode.string)
+        (Decode.field "query" decodeQuery)
 
 
-decodeListFromJsonString : String -> Result String (List ExampleProduct)
-decodeListFromJsonString =
-    Decode.decodeString (Decode.list decode)
+decodeListFromJsonString : Decoder query -> String -> Result String (List (Example query))
+decodeListFromJsonString decodeQuery =
+    Decode.decodeString (Decode.list (decode decodeQuery))
         >> Result.mapError Decode.errorToString
 
 
-encode : ExampleProduct -> Encode.Value
-encode example =
+encode : (query -> Encode.Value) -> Example query -> Encode.Value
+encode encodeQuery example =
     Encode.object
         [ ( "id", Uuid.encode example.id )
         , ( "name", Encode.string example.name )
         , ( "category", Encode.string example.category )
-        , ( "query", Query.encode example.query )
+        , ( "query", encodeQuery example.query )
         ]
 
 
-encodeList : List ExampleProduct -> Encode.Value
-encodeList =
-    Encode.list encode
+encodeList : (query -> Encode.Value) -> List (Example query) -> Encode.Value
+encodeList encodeQuery =
+    Encode.list (encode encodeQuery)
 
 
-findByName : String -> List ExampleProduct -> Result String ExampleProduct
+findByName : String -> List (Example query) -> Result String (Example query)
 findByName name =
     List.filter (.name >> (==) name)
         >> List.head
         >> Result.fromMaybe ("Exemple introuvable avec le nom " ++ name)
 
 
-findByUuid : Uuid -> List ExampleProduct -> Result String ExampleProduct
+findByUuid : Uuid -> List (Example query) -> Result String (Example query)
 findByUuid id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ Uuid.toString id)
 
 
-findByQuery : Query -> List ExampleProduct -> Result String ExampleProduct
+findByQuery : query -> List (Example query) -> Result String (Example query)
 findByQuery query =
     List.filter (.query >> (==) query)
         >> List.head
@@ -78,10 +77,10 @@ findByQuery query =
 
 parseUuid : Parser (Uuid -> a) a
 parseUuid =
-    Parser.custom "FOODEXAMPLE" Uuid.fromString
+    Parser.custom "EXAMPLE" Uuid.fromString
 
 
-toCategory : List ExampleProduct -> Query -> String
+toCategory : List (Example query) -> query -> String
 toCategory examples q =
     examples
         |> List.filterMap
@@ -96,7 +95,7 @@ toCategory examples q =
         |> Maybe.withDefault ""
 
 
-toName : List ExampleProduct -> Query -> String
+toName : List (Example query) -> query -> String
 toName examples q =
     examples
         |> List.filterMap

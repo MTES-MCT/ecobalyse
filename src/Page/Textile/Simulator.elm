@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Example as Example exposing (Example)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -25,7 +26,6 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -678,13 +678,13 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : List ExampleProduct -> Query -> Html Msg
-exampleProductField exampleProducts query =
+exampleProductField : List (Example Query) -> Query -> Html Msg
+exampleProductField examples query =
     let
         autocompleteState =
-            exampleProducts
+            examples
                 |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
+                |> AutocompleteSelector.init (Example.toName examples)
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
@@ -694,7 +694,7 @@ exampleProductField exampleProducts query =
             , id "selector-example"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
-            [ text <| ExampleProduct.toName exampleProducts query ]
+            [ text <| Example.toName examples query ]
         ]
 
 
@@ -963,7 +963,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             , div [ class "row align-items-start flex-md-columns mb-3" ]
                 [ div [ class "col-md-9" ]
                     [ Inputs.toQuery inputs
-                        |> exampleProductField session.db.textile.exampleProducts
+                        |> exampleProductField session.db.textile.examples
                     ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
@@ -1142,8 +1142,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = ExampleProduct.toName session.db.textile.exampleProducts
-                                , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
+                                , toLabel = Example.toName session.db.textile.examples
+                                , toCategory = Example.toCategory session.db.textile.examples
                                 }
 
                         SelectProductModal autocompleteState ->

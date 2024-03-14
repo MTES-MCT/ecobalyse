@@ -11,7 +11,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.ExampleProduct as FoodExampleProduct
+import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
@@ -19,10 +19,10 @@ import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
-import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query exposing (Query)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -272,19 +272,19 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 foodExamplesExplorer :
     Db
-    -> Table.Config FoodExampleProduct.ExampleProduct Msg
+    -> Table.Config (Example FoodQuery.Query) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
-    [ db.food.exampleProducts
+    [ db.food.examples
         |> List.filter (.query >> (/=) FoodQuery.empty)
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodExampleProduct.findByUuid id db.food.exampleProducts of
+                (case Example.findByUuid id db.food.examples of
                     Ok example ->
                         example
                             |> Table.viewDetails Scope.Food (FoodExamples.table db)
@@ -354,18 +354,18 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 textileExamplesExplorer :
     Db
-    -> Table.Config TextileExampleProduct.ExampleProduct Msg
+    -> Table.Config (Example Query) Msg
     -> SortableTable.State
-    -> Maybe TextileExampleProduct.Uuid
+    -> Maybe Uuid
     -> List (Html Msg)
 textileExamplesExplorer db tableConfig tableState maybeId =
-    [ db.textile.exampleProducts
+    [ db.textile.examples
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case TextileExampleProduct.findByUuid id db.textile.exampleProducts of
+                (case Example.findByUuid id db.textile.examples of
                     Ok example ->
                         example
                             |> Table.viewDetails Scope.Food (TextileExamples.table db)
@@ -485,8 +485,8 @@ explore { db } { scope, dataset, tableState } =
                 [ a
                     [ class "btn btn-primary"
                     , download "examples.json"
-                    , db.food.exampleProducts
-                        |> FoodExampleProduct.encodeList
+                    , db.food.examples
+                        |> Example.encodeList FoodQuery.encode
                         |> Encode.encode 2
                         |> (++) "data:text/json;charset=utf-8,"
                         |> href

@@ -19,7 +19,7 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.ExampleProduct exposing (ExampleProduct)
+import Data.Example exposing (Example)
 import Data.Food.Query as FoodQuery
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -94,13 +94,13 @@ saveBookmark bookmark =
 -- Example products
 
 
-createFoodExample : ExampleProduct -> Session -> Session
+createFoodExample : Example FoodQuery.Query -> Session -> Session
 createFoodExample example ({ db } as session) =
     let
         { food } =
             db
 
-        { exampleProducts } =
+        { examples } =
             food
     in
     { session
@@ -108,19 +108,19 @@ createFoodExample example ({ db } as session) =
             { db
                 | food =
                     { food
-                        | exampleProducts = example :: exampleProducts
+                        | examples = example :: examples
                     }
             }
     }
 
 
-updateFoodExample : ExampleProduct -> Session -> Session
+updateFoodExample : Example FoodQuery.Query -> Session -> Session
 updateFoodExample updated ({ db } as session) =
     let
         { food } =
             db
 
-        { exampleProducts } =
+        { examples } =
             food
     in
     { session
@@ -128,8 +128,8 @@ updateFoodExample updated ({ db } as session) =
             { db
                 | food =
                     { food
-                        | exampleProducts =
-                            exampleProducts
+                        | examples =
+                            examples
                                 |> List.map
                                     (\example ->
                                         if example.id == updated.id then

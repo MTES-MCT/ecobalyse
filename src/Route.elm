@@ -6,7 +6,7 @@ module Route exposing
     )
 
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.ExampleProduct as FoodExampleProduct
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -76,7 +76,7 @@ parser =
         , Parser.map FoodBuilderExample
             (Parser.s "food"
                 </> Parser.s "edit-example"
-                </> FoodExampleProduct.parseUuid
+                </> Example.parseUuid
             )
 
         -- Textile specific routes

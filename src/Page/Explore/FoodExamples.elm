@@ -1,7 +1,8 @@
 module Page.Explore.FoodExamples exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Food.ExampleProduct exposing (ExampleProduct)
+import Data.Example exposing (Example)
+import Data.Food.Query exposing (Query)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -17,7 +18,7 @@ import Static.Db exposing (Db)
 import Views.Icon as Icon
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table (Example Query) String msg
 table db { detailed, scope } =
     { toId = .id >> Uuid.toString
     , toRoute = .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
@@ -47,7 +48,7 @@ table db { detailed, scope } =
     }
 
 
-getScore : Db -> ExampleProduct -> Unit.Impact
+getScore : Db -> Example Query -> Unit.Impact
 getScore db =
     .query
         >> Recipe.compute db
@@ -55,7 +56,7 @@ getScore db =
         >> Result.withDefault (Unit.impact 0)
 
 
-getScorePer100g : Db -> ExampleProduct -> Unit.Impact
+getScorePer100g : Db -> Example Query -> Unit.Impact
 getScorePer100g db =
     .query
         >> Recipe.compute db
@@ -68,7 +69,7 @@ getScorePer100g db =
         >> Result.withDefault (Unit.impact 0)
 
 
-scoreCell : Db -> String -> Bool -> (ExampleProduct -> Unit.Impact) -> Column ExampleProduct comparable msg
+scoreCell : Db -> String -> Bool -> (Example Query -> Unit.Impact) -> Column (Example Query) comparable msg
 scoreCell db label detailed scoreGetter =
     { label = label
     , toValue = Table.FloatValue <| scoreGetter >> Unit.impactToFloat
@@ -80,7 +81,7 @@ scoreCell db label detailed scoreGetter =
                         |> Unit.impactToFloat
 
                 max =
-                    db.food.exampleProducts
+                    db.food.examples
                         |> List.map (scoreGetter >> Unit.impactToFloat)
                         |> List.maximum
                         |> Maybe.withDefault 0
