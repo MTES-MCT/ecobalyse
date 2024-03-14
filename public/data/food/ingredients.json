@@ -11,13 +11,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.72,
-      "plotSize": 0.93,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
+      "hedges": 1.8435287700000003,
+      "plotSize": 2.4546577,
+      "cropDiversity": 10.603858,
+      "permanentPasture": 0,
+      "livestockDensity": -0.007728
     },
     "land_occupation": 4.46757635,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -32,13 +33,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.31,
-      "plotSize": 0.3,
+      "hedges": 0.67024693,
+      "plotSize": 0.631999475,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.61,
-      "livestockDensity": -0.0002
+      "permanentPasture": 0.175,
+      "livestockDensity": -0.00017
     },
     "land_occupation": 1.391110637,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -53,13 +55,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.78,
-      "plotSize": 0.77,
-      "cropDiversity": 0.55,
-      "permanentPasture": 1.39,
-      "livestockDensity": -0.0002
+      "hedges": 1.2327752959999998,
+      "plotSize": 1.1135123399999998,
+      "cropDiversity": 0.54581806,
+      "permanentPasture": 0.814,
+      "livestockDensity": -0.00017800000000000002
     },
     "land_occupation": 1.75061187,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -247,10 +250,11 @@
       "hedges": 0.0,
       "plotSize": 0.0,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0139
+      "permanentPasture": 0,
+      "livestockDensity": -0.006
     },
     "land_occupation": 52.4624274,
+    "scenario": "import",
     "visible": true
   },
   {
@@ -265,13 +269,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 1.42,
-      "plotSize": 1.83,
+      "hedges": 1.4232472,
+      "plotSize": 1.8315832999999997,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0591
+      "permanentPasture": 0,
+      "livestockDensity": -0.027132000000000003
     },
     "land_occupation": 6.558046439,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -286,13 +291,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 6.28,
-      "plotSize": 8.14,
-      "cropDiversity": 31.17,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0158
+      "hedges": 7.6129356,
+      "plotSize": 9.770795,
+      "cropDiversity": 35.179101,
+      "permanentPasture": 0,
+      "livestockDensity": -0.007803000000000001
     },
     "land_occupation": 24.05215563,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -307,13 +313,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 1.58,
-      "plotSize": 2.0,
+      "hedges": 1.8489775000000004,
+      "plotSize": 2.5128158,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0548
+      "permanentPasture": 0,
+      "livestockDensity": -0.027132000000000003
     },
     "land_occupation": 7.438570311,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -328,13 +335,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 1.63,
-      "plotSize": 1.95,
+      "hedges": 1.6220207,
+      "plotSize": 1.9424640999999998,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
+      "permanentPasture": 0,
+      "livestockDensity": -0.015179999999999997
     },
     "land_occupation": 6.039436164,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -349,13 +357,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 3.0,
-      "plotSize": 3.07,
-      "cropDiversity": 8.94,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
+      "hedges": 4.9789359,
+      "plotSize": 5.2837998,
+      "cropDiversity": 24.272361,
+      "permanentPasture": 0,
+      "livestockDensity": -0.005225
     },
     "land_occupation": 15.82110984,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -370,13 +379,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 5.03,
-      "plotSize": 5.24,
-      "cropDiversity": 27.67,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
+      "hedges": 4.9789359,
+      "plotSize": 5.2837998,
+      "cropDiversity": 24.272361,
+      "permanentPasture": 0,
+      "livestockDensity": -0.005225
     },
     "land_occupation": 18.52244428,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -735,9 +745,7 @@
     "ecosystemicServices": {
       "hedges": 1.0623,
       "plotSize": 2.0097,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
+      "cropDiversity": 0.0
     },
     "land_occupation": 4.01933867,
     "crop_group": "AUTRES OLEAGINEUX",
@@ -758,9 +766,7 @@
     "ecosystemicServices": {
       "hedges": 1.9696,
       "plotSize": 2.1102,
-      "cropDiversity": 18.21,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
+      "cropDiversity": 18.21
     },
     "land_occupation": 5.627292234,
     "crop_group": "AUTRES OLEAGINEUX",
@@ -810,7 +816,7 @@
     "visible": true
   },
   {
-    "id": "soybean-animal",
+    "id": "soybean-feed",
     "name": "Soja feed",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean grain dried, stored and transported, processing {FR}",
@@ -933,8 +939,8 @@
     "visible": true
   },
   {
-    "id": "rib-steak",
-    "name": "Entrecôte (crue)",
+    "id": "beef-with-bone",
+    "name": "Viande de boeuf avec os (crue)",
     "categories": ["animal_product"],
     "search": "Meat with bone, beef, for direct consumption",
     "default": "AGRIBALU000000003109214",
@@ -943,13 +949,20 @@
     "density": 1,
     "inedible_part": 0.2,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 22.6626246,
+      "plotSize": 19.160167,
+      "cropDiversity": 0.0,
+      "permanentPasture": 24.51,
+      "livestockDensity": -0.00255
+    },
     "land_occupation": 34.73183225,
+    "scenario": "reference",
     "visible": true
   },
   {
-    "id": "flank-steak",
-    "name": "Bavette (crue)",
+    "id": "beef-without-bone",
+    "name": "Viande de boeuf sans os (crue)",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption",
     "default": "AGRIBALU000000003109219",
@@ -958,13 +971,20 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 28.3285335,
+      "plotSize": 23.9515035,
+      "cropDiversity": 0.0,
+      "permanentPasture": 30.63,
+      "livestockDensity": -0.00255
+    },
     "land_occupation": 43.41602331,
+    "scenario": "reference",
     "visible": true
   },
   {
-    "id": "flank-steak-organic",
-    "name": "Bavette bio (crue)",
+    "id": "beef-without-bone-organic",
+    "name": "Viande de boeuf sans os bio (crue)",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption organic constructed",
     "default": "f66ba18359adc61e5988ed8a7cf24b3e",
@@ -973,23 +993,15 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 32.419017,
+      "plotSize": 28.8063716,
+      "cropDiversity": 12.241081999999999,
+      "permanentPasture": 28.34,
+      "livestockDensity": -0.00267
+    },
     "land_occupation": 39.19859355,
-    "visible": true
-  },
-  {
-    "id": "rumsteak",
-    "name": "Rumsteak (cru)",
-    "categories": ["animal_product"],
-    "search": "Meat without bone, beef, for direct consumption {FR} U",
-    "default": "AGRIBALU000000003109219",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "ecosystemicServices": {},
-    "land_occupation": 43.41602331,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1061,13 +1073,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
+      "hedges": 1.6670787,
+      "plotSize": 2.7862491,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0425
+      "permanentPasture": 0,
+      "livestockDensity": -0.022
     },
     "land_occupation": 9.35109173,
+    "scenario": "import",
     "visible": true
   },
   {
@@ -1082,13 +1095,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 2.55,
-      "plotSize": 3.69,
+      "hedges": 2.5465697,
+      "plotSize": 3.6915990999999995,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
+      "permanentPasture": 0,
+      "livestockDensity": -0.015179999999999997
     },
     "land_occupation": 7.297867846,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1253,13 +1267,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.77,
-      "plotSize": 0.87,
+      "hedges": 0.7722932,
+      "plotSize": 0.8666125,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
+      "permanentPasture": 0,
+      "livestockDensity": -0.007728
     },
     "land_occupation": 3.718097733,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1274,13 +1289,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.64,
-      "plotSize": 0.72,
+      "hedges": 0.64020403,
+      "plotSize": 0.71856425,
       "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
+      "permanentPasture": 0,
+      "livestockDensity": -0.007728
     },
     "land_occupation": 3.069579193,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -1295,8 +1311,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.7722932,
-      "plotSize": 0.8666125,
+      "hedges": 0.7411806000000001,
+      "plotSize": 0.830595,
       "cropDiversity": 0.0,
       "permanentPasture": 0,
       "livestockDensity": -0.007728
@@ -1317,13 +1333,14 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.77,
-      "plotSize": 1.96,
-      "cropDiversity": 10.6,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0027
+      "hedges": 2.0134018,
+      "plotSize": 2.1789109,
+      "cropDiversity": 12.956839,
+      "permanentPasture": 0,
+      "livestockDensity": -0.00266
     },
     "land_occupation": 6.778933314,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -1359,17 +1376,18 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 46.22,
-      "plotSize": 38.31,
+      "hedges": 29.853340000000003,
+      "plotSize": 25.936975,
       "cropDiversity": 0.0,
-      "permanentPasture": 86.68,
-      "livestockDensity": 0.0034
+      "permanentPasture": 25,
+      "livestockDensity": 8.4e-5
     },
     "land_occupation": 96.54788709,
+    "scenario": "reference",
     "visible": true
   },
   {
-    "id": "lamb-organic-meat-without-bone",
+    "id": "lamb-meat-without-bone-organic",
     "name": "Viande d'agneau bio (désossée)",
     "categories": ["animal_product"],
     "search": "lamb organic",
@@ -1380,13 +1398,14 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 131.06,
-      "plotSize": 125.0,
-      "cropDiversity": 22.96,
-      "permanentPasture": 193.27,
-      "livestockDensity": 0.0009
+      "hedges": 66.9433852,
+      "plotSize": 58.959748,
+      "cropDiversity": 28.103238,
+      "permanentPasture": 67,
+      "livestockDensity": 2.1e-5
     },
     "land_occupation": 206.0803103,
+    "scenario": "organic",
     "visible": true
   },
   {
@@ -3847,6 +3866,48 @@
     "visible": true
   },
   {
+    "id": "sweet-corn-organic-fr",
+    "name": "Maïs doux FR bio (sortie de ferme)",
+    "categories": ["grain_raw"],
+    "search": "Grain maize, organic, animal feed, at farm gate {FR}",
+    "default": "AGRIBALU000000003106825",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.81568,
+      "plotSize": 0.73202,
+      "cropDiversity": 1.5285
+    },
+    "land_occupation": 1.464036163,
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "sweet-corn-br",
+    "name": "Maïs doux BR (sortie de ferme)",
+    "categories": ["grain_raw"],
+    "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003109026",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.256978351,
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "import",
+    "visible": true
+  },
+  {
     "id": "pineapple-non-eu",
     "name": "Ananas hors UE par défaut (sortie de ferme)",
     "categories": ["vegetable_fresh"],
@@ -5170,11 +5231,32 @@
     "visible": true
   },
   {
-    "id": "temporary-pasture",
-    "name": "Prairie temporaire (en m2a)",
-    "categories": ["dummy"],
-    "search": "",
-    "default": "temporary-pasture",
+    "id": "oilseed-feed",
+    "name": "Soja FR",
+    "categories": ["grain_raw"],
+    "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
+    "default": "AGRIBALU000000003110393",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.965895323,
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "import",
+    "visible": false
+  },
+  {
+    "id": "grazed-grass-temporary",
+    "name": "Herbe de prairie temporaire",
+    "categories": [],
+    "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
+    "default": "AGRIBALU000024985200276",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -5191,11 +5273,11 @@
     "visible": false
   },
   {
-    "id": "permanent-pasture",
-    "name": "Prairie permanente (en m2a)",
-    "categories": ["dummy"],
-    "search": "",
-    "default": "permanent-pasture",
+    "id": "grazed-grass-permanent",
+    "name": "Herbe de prairie permanente",
+    "categories": [],
+    "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
+    "default": "AGRIBALU000000003106967",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,

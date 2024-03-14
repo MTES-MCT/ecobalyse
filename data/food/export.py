@@ -39,7 +39,6 @@ CONFIG = {
     "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
     "FEED_FILE": "ecosystemic_services/feed.json",
     "UGB_FILE": "ecosystemic_services/ugb.csv",
-    "ECS_PNG": "ecosystemic_services/ecs_transformations.png",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
     "PROCESSES_FILE": "../../public/data/food/processes.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
@@ -52,15 +51,14 @@ def setup_environment():
 
 
 def find_id(dbname, activity):
-    if activity["search"] == "":
-        return activity["id"]
     return cached_search(dbname, activity["search"]).get(
         "Process identifier", activity["id"]
     )
 
 
-def create_ingredient_list(activities):
+def create_ingredient_list(activities_tuple):
     print("Creating ingredient list...")
+    activities = list(activities_tuple)
     return tuple(
         [
             process_activity_for_ingredient(activity)
@@ -114,7 +112,7 @@ def compute_land_occupation(activities_tuple):
             lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
             lca.lcia()
             activity["land_occupation"] = float("{:.10g}".format(lca.score))
-        updated_activities.append(activity)
+        updated_activities.append(frozendict(activity))
     return tuple(updated_activities)
 
 
@@ -142,22 +140,6 @@ def create_process_list(activities):
 
 def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
-    if "dummy" in activity["categories"]:
-        return {
-            "id": activity["id"],
-            "name": activity["id"],
-            "displayName": activity["name"],
-            "unit": "kilogram",
-            "identifier": activity["id"],
-            "system_description": "dummy",
-            "category": activity.get("category"),
-            "categories": activity.get("categories"),
-            "comment": activity.get("comment", ""),
-            # those are removed at the end:
-            "database": activity.get("database", AGRIBALYSE),
-            "search": activity["search"],
-        }
-
     return {
         "id": activity["id"],
         "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
@@ -192,7 +174,6 @@ def process_activity_for_processes(activity):
 
 def compute_impacts(processes_fd):
     processes = dict(processes_fd)
-    processes_updated = {}
     print("Computing impacts:")
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
@@ -248,8 +229,7 @@ def compute_impacts(processes_fd):
             if attribute in process:
                 del process[attribute]
 
-        processes_updated[key] = process
-    return frozendict(processes_updated)
+    return frozendict({k:frozendict(v) for k, v in processes.items()})
 
 
 if __name__ == "__main__":
@@ -262,10 +242,9 @@ if __name__ == "__main__":
     activities_land_occ = compute_land_occupation(activities)
     ingredients = create_ingredient_list(activities_land_occ)
 
-    plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
     ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
     ingredients_veg_es = compute_vegetal_ecosystemic_services(
-        activities_land_occ, ecosystemic_factors
+        ingredients, ecosystemic_factors
     )
 
     feed_file = load_json(CONFIG["FEED_FILE"])

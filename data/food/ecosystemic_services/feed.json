@@ -1,4 +1,10 @@
 {
+  "egg-bleublanccoeur": {
+    "sweet-corn-fr": 0.485,
+    "soft-wheat-organic": 1.09,
+    "soybean-organic": 0.204,
+    "bean": 0.274
+  },
   "egg-organic-code0": {
     "sweet-corn-organic-fr": 0.8,
     "soft-wheat-organic": 0.445,
@@ -41,15 +47,42 @@
     "barley-de": 6.33,
     "oats-glo": 12.68
   },
+  "beef-without-bone": {
+    "silage-maize-fr": 2.79,
+    "soft-wheat-fr": 1.04,
+    "soybean-br-deforestation": 0.44,
+    "grazed-grass-temporary": 4.13,
+    "grazed-grass-permanent": 30.63
+  },
+  "beef-without-bone-organic": {
+    "silage-maize-organic": 0.63,
+    "soft-wheat-organic": 0.36,
+    "oats-organic": 0.26,
+    "triticale-organic": 1.3,
+    "alfalfa-organic": 1.11,
+    "grazed-grass-temporary": 8.45,
+    "grazed-grass-permanent": 28.34
+  },
+  "beef-with-bone": {
+    "silage-maize-fr": 2.23,
+    "soft-wheat-fr": 0.83,
+    "soybean-br-deforestation": 0.35,
+    "grazed-grass-temporary": 3.3,
+    "grazed-grass-permanent": 24.51
+  },
   "milk": {
-    "silage-maize": 0.349,
+    "silage-maize-fr": 0.349,
     "soft-wheat-fr": 0.0857,
-    "soybean-br-deforestation": 0.0646
+    "soybean-br-deforestation": 0.0646,
+    "grazed-grass-temporary": 0.438,
+    "grazed-grass-permanent": 0.175
   },
   "milk-organic": {
     "silage-maize-organic": 0.071,
     "soft-wheat-organic": 0.0477,
-    "triticale-organic": 0.0384
+    "triticale-organic": 0.0384,
+    "grazed-grass-temporary": 0.579,
+    "grazed-grass-permanent": 0.814
   },
   "lamb-meat-without-bone": {
     "soft-wheat-fr": 2.94,
@@ -57,7 +90,7 @@
     "grazed-grass-temporary": 12,
     "grazed-grass-permanent": 25
   },
-  "lamb-organic-meat-without-bone": {
+  "lamb-meat-without-bone-organic": {
     "soft-wheat-organic": 2.94,
     "barley-organic": 1.5,
     "grazed-grass-temporary": 14,

@@ -94,7 +94,7 @@ def compute_vegetal_ecosystemic_services(ingredients_tuple, ecosystemic_factors)
                 ]
                 factor_transformed = ecs_transform(eco_service, factor_raw)
                 factor_final = factor_transformed * ingredient["land_occupation"]
-                ingredients.setdefault("ecosystemicServices", {})[eco_service] = float(
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
                     "{:.5g}".format(factor_final)
                 )
         ingredients_updated.append(ingredient)
@@ -104,14 +104,14 @@ def compute_vegetal_ecosystemic_services(ingredients_tuple, ecosystemic_factors)
 def compute_animal_ecosystemic_services(
     ingredients, activities, ecosystemic_factors, feed_file, ugb
 ):
-    ingredients_dic = frozendict({el["id"]: el for el in ingredients})
-    activities_dic = frozendict({el["id"]: el for el in activities})
+    activities_dic = {el["id"]: el for el in activities}
     ingredients_dic_updated = {el["id"]: el for el in ingredients}
+    ingredients_dic = frozendict(ingredients_dic_updated)
     for animal_product, feed_quantities in feed_file.items():
         hedges = 0
         plotSize = 0
         cropDiversity = 0
-        ecosystemicServices = ingredients_dic[animal_product]["ecosystemicServices"]
+        ecosystemicServices = ingredients_dic[animal_product].get("ecosystemicServices",{})
 
         for feed_name, quantity in feed_quantities.items():
             assert (
@@ -128,8 +128,8 @@ def compute_animal_ecosystemic_services(
         ecosystemicServices["cropDiversity"] = cropDiversity
 
         ecosystemicServices["permanentPasture"] = feed_quantities.get(
-            "permanent-pasture", 0
-        )
+			"grazed-grass-permanent", 0
+			)
 
         ecosystemicServices["livestockDensity"] = (
             compute_livestockDensity_ecosystemic_service(

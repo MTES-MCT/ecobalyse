@@ -12,17 +12,11 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "ecosystemicServices": {
-      "hedges": 0.72,
-      "plotSize": 0.93,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    },
     "land_occupation": 4.46757635,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "egg"
+    "animal_product": "egg",
+    "scenario": "reference"
   },
   {
     "id": "milk",
@@ -40,7 +34,8 @@
     "land_occupation": 1.391110637,
     "animal_group1": "cattle",
     "animal_group2": "cow",
-    "animal_product": "milk"
+    "animal_product": "milk",
+    "scenario": "reference"
   },
   {
     "id": "milk-organic",
@@ -55,17 +50,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.78,
-      "plotSize": 0.77,
-      "cropDiversity": 0.55,
-      "permanentPasture": 1.39,
-      "livestockDensity": -0.0002
-    },
     "land_occupation": 1.75061187,
     "animal_group1": "cattle",
     "animal_group2": "cow",
-    "animal_product": "milk"
+    "animal_product": "milk",
+    "scenario": "organic"
   },
   {
     "id": "carrot-organic",
@@ -232,7 +221,8 @@
     "land_occupation": 52.4624274,
     "animal_group1": "cattle",
     "animal_group2": "cow",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "import"
   },
   {
     "id": "cooked-ham",
@@ -246,18 +236,12 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.42,
-      "plotSize": 1.83,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0591
-    },
     "database": "Agribalyse 3.1.1",
     "land_occupation": 6.558046439,
     "animal_group1": "pig",
     "animal_group2": "pig",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "cooked-ham-organic",
@@ -272,17 +256,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 6.28,
-      "plotSize": 8.14,
-      "cropDiversity": 31.17,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0158
-    },
     "land_occupation": 24.05215563,
     "animal_group1": "pig",
     "animal_group2": "pig",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "organic"
   },
   {
     "id": "cooked-ham-fr",
@@ -297,17 +275,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.58,
-      "plotSize": 2.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0548
-    },
     "land_occupation": 7.438570311,
     "animal_group1": "pig",
     "animal_group2": "pig",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "chicken-breast",
@@ -325,7 +297,8 @@
     "land_occupation": 6.039436164,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "chicken-breast-organic",
@@ -343,7 +316,8 @@
     "land_occupation": 15.82110984,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "organic"
   },
   {
     "id": "chicken-breast-fr-organic",
@@ -361,7 +335,8 @@
     "land_occupation": 18.52244428,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "organic"
   },
   {
     "id": "rapeseed-oil",
@@ -867,13 +842,6 @@
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "reference",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.0623,
-      "plotSize": 2.0097,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    },
     "database": "Agribalyse 3.1.1"
   },
   {
@@ -891,13 +859,6 @@
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "organic",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.9696,
-      "plotSize": 2.1102,
-      "cropDiversity": 18.21,
-      "permanentPasture": 0.0,
-      "livestockDensity": 0.0
-    },
     "database": "Agribalyse 3.1.1"
   },
   {
@@ -1060,7 +1021,8 @@
     "animal_group1": "cattle",
     "animal_group2": "cow",
     "animal_product": "meat",
-    "land_occupation": 34.73183225
+    "land_occupation": 34.73183225,
+    "scenario": "reference"
   },
   {
     "id": "beef-without-bone",
@@ -1078,7 +1040,8 @@
     "animal_group1": "cattle",
     "animal_group2": "cow",
     "animal_product": "meat",
-    "land_occupation": 43.41602331
+    "land_occupation": 43.41602331,
+    "scenario": "reference"
   },
   {
     "id": "beef-without-bone-organic",
@@ -1096,7 +1059,8 @@
     "animal_group1": "cattle",
     "animal_group2": "cow",
     "animal_product": "meat",
-    "land_occupation": 39.19859355
+    "land_occupation": 39.19859355,
+    "scenario": "organic"
   },
   {
     "id": "durum-wheat-semolina",
@@ -1165,6 +1129,7 @@
     "animal_group1": "poultry",
     "animal_group2": "chicken",
     "animal_product": "meat",
+    "scenario": "import",
     "land_occupation": 9.35109173
   },
   {
@@ -1184,6 +1149,7 @@
     "animal_group1": "poultry",
     "animal_group2": "chicken",
     "animal_product": "meat",
+    "scenario": "reference",
     "land_occupation": 7.297867846
   },
   {
@@ -1330,18 +1296,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.77,
-      "plotSize": 0.87,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    },
     "database": "Agribalyse 3.1.1",
     "land_occupation": 3.718097733,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "egg"
+    "animal_product": "egg",
+    "scenario": "reference"
   },
   {
     "id": "egg-indoor-code3",
@@ -1355,18 +1315,12 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.64,
-      "plotSize": 0.72,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0077
-    },
     "database": "Agribalyse 3.1.1",
     "land_occupation": 3.069579193,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "egg"
+    "animal_product": "egg",
+    "scenario": "reference"
   },
   {
     "id": "egg-outdoor-code1",
@@ -1399,17 +1353,11 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "ecosystemicServices": {
-      "hedges": 1.77,
-      "plotSize": 1.96,
-      "cropDiversity": 10.6,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0027
-    },
     "land_occupation": 6.778933314,
     "animal_group1": "poultry",
     "animal_group2": "chicken",
-    "animal_product": "egg"
+    "animal_product": "egg",
+    "scenario": "organic"
   },
   {
     "id": "wine-grape-organic",
@@ -1440,21 +1388,15 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 46.22,
-      "plotSize": 38.31,
-      "cropDiversity": 0.0,
-      "permanentPasture": 86.68,
-      "livestockDensity": 0.0034
-    },
     "database": "Agribalyse 3.1.1",
     "land_occupation": 96.54788709,
     "animal_group1": "sheep",
     "animal_group2": "sheep",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
-    "id": "lamb-organic-meat-without-bone",
+    "id": "lamb-meat-without-bone-organic",
     "name": "Viande d'agneau bio (désossée)",
     "search": "lamb organic",
     "database": "Ecobalyse",
@@ -1466,17 +1408,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 131.06,
-      "plotSize": 125.0,
-      "cropDiversity": 22.96,
-      "permanentPasture": 193.27,
-      "livestockDensity": 0.0009
-    },
     "land_occupation": 206.0803103,
     "animal_group1": "sheep",
     "animal_group2": "sheep",
-    "animal_product": "meat"
+    "animal_product": "meat",
+    "scenario": "organic"
   },
   {
     "id": "pear-organic",
@@ -3545,7 +3481,8 @@
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 1.464036163
   },
   {
     "id": "sweet-corn-br",
@@ -3562,7 +3499,8 @@
     "visible": true,
     "explain": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 2.256978351
   },
   {
     "id": "pineapple-non-eu",
@@ -4693,7 +4631,8 @@
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "import",
     "visible": false,
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.965895323
   },
   {
     "id": "grazed-grass-temporary",

@@ -22,7 +22,6 @@ type Category
     | VegetableProcessed
     | Organic
     | BleuBlancCoeur
-    | Dummy
 
 
 fromString : String -> Result String Category
@@ -67,9 +66,6 @@ fromString str =
         "bleublanccoeur" ->
             Ok BleuBlancCoeur
         
-        "dummy" ->
-            Ok Dummy
-
         _ ->
             Err <| "Categorie d'ingrédient invalide : " ++ str
 
@@ -115,9 +111,6 @@ toLabel category =
 
         BleuBlancCoeur ->
             "Bleu-Blanc-Cœur"
-
-        Dummy ->
-            "Dummy"
 
 
 decode : Decoder Category
