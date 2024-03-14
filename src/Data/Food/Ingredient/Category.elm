@@ -65,7 +65,7 @@ fromString str =
 
         "bleublanccoeur" ->
             Ok BleuBlancCoeur
-        
+
         _ ->
             Err <| "Categorie d'ingrédient invalide : " ++ str
 
