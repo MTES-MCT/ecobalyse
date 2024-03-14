@@ -56,6 +56,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -71,7 +72,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , editedExample : Maybe { initial : Example Query, current : Example Query }
+    , editedExample : Maybe (ExampleView.Edited Query)
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -1387,85 +1388,6 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-editedExampleHeader : List (Example Query) -> { initial : Example Query, current : Example Query } -> Html Msg
-editedExampleHeader examples { initial, current } =
-    let
-        modified =
-            current /= initial
-
-        valid =
-            examples
-                |> Example.findByName current.name
-                |> Result.toMaybe
-                |> (==) Nothing
-    in
-    div [ class "d-flex flex-column gap-2" ]
-        [ div [ class "row g-2" ]
-            [ div [ class "col-sm-6" ]
-                [ label [ for "example-name" ] [ text "Nom de l'exemple" ]
-                , input
-                    [ type_ "text"
-                    , id "example-name"
-                    , class "form-control"
-                    , value current.name
-                    , onInput <| \newName -> UpdateEditedExample { current | name = newName }
-                    ]
-                    []
-                ]
-            , div [ class "col-sm-6" ]
-                [ label [ for "example-category" ] [ text "Catégorie" ]
-                , input
-                    [ type_ "text"
-                    , id "example-category"
-                    , class "form-control"
-                    , value current.category
-                    , onInput <| \newCategory -> UpdateEditedExample { current | category = newCategory }
-                    ]
-                    []
-                ]
-            ]
-        , div [ class "btn-group d-flex justify-content-end gap-2" ]
-            [ a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
-                ]
-                [ Icon.list
-                , text "Explorateur d'exemples"
-                ]
-            , a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , Route.href Route.FoodBuilderHome
-                ]
-                [ Icon.cancel
-                , text "Annuler l'édition"
-                ]
-            , a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , classList [ ( "disabled", not modified ) ]
-                , Route.href (Route.FoodBuilderExample initial.id)
-                ]
-                [ Icon.undo
-                , text "Réinitialiser"
-                ]
-            , button
-                [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
-                , disabled (not modified || not valid)
-                , onClick <| SaveEditedExample current
-                ]
-                [ Icon.save
-                , text <|
-                    "Enregistrer"
-                        ++ (if modified then
-                                "*"
-
-                            else
-                                ""
-                           )
-                ]
-            ]
-        ]
-
-
 mainView : Session -> Model -> Html Msg
 mainView ({ db } as session) model =
     let
@@ -1475,13 +1397,17 @@ mainView ({ db } as session) model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ case model.editedExample of
-                Just editedExampleState ->
-                    editedExampleHeader db.food.examples editedExampleState
-
-                Nothing ->
-                    db.food.examples
-                        |> exampleProductSelector session.queries.food
+            [ model.editedExample
+                |> ExampleView.view
+                    { create = CreateExample
+                    , currentQuery = session.queries.food
+                    , duplicate = DuplicateExample
+                    , emptyQuery = Query.empty
+                    , examples = db.food.examples
+                    , onOpen = SelectExampleModal >> SetModal
+                    , save = SaveEditedExample
+                    , update = UpdateEditedExample
+                    }
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1498,56 +1424,6 @@ mainView ({ db } as session) model =
 
                 Err error ->
                     errorView error
-            ]
-        ]
-
-
-exampleProductSelector : Query -> List (Example Query) -> Html Msg
-exampleProductSelector query examples =
-    let
-        autocompleteState =
-            examples
-                |> List.map .query
-                |> AutocompleteSelector.init (Example.toName examples)
-    in
-    div []
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
-            [ text "Exemples" ]
-        , div [ class "d-flex justify-content-between align-items-center" ]
-            [ button
-                [ class "form-select ElementSelector text-start"
-                , id "selector-example"
-                , onClick (SetModal (SelectExampleModal autocompleteState))
-                ]
-                [ text <| Example.toName examples query
-                ]
-            , case ( query == Query.empty, Example.findByQuery query examples ) of
-                ( False, Ok example ) ->
-                    div [ class "btn-group" ]
-                        [ a
-                            [ class "btn btn-light"
-                            , Route.href <| Route.FoodBuilderExample example.id
-                            , title "Éditer cet exemple"
-                            ]
-                            [ Icon.pencil ]
-                        , button
-                            [ class "btn btn-light"
-                            , title "Dupliquer cet exemple"
-                            , onClick <| DuplicateExample example
-                            ]
-                            [ Icon.copy ]
-                        ]
-
-                ( False, Err _ ) ->
-                    button
-                        [ class "btn btn-light"
-                        , onClick <| CreateExample query
-                        , title "Ajouter cet exemple"
-                        ]
-                        [ Icon.plus ]
-
-                _ ->
-                    text ""
             ]
         ]
 
