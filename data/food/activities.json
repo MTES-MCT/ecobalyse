@@ -19,7 +19,10 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0077
     },
-    "land_occupation": 4.46757635
+    "land_occupation": 4.46757635,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "egg"
   },
   {
     "id": "milk",
@@ -33,15 +36,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.31,
-      "plotSize": 0.3,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.61,
-      "livestockDensity": -0.0002
-    },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.391110637
+    "land_occupation": 1.391110637,
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "milk"
   },
   {
     "id": "milk-organic",
@@ -63,7 +62,10 @@
       "permanentPasture": 1.39,
       "livestockDensity": -0.0002
     },
-    "land_occupation": 1.75061187
+    "land_occupation": 1.75061187,
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "milk"
   },
   {
     "id": "carrot-organic",
@@ -179,13 +181,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 34.6779483,
-      "plotSize": 29.319280499999998,
-      "cropDiversity": 0.0,
-      "permanentPasture": 37.5,
-      "livestockDensity": -0.00255
-    },
     "database": "Agribalyse 3.1.1",
     "land_occupation": 53.2806594,
     "scenario": "reference",
@@ -206,13 +201,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 39.6806036,
-      "plotSize": 35.2594641,
-      "cropDiversity": 14.98153,
-      "permanentPasture": 34.68,
-      "livestockDensity": -0.00267
-    },
     "land_occupation": 48.10660048,
     "scenario": "organic",
     "animal_group1": "cattle",
@@ -241,14 +229,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0139
-    },
-    "land_occupation": 52.4624274
+    "land_occupation": 52.4624274,
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat"
   },
   {
     "id": "cooked-ham",
@@ -270,7 +254,10 @@
       "livestockDensity": -0.0591
     },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.558046439
+    "land_occupation": 6.558046439,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat"
   },
   {
     "id": "cooked-ham-organic",
@@ -292,7 +279,10 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0158
     },
-    "land_occupation": 24.05215563
+    "land_occupation": 24.05215563,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat"
   },
   {
     "id": "cooked-ham-fr",
@@ -314,7 +304,10 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0548
     },
-    "land_occupation": 7.438570311
+    "land_occupation": 7.438570311,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat"
   },
   {
     "id": "chicken-breast",
@@ -328,15 +321,11 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 1.63,
-      "plotSize": 1.95,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
-    },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.039436164
+    "land_occupation": 6.039436164,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat"
   },
   {
     "id": "chicken-breast-organic",
@@ -351,14 +340,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 3.0,
-      "plotSize": 3.07,
-      "cropDiversity": 8.94,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
-    },
-    "land_occupation": 15.82110984
+    "land_occupation": 15.82110984,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat"
   },
   {
     "id": "chicken-breast-fr-organic",
@@ -373,14 +358,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "ecosystemicServices": {
-      "hedges": 5.03,
-      "plotSize": 5.24,
-      "cropDiversity": 27.67,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0101
-    },
-    "land_occupation": 18.52244428
+    "land_occupation": 18.52244428,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat"
   },
   {
     "id": "rapeseed-oil",
@@ -954,7 +935,7 @@
     "scenario": "import"
   },
   {
-    "id": "soybean-animal",
+    "id": "soybean-feed",
     "name": "Soja feed",
     "search": "Soybean grain dried, stored and transported, processing {FR}",
     "category": "ingredient",
@@ -1064,8 +1045,8 @@
     "scenario": "reference"
   },
   {
-    "id": "rib-steak",
-    "name": "Entrecôte (crue)",
+    "id": "beef-with-bone",
+    "name": "Viande de boeuf avec os (crue)",
     "search": "Meat with bone, beef, for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1076,11 +1057,14 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat",
     "land_occupation": 34.73183225
   },
   {
-    "id": "flank-steak",
-    "name": "Bavette (crue)",
+    "id": "beef-without-bone",
+    "name": "Viande de boeuf sans os (crue)",
     "search": "Meat without bone, beef, for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1091,11 +1075,14 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat",
     "land_occupation": 43.41602331
   },
   {
-    "id": "flank-steak-organic",
-    "name": "Bavette bio (crue)",
+    "id": "beef-without-bone-organic",
+    "name": "Viande de boeuf sans os bio (crue)",
     "search": "Meat without bone, beef, for direct consumption organic constructed",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -1106,22 +1093,10 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat",
     "land_occupation": 39.19859355
-  },
-  {
-    "id": "rumsteak",
-    "name": "Rumsteak (cru)",
-    "search": "Meat without bone, beef, for direct consumption {FR} U",
-    "category": "ingredient",
-    "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "always",
-    "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 43.41602331
   },
   {
     "id": "durum-wheat-semolina",
@@ -1187,13 +1162,9 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0425
-    },
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat",
     "land_occupation": 9.35109173
   },
   {
@@ -1210,13 +1181,9 @@
     "transport_cooling": "always",
     "visible": true,
     "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
-    "ecosystemicServices": {
-      "hedges": 2.55,
-      "plotSize": 3.69,
-      "cropDiversity": 0.0,
-      "permanentPasture": 0.0,
-      "livestockDensity": -0.0293
-    },
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat",
     "land_occupation": 7.297867846
   },
   {
@@ -1371,7 +1338,10 @@
       "livestockDensity": -0.0077
     },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 3.718097733
+    "land_occupation": 3.718097733,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "egg"
   },
   {
     "id": "egg-indoor-code3",
@@ -1393,7 +1363,10 @@
       "livestockDensity": -0.0077
     },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 3.069579193
+    "land_occupation": 3.069579193,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "egg"
   },
   {
     "id": "egg-outdoor-code1",
@@ -1433,7 +1406,10 @@
       "permanentPasture": 0.0,
       "livestockDensity": -0.0027
     },
-    "land_occupation": 6.778933314
+    "land_occupation": 6.778933314,
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "egg"
   },
   {
     "id": "wine-grape-organic",
@@ -1472,7 +1448,10 @@
       "livestockDensity": 0.0034
     },
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 96.54788709
+    "land_occupation": 96.54788709,
+    "animal_group1": "sheep",
+    "animal_group2": "sheep",
+    "animal_product": "meat"
   },
   {
     "id": "lamb-organic-meat-without-bone",
@@ -1494,7 +1473,10 @@
       "permanentPasture": 193.27,
       "livestockDensity": 0.0009
     },
-    "land_occupation": 206.0803103
+    "land_occupation": 206.0803103,
+    "animal_group1": "sheep",
+    "animal_group2": "sheep",
+    "animal_product": "meat"
   },
   {
     "id": "pear-organic",
@@ -3549,6 +3531,40 @@
     "land_occupation": 0.953
   },
   {
+    "id": "sweet-corn-organic-fr",
+    "name": "Maïs doux FR bio (sortie de ferme)",
+    "database": "Agribalyse 3.1.1",
+    "search": "Grain maize, organic, animal feed, at farm gate {FR}",
+    "category": "ingredient",
+    "categories": ["grain_raw"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "explain": "Part non comestible : chataigne, olive",
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "organic"
+  },
+  {
+    "id": "sweet-corn-br",
+    "name": "Maïs doux BR (sortie de ferme)",
+    "database": "Agribalyse 3.1.1",
+    "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
+    "category": "ingredient",
+    "categories": ["grain_raw"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "visible": true,
+    "explain": "Part non comestible : chataigne, olive",
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
+    "scenario": "import"
+  },
+  {
     "id": "pineapple-non-eu",
     "name": "Ananas hors UE par défaut (sortie de ferme)",
     "database": "Agribalyse 3.1.1",
@@ -4664,37 +4680,51 @@
     "land_occupation": 0.8932985763
   },
   {
-    "id": "temporary-pasture",
-    "name": "Prairie temporaire (en m2a)",
-    "search": "",
-    "unit": "m2a",
+    "id": "oilseed-feed",
+    "name": "Soja FR",
+    "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
     "category": "ingredient",
-    "categories": ["dummy"],
+    "categories": ["grain_raw"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "crop_group": "AUTRES OLEAGINEUX",
+    "scenario": "import",
+    "visible": false,
+    "database": "Agribalyse 3.1.1"
+  },
+  {
+    "id": "grazed-grass-temporary",
+    "name": "Herbe de prairie temporaire",
+    "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
+    "category": "ingredient",
+    "categories": [],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": false,
-    "explain": "Placeholder activity to compute ecosystemicServices for pasture, but it's not attached to a real process",
+    "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES TEMPORAIRES",
     "scenario": "reference",
     "land_occupation": 1
   },
   {
-    "id": "permanent-pasture",
-    "name": "Prairie permanente (en m2a)",
-    "search": "",
-    "unit": "m2a",
+    "id": "grazed-grass-permanent",
+    "name": "Herbe de prairie permanente",
+    "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "category": "ingredient",
-    "categories": ["dummy"],
+    "categories": [],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": false,
-    "explain": "Placeholder activity to compute ecosystemicServices for pasture, but it's not attached to a real process",
+    "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES PERMANENTES",
     "scenario": "reference",
     "land_occupation": 1

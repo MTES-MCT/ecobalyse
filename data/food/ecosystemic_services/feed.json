@@ -1,15 +1,31 @@
 {
+  "egg-organic-code0": {
+    "sweet-corn-organic-fr": 0.8,
+    "soft-wheat-organic": 0.445,
+    "soybean-organic": 0.342,
+    "sunflower-organic": 0.13
+  },
   "egg-outdoor-code1": {
+    "sweet-corn-fr": 1.14,
+    "soft-wheat-fr": 0.644,
+    "soybean-br-deforestation": 0.453
+  },
+  "egg-indoor-code2": {
     "sweet-corn-fr": 1.18,
     "soft-wheat-fr": 0.682,
     "soybean-br-deforestation": 0.471
+  },
+  "egg-indoor-code3": {
+    "sweet-corn-fr": 0.977,
+    "soft-wheat-fr": 0.567,
+    "soybean-br-deforestation": 0.35
   },
   "ground-beef": {
     "silage-maize-fr": 3.42,
     "soft-wheat-fr": 1.27,
     "soybean-br-deforestation": 0.53,
-    "temporary-pasture": 5.05,
-    "permanent-pasture": 37.5
+    "grazed-grass-temporary": 5.05,
+    "grazed-grass-permanent": 37.5
   },
   "ground-beef-organic": {
     "silage-maize-organic": 0.77,
@@ -17,7 +33,83 @@
     "oats-organic": 0.32,
     "triticale-organic": 1.59,
     "alfalfa-organic": 1.36,
-    "temporary-pasture": 10.35,
-    "permanent-pasture": 34.68
+    "grazed-grass-temporary": 10.35,
+    "grazed-grass-permanent": 34.68
+  },
+  "ground-beef-feedlot": {
+    "oilseed-feed": 6.1,
+    "barley-de": 6.33,
+    "oats-glo": 12.68
+  },
+  "milk": {
+    "silage-maize": 0.349,
+    "soft-wheat-fr": 0.0857,
+    "soybean-br-deforestation": 0.0646
+  },
+  "milk-organic": {
+    "silage-maize-organic": 0.071,
+    "soft-wheat-organic": 0.0477,
+    "triticale-organic": 0.0384
+  },
+  "lamb-meat-without-bone": {
+    "soft-wheat-fr": 2.94,
+    "soybean-br-deforestation": 0.91,
+    "grazed-grass-temporary": 12,
+    "grazed-grass-permanent": 25
+  },
+  "lamb-organic-meat-without-bone": {
+    "soft-wheat-organic": 2.94,
+    "barley-organic": 1.5,
+    "grazed-grass-temporary": 14,
+    "grazed-grass-permanent": 67
+  },
+  "chicken-breast": {
+    "sweet-corn-fr": 1.9,
+    "soft-wheat-fr": 1.23,
+    "soybean-br-deforestation": 0.87,
+    "barley": 0.87
+  },
+  "chicken-breast-fr": {
+    "sweet-corn-fr": 1.9,
+    "soft-wheat-fr": 1.23,
+    "soybean-feed": 0.87,
+    "barley": 0.87
+  },
+  "chicken-breast-organic": {
+    "sweet-corn-organic-fr": 2.91,
+    "soft-wheat-organic": 0.63,
+    "soybean-organic": 0.87,
+    "barley": 0.87
+  },
+  "chicken-breast-br-max": {
+    "sweet-corn-br": 1.9,
+    "soft-wheat-fr": 1.23,
+    "soybean-feed": 0.87,
+    "barley": 0.87
+  },
+  "chicken-breast-fr-organic": {
+    "sweet-corn-organic-fr": 2.91,
+    "soft-wheat-organic": 0.63,
+    "soybean-organic": 0.87,
+    "barley": 0.87
+  },
+  "cooked-ham": {
+    "sweet-corn-fr": 0.74,
+    "soft-wheat-fr": 2.61,
+    "soybean-br-deforestation": 0.28,
+    "barley": 0.56
+  },
+  "cooked-ham-fr": {
+    "sweet-corn-fr": 1.11,
+    "soft-wheat-fr": 2.48,
+    "soybean-feed": 0.28,
+    "barley": 0.56
+  },
+  "cooked-ham-organic": {
+    "soft-wheat-organic": 0.72,
+    "soybean-organic": 0.58,
+    "barley-organic": 1.07,
+    "triticale-organic": 1.56,
+    "bean-organic": 1.46
   }
 }
