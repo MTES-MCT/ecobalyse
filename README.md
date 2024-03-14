@@ -18,6 +18,9 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
 Les variables d'environnement suivantes doivent être définies :
 
+- `GITHUB_AUTH_TOKEN`: le token d'authentification Github afin de permettre la soumission automatisée de Pull Requests de contribution
+- `GITHUB_REPOSITORY`: l'identifiant du dépôt Github (ex: `MTES-MCT/ecobalyse`)
+- `GITHUB_BRANCH`: la branche github sur laquelle baser les Pull Requests de contribution (ex: `master`)
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 - `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
