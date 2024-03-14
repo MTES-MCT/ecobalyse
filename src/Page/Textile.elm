@@ -1050,12 +1050,9 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
+            , div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
                 [ div [ class "col-md-9" ]
-                    [ -- FIXME: replace
-                      -- Inputs.toQuery inputs
-                      --   |> exampleProductField session.db.textile.examples
-                      model.editedExample
+                    [ model.editedExample
                         |> ExampleView.view
                             { create = CreateExample
                             , currentQuery = session.queries.textile
@@ -1072,7 +1069,8 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
                             , update = UpdateEditedExample
                             }
                     ]
-                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
+                , div [ class "col-md-3" ]
+                    [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]

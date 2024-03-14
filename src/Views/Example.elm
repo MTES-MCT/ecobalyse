@@ -91,29 +91,29 @@ editor config { initial, current } =
             ]
         , div [ class "btn-group d-flex justify-content-end gap-2" ]
             [ a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
+                [ class "btn btn-sm btn-light d-flex text-truncate justify-content-center-start align-items-center gap-1"
                 , Route.href config.routes.explore
                 ]
                 [ Icon.list
-                , text "Explorateur d'exemples"
+                , text "Explorateur"
                 ]
             , a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , Route.href config.routes.scopeHome
-                ]
-                [ Icon.cancel
-                , text "Annuler l'édition"
-                ]
-            , a
-                [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
+                [ class "btn btn-sm btn-light d-flex text-truncate justify-content-center-start align-items-center gap-1"
                 , classList [ ( "disabled", not modified ) ]
                 , Route.href <| config.routes.load initial.id
                 ]
                 [ Icon.undo
                 , text "Réinitialiser"
                 ]
+            , a
+                [ class "btn btn-sm btn-light d-flex text-truncate justify-content-center-start align-items-center gap-1"
+                , Route.href config.routes.scopeHome
+                ]
+                [ Icon.cancel
+                , text "Annuler"
+                ]
             , button
-                [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
+                [ class "btn btn-primary d-flex text-truncate justify-content-center-start align-items-center gap-1"
                 , disabled <| exists || not modified
                 , onClick <| config.save current
                 ]
