@@ -1,4 +1,4 @@
-module Page.Textile.Simulator exposing
+module Page.Textile exposing
     ( Model
     , Msg(..)
     , init
