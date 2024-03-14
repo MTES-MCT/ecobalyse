@@ -2,7 +2,7 @@
 
 bin/run &
 pushd data/ecobalyse
-gunicorn ecobalyse.wsgi &
+gunicorn -b 127.0.0.1:8002 ecobalyse.wsgi &
 sleep 0.5
 trap "pkill SIGTERM -P $$" SIGTERM
 popd
