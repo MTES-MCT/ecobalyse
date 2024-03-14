@@ -2,13 +2,12 @@ module Views.Example exposing (Edited, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Scope as Scope
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Route
+import Route exposing (Route)
 import Views.Icon as Icon
 
 
@@ -19,6 +18,11 @@ type alias Config query msg =
     , emptyQuery : query
     , examples : List (Example query)
     , onOpen : Autocomplete query -> msg
+    , routes :
+        { explore : Route
+        , load : Uuid -> Route
+        , scopeHome : Route
+        }
     , save : Example query -> msg
     , update : Example query -> msg
     }
@@ -80,14 +84,14 @@ editor config { initial, current } =
         , div [ class "btn-group d-flex justify-content-end gap-2" ]
             [ a
                 [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , Route.href <| Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                , Route.href config.routes.explore
                 ]
                 [ Icon.list
                 , text "Explorateur d'exemples"
                 ]
             , a
                 [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
-                , Route.href Route.FoodBuilderHome
+                , Route.href config.routes.scopeHome
                 ]
                 [ Icon.cancel
                 , text "Annuler l'édition"
@@ -95,7 +99,7 @@ editor config { initial, current } =
             , a
                 [ class "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1"
                 , classList [ ( "disabled", not modified ) ]
-                , Route.href (Route.FoodBuilderExample initial.id)
+                , Route.href <| config.routes.load initial.id
                 ]
                 [ Icon.undo
                 , text "Réinitialiser"
@@ -147,7 +151,7 @@ selector config =
                     div [ class "btn-group" ]
                         [ a
                             [ class "btn btn-light"
-                            , Route.href <| Route.FoodBuilderExample example.id
+                            , Route.href <| config.routes.load example.id
                             , title "Éditer cet exemple"
                             ]
                             [ Icon.pencil ]

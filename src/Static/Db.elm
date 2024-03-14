@@ -2,6 +2,8 @@ module Static.Db exposing
     ( Db
     , db
     , updateEcotoxWeighting
+    , updateFoodDb
+    , updateTextileDb
     )
 
 import Data.Common.Db as Common
@@ -94,6 +96,16 @@ countries =
 distances : Result String Distances
 distances =
     Common.transportsFromJson transportsJson
+
+
+updateFoodDb : (FoodDb.Db -> FoodDb.Db) -> Db -> Db
+updateFoodDb update ({ food } as db_) =
+    { db_ | food = update food }
+
+
+updateTextileDb : (TextileDb.Db -> TextileDb.Db) -> Db -> Db
+updateTextileDb update ({ textile } as db_) =
+    { db_ | textile = update textile }
 
 
 updateEcotoxWeighting : Db -> Unit.Ratio -> Db

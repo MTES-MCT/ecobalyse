@@ -30,6 +30,7 @@ type Route
     | FoodBuilderExample Uuid
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
+    | TextileSimulatorExample Uuid
     | Stats
 
 
@@ -83,6 +84,11 @@ parser =
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
         , parseTextileSimulator
+        , Parser.map TextileSimulatorExample
+            (Parser.s "textile"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
         ]
 
 
@@ -214,6 +220,9 @@ toString route =
                     , "simulator"
                     , Definition.toString trigram
                     ]
+
+                TextileSimulatorExample uuid ->
+                    [ "textile", "edit-example", Uuid.toString uuid ]
 
                 Stats ->
                     [ "stats" ]

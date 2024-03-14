@@ -185,6 +185,10 @@ setRoute url ( { state } as model, cmds ) =
                     TextileSimulator.init trigram maybeQuery session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
+                Just (Route.TextileSimulatorExample uuid) ->
+                    TextileSimulator.initFromExample session uuid
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+
         Errored _ ->
             -- FIXME: Static database decoding error, highly unlikely to ever happen
             ( model, cmds )

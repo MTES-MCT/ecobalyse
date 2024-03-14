@@ -490,6 +490,9 @@ update ({ db, queries } as session) msg model =
                 -- triggers recompute
                 |> updateQuery query
 
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
+
         UpdateEditedExample updatedExample ->
             ( { model
                 | editedExample =
@@ -499,9 +502,6 @@ update ({ db, queries } as session) msg model =
             , session
             , Cmd.none
             )
-
-        UpdateEcotoxWeighting Nothing ->
-            ( model, session, Cmd.none )
 
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
@@ -1405,6 +1405,11 @@ mainView ({ db } as session) model =
                     , emptyQuery = Query.empty
                     , examples = db.food.examples
                     , onOpen = SelectExampleModal >> SetModal
+                    , routes =
+                        { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                        , load = Route.FoodBuilderExample
+                        , scopeHome = Route.FoodBuilderHome
+                        }
                     , save = SaveEditedExample
                     , update = UpdateEditedExample
                     }

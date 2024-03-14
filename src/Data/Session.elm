@@ -4,6 +4,7 @@ module Data.Session exposing
     , checkComparedSimulations
     , closeNotification
     , createFoodExample
+    , createTextileExample
     , deleteBookmark
     , deserializeStore
     , notifyError
@@ -14,20 +15,23 @@ module Data.Session exposing
     , toggleComparedSimulation
     , updateFoodExample
     , updateFoodQuery
+    , updateTextileExample
     , updateTextileQuery
     )
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Example exposing (Example)
+import Data.Food.Db as FoodDb
 import Data.Food.Query as FoodQuery
+import Data.Textile.Db as TextileDb
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 
 
 type alias Session =
@@ -95,52 +99,67 @@ saveBookmark bookmark =
 
 
 createFoodExample : Example FoodQuery.Query -> Session -> Session
-createFoodExample example ({ db } as session) =
-    let
-        { food } =
-            db
+createFoodExample example =
+    updateFoodDb
+        (\({ examples } as food) ->
+            { food | examples = example :: examples }
+        )
 
-        { examples } =
-            food
-    in
-    { session
-        | db =
-            { db
-                | food =
-                    { food
-                        | examples = example :: examples
-                    }
-            }
-    }
+
+createTextileExample : Example TextileQuery.Query -> Session -> Session
+createTextileExample example =
+    updateTextileDb
+        (\({ examples } as textile) ->
+            { textile | examples = example :: examples }
+        )
+
+
+updateFoodDb : (FoodDb.Db -> FoodDb.Db) -> Session -> Session
+updateFoodDb update ({ db } as session) =
+    { session | db = Db.updateFoodDb update db }
+
+
+updateTextileDb : (TextileDb.Db -> TextileDb.Db) -> Session -> Session
+updateTextileDb update ({ db } as session) =
+    { session | db = Db.updateTextileDb update db }
 
 
 updateFoodExample : Example FoodQuery.Query -> Session -> Session
-updateFoodExample updated ({ db } as session) =
-    let
-        { food } =
-            db
+updateFoodExample updated =
+    updateFoodDb
+        (\({ examples } as foodDb) ->
+            { foodDb
+                | examples =
+                    examples
+                        |> List.map
+                            (\example ->
+                                if example.id == updated.id then
+                                    updated
 
-        { examples } =
-            food
-    in
-    { session
-        | db =
-            { db
-                | food =
-                    { food
-                        | examples =
-                            examples
-                                |> List.map
-                                    (\example ->
-                                        if example.id == updated.id then
-                                            updated
-
-                                        else
-                                            example
-                                    )
-                    }
+                                else
+                                    example
+                            )
             }
-    }
+        )
+
+
+updateTextileExample : Example TextileQuery.Query -> Session -> Session
+updateTextileExample updated =
+    updateTextileDb
+        (\({ examples } as textileDb) ->
+            { textileDb
+                | examples =
+                    examples
+                        |> List.map
+                            (\example ->
+                                if example.id == updated.id then
+                                    updated
+
+                                else
+                                    example
+                            )
+            }
+        )
 
 
 
