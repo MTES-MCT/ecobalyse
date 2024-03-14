@@ -50,11 +50,11 @@ editor config { initial, current } =
         modified =
             current /= initial
 
-        alreadyExists =
+        exists =
             config.examples
-                |> Example.findByName current.name
+                |> Example.findByName (String.trim current.name)
                 |> Result.toMaybe
-                |> (==) Nothing
+                |> (/=) Nothing
     in
     div [ class "d-flex flex-column gap-2" ]
         [ div [ class "row g-2" ]
@@ -114,7 +114,7 @@ editor config { initial, current } =
                 ]
             , button
                 [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
-                , disabled (not modified || alreadyExists)
+                , disabled <| exists || not modified
                 , onClick <| config.save current
                 ]
                 [ Icon.save
