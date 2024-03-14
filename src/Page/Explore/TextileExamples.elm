@@ -50,13 +50,13 @@ table db { detailed, scope } =
         , { label = ""
           , toValue = Table.NoValue
           , toCell =
-                \{ name, query } ->
+                \{ id, name } ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.TextileSimulator Definition.Ecs (Just query)
+                        , Route.href <| Route.TextileSimulatorExample id
                         , title <| "Charger " ++ name
                         ]
-                        [ Icon.search ]
+                        [ Icon.pencil ]
           }
         ]
     }

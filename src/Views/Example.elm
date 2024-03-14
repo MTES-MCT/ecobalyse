@@ -50,7 +50,7 @@ editor config { initial, current } =
         modified =
             current /= initial
 
-        valid =
+        alreadyExists =
             config.examples
                 |> Example.findByName current.name
                 |> Result.toMaybe
@@ -59,7 +59,11 @@ editor config { initial, current } =
     div [ class "d-flex flex-column gap-2" ]
         [ div [ class "row g-2" ]
             [ div [ class "col-sm-6" ]
-                [ label [ for "example-name" ] [ text "Nom de l'exemple" ]
+                [ label
+                    [ for "example-name"
+                    , class "form-label text-truncate mb-0"
+                    ]
+                    [ text "Nom de l'exemple" ]
                 , input
                     [ type_ "text"
                     , id "example-name"
@@ -70,7 +74,11 @@ editor config { initial, current } =
                     []
                 ]
             , div [ class "col-sm-6" ]
-                [ label [ for "example-category" ] [ text "Catégorie" ]
+                [ label
+                    [ for "example-category"
+                    , class "form-label text-truncate mb-0"
+                    ]
+                    [ text "Catégorie" ]
                 , input
                     [ type_ "text"
                     , id "example-category"
@@ -106,7 +114,7 @@ editor config { initial, current } =
                 ]
             , button
                 [ class "btn btn-primary d-flex justify-content-center align-items-center gap-1"
-                , disabled (not modified || not valid)
+                , disabled (not modified || alreadyExists)
                 , onClick <| config.save current
                 ]
                 [ Icon.save
