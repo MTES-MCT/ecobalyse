@@ -27,6 +27,7 @@ import bw2data
 import json
 import requests
 import urllib.parse
+from frozendict import frozendict
 
 # Configuration
 CONFIG = {
@@ -60,11 +61,13 @@ def find_id(dbname, activity):
 
 def create_ingredient_list(activities):
     print("Creating ingredient list...")
-    return [
-        process_activity_for_ingredient(activity)
-        for activity in activities
-        if activity["category"] == "ingredient"
-    ]
+    return tuple(
+        [
+            process_activity_for_ingredient(activity)
+            for activity in activities
+            if activity["category"] == "ingredient"
+        ]
+    )
 
 
 def process_activity_for_ingredient(activity):
@@ -91,9 +94,11 @@ def process_activity_for_ingredient(activity):
     }
 
 
-def compute_land_occupation(activities):
+def compute_land_occupation(activities_tuple):
     """"""
     print("Computing land occupation for activities")
+    activities = list(activities_tuple)
+    updated_activities = []
     for index, activity in enumerate(activities):
         progress_bar(index, len(activities))
         if "land_occupation" not in activity:
@@ -109,10 +114,12 @@ def compute_land_occupation(activities):
             lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
             lca.lcia()
             activity["land_occupation"] = float("{:.10g}".format(lca.score))
+        updated_activities.append(activity)
+    return tuple(updated_activities)
 
 
 def check_ids(ingredients):
-    # Check the id is lowercase and does not contain spaces
+    # Check the id is lowercase and does not contain space
     for ingredient in ingredients:
         if (
             ingredient["id"].lower() != ingredient["id"]
@@ -125,10 +132,12 @@ def check_ids(ingredients):
 
 def create_process_list(activities):
     print("Creating process list...")
-    return {
-        activity["id"]: process_activity_for_processes(activity)
-        for activity in activities
-    }
+    return frozendict(
+        {
+            activity["id"]: process_activity_for_processes(activity)
+            for activity in activities
+        }
+    )
 
 
 def process_activity_for_processes(activity):
@@ -181,16 +190,12 @@ def process_activity_for_processes(activity):
     }
 
 
-def compute_impacts(processes):
+def compute_impacts(processes_fd):
+    processes = dict(processes_fd)
+    processes_updated = {}
     print("Computing impacts:")
-    for index, (_, process) in enumerate(processes.items()):
+    for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
-        if "dummy" in process["categories"]:
-            for key, method in definitions.items():
-                process.setdefault("impacts", {})[key] = 0
-            process = with_subimpacts(process)
-            continue
-
         # simapro
         activity = cached_search(
             process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
@@ -243,36 +248,43 @@ def compute_impacts(processes):
             if attribute in process:
                 del process[attribute]
 
+        processes_updated[key] = process
+    return frozendict(processes_updated)
+
 
 if __name__ == "__main__":
     setup_environment()
 
     # keep the previous processes with old impacts
     oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
-    activities = load_json(CONFIG["ACTIVITIES_FILE"])
+    activities = tuple(load_json(CONFIG["ACTIVITIES_FILE"]))
 
-    compute_land_occupation(activities)
-    ingredients = create_ingredient_list(activities)
+    activities_land_occ = compute_land_occupation(activities)
+    ingredients = create_ingredient_list(activities_land_occ)
 
     plot_ecs_transformations(save_path=CONFIG["ECS_PNG"])
     ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    compute_vegetal_ecosystemic_services(ingredients, ecosystemic_factors)
+    ingredients_veg_es = compute_vegetal_ecosystemic_services(
+        activities_land_occ, ecosystemic_factors
+    )
 
     feed_file = load_json(CONFIG["FEED_FILE"])
     ugb = load_ugb_dic(CONFIG["UGB_FILE"])
-    compute_animal_ecosystemic_services(
-        ingredients, activities, ecosystemic_factors, feed_file, ugb
+    ingredients_animal_es = compute_animal_ecosystemic_services(
+        ingredients_veg_es, activities_land_occ, ecosystemic_factors, feed_file, ugb
     )
 
-    check_ids(ingredients)
-    processes = create_process_list(activities)
-    compute_impacts(processes)
+    check_ids(ingredients_animal_es)
+    processes = create_process_list(activities_land_occ)
+    processes_impacts = compute_impacts(processes)
 
-    processes = with_corrected_impacts(load_json(CONFIG["IMPACTS_FILE"]), processes)
+    processes_corrected_impacts = with_corrected_impacts(
+        load_json(CONFIG["IMPACTS_FILE"]), processes_impacts
+    )
 
     # Export
 
-    export_json(activities, CONFIG["ACTIVITIES_FILE"])
-    export_json(ingredients, CONFIG["INGREDIENTS_FILE"])
-    display_changes("id", oldprocesses, processes)
-    export_json(list(processes.values()), CONFIG["PROCESSES_FILE"])
+    export_json(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
+    export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
+    display_changes("id", oldprocesses, processes_corrected_impacts)
+    export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])

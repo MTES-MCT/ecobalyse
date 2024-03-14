@@ -4,6 +4,7 @@ import bw2data
 from bw2io.utils import activity_hash
 import logging
 import json
+from frozendict import frozendict
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -71,13 +72,14 @@ def search(dbname, name, excluded_term=None):
     return results[0]
 
 
-def with_corrected_impacts(impacts_ecobalyse, processes):
+def with_corrected_impacts(impacts_ecobalyse, processes_fd):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
     }
-
-    for process in processes.values():
+    processes = dict(processes_fd)
+    processes_updated = {}
+    for key, process in processes.items():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
             corrected_impact = 0
@@ -88,7 +90,8 @@ def with_corrected_impacts(impacts_ecobalyse, processes):
                     corrected_impact += sub_impact * correction_item["weighting"]
                     del process["impacts"][sub_impact_name]
             process["impacts"][impact_to_correct] = corrected_impact
-    return processes
+        processes_updated[key] = process
+    return frozendict(processes_updated)
 
 
 def display_changes(key, oldprocesses, processes):
