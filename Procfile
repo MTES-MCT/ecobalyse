@@ -1,1 +1,3 @@
-web: npm run server:start
+web: bin/run
+express: npm run server:start
+django: python data/ecobalyse/manage.py runserver
