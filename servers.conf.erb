@@ -1,0 +1,20 @@
+upstream express {
+	server localhost:3000 fail_timeout=0;
+}
+
+upstream django {
+	server localhost:8002 fail_timeout=0;
+}
+
+server {
+
+	listen <%= ENV["PORT"] %>;
+	server_name _;
+
+	location / {
+		proxy_pass http://express;
+	}
+	location ^~ /python {
+		proxy_pass http://django;
+	}
+}
