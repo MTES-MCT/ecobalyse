@@ -15,19 +15,19 @@ import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Github as Github
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
-import Data.Textile.Query exposing (Query)
+import Data.Textile.Query as TextileQuery
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Json.Encode as Encode
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
@@ -39,6 +39,9 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import RemoteData exposing (WebData)
+import Request.Common
+import Request.Github as GithubApi
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -57,6 +60,10 @@ type alias Model =
 type Msg
     = NoOp
     | CloseModal
+    | SendFoodExamplesPr
+    | SentFoodExamplesPr (WebData Github.PullRequest)
+    | SendTextileExamplesPr
+    | SentTextileExamplesPr (WebData Github.PullRequest)
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
@@ -107,6 +114,50 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
         NoOp ->
+            ( model, session, Cmd.none )
+
+        SendFoodExamplesPr ->
+            ( model
+            , session
+            , GithubApi.createFoodExamplesPR session SentFoodExamplesPr
+            )
+
+        SentFoodExamplesPr (RemoteData.Failure error) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentFoodExamplesPr (RemoteData.Success { html_url }) ->
+            ( model
+            , session
+            , Nav.load html_url
+            )
+
+        SentFoodExamplesPr _ ->
+            ( model, session, Cmd.none )
+
+        SendTextileExamplesPr ->
+            ( model
+            , session
+            , GithubApi.createTextileExamplesPR session SentTextileExamplesPr
+            )
+
+        SentTextileExamplesPr (RemoteData.Failure error) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentTextileExamplesPr (RemoteData.Success { html_url }) ->
+            ( model
+            , session
+            , Nav.load html_url
+            )
+
+        SentTextileExamplesPr _ ->
             ( model, session, Cmd.none )
 
         CloseModal ->
@@ -354,7 +405,7 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 textileExamplesExplorer :
     Db
-    -> Table.Config (Example Query) Msg
+    -> Table.Config (Example TextileQuery.Query) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
@@ -482,16 +533,11 @@ explore { db } { scope, dataset, tableState } =
         Dataset.FoodExamples maybeId ->
             [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
             , div [ class "text-center mt-3" ]
-                [ a
+                [ button
                     [ class "btn btn-primary"
-                    , download "examples.json"
-                    , db.food.examples
-                        |> Example.encodeList FoodQuery.encode
-                        |> Encode.encode 2
-                        |> (++) "data:text/json;charset=utf-8,"
-                        |> href
+                    , onClick SendFoodExamplesPr
                     ]
-                    [ text "Télécharger mes modifications" ]
+                    [ text "Proposer mes changements" ]
                 ]
             ]
 
@@ -502,7 +548,15 @@ explore { db } { scope, dataset, tableState } =
             foodProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
-            textileExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
+            , div [ class "text-center mt-3" ]
+                [ button
+                    [ class "btn btn-primary"
+                    , onClick SendTextileExamplesPr
+                    ]
+                    [ text "Proposer mes changements" ]
+                ]
+            ]
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId

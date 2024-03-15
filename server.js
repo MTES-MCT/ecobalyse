@@ -114,8 +114,8 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 // Example products update endpoint
 api.post("/contrib/examples/:type", async (req, res) => {
   try {
-    const { status } = await github.createExamplesPR(req.params.type, req.body);
-    res.status(status).send({ ok: status >= 200 && status < 400 });
+    const response = await github.createExamplesPR(req.params.type, req.body);
+    res.status(response.status).send(response);
   } catch ({ message }) {
     res.status(400).send({ error: message });
   }

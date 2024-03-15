@@ -1,4 +1,9 @@
-module Data.Github exposing (Commit, decodeCommit)
+module Data.Github exposing
+    ( Commit
+    , PullRequest
+    , decodeCommit
+    , decodePullRequest
+    )
 
 import Iso8601
 import Json.Decode as Decode exposing (Decoder)
@@ -13,6 +18,15 @@ type alias Commit =
     , authorName : String
     , authorLogin : String
     , authorAvatar : Maybe String
+    }
+
+
+type alias PullRequest =
+    { status : Int
+    , html_url : String
+    , diff_url : String
+    , additions : Int
+    , deletions : Int
     }
 
 
@@ -35,3 +49,13 @@ decodeCommit =
                         commit
                     )
             )
+
+
+decodePullRequest : Decoder PullRequest
+decodePullRequest =
+    Decode.succeed PullRequest
+        |> Pipe.required "status" Decode.int
+        |> Pipe.required "html_url" Decode.string
+        |> Pipe.required "diff_url" Decode.string
+        |> Pipe.required "additions" Decode.int
+        |> Pipe.required "deletions" Decode.int
