@@ -14,7 +14,7 @@ server {
 	location / {
 		proxy_pass http://express;
 	}
-	location ^~ /python {
+	location ^~ /admin {
 		proxy_pass http://django;
 	}
 }
