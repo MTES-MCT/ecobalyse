@@ -12,7 +12,7 @@ const lib = require("./lib");
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
-const port = process.env.PORT || 3000;
+const port = 8001;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
