@@ -43,6 +43,8 @@ Les principaux enjeux environnementaux liés à la production de coton sont :&#x
   L'utilisation d'engrais, de pesticides/insecticides et de machines agricoles contribuent aux émissions de gaz à effet de serre.&#x20;
 * la détérioritation des sols et de la biodiversité.&#x20;
 
+
+
 ## Modélisation Ecobalyse
 
 Le production de fibres de coton consiste principalement à : \
@@ -69,23 +71,17 @@ Procédé basé sur une moyenne pondérée des trois principaux pays producteurs
 **Procédé Ecoinvent** \
 _Fibre production, cotton, organic, ginning, RoW_
 
+Ecobalyse a enrichi ce procédé avec une consommation d'eau liée l'irrigation.&#x20;
+
 </details>
 
 Le périmètre considéré se situe entre la culture de la plante et l'égrennage (avant application de pré-traitements tels que le blanchiment).&#x20;
 
-### Mieux comprendre les impacts dans Ecobalyse
+## Mieux comprendre la modélisation&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+Vous trouverez ci-dessous différentes modélisations d'1kg de coton selon différents procédés et sources. Les deux procédés modélisés par Ecobalyse sont identifiés en rouge.
 
-**Principaux enseignements**
-
-* La production de coton conventionnel (2,038 uPts / kg) est 2 à 3 fois plus impactante que celle du coton organique (804 uPts / kg)
-* 55% de l'impact du coton conventionnel provient de l'indicateur Ecotoxicité de l'eau douce. \
-  Les deux principales raisons expliquant cela sont : \
-  1\) la pondération élevée de cet indicateur dans le coût environnemental (21,06%)\
-  2\) l'utilisation de pesticides et insecticides (tels le Trichlorfon et Chlorpyrifos) dans la culture du coton. &#x20;
-* Le complément Microfibres (420 uPts / kg de fibre naturelle d'origine végétale) explique une part significative de l'impact du coton (20% de _Coton conventionnel_ et 40% de _Coton organique_).&#x20;
-* La consommation d'eau ressort de manière significative (10% de l'impact total) seulement pour le coton conventionnel.
+<figure><img src="../../../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
 
 [^1]: Market report 2023 \_ Textile Exchange
 
