@@ -1,11 +1,16 @@
 #/bin/bash
 
+# run all three tasks in the background
 bin/run &
 pushd data/ecobalyse
 gunicorn -b 127.0.0.1:8002 ecobalyse.wsgi &
 popd
 npm run server:start &
 
-trap "pkill SIGTERM -P $$" SIGTERM
+# if the current shell is killed, also terminate all its children
+trap "echo pkill SIGTERM -P $$" SIGTERM
+
+# wait for a single child to finish,
 wait -n
+# then kill all the other tasks
 pkill -P $$
