@@ -26,7 +26,6 @@ SECRET_KEY = "django-insecure-6v9tk##n9+42jz-0uk694d&=ra5k^ch^=$z_2hov@+1p4hwyi$
 DEBUG = True
 
 ALLOWED_HOSTS = ["django", "localhost"]
-FORCE_SCRIPT_NAME = "/admin"
 
 
 # Application definition
