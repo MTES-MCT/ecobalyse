@@ -12,13 +12,13 @@ server {
 	listen <%= ENV["PORT"] %>;
 	server_name _;
 
-	location / {
-		proxy_pass http://express;
-	}
 	location ^~ /admin {
 		proxy_pass http://django;
 	}
 	location ^~ /static {
 		proxy_pass http://django;
+	}
+	location / {
+		proxy_pass http://express;
 	}
 }
