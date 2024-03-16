@@ -4,6 +4,14 @@ from backend.models import Process, Material, Example, Product
 
 here = dirname(abspath(__file__))
 
+# create admin user
+from django.contrib.auth import get_user_model
+
+admin = get_user_model().objects.create_user("admin", password="admin")
+admin.is_superuser = True
+admin.is_staff = True
+admin.save()
+
 
 def flatten(field, record):
     """take a record and flatten the given fields
@@ -148,5 +156,4 @@ def init():
         for e in eobjects:
             e.product = Product.objects.get(pk=products[e.id])
             e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
-                pass
         Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
