@@ -5,9 +5,10 @@ module Data.Session exposing
     , closeNotification
     , deleteBookmark
     , deserializeStore
-    , maxComparedSimulations
     , notifyError
     , saveBookmark
+    , selectAllBookmarks
+    , selectNoBookmarks
     , serializeStore
     , toggleComparedSimulation
     , updateFoodQuery
@@ -103,11 +104,6 @@ updateTextileQuery textileQuery ({ queries } as session) =
 -- Comparator
 
 
-maxComparedSimulations : Int
-maxComparedSimulations =
-    12
-
-
 checkComparedSimulations : Session -> Session
 checkComparedSimulations =
     updateStore
@@ -118,7 +114,6 @@ checkComparedSimulations =
                         -- Add max bookmarks to compared sims
                         bookmarks
                             |> Bookmark.sort
-                            |> List.take maxComparedSimulations
                             |> List.map Bookmark.toId
                             |> Set.fromList
 
@@ -148,6 +143,22 @@ toggleComparedSimulation bookmark checked =
                         Set.remove (Bookmark.toId bookmark) store.comparedSimulations
             }
         )
+
+
+selectAllBookmarks : Session -> Session
+selectAllBookmarks =
+    updateStore
+        (\store ->
+            { store
+                | comparedSimulations =
+                    store.bookmarks |> List.map Bookmark.toId |> Set.fromList
+            }
+        )
+
+
+selectNoBookmarks : Session -> Session
+selectNoBookmarks =
+    updateStore (\store -> { store | comparedSimulations = Set.empty })
 
 
 
