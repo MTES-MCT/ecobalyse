@@ -3,6 +3,11 @@
 # run all three tasks in the background
 bin/run &
 pushd data/ecobalyse
+
+# warning: temporary reinit of the application with a local sqlite
+data/ecobalyse/reinit.sh
+#
+
 gunicorn -b 127.0.0.1:8002 ecobalyse.wsgi &
 popd
 npm run server:start &
