@@ -1,24 +1,24 @@
-# this is the scalingo erb-templated nginx configuration that sits in front of express and django
-upstream express {
-	server localhost:8001 fail_timeout=0;
-}
-
-upstream django {
-	server localhost:8002 fail_timeout=0;
-}
+# ERB templated nginx configuration
+# see https://doc.scalingo.com/platform/deployment/buildpacks/nginx
 
 server {
 
 	listen <%= ENV["PORT"] %>;
 	server_name _;
-
-	location ^~ /admin {
-		proxy_pass http://django;
+  root /app/;
+  # static files
+  location /static/ {
+    autoindex off;
+  }
+  location / {
+    root /app/dist;
+    autoindex off;
+  }
+  # apps
+	location /api {
+		proxy_pass http://localhost:8001;
 	}
-	location ^~ /static {
-		proxy_pass http://django;
-	}
-	location / {
-		proxy_pass http://express;
+	location /admin {
+		proxy_pass http://localhost:8002;
 	}
 }
