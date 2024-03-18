@@ -139,7 +139,12 @@ update session msg ({ pullRequest } as model) =
         SendFoodExamplesPr ->
             ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
             , session
-            , GithubApi.createFoodExamplesPR session SentFoodExamplesPr
+            , GithubApi.createFoodExamplesPR SentFoodExamplesPr
+                { examples = session.db.food.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
             )
 
         SentFoodExamplesPr ((RemoteData.Failure error) as state) ->
@@ -161,7 +166,12 @@ update session msg ({ pullRequest } as model) =
         SendTextileExamplesPr ->
             ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
             , session
-            , GithubApi.createTextileExamplesPR session SentTextileExamplesPr
+            , GithubApi.createTextileExamplesPR SentTextileExamplesPr
+                { examples = session.db.textile.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
             )
 
         SentTextileExamplesPr ((RemoteData.Failure error) as state) ->
@@ -634,7 +644,7 @@ explore { db, initialDb } ({ scope, dataset, tableState } as model) =
 
         Dataset.FoodExamples maybeId ->
             [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
-            , if db /= initialDb then
+            , if db.food.examples /= initialDb.food.examples then
                 pullRequestForm SendFoodExamplesPr model
 
               else
@@ -649,7 +659,7 @@ explore { db, initialDb } ({ scope, dataset, tableState } as model) =
 
         Dataset.TextileExamples maybeId ->
             [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
-            , if db /= initialDb then
+            , if db.textile.examples /= initialDb.textile.examples then
                 pullRequestForm SendTextileExamplesPr model
 
               else

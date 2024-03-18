@@ -4,9 +4,8 @@ module Request.Github exposing
     , getChangelog
     )
 
-import Data.Example as Example exposing (Example)
 import Data.Food.Query as FoodQuery
-import Data.Github as Github
+import Data.Github as Github exposing (Commit, PullRequest, PullRequestBody)
 import Data.Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode
@@ -22,7 +21,7 @@ config =
     { defaultConfig | headers = [] }
 
 
-getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
+getChangelog : Session -> (WebData (List Commit) -> msg) -> Cmd msg
 getChangelog { github } event =
     RemoteData.Http.getWithConfig config
         ("https://api.github.com/repos/" ++ github.repository ++ "/commits?sha=" ++ github.branch)
@@ -30,24 +29,18 @@ getChangelog { github } event =
         (Decode.list Github.decodeCommit)
 
 
-createExamplesPr :
-    String
-    -> (WebData Github.PullRequest -> msg)
-    -> (query -> Encode.Value)
-    -> List (Example query)
-    -> Cmd msg
-createExamplesPr endpoint event encodeQuery =
-    Example.encodeList encodeQuery
-        >> RemoteData.Http.postWithConfig config endpoint event Github.decodePullRequest
+createExamplesPr : String -> (WebData PullRequest -> msg) -> Encode.Value -> Cmd msg
+createExamplesPr endpoint event =
+    RemoteData.Http.postWithConfig config endpoint event Github.decodePullRequest
 
 
-createFoodExamplesPR : Session -> (WebData Github.PullRequest -> msg) -> Cmd msg
-createFoodExamplesPR { db } event =
-    db.food.examples
-        |> createExamplesPr "/api/contrib/examples/food" event FoodQuery.encode
+createFoodExamplesPR : (WebData PullRequest -> msg) -> PullRequestBody FoodQuery.Query -> Cmd msg
+createFoodExamplesPR event =
+    Github.encodePullRequestBody FoodQuery.encode
+        >> createExamplesPr "/api/contrib/examples/food" event
 
 
-createTextileExamplesPR : Session -> (WebData Github.PullRequest -> msg) -> Cmd msg
-createTextileExamplesPR { db } event =
-    db.textile.examples
-        |> createExamplesPr "/api/contrib/examples/textile" event TextileQuery.encode
+createTextileExamplesPR : (WebData PullRequest -> msg) -> PullRequestBody TextileQuery.Query -> Cmd msg
+createTextileExamplesPR event =
+    Github.encodePullRequestBody TextileQuery.encode
+        >> createExamplesPr "/api/contrib/examples/textile" event
