@@ -1,4 +1,4 @@
-# 🌾 Blé dur
+# Choix des inventaires
 
 ## Choix de procédés
 
@@ -28,7 +28,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 
 Le procédé "**Durum wheat, consumption mix**" France proposée dans Agribalyse s'appuie sur les procédés suivants.
 
-<figure><img src="../../.gitbook/assets/ble dur.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/ble dur.png" alt=""><figcaption></figcaption></figure>
 
 Le procédé "at farm" mobilisé est bien Durum wheat grain, conventional, national average, at farm gate.
 

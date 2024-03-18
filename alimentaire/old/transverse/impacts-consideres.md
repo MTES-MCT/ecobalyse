@@ -1,4 +1,8 @@
-# Copy of Indicateurs d'impacts ACV alim + textile ?
+---
+description: Proposition de page commune alim & textile
+---
+
+# Indicateurs d'impacts ACV
 
 ## Impacts agrégés et impacts détaillés
 
@@ -41,8 +45,6 @@ Pour la **pondération**, la méthode de l'affichage environnemental établit qu
 * les pondérations des indicateurs de toxicité humaine cancer et non-cancer sont fixées à zéro, ce qui revient à supprimer ces indicateurs du coût environnemental (détail des explications [ici](impacts-consideres.md#correction-des-indicateurs-de-toxicite-et-decotoxicite))
 * les autres pondérations sont proportionnelles aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100% après l'introduction des trois modifications précédentes.
 
-##
-
 {% hint style="info" %}
 Cette règle est une des deux options introduites dans le rapport du Conseil scientifique.
 {% endhint %}
@@ -55,11 +57,22 @@ En l’état, les résultats des indicateurs de toxicité humaine\[1] (cancer et
 
 **=> il est donc proposé de retirer temporairement les deux indicateurs de toxicité humaine (cancer et non cancer), le temps que la communauté scientifique améliore la prise en compte des métaux dans la méthode PEF (travaux en cours).**
 
+<figure><img src="../../../.gitbook/assets/image (19) (1) (1) (1).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+
 ### Doublement de la pondération de l'écotoxicité "organique"
 
 Pour les produits alimentaires, les impacts des métabolites, des co-adjuvants et les effets cocktails ne sont pas comptabilisés dans l’ACV à ce jour. D’autre part, le nombre de molécules de synthèse mises sur le marché est tel que les connaissances les concernant sont lacunaires, notamment dans les premières années de commercialisation. Ceci n’est pas le cas pour les molécules utilisées en agriculture biologique (leur nombre étant beaucoup plus limité et leur commercialisation ancienne). De ce fait, la différence d’impacts toxicité/écotoxicité des produits bio et conventionnels est aujourd’hui biaisée.
 
 **=> il est donc proposé de doubler la pondération des impacts écotoxicité associés aux molécules utilisées dans les pesticides de synthèse**.&#x20;
+
+On a donc :
+
+```
+etf = etf_organic + etf_inorganic  
+etf_corrigé = 2 * etf_organic + etf_inorganic
+```
 
 ### Amplification du poids de l'écotoxicité
 
@@ -75,35 +88,12 @@ Par ailleurs, des travaux doivent être menés dans les prochains mois pour cons
 
 \[3] Groupement d’Intérêt Scientifique Revalim composé de l’INRAE, de l’Ademe et des Instituts Techniques agricoles, en charge de la base de données ACV Agribalyse (méthode PEF)
 
-<figure><img src="../../../.gitbook/assets/image (19) (1) (1) (1).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
-
-<figure><img src="../../../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
-
-<figure><img src="../../../.gitbook/assets/Screenshot 2023-08-23 at 18.05.02 (1).png" alt="" width="375"><figcaption><p>Impact sur l'écotoxicité de l'eau douce du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
-
-### Bilan&#x20;
-
-En appliquant l'ensemble de ces correctifs on obtient les impacts corrigés suivant :&#x20;
-
-```
-htc = htc_organic + htc_inorganic  
-htc_corrigé = 2 * htc_organic
-
-htn = htn_organic + htn_inorganic  
-htn_corrigé = 2 * htn_organic
-
-etf = etf_organic + etf_inorganic  
-etf_corrigé = 2 * etf_organic + etf_inorganic
-```
-
 ## Correctif sur l'indicateur "consommation d'eau"
 
-Dans les ICV d'Agribalyse les flux de consommation d'eaux étaient des flux mondiaux, même pour des produits Français. Etant donné que l'impact de la consommation d'1L d'eau mondial est plus impactant (42.95) que la consommation d'1L d'eau en France (6.98), cela surestime les impacts des produits faits en France.
+Dans les inventaires utilisés, et notamment dans les ICV d'Agribalyse pour la partie alimentaire, les flux de consommation d'eaux étaient des flux mondiaux, même pour des produits français. Étant donné que l'impact de la consommation d'1L d'eau mondial est plus impactant (42.95) que la consommation d'1L d'eau en France (6.98), l'impact des produits faits en France étaient surestimé.
 
-Pour corriger cela nous avons appliqué un patch (imaginé par WeLoop) sur la méthode de caractérisation : en modifiant l'impact des flux de consommations d'eaux mondiaux afin que cela corresponde à l'impact de la consommation d'eau en FR.
+Pour corriger cela, il est proposé d'appliquer un correctif à la méthode de caractérisation, en modifiant l'impact des flux de consommation d'eaux mondiaux afin que cela corresponde à l'impact de la consommation d'eau en France.
 
-Ainsi les impacts de consommation d'eaux sont maintenant plus proche de la réalité pour les produits faits en France.
-
-Limites : pour les produits importés utilisant de l'eau mondiale ({GLO}), les résultats sont faussés. Ce patch doit rester temporaire en attendant un correctif lors de la prochaine mise à jour des données par Agribalyse.
-
-<figure><img src="../../../.gitbook/assets/image (19) (1) (1).png" alt=""><figcaption></figcaption></figure>
+{% hint style="danger" %}
+_Limites_ : pour les produits importés utilisant de l'eau mondiale ({GLO}), les résultats sont faussés. Ce correctif doit rester temporaire en attendant un correctif lors des prochaines mises à jour des données, notamment d'Agribalyse.
+{% endhint %}
