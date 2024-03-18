@@ -6,10 +6,10 @@
 npm run server:start &
 
 # django
-pushd data/ecobalyse
+pushd data/backend
 ./reinit.sh # warning: temporary reinit of the application with a local sqlite
 python manage.py collectstatic --noinput
-gunicorn -b 127.0.0.1:8002 ecobalyse.wsgi &
+gunicorn -b 127.0.0.1:8002 backend.wsgi &
 popd
 
 # nginx

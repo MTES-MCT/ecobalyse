@@ -1,6 +1,6 @@
 from os.path import dirname, join, abspath
 import json
-from backend.models import Process, Material, Example, Product
+from textile.models import Process, Material, Example, Product
 
 here = dirname(abspath(__file__))
 
