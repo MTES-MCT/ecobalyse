@@ -3,40 +3,48 @@ module Page.Explore.FoodExamples exposing (table)
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Food.Query exposing (Query)
-import Data.Food.Recipe as Recipe
-import Data.Impact as Impact
-import Data.Impact.Definition as Definition
 import Data.Scope exposing (Scope)
-import Data.Unit as Unit
 import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
-import Page.Explore.Table as Table exposing (Column, Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
 import Views.Icon as Icon
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table (Example Query) String msg
-table db { detailed, scope } =
-    { toId = .id >> Uuid.toString
-    , toRoute = .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
+table :
+    { maxScore : Float, maxPer100g : Float }
+    -> { detailed : Bool, scope : Scope }
+    -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
+table { maxScore, maxPer100g } { detailed, scope } =
+    { toId = Tuple.first >> .id >> Uuid.toString
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
-          , toValue = Table.StringValue .name
-          , toCell = .name >> text
+          , toValue = Table.StringValue (Tuple.first >> .name)
+          , toCell = Tuple.first >> .name >> text
           }
         , { label = "Catégorie"
-          , toValue = Table.StringValue .category
-          , toCell = .category >> text
+          , toValue = Table.StringValue (Tuple.first >> .category)
+          , toCell = Tuple.first >> .category >> text
           }
-        , scoreCell db "Coût Environnemental" detailed (getScore db)
-        , scoreCell db "Coût Environnemental/100g" detailed (getScorePer100g db)
+        , { label = "Coût Environnemental"
+          , toValue = Table.FloatValue (Tuple.second >> .score)
+          , toCell =
+                \( _, { score } ) ->
+                    Common.impactBarGraph detailed maxScore score
+          }
+        , { label = "Coût Environnemental/100g"
+          , toValue = Table.FloatValue (Tuple.second >> .per100g)
+          , toCell =
+                \( _, { per100g } ) ->
+                    Common.impactBarGraph detailed maxPer100g per100g
+          }
         , { label = ""
           , toValue = Table.NoValue
           , toCell =
-                \{ id, name } ->
+                \( { id, name }, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
                         , Route.href <| Route.FoodBuilderExample id
@@ -45,46 +53,4 @@ table db { detailed, scope } =
                         [ Icon.pencil ]
           }
         ]
-    }
-
-
-getScore : Db -> Example Query -> Unit.Impact
-getScore db =
-    .query
-        >> Recipe.compute db
-        >> Result.map (Tuple.second >> .total >> Impact.getImpact Definition.Ecs)
-        >> Result.withDefault (Unit.impact 0)
-
-
-getScorePer100g : Db -> Example Query -> Unit.Impact
-getScorePer100g db =
-    .query
-        >> Recipe.compute db
-        >> Result.map
-            (Tuple.second
-                >> .perKg
-                >> Impact.getImpact Definition.Ecs
-                >> (\x -> Unit.impact (Unit.impactToFloat x / 10))
-            )
-        >> Result.withDefault (Unit.impact 0)
-
-
-scoreCell : Db -> String -> Bool -> (Example Query -> Unit.Impact) -> Column (Example Query) comparable msg
-scoreCell db label detailed scoreGetter =
-    { label = label
-    , toValue = Table.FloatValue <| scoreGetter >> Unit.impactToFloat
-    , toCell =
-        \example ->
-            let
-                score =
-                    scoreGetter example
-                        |> Unit.impactToFloat
-
-                max =
-                    db.food.examples
-                        |> List.map (scoreGetter >> Unit.impactToFloat)
-                        |> List.maximum
-                        |> Maybe.withDefault 0
-            in
-            Common.impactBarGraph detailed max score
     }

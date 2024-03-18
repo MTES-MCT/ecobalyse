@@ -15,6 +15,7 @@ import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
 import Data.Github as Github
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -348,22 +349,53 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 foodExamplesExplorer :
     Db
-    -> Table.Config (Example FoodQuery.Query) Msg
+    -> Table.Config ( Example FoodQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
-    [ db.food.examples
-        |> List.filter (.query >> (/=) FoodQuery.empty)
-        |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
+    let
+        scoredExamples =
+            db.food.examples
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getFoodScore db example
+                          , per100g = getFoodScorePer100g db example
+                          }
+                        )
+                    )
+                |> List.sortBy (Tuple.first >> .name)
+
+        max =
+            { maxScore =
+                scoredExamples
+                    |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            }
+    in
+    [ scoredExamples
+        |> List.filter (Tuple.first >> .query >> (/=) FoodQuery.empty)
+        |> List.sortBy (Tuple.first >> .name)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Example.findByUuid id db.food.examples of
                     Ok example ->
-                        example
-                            |> Table.viewDetails Scope.Food (FoodExamples.table db)
+                        Table.viewDetails Scope.Food
+                            (FoodExamples.table max)
+                            ( example
+                            , { score = getFoodScore db example
+                              , per100g = getFoodScorePer100g db example
+                              }
+                            )
 
                     Err error ->
                         alert error
@@ -436,15 +468,9 @@ textileExamplesExplorer :
     -> List (Html Msg)
 textileExamplesExplorer db tableConfig tableState maybeId =
     let
-        getScore =
-            .query
-                >> Simulator.compute db
-                >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
-                >> Result.withDefault 0
-
         scoredExamples =
             db.textile.examples
-                |> List.map (\example -> ( example, getScore example ))
+                |> List.map (\example -> ( example, getTextileScore db example ))
                 |> List.sortBy (Tuple.first >> .name)
 
         maxScore =
@@ -460,7 +486,7 @@ textileExamplesExplorer db tableConfig tableState maybeId =
             detailsModal
                 (case Example.findByUuid id db.textile.examples of
                     Ok example ->
-                        ( example, 0 )
+                        ( example, getTextileScore db example )
                             |> Table.viewDetails Scope.Food (TextileExamples.table maxScore)
 
                     Err error ->
@@ -549,6 +575,40 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     ]
 
 
+getFoodScore : Db -> Example FoodQuery.Query -> Float
+getFoodScore db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .total
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
+        >> Result.withDefault 0
+
+
+getFoodScorePer100g : Db -> Example FoodQuery.Query -> Float
+getFoodScorePer100g db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .perKg
+                >> Impact.getImpact Definition.Ecs
+                >> (\x -> Unit.impactToFloat x / 10)
+            )
+        >> Result.withDefault 0
+
+
+getTextileScore : Db -> Example TextileQuery.Query -> Float
+getTextileScore db =
+    .query
+        >> Simulator.compute db
+        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.withDefault 0
+
+
 explore : Session -> Model -> List (Html Msg)
 explore { db, initialDb } ({ scope, dataset, tableState } as model) =
     let
@@ -589,12 +649,11 @@ explore { db, initialDb } ({ scope, dataset, tableState } as model) =
 
         Dataset.TextileExamples maybeId ->
             [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
+            , if db /= initialDb then
+                pullRequestForm SendTextileExamplesPr model
 
-            -- , if db /= initialDb then
-            , pullRequestForm SendTextileExamplesPr model
-
-            --   else
-            --     text ""
+              else
+                text ""
             ]
 
         Dataset.TextileMaterials maybeId ->
