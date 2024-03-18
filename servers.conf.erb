@@ -13,16 +13,6 @@ server {
   location / {
     root /app/dist;
     autoindex off;
-    add_header X-XSS-Protection "1; mode=block";
-  }
-  location /mentions-legales {
-    return 301 /#/pages/accessibilité;
-  }
-  location /accessibilite {
-    return 301 /#/pages/accessibilité;
-  }
-  location /stats {
-    return 301 /#/stats;
   }
   # apps
 	location /api {
