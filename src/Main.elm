@@ -88,6 +88,7 @@ init flags url navKey =
                     Ok db ->
                         Loaded
                             { db = db
+                            , initialDb = db
                             , clientUrl = flags.clientUrl
                             , github = { repository = flags.github.repository, branch = flags.github.branch }
                             , navKey = navKey
