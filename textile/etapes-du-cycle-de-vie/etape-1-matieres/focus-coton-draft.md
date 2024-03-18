@@ -38,12 +38,10 @@ Les principaux enjeux environnementaux liés à la production de coton sont :&#x
   Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton\
   (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
 * la consommation d'eau,\
-  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantite varie fortement selon les régions. Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
+  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantité varie fortement selon les régions et est à appréciser selon l'origine de l'eau (_blue_ vs _green_ water). Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
 * le changement climatique,\
   L'utilisation d'engrais, de pesticides/insecticides et de machines agricoles contribuent aux émissions de gaz à effet de serre.&#x20;
 * la détérioritation des sols et de la biodiversité.&#x20;
-
-
 
 ## Modélisation Ecobalyse
 
@@ -71,18 +69,29 @@ Procédé basé sur une moyenne pondérée des trois principaux pays producteurs
 **Procédé Ecoinvent** \
 _Fibre production, cotton, organic, ginning, RoW_
 
-Ecobalyse a enrichi ce procédé avec une consommation d'eau liée l'irrigation.&#x20;
+Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irrigation moyenne mondiale de 0,75m3[^3] / kg de fibre de cotton organique (source : [Textile Echange](#user-content-fn-4)[^4]).&#x20;
 
 </details>
 
-Le périmètre considéré se situe entre la culture de la plante et l'égrennage (avant application de pré-traitements tels que le blanchiment).&#x20;
+## Mieux comprendre la modélisation Ecobalyse&#x20;
 
-## Mieux comprendre la modélisation&#x20;
+Voici les impacts de différents procédés de coton (1kg de coton conventionnel/organique) selon la source (Ecoinvent, Ecoinvent enrichi par Ecobalyse, autres procédés utilisés dans la base de données européenne EF 3.1) :&#x20;
 
-Vous trouverez ci-dessous différentes modélisations d'1kg de coton selon différents procédés et sources. Les deux procédés modélisés par Ecobalyse sont identifiés en rouge.
+<div>
 
-<figure><img src="../../../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton organique selon différentes sources et_ou procédés.png" alt=""><figcaption><p>Coton organique</p></figcaption></figure>
+
+ 
+
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton conventionnel selon différentes sources et_ou procédés.png" alt=""><figcaption><p>Coton conventionnel</p></figcaption></figure>
+
+</div>
 
 [^1]: Market report 2023 \_ Textile Exchange
 
 [^2]: Cf. Market Report 2023 (Textile Exchange) pour plus d'info &#x20;
+
+[^3]: "The global average total of water consumed while producing 1 metric ton of organic cotton fiber is 15,000 m3. While total water use and consumption are almost the same implying that almost all water used is consumed; 95 percent of water used is green water (rainwater and moisture stored in soil and used for plant growth)." \
+    Calcul => 15000/1000 \* (1-0,95) = 0,75 m3 / kg&#x20;
+
+[^4]: "The LCA of organic cotton fiber _A global average_ Summary of findings"
