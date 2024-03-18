@@ -67,6 +67,21 @@ app.use(
   }),
 );
 
+app.use(
+  express.static("dist", {
+    setHeaders: (res) => {
+      // Note: helmet sets this header to `0` by default and doesn't allow overriding
+      // this value
+      res.set("X-XSS-Protection", "1; mode=block");
+    },
+  }),
+);
+
+// Redirects: Web
+app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
+app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
+app.get("/stats", (_, res) => res.redirect("/#/stats"));
+
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
