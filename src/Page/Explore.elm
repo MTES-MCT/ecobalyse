@@ -52,6 +52,7 @@ import Views.Modal as ModalView
 
 type alias Model =
     { dataset : Dataset
+    , pullRequest : WebData Github.PullRequest
     , scope : Scope
     , tableState : SortableTable.State
     }
@@ -102,6 +103,7 @@ init scope dataset session =
                     "Nom"
     in
     ( { dataset = dataset
+      , pullRequest = RemoteData.NotAsked
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
       }
@@ -117,48 +119,48 @@ update session msg model =
             ( model, session, Cmd.none )
 
         SendFoodExamplesPr ->
-            ( model
+            ( { model | pullRequest = RemoteData.Loading }
             , session
             , GithubApi.createFoodExamplesPR session SentFoodExamplesPr
             )
 
-        SentFoodExamplesPr (RemoteData.Failure error) ->
-            ( model
+        SentFoodExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = state }
             , session
                 |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
             , Cmd.none
             )
 
-        SentFoodExamplesPr (RemoteData.Success { html_url }) ->
-            ( model
+        SentFoodExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = state }
             , session
             , Nav.load html_url
             )
 
-        SentFoodExamplesPr _ ->
-            ( model, session, Cmd.none )
+        SentFoodExamplesPr state ->
+            ( { model | pullRequest = state }, session, Cmd.none )
 
         SendTextileExamplesPr ->
-            ( model
+            ( { model | pullRequest = RemoteData.Loading }
             , session
             , GithubApi.createTextileExamplesPR session SentTextileExamplesPr
             )
 
-        SentTextileExamplesPr (RemoteData.Failure error) ->
-            ( model
+        SentTextileExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = state }
             , session
                 |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
             , Cmd.none
             )
 
-        SentTextileExamplesPr (RemoteData.Success { html_url }) ->
-            ( model
+        SentTextileExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = state }
             , session
             , Nav.load html_url
             )
 
-        SentTextileExamplesPr _ ->
-            ( model, session, Cmd.none )
+        SentTextileExamplesPr state ->
+            ( { model | pullRequest = state }, session, Cmd.none )
 
         CloseModal ->
             ( model
@@ -508,7 +510,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db } { scope, dataset, tableState } =
+explore { db } ({ scope, dataset, tableState } as model) =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -532,13 +534,7 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.FoodExamples maybeId ->
             [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
-            , div [ class "text-center mt-3" ]
-                [ button
-                    [ class "btn btn-primary"
-                    , onClick SendFoodExamplesPr
-                    ]
-                    [ text "Proposer mes changements" ]
-                ]
+            , pullRequestForm SendFoodExamplesPr model
             ]
 
         Dataset.FoodIngredients maybeId ->
@@ -549,13 +545,7 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.TextileExamples maybeId ->
             [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
-            , div [ class "text-center mt-3" ]
-                [ button
-                    [ class "btn btn-primary"
-                    , onClick SendTextileExamplesPr
-                    ]
-                    [ text "Proposer mes changements" ]
-                ]
+            , pullRequestForm SendTextileExamplesPr model
             ]
 
         Dataset.TextileMaterials maybeId ->
@@ -566,6 +556,71 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.TextileProcesses maybeId ->
             textileProcessesExplorer db tableConfig tableState maybeId
+
+
+pullRequestButton : Msg -> WebData Github.PullRequest -> Html Msg
+pullRequestButton event pullRequest =
+    let
+        ( loading, btnClass ) =
+            case pullRequest of
+                RemoteData.Loading ->
+                    ( True, "btn-primary" )
+
+                RemoteData.NotAsked ->
+                    ( False, "btn-primary" )
+
+                RemoteData.Failure _ ->
+                    ( False, "btn-danger" )
+
+                RemoteData.Success _ ->
+                    ( False, "btn-success" )
+    in
+    div [ class "text-center mt-3" ]
+        [ button [ class <| "btn " ++ btnClass, onClick event, disabled loading ]
+            [ span [ classList [ ( "spinner-border spinner-border-sm", loading ) ] ] []
+            , text "\u{00A0}Proposer mes changements"
+            ]
+        ]
+
+
+pullRequestForm : Msg -> Model -> Html Msg
+pullRequestForm sendEvent model =
+    div [ class "card mt-3 w-50 m-auto mt-4 mb-3 shadow-sm" ]
+        [ div [ class "card-body" ]
+            [ div [ class "d-flex flex-column gap-2" ]
+                [ text "Vous avez mis à jour certains exemples, vous pouvez proposer ces modifications à la communauté."
+                , div [ class "row" ]
+                    [ div [ class "col-sm-6" ]
+                        [ label [ for "nom" ] [ text "Nom" ]
+                        , input
+                            [ type_ "text"
+                            , id "nom"
+                            , class "form-control"
+                            ]
+                            []
+                        ]
+                    , div [ class "col-sm-6" ]
+                        [ label [ for "email" ] [ text "Email" ]
+                        , input
+                            [ type_ "email"
+                            , id "email"
+                            , class "form-control"
+                            ]
+                            []
+                        ]
+                    ]
+                , div []
+                    [ label [ for "description" ] [ text "Description" ]
+                    , textarea
+                        [ id "description"
+                        , class "form-control"
+                        ]
+                        []
+                    ]
+                , pullRequestButton sendEvent model.pullRequest
+                ]
+            ]
+        ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
