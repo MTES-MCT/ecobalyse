@@ -510,7 +510,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db } ({ scope, dataset, tableState } as model) =
+explore { db, initialDb } ({ scope, dataset, tableState } as model) =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -534,7 +534,11 @@ explore { db } ({ scope, dataset, tableState } as model) =
 
         Dataset.FoodExamples maybeId ->
             [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
-            , pullRequestForm SendFoodExamplesPr model
+            , if db /= initialDb then
+                pullRequestForm SendFoodExamplesPr model
+
+              else
+                text ""
             ]
 
         Dataset.FoodIngredients maybeId ->
@@ -545,7 +549,11 @@ explore { db } ({ scope, dataset, tableState } as model) =
 
         Dataset.TextileExamples maybeId ->
             [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
-            , pullRequestForm SendTextileExamplesPr model
+            , if db /= initialDb then
+                pullRequestForm SendTextileExamplesPr model
+
+              else
+                text ""
             ]
 
         Dataset.TextileMaterials maybeId ->
@@ -585,41 +593,47 @@ pullRequestButton event pullRequest =
 
 pullRequestForm : Msg -> Model -> Html Msg
 pullRequestForm sendEvent model =
-    div [ class "card mt-3 w-50 m-auto mt-4 mb-3 shadow-sm" ]
-        [ div [ class "card-body" ]
-            [ div [ class "d-flex flex-column gap-2" ]
-                [ text "Vous avez mis à jour certains exemples, vous pouvez proposer ces modifications à la communauté."
-                , div [ class "row" ]
-                    [ div [ class "col-sm-6" ]
-                        [ label [ for "nom" ] [ text "Nom" ]
-                        , input
-                            [ type_ "text"
-                            , id "nom"
-                            , class "form-control"
+    div [ class "row justify-content-center" ]
+        [ div [ class "offset-lg-3" ] []
+        , div [ class "col-lg-6" ]
+            [ div [ class "card mt-3 m-auto mt-4 mb-3 shadow-sm" ]
+                [ div [ class "card-body" ]
+                    [ div [ class "d-flex flex-column gap-2" ]
+                        [ text "Vous avez mis à jour certains exemples, vous pouvez proposer ces modifications à la communauté."
+                        , div [ class "row" ]
+                            [ div [ class "col-sm-6" ]
+                                [ label [ for "nom" ] [ text "Nom" ]
+                                , input
+                                    [ type_ "text"
+                                    , id "nom"
+                                    , class "form-control"
+                                    ]
+                                    []
+                                ]
+                            , div [ class "col-sm-6" ]
+                                [ label [ for "email" ] [ text "Email" ]
+                                , input
+                                    [ type_ "email"
+                                    , id "email"
+                                    , class "form-control"
+                                    ]
+                                    []
+                                ]
                             ]
-                            []
-                        ]
-                    , div [ class "col-sm-6" ]
-                        [ label [ for "email" ] [ text "Email" ]
-                        , input
-                            [ type_ "email"
-                            , id "email"
-                            , class "form-control"
+                        , div []
+                            [ label [ for "description" ] [ text "Description" ]
+                            , textarea
+                                [ id "description"
+                                , class "form-control"
+                                ]
+                                []
                             ]
-                            []
+                        , pullRequestButton sendEvent model.pullRequest
                         ]
                     ]
-                , div []
-                    [ label [ for "description" ] [ text "Description" ]
-                    , textarea
-                        [ id "description"
-                        , class "form-control"
-                        ]
-                        []
-                    ]
-                , pullRequestButton sendEvent model.pullRequest
                 ]
             ]
+        , div [ class "offset-lg-3" ] []
         ]
 
 
