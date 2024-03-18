@@ -25,7 +25,12 @@ SECRET_KEY = "django-insecure-6v9tk##n9+42jz-0uk694d&=ra5k^ch^=$z_2hov@+1p4hwyi$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django", "localhost"]
+ALLOWED_HOSTS = [
+    "localhost",
+    ".osc-fr1.scalingo.io",
+    "ecobalyse-v2.osc-fr1.scalingo.io",
+    "ecobalyse.beta.gouv.fr",
+]
 
 
 # Application definition
