@@ -1,6 +1,6 @@
 #!/bin/bash
-rm db.sqlite3
-rm backend/migrations/*
+rm -f db.sqlite3
+rm -f backend/migrations/*
 python manage.py makemigrations backend
 python manage.py migrate
 echo "Creating initial data"
