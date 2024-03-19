@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Process, Material, Product, Example
+from textile.models import Process, Material, Product, Example
+from backend.admin import admin_site
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -24,7 +25,7 @@ class ExempleAdmin(admin.ModelAdmin):
     inlines = [MaterialsInline]
 
 
-admin.site.register(Product, ProductAdmin)
-admin.site.register(Material, MaterialAdmin)
-admin.site.register(Process, ProcessAdmin)
-admin.site.register(Example, ExempleAdmin)
+admin_site.register(Product, ProductAdmin)
+admin_site.register(Material, MaterialAdmin)
+admin_site.register(Process, ProcessAdmin)
+admin_site.register(Example, ExempleAdmin)
