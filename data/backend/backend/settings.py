@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from decouple import config  # python-decouple to read in .env
+from os.path import join
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,6 +38,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "mailauth",
     "textile.apps.TextileConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -60,7 +63,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [join(BASE_DIR, "templates")],  # Ensure this path is correct
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -105,6 +108,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTHENTICATION_BACKENDS = (
+#    # The new access token based authentication backend
+#    "mailauth.backends.MailAuthBackend",
+# )
+LOGIN_TOKEN_SINGLE_USE = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -130,3 +138,9 @@ STATIC_ROOT = "/app/static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_HOST = "smtp.tem.scw.cloud"
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_PORT = 465
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_USE_SSL = True
