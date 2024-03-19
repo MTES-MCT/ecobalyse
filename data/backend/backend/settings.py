@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "mailauth",
+    "mailauth.contrib.user",
     "textile.apps.TextileConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -108,10 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTHENTICATION_BACKENDS = (
-#    # The new access token based authentication backend
-#    "mailauth.backends.MailAuthBackend",
-# )
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    # The new access token based authentication backend
+    "mailauth.backends.MailAuthBackend",
+)
 LOGIN_TOKEN_SINGLE_USE = False
 
 # Internationalization
