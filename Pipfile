@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 gunicorn = "*"
+django-mail-auth = "*"
+python-decouple = "*"
 
 [dev-packages]
 
