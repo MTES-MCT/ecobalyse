@@ -28,17 +28,17 @@ SECRET_KEY = "django-insecure-6v9tk##n9+42jz-0uk694d&=ra5k^ch^=$z_2hov@+1p4hwyi$
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "ecobalyse.beta.gouv.fr",
     "localhost",
     ".osc-fr1.scalingo.io",
     "ecobalyse-v2.osc-fr1.scalingo.io",
-    "ecobalyse.beta.gouv.fr",
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # "mailauth",
+    "mailauth",
     # "mailauth.contrib.user",
     "textile.apps.TextileConfig",
     "django.contrib.admin",
@@ -112,8 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     # The new access token based authentication backend
-    # "mailauth.backends.MailAuthBackend",
+    "mailauth.backends.MailAuthBackend",
 )
+# AUTH_USER_MODEL = "mailauth_user.EmailUser"
 LOGIN_TOKEN_SINGLE_USE = False
 
 # Internationalization
@@ -146,3 +147,4 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_PORT = 465
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
