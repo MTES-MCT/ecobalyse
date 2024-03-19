@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "mailauth",
     # "mailauth.contrib.user",
     "textile.apps.TextileConfig",
+    # "backend.apps.MyAdminConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
