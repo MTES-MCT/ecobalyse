@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
+from django.contrib.auth.models import Group, User
 
 
 class MyAdminSite(admin.AdminSite):
@@ -7,4 +9,6 @@ class MyAdminSite(admin.AdminSite):
     index_title = "Ecobalyse administration"
 
 
-admin_site = admin.site  # MyAdminSite(name="myadmin")
+admin_site = MyAdminSite(name="myadmin")
+admin_site.register(Group, GroupAdmin)
+admin_site.register(User, UserAdmin)
