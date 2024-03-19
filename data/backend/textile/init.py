@@ -1,16 +1,14 @@
+from decouple import config  # python-decouple to read in .env
+from django.contrib.auth import get_user_model
 from os.path import dirname, join, abspath
-import json
 from textile.models import Process, Material, Example, Product
+import json
 
 here = dirname(abspath(__file__))
 
-# create admin user
-from django.contrib.auth import get_user_model
-
-admin = get_user_model().objects.create_user("admin", password="admin")
-admin.is_superuser = True
-admin.is_staff = True
-admin.save()
+# create initial admins given by an env var. Mails separated by comma
+for email in [m.strip() for m in str(config("BACKEND_ADMINS")).split(",")]:
+    get_user_model().objects.create_superuser(email)
 
 
 def flatten(field, record):
