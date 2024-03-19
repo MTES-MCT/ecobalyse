@@ -303,7 +303,7 @@ update rawMsg ({ state } as model) =
                     let
                         newSession =
                             Session.loggedIn session newProcessesJson
-                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts" ""
+                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
 
                         ( newModel, _, _ ) =
                             Home.init newSession
@@ -319,7 +319,7 @@ update rawMsg ({ state } as model) =
                     let
                         newSession =
                             session
-                                |> Session.notifyError "Impossible de charger les impacts lors du login" error
+                                |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
                     in
                     ( { model
                         | state =

@@ -301,10 +301,10 @@ pageHeader config =
                         |> List.map (viewNavigationLink config.activePage)
                       )
                         ++ [ if Session.isLoggedIn config.session then
-                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Logout" ]
+                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
 
                              else
-                                button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Login" ]
+                                button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]

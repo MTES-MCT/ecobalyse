@@ -135,7 +135,12 @@ init session trigram maybeQuery =
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isLoggedIn session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }

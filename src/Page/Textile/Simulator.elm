@@ -149,7 +149,12 @@ init trigram maybeUrlQuery session =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isLoggedIn session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , initialQuery = initialQuery
       , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
