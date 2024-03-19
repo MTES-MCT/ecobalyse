@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "mailauth",
-    # "mailauth.contrib.user",
+    "mailauth.contrib.user",
     "textile.apps.TextileConfig",
     # "backend.apps.MyAdminConfig",
     "django.contrib.admin",
@@ -111,11 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
+    # "django.contrib.auth.backends.ModelBackend",
     # The new access token based authentication backend
     "mailauth.backends.MailAuthBackend",
 )
-# AUTH_USER_MODEL = "mailauth_user.EmailUser"
+AUTH_USER_MODEL = "mailauth_user.EmailUser"
 LOGIN_TOKEN_SINGLE_USE = False
 
 # Internationalization
@@ -143,7 +143,7 @@ STATIC_ROOT = "/app/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_HOST = "smtp.tem.scw.cloud"
+EMAIL_HOST = "smtp.eu.mailgun.org"
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_PORT = 465
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
