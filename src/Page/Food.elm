@@ -1391,7 +1391,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
 
         -- Bookmarks

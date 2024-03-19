@@ -4,7 +4,7 @@ import Data.Bookmark exposing (Bookmark)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram)
 import Data.Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -57,18 +57,22 @@ view config =
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
-        [ ImpactView.selector
-            db.definitions
-            { selectedImpact = config.selectedImpact.trigram
-            , switchImpact = config.switchImpact
-            }
+        [ if Session.isLoggedIn config.session then
+            ImpactView.selector
+                db.definitions
+                { selectedImpact = config.selectedImpact.trigram
+                , switchImpact = config.switchImpact
+                }
+
+          else
+            text ""
         , ScoreView.view
             { customInfo = config.customScoreInfo
             , impactDefinition = config.selectedImpact
             , score = config.totalImpacts
             , mass = config.productMass
             }
-        , if config.selectedImpact.trigram == Definition.Ecs then
+        , if config.selectedImpact.trigram == Definition.Ecs && Session.isLoggedIn config.session then
             db.definitions
                 |> ecotoxWeightingField config.updateEcotoxWeighting
 

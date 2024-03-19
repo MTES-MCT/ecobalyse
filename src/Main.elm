@@ -299,14 +299,18 @@ update rawMsg ({ state } as model) =
                     ( model, Request.Version.loadVersion VersionReceived )
 
                 -- Login
-                ( LoggedIn (Ok newProcessesJson), currentPage ) ->
+                ( LoggedIn (Ok newProcessesJson), _ ) ->
                     let
                         newSession =
                             Session.loggedIn session newProcessesJson
+                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
                     in
                     ( { model
                         | state =
-                            currentPage |> Loaded newSession
+                            HomePage newModel |> Loaded newSession
                       }
                     , newSession.store |> Session.serializeStore |> Ports.saveStore
                     )
@@ -329,14 +333,18 @@ update rawMsg ({ state } as model) =
                     , Session.login LoggedIn
                     )
 
-                ( Logout, currentPage ) ->
+                ( Logout, _ ) ->
                     let
                         newSession =
                             Session.logout session
+                                |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
                     in
                     ( { model
                         | state =
-                            currentPage |> Loaded newSession
+                            HomePage newModel |> Loaded newSession
                       }
                     , newSession.store |> Session.serializeStore |> Ports.saveStore
                     )

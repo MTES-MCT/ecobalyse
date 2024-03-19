@@ -7,7 +7,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Dict
@@ -152,11 +152,18 @@ comparatorView config =
                     )
                 |> RE.combine
     in
-    [ [ ( "Sous-scores", Subscores )
-      , ( "Impacts", IndividualImpacts )
-      , ( "Étapes", Steps )
-      , ( "Total", Total )
-      ]
+    [ ((if Session.isLoggedIn config.session then
+            [ ( "Sous-scores", Subscores )
+            , ( "Impacts", IndividualImpacts )
+            ]
+
+        else
+            []
+       )
+        ++ [ ( "Étapes", Steps )
+           , ( "Total", Total )
+           ]
+      )
         |> List.map
             (\( label, toComparisonType ) ->
                 li [ class "TabsTab nav-item", classList [ ( "active", config.comparisonType == toComparisonType ) ] ]

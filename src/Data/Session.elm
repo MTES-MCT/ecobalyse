@@ -12,6 +12,7 @@ module Data.Session exposing
     , login
     , logout
     , notifyError
+    , notifyInfo
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -59,11 +60,17 @@ type alias Session =
 
 type Notification
     = GenericError String String
+    | GenericInfo String String
 
 
 closeNotification : Notification -> Session -> Session
 closeNotification notification ({ notifications } as session) =
     { session | notifications = notifications |> List.filter ((/=) notification) }
+
+
+notifyInfo : String -> String -> Session -> Session
+notifyInfo title info ({ notifications } as session) =
+    { session | notifications = notifications ++ [ GenericInfo title info ] }
 
 
 notifyError : String -> String -> Session -> Session
