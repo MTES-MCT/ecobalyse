@@ -73,19 +73,7 @@ Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irriga
 
 </details>
 
-## Mieux comprendre la modélisation Ecobalyse&#x20;
-
-Voici les impacts de différents procédés de coton (1kg de coton conventionnel/organique) selon la source (Ecoinvent, Ecoinvent enrichi par Ecobalyse, autres procédés utilisés dans la base de données européenne EF 3.1) :&#x20;
-
-<div>
-
-<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton organique selon différentes sources et_ou procédés.png" alt=""><figcaption><p>Coton organique</p></figcaption></figure>
-
- 
-
-<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton conventionnel selon différentes sources et_ou procédés.png" alt=""><figcaption><p>Coton conventionnel</p></figcaption></figure>
-
-</div>
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton (organique vs conventionnel) dans Ecobalyse .png" alt=""><figcaption><p>Coût environnemental de 1kg de coton dans Ecobalyse (conventionnel vs organique)</p></figcaption></figure>
 
 [^1]: Market report 2023 \_ Textile Exchange
 

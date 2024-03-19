@@ -10,10 +10,6 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 ![](<../../../.gitbook/assets/image (1) (1) (1).png>)
 
-**Vision détaillée (par type d'élevage et de débouchés) en 2011  (**[**source**](#user-content-fn-2)[^2]**)**
-
-![](<../../../.gitbook/assets/image (87).png>)
-
 </details>
 
 La majorité de la laine utilisée aujourd'hui en Europe dans le secteur de l'habillement a été produite hors d'Europe.&#x20;
@@ -30,21 +26,21 @@ Cependant, différentes initiatives récentes participent à remonter une filiè
 
 </details>
 
-Afin de correctement valoriser la production de laine, il est nécessaire d'appréhender les enjeux autour de la valorisation des co-produits.
-
 ### Co-produits & Allocation (économique, bio-physique, etc.)
 
-Lorsqu'un système génère plusieurs produits, les impacts environnementaux doivent être répartis entre les différents produits via une règle d'allocation.&#x20;
+Afin d'évaluer l'impact environnemental de la laine, il est nécessaire d'appréhender les enjeux autour de la valorisation des co-produits.&#x20;
 
-C'est le cas de l'élevage de moutons qui permet de produire de la viande, du cuir, de la laine, du lait, de la lanoline, etc.&#x20;
+Lorsqu'un système génère plusieurs produits, les impacts environnementaux doivent être répartis entre les différents produits via une règle d'allocation. C'est le cas de l'élevage de moutons qui permet de produire de la viande, du cuir, de la laine, du lait, de la lanoline, etc.&#x20;
 
-Plusieurs méthodes d'allocations existent; dont les deux principales utilisées pour le mouton sont présentées ci-dessous.  Selon la méthode d'allocation utilisée, l'impact environnemental de laine peut varier de manière très significative (facteur 1 à 5).
+Plusieurs méthodes d'allocations existent; dont les deux principales utilisées pour le mouton sont présentées ci-dessous. &#x20;
+
+Selon la méthode d'allocation utilisée, l'impact environnemental de laine peut varier de manière très significative (d'un facteur 1 à 5).
 
 Le dispositif d'affichage environnemental français retient une Allocation Economique.
 
 {% tabs %}
 {% tab title="Allocation économique" %}
-L'allocation économique pour les fibres d'origine animale telles que la laine est recommandée par les Nations-Unies (cf. ce rapport[^3]) et l'ADEME.
+L'allocation économique pour les fibres d'origine animale telles que la laine est recommandée par les Nations-Unies (cf. ce rapport[^2]) et l'ADEME.
 
 Cette allocation fluctue selon les prix et la structure du marché.&#x20;
 
@@ -65,9 +61,9 @@ Selon l'étude [Wiedemann et al (2015)](https://link.springer.com/article/10.100
 Cette étude propose par ailleurs un indice des prix de la laine et de la viande selon différentes région (cf. tableau dans la section suivante).
 
 Autres sources : \
-:flag\_us: Etats-Unis (année 2007) => 23% laine (source[^4]) \
-:flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^5])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 19% laine (source[^6])
+:flag\_us: Etats-Unis (année 2007) => 23% laine (source[^3]) \
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 65% laine (source[^4])\
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 19% laine (source[^5])
 {% endtab %}
 
 {% tab title="Allocation biophysique" %}
@@ -86,9 +82,9 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 :flag\_au:Australie (3 fermes laine merinos ++ / région septentrionale) => 45% laine
 
 Autres sources : \
-:flag\_au:Australie (52 fermes / 5 ans / 2 régions / laine merinos) : 47% (source[^7]) \
-:flag\_nz:Nouvelle-Zélande (laine merinos) : 48% laine (source[^8])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 16% laine (source[^9])
+:flag\_au:Australie (52 fermes / 5 ans / 2 régions / laine merinos) : 47% (source[^6]) \
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 48% laine (source[^7])\
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 16% laine (source[^8])
 {% endtab %}
 
 {% tab title="Allocation massique" %}
@@ -100,9 +96,9 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 :flag\_au:Australie (3 fermes / laine merinos région méridionale) => 40% laine &#x20;
 
 Autres sources : \
-:flag\_nz:Nouvelle-Zélande : 20% laine (source[^10])\
-:flag\_nz:Nouvelle-Zélande : 25% laine (source[^11])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 39% laine (source[^12])
+:flag\_nz:Nouvelle-Zélande : 20% laine (source[^9])\
+:flag\_nz:Nouvelle-Zélande : 25% laine (source[^10])\
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 39% laine (source[^11])
 {% endtab %}
 {% endtabs %}
 
@@ -112,19 +108,23 @@ Selon les races de mouton (Romney, Merino, Lleyn, Cheviot, etc.) et les zones (A
 
 Voici différents scénarios proposés par [Wiedemann et al (2015)](https://link.springer.com/article/10.1007/s11367-015-0849-z) :&#x20;
 
-<table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-13">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
+<table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-12">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
 
-De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont des terres non-arables (paturages) ne rentrant pas en compétition avec d'autres types d'occupation des sols (cf. notamment cette [étude ](#user-content-fn-14)[^14]à ce sujet). &#x20;
+De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont des terres non-arables (paturages) ne rentrant pas en compétition avec d'autres types d'occupation des sols (cf. notamment cette [étude ](#user-content-fn-13)[^13]à ce sujet).&#x20;
 
-* Services écosystématiques\
-  L'élevage extensif (paturages) propose des impacts positifs sur l'environnement tels que la limitation des feux de forêts grâce à l'entretien des prairies ou encore la limitation d'espèces végétales invasives. \
-  Dans l'étude [Ripoll-Bosch et al, 2013](#user-content-fn-15)[^15], il est démontré que l'élevage extensif des moutons en Espagne propose des bénéfices écosystémiques tels que la préservation de la biodiversité et des paysages.&#x20;
-* Alimentation\
-  L'élevage extensif (paturages) limite la nécessité de nourrir les moutons avec des intrants tels que les tourteaux de soja.
+{% hint style="info" %}
+**Services écosystémiques**
+
+L'élevage extensif (paturages) propose des impacts positifs sur l'environnement tels que la limitation des feux de forêts grâce à l'entretien des prairies ou encore la limitation d'espèces végétales invasives.&#x20;
+
+Dans l'étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], il est stipulé que l'élevage extensif des moutons en Espagne propose des bénéfices écosystémiques tels que la préservation de la biodiversité et des paysages.&#x20;
+
+Ces externalités positives ne sont généralement pas intégrées dans les inventaires de cycle de vie (ICV) actuellement disponibles sur le marché. Ecobalyse envisage d'enrichir les procédés avec de telles externalités.
+{% endhint %}
 
 ## Modélisation Ecobalyse
 
-### Scope&#x20;
+### Scope
 
 L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci-dessous. &#x20;
 
@@ -134,88 +134,79 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 Ecobalyse propose 3 types de laine :&#x20;
 
-* Laine (par défaut)\
-  Représente la majorité de la laine actuellement utilisée dans les textiles d'habillement (laine provenant majoritairement d'Australie / Nouvelle-Zélande)&#x20;
-* Laine (nouvelle filière) \
-  Représente les marchés/géographies où des moutons sont élevées majoritairement pour la viande et/ou lait (la laine représentant un co-produit non valorisé; un déchet). C'est le cas de la filière française en 2023.&#x20;
-* Laine merinos\
-  Permet de distinguer ce mode d'élevage qui diffère de celui de la laine par défaut.&#x20;
-
-<mark style="color:orange;">\[afficher l'impact de ces 3 laines lorsque les résultats sont figés]</mark>
-
-### Focus techniques&#x20;
-
 <details>
 
-<summary>Allocation économique</summary>
+<summary>Laine (par défaut)</summary>
 
-En suivant les recommandations de l'ADEME, une allocation économique est utilisée.&#x20;
+Cette laine se base sur le procédé Ecoinvent "sheep production, for wool, RoW".&#x20;
 
-Les taux d'allocation économique retenus sont :&#x20;
+Ce procédé se base sur des conditions d'élevage typiques aux Etats-Unis avec un modèle d'élevage majoritairement extensif (80% extensif).
 
-* Laine (par défaut) => 37% &#x20;
-* Laine (nouvelle filière) => 4%&#x20;
-* Laine merinos =>  50%
+Deux enrichissements ont été apportés par Ecobalyse :&#x20;
+
+* Rations alimentaires\
+  La laine utilisée dans le textile d'habillement sur le marché européen provenant majoritairement d'Australie et Nouvelle-Zélande, Ecobalyse a adapté les rations alimentaires afin de refléter les pratiques d'élevage sur ces géographies.\
+  \
+  Scénario intial (kg / mouton / an) => Tourteaux de soja (c. 35) + maïs (c. 53) \
+  Scénario final (kg / mouton / an) => \
+
+* Taux d'allocation : 37% \
+  Afin d'allouer l'impact du mouton au co-produit laine, une allocation économique basée sur le principal marché (Australie / année 2020) a été utilisée (source : MLA National Livestock Reporting Service Australian Wool Exchange).
 
 </details>
 
 <details>
 
-<summary>Mode d'élevage</summary>
+<summary>Laine (nouvelle filière)</summary>
 
-* Laine (par défaut) => 50%  (Extensif) / 50% (Autre)
-* Laine (nouvelle filière) =>  50%  (Extensif) / 50% (Autre)
-* Laine merinos =>   95%  (Extensif) / 5% (Autre)
+Cette laine représente les marchés/géographies où la laine n'est pas valorisée (ex : filière laine française en 2022/2023).
+
+Le procédé "Laine (par défaut)" est utilisé avec comme unique modification l'application d'un taux d'allocation de 4%. &#x20;
 
 </details>
 
+<details>
 
+<summary>Laine (100% prairie)</summary>
 
-### \[old]&#x20;
+Cette laine reflète des conditions d'élevage 100% extensives.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Extrait de l'impact de 1kg de laine depuis Ecobalyse </p></figcaption></figure>
+Le procédé "Laine (par défaut)" est utilisé avec comme unique modification la modification des rations alimentaires (0 intrants / 100% plaine).
 
-**Aller plus loin**
+</details>
 
-* 33% de l'impact de _Laine (par défaut)_ provient de l'indicateur Ecotoxicité de l'eau douce.\
-  Les deux principales raisons expliquant cela sont : \
-  1\) la pondération élevée de cet indicateur dans le coût environnemental (21,06%)\
-  2\) l'alimentation du mouton (29kg de tourteaux soja / an ) explique la majeure partie de cet impact. Ce choix d'alimentation est proposé par Ecoinvent dans le cadre d'un scénario basé sur les pratiques du marché US (extrait de la documentation Ecoinvent : "This dataset is a copy dataset from the respective US geography and therefore might not represent fully the global situation"). \
-  Un paramètre clé à préciser est l'alimentation moyenne des moutons utilisés pour la laine textile.
-* Le complément Microfibres (570 uPts / kg de fibre naturelle d'origine animale) explique une part significative de l'impact de la laine (32% de _Laine (nouvelle filière)_ et 9% de _Laine (par défaut)_ ).&#x20;
+<mark style="color:orange;">Intégrer graphe</mark>
 
 [^1]: Textile Exchange (market report 2023)
 
-[^2]: Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
+[^2]: Study : "Greenhouse gas emissions and fossil energy use from small ruminant supply chains" (source : Food and Agriculture Organization of the United Nations)
 
-[^3]: Study : "Greenhouse gas emissions and fossil energy use from small ruminant supply chains" (source : Food and Agriculture Organization of the United Nations)
+[^3]: Travaux ENSAIT & EIME dans le cadre de la mise en place de la base de données EIME
 
-[^4]: Travaux ENSAIT & EIME dans le cadre de la mise en place de la base de données EIME
+[^4]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
 
-[^5]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
-
-[^6]: Data from Ledgard et al. (2009, 2011)\
+[^5]: Data from Ledgard et al. (2009, 2011)\
     \
     Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
 
-[^7]: Etude parue en 2020 : _Environmental impacts associated with the production, use, and end-of-life of a woollen garment_
+[^6]: Etude parue en 2020 : _Environmental impacts associated with the production, use, and end-of-life of a woollen garment_
 
-[^8]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+[^7]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
 
-[^9]: Data from Ledgard et al. (2009, 2011)\
+[^8]: Data from Ledgard et al. (2009, 2011)\
     \
     Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
 
-[^10]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+[^9]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
 
-[^11]: Etude parue en 2006 et commissionnée par la New-Zealand Merino Company => "LCA : New Zealand Merino Industry"
+[^10]: Etude parue en 2006 et commissionnée par la New-Zealand Merino Company => "LCA : New Zealand Merino Industry"
 
-[^12]: Data from Ledgard et al. (2009, 2011)\
+[^11]: Data from Ledgard et al. (2009, 2011)\
     \
     Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
 
-[^13]: Rapport entre la quantité annuelle de laine produite (greasy wool) et de viande vendue (live weight).
+[^12]: Rapport entre la quantité annuelle de laine produite (greasy wool) et de viande vendue (live weight).
 
-[^14]: "Wool Production Systematic review of Life Cycle Assessment studies" (Author : C. Devaux, Sweden, 2019).
+[^13]: "Wool Production Systematic review of Life Cycle Assessment studies" (Author : C. Devaux, Sweden, 2019).
 
-[^15]: [https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618](https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618)
+[^14]: [https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618](https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618)
