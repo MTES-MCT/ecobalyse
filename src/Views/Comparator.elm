@@ -7,7 +7,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Dict
