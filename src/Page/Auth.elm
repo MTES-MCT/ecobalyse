@@ -171,7 +171,7 @@ viewLoginRegisterForm model =
         , div [ class "card-body" ]
             [ case model.action of
                 Register ->
-                    text "inscription"
+                    viewRegisterForm model
 
                 Authenticate ->
                     viewLoginForm model
@@ -204,4 +204,80 @@ viewLoginForm model =
             , onClick Login
             ]
             [ text "Connexion" ]
+        ]
+
+
+viewRegisterForm : Model -> Html Msg
+viewRegisterForm model =
+    div []
+        [ div [ class "mb-3" ]
+            [ label
+                [ for "emailInput"
+                , class "form-label"
+                ]
+                [ text "Adresse e-mail" ]
+            , input
+                [ type_ "email"
+                , class "form-control"
+                , id "emailInput"
+                , placeholder "nom@example.com"
+                , value model.email
+                , onInput (\email -> UpdateForm { model | email = email })
+                ]
+                []
+            ]
+        , div [ class "mb-3" ]
+            [ label
+                [ for "firstnameInput"
+                , class "form-label"
+                ]
+                [ text "Prénom" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , id "firstnameInput"
+                , placeholder "Joséphine"
+                , value model.firstname
+                , onInput (\firstname -> UpdateForm { model | firstname = firstname })
+                ]
+                []
+            ]
+        , div [ class "mb-3" ]
+            [ label
+                [ for "lastnameInput"
+                , class "form-label"
+                ]
+                [ text "Nom" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , id "lastnameInput"
+                , placeholder "Durand"
+                , value model.lastname
+                , onInput (\lastname -> UpdateForm { model | lastname = lastname })
+                ]
+                []
+            ]
+        , div [ class "mb-3" ]
+            [ label
+                [ for "cguInput"
+                , class "form-check form-switch form-check-label pt-1"
+                ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , id "cguInput"
+                    , checked model.cgu
+                    , onCheck (\isChecked -> UpdateForm { model | cgu = isChecked })
+                    ]
+                    []
+                , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
+                ]
+            ]
+        , button
+            [ type_ "submit"
+            , class "btn btn-primary mb-3"
+            , onClick Login
+            ]
+            [ text "M'inscrire" ]
         ]
