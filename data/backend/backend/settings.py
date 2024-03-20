@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "mailauth",
+    "mailauth.contrib.admin",
     "mailauth.contrib.user",
     "textile.apps.TextileConfig",
     # "backend.apps.MyAdminConfig",
