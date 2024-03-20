@@ -1,17 +1,14 @@
 module Data.Textile.Material exposing
-    ( CFFData
-    , Id(..)
+    ( Id(..)
     , Material
     , decodeList
     , encode
     , encodeId
     , findById
-    , getRecyclingData
     , idToString
     )
 
 import Data.Country as Country
-import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
@@ -25,47 +22,14 @@ type alias Material =
     , shortName : String
     , origin : Origin
     , materialProcess : Process
-
-    -- FIXME: investigate if this is still used
-    --        if not, remove this field AND property in JSON source file
-    , recycledProcess : Maybe Process
-
-    -- FIXME: same with this field
-    , recycledFrom : Maybe Id
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , priority : Int -- Used to sort materials
-    , cffData : Maybe CFFData
     }
 
 
 type Id
     = Id String
-
-
-
----- Recycling
-
-
-type alias CFFData =
-    -- Circular Footprint Formula data
-    { manufacturerAllocation : Split
-    , recycledQualityRatio : Split
-    }
-
-
-getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
-getRecyclingData material materials =
-    -- If material is non-recycled, retrieve relevant recycled equivalent material & CFF data
-    Maybe.map2 Tuple.pair
-        (material.recycledFrom
-            |> Maybe.andThen
-                (\id ->
-                    findById id materials
-                        |> Result.toMaybe
-                )
-        )
-        material.cffData
 
 
 
@@ -87,19 +51,9 @@ decode processes =
         |> JDP.required "shortName" Decode.string
         |> JDP.required "origin" Origin.decode
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
-        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "priority" Decode.int
-        |> JDP.required "cff" (Decode.maybe decodeCFFData)
-
-
-decodeCFFData : Decoder CFFData
-decodeCFFData =
-    Decode.succeed CFFData
-        |> JDP.required "manufacturerAllocation" Split.decodeFloat
-        |> JDP.required "recycledQualityRatio" Split.decodeFloat
 
 
 decodeList : List Process -> Decoder (List Material)
@@ -115,10 +69,6 @@ encode v =
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
         , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
-        , ( "recycledProcessUuid"
-          , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
-          )
-        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         , ( "priority", Encode.int v.priority )

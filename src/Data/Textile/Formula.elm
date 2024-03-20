@@ -14,7 +14,6 @@ module Data.Textile.Formula exposing
     , materialPrintingToxicityImpacts
     , printingImpacts
     , pureMaterialImpacts
-    , recycledMaterialImpacts
     , spinningImpacts
     , transportRatio
     , useImpacts
@@ -26,7 +25,6 @@ import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material exposing (CFFData)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -93,34 +91,6 @@ pureMaterialImpacts impacts process mass =
             (\trigram _ ->
                 mass
                     |> Unit.forKg (Process.getImpact trigram process)
-            )
-
-
-recycledMaterialImpacts :
-    Impacts
-    -> { recycledProcess : Process, nonRecycledProcess : Process, cffData : CFFData }
-    -> Mass
-    -> Impacts
-recycledMaterialImpacts impacts { recycledProcess, nonRecycledProcess, cffData } outputMass =
-    let
-        { manufacturerAllocation, recycledQualityRatio } =
-            cffData
-    in
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                let
-                    ( recycledImpactPerKg, nonRecycledImpactPerKg ) =
-                        ( Process.getImpact trigram recycledProcess |> Unit.impactToFloat
-                        , Process.getImpact trigram nonRecycledProcess |> Unit.impactToFloat
-                        )
-                in
-                Mass.inKilograms outputMass
-                    * (Split.apply recycledImpactPerKg manufacturerAllocation
-                        + Split.apply (Split.toFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
-                        * nonRecycledImpactPerKg
-                      )
-                    |> Unit.impact
             )
 
 

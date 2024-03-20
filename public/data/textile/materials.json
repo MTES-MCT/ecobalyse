@@ -2,234 +2,177 @@
   {
     "id": "ei-soie",
     "materialProcessUuid": "4646e2fbfb0669dd6e3215e441dffcbe",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Fil de soie",
     "shortName": "Soie",
     "origin": "NaturalFromAnimal",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-lin",
     "materialProcessUuid": "4bc515319f905a20243cb6d551748008",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Fil de lin",
     "shortName": "Lin",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-laine-par-defaut",
     "materialProcessUuid": "wool-default",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Laine par défaut",
     "shortName": "Laine par défaut",
     "origin": "NaturalFromAnimal",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-laine-nouvelle-filiere",
     "materialProcessUuid": "wool-new",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Laine nouvelle filière",
     "shortName": "Laine nouvelle filière",
     "origin": "NaturalFromAnimal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-jute-kenaf",
     "materialProcessUuid": "9df0524c7ee3b4f1f31067565192df9a",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Jute",
     "shortName": "Jute",
     "origin": "NaturalFromVegetal",
     "primary": false,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-coton",
     "materialProcessUuid": "a211822aabe83653a6079b9d5677daed",
-    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
-    "recycledFrom": null,
     "name": "Coton",
     "shortName": "Coton",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100,
-    "cff": null
+    "priority": 100
   },
   {
     "id": "ei-coton-organic",
     "materialProcessUuid": "coton-bio",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Coton bio",
     "shortName": "Coton bio",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100,
-    "cff": null
+    "priority": 100
   },
   {
     "id": "ei-chanvre",
     "materialProcessUuid": "fa590941e8bbf72c8956b5c3ba793eb7",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Chanvre",
     "shortName": "Chanvre",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-viscose",
     "materialProcessUuid": "f89bba0c170190e003fa3f643591cca5",
-    "recycledProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
-    "recycledFrom": null,
     "name": "Viscose",
     "shortName": "Viscose",
     "origin": "ArtificialFromOrganic",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-pp",
     "materialProcessUuid": "6e442b958af0d26f85ecacce2eeb23d0",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Polypropylène",
     "shortName": "Polypropylène",
     "origin": "Synthetic",
     "primary": false,
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-pet",
     "materialProcessUuid": "f32024fc5e736e01fa14321363900581",
-    "recycledProcessUuid": "087896096b5bede914ef3ec1062b1c02",
-    "recycledFrom": null,
     "name": "Polyester",
     "shortName": "Polyester",
     "origin": "Synthetic",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 80,
-    "cff": null
+    "priority": 80
   },
   {
     "id": "ei-pet-r",
     "materialProcessUuid": "087896096b5bede914ef3ec1062b1c02",
-    "recycledProcessUuid": "087896096b5bede914ef3ec1062b1c02",
-    "recycledFrom": null,
     "name": "Polyester recyclé",
     "shortName": "Polyester recyclé",
     "origin": "Synthetic",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 80,
-    "cff": null
+    "priority": 80
   },
   {
     "id": "ei-pa",
     "materialProcessUuid": "88a1395a1c61be31b0bc692e977dd10b",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
     "name": "Nylon",
     "shortName": "Nylon",
     "origin": "Synthetic",
     "primary": true,
     "geographicOrigin": "Europe",
     "defaultCountry": "FR",
-    "priority": 0,
-    "cff": null
+    "priority": 0
   },
   {
     "id": "ei-viscose-r",
     "materialProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
-    "recycledProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
-    "recycledFrom": "viscose",
     "name": "Viscose recyclée",
     "shortName": "Viscose recyclée",
     "origin": "ArtificialFromOrganic",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "priority": 0
   },
   {
     "id": "coton-rdpc",
     "materialProcessUuid": "993955be-5888-6f39-137c-56af8c5187c1",
-    "recycledProcessUuid": null,
-    "recycledFrom": "coton",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "shortName": "Coton recyclé (déchets post-consommation)",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "France",
     "defaultCountry": "FR",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "priority": 0
   },
   {
     "id": "coton-rdp",
     "materialProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
-    "recycledProcessUuid": null,
-    "recycledFrom": "coton",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Coton recyclé (déchets de production)",
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Espagne & France",
     "defaultCountry": "FR",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "priority": 0
   }
 ]
