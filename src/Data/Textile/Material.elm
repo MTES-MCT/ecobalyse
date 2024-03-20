@@ -34,7 +34,6 @@ type alias Material =
     , recycledFrom : Maybe Id
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
-    , priority : Int -- Used to sort materials
     , cffData : Maybe CFFData
     }
 
@@ -91,7 +90,6 @@ decode processes =
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
-        |> JDP.required "priority" Decode.int
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
 
 
@@ -121,7 +119,6 @@ encode v =
         , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
-        , ( "priority", Encode.int v.priority )
         ]
 
 
