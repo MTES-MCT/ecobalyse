@@ -25,6 +25,7 @@ import Views.Spinner as Spinner
 
 type ActivePage
     = Api
+    | Auth
     | Changelog
     | Editorial String
     | Explore
@@ -47,8 +48,6 @@ type alias Config msg a =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
-    , login : msg
-    , logout : msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
@@ -301,11 +300,14 @@ pageHeader config =
                     [ (headerMenuLinks
                         |> List.map (viewNavigationLink config.activePage)
                       )
-                        ++ [ if Session.isAuthenticated config.session then
-                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
+                        ++ [ span [ class "flex-fill" ] [] -- Filler
+                           , if Session.isAuthenticated config.session then
+                                Internal "Déconnexion" Route.Auth Auth
+                                    |> viewNavigationLink config.activePage
 
                              else
-                                button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                                Internal "Connexion" Route.Auth Auth
+                                    |> viewNavigationLink config.activePage
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
