@@ -37,11 +37,15 @@ const storeKey = "store";
 const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
-    rawStore: localStorage[storeKey] || "",
+    github: {
+      repository: process.env.GITHUB_REPOSITORY || "MTES-MCT/ecobalyse",
+      branch: process.env.GITHUB_BRANCH || "master",
+    },
     matomo: {
       host: process.env.MATOMO_HOST || "",
       siteId: process.env.MATOMO_SITE_ID || "",
     },
+    rawStore: localStorage[storeKey] || "",
   },
 });
 

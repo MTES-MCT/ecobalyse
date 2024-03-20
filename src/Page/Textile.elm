@@ -1,7 +1,8 @@
-module Page.Textile.Simulator exposing
+module Page.Textile exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -15,6 +16,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Dataset as Dataset
+import Data.Example as Example exposing (Example)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -25,7 +28,6 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -39,6 +41,7 @@ import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
+import Data.Uuid as Uuid exposing (Uuid)
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -56,6 +59,7 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -69,6 +73,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , editedExample : Maybe (ExampleView.Edited Query)
     , initialQuery : Query
     , detailedStep : Maybe Int
     , impact : Definition
@@ -88,7 +93,10 @@ type Modal
 type Msg
     = AddMaterial Material
     | CopyToClipBoard String
+    | CreateExample Query
+    | CreateExampleComplete (Example Query)
     | DeleteBookmark Bookmark
+    | DuplicateExample (Example Query)
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
@@ -100,6 +108,7 @@ type Msg
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SaveEditedExample (Example Query)
     | SelectAllBookmarks
     | SelectNoBookmarks
     | SetModal Modal
@@ -116,6 +125,7 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateEcotoxWeighting (Maybe Unit.Ratio)
+    | UpdateEditedExample (Example Query)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
@@ -155,6 +165,7 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , editedExample = Nothing
       , initialQuery = initialQuery
       , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
@@ -180,6 +191,46 @@ init trigram maybeUrlQuery session =
         -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
         Just _ ->
             Cmd.none
+    )
+
+
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.textile.examples
+                |> Example.findByUuid uuid
+
+        exampleQuery =
+            example
+                |> Result.map .query
+                |> Result.withDefault session.queries.textile
+
+        simulator =
+            exampleQuery
+                |> Simulator.compute session.db
+    in
+    ( { simulator = simulator
+      , bookmarkName = exampleQuery |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , editedExample = example |> Result.map (\ex -> { initial = ex, current = ex }) |> Result.toMaybe
+      , initialQuery = exampleQuery
+      , detailedStep = Nothing
+      , impact = Definition.get Definition.Ecs session.db.definitions
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session
+        |> Session.updateTextileQuery exampleQuery
+        |> (case simulator of
+                Err error ->
+                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+
+                Ok _ ->
+                    identity
+           )
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -221,10 +272,49 @@ update ({ queries, navKey } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
+        CreateExample newQuery ->
+            ( model
+            , session
+            , Uuid.generateUuid
+                |> Task.map
+                    (\uuid ->
+                        { id = uuid
+                        , name = "Nouvel exemple de produit "
+                        , category = ""
+                        , query = newQuery
+                        }
+                    )
+                |> Task.perform CreateExampleComplete
+            )
+
+        CreateExampleComplete example ->
+            ( model
+            , session
+                |> Session.createTextileExample example
+            , Route.TextileSimulatorExample example.id
+                |> Route.toString
+                |> Navigation.pushUrl session.navKey
+            )
+
         DeleteBookmark bookmark ->
             ( model
             , session |> Session.deleteBookmark bookmark
             , Cmd.none
+            )
+
+        DuplicateExample example ->
+            ( model
+            , session
+            , Uuid.generateUuid
+                |> Task.map
+                    (\uuid ->
+                        { id = uuid
+                        , name = "Copie de " ++ example.name
+                        , category = example.category
+                        , query = example.query
+                        }
+                    )
+                |> Task.perform CreateExampleComplete
             )
 
         NoOp ->
@@ -321,14 +411,24 @@ update ({ queries, navKey } as session) msg model =
                     )
             )
 
-        SaveBookmarkWithTime name foodQuery now ->
+        SaveBookmarkWithTime name query_ now ->
             ( model
             , session
                 |> Session.saveBookmark
                     { name = String.trim name
-                    , query = foodQuery
+                    , query = query_
                     , created = now
                     }
+            , Cmd.none
+            )
+
+        SaveEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map (\state -> { state | initial = updatedExample })
+              }
+            , session |> Session.updateTextileExample updatedExample
             , Cmd.none
             )
 
@@ -453,6 +553,16 @@ update ({ queries, navKey } as session) msg model =
 
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
+
+        UpdateEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map (\state -> { state | current = updatedExample })
+              }
+            , session
+            , Cmd.none
+            )
 
         UpdateFabricProcess fabricProcess ->
             ( model, session, Cmd.none )
@@ -683,26 +793,6 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : List ExampleProduct -> Query -> Html Msg
-exampleProductField exampleProducts query =
-    let
-        autocompleteState =
-            exampleProducts
-                |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
-    in
-    div []
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Examples" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ text <| ExampleProduct.toName exampleProducts query ]
-        ]
-
-
 productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
@@ -861,7 +951,7 @@ traceabilityField traceability =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label text-truncate" ]
+        [ label [ for "mass", class "form-label text-truncate mb-0" ]
             [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -961,16 +1051,31 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView session model ({ inputs, impacts } as simulator) =
+simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
+            , div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
                 [ div [ class "col-md-9" ]
-                    [ Inputs.toQuery inputs
-                        |> exampleProductField session.db.textile.exampleProducts
+                    [ model.editedExample
+                        |> ExampleView.view
+                            { create = CreateExample
+                            , currentQuery = session.queries.textile
+                            , duplicate = DuplicateExample
+                            , emptyQuery = Query.default
+                            , examples = db.textile.examples
+                            , onOpen = SelectExampleModal >> SetModal
+                            , routes =
+                                { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                                , load = Route.TextileSimulatorExample
+                                , scopeHome = Route.TextileSimulatorHome
+                                }
+                            , save = SaveEditedExample
+                            , update = UpdateEditedExample
+                            }
                     ]
-                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
+                , div [ class "col-md-3" ]
+                    [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
             , div [ class "card shadow-sm mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
@@ -1147,8 +1252,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = ExampleProduct.toName session.db.textile.exampleProducts
-                                , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
+                                , toLabel = Example.toName session.db.textile.examples
+                                , toCategory = Example.toCategory session.db.textile.examples
                                 }
 
                         SelectProductModal autocompleteState ->

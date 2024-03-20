@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const github = require("./lib/github");
 
 const app = express(); // web app
 const api = express(); // api app
@@ -84,6 +85,9 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
 // API
 
+// Allow app to handle POST requests JSON body parameters
+api.use(express.json());
+
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
 // Matomo
@@ -106,6 +110,16 @@ api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
 api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
+
+// Example products update endpoint
+api.post("/contrib/examples/:type", async (req, res) => {
+  try {
+    const response = await github.createExamplesPR(req.params.type, req.body);
+    res.status(response.status).send(response);
+  } catch ({ message }) {
+    res.status(400).send({ error: message });
+  }
+});
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), (req, res) => {

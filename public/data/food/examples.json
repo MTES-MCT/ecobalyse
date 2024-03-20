@@ -490,7 +490,7 @@
         },
         {
           "id": "mozzarella",
-          "mass": 36.00000000000001
+          "mass": 36
         },
         {
           "id": "sugar",
@@ -510,11 +510,11 @@
         },
         {
           "id": "tomato-greenhouse-fr",
-          "mass": 36.00000000000001
+          "mass": 36
         },
         {
           "id": "bellpepper-unheated-greenhouse",
-          "mass": 36.00000000000001
+          "mass": 36
         },
         {
           "id": "onion-fr",
@@ -557,7 +557,7 @@
         },
         {
           "id": "mozzarella",
-          "mass": 36.00000000000001,
+          "mass": 36,
           "country": "FR"
         },
         {
@@ -581,12 +581,12 @@
         },
         {
           "id": "tomato-greenhouse-fr",
-          "mass": 36.00000000000001,
+          "mass": 36,
           "country": "FR"
         },
         {
           "id": "bellpepper-unheated-greenhouse",
-          "mass": 36.00000000000001,
+          "mass": 36,
           "country": "FR"
         },
         {

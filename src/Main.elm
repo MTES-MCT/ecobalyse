@@ -14,7 +14,7 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Simulator as TextileSimulator
+import Page.Textile as Textile
 import Ports
 import RemoteData exposing (WebData)
 import Request.Version
@@ -26,6 +26,7 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
+    , github : { repository : String, branch : String }
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -41,7 +42,7 @@ type Page
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
-    | TextileSimulatorPage TextileSimulator.Model
+    | TextileSimulatorPage Textile.Model
 
 
 type State
@@ -75,7 +76,7 @@ type Msg
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | TextileSimulatorMsg TextileSimulator.Msg
+    | TextileSimulatorMsg Textile.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
     | VersionPoll
@@ -90,7 +91,9 @@ init flags url navKey =
                     Ok db ->
                         Loaded
                             { db = db
+                            , initialDb = db
                             , clientUrl = flags.clientUrl
+                            , github = { repository = flags.github.repository, branch = flags.github.branch }
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
@@ -170,16 +173,24 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.init session trigram maybeQuery
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
+                Just (Route.FoodBuilderExample uuid) ->
+                    FoodBuilder.initFromExample session uuid
+                        |> toPage FoodBuilderPage FoodBuilderMsg
+
                 Just Route.Stats ->
                     Stats.init session
                         |> toPage StatsPage StatsMsg
 
                 Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Nothing session
+                    Textile.init Impact.default Nothing session
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
-                    TextileSimulator.init trigram maybeQuery session
+                    Textile.init trigram maybeQuery session
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+
+                Just (Route.TextileSimulatorExample uuid) ->
+                    Textile.initFromExample session uuid
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->
@@ -233,8 +244,8 @@ update rawMsg ({ state } as model) =
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
-                ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
-                    TextileSimulator.update session counterMsg counterModel
+                ( TextileSimulatorMsg simulatorMsg, TextileSimulatorPage simulatorModel ) ->
+                    Textile.update session simulatorMsg simulatorModel
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
@@ -379,7 +390,7 @@ subscriptions { state } =
                     |> Sub.map FoodBuilderMsg
 
             Loaded _ (TextileSimulatorPage subModel) ->
-                TextileSimulator.subscriptions subModel
+                Textile.subscriptions subModel
                     |> Sub.map TextileSimulatorMsg
 
             _ ->
@@ -446,7 +457,7 @@ view { state, mobileNavigationOpened } =
                         |> Page.frame (pageConfig Page.FoodBuilder)
 
                 TextileSimulatorPage simulatorModel ->
-                    TextileSimulator.view session simulatorModel
+                    Textile.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
                         |> Page.frame (pageConfig Page.TextileSimulator)
 

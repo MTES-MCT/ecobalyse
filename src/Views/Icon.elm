@@ -1,4 +1,32 @@
-module Views.Icon exposing (..)
+module Views.Icon exposing
+    ( boat
+    , boatCooled
+    , build
+    , bus
+    , busCooled
+    , cancel
+    , check
+    , checkCircle
+    , clipboard
+    , copy
+    , exclamation
+    , ham
+    , info
+    , list
+    , lock
+    , pencil
+    , plane
+    , plus
+    , question
+    , save
+    , search
+    , stats
+    , trash
+    , undo
+    , warning
+    , zoomin
+    , zoomout
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -36,6 +64,11 @@ busCooled =
         [ snow ]
 
 
+cancel : Html msg
+cancel =
+    icon "cancel"
+
+
 check : Html msg
 check =
     icon "check"
@@ -49,6 +82,11 @@ checkCircle =
 clipboard : Html msg
 clipboard =
     icon "clipboard"
+
+
+copy : Html msg
+copy =
+    icon "copy"
 
 
 exclamation : Html msg
@@ -66,9 +104,19 @@ info =
     icon "info"
 
 
+list : Html msg
+list =
+    icon "list"
+
+
 lock : Html msg
 lock =
     icon "lock"
+
+
+pencil : Html msg
+pencil =
+    icon "pencil"
 
 
 plane : Html msg
@@ -84,6 +132,11 @@ plus =
 question : Html msg
 question =
     icon "question"
+
+
+save : Html msg
+save =
+    icon "save"
 
 
 search : Html msg
@@ -104,6 +157,11 @@ stats =
 trash : Html msg
 trash =
     icon "trash"
+
+
+undo : Html msg
+undo =
+    icon "undo"
 
 
 warning : Html msg

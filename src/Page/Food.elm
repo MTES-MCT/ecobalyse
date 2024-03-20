@@ -2,6 +2,7 @@ module Page.Food exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -14,8 +15,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
+import Data.Example as Example exposing (Example)
 import Data.Food.EcosystemicServices as EcosystemicServices
-import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -31,6 +32,7 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -54,6 +56,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -69,6 +72,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , editedExample : Maybe (ExampleView.Edited Query)
     , modal : Modal
     , activeImpactsTab : ImpactTabs.Tab
     }
@@ -88,10 +92,13 @@ type Msg
     | AddTransform
     | AddDistribution
     | CopyToClipBoard String
+    | CreateExample Query
+    | CreateExampleComplete (Example Query)
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Identifier
     | DeletePreparation Preparation.Id
+    | DuplicateExample (Example Query)
     | LoadQuery Query
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
@@ -104,6 +111,7 @@ type Msg
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SaveEditedExample (Example Query)
     | SelectAllBookmarks
     | SelectNoBookmarks
     | SetModal Modal
@@ -114,6 +122,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateEcotoxWeighting (Maybe Unit.Ratio)
+    | UpdateEditedExample (Example Query)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -141,6 +150,7 @@ init session trigram maybeQuery =
 
             else
                 ComparatorView.Steps
+      , editedExample = Nothing
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -151,6 +161,32 @@ init session trigram maybeQuery =
 
         Just _ ->
             Cmd.none
+    )
+
+
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.food.examples
+                |> Example.findByUuid uuid
+
+        query =
+            example
+                |> Result.map .query
+                |> Result.withDefault Query.empty
+    in
+    ( { impact = session.db.definitions |> Definition.get Definition.Ecs
+      , initialQuery = query
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , editedExample = example |> Result.map (\ex -> { initial = ex, current = ex }) |> Result.toMaybe
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session |> Session.updateFoodQuery query
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -218,6 +254,23 @@ update ({ db, queries } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
+        CreateExample newQuery ->
+            ( model
+            , session
+            , Uuid.generateUuid
+                |> Task.map (\uuid -> { id = uuid, name = "Nouvel exemple de produit ", category = "", query = newQuery })
+                |> Task.perform CreateExampleComplete
+            )
+
+        CreateExampleComplete example ->
+            ( model
+            , session
+                |> Session.createFoodExample example
+            , Route.FoodBuilderExample example.id
+                |> Route.toString
+                |> Navigation.pushUrl session.navKey
+            )
+
         DeleteBookmark bookmark ->
             updateQuery query
                 ( model
@@ -236,6 +289,21 @@ update ({ db, queries } as session) msg model =
         DeletePreparation id ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.deletePreparation id query)
+
+        DuplicateExample example ->
+            ( model
+            , session
+            , Uuid.generateUuid
+                |> Task.map
+                    (\uuid ->
+                        { id = uuid
+                        , name = "Copie de " ++ example.name
+                        , category = example.category
+                        , query = example.query
+                        }
+                    )
+                |> Task.perform CreateExampleComplete
+            )
 
         LoadQuery queryToLoad ->
             update session (SetModal NoModal) { model | initialQuery = queryToLoad }
@@ -331,6 +399,16 @@ update ({ db, queries } as session) msg model =
             , Cmd.none
             )
 
+        SaveEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map (\state -> { state | initial = updatedExample })
+              }
+            , session |> Session.updateFoodExample updatedExample
+            , Cmd.none
+            )
+
         SelectAllBookmarks ->
             ( model, Session.selectAllBookmarks session, Cmd.none )
 
@@ -420,6 +498,16 @@ update ({ db, queries } as session) msg model =
         UpdateEcotoxWeighting Nothing ->
             ( model, session, Cmd.none )
 
+        UpdateEditedExample updatedExample ->
+            ( { model
+                | editedExample =
+                    model.editedExample
+                        |> Maybe.map (\state -> { state | current = updatedExample })
+              }
+            , session
+            , Cmd.none
+            )
+
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
@@ -439,7 +527,17 @@ update ({ db, queries } as session) msg model =
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    ( { model | bookmarkName = query |> findExistingBookmarkName session }
+    ( { model
+        | bookmarkName = query |> findExistingBookmarkName session
+        , editedExample =
+            model.editedExample
+                |> Maybe.map
+                    (\({ current } as editedExampleState) ->
+                        { editedExampleState
+                            | current = { current | query = query }
+                        }
+                    )
+      }
     , session |> Session.updateFoodQuery query
     , msg
     )
@@ -1295,8 +1393,8 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-mainView : Db -> Session -> Model -> Html Msg
-mainView db session model =
+mainView : Session -> Model -> Html Msg
+mainView ({ db } as session) model =
     let
         computed =
             session.queries.food
@@ -1304,7 +1402,22 @@ mainView db session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView db.food.exampleProducts session.queries.food
+            [ model.editedExample
+                |> ExampleView.view
+                    { create = CreateExample
+                    , currentQuery = session.queries.food
+                    , duplicate = DuplicateExample
+                    , emptyQuery = Query.empty
+                    , examples = db.food.examples
+                    , onOpen = SelectExampleModal >> SetModal
+                    , routes =
+                        { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                        , load = Route.FoodBuilderExample
+                        , scopeHome = Route.FoodBuilderHome
+                        }
+                    , save = SaveEditedExample
+                    , update = UpdateEditedExample
+                    }
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1321,31 +1434,6 @@ mainView db session model =
 
                 Err error ->
                     errorView error
-            ]
-        ]
-
-
-menuView : List ExampleProduct -> Query -> Html Msg
-menuView exampleProducts query =
-    let
-        autocompleteState =
-            exampleProducts
-                |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
-    in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
-            ]
-            [ text "Produit" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ span []
-                [ text <| ExampleProduct.toName exampleProducts query ]
             ]
         ]
 
@@ -1497,7 +1585,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ mainView session.db session model
+            [ mainView session model
             , case model.modal of
                 NoModal ->
                     text ""
@@ -1550,8 +1638,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = ExampleProduct.toName session.db.food.exampleProducts
-                        , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
+                        , toLabel = Example.toName session.db.food.examples
+                        , toCategory = Example.toCategory session.db.food.examples
                         }
             ]
       ]

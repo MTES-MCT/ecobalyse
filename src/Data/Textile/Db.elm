@@ -6,18 +6,19 @@ module Data.Textile.Db exposing
     , updateWellKnownFromNewProcesses
     )
 
+import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
-import Data.Textile.ExampleProduct as TextileExampleProduct exposing (ExampleProduct)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Json.Decode as Decode
 
 
 type alias Db =
     { processes : List Process
-    , exampleProducts : List ExampleProduct
+    , examples : List (Example Query)
     , materials : List Material
     , products : List Product
     , wellKnown : WellKnown
@@ -32,7 +33,7 @@ buildFromJson exampleProductsJson materialsJson productsJson processesJson =
         |> Result.andThen
             (\processes ->
                 Result.map4 (Db processes)
-                    (TextileExampleProduct.decodeListFromJsonString exampleProductsJson)
+                    (exampleProductsJson |> Example.decodeListFromJsonString Query.decode)
                     (Decode.decodeString (Material.decodeList processes) materialsJson |> Result.mapError Decode.errorToString)
                     (Decode.decodeString (Product.decodeList processes) productsJson |> Result.mapError Decode.errorToString)
                     (WellKnown.load processes)

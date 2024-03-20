@@ -11,18 +11,24 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.ExampleProduct as FoodExampleProduct
+import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
+import Data.Github as Github
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
-import Data.Textile.ExampleProduct as TextileExampleProduct
+import Data.Session as Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as TextileQuery
+import Data.Textile.Simulator as Simulator
+import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -37,6 +43,9 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import RemoteData exposing (WebData)
+import Request.Common
+import Request.Github as GithubApi
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -47,17 +56,31 @@ import Views.Modal as ModalView
 
 type alias Model =
     { dataset : Dataset
+    , pullRequest : PullRequestState
     , scope : Scope
     , tableState : SortableTable.State
+    }
+
+
+type alias PullRequestState =
+    { name : String
+    , email : String
+    , description : String
+    , request : WebData Github.PullRequest
     }
 
 
 type Msg
     = NoOp
     | CloseModal
+    | SendFoodExamplesPr
+    | SentFoodExamplesPr (WebData Github.PullRequest)
+    | SendTextileExamplesPr
+    | SentTextileExamplesPr (WebData Github.PullRequest)
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
+    | UpdatePullRequest PullRequestState
 
 
 init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
@@ -93,6 +116,12 @@ init scope dataset session =
                     "Nom"
     in
     ( { dataset = dataset
+      , pullRequest =
+            { name = ""
+            , email = ""
+            , description = ""
+            , request = RemoteData.NotAsked
+            }
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
       }
@@ -102,10 +131,64 @@ init scope dataset session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update session msg ({ pullRequest } as model) =
     case msg of
         NoOp ->
             ( model, session, Cmd.none )
+
+        SendFoodExamplesPr ->
+            ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
+            , session
+            , GithubApi.createFoodExamplesPR SentFoodExamplesPr
+                { examples = session.db.food.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
+            )
+
+        SentFoodExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentFoodExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+            , Nav.load html_url
+            )
+
+        SentFoodExamplesPr state ->
+            ( { model | pullRequest = { pullRequest | request = state } }, session, Cmd.none )
+
+        SendTextileExamplesPr ->
+            ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
+            , session
+            , GithubApi.createTextileExamplesPR SentTextileExamplesPr
+                { examples = session.db.textile.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
+            )
+
+        SentTextileExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentTextileExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+            , Nav.load html_url
+            )
+
+        SentTextileExamplesPr state ->
+            ( { model | pullRequest = { pullRequest | request = state } }, session, Cmd.none )
 
         CloseModal ->
             ( model
@@ -129,22 +212,34 @@ update session msg model =
             ( { model | scope = scope }
             , session
             , (case model.dataset of
-                -- When changing scopes, if we were on a tab that is common between both scopes, don't "reset" the selected tab.
-                -- Only the "impacts" and "countries" tabs are common at the moment, and the "impacts" tab is the one by default,
-                -- so in effect this check makes sure that if we selected the "countries" tab and we change the scope, the
-                -- selected tab isn't changed back automatically to the "impacts" tab.
+                -- Try selecting the most appropriate tab when switching scope.
                 Dataset.Countries _ ->
-                    Route.Explore scope (Dataset.Countries Nothing)
+                    Dataset.Countries Nothing
+
+                Dataset.Impacts _ ->
+                    Dataset.Impacts Nothing
 
                 _ ->
-                    Route.Explore scope (Dataset.Impacts Nothing)
+                    case scope of
+                        Scope.Food ->
+                            Dataset.FoodExamples Nothing
+
+                        Scope.Textile ->
+                            Dataset.TextileExamples Nothing
               )
+                |> Route.Explore scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
             )
 
         SetTableState tableState ->
             ( { model | tableState = tableState }
+            , session
+            , Cmd.none
+            )
+
+        UpdatePullRequest pullRequestState ->
+            ( { model | pullRequest = pullRequestState }
             , session
             , Cmd.none
             )
@@ -264,22 +359,53 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 foodExamplesExplorer :
     Db
-    -> Table.Config FoodExampleProduct.ExampleProduct Msg
+    -> Table.Config ( Example FoodQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Maybe FoodExampleProduct.Uuid
+    -> Maybe Uuid
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
-    [ db.food.exampleProducts
-        |> List.filter (.query >> (/=) FoodQuery.empty)
-        |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
+    let
+        scoredExamples =
+            db.food.examples
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getFoodScore db example
+                          , per100g = getFoodScorePer100g db example
+                          }
+                        )
+                    )
+                |> List.sortBy (Tuple.first >> .name)
+
+        max =
+            { maxScore =
+                scoredExamples
+                    |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            }
+    in
+    [ scoredExamples
+        |> List.filter (Tuple.first >> .query >> (/=) FoodQuery.empty)
+        |> List.sortBy (Tuple.first >> .name)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodExampleProduct.findByUuid id db.food.exampleProducts of
+                (case Example.findByUuid id db.food.examples of
                     Ok example ->
-                        example
-                            |> Table.viewDetails Scope.Food (FoodExamples.table db)
+                        Table.viewDetails Scope.Food
+                            (FoodExamples.table max)
+                            ( example
+                            , { score = getFoodScore db example
+                              , per100g = getFoodScorePer100g db example
+                              }
+                            )
 
                     Err error ->
                         alert error
@@ -346,21 +472,32 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 textileExamplesExplorer :
     Db
-    -> Table.Config TextileExampleProduct.ExampleProduct Msg
+    -> Table.Config ( Example TextileQuery.Query, Float ) Msg
     -> SortableTable.State
-    -> Maybe TextileExampleProduct.Uuid
+    -> Maybe Uuid
     -> List (Html Msg)
 textileExamplesExplorer db tableConfig tableState maybeId =
-    [ db.textile.exampleProducts
-        |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
+    let
+        scoredExamples =
+            db.textile.examples
+                |> List.map (\example -> ( example, getTextileScore db example ))
+                |> List.sortBy (Tuple.first >> .name)
+
+        maxScore =
+            scoredExamples
+                |> List.map Tuple.second
+                |> List.maximum
+                |> Maybe.withDefault 0
+    in
+    [ scoredExamples
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table maxScore)
     , case maybeId of
         Just id ->
             detailsModal
-                (case TextileExampleProduct.findByUuid id db.textile.exampleProducts of
+                (case Example.findByUuid id db.textile.examples of
                     Ok example ->
-                        example
-                            |> Table.viewDetails Scope.Food (TextileExamples.table db)
+                        ( example, getTextileScore db example )
+                            |> Table.viewDetails Scope.Food (TextileExamples.table maxScore)
 
                     Err error ->
                         alert error
@@ -448,12 +585,43 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     ]
 
 
-explore : Session -> Model -> List (Html Msg)
-explore session { scope, dataset, tableState } =
-    let
-        db =
-            session.db
+getFoodScore : Db -> Example FoodQuery.Query -> Float
+getFoodScore db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .total
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
+        >> Result.withDefault 0
 
+
+getFoodScorePer100g : Db -> Example FoodQuery.Query -> Float
+getFoodScorePer100g db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .perKg
+                >> Impact.getImpact Definition.Ecs
+                >> (\x -> Unit.impactToFloat x / 10)
+            )
+        >> Result.withDefault 0
+
+
+getTextileScore : Db -> Example TextileQuery.Query -> Float
+getTextileScore db =
+    .query
+        >> Simulator.compute db
+        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.withDefault 0
+
+
+explore : Session -> Model -> List (Html Msg)
+explore { db, initialDb } ({ scope, dataset, tableState } as model) =
+    let
         defaultCustomizations =
             SortableTable.defaultCustomizations
 
@@ -475,7 +643,13 @@ explore session { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodExamples maybeId ->
-            foodExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
+            , if db.food.examples /= initialDb.food.examples then
+                pullRequestForm SendFoodExamplesPr model
+
+              else
+                text ""
+            ]
 
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
@@ -484,7 +658,13 @@ explore session { scope, dataset, tableState } =
             foodProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
-            textileExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
+            , if db.textile.examples /= initialDb.textile.examples then
+                pullRequestForm SendTextileExamplesPr model
+
+              else
+                text ""
+            ]
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId
@@ -494,6 +674,84 @@ explore session { scope, dataset, tableState } =
 
         Dataset.TextileProcesses maybeId ->
             textileProcessesExplorer db tableConfig tableState maybeId
+
+
+pullRequestButton : Msg -> WebData Github.PullRequest -> Html Msg
+pullRequestButton event pullRequest =
+    let
+        ( loading, btnClass ) =
+            case pullRequest of
+                RemoteData.Loading ->
+                    ( True, "btn-primary" )
+
+                RemoteData.NotAsked ->
+                    ( False, "btn-primary" )
+
+                RemoteData.Failure _ ->
+                    ( False, "btn-danger" )
+
+                RemoteData.Success _ ->
+                    ( False, "btn-success" )
+    in
+    div [ class "text-center mt-3" ]
+        [ button [ class <| "btn " ++ btnClass, onClick event, disabled loading ]
+            [ span [ classList [ ( "spinner-border spinner-border-sm", loading ) ] ] []
+            , text "\u{00A0}Proposer mes changements"
+            ]
+        ]
+
+
+pullRequestForm : Msg -> Model -> Html Msg
+pullRequestForm sendEvent ({ pullRequest } as model) =
+    div [ class "row justify-content-center" ]
+        [ div [ class "offset-lg-3" ] []
+        , div [ class "col-lg-6" ]
+            [ div [ class "card mt-3 m-auto mt-4 mb-3 shadow-sm" ]
+                [ div [ class "card-body" ]
+                    [ div [ class "d-flex flex-column gap-2" ]
+                        [ text "Vous avez mis à jour certains exemples, vous pouvez proposer ces modifications à la communauté."
+                        , div [ class "row" ]
+                            [ div [ class "col-sm-6" ]
+                                [ label [ for "nom" ] [ text "Nom" ]
+                                , input
+                                    [ type_ "text"
+                                    , id "nom"
+                                    , class "form-control"
+                                    , value pullRequest.name
+                                    , onInput (\name -> UpdatePullRequest { pullRequest | name = name })
+                                    ]
+                                    []
+                                ]
+                            , div [ class "col-sm-6" ]
+                                [ label [ for "email" ] [ text "Email" ]
+                                , input
+                                    [ type_ "email"
+                                    , id "email"
+                                    , class "form-control"
+                                    , value pullRequest.email
+                                    , onInput (\email -> UpdatePullRequest { pullRequest | email = email })
+                                    ]
+                                    []
+                                ]
+                            ]
+                        , div []
+                            [ label [ for "description" ] [ text "Description" ]
+                            , textarea
+                                [ id "description"
+                                , class "form-control"
+                                , value pullRequest.description
+                                , onInput (\description -> UpdatePullRequest { pullRequest | description = description })
+                                ]
+                                []
+                            ]
+                        , model.pullRequest.request
+                            |> pullRequestButton sendEvent
+                        ]
+                    ]
+                ]
+            ]
+        , div [ class "offset-lg-3" ] []
+        ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

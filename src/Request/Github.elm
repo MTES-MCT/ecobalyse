@@ -1,9 +1,15 @@
-module Request.Github exposing (getChangelog)
+module Request.Github exposing
+    ( createFoodExamplesPR
+    , createTextileExamplesPR
+    , getChangelog
+    )
 
-import Data.Env as Env
-import Data.Github as Github
+import Data.Food.Query as FoodQuery
+import Data.Github as Github exposing (Commit, PullRequest, PullRequestBody)
 import Data.Session exposing (Session)
+import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode
+import Json.Encode as Encode
 import RemoteData exposing (WebData)
 import RemoteData.Http exposing (defaultConfig)
 
@@ -15,9 +21,26 @@ config =
     { defaultConfig | headers = [] }
 
 
-getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
-getChangelog _ event =
+getChangelog : Session -> (WebData (List Commit) -> msg) -> Cmd msg
+getChangelog { github } event =
     RemoteData.Http.getWithConfig config
-        ("https://api.github.com/repos/" ++ Env.githubRepository ++ "/commits")
+        ("https://api.github.com/repos/" ++ github.repository ++ "/commits?sha=" ++ github.branch)
         event
         (Decode.list Github.decodeCommit)
+
+
+createExamplesPr : String -> (WebData PullRequest -> msg) -> Encode.Value -> Cmd msg
+createExamplesPr endpoint event =
+    RemoteData.Http.postWithConfig config endpoint event Github.decodePullRequest
+
+
+createFoodExamplesPR : (WebData PullRequest -> msg) -> PullRequestBody FoodQuery.Query -> Cmd msg
+createFoodExamplesPR event =
+    Github.encodePullRequestBody FoodQuery.encode
+        >> createExamplesPr "/api/contrib/examples/food" event
+
+
+createTextileExamplesPR : (WebData PullRequest -> msg) -> PullRequestBody TextileQuery.Query -> Cmd msg
+createTextileExamplesPR event =
+    Github.encodePullRequestBody TextileQuery.encode
+        >> createExamplesPr "/api/contrib/examples/textile" event

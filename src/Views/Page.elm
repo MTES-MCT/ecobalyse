@@ -10,11 +10,11 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope as Scope
-import Data.Session as Session
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Request.Version as Version exposing (Version)
+import Request.Version as Version
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -41,8 +41,8 @@ type MenuLink
     | MailTo String String
 
 
-type alias Config msg a =
-    { session : { a | clientUrl : String, notifications : List Session.Notification, currentVersion : Version, store : Session.Store }
+type alias Config msg =
+    { session : Session
     , mobileNavigationOpened : Bool
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
@@ -55,7 +55,7 @@ type alias Config msg a =
     }
 
 
-frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
+frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
     { title = title ++ " | Ecobalyse v2"
     , body =
@@ -90,7 +90,7 @@ frame ({ activePage } as config) ( title, content ) =
     }
 
 
-stagingAlert : Config msg a -> Html msg
+stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
     if
         String.contains "ecobalyse-pr" session.clientUrl
@@ -110,7 +110,7 @@ stagingAlert { session, loadUrl } =
         text ""
 
 
-newVersionAlert : Config msg a -> Html msg
+newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
         Version.NewerVersion ->
@@ -133,18 +133,18 @@ mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
     , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
     , Internal "API" Route.Api Api
     ]
 
 
-secondaryMenuLinks : List MenuLink
-secondaryMenuLinks =
+secondaryMenuLinks : Session -> List MenuLink
+secondaryMenuLinks { github } =
     [ Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
-    , External "Code source" Env.githubUrl
+    , External "Code source" ("https://github.com/" ++ github.repository)
     , MailTo "Contact" Env.contactEmail
     ]
 
@@ -174,8 +174,8 @@ legalMenuLinks =
     ]
 
 
-pageFooter : { a | currentVersion : Version } -> Html msg
-pageFooter { currentVersion } =
+pageFooter : Session -> Html msg
+pageFooter ({ currentVersion, github } as session) =
     let
         makeLink link =
             case link of
@@ -202,7 +202,7 @@ pageFooter { currentVersion } =
                             |> ul [ class "list-unstyled" ]
                         ]
                     , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ secondaryMenuLinks
+                        [ secondaryMenuLinks session
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
@@ -256,7 +256,7 @@ pageFooter { currentVersion } =
                     p [ class "fs-9 text-muted" ]
                         [ Link.external
                             [ class "text-decoration-none"
-                            , href <| Env.githubUrl ++ "/commit/" ++ hash
+                            , href <| "https://github.com/" ++ github.repository ++ "/commit/" ++ hash
                             ]
                             [ text <| "Version\u{00A0}: " ++ hash ]
                         ]
@@ -267,7 +267,7 @@ pageFooter { currentVersion } =
         ]
 
 
-pageHeader : Config msg a -> Html msg
+pageHeader : Config msg -> Html msg
 pageHeader config =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
@@ -338,7 +338,7 @@ viewNavigationLink activePage link =
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
 
 
-notificationListView : Config msg a -> Html msg
+notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
     case session.notifications of
         [] ->
@@ -350,7 +350,7 @@ notificationListView ({ session } as config) =
                 |> Container.centered [ class "bg-white pt-3" ]
 
 
-notificationView : Config msg a -> Session.Notification -> Html msg
+notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { closeNotification } notification =
     -- TODO:
     -- - absolute positionning
@@ -388,7 +388,7 @@ loading =
         ]
 
 
-mobileNavigation : Config msg a -> Html msg
+mobileNavigation : Config msg -> Html msg
 mobileNavigation { activePage, closeMobileNavigation } =
     div []
         [ div

@@ -5,6 +5,8 @@ module Data.Session exposing
     , Store
     , checkComparedSimulations
     , closeNotification
+    , createFoodExample
+    , createTextileExample
     , deleteBookmark
     , deserializeStore
     , isAuthenticated
@@ -18,15 +20,20 @@ module Data.Session exposing
     , selectNoBookmarks
     , serializeStore
     , toggleComparedSimulation
+    , updateFoodExample
     , updateFoodQuery
+    , updateTextileExample
     , updateTextileQuery
     )
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Example exposing (Example)
+import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
+import Data.Textile.Db as TextileDb
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Http
@@ -41,6 +48,8 @@ import Task
 
 type alias Session =
     { db : Db
+    , initialDb : Db
+    , github : { repository : String, branch : String }
     , navKey : Nav.Key
     , clientUrl : String
     , store : Store
@@ -100,6 +109,74 @@ saveBookmark bookmark =
             { store
                 | bookmarks =
                     bookmark :: store.bookmarks
+            }
+        )
+
+
+
+-- Example products
+
+
+createFoodExample : Example FoodQuery.Query -> Session -> Session
+createFoodExample example =
+    updateFoodDb
+        (\({ examples } as food) ->
+            { food | examples = example :: examples }
+        )
+
+
+createTextileExample : Example TextileQuery.Query -> Session -> Session
+createTextileExample example =
+    updateTextileDb
+        (\({ examples } as textile) ->
+            { textile | examples = example :: examples }
+        )
+
+
+updateFoodDb : (FoodDb.Db -> FoodDb.Db) -> Session -> Session
+updateFoodDb update ({ db } as session) =
+    { session | db = StaticDb.updateFoodDb update db }
+
+
+updateTextileDb : (TextileDb.Db -> TextileDb.Db) -> Session -> Session
+updateTextileDb update ({ db } as session) =
+    { session | db = StaticDb.updateTextileDb update db }
+
+
+updateFoodExample : Example FoodQuery.Query -> Session -> Session
+updateFoodExample updated =
+    updateFoodDb
+        (\({ examples } as foodDb) ->
+            { foodDb
+                | examples =
+                    examples
+                        |> List.map
+                            (\example ->
+                                if example.id == updated.id then
+                                    updated
+
+                                else
+                                    example
+                            )
+            }
+        )
+
+
+updateTextileExample : Example TextileQuery.Query -> Session -> Session
+updateTextileExample updated =
+    updateTextileDb
+        (\({ examples } as textileDb) ->
+            { textileDb
+                | examples =
+                    examples
+                        |> List.map
+                            (\example ->
+                                if example.id == updated.id then
+                                    updated
+
+                                else
+                                    example
+                            )
             }
         )
 
