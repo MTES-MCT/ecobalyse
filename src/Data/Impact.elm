@@ -6,6 +6,7 @@ module Data.Impact exposing
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
+    , decodeWithoutAggregated
     , default
     , divideBy
     , divideComplementsImpactsBy
@@ -392,12 +393,19 @@ updateImpact definitions trigram value =
         >> updateAggregatedScores definitions
 
 
-decodeImpacts : Definitions -> Decoder Impacts
-decodeImpacts definitions =
+decodeImpacts : Decoder Impacts
+decodeImpacts =
+    Definition.decodeBase (always Unit.decodeImpact)
+        |> Decode.map Impacts
+
+
+decodeWithoutAggregated : Decoder Impacts
+decodeWithoutAggregated =
     Definition.decodeWithoutAggregated (always Unit.decodeImpact)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Decode.map (Impacts >> updateAggregatedScores definitions)
+        -- Those aggregated impacts will have to be computed after the decoding
+        |> Pipe.hardcoded Quantity.zero
+        |> Pipe.hardcoded Quantity.zero
+        |> Decode.map Impacts
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value

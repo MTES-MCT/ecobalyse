@@ -6,38 +6,37 @@ module Data.Textile.Db exposing
     , updateWellKnownFromNewProcesses
     )
 
-import Data.Impact.Definition exposing (Definitions)
-import Data.Textile.ExampleProduct exposing (ExampleProduct)
+import Data.Impact as Impact
+import Data.Textile.ExampleProduct as TextileExampleProduct exposing (ExampleProduct)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
-import Json.Decode as Decode exposing (Error(..))
-import Json.Encode as Encode
+import Json.Decode as Decode
 
 
 type alias Db =
-    { exampleProducts : List ExampleProduct
-    , processes : List Process
+    { processes : List Process
+    , exampleProducts : List ExampleProduct
     , materials : List Material
     , products : List Product
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : List ExampleProduct -> Definitions -> String -> String -> String -> Result String Db
-buildFromJson exampleProducts definitions materialsJson processesJson productsJson =
-    Decode.decodeString (Process.decodeList definitions) processesJson
+buildFromJson : String -> String -> String -> String -> Result String Db
+buildFromJson exampleProductsJson materialsJson productsJson processesJson =
+    processesJson
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
-                Result.map3 (Db exampleProducts processes)
-                    (Decode.decodeString (Material.decodeList processes) materialsJson)
-                    (Decode.decodeString (Product.decodeList processes) productsJson)
-                    (WellKnown.load processes
-                        |> Result.mapError (\error -> Failure error (Encode.string processesJson))
-                    )
+                Result.map4 (Db processes)
+                    (TextileExampleProduct.decodeListFromJsonString exampleProductsJson)
+                    (Decode.decodeString (Material.decodeList processes) materialsJson |> Result.mapError Decode.errorToString)
+                    (Decode.decodeString (Product.decodeList processes) productsJson |> Result.mapError Decode.errorToString)
+                    (WellKnown.load processes)
             )
-        |> Result.mapError Decode.errorToString
 
 
 updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
