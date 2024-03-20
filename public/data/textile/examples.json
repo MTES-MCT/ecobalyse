@@ -7,7 +7,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -27,7 +27,7 @@
       "mass": 0.25,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -47,7 +47,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -67,7 +67,7 @@
       "mass": 0.95,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -87,7 +87,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -107,7 +107,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -127,7 +127,7 @@
       "mass": 0.25,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -147,7 +147,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -167,7 +167,7 @@
       "mass": 0.95,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -187,7 +187,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 1
         }
       ],
@@ -207,7 +207,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "pet",
+          "id": "ei-pet",
           "share": 1
         }
       ],
@@ -221,17 +221,17 @@
   },
   {
     "id": "6d31b594-0a70-4e4c-8979-81a83957033e",
-    "name": "Manteau 50% polyamide 50% coton Asie (950g)",
+    "name": "Manteau 50% polyester 50% coton Asie (950g)",
     "category": "Manteau / Veste",
     "query": {
       "mass": 0.95,
       "materials": [
         {
-          "id": "pa",
+          "id": "ei-pet",
           "share": 0.5
         },
         {
-          "id": "coton",
+          "id": "ei-coton",
           "share": 0.5
         }
       ],
@@ -280,7 +280,7 @@
           "share": 0.95
         },
         {
-          "id": "pu",
+          "id": "ei-pp",
           "share": 0.05
         }
       ],
@@ -490,7 +490,7 @@
           "share": 0.7
         },
         {
-          "id": "pa",
+          "id": "ei-pet",
           "share": 0.3
         }
       ],
