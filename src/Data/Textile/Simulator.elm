@@ -25,6 +25,7 @@ import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
@@ -39,6 +40,7 @@ type alias Simulator =
     , complementsImpacts : Impact.ComplementsImpacts
     , durability : Unit.Durability
     , transport : Transport
+    , daysOfWear : Duration
     , useNbCycles : Int
     }
 
@@ -51,6 +53,7 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
@@ -73,6 +76,7 @@ init db =
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability = Unit.standardDurability
                             , transport = Transport.default defaultImpacts
+                            , daysOfWear = inputs.product.use.daysOfWear
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -658,6 +662,8 @@ computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     in
     { simulator
         | complementsImpacts = complementsImpacts
+        , daysOfWear = simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
+        , useNbCycles = round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
         , durability = durability
         , impacts =
             lifeCycle
