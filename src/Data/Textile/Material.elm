@@ -25,12 +25,7 @@ type alias Material =
     , shortName : String
     , origin : Origin
     , materialProcess : Process
-
-    -- FIXME: investigate if this is still used
-    --        if not, remove this field AND property in JSON source file
     , recycledProcess : Maybe Process
-
-    -- FIXME: same with this field
     , recycledFrom : Maybe Id
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
