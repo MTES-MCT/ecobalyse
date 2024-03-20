@@ -38,9 +38,10 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "authentication.apps.AuthenticationConfig",
     "mailauth",
     "mailauth.contrib.admin",
-    "mailauth.contrib.user",
+    # "mailauth.contrib.user",
     "textile.apps.TextileConfig",
     # "backend.apps.MyAdminConfig",
     "django.contrib.admin",
@@ -116,7 +117,7 @@ AUTHENTICATION_BACKENDS = (
     # The new access token based authentication backend
     "mailauth.backends.MailAuthBackend",
 )
-AUTH_USER_MODEL = "mailauth_user.EmailUser"
+AUTH_USER_MODEL = "authentication.EcobalyseUser"
 LOGIN_TOKEN_SINGLE_USE = False
 
 # Internationalization
